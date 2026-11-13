@@ -1,234 +1,667 @@
 {
-  "as_of": "2026-11-13",
-  "marketplace": "Amazon.com (United States)",
-  "rule": "A value is shown only if it was read from an official source on the as_of date. Anything else is left blank and marked unverified. Nothing is inferred or estimated.",
+  "accessed": "2026-11-13",
+  "discipline": "Each field is either {v: value, s: source_id(s)} where the value was read verbatim from that official source, or null with 'u' explaining why it could not be confirmed. Nothing is estimated, averaged or inferred.",
+  "amazon_price_policy": "Amazon prices, availability and star ratings are intentionally NOT shown. Per S2 §2(b), prices/availability may only be displayed when Amazon serves the link or when obtained via Creators API/PA API; per S2 §3(t) customer reviews and star ratings may only be used when obtained via those APIs. This project holds neither, so those fields are blank and flagged.",
   "products": [
     {
-      "id": "P1",
-      "submitted_link": "https://link.amazon/B04G1MEwY",
-      "asin": "B0CDY277D3",
-      "official_url": "https://www.amazon.com/dp/B0CDY277D3",
-      "official_source": "S1",
-      "resolved_via": "S4",
-      "category_page": "home-kitchen-air-fryers",
-      "values": {
-        "product_title": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+      "slug": "chefman-6qt-dual-basket",
+      "rank": 1,
+      "brand": "Chefman",
+      "name": "TurboFry Touch 6 Qt. Dual-Basket / Dual-Window Air Fryer",
+      "short_name": "Chefman 6 Qt Dual Basket",
+      "category": "Kitchen appliances → Air fryers",
+      "link": "https://link.amazon/B04G1MEwY",
+      "asin": {
+        "v": "B0CDY277D3",
+        "s": [
+          "S17",
+          "S16"
+        ]
+      },
+      "asin_evidence": "Following the supplied short link returned the Amazon detail page whose <title> reads: \"CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black\"",
+      "amazon_listing_title": {
+        "v": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
+        "s": [
+          "S16"
+        ]
+      },
+      "model_number": {
+        "v": "RJ38-SQPF-3TDB-2W",
+        "s": [
+          "S10"
+        ],
+        "caveat": "The owner's manual for RJ38-SQPF-3TDB-2W matches this listing's wording (dual baskets, easy-view windows, HI-FRY, Sync Finish). Amazon itself does not publish the model number on the ASIN, so the ASIN→model step remains a documented match rather than an official statement."
+      },
+      "sibling_sku": {
+        "v": "RJ38-SQPF-3TDB-2 (labelled 'Dual-Basket' on chefman.com)",
+        "s": [
+          "S11"
+        ]
+      },
+      "specs": [
+        {
+          "label": "Capacity",
+          "value": "6 Qt / 5.67 L",
+          "source": [
+            "S10"
+          ]
         },
-        "department": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+        {
+          "label": "Per-basket capacity",
+          "value": "Two 3-quart baskets",
+          "source": [
+            "S18",
+            "S16"
+          ],
+          "note": "The owner's manual states \"two 3-quart baskets\" outright, and the Amazon listing title says \"2 Independent 3Qt\". This upgrades the earlier blank row — the brand page only publishes the 6 Qt total."
         },
-        "brand_as_titled": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+        {
+          "label": "Temperature range",
+          "value": "200–450 °F / 95–235 °C",
+          "source": [
+            "S10"
+          ]
         },
-        "capacity_as_titled": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+        {
+          "label": "Hi-Fry maximum",
+          "value": "450 °F / 235 °C, held for 2 minutes, for extra browning",
+          "source": [
+            "S10",
+            "S18"
+          ],
+          "note": "The manual is more precise than the product page: HI-FRY \"Raises temperature to 450°F/235°C for 2 minutes\". A buyer should read that as a finish mode, not a full-cycle 450 °F setting."
         },
-        "product_type_as_titled": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+        {
+          "label": "Sync Finish",
+          "value": "Yes — delays the start of the shorter cook so both baskets finish together; a separate Sync Baskets function copies time and temperature to the second basket",
+          "source": [
+            "S10",
+            "S18"
+          ]
         },
-        "category": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+        {
+          "label": "Independent baskets",
+          "value": "2",
+          "source": [
+            "S10"
+          ]
         },
-        "price": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Not present in the retrieved page text."
+        {
+          "label": "Viewing windows",
+          "value": "Dual viewing windows",
+          "source": [
+            "S10"
+          ]
         },
-        "rating": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Not present in the retrieved page text."
+        {
+          "label": "Interior light",
+          "value": "Yes",
+          "source": [
+            "S10"
+          ]
         },
-        "review_count": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Not present in the retrieved page text."
+        {
+          "label": "Basket coating / care",
+          "value": "Nonstick, dishwasher-safe baskets. Manual caution: never spray with aerosol cooking oil — use a non-aerosol mister instead",
+          "source": [
+            "S10",
+            "S18"
+          ]
         },
-        "commission_rate": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Official rate schedule (S9) not reachable."
+        {
+          "label": "Dimensions",
+          "value": "13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm",
+          "source": [
+            "S10"
+          ]
+        },
+        {
+          "label": "Product weight",
+          "value": "13.3 lb / 6.03 kg",
+          "source": [
+            "S10"
+          ]
+        },
+        {
+          "label": "Power",
+          "value": "1700 W / 120 V",
+          "source": [
+            "S10"
+          ]
+        },
+        {
+          "label": "Safety approval",
+          "value": "cETL approved",
+          "source": [
+            "S10"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "value": "1-year Chefman assurance",
+          "source": [
+            "S10"
+          ]
+        },
+        {
+          "label": "Colour / finish",
+          "value": "Matte black",
+          "source": [
+            "S10"
+          ]
+        },
+        {
+          "label": "Number of presets",
+          "value": "Four one-touch food presets: French fries, chicken, meat, fish",
+          "source": [
+            "S18"
+          ],
+          "note": "The manual names the preset food types; it does not publish a default time/temperature chart for them."
         }
-      }
+      ],
+      "pricing": {
+        "brand_list_price": {
+          "v": "$119.99 USD",
+          "s": [
+            "S10"
+          ],
+          "note": "Chefman.com list price. The same page displayed several promotional prices on the access date; only the list price is recorded here because it is the stable figure."
+        },
+        "amazon_price": null,
+        "amazon_price_reason": "Not displayed by policy (S2 §2(b)); unavailable without Associates access.",
+        "msrp_confirmed": "Not confirmed: the brand page shows a list price but does not label it as a manufacturer's suggested retail price. Chefman.com list price. The same page displayed several promotional prices on the access date; only the list price is recorded here because it is the stable figure."
+      },
+      "reviews": {
+        "amazon_stars": null,
+        "amazon_review_count": null,
+        "amazon_reason": "Not displayed by policy (S2 §3(t); S2 §2(b)).",
+        "brand_site_rating": {
+          "v": "4.6 / 5 from 1,302 reviews",
+          "s": [
+            "S10"
+          ],
+          "note": "Ratings collected by Chefman's own on-site review widget. This is a brand-hosted number, not Amazon's, and is shown only as vendor-published social proof."
+        }
+      },
+      "commission": {
+        "rate_confirmed": null,
+        "candidate_rows": [
+          {
+            "category": "Kitchen",
+            "rate": "4.50%",
+            "source": [
+              "S3"
+            ]
+          },
+          {
+            "category": "All Other Categories (fallback row)",
+            "rate": "4.00%",
+            "source": [
+              "S3"
+            ]
+          }
+        ],
+        "why_unverified": "Amazon's published rate table (S3) lists rates by product category. It does not publish which category a given ASIN is assigned to, and air fryers are not named in the table. Choosing between the Kitchen row and the fallback row would be inference, so the rate is left blank.",
+        "rate_source_note": "Only S3 is authoritative. Several well-ranked third-party blogs claimed 3%, 4.5% or 5% for kitchen appliances on the same day; those were discarded as non-official and mutually contradictory."
+      },
+      "competition": {
+        "amazon_result_count": null,
+        "amazon_bestseller_rank": null,
+        "reason": "Amazon does not publish these as stable, quotable facts, and scraping them into a published table would breach the aggregation restriction in S2 (IP License)."
+      },
+      "flags": [
+        {
+          "id": "F2",
+          "issue": "Two near-identical Chefman SKUs exist (RJ38-SQPF-3TDB-2 and RJ38-SQPF-3TDB-2W). The -2W owner's manual matches this listing's features exactly (dual baskets, easy-view windows, HI-FRY, Sync Finish), but Amazon does not publish the model number on the ASIN.",
+          "action": "Narrowed to a single documented match using the manufacturer's manual for -2W. Still flagged as a match rather than an official ASIN→model statement; confirm against the unit's rating label.",
+          "sources": [
+            "S18",
+            "S11",
+            "S16"
+          ]
+        },
+        {
+          "id": "F6",
+          "issue": "The Associates tag inside the link.amazon short link is not observable, so attribution cannot be confirmed.",
+          "action": "Flagged for the account holder to confirm in Associates Central → Manage Tracking IDs.",
+          "sources": [
+            "S2",
+            "S17"
+          ]
+        }
+      ]
     },
     {
-      "id": "P2",
-      "submitted_link": "https://link.amazon/B02NbDxp3",
-      "asin": "B09B7SB46R",
-      "official_url": "https://www.amazon.com/dp/B09B7SB46R",
-      "official_source": "S2",
-      "resolved_via": "S5",
-      "category_page": "home-kitchen-air-fryers",
-      "values": {
-        "product_title": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+      "slug": "emeril-26qt-french-door",
+      "rank": 2,
+      "brand": "Emeril Lagasse (Emeril Everyday)",
+      "name": "French Door AirFryer 360 Toaster Oven Combo, 26 QT",
+      "short_name": "Emeril 26 QT French Door",
+      "category": "Kitchen appliances → Air fryer toaster ovens",
+      "link": "https://link.amazon/B02NbDxp3",
+      "asin": {
+        "v": "B09B7SB46R",
+        "s": [
+          "S17",
+          "S16"
+        ]
+      },
+      "asin_evidence": "Following the supplied short link returned the Amazon detail page whose <title> reads: \"Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.\"",
+      "amazon_listing_title": {
+        "v": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.",
+        "s": [
+          "S16"
+        ]
+      },
+      "model_number": {
+        "v": "FAFO-001 (manual); brand page lists 4-00675-02A-VN",
+        "s": [
+          "S15",
+          "S14"
+        ],
+        "caveat": "The brand page's SKU string and the manual's model number differ. Both are quoted rather than reconciled."
+      },
+      "specs": [
+        {
+          "label": "Capacity",
+          "value": "26 qt / 24.6 L (manual: 1,519 cu in)",
+          "source": [
+            "S14",
+            "S15"
+          ]
         },
-        "department": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+        {
+          "label": "Supply power",
+          "value": "120 V / 60 Hz",
+          "source": [
+            "S15"
+          ]
         },
-        "brand_as_titled": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+        {
+          "label": "Rated power",
+          "value": "1700 W",
+          "source": [
+            "S15"
+          ]
         },
-        "capacity_as_titled": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+        {
+          "label": "Temperature range",
+          "value": "75–500 °F / 25–260 °C",
+          "source": [
+            "S15"
+          ]
         },
-        "product_type_as_titled": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+        {
+          "label": "Dimensions",
+          "value": "16.9 D × 15.8 W × 14.8 H in",
+          "source": [
+            "S14"
+          ]
         },
-        "category": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+        {
+          "label": "Cooking functions / presets",
+          "value": "24 presets are named in the owner's manual for model FAFO-001: Airfry, Fries, Bacon, Grill, Eggs, Fish, Ribs, Defrost, Steak, Vegetables, Wings, Bake, Rotisserie, Toast, Chicken, Pizza, Pastry, Proof, Broil, Slow Cook, Roast, Dehydrate, Reheat, Warm",
+          "source": [
+            "S15"
+          ],
+          "note": "This resolves the count using the manual rather than the marketing page: the manual's preset chart lists exactly 24 named presets. The brand page's own two claims (\"25 Cooking Pre-sets\" in the spec block, \"24 one-touch cooking presets\" in the description) still disagree with each other, and the page markets the unit simultaneously as \"10-in-1\". The manual is treated as the controlling document."
         },
-        "price": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Not present in the retrieved page text."
+        {
+          "label": "Door type",
+          "value": "French doors, single-pull opening",
+          "source": [
+            "S14"
+          ]
         },
-        "rating": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Not present in the retrieved page text."
+        {
+          "label": "Fan",
+          "value": "Dual-speed fan, 360° air circulation",
+          "source": [
+            "S14"
+          ]
         },
-        "review_count": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Not present in the retrieved page text."
+        {
+          "label": "Rotisserie",
+          "value": "Yes (manual documents a rotisserie preset and spit set)",
+          "source": [
+            "S14",
+            "S15"
+          ]
         },
-        "commission_rate": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Official rate schedule (S9) not reachable."
+        {
+          "label": "Included accessories",
+          "value": "7",
+          "source": [
+            "S14"
+          ]
+        },
+        {
+          "label": "Interior light",
+          "value": "Yes",
+          "source": [
+            "S14"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "value": "1-year warranty",
+          "source": [
+            "S14"
+          ]
+        },
+        {
+          "label": "Display",
+          "value": "LED",
+          "source": [
+            "S15"
+          ]
         }
-      }
+      ],
+      "pricing": {
+        "brand_list_price": {
+          "v": "$199.99 USD",
+          "s": [
+            "S14"
+          ],
+          "note": "Price shown on emerileveryday.com on the access date. Not labelled as MSRP by the brand."
+        },
+        "amazon_price": null,
+        "amazon_price_reason": "Not displayed by policy (S2 §2(b)).",
+        "msrp_confirmed": "Not confirmed: the brand page shows a list price but does not label it as a manufacturer's suggested retail price. Price shown on emerileveryday.com on the access date. Not labelled as MSRP by the brand."
+      },
+      "reviews": {
+        "amazon_stars": null,
+        "amazon_review_count": null,
+        "amazon_reason": "Not displayed by policy.",
+        "brand_site_rating": {
+          "v": "2.6 / 5 from 25 reviews",
+          "s": [
+            "S14"
+          ],
+          "note": "Brand-hosted rating, quoted exactly as displayed (including the unusually low score). Shown for transparency; it is not Amazon's rating."
+        }
+      },
+      "commission": {
+        "rate_confirmed": null,
+        "candidate_rows": [
+          {
+            "category": "Kitchen",
+            "rate": "4.50%",
+            "source": [
+              "S3"
+            ]
+          },
+          {
+            "category": "Home",
+            "rate": "3.00%",
+            "source": [
+              "S3"
+            ]
+          },
+          {
+            "category": "All Other Categories (fallback row)",
+            "rate": "4.00%",
+            "source": [
+              "S3"
+            ]
+          }
+        ],
+        "why_unverified": "A French-door air fryer toaster oven could plausibly sit in Kitchen, Home or the fallback row. Amazon does not publish the ASIN's category, so the rate is blank. Note this product also spans multiple categories, which is exactly the case where guessing goes wrong.",
+        "rate_source_note": "Only the official Standard Commission Income Statement (S3) is used for rates. Third-party blogs claiming 3%, 4.5% or 5% for kitchen appliances were discarded: they disagreed with each other and with the published table on the day of verification."
+      },
+      "competition": {
+        "amazon_result_count": null,
+        "amazon_bestseller_rank": null,
+        "reason": "Not published as a stable quotable fact; aggregation is restricted by S2."
+      },
+      "flags": [
+        {
+          "id": "F4",
+          "issue": "The brand page states \"25 Cooking Pre-sets\" in its specification block but \"24 one-touch cooking presets\" in the description text on the same page; the Amazon title says 24.",
+          "action": "Resolved in favour of the owner's manual, which names exactly 24 presets. The page's \"25\" is treated as a marketing error and is not repeated as fact.",
+          "sources": [
+            "S14",
+            "S15",
+            "S16"
+          ]
+        },
+        {
+          "id": "F5",
+          "issue": "The brand page markets the unit as \"10-in-1\" while separately claiming 24–25 cooking presets. The two counting systems are not defined anywhere official.",
+          "action": "Neither label is presented as a specification. The site reports the 24 named presets from the manual instead.",
+          "sources": [
+            "S14",
+            "S15"
+          ]
+        },
+        {
+          "id": "F6",
+          "issue": "Associates tag inside the short link not observable.",
+          "action": "Flagged.",
+          "sources": [
+            "S2",
+            "S17"
+          ]
+        }
+      ]
     },
     {
-      "id": "P3",
-      "submitted_link": "https://link.amazon/B00hJ57DV",
-      "asin": "B08DKYBTPH",
-      "official_url": "https://www.amazon.com/dp/B08DKYBTPH",
-      "official_source": "S6",
-      "resolved_via": "S6",
-      "category_page": "home-kitchen-air-fryers",
-      "values": {
-        "product_title": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+      "slug": "chefman-8qt-turbofry",
+      "rank": 3,
+      "brand": "Chefman",
+      "name": "Air Fryer 8 Qt — TurboFry 4-in-1 (stainless steel)",
+      "short_name": "Chefman 8 Qt TurboFry",
+      "category": "Kitchen appliances → Air fryers",
+      "link": "https://link.amazon/B00hJ57DV",
+      "asin": {
+        "v": "B08DKYBTPH",
+        "s": [
+          "S17",
+          "S16"
+        ]
+      },
+      "asin_evidence": "Following the supplied short link returned the Amazon detail page whose <title> reads: \"Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel\"",
+      "amazon_listing_title": {
+        "v": "Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
+        "s": [
+          "S16"
+        ]
+      },
+      "model_number": {
+        "v": "RJ38-SQSS-8T (brand page + owner's manual)",
+        "s": [
+          "S12",
+          "S13"
+        ],
+        "caveat": "Matched by capacity (8 Qt), finish (stainless steel) and 'TurboFry' branding. Amazon does not publish the model number, so this is a match, not a confirmation."
+      },
+      "specs": [
+        {
+          "label": "Capacity",
+          "value": "8 qt (brand also sells a 5 qt version of the same product page)",
+          "source": [
+            "S12",
+            "S13"
+          ]
         },
-        "department": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+        {
+          "label": "Temperature range",
+          "value": "200–400 °F",
+          "source": [
+            "S12"
+          ]
         },
-        "brand_as_titled": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+        {
+          "label": "Presets",
+          "value": "Fries, Chicken, Fish, Meat (one-touch)",
+          "source": [
+            "S12",
+            "S13"
+          ]
         },
-        "capacity_as_titled": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+        {
+          "label": "Preset defaults",
+          "value": "Default 400 °F / 15 min · Meat 375 °F / 18 min · Chicken 375 °F / 22 min · Fish 350 °F / 10 min · Fries 400 °F / 20 min",
+          "source": [
+            "S13"
+          ]
         },
-        "product_type_as_titled": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+        {
+          "label": "Basket coating / care",
+          "value": "Nonstick basket and rack; top-rack dishwasher safe",
+          "source": [
+            "S12",
+            "S13"
+          ]
         },
-        "category": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Identity mapping disputed at integration (flag F17): the submitted code resolves to no product (canonical checks S13-S15 return Amazon's page-not-found). This field previously described Amazon's missing-page fallback listing reached via the submitted link (S4/S5/S6), which is not evidence of the intended product. Left blank per the project's no-inference rule."
+        {
+          "label": "Shake reminder",
+          "value": "LED shake reminder",
+          "source": [
+            "S12",
+            "S13"
+          ]
         },
-        "price": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Not present in the retrieved page text."
+        {
+          "label": "Auto shutoff",
+          "value": "Yes — stops when the timer ends or the basket is opened",
+          "source": [
+            "S12"
+          ]
         },
-        "rating": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Not present in the retrieved page text."
+        {
+          "label": "Stated household size",
+          "value": "Designed for 4–6 people",
+          "source": [
+            "S12"
+          ]
         },
-        "review_count": {
-          "value": null,
-          "status": "unverified",
-          "source": null,
-          "note": "Not present in the retrieved page text."
+        {
+          "label": "Oil-reduction claim",
+          "value": "Brand claim: meals with '98% less oil'",
+          "source": [
+            "S12"
+          ],
+          "note": "Vendor marketing claim, reproduced as a claim only — not independently tested or endorsed by this project."
         },
-        "commission_rate": {
-          "value": null,
+        {
+          "label": "Basket divider",
+          "value": "Not documented for RJ38-SQSS-8T on the brand page or in its manual",
+          "source": [
+            "S12",
+            "S13"
+          ],
           "status": "unverified",
-          "source": null,
-          "note": "Official rate schedule (S9) not reachable."
+          "note": "A divider is documented for a different Chefman model (RJ38-SQSS-8T-D), not for this product page or its manual. Absence of a mention is not proof of absence, so it is marked unverified rather than as a verified \"no\"."
+        },
+        {
+          "label": "Hi-Fry / 450 °F mode",
+          "value": null,
+          "unverified": "The Amazon listing title advertises a '450 °F Hi-Fry option' and Bake/Dehydrate/Frozen functions, but the brand product page and the RJ38-SQSS-8T owner's manual document only 200–400 °F with fries/chicken/fish/meat presets. Either the ASIN is a different SKU or one official source is stale. Not asserted.",
+          "source": [
+            "S12",
+            "S13",
+            "S16"
+          ]
+        },
+        {
+          "label": "Wattage",
+          "value": null,
+          "unverified": "Not stated on the brand product page or in the RJ38-SQSS-8T manual. Retailer listings quote 1700 W but are not official sources, so nothing is recorded.",
+          "source": [
+            "S12",
+            "S13"
+          ]
+        },
+        {
+          "label": "Dimensions / weight",
+          "value": null,
+          "unverified": "Not stated on the brand product page or in the manual.",
+          "source": [
+            "S12",
+            "S13"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "value": "Limited 1-year warranty from date of retail purchase (non-transferable, original purchaser)",
+          "source": [
+            "S13"
+          ],
+          "note": "Terms as printed in the owner's manual; the brand product page does not state a warranty period."
         }
-      }
+      ],
+      "pricing": {
+        "brand_list_price": {
+          "v": "$119.99 USD",
+          "s": [
+            "S12"
+          ],
+          "note": "List price on chefman.com; a sale price of $79.99 was also displayed for the variant on the access date."
+        },
+        "amazon_price": null,
+        "amazon_price_reason": "Not displayed by policy (S2 §2(b)).",
+        "msrp_confirmed": "Not confirmed: the brand page shows a list price but does not label it as a manufacturer's suggested retail price. List price on chefman.com; a sale price of $79.99 was also displayed for the variant on the access date."
+      },
+      "reviews": {
+        "amazon_stars": null,
+        "amazon_review_count": null,
+        "amazon_reason": "Not displayed by policy.",
+        "brand_site_rating": {
+          "v": "4.6 / 5 from 715 reviews",
+          "s": [
+            "S12"
+          ],
+          "note": "Brand-hosted rating for the RJ38-SQSS-8T product page."
+        }
+      },
+      "commission": {
+        "rate_confirmed": null,
+        "candidate_rows": [
+          {
+            "category": "Kitchen",
+            "rate": "4.50%",
+            "source": [
+              "S3"
+            ]
+          },
+          {
+            "category": "All Other Categories (fallback row)",
+            "rate": "4.00%",
+            "source": [
+              "S3"
+            ]
+          }
+        ],
+        "why_unverified": "Category assignment per ASIN is not published by Amazon (S3).",
+        "rate_source_note": "Only the official Standard Commission Income Statement (S3) is used for rates. Third-party blogs claiming 3%, 4.5% or 5% for kitchen appliances were discarded: they disagreed with each other and with the published table on the day of verification."
+      },
+      "competition": {
+        "amazon_result_count": null,
+        "amazon_bestseller_rank": null,
+        "reason": "Not published as a stable quotable fact; aggregation restricted by S2."
+      },
+      "flags": [
+        {
+          "id": "F3",
+          "issue": "Serious spec conflict between the Amazon listing (450 °F Hi-Fry, 4-in-1 including bake/dehydrate/frozen) and the brand page + owner's manual (200–400 °F, four food-type presets).",
+          "action": "Conflicting claims shown side by side; no value asserted. Needs the account holder to open the live listing and compare with the manual.",
+          "sources": [
+            "S12",
+            "S13",
+            "S16"
+          ]
+        },
+        {
+          "id": "F6",
+          "issue": "Associates tag inside the short link not observable.",
+          "action": "Flagged.",
+          "sources": [
+            "S2",
+            "S17"
+          ]
+        }
+      ]
     }
-  ],
-  "fields_order": [
-    "product_title",
-    "asin",
-    "department",
-    "brand_as_titled",
-    "capacity_as_titled",
-    "product_type_as_titled",
-    "category",
-    "price",
-    "rating",
-    "review_count",
-    "commission_rate"
-  ],
-  "integration_note": "Integration 2026-11-13 (session 19a679d8): product identity fields set to unverified/blank. The code->product mapping is disputed (F17); see COORDINATION.md 'Disputed findings' and the root site's Products page. Price/rating/review_count/commission_rate remain unverified as before."
+  ]
 }

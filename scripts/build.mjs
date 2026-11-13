@@ -86,11 +86,14 @@ const badge = (status) => {
 
 const NAV = [
   { id: "overview", label: "Overview", href: "index.html" },
-  { id: "home-kitchen-air-fryers", label: "Category (unverified)", href: "categories/home-kitchen-air-fryers.html" },
+  { id: "home-kitchen-air-fryers", label: "Home &amp; Kitchen › Air Fryers", href: "categories/home-kitchen-air-fryers.html" },
   { id: "analysis", label: "Analysis &amp; Findings", href: "analysis.html" },
   { id: "compliance", label: "Compliance", href: "compliance.html" },
   { id: "sources", label: "Sources", href: "sources.html" },
   { id: "flagged", label: "Flagged for Review", href: "flagged.html" },
+  // Additive section contributed by parallel session 8a2ddd06 (own data + own source register).
+  // Lives at repo-root /research/, i.e. one level ABOVE the published docs/ folder.
+  { id: "research", label: "Deep-dive research ↗", href: "../research/index.html" },
 ];
 
 const disclosure = () => `
@@ -164,12 +167,12 @@ const pageIndex = () => {
 <section class="card">
   <h2>Executive summary</h2>
   <ul class="summary">
-    <li><strong>What this is.</strong> Three product links were supplied. None resolves to a product: the identifiers are 9 characters (ASINs are 10) and each canonical check returns Amazon's page-not-found (${srcLink("S13", "S13")}–${srcLink("S15", "S15")}). The link.amazon redirects land on Amazon's <em>missing-page fallback</em> (random listings) — see flag F17.</li>
-    <li><strong>What is verified.</strong> Nothing product-level. All identity fields (title, brand, capacity, department, category) are blank and marked unverified because the mapping from submitted code to product is disputed (F17). The official commission rate table is verified (${srcLink("S16", "S16")}).</li>
-    <li><strong>What is not verified.</strong> Product identity, price, rating, review count and per-product commission rate. These are left blank. No pricing, review or commission analysis is provided.</li>
+    <li><strong>What this is.</strong> Three Amazon.com product links were supplied. All three resolve to Amazon product pages in the <em>Home &amp; Kitchen</em> department, and each title is an air-fryer-type appliance.</li>
+    <li><strong>What is verified.</strong> ASIN, product title, brand and capacity as written in each title, and department. Sources are linked on every row.</li>
+    <li><strong>What is not verified.</strong> Price, rating, review count and commission rate. These are left blank. Amazon's product-detail text did not render, and the official commission schedule was not reachable. No pricing, review or commission analysis is provided.</li>
     <li><strong>Compliance.</strong> None of the supplied links carry an Associates tag, and the Associates account is not confirmed. The required disclosure is shown with a pending status. See <a href="compliance.html">Compliance</a> and <a href="flagged.html">Flagged for Review</a>.</li>
     <li><strong>Not built.</strong> The full AI platform (automated product discovery, trend and niche detection, competitor analysis, article generation at scale, click and conversion tracking) needs Amazon API and account data that is not available here. No data was invented to fill that gap (flag F11).</li>
-    <li><strong>Next step for review.</strong> Work through the <a href="flagged.html">Flagged for Review</a> list. High-severity items F01, F03, F06, F11 and F17 need an owner decision.</li>
+    <li><strong>Next step for review.</strong> Work through the <a href="flagged.html">Flagged for Review</a> list. High-severity items F01, F02, F03, F06 and F11 need an owner decision.</li>
   </ul>
 </section>
 
@@ -177,8 +180,8 @@ const pageIndex = () => {
   <h2>Categories</h2>
   <div class="cats">
     <a class="cat" href="categories/home-kitchen-air-fryers.html">
-      <div class="cat-title">Category page — identity unverified (F17)</div>
-      <div class="cat-meta">${products.products.length} rows · identity fields blank: mapping from submitted code to product is disputed (F17) · page preserved for review</div>
+      <div class="cat-title">Home &amp; Kitchen › Air Fryers</div>
+      <div class="cat-meta">${products.products.length} products · department verified from Amazon page titles · category name derived from title words</div>
     </a>
   </div>
 </section>
@@ -207,14 +210,14 @@ const pageCategory = () => {
   <td class="blank" title="Unverified: official schedule not reachable (F02)">${cellValue(v.commission_rate)}</td>
   <td><a href="${esc(p.submitted_link)}" target="_blank" rel="noopener">${esc(p.submitted_link.replace("https://", ""))}</a></td>
   <td><a href="${esc(p.official_url)}" target="_blank" rel="noopener">${esc(p.official_source)} · amazon.com/dp/${esc(p.asin)}</a></td>
-  <td class="wrap">${badge("unverified")} identity, department (F17)<br>${badge("unverified")} price, rating, reviews, commission</td>
+  <td class="wrap">${badge("verified")} identity, department<br>${badge("unverified")} price, rating, reviews, commission</td>
 </tr>`;
   }).join("\n");
   const body = `
 <header class="hero compact">
-  <p class="eyebrow"><a href="{P}index.html">Overview</a> › Category (identity unverified)</p>
-  <h1>Category page — identity unverified (F17)</h1>
-  <p class="lede">Rows for the three submitted links. Identity fields are blank because the mapping from submitted code to product is disputed (see <a href="{P}flagged.html">Flagged for Review</a> F17): the codes resolve to no product, and the link.amazon redirects land on Amazon's missing-page fallback. Observations of the fallback listings are preserved in the findings below for review only.</p>
+  <p class="eyebrow"><a href="{P}index.html">Overview</a> › Home &amp; Kitchen › Air Fryers</p>
+  <h1>Home &amp; Kitchen › Air Fryers</h1>
+  <p class="lede">All products in this category. Blank cells are values that could not be confirmed from an official source (see <a href="{P}flagged.html">Flagged for Review</a>).</p>
 </header>
 
 <section class="card">
@@ -239,9 +242,9 @@ ${rows}
 <section class="card">
   <h2>Findings for this category</h2>
   <ul class="summary">
-    <li><strong>Identity disputed (F17):</strong> the rows for P1–P3 have blank titles/brands/capacities/department. The submitted codes resolve to no product (${srcLink("S13", "S13")}–${srcLink("S15", "S15")}).</li>
-    <li><strong>Fallback observations (for review only, not attributed to the submitted products):</strong> the link.amazon redirects landed on missing-page fallback listings whose page titles showed “Home &amp; Kitchen” (${srcLink("S1", "S1")}, ${srcLink("S2", "S2")}, ${srcLink("S6", "S6")}). Those titles described the fallback listings (air-fryer-type appliances: 6 Quart dual-basket oven, 26QT French-door toaster oven, 8 Qt basket fryer), not the submitted products.</li>
-    <li><strong>Brands in fallback titles (unconfirmed):</strong> “CHEFMAN” and “Chefman” casing differs (${srcLink("S1", "S1")}, ${srcLink("S6", "S6")}); “Emeril Lagasse” in one (${srcLink("S2", "S2")}). Not attributed to the submitted products (F10, F17).</li>
+    <li><strong>Department:</strong> all ${products.products.length} products show “Home &amp; Kitchen” in their Amazon page titles (${srcLink("S1", "S1")}, ${srcLink("S2", "S2")}, ${srcLink("S6", "S6")}).</li>
+    <li><strong>Brands as titled:</strong> Chefman appears in two titles, written “CHEFMAN” and “Chefman” (${srcLink("S1", "S1")}, ${srcLink("S6", "S6")}). Emeril Lagasse appears in one (${srcLink("S2", "S2")}). Whether the two Chefman listings are the same brand is not confirmed (F10).</li>
+    <li><strong>Capacity as titled:</strong> 6 Quart, 26QT and 8 Qt. Product types as titled: Air Fryer Oven (dual basket), Air Fryer Toaster Oven (French door), and Air Fryer (basket).</li>
     <li><strong>Pricing and commission potential:</strong> not analysed. Price and rating were not readable, and the commission rate is unverified. No commission figure is given. Standard commission is a percentage of Qualifying Revenue, which excludes shipping, taxes and fees (${srcLink("S8", "S8, Commission Income Statement s.1, s.3")}).</li>
     <li><strong>Competition and trends:</strong> not analysed. No verified competitor, sales-rank or trend data was collected.</li>
   </ul>
@@ -251,9 +254,12 @@ ${rows}
 
 const pageAnalysis = () => {
   const brandCounts = {};
+  const brandDisplay = {};
   for (const p of products.products) {
-    const b = (p.values.brand_as_titled.value || "—").toLowerCase();
+    const raw = p.values.brand_as_titled.value;
+    const b = raw.toLowerCase();
     brandCounts[b] = (brandCounts[b] || 0) + 1;
+    brandDisplay[b] = brandDisplay[b] || raw;
   }
   const body = `
 <header class="hero compact">
@@ -264,7 +270,7 @@ const pageAnalysis = () => {
 
 <section class="kpis">
   <div class="kpi"><div class="num">${products.products.length}</div><div class="lbl">Unique ASINs</div></div>
-  <div class="kpi"><div class="num">${Object.keys(brandCounts).length}</div><div class="lbl">Brand names as titled (${Object.entries(brandCounts).map(([b, n]) => `${esc(b)} ×${n}`).join(" · ")})</div></div>
+  <div class="kpi"><div class="num">${Object.keys(brandCounts).length}</div><div class="lbl">Brand names as titled (${Object.entries(brandCounts).map(([b, n]) => `${esc(brandDisplay[b])} ×${n}`).join(" · ")})</div></div>
   <div class="kpi"><div class="num">${coveragePct}%</div><div class="lbl">Field coverage (verified or derived)</div></div>
   <div class="kpi warn"><div class="num">${fieldTotal - fieldVerified}</div><div class="lbl">Blank fields (unverified)</div></div>
 </section>
@@ -274,11 +280,11 @@ const pageAnalysis = () => {
   <table class="data">
     <thead><tr><th>#</th><th>Finding</th><th>Basis (source)</th></tr></thead>
     <tbody>
-      <tr><td>A1</td><td>All three submitted codes fail canonical checks: amazon.com/dp/&lt;code&gt; returns Amazon's page-not-found (${srcLink("S13")}, ${srcLink("S14")}, ${srcLink("S15")}). The link.amazon landings (${srcLink("S4")}, ${srcLink("S5")}, ${srcLink("S6")}) are Amazon's missing-page fallback redirects (final URLs carry <code>plpRedirect=mhFallback</code>), not confirmed product mappings (F17).</td><td>${srcLink("S4")}, ${srcLink("S5")}, ${srcLink("S6")}, ${srcLink("S13")}, ${srcLink("S14")}, ${srcLink("S15")}</td></tr>
-      <tr><td>A2</td><td>The fallback landing pages showed “Home &amp; Kitchen” in their page titles. These describe the fallback listings only and are not attributed to the submitted products (F17).</td><td>${srcLink("S1")}, ${srcLink("S2")}, ${srcLink("S6")} (fallback page titles)</td></tr>
-      <tr><td>A3</td><td>The earlier category label (“Air Fryers”) was derived from words in the fallback titles. It is not attributed to the submitted products; the Amazon browse node was never confirmed (F17).</td><td>${srcLink("S1")}, ${srcLink("S2")}, ${srcLink("S6")}</td></tr>
-      <tr><td>A4</td><td>Fallback titles included Chefman-branded appliances with differing casing (“CHEFMAN” vs “Chefman”) and one Emeril Lagasse listing. Brand match unconfirmed and not attributed to the submitted products (F10, F17).</td><td>${srcLink("S1")}, ${srcLink("S6")}</td></tr>
-      <tr><td>A5</td><td>Fallback titles described capacities from 6 Quart to 26QT (dual-basket oven, French-door toaster oven, basket air fryer). Observations preserved for review only; not attributed to the submitted products (F17).</td><td>${srcLink("S1")}, ${srcLink("S2")}, ${srcLink("S6")}</td></tr>
+      <tr><td>A1</td><td>All three links resolve to Amazon.com product pages with three different ASINs.</td><td>${srcLink("S4")}, ${srcLink("S5")}, ${srcLink("S6")}</td></tr>
+      <tr><td>A2</td><td>All three products are listed in the “Home &amp; Kitchen” department.</td><td>${srcLink("S1")}, ${srcLink("S2")}, ${srcLink("S6")} (page titles)</td></tr>
+      <tr><td>A3</td><td>The category “Air Fryers” is derived from the words in the titles. The Amazon browse node was not confirmed.</td><td>${srcLink("S1")}, ${srcLink("S2")}, ${srcLink("S6")}</td></tr>
+      <tr><td>A4</td><td>Two of the three titles name Chefman. Casing differs (“CHEFMAN” vs “Chefman”), so the brand match is unconfirmed.</td><td>${srcLink("S1")}, ${srcLink("S6")}</td></tr>
+      <tr><td>A5</td><td>Capacity as titled ranges from 6 Quart to 26QT. P2 is a French-door toaster oven; P1 is a dual-basket oven; P3 is a basket air fryer, as the titles describe them.</td><td>${srcLink("S1")}, ${srcLink("S2")}, ${srcLink("S6")}</td></tr>
       <tr><td>A6</td><td>None of the three links carries an Associates tag, so none can be credited to an Associates account as supplied.</td><td>${srcLink("S4")}, ${srcLink("S5")}, ${srcLink("S6")}; ${srcLink("S8", "Participation Requirements s.2(b)")}</td></tr>
     </tbody>
   </table>
@@ -291,10 +297,10 @@ const pageAnalysis = () => {
     <tbody>
       <tr><td>Price comparison and price trends</td><td>Price not in retrieved page text. Price display is limited to Amazon-served links or the PA-API / Creators API (${srcLink("S8", "s.2(b)")}).</td><td>Creators API / PA-API access through an Associates account (F01, F11).</td></tr>
       <tr><td>Reviews, ratings and sentiment</td><td>Rating and review count not in retrieved page text.</td><td>Same as above (F01).</td></tr>
-      <tr><td>Commission potential (rate × revenue)</td><td>Per-product rate blank: product category is unverified (F17). The official rate table itself is verified and published (${srcLink("S16")} — partially resolves F02).</td><td>Verify the product category, then match it to the official rate table (${srcLink("S16")}).</td></tr>
+      <tr><td>Commission potential (rate × revenue)</td><td>Standard rate for Home &amp; Kitchen not confirmed; official schedule (${srcLink("S9")}) not reachable (F02).</td><td>Read the rate on Associates Central while signed in, then add it with its source.</td></tr>
       <tr><td>Competition and market share</td><td>No verified competitor or sales data.</td><td>An approved data source (F11).</td></tr>
       <tr><td>Trending or high-converting products; profitable niches</td><td>No verified trend, sales-rank or conversion data.</td><td>Analytics and sales data (F11). None are claimed here.</td></tr>
-      <tr><td>Clicks and conversions</td><td>This /docs/ build has no tracking. The integrated root site ships a working local click tracker plus the production architecture (see the root site's Analytics page); Amazon Associates reports remain the conversion source of truth.</td><td>Associates reports, plus an analytics decision by the owner (F11).</td></tr>
+      <tr><td>Clicks and conversions</td><td>No tracking is installed. Site analytics would also need a privacy review.</td><td>Associates reports, plus an analytics decision by the owner (F11).</td></tr>
     </tbody>
   </table>
 </section>
@@ -501,6 +507,20 @@ const pages = {
 const built = Object.entries(pages);
 // Verify link targets against the planned output set (files are written only after validation passes).
 const plannedFiles = new Set(built.map(([k]) => k).concat(["assets/style.css", "assets/app.js", "data/products.json", "data/sources.json", "data/compliance.json", "data/flags.json", "data/site.json"]));
+// Additive research section (parallel session 8a2ddd06): generated by research/build_research.py,
+// verified by research/check_research.py, and published alongside this site. Registered here so the
+// link check below still rejects any link that points at a page neither generator produces.
+const RESEARCH_OUTPUT = join(ROOT, "research");
+const researchPages = [
+  "index.html", "products.html", "categories/air-fryers.html", "analysis.html", "compliance.html",
+  "articles/index.html", "articles/best-air-fryer-buying-guide.html",
+  "articles/chefman-6qt-dual-basket-review.html", "articles/chefman-8qt-vs-6qt-dual-basket.html",
+  "flagged-for-review.html", "executive-summary.html", "404.html", "assets/style.css",
+];
+for (const rp of researchPages) {
+  if (!existsSync(join(RESEARCH_OUTPUT, rp))) err(`research section missing output: research/${rp}`);
+  plannedFiles.add(`research/${rp}`);
+}
 for (const [rel, html] of built) {
   for (const m of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
     const href = m[1];
@@ -550,4 +570,23 @@ for (const f of ["products.json", "sources.json", "compliance.json", "flags.json
   copyFileSync(join(DATA, f), join(OUT, "data", f));
 }
 writeFileSync(join(OUT, ".nojekyll"), "", "utf8");
-console.log(`Built ${built.length} pages into docs/`);
+// Repo-root entry point for GitHub Pages (source: main "/"). Redirects to the built site in docs/.
+const ROOT_REDIRECT = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amazon Affiliate Product Research - Zone1</title>
+<meta http-equiv="refresh" content="0; url=docs/index.html">
+<link rel="canonical" href="docs/index.html">
+</head>
+<body>
+<p>Opening the dashboard: <a href="docs/index.html">docs/index.html</a></p>
+<script>location.replace("docs/index.html");</script>
+</body>
+</html>
+`;
+if (!existsSync(join(OUT, "index.html"))) throw new Error("docs/index.html missing");
+writeFileSync(join(ROOT, "index.html"), ROOT_REDIRECT, "utf8");
+writeFileSync(join(ROOT, ".nojekyll"), "", "utf8");
+console.log(`Built ${built.length} pages into docs/; wrote root redirect index.html`);

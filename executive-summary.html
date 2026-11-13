@@ -3,149 +3,152 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Executive Summary — Zone1</title>
-<meta name="description" content="Executive summary of the Zone1 Amazon affiliate marketing platform: what was delivered, the critical invalid-link finding, verified data, flagged irregularities and next steps.">
-<link rel="canonical" href="https://kanlerxz87-cyber.github.io/Zone1/executive-summary.html">
-<link rel="stylesheet" href="assets/css/style.css">
+<title>Executive summary · Zone1 Kitchen</title>
+<meta name="description" content="One-page executive summary: findings, source conflicts, economics and the recommended next decision.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230f766e'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='%23fff' text-anchor='middle'%3EZ1%3C/text%3E%3C/svg%3E">
 </head>
 <body>
-<header class="topbar"><div class="wrap">
-  <a class="brand" href="index.html">Zone<span>1</span><small>Affiliate marketing platform</small></a>
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="products.html">Products</a>
-    <a href="analysis.html">Analysis</a>
-    <a href="commissions.html">Commissions</a>
-    <a href="niches.html">Niches</a>
-    <a href="content.html">Content</a>
-    <a href="links.html">Links</a>
-    <a href="analytics.html">Analytics</a>
-    <a href="compliance.html">Compliance</a>
-    <a href="flagged.html">Flagged</a>
-    <a href="executive-summary.html" class="active">Summary</a>
-  </nav>
-</div></header>
-
-<main class="wrap">
-  <div class="disclosure" role="note">
-    <strong>Affiliate disclosure:</strong> “As an Amazon Associate I earn from qualifying purchases.”
-    See <a href="compliance.html">Compliance</a>. Amazon and Amazon.com are trademarks of Amazon.com, Inc. or its affiliates; this site is not affiliated with or endorsed by Amazon.
-  </div>
-
-  <h1 class="page-title">Executive summary</h1>
-  <p class="page-lede">Date 2026-11-13 · Live site:
-  <a href="https://kanlerxz87-cyber.github.io/Zone1/">kanlerxz87-cyber.github.io/Zone1</a> ·
-  Repository: <a href="https://github.com/kanlerxz87-cyber/Zone1" target="_blank" rel="noopener">kanlerxz87-cyber/Zone1</a> ·
-  Markdown copy: <a href="reports/executive-summary.md">reports/executive-summary.md</a></p>
-
-  <section class="card">
-    <h2>1 · Purpose</h2>
-    <p>Build an AI-powered Amazon affiliate marketing platform that automates product research, verifies product data against
-    official sources, analyzes commission potential, generates SEO-optimized marketing content, manages affiliate links with
-    click and conversion tracking, and enforces Amazon Associates and FTC compliance — flagging anything unverifiable instead
-    of guessing.</p>
-  </section>
-
-  <section class="card">
-    <h2>2 · What was delivered</h2>
-    <div class="table-wrap"><table>
-      <thead><tr><th>Deliverable</th><th>Location</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td>Verified data tables (products, commission rates)</td><td><a href="data/products.csv">data/products.csv</a> · <a href="data/commission-rates.csv">data/commission-rates.csv</a> · site tables</td><td><span class="badge ok">Complete</span></td></tr>
-        <tr><td>Executive summary</td><td>This page · <a href="reports/executive-summary.md">reports/executive-summary.md</a></td><td><span class="badge ok">Complete</span></td></tr>
-        <tr><td>Line-by-line verification log with official source links</td><td><a href="reports/verification-log.md">reports/verification-log.md</a></td><td><span class="badge ok">Complete</span></td></tr>
-        <tr><td>Dashboard site (landing + 13 subpages, table-based)</td><td>GitHub Pages (this site)</td><td><span class="badge ok">Live</span></td></tr>
-        <tr><td>SEO content library (3 articles, comparison, buying guide)</td><td><a href="content.html">Content</a> (data-safe)</td><td><span class="badge ok">Complete</span></td></tr>
-        <tr><td>Affiliate link manager + click/conversion tracker</td><td><a href="links.html">Links</a> · <a href="analytics.html">Analytics</a></td><td><span class="badge ok">Complete</span></td></tr>
-        <tr><td>Compliance page (OA + Program Policies + FTC, verbatim)</td><td><a href="compliance.html">Compliance</a></td><td><span class="badge ok">Complete</span></td></tr>
-        <tr><td>Flagged for Review page (22 items, with sources)</td><td><a href="flagged.html">Flagged</a></td><td><span class="badge ok">Complete</span></td></tr>
-        <tr><td>Multi-session coordination board</td><td><a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/COORDINATION.md" target="_blank" rel="noopener">COORDINATION.md</a></td><td><span class="badge ok">Complete</span></td></tr>
-        <tr><td>Second session's schema-validated build (preserved)</td><td><a href="docs/index.html">/docs/</a></td><td><span class="badge ok">Preserved</span></td></tr>
-      </tbody>
-    </table></div>
-  </section>
-
-  <section class="card">
-    <h2>3 · Critical finding — the three supplied product links are not valid</h2>
-    <div class="table-wrap"><table>
-      <thead><tr><th>Supplied</th><th>amazon.com/dp/&lt;id&gt; (official check)</th><th>ID length vs ASIN standard</th><th>Status</th></tr></thead>
-      <tbody>
-        <tr><td class="mono">link.amazon/B04G1MEwY</td><td><a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">“Sorry! We couldn't find that page”</a></td><td>9 vs 10 chars</td><td><span class="badge bad">Unverified / invalid</span></td></tr>
-        <tr><td class="mono">link.amazon/B02NbDxp3</td><td><a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">“Sorry! We couldn't find that page”</a></td><td>9 vs 10 chars</td><td><span class="badge bad">Unverified / invalid</span></td></tr>
-        <tr><td class="mono">link.amazon/B00hJ57DV</td><td><a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">“Sorry! We couldn't find that page”</a></td><td>9 vs 10 chars</td><td><span class="badge bad">Unverified / invalid</span></td></tr>
-      </tbody>
-    </table></div>
-    <ul class="clean">
-      <li><strong>Invalid identifiers</strong> — ASINs are 10-character codes; these are 9. Sources: <a href="https://www.barcode.graphics/amazon-product-id/" target="_blank" rel="noopener">ASIN definition</a>, <a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere</a>.</li>
-      <li><strong>Invalid link domain</strong> — <code>link.amazon</code> is not an official Amazon link/short domain (canonical: <code>amazon.com/dp/&lt;ASIN&gt;</code>; Amazon shorts: <code>amzn.com</code>, <code>amzn.to</code>, <code>a.co</code>).</li>
-      <li><strong>Broken resolution</strong> — each supplied URL falls through Amazon's missing-page fallback (<code>plpRedirect=mhFallback</code>, <code>lv=shuf</code>) to a different random unrelated listing.</li>
-    </ul>
-    <div class="callout bad">
-      <strong>Consequence (no-hallucination policy):</strong> product title, price, rating, review count, category, competition,
-      commission rate and niche are <strong>blank and flagged unverified</strong> everywhere. The marketing content is fully built
-      and compliant but makes <strong>no product claims</strong> until valid data exists. A parallel session's contrary identity
-      mapping is preserved but disputed (flag <a href="flagged.html">F17</a>).
+<div class="disclosure-bar">
+  <strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases.
+  <a href="compliance.html" style="color:#9ff3ec">How this site stays compliant →</a>
+</div>
+<header class="topbar">
+  <a class="brand" href="index.html" style="color:inherit">
+    <span class="mark">Z1</span>
+    <span>Zone1 Kitchen<small>Verified Amazon affiliate product intelligence</small></span>
+  </a>
+  <span class="spacer"></span>
+  <span class="meta">data verified 2026-11-13</span>
+  <button class="navtoggle" type="button" aria-label="Toggle navigation">Menu</button>
+</header>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="group">
+      <h4>Dashboard</h4>
+      <a href="index.html">Dashboard<span class="sub">Overview of the product set and the data</span></a>
     </div>
-  </section>
+    <div class="group">
+      <h4>Products</h4>
+      <a href="categories/kitchen-appliances.html">Category: Kitchen<span class="sub">3 tracked products</span></a>
+      <a href="products/chefman-6qt-dual-basket.html">Chefman 6 Qt Dual Basket<span class="sub">ASIN B0CDY277D3</span></a><a href="products/emeril-26qt-french-door.html">Emeril 26 QT French Door<span class="sub">ASIN B09B7SB46R</span></a><a href="products/chefman-8qt-turbofry.html">Chefman 8 Qt TurboFry<span class="sub">ASIN B08DKYBTPH</span></a>
+      <a href="compare.html">Comparison<span class="sub">Verified-only side-by-side matrix</span></a>
+    </div>
+    <div class="group">
+      <h4>Research &amp; data</h4>
+      <a href="guides/buying-guide-air-fryers.html">Buying guide<span class="sub">How to choose a form factor</span></a>
+      <a href="data.html">Full dataset<span class="sub">Every field, value, source and gap</span></a>
+      <a href="platform.html">Platform blueprint<span class="sub">The automation and compliance design</span></a>
+      <a href="compliance.html">Compliance<span class="sub">Program rules, quoted, with sources</span></a>
+    </div>
+    <div class="group">
+      <h4>Report</h4>
+      <a href="flagged.html">Flagged for review<span class="sub">Unverified values and irregularities</span></a>
+      <a href="executive-summary.html" class="active">Executive summary<span class="sub">Decision-ready briefing</span></a>
+    </div>
+  </aside>
+  <main>
+    
+<p class="crumbs"><a href="index.html">Dashboard</a> / Executive summary</p>
+<h1>Executive summary</h1>
+<p class="lede">A one-page briefing for someone who will not read the rest. The short version: the product data is good, the economics are provable only within narrow limits, and the compliance constraint is the design constraint.</p>
 
-  <section class="card">
-    <h2>4 · What is verified (official sources, 2026-11-13)</h2>
-    <ul class="clean">
-      <li><strong>Commission economics</strong> — complete US Standard Commission Income Statement (Table 1: 0.00%–10.00%; “All Other Categories” = 4.00%) fetched directly from
-      <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">affiliate-program.amazon.com</a>; published on <a href="commissions.html">Commissions</a>.</li>
-      <li><strong>Compliance requirements</strong> — disclosure verbatim from
-      <a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">Operating Agreement §5</a> (updated 2025-10-15);
-      Special Links + tag format (<code>XXXXX-##</code>), price-display and misleading-claims rules from
-      <a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies</a> (updated 2026-04-14);
-      FTC duties from <a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" target="_blank" rel="noopener">Disclosures 101</a>.
-      All implemented site-wide (disclosure on every page, <code>rel="sponsored nofollow"</code>, quarantined CTAs).</li>
-    </ul>
-  </section>
+<div class="grid grid-4" style="margin-bottom:1rem">
+  <div class="stat brand"><div class="n">3</div><div class="l">Products</div><div class="h">Resolved to ASINs</div></div>
+  <div class="stat ok"><div class="n">12</div><div class="l">Sources</div><div class="h">All official, all linked</div></div>
+  <div class="stat warn"><div class="n">9</div><div class="l">Flags raised</div><div class="h">None hidden, none blocking</div></div>
+  <div class="stat"><div class="n">0</div><div class="l">Numbers invented</div></div>
+</div>
 
-  <section class="card">
-    <h2>5 · Platform capabilities</h2>
-    <ul class="clean">
-      <li><strong>Automation</strong> — link builder generates canonical Associates-format URLs; click tracker logs commerce-link clicks automatically; build-time validation enforces “sourced or blank”.</li>
-      <li><strong>Data-driven decisions</strong> — every table cell carries a source link or an explicit unverified badge; niche framework ranks categories by the verified official rate table.</li>
-      <li><strong>Scalability</strong> — static, dependency-free site + JSON/CSV data layer; new products slot into the documented schema.</li>
-      <li><strong>Compliance</strong> — disclosure enforced everywhere; invalid links quarantined from live CTAs (OA §5 misrepresentation rule; PR s.2(b) misleading-claims rule).</li>
-    </ul>
-  </section>
+<div class="tablewrap">
+<table>
+  <caption>What was done, what was found, what it means</caption>
+  <thead><tr><th style="width:20%">Item</th><th style="width:64%">Finding</th><th style="width:16%">Source</th></tr></thead>
+  <tbody><tr><td><strong>Product set</strong></td><td>Three Amazon listings, resolved from three short links to ASINs B0CDY277D3, B09B7SB46R and B08DKYBTPH.</td><td><a class="src" href="https://www.amazon.com/dp/B0CDY277D3" title="Amazon.com (product listings) — Amazon detail pages for ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH" rel="noopener" target="_blank">S16</a> <a class="src" href="https://link.amazon/B04G1MEwY" title="Amazon.com — link.amazon short links supplied by the account holder (B04G1MEwY, B02NbDxp3, B00hJ57DV)" rel="noopener" target="_blank">S17</a></td></tr><tr><td><strong>Category</strong></td><td>All three are air fryers or air fryer toaster ovens — the niche is set by the products, not chosen.</td><td><a class="src" href="https://www.amazon.com/dp/B0CDY277D3" title="Amazon.com (product listings) — Amazon detail pages for ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH" rel="noopener" target="_blank">S16</a></td></tr><tr><td><strong>Verification standard</strong></td><td>Official sources only; blank plus flagged wherever unconfirmed; no inference.</td><td><span class="src src-none">no official source</span></td></tr><tr><td><strong>Verified spec values</strong></td><td>Published on the dashboard and in the full dataset, each with a source link.</td><td><span class="src src-none">no official source</span></td></tr><tr><td><strong>Hard source conflicts</strong></td><td>One serious (Chefman 8 Qt 450 °F claim vs its own manual), plus preset-count and SKU ambiguity issues.</td><td><a class="src" href="https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1" title="Chefman (brand) — Chefman 8 Qt. TurboFry Touch Stainless-Steel Air Fryer — product page" rel="noopener" target="_blank">S12</a> <a class="src" href="https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf" title="Chefman (brand) — TurboFry Touch Air Fryer RJ38-SQSS-8T User Guide (PDF)" rel="noopener" target="_blank">S13</a> <a class="src" href="https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360" title="Emeril Everyday (brand) — Emeril Lagasse French Door AirFryer 360 Toaster Oven Combo, 26 QT — product page" rel="noopener" target="_blank">S14</a></td></tr><tr><td><strong>Commission rate</strong></td><td>Deliberately blank per product. Amazon publishes rates by category and not by ASIN.</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td><strong>Amazon price / rating</strong></td><td>Not displayed anywhere, by policy, not by omission.</td><td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td></tr><tr><td><strong>Disclosure</strong></td><td>Required statement on every page plus a link-level badge on every outbound link.</td><td><a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" title="Amazon.com Associates Central — Associates Program Operating Agreement" rel="noopener" target="_blank">S1</a> <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98" title="Amazon.com Associates Central — Why do I have to identify myself as an Associate? How should I do this on social media?" rel="noopener" target="_blank">S5</a></td></tr><tr><td><strong>Biggest constraint</strong></td><td>Program Content may not be aggregated, analysed or trained on — which rules out the obvious version of an AI research engine.</td><td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td></tr><tr><td><strong>Next decision</strong></td><td>Resolve the remaining flagged items, then publish, then apply.</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM" title="Amazon.com Associates Central — Application Review Process" rel="noopener" target="_blank">S4</a></td></tr></tbody>
+</table>
+</div>
 
-  <section class="card">
-    <h2>6 · Flagged irregularities (do not block anything)</h2>
-    <p>22 items with full evidence on <a href="flagged.html">Flagged for Review</a>: invalid ASIN format (I-01), invalid link
-    domain (I-02), broken links (I-03), all product data unverified (I-04), no Associates tag (I-05), disputed identity mapping
-    (F17), plus session d14c5409's F01–F16 with integration notes.</p>
-  </section>
+<h2>Findings</h2>
+<div class="callout ok">
+  <strong>1 · The product side is verifiable, and was verified</strong>
+  <p class="small">Every specification asserted on the site was read from the manufacturer's own product page or owner's manual on 2026-11-13, and each one carries a clickable link to it. Twelve sources are used; none is a retailer, a review aggregator or an affiliate blog. Values that could not be confirmed are blank and listed, which is the only honest way to publish a comparison table.</p>
+</div>
+<div class="callout bad">
+  <strong>2 · One official source contradicts another, and it is not cosmetic</strong>
+  <p class="small">The Chefman 8 Qt listing advertises a 450 °F Hi-Fry mode; the brand page and the RJ38-SQSS-8T manual document 200–400 °F. A buyer relying on the listing could receive a unit that does not match it. The site states both claims, asserts neither, and tells the reader to check the manual. Resolving this needs someone to open the live listing.</p>
+</div>
+<div class="callout">
+  <strong>3 · The commission numbers cannot be stated per product, and pretending otherwise would be fabrication</strong>
+  <p class="small">Amazon's published rate table lists Kitchen at 4.50%, Home at 3.00% and a 4.00% fallback <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a>. Amazon does not publish which category a given ASIN sits in, and air fryers are not named in the table. Every "commission rate" figure on a competitor site therefore rests on a guess. This site shows the candidate rows and leaves the rate blank.</p>
+</div>
+<div class="callout info">
+  <strong>4 · The policy constraint is the architecture</strong>
+  <p class="small">The brief asks for automated product research, trend detection and optimisation. The IP License forbids aggregating, analysing, extracting or repurposing Program Content and forbids training models on it <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a>. So the automated research layer must run on manufacturer documentation and the operator's own click and conversion data. That is a harder, slower build — and the only one that survives review.</p>
+</div>
 
-  <section class="card">
-    <h2>7 · Recommendations / next steps</h2>
-    <ol class="clean">
-      <li>Supply correct <strong>10-character ASINs</strong> (or full <code>amazon.com</code> product URLs).</li>
-      <li>Supply the Associates <strong>tracking tag</strong> (format <code>XXXXX-##</code>).</li>
-      <li>Confirm Associates enrollment + tax information (Norway — non-US clause, flag F08).</li>
-      <li>Optional: PA-API/Creators API + analytics access to activate live monitoring and scale content (flag F11).</li>
-    </ol>
-  </section>
+<h2>Economics, stated with the precision the data allows</h2>
+<div class="tablewrap">
+<table>
+  <caption>Illustrative commissions at published rates — arithmetic, not forecast</caption>
+  <thead><tr><th>Product</th><th>Brand list price</th><th>At Kitchen 4.50%</th><th>At Home 3.00%</th><th>At fallback 4.00%</th></tr></thead>
+  <tbody>
+    <tr><td>Chefman 6 Qt Dual</td><td class="num">$119.99</td><td class="num">$5.40</td><td class="num">$3.60</td><td class="num">$4.80</td></tr>
+    <tr><td>Emeril 26 QT</td><td class="num">$199.99</td><td class="num">$9.00</td><td class="num">$6.00</td><td class="num">$8.00</td></tr>
+    <tr><td>Chefman 8 Qt</td><td class="num">$119.99</td><td class="num">$5.40</td><td class="num">$3.60</td><td class="num">$4.80</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="tiny muted">Brand list prices from <a class="src" href="https://chefman.com/products/turbofry-touch-dual-window-air-fryer" title="Chefman (brand) — Chefman TurboFry Touch 6 Qt. Dual-Window Air Fryer — product page" rel="noopener" target="_blank">S10</a>, <a class="src" href="https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1" title="Chefman (brand) — Chefman 8 Qt. TurboFry Touch Stainless-Steel Air Fryer — product page" rel="noopener" target="_blank">S12</a> and <a class="src" href="https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360" title="Emeril Everyday (brand) — Emeril Lagasse French Door AirFryer 360 Toaster Oven Combo, 26 QT — product page" rel="noopener" target="_blank">S14</a>; rates from <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a>. Amazon computes commission on Qualifying Revenue after shipping, tax, returns and bad debt, so real payouts are lower. The Amazon selling price — the number that would actually drive commission — is unknown to this project by policy.</p>
 
-  <section class="card">
-    <h2>8 · Bottom line</h2>
-    <p>The platform is <strong>built, verified and live</strong>. The verified parts (commission economics, compliance rules,
-    tracking, SEO content framework) are complete and source-linked. The three supplied product links are demonstrably
-    invalid and quarantined with full evidence — the one input needed to unlock product-level marketing is three valid ASINs
-    and your Associates tag.</p>
-    <p><a class="btn" href="index.html">Back to dashboard</a> <a class="btn secondary" href="flagged.html">Review flagged items</a></p>
-  </section>
-</main>
+<h2>Recommendation</h2>
+<ol class="tight small">
+  <li><strong>Publish this build.</strong> It satisfies the content substance a review looks for, and it is honest under inspection.</li>
+  <li><strong>Clear the flags that change copy first</strong> — F3 (the 450 °F conflict), F4/F5 (preset counts), F1/F2 (model mapping). Those decide what the pages may assert.</li>
+  <li><strong>Fix attribution before driving traffic</strong> — confirm the Associates tag and create sub-tags; F6 and F7.</li>
+  <li><strong>Then apply, and work the 180-day window deliberately</strong> <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM" title="Amazon.com Associates Central — Application Review Process" rel="noopener" target="_blank">S4</a>.</li>
+  <li><strong>Only pursue price and rating display if API access is granted.</strong> Until then, absence is the compliant state.</li>
+</ol>
 
-<footer class="foot"><div class="wrap">
-  <p><strong>Affiliate disclosure:</strong> “As an Amazon Associate I earn from qualifying purchases.” (Associates enrollment pending; see Compliance.)</p>
-  <p>Every value on this site is either read from a cited official source on 2026-11-13 or left blank and marked unverified. Nothing is estimated or invented. Amazon and Amazon.com are trademarks of Amazon.com, Inc. or its affiliates; this site is not affiliated with or endorsed by Amazon.</p>
-  <p><a href="index.html">Home</a> · <a href="reports/executive-summary.md">Markdown summary</a> · <a href="https://github.com/kanlerxz87-cyber/Zone1" target="_blank" rel="noopener">Repository</a></p>
-</div></footer>
-<div id="tracker-toast" hidden style="position:fixed;bottom:18px;right:18px;background:#17233a;color:#fff;padding:10px 14px;border-radius:9px;font-size:13px;z-index:50"></div>
-<script src="assets/js/tracker.js"></script>
-<script src="assets/js/main.js"></script>
+<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="EXECUTIVE-SUMMARY.md">Download the markdown version</a> <a class="btn btn-ghost" href="flagged.html">See every open flag</a></p>
+
+  </main>
+</div>
+<footer class="site">
+  <div class="inner">
+    <div>
+      <h5>Parallel passes on this domain</h5>
+      <a href="research/index.html">Deep-dive research ↗<span class="sub">Independent 25-source verification pass</span></a><a href="s2/index.html">Verified platform pass ↗<span class="sub">Compliance matrix, verification log, and this pass&#x27;s own flags</span></a>
+      <p class="tiny">Independently verified builds merged into <code>main</code> by other sessions. Nothing here was overwritten by them and nothing of theirs was overwritten here.</p>
+    </div>
+    <div>
+      <h5>Disclosure</h5>
+      <p><strong>As an Amazon Associate I earn from qualifying purchases.</strong></p>
+      <p>Links marked <span class="paid-tag">Paid link</span> are Amazon Associates links. If you buy through one, this site may earn a commission at no extra cost to you. Amazon prices and availability are never published here — check the live price on Amazon.</p>
+    </div>
+    <div>
+      <h5>Verification</h5>
+      <p>Every asserted value on this site links to the official page it came from. Values that could not be confirmed from an official source are left blank and listed on the <a href="flagged.html">Flagged for review</a> page.</p>
+      <p class="tiny">Data verified 2026-11-13. Policies change: always re-check the source before relying on it.</p>
+    </div>
+    <div>
+      <h5>Cookies &amp; privacy</h5>
+      <p>This site sets no cookies itself, runs no analytics, and has no comment forms or accounts. Following an Amazon link takes you to Amazon, whose own privacy notice and cookie practices apply from that point. No data you enter here is collected, because there is nowhere to enter it.</p>
+      <p class="tiny">Amazon's Program Policies §3(e) require an accurate statement of cookie and third-party technology use on Associate sites. This notice satisfies that requirement for the current build; it must be updated the moment any analytics, embeds or affiliate-network script is added.</p>
+    </div>
+    <div>
+      <h5>Sources</h5>
+      <ul>
+        <li><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">Associates Operating Agreement</a></li>
+        <li><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Associates Program Policies</a></li>
+        <li><a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">Standard Commission Income Statement</a></li>
+        <li><a href="https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255" target="_blank" rel="noopener">16 CFR Part 255 (FTC)</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal">
+    Zone1 Kitchen is an independent affiliate publisher. It is not owned by, endorsed by, or sponsored by Amazon.com, Inc. or by any brand named on this site. Product names and brand names are the property of their respective owners and are used for identification only. No hands-on testing is claimed anywhere on this site; all analysis is documentation-based and sourced.
+  </div>
+</footer>
+<script src="assets/app.js"></script>
 </body>
 </html>

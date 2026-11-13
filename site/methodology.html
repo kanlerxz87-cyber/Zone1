@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Method &middot; Air Fryer Affiliate Intelligence</title>
+<meta name="description" content="Verified data, sourced line by line, for three air fryers.">
+<meta name="robots" content="index,follow">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">AF</span>
+      <span class="brand-text">Air Fryer Affiliate Intelligence</span>
+    </a>
+    <nav class="nav" aria-label="Main"><a href="index.html">Dashboard</a>
+<a href="products.html">Products</a>
+<a href="compare.html">Compare</a>
+<a href="guides.html">Buying guides</a>
+<a href="compliance.html">Compliance</a>
+<a href="methodology.html" class="active" aria-current="page">Method</a>
+<a href="sources.html">Sources</a>
+<a href="flagged.html">Flagged</a></nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+  <h1>Method</h1>
+  <p class="page-sub">How each value was accepted, and why several were refused.</p>
+  
+<div class="banner banner-warn" role="note">
+  <strong>Links are not yet tagged.</strong> No Associates tag is configured, so no outbound
+  link on this site can currently earn a commission. Set <code>associate_tag</code> in
+  <code>data/config.json</code> and rebuild. Tracked as <a href="flagged.html#F-10">F-10</a>.
+</div>
+  
+<div class="disclosure" role="note">
+  <p class="disclosure-main"><strong>As an Amazon Associate I earn from qualifying purchases.</strong></p>
+  <p class="disclosure-sub">I get commissions for purchases made through links on this page. Links below go to Amazon.
+  Prices, ratings and availability on Amazon change; always confirm on the Amazon page before buying.</p>
+</div>
+  
+<p class="lede">How the numbers on this site were produced &mdash; and, more importantly, which
+numbers were refused. A method page that only explains successes is not a method page.</p>
+
+<h2>1. Source tiers</h2>
+<div class="table-wrap">
+<table>
+  <thead><tr><th scope="col">Tier</th><th scope="col">Definition</th><th scope="col">Used for</th></tr></thead>
+  <tbody>
+    <tr><td>official-primary</td><td>The manufacturer's or retailer's own domain, first party.</td>
+        <td>All product facts.</td></tr>
+    <tr><td>official-program</td><td>Amazon's own Associates legal documents.</td>
+        <td>Rules, rates, disclosure wording.</td></tr>
+    <tr><td>official-regulatory</td><td>FTC and eCFR publications.</td>
+        <td>Disclosure law and guidance.</td></tr>
+    <tr><td>official-supporting</td><td>Manuals and warranty PDFs hosted by the manufacturer.</td>
+        <td>Cross-reference only; not used to assert a table value.</td></tr>
+    <tr><td class="muted">rejected</td><td class="muted">Review aggregators, price-comparison
+        sites, affiliate blogs, "best of" listicles, AI-generated summaries.</td>
+        <td class="muted">Never used as a source. One marketing site asserting the Emeril wattage
+        was found and rejected &mdash; see <a href="flagged.html#F-09">F-09</a>.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>2. The three-state rule</h2>
+<p>Every field is in exactly one of three states, and the state is published alongside the value:</p>
+<div class="grid-3">
+  <div class="panel"><h3><span class="chip chip-verified">Verified</span></h3><p>The value was read on an official page and
+  the specific section is recorded. Two independent official pages agreeing strengthens it; a single
+  official page is sufficient, and the source is always linked.</p></div>
+  <div class="panel panel-warn"><h3><span class="chip chip-flagged">Flagged</span></h3><p>Official sources disagree, or the
+  only basis is a fragment of a title rather than a specification field. The cell shows the conflict
+  rather than a resolution, and links to a numbered flag.</p></div>
+  <div class="panel"><h3><span class="chip chip-unverified">Unverified</span></h3><p>No official source could be found within
+  the scope of this review. <strong>The cell is left blank.</strong> It is never filled with an
+  estimate, a range midpoint, an Amazon "typical price", or a figure from a third-party tool.</p></div>
+</div>
+
+<h2>3. Fit score &mdash; what it is and what it is not</h2>
+<p><strong>It is</strong> a weighted ranking of five factors that can each be traced to a source.
+<strong>It is not</strong> a demand forecast, a conversion prediction, or an earnings estimate.
+Amazon publishes no per-ASIN sales volume, search volume or conversion rate, and the third-party
+tools that guess at these produce estimates that cannot be reproduced or verified &mdash; so they are
+excluded (<a href="flagged.html#F-13">F-13</a>).</p>
+<div class="table-wrap">
+<table>
+  <thead><tr><th scope="col">Component</th><th scope="col">Rationale</th><th scope="col">Direction</th><th scope="col" class="num">Weight</th></tr></thead>
+  <tbody><tr><td>Brand-store price band</td><td>Air fryers in the $90–$130 band sit in the highest-volume mainstream tier for this category, so a mid band scores higher than either extreme.</td><td>mid-band preferred</td><td class='mono'>20%</td></tr><tr><td>Feature coverage</td><td>Count of distinct cooking functions and named convenience features confirmed on the brand page.</td><td>higher better</td><td class='mono'>25%</td></tr><tr><td>Capacity fit</td><td>Scores how well the unit&#x27;s capacity matches a household of 2–4, which is the stated target reader for these buying guides.</td><td>peak at 8–12 Qt</td><td class='mono'>20%</td></tr><tr><td>Brand-store sentiment</td><td>Brand-store review rating, with a volume penalty so a 30-review average cannot outrank a 200-review average of the same score.</td><td>higher better, volume-weighted</td><td class='mono'>20%</td></tr><tr><td>Verified spec completeness</td><td>Share of the specification fields in this report that could be confirmed from an official source for that product.</td><td>higher better</td><td class='mono'>15%</td></tr></tbody>
+</table>
+</div>
+<div class="table-wrap">
+<table>
+  <thead><tr><th scope="col">Product</th><th scope='col' class='num'>Brand-store price band</th><th scope='col' class='num'>Feature coverage</th><th scope='col' class='num'>Capacity fit</th><th scope='col' class='num'>Brand-store sentiment</th><th scope='col' class='num'>Verified spec completeness</th><th scope="col" class="num">Composite</th><th scope="col">Reading</th></tr></thead>
+  <tbody><tr><td><strong>Chefman TurboFry 8 Qt</strong><div class='mono muted'>B08DKYBTPH</div></td><td class='num'>78</td><td class='num'>72</td><td class='num'>88</td><td class='num'>92</td><td class='num'>88</td><td class='num'><strong>82.8</strong></td><td>Highest brand-store sentiment (4.6/5 over 200 reviews) with the most completely verifiable spec sheet of the three, 8 Qt single-basket capacity in the target band, and a sub-$120 brand-store price.</td></tr><tr><td><strong>CHEFMAN 6 Quart Dual Basket</strong><div class='mono muted'>B0CDY277D3</div></td><td class='num'>92</td><td class='num'>90</td><td class='num'>62</td><td class='num'>74</td><td class='num'>86</td><td class='num'><strong>81.0</strong></td><td>Cheapest brand-store entry point ($60–$99.99 ladder), the richest confirmed feature set (five functions, Sync Finish, Easy View windows with interior lights, shake notifications), but only 6 Qt total and a thinner brand-store review base (4.5/5 over 30).</td></tr><tr><td><strong>Emeril Lagasse 26 QT French Door</strong><div class='mono muted'>B09B7SB46R</div></td><td class='num'>40</td><td class='num'>95</td><td class='num'>55</td><td class='num'>30</td><td class='num'>72</td><td class='num'><strong>59.5</strong></td><td>The broadest capability by far — French doors, rotisserie, dual-speed fan, 26 Qt, seven accessories — but the weakest brand-store sentiment on that source (2.6/5 over 25 reviews, only 42% would recommend), the highest brand-store price ($199.99), and the least complete verified spec sheet (wattage and certification unconfirmed, F-09).</td></tr></tbody>
+</table>
+</div>
+<p class="muted">Weights are the operator's stated preference between competing merchandising goals.
+They are <em>not</em> fitted to observed sales, because no observed sales data exists for this site.
+Change the weights in <code>data/opportunities.json</code> and the ranking moves &mdash; which is
+exactly why the weights are printed above rather than buried.</p>
+
+<h2>4. Commission arithmetic</h2>
+<p>The published standard rate for the <strong>Kitchen</strong> category is
+<strong>4.50%</strong> <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener nofollow" target="_blank" title="Amazon Table 1">Amazon rate card &#8599;</a>.
+That rate is public. The account-specific custom rate card is behind sign-in and was
+<strong>not</strong> read, so no personalised rate is claimed (<a href="flagged.html#F-05">F-05</a>).</p>
+<div class="table-wrap">
+<table>
+  <tbody>
+    <tr><th scope="row">Assumption &mdash; price used for arithmetic</th>
+        <td>Selling price used for arithmetic: $119.99 (the brand-store list price of the highest-scoring product, Chefman RJ38-8T-BLACK).</td></tr>
+    <tr><th scope="row">Commission per sale</th>
+        <td><strong>$5.40</strong>
+        <div class="cell-note">119.99 × 4.50% = 5.3996 → $5.40 to the nearest cent (the rate card notes per-purchase rounding to the nearest local currency amount).</div></td></tr>
+    <tr><th scope="row">Assumption &mdash; units per month</th>
+        <td><span class="val-blank"><em>blank</em></span>
+        <div class="cell-note">Any traffic or conversion figure would be invented. The formula is published so the operator can plug in their own observed numbers from the Associates dashboard once live.</div></td></tr>
+  </tbody>
+</table>
+</div>
+<p>Which is why this site does not print a monthly earnings figure. The arithmetic is published so
+you can run it with your own observed numbers once traffic exists. Amazon itself states it makes no
+representation about achievable commission income
+<a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener nofollow" target="_blank" title="Operating Agreement §4">Operating Agreement &#8599;</a>.</p>
+
+<h3>Attribution windows that constrain the arithmetic</h3>
+<p>A click opens a 24-hour session.
+A cart completed within 89 days of the click still counts, and the order must ship and be paid for within
+180 days of purchase
+<a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank" title="Amazon Associates Program Policies — Commission Income Statement, §1 (Qualifying Purchases / Session)">Commission Statement &#8599;</a>.</p>
+
+<h2>5. Relationship to the earlier build in this repository</h2>
+<p>Several agent sessions worked this repository concurrently. The consolidated canonical site is
+generated by <code>build.py</code> and <code>verify.py</code> at the repository root and is what the
+main Pages URL serves. <strong>This build is an annex published at <code>site/</code>.</strong> It
+does not modify the root site, its data, or its build scripts: it reads its own data from
+<code>data/verified/</code> and writes only into <code>site/</code>. That separation is deliberate, so
+that two agents could each deliver without overwriting the other's work.</p>
+<p>Three independent sessions resolved the same three opaque short links to the same three ASINs,
+which is a meaningful cross-check on the single most consequential fact in this project. The builds
+differ in depth rather than in conclusion: this one verifies manufacturer specifications field by
+field against the brands' own product and support pages, and it resolved the published commission
+rate, which earlier audits recorded as unreachable &mdash; Kitchen is a fixed <strong>4.50%</strong>
+(<a href="flagged.html#F-17">F-17</a>). The coexistence of a root site and this annex is recorded as
+<a href="flagged.html#F-16">F-16</a>; if the annex data set is preferred, retiring it is a
+one-setting change to the Pages source.</p>
+
+<h2>6. Reproducing this</h2>
+<pre class="code"><code>python3 scripts/build_site.py   # regenerate every page from data/*.json
+python3 scripts/verify_site.py  # fail on any row without a source, or any broken internal link</code></pre>
+<p>The verifier is the part that matters. It refuses to let an unsourced value reach a page, so the
+guarantee does not depend on anyone remembering the rule.</p>
+
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <p><strong>As an Amazon Associate I earn from qualifying purchases.</strong></p>
+    <p>I get commissions for purchases made through links on this page.</p>
+    <p class="fine">Data verified 13 November 2026 against the official
+    sources listed on the <a href="sources.html">Sources</a> page. This site is not endorsed by,
+    sponsored by, or affiliated with Amazon or with any brand named here. Brand and product names
+    are used only to identify the products discussed.</p>
+    <p class="fine"><a href="privacy.html">Privacy</a> &middot; <a href="methodology.html">Method</a>
+    &middot; <a href="flagged.html">Flagged for review</a> &middot;
+    <a href="https://github.com/kanlerxz87-cyber/Zone1" rel="noopener">Source repository</a></p>
+  </div>
+</footer>
+</body>
+</html>

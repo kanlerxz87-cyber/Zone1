@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Content engine &amp; disclosure · Zone1 affiliate platform</title>
+<meta name="description" content="Verified Amazon Associates affiliate platform data: Content engine &amp; disclosure. Every row cites an official source.">
+<link rel="stylesheet" href="../assets/app.css">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+</head><body>
+<header class="top"><div class="wrap">
+<div class="brand"><div class="logo">Z1</div><div>Zone1 — Amazon Associates platform
+<small>data-driven · source-linked · no inferred values</small></div></div>
+<div class="stamp">verified against official sources on 2026-11-13 · built 2026-11-13</div>
+</div></header>
+<div class="wrap layout">
+<nav class="sitenav" aria-label="Site sections"><div class="navgrp"><p>Overview</p><ul><li><a href="../index.html">Dashboard</a></li><li><a href="../pages/executive-summary.html">Executive summary</a></li><li><a href="../pages/requirements.html">Requirements</a></li></ul></div><div class="navgrp"><p>Product research</p><ul><li><a href="../pages/products.html">Products &amp; findings</a></li><li><a href="../pages/niche.html">Niche &amp; trend method</a></li><li><a href="../pages/economics.html">Economics &amp; commission</a></li></ul></div><div class="navgrp"><p>Compliance</p><ul><li><a href="../pages/compliance.html">Associates rule matrix</a></li><li><a href="../pages/content-engine.html" is-current>Content engine &amp; disclosure</a></li><li><a href="../pages/campaign.html">Campaign &amp; measurement</a></li></ul></div><div class="navgrp"><p>Platform</p><ul><li><a href="../pages/automation.html">Automation architecture</a></li><li><a href="../pages/verification.html">Verification log</a></li><li><a href="../pages/sources.html">Sources</a></li><li><a href="../pages/flagged.html">Flagged for review</a></li></ul></div></nav>
+<main>
+<h1>Content engine &amp; disclosure</h1>
+<p class=sub>Article, comparison and buying-guide generation with a source gate: draft freely, publish only what is supported.</p>
+<div class="disclosure"><strong>Advertising disclosure.</strong> As an Amazon Associate I earn from qualifying purchases.
+This site is a demonstration platform; it currently publishes no live affiliate links.</div>
+
+<h2>Outputs</h2>
+<div class="tw"><table><thead><tr><th>Content type</th><th>Template</th><th>Slots it fills</th><th>State</th><th>Source</th></tr></thead><tbody><tr><td>product article</td><td><code>platform/content/generator.py::article</code></td><td>title, brand, category, spec table, audience, one CTA</td><td><span class="pill review">implemented, unfed</span></td><td><a class="src" href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/content/generator.py" rel="noopener noreferrer" target="_blank">code ↗</a></td></tr><tr><td>comparison</td><td><code>platform/content/generator.py::comparison</code></td><td>lowest new price, lowest used price, rating, one row per product</td><td><span class="pill review">implemented, unfed</span></td><td><a class="src" href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/content/generator.py" rel="noopener noreferrer" target="_blank">code ↗</a></td></tr><tr><td>buying guide</td><td><code>platform/content/generator.py::buying_guide</code></td><td>criteria list, ranked picks, disclosure</td><td><span class="pill review">implemented, unfed</span></td><td><a class="src" href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/content/generator.py" rel="noopener noreferrer" target="_blank">code ↗</a></td></tr></tbody></table></div>
+<h2>Invariants the generator cannot violate</h2>
+<div class="tw"><table><thead><tr><th>Rule</th><th>Enforced by</th><th>Source</th></tr></thead><tbody><tr><td>Every page carries Amazon's §5 sentence verbatim</td><td><code>compliance/gates.py::amazon_disclosure_exact</code></td><td><a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener noreferrer" target="_blank">source ↗</a></td></tr><tr><td>Disclosure sits adjacent to the link, not behind a 'DISCLOSURE' click</td><td><code>compliance/gates.py::disclosure_adjacent_to_link, no_buried_disclosure</code></td><td><a class="src" href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" rel="noopener noreferrer" target="_blank">source ↗</a></td></tr><tr><td>No unsourced number, price, or percentage survives the build</td><td><code>content/claims_checker.py::audit_draft</code></td><td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener noreferrer" target="_blank">source ↗</a></td></tr><tr><td>Amazon copy may be truncated but not reworded</td><td><code>content/lint.py::no_altered_program_content</code></td><td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener noreferrer" target="_blank">source ↗</a></td></tr><tr><td>A missing fact renders as an explicit placeholder, never as prose</td><td><code>content/generator.py::PLACEHOLDER</code></td><td><a class="src" href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" rel="noopener noreferrer" target="_blank">source ↗</a></td></tr><tr><td>No earnings promise and no implied Amazon endorsement in any draft</td><td><code>content/claims_checker.py::no_income_promise, no_implied_endorsement</code></td><td><a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener noreferrer" target="_blank">source ↗</a></td></tr></tbody></table></div>
+<h2>Sample: what the template emits with no data</h2>
+<div class="card"><p class="note">Rendered by <code>platform/content/generator.py::article()</code> against the
+three product records exactly as they stand — the placeholders are the point.</p>
+<pre style="white-space:pre-wrap;font-size:12px;margin:0;color:#26313f">&lt;h1&gt;[unverified — no official source states this] review&lt;/h1&gt;
+&lt;aside class="disclosure"&gt;&lt;strong&gt;Advertising disclosure.&lt;/strong&gt; As an Amazon Associate I earn from qualifying purchases. …&lt;/aside&gt;
+&lt;h2&gt;What it is&lt;/h2&gt;
+&lt;p&gt;[unverified — no official source states this] — [unverified …]. Category: [unverified …].&lt;/p&gt;</pre>
+</div>
+<div class="alert"><b>Why nothing is published.</b> Publishing an article about a product we cannot identify would
+require inventing its specifications. The generator is complete and tested; its input is not.</div>
+<h2>SEO position, stated honestly</h2>
+<div class="card"><p style="margin:0">The templates produce a single H1, one descriptive title, a meta
+description, semantic sections, and a disclosure that is adjacent to the link — all of which is compatible with
+both Amazon's §5 requirement and the FTC's placement guidance. Keyword selection itself needs the verified
+product and its category, so no keyword target is asserted here.</p>
+<p class="note" style="margin:8px 0 0"><a class="src" href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" rel="noopener noreferrer" target="_blank">FTC placement guidance ↗</a> · <a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener noreferrer" target="_blank">Amazon §5 ↗</a></p></div>
+</main></div>
+<footer><div class="wrap">Generated by <code>scripts/build_s2_site.py</code> from <code>data/*.json</code>; rebuild is
+verified in CI. Every table row carries its own source link; blank cells mean no official source stated the value.
+<a href="../pages/flagged.html">Flagged for review</a> · <a href="../pages/sources.html">All sources</a> ·
+<a href="../pages/verification.html">Verification log</a></div></footer>
+<script src="../assets/app.js" defer></script>
+</body></html>

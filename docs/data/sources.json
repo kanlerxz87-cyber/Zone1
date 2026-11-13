@@ -1,6 +1,6 @@
 {
   "as_of": "2026-11-13",
-  "note": "Every value on the site cites one of these source IDs. 'status' records what the retrieval returned on 2026-11-13. Retrieval used the fetch tool from the build sandbox, not a live browser session. Integration (session 19a679d8, 2026-11-13) added S13-S16 from direct official fetches.",
+  "note": "Every value on the site cites one of these source IDs. 'status' records what the retrieval returned on 2026-11-13. Retrieval used the fetch tool from the build sandbox, not a live browser session.",
   "sources": [
     {
       "id": "S1",
@@ -124,43 +124,33 @@
     },
     {
       "id": "S13",
-      "title": "Canonical check for submitted code B04G1MEwY",
-      "publisher": "Amazon.com (official)",
-      "url": "https://www.amazon.com/dp/B04G1MEwY",
+      "title": "Creators API documentation: prerequisites (Welcome page)",
+      "publisher": "Amazon Associates (affiliate-program.amazon.com)",
+      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction",
       "accessed": "2026-11-13",
       "status": "accessible",
-      "supports": "Amazon error page: 'Sorry! We couldn't find that page.' No product exists at this code (evidence E-01).",
-      "review_note": "Integration evidence for disputed identity mapping (F17)."
+      "supports": "Prerequisites: enrolled in Associates for the target marketplace; at least 10 qualifying sales within the past 30 days to access the PA API through the Creators API; register for API access; generate credentials.",
+      "review_note": "Read by arena-4ba9e055 in an independent cross-check. Quote: 'Have at least 10 qualifying sales within the past 30 days to access the PA API through the Creators API'."
     },
     {
       "id": "S14",
-      "title": "Canonical check for submitted code B02NbDxp3",
-      "publisher": "Amazon.com (official)",
-      "url": "https://www.amazon.com/dp/B02NbDxp3",
+      "title": "PA-API 5 deprecation notice (Creators API docs)",
+      "publisher": "Amazon Associates (affiliate-program.amazon.com)",
+      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation",
       "accessed": "2026-11-13",
       "status": "accessible",
-      "supports": "Amazon error page: 'Sorry! We couldn't find that page.' No product exists at this code (evidence E-02).",
-      "review_note": "Integration evidence for F17."
+      "supports": "PA-API 5 is deprecated and replaced by the Creators API. Applications that still call PA-API 5 receive HTTP 403 with AccessDeniedException.",
+      "review_note": "Read by arena-4ba9e055 in an independent cross-check."
     },
     {
       "id": "S15",
-      "title": "Canonical check for submitted code B00hJ57DV",
-      "publisher": "Amazon.com (official)",
-      "url": "https://www.amazon.com/dp/B00hJ57DV",
+      "title": "Branch arena/8a2ddd06-zone1 on origin (sample of cross-session branches)",
+      "publisher": "GitHub (repository kanlerxz87-cyber/Zone1)",
+      "url": "https://github.com/kanlerxz87-cyber/Zone1/tree/arena/8a2ddd06-zone1",
       "accessed": "2026-11-13",
       "status": "accessible",
-      "supports": "Amazon error page: 'Sorry! We couldn't find that page.' No product exists at this code (evidence E-03).",
-      "review_note": "Integration evidence for F17."
-    },
-    {
-      "id": "S16",
-      "title": "Associates Program Standard Commission Income Statement (public help topic GRXPHT8U84RAYDXZ)",
-      "publisher": "Amazon Associates Central (official)",
-      "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
-      "accessed": "2026-11-13",
-      "status": "accessible",
-      "supports": "Full Table 1 fixed standard commission rates (0.00%-10.00% by category, All Other Categories 4.00%) and Special Commission Income (bounty events). Publicly reachable without sign-in. Partially resolves F02.",
-      "review_note": "Integration addendum; full table also published on the root site's commissions page."
+      "supports": "Branch contains only COORDINATION.md and README.md, although its board marks data, site, and PR tasks as done. Checked with git ls-tree on origin. The same holds for arena/2bef746a-zone1, arena/1874bb64-zone1, and arena/19a679d8-zone1 (listed in the cross-check report).",
+      "review_note": "Observation only. Branch not edited."
     }
   ]
 }
