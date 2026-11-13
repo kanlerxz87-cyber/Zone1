@@ -16,11 +16,11 @@
 | ID  | Task | Status | Owner | Files touched | Notes |
 |-----|------|--------|-------|---------------|-------|
 | T1  | Repo review & baseline | done | session-arena-3740f69d | COORDINATION.md, README.md | Repo contained only README.md ("# Zone1"). No irregular code. Baseline = 42f4036. |
-| T2  | Source research & line-by-line verification (Amazon + FTC official sources) | done | session-arena-3740f69d | data/sources.json, docs/SOURCES.md | See "Verification log" below. Every published value traces to an official URL. |
-| T3  | Product registry + analysis tables (products, pricing/reviews/competition/commission, niches) | done | session-arena-3740f69d | data/products.json, docs/EXECUTIVE_SUMMARY.md, site/products/, site/analysis/, site/niches/ | Unverifiable values left blank and flagged. See Flagged items. |
-| T4  | Platform & automation design (research pipeline, SEO content, link mgmt, tracking, optimization) | done | session-arena-3740f69d | site/platform/, site/content/, site/links/, site/tracking/ | Compliance constraints (PR §2(y), §6(t), IP License §2(e), Agent Terms) baked into design. |
-| T5  | Compliance documentation (Amazon Associates OA/Policies + FTC) | done | session-arena-3740f69d | site/compliance/ | Exact required disclosure text (OA §5) captured and used on every page. |
-| T6  | Site build (GitHub Pages dashboard, tables, nav, Flagged page) | done | session-arena-3740f69d | site/** | Static HTML/CSS. All rows carry source links. |
+| T2  | Source research & line-by-line verification (Amazon + FTC official sources) | done | session-arena-3740f69d | session-3740f69d/data/sources.json, session-3740f69d/SOURCES.md | See "Verification log" below. Every published value traces to an official URL. |
+| T3  | Product registry + analysis tables (products, pricing/reviews/competition/commission, niches) | done | session-arena-3740f69d | session-3740f69d/data/products.json, EXECUTIVE_SUMMARY.md, session-3740f69d/products/, session-3740f69d/analysis/, session-3740f69d/niches/ | Unverifiable values left blank and flagged. See Flagged items. |
+| T4  | Platform & automation design (research pipeline, SEO content, link mgmt, tracking, optimization) | done | session-arena-3740f69d | session-3740f69d/platform/, session-3740f69d/content/, session-3740f69d/links/, session-3740f69d/tracking/ | Compliance constraints (PR §2(y), §6(t), IP License §2(e), Agent Terms) baked into design. |
+| T5  | Compliance documentation (Amazon Associates OA/Policies + FTC) | done | session-arena-3740f69d | session-3740f69d/compliance/ | Exact required disclosure text (OA §5) captured and used on every page. |
+| T6  | Site build (GitHub Pages dashboard, tables, nav, Flagged page) | done | session-arena-3740f69d | session-3740f69d/** | Static HTML/CSS. All rows carry source links. |
 | T7  | Final integration: re-verify combined data, link check, PR → main, enable GitHub Pages | in progress | session-arena-3740f69d | (all) | See "Integration record" below. |
 
 ## Conventions (all sessions)
@@ -34,8 +34,8 @@
 
 ## Verification log
 
-All verification performed 2026-11-13 → see docs/SOURCES.md for the full source register.
-Summary (details and URLs in the site + docs/SOURCES.md):
+All verification performed 2026-11-13 → see session-3740f69d/SOURCES.md for the full source register.
+Summary (details and URLs in the site + session-3740f69d/SOURCES.md):
 
 1. Provided product links (`link.amazon/B04G1MEwY`, `link.amazon/B02NbDxp3`, `link.amazon/B00hJ57DV`)
    resolved **stably** (2× cache-busted fetches each) to amazon.com product pages
@@ -65,7 +65,7 @@ _(filled in by the final integration session — T7)_
 
 - PR: https://github.com/kanlerxz87-cyber/Zone1/pull/10 — "Integration: AI-assisted Amazon affiliate research & marketing platform (verified data + GitHub Pages site)" (opened 2026-11-13; body lists changes, sources, and flagged irregularities)
 - Merge result: executed via `gh pr merge 10 --merge` on 2026-11-13; final merge commit + Pages deployment status recorded in the follow-up PR ("chore: record integration results") immediately after deployment verification.
-- GitHub Pages deployment: source = `main` / `/docs`; deployment verified via GitHub API and a live fetch of the Pages URL (see follow-up commit for URL and status).
+- GitHub Pages deployment: the repository's Pages project is served from `main` (root) via `.github/workflows/pages.yml`, which deploys the whole tree. This session's site is published at `/session-3740f69d/` alongside the other sessions' builds. Deployment verified via GitHub API + live fetch after the merge (details in the follow-up commit).
 
 ## Verification performed (T7)
 

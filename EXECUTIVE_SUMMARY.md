@@ -16,15 +16,15 @@ Associates policies and FTC disclosure requirements. Build marketing for three p
 
 | Deliverable | Location |
 |---|---|
-| Live dashboard site (GitHub Pages) | `docs/` (landing + 10 subpages by category) |
+| Live dashboard site (GitHub Pages) | `session-3740f69d/` — served at `/session-3740f69d/` (landing + 10 subpages by category) |
 | Executive summary (this document) | `EXECUTIVE_SUMMARY.md` |
 | Shared task board for parallel sessions | `COORDINATION.md` |
-| Verified product registry (machine-readable) | `data/products.json`, `data/sources.json` |
-| Line-by-line source register | Site: Sources page (`docs/sources/`) |
-| Flagged irregularities page | Site: Flagged page (`docs/flagged/`) |
-| Marketing content (guides, comparison, per-product copy) | Site: Content page (`docs/content/`) |
-| Compliance center (OA, Program Policies, FTC) | Site: Compliance page (`docs/compliance/`) |
-| Automation platform design | Site: Platform page (`docs/platform/`) |
+| Verified product registry (machine-readable) | `session-3740f69d/data/products.json`, `session-3740f69d/data/sources.json` |
+| Line-by-line source register | Site: Sources page (`session-3740f69d/sources/`) |
+| Flagged irregularities page | Site: Flagged page (`session-3740f69d/flagged/`) |
+| Marketing content (guides, comparison, per-product copy) | Site: Content page (`session-3740f69d/content/`) |
+| Compliance center (OA, Program Policies, FTC) | Site: Compliance page (`session-3740f69d/compliance/`) |
+| Automation platform design | Site: Platform page (`session-3740f69d/platform/`) |
 
 ## 3. Key findings (all verified against official sources)
 
@@ -38,9 +38,11 @@ Associates policies and FTC disclosure requirements. Build marketing for three p
    help). `amazon.com/dp/<ID>` returns "Page Not Found" for all three. Product identity rests on the redirects only.
 3. **The `link.amazon` domain is undocumented** among Amazon's published short-link domains. Redirects work and are
    stable, but provenance is unconfirmed → flagged (F2).
-4. **Commission rates are account-gated.** The official rate table (Commission Income Statement §3 → Appendix →
-   `/help/operating/schedule`) redirects to a sign-in with an account-specific rate card. Rates left blank, not
-   estimated (F4).
+4. **Commission rates: published category rates verified; per-product mapping unverified.** Table 1 of the public
+   [Standard Commission Income Statement](https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ) (verified 2026-11-13) lists fixed category rates — Kitchen 4.50%,
+   Home / Home Improvement 3.00%, All Other Categories 4.00%. Amazon does not publish which table row an air-fryer
+   ASIN maps to, and `/help/operating/schedule` shows an account-specific rate card. Per-product rate cells carry the
+   candidate rows only and are never selected by guess (F4).
 5. **Prices and star ratings cannot legally be republished yet.** Participation Requirements §2(b) (prices) and §6(t)
    (reviews/ratings) allow display only via Amazon-served links or PA/Creators API data. All such cells are blank and
    cite the rule (F5).
@@ -73,7 +75,7 @@ Associates policies and FTC disclosure requirements. Build marketing for three p
 | F1 | Provided IDs are not ASINs (9 chars, mixed case; /dp/ lookups 404) | Product identity depends on redirects |
 | F2 | `link.amazon` domain provenance unverified | Replace with tagged Special Links before monetizing |
 | F3 | ID→product mapping recorded as observation; confirm intended products | Marketing targets the observed stable products |
-| F4 | Commission rates login-gated / account-specific | Revenue modeling paused until account setup |
+| F4 | Per-product commission-rate mapping unverified (candidates: Kitchen 4.50% / Home 3.00% / All Other 4.00%, Table 1 verified) | Confirm category mapping in Associates Central before revenue modeling |
 | F5 | Prices/ratings restricted by policy (PA API required) | Analysis tables intentionally blank |
 | F6 | Deep PDP specs partially unverifiable (anti-bot pages) | Only listing-title attributes recorded |
 

@@ -24,7 +24,7 @@
       "star_rating": null,
       "rating_restriction": "Associates Program Policies Participation Requirements 6(t) — PA API required",
       "commission_rate_percent": null,
-      "commission_rate_restriction": "Official rate table requires Associates sign-in (account-specific rate card)",
+      "commission_rate_restriction": "Category rates published in Standard Commission Income Statement Table 1 (Kitchen 4.50%, All Other 4.00%) — verified; per-product category mapping not published by Amazon, so the applied rate is unverified",
       "source_url": "https://www.amazon.com/dp/B0CDY277D3",
       "flagged": ["F1", "F2", "F3", "F5", "F6"]
     },
@@ -48,7 +48,7 @@
       "star_rating": null,
       "rating_restriction": "Associates Program Policies Participation Requirements 6(t) — PA API required",
       "commission_rate_percent": null,
-      "commission_rate_restriction": "Official rate table requires Associates sign-in (account-specific rate card)",
+      "commission_rate_restriction": "Category rates published in Standard Commission Income Statement Table 1 (Kitchen 4.50%, All Other 4.00%) — verified; per-product category mapping not published by Amazon, so the applied rate is unverified",
       "source_url": "https://www.amazon.com/dp/B09B7SB46R",
       "flagged": ["F1", "F2", "F3", "F5"]
     },
@@ -72,7 +72,7 @@
       "star_rating": null,
       "rating_restriction": "Associates Program Policies Participation Requirements 6(t) — PA API required",
       "commission_rate_percent": null,
-      "commission_rate_restriction": "Official rate table requires Associates sign-in (account-specific rate card)",
+      "commission_rate_restriction": "Category rates published in Standard Commission Income Statement Table 1 (Kitchen 4.50%, All Other 4.00%) — verified; per-product category mapping not published by Amazon, so the applied rate is unverified",
       "source_url": "https://www.amazon.com/dp/B08DKYBTPH",
       "flagged": ["F1", "F2", "F3", "F5", "F6"]
     }

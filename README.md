@@ -5,7 +5,7 @@ competition / commission analysis (compliance-aware), SEO content and buying gui
 click & conversion tracking design, and continuous optimization — built around the Amazon Associates Program
 Operating Agreement (updated 2025-10-15), Program Policies (updated 2026-04-14), and FTC disclosure guidance.
 
-**Live site (GitHub Pages):** published from `docs/` on `main` — start at the dashboard (`docs/index.html`).
+**Live site (GitHub Pages):** published from `main` — this build lives at `session-3740f69d/` (URL path `/session-3740f69d/`).
 
 ## Repository layout
 
@@ -13,10 +13,10 @@ Operating Agreement (updated 2025-10-15), Program Policies (updated 2026-04-14),
 |------|----------|
 | `EXECUTIVE_SUMMARY.md` | Executive summary of objectives, findings, flagged items, owner actions |
 | `COORDINATION.md` | Shared task board for parallel agent sessions (claims, verification log, integration record) |
-| `docs/` | GitHub Pages site — dashboard + subpages: Products, Analysis, Niches, Content, Links, Tracking, Platform, Compliance, Flagged, Sources |
-| `docs/SOURCES.md` | Source register index |
-| `data/products.json` | Machine-readable product registry (every value carries provenance; restricted values are null) |
-| `data/sources.json` | Machine-readable source register |
+| `session-3740f69d/` | GitHub Pages site — dashboard + subpages: Products, Analysis, Niches, Content, Links, Tracking, Platform, Compliance, Flagged, Sources |
+| `session-3740f69d/SOURCES.md` | Source register index |
+| `session-3740f69d/data/products.json` | Machine-readable product registry (every value carries provenance; restricted values are null) |
+| `session-3740f69d/data/sources.json` | Machine-readable source register |
 
 ## Data rules (no hallucinations)
 

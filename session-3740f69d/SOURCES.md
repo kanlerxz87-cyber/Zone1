@@ -2,8 +2,8 @@
 
 The full, row-by-row source register with "what was verified" per source is published on the site:
 
-- **Live register:** [`docs/sources/index.html`](sources/index.html) (rendered on the GitHub Pages site)
-- **Machine-readable:** [`../data/sources.json`](../data/sources.json)
+- **Live register:** [`sources/index.html`](sources/index.html) (rendered on the GitHub Pages site)
+- **Machine-readable:** [`data/sources.json`](data/sources.json)
 
 ## Rules applied
 
@@ -11,7 +11,7 @@ The full, row-by-row source register with "what was verified" per source is publ
    `webservices.amazon.com`, `kdp.amazon.com`, `ftc.gov`.
 2. Every table row on the site links to one of these sources.
 3. Anything unverifiable from an official source is left blank and flagged (see
-   [`docs/flagged/index.html`](flagged/index.html)).
+   [`flagged/index.html`](flagged/index.html)).
 4. All sources accessed **2026-11-13**.
 
 ## Register at a glance

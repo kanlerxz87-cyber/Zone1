@@ -242,11 +242,13 @@
 <section>
   <h2>4. Commission potential</h2>
   <div class="notice warn">
-    <p><strong>Why commission values are blank.</strong> The Standard Commission Income rate table
-    (Commission Income Statement §3 → Appendix) is published at
-    <a href="https://affiliate-program.amazon.com/help/operating/schedule">affiliate-program.amazon.com/help/operating/schedule</a>,
-    which redirects to an Associates sign-in with an account-specific rate card. Rates therefore cannot be verified
-    without account access and are not estimated (flag F4).</p>
+    <p><strong>Why per-product commission values are blank.</strong> Fixed category rates ARE published — verified
+    2026-11-13 in the public <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ">Associates Program Standard Commission Income Statement</a>
+    (Table 1: Physical Books / Kitchen / Automotive 4.50%; Home, Home Improvement … 3.00%; All Other Categories 4.00%).
+    What Amazon does not publish is which table row an air-fryer ASIN maps to (Kitchen vs. Home vs. All Other), and
+    <a href="https://affiliate-program.amazon.com/help/operating/schedule">/help/operating/schedule</a> additionally
+    redirects to an account-specific rate card. The per-product rate is therefore recorded as unverified with
+    candidate rows — never selected by guess (flag F4).</p>
   </div>
 
   <h3>Verified calculation model</h3>
@@ -261,9 +263,9 @@
       </tr>
       <tr>
         <td>Standard Commission Income</td>
-        <td>“Commission Income is calculated as a percentage of Qualifying Revenue.” (rate in Appendix)</td>
-        <td class="blank">— rate card requires sign-in</td>
-        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Commission Income Statement §3</a></td>
+        <td>“Commission Income is calculated as a percentage of Qualifying Revenue.” Fixed category rates are published in Table 1 of the Standard Commission Income Statement.</td>
+        <td class="blank">— per-product mapping unverified; candidates: Kitchen 4.50% · Home 3.00% · All Other 4.00%</td>
+        <td><a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ">Standard Commission Income Statement — Table 1</a></td>
       </tr>
       <tr>
         <td>Session window</td>
@@ -300,8 +302,10 @@
 
   <div class="card">
     <p><strong>Formula (implemented in the platform's calculator):</strong>
-    <code>Commission = Qualifying&nbsp;Revenue × Category&nbsp;Rate%</code>, where both inputs are loaded only from
-    PA&nbsp;API data and the signed-in account rate card. Scenario outputs stay blank until then.</p>
+    <code>Commission = Qualifying&nbsp;Revenue × Category&nbsp;Rate%</code>, where Qualifying Revenue loads only from
+    PA&nbsp;API data and the Category Rate is the verified Table&nbsp;1 row
+    (<a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ">source</a>) once the product's category mapping is confirmed in Associates Central.
+    Scenario outputs stay blank until then.</p>
   </div>
 </section>
 
