@@ -1,0 +1,24 @@
+# Build artefacts and editor cruft are never committed.
+
+# The first build iteration's static site. It is still reproducible on demand with
+#   node scripts/build.mjs
+# and its generator and datasets are preserved in scripts/build.mjs and
+# data/session-d14c5409/. It is not published, because the live site is the
+# thirteen-page site at the repository root.
+docs/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Node
+node_modules/
+
+# Local environment
+.env
+.env.local
+*.log
+
+# OS cruft
+.DS_Store
+Thumbs.db

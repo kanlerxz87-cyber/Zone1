@@ -11,7 +11,8 @@
       "title": "Amazon Associates Program Operating Agreement",
       "publisher": "Amazon Associates Central (affiliate-program.amazon.com)",
       "url": "https://affiliate-program.amazon.com/help/operating/agreement",
-      "type": "Official program agreement"
+      "type": "Official program agreement",
+      "accessed": "2026-11-13"
     },
     {
       "id": "S2",
@@ -19,7 +20,8 @@
       "publisher": "Amazon Associates Central (affiliate-program.amazon.com)",
       "url": "https://affiliate-program.amazon.com/help/operating/policies",
       "type": "Official program policies",
-      "version_note": "Page states \"Updated: April 14, 2026.\""
+      "version_note": "Page states \"Updated: April 14, 2026.\"",
+      "accessed": "2026-11-13"
     },
     {
       "id": "S3",
@@ -27,7 +29,8 @@
       "publisher": "Amazon Associates Central (affiliate-program.amazon.com)",
       "url": "https://affiliate-program.amazon.com/help/operating/schedule",
       "type": "Official rate card",
-      "access_note": "This URL redirects to the Amazon sign-in page (…/home/account/payment/customratecard). The per-product commission rate card is only visible to a signed-in publisher. No numeric commission rate is therefore asserted anywhere in this project."
+      "access_note": "This URL redirects to the Amazon sign-in page (…/home/account/payment/customratecard). The per-product commission rate card is only visible to a signed-in publisher. No numeric commission rate is therefore asserted anywhere in this project.",
+      "accessed": "2026-11-13"
     },
     {
       "id": "S4",
@@ -35,7 +38,8 @@
       "publisher": "U.S. Federal Trade Commission (ftc.gov)",
       "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
       "type": "Official FTC guidance",
-      "version_note": "Page states \"November 2019\"."
+      "version_note": "Page states \"November 2019\".",
+      "accessed": "2026-11-13"
     },
     {
       "id": "S5",
@@ -43,35 +47,121 @@
       "publisher": "U.S. Federal Trade Commission (ftc.gov)",
       "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
       "type": "Official FTC staff guidance",
-      "version_note": "Notes that the Endorsement Guides \"were revised in 2023 with new or revised principles, examples, and definitions, including a new definition of 'clearly and conspicuously.'\""
+      "version_note": "Notes that the Endorsement Guides \"were revised in 2023 with new or revised principles, examples, and definitions, including a new definition of 'clearly and conspicuously.'\"",
+      "accessed": "2026-11-13"
     },
     {
       "id": "S6",
       "title": "16 CFR Part 255 — Guides Concerning Use of Endorsements and Testimonials in Advertising (Endorsement Guides)",
       "publisher": "U.S. Government Publishing Office / eCFR (ecfr.gov)",
       "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255",
-      "type": "Federal regulation (Codified Federal Regulations)"
+      "type": "Federal regulation (Codified Federal Regulations)",
+      "accessed": "2026-11-13"
     },
     {
       "id": "S7",
       "title": "Amazon.com robots.txt",
       "publisher": "Amazon.com",
       "url": "https://www.amazon.com/robots.txt",
-      "type": "Official machine-readable site policy"
+      "type": "Official machine-readable site policy",
+      "accessed": "2026-11-13"
     },
     {
       "id": "S8",
       "title": "Amazon Associates Program home",
       "publisher": "Amazon Associates Central (affiliate-program.amazon.com)",
       "url": "https://affiliate-program.amazon.com/",
-      "type": "Official program site"
+      "type": "Official program site",
+      "accessed": "2026-11-13"
     },
     {
       "id": "S9",
       "title": "Non-Exhaustive Trademark Table (United States)",
       "publisher": "Amazon.com Help",
       "url": "https://www.amazon.com/gp/help/customer/display.html/?nodeId=200738910/",
-      "type": "Official trademark reference"
+      "type": "Official trademark reference",
+      "accessed": "2026-11-13"
+    },
+    {
+      "id": "S10",
+      "title": "Amazon.com product page, ASIN B0CDY277D3 (Product 1)",
+      "publisher": "Amazon.com (official retailer product page)",
+      "url": "https://www.amazon.com/dp/B0CDY277D3?psc=1&language=en_US",
+      "type": "Official product page",
+      "accessed": "2026-11-13",
+      "supports": "Title, brand, manufacturer, model, UPC, rating and rating count, new and used offer prices, list price, discount, price per count, bought-in-past-month badge, Amazon's Choice, Best Sellers Rank, dimensions, material, colour, special features, recommended uses, configuration, included components, manufacturer bullets, and the two capacity statements."
+    },
+    {
+      "id": "S11",
+      "title": "Amazon.com product page, ASIN B08DKYBTPH (Product 3)",
+      "publisher": "Amazon.com (official retailer product page)",
+      "url": "https://www.amazon.com/dp/B08DKYBTPH?psc=1&language=en_US&th=1",
+      "type": "Official product page",
+      "accessed": "2026-11-13",
+      "supports": "Title, brand, rating and rating count, new and used prices, list price, bought-in-past-month badge, Best Sellers Rank, capacity, temperature range, functions, dimensions, weight, wattage, warranty, model/part number, UPC and the manufacturer bullets."
+    },
+    {
+      "id": "S12",
+      "title": "Amazon.com search result for ASIN B09B7SB46R (Product 2)",
+      "publisher": "Amazon.com (official retailer search page)",
+      "url": "https://www.amazon.com/s?k=B09B7SB46R",
+      "type": "Official retailer search result",
+      "accessed": "2026-11-13",
+      "supports": "Product title, brand, rating and rating count, bought-in-past-month badge, the deal price, the list price and the alternate offer price. Used because the Product 2 detail page serves a reduced body that omits the price block and the Item details block."
+    },
+    {
+      "id": "S13",
+      "title": "Amazon.com short link — link.amazon/B04G1MEwY (as supplied)",
+      "publisher": "Amazon.com (official short link)",
+      "url": "https://link.amazon/B04G1MEwY",
+      "type": "Official short link",
+      "accessed": "2026-11-13",
+      "supports": "Resolves to https://www.amazon.com/dp/B0CDY277D3. Recorded as the provenance of the supplied link; not used as an outbound link anywhere on the site."
+    },
+    {
+      "id": "S14",
+      "title": "Amazon.com short link — link.amazon/B02NbDxp3 (as supplied)",
+      "publisher": "Amazon.com (official short link)",
+      "url": "https://link.amazon/B02NbDxp3",
+      "type": "Official short link",
+      "accessed": "2026-11-13",
+      "supports": "Resolves to https://www.amazon.com/dp/B09B7SB46R. Recorded as the provenance of the supplied link; not used as an outbound link anywhere on the site."
+    },
+    {
+      "id": "S15",
+      "title": "Amazon.com short link — link.amazon/B00hJ57DV (as supplied)",
+      "publisher": "Amazon.com (official short link)",
+      "url": "https://link.amazon/B00hJ57DV",
+      "type": "Official short link",
+      "accessed": "2026-11-13",
+      "supports": "Resolves to https://www.amazon.com/dp/B08DKYBTPH. Recorded as the provenance of the supplied link; not used as an outbound link anywhere on the site."
+    },
+    {
+      "id": "S16",
+      "title": "Chefman storefront on Amazon.com (brand page for Products 1 and 3)",
+      "publisher": "Amazon.com (official storefront)",
+      "url": "https://www.amazon.com/stores/Chefman/page/91E18252-ACE3-4B71-AB0D-D43DCB84F22D",
+      "type": "Official brand storefront",
+      "accessed": "2026-11-13",
+      "supports": "Confirms that Product 1 and Product 3 belong to the same brand. Both product pages link to this storefront, and both Item details blocks list Brand Name and Manufacturer as Chefman."
+    },
+    {
+      "id": "S17",
+      "title": "Product 1 User Guide (manufacturer PDF linked from Amazon)",
+      "publisher": "Chefman (manufacturer document hosted on Amazon's media CDN)",
+      "url": "https://m.media-amazon.com/images/I/91jAOUF-OyL.pdf",
+      "type": "Official manufacturer document",
+      "accessed": "2026-11-13",
+      "supports": "The product document linked from the Amazon listing for Product 1."
+    },
+    {
+      "id": "S18",
+      "title": "GitHub API — repository, branches and Pages configuration",
+      "publisher": "GitHub",
+      "url": "https://api.github.com/repos/kanlerxz87-cyber/Zone1",
+      "type": "Official repository API",
+      "accessed": "2026-11-13",
+      "supports": "Repository visibility, default branch, branch list, commit metadata and the GitHub Pages configuration used to verify the deployment."
     }
   ],
   "program_terms": [
@@ -81,7 +171,11 @@
       "requirement": "Site-wide Amazon disclosure statement",
       "detail": "You must clearly and prominently state, on your Site or any other location where Amazon may authorise your display or use of Program Content: \"As an Amazon Associate I earn from qualifying purchases.\" You may not misrepresent or embellish the relationship, including by expressing or implying that Amazon supports, sponsors or endorses you.",
       "source_id": "S1",
-      "applies_to": ["index.html", "all pages", "footer of every page"]
+      "applies_to": [
+        "index.html",
+        "all pages",
+        "footer of every page"
+      ]
     },
     {
       "id": "C-02",
@@ -89,7 +183,9 @@
       "requirement": "Affiliate disclosure wording (FTC)",
       "detail": "\"You should disclose your relationship to the retailer clearly and conspicuously on your site, so readers can decide how much weight to give your endorsement. You could say something like, 'I get commissions for purchases made through links in this post.'\" The closer the disclosure is to your recommendation, the better.",
       "source_id": "S5",
-      "applies_to": ["every page that contains a Special Link"]
+      "applies_to": [
+        "every page that contains a Special Link"
+      ]
     },
     {
       "id": "C-03",
@@ -97,7 +193,9 @@
       "requirement": "Inadequate affiliate disclosure wording",
       "detail": "\"Is 'affiliate link' by itself an adequate disclosure? What about a 'buy now' button?\" — Answer: \"Consumers might not understand that 'affiliate link' means that the person placing the link is getting paid for purchases made through the link. Similarly, a 'buy now' button would not be adequate.\" \"'Paid link' right next to an affiliate link should be an adequate disclosure of the nature of the link.\" \"'Commissionable link' is probably not a clear disclosure.\"",
       "source_id": "S5",
-      "applies_to": ["call-to-action labels used in this project"]
+      "applies_to": [
+        "call-to-action labels used in this project"
+      ]
     },
     {
       "id": "C-04",
@@ -105,7 +203,9 @@
       "requirement": "Disclosure placement",
       "detail": "A disclosure that appears only on an ABOUT ME or profile page, at the end of posts or videos, or behind a \"MORE\" click is likely to be missed. \"The disclosure should be placed with the endorsement message itself.\" For written reviews the disclosure should be placed where it easily catches the reader's attention, and it should be near — or part of — the endorsement it relates to.",
       "source_id": "S4",
-      "applies_to": ["marketing article, comparison, buying guide"]
+      "applies_to": [
+        "marketing article, comparison, buying guide"
+      ]
     },
     {
       "id": "C-05",
@@ -113,7 +213,9 @@
       "requirement": "Disclosure language and content rules",
       "detail": "Use simple, clear language; terms like \"advertisement\", \"ad\" and \"sponsored\" are effective; vague terms such as \"sp\", \"spon\", \"collab\" or a standalone \"thanks\" should be avoided. You cannot talk about an experience with a product you have not tried, and you cannot make claims the advertiser could not legally make. If posting from abroad, U.S. law applies where it is reasonably foreseeable the post will affect U.S. consumers.",
       "source_id": "S4",
-      "applies_to": ["all published marketing content"]
+      "applies_to": [
+        "all published marketing content"
+      ]
     },
     {
       "id": "C-06",
@@ -121,7 +223,9 @@
       "requirement": "Session window and attribution",
       "detail": "A Qualifying Purchase occurs when a customer clicks through a Special Link to an Amazon Site and, during a single Session — measured from the click until the earlier of (x) 24 hours elapsing, (y) the customer placing an order, or (z) the customer clicking through another Special Link that is not yours — the customer purchases a Product. The customer may also add the Product to the cart and complete the order no later than 89 days after the initial click-through, and the Product must be shipped/streamed/downloaded and paid for within 180 days of the purchase.",
       "source_id": "S2",
-      "applies_to": ["campaign measurement design"]
+      "applies_to": [
+        "campaign measurement design"
+      ]
     },
     {
       "id": "C-07",
@@ -129,7 +233,9 @@
       "requirement": "Disqualified purchases",
       "detail": "Qualifying Purchases are disqualified for, among other reasons: any Product order where a cancellation, return or refund has been initiated; any purchase by a customer referred through a Prohibited Paid Search Placement (i.e. paid search on \"amazon\", \"kindle\", or any Amazon trademark or misspelling); any purchase referred by a link generated or displayed on a search engine; any purchase referred via a Redirecting Link (an intermediate site that sends users to Amazon without an affirmative click); any purchase not correctly tracked because the links are not properly formatted; any purchase made as a subscription unless otherwise provided; and any pre-release or pre-order Product not available on a Product listing page.",
       "source_id": "S2",
-      "applies_to": ["paid search plan, link construction, measurement"]
+      "applies_to": [
+        "paid search plan, link construction, measurement"
+      ]
     },
     {
       "id": "C-08",
@@ -137,7 +243,9 @@
       "requirement": "Special Links must carry your Associates ID",
       "detail": "\"All Special Links must be accessed directly from your Site. For example, you must include your Associates ID or 'tag' (appearing as XXXXX-##, or such other format as we may designate) as a parameter in the URL of each link you place on your Site to an Amazon Site.\" Special Links must link to Products, and you must have additional original content on your Site that is relevant to the Special Link when linking to pages with Product lists.",
       "source_id": "S2",
-      "applies_to": ["every outbound Amazon link on this site"]
+      "applies_to": [
+        "every outbound Amazon link on this site"
+      ]
     },
     {
       "id": "C-09",
@@ -145,7 +253,9 @@
       "requirement": "No link shorteners",
       "detail": "\"You will not use a link shortening service, button, hyperlink or other ad placement in a manner that makes it unclear that you are linking to an Amazon Site.\"",
       "source_id": "S2",
-      "applies_to": ["link templates in this project use the full amazon.com/dp/<ASIN> URL plus a tag parameter — no shortener"]
+      "applies_to": [
+        "link templates in this project use the full amazon.com/dp/<ASIN> URL plus a tag parameter — no shortener"
+      ]
     },
     {
       "id": "C-10",
@@ -153,7 +263,9 @@
       "requirement": "No cloaking or redirecting links",
       "detail": "\"You will not cloak, hide, spoof, or otherwise obscure the URL of your Site containing Special Links (including by use of Redirecting Links)…\" and \"You will not attempt to circumvent the Commission Income Statement or artificially increase your commission income.\" Purchases through Redirecting Links are disqualified.",
       "source_id": "S2",
-      "applies_to": ["site architecture"]
+      "applies_to": [
+        "site architecture"
+      ]
     },
     {
       "id": "C-11",
@@ -161,7 +273,9 @@
       "requirement": "No inaccurate, overbroad, deceptive or misleading claims",
       "detail": "\"You must not make inaccurate, overbroad, deceptive or otherwise misleading claims about any Product, an Amazon Site, or any of our policies, promotions, or prices.\" You must remove links and references to limited-time promotions as soon as that promotion ends.",
       "source_id": "S2",
-      "applies_to": ["marketing copy, price and badge claims"]
+      "applies_to": [
+        "marketing copy, price and badge claims"
+      ]
     },
     {
       "id": "C-12",
@@ -169,7 +283,9 @@
       "requirement": "Displaying prices and availability",
       "detail": "\"Product prices and availability may vary from time to time… your Site may only show prices and availability if: (a) we serve the link in which that price and availability data are displayed, or (b) you obtain Product pricing and availability data via Creators API or PA API and you comply with the requirements regarding use of Creators API or PA API in the License.\" Where a price is shown in a comparison format against prices from other sites, you must display both the lowest \"new\" price and, if provided, the lowest \"used\" price available on the Amazon Site.",
       "source_id": "S2",
-      "applies_to": ["catalog table, comparison table, price column"]
+      "applies_to": [
+        "catalog table, comparison table, price column"
+      ]
     },
     {
       "id": "C-13",
@@ -177,7 +293,9 @@
       "requirement": "Star ratings and customer reviews",
       "detail": "\"You will not display or otherwise use any of our customer reviews or star ratings, in part or in whole, on your Site unless you have obtained a link to that customer review or star rating through Creators API or PA API and you comply with the requirements for Creators API and PA API described in the License.\"",
       "source_id": "S2",
-      "applies_to": ["rating columns in the catalog and comparison tables"]
+      "applies_to": [
+        "rating columns in the catalog and comparison tables"
+      ]
     },
     {
       "id": "C-14",
@@ -185,7 +303,9 @@
       "requirement": "No price-tracking or price-alerting functionality",
       "detail": "\"Unless otherwise agreed by Amazon, your Site must not have price tracking and/or price alerting functionality.\"",
       "source_id": "S2",
-      "applies_to": ["site feature set — no price tracker or price alert is built"]
+      "applies_to": [
+        "site feature set — no price tracker or price alert is built"
+      ]
     },
     {
       "id": "C-15",
@@ -193,7 +313,9 @@
       "requirement": "No framing, no pop-ups, no Special Links on Amazon",
       "detail": "You may not frame an Amazon Site (including in a WebView); you may not post Special Links within pop-up, pop-under, transitional page ads or layer ads (except pop-ups on your own Site promoting Products closely associated with your own content); and you may not include Special Links in any content you place on an Amazon Site.",
       "source_id": "S2",
-      "applies_to": ["site implementation"]
+      "applies_to": [
+        "site implementation"
+      ]
     },
     {
       "id": "C-16",
@@ -201,7 +323,9 @@
       "requirement": "Original content requirement",
       "detail": "\"Your Site(s) must contain original content and be publicly available via the website address provided in the application. Original content utilizing third-party materials must contain significant commentary, analysis, or transformation to any materials you include.\" Unsuitable Sites include those that promote sexually explicit, obscene, violent, false/deceptive/libelous/defamatory, hateful or discriminatory material, illegal activity, content directed at children, or that infringe intellectual property rights. Sites may not include an Amazon trademark or a misspelling of one in a domain name, subdomain, tag, Associates ID, username, group name or other identifier.",
       "source_id": "S2",
-      "applies_to": ["this repository and the published site"]
+      "applies_to": [
+        "this repository and the published site"
+      ]
     },
     {
       "id": "C-17",
@@ -209,7 +333,9 @@
       "requirement": "No incentives, no self-purchase, no artificial traffic",
       "detail": "You may not offer any consideration, reward or incentive for using Special Links; you may not directly or indirectly purchase Products through your own Special Links (or encourage friends, relatives, employees, contractors or business relations to do so); and you may not artificially generate clicks or impressions, or create Sessions on an Amazon Site.",
       "source_id": "S2",
-      "applies_to": ["campaign operations"]
+      "applies_to": [
+        "campaign operations"
+      ]
     },
     {
       "id": "C-18",
@@ -217,7 +343,9 @@
       "requirement": "Prohibited paid search placements",
       "detail": "Purchases are disqualified where the customer was referred through an advertisement that you purchased, including bidding on keywords or identifiers that include \"amazon\", \"kindle\", any Amazon Mark, or a variation or misspelling of them. Paid search on general keywords is permitted so long as the results send users to your Site and not, directly or indirectly via a Redirecting Link, to an Amazon Site.",
       "source_id": "S2",
-      "applies_to": ["paid search plan"]
+      "applies_to": [
+        "paid search plan"
+      ]
     },
     {
       "id": "C-19",
@@ -225,7 +353,9 @@
       "requirement": "Amazon Marks usage",
       "detail": "Amazon Marks may be used only by display on your Site with the purpose of advertising the availability of Products on an Amazon Site, with a corresponding Special Link to that Site. Marks must not be altered, must appear by themselves in their entirety with reasonable spacing, and may not be used in a way that implies sponsorship or endorsement by Amazon. You cannot display or use any logo or content created by a third-party seller or vendor on an Amazon Site in connection with a Special Link without that seller's specific written authorisation.",
       "source_id": "S2",
-      "applies_to": ["any Amazon logo or Product Advertising Content used on this site"]
+      "applies_to": [
+        "any Amazon logo or Product Advertising Content used on this site"
+      ]
     },
     {
       "id": "C-20",
@@ -233,7 +363,9 @@
       "requirement": "No Amazon trademarks in identifiers",
       "detail": "A Site is unsuitable if it includes any trademark of Amazon or its affiliates, or a variant or misspelling of one, in any domain name, subdomain name, \"tag\" or Associates ID, or in any username, group name or other identifier on a social networking site.",
       "source_id": "S2",
-      "applies_to": ["repository name, site title, tag values"]
+      "applies_to": [
+        "repository name, site title, tag values"
+      ]
     },
     {
       "id": "C-21",
@@ -241,7 +373,9 @@
       "requirement": "No use of Program Content to train AI models",
       "detail": "\"[Amazon] will not allow any third party to use Program Content to, directly or indirectly, develop or improve large language or multimodal models, machine learning models or related technology.\" You also may not, without express prior written approval, access or use Creators API, PA API or Data Feeds \"for the purpose of aggregating, analyzing, extracting, or repurposing any Product Advertising Content\".",
       "source_id": "S2",
-      "applies_to": ["the AI-assisted research and content-generation design of this platform"]
+      "applies_to": [
+        "the AI-assisted research and content-generation design of this platform"
+      ]
     },
     {
       "id": "C-22",
@@ -249,7 +383,9 @@
       "requirement": "Licensed use is limited to your own Site",
       "detail": "The licence grants a limited, revocable, non-transferable, non-sublicensable, non-exclusive, royalty-free right to copy and display Program Content solely on your Site; use Amazon Marks solely on your Site; and access Creators API, PA API, Data Feeds and Product Advertising Content in accordance with the Specifications. Program Content may not be downloaded, copied or otherwise used for the benefit of any third party, and no data mining, robots or similar gathering/extraction tools may be used on Program Content.",
       "source_id": "S2",
-      "applies_to": ["this repository, if it is used to build a production affiliate site"]
+      "applies_to": [
+        "this repository, if it is used to build a production affiliate site"
+      ]
     },
     {
       "id": "C-23",
@@ -257,7 +393,9 @@
       "requirement": "Payment timing and method",
       "detail": "Commission income is paid approximately 60 days following the end of each calendar month in which it was earned. Payment Minimum Chart (U.S.): Direct Deposit — minimum 10 USD; Gift Card — minimum 10 USD, maximum 2,000 USD; Check — minimum 100 USD, check processing fee 15 USD. If there has been no substantial activity for at least 3 years, Amazon may withhold accrued commission income on 7 days' written notice.",
       "source_id": "S2",
-      "applies_to": ["cash-flow planning"]
+      "applies_to": [
+        "cash-flow planning"
+      ]
     },
     {
       "id": "C-24",
@@ -265,7 +403,9 @@
       "requirement": "Qualifying Revenue basis",
       "detail": "Qualifying Revenue equals the amount actually received from the Qualifying Purchase, less shipping charges, gift-wrapping fees, handling fees, taxes, service charges, credits, rebates, credit card processing fees and bad debt. Commission is calculated as a percentage of Qualifying Revenue and is rounded to the nearest local currency amount, so the effective rate may differ slightly from the published rate card.",
       "source_id": "S2",
-      "applies_to": ["revenue model assumptions"]
+      "applies_to": [
+        "revenue model assumptions"
+      ]
     },
     {
       "id": "C-25",
@@ -273,7 +413,9 @@
       "requirement": "Rate card is not public",
       "detail": "The Standard Commission Income schedule is linked from the Program Policies Appendix at affiliate-program.amazon.com/help/operating/schedule, but that URL redirects to the Amazon sign-in page. The per-product commission rate card is therefore only visible to a signed-in publisher and no numeric rate is asserted in this project.",
       "source_id": "S3",
-      "applies_to": ["revenue model — rate is an input supplied by the publisher"]
+      "applies_to": [
+        "revenue model — rate is an input supplied by the publisher"
+      ]
     },
     {
       "id": "C-26",
@@ -281,7 +423,9 @@
       "requirement": "What counts as a Product, and what is excluded",
       "detail": "A \"Product\" is any physical or digital item sold on an Amazon Site. Excluded Products include, among others, any product or service sold on a site linked to from an Amazon Site, certain alcoholic beverages and Amazon Pharmacy products, and any product or service Amazon designates as excluded. No services other than Amazon Home Services are currently included.",
       "source_id": "S2",
-      "applies_to": ["product eligibility screening"]
+      "applies_to": [
+        "product eligibility screening"
+      ]
     },
     {
       "id": "C-27",
@@ -289,7 +433,9 @@
       "requirement": "Amazon may monitor your Site",
       "detail": "Amazon may \"monitor, record, use and disclose information about your Site and users of your Site that we obtain in connection with your display of Special Links and Program Content\", and may \"review, monitor, crawl, and otherwise investigate your Site to verify compliance\". Amazon may also use and reproduce your logo and your implementation of Program Content as examples of best practices in its educational materials.",
       "source_id": "S1",
-      "applies_to": ["site design decisions"]
+      "applies_to": [
+        "site design decisions"
+      ]
     },
     {
       "id": "C-28",
@@ -297,7 +443,32 @@
       "requirement": "Termination",
       "detail": "Either party may terminate the Agreement at any time, with or without cause, by giving the other party written notice; the effective date is 7 calendar days from the date the notice is provided. Amazon may terminate or suspend the account immediately for material breach, potential legal claims, brand or reputation concerns, deceptive/fraudulent/illegal activity, tax-registration requirements, or a prior termination.",
       "source_id": "S1",
-      "applies_to": ["operational risk"]
+      "applies_to": [
+        "operational risk"
+      ]
+    },
+    {
+      "id": "C-29",
+      "area": "Program administration",
+      "requirement": "Non-US publishers",
+      "detail": "\"If you are a non-US person participating in the Associates Program, you agree that unless you have otherwise notified us in your tax information you will perform all services under the Agreement outside the United States.\" The publisher of this project is based in Oslo, Norway, so this clause applies unless the account's tax information says otherwise.",
+      "source_id": "S2",
+      "applies_to": [
+        "publisher account setup",
+        "marketplace selection",
+        "delivery destination"
+      ]
+    },
+    {
+      "id": "C-30",
+      "area": "Content accuracy",
+      "requirement": "Marketplace and delivery destination",
+      "detail": "All three supplied links resolve to amazon.com, the United States marketplace. The price, offer set, availability and delivery terms shown by that marketplace are United States values, and whether each listing ships to the publisher's country was not verified. No delivery date, shipping cost or non-US price is asserted anywhere on this site.",
+      "source_id": "S2",
+      "applies_to": [
+        "every price row",
+        "every availability statement"
+      ]
     }
   ],
   "automation_rules": [
@@ -347,6 +518,18 @@
       "id": "R-08",
       "rule": "Gate any AI-assisted scoring behind a human approval step",
       "detail": "Because claims about a Product must not be inaccurate, overbroad, deceptive or misleading, and because an endorser may not describe an experience they have not had, AI-generated copy must be reviewed against the verified product record before publication, and must not assert first-hand experience.",
+      "source_id": "S2"
+    },
+    {
+      "id": "R-09",
+      "rule": "Record the marketplace and the delivery destination with every price",
+      "detail": "A price is only meaningful together with its marketplace and its destination country. The automated pipeline must capture the marketplace identifier alongside the price, and must not publish a price for a destination the reader is not in. For a non-US publisher this also interacts with the non-US clause in Participation Requirements section 1.",
+      "source_id": "S2"
+    },
+    {
+      "id": "R-10",
+      "rule": "Never reuse a third-party short link as an outbound Special Link",
+      "detail": "Rebuild every outbound link as a direct amazon.com/dp/<ASIN> URL carrying the publisher's tag. A redirect hop obscures the destination from the reader, conflicts with the rule against link shortening, and disqualifies purchases that arrive through a Redirecting Link.",
       "source_id": "S2"
     }
   ]

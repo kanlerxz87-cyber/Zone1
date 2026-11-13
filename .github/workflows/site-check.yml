@@ -1,0 +1,43 @@
+name: Site check
+
+# The published site is static HTML committed to the repository root, so there is
+# nothing to deploy. This workflow exists to prove that what is committed is
+# internally consistent: the datasets parse and satisfy their schema, the
+# generator reproduces the committed pages byte for byte, and every page passes
+# the link, source, disclosure, accessibility and responsive checks.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Verify the committed pages match the generator output
+        run: |
+          python3 tools/build_site.py
+          if ! git diff --quiet --exit-code -- index.html pages assets; then
+            echo "::error::The committed site is out of date. Run 'python3 tools/build_site.py' and commit the result."
+            git --no-pager diff --stat -- index.html pages assets
+            exit 1
+          fi
+
+      - name: Run the site integrity checker
+        run: python3 tools/check_links.py
+
+      - name: Verify the archived first-iteration build still reproduces
+        run: |
+          node scripts/build.mjs
+          echo "The archived build is reproducible."

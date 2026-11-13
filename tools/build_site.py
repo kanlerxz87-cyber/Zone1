@@ -43,6 +43,11 @@ LINKS_BY_ID = {l["id"]: l for l in PRODUCTS["links"]}
 FLAG_BY_ID = {f["id"]: f for f in FLAGS["flags"]}
 SOURCE_BY_ID = {s["id"]: s for s in PROGRAM["sources"]}
 
+# A flag is "open" while it still needs a decision from the owner. Items whose status is
+# "done" were raised, then resolved, and stay published as the audit trail.
+FLAGS_OPEN = [f for f in FLAGS["flags"] if f["status"] == "needs review"]
+FLAGS_CLOSED = [f for f in FLAGS["flags"] if f["status"] != "needs review"]
+
 
 # --------------------------------------------------------------------------
 # helpers
@@ -245,7 +250,7 @@ NAV = [
 def sidebar(depth):
     parts = []
     for group, items in NAV:
-        parts.append('<div class="nav-group"><h4>{}</h4>'.format(esc(group)))
+        parts.append('<div class="nav-group"><h2>{}</h2>'.format(esc(group)))
         for href, label in items:
             parts.append('<a href="{u}">{l}</a>'.format(u=esc(up(depth) + href), l=esc(label)))
         parts.append("</div>")
@@ -398,7 +403,8 @@ def page_index():
     <span class="pill info">{total_fields} tracked attributes</span>
     <span class="pill ok">{verified} verified</span>
     <span class="pill flag">{unverified} unverified</span>
-    <span class="pill warn">{nflags} irregularities flagged</span>
+    <span class="pill warn">{nopen} open irregularities</span>
+    <span class="pill grey">{nclosed} resolved</span>
     <span class="pill grey">Snapshot: {build}</span>
   </div>
 </div>
@@ -428,7 +434,7 @@ def page_index():
       <li><strong>Analyse</strong> — pricing, review depth, competitive set, demand velocity and commission potential are modelled from the verified values only.</li>
       <li><strong>Generate</strong> — SEO article, head-to-head comparison and buying guide, each carrying the required Amazon and FTC disclosures inline.</li>
       <li><strong>Operate</strong> — link templates with a publisher tag, a sub-tag measurement scheme, and a re-verification schedule that keeps price and badge claims compliant.</li>
-      <li><strong>Govern</strong> — {n_terms} program rules mapped to this site, {n_rules} automation rules, and {nflags} irregularities published for review rather than silently resolved.</li>
+      <li><strong>Govern</strong> — {n_terms} program rules mapped to this site, {n_rules} automation rules, and {nopen} open irregularities published for review rather than silently resolved.</li>
     </ol>
   </div>
   <div class="card">
@@ -441,7 +447,7 @@ def page_index():
       <li><a href="{d}pages/campaign.html">Campaign &amp; Tracking</a> — link management, measurement and optimisation loop.</li>
       <li><a href="{d}pages/compliance.html">Compliance</a> — Amazon Associates rules and FTC disclosure requirements.</li>
       <li><a href="{d}pages/sources.html">Sources &amp; Verification</a> — the full audit trail.</li>
-      <li><a href="{d}pages/flagged.html">Flagged for Review</a> — {nflags} open items, each with its source.</li>
+      <li><a href="{d}pages/flagged.html">Flagged for Review</a> — {nopen} open items and {nclosed} resolved, each with its source.</li>
     </ul>
   </div>
 </div>
@@ -462,6 +468,8 @@ def page_index():
         verified=verified,
         unverified=unverified,
         nflags=len(FLAGS["flags"]),
+        nopen=len(FLAGS_OPEN),
+        nclosed=len(FLAGS_CLOSED),
         n_sources=len(PROGRAM["sources"]),
         n_terms=len(PROGRAM["program_terms"]),
         n_rules=len(PROGRAM["automation_rules"]),
@@ -594,7 +602,7 @@ every number on it links to the official source it came from.</p>
     <div class="note">SEO article, comparison, buying guide</div></div>
   <div class="kpi"><div class="label">Program rules mapped</div><div class="value sm">{n_terms}</div>
     <div class="note">plus {n_rules} automation rules</div></div>
-  <div class="kpi"><div class="label">Open items for review</div><div class="value sm">{nflags}</div>
+  <div class="kpi"><div class="label">Open items for review</div><div class="value sm">{nopen}</div>
     <div class="note">published, non-blocking</div></div>
 </div>
 
@@ -618,7 +626,7 @@ every number on it links to the official source it came from.</p>
 </ol>
 
 <div class="note flag"><strong>Review items that do not block this site going live.</strong>
-{nflags} irregularities are published on the <a href="{d}pages/flagged.html">Flagged for
+{nopen} open irregularities are published on the <a href="{d}pages/flagged.html">Flagged for
 Review</a> page, each with what was observed, the official source that was checked, and the
 action taken. They are decisions for the publisher after the site is live.</div>
 """.format(
@@ -665,6 +673,8 @@ action taken. They are decisions for the publisher after the site is live.</div>
         n_terms=len(PROGRAM["program_terms"]),
         n_rules=len(PROGRAM["automation_rules"]),
         nflags=len(FLAGS["flags"]),
+        nopen=len(FLAGS_OPEN),
+        nclosed=len(FLAGS_CLOSED),
         d=esc(up(depth)),
     )
     return layout(
@@ -711,6 +721,11 @@ explains exactly what was tried.</p>
         )
     )
 
+    body += """
+<h2 style="margin-top:22px">Full product records</h2>
+<p class="small muted">One card per product, with every tracked attribute and its source.</p>
+"""
+
     for p in PRODUCTS["products"]:
         body += """
 <div class="card flush" id="{pid}">
@@ -730,20 +745,20 @@ explains exactly what was tried.</p>
         <div class="note">BSR Air Fryers: {bsr}</div></div>
     </div>
 
-    <h4>Verified attributes</h4>
+    <h3>Verified attributes</h3>
     {fields}
 
-    <h4>Manufacturer feature bullets (verbatim)</h4>
+    <h3>Manufacturer feature bullets (verbatim)</h3>
     {bullets}
 
-    <h4>Affiliate link template</h4>
+    <h3>Affiliate link template</h3>
     <p class="small">Replace <span class="mono">YOUR-TAG-XX</span> with your Associates ID
     before publishing. Special Links must carry the publisher's tag, must link directly to the
     Product detail page, and must not pass through a link shortener or redirect.
     {f11} <a href="{d}pages/compliance.html">Compliance detail →</a></p>
     {linkbox}
 
-    <h4>Category path</h4>
+    <h3>Category path</h3>
     <p class="small">{catpath} <span class="muted">·</span> Source: {catsrc}</p>
   </div>
 </div>
@@ -828,6 +843,9 @@ def page_category(cat_key, title, intro, ids):
     body += '<div class="card flush" style="margin-bottom:18px"><div class="card-head">' \
             '<strong>Category snapshot</strong></div><div class="card-body" style="padding:0">' \
             + snapshot_table(depth, ids) + "</div></div>"
+    body += ('<h2 style="margin-top:22px">Products in this category</h2>'
+             '<p class="small muted">One card per product, with every tracked attribute '
+             'and its source.</p>')
     for p in prods:
         body += """
 <div class="card flush">
@@ -845,9 +863,9 @@ def page_category(cat_key, title, intro, ids):
       <div class="kpi"><div class="label">Demand</div><div class="value sm">{bought}</div>
         <div class="note">BSR Air Fryers: {bsr}</div></div>
     </div>
-    <h4>Full verified record</h4>
+    <h3>Full verified record</h3>
     {fields}
-    <h4>Link template</h4>
+    <h3>Link template</h3>
     {linkbox}
   </div>
 </div>
@@ -1360,13 +1378,13 @@ the two open compliance gates are closed.</p>
   {disclosure}
 
   <h3>Frequently asked questions</h3>
-  <h4>Do I need a dual basket?</h4>
+  <h3>Do I need a dual basket?</h3>
   <p>Only if you regularly cook two things at different times and want them to finish together.
   For most households a single larger basket is simpler and cheaper.</p>
-  <h4>Is a 26-quart air fryer oven worth it?</h4>
+  <h3>Is a 26-quart air fryer oven worth it?</h3>
   <p>It is worth it if you cook for more than four people or host regularly. Below that, the
   capacity is unused and the price premium is real.</p>
-  <h4>Are the baskets dishwasher safe?</h4>
+  <h3>Are the baskets dishwasher safe?</h3>
   <p>The CHEFMAN 6 Quart dual basket has removable, non-stick coated dishwasher-safe baskets.
   The Chefman 8 Qt lists its basket and care instructions as dishwasher safe with a stainless
   steel inner material. The Emeril Lagasse 26QT care instructions could not be confirmed from
@@ -1689,11 +1707,11 @@ happen. {f4}</p>
   <p class="small">Each link below is the Amazon product detail page for that product. Replace
   the placeholder tag with your Associates ID before publishing. {f11}</p>
   <div class="grid g3" style="margin-top:12px">
-    <div class="card" style="margin:0"><h4 style="margin-top:0">{n1}</h4>
+    <div class="card" style="margin:0"><h3 style="margin-top:0">{n1}</h3>
       <p class="small">Dual basket, 3 qt per basket, Sync Finish.</p>{lb1}</div>
-    <div class="card" style="margin:0"><h4 style="margin-top:0">{n2}</h4>
+    <div class="card" style="margin:0"><h3 style="margin-top:0">{n2}</h3>
       <p class="small">26QT French door, 24 functions, rotisserie.</p>{lb2}</div>
-    <div class="card" style="margin:0"><h4 style="margin-top:0">{n3}</h4>
+    <div class="card" style="margin:0"><h3 style="margin-top:0">{n3}</h3>
       <p class="small">8 qt TurboFry 4-in-1, dishwasher-safe basket.</p>{lb3}</div>
   </div>
 </div>
@@ -1986,7 +2004,7 @@ to the source it came from.</p>
   <h2 style="margin-top:0">Two disclosures this site carries</h2>
   <div class="grid g2">
     <div>
-      <h4>Amazon — required statement</h4>
+      <h3>Amazon — required statement</h3>
       <div class="quotebox">"As an Amazon Associate I earn from qualifying purchases."</div>
       <p class="small">The Operating Agreement requires this to be stated clearly and prominently
       on your Site, and forbids misrepresenting or embellishing the relationship. It appears in
@@ -1994,7 +2012,7 @@ to the source it came from.</p>
       <p class="small muted">Source: {s1}.</p>
     </div>
     <div>
-      <h4>FTC — affiliate disclosure</h4>
+      <h3>FTC — affiliate disclosure</h3>
       <div class="quotebox">"You should disclose your relationship to the retailer clearly and
       conspicuously on your site… You could say something like, 'I get commissions for purchases
       made through links in this post.'"</div>
@@ -2004,7 +2022,7 @@ to the source it came from.</p>
       <p class="small muted">Source: {s5}.</p>
     </div>
   </div>
-  <h4>Wording that is not acceptable</h4>
+  <h3>Wording that is not acceptable</h3>
   <div class="table-scroll"><table class="data compact"><thead><tr>
     <th>Wording</th><th>FTC assessment</th><th>Official source</th></tr></thead><tbody>
     <tr><td>"Affiliate link"</td><td>Not adequate on its own — consumers might not understand
@@ -2238,13 +2256,19 @@ def page_flagged():
     sev_pill = {"high": "flag", "medium": "warn", "low": "grey"}
     rows = []
     for f in FLAGS["flags"]:
+        legacy = f.get("legacy_ids") or []
+        prov = '<div class="small muted">raised by {o}</div>'.format(o=esc(f.get("origin", "zone1-main")))
+        if legacy:
+            prov += '<div class="small muted">also logged as {l}</div>'.format(
+                l=esc(", ".join(legacy)))
         rows.append(
             '<tr id="{fid}"><td class="mono"><strong>{fid}</strong></td>'
-            '<td><strong>{title}</strong><div class="small muted">{cat}</div></td>'
+            '<td><strong>{title}</strong><div class="small muted">{cat}</div>{prov}</td>'
             '<td><span class="pill {sev_p}">{sev}</span></td>'
             '<td>{obs}</td><td>{why}</td><td>{act}</td>'
             '<td class="src">{src}</td><td>{st}</td></tr>'.format(
                 fid=esc(f["id"]), title=esc(f["title"]), cat=esc(f["category"]),
+                prov=prov,
                 sev=esc(f["severity"]), sev_p=sev_pill.get(f["severity"], "grey"),
                 obs=esc(f["observation"]), why=esc(f["why_it_matters"]),
                 act=esc(f["action_taken"]),
@@ -2260,7 +2284,7 @@ None of these blocks the site going live — each is published here with the sou
 checked and the action taken, so you can review and request changes after the site is live.</p>
 
 <div class="grid g4" style="margin-bottom:16px">
-  <div class="kpi"><div class="label">Open items</div><div class="value">{n}</div>
+  <div class="kpi"><div class="label">Open items</div><div class="value">{nopen}</div>
     <div class="note">published for review</div></div>
   <div class="kpi"><div class="label">High severity</div><div class="value">{nh}</div>
     <div class="note">must be closed before live traffic</div></div>
@@ -2269,6 +2293,12 @@ checked and the action taken, so you can review and request changes after the si
   <div class="kpi"><div class="label">Low severity</div><div class="value">{nl}</div>
     <div class="note">cosmetic or completeness gaps</div></div>
 </div>
+
+<div class="note"><strong>{ntotal} items in the register, {nclosed} of them resolved.</strong>
+Every item ever raised stays on this page, including the ones that have since been closed, so the
+audit trail is complete. Resolved items keep their observation and their source, and record what
+closed them. The register also carries findings from the first build iteration of this project:
+each such item shows the id it had in that earlier register.</div>
 
 <div class="note flag"><strong>How to use this page.</strong> Each item names what was observed,
 which official source was checked, and what the project did about it. If an item is wrong, or
@@ -2304,9 +2334,12 @@ memory.</p>
 </div></div>
 """.format(
         n=len(FLAGS["flags"]),
-        nh=sum(1 for f in FLAGS["flags"] if f["severity"] == "high"),
-        nm=sum(1 for f in FLAGS["flags"] if f["severity"] == "medium"),
-        nl=sum(1 for f in FLAGS["flags"] if f["severity"] == "low"),
+        ntotal=len(FLAGS["flags"]),
+        nopen=len(FLAGS_OPEN),
+        nclosed=len(FLAGS_CLOSED),
+        nh=sum(1 for f in FLAGS_OPEN if f["severity"] == "high"),
+        nm=sum(1 for f in FLAGS_OPEN if f["severity"] == "medium"),
+        nl=sum(1 for f in FLAGS_OPEN if f["severity"] == "low"),
         rows="".join(rows),
         blank="".join(
             '<tr><td>{ref}</td><td>{label}</td><td>{why}</td><td class="src">{s}</td></tr>'.format(
