@@ -91,20 +91,6 @@
       "status": "verified",
       "url": "https://www.amazon.com/dp/B02NbDxp3",
       "note": "all three detail pages return Amazon's 404 page"
-    },
-    {
-      "label": "Policy constraints enforced in code",
-      "value": "25",
-      "status": "verified",
-      "url": "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform",
-      "note": "platform/ modules named in the Compliance table"
-    },
-    {
-      "label": "Unit tests passing",
-      "value": "33",
-      "status": "verified",
-      "url": "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform/tests",
-      "note": "python3 -m unittest discover -s platform/tests -t platform"
     }
   ],
   "economics": {
