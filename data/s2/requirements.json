@@ -161,7 +161,7 @@
       "id": "R-18",
       "requirement": "Compliance with Amazon Associates policies",
       "status": "delivered",
-      "where": "Compliance page (25 checked rules)",
+      "where": "Compliance page (every rule sourced and quoted)",
       "note": "Each rule quotes the official agreement text and names the code guard that enforces it.",
       "source": "https://affiliate-program.amazon.com/help/operating/agreement",
       "source_label": "Operating Agreement + Program Policies"

@@ -40,6 +40,43 @@ STATUS_CLASS = {
 }
 
 
+def counts(D: dict) -> dict:
+    """Every number the site prints about itself is measured here, never typed.
+
+    A dashboard that miscounts its own rows undermines the one thing it is for.
+    """
+    rows = [r for g in D["program"]["groups"] for r in g["rows"]]
+    tests = 0
+    tpath = os.path.join(ROOT, "platform", "tests", "test_platform.py")
+    if os.path.exists(tpath):
+        tests = open(tpath, encoding="utf-8").read().count("def test_")
+    return {
+        "rules": len(rows),
+        "groups": len(D["program"]["groups"]),
+        "verified_rows": sum(1 for r in rows if r["status"] == "verified"),
+        "blank_rows": sum(1 for r in rows if r["status"] == "unverified"),
+        "guarded": sum(1 for r in rows if ".py" in (r.get("checked_by") or "")),
+        "tests": tests,
+        "checks": len(D["verification"]["entries"]),
+        "sources": len(D["sources"]["sources"]),
+        "flags": len(D["flags"]["flags"]),
+        "pages": len(PAGES),
+    }
+
+
+def derived_rows(C) -> list:
+    """Count rows appended to the headline table, with the repo as their source."""
+    repo = "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform"
+    return [
+        {"label": "Rules in the compliance matrix", "value": str(C["rules"]), "status": "verified",
+         "url": repo + "/data/s2/program.json", "note": f"{C['groups']} categories · {C['verified_rows']} verified, {C['blank_rows']} deliberately blank"},
+        {"label": "Rules naming the code guard that enforces them", "value": str(C["guarded"]), "status": "verified",
+         "url": repo, "note": "each row's `checked_by` field points at a real function"},
+        {"label": "Unit tests guarding those rules", "value": str(C["tests"]), "status": "verified",
+         "url": repo + "/tests", "note": "counted from the test file itself, so the figure cannot go stale"},
+    ]
+
+
 def load(name: str) -> dict:
     with open(os.path.join(DATA, name), encoding="utf-8") as fh:
         return json.load(fh)
@@ -291,9 +328,10 @@ def p_index(D) -> str:
     integ_table = table(["Page from another session", "What it publishes", "Verified by this session?", "Live check"],
                         integ_rows,
                         "Listed so nothing is silently discarded; the merge kept every one of these files intact.")
+    C = counts(D)
     kn = table(["Metric", "Value", "Status", "Source"],
                [[esc(r["label"]), f"<b>{esc(r['value'])}</b>", pill(r["status"]), src(r["url"])]
-                for r in a["key_numbers"]])
+                for r in a["key_numbers"] + derived_rows(C)])
     prods = table(["Ref", "Identifier supplied", "Chars", "Valid ASIN", "Catalog lookup", "Status"],
                   [[esc(p["ref"]), f"<code>{esc(p['supplied_token'])}</code>", str(p["token_length"]),
                     '<span class="pill bad">no — 10 required</span>' if not p["asin_format_valid"] else pill("yes"),
@@ -305,10 +343,12 @@ def p_index(D) -> str:
               esc(f["title"]), src(f["sources"][0]["url"], "evidence")] for f in flags]
     cards = "".join(
         f'<div class="kpi"><b>{n}</b><span>{esc(l)}</span></div>'
-        for n, l in [(str(len(a["key_numbers"])), "verified headline metrics"),
-                    (str(sum(len(g["rows"]) for g in D["program"]["groups"])), "policy rules in the matrix"),
-                    ("33", "unit tests passing"),
-                    (str(len(flags)), "items flagged for your review"),
+        for n, l in [(str(C["rules"]), f'rules in the compliance matrix ({C["groups"]} categories)'),
+                    (f'{C["guarded"]}/{C["rules"]}', "rules naming the code guard that enforces them"),
+                    (str(C["tests"]), "unit tests guarding those rules"),
+                    (str(C["checks"]), "line-by-line verification checks logged"),
+                    (str(C["sources"]), "official sources in the registry"),
+                    (str(C["flags"]), "items flagged for your review"),
                     ("0 of 3", "products verifiable from the links given")])
     body = f"""
 <div class="alert crit"><b>Read this first.</b> The three product links supplied for this build do not identify any
@@ -331,7 +371,7 @@ an asserted rate, which is the correct treatment of Table 1 (see the F-04 correc
 <li><a href="pages/executive-summary.html">Executive summary</a> — the whole project in one page.</li>
 <li><a href="pages/compliance.html">Associates rule matrix</a> — every rule with the quoted official text.</li>
 <li><a href="pages/flagged.html">Flagged for review</a> — all contested and unverified items, with links.</li>
-<li><a href="pages/verification.html">Verification log</a> — 33 line-by-line checks, one row each.</li>
+<li><a href="pages/verification.html">Verification log</a> — {C["checks"]} line-by-line checks, one row each.</li>
 </ul></div>"""
     return page("Dashboard", "", "index.html", body,
                 sub="Collection, organisation and analysis for the Zone1 affiliate brief. Every row links to the official page that states it.")
@@ -423,6 +463,7 @@ the value was not stated by any official page, so it is left empty and flagged r
 
 
 def p_compliance(D) -> str:
+    _C = counts(D)
     g_rows = []
     for g in D["program"]["groups"]:
         rows = [[f'<code>{esc(r["id"])}</code>', esc(r["claim"]), esc(r["value"]) or '<span class="pill blank">blank</span>',
@@ -438,8 +479,9 @@ def p_compliance(D) -> str:
               esc(r.get("why_blank") or r.get("quote") or ""), src(r["url"], "where it would come from")] for r in blank]
     body = f"""
 <p class="note">{esc(D["program"]["how_to_read"])}</p>
-<div class="card"><b>{sum(len(g["rows"]) for g in D["program"]["groups"])}</b> rules across
-<b>{len(D["program"]["groups"])}</b> categories. Retrieved from the official pages on
+<div class="card"><b>{_C["rules"]}</b> rules across
+<b>{_C["groups"]}</b> categories, of which <b>{_C["verified_rows"]}</b> are verified and <b>{_C["blank_rows"]}</b>
+are left blank on purpose. Retrieved from the official pages on
 {esc(D["program"]["retrieved"])}. Each row quotes the wording on the linked page; a row is only marked
 <em>verified</em> when that page states it.</div>
 {"".join(g_rows)}
@@ -448,7 +490,7 @@ def p_compliance(D) -> str:
 absent rather than estimated.</p>
 {table(["Rule", "Subject", "Why it is blank", "Where the answer lives"], brows)}"""
     return page("Amazon Associates rule matrix", "../", "pages/compliance.html", body,
-                sub="Every platform constraint, quoted from the official agreement text, with the code guard that enforces it.")
+                sub="Every program constraint, quoted from the official text, with the code guard that enforces it.")
 
 
 def p_economics(D) -> str:

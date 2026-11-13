@@ -98,7 +98,7 @@ NAV = [
     # Additive section contributed by parallel session 8a2ddd06 (own data, own source register).
     ("research/index.html", "Deep-dive research ↗", "Independent 25-source verification pass"),
     # Additive section contributed by parallel session zone1-s2 (own data in data/s2/, own site in s2/).
-    ("s2/index.html", "Verified platform pass ↗", "25-rule compliance matrix, 33-test engine, 14 open flags"),
+    ("s2/index.html", "Verified platform pass ↗", "Compliance matrix, verification log, and this pass's own flags"),
 ]
 
 # --------------------------------------------------------------------------- #
