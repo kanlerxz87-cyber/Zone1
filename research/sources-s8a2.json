@@ -200,6 +200,14 @@
       "publisher": "Amazon.com, Inc.",
       "kind": "retailer-official",
       "supports": "Control test proving the supplied short codes are NOT ASINs: the request returns Amazon's 'Page Not Found' error page. Used as evidence for I-1 and I-18."
+    },
+    {
+      "id": "S26",
+      "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+      "label": "Chefman official product page — TurboFry Touch Stainless-Steel Air Fryer, model RJ38-SQSS-8T",
+      "publisher": "Chefman (chefman.com)",
+      "kind": "manufacturer-official",
+      "supports": "Identifies the actual stainless-steel 8-quart Chefman SKU. Used to show that the Amazon title's 'Stainless Steel' wording matches a DIFFERENT model than RJ38-8T-BLACK (matte black) — see I-7."
     }
   ]
 }

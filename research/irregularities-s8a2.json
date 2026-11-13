@@ -118,13 +118,14 @@
       "severity": "medium",
       "type": "attribute conflict",
       "title": "Finish conflict: Amazon title says 'Stainless Steel', manufacturer page says 'Matte-black'",
-      "detail": "ASIN B08DKYBTPH's Amazon title ends '| Stainless Steel', while the official Chefman page for the same model number (RJ38-8T-BLACK) lists 'Matte-black finish' in its features and specification block. The manufacturer page for a different SKU (RJ38-SQSS-8T) is the stainless-steel version. Either the Amazon title is generic or the ASIN maps to a different physical variant.",
+      "detail": "ASIN B08DKYBTPH's Amazon title ends '| Stainless Steel', while the official Chefman page for the same model number (RJ38-8T-BLACK) lists 'Matte-black finish' in its features and specification block. The manufacturer page for a different SKU (RJ38-SQSS-8T) is the stainless-steel version. Either the Amazon title is generic or the ASIN maps to a different physical variant. Newly confirmed on 2026-11-13: this session read four additional Chefman product pages. Chefman publishes a separate stainless-steel 8-quart SKU, RJ38-SQSS-8T (TurboFry Touch Stainless-Steel Air Fryer, 'From $79.99', 715 reviews), while RJ38-8T-BLACK is listed as 'Matte-black finish'. So both official surfaces are internally consistent about their own SKU — the conflict is that Amazon's title attaches 'Stainless Steel' to the ASIN whose model number is RJ38-8T-BLACK.",
       "affected": [
         "P3"
       ],
       "source_urls": [
         "https://www.amazon.com/dp/B08DKYBTPH",
-        "https://chefman.com/collections/air-fryers-1/products/turbofry-8-qt-air-fryer-w-high-fry"
+        "https://chefman.com/collections/air-fryers-1/products/turbofry-8-qt-air-fryer-w-high-fry",
+        "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
       ],
       "action_required": "Confirm the colourway before publishing any image-led content. The site does not state a colour for P3.",
       "verified": true,

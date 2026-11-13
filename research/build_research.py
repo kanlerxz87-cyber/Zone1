@@ -101,7 +101,7 @@ NAV = [
 ]
 
 
-def layout(title, body, prefix="", active="", sources=None, meta=None, canonical=""):
+def layout(title, body, prefix="", active="", sources=None, meta=None, canonical="", self_name="index.html"):
     nav_items = []
     for href, label in NAV:
         cls = ' class="active"' if href == active else ""
@@ -116,7 +116,7 @@ def layout(title, body, prefix="", active="", sources=None, meta=None, canonical
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)} &middot; Zone1 Affiliate Research</title>
 <meta name="description" content="Source-verified Amazon affiliate research dashboard: three air fryer SKUs, every value linked to an official source.">
-<link rel="canonical" href="{canonical}">
+<link rel="canonical" href="{self_name}">
 <link rel="stylesheet" href="{prefix}assets/style.css">
 </head>
 <body>
@@ -149,7 +149,7 @@ def layout(title, body, prefix="", active="", sources=None, meta=None, canonical
 """
 
 
-SITE = "https://kanlerxz87-cyber.github.io/Zone1/research/"
+SITE = ""  # relative canonicals: the section is served at both / and /docs/ paths
 
 
 def page(title, body, path, **kw):
@@ -165,7 +165,7 @@ def page(title, body, path, **kw):
         body = body.replace('href="products.html#', 'href="../products.html#')
     active = kw.pop("active", path)
     html_out = layout(title, body, prefix=prefix, active=active,
-                      canonical=SITE + ("" if path == "index.html" else path), **kw)
+                      self_name=os.path.basename(path), **kw)
     with open(out, "w", encoding="utf-8") as fh:
         fh.write(html_out)
     return path
