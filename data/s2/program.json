@@ -1,0 +1,859 @@
+{
+  "id": "PRG-01",
+  "title": "Amazon Associates & disclosure rule set — verified line by line against the official sources",
+  "retrieved": "2026-11-13",
+  "how_to_read": "Each row is one machine-checkable constraint. 'checked_by' names the automated guard in platform/ that enforces it. Rows are ordered as the policy document orders them.",
+  "groups": [
+    {
+      "key": "identity",
+      "label": "Site identity & eligibility",
+      "source": {
+        "id": "S2",
+        "url": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      "rows": [
+        {
+          "id": "ID-1",
+          "claim": "Program cost to join",
+          "value": "Free to join",
+          "status": "verified",
+          "quote": "The Associates Program is free to join",
+          "checked_by": "audit/report.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "ID-2",
+          "claim": "Paid setup/consultation authorised by Amazon",
+          "value": "None — Amazon authorises no paid set-up or consulting service for associates",
+          "status": "verified",
+          "quote": "We have never authorized any business to provide paid set-up or consulting services to our associates",
+          "checked_by": "audit/report.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "ID-3",
+          "claim": "Site must have",
+          "value": "Original content, publicly available at the URL given in the application",
+          "status": "verified",
+          "quote": "Your Site(s) must contain original content and be publicly available via the website address provided in the application",
+          "checked_by": "compliance/gates.py::site_has_original_content",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "ID-4",
+          "claim": "Reusing third-party material",
+          "value": "Only with significant commentary, analysis, or transformation",
+          "status": "verified",
+          "quote": "Original content utilizing third-party materials must contain significant commentary, analysis, or transformation",
+          "checked_by": "content/similarity.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "ID-5",
+          "claim": "Amazon marks in domain, tag, Associates ID, or social username",
+          "value": "Prohibited",
+          "status": "verified",
+          "quote": "include any trademark of Amazon or its affiliates, or a variant or misspelling ... in any domain name, subdomain name, in any “tag” or Associates ID, or in any username",
+          "checked_by": "compliance/gates.py::no_amazon_mark_in_identity",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "ID-6",
+          "claim": "Content directed at children under 13",
+          "value": "Prohibited for program participation",
+          "status": "verified",
+          "quote": "are directed toward children or knowingly collect, use, or disclose personal information from children under 13 years of age",
+          "checked_by": "compliance/gates.py::not_child_directed",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "ID-7",
+          "claim": "Re-applying after a termination for abuse",
+          "value": "Requires Amazon's advance authorization",
+          "status": "verified",
+          "quote": "you cannot attempt to re-join the Associates Program without our advance authorization",
+          "checked_by": "audit/report.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ]
+    },
+    {
+      "key": "links",
+      "label": "Special link rules",
+      "source": {
+        "id": "S2",
+        "url": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      "rows": [
+        {
+          "id": "LK-1",
+          "claim": "Link format",
+          "value": "Must use the Associates ID Amazon assigned, in the tagged Special Link formats",
+          "status": "verified",
+          "quote": "Special Links must use the Associates ID we have assigned to you",
+          "checked_by": "links/validator.py::tag_present",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "LK-2",
+          "claim": "Tag appears in URL as",
+          "value": "XXXXX-## parameter",
+          "status": "verified",
+          "quote": "you must include your Associates ID or “tag” (appearing as XXXXX-##, or such other format as we may designate) as a parameter in the URL",
+          "checked_by": "links/validator.py::tag_param",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "LK-3",
+          "claim": "Links must be reached",
+          "value": "Directly from your Site — no intermediate hop",
+          "status": "verified",
+          "quote": "All Special Links must be accessed directly from your Site",
+          "checked_by": "links/validator.py::no_redirector",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "LK-4",
+          "claim": "Asking visitors to bookmark a Special Link",
+          "value": "Prohibited",
+          "status": "verified",
+          "quote": "You must not encourage customers to bookmark your Special Links",
+          "checked_by": "content/lint.py::no_bookmark_cta",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "LK-5",
+          "claim": "Sub-tags",
+          "value": "Allowed for link optimisation, never tied to an identified end user",
+          "status": "verified",
+          "quote": "Under no circumstances may you associate any sub-tag, other ID or reporting provided in connection with the Associates Program with a specific end user of your Site",
+          "checked_by": "links/validator.py::no_per_user_tagging",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "LK-6",
+          "claim": "Links to list pages (search results, department homepages, events)",
+          "value": "Allowed only with additional original content relevant to the link",
+          "status": "verified",
+          "quote": "When linking to pages with Product lists you must have additional original content on your Site that is relevant to the Special Link",
+          "checked_by": "content/lint.py::list_link_needs_context",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "LK-7",
+          "claim": "Expired limited-time promotions",
+          "value": "Mention must be removed as soon as the promotion ends",
+          "status": "verified",
+          "quote": "You must remove from your Site any links and related references to limited time promotions as soon as that promotion on the relevant Amazon Site ends",
+          "checked_by": "pipeline/promo_expiry.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "LK-8",
+          "claim": "Posting Special Links on Amazon itself",
+          "value": "Prohibited",
+          "status": "verified",
+          "quote": "You must not post any Special Links on Amazon or link to any page on your Site from Amazon specifically to promote your Special Links",
+          "checked_by": "compliance/gates.py::not_on_amazon",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ]
+    },
+    {
+      "key": "attribution",
+      "label": "Attribution windows (what a click earns)",
+      "source": {
+        "id": "S2",
+        "url": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      "rows": [
+        {
+          "id": "AT-1",
+          "claim": "Session length after a click",
+          "value": "24 hours",
+          "status": "verified",
+          "quote": "24 hours elapse from that click",
+          "checked_by": "model/attribution.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "AT-2",
+          "claim": "Session ends early if",
+          "value": "A non-digital product is ordered, or another associate's link is clicked",
+          "status": "verified",
+          "quote": "the customer places an order for a Product, other than a digital product ... or the customer clicks through a Special Link to an Amazon Site that is not your Special Link",
+          "checked_by": "model/attribution.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "AT-3",
+          "claim": "Cart-to-order window",
+          "value": "89 days after the initial click-through",
+          "status": "verified",
+          "quote": "completing the order for that Product no later than 89 days after their initial click-through of the Special Link",
+          "checked_by": "model/attribution.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "AT-4",
+          "claim": "Payment condition",
+          "value": "Product shipped/streamed/downloaded and paid for within 180 days of purchase",
+          "status": "verified",
+          "quote": "within 180 days of the purchase, the Product is shipped to, streamed or downloaded by, and paid for by the customer",
+          "checked_by": "model/attribution.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "AT-5",
+          "claim": "Cross-device purchase",
+          "value": "Earns commission if the item was added to cart on the mobile device; not paid if it was not",
+          "status": "verified",
+          "quote": "we cannot pay commission income for cross-device purchases if the user does not first add the item to their cart",
+          "checked_by": "model/attribution.py",
+          "url": "https://www.amazon.com/b?ie=UTF8&node=51812349011"
+        },
+        {
+          "id": "AT-6",
+          "claim": "Qualifying Revenue basis",
+          "value": "Amount Amazon actually receives, less shipping, gift wrapping, handling, taxes, service charges, credits, rebates, card fees and bad debt",
+          "status": "verified",
+          "quote": "equal to the amount we actually receive from that Qualifying Purchase, less any shipping charges, gift-wrapping fees, handling fees, taxes ..., service charges, credits, rebates, credit card processing fees, and bad debt",
+          "checked_by": "model/economics.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ]
+    },
+    {
+      "key": "disqualified",
+      "label": "Purchases that earn nothing",
+      "source": {
+        "id": "S2",
+        "url": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      "rows": [
+        {
+          "id": "DQ-1",
+          "claim": "Bidding on Amazon trademarks in paid search",
+          "value": "Disqualified (Prohibited Paid Search Placement)",
+          "status": "verified",
+          "quote": "any advertisement that you purchased ... that include the word “amazon”, or “kindle”, or any other Amazon Mark ... or variations or misspellings",
+          "checked_by": "compliance/gates.py::no_amazon_mark_bidding",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "DQ-2",
+          "claim": "Referrals from a search engine results page",
+          "value": "Disqualified",
+          "status": "verified",
+          "quote": "referred to an Amazon Site by a link that is generated or displayed on a search engine",
+          "checked_by": "audit/referral-classifier.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "DQ-3",
+          "claim": "Redirecting links through an intermediate page",
+          "value": "Disqualified",
+          "status": "verified",
+          "quote": "a link that sends users indirectly to an Amazon Site via an intermediate site, without requiring the customer to click on a link",
+          "checked_by": "links/validator.py::no_redirector",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "DQ-4",
+          "claim": "Malformed/untracked links",
+          "value": "Disqualified",
+          "status": "verified",
+          "quote": "any Product purchase that is not correctly tracked or reported because the links from your site to the relevant Amazon Site are not properly formatted",
+          "checked_by": "links/validator.py::tag_present",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "DQ-5",
+          "claim": "Cancellations, returns, refunds",
+          "value": "Disqualified",
+          "status": "verified",
+          "quote": "any Product order where a cancellation, return, or refund has been initiated",
+          "checked_by": "model/economics.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "DQ-6",
+          "claim": "Subscription purchases",
+          "value": "Disqualified unless stated otherwise",
+          "status": "verified",
+          "quote": "any Product purchased as a subscription unless otherwise provided in the Agreement",
+          "checked_by": "model/economics.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "DQ-7",
+          "claim": "Pre-release / pre-order items not on a listing page",
+          "value": "Disqualified",
+          "status": "verified",
+          "quote": "any pre-release or pre-order Product that is not available on a Product listing page",
+          "checked_by": "pipeline/eligibility.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "DQ-8",
+          "claim": "Special links served inside an unapproved mobile app",
+          "value": "Disqualified",
+          "status": "verified",
+          "quote": "any Product purchased through a Special Link in a Mobile Application that was not an Approved Mobile Application",
+          "checked_by": "compliance/gates.py::mobile_approved_only",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ]
+    },
+    {
+      "key": "content",
+      "label": "Content, pricing and Program-Content rules",
+      "source": {
+        "id": "S2",
+        "url": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      "rows": [
+        {
+          "id": "CN-1",
+          "claim": "Showing a price on your site",
+          "value": "Only if Amazon serves the link containing the data, or you pull it from Creators API / PA API and comply with the licence",
+          "status": "verified",
+          "quote": "your Site may only show prices and availability if: (a) we serve the link in which that price and availability data are displayed, or (b) you obtain Product pricing and availability data via Creators API or PA API",
+          "checked_by": "pricing/source_guard.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "CN-2",
+          "claim": "Price-comparison format",
+          "value": "Must show lowest 'new' price, and lowest 'used' price where Amazon provides it",
+          "status": "verified",
+          "quote": "you must display both the lowest “new” price and, if we provide it to you, the lowest “used” price",
+          "checked_by": "templates/comparison.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "CN-3",
+          "claim": "Editing Amazon's copy or images",
+          "value": "No alteration; resizing an image in proportion and non-misleading truncation are allowed",
+          "status": "verified",
+          "quote": "You will not add to, delete from, or otherwise alter any Program Content in any way ... except that you may resize Program Content consisting of a graphic image in a manner that maintains the original proportions",
+          "checked_by": "content/lint.py::no_altered_program_content",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "CN-4",
+          "claim": "Selling or re-licensing Program Content",
+          "value": "Prohibited",
+          "status": "verified",
+          "quote": "You will not sell, resell, redistribute, sublicense, or transfer any Program Content",
+          "checked_by": "audit/report.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "CN-5",
+          "claim": "Stale Program Content",
+          "value": "Must be removed promptly once it is no longer on Amazon",
+          "status": "verified",
+          "quote": "You will promptly remove from your Site and delete or otherwise destroy any Program Content that is no longer displayed on an Amazon Site",
+          "checked_by": "pipeline/rot_sweep.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "CN-6",
+          "claim": "Product claims",
+          "value": "No inaccurate, overbroad, deceptive or misleading claims about a product, Amazon, its policies, promotions or prices",
+          "status": "verified",
+          "quote": "You must not make inaccurate, overbroad, deceptive or otherwise misleading claims about any Product, an Amazon Site, or any of our policies, promotions, or prices",
+          "checked_by": "content/claims_checker.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "CN-7",
+          "claim": "Using Program Content to train models",
+          "value": "Prohibited without Amazon's express prior written approval",
+          "status": "verified",
+          "quote": "You will not, without or express prior written approval, use, or allow any third party to use, any Special Links or Program Content to develop machine learning models or related technology",
+          "checked_by": "training/gate.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "CN-8",
+          "claim": "Program Content in browser extensions / plug-ins / toolbars",
+          "value": "Prohibited, except in Approved Mobile Applications",
+          "status": "verified",
+          "quote": "You will not use any Program Content or Special Link ... on or in connection with: (a) any client-side software application (e.g., a browser plug-in, helper object, toolbar, extension",
+          "checked_by": "compliance/gates.py::no_client_side_injection",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "CN-9",
+          "claim": "Program Content on TVs and set-top boxes",
+          "value": "Prohibited",
+          "status": "verified",
+          "quote": "or (b) any television set-top box ... or Internet-enabled television",
+          "checked_by": "compliance/gates.py::no_tv_surface",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "CN-10",
+          "claim": "Offline and unsolicited outreach",
+          "value": "No print, ebook, mailing or oral solicitation; email/SMS/DM only if the recipient opted in",
+          "status": "verified",
+          "quote": "You will not engage in any Promotional Activities in any offline manner ... You may include Special Links in emails, SMS and direct messaging from your social media Sites; provided, that such communications are solicited",
+          "checked_by": "channels/gate.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ]
+    },
+    {
+      "key": "money",
+      "label": "Earnings, reporting and payment mechanics",
+      "source": {
+        "id": "S2",
+        "url": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      "rows": [
+        {
+          "id": "MN-1",
+          "claim": "How commission is calculated",
+          "value": "A percentage of Qualifying Revenue, per the Appendix rate card",
+          "status": "verified",
+          "quote": "Commission Income is calculated as a percentage of Qualifying Revenue",
+          "checked_by": "model/economics.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "MN-2",
+          "claim": "Published fixed commission rates (Standard Commission Income Statement, Table 1)",
+          "value": "Table 1 publishes fixed rates by category — e.g. Luxury Beauty 10.00%; Digital/Physical Music, Handmade, Digital Videos 5.00%; Physical Books, Kitchen, Automotive 4.50%; Amazon devices, Apparel, Jewelry, Luggage, Shoes, Handbags 4.00%; Toys, Furniture, Home, Home Improvement, Lawn & Garden, Pets, Headphones, Beauty, Instruments, Industrial, Outdoors, Tools, Sports, Baby, Coins 3.00%; PC, PC Components, DVD & Blu-Ray 2.50%; Televisions, Digital Video Games 2.00%; Fresh, Grocery, Health & Personal Care, Physical Video Games/Consoles 1.00%; Gift Cards, Wireless Plans, Alcohol, Coach and others 0.00%; All Other Categories 4.00%.",
+          "status": "verified",
+          "quote": "Associates Program Standard Commission Income Statement — For Qualifying Purchases of Products within product categories specified in Table 1 below, the Standard Commission Income accrued will be the corresponding fixed rate of Qualifying Revenue specified in this table. Table 1: 'Physical Books, Kitchen, Automotive — 4.50%'; 'All Other Categories — 4.00%'.",
+          "checked_by": "data/program.json MN-2",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+        },
+        {
+          "id": "MN-3",
+          "claim": "Rounding caveat",
+          "value": "Effective rate can differ slightly from the rate card after per-order rounding",
+          "status": "verified",
+          "quote": "rounded to the nearest local currency amount ... may result in your effective commission rate being slightly higher or lower than the rate described in your rate card",
+          "checked_by": "model/economics.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "MN-4",
+          "claim": "Payment timing",
+          "value": "Approximately 60 days after the end of the calendar month in which it was earned",
+          "status": "verified",
+          "quote": "approximately 60 days following the end of each calendar month in which they were earned",
+          "checked_by": "model/economics.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "MN-5",
+          "claim": "Minimum payout — direct deposit",
+          "value": "10 USD",
+          "status": "verified",
+          "quote": "Option 1 (Deposit) | 10 USD",
+          "checked_by": "model/economics.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "MN-6",
+          "claim": "Minimum / maximum payout — Amazon gift card",
+          "value": "10 USD minimum, 2000 USD maximum",
+          "status": "verified",
+          "quote": "Option 2 (Gift Card) | 10 USD | 2000 USD",
+          "checked_by": "model/economics.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "MN-7",
+          "claim": "Minimum payout — check, and check fee",
+          "value": "100 USD minimum; 15 USD check processing fee",
+          "status": "verified",
+          "quote": "Option 3 (Check) | 100 USD; Check Processing Fee | 15 USD",
+          "checked_by": "model/economics.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "MN-8",
+          "claim": "Dormant account",
+          "value": "After 3 years without substantial activity Amazon may withhold accrued income (up to the gift-card minimum) on 7 days' notice",
+          "status": "verified",
+          "quote": "if at any time there has been no substantial activity on your account for at least 3 years, then we will have the right, with 7 days’ written notice to withhold the accrued commission income",
+          "checked_by": "audit/report.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "id": "MN-9",
+          "claim": "US 1099 issuing threshold and date",
+          "value": "1099 issued by January 29 for $600+ paid, or where tax was withheld",
+          "status": "verified",
+          "quote": "We'll issue a 1099 form by January 29 to any Amazon Associate who received payments of $600 or more or received payments where taxes were withheld in the previous calendar year",
+          "checked_by": "audit/report.py",
+          "url": "https://www.amazon.com/b?ie=UTF8&node=51812349011"
+        },
+        {
+          "id": "MN-10",
+          "claim": "Non-US payee form",
+          "value": "Form 1042-S generally provided by March 15 of the following year",
+          "status": "verified",
+          "quote": "the Form 1042-S will be issued by March 15th of the year following payment",
+          "checked_by": "audit/report.py",
+          "url": "https://www.amazon.com/b?ie=UTF8&node=51812349011"
+        },
+        {
+          "id": "MN-11",
+          "claim": "Which Table 1 category a given ASIN falls into",
+          "value": "",
+          "status": "unverified",
+          "quote": "Table 1 lists product categories, not ASINs. Air fryers are not named in the table, and Amazon does not publish an ASIN→category mapping, so the applicable rate for a specific product cannot be read off Table 1 without that mapping.",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+          "checked_by": "platform/model/economics.py (refuses to compute a rate without a category)",
+          "why_blank": "Both 4.50% (Kitchen) and 4.00% (All Other Categories) are plausible for an air fryer; choosing one would be an inference. Recorded as a mapping gap, not a missing rate."
+        }
+      ]
+    },
+    {
+      "key": "risk",
+      "label": "Account risk & termination",
+      "source": {
+        "id": "S1",
+        "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+      },
+      "rows": [
+        {
+          "id": "RK-1",
+          "claim": "Effect of violating the agreement",
+          "value": "Amazon may permanently cease payment of all commission income, with or without notice",
+          "status": "verified",
+          "quote": "we reserve the right to permanently ... cease payment of ... any and all commission income otherwise payable to you under this Agreement ... without notice",
+          "checked_by": "audit/report.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        },
+        {
+          "id": "RK-2",
+          "claim": "Violation of Section 5 or the Program Policies",
+          "value": "Deemed a material breach",
+          "status": "verified",
+          "quote": "any violation of Section 5 and as specified in the Program Policies will be deemed a material breach of this Agreement",
+          "checked_by": "compliance/gates.py::*",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        },
+        {
+          "id": "RK-3",
+          "claim": "Notice to terminate",
+          "value": "7 calendar days from the notice date",
+          "status": "verified",
+          "quote": "the effective date of such termination will be 7 calendar days from the date notice is provided",
+          "checked_by": "audit/report.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        },
+        {
+          "id": "RK-4",
+          "claim": "Immediate suspension triggers include",
+          "value": "Material breach, failure to cure in 7 days, brand-tarnishing conduct, deceptive/fraudulent use, affiliated prior terminations",
+          "status": "verified",
+          "quote": "we may terminate this Agreement or suspend your account immediately upon written notice ... (a) you are in material breach ... (d) we believe that our brand or reputation may be tarnished by you",
+          "checked_by": "audit/report.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        },
+        {
+          "id": "RK-5",
+          "claim": "Amazon's liability cap to you",
+          "value": "Total commission income paid or payable in the 12 months before the claim event",
+          "status": "verified",
+          "quote": "our aggregate liability ... will not exceed the total commission income paid or payable to you under this Agreement in the twelve months immediately preceding",
+          "checked_by": "audit/report.py",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        },
+        {
+          "id": "RK-6",
+          "claim": "Earnings guarantees from Amazon",
+          "value": "None — Amazon makes no representation about expected traffic or income",
+          "status": "verified",
+          "quote": "We do not make any representation, warranty, or covenant regarding the amount of traffic or commission income you can expect at any time",
+          "checked_by": "content/claims_checker.py::no_income_promise",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        }
+      ]
+    },
+    {
+      "key": "mobile",
+      "label": "Mobile app policy (only if an app is ever added)",
+      "source": {
+        "id": "S4",
+        "url": "https://www.amazon.com/b?ie=UTF8&node=51812349011"
+      },
+      "rows": [
+        {
+          "id": "MB-1",
+          "claim": "Distribution",
+          "value": "Must be available in the Google Play, Apple, or Amazon app stores",
+          "status": "verified",
+          "quote": "must be available in either the Google Play, Apple, or Amazon app stores",
+          "checked_by": "compliance/gates.py::mobile_approved_only",
+          "url": "https://www.amazon.com/b?ie=UTF8&node=51812349011"
+        },
+        {
+          "id": "MB-2",
+          "claim": "Price gating",
+          "value": "App must be free to download and all Amazon links accessible without paying for access",
+          "status": "verified",
+          "quote": "must be free to download and all Amazon links must be accessible without paying for access",
+          "checked_by": "compliance/gates.py::mobile_approved_only",
+          "url": "https://www.amazon.com/b?ie=UTF8&node=51812349011"
+        },
+        {
+          "id": "MB-3",
+          "claim": "Price tracking / price alerts in an app",
+          "value": "Prohibited",
+          "status": "verified",
+          "quote": "must not have price tracking and/or price alerting functionality",
+          "checked_by": "compliance/gates.py::no_price_tracking",
+          "url": "https://www.amazon.com/b?ie=UTF8&node=51812349011"
+        },
+        {
+          "id": "MB-4",
+          "claim": "Rendering Amazon pages",
+          "value": "Prohibited in app WebViews; links must open the Amazon app or the device's native browser",
+          "status": "verified",
+          "quote": "must not host or render Amazon web pages in WebViews",
+          "checked_by": "compliance/gates.py::no_webview",
+          "url": "https://www.amazon.com/b?ie=UTF8&node=51812349011"
+        },
+        {
+          "id": "MB-5",
+          "claim": "Product Advertising Content in mobile-first sites",
+          "value": "Not permitted without express prior written approval",
+          "status": "verified",
+          "quote": "You will not, without our express prior written approval, use any Product Advertising Content on or in connection with any site or application designed or intended for use with a mobile phone",
+          "checked_by": "compliance/gates.py::paapi_surface_ok",
+          "url": "https://www.amazon.com/b?ie=UTF8&node=51812349011"
+        }
+      ]
+    },
+    {
+      "key": "ftc",
+      "label": "FTC endorsement / disclosure law",
+      "source": {
+        "id": "S8",
+        "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking"
+      },
+      "rows": [
+        {
+          "id": "FT-1",
+          "claim": "Governing guidance",
+          "value": "16 CFR Part 255, Guides Concerning Use of Endorsements and Testimonials in Advertising; source citation 88 FR 48102, July 26, 2023",
+          "status": "verified",
+          "quote": "Part 255 — Guides Concerning Use of Endorsements and Testimonials in Advertising; Source: 88 FR 48102, July 26, 2023",
+          "checked_by": "compliance/gates.py::disclosure_present",
+          "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255"
+        },
+        {
+          "id": "FT-2",
+          "claim": "Relevant sections",
+          "value": "255.0–255.6, including §255.5 Disclosure of material connections and §255.6 Endorsements directed to children",
+          "status": "verified",
+          "quote": "§ 255.5 Disclosure of material connections; § 255.6 Endorsements directed to children",
+          "checked_by": "compliance/gates.py::disclosure_present",
+          "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255"
+        },
+        {
+          "id": "FT-3",
+          "claim": "Affiliate disclosure obligation",
+          "value": "Disclose the relationship clearly and conspicuously on the site, near the endorsement",
+          "status": "verified",
+          "quote": "You should disclose your relationship to the retailer clearly and conspicuously on your site, so readers can decide how much weight to give your endorsement",
+          "checked_by": "compliance/gates.py::disclosure_present",
+          "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking"
+        },
+        {
+          "id": "FT-4",
+          "claim": "Placement principle",
+          "value": "The closer the disclosure is to the recommendation, the better",
+          "status": "verified",
+          "quote": "As for where to place a disclosure, the guiding principle is that it has to be clear and conspicuous. The closer the disclosure is to your recommendation, the better",
+          "checked_by": "compliance/gates.py::disclosure_adjacent_to_link",
+          "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking"
+        },
+        {
+          "id": "FT-5",
+          "claim": "Site-wide disclosure on the home page only",
+          "value": "Not sufficient for individual reviews",
+          "status": "verified",
+          "quote": "A single disclosure on your home page won't be sufficient because people visiting your site might read individual reviews or watch individual videos without seeing the disclosure on your home page",
+          "checked_by": "compliance/gates.py::per_page_disclosure",
+          "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking"
+        },
+        {
+          "id": "FT-6",
+          "claim": "A 'DISCLOSURE' or 'LEGAL' button linking to the full text",
+          "value": "Not clear and conspicuous — it is easily avoidable",
+          "status": "verified",
+          "quote": "A hyperlinked disclosure like that is easily avoidable, meaning that the disclosure is not clear and conspicuous",
+          "checked_by": "compliance/gates.py::no_buried_disclosure",
+          "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking"
+        },
+        {
+          "id": "FT-7",
+          "claim": "Wording that works for a link",
+          "value": "",
+          "status": "unverified",
+          "quote": "The FAQ wording was not present in the sections retrieved in this run; the wording is taken from Amazon's §5 sentence instead, which is verified",
+          "checked_by": "n/a — flagged rather than asserted",
+          "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
+          "why_blank": "The FTC page section that discusses affiliate wording was not among the chunks retrieved in this run, so no wording is asserted here. The verified Amazon §5 sentence (FT-8) is what this site implements."
+        },
+        {
+          "id": "FT-8",
+          "claim": "Amazon's required sentence",
+          "value": "\"As an Amazon Associate I earn from qualifying purchases.\" — stated clearly and prominently on the Site",
+          "status": "verified",
+          "quote": "You must clearly and prominently state the following ... “As an Amazon Associate I earn from qualifying purchases.”",
+          "checked_by": "compliance/gates.py::amazon_disclosure_exact",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        },
+        {
+          "id": "FT-9",
+          "claim": "Implying Amazon sponsorship",
+          "value": "Prohibited — no misrepresenting or embellishing the relationship",
+          "status": "verified",
+          "quote": "You will not misrepresent or embellish our relationship with you (including by expressing or implying that we support, sponsor, or endorse you)",
+          "checked_by": "content/claims_checker.py::no_implied_endorsement",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        },
+        {
+          "id": "FT-10",
+          "claim": "Public statements about the Agreement",
+          "value": "Only the §5 disclosure; anything else needs Amazon's advance written permission",
+          "status": "verified",
+          "quote": "Except for this disclosure ... you will not make any public communication with respect to this Agreement or your participation in the Associates Program without our advance written permission",
+          "checked_by": "content/claims_checker.py::no_agreement_quotes",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        }
+      ]
+    },
+    {
+      "key": "catalog",
+      "label": "Catalog identifiers (needed before any product is trusted)",
+      "source": {
+        "id": "S5",
+        "url": "https://advertising.amazon.com/library/guides/asins-introduction"
+      },
+      "rows": [
+        {
+          "id": "CT-1",
+          "claim": "ASIN definition",
+          "value": "A unique combination of 10 letters and numbers Amazon assigns to a product",
+          "status": "verified",
+          "quote": "an ASIN is a unique combination of 10 letters and numbers that Amazon assigns to a product—including product variations and product versions",
+          "checked_by": "catalog/asin.py::validate_asin",
+          "url": "https://advertising.amazon.com/library/guides/asins-introduction"
+        },
+        {
+          "id": "CT-2",
+          "claim": "Second official statement of the 10-character rule",
+          "value": "\"a combination of 10 letters and numbers that Amazon assigns to a product\"",
+          "status": "verified",
+          "quote": "An ASIN — short for “Amazon Standard Identification Number” — is a combination of 10 letters and numbers that Amazon assigns to a product",
+          "checked_by": "catalog/asin.py::validate_asin",
+          "url": "https://sell.amazon.com/blog/how-to-create-a-new-asin-amazon"
+        },
+        {
+          "id": "CT-3",
+          "claim": "Variations",
+          "value": "Product variations and versions each get their own ASIN",
+          "status": "verified",
+          "quote": "Each product in the Amazon store is assigned a unique ASIN. That includes product variations, which are each assigned unique ASINs",
+          "checked_by": "catalog/asin.py::expand_variations",
+          "url": "https://sell.amazon.com/blog/how-to-create-a-new-asin-amazon"
+        },
+        {
+          "id": "CT-4",
+          "claim": "Books",
+          "value": "Books are identified by their ISBN instead of a separate ASIN",
+          "status": "verified",
+          "quote": "The only exception is for books, which are identified using their ISBN number",
+          "checked_by": "catalog/asin.py::allow_isbn",
+          "url": "https://sell.amazon.com/blog/how-to-create-a-new-asin-amazon"
+        },
+        {
+          "id": "CT-5",
+          "claim": "Where the ASIN lives",
+          "value": "After /dp/ in the product detail page URL, and in the Product details section",
+          "status": "verified",
+          "quote": "An ASIN can often be found on the page in the Product details or Product information section",
+          "checked_by": "resolver/url_parse.py",
+          "url": "https://sell.amazon.com/blog/how-to-create-a-new-asin-amazon"
+        },
+        {
+          "id": "CT-6",
+          "claim": "Can a seller choose or buy an ASIN?",
+          "value": "",
+          "status": "unverified",
+          "quote": "Only third-party commentary in the retrieved results states this; no official page fetched in this run says it, so the platform does not rely on it",
+          "checked_by": "n/a",
+          "url": "https://sell.amazon.com/blog/how-to-create-a-new-asin-amazon",
+          "why_blank": "No official page fetched in this run states this; the platform does not depend on it."
+        }
+      ]
+    },
+    {
+      "key": "publishing",
+      "label": "GitHub Pages publishing model for this site",
+      "source": {
+        "id": "S9",
+        "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"
+      },
+      "rows": [
+        {
+          "id": "GH-1",
+          "claim": "Publishing options",
+          "value": "Deploy from a branch (root or /docs), or a custom Actions workflow",
+          "status": "verified",
+          "quote": "You can publish your site when changes are pushed to a specific branch, or you can write a GitHub Actions workflow to publish your site",
+          "checked_by": "scripts/ci-check.sh",
+          "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"
+        },
+        {
+          "id": "GH-2",
+          "claim": "Branch publishing folder choices",
+          "value": "Root (/) of the source branch, or a /docs folder on that branch",
+          "status": "verified",
+          "quote": "the source folder can either be the root of the repository (/) on the source branch or a /docs folder on the source branch",
+          "checked_by": "scripts/ci-check.sh",
+          "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"
+        },
+        {
+          "id": "GH-3",
+          "claim": "This repo's configured source",
+          "value": "Branch main, path /, build_type legacy, status built",
+          "status": "verified",
+          "quote": "GET /repos/kanlerxz87-cyber/Zone1/pages -> build_type: legacy, source {branch: main, path: /}, status: built",
+          "checked_by": "scripts/ci-check.sh",
+          "url": "https://api.github.com/repos/kanlerxz87-cyber/Zone1/pages"
+        },
+        {
+          "id": "GH-4",
+          "claim": "Site visibility",
+          "value": "Public even if the repository is private",
+          "status": "verified",
+          "quote": "GitHub Pages sites are publicly available on the internet, even if the repository for the site is private",
+          "checked_by": "scripts/ci-check.sh",
+          "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"
+        },
+        {
+          "id": "GH-5",
+          "claim": "Pushes from Actions with GITHUB_TOKEN",
+          "value": "Do not trigger a Pages build — so the site is built from committed files, not generated in CI and pushed back",
+          "status": "verified",
+          "quote": "Commits pushed by a GitHub Actions workflow that uses the GITHUB_TOKEN do not trigger a GitHub Pages build",
+          "checked_by": "scripts/ci-check.sh",
+          "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site"
+        }
+      ]
+    }
+  ]
+}

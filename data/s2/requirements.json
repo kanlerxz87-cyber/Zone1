@@ -1,0 +1,179 @@
+{
+  "id": "REQ-01",
+  "title": "Requirements register — every capability in the brief, with delivery status",
+  "as_of": "2026-11-13",
+  "rule": "Status is judged on what is actually in the repository and running on this site, not on what the plan says. 'blocked' names the specific missing input.",
+  "requirements": [
+    {
+      "id": "R-01",
+      "requirement": "Collect and organise a full list of requirements",
+      "status": "delivered",
+      "where": "data/requirements.json rendered on Requirements page",
+      "note": "19 requirements decomposed from the brief, each with an owner and a verification line.",
+      "source": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/requirements.json",
+      "source_label": "repository file"
+    },
+    {
+      "id": "R-02",
+      "requirement": "Automate product research",
+      "status": "partial",
+      "where": "platform/research.py + Products page",
+      "note": "The resolver, ASIN validator, staleness rule and PA-API client are implemented and unit-tested; they gate hard on missing credentials so they never emit invented data.",
+      "source": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/research.py",
+      "source_label": "repository file"
+    },
+    {
+      "id": "R-03",
+      "requirement": "Identify trending products",
+      "status": "blocked",
+      "where": "Niche & trend page",
+      "note": "Requires a valid ASIN set and a trend signal source. No trend value is asserted anywhere on the site.",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_label": "Commission Income Statement — no public demand metric exists"
+    },
+    {
+      "id": "R-04",
+      "requirement": "Identify high-converting products",
+      "status": "blocked",
+      "where": "Campaign & measurement page",
+      "note": "Conversion rate is an Amazon-reported metric available only in the Associates dashboard for an existing account.",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_label": "Participation Requirements — conversion data lives in Associates Central"
+    },
+    {
+      "id": "R-05",
+      "requirement": "Analyse pricing",
+      "status": "blocked",
+      "where": "Products page (price column blank)",
+      "note": "Prices may only be shown if served by Amazon in the link or pulled from Creators/PA API, and no product was identifiable.",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_label": "Participation Requirements §2(b) price-source rule"
+    },
+    {
+      "id": "R-06",
+      "requirement": "Analyse reviews",
+      "status": "blocked",
+      "where": "Products page (rating column blank)",
+      "note": "No rating or review count could be read from any official page for the supplied identifiers.",
+      "source": "https://www.amazon.com/dp/B04G1MEwY",
+      "source_label": "the catalog page that would have held the rating"
+    },
+    {
+      "id": "R-07",
+      "requirement": "Analyse competition",
+      "status": "partial",
+      "where": "Niche & trend page",
+      "note": "The competitive model, its inputs and its data sources are specified; the scoring function is implemented and tested on fixtures. It has no real inputs to score.",
+      "source": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/scoring.py",
+      "source_label": "repository file"
+    },
+    {
+      "id": "R-08",
+      "requirement": "Analyse commission potential",
+      "status": "blocked",
+      "where": "Economics page",
+      "note": "The only official rate source is the signed-in rate card; see F-04. Economics are expressed as a formula with the rate as an input, never as a number.",
+      "source": "https://affiliate-program.amazon.com/help/operating/schedule",
+      "source_label": "login-gated rate card (F-04)"
+    },
+    {
+      "id": "R-09",
+      "requirement": "Generate SEO-optimised product articles",
+      "status": "partial",
+      "where": "Content engine page",
+      "note": "The generator, the fact-check gate (no sentence without a source) and the disclosure injector are implemented and tested. No article is published, because there is no verified product to write about.",
+      "source": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/content/generator.py",
+      "source_label": "repository file"
+    },
+    {
+      "id": "R-10",
+      "requirement": "Generate comparisons",
+      "status": "partial",
+      "where": "Content engine page",
+      "note": "Comparison template enforces the lowest-new/lowest-used display rule from Participation Requirements §2(b). Unfilled pending valid ASINs.",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_label": "Participation Requirements §2(b) comparison rule"
+    },
+    {
+      "id": "R-11",
+      "requirement": "Generate buying guides",
+      "status": "partial",
+      "where": "Content engine page",
+      "note": "Guide template implemented; needs a verified candidate set before it emits anything.",
+      "source": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/content/generator.py",
+      "source_label": "repository file"
+    },
+    {
+      "id": "R-12",
+      "requirement": "Identify profitable niches",
+      "status": "partial",
+      "where": "Niche & trend page",
+      "note": "Niche scoring rubric defined and implemented with weights disclosed. No niche is labelled profitable on this site.",
+      "source": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/scoring.py",
+      "source_label": "repository file"
+    },
+    {
+      "id": "R-13",
+      "requirement": "Publish and manage affiliate links",
+      "status": "blocked",
+      "where": "Campaign page → publishing gate",
+      "note": "Publishing requires the operator's own Associates ID; a tagged Special Link cannot be constructed without it, and republishing the supplied short link is prohibited. See F-01 and F-08.",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_label": "Participation Requirements §2 Special Links"
+    },
+    {
+      "id": "R-14",
+      "requirement": "Track clicks and conversions",
+      "status": "partial",
+      "where": "Campaign & measurement page",
+      "note": "Measurement plan defined with an explicit prohibition on per-user sub-tagging, per Participation Requirements §2(b). See F-11.",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies",
+      "source_label": "repository file"
+    },
+    {
+      "id": "R-15",
+      "requirement": "Continuously optimise campaigns",
+      "status": "partial",
+      "where": "Automation page",
+      "note": "Scheduled re-verification, staleness expiry and a change-detection loop are specified and stubbed with tests; they require credentials and a live URL to run against.",
+      "source": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/pipeline/rot_sweep.py",
+      "source_label": "repository file"
+    },
+    {
+      "id": "R-16",
+      "requirement": "Prioritise automation and scalability",
+      "status": "delivered",
+      "where": "Automation page + platform/",
+      "note": "Idempotent pipeline, schema-validated data files, CI build gate, and a per-ASIN design that does not change shape as the catalogue grows.",
+      "source": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/scripts/build_site.py",
+      "source_label": "repository file"
+    },
+    {
+      "id": "R-17",
+      "requirement": "Data-driven decisions",
+      "status": "delivered",
+      "where": "Every table on the site",
+      "note": "Each row carries a source URL and a status; blanks are structural, not editorial.",
+      "source": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/audit/report.py",
+      "source_label": "repository file"
+    },
+    {
+      "id": "R-18",
+      "requirement": "Compliance with Amazon Associates policies",
+      "status": "delivered",
+      "where": "Compliance page (25 checked rules)",
+      "note": "Each rule quotes the official agreement text and names the code guard that enforces it.",
+      "source": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "source_label": "Operating Agreement + Program Policies"
+    },
+    {
+      "id": "R-19",
+      "requirement": "Disclosure requirements",
+      "status": "delivered",
+      "where": "Compliance page → Disclosure section; footer of every page",
+      "note": "Amazon's §5 sentence and the FTC placement rules are implemented as a per-page component, not a buried link.",
+      "source": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "source_label": "Operating Agreement §5"
+    }
+  ]
+}
