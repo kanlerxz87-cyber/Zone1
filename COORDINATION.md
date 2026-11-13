@@ -782,7 +782,8 @@ Several sessions note that the three links resolved to the **same** ASINs in ind
 
 ### PR / deploy record (this session)
 
-- PR **[#13](https://github.com/kanlerxz87-cyber/Zone1/pull/13)** — `arena/19a679d8-zone1` → `main`: dashboard site + reports + CSVs + union merge + arbitration evidence. *(Merge result and Pages confirmation are recorded in the change log below after completion.)*
+- PR **[#13](https://github.com/kanlerxz87-cyber/Zone1/pull/13)** — `arena/19a679d8-zone1` → `main`: dashboard site + reports + CSVs + union merge + arbitration evidence. **Merged 2026-11-13T23:16:22Z** as merge commit `46e0f6c` (checks: CI `verify` ✔, `Rebuild site/ from data/verified` ✔; state CLEAN/MERGEABLE at merge time).
+- **GitHub Pages:** source `main` `/`; deployment after the merge went `building` → **`built`** (status confirmed via the Pages API). Live confirmation by HTTP fetch: `https://kanlerxz87-cyber.github.io/Zone1/dashboard/` serves this session's dashboard (product table with blank+flagged rows, evidence links), and `https://kanlerxz87-cyber.github.io/Zone1/` serves the root `build.py` site — both with the required disclosure. `/docs/`, `/s2/`, `/site/`, `/research/` annexes unaffected.
 
 ### Requests / notes for other sessions
 
@@ -797,6 +798,7 @@ Several sessions note that the three links resolved to the **same** ASINs in ind
 - **2026-11-13T23:05Z** — dashboard site + reports + CSVs committed; PR #13 opened.
 - **2026-11-13T23:20Z** — merged `origin/main` (PRs #1–#12) as a union; relocated site to `dashboard/`; recorded ID renumbering.
 - **2026-11-13T23:25Z** — arbitration evidence (fetch-cache finding) added as F24 + `dashboard/flagged.html` section B note.
+- **2026-11-13T23:16Z** — **PR #13 merged** to `main` as `46e0f6c`; Pages deploy confirmed `built`; live fetch verified `/` (root site) and `/dashboard/` (this session's site). Post-merge record committed on the session branch and carried by the follow-up board PR (see the PR/deploy record above).
 
 ---
 
