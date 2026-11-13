@@ -12,8 +12,8 @@ r=audit_data()
 print(r.to_dict()['findings'] or 'clean')
 sys.exit(0 if r.ok else 1)"
 echo "· build + compliance gate"
-python3 scripts/build_site.py >/dev/null
-python3 scripts/build_site.py --check
+python3 scripts/build_s2_site.py >/dev/null
+python3 scripts/build_s2_site.py --check
 echo "· link check"
 python3 scripts/check_links.py
 echo "OK"

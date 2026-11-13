@@ -31,8 +31,11 @@ FORBIDDEN_PHRASES = (
 PRICE_RE = re.compile(r"\$\s?\d")
 
 
+DATA_DIR = os.path.join("data", "s2")
+
+
 def _load(name: str):
-    with open(os.path.join(repo_root(), "data", name), encoding="utf-8") as fh:
+    with open(os.path.join(repo_root(), DATA_DIR, name), encoding="utf-8") as fh:
         return json.load(fh)
 
 
@@ -89,7 +92,7 @@ def audit_data() -> Report:
             r.add("A5", f"flag {f['id']} has an unknown severity {f['severity']!r}", context=f["id"])
 
     # A6: a row may only point at a flag that actually exists and is published.
-    data_dir = os.path.join(repo_root(), "data")
+    data_dir = os.path.join(repo_root(), DATA_DIR)
     for name in sorted(os.listdir(data_dir)):
         if not name.endswith(".json") or name == "flags.json":
             continue

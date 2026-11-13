@@ -22,8 +22,8 @@ jobs:
 
       - name: Rebuild site and prove the committed HTML is current
         run: |
-          python3 scripts/build_site.py
-          python3 scripts/build_site.py --check
+          python3 scripts/build_s2_site.py
+          python3 scripts/build_s2_site.py --check
 
       - name: Link and source coverage on rendered pages
         run: python3 scripts/check_links.py

@@ -209,7 +209,7 @@
         "The CI audit rejects any source row whose host is not on the official allowlist."
       ],
       "sources": [
-        { "label": "Source registry with retrieval dates and access mode", "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/sources.json" },
+        { "label": "Source registry with retrieval dates and access mode", "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/s2/sources.json" },
         { "label": "Audit rule A1 (non-official host fails the build)", "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/audit/report.py" }
       ],
       "action_required": "None — recorded so future sessions keep the same standard.",
