@@ -1,234 +1,94 @@
 {
-  "meta": {
-    "title": "Compliance Register — Amazon Associates + FTC",
-    "checked_on": "2026-11-13",
-    "checked_on_display": "13 November 2026 (UTC)",
-    "method": "Each requirement below was read directly from the official document linked in the row. Nothing here is recalled from memory. Where a document is behind a sign-in wall, that is stated and no value is claimed.",
-    "scope_note": "This register records what the rules require and what this project does about each one. It is an engineering register, not legal advice."
-  },
-  "rules": [
+  "as_of": "2026-11-13",
+  "note": "Requirements are quoted from the sources. 'Site status' says what this site does today. 'Needs review' items are on the Flagged for Review page.",
+  "rows": [
     {
-      "id": "C-01",
-      "area": "Disclosure — required wording",
-      "requirement": "The Site must clearly and prominently state the following, or a substantially similar statement previously allowed: \u201cAs an Amazon Associate I earn from qualifying purchases.\u201d",
-      "verbatim_quote": "You must clearly and prominently state the following, or any substantially similar statement previously allowed under this Agreement, on your Site or any other location where Amazon may authorize your display or other use of Program Content: \u201cAs an Amazon Associate I earn from qualifying purchases.\u201d",
-      "source_id": "S-AMZ-OA-S5",
-      "source_section": "Operating Agreement \u00a75",
-      "how_this_site_complies": "The exact sentence is rendered verbatim in the site-wide footer of every page and again in the disclosure block directly above each product table.",
-      "status": "verified",
-      "implemented_in": ["index.html", "products.html", "compare.html", "guides.html", "compliance.html", "flagged.html", "methodology.html", "executive-summary.html"]
+      "id": "C01",
+      "requirement": "Display 'As an Amazon Associate I earn from qualifying purchases.' clearly and prominently on the site.",
+      "source": "S7",
+      "section": "Operating Agreement, Section 5 'Identifying Yourself as an Associate'",
+      "site_status": "Needs review",
+      "site_action": "The banner shows this wording as the required statement and says enrollment is pending. It must not be presented as active until the Associates account is confirmed."
     },
     {
-      "id": "C-02",
-      "area": "Disclosure — affiliate-link adequacy (FTC)",
-      "requirement": "An affiliate relationship must be disclosed clearly and conspicuously, close to the recommendation. The words \u201caffiliate link\u201d alone are NOT adequate, because consumers may not understand that the linker is paid.",
-      "verbatim_quote": "Consumers might not understand that \u201caffiliate link\u201d means that the person placing the link is getting paid for purchases made through the link.",
-      "source_id": "S-FTC-QA",
-      "source_section": "\u201cWhat about affiliate or network marketing?\u201d",
-      "how_this_site_complies": "Every page carries the plain-language sentence \u201cI get commissions for purchases made through links on this page\u201d (the exact example the FTC gives) immediately beside the outbound links, in addition to the Amazon sentence. The bare phrase \u201caffiliate link\u201d is never used as the only disclosure.",
-      "status": "verified",
-      "implemented_in": ["all pages \u2014 disclosure banner"]
+      "id": "C02",
+      "requirement": "Special Links must include the Associates ID or 'tag' as a parameter in the URL of each link.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 2(b)",
+      "site_status": "Not met",
+      "site_action": "The supplied links contain no tag. No tag has been invented. See F03."
     },
     {
-      "id": "C-03",
-      "area": "Disclosure — a single site-wide notice is insufficient (FTC)",
-      "requirement": "A single disclosure on the home page is not enough, because a visitor may land directly on an individual review page.",
-      "verbatim_quote": "A single disclosure on your home page won\u2019t be sufficient because people visiting your site might read individual reviews or watch individual videos without seeing the disclosure on your home page.",
-      "source_id": "S-FTC-QA",
-      "source_section": "\u201cHow Should I Disclose\u2026\u201d",
-      "how_this_site_complies": "The disclosure block is a repeatable component injected into every generated page, not just the home page. The build script fails if any page lacks it.",
-      "status": "verified",
-      "implemented_in": ["scripts/build_site.py \u2014 disclosure partial"]
+      "id": "C03",
+      "requirement": "Prices and availability may be shown only if the Amazon link serves them, or if they come from the Creators API or PA-API.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 2(b)",
+      "site_status": "Met",
+      "site_action": "No prices or availability are shown. The price column is blank."
     },
     {
-      "id": "C-04",
-      "area": "Disclosure — codified rule",
-      "requirement": "Material connections between an endorser and the seller must be disclosed.",
-      "verbatim_quote": "\u00a7255.5 Disclosure of material connections.",
-      "source_id": "S-FTC-255",
-      "source_section": "16 CFR \u00a7255.5",
-      "how_this_site_complies": "Commission relationship disclosed per C-01/C-02; no compensation from any party other than the Amazon Associates Programme is received, and the site states that explicitly.",
-      "status": "verified",
-      "implemented_in": ["compliance.html"]
+      "id": "C04",
+      "requirement": "Product lists require additional original content on the site.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 2(b)",
+      "site_status": "Met",
+      "site_action": "The category page adds original analysis, a verification table and a glossary of what was and was not verified."
     },
     {
-      "id": "C-05",
-      "area": "Commission rate",
-      "requirement": "Standard commission income is a fixed rate by product category. The published table sets Kitchen at 4.50%.",
-      "verbatim_quote": "Physical Books, Kitchen, Automotive | 4.50%",
-      "source_id": "S-AMZ-RATE",
-      "source_section": "Table 1 \u2014 Fixed Standard Commission Income Rates for Specific Product Categories",
-      "how_this_site_complies": "All three products are small kitchen appliances, so 4.50% is the published category rate applied in the revenue model. The model is labelled a projection, not a forecast or guarantee.",
-      "status": "verified",
-      "implemented_in": ["products.html", "executive-summary.html", "methodology.html"]
+      "id": "C05",
+      "requirement": "Sites must not include any Amazon trademark in the domain name, subdomain, tag or Associates ID.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 1, Unsuitable Sites (g)",
+      "site_status": "Met",
+      "site_action": "The domain is kanlerxz87-cyber.github.io/Zone1, which contains no Amazon mark. The word 'Amazon' appears only in running text and in source names."
     },
     {
-      "id": "C-06",
-      "area": "Session and attribution windows",
-      "requirement": "A click opens a 24-hour session; an item added to the cart can complete up to 89 days after the click; the product must ship and be paid for within 180 days.",
-      "verbatim_quote": "(x) 24 hours elapse from that click \u2026 (i) the customer purchases a Product by adding a Product to his or her shopping cart and completing the order for that Product no later than 89 days after their initial click-through of the Special Link \u2026 (iii) within 180 days of the purchase, the Product is shipped to, streamed or downloaded by, and paid for by the customer",
-      "source_id": "S-AMZ-COMM",
-      "source_section": "Commission Income Statement \u00a71",
-      "how_this_site_complies": "Documented in the methodology page so the revenue model's assumptions are auditable. No claim of earnings is made.",
-      "status": "verified",
-      "implemented_in": ["methodology.html", "executive-summary.html"]
+      "id": "C06",
+      "requirement": "Purchases referred by a 'Redirecting Link' (a link that sends users indirectly to an Amazon Site through an intermediate site) are disqualified.",
+      "source": "S8",
+      "section": "Commission Income Statement, Section 2(e)",
+      "site_status": "Needs review",
+      "site_action": "The supplied links are link.amazon short links. Whether they count as Special Links is not confirmed. See F05."
     },
     {
-      "id": "C-07",
-      "area": "Prices and availability",
-      "requirement": "The Site may show prices and availability only if Amazon serves the link containing that data, or the data is obtained through the Creators API / PA API under the licence.",
-      "verbatim_quote": "your Site may only show prices and availability if: (a) we serve the link in which that price and availability data are displayed, or (b) you obtain Product pricing and availability data via Creators API or PA API",
-      "source_id": "S-AMZ-POL",
-      "source_section": "Participation Requirements \u00a72(b)",
-      "how_this_site_complies": "STRICT COMPLIANCE DECISION: no Amazon price and no Amazon availability is published anywhere on this site. The only prices shown are the brand's own store prices on chefman.com and emerileveryday.com, each labelled as such and linked to its source. Amazon price cells are deliberately blank and marked unverified.",
-      "status": "verified",
-      "implemented_in": ["products.json \u2014 all Amazon price rows", "products.html", "flagged.html"]
+      "id": "C07",
+      "requirement": "A non-US Associate agrees to perform services outside the United States unless the tax information says otherwise.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 1 (non-US person paragraph)",
+      "site_status": "Needs review",
+      "site_action": "The site owner's location is Oslo, Norway. Confirm account status and tax information. Agreement Schedule 3 (taxes) was not reviewed. See F08."
     },
     {
-      "id": "C-08",
-      "area": "Price tracking / price alerts",
-      "requirement": "\u201cUnless otherwise agreed by Amazon, your Site must not have price tracking and/or price alerting functionality.\u201d",
-      "verbatim_quote": "Unless otherwise agreed by Amazon, your Site must not have price tracking and/or price alerting functionality.",
-      "source_id": "S-AMZ-POL",
-      "source_section": "Participation Requirements \u00a73(y)",
-      "how_this_site_complies": "CONSTRAINT ON THE PRODUCT ROADMAP: the platform's \u201canalyze pricing\u201d capability is scoped to the brand's own published store prices and to on-page analysis of the data the operator is licensed to display. No consumer-facing price tracker, price-drop alert, or price history chart is built. This is called out as an explicit non-feature on the compliance page.",
-      "status": "verified",
-      "implemented_in": ["compliance.html", "methodology.html"]
+      "id": "C08",
+      "requirement": "Commission income is a percentage of Qualifying Revenue, which excludes shipping, gift wrap, handling, taxes, service charges, credits, rebates and card-processing fees.",
+      "source": "S8",
+      "section": "Commission Income Statement, Sections 1 and 3",
+      "site_status": "Met",
+      "site_action": "No commission amounts are estimated, because the rate is unverified (F02)."
     },
     {
-      "id": "C-09",
-      "area": "Product reviews and star ratings",
-      "requirement": "Amazon customer reviews or star ratings may not be displayed unless obtained through the Creators API / PA API and used per the licence.",
-      "verbatim_quote": "You will not display or otherwise use any of our customer reviews or star ratings, in part or in whole, on your Site unless you have obtained a link to that customer review or star rating through Creators API or PA API",
-      "source_id": "S-AMZ-POL",
-      "source_section": "Participation Requirements \u00a73(t)",
-      "how_this_site_complies": "No Amazon review text or Amazon star rating appears on the site. The ratings shown are the brands' own storefront ratings, each labelled \u201cbrand-store rating\u201d with a link to the brand page it came from.",
-      "status": "verified",
-      "implemented_in": ["products.json", "products.html"]
+      "id": "C09",
+      "requirement": "Do not make public communications about the Associates Program beyond the required disclosure without written permission.",
+      "source": "S7",
+      "section": "Operating Agreement, Section 5",
+      "site_status": "Needs review",
+      "site_action": "The site describes its own verification work but does not describe the Associates relationship beyond the disclosure. Owner to confirm."
     },
     {
-      "id": "C-10",
-      "area": "Link format and trackability",
-      "requirement": "Links must use the tagged Special Link format with the Associate's own tag, and must be accessible directly from the Site.",
-      "verbatim_quote": "All Special Links must be accessed directly from your Site. For example, you must include your Associates ID or \u201ctag\u201d (appearing as XXXXX-##, or such other format as we may designate) as a parameter in the URL of each link you place on your Site to an Amazon Site.",
-      "source_id": "S-AMZ-POL",
-      "source_section": "Participation Requirements \u00a72(b)",
-      "how_this_site_complies": "The site stores a single configurable `ASSOCIATE_TAG` in `data/config.json`. Until the operator supplies a real tag, all outbound links render as plain untagged `https://www.amazon.com/dp/<ASIN>` links with a visible warning that tagging is pending. The build fails if a tag is configured but malformed.",
-      "status": "flagged",
-      "flag_id": "F-10",
-      "implemented_in": ["data/config.json", "scripts/build_site.py"]
+      "id": "C10",
+      "requirement": "Material connections must be disclosed clearly, near the endorsement, and in a way that is hard to miss.",
+      "source": "S10",
+      "section": "FTC Disclosures 101, 'When to Disclose' and 'How to Disclose'",
+      "site_status": "Met",
+      "site_action": "A disclosure banner sits at the top of every page, above any product listing."
     },
     {
-      "id": "C-11",
-      "area": "No click incentives",
-      "requirement": "No consideration, reward, rebate, discount or other benefit may be offered to anyone for using Special Links.",
-      "verbatim_quote": "You will not offer any person or entity any consideration, reward, or incentive (including any money, rebate, discount, points, donation to charity or other organization, or other benefit) for using Special Links.",
-      "source_id": "S-AMZ-POL",
-      "source_section": "Participation Requirements \u00a73(g)",
-      "how_this_site_complies": "No rewards, loyalty points, giveaways, cashback or 'click to unlock' mechanics exist anywhere on the site or in the roadmap.",
-      "status": "verified",
-      "implemented_in": ["compliance.html"]
-    },
-    {
-      "id": "C-12",
-      "area": "No self-purchase or related-party purchase",
-      "requirement": "The Associate, and their friends, relatives, employees, contractors and business relations, must not purchase through their own Special Links.",
-      "verbatim_quote": "you will not directly or indirectly purchase any Product(s) \u2026 through Special Links \u2026 and you will not permit, request or encourage any of your friends, relatives, employees, contractors, or business relations to directly or indirectly purchase any Product(s)",
-      "source_id": "S-AMZ-POL",
-      "source_section": "Participation Requirements \u00a73(u)",
-      "how_this_site_complies": "Stated as an operator obligation in the compliance checklist. No product is ever purchased through the site's own links.",
-      "status": "verified",
-      "implemented_in": ["compliance.html"]
-    },
-    {
-      "id": "C-13",
-      "area": "No cloaking or redirect chains",
-      "requirement": "The referring site must not be obscured. Cloaked links and misleading shorteners are prohibited.",
-      "verbatim_quote": "You will not cloak, hide, spoof, or otherwise obscure the URL of your Site containing Special Links (including by use of Redirecting Links)",
-      "source_id": "S-AMZ-POL",
-      "source_section": "Participation Requirements \u00a73(v)",
-      "how_this_site_complies": "Outbound links point straight at `https://www.amazon.com/dp/<ASIN>` and display the full destination. The build refuses any outbound Amazon link that is not a direct `/dp/<ASIN>` URL. There is no link-shortening layer, no interstitial, and no redirect script.",
-      "status": "verified",
-      "implemented_in": ["scripts/build_site.py \u2014 outbound link assertion"]
-    },
-    {
-      "id": "C-14",
-      "area": "No price or product claims that are inaccurate",
-      "requirement": "You must not make inaccurate, overbroad, deceptive or misleading claims about any Product.",
-      "verbatim_quote": "You must not make inaccurate, overbroad, deceptive or otherwise misleading claims about any Product, an Amazon Site, or any of our policies, promotions, or prices.",
-      "source_id": "S-AMZ-POL",
-      "source_section": "Participation Requirements \u00a72(b)",
-      "how_this_site_complies": "Every factual cell is either sourced from the brand's own page or left blank. The verifier rejects any populated cell that has no source. Conflicts found between the Amazon title and the brand spec are shown as conflicts, not resolved by picking the friendlier number (F-02, F-03, F-04).",
-      "status": "verified",
-      "implemented_in": ["scripts/verify_site.py", "flagged.html"]
-    },
-    {
-      "id": "C-15",
-      "area": "Suitable site / original content",
-      "requirement": "The Site must contain original content and be publicly available. Sites aimed at children, or containing prohibited categories, are ineligible.",
-      "verbatim_quote": "Your Site(s) must contain original content and be publicly available via the website address provided in the application.",
-      "source_id": "S-AMZ-POL",
-      "source_section": "Participation Requirements \u00a71",
-      "how_this_site_complies": "The site publishes original comparative analysis, a documented verification method, and a source register. It is not directed at children and contains no prohibited category.",
-      "status": "verified",
-      "implemented_in": ["index.html", "methodology.html"]
-    },
-    {
-      "id": "C-16",
-      "area": "No implication of Amazon endorsement",
-      "requirement": "The relationship with Amazon must not be embellished, and Amazon endorsement must not be implied.",
-      "verbatim_quote": "You will not misrepresent or embellish our relationship with you (including by expressing or implying that we support, sponsor, or endorse you)",
-      "source_id": "S-AMZ-OA-S5",
-      "source_section": "Operating Agreement \u00a75",
-      "how_this_site_complies": "The footer states the site is not endorsed by, sponsored by, or affiliated with Amazon or the brands named. No Amazon logo, mark or brand asset is used.",
-      "status": "verified",
-      "implemented_in": ["all pages \u2014 footer"]
-    },
-    {
-      "id": "C-17",
-      "area": "Personalised rate card",
-      "requirement": "Personalised/negotiated rates and payment minimums are account-specific and served behind authentication.",
-      "verbatim_quote": "",
-      "source_id": "S-AMZ-RATE",
-      "source_section": "/home/account/payment/customratecard \u2014 sign-in required",
-      "how_this_site_complies": "Not read, not claimed. The site uses only the published Table 1 rate of 4.50% for Kitchen and says so explicitly.",
-      "status": "flagged",
-      "flag_id": "F-05",
-      "implemented_in": ["flagged.html", "methodology.html"]
-    },
-    {
-      "id": "C-18",
-      "area": "Trademark and brand names",
-      "requirement": "Amazon Marks may only be used in the manner the Trademark Guidelines allow, and third-party seller/vendor logos may not be used without written authorisation.",
-      "verbatim_quote": "You cannot display or otherwise use any logo of or content created by any third party seller or vendor on an Amazon Site in connection with any Special Link unless you have obtained from that seller or vendor specific written authorization to do so.",
-      "source_id": "S-AMZ-POL",
-      "source_section": "Trademark Guidelines \u00a77",
-      "how_this_site_complies": "Brand names (CHEFMAN, Chefman, Emeril Lagasse) and model numbers are used descriptively, in plain text, to identify the products. No brand logos, product photography, or Amazon imagery is embedded. All imagery is generated by this project's own CSS, not hotlinked.",
-      "status": "verified",
-      "implemented_in": ["all pages \u2014 text only, no brand assets"]
-    },
-    {
-      "id": "C-19",
-      "area": "Data collection / privacy",
-      "requirement": "The Site must disclose its own use of cookies, pixels and third parties, and comply with applicable privacy law.",
-      "verbatim_quote": "disclosing on your Site accurately and adequately and otherwise satisfying applicable legal requirements, either through a privacy policy or otherwise, the use of cookies, pixels, and other technologies",
-      "source_id": "S-AMZ-POL",
-      "source_section": "Participation Requirements \u00a73(e)",
-      "how_this_site_complies": "The site is fully static on GitHub Pages: no cookies are set, no analytics is loaded, no third-party scripts, no fonts from a CDN, no tracking pixels. The privacy page states this and notes that clicking an outbound Amazon link then puts the visitor under Amazon's own privacy notice.",
-      "status": "verified",
-      "implemented_in": ["privacy.html", "compliance.html"]
-    },
-    {
-      "id": "C-20",
-      "area": "Analytics without third-party tracking",
-      "requirement": "Click and conversion tracking is a legitimate platform goal, but must not be implemented in a way that violates C-11, C-13 or C-19.",
-      "verbatim_quote": "",
-      "source_id": "S-AMZ-POL",
-      "source_section": "Synthesis of \u00a73(g), \u00a73(v), \u00a73(e)",
-      "how_this_site_complies": "The shipped site does no tracking at all. The platform blueprint describes outbound click accounting that stays on the operator's own server, exposes the true destination, and is never used to offer incentives. Marked as a design requirement, not a shipped feature.",
-      "status": "flagged",
-      "flag_id": "F-11",
-      "implemented_in": ["compliance.html", "methodology.html"]
+      "id": "C11",
+      "requirement": "Do not make inaccurate, overbroad, deceptive or misleading claims about a Product.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 2(b)",
+      "site_status": "Met",
+      "site_action": "Only specifications read from the title text are shown. No performance or health claims are made."
     }
   ]
 }

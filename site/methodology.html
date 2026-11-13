@@ -7,6 +7,7 @@
 <meta name="description" content="Verified data, sourced line by line, for three air fryers.">
 <meta name="robots" content="index,follow">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -133,7 +134,20 @@ A cart completed within 89 days of the click still counts, and the order must sh
 180 days of purchase
 <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank" title="Amazon Associates Program Policies — Commission Income Statement, §1 (Qualifying Purchases / Session)">Commission Statement &#8599;</a>.</p>
 
-<h2>5. Reproducing this</h2>
+<h2>5. Relationship to the earlier build in this repository</h2>
+<p>A parallel session (<code>d14c5409</code>) published an earlier build of this same brief at
+<code>docs/</code>, and the repository root redirects there, so <strong>that</strong> is the site
+answering the main Pages URL. This build is published at <code>site/</code> alongside it. Rather than
+overwrite another session's work, the two were kept in non-overlapping directories and this session's
+data was placed under <code>data/verified/</code> so neither build's schema was disturbed.</p>
+<p>Both builds independently resolved the same three ASINs from the same three short links, which is
+a useful cross-check. The two builds differ in scope: this one verifies manufacturer specifications
+field by field against the brands' own product pages, and it closed one gap the earlier audit left
+open &mdash; the published commission rate was reachable and is 4.50% for Kitchen
+(<a href="flagged.html#F-17">F-17</a>). The coexistence of two live sites is itself recorded as
+<a href="flagged.html#F-16">F-16</a> and needs a decision from the owner about which is canonical.</p>
+
+<h2>6. Reproducing this</h2>
 <pre class="code"><code>python3 scripts/build_site.py   # regenerate every page from data/*.json
 python3 scripts/verify_site.py  # fail on any row without a source, or any broken internal link</code></pre>
 <p>The verifier is the part that matters. It refuses to let an unsourced value reach a page, so the

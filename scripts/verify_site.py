@@ -28,7 +28,8 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "data"
+OUT = ROOT / "site"            # generated pages (see scripts/build_site.py)
+DATA = ROOT / "data" / "verified"
 
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
 
@@ -60,7 +61,7 @@ OPPS = load("opportunities.json")
 SOURCE_IDS = {s["id"] for s in SOURCES["sources"]}
 FLAG_IDS = {f["id"] for f in FLAGGED["items"]}
 
-PAGES = sorted(p.name for p in ROOT.glob("*.html"))
+PAGES = sorted(p.name for p in OUT.glob("*.html"))
 EXPECTED_PAGES = {
     "index.html", "products.html", "compare.html", "guides.html",
     "compliance.html", "methodology.html", "sources.html", "flagged.html",
@@ -74,14 +75,14 @@ def check_internal_links() -> None:
     link_re = re.compile(r'(?:href|src)="([^"]+)"')
     for page in PAGES:
         checks_run += 1
-        text = (ROOT / page).read_text(encoding="utf-8")
+        text = (OUT / page).read_text(encoding="utf-8")
         for target in link_re.findall(text):
             if target.startswith(("http://", "https://", "mailto:", "#", "data:")):
                 continue
             path_part = target.split("#")[0].split("?")[0]
             if not path_part:
                 continue  # pure fragment on same page
-            candidate = (ROOT / path_part).resolve()
+            candidate = (OUT / path_part).resolve()
             if not candidate.exists():
                 fail("V1", f"{page}: broken internal link -> {target}")
         # fragment-only links must resolve to an id on the same page
@@ -105,7 +106,7 @@ def check_outbound_links() -> None:
     href_re = re.compile(r'href="(https?://[^"]*amazon\.[^"]*)"')
     seen = 0
     for page in PAGES:
-        text = (ROOT / page).read_text(encoding="utf-8")
+        text = (OUT / page).read_text(encoding="utf-8")
         for url in href_re.findall(text):
             seen += 1
             parsed = urlparse(url)
@@ -191,7 +192,7 @@ def check_flags() -> None:
             fail("V6", f"flag id {fid} is referenced from data but not defined in flagged.json")
 
     checks_run += 1
-    flagged_html = (ROOT / "flagged.html").read_text(encoding="utf-8")
+    flagged_html = (OUT / "flagged.html").read_text(encoding="utf-8")
     for fid in sorted(FLAG_IDS):
         if f'id="{fid}"' not in flagged_html:
             fail("V7", f"flag {fid} is not rendered on flagged.html")
@@ -204,7 +205,7 @@ def check_flags() -> None:
 
     # Cross-link audit: flag ids appearing as text in HTML must exist.
     for page in PAGES:
-        text = (ROOT / page).read_text(encoding="utf-8")
+        text = (OUT / page).read_text(encoding="utf-8")
         for fid in set(re.findall(r"flagged\.html#(F-\d+)", text)):
             checks_run += 1
             if fid not in FLAG_IDS:
@@ -216,7 +217,7 @@ def check_disclosure() -> None:
     global checks_run
     for page in PAGES:
         checks_run += 1
-        text = (ROOT / page).read_text(encoding="utf-8")
+        text = (OUT / page).read_text(encoding="utf-8")
         if DISCLOSURE not in text:
             fail("V8", f"{page}: missing the exact required disclosure sentence")
         if "I get commissions for purchases made through links" not in text:
@@ -260,14 +261,14 @@ def check_no_amazon_price_or_rating() -> None:
     checks_run += 1
     price_pat = re.compile(r"Amazon price[^<]{0,40}\$\s?\d", re.I)
     for page in PAGES:
-        text = (ROOT / page).read_text(encoding="utf-8")
+        text = (OUT / page).read_text(encoding="utf-8")
         if price_pat.search(text):
             fail("V10", f"{page}: looks like it publishes an Amazon price")
 
     # Amazon star-rating display would look like "4.5 out of 5" attributed to Amazon.
     checks_run += 1
     for page in PAGES:
-        text = (ROOT / page).read_text(encoding="utf-8")
+        text = (OUT / page).read_text(encoding="utf-8")
         if re.search(r"Amazon[^<]{0,24}\d\.\d\s*(out of 5|/5)", text, re.I):
             fail("V10", f"{page}: looks like it publishes an Amazon star rating")
 
@@ -288,14 +289,14 @@ def check_no_tracking() -> None:
         ("facebook.com/tr", "Facebook pixel"),
     ]
     for page in PAGES:
-        text = (ROOT / page).read_text(encoding="utf-8")
+        text = (OUT / page).read_text(encoding="utf-8")
         lower = text.lower()
         for needle, label in forbidden:
             checks_run += 1
             if needle in lower:
                 fail("V11", f"{page}: contains {label} ({needle!r}) - site claims no tracking")
 
-    css = (ROOT / "assets" / "style.css").read_text(encoding="utf-8")
+    css = (OUT / "assets" / "style.css").read_text(encoding="utf-8")
     checks_run += 1
     if "url(http" in css.replace(" ", ""):
         fail("V11", "stylesheet references a remote asset")
@@ -312,14 +313,14 @@ def check_disclosure_wording() -> None:
     global checks_run
     product_link_pages = [
         page for page in PAGES
-        if re.search(r'href="https://www\.amazon\.com/dp/', (ROOT / page).read_text(encoding="utf-8"))
+        if re.search(r'href="https://www\.amazon\.com/dp/', (OUT / page).read_text(encoding="utf-8"))
     ]
     checks_run += 1
     if not product_link_pages:
         fail("V12", "no page carries a product link - cannot assess disclosure adequacy")
 
     for page in product_link_pages:
-        text = (ROOT / page).read_text(encoding="utf-8")
+        text = (OUT / page).read_text(encoding="utf-8")
         for m in re.finditer(r"affiliate link", text, re.I):
             window = text[max(0, m.start() - 260): m.end() + 260]
             checks_run += 1

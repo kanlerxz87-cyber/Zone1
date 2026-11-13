@@ -18,8 +18,16 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "data"
-ASSETS = ROOT / "assets"
+
+# ---- Path layout in the integrated repo -------------------------------------
+# The parallel session (d14c5409) owns `docs/` (its GitHub Pages output, served
+# by the existing main -> / setup), `data/*.json` (its schemas) and
+# `scripts/build.mjs`. To keep both deliverables without conflict, this build
+# writes into `site/` and reads from `data/verified/`. Nothing here writes into
+# `docs/`, `data/*.json` or `scripts/build.mjs`.
+OUT = ROOT / "site"            # where the generated HTML pages live
+DATA = ROOT / "data" / "verified"
+ASSETS = OUT / "assets"        # stylesheet lives beside the pages
 
 # ---------------------------------------------------------------- data loading
 
@@ -81,6 +89,8 @@ SHORT_LABELS = {
     "S-AMZ-COMM": "Commission Statement",
     "S-FTC-QA": "FTC guidance",
     "S-FTC-255": "16 CFR 255",
+    "S-REPO-AUDIT": "repo audit",
+    "S-GH-EMAIL": "GitHub docs",
 }
 
 
@@ -168,6 +178,7 @@ def page(filename: str, title: str, body: str, subtitle: str = "") -> None:
 <meta name="description" content="{e(CONFIG['site']['tagline'])}">
 <meta name="robots" content="index,follow">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -203,7 +214,7 @@ def page(filename: str, title: str, body: str, subtitle: str = "") -> None:
 </body>
 </html>
 """
-    (ROOT / filename).write_text(doc, encoding="utf-8")
+    (OUT / filename).write_text(doc, encoding="utf-8")
 
 
 # ------------------------------------------------------------------- helpers
@@ -283,6 +294,11 @@ came from, and anything I could not confirm is left blank.</strong> That means s
 empty. That is the point.</p>
 
 <div class="grid-3">
+  <a class="card" href="../index.html">
+    <h3>Build A dashboard</h3>
+    <p>An earlier parallel session's build of the same brief, which is what the repository root
+    currently redirects to. Kept live and unmodified. See <a href="flagged.html#F-16">F-16</a>.</p>
+  </a>
   <a class="card" href="products.html">
     <h3>Products</h3>
     <p>Full specification sheets for each ASIN, field by field, each with its own source link.</p>
@@ -843,7 +859,20 @@ A cart completed within {OPPS['revenue_model']['attribution_windows_that_limit_t
 {OPPS['revenue_model']['attribution_windows_that_limit_the_math']['ship_pay_window_days']} days of purchase
 {src_link('S-AMZ-COMM')}.</p>
 
-<h2>5. Reproducing this</h2>
+<h2>5. Relationship to the earlier build in this repository</h2>
+<p>A parallel session (<code>d14c5409</code>) published an earlier build of this same brief at
+<code>docs/</code>, and the repository root redirects there, so <strong>that</strong> is the site
+answering the main Pages URL. This build is published at <code>site/</code> alongside it. Rather than
+overwrite another session's work, the two were kept in non-overlapping directories and this session's
+data was placed under <code>data/verified/</code> so neither build's schema was disturbed.</p>
+<p>Both builds independently resolved the same three ASINs from the same three short links, which is
+a useful cross-check. The two builds differ in scope: this one verifies manufacturer specifications
+field by field against the brands' own product pages, and it closed one gap the earlier audit left
+open &mdash; the published commission rate was reachable and is 4.50% for Kitchen
+(<a href="flagged.html#F-17">F-17</a>). The coexistence of two live sites is itself recorded as
+<a href="flagged.html#F-16">F-16</a> and needs a decision from the owner about which is canonical.</p>
+
+<h2>6. Reproducing this</h2>
 <pre class="code"><code>python3 scripts/build_site.py   # regenerate every page from data/*.json
 python3 scripts/verify_site.py  # fail on any row without a source, or any broken internal link</code></pre>
 <p>The verifier is the part that matters. It refuses to let an unsourced value reach a page, so the
@@ -1390,17 +1419,17 @@ def build_assets() -> None:
     ASSETS.mkdir(exist_ok=True)
     (ASSETS / "style.css").write_text(CSS, encoding="utf-8")
     # A tiny favicon so GitHub Pages does not 404 on /favicon.ico requests from browsers.
-    (ROOT / "favicon.svg").write_text(
+    (OUT / "favicon.svg").write_text(
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">'
         '<rect width="32" height="32" rx="7" fill="#0b5fff"/>'
         '<text x="16" y="22" font-family="Helvetica,Arial,sans-serif" font-size="15" '
         'font-weight="700" fill="#fff" text-anchor="middle">AF</text></svg>',
         encoding="utf-8",
     )
-    (ROOT / "robots.txt").write_text(
+    (OUT / "robots.txt").write_text(
         "User-agent: *\nAllow: /\n", encoding="utf-8"
     )
-    (ROOT / ".nojekyll").write_text("", encoding="utf-8")
+    (OUT / ".nojekyll").write_text("", encoding="utf-8")
 
 
 # ------------------------------------------------------------------- main

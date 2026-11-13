@@ -7,6 +7,7 @@
 <meta name="description" content="Verified data, sourced line by line, for three air fryers.">
 <meta name="robots" content="index,follow">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -28,7 +29,7 @@
 </header>
 <main id="main" class="wrap">
   <h1>Flagged for review</h1>
-  <p class="page-sub">13 items to look at, each with the evidence attached.</p>
+  <p class="page-sub">17 items to look at, each with the evidence attached.</p>
   
 <div class="banner banner-warn" role="note">
   <strong>Links are not yet tagged.</strong> No Associates tag is configured, so no outbound
@@ -51,13 +52,13 @@
 
 <section class="stats">
   <div class="stat"><span class="stat-label">Total items</span>
-<span class="stat-value">13</span><span class="stat-note">all published with evidence</span></div>
+<span class="stat-value">17</span><span class="stat-note">all published with evidence</span></div>
   <div class="stat warn"><span class="stat-label">High severity</span>
 <span class="stat-value">2</span><span class="stat-note">affects whether links can earn</span></div>
   <div class="stat warn"><span class="stat-label">Medium severity</span>
-<span class="stat-value">6</span><span class="stat-note">affects a published claim</span></div>
+<span class="stat-value">7</span><span class="stat-note">affects a published claim</span></div>
   <div class="stat muted"><span class="stat-label">Low severity</span>
-<span class="stat-value">5</span><span class="stat-note">cosmetic or narrow</span></div>
+<span class="stat-value">8</span><span class="stat-note">cosmetic or narrow</span></div>
 </section>
 
 <p class="lede">The two that matter most: <a href="#F-10">F-10</a>, no Associates tag is configured,
@@ -258,6 +259,66 @@ because Amazon's own policies restrict displaying them. Everything else is small
       <div><dt>What would settle it</dt><dd>Use Amazon&#x27;s own reports where available (e.g. Bounty/Bonus event tables, which ARE published) plus the operator&#x27;s own observed click-through and conversion from the Associates dashboard once live. Until then, the opportunity score on this site is computed only from factors that ARE sourced, and the unsourced dimensions are shown as blank with this flag.</dd></div>
     </dl>
     <p class="srcmini"><strong>Evidence:</strong> <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener nofollow" target="_blank">Amazon Standard Commission Income Statement (published data) &#8599;</a></p>
+  </div>
+</article><article class="flag flag-low" id="F-14">
+  <div class="flag-head">
+    <span class="flag-id mono">F-14</span>
+    <span class="sev sev-low">low</span>
+    <h2>Commit metadata discloses a personal email address in a public repository</h2>
+  </div>
+  <div class="flag-body">
+    <dl>
+      <div><dt>What was expected</dt><dd>A noreply address or no published author email on a public repo.</dd></div>
+      <div><dt>What was observed</dt><dd>Recorded by the parallel audit session (d14c5409) in its repo review: commits in this public repository carry a personal email address in the author field.</dd></div>
+      <div><dt>Why it matters</dt><dd>Public commit metadata is permanently scrapable and is a routine source of spam and phishing. It is not a product defect but it is a real exposure attached to this repository.</dd></div>
+      <div><dt>What would settle it</dt><dd>`git log --format=&#x27;%ae&#x27;` on the published history. The fix is to set a GitHub noreply address for future commits; rewriting existing history is optional and disruptive.</dd></div>
+    </dl>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/REVIEW.md" rel="noopener nofollow" target="_blank">Repository audit record (REVIEW.md, F14) &#8599;</a> <a href="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/setting-your-commit-email-address" rel="noopener nofollow" target="_blank">GitHub docs — setting a commit email address &#8599;</a></p>
+  </div>
+</article><article class="flag flag-low" id="F-15">
+  <div class="flag-head">
+    <span class="flag-id mono">F-15</span>
+    <span class="sev sev-low">low</span>
+    <h2>The required session-&lt;id&gt;/&lt;task&gt; branch convention could not be followed</h2>
+  </div>
+  <div class="flag-body">
+    <dl>
+      <div><dt>What was expected</dt><dd>Each session works on its own branch named session-&lt;id&gt;/&lt;task&gt;, as the coordination brief specifies.</dd></div>
+      <div><dt>What was observed</dt><dd>Both sessions ran on Arena-issued branches (arena/1874bb64-zone1 and arena/d14c5409-zone1). The Arena runtime for each session pins work to a single branch and forbids switching, so the convention could not be honoured by either session.</dd></div>
+      <div><dt>Why it matters</dt><dd>Branch-per-task isolation is the mechanism the brief relies on to prevent collisions. Without it, isolation has to come from file scope instead — which is why the two deliverables were deliberately placed in non-overlapping directories (docs/ vs site/).</dd></div>
+      <div><dt>What would settle it</dt><dd>Arena runtime documentation. Both sessions logged this deviation rather than silently ignoring it.</dd></div>
+    </dl>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/COORDINATION.md" rel="noopener nofollow" target="_blank">Coordination record — see §0 and §5 &#8599;</a></p>
+  </div>
+</article><article class="flag flag-medium" id="F-16">
+  <div class="flag-head">
+    <span class="flag-id mono">F-16</span>
+    <span class="sev sev-medium">medium</span>
+    <h2>Two independent builds now publish two sites in one repository</h2>
+  </div>
+  <div class="flag-body">
+    <dl>
+      <div><dt>What was expected</dt><dd>One published site per repository.</dd></div>
+      <div><dt>What was observed</dt><dd>The earlier session publishes docs/ and the repository root redirects there, matching the existing GitHub Pages source of main / . This session publishes site/. Both sets of pages are therefore live, reachable by URL, and cover the same three products with different schemas.</dd></div>
+      <div><dt>Why it matters</dt><dd>Two live pages making overlapping claims about the same products is a maintenance and consistency hazard: a correction applied to one will leave the other stating the old value. It is also a thin-content risk if both are indexed.</dd></div>
+      <div><dt>What would settle it</dt><dd>A deliberate decision on which build is canonical. This site&#x27;s position: docs/ stays canonical at the root URL because it already is, and site/ is linked as the deeper verification annex with this item disclosed on both the method page and the review page. Switching Pages to site/ is a one-setting change if the owner prefers the reverse.</dd></div>
+    </dl>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://kanlerxz87-cyber.github.io/Zone1/site/index.html" rel="noopener nofollow" target="_blank">This session&#x27;s site index &#8599;</a> <a href="https://kanlerxz87-cyber.github.io/Zone1/docs/index.html" rel="noopener nofollow" target="_blank">Earlier session&#x27;s published site &#8599;</a></p>
+  </div>
+</article><article class="flag flag-low" id="F-17">
+  <div class="flag-head">
+    <span class="flag-id mono">F-17</span>
+    <span class="sev sev-low">low</span>
+    <h2>The earlier audit recorded the commission rate as unreachable; the rate is in fact published</h2>
+  </div>
+  <div class="flag-body">
+    <dl>
+      <div><dt>What was expected</dt><dd>The commission rate for the three products.</dd></div>
+      <div><dt>What was observed</dt><dd>The parallel session (d14c5409) recorded commission_rate as unverified for all three products, with the note that the official rate schedule was not reachable. Its tasks T2 and T3 are still marked &#x27;needs review&#x27; for that reason. Reading the Associates Help Centre rate card at /help/node/topic/GRXPHT8U84RAYDXZ returned the published Table 1 showing Kitchen at a fixed 4.50%.</dd></div>
+      <div><dt>Why it matters</dt><dd>This is the one substantive gap this session closed. It means the earlier build understates what is knowable, and its revenue section cannot be completed without it.</dd></div>
+      <div><dt>What would settle it</dt><dd>Already confirmed: the rate card is publicly readable and is cited on this site at /sources.html. The earlier session&#x27;s data files were left untouched to avoid overwriting another session&#x27;s work.</dd></div>
+    </dl>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener nofollow" target="_blank">Amazon Standard Commission Income Statement — Table 1 &#8599;</a> <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/flags.json" rel="noopener nofollow" target="_blank">Earlier session&#x27;s own flag record &#8599;</a></p>
   </div>
 </article>
 

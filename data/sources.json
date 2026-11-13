@@ -1,175 +1,126 @@
 {
-  "meta": {
-    "title": "Source Registry",
-    "checked_on": "2026-11-13",
-    "checked_on_display": "13 November 2026 (UTC)",
-    "tier_definitions": {
-      "official-primary": "The manufacturer's or retailer's own domain, first party. Used as the authority for product facts.",
-      "official-regulatory": "A government or regulator-published source (FTC, eCFR).",
-      "official-program": "Amazon's own Associates Program legal documents.",
-      "official-supporting": "A document hosted by the manufacturer that is not the main product page (manuals, warranty PDFs)."
-    }
-  },
+  "as_of": "2026-11-13",
+  "note": "Every value on the site cites one of these source IDs. 'status' records what the retrieval returned on 2026-11-13. Retrieval used the fetch tool from the build sandbox, not a live browser session.",
   "sources": [
     {
-      "id": "S-AMZ-P1",
-      "label": "Amazon listing — CHEFMAN 6 Quart Dual Basket Air Fryer (ASIN B0CDY277D3)",
+      "id": "S1",
+      "title": "Amazon.com product page, ASIN B0CDY277D3 (product 1)",
+      "publisher": "Amazon.com (official retailer product page)",
       "url": "https://www.amazon.com/dp/B0CDY277D3",
-      "tier": "official-primary",
-      "owner": "Amazon.com, Inc.",
-      "what_it_verifies": "ASIN, brand, full Amazon listing title, colour as stated in the title.",
-      "observed": "2026-11-13",
-      "note": "Product-detail body (price, star rating, review count) did not render to this client. Prices and ratings are therefore NOT quoted anywhere on this site."
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Product title, brand as written in title, capacity as written in title, department 'Home & Kitchen' (page title suffix). Price, rating, review count and availability were NOT present in the retrieved text.",
+      "review_note": "Retrieved text was site footer boilerplate; product-detail blocks did not render."
     },
     {
-      "id": "S-AMZ-P2",
-      "label": "Amazon listing — Emeril Lagasse 26QT French Door Air Fryer Toaster Oven (ASIN B09B7SB46R)",
+      "id": "S2",
+      "title": "Amazon.com product page, ASIN B09B7SB46R (product 2)",
+      "publisher": "Amazon.com (official retailer product page)",
       "url": "https://www.amazon.com/dp/B09B7SB46R",
-      "tier": "official-primary",
-      "owner": "Amazon.com, Inc.",
-      "what_it_verifies": "ASIN, brand, full Amazon listing title, category breadcrumb.",
-      "observed": "2026-11-13",
-      "note": "Category breadcrumb observed on the listing: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers."
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Product title, brand as written in title, capacity as written in title, department 'Home & Kitchen'. Price, rating, review count and availability were NOT present in the retrieved text.",
+      "review_note": "Same retrieval limitation as S1."
     },
     {
-      "id": "S-AMZ-P3",
-      "label": "Amazon listing — Chefman Air Fryer 8 Qt TurboFry 4-in-1 (ASIN B08DKYBTPH)",
+      "id": "S3",
+      "title": "Amazon.com product page, ASIN B08DKYBTPH (product 3) - canonical URL",
+      "publisher": "Amazon.com (official retailer product page)",
       "url": "https://www.amazon.com/dp/B08DKYBTPH",
-      "tier": "official-primary",
-      "owner": "Amazon.com, Inc.",
-      "what_it_verifies": "ASIN, brand, full Amazon listing title.",
-      "observed": "2026-11-13",
-      "note": "Product-detail body did not render to this client."
+      "accessed": "2026-11-13",
+      "status": "blocked",
+      "supports": "Nothing. The canonical URL returned an interstitial ('To continue, please click the Continue shopping button').",
+      "review_note": "Identity for product 3 is confirmed only through the short link (S6)."
     },
     {
-      "id": "S-CM-P1",
-      "label": "Chefman official product page — TurboFry 6 Qt. Double Basket Air Fryer with Easy View Windows (RJ38-3DBW-V2)",
-      "url": "https://chefman.com/products/turbofry-6-qt-double-basket-air-fryer-with-easy-view-windows",
-      "tier": "official-primary",
-      "owner": "Chefman",
-      "what_it_verifies": "Capacity, basket split, cooking functions, temperature range, wattage, model number, certification, warranty, feature list, Prop 65 notice, Chefman-store price and Chefman-store review rating.",
-      "observed": "2026-11-13",
-      "note": "Reviews shown on this page are Chefman's own store reviews (Bazaarvoice/Wholescale widget), not Amazon reviews."
+      "id": "S4",
+      "title": "Short link for product 1 (as supplied by the owner)",
+      "publisher": "Amazon (link.amazon short-link service)",
+      "url": "https://link.amazon/B04G1MEwY",
+      "accessed": "2026-11-13",
+      "status": "resolved",
+      "supports": "Resolves to https://www.amazon.com/dp/B0CDY277D3 (the short code is NOT the ASIN). Resolved URL contains no Associates 'tag=' parameter.",
+      "review_note": "See Flagged for Review, items F03 and F04."
     },
     {
-      "id": "S-CM-P3",
-      "label": "Chefman official product page — TurboFry 8 Qt. Air Fryer w/ High Fry (RJ38-8T-BLACK)",
-      "url": "https://chefman.com/products/turbofry-8-qt-air-fryer-w-high-fry",
-      "tier": "official-primary",
-      "owner": "Chefman",
-      "what_it_verifies": "Capacity, Hi-Fry temperature, functions, wattage/voltage, model number, certification, warranty, finish, Prop 65 notice, Chefman-store price and Chefman-store review rating.",
-      "observed": "2026-11-13",
-      "note": "Reviews shown are Chefman store reviews, not Amazon reviews."
+      "id": "S5",
+      "title": "Short link for product 2 (as supplied by the owner)",
+      "publisher": "Amazon (link.amazon short-link service)",
+      "url": "https://link.amazon/B02NbDxp3",
+      "accessed": "2026-11-13",
+      "status": "resolved",
+      "supports": "Resolves to https://www.amazon.com/dp/B09B7SB46R. Resolved URL contains no 'tag=' parameter.",
+      "review_note": "See Flagged for Review, items F03 and F04."
     },
     {
-      "id": "S-EM-P2",
-      "label": "Emeril Everyday official product page — Emeril Lagasse French Door AirFryer 360 Toaster Oven Combo, 26 QT (4-00675-02A-VN)",
-      "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
-      "tier": "official-primary",
-      "owner": "Emeril Everyday",
-      "what_it_verifies": "Capacity in quarts and litres, dimensions, voltage, fan type, preset counts, included accessories, warranty term, brand-store price and brand-store review rating, Prop 65 link.",
-      "observed": "2026-11-13",
-      "note": "Reviews are brand-store reviews (Bazaarvoice), not Amazon reviews. Brand-store rating is 2.6/5 across 25 reviews."
+      "id": "S6",
+      "title": "Short link for product 3 (as supplied by the owner)",
+      "publisher": "Amazon (link.amazon short-link service)",
+      "url": "https://link.amazon/B00hJ57DV",
+      "accessed": "2026-11-13",
+      "status": "resolved",
+      "supports": "Resolves to https://www.amazon.com/dp/B08DKYBTPH. Product title 'Chefman Air Fryer 8 Qt | TurboFry...' and department 'Home & Kitchen' are shown in the resolved page title. Resolved URL contains no 'tag=' parameter.",
+      "review_note": "See Flagged for Review, items F03, F04 and F07."
     },
     {
-      "id": "S-CM-WARRANTY",
-      "label": "Chefman warranty terms and conditions (PDF)",
-      "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/7x7_Terms_Conditions_Warranty_06_2021_1.pdf",
-      "tier": "official-supporting",
-      "owner": "Chefman",
-      "what_it_verifies": "The warranty document Chefman itself links from both product pages under “Download Warranty Documentation”.",
-      "observed": "2026-11-13",
-      "note": "Linked from Chefman product pages. Not opened and re-read line by line for this report; the 1-year term is taken from the product pages themselves."
-    },
-    {
-      "id": "S-EM-MANUAL",
-      "label": "Emeril French Door AirFryer 360 product manual (PDF)",
-      "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf",
-      "tier": "official-supporting",
-      "owner": "Emeril Everyday",
-      "what_it_verifies": "Linked by the brand as “Product Manual” for the FAFO-001 series.",
-      "observed": "2026-11-13",
-      "note": "Reference only. Not used to assert any value in the tables."
-    },
-    {
-      "id": "S-P65",
-      "label": "California Proposition 65 warnings — official state site",
-      "url": "https://www.p65warnings.ca.gov/",
-      "tier": "official-regulatory",
-      "owner": "State of California OEHHA",
-      "what_it_verifies": "The meaning and scope of the Prop 65 warning both Chefman and Emeril publish.",
-      "observed": "2026-11-13",
-      "note": "—"
-    },
-    {
-      "id": "S-AMZ-POL",
-      "label": "Amazon Associates Program Policies (page states: Updated April 14, 2026)",
-      "url": "https://affiliate-program.amazon.com/help/operating/policies",
-      "tier": "official-program",
-      "owner": "Amazon.com, Inc.",
-      "what_it_verifies": "Special Link formatting, price/availability display rules, prohibited promotional conduct, price-tracking prohibition, program IP licence, participation requirements.",
-      "observed": "2026-11-13",
-      "note": "Read across the full document including the Participation Requirements and IP License sections."
-    },
-    {
-      "id": "S-AMZ-OA",
-      "label": "Amazon Associates Program Operating Agreement (page states: Updated October 15, 2025)",
+      "id": "S7",
+      "title": "Amazon Associates Program Operating Agreement",
+      "publisher": "Amazon Associates Central (official)",
       "url": "https://affiliate-program.amazon.com/help/operating/agreement",
-      "tier": "official-program",
-      "owner": "Amazon.com, Inc.",
-      "what_it_verifies": "Defines Special Links and tagged link formats, compliance obligations, consequences of violation.",
-      "observed": "2026-11-13",
-      "note": "—"
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Section 5 'Identifying Yourself as an Associate' (required disclosure wording). Section 6 (violation of Section 5 is a material breach). Section 12 incorporates the Program Policies (see S8).",
+      "review_note": "Page header states 'Updated: October 15, 2025'."
     },
     {
-      "id": "S-AMZ-RATE",
-      "label": "Amazon Associates Standard Commission Income Statement — Table 1 fixed rates by category",
-      "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
-      "tier": "official-program",
-      "owner": "Amazon.com, Inc.",
-      "what_it_verifies": "The published fixed commission rate per product category, including Kitchen = 4.50%.",
-      "observed": "2026-11-13",
-      "note": "The personalised rate card at /home/account/payment/customratecard is behind sign-in and was NOT read; no personalised rate is claimed."
-    },
-    {
-      "id": "S-AMZ-COMM",
-      "label": "Amazon Associates Program Policies — Commission Income Statement, §1 (Qualifying Purchases / Session)",
+      "id": "S8",
+      "title": "Amazon Associates Program Policies (Participation Requirements, Commission Income Statement)",
+      "publisher": "Amazon Associates Central (official)",
       "url": "https://affiliate-program.amazon.com/help/operating/policies",
-      "tier": "official-program",
-      "owner": "Amazon.com, Inc.",
-      "what_it_verifies": "The 24-hour click session, the 89-day add-to-cart window, and the 180-day shipment window that govern whether a click can earn.",
-      "observed": "2026-11-13",
-      "note": "Section anchor: #Associates%20Program%20Fee%20Statement"
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Participation Requirements s.1 (Unsuitable Sites incl. Amazon trademarks in domain name or tag; non-US person clause). s.2(a)-(b) (Special Links must include the Associates ID/tag; prices and availability may be shown only via an Amazon-served link or PA-API/Creators API; product lists need original content). Commission Income Statement s.1 (Qualifying Purchases; Qualifying Revenue excludes shipping, taxes, gift wrap, fees, credits). s.2(e) (Redirecting Link purchases are disqualified). s.3 (Standard Commission Income is a % of Qualifying Revenue).",
+      "review_note": "Page header states 'Updated: April 14, 2026'. The Appendix rates link goes to S9, which was not reachable."
     },
     {
-      "id": "S-FTC-QA",
-      "label": "FTC — Endorsement Guides: What People Are Asking (staff guidance)",
-      "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
-      "tier": "official-regulatory",
-      "owner": "U.S. Federal Trade Commission",
-      "what_it_verifies": "Affiliate-disclosure wording and placement; that “affiliate link” alone is inadequate; that a single site-wide disclosure is inadequate.",
-      "observed": "2026-11-13",
-      "note": "Contains a dedicated “What about affiliate or network marketing?” section."
+      "id": "S9",
+      "title": "Amazon Associates Standard Commission Income schedule (rates by category)",
+      "publisher": "Amazon Associates Central (official)",
+      "url": "https://affiliate-program.amazon.com/help/operating/schedule",
+      "accessed": "2026-11-13",
+      "status": "blocked",
+      "supports": "Nothing. Both the URL and its trailing-slash variant redirected to the Amazon sign-in page. Third-party rate tables disagree with each other (for example, Home & Kitchen shown as 3%, 4%, 6% and 8%), so none were used.",
+      "review_note": "Commission rates are left blank and flagged as unverified."
     },
     {
-      "id": "S-FTC-255",
-      "label": "16 CFR Part 255 — Guides Concerning Use of Endorsements and Testimonials in Advertising (eCFR, current as of 11/10/2026)",
-      "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255",
-      "tier": "official-regulatory",
-      "owner": "U.S. Federal Trade Commission / Office of the Federal Register",
-      "what_it_verifies": "The codified rule text, including §255.5 Disclosure of material connections.",
-      "observed": "2026-11-13",
-      "note": "Source note on the page: 88 FR 48102, July 26, 2023."
+      "id": "S10",
+      "title": "FTC: Disclosures 101 for Social Media Influencers",
+      "publisher": "U.S. Federal Trade Commission (official)",
+      "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Disclose any financial relationship (a material connection) with a brand. Place the disclosure where it is hard to miss, with the endorsement itself. Do not rely on an About page or a link to read more. Do not claim experience with a product you have not tried.",
+      "review_note": "Page footer shows 'November 2019'."
     },
     {
-      "id": "S-AMZ-OA-S5",
-      "label": "Amazon Associates Operating Agreement — §5 “Identifying Yourself as an Associate”",
-      "url": "https://affiliate-program.amazon.com/help/operating/agreement",
-      "tier": "official-program",
-      "owner": "Amazon.com, Inc.",
-      "what_it_verifies": "The exact required disclosure sentence: “As an Amazon Associate I earn from qualifying purchases.” Also the prohibition on implying Amazon endorsement.",
-      "observed": "2026-11-13",
-      "note": "Section anchor: §5. Requirement is to state it clearly and prominently on the Site."
+      "id": "S11",
+      "title": "GitHub Docs: Configuring a publishing source for your GitHub Pages site",
+      "publisher": "GitHub Docs (official)",
+      "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site",
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "A branch can publish a /docs folder. Settings > Pages > Build and deployment selects the branch and folder. GitHub Actions can also be used.",
+      "review_note": ""
+    },
+    {
+      "id": "S12",
+      "title": "Repository kanlerxz87-cyber/Zone1 (this repository)",
+      "publisher": "GitHub",
+      "url": "https://github.com/kanlerxz87-cyber/Zone1",
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Repo state at start of session: branch main @ 42f4036 'Initial commit'. Only README.md (7 bytes, '# Zone1') is tracked. No .gitignore, LICENSE or COORDINATION.md. GitHub Pages was already enabled from main at '/' with build_type 'legacy'.",
+      "review_note": ""
     }
   ]
 }
