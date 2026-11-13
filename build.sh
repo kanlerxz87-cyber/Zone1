@@ -4,4 +4,4 @@ set -euo pipefail
 cd "$(dirname "$0")"
 python3 scripts/build.py
 python3 scripts/check.py
-echo "Build OK — docs/ is ready to publish."
+echo "Build OK — repo root is ready to publish via GitHub Pages."

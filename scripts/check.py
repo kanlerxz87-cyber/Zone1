@@ -23,7 +23,8 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
-DOCS = os.path.join(ROOT, "docs")
+DOCS = ROOT  # site is served from the repo root
+SKIP_DIRS = {".git", "data", "scripts", "assets_src", "node_modules", "photos"}
 
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
 TRADEMARK = "Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates."
@@ -106,7 +107,8 @@ def main():
 
     # ---- 5. internal links and assets ------------------------------------
     pages = []
-    for dirpath, _dirs, files in os.walk(DOCS):
+    for dirpath, dirs, files in os.walk(DOCS):
+        dirs[:] = [d for d in dirs if d not in SKIP_DIRS and not d.startswith(".")]
         for f in files:
             if f.endswith(".html"):
                 pages.append(os.path.join(dirpath, f))
@@ -196,6 +198,8 @@ def main():
     print(f"verified product fields: {verified_fields}")
     print(f"blank/flagged product fields: {unverified_fields}")
     print(f"pages: {len(pages)}")
+    published = sorted(os.path.relpath(p, ROOT) for p in pages)
+    print("published pages: " + ", ".join(published))
     if warnings:
         print(f"\n{len(warnings)} warning(s):")
         for w in warnings:

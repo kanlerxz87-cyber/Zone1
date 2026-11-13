@@ -14,7 +14,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
-DOCS = os.path.join(ROOT, "docs")
+DOCS = ROOT  # GitHub Pages serves this repo from main -> / (root), not /docs
 
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
 
@@ -1035,9 +1035,12 @@ verified, and what the owner has to do next. Written to be read in three minutes
     return len(products), len(sources), len(irr_items)
 
 
+GENERATED_ASSETS = ("assets",)
+
+
 if __name__ == "__main__":
+    os.makedirs(os.path.join(DOCS, "assets"), exist_ok=True)
     shutil.copyfile(os.path.join(ROOT, "assets_src", "style.css"),
-                    (os.makedirs(os.path.join(DOCS, "assets"), exist_ok=True),
-                     os.path.join(DOCS, "assets", "style.css"))[1])
+                    os.path.join(DOCS, "assets", "style.css"))
     stats = build()
     print(f"built: {stats[0]} products, {stats[1]} sources, {stats[2]} flagged items")

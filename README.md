@@ -11,13 +11,13 @@ not filled in.
 
 | Path | What it is |
 |---|---|
-| `docs/` | The published site (GitHub Pages serves `main` → `/`) |
+| `*.html`, `articles/`, `categories/`, `assets/` | The published site (GitHub Pages serves `main` → `/`) |
 | `data/products.json` | The three products, every field as `{value, source, verified}` |
 | `data/sources.json` | The source register — 24 official URLs and what each supports |
 | `data/compliance.json` | 23 Amazon/FTC requirements, each with a verbatim quote and a link |
 | `data/analysis.json` | Niche scoring, content plan, automation pipeline (labelled as derived) |
 | `data/irregularities.json` | 17 flagged items, including the monetisation blocker |
-| `scripts/build.py` | Static generator — renders `docs/` from `data/` |
+| `scripts/build.py` | Static generator — renders the HTML from `data/` |
 | `scripts/check.py` | Verification gate — fails on broken links, unsourced rows, missing disclosures |
 | `COORDINATION.md` | Shared task board for parallel agent sessions |
 
