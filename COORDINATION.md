@@ -44,6 +44,12 @@ and does not block anything.
 - **Verification performed by the build (`node scripts/build.mjs`):** every verified value cites a valid, accessible source; every unverified value is blank; every official link is on an official host; every internal link resolves. HTTP 200 on all pages checked locally; HTML tags balanced.
 - **Not verified:** visual layout in a browser (no browser available in the sandbox).
 
+### T5 — Integration (in progress)
+- **Pull request:** https://github.com/kanlerxz87-cyber/Zone1/pull/1 (`arena/d14c5409-zone1` → `main`)
+- **Checks before merge:** `node scripts/build.mjs` passed (3 products, 18/30 fields verified, 16 flags, 12 sources, 7 pages); all internal links resolve; HTTP 200 on all pages locally.
+- **Merge result:** pending (updated below after merge).
+- **Pages:** source to be switched from `main` `/` to `main` `/docs` after the merge, then the deploy is checked.
+
 ## Handoff / conflict log
 
 - _none — no other session claimed or edited files during this run._
