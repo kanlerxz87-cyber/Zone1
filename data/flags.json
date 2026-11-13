@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "project": "Zone1 — Amazon Affiliate Marketing Platform",
+    "compiled_on": "2026-11-13",
+    "purpose": "Every irregularity, gap and open question found during line-by-line verification. Each item states what was observed, the official source that was checked, the action taken, and whether it blocks publication. Status 'needs review' means it is published on the Flagged for Review page; it does not block the site going live."
+  },
+  "flags": [
+    {
+      "id": "F-01",
+      "title": "The supplied link.amazon path segments are not ASINs",
+      "severity": "high",
+      "category": "Link resolution",
+      "observation": "Each supplied URL looks like it contains an ASIN in its path: link.amazon/B04G1MEwY, link.amazon/B02NbDxp3 and link.amazon/B00hJ57DV. Requesting them over HTTP resolves to three unrelated product pages: /dp/B0CDY277D3 (CHEFMAN 6 Quart Dual Basket Air Fryer Oven), /dp/B09B7SB46R (Emeril Lagasse 26QT French Door Air Fryer Toaster Oven) and /dp/B08DKYBTPH (Chefman Air Fryer 8 Qt TurboFry). The path segment is therefore an opaque redirect token, not the ASIN of the product being promoted.",
+      "why_it_matters": "Rebuilding the links from the ASIN-looking segment would point every future article at the wrong product. All links in this project are rebuilt from the resolved /dp/<ASIN> destination plus the publisher's tag parameter.",
+      "source": "https://link.amazon/B04G1MEwY",
+      "secondary_sources": [
+        "https://link.amazon/B02NbDxp3",
+        "https://link.amazon/B00hJ57DV",
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://www.amazon.com/dp/B09B7SB46R",
+        "https://www.amazon.com/dp/B08DKYBTPH"
+      ],
+      "action_taken": "Resolved each link, recorded the final URL and the destination page <title> in data/products.json, and rebuilt all outbound links from the resolved ASIN.",
+      "status": "needs review",
+      "blocks_publication": false
+    },
+    {
+      "id": "F-02",
+      "title": "Product 1 buy-box price is volatile",
+      "severity": "medium",
+      "category": "Pricing",
+      "observation": "Two different new-condition prices were served for B0CDY277D3 within the same fetch window: $79.93 (shown as 20% below the $99.99 list price, $39.97 per count) and $57.45 (shown as 43% below the $99.99 list price). A used-condition offer at $57.45 was also served. The embedded buy-box payload listed exactly two entries — NEW $79.93 and USED $57.45 — so the $57.45 \"new\" figure appears to be a second buy-box variant rather than a stable price.",
+      "why_it_matters": "Publishing a single price for this ASIN risks stating a price that is not the one the reader sees. Amazon's Program Policies also restrict displaying prices unless they are served by Amazon alongside the link or come from Creators API / PA API.",
+      "source": "https://www.amazon.com/dp/B0CDY277D3",
+      "action_taken": "Both new-condition figures and the used figure are recorded verbatim in the catalog with their timestamps, the price row is labelled as a point-in-time snapshot, and the price-display restriction is raised as F-07.",
+      "status": "needs review",
+      "blocks_publication": false
+    },
+    {
+      "id": "F-03",
+      "title": "Product 2 detail page serves a reduced body",
+      "severity": "medium",
+      "category": "Data completeness",
+      "observation": "https://www.amazon.com/dp/B09B7SB46R returned only navigation and footer markup — no buy box, price block, star rating, feature bullets, 'About this item' list, Product information block or Item details block — on six differently-formed requests (/dp/, /gp/aw/d/, /gp/product/, the canonical slug URL, with and without ?psc=1&language=en_US, and with an added qid/sr). The page <title> was served correctly on every request.",
+      "why_it_matters": "The specification fields that make this product comparable (dimensions, weight, wattage, material, model number, UPC, Best Sellers Rank, warranty, temperature range) could not be read from an official source.",
+      "source": "https://www.amazon.com/dp/B09B7SB46R",
+      "secondary_sources": ["https://www.amazon.com/s?k=B09B7SB46R"],
+      "action_taken": "The product's title, brand, rating, review count, price, list price, promotion badge, alternative-offer price and monthly purchase volume were verified from Amazon's own search result listing for the ASIN (https://www.amazon.com/s?k=B09B7SB46R) and are recorded with that URL as the source. Every specification field that could not be read is left blank and labelled unverified rather than inferred from the title or from the other two products.",
+      "status": "needs review",
+      "blocks_publication": false
+    },
+    {
+      "id": "F-04",
+      "title": "The Amazon Associates rate card is not publicly readable",
+      "severity": "high",
+      "category": "Commission modelling",
+      "observation": "The Program Policies Appendix links Standard Commission Income to https://affiliate-program.amazon.com/help/operating/schedule. Requesting that URL redirects to the Amazon sign-in page (…/home/account/payment/customratecard). No public first-party page states a per-category commission rate for Kitchen & Dining air fryers.",
+      "why_it_matters": "Commission potential is the core driver of every product decision in an affiliate business, and no honest statement about it can be made from a public source.",
+      "source": "https://affiliate-program.amazon.com/help/operating/schedule",
+      "secondary_sources": ["https://affiliate-program.amazon.com/help/operating/policies"],
+      "action_taken": "No numeric commission rate is asserted anywhere on this site. The revenue model on the Research & Analysis page is expressed as commission = price × r, with r supplied by the publisher from their own signed-in rate card, and is shown at a spread of illustrative rate inputs that are labelled as inputs rather than as Amazon's rates.",
+      "status": "needs review",
+      "blocks_publication": false
+    },
+    {
+      "id": "F-05",
+      "title": "All prices, badges, purchase-volume counts and Best Sellers Ranks are point-in-time",
+      "severity": "medium",
+      "category": "Data freshness",
+      "observation": "Prices, discount percentages, promotion badges, 'K+ bought in past month' counts and Best Sellers Rank change continuously on Amazon. Every figure in this project was captured on 2026-11-13.",
+      "why_it_matters": "A stale price in an affiliate article is both a customer-trust problem and a compliance problem under the Program Policies, which require limited-time promotion references to be removed once the promotion ends.",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies",
+      "action_taken": "Every dynamic value is stamped with its verification date in the catalog tables, and the Campaign & Automation page specifies a scheduled re-verification job and a SiteStripe/PA API replacement for the static price column.",
+      "status": "needs review",
+      "blocks_publication": false
+    },
+    {
+      "id": "F-06",
+      "title": "Product 1 capacity is rendered in litres on Amazon while the manufacturer states quarts",
+      "severity": "low",
+      "category": "Unit consistency",
+      "observation": "The Product details block for B0CDY277D3 lists \"Capacity | 6 liters\". The product title, the manufacturer bullets and the product imagery all describe a 6-quart dual-basket air fryer with 3-quart baskets.",
+      "why_it_matters": "A comparison table that mixes the two units would misstate the product's size relative to the 8-quart and 26-quart products.",
+      "source": "https://www.amazon.com/dp/B0CDY277D3",
+      "action_taken": "Both values are recorded verbatim in separate rows and the unit discrepancy is shown on the row itself; the prose uses the manufacturer's quart figure because that is what the manufacturer states on the page.",
+      "status": "needs review",
+      "blocks_publication": false
+    },
+    {
+      "id": "F-07",
+      "title": "Program Policies restrict displaying Product prices without Amazon-served or API-sourced data",
+      "severity": "high",
+      "category": "Compliance — pre-launch action required",
+      "observation": "Program Policies, Participation Requirements section 2(b): \"Product prices and availability may vary from time to time… your Site may only show prices and availability if: (a) we serve the link in which that price and availability data are displayed, or (b) you obtain Product pricing and availability data via Creators API or PA API and you comply with the requirements regarding use of Creators API or PA API in the License.\"",
+      "why_it_matters": "This site is a static GitHub Pages build with hand-verified price snapshots, which is neither option (a) nor option (b). The prices are therefore research data, not licensed Product Advertising Content.",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies",
+      "action_taken": "Every price on this site is labelled as a dated research snapshot with the Amazon page it was read from, and the compliance page records two compliant routes before the site is used for live traffic: (1) replace the static price column with SiteStripe or a PA API widget that renders Amazon's own price with the tag, or (2) remove prices from the published pages and keep them only in the internal research tables.",
+      "status": "needs review",
+      "blocks_publication": false
+    },
+    {
+      "id": "F-08",
+      "title": "Program Policies restrict displaying Amazon star ratings and customer reviews without API-sourced links",
+      "severity": "high",
+      "category": "Compliance — pre-launch action required",
+      "observation": "Program Policies, Participation Requirements section 5(t): \"You will not display or otherwise use any of our customer reviews or star ratings, in part or in whole, on your Site unless you have obtained a link to that customer review or star rating through Creators API or PA API and you comply with the requirements for Creators API and PA API described in the License.\"",
+      "why_it_matters": "The rating and review-count columns in the catalog and comparison tables are read from Amazon pages rather than obtained through Creators API / PA API, so they fall inside the restriction as written.",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies",
+      "action_taken": "The rating and review-count values are retained because they are required research findings and each one carries the exact Amazon URL it was read from. The compliance page records the two compliant routes before live use: (1) source the ratings through PA API / Creators API so each carries a compliant link, or (2) drop the rating columns from the published pages and keep them in the internal research record only. This is a decision for the publisher and has been flagged rather than silently resolved.",
+      "status": "needs review",
+      "blocks_publication": false
+    },
+    {
+      "id": "F-09",
+      "title": "Warranty and 'date first available' were not readable for two of the three products",
+      "severity": "low",
+      "category": "Data completeness",
+      "observation": "For B0CDY277D3 the Item details block was read in full and did not expose a Date first available row; no Warranty Description row was present either. For B08DKYBTPH the Item details block was read in full and exposed Warranty Description = \"1-Year Limited Warranty\" but no Date first available row. For B09B7SB46R no Item details block was served at all (see F-03).",
+      "why_it_matters": "Warranty length and launch date are useful competitive signals but were not confirmed for every product.",
+      "source": "https://www.amazon.com/dp/B0CDY277D3",
+      "secondary_sources": ["https://www.amazon.com/dp/B08DKYBTPH"],
+      "action_taken": "Only the B08DKYBTPH warranty value is recorded, with its source. The other warranty and date fields are left blank and labelled unverified.",
+      "status": "needs review",
+      "blocks_publication": false
+    },
+    {
+      "id": "F-10",
+      "title": "Amazon's robots.txt disallows a large set of AI and research agents",
+      "severity": "high",
+      "category": "Automation architecture",
+      "observation": "Amazon's robots.txt disallows all paths for a long list of agents including GPTBot, ClaudeBot, Claude-User, ChatGPT-User, PerplexityBot and Perplexity-User, Google-Extended, GoogleAgent-Shopping, CCBot, Bytespider, Scrapy, AI2Bot, MistralAI-User, Diffbot, SemrushBot, YouBot, OAI-SearchBot, xAI-Grok, GrokBot, Timpibot, Thinkbot, and others. For the generic agent it disallows a long list of checkout, account, cart, review-writing and review-aggregation paths.",
+      "why_it_matters": "An \"AI-powered\" research pipeline that harvests rendered Amazon pages conflicts with the site's stated machine policy and with the Program Content licence, which prohibits using Program Content to develop or improve large language or machine-learning models and prohibits data-mining or robots-based extraction of Program Content.",
+      "source": "https://www.amazon.com/robots.txt",
+      "secondary_sources": ["https://affiliate-program.amazon.com/help/operating/policies"],
+      "action_taken": "The automation design in this project routes product data through the official Creators API / PA API rather than through scraping, forbids training or fine-tuning on Program Content, and treats AI output as a draft that must be reconciled against the verified product record before publication.",
+      "status": "needs review",
+      "blocks_publication": false
+    },
+    {
+      "id": "F-11",
+      "title": "The supplied link.amazon URLs cannot be reused as affiliate Special Links",
+      "severity": "medium",
+      "category": "Link construction",
+      "observation": "The three supplied URLs carry no Associates ID or tag parameter. Program Policies require every Special Link placed on a Site to include the publisher's Associates ID as a URL parameter, in the form XXXXX-##.",
+      "why_it_matters": "Using the supplied URLs unchanged would produce untracked traffic and no commission.",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies",
+      "action_taken": "The project publishes link templates of the form https://www.amazon.com/dp/<ASIN>?tag=YOUR-TAG-XX for each product, with a placeholder tag that the publisher replaces with their own Associates ID. The placeholder is deliberately not a plausible-looking tag so it cannot be published by mistake.",
+      "status": "needs review",
+      "blocks_publication": false
+    },
+    {
+      "id": "F-12",
+      "title": "GitHub Pages was already configured for this repository before any change",
+      "severity": "low",
+      "category": "Repository review",
+      "observation": "The GitHub API reported an existing Pages site for kanlerxz87-cyber/Zone1 with build_type \"legacy\", source branch \"main\", source path \"/\", status \"built\", public, https_enforced true, cname null, custom_404 false. The repository itself contained a single commit (42f4036 \"Initial commit\") and a README containing only \"# Zone1\".",
+      "why_it_matters": "There was no pre-existing site to preserve, and no existing Pages configuration to reconcile. The deployment pipeline is the legacy root-directory build, which serves whatever HTML is committed to the main branch.",
+      "source": "https://api.github.com/repos/kanlerxz87-cyber/Zone1/pages",
+      "action_taken": "The site is delivered as plain static HTML, CSS and JavaScript committed to the repository root so the legacy build publishes it with no build step and no dependency on an Actions workflow.",
+      "status": "needs review",
+      "blocks_publication": false
+    },
+    {
+      "id": "F-13",
+      "title": "No search-volume, keyword-difficulty or conversion-benchmark data is published on this site",
+      "severity": "medium",
+      "category": "Data availability",
+      "observation": "The project was asked to identify profitable niches and trending products using search and ranking data. Search volume, keyword difficulty, competitor traffic, category-wide conversion benchmarks and historical rank series cannot be obtained from an official first-party source — they are sold by third-party tools such as Ahrefs, Semrush or Jungle Scout, none of which was available as a verified source in this environment.",
+      "why_it_matters": "Quoting an unsourced search volume or conversion benchmark would be a hallucinated figure presented as data. It would also undercut the verification standard the rest of the site holds itself to.",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies",
+      "secondary_sources": [
+        "https://www.amazon.com/robots.txt",
+        "https://affiliate-program.amazon.com/help/operating/schedule"
+      ],
+      "action_taken": "Demand and trend analysis on this site is built only from Amazon's own published signals — Best Sellers Rank, 'bought in past month', rating depth, brand-panel trend labels and the competitive set Amazon itself surfaces on the product pages. Every place a search or conversion benchmark would normally appear states instead that no official figure is available, and the Sources page records this gap explicitly.",
+      "status": "needs review",
+      "blocks_publication": false
+    }
+  ]
+}
