@@ -1,0 +1,285 @@
+{
+  "as_of": "2026-11-13",
+  "note": "Flagged items do not block publishing. Each one is shown on the Flagged for Review page with its source links.",
+  "flags": [
+    {
+      "id": "F01",
+      "severity": "High",
+      "type": "Unverified data",
+      "item": "Price, rating, review count and availability are blank for all 3 products.",
+      "detail": "The retrieved Amazon page text did not contain the product-detail blocks. Pricing and review analysis therefore cannot be done from verified sources.",
+      "sources": [
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "action": "Review the live Amazon pages manually, or provide Creators API / PA-API access through an Associates account. Values will only be added from that source."
+    },
+    {
+      "id": "F02",
+      "severity": "High",
+      "type": "Unverified data",
+      "item": "Commission rates are blank for all 3 products (Home & Kitchen rate not confirmed).",
+      "detail": "The official Standard Commission Income schedule redirected to a sign-in page. Third-party sites disagree with each other (for example, Home & Kitchen is shown as 3%, 4%, 6% and 8%), so none of them were used.",
+      "sources": [
+        "S9",
+        "S8"
+      ],
+      "action": "Check the rate on the Associates Central schedule while signed in, then record it with its source."
+    },
+    {
+      "id": "F03",
+      "severity": "High",
+      "type": "Compliance",
+      "item": "None of the supplied links carry an Associates tag.",
+      "detail": "The resolved URLs have no tag= parameter. Associates Participation Requirements Section 2(b) requires the Associates ID in every Special Link. No purchase from these links would be credited to an Associates account as supplied.",
+      "sources": [
+        "S4",
+        "S5",
+        "S6",
+        "S8"
+      ],
+      "action": "Provide the Associates ID for tagging. The site will not invent one."
+    },
+    {
+      "id": "F04",
+      "severity": "Medium",
+      "type": "Irregularity",
+      "item": "Short-link codes do not match the ASINs they resolve to.",
+      "detail": "B04G1MEwY resolves to B0CDY277D3. B02NbDxp3 resolves to B09B7SB46R. B00hJ57DV resolves to B08DKYBTPH. The short codes are not ASINs.",
+      "sources": [
+        "S4",
+        "S5",
+        "S6"
+      ],
+      "action": "Confirm these are the intended products. The table uses the resolved ASIN."
+    },
+    {
+      "id": "F05",
+      "severity": "Medium",
+      "type": "Compliance",
+      "item": "Use of link.amazon short links may be treated as Redirecting Links.",
+      "detail": "Commission Income Statement Section 2(e) disqualifies purchases referred by a Redirecting Link. The short links are Amazon-operated, and whether they count as Special Links is not confirmed.",
+      "sources": [
+        "S8"
+      ],
+      "action": "Confirm with Associates Central whether these short links are acceptable. Otherwise use tagged /dp/ links."
+    },
+    {
+      "id": "F06",
+      "severity": "High",
+      "type": "Compliance",
+      "item": "The required Associates statement cannot be shown as active until enrollment is confirmed.",
+      "detail": "Operating Agreement Section 5 requires the statement 'As an Amazon Associate I earn from qualifying purchases.' The site shows it with an enrollment-pending status, so it does not claim an active relationship that has not been confirmed.",
+      "sources": [
+        "S7"
+      ],
+      "action": "Once enrollment is confirmed, set associates_status to \"active\" in data/site.json and rebuild. The statement then appears as an active disclosure."
+    },
+    {
+      "id": "F07",
+      "severity": "Medium",
+      "type": "Unverified data",
+      "item": "Canonical page for product 3 (B08DKYBTPH) returned an interstitial.",
+      "detail": "https://www.amazon.com/dp/B08DKYBTPH showed 'To continue, please click the Continue shopping button'. The product title is confirmed only through the short-link resolved page.",
+      "sources": [
+        "S3",
+        "S6"
+      ],
+      "action": "Open the page in a browser and confirm the title and ASIN."
+    },
+    {
+      "id": "F08",
+      "severity": "Medium",
+      "type": "Compliance",
+      "item": "Non-US Associate clause and Norway residence.",
+      "detail": "Participation Requirements Section 1 says a non-US person agrees to perform services outside the United States unless the tax information says otherwise. The site owner's location is Oslo, Norway. Schedule 3 (taxes) was not reviewed.",
+      "sources": [
+        "S8",
+        "S7"
+      ],
+      "action": "Confirm Associates eligibility and tax information for the account holder's country."
+    },
+    {
+      "id": "F09",
+      "severity": "Low",
+      "type": "Unverified data",
+      "item": "Marketplace and shipping to Norway are not verified.",
+      "detail": "All three links resolve to Amazon.com (United States). Whether these products ship to Norway was not checked.",
+      "sources": [
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "action": "Confirm the target marketplace for each product link."
+    },
+    {
+      "id": "F10",
+      "severity": "Low",
+      "type": "Irregularity",
+      "item": "Brand spelled 'CHEFMAN' in one title and 'Chefman' in another.",
+      "detail": "Products 1 and 3 appear to share a brand, but casing differs. The Amazon brand field was not readable, so the brand match is not confirmed.",
+      "sources": [
+        "S1",
+        "S6"
+      ],
+      "action": "Confirm the brand on the Amazon brand field."
+    },
+    {
+      "id": "F11",
+      "severity": "High",
+      "type": "Scope",
+      "item": "The full AI platform is not built. This covers automated product discovery, trend and niche detection, competitor and price analysis, article generation at scale, publishing, click and conversion tracking, and automated optimization.",
+      "detail": "Those functions need Amazon data access (Creators API / PA-API credentials, an Associates account and sales reports) plus an analytics account. None of these are available to this session. Building them would mean inventing data, so the site contains only the verified data above.",
+      "sources": [
+        "S7",
+        "S8"
+      ],
+      "action": "Decide whether to provide API and analytics access. The site can then be extended with verified data."
+    },
+    {
+      "id": "F12",
+      "severity": "Medium",
+      "type": "Repo",
+      "item": "The repository held only README.md ('# Zone1'). It has no .gitignore, LICENSE or build tooling.",
+      "detail": "COORDINATION.md was created in this session. A build script and generated site were added. No license was chosen.",
+      "sources": [
+        "S12"
+      ],
+      "action": "Add a license and .gitignore if wanted."
+    },
+    {
+      "id": "F13",
+      "severity": "Low",
+      "type": "Repo",
+      "item": "GitHub Pages publishing source is main at '/' (legacy). This session could not change it to /docs (API returned 403 for this token).",
+      "detail": "A root index.html redirects to docs/index.html, which holds the built site. The site is therefore reachable at the Pages URL without changing settings.",
+      "sources": [
+        "S11",
+        "S12"
+      ],
+      "action": "Optional: in Settings > Pages, set the source folder to /docs and remove the root redirect. Otherwise no action is needed."
+    },
+    {
+      "id": "F14",
+      "severity": "Low",
+      "type": "Repo",
+      "item": "The commit author's email address (kanlerxz87@gmail.com) is visible in the public commit history.",
+      "detail": "It appears in the 'Initial commit' (42f4036) metadata. This session did not rewrite history.",
+      "sources": [
+        "S12"
+      ],
+      "action": "Decide whether to keep the address in public history."
+    },
+    {
+      "id": "F15",
+      "severity": "Medium",
+      "type": "Process",
+      "item": "The coordination spec asks for per-session branches (session-<id>/<task>). This session may use only arena/d14c5409-zone1.",
+      "detail": "All tasks T1 to T5 were run on this branch. COORDINATION.md shows the claims. No other session appeared on the board when work started.",
+      "sources": [
+        "S12"
+      ],
+      "action": "None, unless parallel sessions are expected."
+    },
+    {
+      "id": "F16",
+      "severity": "Low",
+      "type": "Method",
+      "item": "Retrieval was done with the fetch tool, not a logged-in browser.",
+      "detail": "Amazon pages return partial text. Some values may be visible on the live page but could not be read here.",
+      "sources": [
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "action": "Spot-check the source links manually."
+    },
+    {
+      "id": "F17",
+      "severity": "High",
+      "type": "Product identity",
+      "item": "The short links may not lead to the products the owner intended. Confirm each one.",
+      "detail": "Independent test on 2026-11-13 (arena-4ba9e055). The three codes are 9 characters, not ASINs. A direct request to amazon.com/dp/<code> returns Amazon 'Page Not Found'. A fake code (ZZZZZZZZZ) at link.amazon returns 403 Forbidden, so the real codes are valid redirect tokens. Each real code redirects to the ASIN in S1/S3/S5. Those redirect URLs carry lv=shuf and plpRedirect=mhFallback, which can indicate a fallback page rather than the shared product. Two requests for product 1 returned the same ASIN and source token. Another session (arena/f28312ac-zone1) reported different results on later requests. That was not reproduced here.",
+      "sources": [
+        "S4",
+        "S5",
+        "S6",
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "action": "Open each submitted link while signed in and confirm it leads to the intended product. Report any different ASIN before the rows are used as fact."
+    },
+    {
+      "id": "F18",
+      "severity": "High",
+      "type": "Automation blocked",
+      "item": "Automated product data (price, reviews, rank) cannot be pulled from the PA-API. PA-API 5 is deprecated.",
+      "detail": "PA-API 5 is deprecated and returns HTTP 403 AccessDenied (S14). The Creators API needs Associates enrollment, at least 10 qualifying sales in the past 30 days, and registered credentials (S13). No credentials exist in this repo, and none were created.",
+      "sources": [
+        "S13",
+        "S14"
+      ],
+      "action": "Once the Associates account qualifies, register for the Creators API and store the credentials in a secret store, not in the repo. Build the pull then."
+    },
+    {
+      "id": "F19",
+      "severity": "Medium",
+      "type": "Compliance: Program Content",
+      "item": "Product titles are copied from Amazon listing pages. Program Policies §6(a) may restrict altering Program Content.",
+      "detail": "Participation Requirements §6(a): 'You will not add to, delete from, or otherwise alter any Program Content in any way', except for permitted resizing or truncation. Titles are shown unedited, but whether a listing title counts as Program Content is not confirmed. The site adds its own text around them.",
+      "sources": [
+        "S8"
+      ],
+      "action": "Decide whether titles may stay on the site, or replace them with the site's own product names."
+    },
+    {
+      "id": "F20",
+      "severity": "Medium",
+      "type": "Compliance: privacy and cookies",
+      "item": "The cookie and privacy disclosure required by Program Policies §3(e) is not shown on the site.",
+      "detail": "Participation Requirements §3(e) requires the site to disclose accurately the use of cookies, pixels, and other technologies by the site and by third parties. Amazon pages reached through the product links may set cookies. The site itself adds no analytics or cookies, but no disclosure text on this point was found in the published pages. Legal review needed.",
+      "sources": [
+        "S8"
+      ],
+      "action": "Add a short privacy and cookie note to the footer, and have counsel review it."
+    },
+    {
+      "id": "F21",
+      "severity": "Medium",
+      "type": "Coordination",
+      "item": "Several sessions claimed the same tasks. Some branches are marked done with no matching files on origin.",
+      "detail": "Branches arena/2bef746a-zone1, arena/8a2ddd06-zone1, arena/1874bb64-zone1, and arena/19a679d8-zone1 each claim the repo tasks, and their boards mark data, site, and PR tasks as done. On origin, these branches contain only COORDINATION.md and README.md (checked 2026-11-13). Branch arena/f28312ac-zone1 (zone1-s2) disputes the product identities (its F-07). Full list in crosscheck/arena-4ba9e055/README.md.",
+      "sources": [
+        "S15",
+        "S12"
+      ],
+      "action": "Confirm which claimed artifacts exist and push them, or re-open the tasks. Use one integrator for any future merge into main."
+    },
+    {
+      "id": "F22",
+      "severity": "Low",
+      "type": "Unverified data",
+      "item": "Best-sellers rank and availability are not in the published unverified list, but they were not verified either.",
+      "detail": "The published product table lists price, rating, review count, and commission rate as unverified. Best-sellers rank and availability were not readable from the product pages either, so they should be listed as unverified as well.",
+      "sources": [
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "action": "No action needed beyond showing the two extra fields as blank and unverified."
+    },
+    {
+      "id": "F23",
+      "severity": "Low",
+      "type": "Title text",
+      "item": "Product 3 title: the site shows 'TurboFry 4-in-1', but the title on the Amazon page reads 'TurboFry®'.",
+      "detail": "Independent read of the short-link resolved page title (S6) gives 'Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option ...'. The site drops the registered-trademark sign.",
+      "sources": [
+        "S6"
+      ],
+      "action": "Use the exact title text, or state that the title is abbreviated."
+    }
+  ]
+}

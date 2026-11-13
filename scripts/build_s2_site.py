@@ -277,14 +277,14 @@ def p_index(D) -> str:
              "tables from a parallel verification pass", "not audited line by line"),
         _row("products/chefman-6qt-dual-basket.html", "<code>/products/chefman-6qt-dual-basket.html</code>",
              "a product page for an ASIN attributed to the supplied links",
-             '<span class="pill bad">attribution not reproducible</span>'),
+             '<span class="pill review">attribution unconfirmed</span>'),
         _row("products/emeril-26qt-french-door.html", "<code>/products/emeril-26qt-french-door.html</code>",
-             "as above", '<span class="pill bad">attribution not reproducible</span>'),
+             "as above", '<span class="pill review">attribution unconfirmed</span>'),
         _row("products/chefman-8qt-turbofry.html", "<code>/products/chefman-8qt-turbofry.html</code>",
-             "as above", '<span class="pill bad">attribution not reproducible</span>'),
+             "as above", '<span class="pill review">attribution unconfirmed</span>'),
         _row("guides/buying-guide-air-fryers.html", "<code>/guides/buying-guide-air-fryers.html</code>",
-             "a buying guide built on the unattributed products",
-             '<span class="pill bad">built on F-07 inputs</span>'),
+             "a buying guide built on the candidate mapping",
+             '<span class="pill review">built on an unconfirmed mapping</span>'),
         _row("research/index.html", "<code>/research/</code> · <code>/docs/</code> · <code>/site/</code>",
              "three further copies of the same deliverable at different paths", "n/a"),
     ]
@@ -321,9 +321,10 @@ returns Amazon's “Page Not Found” page. Product name, price, rating and comp
 <h2>Open review items</h2>{table(["ID", "Severity", "Item", "Evidence"], frows)}
 <h2>Integration — what else is on this domain</h2>
 <p class="note">Four other sessions merged pages into <code>main</code> before this one. Nothing here overwrites
-them; they are linked so the operator can compare them against the verified tables. Every one of them states
-product facts for the three links in the brief — facts this session could not reproduce (F-07) — and at least
-one states a numeric commission rate, which no public official page does (F-04).</p>
+them; they are linked so the operator can compare them against the verified tables. Their product pages rest on
+the same three links this session could not resolve to a catalog entry (F-07), which narrows to “confirm the
+mapping”. Their economics table is labelled illustrative arithmetic across three candidate categories rather than
+an asserted rate, which is the correct treatment of Table 1 (see the F-04 correction).</p>
 {integ_table}
 <h2>Where to start</h2>
 <div class="card"><ul class="tight">

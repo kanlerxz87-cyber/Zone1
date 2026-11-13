@@ -4,38 +4,293 @@
   "as_of": "2026-11-13",
   "method": "Each item was checked by requesting the official publisher page and reading the text it returned. 'Confirmed' means the statement appears on that page. 'Blank + flagged' means no official page stated it, so nothing was written into the cell.",
   "entries": [
-    { "n": 1, "item": "ASIN format rule", "claim_checked": "an ASIN is a combination of 10 letters and numbers", "result": "confirmed", "how": "read from Amazon Ads' own guide and cross-read from Sell on Amazon", "source": "https://advertising.amazon.com/library/guides/asins-introduction" },
-    { "n": 2, "item": "Supplied token 1", "claim_checked": "B04G1MEwY is a valid ASIN", "result": "rejected — 9 characters", "how": "character count of the string in the operator's URL", "source": "https://link.amazon/B04G1MEwY" },
-    { "n": 3, "item": "Supplied token 2", "claim_checked": "B02NbDxp3 is a valid ASIN", "result": "rejected — 9 characters", "how": "character count", "source": "https://link.amazon/B02NbDxp3" },
-    { "n": 4, "item": "Supplied token 3", "claim_checked": "B00hJ57DV is a valid ASIN", "result": "rejected — 9 characters", "how": "character count", "source": "https://link.amazon/B00hJ57DV" },
-    { "n": 5, "item": "Catalog lookup, token 1", "claim_checked": "does a product page exist for B04G1MEwY", "result": "no — Amazon 'Page Not Found' page returned", "how": "GET amazon.com/dp/B04G1MEwY", "source": "https://www.amazon.com/dp/B04G1MEwY" },
-    { "n": 6, "item": "Catalog lookup, token 2", "claim_checked": "does a product page exist for B02NbDxp3", "result": "no — Amazon 'Page Not Found' page returned", "how": "GET amazon.com/dp/B02NbDxp3", "source": "https://www.amazon.com/dp/B02NbDxp3" },
-    { "n": 7, "item": "Catalog lookup, token 3", "claim_checked": "does a product page exist for B00hJ57DV", "result": "no — Amazon 'Page Not Found' page returned", "how": "GET amazon.com/dp/B00hJ57DV", "source": "https://www.amazon.com/dp/B00hJ57DV" },
-    { "n": 8, "item": "Short-link behaviour", "claim_checked": "does link.amazon resolve the token to a product", "result": "no — response carried lv=shuf and plpRedirect=mhFallback with a different ASIN in the path", "how": "GET link.amazon/B04G1MEwY and inspect the returned page's own URLs", "source": "https://link.amazon/B04G1MEwY" },
-    { "n": 9, "item": "Short-link behaviour, control", "claim_checked": "does a second token resolve to its own product", "result": "no — second token produced a different featured ASIN under the same fallback parameters", "how": "GET link.amazon/B02NbDxp3", "source": "https://link.amazon/B02NbDxp3" },
-    { "n": 10, "item": "Disclosure sentence", "claim_checked": "exact wording and placement Amazon requires", "result": "confirmed verbatim in section 5", "how": "read the Operating Agreement page", "source": "https://affiliate-program.amazon.com/help/operating/agreement" },
-    { "n": 11, "item": "Session window", "claim_checked": "24 hours from the click", "result": "confirmed", "how": "Commission Income Statement §1(b)", "source": "https://affiliate-program.amazon.com/help/operating/policies" },
-    { "n": 12, "item": "Cart window", "claim_checked": "89 days after the click-through", "result": "confirmed", "how": "Commission Income Statement §1(c)(i)", "source": "https://affiliate-program.amazon.com/help/operating/policies" },
-    { "n": 13, "item": "Fulfilment condition", "claim_checked": "shipped/streamed and paid within 180 days", "result": "confirmed", "how": "Commission Income Statement §1(iii)", "source": "https://affiliate-program.amazon.com/help/operating/policies" },
-    { "n": 14, "item": "Qualifying Revenue definition", "claim_checked": "which amounts are deducted before commission", "result": "confirmed — ten named deductions", "how": "Commission Income Statement §1", "source": "https://affiliate-program.amazon.com/help/operating/policies" },
-    { "n": 15, "item": "Disqualified purchases", "claim_checked": "search-engine links, redirecting links, bad formatting, returns, subscriptions, pre-orders", "result": "confirmed — list read in full", "how": "Commission Income Statement §2(a)–(k)", "source": "https://affiliate-program.amazon.com/help/operating/policies" },
-    { "n": 16, "item": "Payment timing and minimums", "claim_checked": "60-day lag; 10/10/100 USD minimums; 15 USD check fee; 2000 USD gift-card cap", "result": "confirmed", "how": "Program Policies §6 and Payment Minimum Chart", "source": "https://affiliate-program.amazon.com/help/operating/policies" },
-    { "n": 17, "item": "Originality requirement", "claim_checked": "site must contain original content and be publicly available", "result": "confirmed", "how": "Participation Requirements §1", "source": "https://affiliate-program.amazon.com/help/operating/policies" },
-    { "n": 18, "item": "Price-display restriction", "claim_checked": "prices only from an Amazon-served link or Creators/PA API", "result": "confirmed", "how": "Participation Requirements §2(b)", "source": "https://affiliate-program.amazon.com/help/operating/policies" },
-    { "n": 19, "item": "Comparison display rule", "claim_checked": "lowest new and lowest used must both be shown", "result": "confirmed", "how": "Participation Requirements §2(b)", "source": "https://affiliate-program.amazon.com/help/operating/policies" },
-    { "n": 20, "item": "Machine-learning restriction", "claim_checked": "Program Content may not be used to train models without written approval", "result": "confirmed", "how": "Participation Requirements §5", "source": "https://affiliate-program.amazon.com/help/operating/policies" },
-    { "n": 21, "item": "Client-side software restriction", "claim_checked": "no Special Links in browser extensions or set-top/TV surfaces", "result": "confirmed", "how": "Participation Requirements §5", "source": "https://affiliate-program.amazon.com/help/operating/policies" },
-    { "n": 22, "item": "Email and offline rules", "claim_checked": "offline prohibited; email/SMS/DM only if solicited", "result": "confirmed", "how": "Participation Requirements §4", "source": "https://affiliate-program.amazon.com/help/operating/policies" },
-    { "n": 23, "item": "Commission rate card", "claim_checked": "is a numeric category rate published anywhere official", "result": "not published — the schedule page returns the sign-in screen", "how": "GET affiliate-program.amazon.com/help/operating/schedule unauthenticated", "source": "https://affiliate-program.amazon.com/help/operating/schedule" },
-    { "n": 24, "item": "Forfeiture risk", "claim_checked": "Amazon may cease all commission income on breach", "result": "confirmed", "how": "Operating Agreement §2", "source": "https://affiliate-program.amazon.com/help/operating/agreement" },
-    { "n": 25, "item": "Termination notice", "claim_checked": "7 calendar days", "result": "confirmed", "how": "Operating Agreement §6", "source": "https://affiliate-program.amazon.com/help/operating/agreement" },
-    { "n": 26, "item": "No earnings representation", "claim_checked": "Amazon disclaims any expectation of traffic or income", "result": "confirmed", "how": "Operating Agreement §4", "source": "https://affiliate-program.amazon.com/help/operating/agreement" },
-    { "n": 27, "item": "FTC placement standard", "claim_checked": "closer to the recommendation is better; home-page-only is insufficient; a DISCLOSURE hyperlink is insufficient", "result": "confirmed", "how": "FTC Endorsement Guides FAQ", "source": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" },
-    { "n": 28, "item": "FTC codification", "claim_checked": "16 CFR Part 255 exists with sections 255.0–255.6 and the 2023 citation", "result": "confirmed", "how": "eCFR part page, including the source note 88 FR 48102", "source": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255" },
-    { "n": 29, "item": "Mobile app conditions", "claim_checked": "app-store distribution, free, no price tracking, no WebViews", "result": "confirmed", "how": "Associates FAQ, Mobile Application Policy", "source": "https://www.amazon.com/b?ie=UTF8&node=51812349011" },
-    { "n": 30, "item": "PA-API eligibility threshold", "claim_checked": "the current qualifying-sales requirement", "result": "left blank and flagged — only visible inside the signed-in dashboard", "how": "no official public page stated a number during this run", "source": "https://affiliate-program.amazon.com/" },
-    { "n": 31, "item": "Pages publishing source for this site", "claim_checked": "branch main, path /, build_type legacy", "result": "confirmed", "how": "GET /repos/kanlerxz87-cyber/Zone1/pages", "source": "https://api.github.com/repos/kanlerxz87-cyber/Zone1/pages" },
-    { "n": 32, "item": "Repo state at base commit", "claim_checked": "what existed before this work", "result": "confirmed — one file, README.md, one commit", "how": "git ls-tree -r main", "source": "https://github.com/kanlerxz87-cyber/Zone1/tree/42f403657fd1b6b1e0af6fcd3f67ca74b7f0ec06" },
-    { "n": 33, "item": "Contested other-session records", "claim_checked": "three air-fryer ASINs recorded as the resolved products", "result": "not adopted — preserved on the Flagged page with their original evidence", "how": "compared against the fallback parameters in the same fetch", "source": "https://github.com/kanlerxz87-cyber/Zone1/blob/arena/2bef746a-zone1/COORDINATION.md" }
+    {
+      "n": 1,
+      "item": "ASIN format rule",
+      "claim_checked": "an ASIN is a combination of 10 letters and numbers",
+      "result": "confirmed",
+      "how": "read from Amazon Ads' own guide and cross-read from Sell on Amazon",
+      "source": "https://advertising.amazon.com/library/guides/asins-introduction"
+    },
+    {
+      "n": 2,
+      "item": "Supplied token 1",
+      "claim_checked": "B04G1MEwY is a valid ASIN",
+      "result": "rejected — 9 characters",
+      "how": "character count of the string in the operator's URL",
+      "source": "https://link.amazon/B04G1MEwY"
+    },
+    {
+      "n": 3,
+      "item": "Supplied token 2",
+      "claim_checked": "B02NbDxp3 is a valid ASIN",
+      "result": "rejected — 9 characters",
+      "how": "character count",
+      "source": "https://link.amazon/B02NbDxp3"
+    },
+    {
+      "n": 4,
+      "item": "Supplied token 3",
+      "claim_checked": "B00hJ57DV is a valid ASIN",
+      "result": "rejected — 9 characters",
+      "how": "character count",
+      "source": "https://link.amazon/B00hJ57DV"
+    },
+    {
+      "n": 5,
+      "item": "Catalog lookup, token 1",
+      "claim_checked": "does a product page exist for B04G1MEwY",
+      "result": "no — Amazon 'Page Not Found' page returned",
+      "how": "GET amazon.com/dp/B04G1MEwY",
+      "source": "https://www.amazon.com/dp/B04G1MEwY"
+    },
+    {
+      "n": 6,
+      "item": "Catalog lookup, token 2",
+      "claim_checked": "does a product page exist for B02NbDxp3",
+      "result": "no — Amazon 'Page Not Found' page returned",
+      "how": "GET amazon.com/dp/B02NbDxp3",
+      "source": "https://www.amazon.com/dp/B02NbDxp3"
+    },
+    {
+      "n": 7,
+      "item": "Catalog lookup, token 3",
+      "claim_checked": "does a product page exist for B00hJ57DV",
+      "result": "no — Amazon 'Page Not Found' page returned",
+      "how": "GET amazon.com/dp/B00hJ57DV",
+      "source": "https://www.amazon.com/dp/B00hJ57DV"
+    },
+    {
+      "n": 8,
+      "item": "Short-link behaviour",
+      "claim_checked": "does link.amazon resolve the token to a product",
+      "result": "no — response carried lv=shuf and plpRedirect=mhFallback with a different ASIN in the path",
+      "how": "GET link.amazon/B04G1MEwY and inspect the returned page's own URLs",
+      "source": "https://link.amazon/B04G1MEwY"
+    },
+    {
+      "n": 9,
+      "item": "Short-link behaviour, control",
+      "claim_checked": "does a second token resolve to its own product",
+      "result": "no — second token produced a different featured ASIN under the same fallback parameters",
+      "how": "GET link.amazon/B02NbDxp3",
+      "source": "https://link.amazon/B02NbDxp3"
+    },
+    {
+      "n": 10,
+      "item": "Disclosure sentence",
+      "claim_checked": "exact wording and placement Amazon requires",
+      "result": "confirmed verbatim in section 5",
+      "how": "read the Operating Agreement page",
+      "source": "https://affiliate-program.amazon.com/help/operating/agreement"
+    },
+    {
+      "n": 11,
+      "item": "Session window",
+      "claim_checked": "24 hours from the click",
+      "result": "confirmed",
+      "how": "Commission Income Statement §1(b)",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "n": 12,
+      "item": "Cart window",
+      "claim_checked": "89 days after the click-through",
+      "result": "confirmed",
+      "how": "Commission Income Statement §1(c)(i)",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "n": 13,
+      "item": "Fulfilment condition",
+      "claim_checked": "shipped/streamed and paid within 180 days",
+      "result": "confirmed",
+      "how": "Commission Income Statement §1(iii)",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "n": 14,
+      "item": "Qualifying Revenue definition",
+      "claim_checked": "which amounts are deducted before commission",
+      "result": "confirmed — ten named deductions",
+      "how": "Commission Income Statement §1",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "n": 15,
+      "item": "Disqualified purchases",
+      "claim_checked": "search-engine links, redirecting links, bad formatting, returns, subscriptions, pre-orders",
+      "result": "confirmed — list read in full",
+      "how": "Commission Income Statement §2(a)–(k)",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "n": 16,
+      "item": "Payment timing and minimums",
+      "claim_checked": "60-day lag; 10/10/100 USD minimums; 15 USD check fee; 2000 USD gift-card cap",
+      "result": "confirmed",
+      "how": "Program Policies §6 and Payment Minimum Chart",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "n": 17,
+      "item": "Originality requirement",
+      "claim_checked": "site must contain original content and be publicly available",
+      "result": "confirmed",
+      "how": "Participation Requirements §1",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "n": 18,
+      "item": "Price-display restriction",
+      "claim_checked": "prices only from an Amazon-served link or Creators/PA API",
+      "result": "confirmed",
+      "how": "Participation Requirements §2(b)",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "n": 19,
+      "item": "Comparison display rule",
+      "claim_checked": "lowest new and lowest used must both be shown",
+      "result": "confirmed",
+      "how": "Participation Requirements §2(b)",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "n": 20,
+      "item": "Machine-learning restriction",
+      "claim_checked": "Program Content may not be used to train models without written approval",
+      "result": "confirmed",
+      "how": "Participation Requirements §5",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "n": 21,
+      "item": "Client-side software restriction",
+      "claim_checked": "no Special Links in browser extensions or set-top/TV surfaces",
+      "result": "confirmed",
+      "how": "Participation Requirements §5",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "n": 22,
+      "item": "Email and offline rules",
+      "claim_checked": "offline prohibited; email/SMS/DM only if solicited",
+      "result": "confirmed",
+      "how": "Participation Requirements §4",
+      "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "n": 23,
+      "item": "Commission rate card",
+      "claim_checked": "is a numeric category rate published anywhere official",
+      "result": "not published — the schedule page returns the sign-in screen",
+      "how": "GET affiliate-program.amazon.com/help/operating/schedule unauthenticated",
+      "source": "https://affiliate-program.amazon.com/help/operating/schedule"
+    },
+    {
+      "n": 24,
+      "item": "Forfeiture risk",
+      "claim_checked": "Amazon may cease all commission income on breach",
+      "result": "confirmed",
+      "how": "Operating Agreement §2",
+      "source": "https://affiliate-program.amazon.com/help/operating/agreement"
+    },
+    {
+      "n": 25,
+      "item": "Termination notice",
+      "claim_checked": "7 calendar days",
+      "result": "confirmed",
+      "how": "Operating Agreement §6",
+      "source": "https://affiliate-program.amazon.com/help/operating/agreement"
+    },
+    {
+      "n": 26,
+      "item": "No earnings representation",
+      "claim_checked": "Amazon disclaims any expectation of traffic or income",
+      "result": "confirmed",
+      "how": "Operating Agreement §4",
+      "source": "https://affiliate-program.amazon.com/help/operating/agreement"
+    },
+    {
+      "n": 27,
+      "item": "FTC placement standard",
+      "claim_checked": "closer to the recommendation is better; home-page-only is insufficient; a DISCLOSURE hyperlink is insufficient",
+      "result": "confirmed",
+      "how": "FTC Endorsement Guides FAQ",
+      "source": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking"
+    },
+    {
+      "n": 28,
+      "item": "FTC codification",
+      "claim_checked": "16 CFR Part 255 exists with sections 255.0–255.6 and the 2023 citation",
+      "result": "confirmed",
+      "how": "eCFR part page, including the source note 88 FR 48102",
+      "source": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255"
+    },
+    {
+      "n": 29,
+      "item": "Mobile app conditions",
+      "claim_checked": "app-store distribution, free, no price tracking, no WebViews",
+      "result": "confirmed",
+      "how": "Associates FAQ, Mobile Application Policy",
+      "source": "https://www.amazon.com/b?ie=UTF8&node=51812349011"
+    },
+    {
+      "n": 30,
+      "item": "PA-API eligibility threshold",
+      "claim_checked": "the current qualifying-sales requirement",
+      "result": "left blank and flagged — only visible inside the signed-in dashboard",
+      "how": "no official public page stated a number during this run",
+      "source": "https://affiliate-program.amazon.com/"
+    },
+    {
+      "n": 31,
+      "item": "Pages publishing source for this site",
+      "claim_checked": "branch main, path /, build_type legacy",
+      "result": "confirmed",
+      "how": "GET /repos/kanlerxz87-cyber/Zone1/pages",
+      "source": "https://api.github.com/repos/kanlerxz87-cyber/Zone1/pages"
+    },
+    {
+      "n": 32,
+      "item": "Repo state at base commit",
+      "claim_checked": "what existed before this work",
+      "result": "confirmed — one file, README.md, one commit",
+      "how": "git ls-tree -r main",
+      "source": "https://github.com/kanlerxz87-cyber/Zone1/tree/42f403657fd1b6b1e0af6fcd3f67ca74b7f0ec06"
+    },
+    {
+      "n": 33,
+      "item": "Contested other-session records",
+      "claim_checked": "three air-fryer ASINs recorded as the resolved products",
+      "result": "not adopted — preserved on the Flagged page with their original evidence",
+      "how": "compared against the fallback parameters in the same fetch",
+      "source": "https://github.com/kanlerxz87-cyber/Zone1/blob/arena/2bef746a-zone1/COORDINATION.md"
+    },
+    {
+      "n": 34,
+      "item": "Self-correction: public commission table",
+      "claim_checked": "does any official page publish a commission rate without login (this session's F-04 said no)",
+      "result": "confirmed — F-04 was wrong; Table 1 is public",
+      "how": "fetched the Standard Commission Income Statement help node unauthenticated and read Table 1 in full",
+      "source": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+    },
+    {
+      "n": 35,
+      "item": "ASIN → Table 1 category",
+      "claim_checked": "which fixed rate applies to a specific air-fryer ASIN",
+      "result": "left unverified — no official page maps an ASIN to a category",
+      "how": "searched Table 1 for the product type; 'air fryer' does not appear, and no mapping page was found",
+      "source": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+    },
+    {
+      "n": 36,
+      "item": "Legacy schedule path",
+      "claim_checked": "is /help/operating/schedule the only rate source",
+      "result": "it redirects to sign-in, which is what produced the initial wrong conclusion",
+      "how": "requested unauthenticated on 2026-11-13",
+      "source": "https://affiliate-program.amazon.com/help/operating/schedule"
+    }
   ]
 }

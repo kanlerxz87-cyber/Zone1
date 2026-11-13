@@ -1,0 +1,533 @@
+{
+  "meta": {
+    "title": "Affiliate Products — Verified Fact Table",
+    "checked_on": "2026-11-13",
+    "checked_on_display": "13 November 2026 (UTC)",
+    "rules": [
+      "Every row carries at least one source link. No row is published without one.",
+      "If a value could not be confirmed from an official domain, the value cell is left blank and the row is flagged or marked unverified.",
+      "No value is inferred, averaged, rounded from another value, or copied from a marketplace aggregator.",
+      "Live Amazon price, star rating and review count are deliberately not published (see compliance.json, C-07)."
+    ]
+  },
+  "affiliate_links": [
+    {
+      "id": "L-1",
+      "given_short_link": "https://link.amazon/B04G1MEwY",
+      "resolved_asin": "B0CDY277D3",
+      "resolved_url": "https://www.amazon.com/dp/B0CDY277D3",
+      "resolution_method": "HTTP request followed redirects; final URL and document title read.",
+      "status": "flagged",
+      "status_reason": "Resolved URL carried plpRedirect=mhFallback. The short code is opaque, so the ASIN→product mapping rests on the redirect target, not on the link text. See flagged item F-01.",
+      "source_id": "S-AMZ-P1"
+    },
+    {
+      "id": "L-2",
+      "given_short_link": "https://link.amazon/B02NbDxp3",
+      "resolved_asin": "B09B7SB46R",
+      "resolved_url": "https://www.amazon.com/dp/B09B7SB46R",
+      "resolution_method": "HTTP request followed redirects; final URL and document title read.",
+      "status": "flagged",
+      "status_reason": "Resolved URL carried plpRedirect=mhFallback. See flagged item F-01.",
+      "source_id": "S-AMZ-P2"
+    },
+    {
+      "id": "L-3",
+      "given_short_link": "https://link.amazon/B00hJ57DV",
+      "resolved_asin": "B08DKYBTPH",
+      "resolved_url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "resolution_method": "HTTP request followed redirects; final URL and document title read.",
+      "status": "flagged",
+      "status_reason": "Resolved URL carried plpRedirect=mhFallback. See flagged item F-01.",
+      "source_id": "S-AMZ-P3"
+    }
+  ],
+  "products": [
+    {
+      "id": "P-1",
+      "asin": "B0CDY277D3",
+      "short_link": "https://link.amazon/B04G1MEwY",
+      "product_url": "https://www.amazon.com/dp/B0CDY277D3",
+      "brand": "CHEFMAN",
+      "brand_domain": "https://chefman.com",
+      "title_as_listed": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
+      "category": "Kitchen > Small Appliances > Fryers > Air Fryers",
+      "category_basis": "Amazon listing breadcrumb on B09B7SB46R (same browse node tree); category alignment for this ASIN is inferred from the listing title and brand page — see F-06.",
+      "manufacturer_model": "RJ38-3DBW-V2",
+      "manufacturer_page": "https://chefman.com/products/turbofry-6-qt-double-basket-air-fryer-with-easy-view-windows",
+      "commission_rate_published": "4.50%",
+      "commission_rate_basis": "Kitchen category, Table 1 fixed rate",
+      "commission_rate_source": "S-AMZ-RATE",
+      "specs": [
+        {
+          "field": "Capacity",
+          "value": "6 Qt / 5.68 L (two 3 Qt / 2.84 L baskets)",
+          "status": "verified",
+          "source_id": "S-CM-P1",
+          "source_field": "Specifications › Capacity"
+        },
+        {
+          "field": "Basket configuration",
+          "value": "Two independent 3 Qt baskets",
+          "status": "verified",
+          "source_id": "S-CM-P1",
+          "source_field": "Features › bullet 1"
+        },
+        {
+          "field": "Cooking functions",
+          "value": "5: air fry, bake, reheat, dehydrate, frozen",
+          "status": "verified",
+          "source_id": "S-CM-P1",
+          "source_field": "Features › bullet 5"
+        },
+        {
+          "field": "Temperature range",
+          "value": "90–400°F / 32–204°C",
+          "status": "verified",
+          "source_id": "S-CM-P1",
+          "source_field": "Specifications › Temperature Range"
+        },
+        {
+          "field": "Power",
+          "value": "1700 W",
+          "status": "verified",
+          "source_id": "S-CM-P1",
+          "source_field": "Specifications › Power"
+        },
+        {
+          "field": "Manufacturer model number",
+          "value": "RJ38-3DBW-V2",
+          "status": "verified",
+          "source_id": "S-CM-P1",
+          "source_field": "Product heading + Specifications › Model Number"
+        },
+        {
+          "field": "Safety certification",
+          "value": "cETL approved",
+          "status": "verified",
+          "source_id": "S-CM-P1",
+          "source_field": "Specifications › certification line"
+        },
+        {
+          "field": "Warranty",
+          "value": "1-year Chefman assurance",
+          "status": "verified",
+          "source_id": "S-CM-P1",
+          "source_field": "Specifications › certification line; Warranty › linked PDF",
+          "also_source_id": "S-CM-WARRANTY"
+        },
+        {
+          "field": "Sync Finish / Sync Baskets",
+          "value": "Both present",
+          "status": "verified",
+          "source_id": "S-CM-P1",
+          "source_field": "Features › bullets 3 & 4"
+        },
+        {
+          "field": "Easy View windows + interior lights",
+          "value": "Both present",
+          "status": "verified",
+          "source_id": "S-CM-P1",
+          "source_field": "Features › bullets 6 & 7"
+        },
+        {
+          "field": "Shake notifications",
+          "value": "Yes",
+          "status": "verified",
+          "source_id": "S-CM-P1",
+          "source_field": "Features › bullet 9"
+        },
+        {
+          "field": "Dishwasher-safe baskets",
+          "value": "Yes (nonstick baskets)",
+          "status": "verified",
+          "source_id": "S-CM-P1",
+          "source_field": "Features › bullet 10"
+        },
+        {
+          "field": "“Hi-Fry” feature (named in the Amazon title)",
+          "value": "",
+          "status": "flagged",
+          "source_id": "S-CM-P1",
+          "source_field": "Not present in Chefman's Features or Specifications lists",
+          "flag_id": "F-02"
+        },
+        {
+          "field": "Colour",
+          "value": "Black",
+          "status": "flagged",
+          "source_id": "S-AMZ-P1",
+          "source_field": "Amazon listing title (title only; no colour swatch could be read)",
+          "flag_id": "F-07"
+        },
+        {
+          "field": "Amazon star rating",
+          "value": "",
+          "status": "unverified",
+          "source_id": "",
+          "source_field": "Not published — see C-07",
+          "flag_id": "F-08"
+        },
+        {
+          "field": "Amazon review count",
+          "value": "",
+          "status": "unverified",
+          "source_id": "",
+          "source_field": "Not published — see C-07",
+          "flag_id": "F-08"
+        },
+        {
+          "field": "Amazon price",
+          "value": "",
+          "status": "unverified",
+          "source_id": "",
+          "source_field": "Not published — see C-07",
+          "flag_id": "F-08"
+        },
+        {
+          "field": "Brand-store price (chefman.com)",
+          "value": "$99.99 list; $90.00 displayed sale tier; $60.00–$85.00 tier ladder shown",
+          "status": "verified",
+          "source_id": "S-CM-P1",
+          "source_field": "Product price block",
+          "note": "This is the brand's own store price, NOT the Amazon price. Must not be presented as an Amazon price."
+        },
+        {
+          "field": "Brand-store rating (chefman.com)",
+          "value": "4.5 / 5 across 30 brand-store reviews",
+          "status": "verified",
+          "source_id": "S-CM-P1",
+          "source_field": "Reviews › Overall Rating",
+          "note": "Brand-store reviews only — NOT Amazon reviews."
+        },
+        {
+          "field": "Prop 65 warning published by brand",
+          "value": "Yes — cancer and reproductive harm warning shown",
+          "status": "verified",
+          "source_id": "S-CM-P1",
+          "source_field": "Prop 65 block",
+          "also_source_id": "S-P65"
+        }
+      ],
+      "positioning": {
+        "best_for": "Two-dish weeknight cooking where a main and a side need different times or temperatures.",
+        "verified_differentiators": [
+          "Two independent 3 Qt baskets with separate controls",
+          "Sync Finish",
+          "Easy View windows with interior lights",
+          "90–400°F range"
+        ],
+        "tradeoffs_stated_by_brand": [
+          "6 Qt total is the smallest total capacity of the three products reviewed here (the other two are 8 Qt and 26 Qt).",
+          "Smaller per-basket volume than the two single-basket units."
+        ]
+      }
+    },
+    {
+      "id": "P-2",
+      "asin": "B09B7SB46R",
+      "short_link": "https://link.amazon/B02NbDxp3",
+      "product_url": "https://www.amazon.com/dp/B09B7SB46R",
+      "brand": "Emeril Lagasse",
+      "brand_domain": "https://www.emerileveryday.com",
+      "title_as_listed": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.",
+      "category": "Kitchen > Small Appliances > Fryers > Air Fryers",
+      "category_basis": "Amazon listing breadcrumb read directly on this ASIN.",
+      "manufacturer_model": "4-00675-02A-VN",
+      "manufacturer_page": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+      "commission_rate_published": "4.50%",
+      "commission_rate_basis": "Kitchen category, Table 1 fixed rate",
+      "commission_rate_source": "S-AMZ-RATE",
+      "specs": [
+        {
+          "field": "Capacity",
+          "value": "26 Qt / 24.6 L",
+          "status": "verified",
+          "source_id": "S-EM-P2",
+          "source_field": "Specifications › 26-Quart Capacity; 24.6 Liters"
+        },
+        {
+          "field": "Product dimensions",
+          "value": "16.9″D × 15.8″W × 14.8″H",
+          "status": "verified",
+          "source_id": "S-EM-P2",
+          "source_field": "Specifications › Product Dimensions"
+        },
+        {
+          "field": "Voltage",
+          "value": "120 V",
+          "status": "verified",
+          "source_id": "S-EM-P2",
+          "source_field": "Specifications › Product Voltage"
+        },
+        {
+          "field": "Fan",
+          "value": "Dual-speed fan",
+          "status": "verified",
+          "source_id": "S-EM-P2",
+          "source_field": "Specifications › Dual-Speed Fan"
+        },
+        {
+          "field": "Door style",
+          "value": "French doors",
+          "status": "verified",
+          "source_id": "S-EM-P2",
+          "source_field": "Product description + product name"
+        },
+        {
+          "field": "Rotisserie",
+          "value": "Yes — rotisserie spit included",
+          "status": "verified",
+          "source_id": "S-EM-P2",
+          "source_field": "Key Features › Rotisserie; description › accessories"
+        },
+        {
+          "field": "Included accessories",
+          "value": "7 premium accessories (air fry basket, rotisserie spit, bake pan, and more)",
+          "status": "verified",
+          "source_id": "S-EM-P2",
+          "source_field": "Description paragraph",
+          "note": "The brand states “7 premium accessories” and names three; the full list of seven is not enumerated on the page."
+        },
+        {
+          "field": "Manufacturer model number",
+          "value": "4-00675-02A-VN",
+          "status": "verified",
+          "source_id": "S-EM-P2",
+          "source_field": "SKU line under product title"
+        },
+        {
+          "field": "Warranty",
+          "value": "1-year warranty",
+          "status": "verified",
+          "source_id": "S-EM-P2",
+          "source_field": "“1-Years Warranty” badge"
+        },
+        {
+          "field": "Cooking preset count",
+          "value": "",
+          "status": "flagged",
+          "source_id": "S-EM-P2",
+          "source_field": "The same page states “25 Cooking Pre-sets” in the spec strip, “24 one-touch cooking presets” in the description, and “10-in-1” in the product name; the Amazon title says 24",
+          "flag_id": "F-03"
+        },
+        {
+          "field": "Wattage",
+          "value": "",
+          "status": "unverified",
+          "source_id": "",
+          "source_field": "Not stated on the Emeril Everyday product page or Amazon title read for this report",
+          "flag_id": "F-09"
+        },
+        {
+          "field": "Safety certification (UL/ETL)",
+          "value": "",
+          "status": "unverified",
+          "source_id": "",
+          "source_field": "Not stated on the pages read for this report",
+          "flag_id": "F-09"
+        },
+        {
+          "field": "Amazon star rating",
+          "value": "",
+          "status": "unverified",
+          "source_id": "",
+          "source_field": "Not published — see C-07",
+          "flag_id": "F-08"
+        },
+        {
+          "field": "Amazon price",
+          "value": "",
+          "status": "unverified",
+          "source_id": "",
+          "source_field": "Not published — see C-07",
+          "flag_id": "F-08"
+        },
+        {
+          "field": "Brand-store price (emerileveryday.com)",
+          "value": "$199.99",
+          "status": "verified",
+          "source_id": "S-EM-P2",
+          "source_field": "Product price block",
+          "note": "Brand's own store price, NOT the Amazon price."
+        },
+        {
+          "field": "Brand-store rating (emerileveryday.com)",
+          "value": "2.6 / 5 across 25 brand-store reviews (42% recommend)",
+          "status": "verified",
+          "source_id": "S-EM-P2",
+          "source_field": "Reviews › Overall Rating",
+          "note": "Brand-store reviews only — NOT Amazon reviews."
+        },
+        {
+          "field": "Prop 65",
+          "value": "Brand publishes a California Prop 65 warning link",
+          "status": "verified",
+          "source_id": "S-EM-P2",
+          "source_field": "California Residents — Proposition 65 Warning link",
+          "also_source_id": "S-P65"
+        }
+      ],
+      "positioning": {
+        "best_for": "Large-batch oven-style cooking: whole chicken, 12-inch pizza, full tray of cookies, rotisserie.",
+        "verified_differentiators": [
+          "26 Qt — largest capacity of the three",
+          "French doors, rotisserie spit, dual-speed fan",
+          "Sits in a toaster-oven footprint (16.9″D × 15.8″W × 14.8″H)"
+        ],
+        "tradeoffs_stated_by_brand": [
+          "Brand-store review rating is materially lower than the two Chefman units (2.6/5 vs 4.5/5 and 4.6/5 across the same brand-store review system)."
+        ]
+      }
+    },
+    {
+      "id": "P-3",
+      "asin": "B08DKYBTPH",
+      "short_link": "https://link.amazon/B00hJ57DV",
+      "product_url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "brand": "Chefman",
+      "brand_domain": "https://chefman.com",
+      "title_as_listed": "Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
+      "category": "Kitchen > Small Appliances > Fryers > Air Fryers",
+      "category_basis": "Amazon listing breadcrumb on B09B7SB46R (same browse node tree); alignment for this ASIN inferred from listing title and brand page — see F-06.",
+      "manufacturer_model": "RJ38-8T-BLACK",
+      "manufacturer_page": "https://chefman.com/products/turbofry-8-qt-air-fryer-w-high-fry",
+      "commission_rate_published": "4.50%",
+      "commission_rate_basis": "Kitchen category, Table 1 fixed rate",
+      "commission_rate_source": "S-AMZ-RATE",
+      "specs": [
+        {
+          "field": "Capacity",
+          "value": "8 Qt / 7.57 L",
+          "status": "verified",
+          "source_id": "S-CM-P3",
+          "source_field": "Specifications › Capacity"
+        },
+        {
+          "field": "Hi-Fry temperature",
+          "value": "450°F / 232°C, applied for the final two minutes",
+          "status": "verified",
+          "source_id": "S-CM-P3",
+          "source_field": "Specifications › Hi-Fry Temperature; Features › bullet 2"
+        },
+        {
+          "field": "Cooking functions",
+          "value": "4: air fry, bake, dehydrate, frozen",
+          "status": "verified",
+          "source_id": "S-CM-P3",
+          "source_field": "Features › bullet 3"
+        },
+        {
+          "field": "Power",
+          "value": "1700 W / 120 V",
+          "status": "verified",
+          "source_id": "S-CM-P3",
+          "source_field": "Specifications › Power"
+        },
+        {
+          "field": "Manufacturer model number",
+          "value": "RJ38-8T-BLACK",
+          "status": "verified",
+          "source_id": "S-CM-P3",
+          "source_field": "Product heading + Specifications › Model Number"
+        },
+        {
+          "field": "Shake notifications",
+          "value": "Yes — automatic",
+          "status": "verified",
+          "source_id": "S-CM-P3",
+          "source_field": "Features › bullet 4"
+        },
+        {
+          "field": "Auto shutoff",
+          "value": "Yes — when cooking finishes or the basket is removed",
+          "status": "verified",
+          "source_id": "S-CM-P3",
+          "source_field": "Features › bullet 8"
+        },
+        {
+          "field": "Dishwasher-safe basket and rack",
+          "value": "Yes",
+          "status": "verified",
+          "source_id": "S-CM-P3",
+          "source_field": "Features › bullet 7"
+        },
+        {
+          "field": "Safety certification",
+          "value": "cETL approved",
+          "status": "verified",
+          "source_id": "S-CM-P3",
+          "source_field": "Specifications › certification line"
+        },
+        {
+          "field": "Warranty",
+          "value": "1-year Chefman assurance",
+          "status": "verified",
+          "source_id": "S-CM-P3",
+          "source_field": "Specifications › certification line",
+          "also_source_id": "S-CM-WARRANTY"
+        },
+        {
+          "field": "Finish / colour",
+          "value": "Matte-black finish (per Chefman)",
+          "status": "flagged",
+          "source_id": "S-CM-P3",
+          "source_field": "Features › “Matte-black finish”. The Amazon title says “Stainless Steel”.",
+          "flag_id": "F-04"
+        },
+        {
+          "field": "Amazon star rating",
+          "value": "",
+          "status": "unverified",
+          "source_id": "",
+          "source_field": "Not published — see C-07",
+          "flag_id": "F-08"
+        },
+        {
+          "field": "Amazon price",
+          "value": "",
+          "status": "unverified",
+          "source_id": "",
+          "source_field": "Not published — see C-07",
+          "flag_id": "F-08"
+        },
+        {
+          "field": "Brand-store price (chefman.com)",
+          "value": "$119.99 list; $108.00 displayed sale tier; $72.00–$102.00 tier ladder shown",
+          "status": "verified",
+          "source_id": "S-CM-P3",
+          "source_field": "Product price block",
+          "note": "Brand's own store price, NOT the Amazon price."
+        },
+        {
+          "field": "Brand-store rating (chefman.com)",
+          "value": "4.6 / 5 across 200 brand-store reviews",
+          "status": "verified",
+          "source_id": "S-CM-P3",
+          "source_field": "Reviews › Overall Rating",
+          "note": "Brand-store reviews only — NOT Amazon reviews."
+        },
+        {
+          "field": "Prop 65 warning published by brand",
+          "value": "Yes — cancer and reproductive harm warning shown",
+          "status": "verified",
+          "source_id": "S-CM-P3",
+          "source_field": "Prop 65 block",
+          "also_source_id": "S-P65"
+        }
+      ],
+      "positioning": {
+        "best_for": "Big single-batch air frying with a high-heat crisp finish, in a narrow footprint.",
+        "verified_differentiators": [
+          "8 Qt in a single basket",
+          "450°F Hi-Fry finish",
+          "Highest brand-store rating of the three (4.6/5, 200 reviews)"
+        ],
+        "tradeoffs_stated_by_brand": [
+          "Only 4 cooking functions — no reheat preset, unlike P-1's five functions and P-2's oven modes.",
+          "No basket window or interior light listed in the brand's feature set."
+        ]
+      }
+    }
+  ]
+}

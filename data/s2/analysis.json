@@ -18,8 +18,8 @@
         "source": "https://affiliate-program.amazon.com/help/operating/policies"
       },
       {
-        "text": "No commission rate appears anywhere on this site. The only official rate source is the signed-in rate card; the public appendix URL redirects to sign-in. Earnings are therefore expressed as a formula whose rate input is explicitly unset.",
-        "source": "https://affiliate-program.amazon.com/help/operating/schedule"
+        "text": "Correction made during the build: a public commission table does exist. Table 1 of the Standard Commission Income Statement is readable without a login and publishes fixed rates by category (for example 4.50% for Physical Books, Kitchen, Automotive; 4.00% for All Other Categories). This site first recorded the opposite, then re-fetched and corrected it. What remains unverifiable is which category a given ASIN belongs to — air fryers are not named in the table — so the site publishes the table but multiplies it into no per-product earning figure.",
+        "source": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
       },
       {
         "text": "'AI-powered' is scoped deliberately. Amazon forbids using Program Content or Special Links to train models without written approval, so the engine uses a model to draft and structure copy, never to invent product facts, and the build fails if a draft contains an unsourced number.",
@@ -79,11 +79,11 @@
       "note": "Payment Minimum Chart"
     },
     {
-      "label": "Commission rate published publicly",
-      "value": "none — rate card is sign-in only",
+      "label": "Published commission rate (Table 1)",
+      "value": "4.50% Kitchen · 4.00% All Other",
       "status": "verified",
-      "url": "https://affiliate-program.amazon.com/help/operating/schedule",
-      "note": "redirect to /ap/signin observed 2026-11-13"
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+      "note": "fixed rates by category; air fryers are not named, so the category for an ASIN is unresolved (MN-11)"
     },
     {
       "label": "Products verifiable from the supplied links",
@@ -127,10 +127,10 @@
       },
       {
         "input": "rate_pct",
-        "owner": "your Associates rate card",
+        "owner": "Standard Commission Income Statement Table 1 (rate) + your account (category mapping)",
         "available_now": false,
-        "why": "sign-in gated; see F-04",
-        "source": "https://affiliate-program.amazon.com/help/operating/policies"
+        "why": "rates are published and verified (S14); what is missing is which category a given ASIN belongs to",
+        "source": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
       },
       {
         "input": "order → click attribution",

@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compliance · Zone1 Kitchen</title>
+<meta name="description" content="Amazon Associates and FTC compliance requirements, quoted with official source links and mapped to implementation.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230f766e'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='%23fff' text-anchor='middle'%3EZ1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<div class="disclosure-bar">
+  <strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases.
+  <a href="compliance.html" style="color:#9ff3ec">How this site stays compliant →</a>
+</div>
+<header class="topbar">
+  <a class="brand" href="index.html" style="color:inherit">
+    <span class="mark">Z1</span>
+    <span>Zone1 Kitchen<small>Verified Amazon affiliate product intelligence</small></span>
+  </a>
+  <span class="spacer"></span>
+  <span class="meta">data verified 2026-11-13</span>
+  <button class="navtoggle" type="button" aria-label="Toggle navigation">Menu</button>
+</header>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="group">
+      <h4>Dashboard</h4>
+      <a href="index.html">Dashboard<span class="sub">Overview of the product set and the data</span></a>
+    </div>
+    <div class="group">
+      <h4>Products</h4>
+      <a href="categories/kitchen-appliances.html">Category: Kitchen<span class="sub">3 tracked products</span></a>
+      <a href="products/chefman-6qt-dual-basket.html">Chefman 6 Qt Dual Basket<span class="sub">ASIN B0CDY277D3</span></a><a href="products/emeril-26qt-french-door.html">Emeril 26 QT French Door<span class="sub">ASIN B09B7SB46R</span></a><a href="products/chefman-8qt-turbofry.html">Chefman 8 Qt TurboFry<span class="sub">ASIN B08DKYBTPH</span></a>
+      <a href="compare.html">Comparison<span class="sub">Verified-only side-by-side matrix</span></a>
+    </div>
+    <div class="group">
+      <h4>Research &amp; data</h4>
+      <a href="guides/buying-guide-air-fryers.html">Buying guide<span class="sub">How to choose a form factor</span></a>
+      <a href="data.html">Full dataset<span class="sub">Every field, value, source and gap</span></a>
+      <a href="platform.html">Platform blueprint<span class="sub">The automation and compliance design</span></a>
+      <a href="compliance.html" class="active">Compliance<span class="sub">Program rules, quoted, with sources</span></a>
+    </div>
+    <div class="group">
+      <h4>Report</h4>
+      <a href="flagged.html">Flagged for review<span class="sub">Unverified values and irregularities</span></a>
+      <a href="executive-summary.html">Executive summary<span class="sub">Decision-ready briefing</span></a>
+    </div>
+  </aside>
+  <main>
+    
+<p class="crumbs"><a href="index.html">Dashboard</a> / Compliance</p>
+<h1>Compliance, quoted rather than summarised</h1>
+<p class="lede">16 requirements that govern this site, each with the source text, a link to the official document, and a plain statement of how the build satisfies it. Where a rule is inconvenient, the rule wins and the feature is dropped.</p>
+
+<div class="callout">
+  <strong>The three rules that shape everything else</strong>
+  <p class="small"><strong>Prices</strong> may only be shown when Amazon serves the link or via the official API. <strong>Reviews and star ratings</strong> may only be shown when obtained through that API. <strong>Program Content</strong> may not be aggregated, analysed, repurposed or used to train a model. Those three are why this site has no Amazon prices, no Amazon ratings, and no Amazon scraping pipeline — even though all three would have been easier to build. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></p>
+</div>
+
+<h2>Requirement register</h2>
+<div class="tablewrap">
+<table>
+  <caption>Program and legal requirements mapped to implementation</caption>
+  <thead><tr><th style="width:18%">Requirement</th><th style="width:40%">What the rule says</th><th style="width:10%">Source</th><th style="width:32%">How this build complies</th></tr></thead>
+  <tbody><tr>
+          <td><strong>C1</strong><div class="tiny muted">Affiliate disclosure — exact wording</div></td>
+          <td>The site must clearly and prominently state the Associate identification statement.
+            <blockquote>“You must clearly and prominently state the following, or any substantially similar statement previously allowed under this Agreement, on your Site or any other location where Amazon may authorize your display or other use of Program Content: ‘As an Amazon Associate I earn from qualifying purchases.’”<cite>Operating Agreement §5</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" title="Amazon.com Associates Central — Associates Program Operating Agreement" rel="noopener" target="_blank">S1</a></td>
+          <td class="small">The statement appears in the persistent header disclosure bar and in the footer of every page generated by build.py.</td>
+        </tr><tr>
+          <td><strong>C2</strong><div class="tiny muted">Link-level disclosure must be clear and conspicuous</div></td>
+          <td>Beyond the site-wide statement, each affiliate link needs a clear, nearby, FTC-compliant disclosure.
+            <blockquote>“To comply with the Federal Trade Commission (FTC) regulations, your link-level disclosure must be: 1. Clear. A clear disclosure could be as simple as ‘(paid link)’, ‘#ad’, or ‘#CommissionsEarned’. 2. Conspicuous. It should be placed near any affiliate link or product review in a location that customers will notice easily. They shouldn&#x27;t have to hunt for it.”<cite>Associates help article (disclosure guidance)</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98" title="Amazon.com Associates Central — Why do I have to identify myself as an Associate? How should I do this on social media?" rel="noopener" target="_blank">S5</a></td>
+          <td class="small">Every outbound Amazon button carries a visible “Paid link” tag, and a disclosure note sits directly beneath each CTA.</td>
+        </tr><tr>
+          <td><strong>C3</strong><div class="tiny muted">Disclosure placement rules (FTC)</div></td>
+          <td>Disclosures must be hard to miss, in the same medium as the endorsement, and must not be buried or mixed into hashtags.
+            <blockquote>“Make sure people will see and understand the disclosure. Place it so it&#x27;s hard to miss. The disclosure should be placed with the endorsement message itself. Disclosures are likely to be missed if they appear only on an ABOUT ME or profile page, at the end of posts or videos, or anywhere that requires a person to click MORE. Don&#x27;t mix your disclosure into a group of hashtags or links.”<cite>Disclosures 101 — How to Disclose</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" title="U.S. Federal Trade Commission — Disclosures 101 for Social Media Influencers" rel="noopener" target="_blank">S8</a></td>
+          <td class="small">Disclosure bar is above the fold on every page; per-link badges; no disclosure-only-in-footer pattern.</td>
+        </tr><tr>
+          <td><strong>C4</strong><div class="tiny muted">Material connection (FTC rule text)</div></td>
+          <td>A financial relationship with the seller must be disclosed.
+            <blockquote>16 CFR §255.5 requires disclosure of material connections between an endorser and the seller that would materially affect the weight or credibility of the endorsement.<cite>16 CFR Part 255, §255.5</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255" title="U.S. Government (eCFR / Federal Trade Commission) — 16 CFR Part 255 — Guides Concerning Use of Endorsements and Testimonials in Advertising" rel="noopener" target="_blank">S9</a></td>
+          <td class="small">Commission-earning relationship disclosed in the header, on each CTA and on the compliance page.</td>
+        </tr><tr>
+          <td><strong>C5</strong><div class="tiny muted">Prices and availability</div></td>
+          <td>Prices and availability may only be displayed if Amazon serves them or they are obtained through Creators API/PA API.
+            <blockquote>“Because prices for and availability of Products that you have listed on your Site may change, your Site may only show prices and availability if: (a) we serve the link in which that price and availability data are displayed, or (b) you obtain Product pricing and availability data via Creators API or PA API and you comply with the requirements…”<cite>Program Policies — Participation Requirements §2(b)</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">No Amazon price or availability is shown anywhere. Manufacturer list prices are shown separately and explicitly labelled as brand-site prices with their own source link.</td>
+        </tr><tr>
+          <td><strong>C6</strong><div class="tiny muted">Customer reviews and star ratings</div></td>
+          <td>Amazon reviews/star ratings may only be displayed when obtained through Creators API or PA API.
+            <blockquote>“You will not display or otherwise use any of our customer reviews or star ratings, in part or in whole, on your Site unless you have obtained a link to that customer review or star rating through Creators API or PA API and you comply with the requirements for Creators API and PA API described in the License.”<cite>Program Policies — Participation Requirements §3(t)</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">Amazon stars/review counts blank and flagged. Brand-hosted ratings are shown only in a clearly separate column, attributed to the brand&#x27;s own site.</td>
+        </tr><tr>
+          <td><strong>C7</strong><div class="tiny muted">No price tracking or price alerts</div></td>
+          <td>Sites must not offer price tracking or price alerting unless Amazon agrees otherwise.
+            <blockquote>“Unless otherwise agreed by Amazon, your Site must not have price tracking and/or price alerting functionality.”<cite>Program Policies — Participation Requirements §3(y)</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">The platform blueprint explicitly rules out price-history charts and alerts; ‘pricing analysis’ is limited to brand-published list prices and unit economics computed from them.</td>
+        </tr><tr>
+          <td><strong>C8</strong><div class="tiny muted">Prohibited paid search placement</div></td>
+          <td>No bidding on Amazon or Kindle trademarks, or any Amazon Mark, in paid search.
+            <blockquote>“…any Product purchased by a customer who is referred to an Amazon Site through any advertisement that you purchased, including through participation in bidding or auctions on keywords, search terms, or other identifiers that include the word ‘amazon’, or ‘kindle’, or any other Amazon Mark…” (disqualified purchases)<cite>Commission Income Statement §2(c)</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">Guardrail G3 in the platform blueprint: a negative-keyword list containing Amazon Marks is enforced in the paid-acquisition workflow.</td>
+        </tr><tr>
+          <td><strong>C9</strong><div class="tiny muted">No API content aggregation, analysis or model training</div></td>
+          <td>Creators API / PA API / Data Feeds content may not be aggregated, analysed, repurposed, or used to train or fine-tune ML models.
+            <blockquote>“You will not, without our express prior written approval, access or use Creators API, PA API or Data Feeds for the purpose of aggregating, analyzing, extracting, or repurposing any Product Advertising Content or in connection with any software or other application intended for use by persons or entities that offer products on an Amazon Site, or in the direct training or fine-tuning of a machine learning and/or foundational model.”<cite>Program Policies — IP License §2(e)</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">Architectural constraint: any AI research/trend scoring runs only on the operator&#x27;s own first-party data (clicks, conversions, revenue) and public manufacturer data. Program Content is display-only, never a training or analytics input.</td>
+        </tr><tr>
+          <td><strong>C10</strong><div class="tiny muted">Original content requirement</div></td>
+          <td>Sites must carry robust original content — roughly 10+ posts, recent, publicly available.
+            <blockquote>“All Sites must have robust original content (even when advertising is removed) – a good rule of thumb is at least 10 posts. They must be publicly available…” and “Content on your website must be recent (generally within the last 60 days). You must own your website.”<cite>Application Review Process</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM" title="Amazon.com Associates Central — Application Review Process" rel="noopener" target="_blank">S4</a></td>
+          <td class="small">This build ships analysis, comparison and buying-guide pages written for this dataset, plus the platform blueprint — not a thin link list.</td>
+        </tr><tr>
+          <td><strong>C11</strong><div class="tiny muted">Three qualifying sales in 180 days</div></td>
+          <td>Applications are reviewed after three qualifying sales within the first 180 days; personal orders do not count.
+            <blockquote>“After you sign up, our Associates team will check your application once you’ve driven qualified sales (we require at least three within the first 180 days). Please note that personal orders do not qualify.”<cite>Application Review Process</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM" title="Amazon.com Associates Central — Application Review Process" rel="noopener" target="_blank">S4</a></td>
+          <td class="small">Launch sequencing in the blueprint: publish the buying guide + three product pages first, then apply, so the 180-day clock starts with live traffic.</td>
+        </tr><tr>
+          <td><strong>C12</strong><div class="tiny muted">No incentive for using links; no self-purchase</div></td>
+          <td>No rewards/loyalty schemes driving clicks; no buying through your own links or asking friends/family to.
+            <blockquote>“You will not offer any person or entity any consideration, reward, or incentive (including any money, rebate, discount, points, donation to charity or other organization, or other benefit) for using Special Links…” / “You will not directly or indirectly purchase any Product(s)… through Special Links…”<cite>Participation Requirements §3(g) and §3(u)</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">No incentives, no contests, no employee purchase flows. Guardrail G4.</td>
+        </tr><tr>
+          <td><strong>C13</strong><div class="tiny muted">No framing, no cloaking, no redirecting links</div></td>
+          <td>Amazon pages may not be framed; Special Links may not be cloaked; redirecting links that skip user action are prohibited.
+            <blockquote>“You will not frame an Amazon Site, or any part of it, within your Site…” / “You will not cloak, hide, spoof, or otherwise obscure the URL of your Site containing Special Links (including by use of Redirecting Links)…”<cite>Participation Requirements §3(n) and §3(v)</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">No iframes. Outbound links point straight at the Amazon URL; no interstitial or meta-refresh forwarding is generated by the site.</td>
+        </tr><tr>
+          <td><strong>C14</strong><div class="tiny muted">Tracking IDs and sub-tags</div></td>
+          <td>Reporting IDs are permitted, but they may not be tied to an individual end user.
+            <blockquote>“…we may issue you additional ‘sub-tag’ Associate IDs that permit you to monitor and optimize the performance of your Special Links… Under no circumstances may you associate any sub-tag, other ID or reporting provided in connection with the Associates Program with a specific end user of your Site (e.g., you may not dynamically assign sub-tags to users as they arrive on your Site for purposes of monitoring such users’ behavior).”<cite>Participation Requirements §2(b)</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">Sub-tags are assigned per channel/page, never per visitor. Documented as guardrail G5.</td>
+        </tr><tr>
+          <td><strong>C15</strong><div class="tiny muted">Trademark use</div></td>
+          <td>Amazon Marks may be used only to advertise availability of products on an Amazon Site, alongside a corresponding Special Link, unaltered, and never in offline material.
+            <blockquote>“YOU ARE ALLOWED TO USE THE AMAZON MARKS ONLY BY DISPLAY ON YOUR SITE WITH THE PURPOSE OF ADVERTISING AVAILABILITY OF PRODUCTS ON AN AMAZON SITE, WITH A CORRESPONDING SPECIAL LINK TO THAT SITE.”<cite>Trademark Guidelines §1</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">No Amazon logo is used in this build; Amazon is referred to in plain text next to real Special Links only.</td>
+        </tr><tr>
+          <td><strong>C16</strong><div class="tiny muted">Honest claims about products</div></td>
+          <td>No inaccurate, overbroad, deceptive or misleading product/policy/price claims; no claiming an experience you have not had.
+            <blockquote>“You must not make inaccurate, overbroad, deceptive or otherwise misleading claims about any Product, an Amazon Site, or any of our policies, promotions, or prices.” / FTC: “You can&#x27;t talk about your experience with a product you haven&#x27;t tried.”<cite>Participation Requirements §2(b); Disclosures 101</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a> <a class="src" href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" title="U.S. Federal Trade Commission — Disclosures 101 for Social Media Influencers" rel="noopener" target="_blank">S8</a></td>
+          <td class="small">No hands-on testing claims are made anywhere. Copy is explicitly framed as documentation-based analysis, and every factual line links to the manufacturer page or manual.</td>
+        </tr></tbody>
+</table>
+</div>
+
+<h2>Attribution windows</h2>
+<div class="tablewrap">
+<table>
+  <caption>How long a click keeps earning — official definitions</caption>
+  <thead><tr><th>Fact</th><th>Value</th><th>Source</th></tr></thead>
+  <tbody><tr><td>Session length after a click-through</td><td>24 hours, or earlier if the customer orders a non-digital product or clicks another Special Link</td><td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td></tr><tr><td>Add-to-cart window</td><td>Order must be completed no later than 89 days after the initial click-through</td><td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td></tr><tr><td>Ship/stream/pay window</td><td>Within 180 days of purchase</td><td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td></tr><tr><td>Payment timing</td><td>Approximately 60 days following the end of the calendar month in which commission was earned</td><td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td></tr></tbody>
+</table>
+</div>
+
+<h2>Payment minimums (US)</h2>
+<div class="tablewrap">
+<table>
+  <caption>Payment minimum chart, reproduced from the Commission Income Statement</caption>
+  <thead><tr><th>Method</th><th>Minimum</th><th>Maximum</th><th>Notes</th><th>Source</th></tr></thead>
+  <tbody><tr><td>Direct deposit</td><td class="num">$10</td><td class="num">—</td><td class="small"></td><td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td></tr><tr><td>Amazon gift card</td><td class="num">$10</td><td class="num">$2000</td><td class="small"></td><td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td></tr><tr><td>Cheque</td><td class="num">$100</td><td class="num">—</td><td class="small">15 USD check processing fee</td><td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td></tr></tbody>
+</table>
+</div>
+
+<h2>Standard commission income rates</h2>
+
+<div class="tablewrap">
+<table>
+  <caption>Amazon Associates standard commission income rates (US) — official table, reproduced verbatim</caption>
+  <thead><tr><th>Product category</th><th>Fixed rate</th><th>Source</th></tr></thead>
+  <tbody><tr><td>Luxury Beauty, Luxury Stores Beauty, Amazon Explore</td><td class="num">10.00%</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Digital Music, Physical Music, Handmade, Digital Videos</td><td class="num">5.00%</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Physical Books, Kitchen, Automotive</td><td class="num">4.50%</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Amazon Fire Tablet Devices, Amazon Kindle Devices, Luxury Stores Fashion, Apparel, Amazon Cloud Cam Devices, Fire TV Edition Smart TVs, Amazon Fire TV Devices, Amazon Echo Devices, Ring Devices, Watches, Jewelry, Luggage, Shoes, Handbags &amp; Accessories</td><td class="num">4.00%</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Toys, Furniture, Home, Home Improvement, Lawn &amp; Garden, Pets Products, Headphones, Beauty, Musical Instruments, Business &amp; Industrial Supplies, Outdoors, Tools, Sports, Baby Products, Amazon Coins</td><td class="num">3.00%</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>PC, PC Components, DVD &amp; Blu-Ray</td><td class="num">2.50%</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Televisions, Digital Video Games</td><td class="num">2.00%</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Amazon Fresh, Physical Video Games &amp; Video Game Consoles, Grocery, Health &amp; Personal Care</td><td class="num">1.00%</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Gift Cards; Wireless Service Plans; Alcoholic Beverages; Digital Kindle Products purchased as a subscription; Vehicles; Pet Prescription Medications; Restaurant food; Amazon Appstore, Prime Now, Amazon Pay Places</td><td class="num">0.00%</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Coach</td><td class="num">0.00%</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>All Other Categories</td><td class="num">4.00%</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr></tbody>
+</table>
+</div>
+<p class="tiny muted">Reproduced from the Standard Commission Income Statement <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a> on 2026-11-13. This is the only official rate source; third-party blogs circulating different numbers were excluded from this project.</p>
+
+
+<h2>Bounty events (US) — published, not recommended for this launch</h2>
+<div class="tablewrap">
+<table>
+  <caption>Special Commission Income: bounty programmes and amounts</caption>
+  <thead><tr><th>Bounty-eligible programme</th><th>Bounty (USD)</th><th>Source</th></tr></thead>
+  <tbody><tr><td>Prime Free Trial</td><td class="num">$12.00</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Prime Paid Membership</td><td class="num">$12.00</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Prime for Young Adults Trial / Paid Membership</td><td class="num">$12.00</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Prime Access Free Trial or Paid Membership</td><td class="num">$12.00</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Prime Sign Up at Checkout</td><td class="num">$12.00</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Prime Video Free Trial</td><td class="num">$2.00</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Prime Video First Stream</td><td class="num">$5.00</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Prime Video Stream</td><td class="num">$0.25</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Audible Standard Free Trial</td><td class="num">$20.00</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Audible Premium Plus Free Trial</td><td class="num">$5.00</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Audible Premium Plus Monthly Membership</td><td class="num">$10.00</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Audible Premium Plus Annual Membership</td><td class="num">$25.00</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Kindle Unlimited Free Trial</td><td class="num">$3.00</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Kindle Unlimited Membership: 12-month plan</td><td class="num">$5.00</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Amazon Music Unlimited Free Trial</td><td class="num">$3.00</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Amazon Baby Registry Create</td><td class="num">$3.00</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>Amazon Wedding Registry Create</td><td class="num">$3.00</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr><tr><td>EBT Card Registration</td><td class="num">$2.00</td><td><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td></tr></tbody>
+</table>
+</div>
+<p class="tiny muted">Bounties are listed because they are officially published. They are not recommended for this launch: C12 and the Participation Requirements bar incentives, and a bounty requires a link to a bounty-specific homepage, which is a separate content decision for the account holder.</p>
+
+<h2>What a visitor should take from this page</h2>
+<div class="grid grid-2">
+  <div class="card">
+    <h3 style="margin-top:0">If you are the buyer</h3>
+    <p class="small" style="margin-bottom:0">The disclosure bar at the top of every page is the one Amazon requires word for word. The "Paid link" tag next to every outbound button is the FTC-style link-level disclosure. Neither can be switched off by a content update, because both are generated into the page layout.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">If you are the operator</h3>
+    <p class="small" style="margin-bottom:0">This is the audit surface. When Amazon changes a rule, the page changes here first, then the build enforces it. The <a href="flagged.html">flagged page</a> is the backlog of facts that still need a human decision before any copy can assert them.</p>
+  </div>
+</div>
+
+  </main>
+</div>
+<footer class="site">
+  <div class="inner">
+    <div>
+      <h5>Disclosure</h5>
+      <p><strong>As an Amazon Associate I earn from qualifying purchases.</strong></p>
+      <p>Links marked <span class="paid-tag">Paid link</span> are Amazon Associates links. If you buy through one, this site may earn a commission at no extra cost to you. Amazon prices and availability are never published here — check the live price on Amazon.</p>
+    </div>
+    <div>
+      <h5>Verification</h5>
+      <p>Every asserted value on this site links to the official page it came from. Values that could not be confirmed from an official source are left blank and listed on the <a href="flagged.html">Flagged for review</a> page.</p>
+      <p class="tiny">Data verified 2026-11-13. Policies change: always re-check the source before relying on it.</p>
+    </div>
+    <div>
+      <h5>Cookies &amp; privacy</h5>
+      <p>This site sets no cookies itself, runs no analytics, and has no comment forms or accounts. Following an Amazon link takes you to Amazon, whose own privacy notice and cookie practices apply from that point. No data you enter here is collected, because there is nowhere to enter it.</p>
+      <p class="tiny">Amazon's Program Policies §3(e) require an accurate statement of cookie and third-party technology use on Associate sites. This notice satisfies that requirement for the current build; it must be updated the moment any analytics, embeds or affiliate-network script is added.</p>
+    </div>
+    <div>
+      <h5>Sources</h5>
+      <ul>
+        <li><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">Associates Operating Agreement</a></li>
+        <li><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Associates Program Policies</a></li>
+        <li><a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">Standard Commission Income Statement</a></li>
+        <li><a href="https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255" target="_blank" rel="noopener">16 CFR Part 255 (FTC)</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal">
+    Zone1 Kitchen is an independent affiliate publisher. It is not owned by, endorsed by, or sponsored by Amazon.com, Inc. or by any brand named on this site. Product names and brand names are the property of their respective owners and are used for identification only. No hands-on testing is claimed anywhere on this site; all analysis is documentation-based and sourced.
+  </div>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

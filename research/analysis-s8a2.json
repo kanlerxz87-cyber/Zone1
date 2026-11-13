@@ -1,0 +1,148 @@
+{
+  "accessed": "2026-11-13",
+  "disclaimer": "Everything in this file is DERIVED or PROPOSED. It is not a verified fact, it is not Amazon data, and it is not financial advice. Where a number is a formula it is labelled as a formula. No commission rate and no revenue figure is asserted, because the category rate card is behind Amazon sign-in (see compliance C23).",
+  "niche": {
+    "name": "Air fryers & countertop air-fry oven combos (US Home & Kitchen)",
+    "evidence": [
+      { "claim": "All three supplied links resolve into the same Amazon browse category.", "value": "Home & Kitchen", "source": "S4/S5/S6", "verified": true, "kind": "fact" },
+      { "claim": "Chefman's own store lists 27 air-fryer SKUs in one collection.", "value": "27 products", "source": "S7-collection", "verified": true, "kind": "fact", "source_url": "https://chefman.com/collections/air-fryers-1" },
+      { "claim": "Chefman's own store markets the category around oil reduction.", "value": "Cook your favorite meals using up to 90% less oil", "source": "S7", "verified": true, "kind": "fact", "source_url": "https://chefman.com/" },
+      { "claim": "Two of the three supplied products are the same brand; the mix is concentrated, not diversified.", "value": "2 of 3", "source": "S7/S8", "verified": true, "kind": "fact" }
+    ],
+    "derived_scores": [
+      {
+        "id": "N1",
+        "dimension": "Niche concentration risk",
+        "score": 3,
+        "scale": "1 (low risk) – 5 (high risk)",
+        "rationale": "All three products are air fryers and two of the three are Chefman. A single recall, listing suspension, or stock-out would hit two thirds of the catalogue at once.",
+        "kind": "derived-judgement",
+        "not_verified": true
+      },
+      {
+        "id": "N2",
+        "dimension": "Brand/product coverage depth",
+        "score": 2,
+        "scale": "1 (thin) – 5 (deep)",
+        "rationale": "Three SKUs across two brands; Chefman's own collection page alone lists 27 air-fryer SKUs, so category coverage is very thin.",
+        "kind": "derived-judgement",
+        "not_verified": true
+      },
+      {
+        "id": "N3",
+        "dimension": "Seasonality",
+        "score": null,
+        "scale": "1 (flat) – 5 (highly seasonal)",
+        "rationale": "Cannot be scored without accepted public search-volume data. Deliberately left blank rather than guessed.",
+        "kind": "unverified-blank",
+        "not_verified": true,
+        "flag": "I-15"
+      }
+    ]
+  },
+  "scoring_model": {
+    "why": "A transparent, reproducible way to rank the three products for content effort — with every input traceable to a verified field or explicitly marked as operator-set weight.",
+    "formula": "content_priority = 0.35*verified_spec_completeness + 0.25*price_point_clarity + 0.20*differentiation + 0.20*brand_review_depth (each input 0-5, weights are operator-set and sum to 1)",
+    "weights_are_operator_set": true,
+    "note": "Only 'verified_spec_completeness' and 'brand_review_depth' are computed from verified data. 'differentiation' is a judgement call. 'price_point_clarity' is 0 for all three because no Amazon price is verifiable — so the score is a planning aid only.",
+    "products": [
+      {
+        "id": "P1",
+        "verified_spec_completeness": { "score": 4.5, "basis": "18 of 20 candidate spec fields present on the manufacturer page", "kind": "derived-from-verified" },
+        "price_point_clarity": { "score": 0, "basis": "No verifiable Amazon price (I-10); manufacturer page shows a discount ladder, not one price (I-9)", "kind": "blocked" },
+        "differentiation": { "score": 4, "basis": "Dual independent baskets with Sync Finish is a genuinely distinct configuration vs the other two links", "kind": "derived-judgement" },
+        "brand_review_depth": { "score": 2.5, "basis": "30 reviews on chefman.com — thin", "kind": "derived-from-verified" },
+        "content_priority": 2.48,
+        "recommended_primary_article": "Dual-basket air fryer buying guide (best for cooking two foods at once)"
+      },
+      {
+        "id": "P2",
+        "verified_spec_completeness": { "score": 3.5, "basis": "16 of 20 candidate spec fields present; wattage, temperature range, certification, origin missing", "kind": "derived-from-verified" },
+        "price_point_clarity": { "score": 0, "basis": "No verifiable Amazon price (I-10)", "kind": "blocked" },
+        "differentiation": { "score": 5, "basis": "Oven-style 26 Qt with French doors and rotisserie — the most differentiated of the three", "kind": "derived-judgement" },
+        "brand_review_depth": { "score": 1, "basis": "Only 25 reviews on the manufacturer site and a 2.6/5 aggregate — a conversion risk worth addressing honestly", "kind": "derived-from-verified" },
+        "content_priority": 2.03,
+        "recommended_primary_article": "Air-fryer vs countertop oven: when a 26 Qt French-door oven actually earns its counter space"
+      },
+      {
+        "id": "P3",
+        "verified_spec_completeness": { "score": 4.5, "basis": "18 of 20 candidate spec fields present on the manufacturer page", "kind": "derived-from-verified" },
+        "price_point_clarity": { "score": 0, "basis": "No verifiable Amazon price (I-10)", "kind": "blocked" },
+        "differentiation": { "score": 2.5, "basis": "Single-basket XL with a 450 °F Hi-Fry boost — a feature story rather than a category story", "kind": "derived-judgement" },
+        "brand_review_depth": { "score": 3.5, "basis": "200 reviews on chefman.com — the deepest of the three", "kind": "derived-from-verified" },
+        "content_priority": 2.6,
+        "recommended_primary_article": "Best air fryer for a family of four: 8 Qt vs 6 Qt dual-basket"
+      }
+    ]
+  },
+  "content_plan": {
+    "note": "Generated content is desk research from manufacturer specifications only. No hands-on testing is claimed anywhere (see compliance C10).",
+    "articles": [
+      {
+        "slug": "best-air-fryer-buying-guide",
+        "title": "Air Fryer Buying Guide 2026: Basket vs Dual-Basket vs French-Door Oven",
+        "type": "buying guide",
+        "target_query": "best air fryer 2026 / air fryer buying guide",
+        "products": ["P1", "P2", "P3"],
+        "word_target": 1400,
+        "verified_inputs": ["capacity", "temperature_range", "power", "functions", "warranty", "certification", "dimensions"],
+        "status": "draft published on site"
+      },
+      {
+        "slug": "chefman-6qt-dual-basket-review",
+        "title": "Chefman TurboFry 6 Qt Dual-Basket (RJ38-3DBW-V2): Spec-Based Review",
+        "type": "product review (spec-based)",
+        "target_query": "chefman 6 quart dual basket air fryer review",
+        "products": ["P1"],
+        "word_target": 900,
+        "verified_inputs": ["capacity", "temperature_range", "power", "functions", "key_features", "certification", "warranty", "dishwasher_safe_parts"],
+        "status": "draft published on site"
+      },
+      {
+        "slug": "chefman-8qt-vs-6qt-dual-basket",
+        "title": "Chefman 8 Qt TurboFry vs 6 Qt Dual-Basket: Which One Fits Your Kitchen?",
+        "type": "comparison",
+        "target_query": "chefman 8 qt vs 6 qt dual basket",
+        "products": ["P3", "P1"],
+        "word_target": 1100,
+        "verified_inputs": ["capacity", "temperature_range", "power", "functions", "key_features", "certification", "warranty"],
+        "status": "draft published on site"
+      },
+      {
+        "slug": "emeril-26qt-french-door-spec-review",
+        "title": "Emeril Lagasse 26 Qt French Door AirFryer 360: Spec-Based Review",
+        "type": "product review (spec-based)",
+        "target_query": "emeril lagasse 26 qt french door air fryer review",
+        "products": ["P2"],
+        "word_target": 900,
+        "verified_inputs": ["capacity", "dimensions", "voltage", "functions", "preset_count", "accessories_included", "warranty"],
+        "status": "planned — not published (page-quality caveats logged as I-5, I-6)"
+      }
+    ]
+  },
+  "campaign_playbook": {
+    "note": "Operational design. Every control below is mapped to a verified compliance row in compliance.json so the automation cannot drift out of policy.",
+    "pipeline": [
+      { "step": 1, "name": "Niche scoring", "automation": "Recompute niche scores from the manufacturer catalogue + category pages monthly.", "control": "N3 stays blank until a licensed keyword-volume source is added." },
+      { "step": 2, "name": "Product ingestion", "automation": "Pull ASIN, title, category and images via Creators API GetItems / SearchItems.", "control": "Creators API requires ≥10 qualifying sales in the past 30 days (C19). Until then ingestion is manual and every field must carry a source URL." },
+      { "step": 3, "name": "Price & availability", "automation": "Only render price if it is served by Amazon or fetched through the API.", "control": "C8 — this is why the site currently stores no prices." },
+      { "step": 4, "name": "Content generation", "automation": "Templated long-form from verified spec fields + original commentary.", "control": "C10 (no hands-on claims) and C20 (original content). Specs are quoted and attributed." },
+      { "step": 5, "name": "Link injection", "automation": "Rewrite every outbound URL with the operator's tag plus a per-placement sub-tag.", "control": "C7 — the build step FAILS if any outbound link lacks a tag= parameter once MONETISE=1 is set." },
+      { "step": 6, "name": "Disclosure injection", "automation": "Insert the disclosure block immediately above every link block.", "control": "C1–C6. Build fails if a page has an outbound Amazon link and no disclosure element." },
+      { "step": 7, "name": "Click tracking", "automation": "First-party click events on outbound links, per sub-tag.", "control": "No dynamic per-user sub-tags — the operating agreement forbids associating a sub-tag with a specific end user (C7 family)." },
+      { "step": 8, "name": "Conversion reconciliation", "automation": "Match click counts to Associates reports ~24h after click (session rule) and again at 60-day payment run.", "control": "C14 (24h / 89-day attribution), C17 (60-day payment)." },
+      { "step": 9, "name": "Optimisation", "automation": "Promote the placement with the highest verified conversion-per-click; retire dead placements.", "control": "Only first-party aggregate data is used; no scraping of Amazon pages." },
+      { "step": 10, "name": "Compliance re-audit", "automation": "Nightly diff of affiliate-program.amazon.com policy pages; open a change ticket on any diff.", "control": "Policy pages are versioned with an 'Updated' date — currently Policies 2026-04-14 and Agreement 2025-10-15." }
+    ],
+    "kpis_that_can_be_measured_today": [
+      "Number of verified spec fields per product (currently 18 / 16 / 18 of 20)",
+      "Number of rows without an official source (target: 0 — currently met for every published row)",
+      "Number of outbound links without a tracking tag (currently 3 of 3 — blocked on the operator, see I-2)"
+    ],
+    "kpis_that_cannot_be_measured_yet": [
+      "Commission per conversion — the category rate card is behind sign-in (C23)",
+      "Amazon star rating / review count — review pages require sign-in (I-11)",
+      "Best Sellers Rank — not exposed publicly (I-12)"
+    ]
+  }
+}

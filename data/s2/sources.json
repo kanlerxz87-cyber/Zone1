@@ -120,6 +120,15 @@
       "url": "https://www.amazon.com/Best-Sellers/zgbs",
       "used_for": "Proved the collector path end to end: the page states its own basis (\"Our most popular products based on sales. Updated frequently.\") and lists, per row, a 10-character ASIN, star rating, review count and price. Used only as an internal research demonstration, never as content for a monetized page.",
       "access": "public"
+    },
+    {
+      "id": "S14",
+      "publisher": "Amazon Associates",
+      "type": "official-page",
+      "name": "Associates Program Standard Commission Income Statement (Table 1 + Bounty Events)",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+      "used_for": "The published fixed commission-rate table. Corrects this session's earlier F-04 conclusion; row MN-2 and flag F-04 were rewritten after fetching it unauthenticated.",
+      "access": "public"
     }
   ]
 }

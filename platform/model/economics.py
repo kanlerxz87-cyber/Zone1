@@ -1,4 +1,9 @@
-"""Commission arithmetic with no invented inputs (MN-1..MN-7)."""
+"""Commission arithmetic with no invented inputs (MN-1..MN-11).
+
+Table 1 of the Standard Commission Income Statement is public and is recorded as verified in
+program.json (MN-2). What is *not* derivable is which Table 1 category a given ASIN belongs to
+(MN-11), so a per-product rate is still an unknown input rather than a constant to reach for.
+"""
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -31,7 +36,9 @@ class RateNotAvailable(Exception):
 def commission(revenue: float, rate_pct: float | None) -> float:
     if rate_pct is None:
         raise RateNotAvailable(
-            "No official public rate exists (see flag F-04); refusing to assume a percentage."
+            "Table 1 publishes fixed rates by category, but Amazon publishes no ASIN-to-category mapping "
+            "(program.json MN-11), so the rate for a specific product is unknown. Refusing to pick one: "
+            "Kitchen 4.50%, Home 3.00% and the 4.00% fallback all divide the same revenue differently."
         )
     return round(revenue * rate_pct / 100.0, 2)
 

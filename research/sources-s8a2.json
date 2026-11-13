@@ -1,0 +1,221 @@
+{
+  "accessed": "2026-11-13",
+  "sources": [
+    {
+      "id": "S1",
+      "url": "https://link.amazon/B04G1MEwY",
+      "label": "Supplied affiliate short link #1 (resolves to ASIN B0CDY277D3)",
+      "publisher": "Amazon (link.amazon redirector)",
+      "kind": "affiliate-link",
+      "supports": "Link #1 identity: redirects to https://www.amazon.com/dp/B0CDY277D3"
+    },
+    {
+      "id": "S2",
+      "url": "https://link.amazon/B02NbDxp3",
+      "label": "Supplied affiliate short link #2 (resolves to ASIN B09B7SB46R)",
+      "publisher": "Amazon (link.amazon redirector)",
+      "kind": "affiliate-link",
+      "supports": "Link #2 identity: redirects to https://www.amazon.com/dp/B09B7SB46R"
+    },
+    {
+      "id": "S3",
+      "url": "https://link.amazon/B00hJ57DV",
+      "label": "Supplied affiliate short link #3 (resolves to ASIN B08DKYBTPH)",
+      "publisher": "Amazon (link.amazon redirector)",
+      "kind": "affiliate-link",
+      "supports": "Link #3 identity: redirects to https://www.amazon.com/dp/B08DKYBTPH"
+    },
+    {
+      "id": "S4",
+      "url": "https://www.amazon.com/dp/B0CDY277D3",
+      "label": "Amazon.com product detail page, ASIN B0CDY277D3",
+      "publisher": "Amazon.com, Inc.",
+      "kind": "retailer-official",
+      "supports": "Product title / listing attributes for product 1. Page body (price, star rating, review count) was not machine-readable to an unauthenticated reader."
+    },
+    {
+      "id": "S5",
+      "url": "https://www.amazon.com/dp/B09B7SB46R",
+      "label": "Amazon.com product detail page, ASIN B09B7SB46R",
+      "publisher": "Amazon.com, Inc.",
+      "kind": "retailer-official",
+      "supports": "Product title / listing attributes for product 2. Page body (price, star rating, review count) was not machine-readable to an unauthenticated reader."
+    },
+    {
+      "id": "S6",
+      "url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "label": "Amazon.com product detail page, ASIN B08DKYBTPH",
+      "publisher": "Amazon.com, Inc.",
+      "kind": "retailer-official",
+      "supports": "Product title / listing attributes for product 3. Page body (price, star rating, review count) was not machine-readable to an unauthenticated reader."
+    },
+    {
+      "id": "S7",
+      "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-6-qt-double-basket-air-fryer-with-easy-view-windows",
+      "label": "Chefman official product page — TurboFry 6 Qt Double Basket Air Fryer with Easy View Windows, model RJ38-3DBW-V2",
+      "publisher": "Chefman (chefman.com)",
+      "kind": "manufacturer-official",
+      "supports": "Capacity, temperature range, power, functions, model number, certification, warranty, dishwasher-safe parts, review aggregate on chefman.com"
+    },
+    {
+      "id": "S8",
+      "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-8-qt-air-fryer-w-high-fry",
+      "label": "Chefman official product page — TurboFry 8 Qt Air Fryer w/ High Fry, model RJ38-8T-BLACK",
+      "publisher": "Chefman (chefman.com)",
+      "kind": "manufacturer-official",
+      "supports": "Capacity, Hi-Fry temperature, power, functions, model number, certification, warranty, dishwasher-safe parts, review aggregate on chefman.com"
+    },
+    {
+      "id": "S9",
+      "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+      "label": "Emeril Everyday official product page — Emeril Lagasse French Door AirFryer 360 Toaster Oven Combo, 26 QT, model 4-00675-02A-VN",
+      "publisher": "Emeril Everyday (emerileveryday.com)",
+      "kind": "manufacturer-official",
+      "supports": "Capacity, dimensions, voltage, functions, preset counts, model number, manufacturer list price, warranty"
+    },
+    {
+      "id": "S10",
+      "url": "https://chefman.com/",
+      "label": "Chefman official brand site (home)",
+      "publisher": "Chefman (chefman.com)",
+      "kind": "manufacturer-official",
+      "supports": "Brand identity and product-collection navigation"
+    },
+    {
+      "id": "S11",
+      "url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "label": "Amazon Associates Program Operating Agreement (Updated: October 15, 2025)",
+      "publisher": "Amazon.com, Inc. — Associates Central",
+      "kind": "program-official",
+      "supports": "Section 5 disclosure wording requirement; Sections 3-4 warranties; Section 6 termination; Section 7 disclaimers"
+    },
+    {
+      "id": "S12",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "label": "Amazon Associates Program Policies (Updated: April 14, 2026)",
+      "publisher": "Amazon.com, Inc. — Associates Central",
+      "kind": "program-official",
+      "supports": "Commission Income Statement (sessions, disqualified purchases, payment minimums), Participation Requirements, link rules, price-display rule, IP license, Trademark Guidelines"
+    },
+    {
+      "id": "S13",
+      "url": "https://affiliate-program.amazon.com/help/operating/compare",
+      "label": "Associates Operating Agreement — What's Changed (effective April 14, 2026)",
+      "publisher": "Amazon.com, Inc. — Associates Central",
+      "kind": "program-official",
+      "supports": "Changelog: 180-day shipping/payment limit, expanded disqualified purchases for paid/boosted ads, original-content definition"
+    },
+    {
+      "id": "S14",
+      "url": "https://affiliate-program.amazon.com/welcome",
+      "label": "Amazon Associates — program home page (public)",
+      "publisher": "Amazon.com, Inc. — Associates Central",
+      "kind": "program-official",
+      "supports": "Public statement 'Earn up to 10% in associate commissions'; commission differs by category; paid approximately 60 days after month end"
+    },
+    {
+      "id": "S15",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM",
+      "label": "Amazon Associates Help — Application Review Process",
+      "publisher": "Amazon.com, Inc. — Associates Central",
+      "kind": "program-official",
+      "supports": "At least three qualifying sales within the first 180 days; original content; 'good rule of thumb is at least 10 posts'; tagged-link rejection reason"
+    },
+    {
+      "id": "S16",
+      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction",
+      "label": "Amazon Creators API — Introduction",
+      "publisher": "Amazon.com, Inc. — Associates Central",
+      "kind": "program-official",
+      "supports": "Creators API operations; prerequisite of at least 10 qualifying sales in the past 30 days"
+    },
+    {
+      "id": "S17",
+      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation",
+      "label": "Amazon PA-API 5 Deprecation Notice",
+      "publisher": "Amazon.com, Inc. — Associates Central",
+      "kind": "program-official",
+      "supports": "PA-API 5 deprecated in favour of Creators API; continued PA-API 5 calls return HTTP 403 AccessDeniedException"
+    },
+    {
+      "id": "S18",
+      "url": "https://www.amazon.com/b?node=53643932011",
+      "label": "The Operating Agreement — Top Dos and Don'ts",
+      "publisher": "Amazon.com, Inc.",
+      "kind": "program-official",
+      "supports": "Approved disclosure language (#paidlink, #ad, CommissionsEarned, 'As an Amazon Associate, I earn from qualifying purchases'); required trademark statement 'Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.'"
+    },
+    {
+      "id": "S19",
+      "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "label": "FTC — Disclosures 101 for Social Media Influencers",
+      "publisher": "U.S. Federal Trade Commission",
+      "kind": "regulator-official",
+      "supports": "Disclosure timing/placement; 'You can't talk about your experience with a product you haven't tried.'"
+    },
+    {
+      "id": "S20",
+      "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
+      "label": "FTC — Endorsement Guides: What People Are Asking (affiliate-marketing Q&A)",
+      "publisher": "U.S. Federal Trade Commission",
+      "kind": "regulator-official",
+      "supports": "'I get commissions for purchases made through links in this post' example; 'affiliate link' and 'buy now' inadequate alone; 'paid link' adequate next to the link"
+    },
+    {
+      "id": "S21",
+      "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255",
+      "label": "16 CFR Part 255 — Guides Concerning Use of Endorsements and Testimonials in Advertising",
+      "publisher": "U.S. Government (eCFR, Federal Trade Commission)",
+      "kind": "regulator-official",
+      "supports": "§255.3 expert endorsements; §255.4(b)(3)(i) affiliate-funded review sites must disclose; §255.5(a) material-connection disclosure"
+    },
+    {
+      "id": "S22",
+      "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-465",
+      "label": "16 CFR Part 465 — Rule on the Use of Consumer Reviews and Testimonials",
+      "publisher": "U.S. Government (eCFR, Federal Trade Commission)",
+      "kind": "regulator-official",
+      "supports": "§465.1(c)(4): on interactive media a disclosure must be unavoidable — not hidden behind a click or hover"
+    },
+    {
+      "id": "S23",
+      "url": "https://affiliate-program.amazon.com/help/operating/schedule",
+      "label": "Amazon Associates Commission Income Schedule (attempted)",
+      "publisher": "Amazon.com, Inc. — Associates Central",
+      "kind": "program-official",
+      "supports": "BLOCKED: redirected to Amazon sign-in. Category commission rates are behind authentication and cannot be verified publicly."
+    },
+    {
+      "id": "S24",
+      "url": "https://www.amazon.com/product-reviews/B0CDY277D3",
+      "label": "Amazon.com customer reviews page, ASIN B0CDY277D3 (attempted)",
+      "publisher": "Amazon.com, Inc.",
+      "kind": "retailer-official",
+      "supports": "BLOCKED: redirected to Amazon sign-in. Star rating and review count could not be captured."
+    },
+    {
+      "id": "S25",
+      "url": "https://www.amazon.com/dp/B04G1MEwY",
+      "label": "Amazon.com /dp/ request using a link.amazon short code as if it were an ASIN (control test)",
+      "publisher": "Amazon.com, Inc.",
+      "kind": "retailer-official",
+      "supports": "Control test proving the supplied short codes are NOT ASINs: the request returns Amazon's 'Page Not Found' error page. Used as evidence for I-1 and I-18."
+    },
+    {
+      "id": "S26",
+      "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+      "label": "Chefman official product page — TurboFry Touch Stainless-Steel Air Fryer, model RJ38-SQSS-8T",
+      "publisher": "Chefman (chefman.com)",
+      "kind": "manufacturer-official",
+      "supports": "Identifies the actual stainless-steel 8-quart Chefman SKU. Used to show that the Amazon title's 'Stainless Steel' wording matches a DIFFERENT model than RJ38-8T-BLACK (matte black) — see I-7."
+    },
+    {
+      "id": "S27",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+      "label": "Amazon Associates Central — Associates Program Standard Commission Income Statement (Table 1 + Bounty Events)",
+      "publisher": "Amazon.com, Inc. (Amazon Associates Central)",
+      "kind": "program-official",
+      "supports": "Table 1, publicly readable without sign-in: 'Physical Books, Kitchen, Automotive | 4.50%'; most device/apparel/jewelry/luggage/shoes/handbags categories 4.00%; Toys/Furniture/Home/Home Improvement/Lawn & Garden/Pets/Headphones/Beauty/Musical Instruments/Business & Industrial Supplies/Outdoors/Tools/Sports/Baby 3.00%; 'All Other Categories | 4.00%'. Also lists fixed Bounty Event amounts (e.g. Prime Free Trial $12.00, Prime Video First Stream $5.00). This page was reachable in plain GET with no authentication on 2026-11-13 — it CONTRADICTS this session's earlier finding that the schedule was behind sign-in."
+    }
+  ]
+}

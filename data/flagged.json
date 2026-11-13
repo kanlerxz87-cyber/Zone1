@@ -1,0 +1,189 @@
+{
+  "meta": {
+    "title": "Flagged for Review",
+    "checked_on": "2026-11-13",
+    "checked_on_display": "13 November 2026 (UTC)",
+    "intro": "Every item below is either an irregularity found during verification or a value that could not be confirmed from an official source. Nothing here blocks publication \u2014 it is published so it can be reviewed. Each item names the official page that was checked and what exactly was seen."
+  },
+  "items": [
+    {
+      "id": "F-01",
+      "severity": "medium",
+      "item": "The three short links resolve via a redirect handler that carries a fallback marker",
+      "what_was_expected": "A short link that resolves cleanly to the exact product originally intended.",
+      "what_was_observed": "All three link.amazon short links redirect to amazon.com/dp/<ASIN> but the resolved URL carries plpRedirect=mhFallback. The short codes (B04G1MEwY, B02NbDxp3, B00hJ57DV) are opaque and contain no ASIN, so the ASIN mapping can only be established from the redirect target.",
+      "why_it_matters": "If a short link has expired or been re-pointed, the ASIN it now opens may not be the product the link was created for. Commission would then be earned on a product the operator did not choose.",
+      "what_would_confirm_it": "The operator re-checks each short link in a normal browser, or replaces the short links with the canonical tagged /dp/<ASIN> URLs.",
+      "source_ids": ["S-AMZ-P1", "S-AMZ-P2", "S-AMZ-P3"],
+      "source_links": [
+        {"label": "B0CDY277D3 listing", "url": "https://www.amazon.com/dp/B0CDY277D3"},
+        {"label": "B09B7SB46R listing", "url": "https://www.amazon.com/dp/B09B7SB46R"},
+        {"label": "B08DKYBTPH listing", "url": "https://www.amazon.com/dp/B08DKYBTPH"}
+      ]
+    },
+    {
+      "id": "F-02",
+      "severity": "medium",
+      "item": "\u201cHi-Fry\u201d appears in the Amazon title for B0CDY277D3 but not in Chefman's specification for the matching model",
+      "what_was_expected": "Every named feature in a retail title to appear in the manufacturer's own feature list.",
+      "what_was_observed": "Amazon title names \u201cHi-Fry\u201d. Chefman's page for RJ38-3DBW-V2 lists five functions (air fry, bake, reheat, dehydrate, frozen) over 90\u2013400\u00b0F and does not list \u201cHi-Fry\u201d. Chefman's separate 8 Qt model RJ38-8T-BLACK does list \u201cHi-Fry\u201d at 450\u00b0F \u2014 so the term exists in the brand's vocabulary, just not for this model.",
+      "why_it_matters": "Publishing \u201cHi-Fry\u201d as a feature of this unit would be an unsupported product claim (see C-14). It may be a title error, or the Amazon SKU may be a variant the brand page does not cover.",
+      "what_would_confirm_it": "Chefman support confirmation of the model number on the Amazon listing, or the owner manual for the exact Amazon SKU.",
+      "source_ids": ["S-CM-P1", "S-AMZ-P1"],
+      "source_links": [
+        {"label": "Chefman RJ38-3DBW-V2 page", "url": "https://chefman.com/products/turbofry-6-qt-double-basket-air-fryer-with-easy-view-windows"},
+        {"label": "Amazon B0CDY277D3", "url": "https://www.amazon.com/dp/B0CDY277D3"}
+      ]
+    },
+    {
+      "id": "F-03",
+      "severity": "medium",
+      "item": "Three different preset counts stated for the same Emeril oven",
+      "what_was_expected": "One preset count for one SKU.",
+      "what_was_observed": "On emerileveryday.com, the same product page states \u201c25 Cooking Pre-sets\u201d in the specification strip, \u201c24 one-touch cooking presets\u201d in the description, and \u201c10-in-1\u201d in the product name. The Amazon title states 24.",
+      "why_it_matters": "Any single number chosen from these would be contestable. Per the no-inference rule, the field is left blank rather than picking the most common figure.",
+      "what_would_confirm_it": "The control-panel layout in the brand manual (S-EM-MANUAL), read line by line.",
+      "source_ids": ["S-EM-P2", "S-EM-MANUAL"],
+      "source_links": [
+        {"label": "Emeril Everyday product page", "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"},
+        {"label": "Brand manual PDF", "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"}
+      ]
+    },
+    {
+      "id": "F-04",
+      "severity": "low",
+      "item": "B08DKYBTPH: Amazon title says \u201cStainless Steel\u201d, Chefman says \u201cMatte-black finish\u201d",
+      "what_was_expected": "Colour/finish to match between retail title and brand page.",
+      "what_was_observed": "Amazon title ends \u201c\u2026 Stainless Steel\u201d. Chefman's page for model RJ38-8T-BLACK lists \u201cMatte-black finish\u201d, and the model code itself contains BLACK.",
+      "why_it_matters": "Finish is a purchase driver for a countertop appliance. Publishing either one alone risks being wrong.",
+      "what_would_confirm_it": "The variant selected on the Amazon listing, or a photograph of the delivered unit.",
+      "source_ids": ["S-CM-P3", "S-AMZ-P3"],
+      "source_links": [
+        {"label": "Chefman RJ38-8T-BLACK page", "url": "https://chefman.com/products/turbofry-8-qt-air-fryer-w-high-fry"},
+        {"label": "Amazon B08DKYBTPH", "url": "https://www.amazon.com/dp/B08DKYBTPH"}
+      ]
+    },
+    {
+      "id": "F-05",
+      "severity": "low",
+      "item": "Personalised commission rate and payment thresholds are behind sign-in",
+      "what_was_expected": "Confirming the operator's actual rate.",
+      "what_was_observed": "The published Table 1 rate is public (Kitchen 4.50%). The account-specific custom rate card at /home/account/payment/customratecard returns a sign-in wall to this client.",
+      "why_it_matters": "All revenue modelling on this site uses the published 4.50%. If the operator's account has a different rate, the projections move proportionally.",
+      "what_would_confirm_it": "The operator reads their own rate card while signed in.",
+      "source_ids": ["S-AMZ-RATE"],
+      "source_links": [
+        {"label": "Published Table 1 rate card", "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"}
+      ]
+    },
+    {
+      "id": "F-06",
+      "severity": "low",
+      "item": "Amazon browse-node category confirmed directly for one ASIN only",
+      "what_was_expected": "A directly-read breadcrumb per ASIN.",
+      "what_was_observed": "The breadcrumb Home & Kitchen \u203a Kitchen & Dining \u203a Small Appliances \u203a Fryers \u203a Air Fryers was read directly on B09B7SB46R. The other two listings' breadcrumbs did not render to this client, so their category alignment is inferred from title and brand page.",
+      "why_it_matters": "Category drives the commission rate. All three are air fryers, so 4.50% (Kitchen) is almost certainly right, but only one was read directly.",
+      "what_would_confirm_it": "Reading the breadcrumb on B0CDY277D3 and B08DKYBTPH, or the Associates category report per ASIN.",
+      "source_ids": ["S-AMZ-P1", "S-AMZ-P2", "S-AMZ-P3"],
+      "source_links": [
+        {"label": "Amazon B09B7SB46R (breadcrumb source)", "url": "https://www.amazon.com/dp/B09B7SB46R"}
+      ]
+    },
+    {
+      "id": "F-07",
+      "severity": "low",
+      "item": "Colour for B0CDY277D3 comes from the listing title only",
+      "what_was_expected": "A colour variant control or spec row.",
+      "what_was_observed": "The listing title ends \u201c\u2013 Black\u201d. No separate colour attribute rendered to this client, and Chefman's brand page does not state a colour for RJ38-3DBW-V2.",
+      "why_it_matters": "Minor, but it is a fact taken from one line of text rather than a specification field.",
+      "what_would_confirm_it": "The colour swatch on the Amazon listing.",
+      "source_ids": ["S-AMZ-P1"],
+      "source_links": [
+        {"label": "Amazon B0CDY277D3", "url": "https://www.amazon.com/dp/B0CDY277D3"}
+      ]
+    },
+    {
+      "id": "F-08",
+      "severity": "high",
+      "item": "Amazon price, star rating and review count are blank by design",
+      "what_was_expected": "Live Amazon metrics for the comparison table.",
+      "what_was_observed": "The Amazon product pages served an interstitial instead of price and rating blocks to this client. Separately, Amazon's own Program Policies \u00a72(b) (§2(b)) only permit showing prices and availability if Amazon serves the data or it comes through the Creators API / PA API, and \u00a73(t) (§3(t)) restricts displaying Amazon reviews and star ratings to API-sourced data.",
+      "why_it_matters": "These are the three numbers a buyer most wants, and a converter most wants. They are blank because they cannot be lawfully displayed from this crawl, not because they are unavailable in principle.",
+      "what_would_confirm_it": "Obtaining Creators API / PA API access and rendering Amazon-served widgets. Until then the correct action is to leave the cells empty, which is what the site does.",
+      "source_ids": ["S-AMZ-POL"],
+      "source_links": [
+        {"label": "Amazon Program Policies \u00a72(b) and \u00a73(t)", "url": "https://affiliate-program.amazon.com/help/operating/policies"}
+      ]
+    },
+    {
+      "id": "F-09",
+      "severity": "medium",
+      "item": "Emeril unit: wattage and safety certification not confirmed",
+      "what_was_expected": "Wattage and a UL/ETL marking for the 26 QT oven.",
+      "what_was_observed": "The Emeril Everyday product page states voltage (120 V), capacity and dimensions but not wattage or a certification body. The Chefman pages do state 1700 W and cETL. A third-party marketing site was found asserting 1700 W, but a non-brand marketing site is not an acceptable source for this project.",
+      "why_it_matters": "Wattage determines circuit requirements for a 26 Qt countertop oven. Publishing an unverified number would be a safety-relevant claim.",
+      "what_would_confirm_it": "The rating label on the unit, or the specifications section of the brand manual (S-EM-MANUAL).",
+      "source_ids": ["S-EM-P2", "S-EM-MANUAL"],
+      "source_links": [
+        {"label": "Emeril Everyday product page", "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"},
+        {"label": "Brand manual PDF", "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"}
+      ]
+    },
+    {
+      "id": "F-10",
+      "severity": "high",
+      "item": "No Amazon Associate tag has been supplied, so no link on this site can currently earn",
+      "what_was_expected": "Each outbound link carrying the operator's Associates tag.",
+      "what_was_observed": "No Associates tag was supplied with this project. Amazon requires the tag as a URL parameter on every Special Link.",
+      "why_it_matters": "Untagged links are not Special Links and generate no commission. This is the single highest-impact blocker between this site and revenue.",
+      "what_would_confirm_it": "The operator adds their tag to data/config.json (format XXXXX-20) and the build re-renders every outbound link. The build script validates the tag and refuses to emit a malformed one.",
+      "source_ids": ["S-AMZ-POL", "S-AMZ-OA"],
+      "source_links": [
+        {"label": "Amazon Program Policies \u00a72(b)", "url": "https://affiliate-program.amazon.com/help/operating/policies"},
+        {"label": "Amazon Operating Agreement \u00a71", "url": "https://affiliate-program.amazon.com/help/operating/agreement"}
+      ]
+    },
+    {
+      "id": "F-11",
+      "severity": "medium",
+      "item": "Click and conversion tracking is architected but deliberately not shipped",
+      "what_was_expected": "The brief asks for click and conversion tracking.",
+      "what_was_observed": "Conversion data lives only in the Associates dashboard; Amazon states it uses commercially reasonable efforts to track Qualifying Purchases and reports them monthly. There is no public API for per-click conversion attribution to a third-party static site. Meanwhile \u00a73(g), \u00a73(v) and \u00a73(e) constrain how tracking may be done.",
+      "why_it_matters": "A static GitHub Pages site cannot truthfully report conversions. Shipping a fake or inferred conversion number would breach the no-hallucination rule.",
+      "what_would_confirm_it": "Build the outbound-click counter server-side (no cloaking, no incentives, no cookies on the static site) and read conversions from the Associates dashboard, not from a scraped or estimated source.",
+      "source_ids": ["S-AMZ-POL", "S-AMZ-COMM"],
+      "source_links": [
+        {"label": "Amazon Program Policies", "url": "https://affiliate-program.amazon.com/help/operating/policies"},
+        {"label": "Commission Income Statement \u00a76 (reporting)", "url": "https://affiliate-program.amazon.com/help/operating/policies"}
+      ]
+    },
+    {
+      "id": "F-12",
+      "severity": "low",
+      "item": "Review-rating comparison mixes brand-store review systems, not Amazon",
+      "what_was_expected": "A like-for-like review metric.",
+      "what_was_observed": "Chefman's pages report 4.5/5 (30 reviews) and 4.6/5 (200 reviews) through their own Bazaarvoice/Wholescale widget; Emeril Everyday reports 2.6/5 (25 reviews) through Bazaarvoice. These are three brand storefronts with different volumes and different moderation, not one marketplace.",
+      "why_it_matters": "The Emeril 2.6 vs Chefman 4.5 gap is real on those sources, but a small, low-volume brand-store sample is not statistically comparable to a marketplace rating. The site labels every rating as \u201cbrand-store\u201d and adds this caveat rather than presenting it as a verdict.",
+      "what_would_confirm_it": "Amazon star ratings via the Creators API, compared at equal volume.",
+      "source_ids": ["S-CM-P1", "S-CM-P3", "S-EM-P2"],
+      "source_links": [
+        {"label": "Chefman 6 Qt page", "url": "https://chefman.com/products/turbofry-6-qt-double-basket-air-fryer-with-easy-view-windows"},
+        {"label": "Chefman 8 Qt page", "url": "https://chefman.com/products/turbofry-8-qt-air-fryer-w-high-fry"},
+        {"label": "Emeril Everyday page", "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"}
+      ]
+    },
+    {
+      "id": "F-13",
+      "severity": "medium",
+      "item": "No search-volume, sales-rank or conversion-rate data exists from an official source",
+      "what_was_expected": "Demand and competition metrics for niche scoring.",
+      "what_was_observed": "Amazon publishes no sales volume, search volume or conversion rate for individual ASINs. Third-party tools that estimate these (Jungle Scout, Helium 10 and similar) are commercial estimates, not official sources, and their numbers are not reproducible.",
+      "why_it_matters": "The brief asks for data-driven niche scoring on trending and high-converting products. Any scoring that produces a confident number would be fabricated.",
+      "what_would_confirm_it": "Use Amazon's own reports where available (e.g. Bounty/Bonus event tables, which ARE published) plus the operator's own observed click-through and conversion from the Associates dashboard once live. Until then, the opportunity score on this site is computed only from factors that ARE sourced, and the unsourced dimensions are shown as blank with this flag.",
+      "source_ids": ["S-AMZ-RATE", "S-AMZ-POL"],
+      "source_links": [
+        {"label": "Amazon Standard Commission Income Statement (published data)", "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"}
+      ]
+    }
+  ]
+}

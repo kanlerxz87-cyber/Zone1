@@ -8,20 +8,37 @@
       "id": "F-07",
       "severity": "critical",
       "title": "The three supplied product links do not identify any product",
-      "detail": "Every input needed for product research, pricing, review and commission analysis is missing at the source. This is the single biggest constraint on the whole project: article, comparison and buying-guide generation, competitor analysis and revenue modelling all require a real ASIN, and none of the three links yields one.",
+      "detail": "Every input needed for product research, pricing, review and commission analysis depends on these three links, and none of them resolves cleanly. Two findings establish the problem: each token is 9 characters where an ASIN is 10, and each direct catalog lookup returns Amazon's 'Page Not Found' page. The counter-evidence is recorded here because it matters: the fallback page each token produced was THE SAME across two independent sessions hours apart (B04G1MEwY→B0CDY277D3, B02NbDxp3→B09B7SB46R), which is not how a random shuffle behaves. So the honest position is narrower than 'these are wrong': the landing ASINs are reproducible, but they are reached through a fallback path whose own /dp/ URL for the supplied token 404s, which is consistent with an expired or re-pointed short link whose original target has been superseded. The platform therefore treats the three ASINs as a *candidate mapping to confirm*, not as an established fact, and no product attribute on this site is presented as verified.",
       "evidence": [
         "Each token is 9 characters (B04G1MEwY, B02NbDxp3, B00hJ57DV); an ASIN is a combination of 10 letters and numbers.",
         "https://www.amazon.com/dp/B04G1MEwY, /dp/B02NbDxp3 and /dp/B00hJ57DV each return Amazon's 'Page Not Found' error page (fetched 2026-11-13).",
-        "https://link.amazon/<token> served amazon.com/dp/<other-asin>?lv=shuf&btn_type=ss&channelId=704&plpRedirect=mhFallback — a fallback shuffle to a featured item, not a resolution of the token."
+        "Pro: the fallback landing was identical across two sessions, so it is reproducible rather than random.",
+        "Con: the requested tokens' own detail pages 404, and the landing URL carries lv=shuf / plpRedirect=mhFallback, the parameters Amazon uses when it could not find the requested page.",
+        "Con: no Amazon page states that a 9-character token maps to any particular ASIN."
       ],
       "sources": [
-        { "label": "Amazon catalog lookup for token 1", "url": "https://www.amazon.com/dp/B04G1MEwY" },
-        { "label": "Amazon catalog lookup for token 2", "url": "https://www.amazon.com/dp/B02NbDxp3" },
-        { "label": "Amazon catalog lookup for token 3", "url": "https://www.amazon.com/dp/B00hJ57DV" },
-        { "label": "link.amazon fallback response", "url": "https://link.amazon/B04G1MEwY" },
-        { "label": "Amazon definition of an ASIN (10 characters)", "url": "https://advertising.amazon.com/library/guides/asins-introduction" }
+        {
+          "label": "Amazon catalog lookup for token 1",
+          "url": "https://www.amazon.com/dp/B04G1MEwY"
+        },
+        {
+          "label": "Amazon catalog lookup for token 2",
+          "url": "https://www.amazon.com/dp/B02NbDxp3"
+        },
+        {
+          "label": "Amazon catalog lookup for token 3",
+          "url": "https://www.amazon.com/dp/B00hJ57DV"
+        },
+        {
+          "label": "link.amazon fallback response",
+          "url": "https://link.amazon/B04G1MEwY"
+        },
+        {
+          "label": "Amazon definition of an ASIN (10 characters)",
+          "url": "https://advertising.amazon.com/library/guides/asins-introduction"
+        }
       ],
-      "action_required": "Supply the 10-character ASIN for each product, or a plain https://www.amazon.com/dp/<ASIN> URL. Everything else on the site switches on from those three values.",
+      "action_required": "Confirm in one line whether B0CDY277D3, B09B7SB46R and B08DKYBTPH are the three products you meant. If yes, this session's and the other sessions' tables merge without further argument and only prices/ratings need re-verification; if no, send the 10-character ASINs.",
       "status": "needs review"
     },
     {
@@ -35,7 +52,10 @@
         "'All Special Links must be accessed directly from your Site.'"
       ],
       "sources": [
-        { "label": "Associates Program Policies — Participation Requirements (links on your site)", "url": "https://affiliate-program.amazon.com/help/operating/policies" }
+        {
+          "label": "Associates Program Policies — Participation Requirements (links on your site)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
       ],
       "action_required": "Rebuild every link from the operator's own Associates ID using SiteStripe or the Associates dashboard; never republish a third-party short link.",
       "status": "needs review"
@@ -43,18 +63,24 @@
     {
       "id": "F-04",
       "severity": "high",
-      "title": "No public, official commission rate exists, so no rate is stated anywhere on this site",
-      "detail": "Commission modelling requires a per-category rate. The only official rate source is the publisher's own rate card, which sits behind sign-in. Rather than quote a third-party blog's rate table, every commission cell on this site is blank and marked unverified.",
+      "title": "CORRECTED — a public commission table does exist; what is unverifiable is the ASIN→category mapping",
+      "detail": "This session first recorded F-04 as 'no public, official commission rate exists', because https://affiliate-program.amazon.com/help/operating/schedule redirects to sign-in. That conclusion was wrong and is corrected here: the Associates Program Standard Commission Income Statement is readable without a login at the help-node URL, and its Table 1 publishes fixed rates by category (Luxury Beauty 10.00% down to 0.00% for Gift Cards and similar, with 'Physical Books, Kitchen, Automotive' at 4.50% and 'All Other Categories' at 4.00%). The genuine remaining gap is narrower: Table 1 is keyed to categories, not ASINs, and air fryers are not named, so the rate that applies to a specific product cannot be derived without a category mapping Amazon does not publish. The platform therefore publishes the table and refuses to multiply it into a per-product earning figure.",
       "evidence": [
-        "The Program Policies state that Standard Commission Income is described in the Appendix, and the rate card is account-specific.",
-        "https://affiliate-program.amazon.com/help/operating/schedule was requested unauthenticated on 2026-11-13 and returned the Amazon sign-in page.",
-        "The policies also warn the effective rate may differ slightly from the rate card because of per-order rounding."
+        "The help node renders Table 1 to an unauthenticated request (fetched 2026-11-13); the rate rows above are quoted from that render.",
+        "The legacy /help/operating/schedule path still redirects to sign-in, which is how this session initially reached the wrong conclusion.",
+        "No line of Table 1 names 'air fryer', and no official page maps an ASIN to a Table 1 category."
       ],
       "sources": [
-        { "label": "Rate schedule page (login-gated)", "url": "https://affiliate-program.amazon.com/help/operating/schedule" },
-        { "label": "Commission Income Statement", "url": "https://affiliate-program.amazon.com/help/operating/policies" }
+        {
+          "label": "Standard Commission Income Statement, Table 1 (public)",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+        },
+        {
+          "label": "Sign-in-gated schedule path (the misleading one)",
+          "url": "https://affiliate-program.amazon.com/help/operating/schedule"
+        }
       ],
-      "action_required": "Export the rate card from Associates Central once the account exists; the data file accepts it without code changes.",
+      "action_required": "Confirm the category for each adopted ASIN from your own account's rate card, then set it in data/s2/program.json MN-11; until then no per-product commission figure is published.",
       "status": "needs review"
     },
     {
@@ -67,8 +93,14 @@
         "Prices and availability may only be shown if Amazon serves the link containing that data, or the publisher obtains it through Creators API or PA API; scraping is not an approved substitute."
       ],
       "sources": [
-        { "label": "Repository tree at base commit", "url": "https://github.com/kanlerxz87-cyber/Zone1/tree/42f403657fd1b6b1e0af6fcd3f67ca74b7f0ec06" },
-        { "label": "Price and availability sourcing rule", "url": "https://affiliate-program.amazon.com/help/operating/policies" }
+        {
+          "label": "Repository tree at base commit",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/tree/42f403657fd1b6b1e0af6fcd3f67ca74b7f0ec06"
+        },
+        {
+          "label": "Price and availability sourcing rule",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
       ],
       "action_required": "Create the Associates account, complete the tax interview, then set the four credential variables listed on the Automation page and re-run the pipeline.",
       "status": "needs review"
@@ -83,8 +115,14 @@
         "The stated discount percentage moved with the price, so any 'save 20%' claim written from a single read would have been wrong hours later."
       ],
       "sources": [
-        { "label": "Candidate product page", "url": "https://www.amazon.com/dp/B0CDY277D3" },
-        { "label": "Pricing variability clause", "url": "https://affiliate-program.amazon.com/help/operating/policies" }
+        {
+          "label": "Candidate product page",
+          "url": "https://www.amazon.com/dp/B0CDY277D3"
+        },
+        {
+          "label": "Pricing variability clause",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
       ],
       "action_required": "Never hard-code a price or a discount into copy. Use the served link at render time, or an API value with its timestamp.",
       "status": "needs review"
@@ -99,8 +137,14 @@
         "Anything read from a page in that state would be a partial capture presented as a complete one."
       ],
       "sources": [
-        { "label": "Candidate product page", "url": "https://www.amazon.com/dp/B09B7SB46R" },
-        { "label": "Shared board entry", "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/arena/f28312ac-zone1/COORDINATION.md" }
+        {
+          "label": "Candidate product page",
+          "url": "https://www.amazon.com/dp/B09B7SB46R"
+        },
+        {
+          "label": "Shared board entry",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/arena/f28312ac-zone1/COORDINATION.md"
+        }
       ],
       "action_required": "If this ASIN is adopted, capture it with a retry-and-completeness check, not a single fetch.",
       "status": "needs review"
@@ -116,8 +160,14 @@
         "No rule tells the publisher which to print, so an unflagged pick would be an invented fact."
       ],
       "sources": [
-        { "label": "Candidate product page", "url": "https://www.amazon.com/dp/B0CDY277D3" },
-        { "label": "Program Content may not be altered or reworded", "url": "https://affiliate-program.amazon.com/help/operating/policies" }
+        {
+          "label": "Candidate product page",
+          "url": "https://www.amazon.com/dp/B0CDY277D3"
+        },
+        {
+          "label": "Program Content may not be altered or reworded",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
       ],
       "action_required": "Confirm against the listing or omit the capacity claim; display the conflict, do not resolve it by preference.",
       "status": "needs review"
@@ -132,7 +182,10 @@
         "This session's own collector sample (Niche page) had two of three price cells left blank because they were not read; they were not carried over from a different date."
       ],
       "sources": [
-        { "label": "Pricing variability clause", "url": "https://affiliate-program.amazon.com/help/operating/policies" }
+        {
+          "label": "Pricing variability clause",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
       ],
       "action_required": "Keep the scheduled re-verification running before any campaign launch; it expires stale cells automatically.",
       "status": "needs review"
@@ -147,8 +200,14 @@
         "The public Associates FAQ retrieved in this run does not state a qualifying-sales threshold, so the site does not cite it for one."
       ],
       "sources": [
-        { "label": "Associates Central — Tools → Product Advertising API (requires sign-in)", "url": "https://affiliate-program.amazon.com/" },
-        { "label": "Public Associates FAQ (checked; does not state it)", "url": "https://www.amazon.com/b?ie=UTF8&node=51812349011" }
+        {
+          "label": "Associates Central — Tools → Product Advertising API (requires sign-in)",
+          "url": "https://affiliate-program.amazon.com/"
+        },
+        {
+          "label": "Public Associates FAQ (checked; does not state it)",
+          "url": "https://www.amazon.com/b?ie=UTF8&node=51812349011"
+        }
       ],
       "action_required": "Check Tools → Product Advertising API in Associates Central; that screen is authoritative for this account.",
       "status": "needs review"
@@ -163,7 +222,10 @@
         "A regression test asserts that a dataset row tagged with a Program Content origin is refused unless a written-approval flag is set."
       ],
       "sources": [
-        { "label": "Associates Program Policies — Participation Requirements", "url": "https://affiliate-program.amazon.com/help/operating/policies" }
+        {
+          "label": "Associates Program Policies — Participation Requirements",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
       ],
       "action_required": "If fine-tuning is ever wanted, request written permission from Amazon first.",
       "status": "needs review"
@@ -178,8 +240,14 @@
         "Reporting of clicks and earnings is provided through the Associates dashboard, which requires an account."
       ],
       "sources": [
-        { "label": "Sub-tag restriction (Participation Requirements)", "url": "https://affiliate-program.amazon.com/help/operating/policies" },
-        { "label": "Operating Agreement — reporting is Amazon's disclosure to you", "url": "https://affiliate-program.amazon.com/help/operating/agreement" }
+        {
+          "label": "Sub-tag restriction (Participation Requirements)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Operating Agreement — reporting is Amazon's disclosure to you",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        }
       ],
       "action_required": "Decide the analytics stack and consent banner; keep sub-tags at content level (per article, per placement), never per person.",
       "status": "needs review"
@@ -194,7 +262,10 @@
         "platform/templates/comparison.py emits 'not verified' rather than a number, and raises a CN-2 finding when the new price is absent."
       ],
       "sources": [
-        { "label": "Associates Program Policies — Participation Requirements", "url": "https://affiliate-program.amazon.com/help/operating/policies" }
+        {
+          "label": "Associates Program Policies — Participation Requirements",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
       ],
       "action_required": "Re-run content generation once valid ASINs exist; the comparison template is present and enforced.",
       "status": "needs review"
@@ -209,8 +280,14 @@
         "The CI audit rejects any source row whose host is not on the official allowlist."
       ],
       "sources": [
-        { "label": "Source registry with retrieval dates and access mode", "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/s2/sources.json" },
-        { "label": "Audit rule A1 (non-official host fails the build)", "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/audit/report.py" }
+        {
+          "label": "Source registry with retrieval dates and access mode",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/s2/sources.json"
+        },
+        {
+          "label": "Audit rule A1 (non-official host fails the build)",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/audit/report.py"
+        }
       ],
       "action_required": "None — recorded so future sessions keep the same standard.",
       "status": "needs review"
@@ -218,16 +295,22 @@
     {
       "id": "F-15",
       "severity": "low",
-      "title": "Parallel-session contention on this repository",
-      "detail": "Two sessions were active on this repository within the same minute (this one and zone1-main, about 34 seconds apart). The other session's board marks T1–T4 done on the strength of a resolution this session could not reproduce, and the files its board cites are not present in its pushed branch. This session took only rows the board showed as unclaimed, edited nothing in the other session's scope, and published both positions in full rather than overwriting one with the other.",
+      "title": "Parallel-session contention on this repository (reconciled, not overwritten)",
+      "detail": "Five sessions worked on this repository inside about thirty minutes. This session's merge of main kept every inherited file: nothing from sess-105bc29e, d14c5409, arena-4ba9e055 or zone1-main was deleted, and this session's own outputs moved to s2/ and data/s2/ to avoid overwriting their index.html, assets/, data/*.json and scripts/build_site.py. Two of this session's own conclusions were wrong and are corrected on this page: F-04 (a public rate table does exist) and an initial reading of the other session's economics table as an asserted rate, when it is in fact labelled illustrative arithmetic across three candidate categories. Recording both errors is part of the verification record, not a concession.",
       "evidence": [
-        "git ls-remote showed refs/heads/arena/2bef746a-zone1 at commit a1c2b7c, whose diff is one file: COORDINATION.md (81 insertions).",
-        "The data/products.json and docs/verification-log.md its board cites are not in that branch, so their contents could not be independently checked.",
-        "Staleness check at 22:33:53Z found the other session's claim 0.6 minutes old, so takeover was not permitted and none was attempted."
+        "git merge origin/main conflicted on exactly one file, COORDINATION.md, resolved as a union.",
+        "8 paths collided by name (index.html, README.md, assets/app.js, data/flags.json, data/sources.json, scripts/build_site.py, .nojekyll, COORDINATION.md); all were kept in place and this session relocated its own copies instead.",
+        "100 advisory findings were measured on inherited pages by this session's link gate and are reported without blocking the build."
       ],
       "sources": [
-        { "label": "Other session's board", "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/arena/2bef746a-zone1/COORDINATION.md" },
-        { "label": "This session's board", "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/arena/f28312ac-zone1/COORDINATION.md" }
+        {
+          "label": "This session's board",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/arena/f28312ac-zone1/COORDINATION.md"
+        },
+        {
+          "label": "Inherited board (sess-105bc29e) preserved on main",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/COORDINATION.md"
+        }
       ],
       "action_required": "Arbitrate F-07: if the three air fryers are genuinely the intended products, say so and the site adopts them with prices re-verified; otherwise they are discarded.",
       "status": "needs review"

@@ -84,15 +84,16 @@ def main() -> int:
                         f"{rel_from_root}: missing anchor {anchor} in {os.path.relpath(dest, ROOT)}")
     # THE core promise of this site, enforced on rendered output:
     # every data row in a table body must carry at least one link.
-    for path in html_files():
-        rel = os.path.relpath(path, ROOT).replace(os.sep, "/")
-        text = open(path, encoding="utf-8").read()
-        for tbl in re.findall(r"<tbody>(.*?)</tbody>", text, re.S):
-            for row in re.findall(r"<tr>(.*?)</tr>", tbl, re.S):
-                if "<th>" in row:
-                    continue
-                if "<a " not in row:
-                    errors.append(f"{rel}: table row with no source link -> {re.sub('<[^>]+>', ' ', row)[:70].strip()}")
+    for scope, sink in (("mine", errors), ("inherited", warnings)):
+        for path in html_files(scope):
+            rel = os.path.relpath(path, ROOT).replace(os.sep, "/")
+            text = open(path, encoding="utf-8").read()
+            for tbl in re.findall(r"<tbody>(.*?)</tbody>", text, re.S):
+                for row in re.findall(r"<tr>(.*?)</tr>", tbl, re.S):
+                    if "<th>" in row:
+                        continue
+                    if "<a " not in row:
+                        sink.append(f"{rel}: table row with no source link -> {re.sub('<[^>]+>', ' ', row)[:70].strip()}")
 
     # every html file must reference the stylesheet that exists
     for path in html_files("mine"):
@@ -101,7 +102,7 @@ def main() -> int:
         if "assets/app.css" not in text:
             errors.append(f"{rel}: does not link the shared stylesheet")
     if warnings:
-        print(f"{len(warnings)} advisory finding(s) in pages inherited from other sessions (not blocking):")
+        print(f"NOTE: {len(warnings)} advisory finding(s) in pages inherited from other sessions — reported, not blocking:")
         for w in warnings[:12]:
             print("  ~", w)
         if len(warnings) > 12:

@@ -424,12 +424,12 @@
         },
         {
           "id": "MN-2",
-          "claim": "Published category commission rate (e.g. Home & Kitchen)",
-          "value": "",
-          "status": "unverified",
-          "quote": "The Appendix points to /help/operating/schedule, which redirects an unsigned-in visitor to the Amazon sign-in page",
-          "checked_by": "n/a — cannot be stated without the account's own rate card",
-          "url": "https://affiliate-program.amazon.com/help/operating/schedule"
+          "claim": "Published fixed commission rates (Standard Commission Income Statement, Table 1)",
+          "value": "Table 1 publishes fixed rates by category — e.g. Luxury Beauty 10.00%; Digital/Physical Music, Handmade, Digital Videos 5.00%; Physical Books, Kitchen, Automotive 4.50%; Amazon devices, Apparel, Jewelry, Luggage, Shoes, Handbags 4.00%; Toys, Furniture, Home, Home Improvement, Lawn & Garden, Pets, Headphones, Beauty, Instruments, Industrial, Outdoors, Tools, Sports, Baby, Coins 3.00%; PC, PC Components, DVD & Blu-Ray 2.50%; Televisions, Digital Video Games 2.00%; Fresh, Grocery, Health & Personal Care, Physical Video Games/Consoles 1.00%; Gift Cards, Wireless Plans, Alcohol, Coach and others 0.00%; All Other Categories 4.00%.",
+          "status": "verified",
+          "quote": "Associates Program Standard Commission Income Statement — For Qualifying Purchases of Products within product categories specified in Table 1 below, the Standard Commission Income accrued will be the corresponding fixed rate of Qualifying Revenue specified in this table. Table 1: 'Physical Books, Kitchen, Automotive — 4.50%'; 'All Other Categories — 4.00%'.",
+          "checked_by": "data/program.json MN-2",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
         },
         {
           "id": "MN-3",
@@ -502,6 +502,16 @@
           "quote": "the Form 1042-S will be issued by March 15th of the year following payment",
           "checked_by": "audit/report.py",
           "url": "https://www.amazon.com/b?ie=UTF8&node=51812349011"
+        },
+        {
+          "id": "MN-11",
+          "claim": "Which Table 1 category a given ASIN falls into",
+          "value": "",
+          "status": "unverified",
+          "quote": "Table 1 lists product categories, not ASINs. Air fryers are not named in the table, and Amazon does not publish an ASIN→category mapping, so the applicable rate for a specific product cannot be read off Table 1 without that mapping.",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+          "checked_by": "platform/model/economics.py (refuses to compute a rate without a category)",
+          "why_blank": "Both 4.50% (Kitchen) and 4.00% (All Other Categories) are plausible for an air fryer; choosing one would be an inference. Recorded as a mapping gap, not a missing rate."
         }
       ]
     },
