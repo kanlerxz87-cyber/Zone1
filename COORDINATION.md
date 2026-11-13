@@ -63,8 +63,8 @@ Summary (details and URLs in the site + docs/SOURCES.md):
 
 _(filled in by the final integration session — T7)_
 
-- PR: https://github.com/kanlerxz87-cyber/Zone1/pull/1 — "Integration: AI-assisted Amazon affiliate research & marketing platform (verified data + Pages site)" (opened 2026-11-13; body lists changes, sources, and flagged irregularities)
-- Merge result: executed via `gh pr merge 1 --merge` on 2026-11-13; final merge commit + Pages deployment status recorded in the follow-up commit "chore: record integration results" (PR #2) immediately after deployment verification.
+- PR: https://github.com/kanlerxz87-cyber/Zone1/pull/10 — "Integration: AI-assisted Amazon affiliate research & marketing platform (verified data + GitHub Pages site)" (opened 2026-11-13; body lists changes, sources, and flagged irregularities)
+- Merge result: executed via `gh pr merge 10 --merge` on 2026-11-13; final merge commit + Pages deployment status recorded in the follow-up PR ("chore: record integration results") immediately after deployment verification.
 - GitHub Pages deployment: source = `main` / `/docs`; deployment verified via GitHub API and a live fetch of the Pages URL (see follow-up commit for URL and status).
 
 ## Verification performed (T7)
@@ -75,4 +75,4 @@ _(filled in by the final integration session — T7)_
 ## Handoff / conflicts log
 
 - 2026-11-13 session-arena-3740f69d: no other session claims found; board created. No conflicts.
-- 2026-11-13 session-arena-3740f69d: T1–T6 complete (see verification log + T7 verification below); T7 executed as the final integration session on branch `arena/3740f69d-zone1` → PR to `main` → merge → GitHub Pages on `/docs`. Post-merge integration results recorded in the follow-up commit referenced above.
+- 2026-11-13 session-arena-3740f69d: T1–T6 complete (see verification log + T7 verification below); T7 executed as the final integration session on branch `arena/3740f69d-zone1` → PR #10 to `main` → merge → GitHub Pages on `/docs`. Post-merge integration results recorded in the follow-up PR referenced above.
