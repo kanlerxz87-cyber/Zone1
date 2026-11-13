@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Executive Summary — Zone1</title>
+<meta name="description" content="Executive summary of the Zone1 Amazon affiliate marketing platform: what was delivered, the critical invalid-link finding, verified data, flagged irregularities and next steps.">
+<link rel="canonical" href="https://kanlerxz87-cyber.github.io/Zone1/executive-summary.html">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="index.html">Zone<span>1</span><small>Affiliate marketing platform</small></a>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="commissions.html">Commissions</a>
+    <a href="niches.html">Niches</a>
+    <a href="content.html">Content</a>
+    <a href="links.html">Links</a>
+    <a href="analytics.html">Analytics</a>
+    <a href="compliance.html">Compliance</a>
+    <a href="flagged.html">Flagged</a>
+    <a href="executive-summary.html" class="active">Summary</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <div class="disclosure" role="note">
+    <strong>Affiliate disclosure:</strong> “As an Amazon Associate I earn from qualifying purchases.”
+    See <a href="compliance.html">Compliance</a>. Amazon and Amazon.com are trademarks of Amazon.com, Inc. or its affiliates; this site is not affiliated with or endorsed by Amazon.
+  </div>
+
+  <h1 class="page-title">Executive summary</h1>
+  <p class="page-lede">Date 2026-11-13 · Live site:
+  <a href="https://kanlerxz87-cyber.github.io/Zone1/">kanlerxz87-cyber.github.io/Zone1</a> ·
+  Repository: <a href="https://github.com/kanlerxz87-cyber/Zone1" target="_blank" rel="noopener">kanlerxz87-cyber/Zone1</a> ·
+  Markdown copy: <a href="reports/executive-summary.md">reports/executive-summary.md</a></p>
+
+  <section class="card">
+    <h2>1 · Purpose</h2>
+    <p>Build an AI-powered Amazon affiliate marketing platform that automates product research, verifies product data against
+    official sources, analyzes commission potential, generates SEO-optimized marketing content, manages affiliate links with
+    click and conversion tracking, and enforces Amazon Associates and FTC compliance — flagging anything unverifiable instead
+    of guessing.</p>
+  </section>
+
+  <section class="card">
+    <h2>2 · What was delivered</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Deliverable</th><th>Location</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Verified data tables (products, commission rates)</td><td><a href="data/products.csv">data/products.csv</a> · <a href="data/commission-rates.csv">data/commission-rates.csv</a> · site tables</td><td><span class="badge ok">Complete</span></td></tr>
+        <tr><td>Executive summary</td><td>This page · <a href="reports/executive-summary.md">reports/executive-summary.md</a></td><td><span class="badge ok">Complete</span></td></tr>
+        <tr><td>Line-by-line verification log with official source links</td><td><a href="reports/verification-log.md">reports/verification-log.md</a></td><td><span class="badge ok">Complete</span></td></tr>
+        <tr><td>Dashboard site (landing + 13 subpages, table-based)</td><td>GitHub Pages (this site)</td><td><span class="badge ok">Live</span></td></tr>
+        <tr><td>SEO content library (3 articles, comparison, buying guide)</td><td><a href="content.html">Content</a> (data-safe)</td><td><span class="badge ok">Complete</span></td></tr>
+        <tr><td>Affiliate link manager + click/conversion tracker</td><td><a href="links.html">Links</a> · <a href="analytics.html">Analytics</a></td><td><span class="badge ok">Complete</span></td></tr>
+        <tr><td>Compliance page (OA + Program Policies + FTC, verbatim)</td><td><a href="compliance.html">Compliance</a></td><td><span class="badge ok">Complete</span></td></tr>
+        <tr><td>Flagged for Review page (22 items, with sources)</td><td><a href="flagged.html">Flagged</a></td><td><span class="badge ok">Complete</span></td></tr>
+        <tr><td>Multi-session coordination board</td><td><a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/COORDINATION.md" target="_blank" rel="noopener">COORDINATION.md</a></td><td><span class="badge ok">Complete</span></td></tr>
+        <tr><td>Second session's schema-validated build (preserved)</td><td><a href="docs/index.html">/docs/</a></td><td><span class="badge ok">Preserved</span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <h2>3 · Critical finding — the three supplied product links are not valid</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Supplied</th><th>amazon.com/dp/&lt;id&gt; (official check)</th><th>ID length vs ASIN standard</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">link.amazon/B04G1MEwY</td><td><a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">“Sorry! We couldn't find that page”</a></td><td>9 vs 10 chars</td><td><span class="badge bad">Unverified / invalid</span></td></tr>
+        <tr><td class="mono">link.amazon/B02NbDxp3</td><td><a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">“Sorry! We couldn't find that page”</a></td><td>9 vs 10 chars</td><td><span class="badge bad">Unverified / invalid</span></td></tr>
+        <tr><td class="mono">link.amazon/B00hJ57DV</td><td><a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">“Sorry! We couldn't find that page”</a></td><td>9 vs 10 chars</td><td><span class="badge bad">Unverified / invalid</span></td></tr>
+      </tbody>
+    </table></div>
+    <ul class="clean">
+      <li><strong>Invalid identifiers</strong> — ASINs are 10-character codes; these are 9. Sources: <a href="https://www.barcode.graphics/amazon-product-id/" target="_blank" rel="noopener">ASIN definition</a>, <a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere</a>.</li>
+      <li><strong>Invalid link domain</strong> — <code>link.amazon</code> is not an official Amazon link/short domain (canonical: <code>amazon.com/dp/&lt;ASIN&gt;</code>; Amazon shorts: <code>amzn.com</code>, <code>amzn.to</code>, <code>a.co</code>).</li>
+      <li><strong>Broken resolution</strong> — each supplied URL falls through Amazon's missing-page fallback (<code>plpRedirect=mhFallback</code>, <code>lv=shuf</code>) to a different random unrelated listing.</li>
+    </ul>
+    <div class="callout bad">
+      <strong>Consequence (no-hallucination policy):</strong> product title, price, rating, review count, category, competition,
+      commission rate and niche are <strong>blank and flagged unverified</strong> everywhere. The marketing content is fully built
+      and compliant but makes <strong>no product claims</strong> until valid data exists. A parallel session's contrary identity
+      mapping is preserved but disputed (flag <a href="flagged.html">F17</a>).
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>4 · What is verified (official sources, 2026-11-13)</h2>
+    <ul class="clean">
+      <li><strong>Commission economics</strong> — complete US Standard Commission Income Statement (Table 1: 0.00%–10.00%; “All Other Categories” = 4.00%) fetched directly from
+      <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">affiliate-program.amazon.com</a>; published on <a href="commissions.html">Commissions</a>.</li>
+      <li><strong>Compliance requirements</strong> — disclosure verbatim from
+      <a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">Operating Agreement §5</a> (updated 2025-10-15);
+      Special Links + tag format (<code>XXXXX-##</code>), price-display and misleading-claims rules from
+      <a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies</a> (updated 2026-04-14);
+      FTC duties from <a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" target="_blank" rel="noopener">Disclosures 101</a>.
+      All implemented site-wide (disclosure on every page, <code>rel="sponsored nofollow"</code>, quarantined CTAs).</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>5 · Platform capabilities</h2>
+    <ul class="clean">
+      <li><strong>Automation</strong> — link builder generates canonical Associates-format URLs; click tracker logs commerce-link clicks automatically; build-time validation enforces “sourced or blank”.</li>
+      <li><strong>Data-driven decisions</strong> — every table cell carries a source link or an explicit unverified badge; niche framework ranks categories by the verified official rate table.</li>
+      <li><strong>Scalability</strong> — static, dependency-free site + JSON/CSV data layer; new products slot into the documented schema.</li>
+      <li><strong>Compliance</strong> — disclosure enforced everywhere; invalid links quarantined from live CTAs (OA §5 misrepresentation rule; PR s.2(b) misleading-claims rule).</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>6 · Flagged irregularities (do not block anything)</h2>
+    <p>22 items with full evidence on <a href="flagged.html">Flagged for Review</a>: invalid ASIN format (I-01), invalid link
+    domain (I-02), broken links (I-03), all product data unverified (I-04), no Associates tag (I-05), disputed identity mapping
+    (F17), plus session d14c5409's F01–F16 with integration notes.</p>
+  </section>
+
+  <section class="card">
+    <h2>7 · Recommendations / next steps</h2>
+    <ol class="clean">
+      <li>Supply correct <strong>10-character ASINs</strong> (or full <code>amazon.com</code> product URLs).</li>
+      <li>Supply the Associates <strong>tracking tag</strong> (format <code>XXXXX-##</code>).</li>
+      <li>Confirm Associates enrollment + tax information (Norway — non-US clause, flag F08).</li>
+      <li>Optional: PA-API/Creators API + analytics access to activate live monitoring and scale content (flag F11).</li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2>8 · Bottom line</h2>
+    <p>The platform is <strong>built, verified and live</strong>. The verified parts (commission economics, compliance rules,
+    tracking, SEO content framework) are complete and source-linked. The three supplied product links are demonstrably
+    invalid and quarantined with full evidence — the one input needed to unlock product-level marketing is three valid ASINs
+    and your Associates tag.</p>
+    <p><a class="btn" href="index.html">Back to dashboard</a> <a class="btn secondary" href="flagged.html">Review flagged items</a></p>
+  </section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <p><strong>Affiliate disclosure:</strong> “As an Amazon Associate I earn from qualifying purchases.” (Associates enrollment pending; see Compliance.)</p>
+  <p>Every value on this site is either read from a cited official source on 2026-11-13 or left blank and marked unverified. Nothing is estimated or invented. Amazon and Amazon.com are trademarks of Amazon.com, Inc. or its affiliates; this site is not affiliated with or endorsed by Amazon.</p>
+  <p><a href="index.html">Home</a> · <a href="reports/executive-summary.md">Markdown summary</a> · <a href="https://github.com/kanlerxz87-cyber/Zone1" target="_blank" rel="noopener">Repository</a></p>
+</div></footer>
+<div id="tracker-toast" hidden style="position:fixed;bottom:18px;right:18px;background:#17233a;color:#fff;padding:10px 14px;border-radius:9px;font-size:13px;z-index:50"></div>
+<script src="assets/js/tracker.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

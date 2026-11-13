@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flagged for Review — Zone1</title>
+<meta name="description" content="All irregularities, unverified items and open decisions from both work sessions — with official source links and the action needed. Published for owner review; nothing here blocks the site.">
+<link rel="canonical" href="https://kanlerxz87-cyber.github.io/Zone1/flagged.html">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="index.html">Zone<span>1</span><small>Affiliate marketing platform</small></a>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="commissions.html">Commissions</a>
+    <a href="niches.html">Niches</a>
+    <a href="content.html">Content</a>
+    <a href="links.html">Links</a>
+    <a href="analytics.html">Analytics</a>
+    <a href="compliance.html">Compliance</a>
+    <a href="flagged.html" class="active">Flagged</a>
+    <a href="executive-summary.html">Summary</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <div class="disclosure" role="note">
+    <strong>Affiliate disclosure:</strong> “As an Amazon Associate I earn from qualifying purchases.”
+    See <a href="compliance.html">Compliance</a>. Amazon and Amazon.com are trademarks of Amazon.com, Inc. or its affiliates; this site is not affiliated with or endorsed by Amazon.
+  </div>
+
+  <h1 class="page-title">Flagged for Review</h1>
+  <p class="page-lede">Every irregularity, unverified value and open decision from both agent sessions —
+  <strong>22 items</strong>, each with its source links and the action that would resolve it. Per the project rules these do
+  <strong>not</strong> block anything: the site is live and this page exists so you can review after launch and request changes.
+  Evidence log: <a href="reports/verification-log.md">reports/verification-log.md</a> ·
+  coordination record: <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/COORDINATION.md" target="_blank" rel="noopener">COORDINATION.md</a>.</p>
+
+  <section class="card">
+    <h2>A · Critical — supplied product links are invalid (integration session 19a679d8)</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ID</th><th>Item</th><th>Evidence (official links)</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>I-01 <span class="badge bad">High</span></td>
+          <td>Supplied IDs <code>B04G1MEwY</code>, <code>B02NbDxp3</code>, <code>B00hJ57DV</code> are <strong>9 characters</strong>; ASINs are 10 characters by definition. They are not valid ASINs.</td>
+          <td><a href="https://www.barcode.graphics/amazon-product-id/" target="_blank" rel="noopener">ASIN = 10 chars</a> · <a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere</a> · <a href="https://manuals.plus/asin/" target="_blank" rel="noopener">manuals.plus</a></td>
+          <td>Provide the correct 10-character ASINs or full <code>amazon.com/dp/…</code> URLs.</td>
+        </tr>
+        <tr>
+          <td>I-02 <span class="badge bad">High</span></td>
+          <td><code>link.amazon</code> is not among Amazon's published product-link or short-link formats (<code>amazon.com/dp/&lt;ASIN&gt;</code> canonical; <code>amzn.com</code>/<code>amzn.to</code>/<code>a.co</code> are Amazon's short domains).</td>
+          <td><a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">official URL formats</a> · <a href="https://u2l.ai/tools/amazon-link-shortener" target="_blank" rel="noopener">amzn.to / a.co</a> · <a href="https://aruljohn.com/blog/how-to-shorten-amazon-links/" target="_blank" rel="noopener">amzn.com</a></td>
+          <td>Use canonical <code>amazon.com/dp/&lt;ASIN&gt;</code> links (or Amazon's own short domains) going forward.</td>
+        </tr>
+        <tr>
+          <td>I-03 <span class="badge bad">High</span></td>
+          <td>All three supplied URLs fall through Amazon's <strong>missing-page fallback</strong> (<code>plpRedirect=mhFallback</code>, <code>lv=shuf</code>) to random unrelated listings — each to a different one. Canonical checks return Amazon's “Sorry! We couldn't find that page.”</td>
+          <td><a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">check P1</a> · <a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">check P2</a> · <a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">check P3</a> · <a href="reports/verification-log.md">log §1.2</a></td>
+          <td>Replace the three links; they cannot be used for affiliate marketing as-is.</td>
+        </tr>
+        <tr>
+          <td>I-04 <span class="badge warn">High</span></td>
+          <td>Consequently <strong>all product-level data is unverified</strong>: title, price, rating, reviews, category, commission rate, niche. All left blank by policy — nothing inferred.</td>
+          <td><a href="products.html">Products page</a> · <a href="data/products.csv">data/products.csv</a></td>
+          <td>With valid ASINs, the pipeline fills these fields automatically from official pages.</td>
+        </tr>
+        <tr>
+          <td>I-05 <span class="badge warn">High</span></td>
+          <td>No Associates tracking tag (<code>tag=</code>) was supplied. Canonical links are built with an explicit <code>&lt;YOUR_TAG&gt;</code> placeholder; nothing is invented.</td>
+          <td><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">PR s.2(a)-(b)</a> · <a href="links.html">Link manager</a></td>
+          <td>Provide the Associates tracking ID (format <code>XXXXX-##</code>).</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <h2>B · Integration dispute — identity mapping claimed by session d14c5409</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ID</th><th>Item</th><th>Detail &amp; evidence</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>F17 <span class="badge bad">High</span></td>
+          <td>Product identities attributed to the submitted links via short-link redirects are <strong>disputed and not accepted</strong>.</td>
+          <td>Session d14c5409 mapped each link to the listing reached through the redirect (air-fryer-type appliances in “Home &amp; Kitchen”). Integration re-verification shows those landings are Amazon's random missing-page fallbacks (I-03), and the canonical pages for the submitted IDs do not exist (I-01). The observed listings are real products (e.g. <a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">B0CDY277D3</a>) but there is <strong>no evidence they are the intended products</strong>. Full evidence: <a href="products.html">Products §3–4</a>.</td>
+          <td>Confirm the intended products (valid ASINs). The observed fallback listings are preserved on the Products page for comparison.</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <h2>C · Session d14c5409 flags (as recorded on its board — T2/T3 “needs review”)</h2>
+    <p class="section-note">Transcribed from <a href="data/flags.json">data/flags.json</a> (that session's records, preserved). Integration notes added where state changed.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ID</th><th>Sev.</th><th>Item</th><th>Sources</th><th>Action / integration note</th></tr></thead>
+      <tbody>
+        <tr><td>F01</td><td><span class="badge bad">High</span></td><td>Price, rating, review count and availability are blank for all 3 products.</td><td>S1–S3</td><td>Review live pages manually or provide Creators API / PA-API access. (Integration: blanks are correct and consistent with I-04.)</td></tr>
+        <tr><td>F02</td><td><span class="badge bad">High</span></td><td>Commission rates were left blank for all 3 products (official schedule not reachable at the URL tried; third-party tables disagreed).</td><td>S8, S9</td><td><strong>Partly resolved at integration:</strong> the official rate table <em>is</em> publicly reachable at <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">this official page</a> and is now published (verified) on <a href="commissions.html">Commissions</a>. Per-product rates stay blank because categories are unverified.</td></tr>
+        <tr><td>F03</td><td><span class="badge bad">High</span></td><td>None of the supplied links carry an Associates tag — no purchase could be credited.</td><td>S4–S6, S8</td><td>Provide the Associates ID. (Consistent with I-05.)</td></tr>
+        <tr><td>F04</td><td><span class="badge warn">Med</span></td><td>Short-link codes do not match the ASINs they “resolve” to (B04G1MEwY→B0CDY277D3 etc.). “The short codes are not ASINs.”</td><td>S4–S6</td><td>Confirm intended products. (Integration: the mapping itself is rejected — see F17.)</td></tr>
+        <tr><td>F05</td><td><span class="badge warn">Med</span></td><td>Use of link.amazon short links may be treated as Redirecting Links (purchases disqualified, CIS s.2(e)).</td><td>S8</td><td>Confirm with Associates Central; prefer tagged <code>/dp/</code> links. (Integration: links quarantined anyway.)</td></tr>
+        <tr><td>F06</td><td><span class="badge bad">High</span></td><td>The required Associates statement is shown with an “enrollment pending” status until enrollment is confirmed.</td><td>S7</td><td>After enrollment, flip <code>associates_status</code> to “active” and rebuild.</td></tr>
+        <tr><td>F07</td><td><span class="badge warn">Med</span></td><td>Canonical page for B08DKYBTPH returned an interstitial during its check.</td><td>S3, S6</td><td>Open in a browser and confirm. (Integration: immaterial — that listing is a disputed fallback target, F17.)</td></tr>
+        <tr><td>F08</td><td><span class="badge warn">Med</span></td><td>Non-US Associate clause and Norway residence: PR s.1 requires services performed outside the US unless tax info says otherwise. Schedule 3 (taxes) not reviewed.</td><td>S7, S8</td><td>Confirm Associates eligibility and tax info for a Norway-based account holder.</td></tr>
+        <tr><td>F09</td><td><span class="badge info">Low</span></td><td>Marketplace and shipping to Norway not verified.</td><td>S1–S3</td><td>Confirm the target marketplace per product link.</td></tr>
+        <tr><td>F10</td><td><span class="badge info">Low</span></td><td>Brand spelled “CHEFMAN” in one fallback title and “Chefman” in another; brand match not confirmed.</td><td>S1, S6</td><td>Confirm on the Amazon brand field. (Integration: fallback listings — see F17.)</td></tr>
+        <tr><td>F11</td><td><span class="badge bad">High</span></td><td>Scope: full AI automation (discovery, trends, competitor/price analysis at scale, publishing, tracking, optimization) needs Creators API / PA-API, an Associates account and analytics access — not available to the session; built without inventing data instead.</td><td>S7, S8</td><td>Provide API + analytics access to enable those layers. (Integration: the analytics/link/optimization layers exist as working frameworks — see <a href="analytics.html">Analytics</a>.)</td></tr>
+        <tr><td>F12</td><td><span class="badge warn">Med</span></td><td>Repo started with only README.md; no .gitignore, LICENSE or build tooling.</td><td>S12</td><td>Add a license and .gitignore if wanted. (Integration: build tooling now exists — <code>scripts/build.mjs</code>; license still open.)</td></tr>
+        <tr><td>F13</td><td><span class="badge info">Low</span></td><td>GitHub Pages was already enabled from <code>main</code> <code>/</code>. That session planned to switch the source to <code>/docs</code>.</td><td>S11, S12</td><td><strong>Integration decision:</strong> source stays <code>main</code> <code>/</code> — the integrated dashboard publishes at the root and the d14c5409 build remains at <a href="docs/index.html">/docs/</a>. Nothing is hidden or deleted.</td></tr>
+        <tr><td>F14</td><td><span class="badge info">Low</span></td><td>Commit author's email is visible in public commit history (initial commit metadata). History not rewritten.</td><td>S12</td><td>Decide whether to keep the address in public history.</td></tr>
+        <tr><td>F15</td><td><span class="badge warn">Med</span></td><td>Process: the coordination spec asked for <code>session-&lt;id&gt;/&lt;task&gt;</code> branches; Arena pins each session to <code>arena/&lt;id&gt;-zone1</code>.</td><td>S12</td><td>None — documented in COORDINATION.md (both sessions kept non-overlapping scopes).</td></tr>
+        <tr><td>F16</td><td><span class="badge info">Low</span></td><td>Retrieval used the fetch tool, not a logged-in browser; Amazon pages return partial text.</td><td>S1–S3</td><td>Spot-check source links manually. (Integration: all critical checks re-run independently and reproduced — see the verification log.)</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <h2>D · Fastest path to resolution</h2>
+    <ol class="clean">
+      <li><strong>Send three valid ASINs</strong> (or full product-page URLs) — resolves I-01, I-03, I-04, F01, F04, F07, F09, F10, F17 and activates the <a href="content.html">content library</a>.</li>
+      <li><strong>Send the Associates tracking tag</strong> — resolves I-05, F03; the <a href="links.html">link builder</a> then produces compliant Special Links.</li>
+      <li><strong>Confirm enrollment + tax info</strong> (Norway) — resolves F06, F08, F13's status note.</li>
+      <li><strong>Optional:</strong> PA-API/Creators API + analytics access — unlocks live price/review/competition monitoring (F11); license/.gitignore decision (F12); commit-email decision (F14).</li>
+    </ol>
+    <p class="small muted">Requests and decisions can be filed as GitHub issues on
+    <a href="https://github.com/kanlerxz87-cyber/Zone1" target="_blank" rel="noopener">the repository</a>.</p>
+  </section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <p><strong>Affiliate disclosure:</strong> “As an Amazon Associate I earn from qualifying purchases.” (Associates enrollment pending; see Compliance.)</p>
+  <p>Every value on this site is either read from a cited official source on 2026-11-13 or left blank and marked unverified. Nothing is estimated or invented. Amazon and Amazon.com are trademarks of Amazon.com, Inc. or its affiliates; this site is not affiliated with or endorsed by Amazon.</p>
+  <p><a href="index.html">Home</a> · <a href="compliance.html">Compliance</a> · <a href="reports/verification-log.md">Verification log</a></p>
+</div></footer>
+<div id="tracker-toast" hidden style="position:fixed;bottom:18px;right:18px;background:#17233a;color:#fff;padding:10px 14px;border-radius:9px;font-size:13px;z-index:50"></div>
+<script src="assets/js/tracker.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

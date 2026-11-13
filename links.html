@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Affiliate Link Manager — Zone1</title>
+<meta name="description" content="Manage Amazon affiliate links: canonical Associates-format builder, tagged-link rules from the Operating Agreement, quarantine of the invalid submitted links, and click-tracking hooks.">
+<link rel="canonical" href="https://kanlerxz87-cyber.github.io/Zone1/links.html">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="index.html">Zone<span>1</span><small>Affiliate marketing platform</small></a>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="commissions.html">Commissions</a>
+    <a href="niches.html">Niches</a>
+    <a href="content.html">Content</a>
+    <a href="links.html" class="active">Links</a>
+    <a href="analytics.html">Analytics</a>
+    <a href="compliance.html">Compliance</a>
+    <a href="flagged.html">Flagged</a>
+    <a href="executive-summary.html">Summary</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <div class="disclosure" role="note">
+    <strong>Affiliate disclosure:</strong> “As an Amazon Associate I earn from qualifying purchases.”
+    See <a href="compliance.html">Compliance</a>. Amazon and Amazon.com are trademarks of Amazon.com, Inc. or its affiliates; this site is not affiliated with or endorsed by Amazon.
+  </div>
+
+  <h1 class="page-title">Affiliate link manager</h1>
+  <p class="page-lede">Link inventory, canonical builder and tagging rules. The three submitted links are
+  <strong>quarantined</strong> — they resolve to no product and carry no tracking tag — so live CTAs are disabled and visitors
+  are never sent to random listings. Clicks on the test buttons below feed the <a href="analytics.html">tracking dashboard</a>.</p>
+
+  <section class="card">
+    <h2>1 · Link inventory</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ID</th><th>Submitted URL</th><th>Canonical form</th><th>Tag</th><th>Compliance</th><th>State</th><th>Test click</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="mono">P1</td>
+          <td class="mono small"><a href="https://link.amazon/B04G1MEwY" target="_blank" rel="noopener nofollow sponsored">link.amazon/B04G1MEwY</a></td>
+          <td class="mono small"><a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener nofollow sponsored">amazon.com/dp/B04G1MEwY</a></td>
+          <td><span class="badge bad">missing</span></td>
+          <td>Not a Special Link (OA §1); domain not an official Amazon format</td>
+          <td><span class="badge bad">Quarantined</span></td>
+          <td><button class="btn small secondary aff-link" data-aff="P1" data-target="https://www.amazon.com/dp/B04G1MEwY">Test</button></td>
+        </tr>
+        <tr>
+          <td class="mono">P2</td>
+          <td class="mono small"><a href="https://link.amazon/B02NbDxp3" target="_blank" rel="noopener nofollow sponsored">link.amazon/B02NbDxp3</a></td>
+          <td class="mono small"><a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener nofollow sponsored">amazon.com/dp/B02NbDxp3</a></td>
+          <td><span class="badge bad">missing</span></td>
+          <td>Not a Special Link (OA §1); domain not an official Amazon format</td>
+          <td><span class="badge bad">Quarantined</span></td>
+          <td><button class="btn small secondary aff-link" data-aff="P2" data-target="https://www.amazon.com/dp/B02NbDxp3">Test</button></td>
+        </tr>
+        <tr>
+          <td class="mono">P3</td>
+          <td class="mono small"><a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener nofollow sponsored">link.amazon/B00hJ57DV</a></td>
+          <td class="mono small"><a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener nofollow sponsored">amazon.com/dp/B00hJ57DV</a></td>
+          <td><span class="badge bad">missing</span></td>
+          <td>Not a Special Link (OA §1); domain not an official Amazon format</td>
+          <td><span class="badge bad">Quarantined</span></td>
+          <td><button class="btn small secondary aff-link" data-aff="P3" data-target="https://www.amazon.com/dp/B00hJ57DV">Test</button></td>
+        </tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">“Test” records a click in the local demo tracker without navigating. Canonical-form checks return Amazon's
+    page-not-found — see <a href="products.html">Products §1–3</a>.</p>
+  </section>
+
+  <section class="card">
+    <h2>2 · Canonical link builder</h2>
+    <p class="section-note">Builds a properly formatted tagged link: <code>https://www.amazon.com/dp/&lt;ASIN&gt;?tag=&lt;TAG&gt;</code>
+    — the format the Operating Agreement §1 requires for “Special Links”. Nothing is invented: invalid input is rejected.</p>
+    <div class="form-row">
+      <label class="field">ASIN (10 characters)
+        <input type="text" id="builder-asin" maxlength="10" placeholder="e.g. B0CDY277D3" autocomplete="off">
+      </label>
+      <label class="field">Associates tracking tag
+        <input type="text" id="builder-tag" placeholder="e.g. yourname-20" autocomplete="off">
+      </label>
+      <button class="btn" id="build-link-btn">Build link</button>
+      <button class="btn secondary" id="builder-copy">Copy</button>
+    </div>
+    <p class="hint">ASIN rule: exactly 10 letters/digits (the three supplied IDs are 9 and will be rejected). Tag rule: your Associates tracking ID (usually ending <code>-20</code> for the US program). No tag was supplied for this project (flag F03).</p>
+    <p class="mono" id="builder-out" style="background:#eef2f9;padding:10px 12px;border-radius:8px;word-break:break-all"></p>
+    <p class="hint" id="builder-warn" hidden style="color:#a4231c"></p>
+  </section>
+
+  <section class="card">
+    <h2>3 · Link rules (official)</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Rule</th><th>Requirement</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>Tagged links only</td><td>Links “must properly use the special ‘tagged’ link formats we provide” (“Special Links”) and must carry your Associates ID.</td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">OA §1</a> · <a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Participation Requirements s.2(b)</a></td></tr>
+        <tr><td>No tag → no credit</td><td>Purchases through untagged links cannot be attributed to an Associates account.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies</a></td></tr>
+        <tr><td>Redirecting links</td><td>Purchases referred by Redirecting Links are disqualified (s.2(e)) — confirm any short-link usage with Associates Central first.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Commission Income Statement s.2(e)</a></td></tr>
+        <tr><td>Disclosure</td><td>“As an Amazon Associate I earn from qualifying purchases.” — clearly and prominently wherever links appear.</td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">OA §5</a></td></tr>
+        <tr><td>Price display</td><td>Prices/availability may be shown only via Amazon-served links or PA-API / Creators API.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Participation Requirements s.2(b)</a></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <h2>4 · Activation checklist</h2>
+    <ol class="clean">
+      <li>Supply three valid 10-character ASINs (or full product URLs).</li>
+      <li>Supply the Associates tracking tag.</li>
+      <li>Build links with the builder above; the site's CTAs switch from disabled to live automatically (data-driven pages).</li>
+      <li>Confirm Associates enrollment, then flip disclosure status on <a href="compliance.html">Compliance</a>.</li>
+    </ol>
+    <p><a class="btn" href="analytics.html">Open click &amp; conversion dashboard</a></p>
+  </section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <p><strong>Affiliate disclosure:</strong> “As an Amazon Associate I earn from qualifying purchases.” (Associates enrollment pending; see Compliance.)</p>
+  <p>Every value on this site is either read from a cited official source on 2026-11-13 or left blank and marked unverified. Nothing is estimated or invented. Amazon and Amazon.com are trademarks of Amazon.com, Inc. or its affiliates; this site is not affiliated with or endorsed by Amazon.</p>
+  <p><a href="index.html">Home</a> · <a href="analytics.html">Analytics</a> · <a href="flagged.html">Flagged for Review</a></p>
+</div></footer>
+<div id="tracker-toast" hidden style="position:fixed;bottom:18px;right:18px;background:#17233a;color:#fff;padding:10px 14px;border-radius:9px;font-size:13px;z-index:50"></div>
+<script src="assets/js/tracker.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

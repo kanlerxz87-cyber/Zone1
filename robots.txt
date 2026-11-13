@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kanlerxz87-cyber.github.io/Zone1/sitemap.xml
