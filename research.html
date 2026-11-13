@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research — Zone1 Amazon Affiliate Platform</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">Zone<span>1</span> · Amazon Affiliate Platform</div>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="executive-summary.html">Executive Summary</a>
+    <a href="products.html">Products</a>
+    <a href="research.html" class="active">Research</a>
+    <a href="content.html">Content</a>
+    <a href="tracking.html">Tracking</a>
+    <a href="compliance.html">Compliance</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="flagged-for-review.html">Flagged for Review</a>
+  </nav>
+</header>
+
+<main>
+  <h1 class="page-title">Automated Product Research &amp; Analysis</h1>
+  <p class="page-sub">The research stage ingests the supplied ASINs and analyzes each across the dimensions that
+  determine affiliate profitability. Findings are only recorded where an official source confirms the value.</p>
+
+  <div class="note">
+    <strong>Data gap:</strong> because the three listings could not be verified (Amazon blocks automated access),
+    every analyzed value below is left blank and flagged. The research engine is implemented and ready to populate
+    the moment corrected, verifiable links are supplied.
+  </div>
+
+  <div class="card">
+    <h3>Research workflow</h3>
+    <ul class="clean">
+      <li><strong>1 · Ingest</strong> — extract ASINs from the supplied affiliate links.</li>
+      <li><strong>2 · Resolve</strong> — resolve each ASIN to an official Amazon listing (category, brand, price, rating, availability).</li>
+      <li><strong>3 · Trending &amp; conversion</strong> — score trending momentum and conversion likelihood from verified listing signals.</li>
+      <li><strong>4 · Analyze</strong> — pricing, reviews, competition and commission potential.</li>
+      <li><strong>5 · Niche</strong> — identify profitable niches and rank candidates for content generation.</li>
+    </ul>
+  </div>
+
+  <div class="table-wrap" style="margin-top:18px;">
+    <table>
+      <thead><tr><th>ASIN</th><th>Category</th><th>Brand</th><th>Price</th><th>Rating</th><th>Reviews</th><th>Availability</th><th>Competition</th><th>Commission potential</th><th>Source (official)</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><code>B04G1MEwY</code></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><a class="src" href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">Amazon ↗</a></td><td><span class="badge badge-danger">UNVERIFIED</span></td></tr>
+        <tr><td><code>B02NbDxp3</code></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><a class="src" href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">Amazon ↗</a></td><td><span class="badge badge-danger">UNVERIFIED</span></td></tr>
+        <tr><td><code>B00hJ57DV</code></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><span class="unverified">— unverified —</span></td><td><a class="src" href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">Amazon ↗</a></td><td><span class="badge badge-danger">UNVERIFIED</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:18px;">
+    <h3>Commission potential (how it is computed)</h3>
+    <p>Commission potential = <strong>Qualifying Revenue × category rate</strong>, where the category rate comes from the
+    official <a href="compliance.html">Associates Program Standard Commission Income Statement</a>. Because the category for each
+    ASIN is unverified, no commission figure is shown for the supplied products. The rate table itself is verified — see the
+    <a href="compliance.html">Compliance</a> page.</p>
+  </div>
+</main>
+
+<footer class="foot">Zone1 · Amazon Affiliate Marketing Platform · research &amp; analysis · <span id="gen"></span></footer>
+<script src="assets/data.js"></script>
+<script>document.getElementById('gen').textContent = 'generated ' + (window.ZONE1_DATA ? window.ZONE1_DATA.meta.generated : '');</script>
+</body>
+</html>

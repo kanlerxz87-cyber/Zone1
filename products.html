@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Products — Zone1 Amazon Affiliate Platform</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">Zone<span>1</span> · Amazon Affiliate Platform</div>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="executive-summary.html">Executive Summary</a>
+    <a href="products.html" class="active">Products</a>
+    <a href="research.html">Research</a>
+    <a href="content.html">Content</a>
+    <a href="tracking.html">Tracking</a>
+    <a href="compliance.html">Compliance</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="flagged-for-review.html">Flagged for Review</a>
+  </nav>
+</header>
+
+<main>
+  <h1 class="page-title">Product Catalog</h1>
+  <p class="page-sub">The three supplied affiliate links, entered into the platform's product pipeline.
+  Each row links to the official Amazon listing as its source of record.</p>
+
+  <div class="note danger">
+    <strong>Verification gate — OPEN.</strong> Amazon blocked automated access to every product page, so no
+    product attribute (title, brand, category, price, rating, availability, commission) could be confirmed from an
+    official source. Per policy, those cells are left blank and flagged <strong>UNVERIFIED</strong>. Only the ASIN and
+    the provided link are confirmed inputs. See <a href="flagged-for-review.html">Flagged for Review</a>.
+  </div>
+
+  <div class="table-wrap">
+    <div id="products-table"></div>
+  </div>
+
+  <div class="card" style="margin-top:18px;">
+    <h3>Supplied links (confirmed inputs)</h3>
+    <ul class="clean">
+      <li><a href="https://link.amazon/B04G1MEwY" target="_blank" rel="noopener">https://link.amazon/B04G1MEwY</a> — ASIN <code>B04G1MEwY</code></li>
+      <li><a href="https://link.amazon/B02NbDxp3" target="_blank" rel="noopener">https://link.amazon/B02NbDxp3</a> — ASIN <code>B02NbDxp3</code></li>
+      <li><a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">https://link.amazon/B00hJ57DV</a> — ASIN <code>B00hJ57DV</code></li>
+    </ul>
+    <p class="note" style="margin-top:12px;">Note: each <code>link.amazon</code> link redirects (marketplace fallback) to a
+    different ASIN rather than to <code>amazon.com/dp/&lt;ASIN&gt;</code>. The redirect targets are recorded as evidence
+    on the <a href="flagged-for-review.html">Flagged for Review</a> page, not as product identity.</p>
+  </div>
+</main>
+
+<footer class="foot">Zone1 · Amazon Affiliate Marketing Platform · product catalog · <span id="gen"></span></footer>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+<script>document.getElementById('gen').textContent = 'generated ' + (window.ZONE1_DATA ? window.ZONE1_DATA.meta.generated : '');</script>
+</body>
+</html>

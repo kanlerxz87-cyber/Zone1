@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compliance — Zone1 Amazon Affiliate Platform</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">Zone<span>1</span> · Amazon Affiliate Platform</div>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="executive-summary.html">Executive Summary</a>
+    <a href="products.html">Products</a>
+    <a href="research.html">Research</a>
+    <a href="content.html">Content</a>
+    <a href="tracking.html">Tracking</a>
+    <a href="compliance.html" class="active">Compliance</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="flagged-for-review.html">Flagged for Review</a>
+  </nav>
+</header>
+
+<main>
+  <h1 class="page-title">Amazon Associates Compliance &amp; Commission</h1>
+  <p class="page-sub">All rules and rates below are taken verbatim from official Amazon Associates pages and are
+  verified line-by-line against those sources.</p>
+
+  <div class="card">
+    <h3>Official sources of record</h3>
+    <ul class="clean">
+      <li><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">Associates Program Operating Agreement</a> — updated Oct 15, 2025.</li>
+      <li><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Associates Program Policies</a> — updated April 14, 2026.</li>
+      <li><a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">Associates Program Standard Commission Income Statement</a>.</li>
+      <li><a href="https://affiliate-program.amazon.com/help/node" target="_blank" rel="noopener">Associates Central — Help index</a>.</li>
+    </ul>
+  </div>
+
+  <div class="card" style="margin-top:18px;">
+    <h3>Commission Income Statement — Table 1 (fixed standard rates)</h3>
+    <p>Source: <a id="commission-source" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">Associates Program Standard Commission Income Statement</a>.
+    Standard Commission Income is calculated as a percentage of Qualifying Revenue.</p>
+    <div class="table-wrap" style="margin-top:10px;">
+      <div id="commission-table"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:18px;">
+    <h3>Session &amp; qualifying-purchase rules</h3>
+    <p>Source: <a id="session-source" href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Associates Program Policies</a>.</p>
+    <div class="table-wrap" style="margin-top:10px;">
+      <div id="session-table"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:18px;">
+    <h3>Disqualified purchases</h3>
+    <p>Source: <a id="disqualifiers-source" href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Associates Program Policies</a>.
+    These otherwise-qualifying purchases are excluded from commission:</p>
+    <div id="disqualifiers-list" style="margin-top:10px;"></div>
+  </div>
+
+  <div class="note ok" style="margin-top:18px;">
+    <strong>Compliance posture:</strong> the platform enforces tagged Special Links, correct formatting, no
+    Prohibited Paid Search placements, no redirecting links, and clear affiliate disclosure on all published content.
+    Violations can result in loss of all unpaid commission income per the Operating Agreement.
+  </div>
+</main>
+
+<footer class="foot">Zone1 · Amazon Affiliate Marketing Platform · compliance · <span id="gen"></span></footer>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+<script>document.getElementById('gen').textContent = 'generated ' + (window.ZONE1_DATA ? window.ZONE1_DATA.meta.generated : '');</script>
+</body>
+</html>

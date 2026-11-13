@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Content — Zone1 Amazon Affiliate Platform</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">Zone<span>1</span> · Amazon Affiliate Platform</div>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="executive-summary.html">Executive Summary</a>
+    <a href="products.html">Products</a>
+    <a href="research.html">Research</a>
+    <a href="content.html" class="active">Content</a>
+    <a href="tracking.html">Tracking</a>
+    <a href="compliance.html">Compliance</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="flagged-for-review.html">Flagged for Review</a>
+  </nav>
+</header>
+
+<main>
+  <h1 class="page-title">SEO Content Generation</h1>
+  <p class="page-sub">The content stage turns verified research into SEO-optimized product articles, comparisons and
+  buying guides. Generated content is constrained to verified facts — nothing is invented.</p>
+
+  <div class="note">
+    <strong>Generation status:</strong> no articles, comparisons or guides have been generated yet. Creation is gated
+    on verified product data. Because the supplied listings are unverified, generating content now would require
+    inferring facts — which this platform does not do.
+  </div>
+
+  <div class="card">
+    <h3>Content workflow</h3>
+    <ul class="clean">
+      <li><strong>1 · Brief</strong> — derive a keyword-driven brief from verified category, price and feature data.</li>
+      <li><strong>2 · Draft</strong> — generate SEO-optimized product articles, side-by-side comparisons and buying guides.</li>
+      <li><strong>3 · Fact-check</strong> — every claim is tied to a source; unverifiable claims are dropped or flagged.</li>
+      <li><strong>4 · Publish</strong> — insert tagged affiliate links and required disclosures.</li>
+      <li><strong>5 · Optimize</strong> — update titles, meta and structure from tracking data.</li>
+    </ul>
+  </div>
+
+  <div class="table-wrap" style="margin-top:18px;">
+    <table>
+      <thead><tr><th>Content type</th><th>Seeded from</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Product article (SEO)</td><td><code>B04G1MEwY</code>, <code>B02NbDxp3</code>, <code>B00hJ57DV</code></td><td><span class="badge badge-muted">Not generated</span></td><td>Requires verified product facts.</td></tr>
+        <tr><td>Comparison article</td><td>Cross-product analysis</td><td><span class="badge badge-muted">Not generated</span></td><td>Requires verified specs for ≥2 products.</td></tr>
+        <tr><td>Buying guide</td><td>Category research</td><td><span class="badge badge-muted">Not generated</span></td><td>Requires a verified product category.</td></tr>
+        <tr><td>Affiliate link placement</td><td>Special Links</td><td><span class="badge badge-muted">Not generated</span></td><td>Links must follow official Special Link rules.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:18px;">
+    <h3>Disclosure requirement</h3>
+    <p>All published content must carry a clear affiliate disclosure. Amazon's Program Policies and the Operating
+    Agreement require Associates to identify themselves and not mislead customers. Disclosure obligations are summarized
+    on the <a href="compliance.html">Compliance</a> page with official sources.</p>
+  </div>
+</main>
+
+<footer class="foot">Zone1 · Amazon Affiliate Marketing Platform · SEO content · <span id="gen"></span></footer>
+<script src="assets/data.js"></script>
+<script>document.getElementById('gen').textContent = 'generated ' + (window.ZONE1_DATA ? window.ZONE1_DATA.meta.generated : '');</script>
+</body>
+</html>
