@@ -1,0 +1,186 @@
+{
+  "accessed": "2026-11-13",
+  "note": "Every entry below was fetched live on the access date. 'official' means the page is published by the party that owns the fact (Amazon, the FTC, the brand). No secondary blogs, retailer resellers or review aggregators are used anywhere in this project.",
+  "sources": [
+    {
+      "id": "S1",
+      "org": "Amazon.com Associates Central",
+      "title": "Associates Program Operating Agreement",
+      "url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "covers": "Disclosure wording (§5), term and termination (§6), governing law and schedules",
+      "kind": "Policy",
+      "directness": "Primary — the contract itself",
+      "page_version": "Updated: October 15, 2025"
+    },
+    {
+      "id": "S2",
+      "org": "Amazon.com Associates Central",
+      "title": "Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "covers": "Link rules, price and review display limits, Prohibited Paid Search Placement, sub-tag limits, API restrictions, session/attribution windows",
+      "kind": "Policy",
+      "directness": "Primary — the policy corpus incorporated into the Agreement",
+      "page_version": "Updated: April 14, 2026"
+    },
+    {
+      "id": "S3",
+      "org": "Amazon.com Associates Central",
+      "title": "Associates Program Standard Commission Income Statement (Table 1 & Bounty Events)",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+      "covers": "Published fixed commission rates by product category; bounty amounts",
+      "kind": "Rate card",
+      "directness": "Primary — the only official rate table",
+      "page_version": "Live page, 2026-11-13"
+    },
+    {
+      "id": "S4",
+      "org": "Amazon.com Associates Central",
+      "title": "Application Review Process",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM",
+      "covers": "Three qualifying sales within 180 days; ~10 posts; content recent within ~60 days; social follower floor ~500",
+      "kind": "Help article",
+      "directness": "Primary — Amazon's own review criteria",
+      "page_version": "Live page, 2026-11-13"
+    },
+    {
+      "id": "S5",
+      "org": "Amazon.com Associates Central",
+      "title": "Why do I have to identify myself as an Associate? How should I do this on social media?",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98",
+      "covers": "Required Associate statement; clear + conspicuous link-level disclosure",
+      "kind": "Help article",
+      "directness": "Primary — Amazon's own compliance guidance",
+      "page_version": "Live page, 2026-11-13"
+    },
+    {
+      "id": "S6",
+      "org": "Amazon.com Associates Central",
+      "title": "What are tracking IDs, and how does the new site help Associates use them?",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA",
+      "covers": "Tracking IDs / sub-tag reporting model",
+      "kind": "Help article",
+      "directness": "Primary",
+      "page_version": "Live page, 2026-11-13"
+    },
+    {
+      "id": "S7",
+      "org": "U.S. Federal Trade Commission",
+      "title": "FTC's Endorsement Guides: What People Are Asking",
+      "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
+      "covers": "Material connection, affiliate/network marketing disclosures, monitoring duties, substantiation",
+      "kind": "Regulatory guidance",
+      "directness": "Primary — the regulator",
+      "page_version": "June 2023"
+    },
+    {
+      "id": "S8",
+      "org": "U.S. Federal Trade Commission",
+      "title": "Disclosures 101 for Social Media Influencers",
+      "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "covers": "When and how to disclose; placement; wording; the prohibition on describing an experience with a product you have not tried",
+      "kind": "Regulatory guidance",
+      "directness": "Primary — the regulator",
+      "page_version": "November 2019"
+    },
+    {
+      "id": "S9",
+      "org": "U.S. Government (eCFR / Federal Trade Commission)",
+      "title": "16 CFR Part 255 — Guides Concerning Use of Endorsements and Testimonials in Advertising",
+      "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255",
+      "covers": "Binding rule text, including §255.5 Disclosure of material connections",
+      "kind": "Regulation",
+      "directness": "Primary — codified rule",
+      "page_version": "Up to date as of 2026-11-10; last amended 2026-10-30"
+    },
+    {
+      "id": "S10",
+      "org": "Chefman (brand)",
+      "title": "Chefman TurboFry Touch 6 Qt. Dual-Window Air Fryer — product page",
+      "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer",
+      "covers": "Model RJ38-SQPF-3TDB-2W capacity, temperature range, dimensions, weight, power, approvals, list price, brand-site rating",
+      "kind": "Manufacturer product page",
+      "directness": "Primary — brand owning the specification",
+      "page_version": "Live page, 2026-11-13"
+    },
+    {
+      "id": "S11",
+      "org": "Chefman (brand)",
+      "title": "Chefman TurboFry Touch 6 Qt. Dual-Basket Air Fryer — product page",
+      "url": "https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer",
+      "covers": "Sister SKU RJ38-SQPF-3TDB-2: list price, brand-site rating (used to show the two-SKU ambiguity)",
+      "kind": "Manufacturer product page",
+      "directness": "Primary",
+      "page_version": "Live page, 2026-11-13"
+    },
+    {
+      "id": "S12",
+      "org": "Chefman (brand)",
+      "title": "Chefman 8 Qt. TurboFry Touch Stainless-Steel Air Fryer — product page",
+      "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+      "covers": "Model RJ38-SQSS-8T: sizes, preset set, 200–400 °F range, dishwasher-safe parts, auto shutoff, list price, brand-site rating",
+      "kind": "Manufacturer product page",
+      "directness": "Primary",
+      "page_version": "Live page, 2026-11-13"
+    },
+    {
+      "id": "S13",
+      "org": "Chefman (brand)",
+      "title": "TurboFry Touch Air Fryer RJ38-SQSS-8T User Guide (PDF)",
+      "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf",
+      "covers": "Owner's manual: 8-quart basket, preset chart and default temperatures, shake reminder, safety instructions",
+      "kind": "Manufacturer owner's manual",
+      "directness": "Primary",
+      "page_version": "Document live, 2026-11-13"
+    },
+    {
+      "id": "S14",
+      "org": "Emeril Everyday (brand)",
+      "title": "Emeril Lagasse French Door AirFryer 360 Toaster Oven Combo, 26 QT — product page",
+      "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+      "covers": "Capacity, dimensions, voltage, price, accessory count, warranty, preset-count claims, brand-site rating",
+      "kind": "Manufacturer product page",
+      "directness": "Primary",
+      "page_version": "Live page, 2026-11-13"
+    },
+    {
+      "id": "S15",
+      "org": "Emeril Everyday (brand)",
+      "title": "Emeril Lagasse French Door AirFryer 360 Owner's Manual, model FAFO-001 (PDF)",
+      "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf",
+      "covers": "Rated power 1700 W, 120 V/60 Hz, 26 qt (1519 cu in), temperature range 75–500 °F / 25–260 °C",
+      "kind": "Manufacturer owner's manual",
+      "directness": "Primary",
+      "page_version": "Document live, 2026-11-13"
+    },
+    {
+      "id": "S16",
+      "org": "Amazon.com (product listings)",
+      "title": "Amazon detail pages for ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH",
+      "url": "https://www.amazon.com/dp/B0CDY277D3",
+      "covers": "Listing titles only — used solely to prove which ASIN each short link resolves to. Amazon prices, star ratings and availability are deliberately not reproduced on this site (see S2 §2(b) and §3(t)).",
+      "kind": "Retail listing",
+      "directness": "Primary for 'what does this short link point to'; not used for specification claims",
+      "page_version": "Live page, 2026-11-13"
+    },
+    {
+      "id": "S17",
+      "org": "Amazon.com",
+      "title": "link.amazon short links supplied by the account holder (B04G1MEwY, B02NbDxp3, B00hJ57DV)",
+      "url": "https://link.amazon/B04G1MEwY",
+      "covers": "The three redirect links themselves and their resolved destinations",
+      "kind": "Short link",
+      "directness": "Primary for the redirect target; the Associates tag inside is not observable",
+      "page_version": "Resolved 2026-11-13"
+    },
+    {
+      "id": "S18",
+      "org": "Chefman (brand)",
+      "title": "TurboFry Touch Dual Window Air Fryer RJ38-SQPF-3TDB-2W User Guide (PDF)",
+      "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf",
+      "covers": "Owner's manual: explicit statement of 'two 3-quart baskets', HI-FRY definition (450 °F/235 °C for 2 minutes), Sync Finish, Sync Baskets, aerosol-spray caution",
+      "kind": "Manufacturer owner's manual",
+      "directness": "Primary",
+      "page_version": "Document live, 2026-11-13"
+    }
+  ]
+}

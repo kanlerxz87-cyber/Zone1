@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Platform blueprint · Zone1 Kitchen</title>
+<meta name="description" content="Automation blueprint for a compliant Amazon affiliate platform: pipeline, guardrails, KPIs and launch sequence.">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230f766e'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='%23fff' text-anchor='middle'%3EZ1%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<div class="disclosure-bar">
+  <strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases.
+  <a href="compliance.html" style="color:#9ff3ec">How this site stays compliant →</a>
+</div>
+<header class="topbar">
+  <a class="brand" href="index.html" style="color:inherit">
+    <span class="mark">Z1</span>
+    <span>Zone1 Kitchen<small>Verified Amazon affiliate product intelligence</small></span>
+  </a>
+  <span class="spacer"></span>
+  <span class="meta">data verified 2026-11-13</span>
+  <button class="navtoggle" type="button" aria-label="Toggle navigation">Menu</button>
+</header>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="group">
+      <h4>Dashboard</h4>
+      <a href="index.html">Dashboard<span class="sub">Overview of the product set and the data</span></a>
+    </div>
+    <div class="group">
+      <h4>Products</h4>
+      <a href="categories/kitchen-appliances.html">Category: Kitchen<span class="sub">3 tracked products</span></a>
+      <a href="products/chefman-6qt-dual-basket.html">Chefman 6 Qt Dual Basket<span class="sub">ASIN B0CDY277D3</span></a><a href="products/emeril-26qt-french-door.html">Emeril 26 QT French Door<span class="sub">ASIN B09B7SB46R</span></a><a href="products/chefman-8qt-turbofry.html">Chefman 8 Qt TurboFry<span class="sub">ASIN B08DKYBTPH</span></a>
+      <a href="compare.html">Comparison<span class="sub">Verified-only side-by-side matrix</span></a>
+    </div>
+    <div class="group">
+      <h4>Research &amp; data</h4>
+      <a href="guides/buying-guide-air-fryers.html">Buying guide<span class="sub">How to choose a form factor</span></a>
+      <a href="data.html">Full dataset<span class="sub">Every field, value, source and gap</span></a>
+      <a href="platform.html" class="active">Platform blueprint<span class="sub">The automation and compliance design</span></a>
+      <a href="compliance.html">Compliance<span class="sub">Program rules, quoted, with sources</span></a>
+    </div>
+    <div class="group">
+      <h4>Report</h4>
+      <a href="flagged.html">Flagged for review<span class="sub">Unverified values and irregularities</span></a>
+      <a href="executive-summary.html">Executive summary<span class="sub">Decision-ready briefing</span></a>
+    </div>
+  </aside>
+  <main>
+    
+<p class="crumbs"><a href="index.html">Dashboard</a> / Platform blueprint</p>
+<h1>An automated affiliate engine that survives an audit</h1>
+<p class="lede">The brief asks for automation, scale, data-driven optimisation and Amazon policy compliance. Those four pull in different directions, and the design below resolves the tension in one place: <strong>automate everything except the claims</strong>. Machines move data, check links, compute and report. A human signs off on what gets asserted about a product.</p>
+
+<h2>Design principles</h2>
+<div class="grid grid-2"><div class="card"><h3 style="margin-top:0">Principle 1</h3><p class="small" style="margin:0"><strong>Automate the repetitive, never the judgement.</strong> Link health checks, page builds, click/conversion ingestion, report generation and rate-table diffs are automated. Category assignment, product claims and publication decisions stay human-approved because a wrong automated claim is a policy breach (S2 §2(b)).</p></div><div class="card"><h3 style="margin-top:0">Principle 2</h3><p class="small" style="margin:0"><strong>Program Content is display-only.</strong> Creators/PA API data may not be aggregated, analysed or repurposed, and may not train or fine-tune any model (S2 IP License §2(e)). So the analytics layer reads the operator&#x27;s own first-party data only.</p></div><div class="card"><h3 style="margin-top:0">Principle 3</h3><p class="small" style="margin:0"><strong>Never publish a number you cannot source.</strong> The site&#x27;s whole trust position rests on this. Blank plus flagged beats plausible plus wrong.</p></div><div class="card"><h3 style="margin-top:0">Principle 4</h3><p class="small" style="margin:0"><strong>Disclosure is structure, not a paragraph.</strong> Disclosure is generated into the layout so no new page can ship without it (S1 §5, S5, S8).</p></div><div class="card"><h3 style="margin-top:0">Principle 5</h3><p class="small" style="margin:0"><strong>Ship pages before you apply.</strong> Review happens after three qualifying sales inside 180 days, and the site must already carry ~10 recent original posts (S4). Content first, application second.</p></div></div>
+
+<h2>The pipeline</h2>
+<div class="tablewrap">
+<table>
+  <caption>Nine stages, each with the guardrail that constrains it</caption>
+  <thead><tr><th style="width:5%">#</th><th style="width:20%">Stage</th><th style="width:26%">Inputs</th><th style="width:26%">Outputs</th><th style="width:8%">Guard</th></tr></thead>
+  <tbody><tr>
+          <td class="num">1</td>
+          <td><strong>Niche &amp; demand discovery</strong><div class="tiny muted">Automation: High</div></td>
+          <td class="small">Operator-owned keyword export, Google Trends-style public signals, the supplied product set</td>
+          <td class="small">Candidate niches with form-factor clusters</td>
+          <td class="num">G1</td>
+        </tr><tr>
+          <td class="num">2</td>
+          <td><strong>Product ingestion</strong><div class="tiny muted">Automation: Medium</div></td>
+          <td class="small">Associates short links, ASINs, manufacturer pages, manufacturer manuals (PDF)</td>
+          <td class="small">A per-product fact table where each field is value + source_id, or null + reason</td>
+          <td class="num">G2</td>
+        </tr><tr>
+          <td class="num">3</td>
+          <td><strong>Verification gate</strong><div class="tiny muted">Automation: Medium (human sign-off)</div></td>
+          <td class="small">Draft fact table</td>
+          <td class="small">Rows promoted to &#x27;verified&#x27; only when an official URL supports the value; everything else routed to /flagged</td>
+          <td class="num">G2</td>
+        </tr><tr>
+          <td class="num">4</td>
+          <td><strong>Commercial scoring</strong><div class="tiny muted">Automation: High</div></td>
+          <td class="small">Published category rates (S3), brand list prices, operator conversion data</td>
+          <td class="small">Expected value per click, per product and per page</td>
+          <td class="num">G6</td>
+        </tr><tr>
+          <td class="num">5</td>
+          <td><strong>Content generation</strong><div class="tiny muted">Automation: High with human edit</div></td>
+          <td class="small">Verified fact table + outline</td>
+          <td class="small">Product pages, comparisons, buying guides</td>
+          <td class="num">G2, G7</td>
+        </tr><tr>
+          <td class="num">6</td>
+          <td><strong>Link management</strong><div class="tiny muted">Automation: High</div></td>
+          <td class="small">Special links, sub-tags per placement</td>
+          <td class="small">Link inventory with health status</td>
+          <td class="num">G5</td>
+        </tr><tr>
+          <td class="num">7</td>
+          <td><strong>Tracking &amp; attribution</strong><div class="tiny muted">Automation: High</div></td>
+          <td class="small">Click events, Amazon commission reports</td>
+          <td class="small">Clicks, EPC, conversion rate, revenue by page and sub-tag</td>
+          <td class="num">G6</td>
+        </tr><tr>
+          <td class="num">8</td>
+          <td><strong>Optimisation loop</strong><div class="tiny muted">Automation: Medium</div></td>
+          <td class="small">Stage 7 metrics</td>
+          <td class="small">Ranked backlog of content and placement experiments</td>
+          <td class="num">G8</td>
+        </tr><tr>
+          <td class="num">9</td>
+          <td><strong>Publish &amp; audit</strong><div class="tiny muted">Automation: High</div></td>
+          <td class="small">Approved content</td>
+          <td class="small">Static site, broken-link report, disclosure diff</td>
+          <td class="num">G2, G9</td>
+        </tr></tbody>
+</table>
+</div>
+
+<h2>Guardrails</h2>
+<div class="tablewrap">
+<table>
+  <caption>Hard rules with source clause and enforcement mechanism</caption>
+  <thead><tr><th style="width:6%">ID</th><th style="width:26%">Rule</th><th style="width:16%">Clause</th><th style="width:8%">Source</th><th style="width:44%">Enforcement</th></tr></thead>
+  <tbody><tr>
+          <td class="num"><strong>G1</strong></td>
+          <td>No paid search on Amazon Marks or misspellings</td>
+          <td class="small">Commission Income Statement §2(c)</td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">Negative-keyword list applied to every campaign; automated check before launch.</td>
+        </tr><tr>
+          <td class="num"><strong>G2</strong></td>
+          <td>No published claim without an official source</td>
+          <td class="small">Participation Requirements §2(b); Disclosures 101</td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a> <a class="src" href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" title="U.S. Federal Trade Commission — Disclosures 101 for Social Media Influencers" rel="noopener" target="_blank">S8</a></td>
+          <td class="small">Schema-level: value must carry source_id, else it renders as a flagged blank.</td>
+        </tr><tr>
+          <td class="num"><strong>G3</strong></td>
+          <td>No Amazon price, availability or star rating without API-served data</td>
+          <td class="small">Participation Requirements §2(b) and §3(t)</td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">Template has no slot for Amazon price/rating; the build has nothing to leak.</td>
+        </tr><tr>
+          <td class="num"><strong>G4</strong></td>
+          <td>No incentives, no self-purchase, no friend-and-family purchases</td>
+          <td class="small">Participation Requirements §3(g), §3(u)</td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">Policy statement in the ops runbook; no loyalty or rewards feature exists in the design.</td>
+        </tr><tr>
+          <td class="num"><strong>G5</strong></td>
+          <td>Sub-tags are per placement, never per user</td>
+          <td class="small">Participation Requirements §2(b)</td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a> <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA" title="Amazon.com Associates Central — What are tracking IDs, and how does the new site help Associates use them?" rel="noopener" target="_blank">S6</a></td>
+          <td class="small">Link config is a static map keyed by page, not a function of the request.</td>
+        </tr><tr>
+          <td class="num"><strong>G6</strong></td>
+          <td>Program Content is never an analytics or training input</td>
+          <td class="small">IP License §2(e)</td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">Data contracts: analytics tables accept only first-party events and operator-owned product facts.</td>
+        </tr><tr>
+          <td class="num"><strong>G7</strong></td>
+          <td>No experience claims, no invented testing</td>
+          <td class="small">Disclosures 101 — What Else to Know</td>
+          <td><a class="src" href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" title="U.S. Federal Trade Commission — Disclosures 101 for Social Media Influencers" rel="noopener" target="_blank">S8</a></td>
+          <td class="small">Copy review checklist; the phrase &#x27;we tested&#x27; is a build-time fail.</td>
+        </tr><tr>
+          <td class="num"><strong>G8</strong></td>
+          <td>No price tracking or price alerts</td>
+          <td class="small">Participation Requirements §3(y)</td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">Feature explicitly out of scope; the pricing panel shows brand list price only.</td>
+        </tr><tr>
+          <td class="num"><strong>G9</strong></td>
+          <td>Disclosure is unremovable</td>
+          <td class="small">Operating Agreement §5; disclosure help article</td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" title="Amazon.com Associates Central — Associates Program Operating Agreement" rel="noopener" target="_blank">S1</a> <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98" title="Amazon.com Associates Central — Why do I have to identify myself as an Associate? How should I do this on social media?" rel="noopener" target="_blank">S5</a></td>
+          <td class="small">Injected by the layout function; a page without it cannot be generated.</td>
+        </tr><tr>
+          <td class="num"><strong>G10</strong></td>
+          <td>No framing, cloaking or auto-redirect</td>
+          <td class="small">Participation Requirements §3(n), §3(v)</td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">Outbound links are direct; no iframes; no meta-refresh.</td>
+        </tr></tbody>
+</table>
+</div>
+
+<h2>Automated versus human</h2>
+<div class="tablewrap">
+<table>
+  <caption>Who owns which decision</caption>
+  <thead><tr><th>Task</th><th>Mode</th><th>Frequency</th></tr></thead>
+  <tbody><tr><td>Broken link detection</td><td>Automated</td><td class="num">Every build + daily</td></tr><tr><td>Rate-table diff (S3 changes)</td><td>Automated fetch, human confirm</td><td class="num">Weekly</td></tr><tr><td>Fact-table verification</td><td>Human sign-off</td><td class="num">Per product, before publish</td></tr><tr><td>Content drafting</td><td>Automated draft, human edit</td><td class="num">Per page</td></tr><tr><td>Click/conversion reporting</td><td>Automated</td><td class="num">Daily</td></tr><tr><td>Publication decision</td><td>Human</td><td class="num">Per page</td></tr><tr><td>Compliance audit</td><td>Automated checks + human review</td><td class="num">Monthly</td></tr></tbody>
+</table>
+</div>
+
+<h2>Revenue model</h2>
+<p class="small">Scenarios below are arithmetic on two published inputs: the brand&#x27;s own list price and an official rate-table row (S3). They are not forecasts, not verified rates for these ASINs, and not quotes from Amazon. The calculator on the site recomputes them live so the arithmetic can be checked by hand.</p>
+
+<div class="card">
+  <h3 style="margin-top:0">Revenue scenario calculator</h3>
+  <p class="small muted" style="margin-top:0">Pure arithmetic on inputs <em>you</em> supply, plus a rate you pick <strong>from the official table</strong>. Nothing here is a forecast, and no number below is an Amazon quote for these products. Change a field and the outputs recompute.</p>
+  <form id="calc" class="calc">
+    <div><label for="price">Brand list price (USD)</label><input id="price" type="number" min="0" step="0.01" value="199.99"></div>
+    <div><label for="rate">Commission rate</label>
+      <select id="rate">
+        <option value="4.50">4.50% — Kitchen (S3)</option>
+        <option value="4.00">4.00% — All Other Categories (S3)</option>
+        <option value="3.00">3.00% — Home (S3)</option>
+        <option value="2.50">2.50% — PC / components (S3)</option>
+      </select>
+    </div>
+    <div><label for="clicks">Monthly outbound clicks</label><input id="clicks" type="number" min="0" step="1" value="1000"></div>
+    <div><label for="conv">Conversion rate (%)</label><input id="conv" type="number" min="0" step="0.1" value="3"></div>
+  </form>
+  <div class="calc" style="margin-top:.75rem">
+    <div class="out"><span>Commission / sale</span><b id="out-commission">—</b></div>
+    <div class="out"><span>Orders / month</span><b id="out-sales">—</b></div>
+    <div class="out"><span>Revenue / month</span><b id="out-revenue">—</b></div>
+    <div class="out"><span>Earnings per click</span><b id="out-epc">—</b></div>
+  </div>
+  <p class="tiny muted" style="margin-bottom:0">Commission is computed on <em>Qualifying Revenue</em>, which Amazon defines as what it actually receives less shipping, gift wrap, handling, taxes, service charges, credits, rebates, card fees and bad debt — so a real payout is lower than the figure above <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a>. Conversion rate is the single biggest unknown and is yours to measure.</p>
+</div>
+
+<div class="callout info">
+  <strong>Reading the numbers honestly</strong>
+  <p class="small">At the Kitchen rate of 4.50% <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a>, a $199.99 list-priced unit yields about $9.00 of commission before Amazon's deductions for returns, shipping, tax and bad debt. That is the ceiling, not the expectation. The variables that actually decide the outcome — conversion rate, return rate, mix of products in the cart — are unknowable from any official source and must be measured. Any projection that shows more precision than that is selling something.</p>
+</div>
+
+<h2>KPIs</h2>
+<div class="tablewrap">
+<table>
+  <caption>What gets measured, and the target</caption>
+  <thead><tr><th>KPI</th><th>Definition</th><th>Target</th></tr></thead>
+  <tbody><tr><td><strong>Verified-row coverage</strong></td><td class="small">Share of published table rows whose every value carries an official source link</td><td class="small">100% of asserted values; gaps must be blank and flagged</td></tr><tr><td><strong>Flag resolution time</strong></td><td class="small">Days from a row appearing on /flagged to a decision</td><td class="small">≤ 14 days</td></tr><tr><td><strong>Clicks per page</strong></td><td class="small">Outbound Amazon clicks attributed to a page</td><td class="small">Baseline in month 1, then +15% MoM</td></tr><tr><td><strong>Earnings per click (EPC)</strong></td><td class="small">Commission revenue ÷ outbound clicks, from Amazon reports</td><td class="small">Improve monthly; scenarios below show the ceiling imposed by published rates</td></tr><tr><td><strong>Disclosure coverage</strong></td><td class="small">Pages with a visible disclosure above the fold</td><td class="small">100%</td></tr><tr><td><strong>Policy incidents</strong></td><td class="small">Warnings or compliance contacts from Amazon</td><td class="small">0</td></tr></tbody>
+</table>
+</div>
+
+<h2>Launch sequence — and the 180-day clock</h2>
+<div class="tablewrap">
+<table>
+  <caption>The order matters, because application review is conditional on sales</caption>
+  <thead><tr><th style="width:6%">#</th><th style="width:52%">Action</th><th style="width:42%">Why this order</th></tr></thead>
+  <tbody><tr><td class="num">1</td><td class="small">Publish the buying guide, comparison and three product pages (this build).</td><td class="small muted">Review requires robust original content, ~10 posts, recent (S4).</td></tr><tr><td class="num">2</td><td class="small">Resolve every item on /flagged with the account holder.</td><td class="small muted">ASIN→model, the 450 °F conflict and the preset count change what the copy is allowed to say.</td></tr><tr><td class="num">3</td><td class="small">Add the real Associates tag to every link and create sub-tags.</td><td class="small muted">Special Links must use the assigned Associates ID (S2 §2(b)).</td></tr><tr><td class="num">4</td><td class="small">Apply to Associates, then work the 180-day window to three qualifying sales.</td><td class="small muted">S4: three qualifying sales in 180 days, personal orders excluded.</td></tr><tr><td class="num">5</td><td class="small">Only after API approval, consider price/rating display.</td><td class="small muted">S2 §2(b) and §3(t) permit it only through Creators/PA API.</td></tr></tbody>
+</table>
+</div>
+<p class="small">Amazon requires at least three qualifying sales within the first 180 days and states that personal orders do not qualify <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM" title="Amazon.com Associates Central — Application Review Process" rel="noopener" target="_blank">S4</a>. Applying before the site has traffic and content is the most common way this fails, so the sequence above puts publication first.</p>
+
+<h2>Explicitly out of scope</h2>
+<div class="card">
+  <p class="small" style="margin-top:0">These are the features a generic "AI affiliate platform" pitch would include. They are excluded here because each one breaches a specific rule:</p>
+  <ul class="tight small" style="margin-bottom:0"><li>Price history charts or price-drop alerts (S2 §3(y)).</li><li>Republishing Amazon customer reviews or star ratings (S2 §3(t)).</li><li>Scraping Amazon and feeding the result into a model (S2 IP License §2(e)).</li><li>Auto-generating product claims from any source other than the manufacturer.</li><li>Paid search on Amazon or Kindle marks (S2 §2(c)).</li><li>Incentivised clicks, rewards or giveaways tied to links (S2 §3(g)).</li><li>Any claim that the author tested or owns these appliances.</li></ul>
+</div>
+
+<h2>What this build deliberately does not do</h2>
+<div class="grid grid-2">
+  <div class="card">
+    <h3 style="margin-top:0">No scraped Amazon dataset</h3>
+    <p class="small" style="margin-bottom:0">A product-research engine built on Amazon page scraping would violate the IP License's restriction on aggregation and extraction <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a>. The research layer here works on manufacturer documentation and the operator's own performance data.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">No autopilot publishing</h3>
+    <p class="small" style="margin-bottom:0">Content is drafted automatically and published by a human. The failure mode of full autopublish is a confident, well-formatted, policy-breaking claim — which is precisely what this project exists to prevent.</p>
+  </div>
+</div>
+
+  </main>
+</div>
+<footer class="site">
+  <div class="inner">
+    <div>
+      <h5>Disclosure</h5>
+      <p><strong>As an Amazon Associate I earn from qualifying purchases.</strong></p>
+      <p>Links marked <span class="paid-tag">Paid link</span> are Amazon Associates links. If you buy through one, this site may earn a commission at no extra cost to you. Amazon prices and availability are never published here — check the live price on Amazon.</p>
+    </div>
+    <div>
+      <h5>Verification</h5>
+      <p>Every asserted value on this site links to the official page it came from. Values that could not be confirmed from an official source are left blank and listed on the <a href="flagged.html">Flagged for review</a> page.</p>
+      <p class="tiny">Data verified 2026-11-13. Policies change: always re-check the source before relying on it.</p>
+    </div>
+    <div>
+      <h5>Sources</h5>
+      <ul>
+        <li><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">Associates Operating Agreement</a></li>
+        <li><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Associates Program Policies</a></li>
+        <li><a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">Standard Commission Income Statement</a></li>
+        <li><a href="https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255" target="_blank" rel="noopener">16 CFR Part 255 (FTC)</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="legal">
+    Zone1 Kitchen is an independent affiliate publisher. It is not owned by, endorsed by, or sponsored by Amazon.com, Inc. or by any brand named on this site. Product names and brand names are the property of their respective owners and are used for identification only. No hands-on testing is claimed anywhere on this site; all analysis is documentation-based and sourced.
+  </div>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>
