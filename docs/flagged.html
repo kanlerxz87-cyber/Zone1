@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flagged for Review · Amazon Affiliate Dashboard</title>
+<meta name="description" content="Source-linked Amazon affiliate product dashboard. Data as of 2026-11-13.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><a href="index.html">Amazon Affiliate Dashboard</a></div>
+  <nav><a href="index.html">Dashboard</a><a href="executive-summary.html">Executive summary</a><a href="category-air-fryers.html">Air Fryers</a><a href="analysis.html">Analysis</a><a href="compliance.html">Compliance</a><a href="sources.html">Sources</a><a href="repo-review.html">Repo review</a><a href="flagged.html" class="active">⚑ Flagged for Review</a></nav>
+</header>
+<main>
+
+<section class="page-head flagged-head">
+  <p class="crumb"><a href="index.html">Dashboard</a> › Flagged for Review</p>
+  <h1>⚑ Flagged for Review</h1>
+  <p class="lede">These items are published for your review. They do not block the site or its merge. Each row has a source link. Use the owner actions to request changes.</p>
+</section>
+<section>
+  <h2>Flagged items (18)</h2>
+  <div class="table-wrap"><table class="wide">
+    <thead><tr><th>ID</th><th>Severity</th><th>Area</th><th>Item</th><th>Detail</th><th>Owner action</th><th>Source</th><th>Status</th></tr></thead>
+    <tbody>
+<tr id="F-01">
+  <td data-label="ID"><strong>F-01</strong></td>
+  <td data-label="Severity"><span class="badge ok">MEDIUM</span></td>
+  <td data-label="Area">Repo</td>
+  <td data-label="Item">Repository contains only README.md (7 bytes: '# Zone1', no description).</td>
+  <td data-label="Detail">git ls-files shows one file. The repo has no description of purpose, no LICENSE, no .gitignore, and no build or test setup.</td>
+  <td data-label="Owner action">Confirm the intended purpose and choose a license.</td>
+  <td data-label="Source"><a href="https://github.com/kanlerxz87-cyber/Zone1" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+<tr id="F-02">
+  <td data-label="ID"><strong>F-02</strong></td>
+  <td data-label="Severity"><span class="badge ok">LOW</span></td>
+  <td data-label="Area">Repo</td>
+  <td data-label="Item">Pre-existing GitHub Pages config points at the root of main, so the site could only publish the README.</td>
+  <td data-label="Detail">GET /repos/kanlerxz87-cyber/Zone1/pages returned build_type 'legacy', source branch 'main', path '/', status 'built', and html_url https://kanlerxz87-cyber.github.io/Zone1/. The plan is to switch the source to main /docs when the PR is merged. This is the only Pages setting change.</td>
+  <td data-label="Owner action">Review the Pages source change in the merge summary.</td>
+  <td data-label="Source"><a href="https://api.github.com/repos/kanlerxz87-cyber/Zone1/pages" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+<tr id="F-03">
+  <td data-label="ID"><strong>F-03</strong></td>
+  <td data-label="Severity"><span class="badge ok">LOW</span></td>
+  <td data-label="Area">Repo</td>
+  <td data-label="Item">Personal email address appears in public commit metadata.</td>
+  <td data-label="Detail">The single commit 42f4036 'Initial commit' has author kanlerxz87-cyber &lt;kanlerxz87@gmail.com&gt;. Rewriting history was not done. Reported only.</td>
+  <td data-label="Owner action">Decide whether to keep the commit email public (GitHub noreply setting).</td>
+  <td data-label="Source"><a href="https://github.com/kanlerxz87-cyber/Zone1/commit/42f403657fd1b6b1e0af6fcd3f67ca74b7f0ec06" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+<tr id="F-04">
+  <td data-label="ID"><strong>F-04</strong></td>
+  <td data-label="Severity"><span class="badge unverified">HIGH</span></td>
+  <td data-label="Area">Links</td>
+  <td data-label="Item">Product identity from the submitted short links needs owner confirmation.</td>
+  <td data-label="Detail">The three submitted codes (B04G1MEwY, B02NbDxp3, B00hJ57DV) are 9 characters, so they are not ASINs. Test on 2026-11-13: a direct request to amazon.com/dp/&lt;code&gt; returns Amazon &quot;Page Not Found&quot;. A fake code (ZZZZZZZZZ) at link.amazon returns 403 Forbidden. The real codes redirect to ASINs B0CDY277D3, B09B7SB46R and B08DKYBTPH. Two requests for P1 returned the same ASIN and source token. The redirect URLs carry lv=shuf and plpRedirect=mhFallback, which can indicate a fallback page. Another session reported different results on later requests. That was not reproduced here. The product identity is therefore not confirmed. Each row is marked identity_status &quot;to confirm&quot;.</td>
+  <td data-label="Owner action">Open each submitted link in a browser while signed in and confirm it leads to the intended product. Send back the correct ASIN if it differs.</td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+<tr id="F-05">
+  <td data-label="ID"><strong>F-05</strong></td>
+  <td data-label="Severity"><span class="badge unverified">HIGH</span></td>
+  <td data-label="Area">Links</td>
+  <td data-label="Item">Associates tag not visible in resolved product links (all 3 products).</td>
+  <td data-label="Detail">The resolved URLs contain no tag= parameter. The Associates ID is not in the submission, so none was added. Commission attribution cannot be confirmed from here. Program Policies require the tag on every link.</td>
+  <td data-label="Owner action">Provide your Associates tag so the links can be rebuilt with it, or confirm the short links are attributed to your account.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+<tr id="F-06">
+  <td data-label="ID"><strong>F-06</strong></td>
+  <td data-label="Severity"><span class="badge unverified">HIGH</span></td>
+  <td data-label="Area">Compliance</td>
+  <td data-label="Item">Product titles on the site are Amazon listing text.</td>
+  <td data-label="Detail">Program Policies §6(a) says Program Content may not be altered. Whether listing titles count as Program Content is not confirmed. Titles are shown as read, without edits, and the site adds its own text around them.</td>
+  <td data-label="Owner action">Review whether titles may stay on the site, or replace them with the site's own product names.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+<tr id="F-07">
+  <td data-label="ID"><strong>F-07</strong></td>
+  <td data-label="Severity"><span class="badge unverified">HIGH</span></td>
+  <td data-label="Area">Data</td>
+  <td data-label="Item">Commission rate is unverified for all 3 products.</td>
+  <td data-label="Detail">The official rate schedule (affiliate-program.amazon.com/help/operating/schedule) redirects to an Amazon sign-in page. Third-party sites report different rates for kitchen and home categories. Those figures are not official, so none were entered.</td>
+  <td data-label="Owner action">Check the Standard Commission Income rate for each product's category in Associates Central (sign-in required).</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+<tr id="F-08">
+  <td data-label="ID"><strong>F-08</strong></td>
+  <td data-label="Severity"><span class="badge ok">MEDIUM</span></td>
+  <td data-label="Area">Data</td>
+  <td data-label="Item">Price, rating, review count, best-sellers rank, and availability are unverified for all 3 products.</td>
+  <td data-label="Detail">The product pages were readable only for their titles. The price and review fields did not appear in the readable page content. Blank cells are marked UNVERIFIED. No value was filled in.</td>
+  <td data-label="Owner action">Supply a source that shows these values, such as a Creators API key, or accept the blanks.</td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+<tr id="F-09">
+  <td data-label="ID"><strong>F-09</strong></td>
+  <td data-label="Severity"><span class="badge unverified">HIGH</span></td>
+  <td data-label="Area">Automation</td>
+  <td data-label="Item">Automated product data is not possible without Creators API access.</td>
+  <td data-label="Detail">PA-API 5 is deprecated and returns 403 AccessDenied. The Creators API needs Associates enrollment, at least 10 qualifying sales in the past 30 days, and registered credentials. No credentials exist here, so no live price or review pulls were built.</td>
+  <td data-label="Owner action">Once the account qualifies, register for the Creators API and provide the credentials through a secret store (not the repo).</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+<tr id="F-10">
+  <td data-label="ID"><strong>F-10</strong></td>
+  <td data-label="Severity"><span class="badge ok">MEDIUM</span></td>
+  <td data-label="Area">Compliance</td>
+  <td data-label="Item">Cookie and privacy disclosure needs legal review.</td>
+  <td data-label="Detail">The site adds no analytics or cookies. Amazon's own pages may set cookies when a visitor clicks through, and Program Policies §3(e) requires accurate disclosure of cookies and pixels. The Sources page carries a short privacy note, which is not legal advice.</td>
+  <td data-label="Owner action">Have counsel confirm the privacy note.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+<tr id="F-11">
+  <td data-label="ID"><strong>F-11</strong></td>
+  <td data-label="Severity"><span class="badge unverified">HIGH</span></td>
+  <td data-label="Area">Scope</td>
+  <td data-label="Item">Click and conversion tracking is not implemented.</td>
+  <td data-label="Detail">Clicks and sales data are only in the Associates account (Reports), which this environment cannot access. The site has no tracking code, so none is reported.</td>
+  <td data-label="Owner action">Export the Associates reports, or give access, so tracking can be added later.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+<tr id="F-12">
+  <td data-label="ID"><strong>F-12</strong></td>
+  <td data-label="Severity"><span class="badge unverified">HIGH</span></td>
+  <td data-label="Area">Scope</td>
+  <td data-label="Item">Niche, trend, competition, and pricing analysis is limited to what the titles state.</td>
+  <td data-label="Detail">No official source available in this environment gives trend, best-seller, competitor, or price data. The analysis page uses only title facts and the stated formula. It makes no claim about which products convert best.</td>
+  <td data-label="Owner action">Decide which data source to add, such as the Creators API, after qualifying for access.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+<tr id="F-13">
+  <td data-label="ID"><strong>F-13</strong></td>
+  <td data-label="Severity"><span class="badge ok">MEDIUM</span></td>
+  <td data-label="Area">Process</td>
+  <td data-label="Item">Brief's branch naming (session-&lt;id&gt;/&lt;task&gt;) was not used.</td>
+  <td data-label="Detail">This session can work only on arena/4ba9e055-zone1, and the platform does not allow other branches. All tasks are tracked in COORDINATION.md on this branch. The brief's session placeholder also appears HTML-escaped (&amp;amp;lt;id&amp;amp;gt;).</td>
+  <td data-label="Owner action">Confirm this branch and single PR are acceptable.</td>
+  <td data-label="Source"><a href="https://github.com/kanlerxz87-cyber/Zone1/blob/arena/4ba9e055-zone1/COORDINATION.md" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+<tr id="F-14">
+  <td data-label="ID"><strong>F-14</strong></td>
+  <td data-label="Severity"><span class="badge ok">MEDIUM</span></td>
+  <td data-label="Area">Scope</td>
+  <td data-label="Item">Brief asks for no manual input, but some inputs can only come from the account owner.</td>
+  <td data-label="Detail">The Associates tag (F-05), the Creators API credentials (F-09), and the Associates reports (F-11) cannot be obtained from public sources.</td>
+  <td data-label="Owner action">Provide the three inputs above when available.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+<tr id="F-15">
+  <td data-label="ID"><strong>F-15</strong></td>
+  <td data-label="Severity"><span class="badge ok">LOW</span></td>
+  <td data-label="Area">Data</td>
+  <td data-label="Item">P3 title came from a short-link fetch only.</td>
+  <td data-label="Detail">A direct fetch of amazon.com/dp/B08DKYBTPH returned an Amazon 'Continue shopping' checkpoint page. The title was taken from the short-link fetch, which resolved to the same ASIN.</td>
+  <td data-label="Owner action">Re-check the P3 title on the product page.</td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B08DKYBTPH" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+<tr id="F-16">
+  <td data-label="ID"><strong>F-16</strong></td>
+  <td data-label="Severity"><span class="badge ok">LOW</span></td>
+  <td data-label="Area">Data</td>
+  <td data-label="Item">Two of the three products share the Chefman brand.</td>
+  <td data-label="Detail">P1 is listed as 'CHEFMAN' and P3 as 'Chefman' in their titles. The capitalization differs, and the analysis treats them as the same brand. This is read from the titles and was not confirmed against a brand page.</td>
+  <td data-label="Owner action">No action needed unless the brand grouping matters for the analysis.</td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+<tr id="F-17">
+  <td data-label="ID"><strong>F-17</strong></td>
+  <td data-label="Severity"><span class="badge unverified">HIGH</span></td>
+  <td data-label="Area">Coordination</td>
+  <td data-label="Item">Several sessions claimed the same tasks and disagree on product identity.</td>
+  <td data-label="Detail">Branches arena/2bef746a-zone1, arena/8a2ddd06-zone1, arena/d14c5409-zone1, arena/f28312ac-zone1, arena/1874bb64-zone1, and arena/19a679d8-zone1 each claim the same repo tasks. arena/f28312ac-zone1 (zone1-s2) disputes the short-link identities (its F-07). This session ran the independent test in F-04 and did not reproduce its 'different product on each request' result. Neither view is fully confirmed.</td>
+  <td data-label="Owner action">Choose one integration session. Confirm the product identities (F-04) before any row is published as fact.</td>
+  <td data-label="Source"><a href="https://github.com/kanlerxz87-cyber/Zone1/blob/arena/f28312ac-zone1/COORDINATION.md" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+<tr id="F-18">
+  <td data-label="ID"><strong>F-18</strong></td>
+  <td data-label="Severity"><span class="badge ok">MEDIUM</span></td>
+  <td data-label="Area">Coordination</td>
+  <td data-label="Item">Some sessions marked tasks done without files on their pushed branch.</td>
+  <td data-label="Detail">On origin, arena/2bef746a-zone1, arena/8a2ddd06-zone1, arena/19a679d8-zone1 and arena/1874bb64-zone1 contain only COORDINATION.md and README.md, even though their boards mark data, site, and PR tasks as done. Checked with git ls-tree on 2026-11-13. This session reports it and does not edit those branches.</td>
+  <td data-label="Owner action">Confirm which claimed artifacts exist and push them, or re-open the task.</td>
+  <td data-label="Source"><a href="https://github.com/kanlerxz87-cyber/Zone1/tree/arena/8a2ddd06-zone1" target="_blank" rel="noopener">source ↗</a></td>
+  <td data-label="Status"><span class="badge review">NEEDS REVIEW</span></td>
+</tr>
+    </tbody>
+  </table></div>
+</section>
+<section>
+  <h2>Unverified values (left blank)</h2>
+  <p>These values were not readable from an official source, so they are blank. None were estimated.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Product</th><th>Field</th><th>Status</th><th>Flag</th><th>Source checked</th></tr></thead>
+    <tbody>
+<tr>
+  <td data-label="Product">P1 · <code>B0CDY277D3</code></td>
+  <td data-label="Field">Price</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-08">F-08</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">amazon.com/dp/B0CDY277D3 ↗</a></td>
+</tr>
+<tr>
+  <td data-label="Product">P1 · <code>B0CDY277D3</code></td>
+  <td data-label="Field">Rating</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-08">F-08</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">amazon.com/dp/B0CDY277D3 ↗</a></td>
+</tr>
+<tr>
+  <td data-label="Product">P1 · <code>B0CDY277D3</code></td>
+  <td data-label="Field">Review count</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-08">F-08</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">amazon.com/dp/B0CDY277D3 ↗</a></td>
+</tr>
+<tr>
+  <td data-label="Product">P1 · <code>B0CDY277D3</code></td>
+  <td data-label="Field">Best-sellers rank</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-08">F-08</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">amazon.com/dp/B0CDY277D3 ↗</a></td>
+</tr>
+<tr>
+  <td data-label="Product">P1 · <code>B0CDY277D3</code></td>
+  <td data-label="Field">Availability</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-08">F-08</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">amazon.com/dp/B0CDY277D3 ↗</a></td>
+</tr>
+<tr>
+  <td data-label="Product">P1 · <code>B0CDY277D3</code></td>
+  <td data-label="Field">Commission rate</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-07">F-07</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">amazon.com/dp/B0CDY277D3 ↗</a></td>
+</tr>
+<tr>
+  <td data-label="Product">P2 · <code>B09B7SB46R</code></td>
+  <td data-label="Field">Price</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-08">F-08</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">amazon.com/dp/B09B7SB46R ↗</a></td>
+</tr>
+<tr>
+  <td data-label="Product">P2 · <code>B09B7SB46R</code></td>
+  <td data-label="Field">Rating</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-08">F-08</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">amazon.com/dp/B09B7SB46R ↗</a></td>
+</tr>
+<tr>
+  <td data-label="Product">P2 · <code>B09B7SB46R</code></td>
+  <td data-label="Field">Review count</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-08">F-08</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">amazon.com/dp/B09B7SB46R ↗</a></td>
+</tr>
+<tr>
+  <td data-label="Product">P2 · <code>B09B7SB46R</code></td>
+  <td data-label="Field">Best-sellers rank</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-08">F-08</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">amazon.com/dp/B09B7SB46R ↗</a></td>
+</tr>
+<tr>
+  <td data-label="Product">P2 · <code>B09B7SB46R</code></td>
+  <td data-label="Field">Availability</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-08">F-08</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">amazon.com/dp/B09B7SB46R ↗</a></td>
+</tr>
+<tr>
+  <td data-label="Product">P2 · <code>B09B7SB46R</code></td>
+  <td data-label="Field">Commission rate</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-07">F-07</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">amazon.com/dp/B09B7SB46R ↗</a></td>
+</tr>
+<tr>
+  <td data-label="Product">P3 · <code>B08DKYBTPH</code></td>
+  <td data-label="Field">Price</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-08">F-08</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B08DKYBTPH" target="_blank" rel="noopener">amazon.com/dp/B08DKYBTPH ↗</a></td>
+</tr>
+<tr>
+  <td data-label="Product">P3 · <code>B08DKYBTPH</code></td>
+  <td data-label="Field">Rating</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-08">F-08</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B08DKYBTPH" target="_blank" rel="noopener">amazon.com/dp/B08DKYBTPH ↗</a></td>
+</tr>
+<tr>
+  <td data-label="Product">P3 · <code>B08DKYBTPH</code></td>
+  <td data-label="Field">Review count</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-08">F-08</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B08DKYBTPH" target="_blank" rel="noopener">amazon.com/dp/B08DKYBTPH ↗</a></td>
+</tr>
+<tr>
+  <td data-label="Product">P3 · <code>B08DKYBTPH</code></td>
+  <td data-label="Field">Best-sellers rank</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-08">F-08</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B08DKYBTPH" target="_blank" rel="noopener">amazon.com/dp/B08DKYBTPH ↗</a></td>
+</tr>
+<tr>
+  <td data-label="Product">P3 · <code>B08DKYBTPH</code></td>
+  <td data-label="Field">Availability</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-08">F-08</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B08DKYBTPH" target="_blank" rel="noopener">amazon.com/dp/B08DKYBTPH ↗</a></td>
+</tr>
+<tr>
+  <td data-label="Product">P3 · <code>B08DKYBTPH</code></td>
+  <td data-label="Field">Commission rate</td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED · blank</span></td>
+  <td data-label="Flag"><a href="flagged.html#F-07">F-07</a></td>
+  <td data-label="Source"><a href="https://www.amazon.com/dp/B08DKYBTPH" target="_blank" rel="noopener">amazon.com/dp/B08DKYBTPH ↗</a></td>
+</tr>
+    </tbody>
+  </table></div>
+</section>
+</main>
+<footer>
+  <p class="disclosure"><strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. This site is not affiliated with, sponsored by, or endorsed by Amazon.com, Inc.</p>
+  <p>Data as of 2026-11-13. Every value links to its official source. Blank cells are unverified and listed on the <a href="flagged.html">Flagged for Review</a> page. Not financial advice.</p>
+  <p>Built from <code>data/*.json</code> and <code>reports/*.md</code> by <code>scripts/build.mjs</code>. <a href="data/products.json">products.json</a> · <a href="data/compliance.json">compliance.json</a> · <a href="data/flags.json">flags.json</a> · <a href="data/sources.json">sources.json</a></p>
+</footer>
+</body>
+</html>

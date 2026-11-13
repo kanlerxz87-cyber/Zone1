@@ -1,0 +1,168 @@
+{
+  "as_of": "2026-11-13",
+  "note": "Irregularities and open items for manual review. None of them blocks the merge. Unverified product values are listed separately on the Flagged page, generated from data/products.json.",
+  "flags": [
+    {
+      "id": "F-01",
+      "area": "Repo",
+      "severity": "medium",
+      "item": "Repository contains only README.md (7 bytes: '# Zone1', no description).",
+      "detail": "git ls-files shows one file. The repo has no description of purpose, no LICENSE, no .gitignore, and no build or test setup.",
+      "source_url": "https://github.com/kanlerxz87-cyber/Zone1",
+      "owner_action": "Confirm the intended purpose and choose a license."
+    },
+    {
+      "id": "F-02",
+      "area": "Repo",
+      "severity": "low",
+      "item": "Pre-existing GitHub Pages config points at the root of main, so the site could only publish the README.",
+      "detail": "GET /repos/kanlerxz87-cyber/Zone1/pages returned build_type 'legacy', source branch 'main', path '/', status 'built', and html_url https://kanlerxz87-cyber.github.io/Zone1/. The plan is to switch the source to main /docs when the PR is merged. This is the only Pages setting change.",
+      "source_url": "https://api.github.com/repos/kanlerxz87-cyber/Zone1/pages",
+      "owner_action": "Review the Pages source change in the merge summary."
+    },
+    {
+      "id": "F-03",
+      "area": "Repo",
+      "severity": "low",
+      "item": "Personal email address appears in public commit metadata.",
+      "detail": "The single commit 42f4036 'Initial commit' has author kanlerxz87-cyber <kanlerxz87@gmail.com>. Rewriting history was not done. Reported only.",
+      "source_url": "https://github.com/kanlerxz87-cyber/Zone1/commit/42f403657fd1b6b1e0af6fcd3f67ca74b7f0ec06",
+      "owner_action": "Decide whether to keep the commit email public (GitHub noreply setting)."
+    },
+    {
+      "id": "F-04",
+      "area": "Links",
+      "severity": "high",
+      "item": "Product identity from the submitted short links needs owner confirmation.",
+      "detail": "The three submitted codes (B04G1MEwY, B02NbDxp3, B00hJ57DV) are 9 characters, so they are not ASINs. Test on 2026-11-13: a direct request to amazon.com/dp/<code> returns Amazon \"Page Not Found\". A fake code (ZZZZZZZZZ) at link.amazon returns 403 Forbidden. The real codes redirect to ASINs B0CDY277D3, B09B7SB46R and B08DKYBTPH. Two requests for P1 returned the same ASIN and source token. The redirect URLs carry lv=shuf and plpRedirect=mhFallback, which can indicate a fallback page. Another session reported different results on later requests. That was not reproduced here. The product identity is therefore not confirmed. Each row is marked identity_status \"to confirm\".",
+      "source_url": "https://www.amazon.com/dp/B04G1MEwY",
+      "owner_action": "Open each submitted link in a browser while signed in and confirm it leads to the intended product. Send back the correct ASIN if it differs."
+    },
+    {
+      "id": "F-05",
+      "area": "Links",
+      "severity": "high",
+      "item": "Associates tag not visible in resolved product links (all 3 products).",
+      "detail": "The resolved URLs contain no tag= parameter. The Associates ID is not in the submission, so none was added. Commission attribution cannot be confirmed from here. Program Policies require the tag on every link.",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "owner_action": "Provide your Associates tag so the links can be rebuilt with it, or confirm the short links are attributed to your account."
+    },
+    {
+      "id": "F-06",
+      "area": "Compliance",
+      "severity": "high",
+      "item": "Product titles on the site are Amazon listing text.",
+      "detail": "Program Policies §6(a) says Program Content may not be altered. Whether listing titles count as Program Content is not confirmed. Titles are shown as read, without edits, and the site adds its own text around them.",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "owner_action": "Review whether titles may stay on the site, or replace them with the site's own product names."
+    },
+    {
+      "id": "F-07",
+      "area": "Data",
+      "severity": "high",
+      "item": "Commission rate is unverified for all 3 products.",
+      "detail": "The official rate schedule (affiliate-program.amazon.com/help/operating/schedule) redirects to an Amazon sign-in page. Third-party sites report different rates for kitchen and home categories. Those figures are not official, so none were entered.",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "owner_action": "Check the Standard Commission Income rate for each product's category in Associates Central (sign-in required)."
+    },
+    {
+      "id": "F-08",
+      "area": "Data",
+      "severity": "medium",
+      "item": "Price, rating, review count, best-sellers rank, and availability are unverified for all 3 products.",
+      "detail": "The product pages were readable only for their titles. The price and review fields did not appear in the readable page content. Blank cells are marked UNVERIFIED. No value was filled in.",
+      "source_url": "https://www.amazon.com/dp/B0CDY277D3",
+      "owner_action": "Supply a source that shows these values, such as a Creators API key, or accept the blanks."
+    },
+    {
+      "id": "F-09",
+      "area": "Automation",
+      "severity": "high",
+      "item": "Automated product data is not possible without Creators API access.",
+      "detail": "PA-API 5 is deprecated and returns 403 AccessDenied. The Creators API needs Associates enrollment, at least 10 qualifying sales in the past 30 days, and registered credentials. No credentials exist here, so no live price or review pulls were built.",
+      "source_url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction",
+      "owner_action": "Once the account qualifies, register for the Creators API and provide the credentials through a secret store (not the repo)."
+    },
+    {
+      "id": "F-10",
+      "area": "Compliance",
+      "severity": "medium",
+      "item": "Cookie and privacy disclosure needs legal review.",
+      "detail": "The site adds no analytics or cookies. Amazon's own pages may set cookies when a visitor clicks through, and Program Policies §3(e) requires accurate disclosure of cookies and pixels. The Sources page carries a short privacy note, which is not legal advice.",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "owner_action": "Have counsel confirm the privacy note."
+    },
+    {
+      "id": "F-11",
+      "area": "Scope",
+      "severity": "high",
+      "item": "Click and conversion tracking is not implemented.",
+      "detail": "Clicks and sales data are only in the Associates account (Reports), which this environment cannot access. The site has no tracking code, so none is reported.",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "owner_action": "Export the Associates reports, or give access, so tracking can be added later."
+    },
+    {
+      "id": "F-12",
+      "area": "Scope",
+      "severity": "high",
+      "item": "Niche, trend, competition, and pricing analysis is limited to what the titles state.",
+      "detail": "No official source available in this environment gives trend, best-seller, competitor, or price data. The analysis page uses only title facts and the stated formula. It makes no claim about which products convert best.",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "owner_action": "Decide which data source to add, such as the Creators API, after qualifying for access."
+    },
+    {
+      "id": "F-13",
+      "area": "Process",
+      "severity": "medium",
+      "item": "Brief's branch naming (session-<id>/<task>) was not used.",
+      "detail": "This session can work only on arena/4ba9e055-zone1, and the platform does not allow other branches. All tasks are tracked in COORDINATION.md on this branch. The brief's session placeholder also appears HTML-escaped (&amp;lt;id&amp;gt;).",
+      "source_url": "https://github.com/kanlerxz87-cyber/Zone1/blob/arena/4ba9e055-zone1/COORDINATION.md",
+      "owner_action": "Confirm this branch and single PR are acceptable."
+    },
+    {
+      "id": "F-14",
+      "area": "Scope",
+      "severity": "medium",
+      "item": "Brief asks for no manual input, but some inputs can only come from the account owner.",
+      "detail": "The Associates tag (F-05), the Creators API credentials (F-09), and the Associates reports (F-11) cannot be obtained from public sources.",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "owner_action": "Provide the three inputs above when available."
+    },
+    {
+      "id": "F-15",
+      "area": "Data",
+      "severity": "low",
+      "item": "P3 title came from a short-link fetch only.",
+      "detail": "A direct fetch of amazon.com/dp/B08DKYBTPH returned an Amazon 'Continue shopping' checkpoint page. The title was taken from the short-link fetch, which resolved to the same ASIN.",
+      "source_url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "owner_action": "Re-check the P3 title on the product page."
+    },
+    {
+      "id": "F-16",
+      "area": "Data",
+      "severity": "low",
+      "item": "Two of the three products share the Chefman brand.",
+      "detail": "P1 is listed as 'CHEFMAN' and P3 as 'Chefman' in their titles. The capitalization differs, and the analysis treats them as the same brand. This is read from the titles and was not confirmed against a brand page.",
+      "source_url": "https://www.amazon.com/dp/B0CDY277D3",
+      "owner_action": "No action needed unless the brand grouping matters for the analysis."
+    },
+    {
+      "id": "F-17",
+      "area": "Coordination",
+      "severity": "high",
+      "item": "Several sessions claimed the same tasks and disagree on product identity.",
+      "detail": "Branches arena/2bef746a-zone1, arena/8a2ddd06-zone1, arena/d14c5409-zone1, arena/f28312ac-zone1, arena/1874bb64-zone1, and arena/19a679d8-zone1 each claim the same repo tasks. arena/f28312ac-zone1 (zone1-s2) disputes the short-link identities (its F-07). This session ran the independent test in F-04 and did not reproduce its 'different product on each request' result. Neither view is fully confirmed.",
+      "source_url": "https://github.com/kanlerxz87-cyber/Zone1/blob/arena/f28312ac-zone1/COORDINATION.md",
+      "owner_action": "Choose one integration session. Confirm the product identities (F-04) before any row is published as fact."
+    },
+    {
+      "id": "F-18",
+      "area": "Coordination",
+      "severity": "medium",
+      "item": "Some sessions marked tasks done without files on their pushed branch.",
+      "detail": "On origin, arena/2bef746a-zone1, arena/8a2ddd06-zone1, arena/19a679d8-zone1 and arena/1874bb64-zone1 contain only COORDINATION.md and README.md, even though their boards mark data, site, and PR tasks as done. Checked with git ls-tree on 2026-11-13. This session reports it and does not edit those branches.",
+      "source_url": "https://github.com/kanlerxz87-cyber/Zone1/tree/arena/8a2ddd06-zone1",
+      "owner_action": "Confirm which claimed artifacts exist and push them, or re-open the task."
+    }
+  ]
+}

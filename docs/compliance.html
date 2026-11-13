@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compliance · Amazon Affiliate Dashboard</title>
+<meta name="description" content="Source-linked Amazon affiliate product dashboard. Data as of 2026-11-13.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><a href="index.html">Amazon Affiliate Dashboard</a></div>
+  <nav><a href="index.html">Dashboard</a><a href="executive-summary.html">Executive summary</a><a href="category-air-fryers.html">Air Fryers</a><a href="analysis.html">Analysis</a><a href="compliance.html" class="active">Compliance</a><a href="sources.html">Sources</a><a href="repo-review.html">Repo review</a><a href="flagged.html">⚑ Flagged for Review</a></nav>
+</header>
+<main>
+
+<section class="page-head">
+  <p class="crumb"><a href="index.html">Dashboard</a> › Compliance</p>
+  <h1>Compliance: Amazon Associates and FTC</h1>
+  <p class="lede">Rules that shape what this site may show, with the verbatim text and the official page for each. 16 of 17 rows are verified. The one unverified row is the commission schedule, which needs an Associates sign-in.</p>
+</section>
+<section>
+  <div class="table-wrap"><table class="wide">
+    <thead><tr><th>ID</th><th>Topic</th><th>Requirement</th><th>Quote</th><th>Status</th><th>Site action</th><th>Source</th></tr></thead>
+    <tbody>
+<tr>
+  <td data-label="ID">C1</td>
+  <td data-label="Topic">Associate disclosure statement<br><span class="muted">Operating Agreement §5</span></td>
+  <td data-label="Requirement">Site must clearly and prominently state the Associate disclosure.</td>
+  <td data-label="Quote"><blockquote class="quote">As an Amazon Associate I earn from qualifying purchases.</blockquote></td>
+  <td data-label="Status"><span class="badge ok">VERIFIED</span></td>
+  <td data-label="Site action">Shown in the footer of every page and beside the product links.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">official page ↗</a><br><span class="muted">October 15, 2025</span></td>
+</tr>
+<tr>
+  <td data-label="ID">C2</td>
+  <td data-label="Topic">Link-level disclosure (FTC)<br><span class="muted">FTC Disclosures 101 for Social Media Influencers</span></td>
+  <td data-label="Requirement">Disclosure must be placed with the endorsement message, hard to miss, in simple, clear language.</td>
+  <td data-label="Quote"><blockquote class="quote">The disclosure should be placed with the endorsement message itself.</blockquote></td>
+  <td data-label="Status"><span class="badge ok">VERIFIED</span></td>
+  <td data-label="Site action">Each product table row has a note directly above it that says these are affiliate links.</td>
+  <td data-label="Source"><a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" target="_blank" rel="noopener">official page ↗</a><br><span class="muted">November 2019 (page as fetched)</span></td>
+</tr>
+<tr>
+  <td data-label="ID">C3</td>
+  <td data-label="Topic">Honest endorsements (FTC Endorsement Guides)<br><span class="muted">FTC Endorsement Guides: What People Are Asking</span></td>
+  <td data-label="Requirement">Endorsements must be honest and not misleading; material connections should be disclosed clearly and conspicuously.</td>
+  <td data-label="Quote"><blockquote class="quote">The Guides, at their core, reflect the basic truth-in-advertising principle that endorsements must be honest and not misleading.</blockquote></td>
+  <td data-label="Status"><span class="badge ok">VERIFIED</span></td>
+  <td data-label="Site action">Site copy is limited to facts read from the listing title. No product test or personal experience is claimed.</td>
+  <td data-label="Source"><a href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" target="_blank" rel="noopener">official page ↗</a><br><span class="muted">Page as fetched on 2026-11-13</span></td>
+</tr>
+<tr>
+  <td data-label="ID">C4</td>
+  <td data-label="Topic">Price display<br><span class="muted">Program Policies, Participation Requirements §2(b)</span></td>
+  <td data-label="Requirement">Prices may appear on the site only if Amazon serves the link that shows them, or if the price came from the Creators API or PA API.</td>
+  <td data-label="Quote"><blockquote class="quote">your Site may only show prices and availability if: (a) we serve the link in which that price and availability data are displayed, or (b) you obtain Product pricing and availability data via Creators API or PA API</blockquote></td>
+  <td data-label="Status"><span class="badge ok">VERIFIED</span></td>
+  <td data-label="Site action">No prices are shown. The price column is blank and flagged.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">official page ↗</a><br><span class="muted">April 14, 2026</span></td>
+</tr>
+<tr>
+  <td data-label="ID">C5</td>
+  <td data-label="Topic">Associates tag on every link<br><span class="muted">Program Policies, Participation Requirements §2(a)–(b)</span></td>
+  <td data-label="Requirement">Each Special Link must include the Associates ID (tag) as a URL parameter.</td>
+  <td data-label="Quote"><blockquote class="quote">you must include your Associates ID or “tag” (appearing as XXXXX-##, or such other format as we may designate) as a parameter in the URL of each link you place on your Site to an Amazon Site.</blockquote></td>
+  <td data-label="Status"><span class="badge ok">VERIFIED</span></td>
+  <td data-label="Site action">FLAGGED. The resolved product links for all 3 products contain no tag parameter. The Associates ID was not provided, so none was added. See flagged item F-06.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">official page ↗</a><br><span class="muted">April 14, 2026</span></td>
+</tr>
+<tr>
+  <td data-label="ID">C6</td>
+  <td data-label="Topic">Accurate product claims<br><span class="muted">Program Policies, Participation Requirements §2(b)</span></td>
+  <td data-label="Requirement">No inaccurate, overbroad, deceptive, or misleading claims about any Product.</td>
+  <td data-label="Quote"><blockquote class="quote">You must not make inaccurate, overbroad, deceptive or otherwise misleading claims about any Product, an Amazon Site, or any of our policies, promotions, or prices.</blockquote></td>
+  <td data-label="Status"><span class="badge ok">VERIFIED</span></td>
+  <td data-label="Site action">Specs on the site come only from the listing title. Nothing else is claimed.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">official page ↗</a><br><span class="muted">April 14, 2026</span></td>
+</tr>
+<tr>
+  <td data-label="ID">C7</td>
+  <td data-label="Topic">Original content<br><span class="muted">Program Policies, Participation Requirements §1</span></td>
+  <td data-label="Requirement">Third-party materials must carry significant commentary, analysis, or transformation.</td>
+  <td data-label="Quote"><blockquote class="quote">Original content utilizing third-party materials must contain significant commentary, analysis, or transformation to any materials you include.</blockquote></td>
+  <td data-label="Status"><span class="badge ok">VERIFIED</span></td>
+  <td data-label="Site action">Each product has original comparison and analysis text. Amazon descriptions and images are not copied.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">official page ↗</a><br><span class="muted">April 14, 2026</span></td>
+</tr>
+<tr>
+  <td data-label="ID">C8</td>
+  <td data-label="Topic">Product lists need added content<br><span class="muted">Program Policies, Participation Requirements §2(b)</span></td>
+  <td data-label="Requirement">When linking to pages with Product lists, the site must have additional original content relevant to the link.</td>
+  <td data-label="Quote"><blockquote class="quote">When linking to pages with Product lists you must have additional original content on your Site that is relevant to the Special Link.</blockquote></td>
+  <td data-label="Status"><span class="badge ok">VERIFIED</span></td>
+  <td data-label="Site action">The category page includes original comparison and analysis text above the product table.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">official page ↗</a><br><span class="muted">April 14, 2026</span></td>
+</tr>
+<tr>
+  <td data-label="ID">C9</td>
+  <td data-label="Topic">Program Content must not be altered<br><span class="muted">Program Policies, Participation Requirements §6(a)</span></td>
+  <td data-label="Requirement">Program Content may not be added to, deleted from, or otherwise altered, except for permitted resizing or truncation.</td>
+  <td data-label="Quote"><blockquote class="quote">You will not add to, delete from, or otherwise alter any Program Content in any way</blockquote></td>
+  <td data-label="Status"><span class="badge ok">VERIFIED</span></td>
+  <td data-label="Site action">FLAGGED (F-07). Product titles on the site are copied from Amazon listing pages. Whether titles count as Program Content is not confirmed.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">official page ↗</a><br><span class="muted">April 14, 2026</span></td>
+</tr>
+<tr>
+  <td data-label="ID">C10</td>
+  <td data-label="Topic">Redirecting links do not count<br><span class="muted">Commission Income Statement §2(e)</span></td>
+  <td data-label="Requirement">Purchases referred through a link that sends users to Amazon through an intermediate site without any click by the customer are disqualified.</td>
+  <td data-label="Quote"><blockquote class="quote">any Product purchased by a customer who is referred to an Amazon Site by a link that sends users indirectly to an Amazon Site via an intermediate site, without requiring the customer to click on a link or take some other affirmative action on that intermediate site</blockquote></td>
+  <td data-label="Status"><span class="badge ok">VERIFIED</span></td>
+  <td data-label="Site action">No auto-redirects. Every product link is a plain click.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">official page ↗</a><br><span class="muted">April 14, 2026</span></td>
+</tr>
+<tr>
+  <td data-label="ID">C11</td>
+  <td data-label="Topic">Paid search using Amazon terms<br><span class="muted">Commission Income Statement §2(c)</span></td>
+  <td data-label="Requirement">Purchases referred by ads bought on keywords containing Amazon trademarks are disqualified.</td>
+  <td data-label="Quote"><blockquote class="quote">any Product purchased by a customer who is referred to an Amazon Site through any advertisement that you purchased, including through participation in bidding or auctions on keywords, search terms, or other identifiers that include the word “amazon”</blockquote></td>
+  <td data-label="Status"><span class="badge ok">VERIFIED</span></td>
+  <td data-label="Site action">No paid ads are run. Do not buy ads on Amazon terms.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">official page ↗</a><br><span class="muted">April 14, 2026</span></td>
+</tr>
+<tr>
+  <td data-label="ID">C12</td>
+  <td data-label="Topic">Amazon trademark in domain<br><span class="muted">Program Policies, Participation Requirements §1(g)</span></td>
+  <td data-label="Requirement">Site domain, subdomain, tag, or username may not include an Amazon trademark or misspelling.</td>
+  <td data-label="Quote"><blockquote class="quote">include any trademark of Amazon or its affiliates, or a variant or misspelling of a trademark of Amazon or its affiliates in any domain name, subdomain name</blockquote></td>
+  <td data-label="Status"><span class="badge ok">VERIFIED</span></td>
+  <td data-label="Site action">Site host is kanlerxz87-cyber.github.io/Zone1. No Amazon mark is used in the host name.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">official page ↗</a><br><span class="muted">April 14, 2026</span></td>
+</tr>
+<tr>
+  <td data-label="ID">C13</td>
+  <td data-label="Topic">Cookies and data disclosure<br><span class="muted">Program Policies, Participation Requirements §3(e)</span></td>
+  <td data-label="Requirement">The site must accurately disclose cookies, pixels, and data collection, including by third parties.</td>
+  <td data-label="Quote"><blockquote class="quote">disclosing on your Site accurately and adequately and otherwise satisfying applicable legal requirements ... the use of cookies, pixels, and other technologies by you and third parties</blockquote></td>
+  <td data-label="Status"><span class="badge ok">VERIFIED</span></td>
+  <td data-label="Site action">The site adds no analytics or cookies of its own. Amazon's own pages may set cookies. A privacy note is on the Sources page. Legal review is needed (F-10).</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">official page ↗</a><br><span class="muted">April 14, 2026</span></td>
+</tr>
+<tr>
+  <td data-label="ID">C14</td>
+  <td data-label="Topic">Standard commission rates<br><span class="muted">Commission Income Statement §3 and Appendix</span></td>
+  <td data-label="Requirement">Standard commission is a percentage of Qualifying Revenue, set by the rate schedule in the Appendix.</td>
+  <td data-label="Quote"><blockquote class="quote">we will pay you standard commission income described in the Appendix</blockquote></td>
+  <td data-label="Status"><span class="badge unverified">UNVERIFIED</span></td>
+  <td data-label="Site action">UNVERIFIED (F-08). The schedule URL redirects to an Amazon sign-in page. No rate is entered for any product.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/schedule" target="_blank" rel="noopener">official page ↗</a><br><span class="muted">Not readable</span></td>
+</tr>
+<tr>
+  <td data-label="ID">C15</td>
+  <td data-label="Topic">Creators API access requirements<br><span class="muted">Creators API Documentation: Prerequisites</span></td>
+  <td data-label="Requirement">Must be enrolled in Associates, have at least 10 qualifying sales in the past 30 days, register for API access, and generate credentials.</td>
+  <td data-label="Quote"><blockquote class="quote">Have at least 10 qualifying sales within the past 30 days to access the PA API through the Creators API</blockquote></td>
+  <td data-label="Status"><span class="badge ok">VERIFIED</span></td>
+  <td data-label="Site action">Automated price or review pulls are not built. No credentials exist (F-09).</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction" target="_blank" rel="noopener">official page ↗</a><br><span class="muted">Page as fetched on 2026-11-13</span></td>
+</tr>
+<tr>
+  <td data-label="ID">C16</td>
+  <td data-label="Topic">PA-API 5 is deprecated<br><span class="muted">Creators API Documentation: PA-API 5 Deprecation Notice</span></td>
+  <td data-label="Requirement">PA-API 5 is deprecated and replaced by the Creators API. Calls to PA-API 5 return 403 AccessDenied.</td>
+  <td data-label="Quote"><blockquote class="quote">The Amazon Product Advertising API 5.0 (PA-API 5) has been deprecated and is being replaced by the Creators API.</blockquote></td>
+  <td data-label="Status"><span class="badge ok">VERIFIED</span></td>
+  <td data-label="Site action">Any future automation must use the Creators API, not PA-API 5.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation" target="_blank" rel="noopener">official page ↗</a><br><span class="muted">Page as fetched on 2026-11-13</span></td>
+</tr>
+<tr>
+  <td data-label="ID">C17</td>
+  <td data-label="Topic">Operating agreement: Associate may not imply affiliation<br><span class="muted">Operating Agreement §5</span></td>
+  <td data-label="Requirement">Associate must not misrepresent or imply any affiliation or endorsement by Amazon.</td>
+  <td data-label="Quote"><blockquote class="quote">You will not misrepresent or embellish our relationship with you (including by expressing or implying that we support, sponsor, or endorse you)</blockquote></td>
+  <td data-label="Status"><span class="badge ok">VERIFIED</span></td>
+  <td data-label="Site action">The site does not use Amazon logos. It says it is not affiliated with Amazon.</td>
+  <td data-label="Source"><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">official page ↗</a><br><span class="muted">October 15, 2025</span></td>
+</tr>
+    </tbody>
+  </table></div>
+  <p class="muted">Quotes are copied from the official pages listed in source_url. Status 'verified' means the text was read from that page on as_of. Status 'unverified' means it could not be read and no value is stated.</p>
+</section>
+</main>
+<footer>
+  <p class="disclosure"><strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. This site is not affiliated with, sponsored by, or endorsed by Amazon.com, Inc.</p>
+  <p>Data as of 2026-11-13. Every value links to its official source. Blank cells are unverified and listed on the <a href="flagged.html">Flagged for Review</a> page. Not financial advice.</p>
+  <p>Built from <code>data/*.json</code> and <code>reports/*.md</code> by <code>scripts/build.mjs</code>. <a href="data/products.json">products.json</a> · <a href="data/compliance.json">compliance.json</a> · <a href="data/flags.json">flags.json</a> · <a href="data/sources.json">sources.json</a></p>
+</footer>
+</body>
+</html>
