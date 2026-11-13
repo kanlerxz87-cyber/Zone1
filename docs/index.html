@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zone1 — Affiliate Research &amp; Marketing Platform</title>
+<meta name="description" content="Zone1: AI-assisted Amazon affiliate research, analysis, and compliant marketing content. Verified data with official source links.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="./">Zone1<span class="tag">Affiliate Research &amp; Marketing Platform</span></a>
+    <nav class="main">
+      <a href="./" class="current">Dashboard</a>
+      <a href="products/">Products</a>
+      <a href="analysis/">Analysis</a>
+      <a href="niches/">Niches</a>
+      <a href="content/">Content</a>
+      <a href="links/">Links</a>
+      <a href="tracking/">Tracking</a>
+      <a href="platform/">Platform</a>
+      <a href="compliance/">Compliance</a>
+      <a href="flagged/">Flagged</a>
+      <a href="sources/">Sources</a>
+    </nav>
+  </div>
+</header>
+
+<div class="disclosure-bar"><div class="inner">
+  <strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases.
+  <span class="small">(Required statement, Amazon Associates Operating Agreement §5.)</span>
+</div></div>
+
+<main>
+
+<section>
+  <h1>Zone1 — AI-assisted Amazon affiliate research &amp; marketing platform</h1>
+  <p class="lead">A single, source-verified dashboard for product research, niche analysis, compliant marketing
+  content, link management, and campaign tracking — built for automation and scalability while enforcing Amazon
+  Associates Program policies and FTC disclosure requirements.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="num good">3</div><div class="label">Products tracked (link-resolved)</div></div>
+    <div class="kpi"><div class="num good">100%</div><div class="label">Table rows with official source links</div></div>
+    <div class="kpi"><div class="num pending">2</div><div class="label">Commission rate &amp; price data — pending PA API / account</div></div>
+    <div class="kpi"><div class="num flagged">6</div><div class="label">Flagged items on the Flagged for Review page</div></div>
+    <div class="kpi"><div class="num good">30+</div><div class="label">Policy rules documented with citations</div></div>
+    <div class="kpi"><div class="num">0</div><div class="label">Unsourced values published</div></div>
+  </div>
+</section>
+
+<section>
+  <h2>Executive summary</h2>
+  <div class="card">
+    <p><strong>Goal.</strong> Collect, organize, and analyze the full requirement set for an AI-powered Amazon
+    affiliate marketing platform: automated product research, trending/high-converting product identification,
+    pricing / reviews / competition / commission analysis, SEO content generation, link management, click and
+    conversion tracking, and continuous optimization — with Amazon Associates and FTC compliance enforced by design.</p>
+
+    <p><strong>What was verified.</strong> The three provided product links (<code>link.amazon/B04G1MEwY</code>,
+    <code>link.amazon/B02NbDxp3</code>, <code>link.amazon/B00hJ57DV</code>) each resolve stably (verified twice with
+    cache-busted requests on 2026-11-13) to three Amazon product pages — all <strong>air fryers</strong>
+    (Home&nbsp;&amp;&nbsp;Kitchen › Small Appliances › Fryers › Air Fryers):</p>
+
+    <div class="table-wrap"><table>
+      <thead><tr><th>Provided link</th><th>Resolved product (official listing)</th><th>ASIN</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><a href="https://link.amazon/B04G1MEwY">link.amazon/B04G1MEwY</a></td>
+          <td>CHEFMAN 6&nbsp;Quart Dual Basket Air Fryer Oven (Black)</td>
+          <td><code>B0CDY277D3</code></td>
+          <td><span class="badge ok">verified redirect</span> <span class="badge warn">ID format flagged</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://link.amazon/B02NbDxp3">link.amazon/B02NbDxp3</a></td>
+          <td>Emeril Lagasse 26QT French Door Air Fryer Toaster Oven</td>
+          <td><code>B09B7SB46R</code></td>
+          <td><span class="badge ok">verified redirect</span> <span class="badge warn">ID format flagged</span></td>
+        </tr>
+        <tr>
+          <td><a href="https://link.amazon/B00hJ57DV">link.amazon/B00hJ57DV</a></td>
+          <td>Chefman Air Fryer 8&nbsp;Qt TurboFry® 4-in-1 (Stainless Steel)</td>
+          <td><code>B08DKYBTPH</code></td>
+          <td><span class="badge ok">verified redirect</span> <span class="badge warn">ID format flagged</span></td>
+        </tr>
+      </tbody>
+    </table></div>
+    <p class="small">Source: amazon.com product detail pages and redirect observations, 2026-11-13.
+    Full evidence and per-row source links on the <a href="products/">Products</a> page.</p>
+
+    <p><strong>Key irregularities (all flagged, none blocking).</strong></p>
+    <ul class="tight">
+      <li>The provided IDs are <strong>9 characters</strong>; Amazon ASINs are <strong>10 characters</strong>
+      (sources: <a href="https://webservices.amazon.com/paapi5/documentation/get-items.html">PA API 5.0 docs</a>,
+      <a href="https://kdp.amazon.com/en_US/help/topic/G200652190">KDP help</a>). Direct
+      <code>amazon.com/dp/&lt;ID&gt;</code> lookups return “Page Not Found”.</li>
+      <li>The <code>link.amazon</code> short-link domain is not documented among Amazon's published short-link
+      domains; its provenance is unconfirmed, though its redirects are stable and land on official amazon.com pages.</li>
+      <li>Commission rates are <strong>not guessable</strong>: the official Standard Commission Income table
+      (Appendix → <code>/help/operating/schedule</code>) redirects to an Associates sign-in with an
+      account-specific rate card. Rate cells are intentionally left blank.</li>
+      <li>Prices and star ratings are <strong>not republished</strong> on this site: Associates Program Policies
+      restrict displaying them to Amazon-served links or PA&nbsp;API/Creators&nbsp;API data. Blank cells cite the rule.</li>
+    </ul>
+
+    <p><strong>Compliance posture.</strong> Every page carries the required disclosure
+    (“As an Amazon Associate I earn from qualifying purchases.” — Operating Agreement §5). Content rules follow
+    the FTC Endorsement Guides and Amazon's Program Policies, including the 2026 <em>Agent Terms</em> for AI
+    automation (self-identifying agents, no model training on Program Content). See
+    <a href="compliance/">Compliance</a>.</p>
+
+    <p><strong>Next actions for the owner</strong> (documented, not automated — they require account credentials
+    only you can provide): (1) apply for the Amazon Associates Program with this site as the identified Site;
+    (2) obtain PA&nbsp;API credentials and an account rate card to fill the blank price/rate/rating cells through
+    the compliant API path; (3) replace the provided <code>link.amazon</code> links with your own tagged Special
+    Links; (4) review the <a href="flagged/">Flagged for Review</a> page and confirm the resolved products are the
+    intended ones.</p>
+    <p class="small">Full document: <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/EXECUTIVE_SUMMARY.md">EXECUTIVE_SUMMARY.md</a>.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Dashboard — sections by category</h2>
+  <div class="grid">
+    <div class="card"><h3><a href="products/">Product registry</a></h3>
+      <p>Line-by-line verified product data table: provided link → resolved ASIN → official listing, with evidence for each redirect and a source link on every row.</p></div>
+    <div class="card"><h3><a href="analysis/">Analysis</a></h3>
+      <p>Pricing, reviews, competition, and commission-potential analysis — methodology, verified findings, and policy-restricted blanks with citations.</p></div>
+    <div class="card"><h3><a href="niches/">Niche research</a></h3>
+      <p>Niche identification framework and evidence for the air-fryer niche, including official Amazon Best Sellers signals.</p></div>
+    <div class="card"><h3><a href="content/">Marketing &amp; SEO content</a></h3>
+      <p>SEO article plan, buying-guide and comparison drafts, and per-product marketing copy using only verified attributes.</p></div>
+    <div class="card"><h3><a href="links/">Affiliate links</a></h3>
+      <p>Link registry, compliant Special Link formats, and the policies that govern shortening, cloaking, and placement.</p></div>
+    <div class="card"><h3><a href="tracking/">Click &amp; conversion tracking</a></h3>
+      <p>Measurement design: what may be tracked, session and cart attribution windows, KPI formulas, and prohibited tracking.</p></div>
+    <div class="card"><h3><a href="platform/">Automation platform</a></h3>
+      <p>End-to-end automation pipeline (research → analysis → content → publish → track → optimize) with compliance guardrails.</p></div>
+    <div class="card"><h3><a href="compliance/">Compliance center</a></h3>
+      <p>Amazon Associates Operating Agreement, Program Policies, and FTC rules — each with the exact requirement and source link.</p></div>
+    <div class="card"><h3><a href="flagged/">Flagged for review</a></h3>
+      <p>Irregularities and unverified items, published with evidence so you can review after the site is live.</p></div>
+    <div class="card"><h3><a href="sources/">Source register</a></h3>
+      <p>Every official source used, what was verified from it, and when it was accessed.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>Data-integrity rules used throughout</h2>
+  <div class="notice ok">
+    <ul class="tight">
+      <li>Every table row links to an official source (amazon.com, affiliate-program.amazon.com, webservices.amazon.com, kdp.amazon.com, ftc.gov).</li>
+      <li>If a value cannot be confirmed from an official source, the cell is left <strong>blank</strong> and flagged — never inferred or filled.</li>
+      <li>Observed values (e.g., redirect targets) are dated; volatile values are labelled as observations, not facts about the future.</li>
+      <li>Restricted values (prices, star ratings) are withheld by policy and marked with the governing rule.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer"><div class="inner">
+  <p><strong>As an Amazon Associate I earn from qualifying purchases.</strong></p>
+  <p>Zone1 is an independent research and marketing workspace. It is not affiliated with, endorsed by, or sponsored by Amazon.com, Inc. “Amazon”, “Amazon Associates”, and “ASIN” are referenced nominatively; product names are trademarks of their respective owners.</p>
+  <p>Product prices and availability are accurate as of the date/time indicated and are subject to change. Any price and availability information displayed on the relevant Amazon site at the time of purchase will apply to the purchase of this product.</p>
+  <p>Data verified 2026-11-13 · <a href="https://github.com/kanlerxz87-cyber/Zone1">GitHub repository</a> · <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/COORDINATION.md">COORDINATION.md</a></p>
+</div></footer>
+
+</body>
+</html>

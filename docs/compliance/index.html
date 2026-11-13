@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compliance Center — Zone1</title>
+<meta name="description" content="Amazon Associates Operating Agreement, Program Policies, and FTC disclosure requirements — every rule with its source.">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../">Zone1<span class="tag">Affiliate Research &amp; Marketing Platform</span></a>
+    <nav class="main">
+      <a href="../">Dashboard</a>
+      <a href="../products/">Products</a>
+      <a href="../analysis/">Analysis</a>
+      <a href="../niches/">Niches</a>
+      <a href="../content/">Content</a>
+      <a href="../links/">Links</a>
+      <a href="../tracking/">Tracking</a>
+      <a href="../platform/">Platform</a>
+      <a href="./" class="current">Compliance</a>
+      <a href="../flagged/">Flagged</a>
+      <a href="../sources/">Sources</a>
+    </nav>
+  </div>
+</header>
+
+<div class="disclosure-bar"><div class="inner">
+  <strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases.
+</div></div>
+
+<main>
+
+<section>
+  <h1>Compliance center</h1>
+  <p class="lead">The rules this project runs on — Amazon Associates Operating Agreement (updated 2025-10-15),
+  Associates Program Policies (updated 2026-04-14), and FTC endorsement/disclosure guidance — each with the governing
+  section and an official source link. Verified 2026-11-13.</p>
+</section>
+
+<section>
+  <h2>Required disclosures</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Disclosure</th><th>Exact required text / rule</th><th>Where it applies</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Associate identity</td>
+        <td>“You must clearly and prominently state the following … on your Site …: <strong>‘As an Amazon Associate I earn from qualifying purchases.’</strong>”</td>
+        <td>Every page of the site (footer bar + content pages near endorsements)</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/agreement">Operating Agreement §5</a></td>
+      </tr>
+      <tr>
+        <td>Price / availability</td>
+        <td>Adjacent timestamp +: “Product prices and availability are accurate as of the date/time indicated and are subject to change. Any price and availability information displayed on [relevant Amazon Site(s), as applicable] at the time of purchase will apply to the purchase of this product.”</td>
+        <td>Any PA-API-served price display (none currently)</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">IP License §2(i)</a></td>
+      </tr>
+      <tr>
+        <td>Amazon-sourced text</td>
+        <td>“CERTAIN CONTENT THAT APPEARS [IN THIS APPLICATION or ON THIS SITE, as applicable] COMES FROM AMAZON. THIS CONTENT IS PROVIDED ‘AS IS’ AND IS SUBJECT TO CHANGE OR REMOVAL AT ANY TIME.”</td>
+        <td>Where PA API text content is displayed (none currently — all copy is original)</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">IP License §2(k)</a></td>
+      </tr>
+      <tr>
+        <td>FTC material connection</td>
+        <td>Disclose any financial relationship with the brand/seller “in a hard to miss” way, with the endorsement itself, in simple language (“advertisement”, “ad”, “sponsored”); not buried at the end or behind “more”.</td>
+        <td>Every product recommendation, social post, video, stream</td>
+        <td><a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers">FTC — Disclosures 101</a></td>
+      </tr>
+      <tr>
+        <td>Cookie/privacy</td>
+        <td>Disclose use of cookies, pixels and third-party data collection, and visitor opt-out choices where required (Policies §3(e)).</td>
+        <td>Privacy page once analytics are enabled</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §3(e)</a></td>
+      </tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Amazon Associates — Operating Agreement &amp; Program Policies</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>#</th><th>Section</th><th>Requirement (summary / short quote)</th><th>How this project complies</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>OA §1</td><td>Monetization only via properly “tagged” Special Links.</td><td>Link registry defines tagged-format replacements; untagged links marked non-monetized.</td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement">OA §1</a></td></tr>
+      <tr><td>2</td><td>OA §5</td><td>Required disclosure statement (above); no misrepresenting the Amazon relationship.</td><td>Disclosure on every page; “not affiliated” notice in footer.</td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement">OA §5</a></td></tr>
+      <tr><td>3</td><td>CIS §1</td><td>Qualifying purchase rules: 24-hour session, 89-day cart, 180-day ship/pay; Qualifying Revenue excludes shipping/taxes/fees.</td><td>Tracking page documents the model; calculator uses it.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">CIS §1</a></td></tr>
+      <tr><td>4</td><td>CIS §2(c)</td><td>No Prohibited Paid Search Placements (bidding on “amazon”, “kindle” etc.).</td><td>Paid-search guardrail in platform stage 6.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">CIS §2(c)</a></td></tr>
+      <tr><td>5</td><td>CIS §2(e)</td><td>No Redirecting Links (indirect routing without affirmative action).</td><td>Links go direct to Amazon.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">CIS §2(e)</a></td></tr>
+      <tr><td>6</td><td>PR §1</td><td>Site must be publicly available with original content; suitability rules apply.</td><td>This site is public, original, and non-deceptive.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">PR §1</a></td></tr>
+      <tr><td>7</td><td>PR §2(b)</td><td>Tag format XXXXX-##; no misleading claims; prices only via Amazon-served links or PA/Creators API; no bookmark prompts; sub-tags not per end-user.</td><td>Blank price cells; claim discipline; static sub-tags only.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">PR §2(b)</a></td></tr>
+      <tr><td>8</td><td>PR §2(g)(s)(u)</td><td>No incentivized clicks, artificial traffic, or self/related-party purchases.</td><td>Tracking design excludes all three.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">PR §2</a></td></tr>
+      <tr><td>9</td><td>PR §2(t)</td><td>No displaying customer reviews or star ratings unless obtained via PA/Creators API.</td><td>Rating cells blank; restriction documented on Analysis.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">PR §2(t)</a></td></tr>
+      <tr><td>10</td><td>PR §2(v)(w)</td><td>No URL cloaking; shorteners must make the Amazon destination clear.</td><td>Provided <code>link.amazon</code> links flagged and to be replaced.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">PR §2(v)(w)</a></td></tr>
+      <tr><td>11</td><td>PR §2(y)</td><td>“your Site must not have price tracking and/or price alerting functionality”.</td><td>No price history/alerts anywhere in the product.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">PR §2(y)</a></td></tr>
+      <tr><td>12</td><td>PR §4</td><td>Special Links in email/SMS only for opted-in recipients; sender responsibilities (CAN-SPAM etc.).</td><td>Email use gated on opt-in (content page note).</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">PR §4</a></td></tr>
+      <tr><td>13</td><td>PR §5</td><td>No developing machine learning models from Special Links/Program Content without express written approval.</td><td>AI drafts from our own verified schema; constraint in Platform design.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">PR §5</a></td></tr>
+      <tr><td>14</td><td>PR §6(a)</td><td>Do not alter Program Content (beyond resize/truncate).</td><td>All published copy is original; titles used for identification.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">PR §6(a)</a></td></tr>
+      <tr><td>15</td><td>Trademark Guidelines §1–8</td><td>Amazon Marks only to advertise products with Special Links; no alteration; no offline use; no confusingly similar names/domains.</td><td>No Amazon logos used; nominative text references only; site name avoids Amazon marks.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Trademark Guidelines</a></td></tr>
+      <tr><td>16</td><td>IP License §2(e)</td><td>No aggregating/repurposing PA API content or training models on it without written approval.</td><td>Data pipeline stores ASINs + provenance only; 24h cache rule respected.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">IP License §2(e)</a></td></tr>
+      <tr><td>17</td><td>IP License §2(h)</td><td>Non-image Product Advertising Content cacheable ≤ 24 h; ASINs storable indefinitely.</td><td>Refresh cycle documented in Platform stage 6.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">IP License §2(h)</a></td></tr>
+      <tr><td>18</td><td>IP License §4</td><td>Agent Terms: agents must self-identify in User-Agent (<span class="mono">Agent/[name]</span>), not obfuscate, not circumvent CAPTCHAs, answer truthfully.</td><td>Link-resolution agent design complies; recorded in Platform.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">IP License §4</a></td></tr>
+      <tr><td>19</td><td>Products Statement §3</td><td>Excluded Products: third-party-sold items via Amazon links, alcohol (licensed US businesses), prescription drugs/Amazon Pharmacy, designated exclusions.</td><td>Niche screening (Niches page) excludes these.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Products Statement §3</a></td></tr>
+      <tr><td>20</td><td>CIS §6</td><td>Payment ~60 days after month end; minimums 10 USD deposit/gift card, 100 USD check (15 USD fee).</td><td>Documented in Analysis §4.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">CIS §6</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>FTC requirements (U.S.)</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>#</th><th>Rule</th><th>Compliant practice on this project</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>FT1</td>
+        <td>Disclose any financial, employment, personal, or family relationship with a brand — including free or discounted products — whenever you endorse.</td>
+        <td>Affiliate disclosure bar on every page; repeat disclosure at the top of content pages.</td>
+        <td><a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers">FTC — Disclosures 101</a></td>
+      </tr>
+      <tr>
+        <td>FT2</td>
+        <td>Placement: “hard to miss”, with the endorsement itself; not only on an About page, at the end, or behind “MORE”.</td>
+        <td>Disclosure directly above product copy on the Content page.</td>
+        <td><a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers">FTC — Disclosures 101</a></td>
+      </tr>
+      <tr>
+        <td>FT3</td>
+        <td>Use simple, clear language (“advertisement”, “ad”, “sponsored”); avoid vague terms like “collab”, “ambassador”.</td>
+        <td>Plain-language “As an Amazon Associate…” statement plus explicit commission language near recommendations.</td>
+        <td><a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers">FTC — Disclosures 101</a></td>
+      </tr>
+      <tr>
+        <td>FT4</td>
+        <td>Video/stream disclosures must be in the medium itself (audio + video; repeated in live streams).</td>
+        <td>Applies when video content is added — recorded as a launch checklist item.</td>
+        <td><a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers">FTC — Disclosures 101</a></td>
+      </tr>
+      <tr>
+        <td>FT5</td>
+        <td>“You can't talk about your experience with a product you haven't tried”; no unsubstantiated claims.</td>
+        <td>Copy describes official listing information only; explicitly states no hands-on testing is claimed.</td>
+        <td><a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers">FTC — Disclosures 101</a></td>
+      </tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Pre-publish compliance checklist</h2>
+  <div class="card">
+    <ul class="tight">
+      <li>☐ Disclosure statement present and clearly visible (OA §5).</li>
+      <li>☐ Every product claim traceable to the verified-attributes store (PR §2(b): no misleading claims).</li>
+      <li>☐ No prices/ratings unless PA-API provenance + timestamp + disclaimer (PR §2(b), §6(t), IP License §2(i)).</li>
+      <li>☐ All monetized links are tagged Special Links; destinations are amazon.com and clear (PR §2(v)(w)).</li>
+      <li>☐ No price tracking/alerts (PR §2(y)); no incentives for clicks (PR §2(g)).</li>
+      <li>☐ Agents used in publishing self-identify and do not circumvent site protections (IP License §4).</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer"><div class="inner">
+  <p><strong>As an Amazon Associate I earn from qualifying purchases.</strong></p>
+  <p>Policy versions verified 2026-11-13: Operating Agreement updated 2025-10-15; Program Policies updated 2026-04-14. Re-verify at each publish cycle.</p>
+  <p><a href="https://github.com/kanlerxz87-cyber/Zone1">Repository</a> · <a href="../flagged/">Flagged for Review</a> · <a href="../sources/">Sources</a></p>
+</div></footer>
+
+</body>
+</html>
