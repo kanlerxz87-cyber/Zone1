@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Automation Platform — Zone1</title>
+<meta name="description" content="End-to-end AI-assisted automation pipeline with compliance guardrails for the Amazon Associates Program.">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../">Zone1<span class="tag">Affiliate Research &amp; Marketing Platform</span></a>
+    <nav class="main">
+      <a href="../">Dashboard</a>
+      <a href="../products/">Products</a>
+      <a href="../analysis/">Analysis</a>
+      <a href="../niches/">Niches</a>
+      <a href="../content/">Content</a>
+      <a href="../links/">Links</a>
+      <a href="../tracking/">Tracking</a>
+      <a href="./" class="current">Platform</a>
+      <a href="../compliance/">Compliance</a>
+      <a href="../flagged/">Flagged</a>
+      <a href="../sources/">Sources</a>
+    </nav>
+  </div>
+</header>
+
+<div class="disclosure-bar"><div class="inner">
+  <strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases.
+</div></div>
+
+<main>
+
+<section>
+  <h1>Automation platform design</h1>
+  <p class="lead">The pipeline that turns the requirement list into repeatable work: research → analysis → content →
+  publish → track → optimize. Each stage names its data source and the compliance guardrail that constrains it —
+  the 2026 Associates Program Policies add explicit <em>Agent Terms</em> for AI automation, which are built into this
+  design.</p>
+</section>
+
+<section>
+  <h2>Pipeline stages</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Stage</th><th>Inputs</th><th>Automation</th><th>Outputs</th><th>Guardrails (verified)</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>1. Research</td>
+        <td>Seed links, category nodes, Best Sellers pages</td>
+        <td>Scheduled agent jobs resolve links, validate ASINs (10-char rule), catalog products</td>
+        <td>Product registry rows (like <a href="../products/">this</a>)</td>
+        <td>Agents must self-identify (<span class="mono">User-Agent: Agent/[name]</span>), never circumvent anti-bot measures (IP License §4 Agent Terms)</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies — IP License §4</a></td>
+      </tr>
+      <tr>
+        <td>2. Analysis</td>
+        <td>Registry + PA API data (after enrollment) + rate card</td>
+        <td>Niche scoring, competition snapshots, commission modeling</td>
+        <td><a href="../analysis/">Analysis tables</a>, niche scores</td>
+        <td>Prices/ratings only from PA/Creators API (§2(b), §6(t)); no price tracking/alerting (§2(y)); no repurposing PA content for model training (IP License §2(e))</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §2, IP License §2(e)</a></td>
+      </tr>
+      <tr>
+        <td>3. Content</td>
+        <td>Verified attribute store + content plan</td>
+        <td>AI drafts buying guides, comparisons, product blurbs from the verified-attributes schema</td>
+        <td><a href="../content/">Articles S1–S7</a></td>
+        <td>“You will not … use any Special Links or Program Content to develop machine learning models” without written approval (Policies §5) — AI drafts from our own verified schema, not from Program Content corpora; claims must not be misleading (§2(b))</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §5, §2(b)</a></td>
+      </tr>
+      <tr>
+        <td>4. Publish</td>
+        <td>Approved drafts + tagged Special Links</td>
+        <td>Static-site generation; disclosure injection on every page; link-format audit</td>
+        <td>GitHub Pages site</td>
+        <td>Disclosure “clearly and prominently” (OA §5); FTC placement rules; no framing of Amazon pages (§2(n))</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/agreement">OA §5</a></td>
+      </tr>
+      <tr>
+        <td>5. Track</td>
+        <td>First-party click events + Associates Central reports</td>
+        <td>Click pipeline, EPC/CTR dashboards, sub-tag reports</td>
+        <td><a href="../tracking/">Tracking KPIs</a></td>
+        <td>No per-user sub-tags (§2(b)); no artificial clicks (§2(s)); privacy/cookie disclosure (§3(e))</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §2, §3</a></td>
+      </tr>
+      <tr>
+        <td>6. Optimize</td>
+        <td>KPIs + content performance</td>
+        <td>Scheduled re-verification of registry values; content refresh queue; A/B ordering of tables</td>
+        <td>Updated content plan; flagged deltas</td>
+        <td>24-hour cache limit on non-image PA content (IP License §2(h)); remove discontinued content (§6(c))</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">IP License §2(h)</a></td>
+      </tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>AI components &amp; their compliance constraints</h2>
+  <div class="notice warn">
+    <p><strong>The 2026 policies constrain AI automation directly.</strong> Three verified rules govern what the
+    platform's agents may do — each is a design constraint, not a suggestion.</p>
+  </div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Component</th><th>Function</th><th>Constraint</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Link-resolution agent</td>
+        <td>Resolves and re-verifies product links on a schedule</td>
+        <td>Must identify itself in the User-Agent as <span class="mono">Agent/[agent name]</span>, must not obfuscate or circumvent CAPTCHAs, must answer truthfully when asked if traffic is automated (IP License §4).</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">IP License §4 (Agent Terms)</a></td>
+      </tr>
+      <tr>
+        <td>Content drafting model</td>
+        <td>Generates article drafts from the verified-attribute store</td>
+        <td>Program Content (incl. Special Links, PA API data) may not be used “to develop machine learning models or related technology” without Amazon's express prior written approval (Policies §5; IP License §2(e)). Drafting from our own schema and general language skill is the compliant path.</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §5</a></td>
+      </tr>
+      <tr>
+        <td>Data pipeline (PA API)</td>
+        <td>Loads prices/ratings when account access exists</td>
+        <td>Non-image content cache ≤ 24 h with refresh (IP License §2(h)); price displays need timestamps + disclaimer (§2(i)); no aggregation/repurposing for unrelated purposes (§2(e)).</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">IP License §2</a></td>
+      </tr>
+      <tr>
+        <td>Optimization recommender</td>
+        <td>Suggests content refreshes from KPI data</td>
+        <td>Never recommend incentivized clicks, paid brand-term bidding, or misleading claims (CIS §2(c), §2(g); Policies §2(b)).</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §2</a></td>
+      </tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Data schema (verified-attributes store)</h2>
+  <div class="card">
+    <p>Every value in the store carries provenance: <code>value</code>, <code>source_url</code>,
+    <code>verified_at</code>, <code>status</code> (verified / restricted / unverified). Pages render from this schema,
+    so a blank cell is always a deliberate record, never a gap. The registry for this cycle is machine-readable at
+    <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/session-3740f69d/data/products.json">session-3740f69d/data/products.json</a>.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Scalability &amp; continuous optimization</h2>
+  <div class="card">
+    <ul class="tight">
+      <li><strong>Scalability</strong> — static-site output scales with content count, not traffic. Pipeline stages are content-addressed (ASIN + date), so re-verification runs idempotently and new products are added as registry rows.</li>
+      <li><strong>Automation</strong> — scheduled jobs: link re-verification, policy-document change detection (the OA/Policies pages carry “Updated” dates), KPI rollups, content refresh queue. Constraints: <a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §5</a>, <a href="https://affiliate-program.amazon.com/help/operating/policies">IP License §2(h), §4</a>.</li>
+      <li><strong>Data-driven decisions</strong> — content prioritization = f(EPC, CTR, verification freshness); dated snapshots keep trend claims honest. KPI sources: <a href="https://affiliate-program.amazon.com/help/operating/policies">CIS §6</a>.</li>
+      <li><strong>Compliance automation</strong> — pre-publish checks: disclosure present on every page (<a href="https://affiliate-program.amazon.com/help/operating/agreement">OA §5</a>); no price/rating cells without PA API provenance (<a href="https://affiliate-program.amazon.com/help/operating/policies">PR §2(b), §6(t)</a>); link-format audit (<a href="https://affiliate-program.amazon.com/help/operating/policies">PR §2(v)(w)</a>); claim-scan against the verified-attributes schema.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer"><div class="inner">
+  <p><strong>As an Amazon Associate I earn from qualifying purchases.</strong></p>
+  <p><a href="https://github.com/kanlerxz87-cyber/Zone1">Repository</a> · <a href="../compliance/">Compliance</a> · <a href="../sources/">Sources</a></p>
+</div></footer>
+
+</body>
+</html>

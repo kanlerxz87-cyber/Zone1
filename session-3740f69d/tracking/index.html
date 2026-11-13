@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Click &amp; Conversion Tracking — Zone1</title>
+<meta name="description" content="Measurement design for clicks and conversions: permitted tracking, attribution windows, KPI formulas, and prohibited tracking.">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../">Zone1<span class="tag">Affiliate Research &amp; Marketing Platform</span></a>
+    <nav class="main">
+      <a href="../">Dashboard</a>
+      <a href="../products/">Products</a>
+      <a href="../analysis/">Analysis</a>
+      <a href="../niches/">Niches</a>
+      <a href="../content/">Content</a>
+      <a href="../links/">Links</a>
+      <a href="./" class="current">Tracking</a>
+      <a href="../platform/">Platform</a>
+      <a href="../compliance/">Compliance</a>
+      <a href="../flagged/">Flagged</a>
+      <a href="../sources/">Sources</a>
+    </nav>
+  </div>
+</header>
+
+<div class="disclosure-bar"><div class="inner">
+  <strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases.
+</div></div>
+
+<main>
+
+<section>
+  <h1>Click &amp; conversion tracking</h1>
+  <p class="lead">What may be measured, how attribution works (verified from the Commission Income Statement), KPI
+  formulas, and the tracking that is explicitly prohibited. No performance metrics are shown yet — none exist until
+  tagged links are live, and inventing them would violate this project's data rules.</p>
+</section>
+
+<section>
+  <h2>Attribution model (verified)</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Event</th><th>Rule (official)</th><th>Value</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Session start</td>
+        <td>“a customer clicks through a Special Link on your Site to an Amazon Site”.</td>
+        <td>Click</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">CIS §1</a></td>
+      </tr>
+      <tr>
+        <td>Session end</td>
+        <td>First of: 24 hours elapse, customer places an order (non-digital), or customer clicks another Associate's Special Link.</td>
+        <td>24 h</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">CIS §1</a></td>
+      </tr>
+      <tr>
+        <td>Cart credit</td>
+        <td>Items added to cart in-session and ordered ≤ 89 days after the initial click-through qualify.</td>
+        <td>89 days</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">CIS §1</a></td>
+      </tr>
+      <tr>
+        <td>Ship &amp; pay condition</td>
+        <td>Within 180 days of purchase the product must be shipped/streamed/downloaded and paid for.</td>
+        <td>180 days</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">CIS §1</a></td>
+      </tr>
+      <tr>
+        <td>Disqualifiers</td>
+        <td>Cancellations/returns/refunds; improperly formatted links; Prohibited Paid Search Placements; Redirecting Links; self/related-party purchases (§2(u)); artificial clicks (§2(s)).</td>
+        <td>—</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">CIS §2</a></td>
+      </tr>
+      <tr>
+        <td>Reporting source of truth</td>
+        <td>Amazon's Associates Central reports summarize commission income; paid ~60 days after month end.</td>
+        <td>Associates Central</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">CIS §6</a></td>
+      </tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Event schema (first-party click tracking)</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Field</th><th>Description</th><th>Collected?</th><th>Notes / source</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>event_ts</td><td>Timestamp (UTC) of the outbound click.</td><td><span class="badge ok">yes</span></td><td>First-party analytics; cookie/privacy disclosure required (Policies §3(e)).</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>page_id</td><td>Which content page fired the click.</td><td><span class="badge ok">yes</span></td><td>Maps to content plan IDs (S1–S7).</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>product_asin</td><td>Target ASIN of the Special Link.</td><td><span class="badge ok">yes</span></td><td>ASINs may be stored indefinitely (IP License §2(h)).</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>sub_tag</td><td>Static campaign sub-tag in the link (if approved).</td><td><span class="badge ok">yes</span></td><td>Per Policies §2(b): sub-tags allowed for performance monitoring — never assigned per end user.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>link_format</td><td>Special Link / a.co / amzn.to.</td><td><span class="badge ok">yes</span></td><td>Ensures §2(w) clarity compliance in audits.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>visitor identifiers</td><td>Per-user profiles tied to sub-tags.</td><td><span class="badge bad">no</span></td><td>Prohibited: dynamic per-end-user sub-tag association (Policies §2(b)).</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>price / availability history</td><td>Historical price series or alerts.</td><td><span class="badge bad">no</span></td><td>Prohibited on the Site (Policies §2(y)).</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>conversion &amp; revenue</td><td>Orders, shipped items, commission.</td><td><span class="badge neutral">via Amazon</span></td><td>Only from Associates Central reports — no self-reported conversion numbers.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>KPI definitions (formulas only — no fabricated values)</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>KPI</th><th>Formula</th><th>Data source</th><th>Current value</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Outbound click rate</td><td class="mono">clicks ÷ page views</td><td>first-party analytics</td><td class="blank">— pending live traffic</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>Earnings per click (EPC)</td><td class="mono">commission income ÷ clicks</td><td>Associates Central + analytics</td><td class="blank">— pending account</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>Conversion rate</td><td class="mono">qualifying purchases ÷ sessions</td><td>Associates Central</td><td class="blank">— pending account</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>Revenue per article</td><td class="mono">commission by sub-tag ÷ article</td><td>Associates Central (sub-tag reports)</td><td class="blank">— pending account</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>Content ROI</td><td class="mono">(commission − content cost) ÷ content cost</td><td>internal + Associates Central</td><td class="blank">— pending account</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Amazon explicitly does not guarantee traffic or income (OA: “We do not make any representation …
+  regarding the amount of traffic or commission income you can expect”). KPIs are for internal optimization only.</p>
+</section>
+
+<section>
+  <h2>Optimization loop</h2>
+  <div class="card">
+    <ul class="tight">
+      <li><strong>Measure:</strong> per-page click-through via first-party analytics; commissions via Associates Central reports.</li>
+      <li><strong>Compare:</strong> EPC and conversion by article (S1–S7) and by product.</li>
+      <li><strong>Improve:</strong> rewrite low-CTR blocks, re-order comparison tables, expand winning content clusters.</li>
+      <li><strong>Guardrails:</strong> never incentivize clicks (§2(g)), never fabricate engagement (§2(s)), keep disclosures adjacent to links.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer"><div class="inner">
+  <p><strong>As an Amazon Associate I earn from qualifying purchases.</strong></p>
+  <p><a href="https://github.com/kanlerxz87-cyber/Zone1">Repository</a> · <a href="../compliance/">Compliance</a> · <a href="../sources/">Sources</a></p>
+</div></footer>
+
+</body>
+</html>

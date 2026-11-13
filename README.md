@@ -132,3 +132,19 @@ node scripts/build.mjs                 # main site; also requires every research
 
 Neither generator touches the other's files. The only cross-file dependency is the nav entry in
 `scripts/build.mjs` and the output-existence check that keeps that nav entry from rotting.
+
+
+---
+
+## Third build — `session-3740f69d/`
+
+An independent build by session `arena-3740f69d`, published at
+**[`session-3740f69d/index.html`](session-3740f69d/index.html)** (URL path `/session-3740f69d/`). It contributes a
+dashboard-style site with subpages by category (Products, Analysis, Niches, Content, Links, Tracking, Platform,
+Compliance, Flagged, Sources), a marketing-content set (buying guide + comparison + per-product copy), and its own
+machine-readable registry in `session-3740f69d/data/`. Like the other builds, every table row carries an official
+source link or a policy-cited blank. Independent highlights: cache-busted double resolution of the three short links;
+the 2026 IP License §4 **Agent Terms** analysis for AI automation; link-policy mapping (§2(v)(w)) for the supplied
+`link.amazon` links; verified Commission Table 1 candidates (Kitchen 4.50% / All Other 4.00%) with the per-product
+mapping left flagged. Full record: `COORDINATION.md` → *Integration pass 3*.
+

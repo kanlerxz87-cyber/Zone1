@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flagged for Review — Zone1</title>
+<meta name="description" content="Irregularities and unverified items with evidence and source links, published for post-launch review.">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../">Zone1<span class="tag">Affiliate Research &amp; Marketing Platform</span></a>
+    <nav class="main">
+      <a href="../">Dashboard</a>
+      <a href="../products/">Products</a>
+      <a href="../analysis/">Analysis</a>
+      <a href="../niches/">Niches</a>
+      <a href="../content/">Content</a>
+      <a href="../links/">Links</a>
+      <a href="../tracking/">Tracking</a>
+      <a href="../platform/">Platform</a>
+      <a href="../compliance/">Compliance</a>
+      <a href="./" class="current">Flagged</a>
+      <a href="../sources/">Sources</a>
+    </nav>
+  </div>
+</header>
+
+<div class="disclosure-bar"><div class="inner">
+  <strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases.
+</div></div>
+
+<main>
+
+<section>
+  <h1>Flagged for review</h1>
+  <p class="lead">Irregularities, unverified items, and policy-restricted blanks — each with evidence and source links so
+  you can review after the site is live. None of these block the launch; each names what would resolve it.</p>
+</section>
+
+<section>
+  <div class="table-wrap"><table>
+    <thead>
+      <tr><th>ID</th><th>Item</th><th>What we found (evidence)</th><th>Why it's flagged</th><th>How to resolve</th><th>Source links</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>F1</strong></td>
+        <td>Provided IDs <code>B04G1MEwY</code>, <code>B02NbDxp3</code>, <code>B00hJ57DV</code></td>
+        <td>Each ID is 9 characters with mixed case. Amazon ASINs are 10 characters. Direct lookups
+          <a href="https://www.amazon.com/dp/B04G1MEwY">/dp/B04G1MEwY</a>,
+          <a href="https://www.amazon.com/dp/B02NbDxp3">/dp/B02NbDxp3</a>,
+          <a href="https://www.amazon.com/dp/B00hJ57DV">/dp/B00hJ57DV</a> all return “Page Not Found” (2026-11-13).</td>
+        <td><span class="badge bad">irregular</span> The IDs are not ASINs. Products are identified only through the
+          <code>link.amazon</code> redirects.</td>
+        <td>Confirm the intended products (see F3). When available, use the real ASINs (10 chars) for the registry.</td>
+        <td><a href="https://webservices.amazon.com/paapi5/documentation/get-items.html">PA API docs</a> ·
+            <a href="https://kdp.amazon.com/en_US/help/topic/G200652190">KDP help</a> ·
+            <a href="https://www.amazon.com/dp/B04G1MEwY">404 evidence</a></td>
+      </tr>
+      <tr>
+        <td><strong>F2</strong></td>
+        <td><code>link.amazon</code> short-link domain</td>
+        <td>All three provided links live on <code>link.amazon</code> and redirect (stably, 2026-11-13) to amazon.com
+          product pages with tracking parameters (<code>channelId=704</code>, <code>plpRedirect=mhFallback</code>,
+          <code>lv=shuf</code>).</td>
+        <td><span class="badge warn">unverified provenance</span> The domain is not among Amazon's publicly documented
+          short-link domains (a.co, amzn.to, amzn.com). Ownership/provenance could not be confirmed from an official
+          source. Participation Requirements §2(w) also require that link shortening make clear the Amazon destination.</td>
+        <td>Confirm who issued these links (e.g., copied from an Amazon marketing email/app). Replace with your own
+          tagged Special Links before publishing monetized content.</td>
+        <td><a href="https://link.amazon/B04G1MEwY">link 1</a> ·
+            <a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §2(w)</a></td>
+      </tr>
+      <tr>
+        <td><strong>F3</strong></td>
+        <td>ID → product mapping</td>
+        <td>Stable observed mapping (2× cache-busted fetches each):
+          B04G1MEwY → <a href="https://www.amazon.com/dp/B0CDY277D3">B0CDY277D3</a> (Chefman 6 Qt Dual Basket);
+          B02NbDxp3 → <a href="https://www.amazon.com/dp/B09B7SB46R">B09B7SB46R</a> (Emeril Lagasse 26QT);
+          B00hJ57DV → <a href="https://www.amazon.com/dp/B08DKYBTPH">B08DKYBTPH</a> (Chefman 8 Qt TurboFry).
+          Resolved ASINs differ from the provided IDs.</td>
+        <td><span class="badge warn">confirm intended products</span> For a short-link service an ID≠ASIN mapping is
+          expected — but since the service itself is undocumented (F2), the mapping is recorded as an observation,
+          not asserted as fact.</td>
+        <td>Verify the three products above are the ones you intend to market. If not, supply the correct ASINs and the
+          registry + content will be re-pointed.</td>
+        <td><a href="../products/">Product registry evidence</a></td>
+      </tr>
+      <tr>
+        <td><strong>F4</strong></td>
+        <td>Commission rates</td>
+        <td>Fixed category rates ARE public and verified: Table 1 of the
+          <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ">Standard Commission Income Statement</a> (Kitchen 4.50%; Home, Home Improvement 3.00%;
+          All Other Categories 4.00% — full table on the source page). What is not published: which table row an
+          air-fryer ASIN maps to. <a href="https://affiliate-program.amazon.com/help/operating/schedule">/help/operating/schedule</a>
+          also redirects (2026-11-13) to an account-specific rate card (<code>home/account/payment/customratecard</code>).</td>
+        <td><span class="badge warn">mapping unverified</span> Per-product commission rate left blank with candidate
+          rows — never selected by guess.</td>
+        <td>Confirm the category mapping in Associates Central (or the account rate card), then fill the per-product
+          rate from the candidate rows.</td>
+        <td><a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ">Rate Table 1</a> ·
+            <a href="https://affiliate-program.amazon.com/help/operating/schedule">rate card (login)</a></td>
+      </tr>
+      <tr>
+        <td><strong>F5</strong></td>
+        <td>Prices, star ratings, review counts</td>
+        <td>Observed on Amazon product pages and Best Sellers pages during research, but deliberately not republished
+          anywhere in this repository.</td>
+        <td><span class="badge warn">restricted by policy</span> Participation Requirements §2(b) (prices) and §6(t)
+          (reviews/star ratings) permit display only via Amazon-served links or PA/Creators API data. Publishing scraped
+          values would risk account termination.</td>
+        <td>Get PA API access, then populate price/rating fields with §2(i) timestamps and disclaimers.</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §2(b), §6(t)</a></td>
+      </tr>
+      <tr>
+        <td><strong>F6</strong></td>
+        <td>Deep PDP specifications (wattage, dimensions, weight)</td>
+        <td>Product detail page fetches intermittently returned stripped or anti-bot “Continue shopping” pages
+          (2026-11-13). Only listing-title-level attributes were captured.</td>
+        <td><span class="badge neutral">unverified</span> Spec rows beyond verified attributes are left blank rather than
+          inferred from similar models.</td>
+        <td>Re-run PDP verification from the automated agent (IP License §4 compliant) or load attributes via PA API
+          (<code>ItemInfo.Features</code>, <code>ItemInfo.ItemDimensions</code>).</td>
+        <td><a href="https://www.amazon.com/dp/B0CDY277D3">PDP 1</a> ·
+            <a href="https://www.amazon.com/dp/B09B7SB46R">PDP 2</a> ·
+            <a href="https://www.amazon.com/dp/B08DKYBTPH">PDP 3</a></td>
+      </tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Review notes</h2>
+  <div class="notice">
+    <p>To request changes, edit this page's source at
+    <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/session-3740f69d/flagged/index.html">session-3740f69d/flagged/index.html</a>
+    or open an issue in the repository. Items can be downgraded to <code>resolved</code> once evidence is attached in
+    <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/COORDINATION.md">COORDINATION.md</a>.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer"><div class="inner">
+  <p><strong>As an Amazon Associate I earn from qualifying purchases.</strong></p>
+  <p><a href="https://github.com/kanlerxz87-cyber/Zone1">Repository</a> · <a href="../sources/">Sources</a> · <a href="../compliance/">Compliance</a></p>
+</div></footer>
+
+</body>
+</html>

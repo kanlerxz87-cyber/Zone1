@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Affiliate Links — Zone1</title>
+<meta name="description" content="Affiliate link registry, compliant Special Link formats, and link-policy constraints.">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="bar">
+    <a class="brand" href="../">Zone1<span class="tag">Affiliate Research &amp; Marketing Platform</span></a>
+    <nav class="main">
+      <a href="../">Dashboard</a>
+      <a href="../products/">Products</a>
+      <a href="../analysis/">Analysis</a>
+      <a href="../niches/">Niches</a>
+      <a href="../content/">Content</a>
+      <a href="./" class="current">Links</a>
+      <a href="../tracking/">Tracking</a>
+      <a href="../platform/">Platform</a>
+      <a href="../compliance/">Compliance</a>
+      <a href="../flagged/">Flagged</a>
+      <a href="../sources/">Sources</a>
+    </nav>
+  </div>
+</header>
+
+<div class="disclosure-bar"><div class="inner">
+  <strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases.
+</div></div>
+
+<main>
+
+<section>
+  <h1>Affiliate link management</h1>
+  <p class="lead">Link registry, the compliant Special Link format, and the rules that govern shortening, cloaking,
+  and placement. Publication-ready links require an Associates account tag — placeholders below are marked, not
+  invented.</p>
+</section>
+
+<section>
+  <h2>Link registry</h2>
+  <div class="table-wrap"><table>
+    <thead>
+      <tr><th>#</th><th>Product</th><th>ASIN</th><th>Current link (as provided)</th><th>Compliant replacement (Special Link)</th><th>Status</th><th>Source</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Chefman 6 Qt Dual Basket</td>
+        <td><code>B0CDY277D3</code></td>
+        <td><a href="https://link.amazon/B04G1MEwY">link.amazon/B04G1MEwY</a><br><span class="badge warn">undocumented short-link domain (F2)</span></td>
+        <td class="mono">https://www.amazon.com/dp/B0CDY277D3?tag=&lt;YOUR-ASSOCIATE-ID&gt;-20</td>
+        <td><span class="badge neutral">awaiting account tag</span></td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §2(b)</a></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Emeril Lagasse 26QT</td>
+        <td><code>B09B7SB46R</code></td>
+        <td><a href="https://link.amazon/B02NbDxp3">link.amazon/B02NbDxp3</a><br><span class="badge warn">undocumented short-link domain (F2)</span></td>
+        <td class="mono">https://www.amazon.com/dp/B09B7SB46R?tag=&lt;YOUR-ASSOCIATE-ID&gt;-20</td>
+        <td><span class="badge neutral">awaiting account tag</span></td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §2(b)</a></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Chefman 8 Qt TurboFry</td>
+        <td><code>B08DKYBTPH</code></td>
+        <td><a href="https://link.amazon/B00hJ57DV">link.amazon/B00hJ57DV</a><br><span class="badge warn">undocumented short-link domain (F2)</span></td>
+        <td class="mono">https://www.amazon.com/dp/B08DKYBTPH?tag=&lt;YOUR-ASSOCIATE-ID&gt;-20</td>
+        <td><span class="badge neutral">awaiting account tag</span></td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §2(b)</a></td>
+      </tr>
+    </tbody>
+  </table></div>
+  <p class="small">Special Links “must include your Associates ID or ‘tag’ (appearing as XXXXX-##, or such other format
+  as we may designate) as a parameter in the URL” (Participation Requirements §2(b),
+  <a href="https://affiliate-program.amazon.com/help/operating/policies">source</a>). The <code>-20</code> suffix is the
+  standard US marketplace tag format; your actual tag is issued at enrollment and is left as a placeholder here.</p>
+</section>
+
+<section>
+  <h2>Link policy constraints</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>#</th><th>Rule</th><th>Practical effect</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>L1</td>
+        <td>Links must use the “tagged” Special Link formats Amazon provides (OA §1).</td>
+        <td>Build links with your tag via SiteStripe / Link Tools / PA API — not hand-untagged URLs.</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/agreement">Operating Agreement §1</a></td>
+      </tr>
+      <tr>
+        <td>L2</td>
+        <td>Shortening is allowed but “you will not use a link shortening service … in a manner that makes it unclear that you are linking to an Amazon Site” (§2(w)).</td>
+        <td>Prefer <code>a.co</code> / <code>amzn.to</code> (Amazon's own shorteners). The provided <code>link.amazon</code> links fail this clarity test for our readers → replace before publishing.</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §2(w)</a></td>
+      </tr>
+      <tr>
+        <td>L3</td>
+        <td>“You will not cloak, hide, spoof, or otherwise obscure the URL” containing Special Links (§2(v)).</td>
+        <td>No redirect layers that hide the Amazon destination.</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §2(v)</a></td>
+      </tr>
+      <tr>
+        <td>L4</td>
+        <td>“Redirecting Links” that route users to Amazon via an intermediate page without affirmative action are disqualified (Commission Income Statement §2(e)).</td>
+        <td>Clicking our link goes straight to Amazon — no interstitial hops.</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Commission Income Statement §2(e)</a></td>
+      </tr>
+      <tr>
+        <td>L5</td>
+        <td>“You must not encourage customers to bookmark your Special Links” (§2(b)).</td>
+        <td>No “save this link” prompts.</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §2(b)</a></td>
+      </tr>
+      <tr>
+        <td>L6</td>
+        <td>No Special Links in content placed on Amazon sites (reviews, lists, forums) (§2(p)); no posting them on Amazon to promote them (§2(b)).</td>
+        <td>Links live only on our Site and approved channels.</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §2</a></td>
+      </tr>
+      <tr>
+        <td>L7</td>
+        <td>Special Links in email/SMS/DM only if the recipient opted in (§4).</td>
+        <td>Newsletter placement requires confirmed opt-in list.</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §4</a></td>
+      </tr>
+      <tr>
+        <td>L8</td>
+        <td>Sub-tag tracking IDs may be issued “upon your request but subject to our approval” to monitor performance — but may not be dynamically assigned per end user (§2(b)).</td>
+        <td>Static sub-tags per campaign/page are OK; per-visitor tag assignment is not.</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §2(b)</a></td>
+      </tr>
+      <tr>
+        <td>L9</td>
+        <td>Prohibited Paid Search Placement: no buying ads on “amazon”, “kindle” or other Amazon marks as keywords (CIS §2(c)).</td>
+        <td>Paid search campaigns exclude brand terms.</td>
+        <td><a href="https://affiliate-program.amazon.com/help/operating/policies">Commission Income Statement §2(c)</a></td>
+      </tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Build-a-link quick reference</h2>
+  <div class="card">
+    <ul class="tight">
+      <li><strong>Canonical product link:</strong> <span class="mono">https://www.amazon.com/dp/&lt;ASIN&gt;</span></li>
+      <li><strong>Tagged Special Link:</strong> <span class="mono">https://www.amazon.com/dp/&lt;ASIN&gt;?tag=&lt;YOUR-ASSOCIATE-ID&gt;-20</span></li>
+      <li><strong>Amazon's shorteners:</strong> <span class="mono">https://a.co/d/&lt;code&gt;</span> (Associates) · <span class="mono">https://amzn.to/&lt;code&gt;</span> (consumer sharing) — both resolve to amazon.com.</li>
+      <li><strong>Never:</strong> untagged links in monetized content, third-party cloakers, per-user tags, or links that obscure the Amazon destination.</li>
+    </ul>
+    <p class="small">Short-domain formats reported by public documentation; the authoritative tag format is Policies §2(b)
+    (source linked in the table above).</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer"><div class="inner">
+  <p><strong>As an Amazon Associate I earn from qualifying purchases.</strong></p>
+  <p><a href="https://github.com/kanlerxz87-cyber/Zone1">Repository</a> · <a href="../compliance/">Compliance</a> · <a href="../sources/">Sources</a></p>
+</div></footer>
+
+</body>
+</html>

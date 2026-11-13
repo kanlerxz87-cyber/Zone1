@@ -97,6 +97,8 @@ NAV = [
     ("executive-summary.html", "Executive summary", "Decision-ready briefing"),
     # Additive section contributed by parallel session 8a2ddd06 (own data, own source register).
     ("research/index.html", "Deep-dive research ↗", "Independent 25-source verification pass"),
+    # Additive section contributed by parallel session arena-3740f69d (own data, own source register).
+    ("session-3740f69d/index.html", "Session 3740f69d build ↗", "Independent dashboard build — link analysis, tracking design, AI Agent-Terms compliance"),
     # Additive section contributed by parallel session zone1-s2 (own data in data/s2/, own site in s2/).
     ("s2/index.html", "Verified platform pass ↗", "Compliance matrix, verification log, and this pass's own flags"),
 ]
@@ -345,6 +347,15 @@ def layout(page_rel, title, body, active=None, description=""):
         f'<span class="sub">ASIN {e(p["asin"]["v"])}</span></a>'
         for p in PRODUCT_LIST
     )
+    # additive nav entries contributed by parallel sessions (rendered as "More builds")
+    more_items = [
+        f'<a href="{prefix}{href}">{e(label)}<span class="sub">{e(sub)}</span></a>'
+        for href, label, sub in NAV[9:]
+    ]
+    more_nav = (
+        '<div class="group"><h4>More builds</h4>' + "".join(more_items) + "</div>"
+        if more_items else ""
+    )
     desc = f'<meta name="description" content="{e(description)}">' if description else ""
     return f"""<!doctype html>
 <html lang="en">
@@ -394,6 +405,7 @@ def layout(page_rel, title, body, active=None, description=""):
       {nav_html[7]}
       {nav_html[8]}
     </div>
+    {more_nav}
   </aside>
   <main>
     {body}
@@ -645,6 +657,20 @@ def page_index():
     <tr><td>{flag_pill('conflict')}</td><td>Two official sources state different things and neither can be preferred.</td><td>Both claims quoted side by side; no single value asserted.</td></tr>
   </tbody>
 </table>
+</div>
+<div class="panel" style="margin-top:20px">
+  <h3>Independent builds in this repository</h3>
+  <p class="muted small">Several agent sessions worked this repository concurrently; each build is preserved and served alongside this one.</p>
+  <table class="rows">
+    <caption>Session builds and annexes</caption>
+    <thead><tr><th>Build</th><th>What it adds</th></tr></thead>
+    <tbody>
+      <tr><td><a href="research/index.html">Deep-dive research ↗</a></td><td>Independent 25-source verification pass (session 8a2ddd06).</td></tr>
+      <tr><td><a href="site/index.html">Verification annex ↗</a></td><td>Independent dataset and generator, 53 spec fields, Kitchen 4.50% rate row (session 1874bb64).</td></tr>
+      <tr><td><a href="session-3740f69d/index.html">Session 3740f69d build ↗</a></td><td>Dashboard build: link-resolution evidence, affiliate-link policy mapping, tracking design, AI Agent-Terms compliance (session arena-3740f69d).</td></tr>
+      <tr><td><a href="crosscheck/arena-4ba9e055/README.md">Cross-check reports ↗</a></td><td>Independent cross-check notes (session arena-4ba9e055).</td></tr>
+    </tbody>
+  </table>
 </div>
 <p class="tiny muted">"Official" in this project means: Amazon.com for Amazon program facts and for which ASIN a link resolves to; a US government source for US law; the manufacturer for product specifications. Retailer listings, reseller marketplaces, review aggregators and affiliate blogs are not treated as sources — several of them contradicted each other and the official rate table on the day of verification.</p>
 """
