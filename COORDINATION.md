@@ -48,7 +48,7 @@ and does not block anything.
 - **Pull request:** https://github.com/kanlerxz87-cyber/Zone1/pull/1 (`arena/d14c5409-zone1` → `main`)
 - **Checks before merge:** `node scripts/build.mjs` passed (3 products, 18/30 fields verified, 16 flags, 12 sources, 7 pages); all internal links resolve; HTTP 200 on all pages locally.
 - **Merge result:** pending (updated below after merge).
-- **Pages:** source to be switched from `main` `/` to `main` `/docs` after the merge, then the deploy is checked.
+- **Pages:** the integration token got HTTP 403 when switching the Pages source to `/docs`, so the source stays `main` `/`. A generated root `index.html` redirects to `docs/index.html` (second PR, see below).
 
 ## Handoff / conflict log
 

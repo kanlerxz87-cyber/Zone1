@@ -550,4 +550,23 @@ for (const f of ["products.json", "sources.json", "compliance.json", "flags.json
   copyFileSync(join(DATA, f), join(OUT, "data", f));
 }
 writeFileSync(join(OUT, ".nojekyll"), "", "utf8");
-console.log(`Built ${built.length} pages into docs/`);
+// Repo-root entry point for GitHub Pages (source: main "/"). Redirects to the built site in docs/.
+const ROOT_REDIRECT = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amazon Affiliate Product Research - Zone1</title>
+<meta http-equiv="refresh" content="0; url=docs/index.html">
+<link rel="canonical" href="docs/index.html">
+</head>
+<body>
+<p>Opening the dashboard: <a href="docs/index.html">docs/index.html</a></p>
+<script>location.replace("docs/index.html");</script>
+</body>
+</html>
+`;
+if (!existsSync(join(OUT, "index.html"))) throw new Error("docs/index.html missing");
+writeFileSync(join(ROOT, "index.html"), ROOT_REDIRECT, "utf8");
+writeFileSync(join(ROOT, ".nojekyll"), "", "utf8");
+console.log(`Built ${built.length} pages into docs/; wrote root redirect index.html`);

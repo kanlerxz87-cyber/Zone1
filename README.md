@@ -25,7 +25,8 @@ Repo review log: [REVIEW.md](REVIEW.md). Shared task board: [COORDINATION.md](CO
 | `data/flags.json` | Flagged-for-review items with severity, sources and the action needed. |
 | `data/site.json` | Site-level settings, including the Associates status shown in the disclosure banner. |
 | `scripts/build.mjs` | Validates all data, then writes the static site to `docs/`. No dependencies. |
-| `docs/` | Generated site. GitHub Pages publishes this folder from `main`. |
+| `docs/` | Generated site. Opened through the root `index.html` redirect (Pages source is `main` `/`). |
+| `index.html` (root) | Generated redirect to `docs/index.html`, so the Pages URL opens the site. |
 
 ## Build and check
 

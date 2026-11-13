@@ -1,6 +1,6 @@
 # Executive summary — Amazon affiliate product research (as of 2026-11-13)
 
-**Live site:** https://kanlerxz87-cyber.github.io/Zone1/ (publishes from `main` `/docs` once this PR is merged)
+**Live site:** https://kanlerxz87-cyber.github.io/Zone1/ (served from `main` at `/`; a root redirect opens `docs/`)
 **Repository:** https://github.com/kanlerxz87-cyber/Zone1
 **Branch:** `arena/d14c5409-zone1` (based on `main` @ `42f4036`)
 
