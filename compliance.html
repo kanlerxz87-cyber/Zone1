@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compliance &middot; Air Fryer Affiliate Intelligence</title>
+<meta name="description" content="Verified data, sourced line by line, for three air fryers.">
+<meta name="robots" content="index,follow">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">AF</span>
+      <span class="brand-text">Air Fryer Affiliate Intelligence</span>
+    </a>
+    <nav class="nav" aria-label="Main"><a href="index.html">Dashboard</a>
+<a href="products.html">Products</a>
+<a href="compare.html">Compare</a>
+<a href="guides.html">Buying guides</a>
+<a href="compliance.html" class="active" aria-current="page">Compliance</a>
+<a href="methodology.html">Method</a>
+<a href="sources.html">Sources</a>
+<a href="flagged.html">Flagged</a></nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+  <h1>Compliance</h1>
+  <p class="page-sub">Amazon Associate and FTC requirements, quoted from the source documents.</p>
+  
+<div class="banner banner-warn" role="note">
+  <strong>Links are not yet tagged.</strong> No Associates tag is configured, so no outbound
+  link on this site can currently earn a commission. Set <code>associate_tag</code> in
+  <code>data/config.json</code> and rebuild. Tracked as <a href="flagged.html#F-10">F-10</a>.
+</div>
+  
+<div class="disclosure" role="note">
+  <p class="disclosure-main"><strong>As an Amazon Associate I earn from qualifying purchases.</strong></p>
+  <p class="disclosure-sub">I get commissions for purchases made through links on this page. Links below go to Amazon.
+  Prices, ratings and availability on Amazon change; always confirm on the Amazon page before buying.</p>
+</div>
+  
+<p class="lede">Twenty requirements, each read directly from Amazon's own program documents or from
+the FTC's published guidance. Every row quotes the operative sentence so you can check it yourself
+without trusting this page.</p>
+
+<div class="banner banner-info">
+  <p><strong>Two rules shaped this entire site more than any other.</strong> Amazon permits showing
+  prices and availability only when Amazon serves them or they come through the Creators API
+  (&sect;2(b)), and permits showing Amazon reviews or star ratings only when they come through that
+  API (&sect;3(t)). Neither condition is met here. So this site shows <em>no</em> Amazon prices and
+  <em>no</em> Amazon ratings &mdash; every such cell is blank, and each blank links to
+  <a href="flagged.html#F-08">F-08</a>. A third rule matters just as much: Amazon prohibits
+  price-tracking and price-alert functionality (&sect;3(y)), so none is built.</p>
+</div>
+
+<div class="table-wrap">
+<table class="compliance">
+  <thead><tr>
+    <th scope="col">ID</th><th scope="col">Area</th><th scope="col">Requirement &amp; quote</th>
+    <th scope="col">What this site does</th><th scope="col">Status</th>
+  </tr></thead>
+  <tbody><tr id="C-01">
+<td class="mono">C-01</td>
+<td><strong>Disclosure — required wording</strong></td>
+<td>The Site must clearly and prominently state the following, or a substantially similar statement previously allowed: “As an Amazon Associate I earn from qualifying purchases.”<blockquote>You must clearly and prominently state the following, or any substantially similar statement previously allowed under this Agreement, on your Site or any other location where Amazon may authorize your display or other use of Program Content: “As an Amazon Associate I earn from qualifying purchases.”</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener nofollow" target="_blank" title="Amazon Associates Operating Agreement — §5 “Identifying Yourself as an Associate”">Agreement §5 &#8599;</a> &middot; Operating Agreement §5</div></td>
+<td>The exact sentence is rendered verbatim in the site-wide footer of every page and again in the disclosure block directly above each product table.
+  <div class="cell-note"><code>index.html, products.html, compare.html, guides.html, compliance.html, flagged.html, methodology.html, executive-summary.html</code></div></td>
+<td><span class="chip chip-verified">Verified</span> </td>
+</tr><tr id="C-02">
+<td class="mono">C-02</td>
+<td><strong>Disclosure — affiliate-link adequacy (FTC)</strong></td>
+<td>An affiliate relationship must be disclosed clearly and conspicuously, close to the recommendation. The words “affiliate link” alone are NOT adequate, because consumers may not understand that the linker is paid.<blockquote>Consumers might not understand that “affiliate link” means that the person placing the link is getting paid for purchases made through the link.</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" rel="noopener nofollow" target="_blank" title="FTC — Endorsement Guides: What People Are Asking (staff guidance)">FTC guidance &#8599;</a> &middot; “What about affiliate or network marketing?”</div></td>
+<td>Every page carries the plain-language sentence “I get commissions for purchases made through links on this page” (the exact example the FTC gives) immediately beside the outbound links, in addition to the Amazon sentence. The bare phrase “affiliate link” is never used as the only disclosure.
+  <div class="cell-note"><code>all pages — disclosure banner</code></div></td>
+<td><span class="chip chip-verified">Verified</span> </td>
+</tr><tr id="C-03">
+<td class="mono">C-03</td>
+<td><strong>Disclosure — a single site-wide notice is insufficient (FTC)</strong></td>
+<td>A single disclosure on the home page is not enough, because a visitor may land directly on an individual review page.<blockquote>A single disclosure on your home page won’t be sufficient because people visiting your site might read individual reviews or watch individual videos without seeing the disclosure on your home page.</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" rel="noopener nofollow" target="_blank" title="FTC — Endorsement Guides: What People Are Asking (staff guidance)">FTC guidance &#8599;</a> &middot; “How Should I Disclose…”</div></td>
+<td>The disclosure block is a repeatable component injected into every generated page, not just the home page. The build script fails if any page lacks it.
+  <div class="cell-note"><code>scripts/build_site.py — disclosure partial</code></div></td>
+<td><span class="chip chip-verified">Verified</span> </td>
+</tr><tr id="C-04">
+<td class="mono">C-04</td>
+<td><strong>Disclosure — codified rule</strong></td>
+<td>Material connections between an endorser and the seller must be disclosed.<blockquote>§255.5 Disclosure of material connections.</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255" rel="noopener nofollow" target="_blank" title="16 CFR Part 255 — Guides Concerning Use of Endorsements and Testimonials in Advertising (eCFR, current as of 11/10/2026)">16 CFR 255 &#8599;</a> &middot; 16 CFR §255.5</div></td>
+<td>Commission relationship disclosed per C-01/C-02; no compensation from any party other than the Amazon Associates Programme is received, and the site states that explicitly.
+  <div class="cell-note"><code>compliance.html</code></div></td>
+<td><span class="chip chip-verified">Verified</span> </td>
+</tr><tr id="C-05">
+<td class="mono">C-05</td>
+<td><strong>Commission rate</strong></td>
+<td>Standard commission income is a fixed rate by product category. The published table sets Kitchen at 4.50%.<blockquote>Physical Books, Kitchen, Automotive | 4.50%</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener nofollow" target="_blank" title="Amazon Associates Standard Commission Income Statement — Table 1 fixed rates by category">Amazon rate card &#8599;</a> &middot; Table 1 — Fixed Standard Commission Income Rates for Specific Product Categories</div></td>
+<td>All three products are small kitchen appliances, so 4.50% is the published category rate applied in the revenue model. The model is labelled a projection, not a forecast or guarantee.
+  <div class="cell-note"><code>products.html, executive-summary.html, methodology.html</code></div></td>
+<td><span class="chip chip-verified">Verified</span> </td>
+</tr><tr id="C-06">
+<td class="mono">C-06</td>
+<td><strong>Session and attribution windows</strong></td>
+<td>A click opens a 24-hour session; an item added to the cart can complete up to 89 days after the click; the product must ship and be paid for within 180 days.<blockquote>(x) 24 hours elapse from that click … (i) the customer purchases a Product by adding a Product to his or her shopping cart and completing the order for that Product no later than 89 days after their initial click-through of the Special Link … (iii) within 180 days of the purchase, the Product is shipped to, streamed or downloaded by, and paid for by the customer</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank" title="Amazon Associates Program Policies — Commission Income Statement, §1 (Qualifying Purchases / Session)">Commission Statement &#8599;</a> &middot; Commission Income Statement §1</div></td>
+<td>Documented in the methodology page so the revenue model&#x27;s assumptions are auditable. No claim of earnings is made.
+  <div class="cell-note"><code>methodology.html, executive-summary.html</code></div></td>
+<td><span class="chip chip-verified">Verified</span> </td>
+</tr><tr id="C-07">
+<td class="mono">C-07</td>
+<td><strong>Prices and availability</strong></td>
+<td>The Site may show prices and availability only if Amazon serves the link containing that data, or the data is obtained through the Creators API / PA API under the licence.<blockquote>your Site may only show prices and availability if: (a) we serve the link in which that price and availability data are displayed, or (b) you obtain Product pricing and availability data via Creators API or PA API</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank" title="Amazon Associates Program Policies (page states: Updated April 14, 2026)">Amazon policies &#8599;</a> &middot; Participation Requirements §2(b)</div></td>
+<td>STRICT COMPLIANCE DECISION: no Amazon price and no Amazon availability is published anywhere on this site. The only prices shown are the brand&#x27;s own store prices on chefman.com and emerileveryday.com, each labelled as such and linked to its source. Amazon price cells are deliberately blank and marked unverified.
+  <div class="cell-note"><code>products.json — all Amazon price rows, products.html, flagged.html</code></div></td>
+<td><span class="chip chip-verified">Verified</span> </td>
+</tr><tr id="C-08">
+<td class="mono">C-08</td>
+<td><strong>Price tracking / price alerts</strong></td>
+<td>“Unless otherwise agreed by Amazon, your Site must not have price tracking and/or price alerting functionality.”<blockquote>Unless otherwise agreed by Amazon, your Site must not have price tracking and/or price alerting functionality.</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank" title="Amazon Associates Program Policies (page states: Updated April 14, 2026)">Amazon policies &#8599;</a> &middot; Participation Requirements §3(y)</div></td>
+<td>CONSTRAINT ON THE PRODUCT ROADMAP: the platform&#x27;s “analyze pricing” capability is scoped to the brand&#x27;s own published store prices and to on-page analysis of the data the operator is licensed to display. No consumer-facing price tracker, price-drop alert, or price history chart is built. This is called out as an explicit non-feature on the compliance page.
+  <div class="cell-note"><code>compliance.html, methodology.html</code></div></td>
+<td><span class="chip chip-verified">Verified</span> </td>
+</tr><tr id="C-09">
+<td class="mono">C-09</td>
+<td><strong>Product reviews and star ratings</strong></td>
+<td>Amazon customer reviews or star ratings may not be displayed unless obtained through the Creators API / PA API and used per the licence.<blockquote>You will not display or otherwise use any of our customer reviews or star ratings, in part or in whole, on your Site unless you have obtained a link to that customer review or star rating through Creators API or PA API</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank" title="Amazon Associates Program Policies (page states: Updated April 14, 2026)">Amazon policies &#8599;</a> &middot; Participation Requirements §3(t)</div></td>
+<td>No Amazon review text or Amazon star rating appears on the site. The ratings shown are the brands&#x27; own storefront ratings, each labelled “brand-store rating” with a link to the brand page it came from.
+  <div class="cell-note"><code>products.json, products.html</code></div></td>
+<td><span class="chip chip-verified">Verified</span> </td>
+</tr><tr id="C-10">
+<td class="mono">C-10</td>
+<td><strong>Link format and trackability</strong></td>
+<td>Links must use the tagged Special Link format with the Associate&#x27;s own tag, and must be accessible directly from the Site.<blockquote>All Special Links must be accessed directly from your Site. For example, you must include your Associates ID or “tag” (appearing as XXXXX-##, or such other format as we may designate) as a parameter in the URL of each link you place on your Site to an Amazon Site.</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank" title="Amazon Associates Program Policies (page states: Updated April 14, 2026)">Amazon policies &#8599;</a> &middot; Participation Requirements §2(b)</div></td>
+<td>The site stores a single configurable `ASSOCIATE_TAG` in `data/config.json`. Until the operator supplies a real tag, all outbound links render as plain untagged `https://www.amazon.com/dp/&lt;ASIN&gt;` links with a visible warning that tagging is pending. The build fails if a tag is configured but malformed.
+  <div class="cell-note"><code>data/config.json, scripts/build_site.py</code></div></td>
+<td><span class="chip chip-flagged">Flagged</span> <a class="flag-link" href="flagged.html#F-10">F-10</a></td>
+</tr><tr id="C-11">
+<td class="mono">C-11</td>
+<td><strong>No click incentives</strong></td>
+<td>No consideration, reward, rebate, discount or other benefit may be offered to anyone for using Special Links.<blockquote>You will not offer any person or entity any consideration, reward, or incentive (including any money, rebate, discount, points, donation to charity or other organization, or other benefit) for using Special Links.</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank" title="Amazon Associates Program Policies (page states: Updated April 14, 2026)">Amazon policies &#8599;</a> &middot; Participation Requirements §3(g)</div></td>
+<td>No rewards, loyalty points, giveaways, cashback or &#x27;click to unlock&#x27; mechanics exist anywhere on the site or in the roadmap.
+  <div class="cell-note"><code>compliance.html</code></div></td>
+<td><span class="chip chip-verified">Verified</span> </td>
+</tr><tr id="C-12">
+<td class="mono">C-12</td>
+<td><strong>No self-purchase or related-party purchase</strong></td>
+<td>The Associate, and their friends, relatives, employees, contractors and business relations, must not purchase through their own Special Links.<blockquote>you will not directly or indirectly purchase any Product(s) … through Special Links … and you will not permit, request or encourage any of your friends, relatives, employees, contractors, or business relations to directly or indirectly purchase any Product(s)</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank" title="Amazon Associates Program Policies (page states: Updated April 14, 2026)">Amazon policies &#8599;</a> &middot; Participation Requirements §3(u)</div></td>
+<td>Stated as an operator obligation in the compliance checklist. No product is ever purchased through the site&#x27;s own links.
+  <div class="cell-note"><code>compliance.html</code></div></td>
+<td><span class="chip chip-verified">Verified</span> </td>
+</tr><tr id="C-13">
+<td class="mono">C-13</td>
+<td><strong>No cloaking or redirect chains</strong></td>
+<td>The referring site must not be obscured. Cloaked links and misleading shorteners are prohibited.<blockquote>You will not cloak, hide, spoof, or otherwise obscure the URL of your Site containing Special Links (including by use of Redirecting Links)</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank" title="Amazon Associates Program Policies (page states: Updated April 14, 2026)">Amazon policies &#8599;</a> &middot; Participation Requirements §3(v)</div></td>
+<td>Outbound links point straight at `https://www.amazon.com/dp/&lt;ASIN&gt;` and display the full destination. The build refuses any outbound Amazon link that is not a direct `/dp/&lt;ASIN&gt;` URL. There is no link-shortening layer, no interstitial, and no redirect script.
+  <div class="cell-note"><code>scripts/build_site.py — outbound link assertion</code></div></td>
+<td><span class="chip chip-verified">Verified</span> </td>
+</tr><tr id="C-14">
+<td class="mono">C-14</td>
+<td><strong>No price or product claims that are inaccurate</strong></td>
+<td>You must not make inaccurate, overbroad, deceptive or misleading claims about any Product.<blockquote>You must not make inaccurate, overbroad, deceptive or otherwise misleading claims about any Product, an Amazon Site, or any of our policies, promotions, or prices.</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank" title="Amazon Associates Program Policies (page states: Updated April 14, 2026)">Amazon policies &#8599;</a> &middot; Participation Requirements §2(b)</div></td>
+<td>Every factual cell is either sourced from the brand&#x27;s own page or left blank. The verifier rejects any populated cell that has no source. Conflicts found between the Amazon title and the brand spec are shown as conflicts, not resolved by picking the friendlier number (F-02, F-03, F-04).
+  <div class="cell-note"><code>scripts/verify_site.py, flagged.html</code></div></td>
+<td><span class="chip chip-verified">Verified</span> </td>
+</tr><tr id="C-15">
+<td class="mono">C-15</td>
+<td><strong>Suitable site / original content</strong></td>
+<td>The Site must contain original content and be publicly available. Sites aimed at children, or containing prohibited categories, are ineligible.<blockquote>Your Site(s) must contain original content and be publicly available via the website address provided in the application.</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank" title="Amazon Associates Program Policies (page states: Updated April 14, 2026)">Amazon policies &#8599;</a> &middot; Participation Requirements §1</div></td>
+<td>The site publishes original comparative analysis, a documented verification method, and a source register. It is not directed at children and contains no prohibited category.
+  <div class="cell-note"><code>index.html, methodology.html</code></div></td>
+<td><span class="chip chip-verified">Verified</span> </td>
+</tr><tr id="C-16">
+<td class="mono">C-16</td>
+<td><strong>No implication of Amazon endorsement</strong></td>
+<td>The relationship with Amazon must not be embellished, and Amazon endorsement must not be implied.<blockquote>You will not misrepresent or embellish our relationship with you (including by expressing or implying that we support, sponsor, or endorse you)</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener nofollow" target="_blank" title="Amazon Associates Operating Agreement — §5 “Identifying Yourself as an Associate”">Agreement §5 &#8599;</a> &middot; Operating Agreement §5</div></td>
+<td>The footer states the site is not endorsed by, sponsored by, or affiliated with Amazon or the brands named. No Amazon logo, mark or brand asset is used.
+  <div class="cell-note"><code>all pages — footer</code></div></td>
+<td><span class="chip chip-verified">Verified</span> </td>
+</tr><tr id="C-17">
+<td class="mono">C-17</td>
+<td><strong>Personalised rate card</strong></td>
+<td>Personalised/negotiated rates and payment minimums are account-specific and served behind authentication.<p class="muted">No quotable single sentence; see the section named in the source.</p>
+  <div class="cell-note">Source: <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener nofollow" target="_blank" title="Amazon Associates Standard Commission Income Statement — Table 1 fixed rates by category">Amazon rate card &#8599;</a> &middot; /home/account/payment/customratecard — sign-in required</div></td>
+<td>Not read, not claimed. The site uses only the published Table 1 rate of 4.50% for Kitchen and says so explicitly.
+  <div class="cell-note"><code>flagged.html, methodology.html</code></div></td>
+<td><span class="chip chip-flagged">Flagged</span> <a class="flag-link" href="flagged.html#F-05">F-05</a></td>
+</tr><tr id="C-18">
+<td class="mono">C-18</td>
+<td><strong>Trademark and brand names</strong></td>
+<td>Amazon Marks may only be used in the manner the Trademark Guidelines allow, and third-party seller/vendor logos may not be used without written authorisation.<blockquote>You cannot display or otherwise use any logo of or content created by any third party seller or vendor on an Amazon Site in connection with any Special Link unless you have obtained from that seller or vendor specific written authorization to do so.</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank" title="Amazon Associates Program Policies (page states: Updated April 14, 2026)">Amazon policies &#8599;</a> &middot; Trademark Guidelines §7</div></td>
+<td>Brand names (CHEFMAN, Chefman, Emeril Lagasse) and model numbers are used descriptively, in plain text, to identify the products. No brand logos, product photography, or Amazon imagery is embedded. All imagery is generated by this project&#x27;s own CSS, not hotlinked.
+  <div class="cell-note"><code>all pages — text only, no brand assets</code></div></td>
+<td><span class="chip chip-verified">Verified</span> </td>
+</tr><tr id="C-19">
+<td class="mono">C-19</td>
+<td><strong>Data collection / privacy</strong></td>
+<td>The Site must disclose its own use of cookies, pixels and third parties, and comply with applicable privacy law.<blockquote>disclosing on your Site accurately and adequately and otherwise satisfying applicable legal requirements, either through a privacy policy or otherwise, the use of cookies, pixels, and other technologies</blockquote>
+  <div class="cell-note">Source: <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank" title="Amazon Associates Program Policies (page states: Updated April 14, 2026)">Amazon policies &#8599;</a> &middot; Participation Requirements §3(e)</div></td>
+<td>The site is fully static on GitHub Pages: no cookies are set, no analytics is loaded, no third-party scripts, no fonts from a CDN, no tracking pixels. The privacy page states this and notes that clicking an outbound Amazon link then puts the visitor under Amazon&#x27;s own privacy notice.
+  <div class="cell-note"><code>privacy.html, compliance.html</code></div></td>
+<td><span class="chip chip-verified">Verified</span> </td>
+</tr><tr id="C-20">
+<td class="mono">C-20</td>
+<td><strong>Analytics without third-party tracking</strong></td>
+<td>Click and conversion tracking is a legitimate platform goal, but must not be implemented in a way that violates C-11, C-13 or C-19.<p class="muted">No quotable single sentence; see the section named in the source.</p>
+  <div class="cell-note">Source: <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank" title="Amazon Associates Program Policies (page states: Updated April 14, 2026)">Amazon policies &#8599;</a> &middot; Synthesis of §3(g), §3(v), §3(e)</div></td>
+<td>The shipped site does no tracking at all. The platform blueprint describes outbound click accounting that stays on the operator&#x27;s own server, exposes the true destination, and is never used to offer incentives. Marked as a design requirement, not a shipped feature.
+  <div class="cell-note"><code>compliance.html, methodology.html</code></div></td>
+<td><span class="chip chip-flagged">Flagged</span> <a class="flag-link" href="flagged.html#F-11">F-11</a></td>
+</tr></tbody>
+</table>
+</div>
+
+<h2>The disclosure, verbatim</h2>
+<p>Amazon's Operating Agreement &sect;5 requires this exact sentence, or a substantially similar one
+previously allowed, to be stated clearly and prominently:</p>
+<blockquote class="big-quote">As an Amazon Associate I earn from qualifying purchases.</blockquote>
+<p>It appears in the footer of every page and again in the disclosure panel above each product
+table. The FTC separately warns that &ldquo;affiliate link&rdquo; on its own is not an adequate
+disclosure, and that a single site-wide notice is not enough &mdash; so the plain-English sentence
+&ldquo;I get commissions for purchases made through links on this page.&rdquo; appears next to the links on every page, not
+only on the home page.</p>
+<p class="srcmini"><a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener nofollow" target="_blank" title="Amazon Associates Operating Agreement — §5 “Identifying Yourself as an Associate”">Agreement §5 &#8599;</a> <a class="src" href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" rel="noopener nofollow" target="_blank" title="FTC — Endorsement Guides: What People Are Asking (staff guidance)">FTC guidance &#8599;</a> <a class="src" href="https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255" rel="noopener nofollow" target="_blank" title="16 CFR Part 255 — Guides Concerning Use of Endorsements and Testimonials in Advertising (eCFR, current as of 11/10/2026)">16 CFR 255 &#8599;</a></p>
+
+<h2>What is deliberately not built</h2>
+<div class="grid-2">
+  <div class="panel panel-warn">
+    <h3>Not built, and why</h3>
+    <ul>
+      <li><strong>Amazon price tracking or price-drop alerts</strong> &mdash; prohibited by
+      &sect;3(y). <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank">Policies &#8599;</a></li>
+      <li><strong>Amazon price and rating tables</strong> &mdash; &sect;2(b) and &sect;3(t) restrict
+      this to API-served data. See <a href="flagged.html#F-08">F-08</a>.</li>
+      <li><strong>Cloaked or shortened outbound links</strong> &mdash; &sect;3(v) requires the true
+      destination to be visible. Every link here prints its full amazon.com/dp/ URL.</li>
+      <li><strong>Click incentives, cashback or reward points</strong> &mdash; &sect;3(g).</li>
+      <li><strong>Amazon logos or brand imagery</strong> &mdash; the Trademark Guidelines restrict
+      their use.</li>
+      <li><strong>Third-party analytics, cookies or pixels</strong> &mdash; none are present, so the
+      privacy page can make a clean claim.</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <h3>Shipped instead</h3>
+    <ul>
+      <li>A verification pipeline where a table row cannot render without a source link.</li>
+      <li>A build-time assertion that rejects any outbound Amazon URL that is not a direct
+      <code>/dp/&lt;ASIN&gt;</code> link.</li>
+      <li>Brand-store ratings, always labelled as brand-store and never as Amazon.</li>
+      <li>A tag-injection point that the build validates before use
+      (<a href="flagged.html#F-10">F-10</a>).</li>
+      <li>An explicit list of what is unverified, published rather than hidden.</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Operator obligations that a website cannot enforce</h2>
+<p>Three duties sit with the operator, not the codebase. They are recorded here so they are not
+lost: never purchase through your own links, and never let relatives, employees or contractors do
+so (&sect;3(u)); never offer any incentive for a click (&sect;3(g)); and keep the site's original
+content genuinely original (&sect;1).</p>
+<p class="srcmini"><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank" title="Amazon Associates Program Policies (page states: Updated April 14, 2026)">Amazon policies &#8599;</a></p>
+
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <p><strong>As an Amazon Associate I earn from qualifying purchases.</strong></p>
+    <p>I get commissions for purchases made through links on this page.</p>
+    <p class="fine">Data verified 13 November 2026 against the official
+    sources listed on the <a href="sources.html">Sources</a> page. This site is not endorsed by,
+    sponsored by, or affiliated with Amazon or with any brand named here. Brand and product names
+    are used only to identify the products discussed.</p>
+    <p class="fine"><a href="privacy.html">Privacy</a> &middot; <a href="methodology.html">Method</a>
+    &middot; <a href="flagged.html">Flagged for review</a> &middot;
+    <a href="https://github.com/kanlerxz87-cyber/Zone1" rel="noopener">Source repository</a></p>
+  </div>
+</footer>
+</body>
+</html>

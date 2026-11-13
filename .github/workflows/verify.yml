@@ -1,0 +1,49 @@
+name: Build and verify site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Regenerate from data and assert every guarantee
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Rebuild every page from data/
+        run: python3 scripts/build_site.py
+
+      - name: Assert no unsourced values, no broken links, no policy breaches
+        run: python3 scripts/verify_site.py
+
+      - name: Fail if generated HTML is out of date with data/
+        run: |
+          if [ -n "$(git status --porcelain -- '*.html' assets/)" ]; then
+            echo "::error::Generated HTML does not match data/. Run 'python3 scripts/build_site.py' and commit the result."
+            git --no-pager diff --stat -- '*.html' assets/
+            exit 1
+          fi
+
+      - name: Confirm the required disclosure sentence is on every page
+        run: |
+          missing=0
+          for f in *.html; do
+            if ! grep -qF "As an Amazon Associate I earn from qualifying purchases." "$f"; then
+              echo "::error file=$f::missing required Amazon disclosure sentence"
+              missing=1
+            fi
+          done
+          exit $missing

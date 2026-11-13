@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flagged for review &middot; Air Fryer Affiliate Intelligence</title>
+<meta name="description" content="Verified data, sourced line by line, for three air fryers.">
+<meta name="robots" content="index,follow">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">AF</span>
+      <span class="brand-text">Air Fryer Affiliate Intelligence</span>
+    </a>
+    <nav class="nav" aria-label="Main"><a href="index.html">Dashboard</a>
+<a href="products.html">Products</a>
+<a href="compare.html">Compare</a>
+<a href="guides.html">Buying guides</a>
+<a href="compliance.html">Compliance</a>
+<a href="methodology.html">Method</a>
+<a href="sources.html">Sources</a>
+<a href="flagged.html" class="active" aria-current="page">Flagged</a></nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+  <h1>Flagged for review</h1>
+  <p class="page-sub">13 items to look at, each with the evidence attached.</p>
+  
+<div class="banner banner-warn" role="note">
+  <strong>Links are not yet tagged.</strong> No Associates tag is configured, so no outbound
+  link on this site can currently earn a commission. Set <code>associate_tag</code> in
+  <code>data/config.json</code> and rebuild. Tracked as <a href="flagged.html#F-10">F-10</a>.
+</div>
+  
+<div class="disclosure" role="note">
+  <p class="disclosure-main"><strong>As an Amazon Associate I earn from qualifying purchases.</strong></p>
+  <p class="disclosure-sub">I get commissions for purchases made through links on this page. Links below go to Amazon.
+  Prices, ratings and availability on Amazon change; always confirm on the Amazon page before buying.</p>
+</div>
+  
+<div class="banner banner-warn">
+  <p><strong>Nothing on this page blocks publication.</strong> Every item here is either an
+  irregularity found during verification or a value that could not be confirmed from an official
+  source. They are published so you can review them and ask for changes, rather than quietly
+  resolved in the site's favour.</p>
+</div>
+
+<section class="stats">
+  <div class="stat"><span class="stat-label">Total items</span>
+<span class="stat-value">13</span><span class="stat-note">all published with evidence</span></div>
+  <div class="stat warn"><span class="stat-label">High severity</span>
+<span class="stat-value">2</span><span class="stat-note">affects whether links can earn</span></div>
+  <div class="stat warn"><span class="stat-label">Medium severity</span>
+<span class="stat-value">6</span><span class="stat-note">affects a published claim</span></div>
+  <div class="stat muted"><span class="stat-label">Low severity</span>
+<span class="stat-value">5</span><span class="stat-note">cosmetic or narrow</span></div>
+</section>
+
+<p class="lede">The two that matter most: <a href="#F-10">F-10</a>, no Associates tag is configured,
+so nothing can earn yet; and <a href="#F-08">F-08</a>, Amazon price and rating are blank by design
+because Amazon's own policies restrict displaying them. Everything else is smaller.</p>
+
+<article class="flag flag-medium" id="F-01">
+  <div class="flag-head">
+    <span class="flag-id mono">F-01</span>
+    <span class="sev sev-medium">medium</span>
+    <h2>The three short links resolve via a redirect handler that carries a fallback marker</h2>
+  </div>
+  <div class="flag-body">
+    <dl>
+      <div><dt>What was expected</dt><dd>A short link that resolves cleanly to the exact product originally intended.</dd></div>
+      <div><dt>What was observed</dt><dd>All three link.amazon short links redirect to amazon.com/dp/&lt;ASIN&gt; but the resolved URL carries plpRedirect=mhFallback. The short codes (B04G1MEwY, B02NbDxp3, B00hJ57DV) are opaque and contain no ASIN, so the ASIN mapping can only be established from the redirect target.</dd></div>
+      <div><dt>Why it matters</dt><dd>If a short link has expired or been re-pointed, the ASIN it now opens may not be the product the link was created for. Commission would then be earned on a product the operator did not choose.</dd></div>
+      <div><dt>What would settle it</dt><dd>The operator re-checks each short link in a normal browser, or replaces the short links with the canonical tagged /dp/&lt;ASIN&gt; URLs.</dd></div>
+    </dl>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://www.amazon.com/dp/B0CDY277D3" rel="noopener nofollow" target="_blank">B0CDY277D3 listing &#8599;</a> <a href="https://www.amazon.com/dp/B09B7SB46R" rel="noopener nofollow" target="_blank">B09B7SB46R listing &#8599;</a> <a href="https://www.amazon.com/dp/B08DKYBTPH" rel="noopener nofollow" target="_blank">B08DKYBTPH listing &#8599;</a></p>
+  </div>
+</article><article class="flag flag-medium" id="F-02">
+  <div class="flag-head">
+    <span class="flag-id mono">F-02</span>
+    <span class="sev sev-medium">medium</span>
+    <h2>“Hi-Fry” appears in the Amazon title for B0CDY277D3 but not in Chefman&#x27;s specification for the matching model</h2>
+  </div>
+  <div class="flag-body">
+    <dl>
+      <div><dt>What was expected</dt><dd>Every named feature in a retail title to appear in the manufacturer&#x27;s own feature list.</dd></div>
+      <div><dt>What was observed</dt><dd>Amazon title names “Hi-Fry”. Chefman&#x27;s page for RJ38-3DBW-V2 lists five functions (air fry, bake, reheat, dehydrate, frozen) over 90–400°F and does not list “Hi-Fry”. Chefman&#x27;s separate 8 Qt model RJ38-8T-BLACK does list “Hi-Fry” at 450°F — so the term exists in the brand&#x27;s vocabulary, just not for this model.</dd></div>
+      <div><dt>Why it matters</dt><dd>Publishing “Hi-Fry” as a feature of this unit would be an unsupported product claim (see C-14). It may be a title error, or the Amazon SKU may be a variant the brand page does not cover.</dd></div>
+      <div><dt>What would settle it</dt><dd>Chefman support confirmation of the model number on the Amazon listing, or the owner manual for the exact Amazon SKU.</dd></div>
+    </dl>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://chefman.com/products/turbofry-6-qt-double-basket-air-fryer-with-easy-view-windows" rel="noopener nofollow" target="_blank">Chefman RJ38-3DBW-V2 page &#8599;</a> <a href="https://www.amazon.com/dp/B0CDY277D3" rel="noopener nofollow" target="_blank">Amazon B0CDY277D3 &#8599;</a></p>
+  </div>
+</article><article class="flag flag-medium" id="F-03">
+  <div class="flag-head">
+    <span class="flag-id mono">F-03</span>
+    <span class="sev sev-medium">medium</span>
+    <h2>Three different preset counts stated for the same Emeril oven</h2>
+  </div>
+  <div class="flag-body">
+    <dl>
+      <div><dt>What was expected</dt><dd>One preset count for one SKU.</dd></div>
+      <div><dt>What was observed</dt><dd>On emerileveryday.com, the same product page states “25 Cooking Pre-sets” in the specification strip, “24 one-touch cooking presets” in the description, and “10-in-1” in the product name. The Amazon title states 24.</dd></div>
+      <div><dt>Why it matters</dt><dd>Any single number chosen from these would be contestable. Per the no-inference rule, the field is left blank rather than picking the most common figure.</dd></div>
+      <div><dt>What would settle it</dt><dd>The control-panel layout in the brand manual (S-EM-MANUAL), read line by line.</dd></div>
+    </dl>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360" rel="noopener nofollow" target="_blank">Emeril Everyday product page &#8599;</a> <a href="https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf" rel="noopener nofollow" target="_blank">Brand manual PDF &#8599;</a></p>
+  </div>
+</article><article class="flag flag-low" id="F-04">
+  <div class="flag-head">
+    <span class="flag-id mono">F-04</span>
+    <span class="sev sev-low">low</span>
+    <h2>B08DKYBTPH: Amazon title says “Stainless Steel”, Chefman says “Matte-black finish”</h2>
+  </div>
+  <div class="flag-body">
+    <dl>
+      <div><dt>What was expected</dt><dd>Colour/finish to match between retail title and brand page.</dd></div>
+      <div><dt>What was observed</dt><dd>Amazon title ends “… Stainless Steel”. Chefman&#x27;s page for model RJ38-8T-BLACK lists “Matte-black finish”, and the model code itself contains BLACK.</dd></div>
+      <div><dt>Why it matters</dt><dd>Finish is a purchase driver for a countertop appliance. Publishing either one alone risks being wrong.</dd></div>
+      <div><dt>What would settle it</dt><dd>The variant selected on the Amazon listing, or a photograph of the delivered unit.</dd></div>
+    </dl>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://chefman.com/products/turbofry-8-qt-air-fryer-w-high-fry" rel="noopener nofollow" target="_blank">Chefman RJ38-8T-BLACK page &#8599;</a> <a href="https://www.amazon.com/dp/B08DKYBTPH" rel="noopener nofollow" target="_blank">Amazon B08DKYBTPH &#8599;</a></p>
+  </div>
+</article><article class="flag flag-low" id="F-05">
+  <div class="flag-head">
+    <span class="flag-id mono">F-05</span>
+    <span class="sev sev-low">low</span>
+    <h2>Personalised commission rate and payment thresholds are behind sign-in</h2>
+  </div>
+  <div class="flag-body">
+    <dl>
+      <div><dt>What was expected</dt><dd>Confirming the operator&#x27;s actual rate.</dd></div>
+      <div><dt>What was observed</dt><dd>The published Table 1 rate is public (Kitchen 4.50%). The account-specific custom rate card at /home/account/payment/customratecard returns a sign-in wall to this client.</dd></div>
+      <div><dt>Why it matters</dt><dd>All revenue modelling on this site uses the published 4.50%. If the operator&#x27;s account has a different rate, the projections move proportionally.</dd></div>
+      <div><dt>What would settle it</dt><dd>The operator reads their own rate card while signed in.</dd></div>
+    </dl>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener nofollow" target="_blank">Published Table 1 rate card &#8599;</a></p>
+  </div>
+</article><article class="flag flag-low" id="F-06">
+  <div class="flag-head">
+    <span class="flag-id mono">F-06</span>
+    <span class="sev sev-low">low</span>
+    <h2>Amazon browse-node category confirmed directly for one ASIN only</h2>
+  </div>
+  <div class="flag-body">
+    <dl>
+      <div><dt>What was expected</dt><dd>A directly-read breadcrumb per ASIN.</dd></div>
+      <div><dt>What was observed</dt><dd>The breadcrumb Home &amp; Kitchen › Kitchen &amp; Dining › Small Appliances › Fryers › Air Fryers was read directly on B09B7SB46R. The other two listings&#x27; breadcrumbs did not render to this client, so their category alignment is inferred from title and brand page.</dd></div>
+      <div><dt>Why it matters</dt><dd>Category drives the commission rate. All three are air fryers, so 4.50% (Kitchen) is almost certainly right, but only one was read directly.</dd></div>
+      <div><dt>What would settle it</dt><dd>Reading the breadcrumb on B0CDY277D3 and B08DKYBTPH, or the Associates category report per ASIN.</dd></div>
+    </dl>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://www.amazon.com/dp/B09B7SB46R" rel="noopener nofollow" target="_blank">Amazon B09B7SB46R (breadcrumb source) &#8599;</a></p>
+  </div>
+</article><article class="flag flag-low" id="F-07">
+  <div class="flag-head">
+    <span class="flag-id mono">F-07</span>
+    <span class="sev sev-low">low</span>
+    <h2>Colour for B0CDY277D3 comes from the listing title only</h2>
+  </div>
+  <div class="flag-body">
+    <dl>
+      <div><dt>What was expected</dt><dd>A colour variant control or spec row.</dd></div>
+      <div><dt>What was observed</dt><dd>The listing title ends “– Black”. No separate colour attribute rendered to this client, and Chefman&#x27;s brand page does not state a colour for RJ38-3DBW-V2.</dd></div>
+      <div><dt>Why it matters</dt><dd>Minor, but it is a fact taken from one line of text rather than a specification field.</dd></div>
+      <div><dt>What would settle it</dt><dd>The colour swatch on the Amazon listing.</dd></div>
+    </dl>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://www.amazon.com/dp/B0CDY277D3" rel="noopener nofollow" target="_blank">Amazon B0CDY277D3 &#8599;</a></p>
+  </div>
+</article><article class="flag flag-high" id="F-08">
+  <div class="flag-head">
+    <span class="flag-id mono">F-08</span>
+    <span class="sev sev-high">high</span>
+    <h2>Amazon price, star rating and review count are blank by design</h2>
+  </div>
+  <div class="flag-body">
+    <dl>
+      <div><dt>What was expected</dt><dd>Live Amazon metrics for the comparison table.</dd></div>
+      <div><dt>What was observed</dt><dd>The Amazon product pages served an interstitial instead of price and rating blocks to this client. Separately, Amazon&#x27;s own Program Policies §2(b) (§2(b)) only permit showing prices and availability if Amazon serves the data or it comes through the Creators API / PA API, and §3(t) (§3(t)) restricts displaying Amazon reviews and star ratings to API-sourced data.</dd></div>
+      <div><dt>Why it matters</dt><dd>These are the three numbers a buyer most wants, and a converter most wants. They are blank because they cannot be lawfully displayed from this crawl, not because they are unavailable in principle.</dd></div>
+      <div><dt>What would settle it</dt><dd>Obtaining Creators API / PA API access and rendering Amazon-served widgets. Until then the correct action is to leave the cells empty, which is what the site does.</dd></div>
+    </dl>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank">Amazon Program Policies §2(b) and §3(t) &#8599;</a></p>
+  </div>
+</article><article class="flag flag-medium" id="F-09">
+  <div class="flag-head">
+    <span class="flag-id mono">F-09</span>
+    <span class="sev sev-medium">medium</span>
+    <h2>Emeril unit: wattage and safety certification not confirmed</h2>
+  </div>
+  <div class="flag-body">
+    <dl>
+      <div><dt>What was expected</dt><dd>Wattage and a UL/ETL marking for the 26 QT oven.</dd></div>
+      <div><dt>What was observed</dt><dd>The Emeril Everyday product page states voltage (120 V), capacity and dimensions but not wattage or a certification body. The Chefman pages do state 1700 W and cETL. A third-party marketing site was found asserting 1700 W, but a non-brand marketing site is not an acceptable source for this project.</dd></div>
+      <div><dt>Why it matters</dt><dd>Wattage determines circuit requirements for a 26 Qt countertop oven. Publishing an unverified number would be a safety-relevant claim.</dd></div>
+      <div><dt>What would settle it</dt><dd>The rating label on the unit, or the specifications section of the brand manual (S-EM-MANUAL).</dd></div>
+    </dl>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360" rel="noopener nofollow" target="_blank">Emeril Everyday product page &#8599;</a> <a href="https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf" rel="noopener nofollow" target="_blank">Brand manual PDF &#8599;</a></p>
+  </div>
+</article><article class="flag flag-high" id="F-10">
+  <div class="flag-head">
+    <span class="flag-id mono">F-10</span>
+    <span class="sev sev-high">high</span>
+    <h2>No Amazon Associate tag has been supplied, so no link on this site can currently earn</h2>
+  </div>
+  <div class="flag-body">
+    <dl>
+      <div><dt>What was expected</dt><dd>Each outbound link carrying the operator&#x27;s Associates tag.</dd></div>
+      <div><dt>What was observed</dt><dd>No Associates tag was supplied with this project. Amazon requires the tag as a URL parameter on every Special Link.</dd></div>
+      <div><dt>Why it matters</dt><dd>Untagged links are not Special Links and generate no commission. This is the single highest-impact blocker between this site and revenue.</dd></div>
+      <div><dt>What would settle it</dt><dd>The operator adds their tag to data/config.json (format XXXXX-20) and the build re-renders every outbound link. The build script validates the tag and refuses to emit a malformed one.</dd></div>
+    </dl>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank">Amazon Program Policies §2(b) &#8599;</a> <a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener nofollow" target="_blank">Amazon Operating Agreement §1 &#8599;</a></p>
+  </div>
+</article><article class="flag flag-medium" id="F-11">
+  <div class="flag-head">
+    <span class="flag-id mono">F-11</span>
+    <span class="sev sev-medium">medium</span>
+    <h2>Click and conversion tracking is architected but deliberately not shipped</h2>
+  </div>
+  <div class="flag-body">
+    <dl>
+      <div><dt>What was expected</dt><dd>The brief asks for click and conversion tracking.</dd></div>
+      <div><dt>What was observed</dt><dd>Conversion data lives only in the Associates dashboard; Amazon states it uses commercially reasonable efforts to track Qualifying Purchases and reports them monthly. There is no public API for per-click conversion attribution to a third-party static site. Meanwhile §3(g), §3(v) and §3(e) constrain how tracking may be done.</dd></div>
+      <div><dt>Why it matters</dt><dd>A static GitHub Pages site cannot truthfully report conversions. Shipping a fake or inferred conversion number would breach the no-hallucination rule.</dd></div>
+      <div><dt>What would settle it</dt><dd>Build the outbound-click counter server-side (no cloaking, no incentives, no cookies on the static site) and read conversions from the Associates dashboard, not from a scraped or estimated source.</dd></div>
+    </dl>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank">Amazon Program Policies &#8599;</a> <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank">Commission Income Statement §6 (reporting) &#8599;</a></p>
+  </div>
+</article><article class="flag flag-low" id="F-12">
+  <div class="flag-head">
+    <span class="flag-id mono">F-12</span>
+    <span class="sev sev-low">low</span>
+    <h2>Review-rating comparison mixes brand-store review systems, not Amazon</h2>
+  </div>
+  <div class="flag-body">
+    <dl>
+      <div><dt>What was expected</dt><dd>A like-for-like review metric.</dd></div>
+      <div><dt>What was observed</dt><dd>Chefman&#x27;s pages report 4.5/5 (30 reviews) and 4.6/5 (200 reviews) through their own Bazaarvoice/Wholescale widget; Emeril Everyday reports 2.6/5 (25 reviews) through Bazaarvoice. These are three brand storefronts with different volumes and different moderation, not one marketplace.</dd></div>
+      <div><dt>Why it matters</dt><dd>The Emeril 2.6 vs Chefman 4.5 gap is real on those sources, but a small, low-volume brand-store sample is not statistically comparable to a marketplace rating. The site labels every rating as “brand-store” and adds this caveat rather than presenting it as a verdict.</dd></div>
+      <div><dt>What would settle it</dt><dd>Amazon star ratings via the Creators API, compared at equal volume.</dd></div>
+    </dl>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://chefman.com/products/turbofry-6-qt-double-basket-air-fryer-with-easy-view-windows" rel="noopener nofollow" target="_blank">Chefman 6 Qt page &#8599;</a> <a href="https://chefman.com/products/turbofry-8-qt-air-fryer-w-high-fry" rel="noopener nofollow" target="_blank">Chefman 8 Qt page &#8599;</a> <a href="https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360" rel="noopener nofollow" target="_blank">Emeril Everyday page &#8599;</a></p>
+  </div>
+</article><article class="flag flag-medium" id="F-13">
+  <div class="flag-head">
+    <span class="flag-id mono">F-13</span>
+    <span class="sev sev-medium">medium</span>
+    <h2>No search-volume, sales-rank or conversion-rate data exists from an official source</h2>
+  </div>
+  <div class="flag-body">
+    <dl>
+      <div><dt>What was expected</dt><dd>Demand and competition metrics for niche scoring.</dd></div>
+      <div><dt>What was observed</dt><dd>Amazon publishes no sales volume, search volume or conversion rate for individual ASINs. Third-party tools that estimate these (Jungle Scout, Helium 10 and similar) are commercial estimates, not official sources, and their numbers are not reproducible.</dd></div>
+      <div><dt>Why it matters</dt><dd>The brief asks for data-driven niche scoring on trending and high-converting products. Any scoring that produces a confident number would be fabricated.</dd></div>
+      <div><dt>What would settle it</dt><dd>Use Amazon&#x27;s own reports where available (e.g. Bounty/Bonus event tables, which ARE published) plus the operator&#x27;s own observed click-through and conversion from the Associates dashboard once live. Until then, the opportunity score on this site is computed only from factors that ARE sourced, and the unsourced dimensions are shown as blank with this flag.</dd></div>
+    </dl>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener nofollow" target="_blank">Amazon Standard Commission Income Statement (published data) &#8599;</a></p>
+  </div>
+</article>
+
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <p><strong>As an Amazon Associate I earn from qualifying purchases.</strong></p>
+    <p>I get commissions for purchases made through links on this page.</p>
+    <p class="fine">Data verified 13 November 2026 against the official
+    sources listed on the <a href="sources.html">Sources</a> page. This site is not endorsed by,
+    sponsored by, or affiliated with Amazon or with any brand named here. Brand and product names
+    are used only to identify the products discussed.</p>
+    <p class="fine"><a href="privacy.html">Privacy</a> &middot; <a href="methodology.html">Method</a>
+    &middot; <a href="flagged.html">Flagged for review</a> &middot;
+    <a href="https://github.com/kanlerxz87-cyber/Zone1" rel="noopener">Source repository</a></p>
+  </div>
+</footer>
+</body>
+</html>
