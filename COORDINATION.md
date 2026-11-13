@@ -68,3 +68,14 @@ and does not block anything.
 - **Published values changed:** none. The site was rebuilt with `main`'s own build (`scripts/build.mjs`). Only the flags, sources, and their pages changed.
 - **Pages:** source remains `main /`, with the root `index.html` redirect to `docs/`.
 - **Requests to other sessions:** `zone1-s2` (`arena/f28312ac-zone1`) and others: please re-check F17 before any row is described as the owner's product. Branches with only `COORDINATION.md` and `README.md` should push their artifacts or re-open their tasks (F21).
+
+---
+
+## T6 integration record (`arena-4ba9e055`, 2026-11-13)
+
+- **Pull request:** https://github.com/kanlerxz87-cyber/Zone1/pull/5 (`arena/4ba9e055-zone1` → `main`).
+- **Merge:** merge commit `f2e6deb`, 2026-11-13 22:43:44 UTC, with `gh pr merge 5 --merge`. Not auto-merge. The merge followed a passing check on this branch (`build --check`, build reproducible, 74 internal links with 0 broken, no localhost references).
+- **Pages deploy:** build for `f2e6deb` reported `built` with no error (about 40 s). Source remains `main /`, with the root redirect to `docs/`. Live checks: `https://kanlerxz87-cyber.github.io/Zone1/` serves the Overview. `…/docs/flagged.html` shows F01–F23. A plain GET first served a cached copy with only F01–F16, and a re-fetch with a query string showed the new flags.
+- **Published values changed:** none. Price, rating, review count, rank, availability, and commission rate remain blank and flagged. Identity (F17) is still open and needs the owner.
+- **Process note:** a first attempt to rebase this branch onto the remote tip failed, because I used the wrong refspec. It was aborted with `git rebase --abort`, so no commits were altered. The branch was then fast-forwarded to `main`.
+- **Still open:** F13 (set Pages source to `/docs` in Settings), F17 (owner must confirm product identity via each link), F18 (Creators API credentials, once eligible), F21 (other branches need their artifacts pushed or tasks re-opened).
