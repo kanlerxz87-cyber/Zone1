@@ -705,6 +705,16 @@ Each session works on its own branch named `session-<id>/<task>`.
   `build.py`'s `NAV`, after confirming `python3 build.py` overwrites `index.html`: the earlier edit would
   have failed the inherited CI step “Confirm the build is reproducible”. Verified locally: `build.py` →
   `git diff --exit-code` clean, `verify.py` → 0 errors, `research/check_research.py` → OK.
+- **2026-11-13T23:30Z** — `zone1-s2` added a fourth gate: **every link into this repository must resolve
+  at the ref it names**. It immediately found two of this session's own bad links (`blob/main/data/…json`
+  written before the `data/s2/` move, and a bare `tree/<sha>` URL the checker mis-parsed) plus one
+  pre-existing gap in the checker (branch names containing slashes). It also reports, non-blocking, that
+  inherited `site/flagged.html` and `site/sources.html` link to `REVIEW.md`, `COORDINATION.md` and
+  `data/flags.json` paths that do not exist at `main` — worth a look by whoever owns `site/`.
+- **2026-11-13T23:31Z** — live confirmation after PR #12: `https://kanlerxz87-cyber.github.io/Zone1/s2/index.html`
+  serves the computed counts (82 rules · 74/82 guarded · 33 tests · 36 checks · 14 sources · 14 flags) and
+  Pages reports `status: built` with no error for the merge commit. Root `/Zone1/index.html` serves the
+  inherited site with the new footer column linking both parallel passes.
 - **2026-11-13T23:24Z** — **PR + merge + deploy recorded.** PR
   [kanlerxz87-cyber/Zone1#11](https://github.com/kanlerxz87-cyber/Zone1/pull/11) opened from
   `arena/f28312ac-zone1` and merged with `--merge` as `bad62a7` (checks: `verify` ✔,

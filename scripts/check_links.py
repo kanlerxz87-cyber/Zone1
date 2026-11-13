@@ -12,10 +12,12 @@ from __future__ import annotations
 
 import os
 import re
+import subprocess
 import sys
 from urllib.parse import urlparse
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REPO_SLUG = "kanlerxz87-cyber/Zone1"
 sys.path.insert(0, os.path.join(ROOT, "platform"))
 from _common import is_official  # noqa: E402
 
@@ -46,6 +48,73 @@ def html_files(scope="all"):
             yield full
 
 
+_REFS = None
+_REFS_CACHE = {}
+
+
+def _repo_refs():
+    global _REFS
+    if _REFS is None:
+        out = subprocess.run(["git", "for-each-ref", "--format=%(refname:short)", "refs/heads", "refs/remotes"],
+                             cwd=ROOT, capture_output=True, text=True).stdout
+        _REFS = {r.strip() for r in out.splitlines() if r.strip()}
+    return _REFS
+
+
+def _path_exists(ref_or_none_candidates, path):
+    for ref in ref_or_none_candidates:
+        key = (ref, path)
+        if key not in _REFS_CACHE:
+            _REFS_CACHE[key] = subprocess.run(["git", "cat-file", "-e", f"{ref}:{path}"],
+                                              cwd=ROOT, capture_output=True).returncode == 0
+        if _REFS_CACHE[key]:
+            return True
+    return False
+
+
+def check_repo_link(url: str) -> str | None:
+    """A link into this repository must point at a path that exists.
+
+    Branch names may contain slashes (arena/x-zone1), so the ref/path boundary is
+    ambiguous; every split is tried and the one that names a real ref wins. When a
+    link targets `main` it is also accepted if the path exists on HEAD, so a pull
+    request that *adds* the file it links to is not falsely reported as broken.
+    """
+    m = re.match(r"https://github\.com/([^/]+/[^/]+)/(?:tree|blob)/(.+?)/?$", url or "")
+    if not m or m.group(1) != REPO_SLUG:
+        return None
+    rest = m.group(2)
+    if "#" in rest:
+        rest = rest.split("#", 1)[0]
+    parts = [p for p in rest.split("/") if p]
+    refs = _repo_refs()
+
+    def known(ref):
+        return ref in refs or ("origin/" + ref) in refs or ref in {"main", "HEAD"}
+
+    if len(parts) == 1:
+        # A bare /tree/<sha> or /tree/<branch> link: valid if that object exists.
+        ref = parts[0]
+        for probe in (ref, "origin/" + ref):
+            if subprocess.run(["git", "cat-file", "-e", f"{probe}^{{tree}}"],
+                              cwd=ROOT, capture_output=True).returncode == 0:
+                return None
+        return f"link into this repo names a ref that does not exist: {url}"
+    chosen = None
+    for i in range(1, len(parts)):
+        cand = "/".join(parts[:i])
+        if known(cand):
+            chosen = (cand, "/".join(parts[i:]))
+            break
+    if chosen is None:
+        return f"link into this repo names an unknown ref: {url}"
+    ref, path = chosen
+    probes = [ref, "origin/main", "HEAD"] if ref == "main" else [ref, "origin/" + ref]
+    if not _path_exists(probes, path):
+        return f"link into this repo points at a path that does not exist in {ref} -> {path}"
+    return None
+
+
 def is_mine(path: str) -> bool:
     rel = os.path.relpath(path, ROOT).replace(os.sep, "/")
     return rel == "s2/index.html" or rel.startswith("s2/")
@@ -67,10 +136,11 @@ def main() -> int:
             if parsed.scheme:  # external
                 if parsed.scheme != "https":
                     errors.append(f"{rel_from_root}: non-https link {target}")
-                elif parsed.netloc.endswith("amazon.com") and "/dp/" in parsed.path:
-                    frag = (anchor or "").lstrip("#")
-                    if frag:
-                        errors.append(f"{rel_from_root}: /dp/ link carries a fragment, which Amazon ignores")
+                if parsed.netloc.endswith("amazon.com") and "/dp/" in parsed.path and (anchor or "").lstrip("#"):
+                    errors.append(f"{rel_from_root}: /dp/ link carries a fragment, which Amazon ignores")
+                bad = check_repo_link(target)
+                if bad:
+                    (errors if strict else warnings).append(f"{rel_from_root}: {bad}")
                 continue
             # internal
             base = os.path.dirname(path)
