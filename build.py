@@ -97,6 +97,8 @@ NAV = [
     ("executive-summary.html", "Executive summary", "Decision-ready briefing"),
     # Additive section contributed by parallel session 8a2ddd06 (own data, own source register).
     ("research/index.html", "Deep-dive research ↗", "Independent 25-source verification pass"),
+    # Additive section contributed by parallel session arena-3740f69d (own data, own source register).
+    ("session-3740f69d/index.html", "Session 3740f69d build ↗", "Independent dashboard build — link analysis, tracking design, AI Agent-Terms compliance"),
 ]
 
 # --------------------------------------------------------------------------- #
