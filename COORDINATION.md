@@ -599,6 +599,17 @@ category rates are public and verified; the per-product category mapping is not 
 This session's F2 (`link.amazon` provenance) and the annex's F-6 differ in wording (undocumented-domain caution vs.
 "Amazon's own shortener") — both preserved on their respective Flagged pages for owner review.
 
+**Merge-conflict log (this session).**
+
+1. `git merge origin/main` conflicted on `COORDINATION.md`, `EXECUTIVE_SUMMARY.md`, `README.md` (both sides modified).
+   Resolved by keeping `main`'s versions and appending this session's records verbatim — no work from any session
+   discarded. Resolution table above.
+2. `git pull --rebase origin arena/3740f69d-zone1` (run per protocol before push) flattened this branch's merge of
+   `origin/main` and began replaying the merged sessions' commits as linear patches, failing on `COORDINATION.md`.
+   Resolved with `git rebase --abort`: the remote branch had not moved (fast-forward), the merge commit
+   `38f0c8c` deliberately preserves the other sessions' history, and flattening it would have rewritten their
+   commits into this branch. No work discarded. Push proceeded without rebase (remote was strictly behind).
+
 **This session's task board (working record, preserved verbatim):**
 
 # COORDINATION.md — Shared Task Board
