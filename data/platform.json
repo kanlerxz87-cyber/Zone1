@@ -1,0 +1,148 @@
+{
+  "accessed": "2026-11-13",
+  "purpose": "Blueprint for the automated affiliate platform described in the brief. Every policy boundary referenced here is sourced from the Associates Program documents (S1, S2, S3) and the FTC rule (S9).",
+
+  "design_principles": [
+    { "id": "P1", "principle": "Automate the repetitive, never the judgement.", "detail": "Link health checks, page builds, click/conversion ingestion, report generation and rate-table diffs are automated. Category assignment, product claims and publication decisions stay human-approved because a wrong automated claim is a policy breach (S2 §2(b))." },
+    { "id": "P2", "principle": "Program Content is display-only.", "detail": "Creators/PA API data may not be aggregated, analysed or repurposed, and may not train or fine-tune any model (S2 IP License §2(e)). So the analytics layer reads the operator's own first-party data only." },
+    { "id": "P3", "principle": "Never publish a number you cannot source.", "detail": "The site's whole trust position rests on this. Blank plus flagged beats plausible plus wrong." },
+    { "id": "P4", "principle": "Disclosure is structure, not a paragraph.", "detail": "Disclosure is generated into the layout so no new page can ship without it (S1 §5, S5, S8)." },
+    { "id": "P5", "principle": "Ship pages before you apply.", "detail": "Review happens after three qualifying sales inside 180 days, and the site must already carry ~10 recent original posts (S4). Content first, application second." }
+  ],
+
+  "pipeline": [
+    {
+      "stage": 1,
+      "name": "Niche & demand discovery",
+      "automation": "High",
+      "inputs": "Operator-owned keyword export, Google Trends-style public signals, the supplied product set",
+      "outputs": "Candidate niches with form-factor clusters",
+      "guardrail": "G1",
+      "compliance_note": "Keyword tools are fine; bidding on Amazon Marks is not (C8)."
+    },
+    {
+      "stage": 2,
+      "name": "Product ingestion",
+      "automation": "Medium",
+      "inputs": "Associates short links, ASINs, manufacturer pages, manufacturer manuals (PDF)",
+      "outputs": "A per-product fact table where each field is value + source_id, or null + reason",
+      "guardrail": "G2",
+      "compliance_note": "Manufacturer data is not Program Content, so it can be analysed. Amazon listing text is used only to identify the ASIN."
+    },
+    {
+      "stage": 3,
+      "name": "Verification gate",
+      "automation": "Medium (human sign-off)",
+      "inputs": "Draft fact table",
+      "outputs": "Rows promoted to 'verified' only when an official URL supports the value; everything else routed to /flagged",
+      "guardrail": "G2",
+      "compliance_note": "This is the stage that prevents a well-formatted lie. It is the reason three products produced nine flags instead of zero."
+    },
+    {
+      "stage": 4,
+      "name": "Commercial scoring",
+      "automation": "High",
+      "inputs": "Published category rates (S3), brand list prices, operator conversion data",
+      "outputs": "Expected value per click, per product and per page",
+      "guardrail": "G6",
+      "compliance_note": "Only S3 rates are used. The ASIN→category mapping is unknown, so scoring runs on scenarios and is labelled as such."
+    },
+    {
+      "stage": 5,
+      "name": "Content generation",
+      "automation": "High with human edit",
+      "inputs": "Verified fact table + outline",
+      "outputs": "Product pages, comparisons, buying guides",
+      "guardrail": "G2, G7",
+      "compliance_note": "No experience claims, no invented testing, no Amazon prices or ratings (S2 §2(b), §3(t); S8)."
+    },
+    {
+      "stage": 6,
+      "name": "Link management",
+      "automation": "High",
+      "inputs": "Special links, sub-tags per placement",
+      "outputs": "Link inventory with health status",
+      "guardrail": "G5",
+      "compliance_note": "Sub-tags per page or channel only, never per visitor (C14)."
+    },
+    {
+      "stage": 7,
+      "name": "Tracking & attribution",
+      "automation": "High",
+      "inputs": "Click events, Amazon commission reports",
+      "outputs": "Clicks, EPC, conversion rate, revenue by page and sub-tag",
+      "guardrail": "G6",
+      "compliance_note": "Amazon reports are the only source of truth for earnings; first-party click data is the only source for on-site behaviour."
+    },
+    {
+      "stage": 8,
+      "name": "Optimisation loop",
+      "automation": "Medium",
+      "inputs": "Stage 7 metrics",
+      "outputs": "Ranked backlog of content and placement experiments",
+      "guardrail": "G8",
+      "compliance_note": "No A/B test may vary a disclosure, a price, or a factual claim."
+    },
+    {
+      "stage": 9,
+      "name": "Publish & audit",
+      "automation": "High",
+      "inputs": "Approved content",
+      "outputs": "Static site, broken-link report, disclosure diff",
+      "guardrail": "G2, G9",
+      "compliance_note": "Build fails if any table row lacks a source link, or if any page lacks the disclosure bar."
+    }
+  ],
+
+  "guardrails": [
+    { "id": "G1", "rule": "No paid search on Amazon Marks or misspellings", "source": ["S2"], "clause": "Commission Income Statement §2(c)", "enforcement": "Negative-keyword list applied to every campaign; automated check before launch." },
+    { "id": "G2", "rule": "No published claim without an official source", "source": ["S2", "S8"], "clause": "Participation Requirements §2(b); Disclosures 101", "enforcement": "Schema-level: value must carry source_id, else it renders as a flagged blank." },
+    { "id": "G3", "rule": "No Amazon price, availability or star rating without API-served data", "source": ["S2"], "clause": "Participation Requirements §2(b) and §3(t)", "enforcement": "Template has no slot for Amazon price/rating; the build has nothing to leak." },
+    { "id": "G4", "rule": "No incentives, no self-purchase, no friend-and-family purchases", "source": ["S2"], "clause": "Participation Requirements §3(g), §3(u)", "enforcement": "Policy statement in the ops runbook; no loyalty or rewards feature exists in the design." },
+    { "id": "G5", "rule": "Sub-tags are per placement, never per user", "source": ["S2", "S6"], "clause": "Participation Requirements §2(b)", "enforcement": "Link config is a static map keyed by page, not a function of the request." },
+    { "id": "G6", "rule": "Program Content is never an analytics or training input", "source": ["S2"], "clause": "IP License §2(e)", "enforcement": "Data contracts: analytics tables accept only first-party events and operator-owned product facts." },
+    { "id": "G7", "rule": "No experience claims, no invented testing", "source": ["S8"], "clause": "Disclosures 101 — What Else to Know", "enforcement": "Copy review checklist; the phrase 'we tested' is a build-time fail." },
+    { "id": "G8", "rule": "No price tracking or price alerts", "source": ["S2"], "clause": "Participation Requirements §3(y)", "enforcement": "Feature explicitly out of scope; the pricing panel shows brand list price only." },
+    { "id": "G9", "rule": "Disclosure is unremovable", "source": ["S1", "S5"], "clause": "Operating Agreement §5; disclosure help article", "enforcement": "Injected by the layout function; a page without it cannot be generated." },
+    { "id": "G10", "rule": "No framing, cloaking or auto-redirect", "source": ["S2"], "clause": "Participation Requirements §3(n), §3(v)", "enforcement": "Outbound links are direct; no iframes; no meta-refresh." }
+  ],
+
+  "automation_vs_human": [
+    { "task": "Broken link detection", "mode": "Automated", "frequency": "Every build + daily" },
+    { "task": "Rate-table diff (S3 changes)", "mode": "Automated fetch, human confirm", "frequency": "Weekly" },
+    { "task": "Fact-table verification", "mode": "Human sign-off", "frequency": "Per product, before publish" },
+    { "task": "Content drafting", "mode": "Automated draft, human edit", "frequency": "Per page" },
+    { "task": "Click/conversion reporting", "mode": "Automated", "frequency": "Daily" },
+    { "task": "Publication decision", "mode": "Human", "frequency": "Per page" },
+    { "task": "Compliance audit", "mode": "Automated checks + human review", "frequency": "Monthly" }
+  ],
+
+  "kpis": [
+    { "kpi": "Verified-row coverage", "definition": "Share of published table rows whose every value carries an official source link", "target": "100% of asserted values; gaps must be blank and flagged" },
+    { "kpi": "Flag resolution time", "definition": "Days from a row appearing on /flagged to a decision", "target": "≤ 14 days" },
+    { "kpi": "Clicks per page", "definition": "Outbound Amazon clicks attributed to a page", "target": "Baseline in month 1, then +15% MoM" },
+    { "kpi": "Earnings per click (EPC)", "definition": "Commission revenue ÷ outbound clicks, from Amazon reports", "target": "Improve monthly; scenarios below show the ceiling imposed by published rates" },
+    { "kpi": "Disclosure coverage", "definition": "Pages with a visible disclosure above the fold", "target": "100%" },
+    { "kpi": "Policy incidents", "definition": "Warnings or compliance contacts from Amazon", "target": "0" }
+  ],
+
+  "revenue_model_note": "Scenarios below are arithmetic on two published inputs: the brand's own list price and an official rate-table row (S3). They are not forecasts, not verified rates for these ASINs, and not quotes from Amazon. The calculator on the site recomputes them live so the arithmetic can be checked by hand.",
+
+  "launch_sequence": [
+    { "step": 1, "action": "Publish the buying guide, comparison and three product pages (this build).", "why": "Review requires robust original content, ~10 posts, recent (S4)." },
+    { "step": 2, "action": "Resolve every item on /flagged with the account holder.", "why": "ASIN→model, the 450 °F conflict and the preset count change what the copy is allowed to say." },
+    { "step": 3, "action": "Add the real Associates tag to every link and create sub-tags.", "why": "Special Links must use the assigned Associates ID (S2 §2(b))." },
+    { "step": 4, "action": "Apply to Associates, then work the 180-day window to three qualifying sales.", "why": "S4: three qualifying sales in 180 days, personal orders excluded." },
+    { "step": 5, "action": "Only after API approval, consider price/rating display.", "why": "S2 §2(b) and §3(t) permit it only through Creators/PA API." }
+  ],
+
+  "explicitly_out_of_scope": [
+    "Price history charts or price-drop alerts (S2 §3(y)).",
+    "Republishing Amazon customer reviews or star ratings (S2 §3(t)).",
+    "Scraping Amazon and feeding the result into a model (S2 IP License §2(e)).",
+    "Auto-generating product claims from any source other than the manufacturer.",
+    "Paid search on Amazon or Kindle marks (S2 §2(c)).",
+    "Incentivised clicks, rewards or giveaways tied to links (S2 §3(g)).",
+    "Any claim that the author tested or owns these appliances."
+  ]
+}

@@ -1,0 +1,150 @@
+{
+  "accessed": "2026-11-13",
+  "note": "Marketing assets are written from manufacturer-published facts only. No hands-on testing is claimed, no superlative is asserted as fact, and no Amazon price, rating or review count is used. Any claim that would need first-hand experience is deliberately absent.",
+
+  "positioning": {
+    "niche": "Home-kitchen air frying appliances",
+    "why_this_niche": "All three supplied links resolve to air fryers / air fryer toaster ovens, so the niche is dictated by the product set, not chosen by preference. Air fryers sit in a category Amazon publishes official rates for (S3: Kitchen 4.50%, Home 3.00%, fallback 4.00%), which is the only rate information that can be used legitimately.",
+    "audience": "Households of 2–6 people comparing a compact dual-basket air fryer, a large single-basket air fryer, and a multi-function countertop oven.",
+    "search_intent": "Commercial investigation — the buyer already knows they want an air fryer and is choosing a form factor and a size.",
+    "differentiator": "Every specification on the site is traceable to a manufacturer page or owner's manual, and every gap is admitted rather than filled. That is the trust asset; it is also what keeps the site inside Program Policies §2(b) and §3(t)."
+  },
+
+  "pages": [
+    {
+      "slug": "guides/buying-guide-air-fryers",
+      "type": "Buying guide",
+      "h1": "How to choose an air fryer: dual-basket, single-basket, or a countertop oven",
+      "target_query": "how to choose an air fryer",
+      "intent": "Informational → commercial",
+      "word_target": 1200,
+      "outline": [
+        "Decide the form factor first (two baskets vs one basket vs oven-style)",
+        "Match capacity to household size using published figures",
+        "Check the temperature ceiling and what the top setting actually does",
+        "Check cleaning: nonstick, dishwasher-safe parts",
+        "Check the footprint against your counter",
+        "Check the warranty and the approval mark",
+        "What this site will not tell you, and why"
+      ],
+      "primary_cta": "Compare the three products in this set"
+    },
+    {
+      "slug": "products/chefman-6qt-dual-basket",
+      "type": "Product review (documentation-based)",
+      "h1": "Chefman TurboFry Touch 6 Qt dual-basket air fryer — what the published specifications actually say",
+      "target_query": "chefman 6 quart dual basket air fryer",
+      "intent": "Commercial",
+      "word_target": 900,
+      "outline": [
+        "Who it suits",
+        "Verified specifications with links",
+        "What is genuinely distinctive (two independent 6 qt baskets, Sync Finish, 450 °F ceiling, viewing windows)",
+        "Where the published information runs out",
+        "Commission and pricing transparency"
+      ]
+    },
+    {
+      "slug": "products/emeril-26qt-french-door",
+      "type": "Product review (documentation-based)",
+      "h1": "Emeril Lagasse 26 QT French Door AirFryer 360 — a documentation-based review",
+      "target_query": "emeril lagasse 26 qt french door air fryer",
+      "intent": "Commercial",
+      "word_target": 950,
+      "outline": [
+        "The case for an oven-style air fryer",
+        "Verified specifications with links",
+        "The preset-count problem, stated plainly",
+        "Counter space and electrical reality",
+        "Commission and pricing transparency"
+      ]
+    },
+    {
+      "slug": "products/chefman-8qt-turbofry",
+      "type": "Product review (documentation-based)",
+      "h1": "Chefman 8 Qt TurboFry air fryer — verified specs and an unresolved conflict",
+      "target_query": "chefman 8 quart air fryer",
+      "intent": "Commercial",
+      "word_target": 850,
+      "outline": [
+        "Who it suits",
+        "Verified specifications with links",
+        "The 450 °F conflict, stated plainly",
+        "Cleaning and safety features",
+        "Commission and pricing transparency"
+      ]
+    },
+    {
+      "slug": "compare",
+      "type": "Comparison table",
+      "h1": "Side-by-side: all three air fryers on verified specifications only",
+      "target_query": "dual basket vs air fryer oven",
+      "intent": "Commercial",
+      "word_target": 600,
+      "outline": ["Verified-only comparison matrix", "Which gaps exist on which product", "Decision rules"]
+    },
+    {
+      "slug": "platform",
+      "type": "Platform blueprint",
+      "h1": "The platform: an automated, compliant Amazon affiliate revenue engine",
+      "target_query": "n/a — internal product documentation",
+      "intent": "Stakeholder",
+      "word_target": 1800,
+      "outline": [
+        "What is automated and what must stay human",
+        "Pipeline stages",
+        "Data model",
+        "Revenue maths with published rates only",
+        "Compliance guardrails",
+        "Launch sequence and the 180-day clock",
+        "What this build deliberately does not do"
+      ]
+    }
+  ],
+
+  "seo_rules": [
+    "Title pattern: '{Primary subject} — verified specs, pricing and buying advice | Zone1 Kitchen'. Title tags stay under 60 characters where possible.",
+    "One H1 per page, matching the search intent, followed by descriptive H2s drawn from the outline above.",
+    "Every factual paragraph carries an inline source marker that links to the official page or PDF.",
+    "No page claims testing, ownership, or use of a product. Where a claim would need experience, the page says so and stops.",
+    "No Amazon price, availability, star rating or review count appears in metadata, structured text or copy.",
+    "Structured data is limited to BreadcrumbList and Article — no Product/Offer schema, because that would assert price and availability facts the site is not permitted to publish."
+  ],
+
+  "articles_briefs": [
+    {
+      "title": "Dual-basket vs oven-style air fryers: the capacity question",
+      "angle": "Two 6 qt-class baskets vs one 26 qt cavity changes what you can cook at once, not just how much. Uses only published capacities (S10, S12, S14).",
+      "status": "drafted on /compare"
+    },
+    {
+      "title": "What '450 °F' actually means on an air fryer box",
+      "angle": "The Chefman 8 Qt listing advertises 450 °F Hi-Fry while its own manual documents 200–400 °F. Teaches readers to check the manual for whether the top temperature is a whole cycle or a finish mode. No claim is made about which is correct.",
+      "status": "flagged on /flagged, referenced from the product page"
+    },
+    {
+      "title": "Why this site shows no Amazon prices",
+      "angle": "Explains Program Policies §2(b) and §3(t) in plain language and shows the source. Turns a limitation into a trust signal.",
+      "status": "drafted on /compliance"
+    }
+  ],
+
+  "link_inventory": [
+    { "product": "Chefman 6 Qt Dual Basket", "link": "https://link.amazon/B04G1MEwY", "asin": "B0CDY277D3", "sub_tag_suggestion": "zone1-6qtdb-20", "associates_tag_confirmed": false },
+    { "product": "Emeril 26 QT French Door", "link": "https://link.amazon/B02NbDxp3", "asin": "B09B7SB46R", "sub_tag_suggestion": "zone1-emeril26-20", "associates_tag_confirmed": false },
+    { "product": "Chefman 8 Qt TurboFry", "link": "https://link.amazon/B00hJ57DV", "asin": "B08DKYBTPH", "sub_tag_suggestion": "zone1-8qttf-20", "associates_tag_confirmed": false }
+  ],
+
+  "link_inventory_notes": [
+    "Sub-tag suggestions are placeholders in the documented Associates tag shape (name-XX) and must be created in Associates Central before use; they are not live identifiers.",
+    "Sub-tags must be per placement or per channel, never per visitor (S2 §2(b), C14).",
+    "The Associates tag inside the supplied link.amazon short links is not observable, so 'associates_tag_confirmed' is false for all three rather than assumed true."
+  ],
+
+  "disclosure_blocks": {
+    "site_wide": "As an Amazon Associate I earn from qualifying purchases.",
+    "link_level": "Paid link: we earn a commission if you buy through this link, at no extra cost to you.",
+    "review_context": "This review is based on the manufacturer's published specifications and owner's manual, not on hands-on testing.",
+    "price_context": "No Amazon prices are shown on this site. Prices change and may only be displayed when Amazon serves the link or via the official API. Check the live price on Amazon."
+  }
+}

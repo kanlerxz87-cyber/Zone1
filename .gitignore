@@ -1,7 +1,3 @@
-# Build artefacts that must never be committed
 __pycache__/
 *.pyc
 .DS_Store
-
-# Node/Playwright residue from local preview tooling
-node_modules/
