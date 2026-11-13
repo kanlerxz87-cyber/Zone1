@@ -1,0 +1,319 @@
+{
+  "id": "FLG-01",
+  "title": "Flagged for review — irregularities, contested claims and unverified values",
+  "as_of": "2026-11-13",
+  "policy": "Nothing on this page blocks the merge. Each item is published so the operator can arbitrate it after the site is live. A flagged value is left blank in the tables, never estimated. Identifiers F-01 to F-08 match the shared board in COORDINATION.md; F-09 to F-15 were opened by this session during implementation.",
+  "flags": [
+    {
+      "id": "F-07",
+      "severity": "critical",
+      "title": "The three supplied product links do not identify any product",
+      "detail": "Every input needed for product research, pricing, review and commission analysis depends on these three links, and none of them resolves cleanly. Two findings establish the problem: each token is 9 characters where an ASIN is 10, and each direct catalog lookup returns Amazon's 'Page Not Found' page. The counter-evidence is recorded here because it matters: the fallback page each token produced was THE SAME across two independent sessions hours apart (B04G1MEwY→B0CDY277D3, B02NbDxp3→B09B7SB46R), which is not how a random shuffle behaves. So the honest position is narrower than 'these are wrong': the landing ASINs are reproducible, but they are reached through a fallback path whose own /dp/ URL for the supplied token 404s, which is consistent with an expired or re-pointed short link whose original target has been superseded. The platform therefore treats the three ASINs as a *candidate mapping to confirm*, not as an established fact, and no product attribute on this site is presented as verified.",
+      "evidence": [
+        "Each token is 9 characters (B04G1MEwY, B02NbDxp3, B00hJ57DV); an ASIN is a combination of 10 letters and numbers.",
+        "https://www.amazon.com/dp/B04G1MEwY, /dp/B02NbDxp3 and /dp/B00hJ57DV each return Amazon's 'Page Not Found' error page (fetched 2026-11-13).",
+        "Pro: the fallback landing was identical across two sessions, so it is reproducible rather than random.",
+        "Con: the requested tokens' own detail pages 404, and the landing URL carries lv=shuf / plpRedirect=mhFallback, the parameters Amazon uses when it could not find the requested page.",
+        "Con: no Amazon page states that a 9-character token maps to any particular ASIN."
+      ],
+      "sources": [
+        {
+          "label": "Amazon catalog lookup for token 1",
+          "url": "https://www.amazon.com/dp/B04G1MEwY"
+        },
+        {
+          "label": "Amazon catalog lookup for token 2",
+          "url": "https://www.amazon.com/dp/B02NbDxp3"
+        },
+        {
+          "label": "Amazon catalog lookup for token 3",
+          "url": "https://www.amazon.com/dp/B00hJ57DV"
+        },
+        {
+          "label": "link.amazon fallback response",
+          "url": "https://link.amazon/B04G1MEwY"
+        },
+        {
+          "label": "Amazon definition of an ASIN (10 characters)",
+          "url": "https://advertising.amazon.com/library/guides/asins-introduction"
+        }
+      ],
+      "action_required": "Confirm in one line whether B0CDY277D3, B09B7SB46R and B08DKYBTPH are the three products you meant. If yes, this session's and the other sessions' tables merge without further argument and only prices/ratings need re-verification; if no, send the 10-character ASINs.",
+      "status": "needs review"
+    },
+    {
+      "id": "F-01",
+      "severity": "high",
+      "title": "link.amazon is not a citable affiliate link format",
+      "detail": "The supplied host is Amazon's mobile-link service, not the Associates linking tool. The program requires the tagged Special Link format carrying the publisher's own Associates ID as a URL parameter, and disqualifies purchases reached through a link that bounces the user to Amazon via an intermediate site without an affirmative click. A platform that stored and republished 'link.amazon/...' strings would earn nothing on the traffic it drove and would be one step from a cloaking violation.",
+      "evidence": [
+        "Special Links must use the assigned Associates ID, appearing as XXXXX-## in the URL parameter.",
+        "A purchase referred by a link that sends users indirectly to an Amazon Site via an intermediate site, without requiring the customer to click a link or take some other affirmative action on that intermediate site, is a disqualified purchase.",
+        "'All Special Links must be accessed directly from your Site.'"
+      ],
+      "sources": [
+        {
+          "label": "Associates Program Policies — Participation Requirements (links on your site)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ],
+      "action_required": "Rebuild every link from the operator's own Associates ID using SiteStripe or the Associates dashboard; never republish a third-party short link.",
+      "status": "needs review"
+    },
+    {
+      "id": "F-04",
+      "severity": "high",
+      "title": "CORRECTED — a public commission table does exist; what is unverifiable is the ASIN→category mapping",
+      "detail": "This session first recorded F-04 as 'no public, official commission rate exists', because https://affiliate-program.amazon.com/help/operating/schedule redirects to sign-in. That conclusion was wrong and is corrected here: the Associates Program Standard Commission Income Statement is readable without a login at the help-node URL, and its Table 1 publishes fixed rates by category (Luxury Beauty 10.00% down to 0.00% for Gift Cards and similar, with 'Physical Books, Kitchen, Automotive' at 4.50% and 'All Other Categories' at 4.00%). The genuine remaining gap is narrower: Table 1 is keyed to categories, not ASINs, and air fryers are not named, so the rate that applies to a specific product cannot be derived without a category mapping Amazon does not publish. The platform therefore publishes the table and refuses to multiply it into a per-product earning figure.",
+      "evidence": [
+        "The help node renders Table 1 to an unauthenticated request (fetched 2026-11-13); the rate rows above are quoted from that render.",
+        "The legacy /help/operating/schedule path still redirects to sign-in, which is how this session initially reached the wrong conclusion.",
+        "No line of Table 1 names 'air fryer', and no official page maps an ASIN to a Table 1 category."
+      ],
+      "sources": [
+        {
+          "label": "Standard Commission Income Statement, Table 1 (public)",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+        },
+        {
+          "label": "Sign-in-gated schedule path (the misleading one)",
+          "url": "https://affiliate-program.amazon.com/help/operating/schedule"
+        }
+      ],
+      "action_required": "Confirm the category for each adopted ASIN from your own account's rate card, then set it in data/s2/program.json MN-11; until then no per-product commission figure is published.",
+      "status": "needs review"
+    },
+    {
+      "id": "F-08",
+      "severity": "high",
+      "title": "No affiliate credentials, and none can be invented",
+      "detail": "Publishing links, tracking clicks, reading conversions and optimizing campaigns require an Associates ID, Product Advertising API credentials, and analytics access. The repository contains none of these and an agent cannot obtain them. The pipeline is therefore delivered credential-gated: a stage with no credentials reports itself as skipped rather than producing plausible-looking output.",
+      "evidence": [
+        "The repository at the base commit contains one file, README.md (git ls-tree at 42f4036).",
+        "Prices and availability may only be shown if Amazon serves the link containing that data, or the publisher obtains it through Creators API or PA API; scraping is not an approved substitute."
+      ],
+      "sources": [
+        {
+          "label": "Repository tree at base commit",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/tree/42f403657fd1b6b1e0af6fcd3f67ca74b7f0ec06"
+        },
+        {
+          "label": "Price and availability sourcing rule",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ],
+      "action_required": "Create the Associates account, complete the tax interview, then set the four credential variables listed on the Automation page and re-run the pipeline.",
+      "status": "needs review"
+    },
+    {
+      "id": "F-02",
+      "severity": "medium",
+      "title": "A candidate product's buy-box price was volatile within one fetch window",
+      "detail": "Recorded by the parallel session and preserved rather than dismissed: two different new-condition prices were served for B0CDY277D3 in the same window ($79.93 shown as −20% of a $99.99 list, and $57.45 shown as −43%), plus a used offer at $57.45. Note this ASIN is not confirmed to be one of the operator's products (see F-07). Whatever the resolution, the lesson is baked into the platform: a price is a timestamped reading, and a discount badge is only as true as the list price beside it.",
+      "evidence": [
+        "Two different new-condition prices were observed for the same ASIN in one fetch window.",
+        "The stated discount percentage moved with the price, so any 'save 20%' claim written from a single read would have been wrong hours later."
+      ],
+      "sources": [
+        {
+          "label": "Candidate product page",
+          "url": "https://www.amazon.com/dp/B0CDY277D3"
+        },
+        {
+          "label": "Pricing variability clause",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ],
+      "action_required": "Never hard-code a price or a discount into copy. Use the served link at render time, or an API value with its timestamp.",
+      "status": "needs review"
+    },
+    {
+      "id": "F-03",
+      "severity": "medium",
+      "title": "One candidate product page intermittently serves in reduced form",
+      "detail": "Recorded by the parallel session: B09B7SB46R intermittently returns only navigation and footer markup, with no buy box, price, rating or feature bullets. A page that sometimes has no content cannot be a source for a product claim, so this is a data-quality flag on the candidate ASIN itself — independent of whether it belongs to the operator. It also matches what this session saw when fetching /dp/ pages: chunk 0 of a real product page is mostly boilerplate, and only the title and the final URL are reliably usable.",
+      "evidence": [
+        "The detail page was observed returning markup without a buy box, price, rating or bullets.",
+        "Anything read from a page in that state would be a partial capture presented as a complete one."
+      ],
+      "sources": [
+        {
+          "label": "Candidate product page",
+          "url": "https://www.amazon.com/dp/B09B7SB46R"
+        },
+        {
+          "label": "Shared board entry",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/arena/f28312ac-zone1/COORDINATION.md"
+        }
+      ],
+      "action_required": "If this ASIN is adopted, capture it with a retry-and-completeness check, not a single fetch.",
+      "status": "needs review"
+    },
+    {
+      "id": "F-06",
+      "severity": "medium",
+      "title": "A candidate product's own capacity field contradicts its title",
+      "detail": "Recorded by the parallel session: the product-detail block lists Capacity as 6 liters while the title, bullets and images all say 6 quarts. Both cannot be right — 6 quarts is about 5.7 liters. A generator that silently picked either value would publish a wrong specification on a page that earns a commission, which is precisely the failure this brief asks to be prevented. The platform records the conflict instead of choosing.",
+      "evidence": [
+        "Detail-page specification block: Capacity = 6 liters.",
+        "Title, feature bullets and imagery: 6-quart.",
+        "No rule tells the publisher which to print, so an unflagged pick would be an invented fact."
+      ],
+      "sources": [
+        {
+          "label": "Candidate product page",
+          "url": "https://www.amazon.com/dp/B0CDY277D3"
+        },
+        {
+          "label": "Program Content may not be altered or reworded",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ],
+      "action_required": "Confirm against the listing or omit the capacity claim; display the conflict, do not resolve it by preference.",
+      "status": "needs review"
+    },
+    {
+      "id": "F-05",
+      "severity": "medium",
+      "title": "Prices, discount badges, review counts and Best Sellers Rank are point-in-time",
+      "detail": "Any price, 'bought in past month' figure, rating count or sales-rank value is a snapshot that will be wrong later. Every such field on this site is stamped with the date it was read, and the pipeline carries a staleness rule so no price renders beyond its window without a re-fetch.",
+      "evidence": [
+        "'Product prices and availability may vary from time to time' — Participation Requirements.",
+        "This session's own collector sample (Niche page) had two of three price cells left blank because they were not read; they were not carried over from a different date."
+      ],
+      "sources": [
+        {
+          "label": "Pricing variability clause",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ],
+      "action_required": "Keep the scheduled re-verification running before any campaign launch; it expires stale cells automatically.",
+      "status": "needs review"
+    },
+    {
+      "id": "F-09",
+      "severity": "medium",
+      "title": "Product Advertising API eligibility cannot be asserted from a public page",
+      "detail": "Automated product research at scale is normally built on the Product Advertising API. Its access conditions are shown inside the logged-in dashboard. A qualifying-sales threshold circulates in community posts, but it was not present in the official public pages retrieved in this session, so no eligibility number is stated as fact on this site — and no eligibility is claimed.",
+      "evidence": [
+        "The eligibility text is presented in the dashboard flow, which requires sign-in.",
+        "The public Associates FAQ retrieved in this run does not state a qualifying-sales threshold, so the site does not cite it for one."
+      ],
+      "sources": [
+        {
+          "label": "Associates Central — Tools → Product Advertising API (requires sign-in)",
+          "url": "https://affiliate-program.amazon.com/"
+        },
+        {
+          "label": "Public Associates FAQ (checked; does not state it)",
+          "url": "https://www.amazon.com/b?ie=UTF8&node=51812349011"
+        }
+      ],
+      "action_required": "Check Tools → Product Advertising API in Associates Central; that screen is authoritative for this account.",
+      "status": "needs review"
+    },
+    {
+      "id": "F-10",
+      "severity": "medium",
+      "title": "Using Program Content to train models needs Amazon's written approval",
+      "detail": "An 'AI-powered' platform that retrains on Program Content would breach the agreement. This project keeps the model on the reading and drafting side: drafts about a product are permitted, but Program Content, Special Links and API payloads are never fed into training. The guard is enforced in code (platform/training/gate.py), not just asserted in prose.",
+      "evidence": [
+        "The Program Policies prohibit using, or allowing a third party to use, Special Links or Program Content to develop machine learning models or related technology without Amazon's express prior written approval.",
+        "A regression test asserts that a dataset row tagged with a Program Content origin is refused unless a written-approval flag is set."
+      ],
+      "sources": [
+        {
+          "label": "Associates Program Policies — Participation Requirements",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ],
+      "action_required": "If fine-tuning is ever wanted, request written permission from Amazon first.",
+      "status": "needs review"
+    },
+    {
+      "id": "F-11",
+      "severity": "medium",
+      "title": "'Track clicks and conversions' has no lawful first-party click-attribution source",
+      "detail": "Amazon reports clicks and conversions in its own dashboard. A publisher may not reconstruct identity-level click tracking: associating a sub-tag or other ID with a specific end user to monitor that user's behaviour is expressly forbidden. The measurement plan therefore counts what is genuinely available — Amazon's own reports plus aggregate first-party link-click events — and does not claim per-person attribution.",
+      "evidence": [
+        "The policy prohibits associating any sub-tag, other ID or reporting from the program with a specific end user of the site, including dynamically assigning sub-tags to users as they arrive for the purpose of monitoring their behaviour.",
+        "Reporting of clicks and earnings is provided through the Associates dashboard, which requires an account."
+      ],
+      "sources": [
+        {
+          "label": "Sub-tag restriction (Participation Requirements)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Operating Agreement — reporting is Amazon's disclosure to you",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        }
+      ],
+      "action_required": "Decide the analytics stack and consent banner; keep sub-tags at content level (per article, per placement), never per person.",
+      "status": "needs review"
+    },
+    {
+      "id": "F-12",
+      "severity": "medium",
+      "title": "A comparison page carries an extra mandatory element",
+      "detail": "Any comparison presentation that shows Amazon prices next to non-Amazon prices must display the lowest 'new' price and, where Amazon provides it, the lowest 'used' price. The template enforces this and fails the build when a row omits it. No comparison of the three requested products could be generated, because no product was identifiable.",
+      "evidence": [
+        "Participation Requirements state that if you choose to display prices in a comparison format, you must display both the lowest new price and, if Amazon provides it, the lowest used price at which the product is available on the Amazon Site.",
+        "platform/templates/comparison.py emits 'not verified' rather than a number, and raises a CN-2 finding when the new price is absent."
+      ],
+      "sources": [
+        {
+          "label": "Associates Program Policies — Participation Requirements",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ],
+      "action_required": "Re-run content generation once valid ASINs exist; the comparison template is present and enforced.",
+      "status": "needs review"
+    },
+    {
+      "id": "F-13",
+      "severity": "low",
+      "title": "Search-surfaced claims about 'verified' Amazon facts were not used",
+      "detail": "Search engines surface third-party blogs that paraphrase Amazon's rules, including sites stating an exact commission percentage. None were used as a source. Every numeric or policy value on this site traces to affiliate-program.amazon.com, amazon.com, advertising.amazon.com, sell.amazon.com, ftc.gov, ecfr.gov or docs.github.com, fetched during this session.",
+      "evidence": [
+        "No numeric commission rate appears anywhere in the site's data files; only the payment thresholds quoted from the Program Policies are numeric.",
+        "The CI audit rejects any source row whose host is not on the official allowlist."
+      ],
+      "sources": [
+        {
+          "label": "Source registry with retrieval dates and access mode",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/s2/sources.json"
+        },
+        {
+          "label": "Audit rule A1 (non-official host fails the build)",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/audit/report.py"
+        }
+      ],
+      "action_required": "None — recorded so future sessions keep the same standard.",
+      "status": "needs review"
+    },
+    {
+      "id": "F-15",
+      "severity": "low",
+      "title": "Parallel-session contention on this repository (reconciled, not overwritten)",
+      "detail": "Five sessions worked on this repository inside about thirty minutes. This session's merge of main kept every inherited file: nothing from sess-105bc29e, d14c5409, arena-4ba9e055 or zone1-main was deleted, and this session's own outputs moved to s2/ and data/s2/ to avoid overwriting their index.html, assets/, data/*.json and scripts/build_site.py. Two of this session's own conclusions were wrong and are corrected on this page: F-04 (a public rate table does exist) and an initial reading of the other session's economics table as an asserted rate, when it is in fact labelled illustrative arithmetic across three candidate categories. Recording both errors is part of the verification record, not a concession.",
+      "evidence": [
+        "git merge origin/main conflicted on exactly one file, COORDINATION.md, resolved as a union.",
+        "8 paths collided by name (index.html, README.md, assets/app.js, data/flags.json, data/sources.json, scripts/build_site.py, .nojekyll, COORDINATION.md); all were kept in place and this session relocated its own copies instead.",
+        "100 advisory findings were measured on inherited pages by this session's link gate and are reported without blocking the build."
+      ],
+      "sources": [
+        {
+          "label": "This session's board",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/arena/f28312ac-zone1/COORDINATION.md"
+        },
+        {
+          "label": "Inherited board (sess-105bc29e) preserved on main",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/COORDINATION.md"
+        }
+      ],
+      "action_required": "Arbitrate F-07: if the three air fryers are genuinely the intended products, say so and the site adopts them with prices re-verified; otherwise they are discarded.",
+      "status": "needs review"
+    }
+  ]
+}

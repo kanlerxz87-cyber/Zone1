@@ -99,6 +99,8 @@ NAV = [
     ("research/index.html", "Deep-dive research ↗", "Independent 25-source verification pass"),
     # Additive section contributed by parallel session arena-3740f69d (own data, own source register).
     ("session-3740f69d/index.html", "Session 3740f69d build ↗", "Independent dashboard build — link analysis, tracking design, AI Agent-Terms compliance"),
+    # Additive section contributed by parallel session zone1-s2 (own data in data/s2/, own site in s2/).
+    ("s2/index.html", "Verified platform pass ↗", "Compliance matrix, verification log, and this pass's own flags"),
 ]
 
 # --------------------------------------------------------------------------- #
@@ -329,6 +331,16 @@ def layout(page_rel, title, body, active=None, description=""):
         nav_html.append(
             f'<a href="{prefix}{href}"{cls}>{e(label)}<span class="sub">{e(sub)}</span></a>'
         )
+    # Entries that describe a *parallel* pass merged into this repo (a top-level directory
+    # with its own data and source registry) are listed in NAV so the link checker covers
+    # them, but the nav groups above only render fixed indices, so those entries were
+    # reachable from no page at all. Surface them in the footer by prefix rather than by
+    # index, so the next session that adds one needs no edit here.
+    extra_nav = "".join(
+        a for (href, _label, _sub), a in zip(NAV, nav_html)
+        if "/" in href and not href.startswith(("products/", "categories/", "guides/", "assets/"))
+    )
+
     # product links under the category entry
     prod_nav = "".join(
         f'<a href="{prefix}products/{p["slug"]}.html">{e(p["short_name"])}'
@@ -401,6 +413,11 @@ def layout(page_rel, title, body, active=None, description=""):
 </div>
 <footer class="site">
   <div class="inner">
+    <div>
+      <h5>Parallel passes on this domain</h5>
+      {extra_nav}
+      <p class="tiny">Independently verified builds merged into <code>main</code> by other sessions. Nothing here was overwritten by them and nothing of theirs was overwritten here.</p>
+    </div>
     <div>
       <h5>Disclosure</h5>
       <p><strong>{e(DISCLOSURE)}</strong></p>

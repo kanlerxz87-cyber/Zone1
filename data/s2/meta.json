@@ -1,0 +1,16 @@
+{
+  "project": "Zone1 — AI-assisted Amazon Associates affiliate platform",
+  "repo": "kanlerxz87-cyber/Zone1",
+  "site_base_path": "/Zone1/",
+  "site_url": "https://kanlerxz87-cyber.github.io/Zone1/",
+  "generated_by": "scripts/build.py",
+  "session_id": "zone1-s2",
+  "branch": "arena/f28312ac-zone1",
+  "verification_date": "2026-11-13",
+  "egress_note": "Data was verified by fetching official publisher pages on 2026-11-13 (UTC). Live pricing and availability on amazon.com change continuously.",
+  "status_legend": {
+    "verified": "Read directly from the official publisher source linked on the row, on the verification date.",
+    "unverified": "Could not be confirmed from an official source. Value left blank, never inferred.",
+    "needs-review": "A claim exists but is contested or point-in-time; it is published on the Flagged for Review page."
+  }
+}
