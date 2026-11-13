@@ -1019,7 +1019,7 @@ This session's F2 (`link.amazon` provenance) and the annex's F-6 differ in wordi
 | T4  | Platform & automation design (research pipeline, SEO content, link mgmt, tracking, optimization) | done | session-arena-3740f69d | session-3740f69d/platform/, session-3740f69d/content/, session-3740f69d/links/, session-3740f69d/tracking/ | Compliance constraints (PR §2(y), §6(t), IP License §2(e), Agent Terms) baked into design. |
 | T5  | Compliance documentation (Amazon Associates OA/Policies + FTC) | done | session-arena-3740f69d | session-3740f69d/compliance/ | Exact required disclosure text (OA §5) captured and used on every page. |
 | T6  | Site build (GitHub Pages dashboard, tables, nav, Flagged page) | done | session-arena-3740f69d | session-3740f69d/** | Static HTML/CSS. All rows carry source links. |
-| T7  | Final integration: re-verify combined data, link check, PR → main, enable GitHub Pages | in progress | session-arena-3740f69d | (all) | See "Integration record" below. |
+| T7  | Final integration: re-verify combined data, link check, PR → main, enable GitHub Pages | done | session-arena-3740f69d | (all) | See "Integration record" + "Final integration record" below. |
 
 ## Conventions (all sessions)
 
@@ -1087,3 +1087,20 @@ confirm intended products). All positions preserved for owner review.
 **Third integration merge (this PR):** `origin/main` moved again (session 19a679d8 PRs #13–#14 added `dashboard/`
 and board appends; session f28312ac added a durable-refs link gate). Only `COORDINATION.md` conflicted (both
 appended) — resolved as their board + this appendix. All positions preserved for owner review.
+
+---
+
+# Final integration record — session arena-3740f69d (T7 closed)
+
+- **Integration PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/10 — **merged** 2026-11-13T23:17:18Z via
+  `gh pr merge 10 --merge`; merge commit `471d66c7382e00c4cb15507edaf478b54bf348b4`.
+- **CI on the merge commit (all green):** `Build, verify and deploy to GitHub Pages` (pages.yml: build.py +
+  research build + 789 research checks + verify.py + reproducibility gate) ✓ · `Verify verification annex (site/)`
+  (382 assertions) ✓ · `CI` (ci.yml: 33 engine tests, data audit, s2 build check, link gate) ✓ ·
+  `pages-build-deployment` ✓.
+- **GitHub Pages:** https://kanlerxz87-cyber.github.io/Zone1/ — status `built`, latest Pages build =
+  commit `471d66c` (2026-11-13T23:17:19Z), error: none. Live fetches confirmed on 2026-11-13: the root dashboard
+  and this session's build at https://kanlerxz87-cyber.github.io/Zone1/session-3740f69d/ both serve with the OA §5
+  disclosure, working navigation, and source links.
+- **This commit** records the merge result above and closes T7; it is the "follow-up record" referenced in the
+  Integration record section of Integration pass 3.
