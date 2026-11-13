@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Product Research &amp; Verification — Zone1</title>
 <meta name="description" content="Line-by-line verification of the three submitted Amazon product links against official amazon.com pages. Unverified values are blank and flagged with source links.">
-<link rel="canonical" href="https://kanlerxz87-cyber.github.io/Zone1/products.html">
+<link rel="canonical" href="https://kanlerxz87-cyber.github.io/Zone1/dashboard/products.html">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
@@ -36,7 +36,7 @@
   <p class="page-lede">Three product links were submitted for marketing. Each was checked individually against official
   Amazon pages on <strong>2026-11-13</strong>. Because none resolves to a product, every product attribute is left
   <strong>blank and marked unverified</strong> — per the project rule that no value may be inferred.
-  Raw data: <a href="data/products.csv">data/products.csv</a> · evidence log: <a href="reports/verification-log.md">reports/verification-log.md</a>.</p>
+  Raw data: <a href="../data/products.csv">data/products.csv</a> · evidence log: <a href="../reports/verification-log.md">reports/verification-log.md</a>.</p>
 
   <section class="card">
     <h2>1 · Master table — submitted links</h2>
@@ -137,7 +137,7 @@
         <tr><td>E-01</td><td><code>amazon.com/dp/B04G1MEwY</code> returns Amazon's page-not-found error page</td><td><a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">re-open check</a></td></tr>
         <tr><td>E-02</td><td><code>amazon.com/dp/B02NbDxp3</code> returns Amazon's page-not-found error page</td><td><a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">re-open check</a></td></tr>
         <tr><td>E-03</td><td><code>amazon.com/dp/B00hJ57DV</code> returns Amazon's page-not-found error page</td><td><a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">re-open check</a></td></tr>
-        <tr><td>E-04</td><td>Each supplied URL lands on a <em>different</em> random listing whose final URL carries Amazon's missing-page fallback markers <code>plpRedirect=mhFallback</code> and <code>lv=shuf</code> (shuffle). Genuine product redirects land on clean <code>/dp/&lt;ASIN&gt;</code> URLs.</td><td class="small">Fetched 2026-11-13; recorded in <a href="reports/verification-log.md">verification log §1.2</a></td></tr>
+        <tr><td>E-04</td><td>Each supplied URL lands on a <em>different</em> random listing whose final URL carries Amazon's missing-page fallback markers <code>plpRedirect=mhFallback</code> and <code>lv=shuf</code> (shuffle). Genuine product redirects land on clean <code>/dp/&lt;ASIN&gt;</code> URLs.</td><td class="small">Fetched 2026-11-13; recorded in <a href="../reports/verification-log.md">verification log §1.2</a></td></tr>
         <tr><td>E-05</td><td>Supplied codes are 9 characters; ASINs are 10 by definition (see §2)</td><td><a href="https://www.barcode.graphics/amazon-product-id/" target="_blank" rel="noopener">ASIN definition</a></td></tr>
         <tr><td>E-06</td><td><code>link.amazon</code> is not an official Amazon link/short-link format (see §2)</td><td><a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">official URL formats</a></td></tr>
       </tbody>
@@ -153,7 +153,7 @@
     <h2>4 · Disputed identity claims (session d14c5409) — kept for review, not accepted</h2>
     <p class="section-note">A parallel session treated the fallback redirects as product resolutions and recorded the rows below.
     Integration re-verification <strong>disputes</strong> these mappings (evidence E-01…E-06). The observations are preserved here
-    and on the <a href="flagged.html">Flagged for Review</a> page (flag F17) so the owner can compare with the intended products.</p>
+    and on the <a href="flagged.html">Flagged for Review</a> page (flag I-06) so the owner can compare with the intended products.</p>
     <div class="table-wrap"><table>
       <thead><tr><th>Submitted</th><th>Observed fallback listing</th><th>What the fallback page showed</th><th>Why the identity is not accepted</th></tr></thead>
       <tbody>
@@ -199,7 +199,7 @@
 <footer class="foot"><div class="wrap">
   <p><strong>Affiliate disclosure:</strong> “As an Amazon Associate I earn from qualifying purchases.” (Associates enrollment pending; see Compliance.)</p>
   <p>Every value on this site is either read from a cited official source on 2026-11-13 or left blank and marked unverified. Nothing is estimated or invented. Amazon and Amazon.com are trademarks of Amazon.com, Inc. or its affiliates; this site is not affiliated with or endorsed by Amazon.</p>
-  <p><a href="index.html">Home</a> · <a href="flagged.html">Flagged for Review</a> · <a href="reports/verification-log.md">Verification log</a></p>
+  <p><a href="index.html">Home</a> · <a href="flagged.html">Flagged for Review</a> · <a href="../reports/verification-log.md">Verification log</a></p>
 </div></footer>
 <div id="tracker-toast" hidden style="position:fixed;bottom:18px;right:18px;background:#17233a;color:#fff;padding:10px 14px;border-radius:9px;font-size:13px;z-index:50"></div>
 <script src="assets/js/tracker.js"></script>
