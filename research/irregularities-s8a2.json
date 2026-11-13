@@ -1,0 +1,337 @@
+{
+  "accessed": "2026-11-13",
+  "note": "Irregularities, unverified values and open questions. These do NOT block publication; they are surfaced so the site owner can act on them.",
+  "severity_legend": {
+    "high": "Blocks monetisation or creates a legal/compliance exposure",
+    "medium": "Weakens the data or the conversion path, but the site is still publishable",
+    "low": "Cosmetic, documentation, or housekeeping"
+  },
+  "items": [
+    {
+      "id": "I-1",
+      "severity": "low",
+      "type": "mapping observation",
+      "title": "Short link code looks like an ASIN but is not one",
+      "detail": "The supplied short link ends in 'B00hJ57DV', which is shaped exactly like an Amazon ASIN (B00 + 7 characters) and resembles 'B00HJ57DV'. It resolves to ASIN B08DKYBTPH. link.amazon codes are opaque, so this is not an error in the link — but any human or script that assumes the short code is the ASIN will resolve the wrong product. Recorded so nobody re-uses the short code as an identifier.",
+      "affected": [
+        "P3"
+      ],
+      "source_urls": [
+        "https://link.amazon/B00hJ57DV",
+        "https://www.amazon.com/dp/B08DKYBTPH"
+      ],
+      "action_required": "No link change. Do not treat short-link codes as ASINs in any downstream tooling.",
+      "verified": true,
+      "blocking": false
+    },
+    {
+      "id": "I-2",
+      "severity": "high",
+      "type": "monetisation blocker",
+      "title": "None of the three supplied links carry an Associates tracking tag",
+      "detail": "All three short links resolve to Amazon URLs that contain no tag= parameter (they carried only lv, btn_ref, channelId and plpRedirect parameters). Amazon requires each Special Link to carry the Associate's own tracking ID, and the application can be rejected for using untagged links. As supplied, these links cannot be verified as commission-earning Special Links.",
+      "affected": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies",
+        "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
+      ],
+      "action_required": "Re-issue all three links through Associates Central (SiteStripe or Mobile GetLink) with the account's tracking ID, then replace the URLs in data/products.json. The site reproduces the supplied URLs verbatim and labels them as untagged.",
+      "verified": true,
+      "blocking": false
+    },
+    {
+      "id": "I-3",
+      "severity": "medium",
+      "type": "auditability",
+      "title": "link.amazon short links cannot be audited before the click",
+      "detail": "link.amazon is an opaque redirector. There is no public registry mapping a short code to an ASIN or to an owning account, so a short link's destination and its tag can only be observed by following it. Every link on this site was resolved and recorded on 2026-11-13, but that resolution is a point-in-time observation, not a guarantee.",
+      "affected": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "source_urls": [
+        "https://link.amazon/B04G1MEwY",
+        "https://link.amazon/B02NbDxp3",
+        "https://link.amazon/B00hJ57DV"
+      ],
+      "action_required": "Replace short links with full tagged /dp/ URLs so the destination and tag are visible in the HTML.",
+      "verified": true,
+      "blocking": false
+    },
+    {
+      "id": "I-4",
+      "severity": "low",
+      "type": "listing vs. spec sheet",
+      "title": "Amazon title advertises 'Hi-Fry' on the dual-basket model, but Hi-Fry is not in the manufacturer's feature list for that model",
+      "detail": "The Amazon listing title for ASIN B0CDY277D3 includes 'Hi-Fry'. The manufacturer's feature and specification list for model RJ38-3DBW-V2 states a 90–400 °F range and five functions, and does not list a Hi-Fry mode. The Chefman product that carries Hi-Fry is a different model (RJ38-8T-BLACK, 450 °F). Not resolved here — the two official pages disagree, so the site does not assert Hi-Fry as a feature of P1.",
+      "affected": [
+        "P1"
+      ],
+      "source_urls": [
+        "https://www.amazon.com/dp/B0CDY277D3",
+        "https://chefman.com/collections/air-fryers-1/products/turbofry-6-qt-double-basket-air-fryer-with-easy-view-windows"
+      ],
+      "action_required": "Owner should confirm with the Amazon listing which feature set applies before any article claims Hi-Fry on this model.",
+      "verified": true,
+      "blocking": false
+    },
+    {
+      "id": "I-5",
+      "severity": "low",
+      "type": "internal inconsistency on official page",
+      "title": "Emeril official page states both 24 and 25 presets",
+      "detail": "On the same official product page, the description block says '24 one-touch cooking presets' while the specification block says '25 Cooking Pre-sets'. The site records both and asserts neither as the single truth. The Amazon listing title says '24 cooking functions'.",
+      "affected": [
+        "P2"
+      ],
+      "source_urls": [
+        "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+        "https://www.amazon.com/dp/B09B7SB46R"
+      ],
+      "action_required": "No action required to publish. If an article quotes a preset count, quote the page's own wording.",
+      "verified": true,
+      "blocking": false
+    },
+    {
+      "id": "I-6",
+      "severity": "low",
+      "type": "model-number ambiguity",
+      "title": "Emeril page states model 4-00675-02A-VN while its own imagery references 4-00675-02X",
+      "detail": "The product page lists the model as 4-00675-02A-VN. Several images on the same page are named ..._4-00675-02X_... and a search snippet for a reseller lists 4-00675-02X at a different price. The suffix difference is not explained by any official source.",
+      "affected": [
+        "P2"
+      ],
+      "source_urls": [
+        "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+      ],
+      "action_required": "Use the page's stated model (4-00675-02A-VN) if a model number is needed; do not assert variant equivalence.",
+      "verified": true,
+      "blocking": false
+    },
+    {
+      "id": "I-7",
+      "severity": "medium",
+      "type": "attribute conflict",
+      "title": "Finish conflict: Amazon title says 'Stainless Steel', manufacturer page says 'Matte-black'",
+      "detail": "ASIN B08DKYBTPH's Amazon title ends '| Stainless Steel', while the official Chefman page for the same model number (RJ38-8T-BLACK) lists 'Matte-black finish' in its features and specification block. The manufacturer page for a different SKU (RJ38-SQSS-8T) is the stainless-steel version. Either the Amazon title is generic or the ASIN maps to a different physical variant. Newly confirmed on 2026-11-13: this session read four additional Chefman product pages. Chefman publishes a separate stainless-steel 8-quart SKU, RJ38-SQSS-8T (TurboFry Touch Stainless-Steel Air Fryer, 'From $79.99', 715 reviews), while RJ38-8T-BLACK is listed as 'Matte-black finish'. So both official surfaces are internally consistent about their own SKU — the conflict is that Amazon's title attaches 'Stainless Steel' to the ASIN whose model number is RJ38-8T-BLACK.",
+      "affected": [
+        "P3"
+      ],
+      "source_urls": [
+        "https://www.amazon.com/dp/B08DKYBTPH",
+        "https://chefman.com/collections/air-fryers-1/products/turbofry-8-qt-air-fryer-w-high-fry",
+        "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+      ],
+      "action_required": "Confirm the colourway before publishing any image-led content. The site does not state a colour for P3.",
+      "verified": true,
+      "blocking": false
+    },
+    {
+      "id": "I-8",
+      "severity": "low",
+      "type": "unverified value",
+      "title": "Spec fields the official pages do not publish",
+      "detail": "Blank and flagged rather than inferred: P1 country of origin; P2 temperature range, wattage, certification, country of origin; P3 country of origin. None of these appear in the manufacturers' specification blocks, and Amazon's own detail tables were not machine-readable.",
+      "affected": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "source_urls": [
+        "https://chefman.com/collections/air-fryers-1/products/turbofry-6-qt-double-basket-air-fryer-with-easy-view-windows",
+        "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+        "https://chefman.com/collections/air-fryers-1/products/turbofry-8-qt-air-fryer-w-high-fry"
+      ],
+      "action_required": "Leave blank. Fill only from an official manufacturer datasheet or the Amazon detail table via Creators API.",
+      "verified": false,
+      "blocking": false
+    },
+    {
+      "id": "I-9",
+      "severity": "medium",
+      "type": "ambiguous price",
+      "title": "Chefman product pages show a six-step discount ladder, not one price",
+      "detail": "The two Chefman pages display a price ladder ($90.00 / $75.00 / $70.00 / $85.00 / $80.00 / $60.00 against a $99.99 anchor on P1; $108.00 / $90.00 / $84.00 / $102.00 / $96.00 / $72.00 against $119.99 on P3) plus 'Save 10%…40%' tags. No single manufacturer price can be read unambiguously, so none is published.",
+      "affected": [
+        "P1",
+        "P3"
+      ],
+      "source_urls": [
+        "https://chefman.com/collections/air-fryers-1/products/turbofry-6-qt-double-basket-air-fryer-with-easy-view-windows",
+        "https://chefman.com/collections/air-fryers-1/products/turbofry-8-qt-air-fryer-w-high-fry"
+      ],
+      "action_required": "Do not publish a price for P1 or P3 until a single official figure is available.",
+      "verified": false,
+      "blocking": false
+    },
+    {
+      "id": "I-10",
+      "severity": "medium",
+      "type": "unverified value + compliance constraint",
+      "title": "Amazon prices are not stored anywhere on this site",
+      "detail": "Two things are true at once: (1) the Amazon product pages returned only a stripped shell to an unauthenticated reader, so no price could be read; and (2) Associates Program Policies §2(b) limits showing prices to data Amazon serves or that arrives via PA API / Creators API. Rather than risk a policy breach, the site stores no Amazon price for any product and sends readers to Amazon to see the live price.",
+      "affected": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "action_required": "Wire the Creators API GetItems call once the account clears the 10-qualifying-sales gate, then render Amazon-served prices only.",
+      "verified": false,
+      "blocking": false
+    },
+    {
+      "id": "I-11",
+      "severity": "medium",
+      "type": "unverified value",
+      "title": "Amazon star rating and review count could not be captured",
+      "detail": "https://www.amazon.com/product-reviews/B0CDY277D3 redirected to the Amazon sign-in page. No Amazon rating or review count is recorded for any of the three ASINs. Manufacturer-site review aggregates are shown separately and clearly labelled as non-Amazon.",
+      "affected": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "source_urls": [
+        "https://www.amazon.com/product-reviews/B0CDY277D3"
+      ],
+      "action_required": "No action. Never fill these from a third-party aggregator or from memory.",
+      "verified": false,
+      "blocking": false
+    },
+    {
+      "id": "I-12",
+      "severity": "low",
+      "type": "unverified value",
+      "title": "No Best Sellers Rank and no 'date first available'",
+      "detail": "Neither figure is published on an official page that could be read without authentication. Both are left blank. This also means no 'trending' claim is made anywhere on the site.",
+      "affected": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "action_required": "Blank until Creators API access is available.",
+      "verified": false,
+      "blocking": false
+    },
+    {
+      "id": "I-13",
+      "severity": "medium",
+      "type": "capability gap",
+      "title": "The 'AI-powered automation' cannot be switched on yet, and the site says so",
+      "detail": "The Creators API (the successor to the now-deprecated PA-API 5) requires at least 10 qualifying sales in the past 30 days. This account has no verifiable sales history, so automated product ingestion, live pricing, and automated ranking are not live. Everything published is desk research with per-field source URLs. PA-API 5 must not be used — it is deprecated and returns HTTP 403.",
+      "affected": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction",
+        "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation"
+      ],
+      "action_required": "Revisit after the account clears the qualifying-sales gate. Until then keep the manual, sourced workflow.",
+      "verified": true,
+      "blocking": false
+    },
+    {
+      "id": "I-14",
+      "severity": "medium",
+      "type": "unverifiable value",
+      "title": "CORRECTED — the commission rate IS public; what remains unverified is which category each ASIN is assigned to",
+      "detail": "CORRECTION (2026-11-13, same day). This item originally stated that the commission schedule redirects to sign-in and that no category rate could be read from a public page. That was wrong. https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ serves Table 1 in plain GET with no authentication; it lists 'Physical Books, Kitchen, Automotive — 4.50%' and 'All Other Categories — 4.00%'. Session arena-105bc29e reached the same table independently (its S3), and its published root site shows Kitchen 4.50% and All Other 4.00% as the two candidate rows. Air fryers are kitchen appliances, so 4.50% is the most likely rate. What is genuinely NOT verifiable is Amazon's ASIN-to-category mapping: Amazon does not publish which commission category a given ASIN falls into, so the per-product rate cannot be stated with certainty. The correct treatment is therefore to show the official category rate against its official source and label the per-ASIN mapping unverified — not to publish no rate at all.",
+      "affected": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+      ],
+      "action_required": "Show the 4.50% Kitchen row with a link to S27, label it 'category rate — ASIN mapping unconfirmed', and remove the claim that no rate is publicly available. Do not compute revenue from it.",
+      "verified": true,
+      "blocking": false
+    },
+    {
+      "id": "I-15",
+      "severity": "medium",
+      "type": "no verified data source",
+      "title": "No search-volume or keyword-difficulty data is used",
+      "detail": "The niche scoring deliberately omits seasonality and search demand because no official, licensed keyword-volume source was consulted. Any 'trending products' claim would therefore be unsupported, so the site makes none.",
+      "affected": [
+        "niche"
+      ],
+      "source_urls": [
+        "https://affiliate-program.amazon.com/help/operating/policies"
+      ],
+      "action_required": "Add a licensed keyword source before publishing demand claims.",
+      "verified": false,
+      "blocking": false
+    },
+    {
+      "id": "I-16",
+      "severity": "low",
+      "type": "page-quality observation",
+      "title": "Emeril manufacturer page contains unresolved theme placeholder text",
+      "detail": "The official Emeril product page renders placeholder copy in its help section ('Use this text to answer questions in as much detail as possible for your customers.' and a 'Share information about your brand with your customers.' block). This suggests the page is not fully production-proofed. It does not affect the specification block, which is populated.",
+      "affected": [
+        "P2"
+      ],
+      "source_urls": [
+        "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+      ],
+      "action_required": "Treat the specification block as usable and the marketing copy on that page as unreliable.",
+      "verified": true,
+      "blocking": false
+    },
+    {
+      "id": "I-17",
+      "severity": "low",
+      "type": "traceability limit",
+      "title": "ASIN-to-model-number match is asserted by brand + spec, not by an official cross-reference",
+      "detail": "Neither Chefman nor Emeril publishes the Amazon ASIN on its product page. The mapping between each ASIN and each manufacturer model was established by matching brand and specification (capacity, functions, feature names) across the two official pages. That is strong but not a formal cross-reference.",
+      "affected": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "source_urls": [
+        "https://chefman.com/collections/air-fryers-1/products/turbofry-6-qt-double-basket-air-fryer-with-easy-view-windows",
+        "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+        "https://chefman.com/collections/air-fryers-1/products/turbofry-8-qt-air-fryer-w-high-fry"
+      ],
+      "action_required": "Creators API GetItems would return the manufacturer model attribute and close this gap.",
+      "verified": false,
+      "blocking": false
+    },
+    {
+      "id": "I-18",
+      "severity": "high",
+      "type": "identity risk",
+      "title": "The ASINs observed here are what the short links resolved to for an anonymous reader — not a confirmed match to the owner's intended products",
+      "detail": "Independently reproduced on 2026-11-13: using a short code directly as an ASIN returns Amazon's 'Page Not Found', so the codes are opaque redirect tokens rather than ASINs. Following the codes lands on /dp/<ASIN> with lv=shuf, channelId=704 and plpRedirect=mhFallback — i.e. a fallback/personalisation path. Three sessions independently observed the same three ASINs, but session arena/f28312ac-zone1 reported a different featured product on later requests, and no session was signed in as the owner. Therefore every product name on this site is provisional until the owner opens each link while signed in.",
+      "affected": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "source_urls": [
+        "https://link.amazon/B04G1MEwY",
+        "https://link.amazon/B02NbDxp3",
+        "https://link.amazon/B00hJ57DV",
+        "https://www.amazon.com/dp/B04G1MEwY"
+      ],
+      "action_required": "Owner opens all three links signed in and confirms the ASIN and product. If any differ, update data/products-s8a2.json and research/products.json before promoting the site. Raised first as F17 by session arena-4ba9e055.",
+      "verified": true,
+      "blocking": false
+    }
+  ]
+}

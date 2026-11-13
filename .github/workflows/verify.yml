@@ -1,0 +1,60 @@
+name: Verify verification annex (site/)
+
+# The canonical site is built, verified and deployed by .github/workflows/pages.yml.
+# This workflow only guards the independent verification annex in site/, which has its
+# own data (data/verified/) and its own generator. It intentionally does not touch
+# data/*.json, build.py, verify.py or any file in the root site.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-annex:
+    name: Rebuild site/ from data/verified and assert every guarantee
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Rebuild every annex page from data/verified
+        run: python3 scripts/build_site.py
+
+      - name: Assert no unsourced values, no broken links, no policy breaches
+        run: python3 scripts/verify_site.py
+
+      - name: Fail if generated annex HTML has drifted from data/verified
+        run: |
+          if [ -n "$(git status --porcelain -- site/)" ]; then
+            echo "::error::Generated HTML in site/ does not match data/verified/. Run 'python3 scripts/build_site.py' and commit the result."
+            git --no-pager diff --stat -- site/
+            exit 1
+          fi
+
+      - name: Confirm the required disclosure sentence is on every annex page
+        run: |
+          missing=0
+          for f in site/*.html; do
+            if ! grep -qF "As an Amazon Associate I earn from qualifying purchases." "$f"; then
+              echo "::error file=$f::missing required Amazon Associate disclosure sentence"
+              missing=1
+            fi
+          done
+          exit $missing
+
+      - name: Confirm the annex publishes no Amazon price or star rating
+        run: |
+          if grep -rniE 'amazon (price|rating)[^<]{0,30}\$?[0-9]' site/*.html; then
+            echo "::error::Possible Amazon price or rating published in site/ (see Program Policies 2(b), 3(t))"
+            exit 1
+          fi
+          echo "OK - no Amazon price or rating published"
