@@ -148,15 +148,14 @@
 
 <section>
   <h2>Scalability &amp; continuous optimization</h2>
-  <div class="table-wrap"><table>
-    <thead><tr><th>Property</th><th>Design</th></tr></thead>
-    <tbody>
-      <tr><td>Scalability</td><td>Static-site output scales with content count, not traffic. Pipeline stages are content-addressed (ASIN + date), so re-verification runs idempotently and new products are added as registry rows.</td></tr>
-      <tr><td>Automation</td><td>Scheduled jobs: link re-verification, policy-document change detection (the OA/Policies pages carry “Updated” dates), KPI rollups, content refresh queue.</td></tr>
-      <tr><td>Data-driven decisions</td><td>Content prioritization = f(EPC, CTR, verification freshness). Dated snapshots keep trend claims honest.</td></tr>
-      <tr><td>Compliance automation</td><td>Pre-publish checks: disclosure present on every page; no price/rating cells without PA API provenance; link format audit (tag present, no cloaking); claim-scan against the verified-attributes schema.</td></tr>
-    </tbody>
-  </table></div>
+  <div class="card">
+    <ul class="tight">
+      <li><strong>Scalability</strong> — static-site output scales with content count, not traffic. Pipeline stages are content-addressed (ASIN + date), so re-verification runs idempotently and new products are added as registry rows.</li>
+      <li><strong>Automation</strong> — scheduled jobs: link re-verification, policy-document change detection (the OA/Policies pages carry “Updated” dates), KPI rollups, content refresh queue. Constraints: <a href="https://affiliate-program.amazon.com/help/operating/policies">Policies §5</a>, <a href="https://affiliate-program.amazon.com/help/operating/policies">IP License §2(h), §4</a>.</li>
+      <li><strong>Data-driven decisions</strong> — content prioritization = f(EPC, CTR, verification freshness); dated snapshots keep trend claims honest. KPI sources: <a href="https://affiliate-program.amazon.com/help/operating/policies">CIS §6</a>.</li>
+      <li><strong>Compliance automation</strong> — pre-publish checks: disclosure present on every page (<a href="https://affiliate-program.amazon.com/help/operating/agreement">OA §5</a>); no price/rating cells without PA API provenance (<a href="https://affiliate-program.amazon.com/help/operating/policies">PR §2(b), §6(t)</a>); link-format audit (<a href="https://affiliate-program.amazon.com/help/operating/policies">PR §2(v)(w)</a>); claim-scan against the verified-attributes schema.</li>
+    </ul>
+  </div>
 </section>
 
 </main>

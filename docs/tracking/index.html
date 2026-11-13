@@ -89,16 +89,16 @@
 <section>
   <h2>Event schema (first-party click tracking)</h2>
   <div class="table-wrap"><table>
-    <thead><tr><th>Field</th><th>Description</th><th>Collected?</th><th>Notes / source</th></tr></thead>
+    <thead><tr><th>Field</th><th>Description</th><th>Collected?</th><th>Notes / source</th><th>Source</th></tr></thead>
     <tbody>
-      <tr><td>event_ts</td><td>Timestamp (UTC) of the outbound click.</td><td><span class="badge ok">yes</span></td><td>First-party analytics; cookie/privacy disclosure required (Policies §3(e)).</td></tr>
-      <tr><td>page_id</td><td>Which content page fired the click.</td><td><span class="badge ok">yes</span></td><td>Maps to content plan IDs (S1–S7).</td></tr>
-      <tr><td>product_asin</td><td>Target ASIN of the Special Link.</td><td><span class="badge ok">yes</span></td><td>ASINs may be stored indefinitely (IP License §2(h)).</td></tr>
-      <tr><td>sub_tag</td><td>Static campaign sub-tag in the link (if approved).</td><td><span class="badge ok">yes</span></td><td>Per Policies §2(b): sub-tags allowed for performance monitoring — never assigned per end user.</td></tr>
-      <tr><td>link_format</td><td>Special Link / a.co / amzn.to.</td><td><span class="badge ok">yes</span></td><td>Ensures §2(w) clarity compliance in audits.</td></tr>
-      <tr><td>visitor identifiers</td><td>Per-user profiles tied to sub-tags.</td><td><span class="badge bad">no</span></td><td>Prohibited: dynamic per-end-user sub-tag association (Policies §2(b)).</td></tr>
-      <tr><td>price / availability history</td><td>Historical price series or alerts.</td><td><span class="badge bad">no</span></td><td>Prohibited on the Site (Policies §2(y)).</td></tr>
-      <tr><td>conversion &amp; revenue</td><td>Orders, shipped items, commission.</td><td><span class="badge neutral">via Amazon</span></td><td>Only from Associates Central reports — no self-reported conversion numbers.</td></tr>
+      <tr><td>event_ts</td><td>Timestamp (UTC) of the outbound click.</td><td><span class="badge ok">yes</span></td><td>First-party analytics; cookie/privacy disclosure required (Policies §3(e)).</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>page_id</td><td>Which content page fired the click.</td><td><span class="badge ok">yes</span></td><td>Maps to content plan IDs (S1–S7).</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>product_asin</td><td>Target ASIN of the Special Link.</td><td><span class="badge ok">yes</span></td><td>ASINs may be stored indefinitely (IP License §2(h)).</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>sub_tag</td><td>Static campaign sub-tag in the link (if approved).</td><td><span class="badge ok">yes</span></td><td>Per Policies §2(b): sub-tags allowed for performance monitoring — never assigned per end user.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>link_format</td><td>Special Link / a.co / amzn.to.</td><td><span class="badge ok">yes</span></td><td>Ensures §2(w) clarity compliance in audits.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>visitor identifiers</td><td>Per-user profiles tied to sub-tags.</td><td><span class="badge bad">no</span></td><td>Prohibited: dynamic per-end-user sub-tag association (Policies §2(b)).</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>price / availability history</td><td>Historical price series or alerts.</td><td><span class="badge bad">no</span></td><td>Prohibited on the Site (Policies §2(y)).</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>conversion &amp; revenue</td><td>Orders, shipped items, commission.</td><td><span class="badge neutral">via Amazon</span></td><td>Only from Associates Central reports — no self-reported conversion numbers.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
     </tbody>
   </table></div>
 </section>
@@ -106,13 +106,13 @@
 <section>
   <h2>KPI definitions (formulas only — no fabricated values)</h2>
   <div class="table-wrap"><table>
-    <thead><tr><th>KPI</th><th>Formula</th><th>Data source</th><th>Current value</th></tr></thead>
+    <thead><tr><th>KPI</th><th>Formula</th><th>Data source</th><th>Current value</th><th>Source</th></tr></thead>
     <tbody>
-      <tr><td>Outbound click rate</td><td class="mono">clicks ÷ page views</td><td>first-party analytics</td><td class="blank">— pending live traffic</td></tr>
-      <tr><td>Earnings per click (EPC)</td><td class="mono">commission income ÷ clicks</td><td>Associates Central + analytics</td><td class="blank">— pending account</td></tr>
-      <tr><td>Conversion rate</td><td class="mono">qualifying purchases ÷ sessions</td><td>Associates Central</td><td class="blank">— pending account</td></tr>
-      <tr><td>Revenue per article</td><td class="mono">commission by sub-tag ÷ article</td><td>Associates Central (sub-tag reports)</td><td class="blank">— pending account</td></tr>
-      <tr><td>Content ROI</td><td class="mono">(commission − content cost) ÷ content cost</td><td>internal + Associates Central</td><td class="blank">— pending account</td></tr>
+      <tr><td>Outbound click rate</td><td class="mono">clicks ÷ page views</td><td>first-party analytics</td><td class="blank">— pending live traffic</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>Earnings per click (EPC)</td><td class="mono">commission income ÷ clicks</td><td>Associates Central + analytics</td><td class="blank">— pending account</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>Conversion rate</td><td class="mono">qualifying purchases ÷ sessions</td><td>Associates Central</td><td class="blank">— pending account</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>Revenue per article</td><td class="mono">commission by sub-tag ÷ article</td><td>Associates Central (sub-tag reports)</td><td class="blank">— pending account</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
+      <tr><td>Content ROI</td><td class="mono">(commission − content cost) ÷ content cost</td><td>internal + Associates Central</td><td class="blank">— pending account</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies">Policies </a></td></tr>
     </tbody>
   </table></div>
   <p class="small">Amazon explicitly does not guarantee traffic or income (OA: “We do not make any representation …
