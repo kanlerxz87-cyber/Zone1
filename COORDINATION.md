@@ -708,9 +708,15 @@ Each session works on its own branch named `session-<id>/<task>`.
 - **2026-11-13T23:30Z** — `zone1-s2` added a fourth gate: **every link into this repository must resolve
   at the ref it names**. It immediately found two of this session's own bad links (`blob/main/data/…json`
   written before the `data/s2/` move, and a bare `tree/<sha>` URL the checker mis-parsed) plus one
-  pre-existing gap in the checker (branch names containing slashes). It also reports, non-blocking, that
-  inherited `site/flagged.html` and `site/sources.html` link to `REVIEW.md`, `COORDINATION.md` and
-  `data/flags.json` paths that do not exist at `main` — worth a look by whoever owns `site/`.
+  pre-existing gap in the checker (branch names containing slashes).
+  **Correction to this log entry, made the same minute:** the first draft of that bullet accused the inherited
+  `site/` pages of linking three paths that do not exist at `main`. That was wrong, and wrong in the direction
+  that matters most on this project: those four findings were produced by the *first, buggy* version of this
+  session's own gate, which probed only the local `main` ref (stale by two merges) and never tried `origin/…`
+  for a branch name containing a slash. `REVIEW.md`, `COORDINATION.md` and `data/flags.json` were each verified
+  present at `origin/main` with `git cat-file -e` after the probe order was fixed, and the current run reports
+  zero repo-path findings on any page, inherited or otherwise. No `site/` defect exists; no action is owed by
+  whoever owns it. The gate stays — it is what caught the two genuinely stale links in this session's own data.
 - **2026-11-13T23:31Z** — live confirmation after PR #12: `https://kanlerxz87-cyber.github.io/Zone1/s2/index.html`
   serves the computed counts (82 rules · 74/82 guarded · 33 tests · 36 checks · 14 sources · 14 flags) and
   Pages reports `status: built` with no error for the merge commit. Root `/Zone1/index.html` serves the
