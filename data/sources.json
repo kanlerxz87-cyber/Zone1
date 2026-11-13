@@ -181,6 +181,26 @@
       "kind": "Manufacturer owner's manual",
       "directness": "Primary",
       "page_version": "Document live, 2026-11-13"
+    },
+    {
+      "id": "S19",
+      "org": "Amazon.com Associates Central",
+      "title": "New Product Advertising API (PA API) Registration",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GBRCD467W33NMWLD",
+      "covers": "PA API registration is merged into Associates Central; credentials are linked to the primary account holder; request rate scales with account sales performance",
+      "kind": "Help article",
+      "directness": "Primary",
+      "page_version": "Live page, 2026-11-13"
+    },
+    {
+      "id": "S20",
+      "org": "Amazon.com Associates Central",
+      "title": "About the Product Advertising API (topic index)",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GMEDADBTCJ9KD8DQ",
+      "covers": "Current PA API help topics — used to confirm the API is still the documented route, not that it is deprecated",
+      "kind": "Help article",
+      "directness": "Primary",
+      "page_version": "Live page, 2026-11-13"
     }
   ]
 }

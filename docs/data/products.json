@@ -1,0 +1,71 @@
+{
+  "as_of": "2026-11-13",
+  "marketplace": "Amazon.com (United States)",
+  "rule": "A value is shown only if it was read from an official source on the as_of date. Anything else is left blank and marked unverified. Nothing is inferred or estimated.",
+  "products": [
+    {
+      "id": "P1",
+      "submitted_link": "https://link.amazon/B04G1MEwY",
+      "asin": "B0CDY277D3",
+      "official_url": "https://www.amazon.com/dp/B0CDY277D3",
+      "official_source": "S1",
+      "resolved_via": "S4",
+      "category_page": "home-kitchen-air-fryers",
+      "values": {
+        "product_title": { "value": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black", "status": "verified", "source": "S1" },
+        "department": { "value": "Home & Kitchen", "status": "verified", "source": "S1" },
+        "brand_as_titled": { "value": "CHEFMAN", "status": "verified", "source": "S1" },
+        "capacity_as_titled": { "value": "6 Quart", "status": "verified", "source": "S1" },
+        "product_type_as_titled": { "value": "Air Fryer Oven", "status": "verified", "source": "S1" },
+        "category": { "value": "Air Fryers", "status": "derived", "source": "S1", "note": "Derived from the words 'Air Fryer' in the title. Amazon browse node not verified." },
+        "price": { "value": null, "status": "unverified", "source": null, "note": "Not present in the retrieved page text." },
+        "rating": { "value": null, "status": "unverified", "source": null, "note": "Not present in the retrieved page text." },
+        "review_count": { "value": null, "status": "unverified", "source": null, "note": "Not present in the retrieved page text." },
+        "commission_rate": { "value": null, "status": "unverified", "source": null, "note": "Official rate schedule (S9) not reachable." }
+      }
+    },
+    {
+      "id": "P2",
+      "submitted_link": "https://link.amazon/B02NbDxp3",
+      "asin": "B09B7SB46R",
+      "official_url": "https://www.amazon.com/dp/B09B7SB46R",
+      "official_source": "S2",
+      "resolved_via": "S5",
+      "category_page": "home-kitchen-air-fryers",
+      "values": {
+        "product_title": { "value": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.", "status": "verified", "source": "S2" },
+        "department": { "value": "Home & Kitchen", "status": "verified", "source": "S2" },
+        "brand_as_titled": { "value": "Emeril Lagasse", "status": "verified", "source": "S2" },
+        "capacity_as_titled": { "value": "26QT", "status": "verified", "source": "S2" },
+        "product_type_as_titled": { "value": "Air Fryer Toaster Oven", "status": "verified", "source": "S2" },
+        "category": { "value": "Air Fryers", "status": "derived", "source": "S2", "note": "Derived from the words 'Air Fryer' in the title. Amazon browse node not verified." },
+        "price": { "value": null, "status": "unverified", "source": null, "note": "Not present in the retrieved page text." },
+        "rating": { "value": null, "status": "unverified", "source": null, "note": "Not present in the retrieved page text." },
+        "review_count": { "value": null, "status": "unverified", "source": null, "note": "Not present in the retrieved page text." },
+        "commission_rate": { "value": null, "status": "unverified", "source": null, "note": "Official rate schedule (S9) not reachable." }
+      }
+    },
+    {
+      "id": "P3",
+      "submitted_link": "https://link.amazon/B00hJ57DV",
+      "asin": "B08DKYBTPH",
+      "official_url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "official_source": "S6",
+      "resolved_via": "S6",
+      "category_page": "home-kitchen-air-fryers",
+      "values": {
+        "product_title": { "value": "Chefman Air Fryer 8 Qt | TurboFry 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel", "status": "verified", "source": "S6", "note": "Confirmed from the short-link resolved page title. The canonical URL (S3) returned an interstitial." },
+        "department": { "value": "Home & Kitchen", "status": "verified", "source": "S6" },
+        "brand_as_titled": { "value": "Chefman", "status": "verified", "source": "S6" },
+        "capacity_as_titled": { "value": "8 Qt", "status": "verified", "source": "S6" },
+        "product_type_as_titled": { "value": "Air Fryer", "status": "verified", "source": "S6" },
+        "category": { "value": "Air Fryers", "status": "derived", "source": "S6", "note": "Derived from the words 'Air Fryer' in the title. Amazon browse node not verified." },
+        "price": { "value": null, "status": "unverified", "source": null, "note": "Not present in the retrieved page text." },
+        "rating": { "value": null, "status": "unverified", "source": null, "note": "Not present in the retrieved page text." },
+        "review_count": { "value": null, "status": "unverified", "source": null, "note": "Not present in the retrieved page text." },
+        "commission_rate": { "value": null, "status": "unverified", "source": null, "note": "Official rate schedule (S9) not reachable." }
+      }
+    }
+  ],
+  "fields_order": ["product_title", "asin", "department", "brand_as_titled", "capacity_as_titled", "product_type_as_titled", "category", "price", "rating", "review_count", "commission_rate"]
+}

@@ -398,6 +398,11 @@ def layout(page_rel, title, body, active=None, description=""):
       <p class="tiny">Data verified {e(ACCESSED)}. Policies change: always re-check the source before relying on it.</p>
     </div>
     <div>
+      <h5>Cookies &amp; privacy</h5>
+      <p>This site sets no cookies itself, runs no analytics, and has no comment forms or accounts. Following an Amazon link takes you to Amazon, whose own privacy notice and cookie practices apply from that point. No data you enter here is collected, because there is nowhere to enter it.</p>
+      <p class="tiny">Amazon's Program Policies §3(e) require an accurate statement of cookie and third-party technology use on Associate sites. This notice satisfies that requirement for the current build; it must be updated the moment any analytics, embeds or affiliate-network script is added.</p>
+    </div>
+    <div>
       <h5>Sources</h5>
       <ul>
         <li><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">Associates Operating Agreement</a></li>
@@ -741,7 +746,15 @@ PROGRAMME_FLAGS = [
     ("F8", "IP License §2(e) forbids aggregating, analysing or repurposing Program Content and training models on it.",
      "Platform design", "Any AI research or trend scoring therefore runs only on first-party data and public manufacturer data. Documented as guardrail G6 in the blueprint.", ["S2"]),
     ("F9", "No Amazon price, star rating or review count is available to this build.",
-     "All three", "Left blank everywhere by policy rather than by omission. Becomes fillable only if the operator secures Creators/PA API credentials.", ["S2"]),
+     "All three", "Left blank everywhere by policy rather than by omission. Becomes fillable only if the operator secures Creators/PA API credentials.", ["S2", "S19"]),
+    ("F10", "The short links are generated redirects with fallback parameters, not plain product links.",
+     "All three links", "Each resolves with lv=shuf and plpRedirect=mhFallback in the landing URL, and the srctok value stays constant across repeat requests (re-tested 2026-11-13). That pattern is Amazon's server-side redirect, not a guarantee of a stable destination. Open each link yourself before publishing and confirm the product is the one intended.", ["S17", "S16"]),
+    ("F11", "The site does not disclose cookies, pixels and third-party technologies as Participation Requirements §3(e) requires.",
+     "Whole site", "The site itself sets no cookies and runs no analytics, but §3(e) requires an accurate disclosure of cookie and third-party technology use, including that third parties may place or recognise cookies. Only a minimal notice is in the footer; a proper privacy/cookie statement is needed before launch. Legal review recommended.", ["S2"]),
+    ("F12", "The automated platform functions in the brief are not running — by design, not by omission.",
+     "Platform", "Automated trend detection, competition scoring and conversion optimisation need an Associates account, Creators/PA API credentials and sales reports. PA API access is registered through Associates Central and credentials are tied to the primary account holder, with request rate scaled to account sales performance. None of that exists in this repository, and inventing the data to fill the gap would defeat the point of the project.", ["S2", "S19", "S20"]),
+    ("F13", "Product listing titles are reproduced from Amazon; §6(a) restricts altering Program Content.",
+     "All three", "Titles are shown verbatim and unedited. §6(a) permits truncation only where meaning is not materially altered, and whether a listing title counts as Program Content is not stated. Recorded so the operator can confirm before adding any paraphrase.", ["S2"]),
 ]
 
 VERDICTS = {

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analysis &amp; Findings · Amazon Affiliate Product Research - Zone1</title>
+<meta name="description" content="Verified, source-linked dashboard of three Amazon.com products. Unverified values are left blank.">
+<link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">Zone1<span>Affiliate research</span></div>
+    <nav>
+        <a href="./index.html" class="">Overview</a>
+        <a href="./categories/home-kitchen-air-fryers.html" class="">Home &amp; Kitchen › Air Fryers</a>
+        <a href="./analysis.html" class="active">Analysis &amp; Findings</a>
+        <a href="./compliance.html" class="">Compliance</a>
+        <a href="./sources.html" class="">Sources</a>
+        <a href="./flagged.html" class="">Flagged for Review</a>
+    </nav>
+    <div class="side-foot">As of 2026-11-13<br><a href="https://github.com/kanlerxz87-cyber/Zone1">Repository</a></div>
+  </aside>
+  <main>
+    
+<div class="disclosure" role="note">
+  <strong>Affiliate disclosure.</strong> Some links on this site are Amazon links and may earn the site owner a commission.
+  Amazon Associates status: <strong>pending confirmation</strong>.
+  Required statement: <em>“As an Amazon Associate I earn from qualifying purchases.”</em>
+  It will be shown as an active statement once the Associates account is confirmed. See <a href="./flagged.html">Flagged for Review</a> (F03, F06).
+</div>
+    
+<header class="hero compact">
+  <p class="eyebrow"><a href="./index.html">Overview</a> › Analysis</p>
+  <h1>Analysis &amp; findings</h1>
+  <p class="lede">Only findings that follow from verified values are listed. Anything that needs price, rating, review or commission data is marked as not possible from current sources.</p>
+</header>
+
+<section class="kpis">
+  <div class="kpi"><div class="num">3</div><div class="lbl">Unique ASINs</div></div>
+  <div class="kpi"><div class="num">2</div><div class="lbl">Brand names as titled (CHEFMAN ×2 · Emeril Lagasse ×1)</div></div>
+  <div class="kpi"><div class="num">60%</div><div class="lbl">Field coverage (verified or derived)</div></div>
+  <div class="kpi warn"><div class="num">12</div><div class="lbl">Blank fields (unverified)</div></div>
+</section>
+
+<section class="card">
+  <h2>Verified findings</h2>
+  <table class="data">
+    <thead><tr><th>#</th><th>Finding</th><th>Basis (source)</th></tr></thead>
+    <tbody>
+      <tr><td>A1</td><td>All three links resolve to Amazon.com product pages with three different ASINs.</td><td><a href="https://link.amazon/B04G1MEwY" target="_blank" rel="noopener">S4</a>, <a href="https://link.amazon/B02NbDxp3" target="_blank" rel="noopener">S5</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a></td></tr>
+      <tr><td>A2</td><td>All three products are listed in the “Home &amp; Kitchen” department.</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">S2</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a> (page titles)</td></tr>
+      <tr><td>A3</td><td>The category “Air Fryers” is derived from the words in the titles. The Amazon browse node was not confirmed.</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">S2</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a></td></tr>
+      <tr><td>A4</td><td>Two of the three titles name Chefman. Casing differs (“CHEFMAN” vs “Chefman”), so the brand match is unconfirmed.</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a></td></tr>
+      <tr><td>A5</td><td>Capacity as titled ranges from 6 Quart to 26QT. P2 is a French-door toaster oven; P1 is a dual-basket oven; P3 is a basket air fryer, as the titles describe them.</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">S2</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a></td></tr>
+      <tr><td>A6</td><td>None of the three links carries an Associates tag, so none can be credited to an Associates account as supplied.</td><td><a href="https://link.amazon/B04G1MEwY" target="_blank" rel="noopener">S4</a>, <a href="https://link.amazon/B02NbDxp3" target="_blank" rel="noopener">S5</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a>; <a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Participation Requirements s.2(b)</a></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="card">
+  <h2>Not possible from current verified sources</h2>
+  <table class="data">
+    <thead><tr><th>Analysis</th><th>Why it is blocked</th><th>What would unblock it</th></tr></thead>
+    <tbody>
+      <tr><td>Price comparison and price trends</td><td>Price not in retrieved page text. Price display is limited to Amazon-served links or the PA-API / Creators API (<a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">s.2(b)</a>).</td><td>Creators API / PA-API access through an Associates account (F01, F11).</td></tr>
+      <tr><td>Reviews, ratings and sentiment</td><td>Rating and review count not in retrieved page text.</td><td>Same as above (F01).</td></tr>
+      <tr><td>Commission potential (rate × revenue)</td><td>Standard rate for Home &amp; Kitchen not confirmed; official schedule (<a href="https://affiliate-program.amazon.com/help/operating/schedule" target="_blank" rel="noopener">S9</a>) not reachable (F02).</td><td>Read the rate on Associates Central while signed in, then add it with its source.</td></tr>
+      <tr><td>Competition and market share</td><td>No verified competitor or sales data.</td><td>An approved data source (F11).</td></tr>
+      <tr><td>Trending or high-converting products; profitable niches</td><td>No verified trend, sales-rank or conversion data.</td><td>Analytics and sales data (F11). None are claimed here.</td></tr>
+      <tr><td>Clicks and conversions</td><td>No tracking is installed. Site analytics would also need a privacy review.</td><td>Associates reports, plus an analytics decision by the owner (F11).</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="card">
+  <h2>How commission income is calculated (official method, no rate applied)</h2>
+  <p>Standard Commission Income is a percentage of Qualifying Revenue. Qualifying Revenue is the amount Amazon receives, less shipping, gift wrap, handling fees, taxes, service charges, credits, rebates, card processing fees and bad debt (<a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Commission Income Statement s.1 and s.3</a>). The rate is set per category on the schedule that is not reachable (<a href="https://affiliate-program.amazon.com/help/operating/schedule" target="_blank" rel="noopener">S9</a>). No amount has been calculated for any product.</p>
+</section>
+    <footer class="foot">
+      <p><strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases (statement pending confirmation; see above).</p>
+      <p>Every value on this site is either read from a cited official source on 2026-11-13 or left blank and marked unverified. Nothing is estimated. Amazon and Amazon.com are trademarks of Amazon.com, Inc. or its affiliates; this site is not affiliated with or endorsed by Amazon.</p>
+    </footer>
+  </main>
+</div>
+<script src="./assets/app.js"></script>
+</body>
+</html>

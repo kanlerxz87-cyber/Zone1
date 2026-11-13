@@ -32,6 +32,8 @@ OFFICIAL_HOSTS = {
     "www.emerileveryday.com",
     "www.ftc.gov",
     "www.ecfr.gov",
+    "docs.github.com",
+    "github.com",
 }
 
 errors = []
