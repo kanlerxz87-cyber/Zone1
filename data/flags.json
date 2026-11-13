@@ -152,13 +152,13 @@
       "id": "F13",
       "severity": "Low",
       "type": "Repo",
-      "item": "GitHub Pages was already enabled from main at '/' (legacy build), serving the README only.",
-      "detail": "This session changes the publishing source to main at /docs so the scripts and data stay out of the served site.",
+      "item": "GitHub Pages publishing source is main at '/' (legacy). This session could not change it to /docs (API returned 403 for this token).",
+      "detail": "A root index.html redirects to docs/index.html, which holds the built site. The site is therefore reachable at the Pages URL without changing settings. Pages URL is clean at /docs/ paths.",
       "sources": [
         "S11",
         "S12"
       ],
-      "action": "No action needed unless you prefer a different publishing setup."
+      "action": "Optional: in Settings > Pages, set the source folder to /docs and remove the root redirect. Otherwise no action is needed."
     },
     {
       "id": "F14",
