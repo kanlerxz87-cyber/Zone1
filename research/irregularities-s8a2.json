@@ -244,21 +244,20 @@
     },
     {
       "id": "I-14",
-      "severity": "high",
+      "severity": "medium",
       "type": "unverifiable value",
-      "title": "No commission rate and no revenue projection is published",
-      "detail": "The Associates Commission Income Schedule (affiliate-program.amazon.com/help/operating/schedule) redirects to Amazon sign-in. The only public official statements are 'Earn up to 10% in associate commissions' and that commission 'differ[s] based on product category'. Because the air-fryer category rate could not be read from an official public page, this site publishes zero commission-rate figures and zero earnings projections. Any number would have been a guess.",
+      "title": "CORRECTED — the commission rate IS public; what remains unverified is which category each ASIN is assigned to",
+      "detail": "CORRECTION (2026-11-13, same day). This item originally stated that the commission schedule redirects to sign-in and that no category rate could be read from a public page. That was wrong. https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ serves Table 1 in plain GET with no authentication; it lists 'Physical Books, Kitchen, Automotive — 4.50%' and 'All Other Categories — 4.00%'. Session arena-105bc29e reached the same table independently (its S3), and its published root site shows Kitchen 4.50% and All Other 4.00% as the two candidate rows. Air fryers are kitchen appliances, so 4.50% is the most likely rate. What is genuinely NOT verifiable is Amazon's ASIN-to-category mapping: Amazon does not publish which commission category a given ASIN falls into, so the per-product rate cannot be stated with certainty. The correct treatment is therefore to show the official category rate against its official source and label the per-ASIN mapping unverified — not to publish no rate at all.",
       "affected": [
         "P1",
         "P2",
         "P3"
       ],
       "source_urls": [
-        "https://affiliate-program.amazon.com/help/operating/schedule",
-        "https://affiliate-program.amazon.com/welcome"
+        "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
       ],
-      "action_required": "Log in to Associates Central and read the rate card; then record it with the sign-in date. Until then revenue modelling stays blank.",
-      "verified": false,
+      "action_required": "Show the 4.50% Kitchen row with a link to S27, label it 'category rate — ASIN mapping unconfirmed', and remove the claim that no rate is publicly available. Do not compute revenue from it.",
+      "verified": true,
       "blocking": false
     },
     {

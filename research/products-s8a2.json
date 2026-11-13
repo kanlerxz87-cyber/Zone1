@@ -168,7 +168,15 @@
       "irregularities": [
         "I-4",
         "I-7"
-      ]
+      ],
+      "commission_rate_category": {
+        "value": "4.50% (Kitchen category, Table 1)",
+        "source": "S27",
+        "verified": true,
+        "note": "Amazon's published fixed rate for the 'Physical Books, Kitchen, Automotive' category. Air fryers are kitchen appliances, so this is the applicable category rate. Amazon does not publish an ASIN-to-category mapping, so the per-ASIN assignment is NOT confirmed — treat this as the category rate, not a guaranteed payout rate. No revenue is projected from it.",
+        "flag": "I-14",
+        "status": "derived"
+      }
     },
     {
       "id": "P2",
@@ -352,7 +360,15 @@
       "irregularities": [
         "I-5",
         "I-6"
-      ]
+      ],
+      "commission_rate_category": {
+        "value": "4.50% (Kitchen category, Table 1)",
+        "source": "S27",
+        "verified": true,
+        "note": "Amazon's published fixed rate for the 'Physical Books, Kitchen, Automotive' category. Air fryers are kitchen appliances, so this is the applicable category rate. Amazon does not publish an ASIN-to-category mapping, so the per-ASIN assignment is NOT confirmed — treat this as the category rate, not a guaranteed payout rate. No revenue is projected from it.",
+        "flag": "I-14",
+        "status": "derived"
+      }
     },
     {
       "id": "P3",
@@ -517,7 +533,15 @@
       "irregularities": [
         "I-1",
         "I-7"
-      ]
+      ],
+      "commission_rate_category": {
+        "value": "4.50% (Kitchen category, Table 1)",
+        "source": "S27",
+        "verified": true,
+        "note": "Amazon's published fixed rate for the 'Physical Books, Kitchen, Automotive' category. Air fryers are kitchen appliances, so this is the applicable category rate. Amazon does not publish an ASIN-to-category mapping, so the per-ASIN assignment is NOT confirmed — treat this as the category rate, not a guaranteed payout rate. No revenue is projected from it.",
+        "flag": "I-14",
+        "status": "derived"
+      }
     }
   ]
 }

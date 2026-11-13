@@ -208,6 +208,14 @@
       "publisher": "Chefman (chefman.com)",
       "kind": "manufacturer-official",
       "supports": "Identifies the actual stainless-steel 8-quart Chefman SKU. Used to show that the Amazon title's 'Stainless Steel' wording matches a DIFFERENT model than RJ38-8T-BLACK (matte black) — see I-7."
+    },
+    {
+      "id": "S27",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+      "label": "Amazon Associates Central — Associates Program Standard Commission Income Statement (Table 1 + Bounty Events)",
+      "publisher": "Amazon.com, Inc. (Amazon Associates Central)",
+      "kind": "program-official",
+      "supports": "Table 1, publicly readable without sign-in: 'Physical Books, Kitchen, Automotive | 4.50%'; most device/apparel/jewelry/luggage/shoes/handbags categories 4.00%; Toys/Furniture/Home/Home Improvement/Lawn & Garden/Pets/Headphones/Beauty/Musical Instruments/Business & Industrial Supplies/Outdoors/Tools/Sports/Baby 3.00%; 'All Other Categories | 4.00%'. Also lists fixed Bounty Event amounts (e.g. Prime Free Trial $12.00, Prime Video First Stream $5.00). This page was reachable in plain GET with no authentication on 2026-11-13 — it CONTRADICTS this session's earlier finding that the schedule was behind sign-in."
     }
   ]
 }

@@ -47,6 +47,7 @@ PRODUCT_FIELDS = [
     ("Amazon price", "amazon_price"),
     ("Amazon star rating", "amazon_star_rating"),
     ("Amazon review count", "amazon_review_count"),
+    ("Commission category rate", "commission_rate_category"),
     ("Best Sellers Rank", "best_sellers_rank"),
     ("Date first available", "date_first_available"),
     ("Reviews on the brand's own site", "brand_site_rating"),
@@ -324,7 +325,7 @@ def build():
       <li><strong>Amazon prices</strong> — page body not machine-readable, and program policy restricts showing prices. <a href="flagged-for-review.html#I-10">I-10</a></li>
       <li><strong>Amazon star ratings / review counts</strong> — review pages require sign-in. <a href="flagged-for-review.html#I-11">I-11</a></li>
       <li><strong>Best Sellers Rank, date first available</strong> — not exposed publicly. <a href="flagged-for-review.html#I-12">I-12</a></li>
-      <li><strong>Commission rate for the category</strong> — rate card is behind sign-in. <a href="flagged-for-review.html#I-14">I-14</a></li>
+      <li><strong>Commission rate</strong> — the <em>category</em> rate is public (Kitchen 4.50%, <a href="flagged-for-review.html#I-14">I-14</a>); the per-ASIN category assignment is not published by Amazon.</li>
       <li><strong>Whether the links are monetised</strong> — none carry a tracking tag. <a href="flagged-for-review.html#I-2">I-2</a></li>
     </ul>
   </div>
@@ -657,7 +658,7 @@ and is marked unverified.</p>
     <li><strong>Tracking tags.</strong> All three links must be re-issued with the account's tracking ID (<a href="#C7">C7</a>).</li>
     <li><strong>Qualifying sales.</strong> Amazon requires at least three qualifying sales within the first 180 days of joining (<a href="#C18">C18</a>).</li>
     <li><strong>API access.</strong> The Creators API requires at least 10 qualifying sales in the past 30 days (<a href="#C19">C19</a>). PA-API 5 must not be used — it is deprecated and returns HTTP 403.</li>
-    <li><strong>Rate card.</strong> The category commission rate is behind sign-in and is therefore unpublished here (<a href="#C23">C23</a>).</li>
+    <li><strong>Rate card.</strong> Kitchen is a listed category at <strong>4.50%</strong> and the catch-all is 4.00% (<a href="#C23">C23</a>). Amazon publishes the category rate but not the ASIN-to-category mapping, so this site shows the category rate and makes no revenue projection.</li>
   </ul>
 </section>
 """
@@ -968,7 +969,7 @@ verified, and what the owner has to do next. Written to be read in three minutes
       <tr><td>Competition analysis</td><td><span class="chip ok">partial</span></td>
           <td>Structural analysis only: single-category, two-brand concentration; 27 Chefman air-fryer SKUs competing in the same collection.</td></tr>
       <tr><td>Commission analysis</td><td><span class="chip warn">blocked</span></td>
-          <td>Rate card behind sign-in. No rate and no revenue projection published (<a href="flagged-for-review.html#I-14">I-14</a>).</td></tr>
+          <td>Category rate is public (Kitchen 4.50%). ASIN-to-category mapping unpublished, so the per-product rate is labelled unconfirmed and no revenue is projected (<a href="flagged-for-review.html#I-14">I-14</a>).</td></tr>
       <tr><td>SEO-optimised articles &amp; buying guides</td><td><span class="chip ok">done</span></td>
           <td>Three source-linked articles plus a planned fourth, in <a href="articles/index.html">Articles</a>.</td></tr>
       <tr><td>Publish and manage affiliate links</td><td><span class="chip bad">needs owner action</span></td>

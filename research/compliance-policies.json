@@ -250,16 +250,17 @@
     },
     {
       "id": "C23",
-      "topic": "Commission rate card — NOT PUBLICLY VERIFIABLE",
-      "requirement": "Category commission rates determine revenue per conversion.",
-      "quote": null,
-      "source": "S23",
-      "source_url": "https://affiliate-program.amazon.com/help/operating/schedule",
-      "section": "Commission Income Schedule — behind Amazon sign-in",
-      "applied": "UNVERIFIED. Amazon's public page only states 'Earn up to 10% in associate commissions' (S14) and 'Commission income for qualifying purchases and programs differ based on product category' (S14). The per-category rate for home/kitchen (air fryers) could not be read from an official public page, so this site publishes NO commission rate and NO projected earnings. See I-14.",
-      "verified": false,
-      "gap": true,
-      "flag": "I-14"
+      "topic": "Commission rate card — category rates ARE public; ASIN mapping is not",
+      "requirement": "Amazon publishes the fixed standard commission rate per product category. A publisher must state which category rate applies, and must not present a per-product or projected-earnings figure that Amazon does not publish.",
+      "quote": "Physical Books, Kitchen, Automotive | 4.50% ... All Other Categories | 4.00%",
+      "source": "S27",
+      "source_url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+      "section": "Table 1 — Fixed Standard Commission Income Rates for Specific Product Categories",
+      "applied": "PUBLISHED WITH A CAVEAT. Kitchen is a listed category at 4.50% (S27, Table 1), and the catch-all is 4.00%. Air fryers sit in Kitchen, so 4.50% is shown as the category rate with a direct link to Table 1. Amazon does not publish an ASIN-to-category mapping, so the row is labelled 'category rate — per-ASIN mapping unconfirmed' and no revenue projection is made. An earlier version of this row wrongly said no rate was publicly readable; see I-14.",
+      "verified": true,
+      "gap": false,
+      "flag": "I-14",
+      "correction": "Supersedes this session's earlier I-14. Credit: session arena-105bc29e reached the table first and published it; this session independently re-fetched and confirmed it."
     },
     {
       "id": "C24",

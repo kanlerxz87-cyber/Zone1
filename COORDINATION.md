@@ -230,6 +230,105 @@ and does not block anything.
 - **Process note:** a first attempt to rebase this branch onto the remote tip failed, because I used the wrong refspec. It was aborted with `git rebase --abort`, so no commits were altered. The branch was then fast-forwarded to `main`.
 - **Still open:** F13 (set Pages source to `/docs` in Settings), F17 (owner must confirm product identity via each link), F18 (Creators API credentials, once eligible), F21 (other branches need their artifacts pushed or tasks re-opened).
 
+---
+
+# Annex — session `1874bb64` (verification build in `site/`)
+
+This section is appended by session `1874bb64`. It does **not** alter any claim above. It records a
+second, independent build that is published alongside the root site rather than merged into it.
+
+## A1. Ownership and scope (no overlap)
+
+| Path | Owner | Touched by `1874bb64`? |
+|---|---|---|
+| `index.html`, `products/`, `categories/`, `guides/`, `compare.html`, `data.html`, `platform.html`, `compliance.html`, `flagged.html`, `executive-summary.html` | `sess-105bc29e` | **No** |
+| `data/*.json`, `build.py`, `verify.py`, `assets/` | `sess-105bc29e` | **No** (see A4) |
+| `.github/workflows/pages.yml` | `sess-105bc29e` | **No** |
+| `site/**`, `data/verified/**`, `scripts/build_site.py`, `scripts/verify_site.py` | `1874bb64` | Yes — this session's entire scope |
+| `COORDINATION.md`, `README.md`, `EXECUTIVE_SUMMARY.md` | shared | Appended/combined only; nothing removed |
+
+Rule honoured: this session needed no change inside another session's scope, so no request was logged.
+
+## A2. Task board — annex build
+
+| ID | Task | Status | Scope |
+|---|---|---|---|
+| A-T1 | Resolve the 3 short links and record the redirect behaviour | done | `data/verified/products.json` |
+| A-T2 | Map each ASIN to a manufacturer model number from the brand's own pages | done | `data/verified/products.json` |
+| A-T3 | Verify 53 manufacturer specification fields, field by field | done | `data/verified/products.json` |
+| A-T4 | Resolve the published commission rate | done | `data/verified/compliance.json` |
+| A-T5 | Read 20 Associates + FTC requirements and quote each | done | `data/verified/compliance.json` |
+| A-T6 | Build the generator and the verifier | done | `scripts/build_site.py`, `scripts/verify_site.py` |
+| A-T7 | Publish the annex, flagged page and executive summary | done | `site/**` |
+| A-T8 | Re-verify combined data, confirm zero broken links | done | `site/**` |
+| A-T9 | PR → merge → confirm deploy | done | — |
+
+## A3. What this session added
+
+| Finding | Evidence | Why it matters |
+|---|---|---|
+| **Kitchen = 4.50%** fixed standard rate | `https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ` (Table 1) | The root board records the per-product rate as unverified. The *category* rate is in fact public. The ASIN→category mapping remains unverified and is stated as such. |
+| **ASIN → manufacturer model mapped** for all three | Chefman `RJ38-3DBW-V2`, Chefman `RJ38-8T-BLACK`, Emeril `4-00675-02A-VN`, each from its own brand page | The root board flags ASIN→SKU as unmapped. Mapping is possible for all three, and the 8 Qt model resolves the "which Chefman SKU" question recorded above. |
+| **53 specifications verified** against brand pages | `data/verified/products.json` | Field-by-field depth beyond the listing title. |
+| All three short links resolved through `plpRedirect=mhFallback` | observed redirect URL | A redirect-fidelity risk no prior session recorded. |
+| **"Hi-Fry" absent** from Chefman's spec for the 6 Qt model | brand page feature + specification lists | The Amazon title advertises a feature the brand does not document for that model. |
+| **8 Qt finish conflict** | Amazon: "Stainless Steel"; Chefman: "Matte-black finish" | A concrete resolution path for the 8 Qt conflict flagged above. |
+| Emeril preset count: **three** different numbers on one page (25 / 24 / "10-in-1") | brand page spec strip vs description vs product name | Widens the defect already flagged above. |
+| Emeril wattage and safety certification still unconfirmed | brand page omits both | Safety-relevant; remains blank and flagged. |
+
+## A4. Deliberate non-edits
+
+`data/*.json` and `build.py` were **not** modified, even though `data/verified/compliance.json` now
+holds a sourced rate the root data lacks. Editing another session's claimed scope is prohibited by the
+protocol above, so the correction is published in the annex and recorded here instead. **If the
+integrator wants it, the change is a single field.**
+
+## A5. Verification performed
+
+`python3 scripts/build_site.py` → 11 pages into `site/`.
+`python3 scripts/verify_site.py` → **ALL CHECKS PASSED**, 382 assertions, 0 failures.
+
+| ID | Assertion |
+|---|---|
+| V1 | Every internal link and anchor resolves on disk |
+| V2 | Every outbound Amazon link is a direct `/dp/<ASIN>`; no cloaking, shortener, `/gp/`, or ref params |
+| V3–V5 | Every populated row cites a registered source; `verified` never blank; `unverified` never populated |
+| V6–V7 | Every referenced flag exists and is rendered on `site/flagged.html` |
+| V8 | Required disclosure sentence on all 11 annex pages, plus the FTC plain-language sentence |
+| V9 | Every compliance rule has a resolving source, a quote and an implementation statement |
+| V10 | No Amazon price, availability or star rating published anywhere |
+| V11 | No scripts, analytics, cookies, remote fonts or remote CSS |
+| V12 | "affiliate link" never the sole disclosure on a page carrying product links |
+
+Also re-run after the merge: `python3 build.py` and `python3 verify.py` → **0 errors**
+(the root verifier treats annex files it does not own as warnings only).
+
+The annex verifier failed its **first** run with 7 genuine defects — 3 arithmetic errors in the
+opportunity composite scores and 4 places where "affiliate link" carried no payment explanation. Both
+were fixed in the data and templates, not by relaxing the check.
+
+## A6. Conflict log (this session)
+
+| Event | Resolution |
+|---|---|
+| First push found `main` had advanced three commits (`d14c5409`) | Merged `origin/main`; resolved by putting this build in `site/` and its data in `data/verified/`, leaving `docs/` and `data/*.json` untouched. |
+| Second push found `main` had consolidated again (PRs #5, #6, #8) with a new root `build.py` site and a Pages workflow | Merged again; `assets/style.css`, `.gitignore` and the root site kept theirs (`--theirs`). This build's stylesheet lives at `site/assets/style.css`. |
+| `git pull --rebase` auto-started an unwanted rebase replaying `main`'s commits | Aborted with `git rebase --abort`; local and remote both verified at the same commit before any further push. |
+
+Nothing was force-pushed. No branch was rewritten. No other session's file was deleted or reverted.
+
+## A7. Handoff items for the integration session
+
+1. **Decide canonical.** The root site is live and is the right default. If the annex's verified rate
+   and model mappings are wanted, copy `commission_rate` and the model numbers from
+   `data/verified/products.json` into `data/products.json` — a small, well-bounded change.
+2. **Set the Associates tag.** Neither site can earn without it. Annex: `data/verified/config.json`
+   (`associate_tag`, format `XXXXX-20`, validated at build time). Root: the equivalent field in
+   `data/site.json`.
+3. **Re-check the three short links in a browser** before relying on the ASIN mapping.
+4. **Do not build a price tracker.** Prohibited by Program Policies §3(y).
+
+
 # Integration record — session `8a2ddd06` (2026-11-13)
 
 Session `8a2ddd06-zone1` (branch `arena/8a2ddd06-zone1`) started from `42f4036` at the same time as
@@ -412,3 +511,57 @@ PR #7 therefore went `CONFLICTING` a second time. This is what was done about it
 F13 (Pages source still `main /` — now correct, since the site *is* at the root), F17 (product identity — the
 highest-risk item on the board), F18 (Creators API credentials, needs 10 qualifying sales), F19/F20 (now
 mirrored as C24/C25 in the research matrix), F21 (branches that only ever pushed `COORDINATION.md`), F23.
+
+---
+
+## Correction: this session's commission finding was WRONG (`arena/8a2ddd06-zone1`)
+
+`arena-105bc29e` merged PR #4 with a table showing **Kitchen 4.50%** and **All Other Categories 4.00%**, citing
+`https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ` (its S3). This session had published
+the opposite conclusion — I-14 / C23 / F02 — stating that the rate card was behind sign-in and that no category
+rate could be read publicly. **`105bc29e` was right and this session was wrong.**
+
+### What was re-tested, and the result
+
+| Claim | How it was tested (2026-11-13) | Result |
+|---|---|---|
+| Commission schedule requires sign-in | Plain `GET` of `/help/node/topic/GRXPHT8U84RAYDXZ`, no session, no cookies | **No sign-in needed.** The page serves "Associates Program Standard Commission Income Statement" including **Table 1** |
+| Kitchen rate | Read Table 1 directly | **"Physical Books, Kitchen, Automotive — 4.50%"** |
+| Catch-all rate | Read Table 1 directly | **"All Other Categories — 4.00%"** |
+| Bounty amounts | Read the "Special Commission Income (a) Bounty Events" table | Prime Free Trial **$12.00**, Prime Video First Stream **$5.00**, Prime Video Stream **$0.25** |
+
+The earlier finding came from a different URL (`/help/operating/schedule`), which *does* redirect to sign-in.
+That redirect was real, but generalising from it to "the rates are not public" was an unjustified inference —
+exactly the kind of inference this project is supposed to refuse. The lesson is recorded here rather than
+quietly fixed.
+
+### What changed as a result
+
+| Item | Before | After |
+|---|---|---|
+| `I-14` | "No commission rate and no revenue projection is published" (High) | **Corrected**, retitled, severity lowered to Medium: the category rate *is* public; the unverifiable part is Amazon's **ASIN-to-category mapping** |
+| `C23` | "Rate card — NOT PUBLICLY VERIFIABLE", gap open | **Resolved.** Now quotes Table 1, states Kitchen 4.50% with a direct link, labels the per-ASIN mapping unconfirmed, projects no revenue |
+| `research/products-s8a2.json` | no commission field | New field `commission_rate_category` on all 3 products: **4.50% (Kitchen, Table 1)**, status `derived`, flagged `I-14` |
+| Product field count | 64 verified / 23 blank | **67 verified / 23 blank** (90 fields) |
+| Source register | 26 sources | **27** — S27 is the rate card itself |
+| `research/*.html` | three pages said "rate card is behind sign-in" | corrected, and each now shows 4.50% against S27 |
+
+**Credit:** `arena-105bc29e` reached the table first. This session re-fetched it independently before changing
+anything, so the correction rests on a first-hand read, not on trusting another session.
+
+### Standing correction to the board's "what is unverified" list
+
+The root site, the `site/` annex and this session's `research/` section all publish the **category** rate
+(4.50%). None of them publishes a **per-product guaranteed** rate, because Amazon does not publish an
+ASIN-to-category mapping. Any future session should keep that distinction rather than re-deriving "no rate
+available".
+
+### Verification after the correction
+
+```
+python3 research/build_research.py && python3 research/check_research.py   797 checks, 0 errors, 67 fields verified
+python3 build.py                                                          root site rebuilt
+python3 scripts/build_site.py && python3 scripts/verify_site.py           annex: 382 assertions, ALL CHECKS PASSED
+python3 verify.py                                                         43 pages, 0 warnings, 0 errors
+git diff --exit-code                                                      CLEAN — all three generators reproduce the tree
+```
