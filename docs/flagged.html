@@ -35,7 +35,7 @@
   <p class="eyebrow"><a href="./index.html">Overview</a> › Flagged for Review</p>
   <h1>Flagged for Review</h1>
   <p class="lede">Irregularities, unverified items and open decisions. These do not block publication. Each item links to its source so it can be checked directly. Owner decisions are needed on the high-severity items.</p>
-  <p class="lede">5 high · 6 medium · 5 low · 16 total</p>
+  <p class="lede">7 high · 9 medium · 7 low · 23 total</p>
 </header>
 <section class="card">
   <div class="toolbar"><input type="search" class="filter" data-target="tbl-flags" placeholder="Filter flags…" aria-label="Filter flags"></div>
@@ -170,6 +170,62 @@
   <td class="wrap"><strong>Retrieval was done with the fetch tool, not a logged-in browser.</strong><br>Amazon pages return partial text. Some values may be visible on the live page but could not be read here.</td>
   <td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">S2</a>, <a href="https://www.amazon.com/dp/B08DKYBTPH" target="_blank" rel="noopener">S3</a></td>
   <td class="wrap">Spot-check the source links manually.</td>
+</tr>
+<tr>
+  <td>F17</td>
+  <td><span class="badge bad">High</span></td>
+  <td>Product identity</td>
+  <td class="wrap"><strong>The short links may not lead to the products the owner intended. Confirm each one.</strong><br>Independent test on 2026-11-13 (arena-4ba9e055). The three codes are 9 characters, not ASINs. A direct request to amazon.com/dp/&lt;code&gt; returns Amazon &#39;Page Not Found&#39;. A fake code (ZZZZZZZZZ) at link.amazon returns 403 Forbidden, so the real codes are valid redirect tokens. Each real code redirects to the ASIN in S1/S3/S5. Those redirect URLs carry lv=shuf and plpRedirect=mhFallback, which can indicate a fallback page rather than the shared product. Two requests for product 1 returned the same ASIN and source token. Another session (arena/f28312ac-zone1) reported different results on later requests. That was not reproduced here.</td>
+  <td><a href="https://link.amazon/B04G1MEwY" target="_blank" rel="noopener">S4</a>, <a href="https://link.amazon/B02NbDxp3" target="_blank" rel="noopener">S5</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a>, <a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">S2</a>, <a href="https://www.amazon.com/dp/B08DKYBTPH" target="_blank" rel="noopener">S3</a></td>
+  <td class="wrap">Open each submitted link while signed in and confirm it leads to the intended product. Report any different ASIN before the rows are used as fact.</td>
+</tr>
+<tr>
+  <td>F18</td>
+  <td><span class="badge bad">High</span></td>
+  <td>Automation blocked</td>
+  <td class="wrap"><strong>Automated product data (price, reviews, rank) cannot be pulled from the PA-API. PA-API 5 is deprecated.</strong><br>PA-API 5 is deprecated and returns HTTP 403 AccessDenied (S14). The Creators API needs Associates enrollment, at least 10 qualifying sales in the past 30 days, and registered credentials (S13). No credentials exist in this repo, and none were created.</td>
+  <td><a href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction" target="_blank" rel="noopener">S13</a>, <a href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation" target="_blank" rel="noopener">S14</a></td>
+  <td class="wrap">Once the Associates account qualifies, register for the Creators API and store the credentials in a secret store, not in the repo. Build the pull then.</td>
+</tr>
+<tr>
+  <td>F19</td>
+  <td><span class="badge warn">Medium</span></td>
+  <td>Compliance: Program Content</td>
+  <td class="wrap"><strong>Product titles are copied from Amazon listing pages. Program Policies §6(a) may restrict altering Program Content.</strong><br>Participation Requirements §6(a): &#39;You will not add to, delete from, or otherwise alter any Program Content in any way&#39;, except for permitted resizing or truncation. Titles are shown unedited, but whether a listing title counts as Program Content is not confirmed. The site adds its own text around them.</td>
+  <td><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">S8</a></td>
+  <td class="wrap">Decide whether titles may stay on the site, or replace them with the site&#39;s own product names.</td>
+</tr>
+<tr>
+  <td>F20</td>
+  <td><span class="badge warn">Medium</span></td>
+  <td>Compliance: privacy and cookies</td>
+  <td class="wrap"><strong>The cookie and privacy disclosure required by Program Policies §3(e) is not shown on the site.</strong><br>Participation Requirements §3(e) requires the site to disclose accurately the use of cookies, pixels, and other technologies by the site and by third parties. Amazon pages reached through the product links may set cookies. The site itself adds no analytics or cookies, but no disclosure text on this point was found in the published pages. Legal review needed.</td>
+  <td><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">S8</a></td>
+  <td class="wrap">Add a short privacy and cookie note to the footer, and have counsel review it.</td>
+</tr>
+<tr>
+  <td>F21</td>
+  <td><span class="badge warn">Medium</span></td>
+  <td>Coordination</td>
+  <td class="wrap"><strong>Several sessions claimed the same tasks. Some branches are marked done with no matching files on origin.</strong><br>Branches arena/2bef746a-zone1, arena/8a2ddd06-zone1, arena/1874bb64-zone1, and arena/19a679d8-zone1 each claim the repo tasks, and their boards mark data, site, and PR tasks as done. On origin, these branches contain only COORDINATION.md and README.md (checked 2026-11-13). Branch arena/f28312ac-zone1 (zone1-s2) disputes the product identities (its F-07). Full list in crosscheck/arena-4ba9e055/README.md.</td>
+  <td><a href="https://github.com/kanlerxz87-cyber/Zone1/tree/arena/8a2ddd06-zone1" target="_blank" rel="noopener">S15</a>, <a href="https://github.com/kanlerxz87-cyber/Zone1" target="_blank" rel="noopener">S12</a></td>
+  <td class="wrap">Confirm which claimed artifacts exist and push them, or re-open the tasks. Use one integrator for any future merge into main.</td>
+</tr>
+<tr>
+  <td>F22</td>
+  <td><span class="badge info">Low</span></td>
+  <td>Unverified data</td>
+  <td class="wrap"><strong>Best-sellers rank and availability are not in the published unverified list, but they were not verified either.</strong><br>The published product table lists price, rating, review count, and commission rate as unverified. Best-sellers rank and availability were not readable from the product pages either, so they should be listed as unverified as well.</td>
+  <td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">S2</a>, <a href="https://www.amazon.com/dp/B08DKYBTPH" target="_blank" rel="noopener">S3</a></td>
+  <td class="wrap">No action needed beyond showing the two extra fields as blank and unverified.</td>
+</tr>
+<tr>
+  <td>F23</td>
+  <td><span class="badge info">Low</span></td>
+  <td>Title text</td>
+  <td class="wrap"><strong>Product 3 title: the site shows &#39;TurboFry 4-in-1&#39;, but the title on the Amazon page reads &#39;TurboFry®&#39;.</strong><br>Independent read of the short-link resolved page title (S6) gives &#39;Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option ...&#39;. The site drops the registered-trademark sign.</td>
+  <td><a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a></td>
+  <td class="wrap">Use the exact title text, or state that the title is abbreviated.</td>
 </tr>
     </tbody>
   </table>

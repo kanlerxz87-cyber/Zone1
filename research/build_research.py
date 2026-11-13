@@ -605,7 +605,9 @@ derived judgement or a proposal. Nothing here is Amazon data, and nothing here i
   <td><strong>{esc(r['topic'])}</strong><span class="note">{esc(r['section'])}</span></td>
   <td>{esc(r['requirement'])}
       {'<blockquote>'+esc(r['quote'])+'</blockquote>' if r.get('quote') else '<p class="bad"><strong>No public official text available.</strong> This requirement could not be read from an official public page.</p>'}
-      <span class="note"><strong>Applied here:</strong> {esc(r['applied'])}</span></td>
+      <span class="note"><strong>Applied here:</strong> {esc(r['applied'])}</span>
+      {'<span class="note"><strong>Open gap &rarr;</strong> <a class="flagchip" href="flagged-for-review.html#'+esc(r['flag'])+'">'+esc(r['flag'])+'</a></span>' if r.get('gap') and r.get('flag') else ''}
+      {'<span class="note"><strong>Cross-reference:</strong> '+esc(r['cross_reference'])+'</span>' if r.get('cross_reference') else ''}</td>
   <td>{src_link(r['source'], sources, 'official source')}
       {'<br><span class="bad">unverified</span>' if not r.get('verified') else '<br><span class="ok">verified</span>'}</td>
 </tr>""" for r in compliance_doc["rows"])

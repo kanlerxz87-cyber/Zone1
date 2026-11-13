@@ -98,6 +98,9 @@ def main():
             err(f"{r['id']}: marked verified but has no verbatim quote")
         if not r.get("verified") and r.get("quote"):
             warn(f"{r['id']}: unverified but has a quote — check this row")
+        # open gaps must name the flag that publishes them
+        if r.get("gap") and not r.get("flag"):
+            warn(f"{r['id']}: marked as a gap but names no flag id")
 
     # ---- analysis honesty checks ----------------------------------------
     for s in analysis_doc["scoring_model"]["products"]:

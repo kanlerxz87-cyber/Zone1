@@ -78,7 +78,8 @@
       "section": "Participation Requirements §2(a) Special Links",
       "applied": "FLAGGED: all three supplied links resolve without a tag= parameter. See irregularity I-2. The site reproduces the links exactly as supplied and prominently warns that they must be re-issued with a tracking ID.",
       "verified": true,
-      "gap": true
+      "gap": true,
+      "flag": "I-2"
     },
     {
       "id": "C8",
@@ -211,7 +212,8 @@
       "section": "Creators API — Prerequisites",
       "applied": "This is why automated price/review ingestion is NOT live on this site: the account does not yet have the qualifying-sales history that the API requires. See I-13.",
       "verified": true,
-      "gap": true
+      "gap": true,
+      "flag": "I-13"
     },
     {
       "id": "C20",
@@ -256,7 +258,36 @@
       "section": "Commission Income Schedule — behind Amazon sign-in",
       "applied": "UNVERIFIED. Amazon's public page only states 'Earn up to 10% in associate commissions' (S14) and 'Commission income for qualifying purchases and programs differ based on product category' (S14). The per-category rate for home/kitchen (air fryers) could not be read from an official public page, so this site publishes NO commission rate and NO projected earnings. See I-14.",
       "verified": false,
-      "gap": true
+      "gap": true,
+      "flag": "I-14"
+    },
+    {
+      "id": "C24",
+      "topic": "Program Content may not be altered",
+      "requirement": "Program Content must not be added to, deleted, or otherwise altered; only proportional resizing or non-material truncation of text is allowed.",
+      "quote": "You will not add to, delete from, or otherwise alter any Program Content in any way, including by adding additional information, except that you may resize Program Content consisting of a graphic image in a manner that maintains the original proportions of the image or truncate Program Content consisting of text in a manner that does not materially alter the meaning of the text or cause the text to become factually incorrect, or misleading.",
+      "source": "S12",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "section": "Participation Requirements §6(a) (Content on your Site)",
+      "applied": "Titles are reproduced verbatim on this site and never paraphrased. Where Amazon's own title is cited, it is labelled 'Verbatim Amazon listing title'. Whether a listing title counts as Program Content is not confirmed by Amazon, so this is flagged open at C24/F19.",
+      "verified": true,
+      "gap": true,
+      "flag": "F19",
+      "cross_reference": "Raised independently by session arena-4ba9e055 as F19; neither the d14c5409 nor the original 8a2ddd06 matrix covered it."
+    },
+    {
+      "id": "C25",
+      "topic": "Privacy and cookie disclosure",
+      "requirement": "The site must disclose accurately the use of cookies, pixels and other technologies by the site and by third parties, and explain how data is collected, used, stored and disclosed.",
+      "quote": "disclosing on your Site accurately and adequately and otherwise satisfying applicable legal requirements, either through a privacy policy or otherwise, the use of cookies, pixels, and other technologies by you and third parties and how you collect, use, store, and disclose data collected from visitors in accordance with applicable laws",
+      "source": "S12",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "section": "Participation Requirements §3(e) (Responsibility for Your Site)",
+      "applied": "OPEN — this site sets no cookies and runs no analytics, and it carries no privacy policy page. That is a genuine gap, not an oversight to be hidden: the site links to Amazon, and Amazon's pages set cookies on the visitor's browser. Flagged as F20 and left open for the owner and legal review.",
+      "verified": true,
+      "gap": true,
+      "flag": "F20",
+      "cross_reference": "Raised independently by session arena-4ba9e055 as F20; not covered by either earlier matrix."
     }
   ]
 }

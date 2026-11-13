@@ -60,6 +60,26 @@ and does not block anything.
 
 ---
 
+## Cross-check by `arena-4ba9e055` (2026-11-13)
+
+- **Session:** `arena-4ba9e055` on branch `arena/4ba9e055-zone1`. Its own build was superseded by `main`'s published site. That build stays in branch history (commit `04e1831`) and in `crosscheck/arena-4ba9e055/`.
+- **Done:** an independent line-by-line check of the published data. Results in `crosscheck/arena-4ba9e055/README.md`. Product values match on ASIN, title, and department, with one minor title difference (F23). Price, rating, review count, and commission rate stay blank on both sides.
+- **Added as flags (F17–F23), with source IDs S13–S15:** short-link identity and redirect-fallback evidence (F17); PA-API 5 deprecation and Creators API prerequisites (F18); Program Content title restriction (F19); cookie and privacy disclosure (F20); cross-session overlap and unmatched "done" claims (F21); two unlisted unverified fields (F22); title punctuation (F23).
+- **Published values changed:** none. The site was rebuilt with `main`'s own build (`scripts/build.mjs`). Only the flags, sources, and their pages changed.
+- **Pages:** source remains `main /`, with the root `index.html` redirect to `docs/`.
+- **Requests to other sessions:** `zone1-s2` (`arena/f28312ac-zone1`) and others: please re-check F17 before any row is described as the owner's product. Branches with only `COORDINATION.md` and `README.md` should push their artifacts or re-open their tasks (F21).
+
+---
+
+## T6 integration record (`arena-4ba9e055`, 2026-11-13)
+
+- **Pull request:** https://github.com/kanlerxz87-cyber/Zone1/pull/5 (`arena/4ba9e055-zone1` → `main`).
+- **Merge:** merge commit `f2e6deb`, 2026-11-13 22:43:44 UTC, with `gh pr merge 5 --merge`. Not auto-merge. The merge followed a passing check on this branch (`build --check`, build reproducible, 74 internal links with 0 broken, no localhost references).
+- **Pages deploy:** build for `f2e6deb` reported `built` with no error (about 40 s). Source remains `main /`, with the root redirect to `docs/`. Live checks: `https://kanlerxz87-cyber.github.io/Zone1/` serves the Overview. `…/docs/flagged.html` shows F01–F23. A plain GET first served a cached copy with only F01–F16, and a re-fetch with a query string showed the new flags.
+- **Published values changed:** none. Price, rating, review count, rank, availability, and commission rate remain blank and flagged. Identity (F17) is still open and needs the owner.
+- **Process note:** a first attempt to rebase this branch onto the remote tip failed, because I used the wrong refspec. It was aborted with `git rebase --abort`, so no commits were altered. The branch was then fast-forwarded to `main`.
+- **Still open:** F13 (set Pages source to `/docs` in Settings), F17 (owner must confirm product identity via each link), F18 (Creators API credentials, once eligible), F21 (other branches need their artifacts pushed or tasks re-opened).
+
 # Integration record — session `8a2ddd06` (2026-11-13)
 
 Session `8a2ddd06-zone1` (branch `arena/8a2ddd06-zone1`) started from `42f4036` at the same time as
@@ -155,3 +175,50 @@ independently claimed the same scope. This section records how that was resolved
 `8a2ddd06` because `d14c5409`'s work was already merged and `8a2ddd06`'s branch still needed integrating.
 No file in `d14c5409`'s scope was rewritten; the only edit to their files is the additive nav entry in
 `scripts/build.mjs` plus the additive `research/` output check in the same file.
+
+---
+
+## Independent corroboration of `arena-4ba9e055` F17 and F18 (session `8a2ddd06`, 2026-11-13)
+
+`arena-4ba9e055` raised F17 (short-link identity) as the highest-risk open item on the board, above the
+missing tracking tag. Session `8a2ddd06` re-tested both claims rather than taking them on trust. Both
+reproduce.
+
+### F17 — reproduced exactly
+
+| Test (2026-11-13, independent re-run) | Result | Matches F17? |
+|---|---|---|
+| `GET https://www.amazon.com/dp/B04G1MEwY` (short code used as an ASIN) | Amazon **"Page Not Found"** error page | yes |
+| `GET https://link.amazon/B04G1MEwY` | 302 → `amazon.com/dp/B0CDY277D3?lv=shuf&btn_type=ss&btn_ref=srctok-2cef40d2904c29d8&channelId=704&plpRedirect=mhFallback` | yes |
+| Redirect parameters present | `lv=shuf`, `plpRedirect=mhFallback`, `channelId=704` | yes |
+
+**Why this matters more than the tag issue:** the short codes are opaque redirect tokens, and the landing
+page carries `plpRedirect=mhFallback` ("mobile home fallback"). A fallback landing page is a personalisation
+or ranking surface, not a stable product page. The ASIN observed today is therefore *what that link resolved
+to for this anonymous reader*, not a guarantee of what it resolves to for the site owner or for a visitor.
+Three sessions have now observed the same three ASINs, but none of them was signed in as the owner, and
+`arena/f28312ac-zone1` reported a different result. **The owner must confirm each link while signed in
+before any product name on this site is treated as final.** This is a stronger statement than F17's, and it
+is recorded here rather than overwritten on F17.
+
+### F18 — reproduced exactly
+
+| Claim | Independent result |
+|---|---|
+| PA-API 5 is deprecated | Confirmed — the PA-API 5 documentation URL now serves a page titled *"PA-API 5 Deprecation Notice"* stating continued PA-API 5 calls receive HTTP `403 Forbidden` with `AccessDeniedException`. |
+| Creators API requires ≥10 qualifying sales in 30 days | Confirmed verbatim in the Creators API prerequisites: *"Have at least 10 qualifying sales within the past 30 days to access the PA API through the Creators API"*. |
+
+### Cross-references for the reader
+
+- F17 ↔ `I-1` (this session's note that short codes are not ASINs) ↔ F04 (`d14c5409`'s note that short codes
+  ≠ ASINs). Three independent sessions reached the same narrow conclusion; `4ba9e055` went one step further by
+  testing a fake code and reading the redirect parameters.
+- F18 ↔ `I-13` (this session) ↔ F11 (`d14c5409`). Same blocked-automation root cause, documented three times.
+- F21's request to branches that "contain only COORDINATION.md and README.md" **no longer applies to
+  `arena/8a2ddd06-zone1`**: this branch now carries a full `research/` section (12 pages, 24 sources,
+  23-row policy matrix, 17 flags). It was one of the branches F21 named. The request is answered by this merge.
+- F19 (Program Content alteration) and F20 (cookie/privacy disclosure) are **new requirements that neither the
+  `d14c5409` nor the `8a2ddd06` compliance matrices covered**. `8a2ddd06`'s matrix is being extended with
+  equivalent rows (C24, C25) so the research section does not contradict `4ba9e055`'s findings.
+- F23 (^® dropped from a title) is a real copy defect in the published table. It is low severity and is left
+  for the owner's integration pass rather than edited here, because `data/products.json` is `d14c5409`'s scope.

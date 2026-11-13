@@ -192,6 +192,14 @@
       "publisher": "Amazon.com, Inc.",
       "kind": "retailer-official",
       "supports": "BLOCKED: redirected to Amazon sign-in. Star rating and review count could not be captured."
+    },
+    {
+      "id": "S25",
+      "url": "https://www.amazon.com/dp/B04G1MEwY",
+      "label": "Amazon.com /dp/ request using a link.amazon short code as if it were an ASIN (control test)",
+      "publisher": "Amazon.com, Inc.",
+      "kind": "retailer-official",
+      "supports": "Control test proving the supplied short codes are NOT ASINs: the request returns Amazon's 'Page Not Found' error page. Used as evidence for I-1 and I-18."
     }
   ]
 }
