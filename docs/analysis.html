@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analysis &middot; Zone1 Affiliate Research</title>
+<meta name="description" content="Source-verified Amazon affiliate research dashboard: three air fryer SKUs, every value linked to an official source.">
+<link rel="canonical" href="https://kanlerxz87-cyber.github.io/Zone1/analysis.html">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand"><a href="index.html"><span class="dot"></span> Zone1 <span class="sub">Affiliate Research Dashboard</span></a></div>
+    <nav class="mainnav" aria-label="Main"><a href="index.html">Dashboard</a><a href="products.html">Products</a><a href="categories/air-fryers.html">Category</a><a href="analysis.html" class="active">Analysis</a><a href="compliance.html">Compliance</a><a href="articles/index.html">Articles</a><a href="flagged-for-review.html">Flagged for Review</a><a href="executive-summary.html">Executive Summary</a></nav>
+  </div>
+</header>
+<div class="disclosure-bar" role="note">
+  <div class="wrap">
+    <strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases.
+    <span class="disclosure-detail">Links on this site may be affiliate links and I may earn a commission from qualifying purchases, at no extra cost to you.</span>
+  </div>
+</div>
+<main id="main" class="wrap">
+<p class="page-meta">Facts carry source links; judgements are labelled as judgements; gaps are labelled as gaps.</p>
+
+<h1>Analysis, findings &amp; automation design</h1>
+<p class="lede">Everything on this page is either (a) a fact with a source link, or (b) explicitly labelled as a
+derived judgement or a proposal. Nothing here is Amazon data, and nothing here is a revenue forecast.</p>
+
+<section class="card">
+  <h2>1. Niche assessment</h2>
+  <p><strong>Niche:</strong> Air fryers &amp; countertop air-fry oven combos (US Home &amp; Kitchen)</p>
+  <h3>Evidence</h3>
+  <ul class="ticks"><li>All three supplied links resolve into the same Amazon browse category. &rarr; <strong>Home &amp; Kitchen</strong> (<span class="bad">no source</span>)</li><li>Chefman&#x27;s own store lists 27 air-fryer SKUs in one collection. &rarr; <strong>27 products</strong> (<span class="bad">no source</span>)</li><li>Chefman&#x27;s own store markets the category around oil reduction. &rarr; <strong>Cook your favorite meals using up to 90% less oil</strong> (<a class="srclink" href="https://chefman.com/collections/air-fryers-1/products/turbofry-6-qt-double-basket-air-fryer-with-easy-view-windows" rel="noopener nofollow" target="_blank" title="Chefman official product page — TurboFry 6 Qt Double Basket Air Fryer with Easy View Windows, model RJ38-3DBW-V2">verified source</a>)</li><li>Two of the three supplied products are the same brand; the mix is concentrated, not diversified. &rarr; <strong>2 of 3</strong> (<span class="bad">no source</span>)</li></ul>
+  <h3>Derived scores</h3>
+  <div class="tablewrap">
+  <table class="grid">
+    <thead><tr><th>Dimension</th><th>Score</th><th>Scale</th><th>Rationale</th><th>Status</th></tr></thead>
+    <tbody><tr><td>Niche concentration risk</td><td>3</td><td>1 (low risk) – 5 (high risk)</td><td>All three products are air fryers and two of the three are Chefman. A single recall, listing suspension, or stock-out would hit two thirds of the catalogue at once.</td><td><span class="tagtag">derived</span></td></tr><tr><td>Brand/product coverage depth</td><td>2</td><td>1 (thin) – 5 (deep)</td><td>Three SKUs across two brands; Chefman&#x27;s own collection page alone lists 27 air-fryer SKUs, so category coverage is very thin.</td><td><span class="tagtag">derived</span></td></tr><tr><td>Seasonality</td><td><span class="unv">blank</span></td><td>1 (flat) – 5 (highly seasonal)</td><td>Cannot be scored without accepted public search-volume data. Deliberately left blank rather than guessed.</td><td><a class="flagchip" href="flagged-for-review.html#I-15">I-15</a></td></tr></tbody>
+  </table>
+  </div>
+  <p class="cardnote">Scores are this analyst's judgement, not measured data. The seasonality row is deliberately blank
+  because no licensed search-volume source was consulted (<a href="flagged-for-review.html#I-15">I-15</a>).</p>
+</section>
+
+<section class="card">
+  <h2>2. Scoring model</h2>
+  <p>A transparent, reproducible way to rank the three products for content effort — with every input traceable to a verified field or explicitly marked as operator-set weight.</p>
+  <pre class="formula">content_priority = 0.35*verified_spec_completeness + 0.25*price_point_clarity + 0.20*differentiation + 0.20*brand_review_depth (each input 0-5, weights are operator-set and sum to 1)</pre>
+  <div class="tablewrap">
+  <table class="grid">
+    <thead><tr><th>Product</th><th>Spec completeness</th><th>Price clarity</th><th>Differentiation</th><th>Brand review depth</th><th>Content priority</th></tr></thead>
+    <tbody><tr><td><strong>P1</strong></td><td>4.5<span class='note'>18 of 20 candidate spec fields present on the manufacturer page</span></td><td>0<span class='note'>No verifiable Amazon price (I-10); manufacturer page shows a discount ladder, not one price (I-9)</span></td><td>4<span class='note'>Dual independent baskets with Sync Finish is a genuinely distinct configuration vs the other two links</span></td><td>2.5<span class='note'>30 reviews on chefman.com — thin</span></td><td><strong>2.48</strong></td></tr><tr><td><strong>P2</strong></td><td>3.5<span class='note'>16 of 20 candidate spec fields present; wattage, temperature range, certification, origin missing</span></td><td>0<span class='note'>No verifiable Amazon price (I-10)</span></td><td>5<span class='note'>Oven-style 26 Qt with French doors and rotisserie — the most differentiated of the three</span></td><td>1<span class='note'>Only 25 reviews on the manufacturer site and a 2.6/5 aggregate — a conversion risk worth addressing honestly</span></td><td><strong>2.03</strong></td></tr><tr><td><strong>P3</strong></td><td>4.5<span class='note'>18 of 20 candidate spec fields present on the manufacturer page</span></td><td>0<span class='note'>No verifiable Amazon price (I-10)</span></td><td>2.5<span class='note'>Single-basket XL with a 450 °F Hi-Fry boost — a feature story rather than a category story</span></td><td>3.5<span class='note'>200 reviews on chefman.com — the deepest of the three</span></td><td><strong>2.6</strong></td></tr></tbody>
+  </table>
+  </div>
+  <p class="cardnote">Weights are operator-set and sum to 1. "Price clarity" is 0 for every product because no
+  Amazon price is verifiable (<a href="flagged-for-review.html#I-10">I-10</a>) — the score is a content-planning aid,
+  not a profitability model.</p>
+</section>
+
+<section class="card">
+  <h2>3. Key findings</h2>
+  <ol class="findings">
+    <li><strong>The three links are a single-category, two-brand programme.</strong> 100% of the links are air fryers and 2 of 3 are Chefman — 3 of 3 sit in Amazon's Home &amp; Kitchen category. Concentration risk is the dominant structural finding (<a href="flagged-for-review.html#I-2">see also I-2</a>).</li>
+    <li><strong>The programme cannot currently earn.</strong> Zero of the three links carry a tracking tag, so zero of the three can be verified as a commission-bearing Special Link. This is the single highest-priority fix (I-2).</li>
+    <li><strong>The three products are genuinely different machines, not variants.</strong> 6 Qt dual-basket, 26 Qt French-door oven, 8 Qt single-basket XL — a real three-way buying-guide story exists without any invented claims.</li>
+    <li><strong>The weakest verified signal is the 26 Qt oven's own review aggregate.</strong> The manufacturer's own page shows 2.6/5 from 25 reviews (<a href="https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360" rel="noopener" target="_blank">source</a>). Any content that recommends it must address that honestly rather than bury it.</li>
+    <li><strong>Amazon's public data surface is much smaller than the brief assumed.</strong> Prices, star ratings, review counts, BSR and the category commission rate all require authentication or API access this account does not yet have. The site is therefore built to be honest about gaps rather than to look complete.</li>
+    <li><strong>The 2026 policy change materially constrains paid acquisition.</strong> Purchases referred through paid or boosted ads that link to Amazon are now excluded from commission, with limited exceptions (<a href="compliance.html#C22">C22</a>). The growth plan is therefore content/SEO-led, not ad-led.</li>
+  </ol>
+</section>
+
+<section class="card">
+  <h2>4. Content plan</h2>
+  <div class="tablewrap">
+  <table class="grid">
+    <thead><tr><th>Title</th><th>Type</th><th>Target query</th><th>Products</th><th>Words</th><th>Status</th></tr></thead>
+    <tbody><tr><td>Air Fryer Buying Guide 2026: Basket vs Dual-Basket vs French-Door Oven</td><td>buying guide</td><td>best air fryer 2026 / air fryer buying guide</td><td>P1, P2, P3</td><td>1400</td><td>draft published on site</td></tr><tr><td>Chefman TurboFry 6 Qt Dual-Basket (RJ38-3DBW-V2): Spec-Based Review</td><td>product review (spec-based)</td><td>chefman 6 quart dual basket air fryer review</td><td>P1</td><td>900</td><td>draft published on site</td></tr><tr><td>Chefman 8 Qt TurboFry vs 6 Qt Dual-Basket: Which One Fits Your Kitchen?</td><td>comparison</td><td>chefman 8 qt vs 6 qt dual basket</td><td>P3, P1</td><td>1100</td><td>draft published on site</td></tr><tr><td>Emeril Lagasse 26 Qt French Door AirFryer 360: Spec-Based Review</td><td>product review (spec-based)</td><td>emeril lagasse 26 qt french door air fryer review</td><td>P2</td><td>900</td><td>planned — not published (page-quality caveats logged as I-5, I-6)</td></tr></tbody>
+  </table>
+  </div>
+  <p class="cardnote">Target queries are proposals for editorial planning, not measured keyword volumes.</p>
+</section>
+
+<section class="card">
+  <h2>5. Automation pipeline &amp; compliance controls</h2>
+  <p class="cardnote">Each automation step is paired with the control that stops it drifting out of Amazon or FTC
+  policy. The controls are cross-referenced to the <a href="compliance.html">compliance matrix</a>.</p>
+  <div class="tablewrap">
+  <table class="grid">
+    <thead><tr><th>#</th><th>Step</th><th>What the automation would do</th><th>Compliance control</th></tr></thead>
+    <tbody><tr><td class='num'>1</td><td><strong>Niche scoring</strong></td><td>Recompute niche scores from the manufacturer catalogue + category pages monthly.</td><td>N3 stays blank until a licensed keyword-volume source is added.</td></tr><tr><td class='num'>2</td><td><strong>Product ingestion</strong></td><td>Pull ASIN, title, category and images via Creators API GetItems / SearchItems.</td><td>Creators API requires ≥10 qualifying sales in the past 30 days (C19). Until then ingestion is manual and every field must carry a source URL.</td></tr><tr><td class='num'>3</td><td><strong>Price &amp; availability</strong></td><td>Only render price if it is served by Amazon or fetched through the API.</td><td>C8 — this is why the site currently stores no prices.</td></tr><tr><td class='num'>4</td><td><strong>Content generation</strong></td><td>Templated long-form from verified spec fields + original commentary.</td><td>C10 (no hands-on claims) and C20 (original content). Specs are quoted and attributed.</td></tr><tr><td class='num'>5</td><td><strong>Link injection</strong></td><td>Rewrite every outbound URL with the operator&#x27;s tag plus a per-placement sub-tag.</td><td>C7 — the build step FAILS if any outbound link lacks a tag= parameter once MONETISE=1 is set.</td></tr><tr><td class='num'>6</td><td><strong>Disclosure injection</strong></td><td>Insert the disclosure block immediately above every link block.</td><td>C1–C6. Build fails if a page has an outbound Amazon link and no disclosure element.</td></tr><tr><td class='num'>7</td><td><strong>Click tracking</strong></td><td>First-party click events on outbound links, per sub-tag.</td><td>No dynamic per-user sub-tags — the operating agreement forbids associating a sub-tag with a specific end user (C7 family).</td></tr><tr><td class='num'>8</td><td><strong>Conversion reconciliation</strong></td><td>Match click counts to Associates reports ~24h after click (session rule) and again at 60-day payment run.</td><td>C14 (24h / 89-day attribution), C17 (60-day payment).</td></tr><tr><td class='num'>9</td><td><strong>Optimisation</strong></td><td>Promote the placement with the highest verified conversion-per-click; retire dead placements.</td><td>Only first-party aggregate data is used; no scraping of Amazon pages.</td></tr><tr><td class='num'>10</td><td><strong>Compliance re-audit</strong></td><td>Nightly diff of affiliate-program.amazon.com policy pages; open a change ticket on any diff.</td><td>Policy pages are versioned with an &#x27;Updated&#x27; date — currently Policies 2026-04-14 and Agreement 2025-10-15.</td></tr></tbody>
+  </table>
+  </div>
+  <h3>Measurable today</h3>
+  <ul class="ticks"><li>Number of verified spec fields per product (currently 18 / 16 / 18 of 20)</li><li>Number of rows without an official source (target: 0 — currently met for every published row)</li><li>Number of outbound links without a tracking tag (currently 3 of 3 — blocked on the operator, see I-2)</li></ul>
+  <h3>Not measurable yet</h3>
+  <ul class="crosses"><li>Commission per conversion — the category rate card is behind sign-in (C23)</li><li>Amazon star rating / review count — review pages require sign-in (I-11)</li><li>Best Sellers Rank — not exposed publicly (I-12)</li></ul>
+</section>
+
+<section class="card">
+  <h2>6. Source register</h2>
+  <p class="cardnote">24 sources were consulted. Every one is listed below with what it supports.</p>
+  <div class="tablewrap">
+  <table class="grid compact">
+    <thead><tr><th>ID</th><th>Source</th><th>Publisher</th><th>Supports</th></tr></thead>
+    <tbody><tr><td><code>S1</code></td><td><a href='https://link.amazon/B04G1MEwY' rel='noopener' target='_blank'>Supplied affiliate short link #1 (resolves to ASIN B0CDY277D3)</a></td><td>Amazon (link.amazon redirector)</td><td>Link #1 identity: redirects to https://www.amazon.com/dp/B0CDY277D3</td></tr><tr><td><code>S2</code></td><td><a href='https://link.amazon/B02NbDxp3' rel='noopener' target='_blank'>Supplied affiliate short link #2 (resolves to ASIN B09B7SB46R)</a></td><td>Amazon (link.amazon redirector)</td><td>Link #2 identity: redirects to https://www.amazon.com/dp/B09B7SB46R</td></tr><tr><td><code>S3</code></td><td><a href='https://link.amazon/B00hJ57DV' rel='noopener' target='_blank'>Supplied affiliate short link #3 (resolves to ASIN B08DKYBTPH)</a></td><td>Amazon (link.amazon redirector)</td><td>Link #3 identity: redirects to https://www.amazon.com/dp/B08DKYBTPH</td></tr><tr><td><code>S4</code></td><td><a href='https://www.amazon.com/dp/B0CDY277D3' rel='noopener' target='_blank'>Amazon.com product detail page, ASIN B0CDY277D3</a></td><td>Amazon.com, Inc.</td><td>Product title / listing attributes for product 1. Page body (price, star rating, review count) was not machine-readable to an unauthenticated reader.</td></tr><tr><td><code>S5</code></td><td><a href='https://www.amazon.com/dp/B09B7SB46R' rel='noopener' target='_blank'>Amazon.com product detail page, ASIN B09B7SB46R</a></td><td>Amazon.com, Inc.</td><td>Product title / listing attributes for product 2. Page body (price, star rating, review count) was not machine-readable to an unauthenticated reader.</td></tr><tr><td><code>S6</code></td><td><a href='https://www.amazon.com/dp/B08DKYBTPH' rel='noopener' target='_blank'>Amazon.com product detail page, ASIN B08DKYBTPH</a></td><td>Amazon.com, Inc.</td><td>Product title / listing attributes for product 3. Page body (price, star rating, review count) was not machine-readable to an unauthenticated reader.</td></tr><tr><td><code>S7</code></td><td><a href='https://chefman.com/collections/air-fryers-1/products/turbofry-6-qt-double-basket-air-fryer-with-easy-view-windows' rel='noopener' target='_blank'>Chefman official product page — TurboFry 6 Qt Double Basket Air Fryer with Easy View Windows, model RJ38-3DBW-V2</a></td><td>Chefman (chefman.com)</td><td>Capacity, temperature range, power, functions, model number, certification, warranty, dishwasher-safe parts, review aggregate on chefman.com</td></tr><tr><td><code>S8</code></td><td><a href='https://chefman.com/collections/air-fryers-1/products/turbofry-8-qt-air-fryer-w-high-fry' rel='noopener' target='_blank'>Chefman official product page — TurboFry 8 Qt Air Fryer w/ High Fry, model RJ38-8T-BLACK</a></td><td>Chefman (chefman.com)</td><td>Capacity, Hi-Fry temperature, power, functions, model number, certification, warranty, dishwasher-safe parts, review aggregate on chefman.com</td></tr><tr><td><code>S9</code></td><td><a href='https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360' rel='noopener' target='_blank'>Emeril Everyday official product page — Emeril Lagasse French Door AirFryer 360 Toaster Oven Combo, 26 QT, model 4-00675-02A-VN</a></td><td>Emeril Everyday (emerileveryday.com)</td><td>Capacity, dimensions, voltage, functions, preset counts, model number, manufacturer list price, warranty</td></tr><tr><td><code>S10</code></td><td><a href='https://chefman.com/' rel='noopener' target='_blank'>Chefman official brand site (home)</a></td><td>Chefman (chefman.com)</td><td>Brand identity and product-collection navigation</td></tr><tr><td><code>S11</code></td><td><a href='https://affiliate-program.amazon.com/help/operating/agreement' rel='noopener' target='_blank'>Amazon Associates Program Operating Agreement (Updated: October 15, 2025)</a></td><td>Amazon.com, Inc. — Associates Central</td><td>Section 5 disclosure wording requirement; Sections 3-4 warranties; Section 6 termination; Section 7 disclaimers</td></tr><tr><td><code>S12</code></td><td><a href='https://affiliate-program.amazon.com/help/operating/policies' rel='noopener' target='_blank'>Amazon Associates Program Policies (Updated: April 14, 2026)</a></td><td>Amazon.com, Inc. — Associates Central</td><td>Commission Income Statement (sessions, disqualified purchases, payment minimums), Participation Requirements, link rules, price-display rule, IP license, Trademark Guidelines</td></tr><tr><td><code>S13</code></td><td><a href='https://affiliate-program.amazon.com/help/operating/compare' rel='noopener' target='_blank'>Associates Operating Agreement — What&#x27;s Changed (effective April 14, 2026)</a></td><td>Amazon.com, Inc. — Associates Central</td><td>Changelog: 180-day shipping/payment limit, expanded disqualified purchases for paid/boosted ads, original-content definition</td></tr><tr><td><code>S14</code></td><td><a href='https://affiliate-program.amazon.com/welcome' rel='noopener' target='_blank'>Amazon Associates — program home page (public)</a></td><td>Amazon.com, Inc. — Associates Central</td><td>Public statement &#x27;Earn up to 10% in associate commissions&#x27;; commission differs by category; paid approximately 60 days after month end</td></tr><tr><td><code>S15</code></td><td><a href='https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM' rel='noopener' target='_blank'>Amazon Associates Help — Application Review Process</a></td><td>Amazon.com, Inc. — Associates Central</td><td>At least three qualifying sales within the first 180 days; original content; &#x27;good rule of thumb is at least 10 posts&#x27;; tagged-link rejection reason</td></tr><tr><td><code>S16</code></td><td><a href='https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction' rel='noopener' target='_blank'>Amazon Creators API — Introduction</a></td><td>Amazon.com, Inc. — Associates Central</td><td>Creators API operations; prerequisite of at least 10 qualifying sales in the past 30 days</td></tr><tr><td><code>S17</code></td><td><a href='https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation' rel='noopener' target='_blank'>Amazon PA-API 5 Deprecation Notice</a></td><td>Amazon.com, Inc. — Associates Central</td><td>PA-API 5 deprecated in favour of Creators API; continued PA-API 5 calls return HTTP 403 AccessDeniedException</td></tr><tr><td><code>S18</code></td><td><a href='https://www.amazon.com/b?node=53643932011' rel='noopener' target='_blank'>The Operating Agreement — Top Dos and Don&#x27;ts</a></td><td>Amazon.com, Inc.</td><td>Approved disclosure language (#paidlink, #ad, CommissionsEarned, &#x27;As an Amazon Associate, I earn from qualifying purchases&#x27;); required trademark statement &#x27;Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.&#x27;</td></tr><tr><td><code>S19</code></td><td><a href='https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers' rel='noopener' target='_blank'>FTC — Disclosures 101 for Social Media Influencers</a></td><td>U.S. Federal Trade Commission</td><td>Disclosure timing/placement; &#x27;You can&#x27;t talk about your experience with a product you haven&#x27;t tried.&#x27;</td></tr><tr><td><code>S20</code></td><td><a href='https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking' rel='noopener' target='_blank'>FTC — Endorsement Guides: What People Are Asking (affiliate-marketing Q&amp;A)</a></td><td>U.S. Federal Trade Commission</td><td>&#x27;I get commissions for purchases made through links in this post&#x27; example; &#x27;affiliate link&#x27; and &#x27;buy now&#x27; inadequate alone; &#x27;paid link&#x27; adequate next to the link</td></tr><tr><td><code>S21</code></td><td><a href='https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255' rel='noopener' target='_blank'>16 CFR Part 255 — Guides Concerning Use of Endorsements and Testimonials in Advertising</a></td><td>U.S. Government (eCFR, Federal Trade Commission)</td><td>§255.3 expert endorsements; §255.4(b)(3)(i) affiliate-funded review sites must disclose; §255.5(a) material-connection disclosure</td></tr><tr><td><code>S22</code></td><td><a href='https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-465' rel='noopener' target='_blank'>16 CFR Part 465 — Rule on the Use of Consumer Reviews and Testimonials</a></td><td>U.S. Government (eCFR, Federal Trade Commission)</td><td>§465.1(c)(4): on interactive media a disclosure must be unavoidable — not hidden behind a click or hover</td></tr><tr><td><code>S23</code></td><td><a href='https://affiliate-program.amazon.com/help/operating/schedule' rel='noopener' target='_blank'>Amazon Associates Commission Income Schedule (attempted)</a></td><td>Amazon.com, Inc. — Associates Central</td><td>BLOCKED: redirected to Amazon sign-in. Category commission rates are behind authentication and cannot be verified publicly.</td></tr><tr><td><code>S24</code></td><td><a href='https://www.amazon.com/product-reviews/B0CDY277D3' rel='noopener' target='_blank'>Amazon.com customer reviews page, ASIN B0CDY277D3 (attempted)</a></td><td>Amazon.com, Inc.</td><td>BLOCKED: redirected to Amazon sign-in. Star rating and review count could not be captured.</td></tr></tbody>
+  </table>
+  </div>
+</section>
+
+</main>
+<footer class="sitefoot">
+  <div class="wrap">
+    <p>Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.</p>
+    <p>Independent research site. Not affiliated with, endorsed by, or sponsored by Amazon.com, Inc., Chefman, or Emeril Everyday. Product names and model numbers are used for identification only.</p>
+    <p>No hands-on testing is claimed anywhere on this site. Every specification below is a quotation from the manufacturer&#x27;s own product page, linked in the Source column. Data captured 2026-11-13. Every row links to its official source; anything that could not be confirmed is blank and listed on the <a href="flagged-for-review.html">Flagged for Review</a> page.</p>
+  </div>
+</footer>
+</body>
+</html>
