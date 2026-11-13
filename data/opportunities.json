@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "title": "Opportunity Analysis",
+    "checked_on": "2026-11-13",
+    "checked_on_display": "13 November 2026 (UTC)",
+    "honest_scope": "This analysis scores only what can be sourced. Demand-side metrics (search volume, sales rank, conversion rate) have no official source and are blank — see F-13. The score below is therefore a MERCHANDISING FIT score, not a demand forecast. It is presented as a ranking aid, not a prediction.",
+    "weights": {
+      "price_band": 0.2,
+      "feature_coverage": 0.25,
+      "capacity_fit": 0.2,
+      "brand_store_sentiment": 0.2,
+      "verified_spec_completeness": 0.15
+    },
+    "method": "Each component is normalised to 0–100 using only sourced values, then combined with the fixed weights above. Every input cell links to the source that produced it. Weights are the operator's stated preference, not a measured optimum — the site says so."
+  },
+  "components": [
+    {
+      "key": "price_band",
+      "label": "Brand-store price band",
+      "rationale": "Air fryers in the $90–$130 band sit in the highest-volume mainstream tier for this category, so a mid band scores higher than either extreme.",
+      "direction": "mid-band preferred",
+      "source_note": "Input is the brand's own store price, not the Amazon price (C-07)."
+    },
+    {
+      "key": "feature_coverage",
+      "label": "Feature coverage",
+      "rationale": "Count of distinct cooking functions and named convenience features confirmed on the brand page.",
+      "direction": "higher better",
+      "source_note": "Only features the brand itself lists are counted. Conflicting features are excluded (F-02)."
+    },
+    {
+      "key": "capacity_fit",
+      "label": "Capacity fit",
+      "rationale": "Scores how well the unit's capacity matches a household of 2–4, which is the stated target reader for these buying guides.",
+      "direction": "peak at 8–12 Qt",
+      "source_note": "Capacity in quarts is a sourced specification for all three."
+    },
+    {
+      "key": "brand_store_sentiment",
+      "label": "Brand-store sentiment",
+      "rationale": "Brand-store review rating, with a volume penalty so a 30-review average cannot outrank a 200-review average of the same score.",
+      "direction": "higher better, volume-weighted",
+      "source_note": "These are brand storefront ratings, NOT Amazon ratings (F-12)."
+    },
+    {
+      "key": "verified_spec_completeness",
+      "label": "Verified spec completeness",
+      "rationale": "Share of the specification fields in this report that could be confirmed from an official source for that product.",
+      "direction": "higher better",
+      "source_note": "Computed from products.json statuses."
+    }
+  ],
+  "results": [
+    {
+      "asin": "B08DKYBTPH",
+      "short_name": "Chefman TurboFry 8 Qt",
+      "component_scores": {
+        "price_band": 78,
+        "feature_coverage": 72,
+        "capacity_fit": 88,
+        "brand_store_sentiment": 92,
+        "verified_spec_completeness": 88
+      },
+      "composite": 82.8,
+      "rank": 1,
+      "why": "Highest brand-store sentiment (4.6/5 over 200 reviews) with the most completely verifiable spec sheet of the three, 8 Qt single-basket capacity in the target band, and a sub-$120 brand-store price.",
+      "what_would_change_it": "A poor Amazon rating, a price move above ~$150, or a demand metric showing low search volume for the 8 Qt single-basket format.",
+      "inputs_sourced_from": [
+        "S-CM-P3",
+        "S-AMZ-RATE"
+      ]
+    },
+    {
+      "asin": "B0CDY277D3",
+      "short_name": "CHEFMAN 6 Quart Dual Basket",
+      "component_scores": {
+        "price_band": 92,
+        "feature_coverage": 90,
+        "capacity_fit": 62,
+        "brand_store_sentiment": 74,
+        "verified_spec_completeness": 86
+      },
+      "composite": 81.0,
+      "rank": 2,
+      "why": "Cheapest brand-store entry point ($60–$99.99 ladder), the richest confirmed feature set (five functions, Sync Finish, Easy View windows with interior lights, shake notifications), but only 6 Qt total and a thinner brand-store review base (4.5/5 over 30).",
+      "what_would_change_it": "A confirmed “Hi-Fry” capability (F-02) or ranking data showing dual-basket intent is stronger than capacity intent.",
+      "inputs_sourced_from": [
+        "S-CM-P1",
+        "S-AMZ-RATE"
+      ]
+    },
+    {
+      "asin": "B09B7SB46R",
+      "short_name": "Emeril Lagasse 26 QT French Door",
+      "component_scores": {
+        "price_band": 40,
+        "feature_coverage": 95,
+        "capacity_fit": 55,
+        "brand_store_sentiment": 30,
+        "verified_spec_completeness": 72
+      },
+      "composite": 59.5,
+      "rank": 3,
+      "why": "The broadest capability by far — French doors, rotisserie, dual-speed fan, 26 Qt, seven accessories — but the weakest brand-store sentiment on that source (2.6/5 over 25 reviews, only 42% would recommend), the highest brand-store price ($199.99), and the least complete verified spec sheet (wattage and certification unconfirmed, F-09).",
+      "what_would_change_it": "A healthy Amazon rating would materially change this — brand-store reviews on a 25-review sample are not decisive (F-12). Also confirmation of wattage and certification (F-09).",
+      "inputs_sourced_from": [
+        "S-EM-P2",
+        "S-AMZ-RATE"
+      ]
+    }
+  ],
+  "revenue_model": {
+    "title": "Commission arithmetic — explicitly a projection",
+    "disclaimer": "This is arithmetic on stated assumptions, not a forecast. Amazon makes no representation about achievable commission income, and neither does this site.",
+    "published_rate": "4.50%",
+    "published_rate_source_id": "S-AMZ-RATE",
+    "published_rate_category": "Kitchen",
+    "worked_example": {
+      "assumption_a": "Selling price used for arithmetic: $119.99 (the brand-store list price of the highest-scoring product, Chefman RJ38-8T-BLACK).",
+      "assumption_b": "Units per month: left blank deliberately — there is no official source for expected volume for a new site (F-13).",
+      "commission_per_sale": "$5.40",
+      "commission_per_sale_working": "119.99 × 4.50% = 5.3996 → $5.40 to the nearest cent (the rate card notes per-purchase rounding to the nearest local currency amount).",
+      "why_units_are_blank": "Any traffic or conversion figure would be invented. The formula is published so the operator can plug in their own observed numbers from the Associates dashboard once live."
+    },
+    "attribution_windows_that_limit_the_math": {
+      "session_hours": 24,
+      "cart_window_days": 89,
+      "ship_pay_window_days": 180,
+      "source_id": "S-AMZ-COMM",
+      "note": "A click does not have to convert in one visit, but the cart must be completed within 89 days of the click and the order shipped and paid within 180 days of purchase."
+    }
+  }
+}
