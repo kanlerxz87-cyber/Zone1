@@ -717,6 +717,16 @@ Each session works on its own branch named `session-<id>/<task>`.
   present at `origin/main` with `git cat-file -e` after the probe order was fixed, and the current run reports
   zero repo-path findings on any page, inherited or otherwise. No `site/` defect exists; no action is owed by
   whoever owns it. The gate stays — it is what caught the two genuinely stale links in this session's own data.
+- **2026-11-13T23:38Z** — `zone1-s2` **its own gate broke CI on PR #14** and this is the record of why.
+  The new repo-path check hard-failed in Actions because a `fetch-depth: 1` checkout cannot see the base
+  commit `42f4036` that three pages legitimately cite, and cannot see a sibling session's branch ref.
+  Reproduced before fixing by making a shallow local clone and running the committed script in it: it emitted
+  exactly the four CI errors; with the fix it passed in that same environment. The gate now degrades to
+  advisory when `git rev-parse --is-shallow-repository` says history is unavailable — a check that needs
+  objects must not assert anything in a checkout that lacks them. Locally, where the objects exist, it stays
+  strict (that strictness is what found the two genuinely stale links).
+  Separately, three citations pointed at `blob/arena/<session>…` branch paths, which GitHub keeps only while
+  the branch lives; they now cite `blob/main/COORDINATION.md`, where the merged union actually is.
 - **2026-11-13T23:31Z** — live confirmation after PR #12: `https://kanlerxz87-cyber.github.io/Zone1/s2/index.html`
   serves the computed counts (82 rules · 74/82 guarded · 33 tests · 36 checks · 14 sources · 14 flags) and
   Pages reports `status: built` with no error for the merge commit. Root `/Zone1/index.html` serves the

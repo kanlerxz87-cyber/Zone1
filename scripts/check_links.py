@@ -50,6 +50,23 @@ def html_files(scope="all"):
 
 _REFS = None
 _REFS_CACHE = {}
+_SHALLOW = None
+
+
+def _history_available():
+    """False in the depth-1 checkout CI uses.
+
+    The repo-path check needs objects, not just text, so on a shallow clone it would
+    report "ref does not exist" for a perfectly good link to the base commit — a
+    false alarm about someone else's history, which is the one thing a gate like this
+    must never produce. When history is missing, the check degrades to advisory.
+    """
+    global _SHALLOW
+    if _SHALLOW is None:
+        out = subprocess.run(["git", "rev-parse", "--is-shallow-repository"],
+                             cwd=ROOT, capture_output=True, text=True).stdout.strip()
+        _SHALLOW = out != "true"
+    return _SHALLOW
 
 
 def _repo_refs():
@@ -99,6 +116,8 @@ def check_repo_link(url: str) -> str | None:
             if subprocess.run(["git", "cat-file", "-e", f"{probe}^{{tree}}"],
                               cwd=ROOT, capture_output=True).returncode == 0:
                 return None
+        if not _history_available():
+            return None  # cannot judge object existence from a shallow checkout
         return f"link into this repo names a ref that does not exist: {url}"
     chosen = None
     for i in range(1, len(parts)):
@@ -107,10 +126,14 @@ def check_repo_link(url: str) -> str | None:
             chosen = (cand, "/".join(parts[i:]))
             break
     if chosen is None:
+        if not _history_available():
+            return None
         return f"link into this repo names an unknown ref: {url}"
     ref, path = chosen
     probes = [ref, "origin/main", "HEAD"] if ref == "main" else [ref, "origin/" + ref]
     if not _path_exists(probes, path):
+        if not _history_available():
+            return None
         return f"link into this repo points at a path that does not exist in {ref} -> {path}"
     return None
 
