@@ -12,9 +12,9 @@ import re
 import shutil
 import sys
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.path.join(ROOT, "data")
-DOCS = ROOT  # GitHub Pages serves this repo from main -> / (root), not /docs
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repo root
+DATA = os.path.join(ROOT, "research")
+DOCS = os.path.join(ROOT, "research")  # additive section, linked from the main docs/ site
 
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
 
@@ -89,7 +89,8 @@ def safe_url(url):
 # --------------------------------------------------------------------------- #
 
 NAV = [
-    ("index.html", "Dashboard"),
+    ("index.html", "Research hub"),
+    ("../index.html", "← Main site"),
     ("products.html", "Products"),
     ("categories/air-fryers.html", "Category"),
     ("analysis.html", "Analysis"),
@@ -148,7 +149,7 @@ def layout(title, body, prefix="", active="", sources=None, meta=None, canonical
 """
 
 
-SITE = "https://kanlerxz87-cyber.github.io/Zone1/"
+SITE = "https://kanlerxz87-cyber.github.io/Zone1/research/"
 
 
 def page(title, body, path, **kw):
@@ -226,11 +227,11 @@ def severity_tally(items):
 # --------------------------------------------------------------------------- #
 
 def build():
-    sources_doc = load("sources.json")
-    products_doc = load("products.json")
-    compliance_doc = load("compliance.json")
-    analysis_doc = load("analysis.json")
-    irr_doc = load("irregularities.json")
+    sources_doc = load("sources-s8a2.json")
+    products_doc = load("products-s8a2.json")
+    compliance_doc = load("compliance-policies.json")
+    analysis_doc = load("analysis-s8a2.json")
+    irr_doc = load("irregularities-s8a2.json")
 
     sources = {s["id"]: s for s in sources_doc["sources"]}
     products = products_doc["products"]
@@ -1040,7 +1041,8 @@ GENERATED_ASSETS = ("assets",)
 
 if __name__ == "__main__":
     os.makedirs(os.path.join(DOCS, "assets"), exist_ok=True)
-    shutil.copyfile(os.path.join(ROOT, "assets_src", "style.css"),
+    if os.path.abspath(os.path.join(ROOT, "research", "assets", "style.css")) != os.path.abspath(os.path.join(DOCS, "assets", "style.css")):
+        shutil.copyfile(os.path.join(ROOT, "research", "assets", "style.css"),
                     os.path.join(DOCS, "assets", "style.css"))
     stats = build()
     print(f"built: {stats[0]} products, {stats[1]} sources, {stats[2]} flagged items")

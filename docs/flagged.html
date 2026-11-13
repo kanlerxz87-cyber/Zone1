@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flagged for Review · Amazon Affiliate Product Research - Zone1</title>
+<meta name="description" content="Verified, source-linked dashboard of three Amazon.com products. Unverified values are left blank.">
+<link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">Zone1<span>Affiliate research</span></div>
+    <nav>
+        <a href="./index.html" class="">Overview</a>
+        <a href="./categories/home-kitchen-air-fryers.html" class="">Home &amp; Kitchen › Air Fryers</a>
+        <a href="./analysis.html" class="">Analysis &amp; Findings</a>
+        <a href="./compliance.html" class="">Compliance</a>
+        <a href="./sources.html" class="">Sources</a>
+        <a href="./flagged.html" class="active">Flagged for Review</a>
+        <a href="./../research/index.html" class="">Deep-dive research ↗</a>
+    </nav>
+    <div class="side-foot">As of 2026-11-13<br><a href="https://github.com/kanlerxz87-cyber/Zone1">Repository</a></div>
+  </aside>
+  <main>
+    
+<div class="disclosure" role="note">
+  <strong>Affiliate disclosure.</strong> Some links on this site are Amazon links and may earn the site owner a commission.
+  Amazon Associates status: <strong>pending confirmation</strong>.
+  Required statement: <em>“As an Amazon Associate I earn from qualifying purchases.”</em>
+  It will be shown as an active statement once the Associates account is confirmed. See <a href="./flagged.html">Flagged for Review</a> (F03, F06).
+</div>
+    
+<header class="hero compact flagged-hero">
+  <p class="eyebrow"><a href="./index.html">Overview</a> › Flagged for Review</p>
+  <h1>Flagged for Review</h1>
+  <p class="lede">Irregularities, unverified items and open decisions. These do not block publication. Each item links to its source so it can be checked directly. Owner decisions are needed on the high-severity items.</p>
+  <p class="lede">5 high · 6 medium · 5 low · 16 total</p>
+</header>
+<section class="card">
+  <div class="toolbar"><input type="search" class="filter" data-target="tbl-flags" placeholder="Filter flags…" aria-label="Filter flags"></div>
+  <div class="table-wrap">
+  <table id="tbl-flags" class="data">
+    <thead><tr><th>ID</th><th>Severity</th><th>Type</th><th>Item and detail</th><th>Sources</th><th>Action for review</th></tr></thead>
+    <tbody>
+<tr>
+  <td>F01</td>
+  <td><span class="badge bad">High</span></td>
+  <td>Unverified data</td>
+  <td class="wrap"><strong>Price, rating, review count and availability are blank for all 3 products.</strong><br>The retrieved Amazon page text did not contain the product-detail blocks. Pricing and review analysis therefore cannot be done from verified sources.</td>
+  <td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">S2</a>, <a href="https://www.amazon.com/dp/B08DKYBTPH" target="_blank" rel="noopener">S3</a></td>
+  <td class="wrap">Review the live Amazon pages manually, or provide Creators API / PA-API access through an Associates account. Values will only be added from that source.</td>
+</tr>
+<tr>
+  <td>F02</td>
+  <td><span class="badge bad">High</span></td>
+  <td>Unverified data</td>
+  <td class="wrap"><strong>Commission rates are blank for all 3 products (Home &amp; Kitchen rate not confirmed).</strong><br>The official Standard Commission Income schedule redirected to a sign-in page. Third-party sites disagree with each other (for example, Home &amp; Kitchen is shown as 3%, 4%, 6% and 8%), so none of them were used.</td>
+  <td><a href="https://affiliate-program.amazon.com/help/operating/schedule" target="_blank" rel="noopener">S9</a>, <a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">S8</a></td>
+  <td class="wrap">Check the rate on the Associates Central schedule while signed in, then record it with its source.</td>
+</tr>
+<tr>
+  <td>F03</td>
+  <td><span class="badge bad">High</span></td>
+  <td>Compliance</td>
+  <td class="wrap"><strong>None of the supplied links carry an Associates tag.</strong><br>The resolved URLs have no tag= parameter. Associates Participation Requirements Section 2(b) requires the Associates ID in every Special Link. No purchase from these links would be credited to an Associates account as supplied.</td>
+  <td><a href="https://link.amazon/B04G1MEwY" target="_blank" rel="noopener">S4</a>, <a href="https://link.amazon/B02NbDxp3" target="_blank" rel="noopener">S5</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a>, <a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">S8</a></td>
+  <td class="wrap">Provide the Associates ID for tagging. The site will not invent one.</td>
+</tr>
+<tr>
+  <td>F04</td>
+  <td><span class="badge warn">Medium</span></td>
+  <td>Irregularity</td>
+  <td class="wrap"><strong>Short-link codes do not match the ASINs they resolve to.</strong><br>B04G1MEwY resolves to B0CDY277D3. B02NbDxp3 resolves to B09B7SB46R. B00hJ57DV resolves to B08DKYBTPH. The short codes are not ASINs.</td>
+  <td><a href="https://link.amazon/B04G1MEwY" target="_blank" rel="noopener">S4</a>, <a href="https://link.amazon/B02NbDxp3" target="_blank" rel="noopener">S5</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a></td>
+  <td class="wrap">Confirm these are the intended products. The table uses the resolved ASIN.</td>
+</tr>
+<tr>
+  <td>F05</td>
+  <td><span class="badge warn">Medium</span></td>
+  <td>Compliance</td>
+  <td class="wrap"><strong>Use of link.amazon short links may be treated as Redirecting Links.</strong><br>Commission Income Statement Section 2(e) disqualifies purchases referred by a Redirecting Link. The short links are Amazon-operated, and whether they count as Special Links is not confirmed.</td>
+  <td><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">S8</a></td>
+  <td class="wrap">Confirm with Associates Central whether these short links are acceptable. Otherwise use tagged /dp/ links.</td>
+</tr>
+<tr>
+  <td>F06</td>
+  <td><span class="badge bad">High</span></td>
+  <td>Compliance</td>
+  <td class="wrap"><strong>The required Associates statement cannot be shown as active until enrollment is confirmed.</strong><br>Operating Agreement Section 5 requires the statement &#39;As an Amazon Associate I earn from qualifying purchases.&#39; The site shows it with an enrollment-pending status, so it does not claim an active relationship that has not been confirmed.</td>
+  <td><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">S7</a></td>
+  <td class="wrap">Once enrollment is confirmed, set associates_status to &quot;active&quot; in data/site.json and rebuild. The statement then appears as an active disclosure.</td>
+</tr>
+<tr>
+  <td>F07</td>
+  <td><span class="badge warn">Medium</span></td>
+  <td>Unverified data</td>
+  <td class="wrap"><strong>Canonical page for product 3 (B08DKYBTPH) returned an interstitial.</strong><br>https://www.amazon.com/dp/B08DKYBTPH showed &#39;To continue, please click the Continue shopping button&#39;. The product title is confirmed only through the short-link resolved page.</td>
+  <td><a href="https://www.amazon.com/dp/B08DKYBTPH" target="_blank" rel="noopener">S3</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a></td>
+  <td class="wrap">Open the page in a browser and confirm the title and ASIN.</td>
+</tr>
+<tr>
+  <td>F08</td>
+  <td><span class="badge warn">Medium</span></td>
+  <td>Compliance</td>
+  <td class="wrap"><strong>Non-US Associate clause and Norway residence.</strong><br>Participation Requirements Section 1 says a non-US person agrees to perform services outside the United States unless the tax information says otherwise. The site owner&#39;s location is Oslo, Norway. Schedule 3 (taxes) was not reviewed.</td>
+  <td><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">S8</a>, <a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">S7</a></td>
+  <td class="wrap">Confirm Associates eligibility and tax information for the account holder&#39;s country.</td>
+</tr>
+<tr>
+  <td>F09</td>
+  <td><span class="badge info">Low</span></td>
+  <td>Unverified data</td>
+  <td class="wrap"><strong>Marketplace and shipping to Norway are not verified.</strong><br>All three links resolve to Amazon.com (United States). Whether these products ship to Norway was not checked.</td>
+  <td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">S2</a>, <a href="https://www.amazon.com/dp/B08DKYBTPH" target="_blank" rel="noopener">S3</a></td>
+  <td class="wrap">Confirm the target marketplace for each product link.</td>
+</tr>
+<tr>
+  <td>F10</td>
+  <td><span class="badge info">Low</span></td>
+  <td>Irregularity</td>
+  <td class="wrap"><strong>Brand spelled &#39;CHEFMAN&#39; in one title and &#39;Chefman&#39; in another.</strong><br>Products 1 and 3 appear to share a brand, but casing differs. The Amazon brand field was not readable, so the brand match is not confirmed.</td>
+  <td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a></td>
+  <td class="wrap">Confirm the brand on the Amazon brand field.</td>
+</tr>
+<tr>
+  <td>F11</td>
+  <td><span class="badge bad">High</span></td>
+  <td>Scope</td>
+  <td class="wrap"><strong>The full AI platform is not built. This covers automated product discovery, trend and niche detection, competitor and price analysis, article generation at scale, publishing, click and conversion tracking, and automated optimization.</strong><br>Those functions need Amazon data access (Creators API / PA-API credentials, an Associates account and sales reports) plus an analytics account. None of these are available to this session. Building them would mean inventing data, so the site contains only the verified data above.</td>
+  <td><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">S7</a>, <a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">S8</a></td>
+  <td class="wrap">Decide whether to provide API and analytics access. The site can then be extended with verified data.</td>
+</tr>
+<tr>
+  <td>F12</td>
+  <td><span class="badge warn">Medium</span></td>
+  <td>Repo</td>
+  <td class="wrap"><strong>The repository held only README.md (&#39;# Zone1&#39;). It has no .gitignore, LICENSE or build tooling.</strong><br>COORDINATION.md was created in this session. A build script and generated site were added. No license was chosen.</td>
+  <td><a href="https://github.com/kanlerxz87-cyber/Zone1" target="_blank" rel="noopener">S12</a></td>
+  <td class="wrap">Add a license and .gitignore if wanted.</td>
+</tr>
+<tr>
+  <td>F13</td>
+  <td><span class="badge info">Low</span></td>
+  <td>Repo</td>
+  <td class="wrap"><strong>GitHub Pages publishing source is main at &#39;/&#39; (legacy). This session could not change it to /docs (API returned 403 for this token).</strong><br>A root index.html redirects to docs/index.html, which holds the built site. The site is therefore reachable at the Pages URL without changing settings.</td>
+  <td><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site" target="_blank" rel="noopener">S11</a>, <a href="https://github.com/kanlerxz87-cyber/Zone1" target="_blank" rel="noopener">S12</a></td>
+  <td class="wrap">Optional: in Settings &gt; Pages, set the source folder to /docs and remove the root redirect. Otherwise no action is needed.</td>
+</tr>
+<tr>
+  <td>F14</td>
+  <td><span class="badge info">Low</span></td>
+  <td>Repo</td>
+  <td class="wrap"><strong>The commit author&#39;s email address (kanlerxz87@gmail.com) is visible in the public commit history.</strong><br>It appears in the &#39;Initial commit&#39; (42f4036) metadata. This session did not rewrite history.</td>
+  <td><a href="https://github.com/kanlerxz87-cyber/Zone1" target="_blank" rel="noopener">S12</a></td>
+  <td class="wrap">Decide whether to keep the address in public history.</td>
+</tr>
+<tr>
+  <td>F15</td>
+  <td><span class="badge warn">Medium</span></td>
+  <td>Process</td>
+  <td class="wrap"><strong>The coordination spec asks for per-session branches (session-&lt;id&gt;/&lt;task&gt;). This session may use only arena/d14c5409-zone1.</strong><br>All tasks T1 to T5 were run on this branch. COORDINATION.md shows the claims. No other session appeared on the board when work started.</td>
+  <td><a href="https://github.com/kanlerxz87-cyber/Zone1" target="_blank" rel="noopener">S12</a></td>
+  <td class="wrap">None, unless parallel sessions are expected.</td>
+</tr>
+<tr>
+  <td>F16</td>
+  <td><span class="badge info">Low</span></td>
+  <td>Method</td>
+  <td class="wrap"><strong>Retrieval was done with the fetch tool, not a logged-in browser.</strong><br>Amazon pages return partial text. Some values may be visible on the live page but could not be read here.</td>
+  <td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">S2</a>, <a href="https://www.amazon.com/dp/B08DKYBTPH" target="_blank" rel="noopener">S3</a></td>
+  <td class="wrap">Spot-check the source links manually.</td>
+</tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+    <footer class="foot">
+      <p><strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases (statement pending confirmation; see above).</p>
+      <p>Every value on this site is either read from a cited official source on 2026-11-13 or left blank and marked unverified. Nothing is estimated. Amazon and Amazon.com are trademarks of Amazon.com, Inc. or its affiliates; this site is not affiliated with or endorsed by Amazon.</p>
+    </footer>
+  </main>
+</div>
+<script src="./assets/app.js"></script>
+</body>
+</html>

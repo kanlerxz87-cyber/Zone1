@@ -22,8 +22,8 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.path.join(ROOT, "data")
-DOCS = ROOT  # site is served from the repo root
+DATA = os.path.join(ROOT, "research")
+DOCS = os.path.join(ROOT, "research")  # additive research section
 SKIP_DIRS = {".git", "data", "scripts", "assets_src", "node_modules", "photos"}
 
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
@@ -49,11 +49,11 @@ def load(name):
 
 def main():
     global checks
-    sources_doc = load("sources.json")
-    products_doc = load("products.json")
-    compliance_doc = load("compliance.json")
-    irr_doc = load("irregularities.json")
-    analysis_doc = load("analysis.json")
+    sources_doc = load("sources-s8a2.json")
+    products_doc = load("products-s8a2.json")
+    compliance_doc = load("compliance-policies.json")
+    irr_doc = load("irregularities-s8a2.json")
+    analysis_doc = load("analysis-s8a2.json")
 
     source_ids = {s["id"] for s in sources_doc["sources"]}
     source_urls = {s["url"] for s in sources_doc["sources"]}
@@ -173,7 +173,8 @@ def main():
     # ---- 9. published counts must equal rendered rows ---------------------
     sys.path.insert(0, os.path.join(ROOT, "scripts"))
     from importlib import import_module
-    build_mod = import_module("build")
+    sys.path.insert(0, os.path.join(ROOT, "research"))
+    build_mod = import_module("build_research")
     product_fields = build_mod.PRODUCT_FIELDS
     expected_total = len(products_doc["products"]) * len(product_fields)
     if os.path.exists(prod_html):

@@ -1,0 +1,523 @@
+{
+  "accessed": "2026-11-13",
+  "note": "Every field is {value, source, verified, note}. value=null means NOT CONFIRMED from an official source and is rendered as an unverified blank. No value is estimated or inferred.",
+  "products": [
+    {
+      "id": "P1",
+      "slug": "chefman-turbofry-6qt-dual-basket",
+      "rank": 1,
+      "supplied_link": "https://link.amazon/B04G1MEwY",
+      "supplied_link_source": "S1",
+      "asin": {
+        "value": "B0CDY277D3",
+        "source": "S1",
+        "verified": true,
+        "note": "Read from the redirect target of the supplied short link; also the ASIN in the canonical /dp/ URL."
+      },
+      "amazon_url": {
+        "value": "https://www.amazon.com/dp/B0CDY277D3",
+        "source": "S1",
+        "verified": true
+      },
+      "has_tag_parameter": {
+        "value": false,
+        "source": "S1",
+        "verified": true,
+        "note": "Resolved URL carried lv/btn_ref/channelId/plpRedirect only. No tag= parameter.",
+        "flag": "I-2"
+      },
+      "brand": {
+        "value": "Chefman",
+        "source": "S7",
+        "verified": true
+      },
+      "model_number": {
+        "value": "RJ38-3DBW-V2",
+        "source": "S7",
+        "verified": true
+      },
+      "product_name_amazon": {
+        "value": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
+        "source": "S4",
+        "verified": true,
+        "note": "Verbatim Amazon listing title."
+      },
+      "product_name_manufacturer": {
+        "value": "TurboFry 6 Qt. Double Basket Air Fryer with Easy View Windows",
+        "source": "S7",
+        "verified": true
+      },
+      "category": {
+        "value": "Air fryers — dual-basket (two independent baskets)",
+        "source": "S7",
+        "verified": true
+      },
+      "amazon_browse_category": {
+        "value": "Home & Kitchen",
+        "source": "S4",
+        "verified": true,
+        "note": "From the Amazon page title suffix ': Home & Kitchen'."
+      },
+      "capacity": {
+        "value": "6 Qt / 5.68 L total (two 3 Qt / 2.84 L baskets)",
+        "source": "S7",
+        "verified": true
+      },
+      "temperature_range": {
+        "value": "90–400 °F / 32–204 °C",
+        "source": "S7",
+        "verified": true
+      },
+      "power": {
+        "value": "1700 W",
+        "source": "S7",
+        "verified": true
+      },
+      "functions": {
+        "value": "5 functions: air fry, bake, reheat, dehydrate, frozen",
+        "source": "S7",
+        "verified": true
+      },
+      "key_features": {
+        "value": "Sync Finish, Sync Baskets, Easy View windows, interior basket lights, shake notifications, digital touch controls",
+        "source": "S7",
+        "verified": true
+      },
+      "dishwasher_safe_parts": {
+        "value": "Nonstick baskets, dishwasher safe",
+        "source": "S7",
+        "verified": true
+      },
+      "certification": {
+        "value": "cETL approved",
+        "source": "S7",
+        "verified": true
+      },
+      "warranty": {
+        "value": "1-year Chefman assurance",
+        "source": "S7",
+        "verified": true
+      },
+      "country_of_origin": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-8"
+      },
+      "listed_price_official_brand": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-9",
+        "note": "chefman.com shows a tiered discount ladder ($90.00 / $75.00 / $70.00 / $85.00 / $80.00 / $60.00 with a $99.99 anchor) that cannot be mapped to a single price unambiguously."
+      },
+      "amazon_price": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-10",
+        "note": "Amazon page body was bot-stripped; additionally, Associates Program Policies §2(b) restricts showing Amazon prices unless Amazon serves them or they come via PA API / Creators API."
+      },
+      "amazon_star_rating": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-11",
+        "note": "https://www.amazon.com/product-reviews/B0CDY277D3 redirected to Amazon sign-in."
+      },
+      "amazon_review_count": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-11"
+      },
+      "best_sellers_rank": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-12"
+      },
+      "date_first_available": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-12"
+      },
+      "brand_site_rating": {
+        "value": "4.5 / 5 from 30 reviews (chefman.com)",
+        "source": "S7",
+        "verified": true,
+        "note": "Aggregate shown by the review widget on the manufacturer's own product page. Not an Amazon rating."
+      },
+      "official_product_page": {
+        "value": "https://chefman.com/collections/air-fryers-1/products/turbofry-6-qt-double-basket-air-fryer-with-easy-view-windows",
+        "source": "S7",
+        "verified": true
+      },
+      "manufacturer_site": {
+        "value": "https://chefman.com/",
+        "source": "S10",
+        "verified": true
+      },
+      "model_page_match": {
+        "value": true,
+        "source": "S7",
+        "verified": true,
+        "note": "Model number RJ38-3DBW-V2 is stated on the official product page; match to the Amazon ASIN itself is not independently provable (no ASIN on the manufacturer page)."
+      },
+      "irregularities": [
+        "I-4",
+        "I-7"
+      ]
+    },
+    {
+      "id": "P2",
+      "slug": "emeril-lagasse-french-door-26qt",
+      "rank": 2,
+      "supplied_link": "https://link.amazon/B02NbDxp3",
+      "supplied_link_source": "S2",
+      "asin": {
+        "value": "B09B7SB46R",
+        "source": "S2",
+        "verified": true,
+        "note": "Read from the redirect target of the supplied short link."
+      },
+      "amazon_url": {
+        "value": "https://www.amazon.com/dp/B09B7SB46R",
+        "source": "S2",
+        "verified": true
+      },
+      "has_tag_parameter": {
+        "value": false,
+        "source": "S2",
+        "verified": true,
+        "flag": "I-2"
+      },
+      "brand": {
+        "value": "Emeril Lagasse (Emeril Everyday)",
+        "source": "S9",
+        "verified": true
+      },
+      "model_number": {
+        "value": "4-00675-02A-VN",
+        "source": "S9",
+        "verified": true
+      },
+      "product_name_amazon": {
+        "value": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.",
+        "source": "S5",
+        "verified": true,
+        "note": "Verbatim Amazon listing title."
+      },
+      "product_name_manufacturer": {
+        "value": "EMERIL LAGASSE FRENCH DOOR AIRFRYER 360™ TOASTER OVEN COMBO, 26 QT",
+        "source": "S9",
+        "verified": true
+      },
+      "category": {
+        "value": "Air fryers — oven-style / toaster-oven combo (French doors)",
+        "source": "S9",
+        "verified": true
+      },
+      "amazon_browse_category": {
+        "value": "Home & Kitchen",
+        "source": "S5",
+        "verified": true
+      },
+      "capacity": {
+        "value": "26 Quart / 24.6 liters",
+        "source": "S9",
+        "verified": true
+      },
+      "temperature_range": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-8",
+        "note": "The official product page does not state a temperature range in its specification block."
+      },
+      "power": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-8",
+        "note": "The official product page states voltage (120 V) but not wattage."
+      },
+      "voltage": {
+        "value": "120 V",
+        "source": "S9",
+        "verified": true
+      },
+      "dimensions": {
+        "value": "16.9\" D x 15.8\" W x 14.8\" H",
+        "source": "S9",
+        "verified": true
+      },
+      "functions": {
+        "value": "10-in-1: air fry, bake, broil, defrost, dehydrate, grill, proof, reheat, roast, warm",
+        "source": "S9",
+        "verified": true
+      },
+      "preset_count": {
+        "value": "24 one-touch cooking presets",
+        "source": "S9",
+        "verified": true,
+        "note": "Description block says 24; the specification block on the same page says '25 Cooking Pre-sets'. Recorded discrepancy — see I-5."
+      },
+      "key_features": {
+        "value": "French doors, dual-speed fan, rotisserie, 360° hot air circulation, digital touch controls, 7 premium accessories included",
+        "source": "S9",
+        "verified": true
+      },
+      "accessories_included": {
+        "value": "7 premium accessories (air fry basket, rotisserie spit, bake pan and more)",
+        "source": "S9",
+        "verified": true
+      },
+      "certification": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-8"
+      },
+      "warranty": {
+        "value": "1-year warranty",
+        "source": "S9",
+        "verified": true
+      },
+      "country_of_origin": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-8"
+      },
+      "listed_price_official_brand": {
+        "value": "$199.99 (manufacturer list price on emerileveryday.com, read 2026-11-13)",
+        "source": "S9",
+        "verified": true,
+        "note": "Manufacturer's own site price. Not an Amazon price and not a claim about Amazon's price."
+      },
+      "amazon_price": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-10"
+      },
+      "amazon_star_rating": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-11"
+      },
+      "amazon_review_count": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-11"
+      },
+      "best_sellers_rank": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-12"
+      },
+      "date_first_available": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-12"
+      },
+      "brand_site_rating": {
+        "value": "2.6 / 5 from 25 reviews (emerileveryday.com)",
+        "source": "S9",
+        "verified": true,
+        "note": "Aggregate shown on the manufacturer's own product page. Not an Amazon rating."
+      },
+      "official_product_page": {
+        "value": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+        "source": "S9",
+        "verified": true
+      },
+      "manufacturer_site": {
+        "value": "https://www.emerileveryday.com/",
+        "source": "S9",
+        "verified": true
+      },
+      "model_page_match": {
+        "value": true,
+        "source": "S9",
+        "verified": true,
+        "note": "Model 4-00675-02A-VN is stated on the page; page imagery also references 4-00675-02X — see I-6."
+      },
+      "irregularities": [
+        "I-5",
+        "I-6"
+      ]
+    },
+    {
+      "id": "P3",
+      "slug": "chefman-turbofry-8qt-high-fry",
+      "rank": 3,
+      "supplied_link": "https://link.amazon/B00hJ57DV",
+      "supplied_link_source": "S3",
+      "asin": {
+        "value": "B08DKYBTPH",
+        "source": "S3",
+        "verified": true,
+        "note": "Read from the redirect target. Note the short code resembles an ASIN but is NOT one — see I-1."
+      },
+      "amazon_url": {
+        "value": "https://www.amazon.com/dp/B08DKYBTPH",
+        "source": "S3",
+        "verified": true
+      },
+      "has_tag_parameter": {
+        "value": false,
+        "source": "S3",
+        "verified": true,
+        "flag": "I-2"
+      },
+      "brand": {
+        "value": "Chefman",
+        "source": "S8",
+        "verified": true
+      },
+      "model_number": {
+        "value": "RJ38-8T-BLACK",
+        "source": "S8",
+        "verified": true
+      },
+      "product_name_amazon": {
+        "value": "Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
+        "source": "S6",
+        "verified": true,
+        "note": "Verbatim Amazon listing title. The title says 'Stainless Steel' while the manufacturer page for RJ38-8T-BLACK says 'Matte-black finish' — see I-7."
+      },
+      "product_name_manufacturer": {
+        "value": "TurboFry 8 Qt. Air Fryer w/ High Fry",
+        "source": "S8",
+        "verified": true
+      },
+      "category": {
+        "value": "Air fryers — single-basket XL",
+        "source": "S8",
+        "verified": true
+      },
+      "amazon_browse_category": {
+        "value": "Home & Kitchen",
+        "source": "S6",
+        "verified": true
+      },
+      "capacity": {
+        "value": "8 Qt / 7.57 L",
+        "source": "S8",
+        "verified": true
+      },
+      "temperature_range": {
+        "value": "Up to 450 °F / 232 °C via the Hi-Fry button (final two minutes of cooking)",
+        "source": "S8",
+        "verified": true,
+        "note": "Page states the Hi-Fry temperature; it does not publish the full low-end of the range on the specification block."
+      },
+      "power": {
+        "value": "1700 W / 120 V",
+        "source": "S8",
+        "verified": true
+      },
+      "functions": {
+        "value": "4 functions: air fry, bake, dehydrate, frozen",
+        "source": "S8",
+        "verified": true
+      },
+      "key_features": {
+        "value": "450 °F Hi-Fry button, automatic shake notifications, digital touch controls, automatic shutoff on timer end or basket removal, no preheat",
+        "source": "S8",
+        "verified": true
+      },
+      "dishwasher_safe_parts": {
+        "value": "Nonstick basket and rack, top-rack dishwasher safe",
+        "source": "S8",
+        "verified": true
+      },
+      "certification": {
+        "value": "cETL approved",
+        "source": "S8",
+        "verified": true
+      },
+      "warranty": {
+        "value": "1-year Chefman assurance",
+        "source": "S8",
+        "verified": true
+      },
+      "country_of_origin": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-8"
+      },
+      "listed_price_official_brand": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-9",
+        "note": "chefman.com shows the same tiered discount ladder ($108.00 / $90.00 / $84.00 / $102.00 / $96.00 / $72.00 against a $119.99 anchor); no single unambiguous price."
+      },
+      "amazon_price": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-10"
+      },
+      "amazon_star_rating": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-11"
+      },
+      "amazon_review_count": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-11"
+      },
+      "best_sellers_rank": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-12"
+      },
+      "date_first_available": {
+        "value": null,
+        "source": null,
+        "verified": false,
+        "flag": "I-12"
+      },
+      "brand_site_rating": {
+        "value": "4.6 / 5 from 200 reviews (chefman.com)",
+        "source": "S8",
+        "verified": true,
+        "note": "Aggregate shown on the manufacturer's own product page. Not an Amazon rating."
+      },
+      "official_product_page": {
+        "value": "https://chefman.com/collections/air-fryers-1/products/turbofry-8-qt-air-fryer-w-high-fry",
+        "source": "S8",
+        "verified": true
+      },
+      "manufacturer_site": {
+        "value": "https://chefman.com/",
+        "source": "S10",
+        "verified": true
+      },
+      "model_page_match": {
+        "value": true,
+        "source": "S8",
+        "verified": true,
+        "note": "Model RJ38-8T-BLACK is stated on the page; finish conflicts with the Amazon title."
+      },
+      "irregularities": [
+        "I-1",
+        "I-7"
+      ]
+    }
+  ]
+}

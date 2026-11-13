@@ -1,62 +1,86 @@
-# Zone1 — Amazon affiliate research dashboard
+# Zone1 — Amazon affiliate product research (verified, source-linked)
 
-A source-verified research site for three supplied Amazon affiliate links. Every product
-value is quoted from the manufacturer's official product page and carries a link to it.
-Anything that could not be confirmed from an official source is **left blank and flagged**,
-not filled in.
+Live site (after the owner merges and Pages deploys): https://kanlerxz87-cyber.github.io/Zone1/
 
-**Live site:** https://kanlerxz87-cyber.github.io/Zone1/
+A simple dashboard for three Amazon.com products submitted for affiliate marketing. Every value on the site is either
+read from a cited official source on 2026-11-13 or left **blank and marked unverified**. Nothing is estimated or invented.
 
-## What is here
+- **Overview** — executive summary, KPI tiles, category index
+- **Home & Kitchen › Air Fryers** — product table with official source links on every row
+- **Analysis & Findings** — verified findings, what is blocked and why, official commission method
+- **Compliance** — Amazon Associates and FTC requirements, each with its source and site status
+- **Sources** — every source with retrieval status
+- **Flagged for Review** — irregularities and open decisions, with source links
 
-| Path | What it is |
-|---|---|
-| `*.html`, `articles/`, `categories/`, `assets/` | The published site (GitHub Pages serves `main` → `/`) |
-| `data/products.json` | The three products, every field as `{value, source, verified}` |
-| `data/sources.json` | The source register — 24 official URLs and what each supports |
-| `data/compliance.json` | 23 Amazon/FTC requirements, each with a verbatim quote and a link |
-| `data/analysis.json` | Niche scoring, content plan, automation pipeline (labelled as derived) |
-| `data/irregularities.json` | 17 flagged items, including the monetisation blocker |
-| `scripts/build.py` | Static generator — renders the HTML from `data/` |
-| `scripts/check.py` | Verification gate — fails on broken links, unsourced rows, missing disclosures |
-| `COORDINATION.md` | Shared task board for parallel agent sessions |
+Full executive summary: [EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md).
+Repo review log: [REVIEW.md](REVIEW.md). Shared task board: [COORDINATION.md](COORDINATION.md).
 
-## Build
+## Repository layout
+
+| Path | Purpose |
+|------|---------|
+| `data/products.json` | Product rows. Each value carries `status` (verified / derived / unverified) and `source`. Unverified values must be `null`. |
+| `data/sources.json` | Every source with its URL, access date and retrieval status. |
+| `data/compliance.json` | Associates and FTC requirements with sources and site status. |
+| `data/flags.json` | Flagged-for-review items with severity, sources and the action needed. |
+| `data/site.json` | Site-level settings, including the Associates status shown in the disclosure banner. |
+| `scripts/build.mjs` | Validates all data, then writes the static site to `docs/`. No dependencies. |
+| `docs/` | Generated site. Opened through the root `index.html` redirect (Pages source is `main` `/`). |
+| `index.html` (root) | Generated redirect to `docs/index.html`, so the Pages URL opens the site. |
+
+## Build and check
 
 ```bash
-./build.sh            # build + verify
-python3 scripts/build.py
-python3 scripts/check.py
+node scripts/build.mjs --check   # validate only (exit 1 on any error)
+node scripts/build.mjs           # validate, then write docs/
 ```
 
-The check fails the build if a row renders without a source link and without an explicit
-"unverified" marker, if any internal link is broken, if any page is missing the required
-Amazon disclosure or trademark attribution, or if the headline field counts stop matching
-the rendered rows.
+The build fails if:
+- a verified or derived value has no valid source,
+- an unverified value is filled in,
+- a row's official link is not on an official host,
+- an internal link points to a file that will not be built.
 
-## The three supplied links
+External links were checked manually with the fetch tool. Build-time checks do not reach the network.
 
-| # | Supplied link | Resolves to | Product |
-|---|---|---|---|
-| 1 | https://link.amazon/B04G1MEwY | ASIN B0CDY277D3 | Chefman TurboFry 6 Qt Dual-Basket Air Fryer (RJ38-3DBW-V2) |
-| 2 | https://link.amazon/B02NbDxp3 | ASIN B09B7SB46R | Emeril Lagasse 26 Qt French Door AirFryer 360 (4-00675-02A-VN) |
-| 3 | https://link.amazon/B00hJ57DV | ASIN B08DKYBTPH | Chefman TurboFry 8 Qt Air Fryer w/ High Fry (RJ38-8T-BLACK) |
+## Verification rules
 
-> **Action required:** as supplied, none of the three resolves with an Amazon Associates
-> `tag=` parameter, so none can be verified as a commission-earning Special Link. See
-> `data/irregularities.json` item **I-2** and the site's Flagged for Review page.
+1. A value is shown only if it was read from an official source (Amazon product page, Amazon Associates Central, FTC, GitHub Docs).
+2. A value that cannot be confirmed is left blank and flagged as unverified (see `flags.json`).
+3. Prices, ratings, review counts and commission rates are **not** estimated. Price display is restricted by Associates Program Policies s.2(b).
+4. Category names derived from title words are marked "derived", not "verified".
 
-## Honesty rules this repo follows
+## Not built (and why)
 
-1. No Amazon price, star rating, review count or Best Sellers Rank is published unless it
-   was captured from an official Amazon surface. All of them were blocked, so all are blank.
-2. No category commission rate is published — the rate card is behind Amazon sign-in.
-3. No search-volume, trend or revenue figure is asserted anywhere.
-4. No hands-on testing is claimed. Articles are spec-based desk research and say so.
-5. Analysis and scoring are labelled `derived`, never presented as fact.
+The full AI platform in the brief needs Amazon Creators API / PA-API credentials, Associates account data and an analytics account.
+None are available to this session, and building those features without them would mean inventing data. See flag F11.
 
-## Licence / attribution
+## `research/` — deep-dive research section (session `8a2ddd06`)
 
-Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.
-This is an independent research site; it is not endorsed by or affiliated with Amazon,
-Chefman or Emeril Everyday. Product names and model numbers are used for identification.
+Two sessions worked this repository in parallel from the same base commit and both claimed the same scope;
+see the integration record at the bottom of [COORDINATION.md](COORDINATION.md). The published dashboard in
+`docs/` is session `d14c5409`'s build. Session `8a2ddd06`'s independent work is published as an additive
+section at **`/research/`** and is linked from the main navigation as "Deep-dive research ↗".
+
+What the research section adds:
+
+- a 90-field product table (30 fields per SKU) where every field is `{value, source, verified}`
+- a 24-source register including the manufacturers' own product pages (chefman.com, emerileveryday.com),
+  Associates Central policy documents with their *Updated* dates, 16 CFR Part 255, 16 CFR Part 465 and the
+  FTC Endorsement Guides
+- a 23-row compliance matrix with **verbatim quotations** and the section number for each requirement
+- a 17-item flag register (`I-1`–`I-17`) with root-cause detail for each item
+- a transparent scoring model, a content plan, and a 10-step automation pipeline with a compliance control
+  attached to every step
+- three source-linked articles (a buying guide and two comparisons) that claim no hands-on testing
+
+Build and verify it independently:
+
+```bash
+python3 research/build_research.py     # regenerate research/*.html
+python3 research/check_research.py     # 774 checks; exits non-zero on any failure
+node scripts/build.mjs                 # main site; also requires every research/ output to exist
+```
+
+Neither generator touches the other's files. The only cross-file dependency is the nav entry in
+`scripts/build.mjs` and the output-existence check that keeps that nav entry from rotting.
