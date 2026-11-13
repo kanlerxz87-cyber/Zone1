@@ -1,56 +1,70 @@
-# Zone1 — Amazon affiliate product research (verified, source-linked)
+# Zone1 — verified Amazon affiliate product intelligence
 
-Live site (after the owner merges and Pages deploys): https://kanlerxz87-cyber.github.io/Zone1/
+A static site and data layer for an Amazon Associates content operation, built around three
+supplied affiliate links. Every factual value is traced to an official source; anything that
+could not be confirmed is left blank and published on the **Flagged for review** page.
 
-A simple dashboard for three Amazon.com products submitted for affiliate marketing. Every value on the site is either
-read from a cited official source on 2026-11-13 or left **blank and marked unverified**. Nothing is estimated or invented.
+**Live site:** https://kanlerxz87-cyber.github.io/Zone1/
 
-- **Overview** — executive summary, KPI tiles, category index
-- **Home & Kitchen › Air Fryers** — product table with official source links on every row
-- **Analysis & Findings** — verified findings, what is blocked and why, official commission method
-- **Compliance** — Amazon Associates and FTC requirements, each with its source and site status
-- **Sources** — every source with retrieval status
-- **Flagged for Review** — irregularities and open decisions, with source links
+## What is in here
 
-Full executive summary: [EXECUTIVE_SUMMARY.md](EXECUTIVE_SUMMARY.md).
-Repo review log: [REVIEW.md](REVIEW.md). Shared task board: [COORDINATION.md](COORDINATION.md).
+| Path | What it is |
+|---|---|
+| `index.html` | Dashboard — the three products, verification counts, commercial summary |
+| `categories/` | Category pages (currently: kitchen appliances / air fryers) |
+| `products/` | One documentation-based review per product |
+| `compare.html` | Verified-only comparison matrix, gaps left visible |
+| `guides/` | Buying guide |
+| `data.html` | Full specification register + source register |
+| `platform.html` | Automation blueprint, guardrails, KPIs, launch sequence |
+| `compliance.html` | 16 program/legal requirements, quoted, each with a source link |
+| `flagged.html` | Every unverified value, source conflict and irregularity |
+| `executive-summary.html` | One-page briefing |
+| `data/*.json` | The verified dataset the site is generated from |
+| `build.py` | Static site generator (stdlib only — no dependencies) |
+| `verify.py` | Build gate: broken links, missing disclosures, unsourced values |
+| `COORDINATION.md` | Shared task board, claim log and verification record |
 
-## Repository layout
-
-| Path | Purpose |
-|------|---------|
-| `data/products.json` | Product rows. Each value carries `status` (verified / derived / unverified) and `source`. Unverified values must be `null`. |
-| `data/sources.json` | Every source with its URL, access date and retrieval status. |
-| `data/compliance.json` | Associates and FTC requirements with sources and site status. |
-| `data/flags.json` | Flagged-for-review items with severity, sources and the action needed. |
-| `data/site.json` | Site-level settings, including the Associates status shown in the disclosure banner. |
-| `scripts/build.mjs` | Validates all data, then writes the static site to `docs/`. No dependencies. |
-| `docs/` | Generated site. Opened through the root `index.html` redirect (Pages source is `main` `/`). |
-| `index.html` (root) | Generated redirect to `docs/index.html`, so the Pages URL opens the site. |
-
-## Build and check
+## Build
 
 ```bash
-node scripts/build.mjs --check   # validate only (exit 1 on any error)
-node scripts/build.mjs           # validate, then write docs/
+python3 build.py     # regenerate every page from data/*.json
+python3 verify.py    # exit 0 = no broken links, no unsourced values, disclosure on every page
 ```
 
-The build fails if:
-- a verified or derived value has no valid source,
-- an unverified value is filled in,
-- a row's official link is not on an official host,
-- an internal link points to a file that will not be built.
+`build.py` refuses to emit a page if a specification row has a value but no official source,
+or if any page is missing the required Amazon Associates disclosure statement.
 
-External links were checked manually with the fetch tool. Build-time checks do not reach the network.
+## The verification rule
 
-## Verification rules
+A value is published only if an **official** source states it:
 
-1. A value is shown only if it was read from an official source (Amazon product page, Amazon Associates Central, FTC, GitHub Docs).
-2. A value that cannot be confirmed is left blank and flagged as unverified (see `flags.json`).
-3. Prices, ratings, review counts and commission rates are **not** estimated. Price display is restricted by Associates Program Policies s.2(b).
-4. Category names derived from title words are marked "derived", not "verified".
+- Amazon.com for Amazon program facts and for which ASIN a short link resolves to
+- A US government source (FTC, eCFR) for US law
+- The manufacturer for product specifications — its own product page or its own owner's manual
 
-## Not built (and why)
+Retailer listings, reseller marketplaces, review aggregators and affiliate blogs are **not**
+sources. Several of them contradicted each other, and the official rate table, on the day of
+verification.
 
-The full AI platform in the brief needs Amazon Creators API / PA-API credentials, Associates account data and an analytics account.
-None are available to this session, and building those features without them would mean inventing data. See flag F11.
+Values that fail the rule are stored as `null` with a written reason, render as
+"— not confirmed —", and are listed on `flagged.html`. Nothing is inferred.
+
+## Compliance notes
+
+No Amazon price, availability, star rating or customer review appears anywhere on the site.
+Amazon's Program Policies §2(b) permit price/availability display only when Amazon serves the
+link or when the data comes from Creators/PA API, and §3(t) restricts customer reviews and
+star ratings to API-served content. The IP License §2(e) additionally forbids aggregating,
+analysing or repurposing Program Content, and forbids using it to train models.
+
+The disclosure statement required by Operating Agreement §5 — *"As an Amazon Associate I earn
+from qualifying purchases."* — is generated into every page by `build.py`.
+
+See `compliance.html` for all 16 requirements with quoted source text.
+
+## Deploy
+
+GitHub Pages, branch `main`, root directory. The workflow at
+`.github/workflows/pages.yml` rebuilds the site, runs `verify.py`, and fails the deploy if
+verification fails.
