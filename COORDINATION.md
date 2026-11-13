@@ -50,7 +50,7 @@ Creating `session-<id>/<task>` branches would require switching branches, which 
 | T-01 | Repo + environment audit | `done` | `arena-1874bb64` | `COORDINATION.md`, `README.md` | See §4 audit log |
 | T-02 | Resolve the 3 affiliate short links → ASINs | `done` | `arena-1874bb64` | `data/products.json` | See §4.1 |
 | T-03 | Verify product facts vs. official manufacturer + Amazon pages | `done` | `arena-1874bb64` | `data/*.json` | 3 irregularities flagged |
-| T-04 | Verify Amazon Associates + FTC compliance rules line by line | `done` | `arena-1874bb64` | `data/compliance.json`, `compliance.html` | Rate card confirmed |
+| T-04 | Verify Amazon Associates + FTC compliance rules line by line | `done` | `arena-1874bb64` | `data/compliance.json`, `compliance.html` | Rate card confirmed; 20 rules |
 | T-05 | Build data layer (products, sources, claims) | `done` | `arena-1874bb64` | `data/**` | — |
 | T-06 | Build site generator + pages | `done` | `arena-1874bb64` | `scripts/build_site.py`, `*.html`, `assets/**` | — |
 | T-07 | Build verifier (link check + source-per-row + JSON schema) | `done` | `arena-1874bb64` | `scripts/verify_site.py` | — |
@@ -126,11 +126,51 @@ Recorded after execution — see §4.7.
 
 ### 4.6 Build + verification result
 
-Recorded after execution — see §4.7.
+**BUILD: PASS.** `python3 scripts/build_site.py` → 11 pages generated from `data/*.json`.
+**VERIFY: PASS.** `python3 scripts/verify_site.py` → `ALL CHECKS PASSED`, 371 assertions, 0 failures.
+
+Checks that ran (each is a hard failure, not a warning):
+
+| ID | Assertion | Result |
+| --- | --- | --- |
+| V1 | Every internal link and anchor resolves on disk | pass |
+| V2 | Every outbound Amazon link is a direct `/dp/<ASIN>`; no cloaking, no shortener, no `/gp/`, no ref params | pass |
+| V3 | Every populated spec row cites a source that exists in the registry | pass |
+| V4 | No row is `verified` with a blank value | pass |
+| V5 | No row is `unverified` with a populated value | pass |
+| V6 | Every referenced flag id exists in `flagged.json` and carries source links | pass |
+| V7 | Every flag is actually rendered on `flagged.html` | pass |
+| V8 | The exact sentence "As an Amazon Associate I earn from qualifying purchases." is on all 11 pages, plus the FTC plain-language sentence | pass |
+| V9 | Every compliance rule has a resolving source, a quote or named section, and an implementation statement | pass |
+| V10 | No Amazon price, availability or star rating is published anywhere | pass |
+| V11 | No `<script>`, no analytics, no cookie writes, no remote fonts, no remote CSS assets | pass |
+| V12 | "affiliate link" never appears as the only disclosure on a page carrying product links | pass |
+
+Supplementary structural validation (outside the verifier): every generated HTML file parses with
+balanced tags, contains exactly one `<h1>`, and has no duplicate element ids.
+
+**Why the verifier matters more than the prose:** it failed the first build with 7 real defects —
+3 arithmetic errors in the opportunity composite scores and 4 places where the phrase "affiliate
+link" appeared without a payment explanation. Both classes of defect were genuine and both were
+fixed in the data/templates rather than by relaxing the check. The composite scores were then
+recomputed from the published weights (82.8 / 81.0 / 59.5) and the ranks re-ordered to match.
+
+**Data ledger at freeze:** 53 spec fields — 40 `verified`, 4 `flagged`, 9 `unverified` (blank).
+20 compliance rules — 18 `verified`, 2 `flagged` (F-10, F-17/F-05). 13 review items published.
 
 ### 4.7 Execution record
 
-Recorded after execution.
+| Item | Value |
+| --- | --- |
+| Working branch | `arena/1874bb64-zone1` |
+| Base commit | `42f403657fd1b6b1e0af6fcd3f67ca74b7f0ec06` |
+| Pages published | `index, products, compare, guides, compliance, methodology, sources, flagged, privacy, executive-summary, 404` |
+| Build command | `python3 scripts/build_site.py` |
+| Verify command | `python3 scripts/verify_site.py` |
+| CI workflow added | `.github/workflows/verify.yml` — rebuilds from data, runs the verifier, and fails if committed HTML drifts from `data/` |
+| Known deviation | All work on one branch (`arena/1874bb64-zone1`) rather than `session-<id>/<task>` branches; non-overlap enforced by file scope. Logged in §0. |
+
+PR, merge result and Pages deploy status are appended below once executed.
 
 ---
 
@@ -145,3 +185,5 @@ _(none yet)_
 | Date (UTC) | Session | Change |
 | --- | --- | --- |
 | 2026-11-13 | `arena-1874bb64` | Board created; tasks T-01…T-11 claimed. |
+| 2026-11-13 | `arena-1874bb64` | Data layer + site built; verifier went 7 failures → 0 after fixing 3 arithmetic defects and 4 disclosure-wording defects. |
+| 2026-11-13 | `arena-1874bb64` | CI workflow added; T-01…T-10 closed. |
