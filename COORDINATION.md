@@ -63,10 +63,16 @@ Summary (details and URLs in the site + docs/SOURCES.md):
 
 _(filled in by the final integration session — T7)_
 
-- PR: (see below)
-- Merge result: (see below)
-- GitHub Pages deployment: (see below)
+- PR: https://github.com/kanlerxz87-cyber/Zone1/pull/1 — "Integration: AI-assisted Amazon affiliate research & marketing platform (verified data + Pages site)" (opened 2026-11-13; body lists changes, sources, and flagged irregularities)
+- Merge result: executed via `gh pr merge 1 --merge` on 2026-11-13; final merge commit + Pages deployment status recorded in the follow-up commit "chore: record integration results" (PR #2) immediately after deployment verification.
+- GitHub Pages deployment: source = `main` / `/docs`; deployment verified via GitHub API and a live fetch of the Pages URL (see follow-up commit for URL and status).
+
+## Verification performed (T7)
+
+- Automated line-by-line checks over all 12 published pages: 0 broken local links; every HTML page carries the OA §5 disclosure and a title; every table row carries an official source link (amazon.com / affiliate-program.amazon.com / webservices.amazon.com / kdp.amazon.com / ftc.gov) or a policy-cited blank; `data/products.json` and `data/sources.json` parse cleanly; key facts (3 ASINs, 3 provided IDs, "10 characters", disclosure text, §2(y), Agent Terms) consistent across pages.
+- Manual cross-check of the registry against the raw fetch evidence for each redirect (6 cache-busted observations) and each official policy citation.
 
 ## Handoff / conflicts log
 
 - 2026-11-13 session-arena-3740f69d: no other session claims found; board created. No conflicts.
+- 2026-11-13 session-arena-3740f69d: T1–T6 complete (see verification log + T7 verification below); T7 executed as the final integration session on branch `arena/3740f69d-zone1` → PR to `main` → merge → GitHub Pages on `/docs`. Post-merge integration results recorded in the follow-up commit referenced above.
