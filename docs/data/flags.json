@@ -153,7 +153,7 @@
       "severity": "Low",
       "type": "Repo",
       "item": "GitHub Pages publishing source is main at '/' (legacy). This session could not change it to /docs (API returned 403 for this token).",
-      "detail": "A root index.html redirects to docs/index.html, which holds the built site. The site is therefore reachable at the Pages URL without changing settings. Pages URL is clean at /docs/ paths.",
+      "detail": "A root index.html redirects to docs/index.html, which holds the built site. The site is therefore reachable at the Pages URL without changing settings.",
       "sources": [
         "S11",
         "S12"

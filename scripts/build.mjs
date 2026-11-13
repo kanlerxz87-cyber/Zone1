@@ -251,9 +251,12 @@ ${rows}
 
 const pageAnalysis = () => {
   const brandCounts = {};
+  const brandDisplay = {};
   for (const p of products.products) {
-    const b = p.values.brand_as_titled.value.toLowerCase();
+    const raw = p.values.brand_as_titled.value;
+    const b = raw.toLowerCase();
     brandCounts[b] = (brandCounts[b] || 0) + 1;
+    brandDisplay[b] = brandDisplay[b] || raw;
   }
   const body = `
 <header class="hero compact">
@@ -264,7 +267,7 @@ const pageAnalysis = () => {
 
 <section class="kpis">
   <div class="kpi"><div class="num">${products.products.length}</div><div class="lbl">Unique ASINs</div></div>
-  <div class="kpi"><div class="num">${Object.keys(brandCounts).length}</div><div class="lbl">Brand names as titled (${Object.entries(brandCounts).map(([b, n]) => `${esc(b)} ×${n}`).join(" · ")})</div></div>
+  <div class="kpi"><div class="num">${Object.keys(brandCounts).length}</div><div class="lbl">Brand names as titled (${Object.entries(brandCounts).map(([b, n]) => `${esc(brandDisplay[b])} ×${n}`).join(" · ")})</div></div>
   <div class="kpi"><div class="num">${coveragePct}%</div><div class="lbl">Field coverage (verified or derived)</div></div>
   <div class="kpi warn"><div class="num">${fieldTotal - fieldVerified}</div><div class="lbl">Blank fields (unverified)</div></div>
 </section>
