@@ -95,6 +95,8 @@ NAV = [
     ("compliance.html", "Compliance", "Program rules, quoted, with sources"),
     ("flagged.html", "Flagged for review", "Unverified values and irregularities"),
     ("executive-summary.html", "Executive summary", "Decision-ready briefing"),
+    # Additive section contributed by parallel session 8a2ddd06 (own data, own source register).
+    ("research/index.html", "Deep-dive research ↗", "Independent 25-source verification pass"),
 ]
 
 # --------------------------------------------------------------------------- #

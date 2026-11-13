@@ -34,6 +34,10 @@ OFFICIAL_HOSTS = {
     "www.ecfr.gov",
     "docs.github.com",
     "github.com",
+    # the site's own public origin, used only by the retired docs/ redirects
+    "kanlerxz87-cyber.github.io",
+    # California Prop 65 warning host, cited by the site/ annex data
+    "www.p65warnings.ca.gov",
 }
 
 errors = []

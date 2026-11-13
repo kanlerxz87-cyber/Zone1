@@ -99,3 +99,36 @@ See `compliance.html` for all 16 requirements with quoted source text.
 GitHub Pages, branch `main`, root directory. The workflow at
 `.github/workflows/pages.yml` rebuilds the site, runs `verify.py`, and fails the deploy if
 verification fails.
+
+The full AI platform in the brief needs Amazon Creators API / PA-API credentials, Associates account data and an analytics account.
+None are available to this session, and building those features without them would mean inventing data. See flag F11.
+
+## `research/` — deep-dive research section (session `8a2ddd06`)
+
+Two sessions worked this repository in parallel from the same base commit and both claimed the same scope;
+see the integration record at the bottom of [COORDINATION.md](COORDINATION.md). The published dashboard in
+`docs/` is session `d14c5409`'s build. Session `8a2ddd06`'s independent work is published as an additive
+section at **`/research/`** and is linked from the main navigation as "Deep-dive research ↗".
+
+What the research section adds:
+
+- a 90-field product table (30 fields per SKU) where every field is `{value, source, verified}`
+- a 24-source register including the manufacturers' own product pages (chefman.com, emerileveryday.com),
+  Associates Central policy documents with their *Updated* dates, 16 CFR Part 255, 16 CFR Part 465 and the
+  FTC Endorsement Guides
+- a 23-row compliance matrix with **verbatim quotations** and the section number for each requirement
+- a 17-item flag register (`I-1`–`I-17`) with root-cause detail for each item
+- a transparent scoring model, a content plan, and a 10-step automation pipeline with a compliance control
+  attached to every step
+- three source-linked articles (a buying guide and two comparisons) that claim no hands-on testing
+
+Build and verify it independently:
+
+```bash
+python3 research/build_research.py     # regenerate research/*.html
+python3 research/check_research.py     # 774 checks; exits non-zero on any failure
+node scripts/build.mjs                 # main site; also requires every research/ output to exist
+```
+
+Neither generator touches the other's files. The only cross-file dependency is the nav entry in
+`scripts/build.mjs` and the output-existence check that keeps that nav entry from rotting.
