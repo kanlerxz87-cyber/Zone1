@@ -1,193 +1,94 @@
 {
   "as_of": "2026-11-13",
-  "note": "Quotes are copied from the official pages listed in source_url. Status 'verified' means the text was read from that page on as_of. Status 'unverified' means it could not be read and no value is stated.",
+  "note": "Requirements are quoted from the sources. 'Site status' says what this site does today. 'Needs review' items are on the Flagged for Review page.",
   "rows": [
     {
-      "id": "C1",
-      "topic": "Associate disclosure statement",
-      "section": "Operating Agreement §5",
-      "requirement": "Site must clearly and prominently state the Associate disclosure.",
-      "quote": "As an Amazon Associate I earn from qualifying purchases.",
-      "source_url": "https://affiliate-program.amazon.com/help/operating/agreement",
-      "source_updated": "October 15, 2025",
-      "status": "verified",
-      "site_action": "Shown in the footer of every page and beside the product links."
+      "id": "C01",
+      "requirement": "Display 'As an Amazon Associate I earn from qualifying purchases.' clearly and prominently on the site.",
+      "source": "S7",
+      "section": "Operating Agreement, Section 5 'Identifying Yourself as an Associate'",
+      "site_status": "Needs review",
+      "site_action": "The banner shows this wording as the required statement and says enrollment is pending. It must not be presented as active until the Associates account is confirmed."
     },
     {
-      "id": "C2",
-      "topic": "Link-level disclosure (FTC)",
-      "section": "FTC Disclosures 101 for Social Media Influencers",
-      "requirement": "Disclosure must be placed with the endorsement message, hard to miss, in simple, clear language.",
-      "quote": "The disclosure should be placed with the endorsement message itself.",
-      "source_url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
-      "source_updated": "November 2019 (page as fetched)",
-      "status": "verified",
-      "site_action": "Each product table row has a note directly above it that says these are affiliate links."
+      "id": "C02",
+      "requirement": "Special Links must include the Associates ID or 'tag' as a parameter in the URL of each link.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 2(b)",
+      "site_status": "Not met",
+      "site_action": "The supplied links contain no tag. No tag has been invented. See F03."
     },
     {
-      "id": "C3",
-      "topic": "Honest endorsements (FTC Endorsement Guides)",
-      "section": "FTC Endorsement Guides: What People Are Asking",
-      "requirement": "Endorsements must be honest and not misleading; material connections should be disclosed clearly and conspicuously.",
-      "quote": "The Guides, at their core, reflect the basic truth-in-advertising principle that endorsements must be honest and not misleading.",
-      "source_url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
-      "source_updated": "Page as fetched on 2026-11-13",
-      "status": "verified",
-      "site_action": "Site copy is limited to facts read from the listing title. No product test or personal experience is claimed."
+      "id": "C03",
+      "requirement": "Prices and availability may be shown only if the Amazon link serves them, or if they come from the Creators API or PA-API.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 2(b)",
+      "site_status": "Met",
+      "site_action": "No prices or availability are shown. The price column is blank."
     },
     {
-      "id": "C4",
-      "topic": "Price display",
-      "section": "Program Policies, Participation Requirements §2(b)",
-      "requirement": "Prices may appear on the site only if Amazon serves the link that shows them, or if the price came from the Creators API or PA API.",
-      "quote": "your Site may only show prices and availability if: (a) we serve the link in which that price and availability data are displayed, or (b) you obtain Product pricing and availability data via Creators API or PA API",
-      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
-      "source_updated": "April 14, 2026",
-      "status": "verified",
-      "site_action": "No prices are shown. The price column is blank and flagged."
+      "id": "C04",
+      "requirement": "Product lists require additional original content on the site.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 2(b)",
+      "site_status": "Met",
+      "site_action": "The category page adds original analysis, a verification table and a glossary of what was and was not verified."
     },
     {
-      "id": "C5",
-      "topic": "Associates tag on every link",
-      "section": "Program Policies, Participation Requirements §2(a)–(b)",
-      "requirement": "Each Special Link must include the Associates ID (tag) as a URL parameter.",
-      "quote": "you must include your Associates ID or “tag” (appearing as XXXXX-##, or such other format as we may designate) as a parameter in the URL of each link you place on your Site to an Amazon Site.",
-      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
-      "source_updated": "April 14, 2026",
-      "status": "verified",
-      "site_action": "FLAGGED. The resolved product links for all 3 products contain no tag parameter. The Associates ID was not provided, so none was added. See flagged item F-06."
+      "id": "C05",
+      "requirement": "Sites must not include any Amazon trademark in the domain name, subdomain, tag or Associates ID.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 1, Unsuitable Sites (g)",
+      "site_status": "Met",
+      "site_action": "The domain is kanlerxz87-cyber.github.io/Zone1, which contains no Amazon mark. The word 'Amazon' appears only in running text and in source names."
     },
     {
-      "id": "C6",
-      "topic": "Accurate product claims",
-      "section": "Program Policies, Participation Requirements §2(b)",
-      "requirement": "No inaccurate, overbroad, deceptive, or misleading claims about any Product.",
-      "quote": "You must not make inaccurate, overbroad, deceptive or otherwise misleading claims about any Product, an Amazon Site, or any of our policies, promotions, or prices.",
-      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
-      "source_updated": "April 14, 2026",
-      "status": "verified",
-      "site_action": "Specs on the site come only from the listing title. Nothing else is claimed."
+      "id": "C06",
+      "requirement": "Purchases referred by a 'Redirecting Link' (a link that sends users indirectly to an Amazon Site through an intermediate site) are disqualified.",
+      "source": "S8",
+      "section": "Commission Income Statement, Section 2(e)",
+      "site_status": "Needs review",
+      "site_action": "The supplied links are link.amazon short links. Whether they count as Special Links is not confirmed. See F05."
     },
     {
-      "id": "C7",
-      "topic": "Original content",
-      "section": "Program Policies, Participation Requirements §1",
-      "requirement": "Third-party materials must carry significant commentary, analysis, or transformation.",
-      "quote": "Original content utilizing third-party materials must contain significant commentary, analysis, or transformation to any materials you include.",
-      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
-      "source_updated": "April 14, 2026",
-      "status": "verified",
-      "site_action": "Each product has original comparison and analysis text. Amazon descriptions and images are not copied."
+      "id": "C07",
+      "requirement": "A non-US Associate agrees to perform services outside the United States unless the tax information says otherwise.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 1 (non-US person paragraph)",
+      "site_status": "Needs review",
+      "site_action": "The site owner's location is Oslo, Norway. Confirm account status and tax information. Agreement Schedule 3 (taxes) was not reviewed. See F08."
     },
     {
-      "id": "C8",
-      "topic": "Product lists need added content",
-      "section": "Program Policies, Participation Requirements §2(b)",
-      "requirement": "When linking to pages with Product lists, the site must have additional original content relevant to the link.",
-      "quote": "When linking to pages with Product lists you must have additional original content on your Site that is relevant to the Special Link.",
-      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
-      "source_updated": "April 14, 2026",
-      "status": "verified",
-      "site_action": "The category page includes original comparison and analysis text above the product table."
+      "id": "C08",
+      "requirement": "Commission income is a percentage of Qualifying Revenue, which excludes shipping, gift wrap, handling, taxes, service charges, credits, rebates and card-processing fees.",
+      "source": "S8",
+      "section": "Commission Income Statement, Sections 1 and 3",
+      "site_status": "Met",
+      "site_action": "No commission amounts are estimated, because the rate is unverified (F02)."
     },
     {
-      "id": "C9",
-      "topic": "Program Content must not be altered",
-      "section": "Program Policies, Participation Requirements §6(a)",
-      "requirement": "Program Content may not be added to, deleted from, or otherwise altered, except for permitted resizing or truncation.",
-      "quote": "You will not add to, delete from, or otherwise alter any Program Content in any way",
-      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
-      "source_updated": "April 14, 2026",
-      "status": "verified",
-      "site_action": "FLAGGED (F-07). Product titles on the site are copied from Amazon listing pages. Whether titles count as Program Content is not confirmed."
+      "id": "C09",
+      "requirement": "Do not make public communications about the Associates Program beyond the required disclosure without written permission.",
+      "source": "S7",
+      "section": "Operating Agreement, Section 5",
+      "site_status": "Needs review",
+      "site_action": "The site describes its own verification work but does not describe the Associates relationship beyond the disclosure. Owner to confirm."
     },
     {
       "id": "C10",
-      "topic": "Redirecting links do not count",
-      "section": "Commission Income Statement §2(e)",
-      "requirement": "Purchases referred through a link that sends users to Amazon through an intermediate site without any click by the customer are disqualified.",
-      "quote": "any Product purchased by a customer who is referred to an Amazon Site by a link that sends users indirectly to an Amazon Site via an intermediate site, without requiring the customer to click on a link or take some other affirmative action on that intermediate site",
-      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
-      "source_updated": "April 14, 2026",
-      "status": "verified",
-      "site_action": "No auto-redirects. Every product link is a plain click."
+      "requirement": "Material connections must be disclosed clearly, near the endorsement, and in a way that is hard to miss.",
+      "source": "S10",
+      "section": "FTC Disclosures 101, 'When to Disclose' and 'How to Disclose'",
+      "site_status": "Met",
+      "site_action": "A disclosure banner sits at the top of every page, above any product listing."
     },
     {
       "id": "C11",
-      "topic": "Paid search using Amazon terms",
-      "section": "Commission Income Statement §2(c)",
-      "requirement": "Purchases referred by ads bought on keywords containing Amazon trademarks are disqualified.",
-      "quote": "any Product purchased by a customer who is referred to an Amazon Site through any advertisement that you purchased, including through participation in bidding or auctions on keywords, search terms, or other identifiers that include the word “amazon”",
-      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
-      "source_updated": "April 14, 2026",
-      "status": "verified",
-      "site_action": "No paid ads are run. Do not buy ads on Amazon terms."
-    },
-    {
-      "id": "C12",
-      "topic": "Amazon trademark in domain",
-      "section": "Program Policies, Participation Requirements §1(g)",
-      "requirement": "Site domain, subdomain, tag, or username may not include an Amazon trademark or misspelling.",
-      "quote": "include any trademark of Amazon or its affiliates, or a variant or misspelling of a trademark of Amazon or its affiliates in any domain name, subdomain name",
-      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
-      "source_updated": "April 14, 2026",
-      "status": "verified",
-      "site_action": "Site host is kanlerxz87-cyber.github.io/Zone1. No Amazon mark is used in the host name."
-    },
-    {
-      "id": "C13",
-      "topic": "Cookies and data disclosure",
-      "section": "Program Policies, Participation Requirements §3(e)",
-      "requirement": "The site must accurately disclose cookies, pixels, and data collection, including by third parties.",
-      "quote": "disclosing on your Site accurately and adequately and otherwise satisfying applicable legal requirements ... the use of cookies, pixels, and other technologies by you and third parties",
-      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
-      "source_updated": "April 14, 2026",
-      "status": "verified",
-      "site_action": "The site adds no analytics or cookies of its own. Amazon's own pages may set cookies. A privacy note is on the Sources page. Legal review is needed (F-10)."
-    },
-    {
-      "id": "C14",
-      "topic": "Standard commission rates",
-      "section": "Commission Income Statement §3 and Appendix",
-      "requirement": "Standard commission is a percentage of Qualifying Revenue, set by the rate schedule in the Appendix.",
-      "quote": "we will pay you standard commission income described in the Appendix",
-      "source_url": "https://affiliate-program.amazon.com/help/operating/schedule",
-      "source_updated": "Not readable",
-      "status": "unverified",
-      "site_action": "UNVERIFIED (F-08). The schedule URL redirects to an Amazon sign-in page. No rate is entered for any product."
-    },
-    {
-      "id": "C15",
-      "topic": "Creators API access requirements",
-      "section": "Creators API Documentation: Prerequisites",
-      "requirement": "Must be enrolled in Associates, have at least 10 qualifying sales in the past 30 days, register for API access, and generate credentials.",
-      "quote": "Have at least 10 qualifying sales within the past 30 days to access the PA API through the Creators API",
-      "source_url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction",
-      "source_updated": "Page as fetched on 2026-11-13",
-      "status": "verified",
-      "site_action": "Automated price or review pulls are not built. No credentials exist (F-09)."
-    },
-    {
-      "id": "C16",
-      "topic": "PA-API 5 is deprecated",
-      "section": "Creators API Documentation: PA-API 5 Deprecation Notice",
-      "requirement": "PA-API 5 is deprecated and replaced by the Creators API. Calls to PA-API 5 return 403 AccessDenied.",
-      "quote": "The Amazon Product Advertising API 5.0 (PA-API 5) has been deprecated and is being replaced by the Creators API.",
-      "source_url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation",
-      "source_updated": "Page as fetched on 2026-11-13",
-      "status": "verified",
-      "site_action": "Any future automation must use the Creators API, not PA-API 5."
-    },
-    {
-      "id": "C17",
-      "topic": "Operating agreement: Associate may not imply affiliation",
-      "section": "Operating Agreement §5",
-      "requirement": "Associate must not misrepresent or imply any affiliation or endorsement by Amazon.",
-      "quote": "You will not misrepresent or embellish our relationship with you (including by expressing or implying that we support, sponsor, or endorse you)",
-      "source_url": "https://affiliate-program.amazon.com/help/operating/agreement",
-      "source_updated": "October 15, 2025",
-      "status": "verified",
-      "site_action": "The site does not use Amazon logos. It says it is not affiliated with Amazon."
+      "requirement": "Do not make inaccurate, overbroad, deceptive or misleading claims about a Product.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 2(b)",
+      "site_status": "Met",
+      "site_action": "Only specifications read from the title text are shown. No performance or health claims are made."
     }
   ]
 }

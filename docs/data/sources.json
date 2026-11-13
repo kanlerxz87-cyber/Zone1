@@ -1,151 +1,156 @@
 {
   "as_of": "2026-11-13",
-  "note": "Every source listed here was opened on the as_of date. 'official' means the publisher is Amazon, the FTC, GitHub, or the repo itself. 'rejected' means a non-official source that was checked and not used for any value.",
+  "note": "Every value on the site cites one of these source IDs. 'status' records what the retrieval returned on 2026-11-13. Retrieval used the fetch tool from the build sandbox, not a live browser session.",
   "sources": [
     {
       "id": "S1",
-      "title": "Submitted short link B04G1MEwY",
-      "url": "https://link.amazon/B04G1MEwY",
-      "publisher": "Amazon",
-      "type": "official",
-      "used_for": "Resolved to https://www.amazon.com/dp/B0CDY277D3 (P1).",
-      "result": "Resolved to amazon.com; page title read."
+      "title": "Amazon.com product page, ASIN B0CDY277D3 (product 1)",
+      "publisher": "Amazon.com (official retailer product page)",
+      "url": "https://www.amazon.com/dp/B0CDY277D3",
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Product title, brand as written in title, capacity as written in title, department 'Home & Kitchen' (page title suffix). Price, rating, review count and availability were NOT present in the retrieved text.",
+      "review_note": "Retrieved text was site footer boilerplate; product-detail blocks did not render."
     },
     {
       "id": "S2",
-      "title": "Amazon product page B0CDY277D3",
-      "url": "https://www.amazon.com/dp/B0CDY277D3",
-      "publisher": "Amazon",
-      "type": "official",
-      "used_for": "P1 title and department ('Home & Kitchen').",
-      "result": "Page title read. Price and rating not readable."
+      "title": "Amazon.com product page, ASIN B09B7SB46R (product 2)",
+      "publisher": "Amazon.com (official retailer product page)",
+      "url": "https://www.amazon.com/dp/B09B7SB46R",
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Product title, brand as written in title, capacity as written in title, department 'Home & Kitchen'. Price, rating, review count and availability were NOT present in the retrieved text.",
+      "review_note": "Same retrieval limitation as S1."
     },
     {
       "id": "S3",
-      "title": "Submitted short link B02NbDxp3",
-      "url": "https://link.amazon/B02NbDxp3",
-      "publisher": "Amazon",
-      "type": "official",
-      "used_for": "Resolved to https://www.amazon.com/dp/B09B7SB46R (P2).",
-      "result": "Resolved to amazon.com; page title read."
+      "title": "Amazon.com product page, ASIN B08DKYBTPH (product 3) - canonical URL",
+      "publisher": "Amazon.com (official retailer product page)",
+      "url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "accessed": "2026-11-13",
+      "status": "blocked",
+      "supports": "Nothing. The canonical URL returned an interstitial ('To continue, please click the Continue shopping button').",
+      "review_note": "Identity for product 3 is confirmed only through the short link (S6)."
     },
     {
       "id": "S4",
-      "title": "Amazon product page B09B7SB46R",
-      "url": "https://www.amazon.com/dp/B09B7SB46R",
-      "publisher": "Amazon",
-      "type": "official",
-      "used_for": "P2 title and department ('Home & Kitchen').",
-      "result": "Page title read. Price and rating not readable."
+      "title": "Short link for product 1 (as supplied by the owner)",
+      "publisher": "Amazon (link.amazon short-link service)",
+      "url": "https://link.amazon/B04G1MEwY",
+      "accessed": "2026-11-13",
+      "status": "resolved",
+      "supports": "Resolves to https://www.amazon.com/dp/B0CDY277D3 (the short code is NOT the ASIN). Resolved URL contains no Associates 'tag=' parameter.",
+      "review_note": "See Flagged for Review, items F03 and F04."
     },
     {
       "id": "S5",
-      "title": "Submitted short link B00hJ57DV",
-      "url": "https://link.amazon/B00hJ57DV",
-      "publisher": "Amazon",
-      "type": "official",
-      "used_for": "Resolved to https://www.amazon.com/dp/B08DKYBTPH (P3).",
-      "result": "Resolved to amazon.com; page title read."
+      "title": "Short link for product 2 (as supplied by the owner)",
+      "publisher": "Amazon (link.amazon short-link service)",
+      "url": "https://link.amazon/B02NbDxp3",
+      "accessed": "2026-11-13",
+      "status": "resolved",
+      "supports": "Resolves to https://www.amazon.com/dp/B09B7SB46R. Resolved URL contains no 'tag=' parameter.",
+      "review_note": "See Flagged for Review, items F03 and F04."
     },
     {
       "id": "S6",
-      "title": "Amazon product page B08DKYBTPH",
-      "url": "https://www.amazon.com/dp/B08DKYBTPH",
-      "publisher": "Amazon",
-      "type": "official",
-      "used_for": "Checked for P3 title. Not used as a source (checkpoint page).",
-      "result": "Returned a 'Continue shopping' checkpoint page. See F-15."
+      "title": "Short link for product 3 (as supplied by the owner)",
+      "publisher": "Amazon (link.amazon short-link service)",
+      "url": "https://link.amazon/B00hJ57DV",
+      "accessed": "2026-11-13",
+      "status": "resolved",
+      "supports": "Resolves to https://www.amazon.com/dp/B08DKYBTPH. Product title 'Chefman Air Fryer 8 Qt | TurboFry...' and department 'Home & Kitchen' are shown in the resolved page title. Resolved URL contains no 'tag=' parameter.",
+      "review_note": "See Flagged for Review, items F03, F04 and F07."
     },
     {
       "id": "S7",
-      "title": "Associates Program Operating Agreement",
+      "title": "Amazon Associates Program Operating Agreement",
+      "publisher": "Amazon Associates Central (official)",
       "url": "https://affiliate-program.amazon.com/help/operating/agreement",
-      "publisher": "Amazon Associates",
-      "type": "official",
-      "used_for": "Associate disclosure statement (§5) and no-implied-affiliation rule (§5).",
-      "result": "Read. Updated October 15, 2025."
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Section 5 'Identifying Yourself as an Associate' (required disclosure wording). Section 6 (violation of Section 5 is a material breach). Section 12 incorporates the Program Policies (see S8).",
+      "review_note": "Page header states 'Updated: October 15, 2025'."
     },
     {
       "id": "S8",
-      "title": "Associates Program Policies",
+      "title": "Amazon Associates Program Policies (Participation Requirements, Commission Income Statement)",
+      "publisher": "Amazon Associates Central (official)",
       "url": "https://affiliate-program.amazon.com/help/operating/policies",
-      "publisher": "Amazon Associates",
-      "type": "official",
-      "used_for": "Participation Requirements §1, §2, §3, §6; Commission Income Statement §2, §3.",
-      "result": "Read sections needed for the compliance table. Updated April 14, 2026."
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Participation Requirements s.1 (Unsuitable Sites incl. Amazon trademarks in domain name or tag; non-US person clause). s.2(a)-(b) (Special Links must include the Associates ID/tag; prices and availability may be shown only via an Amazon-served link or PA-API/Creators API; product lists need original content). Commission Income Statement s.1 (Qualifying Purchases; Qualifying Revenue excludes shipping, taxes, gift wrap, fees, credits). s.2(e) (Redirecting Link purchases are disqualified). s.3 (Standard Commission Income is a % of Qualifying Revenue).",
+      "review_note": "Page header states 'Updated: April 14, 2026'. The Appendix rates link goes to S9, which was not reachable."
     },
     {
       "id": "S9",
-      "title": "Associates Standard Commission Income schedule",
+      "title": "Amazon Associates Standard Commission Income schedule (rates by category)",
+      "publisher": "Amazon Associates Central (official)",
       "url": "https://affiliate-program.amazon.com/help/operating/schedule",
-      "publisher": "Amazon Associates",
-      "type": "official",
-      "used_for": "Intended for commission rates.",
-      "result": "Not readable. Redirects to an Amazon sign-in page. Commission rates unverified (F-07)."
+      "accessed": "2026-11-13",
+      "status": "blocked",
+      "supports": "Nothing. Both the URL and its trailing-slash variant redirected to the Amazon sign-in page. Third-party rate tables disagree with each other (for example, Home & Kitchen shown as 3%, 4%, 6% and 8%), so none were used.",
+      "review_note": "Commission rates are left blank and flagged as unverified."
     },
     {
       "id": "S10",
-      "title": "Creators API Documentation: Welcome / Prerequisites",
-      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction",
-      "publisher": "Amazon Associates",
-      "type": "official",
-      "used_for": "Creators API prerequisites (10 qualifying sales in 30 days).",
-      "result": "Read."
+      "title": "FTC: Disclosures 101 for Social Media Influencers",
+      "publisher": "U.S. Federal Trade Commission (official)",
+      "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Disclose any financial relationship (a material connection) with a brand. Place the disclosure where it is hard to miss, with the endorsement itself. Do not rely on an About page or a link to read more. Do not claim experience with a product you have not tried.",
+      "review_note": "Page footer shows 'November 2019'."
     },
     {
       "id": "S11",
-      "title": "PA-API 5 Deprecation Notice",
-      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation",
-      "publisher": "Amazon Associates",
-      "type": "official",
-      "used_for": "PA-API 5 is deprecated; calls return 403 AccessDenied.",
-      "result": "Read."
+      "title": "GitHub Docs: Configuring a publishing source for your GitHub Pages site",
+      "publisher": "GitHub Docs (official)",
+      "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site",
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "A branch can publish a /docs folder. Settings > Pages > Build and deployment selects the branch and folder. GitHub Actions can also be used.",
+      "review_note": ""
     },
     {
       "id": "S12",
-      "title": "FTC: Disclosures 101 for Social Media Influencers",
-      "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
-      "publisher": "U.S. Federal Trade Commission",
-      "type": "official",
-      "used_for": "Disclosure placement and wording.",
-      "result": "Read. Dated November 2019."
+      "title": "Repository kanlerxz87-cyber/Zone1 (this repository)",
+      "publisher": "GitHub",
+      "url": "https://github.com/kanlerxz87-cyber/Zone1",
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Repo state at start of session: branch main @ 42f4036 'Initial commit'. Only README.md (7 bytes, '# Zone1') is tracked. No .gitignore, LICENSE or COORDINATION.md. GitHub Pages was already enabled from main at '/' with build_type 'legacy'.",
+      "review_note": ""
     },
     {
       "id": "S13",
-      "title": "FTC: The FTC's Endorsement Guides: What People Are Asking",
-      "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
-      "publisher": "U.S. Federal Trade Commission",
-      "type": "official",
-      "used_for": "Honesty of endorsements and disclosure of material connections.",
-      "result": "Read."
+      "title": "Creators API documentation: prerequisites (Welcome page)",
+      "publisher": "Amazon Associates (affiliate-program.amazon.com)",
+      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction",
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Prerequisites: enrolled in Associates for the target marketplace; at least 10 qualifying sales within the past 30 days to access the PA API through the Creators API; register for API access; generate credentials.",
+      "review_note": "Read by arena-4ba9e055 in an independent cross-check. Quote: 'Have at least 10 qualifying sales within the past 30 days to access the PA API through the Creators API'."
     },
     {
       "id": "S14",
-      "title": "Repository kanlerxz87-cyber/Zone1",
-      "url": "https://github.com/kanlerxz87-cyber/Zone1",
-      "publisher": "GitHub (repo owner)",
-      "type": "official",
-      "used_for": "Repo review (F-01 to F-03).",
-      "result": "Read with git and the GitHub API. Public, default branch main, 1 commit."
+      "title": "PA-API 5 deprecation notice (Creators API docs)",
+      "publisher": "Amazon Associates (affiliate-program.amazon.com)",
+      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation",
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "PA-API 5 is deprecated and replaced by the Creators API. Applications that still call PA-API 5 receive HTTP 403 with AccessDeniedException.",
+      "review_note": "Read by arena-4ba9e055 in an independent cross-check."
     },
     {
       "id": "S15",
-      "title": "GitHub REST API: Pages settings for the repo",
-      "url": "https://api.github.com/repos/kanlerxz87-cyber/Zone1/pages",
-      "publisher": "GitHub",
-      "type": "official",
-      "used_for": "Pages configuration before the change (F-02).",
-      "result": "Read. build_type legacy, source main /, status built."
-    },
-    {
-      "id": "S16",
-      "title": "Third-party commission-rate articles (money-forge.org, ecomchief.com, affserp.com, marksinsights.com)",
-      "url": "https://affserp.com/blog/how-much-does-amazon-associates-pay",
-      "publisher": "Third parties (not Amazon)",
-      "type": "rejected",
-      "used_for": "Not used for any value. Reported rates conflict between sites and are not official.",
-      "result": "Rejected: not an official source."
+      "title": "Branch arena/8a2ddd06-zone1 on origin (sample of cross-session branches)",
+      "publisher": "GitHub (repository kanlerxz87-cyber/Zone1)",
+      "url": "https://github.com/kanlerxz87-cyber/Zone1/tree/arena/8a2ddd06-zone1",
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Branch contains only COORDINATION.md and README.md, although its board marks data, site, and PR tasks as done. Checked with git ls-tree on origin. The same holds for arena/2bef746a-zone1, arena/1874bb64-zone1, and arena/19a679d8-zone1 (listed in the cross-check report).",
+      "review_note": "Observation only. Branch not edited."
     }
-  ],
-  "privacy_note": "This site does not set cookies and does not include analytics. Amazon pages reached through product links may set their own cookies (Program Policies §3(e)). This note is not legal advice."
+  ]
 }

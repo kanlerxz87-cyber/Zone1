@@ -3,76 +3,78 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dashboard · Amazon Affiliate Dashboard</title>
-<meta name="description" content="Source-linked Amazon affiliate product dashboard. Data as of 2026-11-13.">
-<link rel="stylesheet" href="assets/style.css">
+<title>Overview · Amazon Affiliate Product Research - Zone1</title>
+<meta name="description" content="Verified, source-linked dashboard of three Amazon.com products. Unverified values are left blank.">
+<link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-<header class="topbar">
-  <div class="brand"><a href="index.html">Amazon Affiliate Dashboard</a></div>
-  <nav><a href="index.html" class="active">Dashboard</a><a href="executive-summary.html">Executive summary</a><a href="category-air-fryers.html">Air Fryers</a><a href="analysis.html">Analysis</a><a href="compliance.html">Compliance</a><a href="sources.html">Sources</a><a href="repo-review.html">Repo review</a><a href="flagged.html">⚑ Flagged for Review</a></nav>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">Zone1<span>Affiliate research</span></div>
+    <nav>
+        <a href="./index.html" class="active">Overview</a>
+        <a href="./categories/home-kitchen-air-fryers.html" class="">Home &amp; Kitchen › Air Fryers</a>
+        <a href="./analysis.html" class="">Analysis &amp; Findings</a>
+        <a href="./compliance.html" class="">Compliance</a>
+        <a href="./sources.html" class="">Sources</a>
+        <a href="./flagged.html" class="">Flagged for Review</a>
+    </nav>
+    <div class="side-foot">As of 2026-11-13<br><a href="https://github.com/kanlerxz87-cyber/Zone1">Repository</a></div>
+  </aside>
+  <main>
+    
+<div class="disclosure" role="note">
+  <strong>Affiliate disclosure.</strong> Some links on this site are Amazon links and may earn the site owner a commission.
+  Amazon Associates status: <strong>pending confirmation</strong>.
+  Required statement: <em>“As an Amazon Associate I earn from qualifying purchases.”</em>
+  It will be shown as an active statement once the Associates account is confirmed. See <a href="./flagged.html">Flagged for Review</a> (F03, F06).
+</div>
+    
+<header class="hero">
+  <p class="eyebrow">Overview · as of 2026-11-13</p>
+  <h1>Amazon affiliate product research dashboard</h1>
+  <p class="lede">A simple, source-linked view of the three Amazon products submitted for affiliate marketing. Each value is read from an official source or left blank and flagged.</p>
 </header>
-<main>
 
-<section class="hero">
-  <h1>Amazon affiliate product dashboard</h1>
-  <p class="lede">Three Amazon.com products, each with its source link. Verified values are shown. Unverified values are blank and flagged. Data as of <strong>2026-11-13</strong>.</p>
-  <p class="disclose-inline">As an Amazon Associate I earn from qualifying purchases.</p>
-</section>
 <section class="kpis">
-  <div class="kpi "><div class="kpi-n">3</div><div class="kpi-l">Products tracked</div></div>
-  <div class="kpi ok"><div class="kpi-n">12</div><div class="kpi-l">Verified values (ASIN, title, department, link)</div></div>
-  <div class="kpi warn"><div class="kpi-n">18</div><div class="kpi-l">Unverified values (left blank)</div></div>
-  <div class="kpi warn"><div class="kpi-n">18</div><div class="kpi-l">Open flags (8 high severity)</div></div>
-  <div class="kpi ok"><div class="kpi-n">16/17</div><div class="kpi-l">Compliance rules verified against official text</div></div>
+  <div class="kpi"><div class="num">3</div><div class="lbl">Products tracked</div></div>
+  <div class="kpi"><div class="num">3 / 3</div><div class="lbl">ASINs confirmed from Amazon product URLs</div></div>
+  <div class="kpi"><div class="num">60%</div><div class="lbl">Fields verified (18 of 30)</div></div>
+  <div class="kpi warn"><div class="num">23</div><div class="lbl">Flagged for review (7 high)</div></div>
 </section>
-<section class="cards">
-  <a class="card" href="category-air-fryers.html">
-    <h2>Air Fryers</h2>
-    <p>3 products · product table with ASIN, title, department, source link, and blank unverified fields.</p>
-  </a>
-  <a class="card" href="executive-summary.html">
-    <h2>Executive summary</h2>
-    <p>What was done, what was found, what is still open, and the owner actions.</p>
-  </a>
-  <a class="card" href="analysis.html">
-    <h2>Analysis</h2>
-    <p>Niche, pricing, reviews, competition, commission potential, and the title-based buying notes. Each claim is limited to verified data.</p>
-  </a>
-  <a class="card" href="compliance.html">
-    <h2>Compliance</h2>
-    <p>Associates and FTC rules with verbatim quotes, the source for each, and what the site does about it.</p>
-  </a>
-  <a class="card" href="sources.html">
-    <h2>Sources</h2>
-    <p>Every official page used, when it was checked, and the sources that were rejected.</p>
-  </a>
-  <a class="card warn-card" href="flagged.html">
-    <h2>⚑ Flagged for Review</h2>
-    <p>18 flagged items and every unverified value, with links for manual review.</p>
-  </a>
+
+<section class="card">
+  <h2>Executive summary</h2>
+  <ul class="summary">
+    <li><strong>What this is.</strong> Three Amazon.com product links were supplied. All three resolve to Amazon product pages in the <em>Home &amp; Kitchen</em> department, and each title is an air-fryer-type appliance.</li>
+    <li><strong>What is verified.</strong> ASIN, product title, brand and capacity as written in each title, and department. Sources are linked on every row.</li>
+    <li><strong>What is not verified.</strong> Price, rating, review count and commission rate. These are left blank. Amazon's product-detail text did not render, and the official commission schedule was not reachable. No pricing, review or commission analysis is provided.</li>
+    <li><strong>Compliance.</strong> None of the supplied links carry an Associates tag, and the Associates account is not confirmed. The required disclosure is shown with a pending status. See <a href="compliance.html">Compliance</a> and <a href="flagged.html">Flagged for Review</a>.</li>
+    <li><strong>Not built.</strong> The full AI platform (automated product discovery, trend and niche detection, competitor analysis, article generation at scale, click and conversion tracking) needs Amazon API and account data that is not available here. No data was invented to fill that gap (flag F11).</li>
+    <li><strong>Next step for review.</strong> Work through the <a href="flagged.html">Flagged for Review</a> list. High-severity items F01, F02, F03, F06 and F11 need an owner decision.</li>
+  </ul>
 </section>
-<section>
-  <h2>High-severity items</h2>
-  <div class="table-wrap"><table>
-    <thead><tr><th>ID</th><th>Item</th><th>Source</th></tr></thead>
-    <tbody>
-<tr><td><a href="flagged.html#F-04">F-04</a></td><td>Product identity from the submitted short links needs owner confirmation.</td><td><a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">source ↗</a></td></tr>
-<tr><td><a href="flagged.html#F-05">F-05</a></td><td>Associates tag not visible in resolved product links (all 3 products).</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">source ↗</a></td></tr>
-<tr><td><a href="flagged.html#F-06">F-06</a></td><td>Product titles on the site are Amazon listing text.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">source ↗</a></td></tr>
-<tr><td><a href="flagged.html#F-07">F-07</a></td><td>Commission rate is unverified for all 3 products.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">source ↗</a></td></tr>
-<tr><td><a href="flagged.html#F-09">F-09</a></td><td>Automated product data is not possible without Creators API access.</td><td><a href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction" target="_blank" rel="noopener">source ↗</a></td></tr>
-<tr><td><a href="flagged.html#F-11">F-11</a></td><td>Click and conversion tracking is not implemented.</td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">source ↗</a></td></tr>
-<tr><td><a href="flagged.html#F-12">F-12</a></td><td>Niche, trend, competition, and pricing analysis is limited to what the titles state.</td><td><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">source ↗</a></td></tr>
-<tr><td><a href="flagged.html#F-17">F-17</a></td><td>Several sessions claimed the same tasks and disagree on product identity.</td><td><a href="https://github.com/kanlerxz87-cyber/Zone1/blob/arena/f28312ac-zone1/COORDINATION.md" target="_blank" rel="noopener">source ↗</a></td></tr>
-    </tbody>
-  </table></div>
+
+<section class="card">
+  <h2>Categories</h2>
+  <div class="cats">
+    <a class="cat" href="categories/home-kitchen-air-fryers.html">
+      <div class="cat-title">Home &amp; Kitchen › Air Fryers</div>
+      <div class="cat-meta">3 products · department verified from Amazon page titles · category name derived from title words</div>
+    </a>
+  </div>
 </section>
-</main>
-<footer>
-  <p class="disclosure"><strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. This site is not affiliated with, sponsored by, or endorsed by Amazon.com, Inc.</p>
-  <p>Data as of 2026-11-13. Every value links to its official source. Blank cells are unverified and listed on the <a href="flagged.html">Flagged for Review</a> page. Not financial advice.</p>
-  <p>Built from <code>data/*.json</code> and <code>reports/*.md</code> by <code>scripts/build.mjs</code>. <a href="data/products.json">products.json</a> · <a href="data/compliance.json">compliance.json</a> · <a href="data/flags.json">flags.json</a> · <a href="data/sources.json">sources.json</a></p>
-</footer>
+
+<section class="card">
+  <h2>Sources and method</h2>
+  <p>Official sources used: Amazon.com product pages, Amazon Associates Central (Operating Agreement and Program Policies), the U.S. Federal Trade Commission, and GitHub Docs. The full list with retrieval status is on <a href="sources.html">Sources</a>. Data is also published as JSON in <a href="data/products.json">data/products.json</a>.</p>
+</section>
+    <footer class="foot">
+      <p><strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases (statement pending confirmation; see above).</p>
+      <p>Every value on this site is either read from a cited official source on 2026-11-13 or left blank and marked unverified. Nothing is estimated. Amazon and Amazon.com are trademarks of Amazon.com, Inc. or its affiliates; this site is not affiliated with or endorsed by Amazon.</p>
+    </footer>
+  </main>
+</div>
+<script src="./assets/app.js"></script>
 </body>
 </html>

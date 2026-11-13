@@ -1,0 +1,151 @@
+{
+  "as_of": "2026-11-13",
+  "note": "Every source listed here was opened on the as_of date. 'official' means the publisher is Amazon, the FTC, GitHub, or the repo itself. 'rejected' means a non-official source that was checked and not used for any value.",
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Submitted short link B04G1MEwY",
+      "url": "https://link.amazon/B04G1MEwY",
+      "publisher": "Amazon",
+      "type": "official",
+      "used_for": "Resolved to https://www.amazon.com/dp/B0CDY277D3 (P1).",
+      "result": "Resolved to amazon.com; page title read."
+    },
+    {
+      "id": "S2",
+      "title": "Amazon product page B0CDY277D3",
+      "url": "https://www.amazon.com/dp/B0CDY277D3",
+      "publisher": "Amazon",
+      "type": "official",
+      "used_for": "P1 title and department ('Home & Kitchen').",
+      "result": "Page title read. Price and rating not readable."
+    },
+    {
+      "id": "S3",
+      "title": "Submitted short link B02NbDxp3",
+      "url": "https://link.amazon/B02NbDxp3",
+      "publisher": "Amazon",
+      "type": "official",
+      "used_for": "Resolved to https://www.amazon.com/dp/B09B7SB46R (P2).",
+      "result": "Resolved to amazon.com; page title read."
+    },
+    {
+      "id": "S4",
+      "title": "Amazon product page B09B7SB46R",
+      "url": "https://www.amazon.com/dp/B09B7SB46R",
+      "publisher": "Amazon",
+      "type": "official",
+      "used_for": "P2 title and department ('Home & Kitchen').",
+      "result": "Page title read. Price and rating not readable."
+    },
+    {
+      "id": "S5",
+      "title": "Submitted short link B00hJ57DV",
+      "url": "https://link.amazon/B00hJ57DV",
+      "publisher": "Amazon",
+      "type": "official",
+      "used_for": "Resolved to https://www.amazon.com/dp/B08DKYBTPH (P3).",
+      "result": "Resolved to amazon.com; page title read."
+    },
+    {
+      "id": "S6",
+      "title": "Amazon product page B08DKYBTPH",
+      "url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "publisher": "Amazon",
+      "type": "official",
+      "used_for": "Checked for P3 title. Not used as a source (checkpoint page).",
+      "result": "Returned a 'Continue shopping' checkpoint page. See F-15."
+    },
+    {
+      "id": "S7",
+      "title": "Associates Program Operating Agreement",
+      "url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "publisher": "Amazon Associates",
+      "type": "official",
+      "used_for": "Associate disclosure statement (§5) and no-implied-affiliation rule (§5).",
+      "result": "Read. Updated October 15, 2025."
+    },
+    {
+      "id": "S8",
+      "title": "Associates Program Policies",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "publisher": "Amazon Associates",
+      "type": "official",
+      "used_for": "Participation Requirements §1, §2, §3, §6; Commission Income Statement §2, §3.",
+      "result": "Read sections needed for the compliance table. Updated April 14, 2026."
+    },
+    {
+      "id": "S9",
+      "title": "Associates Standard Commission Income schedule",
+      "url": "https://affiliate-program.amazon.com/help/operating/schedule",
+      "publisher": "Amazon Associates",
+      "type": "official",
+      "used_for": "Intended for commission rates.",
+      "result": "Not readable. Redirects to an Amazon sign-in page. Commission rates unverified (F-07)."
+    },
+    {
+      "id": "S10",
+      "title": "Creators API Documentation: Welcome / Prerequisites",
+      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction",
+      "publisher": "Amazon Associates",
+      "type": "official",
+      "used_for": "Creators API prerequisites (10 qualifying sales in 30 days).",
+      "result": "Read."
+    },
+    {
+      "id": "S11",
+      "title": "PA-API 5 Deprecation Notice",
+      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation",
+      "publisher": "Amazon Associates",
+      "type": "official",
+      "used_for": "PA-API 5 is deprecated; calls return 403 AccessDenied.",
+      "result": "Read."
+    },
+    {
+      "id": "S12",
+      "title": "FTC: Disclosures 101 for Social Media Influencers",
+      "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "publisher": "U.S. Federal Trade Commission",
+      "type": "official",
+      "used_for": "Disclosure placement and wording.",
+      "result": "Read. Dated November 2019."
+    },
+    {
+      "id": "S13",
+      "title": "FTC: The FTC's Endorsement Guides: What People Are Asking",
+      "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
+      "publisher": "U.S. Federal Trade Commission",
+      "type": "official",
+      "used_for": "Honesty of endorsements and disclosure of material connections.",
+      "result": "Read."
+    },
+    {
+      "id": "S14",
+      "title": "Repository kanlerxz87-cyber/Zone1",
+      "url": "https://github.com/kanlerxz87-cyber/Zone1",
+      "publisher": "GitHub (repo owner)",
+      "type": "official",
+      "used_for": "Repo review (F-01 to F-03).",
+      "result": "Read with git and the GitHub API. Public, default branch main, 1 commit."
+    },
+    {
+      "id": "S15",
+      "title": "GitHub REST API: Pages settings for the repo",
+      "url": "https://api.github.com/repos/kanlerxz87-cyber/Zone1/pages",
+      "publisher": "GitHub",
+      "type": "official",
+      "used_for": "Pages configuration before the change (F-02).",
+      "result": "Read. build_type legacy, source main /, status built."
+    },
+    {
+      "id": "S16",
+      "title": "Third-party commission-rate articles (money-forge.org, ecomchief.com, affserp.com, marksinsights.com)",
+      "url": "https://affserp.com/blog/how-much-does-amazon-associates-pay",
+      "publisher": "Third parties (not Amazon)",
+      "type": "rejected",
+      "used_for": "Not used for any value. Reported rates conflict between sites and are not official.",
+      "result": "Rejected: not an official source."
+    }
+  ],
+  "privacy_note": "This site does not set cookies and does not include analytics. Amazon pages reached through product links may set their own cookies (Program Policies §3(e)). This note is not legal advice."
+}
