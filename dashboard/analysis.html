@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analysis &amp; Findings — Zone1</title>
+<meta name="description" content="Pricing, reviews, competition and commission-potential analysis for the submitted Amazon product links. Verified findings with sources; blocked analyses explained and never estimated.">
+<link rel="canonical" href="https://kanlerxz87-cyber.github.io/Zone1/dashboard/analysis.html">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="index.html">Zone<span>1</span><small>Affiliate marketing platform</small></a>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="analysis.html" class="active">Analysis</a>
+    <a href="commissions.html">Commissions</a>
+    <a href="niches.html">Niches</a>
+    <a href="content.html">Content</a>
+    <a href="links.html">Links</a>
+    <a href="analytics.html">Analytics</a>
+    <a href="compliance.html">Compliance</a>
+    <a href="flagged.html">Flagged</a>
+    <a href="executive-summary.html">Summary</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <div class="disclosure" role="note">
+    <strong>Affiliate disclosure:</strong> “As an Amazon Associate I earn from qualifying purchases.”
+    See <a href="compliance.html">Compliance</a>. Amazon and Amazon.com are trademarks of Amazon.com, Inc. or its affiliates; this site is not affiliated with or endorsed by Amazon.
+  </div>
+
+  <h1 class="page-title">Analysis &amp; findings</h1>
+  <p class="page-lede">Analysis is only as good as its inputs. Because the three submitted links resolve to no product
+  (<a href="products.html">evidence here</a>), product-level analyses are <strong>blocked and marked as such</strong> — never
+  estimated. What <em>can</em> be analyzed from official data is below: commission economics, compliance posture and the
+  automation pipeline.</p>
+
+  <section class="card">
+    <h2>Findings summary</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ID</th><th>Finding</th><th>Verdict</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>A1</td><td>All three submitted identifiers are 9 characters; ASINs are 10. None is a valid ASIN.</td><td><span class="badge bad">Irregular</span></td><td><a href="products.html#">format checks §2</a> · <a href="https://www.barcode.graphics/amazon-product-id/" target="_blank" rel="noopener">ASIN definition</a></td></tr>
+        <tr><td>A2</td><td>All three canonical pages <code>amazon.com/dp/&lt;id&gt;</code> return Amazon's page-not-found error.</td><td><span class="badge bad">Irregular</span></td><td><a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">P1</a> · <a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">P2</a> · <a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">P3</a></td></tr>
+        <tr><td>A3</td><td>All three supplied URLs fall through Amazon's missing-page fallback to random unrelated listings.</td><td><span class="badge bad">Irregular</span></td><td><a href="../reports/verification-log.md">verification log §1.2</a></td></tr>
+        <tr><td>A4</td><td>No supplied link carries an Associates <code>tag=</code> tracking parameter — purchases would not credit any account even if the links worked.</td><td><span class="badge warn">Compliance gap</span></td><td>Supplied URLs as given · <a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">OA §1</a></td></tr>
+        <tr><td>A5</td><td>The official US commission rate table is publicly reachable and was verified in full (0.00%–10.00% by category).</td><td><span class="badge ok">Verified</span></td><td><a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">Standard Commission Income Statement</a></td></tr>
+        <tr><td>A6</td><td>Required disclosure wording is fixed by the Operating Agreement and is displayed site-wide.</td><td><span class="badge ok">Verified</span></td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">OA §5</a></td></tr>
+        <tr><td>A7</td><td>Product-level pricing/review/competition analysis cannot be performed from verified sources for any submitted product.</td><td><span class="badge warn">Blocked</span></td><td><a href="products.html">Products §5</a></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <h2>2 · Pricing analysis</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Metric</th><th>P1 (B04G1MEwY)</th><th>P2 (B02NbDxp3)</th><th>P3 (B00hJ57DV)</th><th>Status / method</th></tr></thead>
+      <tbody>
+        <tr><td>Current price</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> no verified product page. Also restricted by <a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies s.2(b)</a>: prices may be shown only via an Amazon-served link or PA-API/Creators API.</td></tr>
+        <tr><td>Price history / trend</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> requires a real ASIN + price-history data source (e.g. PA-API access).</td></tr>
+        <tr><td>Deal/coupon signal</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> same.</td></tr>
+        <tr><td>Commission per sale (est. method)</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> category unverified ⇒ no rate row can be applied. Method (once verified): <em>qualifying revenue × category rate</em>, rates <a href="commissions.html">here</a>. Never estimated without both inputs.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">What unblocks this: three valid ASINs + Associates PA-API/Creators API access (see <a href="flagged.html">F01, F11</a>).</p>
+  </section>
+
+  <section class="card">
+    <h2>3 · Reviews &amp; social-proof analysis</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Metric</th><th>P1</th><th>P2</th><th>P3</th><th>Status / method</th></tr></thead>
+      <tbody>
+        <tr><td>Star rating</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> no verified product page.</td></tr>
+        <tr><td>Review count</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> same.</td></tr>
+        <tr><td>Review sentiment themes</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> same. Method (once verified): sample verified review text; report themes with quotes; never invent themes.</td></tr>
+        <tr><td>Review recency</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> same.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <h2>4 · Competition analysis</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Metric</th><th>P1</th><th>P2</th><th>P3</th><th>Status / method</th></tr></thead>
+      <tbody>
+        <tr><td>Category / browse node</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> product identity unverified.</td></tr>
+        <tr><td>Best Sellers Rank</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> requires verified product page.</td></tr>
+        <tr><td>Competing listings in category</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> requires a defined category. Method (once verified): top-10 competing ASINs with rating/review/price table, each row source-linked.</td></tr>
+        <tr><td>SERP / keyword competition</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> requires category + keyword tooling.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout warn">
+      Note on a tempting shortcut: the fallback redirects landed on listings in “Home &amp; Kitchen” (air-fryer-type appliances).
+      Those are <strong>random missing-page fallbacks</strong>, not evidence of the intended products' category — see
+      <a href="products.html">Products §3–4</a>. Building competition analysis on them would be inference, which this project forbids.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>5 · Commission-potential analysis (verified inputs only)</h2>
+    <p class="section-note">Rate table: <a href="commissions.html">commissions page</a> (official source).
+    Formula once categories are known: <strong>expected commission = qualifying revenue × category rate</strong>
+    (qualifying revenue excludes shipping, taxes, gift wrap, fees and credits — Commission Income Statement).</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Scenario (rate table, verified)</th><th>Rate</th><th>Why it matters for niche choice</th></tr></thead>
+      <tbody>
+        <tr><td>Luxury Beauty / Luxury Stores Beauty</td><td>10.00%</td><td>Highest standard rate</td></tr>
+        <tr><td>Music, Handmade, Digital Videos</td><td>5.00%</td><td>Strong rate; digital-heavy demand</td></tr>
+        <tr><td>Physical Books, Kitchen, Automotive</td><td>4.50%</td><td>Above the “all other” default</td></tr>
+        <tr><td>All Other Categories</td><td>4.00%</td><td>Default floor for unlisted categories</td></tr>
+        <tr><td>Toys, Furniture, Home, Tools, Sports, Baby…</td><td>3.00%</td><td>Large volume categories at moderate rate</td></tr>
+        <tr><td>PC / components, DVD &amp; Blu-Ray</td><td>2.50%</td><td>Mid-low</td></tr>
+        <tr><td>Televisions, Digital Video Games</td><td>2.00%</td><td>Low</td></tr>
+        <tr><td>Fresh, Consoles, Grocery, Health &amp; Personal Care</td><td>1.00%</td><td>Lowest non-zero</td></tr>
+        <tr><td>Gift Cards, Wireless Plans, Coach, other exclusions</td><td>0.00%</td><td>No standard commission</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">Full row-by-row table with source links: <a href="commissions.html">Commissions</a>. Per-product commission rows stay blank until categories are verified.</p>
+  </section>
+
+  <section class="card">
+    <h2>6 · Automation &amp; optimization pipeline (as built)</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Stage</th><th>Status</th><th>How it works here</th></tr></thead>
+      <tbody>
+        <tr><td>Product research &amp; verification</td><td><span class="badge ok">Built</span></td><td>Per-identifier canonical checks against amazon.com; every value source-linked or blank (this site's tables + build-time validation in <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/scripts/build.mjs" target="_blank" rel="noopener">scripts/build.mjs</a>).</td></tr>
+        <tr><td>Commission &amp; niche analysis</td><td><span class="badge ok">Built</span></td><td>Official rate tables + ranking framework (<a href="niches.html">Niches</a>).</td></tr>
+        <tr><td>SEO content generation</td><td><span class="badge ok">Built</span></td><td><a href="content.html">Content library</a>: articles, comparison, buying guide with schema-ready structure and disclosure.</td></tr>
+        <tr><td>Affiliate link management</td><td><span class="badge ok">Built</span></td><td><a href="links.html">Link manager</a>: canonical builder, tagging rules, quarantine of invalid links.</td></tr>
+        <tr><td>Click &amp; conversion tracking</td><td><span class="badge ok">Built (demo layer)</span></td><td><a href="analytics.html">Analytics</a>: working local tracker; production architecture documented (Amazon Associates reports = conversion source of truth).</td></tr>
+        <tr><td>Campaign optimization</td><td><span class="badge info">Framework</span></td><td>Optimization loop defined (content refresh, CTR/CVR review, rate-table re-check); live data needs traffic + Associates account.</td></tr>
+        <tr><td>Price/review/competition monitoring</td><td><span class="badge warn">Needs API</span></td><td>Requires PA-API/Creators API + valid ASINs (flag F11).</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <p><strong>Affiliate disclosure:</strong> “As an Amazon Associate I earn from qualifying purchases.” (Associates enrollment pending; see Compliance.)</p>
+  <p>Every value on this site is either read from a cited official source on 2026-11-13 or left blank and marked unverified. Nothing is estimated or invented. Amazon and Amazon.com are trademarks of Amazon.com, Inc. or its affiliates; this site is not affiliated with or endorsed by Amazon.</p>
+  <p><a href="index.html">Home</a> · <a href="flagged.html">Flagged for Review</a> · <a href="../reports/verification-log.md">Verification log</a></p>
+</div></footer>
+<div id="tracker-toast" hidden style="position:fixed;bottom:18px;right:18px;background:#17233a;color:#fff;padding:10px 14px;border-radius:9px;font-size:13px;z-index:50"></div>
+<script src="assets/js/tracker.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

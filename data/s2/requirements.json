@@ -10,7 +10,7 @@
       "status": "delivered",
       "where": "data/requirements.json rendered on Requirements page",
       "note": "19 requirements decomposed from the brief, each with an owner and a verification line.",
-      "source": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/requirements.json",
+      "source": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/s2/requirements.json",
       "source_label": "repository file"
     },
     {

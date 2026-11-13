@@ -67,9 +67,10 @@ def counts(D: dict) -> dict:
 def derived_rows(C) -> list:
     """Count rows appended to the headline table, with the repo as their source."""
     repo = "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform"
+    data_repo = "https://github.com/kanlerxz87-cyber/Zone1/tree/main/data/s2"
     return [
         {"label": "Rules in the compliance matrix", "value": str(C["rules"]), "status": "verified",
-         "url": repo + "/data/s2/program.json", "note": f"{C['groups']} categories · {C['verified_rows']} verified, {C['blank_rows']} deliberately blank"},
+         "url": data_repo + "/program.json", "note": f"{C['groups']} categories · {C['verified_rows']} verified, {C['blank_rows']} deliberately blank"},
         {"label": "Rules naming the code guard that enforces them", "value": str(C["guarded"]), "status": "verified",
          "url": repo, "note": "each row's `checked_by` field points at a real function"},
         {"label": "Unit tests guarding those rules", "value": str(C["tests"]), "status": "verified",

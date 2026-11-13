@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Click &amp; Conversion Tracking — Zone1</title>
+<meta name="description" content="Working click and conversion tracking layer for affiliate links, with per-link totals, conversion marking, JSON export, and the documented production architecture. Amazon Associates reports remain the conversion source of truth.">
+<link rel="canonical" href="https://kanlerxz87-cyber.github.io/Zone1/dashboard/analytics.html">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="topbar"><div class="wrap">
+  <a class="brand" href="index.html">Zone<span>1</span><small>Affiliate marketing platform</small></a>
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="products.html">Products</a>
+    <a href="analysis.html">Analysis</a>
+    <a href="commissions.html">Commissions</a>
+    <a href="niches.html">Niches</a>
+    <a href="content.html">Content</a>
+    <a href="links.html">Links</a>
+    <a href="analytics.html" class="active">Analytics</a>
+    <a href="compliance.html">Compliance</a>
+    <a href="flagged.html">Flagged</a>
+    <a href="executive-summary.html">Summary</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <div class="disclosure" role="note">
+    <strong>Affiliate disclosure:</strong> “As an Amazon Associate I earn from qualifying purchases.”
+    See <a href="compliance.html">Compliance</a>. Amazon and Amazon.com are trademarks of Amazon.com, Inc. or its affiliates; this site is not affiliated with or endorsed by Amazon.
+  </div>
+
+  <h1 class="page-title">Click &amp; conversion tracking</h1>
+  <p class="page-lede">A working tracking layer for the link layer: every click on a managed affiliate link is recorded
+  (per browser), conversions can be marked, and the data exports as JSON. The honest boundary is documented below: on a static
+  host, <strong>Amazon Associates reports are the source of truth for conversions and commissions</strong> — anything else is a
+  local approximation.</p>
+
+  <section class="card">
+    <h2>Dashboard</h2>
+    <div id="analytics-panel" aria-live="polite"></div>
+    <div class="form-row" style="margin-top:14px">
+      <label class="field">Link ID
+        <select id="conv-link-id">
+          <option>P1</option><option>P2</option><option>P3</option><option>unassigned</option>
+        </select>
+      </label>
+      <label class="field">Conversion note (optional)
+        <input type="text" id="conv-note" placeholder="e.g. manual test conversion">
+      </label>
+      <button class="btn" id="mark-conv-btn">Mark conversion</button>
+      <button class="btn secondary" id="export-btn">Export JSON</button>
+      <button class="btn danger" id="reset-btn">Reset data</button>
+    </div>
+    <p class="hint">Data lives in your browser's localStorage only. Generate clicks via the test buttons on the
+    <a href="links.html">Link Manager</a> (clicks on those buttons are recorded without leaving the page).</p>
+  </section>
+
+  <section class="card">
+    <h2>What is measured vs. what is authoritative</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Metric</th><th>Layer here</th><th>Authoritative source</th></tr></thead>
+      <tbody>
+        <tr><td>Link clicks</td><td><span class="badge ok">Measured</span> client-side event capture (per browser)</td><td>Server-side redirect logging in production (below)</td></tr>
+        <tr><td>Click-through rate</td><td><span class="badge info">Derivable</span> clicks ÷ page views (needs a page-view source)</td><td>Web analytics (e.g. privacy-compliant analytics)</td></tr>
+        <tr><td>Conversions (orders)</td><td><span class="badge neutral">Manual marker</span> (demo only)</td><td><strong>Amazon Associates reports</strong> — the only reliable conversion record</td></tr>
+        <tr><td>Commission revenue</td><td><span class="badge neutral">Not tracked here</span></td><td><strong>Amazon Associates reports</strong> (rate × qualifying revenue)</td></tr>
+        <tr><td>EPC (earnings per click)</td><td><span class="badge neutral">Not computed</span> — would require commission data</td><td>Associates reports ÷ logged clicks</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="card">
+    <h2>Production architecture (documented, not simulated)</h2>
+    <ol class="clean">
+      <li><strong>Outbound:</strong> site CTA → own redirect endpoint <code>/go/&lt;link-id&gt;?src=&lt;page&gt;</code> that logs (id, page, referrer, timestamp, user-agent class) then 302s to the tagged Special Link.</li>
+      <li><strong>Storage:</strong> append-only log (e.g. object storage or a small database); raw events kept, aggregates computed.</li>
+      <li><strong>Conversions:</strong> reconcile with Amazon Associates' daily reports (order IDs are not exposed to links, so reconciliation is statistical: clicks → ordered items → shipped items per link window).</li>
+      <li><strong>Privacy:</strong> IP truncation/short retention, no cross-site tracking, consent where legally required (GDPR — the owner is in Norway; flag F08).</li>
+      <li><strong>Optimization loop:</strong> per-link CTR/CVR/EPC feeds the campaign optimizer on <a href="analysis.html">Analysis §6</a>.</li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2>Tracking status for the current links</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Link</th><th>Tracked clicks</th><th>Commission attribution</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">P1 — B04G1MEwY</td><td>Local tracker only (test clicks)</td><td><span class="badge bad">None possible</span> — no tag, invalid target (flags F03, I-03)</td><td>Quarantined</td></tr>
+        <tr><td class="mono">P2 — B02NbDxp3</td><td>Local tracker only (test clicks)</td><td><span class="badge bad">None possible</span> — same</td><td>Quarantined</td></tr>
+        <tr><td class="mono">P3 — B00hJ57DV</td><td>Local tracker only (test clicks)</td><td><span class="badge bad">None possible</span> — same</td><td>Quarantined</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">Zero real conversions have occurred and none are implied. The tracker is live and will capture real
+    activity the moment compliant links go out.</p>
+  </section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <p><strong>Affiliate disclosure:</strong> “As an Amazon Associate I earn from qualifying purchases.” (Associates enrollment pending; see Compliance.)</p>
+  <p>Every value on this site is either read from a cited official source on 2026-11-13 or left blank and marked unverified. Nothing is estimated or invented. Amazon and Amazon.com are trademarks of Amazon.com, Inc. or its affiliates; this site is not affiliated with or endorsed by Amazon.</p>
+  <p><a href="index.html">Home</a> · <a href="links.html">Link manager</a> · <a href="flagged.html">Flagged for Review</a></p>
+</div></footer>
+<div id="tracker-toast" hidden style="position:fixed;bottom:18px;right:18px;background:#17233a;color:#fff;padding:10px 14px;border-radius:9px;font-size:13px;z-index:50"></div>
+<script src="assets/js/tracker.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
