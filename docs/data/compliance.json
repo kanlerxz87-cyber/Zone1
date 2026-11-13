@@ -1,0 +1,94 @@
+{
+  "as_of": "2026-11-13",
+  "note": "Requirements are quoted from the sources. 'Site status' says what this site does today. 'Needs review' items are on the Flagged for Review page.",
+  "rows": [
+    {
+      "id": "C01",
+      "requirement": "Display 'As an Amazon Associate I earn from qualifying purchases.' clearly and prominently on the site.",
+      "source": "S7",
+      "section": "Operating Agreement, Section 5 'Identifying Yourself as an Associate'",
+      "site_status": "Needs review",
+      "site_action": "The banner shows this wording as the required statement and says enrollment is pending. It must not be presented as active until the Associates account is confirmed."
+    },
+    {
+      "id": "C02",
+      "requirement": "Special Links must include the Associates ID or 'tag' as a parameter in the URL of each link.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 2(b)",
+      "site_status": "Not met",
+      "site_action": "The supplied links contain no tag. No tag has been invented. See F03."
+    },
+    {
+      "id": "C03",
+      "requirement": "Prices and availability may be shown only if the Amazon link serves them, or if they come from the Creators API or PA-API.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 2(b)",
+      "site_status": "Met",
+      "site_action": "No prices or availability are shown. The price column is blank."
+    },
+    {
+      "id": "C04",
+      "requirement": "Product lists require additional original content on the site.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 2(b)",
+      "site_status": "Met",
+      "site_action": "The category page adds original analysis, a verification table and a glossary of what was and was not verified."
+    },
+    {
+      "id": "C05",
+      "requirement": "Sites must not include any Amazon trademark in the domain name, subdomain, tag or Associates ID.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 1, Unsuitable Sites (g)",
+      "site_status": "Met",
+      "site_action": "The domain is kanlerxz87-cyber.github.io/Zone1, which contains no Amazon mark. The word 'Amazon' appears only in running text and in source names."
+    },
+    {
+      "id": "C06",
+      "requirement": "Purchases referred by a 'Redirecting Link' (a link that sends users indirectly to an Amazon Site through an intermediate site) are disqualified.",
+      "source": "S8",
+      "section": "Commission Income Statement, Section 2(e)",
+      "site_status": "Needs review",
+      "site_action": "The supplied links are link.amazon short links. Whether they count as Special Links is not confirmed. See F05."
+    },
+    {
+      "id": "C07",
+      "requirement": "A non-US Associate agrees to perform services outside the United States unless the tax information says otherwise.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 1 (non-US person paragraph)",
+      "site_status": "Needs review",
+      "site_action": "The site owner's location is Oslo, Norway. Confirm account status and tax information. Agreement Schedule 3 (taxes) was not reviewed. See F08."
+    },
+    {
+      "id": "C08",
+      "requirement": "Commission income is a percentage of Qualifying Revenue, which excludes shipping, gift wrap, handling, taxes, service charges, credits, rebates and card-processing fees.",
+      "source": "S8",
+      "section": "Commission Income Statement, Sections 1 and 3",
+      "site_status": "Met",
+      "site_action": "No commission amounts are estimated, because the rate is unverified (F02)."
+    },
+    {
+      "id": "C09",
+      "requirement": "Do not make public communications about the Associates Program beyond the required disclosure without written permission.",
+      "source": "S7",
+      "section": "Operating Agreement, Section 5",
+      "site_status": "Needs review",
+      "site_action": "The site describes its own verification work but does not describe the Associates relationship beyond the disclosure. Owner to confirm."
+    },
+    {
+      "id": "C10",
+      "requirement": "Material connections must be disclosed clearly, near the endorsement, and in a way that is hard to miss.",
+      "source": "S10",
+      "section": "FTC Disclosures 101, 'When to Disclose' and 'How to Disclose'",
+      "site_status": "Met",
+      "site_action": "A disclosure banner sits at the top of every page, above any product listing."
+    },
+    {
+      "id": "C11",
+      "requirement": "Do not make inaccurate, overbroad, deceptive or misleading claims about a Product.",
+      "source": "S8",
+      "section": "Participation Requirements, Section 2(b)",
+      "site_status": "Met",
+      "site_action": "Only specifications read from the title text are shown. No performance or health claims are made."
+    }
+  ]
+}
