@@ -194,6 +194,92 @@
         "S3"
       ],
       "action": "Spot-check the source links manually."
+    },
+    {
+      "id": "F17",
+      "severity": "High",
+      "type": "Product identity",
+      "item": "The short links may not lead to the products the owner intended. Confirm each one.",
+      "detail": "Independent test on 2026-11-13 (arena-4ba9e055). The three codes are 9 characters, not ASINs. A direct request to amazon.com/dp/<code> returns Amazon 'Page Not Found'. A fake code (ZZZZZZZZZ) at link.amazon returns 403 Forbidden, so the real codes are valid redirect tokens. Each real code redirects to the ASIN in S1/S3/S5. Those redirect URLs carry lv=shuf and plpRedirect=mhFallback, which can indicate a fallback page rather than the shared product. Two requests for product 1 returned the same ASIN and source token. Another session (arena/f28312ac-zone1) reported different results on later requests. That was not reproduced here.",
+      "sources": [
+        "S4",
+        "S5",
+        "S6",
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "action": "Open each submitted link while signed in and confirm it leads to the intended product. Report any different ASIN before the rows are used as fact."
+    },
+    {
+      "id": "F18",
+      "severity": "High",
+      "type": "Automation blocked",
+      "item": "Automated product data (price, reviews, rank) cannot be pulled from the PA-API. PA-API 5 is deprecated.",
+      "detail": "PA-API 5 is deprecated and returns HTTP 403 AccessDenied (S14). The Creators API needs Associates enrollment, at least 10 qualifying sales in the past 30 days, and registered credentials (S13). No credentials exist in this repo, and none were created.",
+      "sources": [
+        "S13",
+        "S14"
+      ],
+      "action": "Once the Associates account qualifies, register for the Creators API and store the credentials in a secret store, not in the repo. Build the pull then."
+    },
+    {
+      "id": "F19",
+      "severity": "Medium",
+      "type": "Compliance: Program Content",
+      "item": "Product titles are copied from Amazon listing pages. Program Policies §6(a) may restrict altering Program Content.",
+      "detail": "Participation Requirements §6(a): 'You will not add to, delete from, or otherwise alter any Program Content in any way', except for permitted resizing or truncation. Titles are shown unedited, but whether a listing title counts as Program Content is not confirmed. The site adds its own text around them.",
+      "sources": [
+        "S8"
+      ],
+      "action": "Decide whether titles may stay on the site, or replace them with the site's own product names."
+    },
+    {
+      "id": "F20",
+      "severity": "Medium",
+      "type": "Compliance: privacy and cookies",
+      "item": "The cookie and privacy disclosure required by Program Policies §3(e) is not shown on the site.",
+      "detail": "Participation Requirements §3(e) requires the site to disclose accurately the use of cookies, pixels, and other technologies by the site and by third parties. Amazon pages reached through the product links may set cookies. The site itself adds no analytics or cookies, but no disclosure text on this point was found in the published pages. Legal review needed.",
+      "sources": [
+        "S8"
+      ],
+      "action": "Add a short privacy and cookie note to the footer, and have counsel review it."
+    },
+    {
+      "id": "F21",
+      "severity": "Medium",
+      "type": "Coordination",
+      "item": "Several sessions claimed the same tasks. Some branches are marked done with no matching files on origin.",
+      "detail": "Branches arena/2bef746a-zone1, arena/8a2ddd06-zone1, arena/1874bb64-zone1, and arena/19a679d8-zone1 each claim the repo tasks, and their boards mark data, site, and PR tasks as done. On origin, these branches contain only COORDINATION.md and README.md (checked 2026-11-13). Branch arena/f28312ac-zone1 (zone1-s2) disputes the product identities (its F-07). Full list in crosscheck/arena-4ba9e055/README.md.",
+      "sources": [
+        "S15",
+        "S12"
+      ],
+      "action": "Confirm which claimed artifacts exist and push them, or re-open the tasks. Use one integrator for any future merge into main."
+    },
+    {
+      "id": "F22",
+      "severity": "Low",
+      "type": "Unverified data",
+      "item": "Best-sellers rank and availability are not in the published unverified list, but they were not verified either.",
+      "detail": "The published product table lists price, rating, review count, and commission rate as unverified. Best-sellers rank and availability were not readable from the product pages either, so they should be listed as unverified as well.",
+      "sources": [
+        "S1",
+        "S2",
+        "S3"
+      ],
+      "action": "No action needed beyond showing the two extra fields as blank and unverified."
+    },
+    {
+      "id": "F23",
+      "severity": "Low",
+      "type": "Title text",
+      "item": "Product 3 title: the site shows 'TurboFry 4-in-1', but the title on the Amazon page reads 'TurboFry®'.",
+      "detail": "Independent read of the short-link resolved page title (S6) gives 'Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option ...'. The site drops the registered-trademark sign.",
+      "sources": [
+        "S6"
+      ],
+      "action": "Use the exact title text, or state that the title is abbreviated."
     }
   ]
 }

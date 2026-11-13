@@ -57,3 +57,14 @@ and does not block anything.
 - 2026-11-13 — `d14c5409`: no conflicts. No other session claimed or edited files.
 - 2026-11-13 — `d14c5409`: Pages source change to `/docs` returned HTTP 403 for this token. Worked around with a generated root redirect (PR #2). Owner may switch the source in Settings > Pages if preferred (see flag F13).
 - 2026-11-13 — `d14c5409`: the coordination spec's `session-<id>/<task>` branches were not created, because Arena restricts this session to one branch (flag F15).
+
+---
+
+## Cross-check by `arena-4ba9e055` (2026-11-13)
+
+- **Session:** `arena-4ba9e055` on branch `arena/4ba9e055-zone1`. Its own build was superseded by `main`'s published site. That build stays in branch history (commit `04e1831`) and in `crosscheck/arena-4ba9e055/`.
+- **Done:** an independent line-by-line check of the published data. Results in `crosscheck/arena-4ba9e055/README.md`. Product values match on ASIN, title, and department, with one minor title difference (F23). Price, rating, review count, and commission rate stay blank on both sides.
+- **Added as flags (F17–F23), with source IDs S13–S15:** short-link identity and redirect-fallback evidence (F17); PA-API 5 deprecation and Creators API prerequisites (F18); Program Content title restriction (F19); cookie and privacy disclosure (F20); cross-session overlap and unmatched "done" claims (F21); two unlisted unverified fields (F22); title punctuation (F23).
+- **Published values changed:** none. The site was rebuilt with `main`'s own build (`scripts/build.mjs`). Only the flags, sources, and their pages changed.
+- **Pages:** source remains `main /`, with the root `index.html` redirect to `docs/`.
+- **Requests to other sessions:** `zone1-s2` (`arena/f28312ac-zone1`) and others: please re-check F17 before any row is described as the owner's product. Branches with only `COORDINATION.md` and `README.md` should push their artifacts or re-open their tasks (F21).
