@@ -13,7 +13,7 @@
     <div class="brand">Zone1<span>Affiliate research</span></div>
     <nav>
         <a href="./index.html" class="">Overview</a>
-        <a href="./categories/home-kitchen-air-fryers.html" class="">Home &amp; Kitchen › Air Fryers</a>
+        <a href="./categories/home-kitchen-air-fryers.html" class="">Category (unverified)</a>
         <a href="./analysis.html" class="">Analysis &amp; Findings</a>
         <a href="./compliance.html" class="">Compliance</a>
         <a href="./sources.html" class="">Sources</a>
@@ -34,7 +34,7 @@
   <p class="eyebrow"><a href="./index.html">Overview</a> › Flagged for Review</p>
   <h1>Flagged for Review</h1>
   <p class="lede">Irregularities, unverified items and open decisions. These do not block publication. Each item links to its source so it can be checked directly. Owner decisions are needed on the high-severity items.</p>
-  <p class="lede">5 high · 6 medium · 5 low · 16 total</p>
+  <p class="lede">6 high · 6 medium · 6 low · 18 total</p>
 </header>
 <section class="card">
   <div class="toolbar"><input type="search" class="filter" data-target="tbl-flags" placeholder="Filter flags…" aria-label="Filter flags"></div>
@@ -169,6 +169,22 @@
   <td class="wrap"><strong>Retrieval was done with the fetch tool, not a logged-in browser.</strong><br>Amazon pages return partial text. Some values may be visible on the live page but could not be read here.</td>
   <td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">S2</a>, <a href="https://www.amazon.com/dp/B08DKYBTPH" target="_blank" rel="noopener">S3</a></td>
   <td class="wrap">Spot-check the source links manually.</td>
+</tr>
+<tr>
+  <td>F17</td>
+  <td><span class="badge bad">High</span></td>
+  <td>Disputed data</td>
+  <td class="wrap"><strong>Product identities claimed via short-link redirects are disputed and not accepted.</strong><br>The code-&gt;product mapping (B04G1MEwY-&gt;B0CDY277D3, B02NbDxp3-&gt;B09B7SB46R, B00hJ57DV-&gt;B08DKYBTPH) rests on link.amazon redirects that land on Amazon&#39;s missing-page fallback (final URLs carry plpRedirect=mhFallback and lv=shuf), while canonical checks for the submitted codes return Amazon&#39;s page-not-found (S13-S15) and the codes are 9 characters (ASINs are 10). The observed air-fryer listings are real products but are not evidenced as the intended ones. Identity fields are therefore blank and unverified; observations preserved on the root site&#39;s Products page section 4.</td>
+  <td><a href="https://link.amazon/B04G1MEwY" target="_blank" rel="noopener">S4</a>, <a href="https://link.amazon/B02NbDxp3" target="_blank" rel="noopener">S5</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a>, <a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">S13</a>, <a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">S14</a>, <a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">S15</a></td>
+  <td class="wrap">Owner to confirm the intended products with valid 10-character ASINs or full amazon.com product URLs.</td>
+</tr>
+<tr>
+  <td>F18</td>
+  <td><span class="badge info">Low</span></td>
+  <td>Data update</td>
+  <td class="wrap"><strong>The official commission rate schedule is publicly reachable (partially resolves F02).</strong><br>The Standard Commission Income Statement at the public Associates help topic GRXPHT8U84RAYDXZ (S16) returns the full official rate table without sign-in. It was fetched and published (verified) on the root site&#39;s commissions page and in data/commission-rates.csv. Per-product commission rates remain blank because product categories are unverified.</td>
+  <td><a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">S16</a></td>
+  <td class="wrap">None required for the table; per-product rates unblock when categories verify.</td>
 </tr>
     </tbody>
   </table>

@@ -13,7 +13,7 @@
     <div class="brand">Zone1<span>Affiliate research</span></div>
     <nav>
         <a href="./index.html" class="">Overview</a>
-        <a href="./categories/home-kitchen-air-fryers.html" class="">Home &amp; Kitchen › Air Fryers</a>
+        <a href="./categories/home-kitchen-air-fryers.html" class="">Category (unverified)</a>
         <a href="./analysis.html" class="active">Analysis &amp; Findings</a>
         <a href="./compliance.html" class="">Compliance</a>
         <a href="./sources.html" class="">Sources</a>
@@ -38,9 +38,9 @@
 
 <section class="kpis">
   <div class="kpi"><div class="num">3</div><div class="lbl">Unique ASINs</div></div>
-  <div class="kpi"><div class="num">2</div><div class="lbl">Brand names as titled (chefman ×2 · emeril lagasse ×1)</div></div>
-  <div class="kpi"><div class="num">60%</div><div class="lbl">Field coverage (verified or derived)</div></div>
-  <div class="kpi warn"><div class="num">12</div><div class="lbl">Blank fields (unverified)</div></div>
+  <div class="kpi"><div class="num">1</div><div class="lbl">Brand names as titled (— ×3)</div></div>
+  <div class="kpi"><div class="num">0%</div><div class="lbl">Field coverage (verified or derived)</div></div>
+  <div class="kpi warn"><div class="num">30</div><div class="lbl">Blank fields (unverified)</div></div>
 </section>
 
 <section class="card">
@@ -48,11 +48,11 @@
   <table class="data">
     <thead><tr><th>#</th><th>Finding</th><th>Basis (source)</th></tr></thead>
     <tbody>
-      <tr><td>A1</td><td>All three links resolve to Amazon.com product pages with three different ASINs.</td><td><a href="https://link.amazon/B04G1MEwY" target="_blank" rel="noopener">S4</a>, <a href="https://link.amazon/B02NbDxp3" target="_blank" rel="noopener">S5</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a></td></tr>
-      <tr><td>A2</td><td>All three products are listed in the “Home &amp; Kitchen” department.</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">S2</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a> (page titles)</td></tr>
-      <tr><td>A3</td><td>The category “Air Fryers” is derived from the words in the titles. The Amazon browse node was not confirmed.</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">S2</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a></td></tr>
-      <tr><td>A4</td><td>Two of the three titles name Chefman. Casing differs (“CHEFMAN” vs “Chefman”), so the brand match is unconfirmed.</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a></td></tr>
-      <tr><td>A5</td><td>Capacity as titled ranges from 6 Quart to 26QT. P2 is a French-door toaster oven; P1 is a dual-basket oven; P3 is a basket air fryer, as the titles describe them.</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">S2</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a></td></tr>
+      <tr><td>A1</td><td>All three submitted codes fail canonical checks: amazon.com/dp/&lt;code&gt; returns Amazon's page-not-found (<a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">S13</a>, <a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">S14</a>, <a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">S15</a>). The link.amazon landings (<a href="https://link.amazon/B04G1MEwY" target="_blank" rel="noopener">S4</a>, <a href="https://link.amazon/B02NbDxp3" target="_blank" rel="noopener">S5</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a>) are Amazon's missing-page fallback redirects (final URLs carry <code>plpRedirect=mhFallback</code>), not confirmed product mappings (F17).</td><td><a href="https://link.amazon/B04G1MEwY" target="_blank" rel="noopener">S4</a>, <a href="https://link.amazon/B02NbDxp3" target="_blank" rel="noopener">S5</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a>, <a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">S13</a>, <a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">S14</a>, <a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">S15</a></td></tr>
+      <tr><td>A2</td><td>The fallback landing pages showed “Home &amp; Kitchen” in their page titles. These describe the fallback listings only and are not attributed to the submitted products (F17).</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">S2</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a> (fallback page titles)</td></tr>
+      <tr><td>A3</td><td>The earlier category label (“Air Fryers”) was derived from words in the fallback titles. It is not attributed to the submitted products; the Amazon browse node was never confirmed (F17).</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">S2</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a></td></tr>
+      <tr><td>A4</td><td>Fallback titles included Chefman-branded appliances with differing casing (“CHEFMAN” vs “Chefman”) and one Emeril Lagasse listing. Brand match unconfirmed and not attributed to the submitted products (F10, F17).</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a></td></tr>
+      <tr><td>A5</td><td>Fallback titles described capacities from 6 Quart to 26QT (dual-basket oven, French-door toaster oven, basket air fryer). Observations preserved for review only; not attributed to the submitted products (F17).</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">S1</a>, <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">S2</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a></td></tr>
       <tr><td>A6</td><td>None of the three links carries an Associates tag, so none can be credited to an Associates account as supplied.</td><td><a href="https://link.amazon/B04G1MEwY" target="_blank" rel="noopener">S4</a>, <a href="https://link.amazon/B02NbDxp3" target="_blank" rel="noopener">S5</a>, <a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">S6</a>; <a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Participation Requirements s.2(b)</a></td></tr>
     </tbody>
   </table>
@@ -65,10 +65,10 @@
     <tbody>
       <tr><td>Price comparison and price trends</td><td>Price not in retrieved page text. Price display is limited to Amazon-served links or the PA-API / Creators API (<a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">s.2(b)</a>).</td><td>Creators API / PA-API access through an Associates account (F01, F11).</td></tr>
       <tr><td>Reviews, ratings and sentiment</td><td>Rating and review count not in retrieved page text.</td><td>Same as above (F01).</td></tr>
-      <tr><td>Commission potential (rate × revenue)</td><td>Standard rate for Home &amp; Kitchen not confirmed; official schedule (<a href="https://affiliate-program.amazon.com/help/operating/schedule" target="_blank" rel="noopener">S9</a>) not reachable (F02).</td><td>Read the rate on Associates Central while signed in, then add it with its source.</td></tr>
+      <tr><td>Commission potential (rate × revenue)</td><td>Per-product rate blank: product category is unverified (F17). The official rate table itself is verified and published (<a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">S16</a> — partially resolves F02).</td><td>Verify the product category, then match it to the official rate table (<a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">S16</a>).</td></tr>
       <tr><td>Competition and market share</td><td>No verified competitor or sales data.</td><td>An approved data source (F11).</td></tr>
       <tr><td>Trending or high-converting products; profitable niches</td><td>No verified trend, sales-rank or conversion data.</td><td>Analytics and sales data (F11). None are claimed here.</td></tr>
-      <tr><td>Clicks and conversions</td><td>No tracking is installed. Site analytics would also need a privacy review.</td><td>Associates reports, plus an analytics decision by the owner (F11).</td></tr>
+      <tr><td>Clicks and conversions</td><td>This /docs/ build has no tracking. The integrated root site ships a working local click tracker plus the production architecture (see the root site's Analytics page); Amazon Associates reports remain the conversion source of truth.</td><td>Associates reports, plus an analytics decision by the owner (F11).</td></tr>
     </tbody>
   </table>
 </section>

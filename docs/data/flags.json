@@ -194,6 +194,33 @@
         "S3"
       ],
       "action": "Spot-check the source links manually."
+    },
+    {
+      "id": "F17",
+      "severity": "High",
+      "type": "Disputed data",
+      "item": "Product identities claimed via short-link redirects are disputed and not accepted.",
+      "detail": "The code->product mapping (B04G1MEwY->B0CDY277D3, B02NbDxp3->B09B7SB46R, B00hJ57DV->B08DKYBTPH) rests on link.amazon redirects that land on Amazon's missing-page fallback (final URLs carry plpRedirect=mhFallback and lv=shuf), while canonical checks for the submitted codes return Amazon's page-not-found (S13-S15) and the codes are 9 characters (ASINs are 10). The observed air-fryer listings are real products but are not evidenced as the intended ones. Identity fields are therefore blank and unverified; observations preserved on the root site's Products page section 4.",
+      "sources": [
+        "S4",
+        "S5",
+        "S6",
+        "S13",
+        "S14",
+        "S15"
+      ],
+      "action": "Owner to confirm the intended products with valid 10-character ASINs or full amazon.com product URLs."
+    },
+    {
+      "id": "F18",
+      "severity": "Low",
+      "type": "Data update",
+      "item": "The official commission rate schedule is publicly reachable (partially resolves F02).",
+      "detail": "The Standard Commission Income Statement at the public Associates help topic GRXPHT8U84RAYDXZ (S16) returns the full official rate table without sign-in. It was fetched and published (verified) on the root site's commissions page and in data/commission-rates.csv. Per-product commission rates remain blank because product categories are unverified.",
+      "sources": [
+        "S16"
+      ],
+      "action": "None required for the table; per-product rates unblock when categories verify."
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "as_of": "2026-11-13",
-  "note": "Every value on the site cites one of these source IDs. 'status' records what the retrieval returned on 2026-11-13. Retrieval used the fetch tool from the build sandbox, not a live browser session.",
+  "note": "Every value on the site cites one of these source IDs. 'status' records what the retrieval returned on 2026-11-13. Retrieval used the fetch tool from the build sandbox, not a live browser session. Integration (session 19a679d8, 2026-11-13) added S13-S16 from direct official fetches.",
   "sources": [
     {
       "id": "S1",
@@ -121,6 +121,46 @@
       "status": "accessible",
       "supports": "Repo state at start of session: branch main @ 42f4036 'Initial commit'. Only README.md (7 bytes, '# Zone1') is tracked. No .gitignore, LICENSE or COORDINATION.md. GitHub Pages was already enabled from main at '/' with build_type 'legacy'.",
       "review_note": ""
+    },
+    {
+      "id": "S13",
+      "title": "Canonical check for submitted code B04G1MEwY",
+      "publisher": "Amazon.com (official)",
+      "url": "https://www.amazon.com/dp/B04G1MEwY",
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Amazon error page: 'Sorry! We couldn't find that page.' No product exists at this code (evidence E-01).",
+      "review_note": "Integration evidence for disputed identity mapping (F17)."
+    },
+    {
+      "id": "S14",
+      "title": "Canonical check for submitted code B02NbDxp3",
+      "publisher": "Amazon.com (official)",
+      "url": "https://www.amazon.com/dp/B02NbDxp3",
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Amazon error page: 'Sorry! We couldn't find that page.' No product exists at this code (evidence E-02).",
+      "review_note": "Integration evidence for F17."
+    },
+    {
+      "id": "S15",
+      "title": "Canonical check for submitted code B00hJ57DV",
+      "publisher": "Amazon.com (official)",
+      "url": "https://www.amazon.com/dp/B00hJ57DV",
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Amazon error page: 'Sorry! We couldn't find that page.' No product exists at this code (evidence E-03).",
+      "review_note": "Integration evidence for F17."
+    },
+    {
+      "id": "S16",
+      "title": "Associates Program Standard Commission Income Statement (public help topic GRXPHT8U84RAYDXZ)",
+      "publisher": "Amazon Associates Central (official)",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+      "accessed": "2026-11-13",
+      "status": "accessible",
+      "supports": "Full Table 1 fixed standard commission rates (0.00%-10.00% by category, All Other Categories 4.00%) and Special Commission Income (bounty events). Publicly reachable without sign-in. Partially resolves F02.",
+      "review_note": "Integration addendum; full table also published on the root site's commissions page."
     }
   ]
 }

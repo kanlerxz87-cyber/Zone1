@@ -13,7 +13,7 @@
     <div class="brand">Zone1<span>Affiliate research</span></div>
     <nav>
         <a href="./index.html" class="active">Overview</a>
-        <a href="./categories/home-kitchen-air-fryers.html" class="">Home &amp; Kitchen › Air Fryers</a>
+        <a href="./categories/home-kitchen-air-fryers.html" class="">Category (unverified)</a>
         <a href="./analysis.html" class="">Analysis &amp; Findings</a>
         <a href="./compliance.html" class="">Compliance</a>
         <a href="./sources.html" class="">Sources</a>
@@ -39,19 +39,19 @@
 <section class="kpis">
   <div class="kpi"><div class="num">3</div><div class="lbl">Products tracked</div></div>
   <div class="kpi"><div class="num">3 / 3</div><div class="lbl">ASINs confirmed from Amazon product URLs</div></div>
-  <div class="kpi"><div class="num">60%</div><div class="lbl">Fields verified (18 of 30)</div></div>
-  <div class="kpi warn"><div class="num">16</div><div class="lbl">Flagged for review (5 high)</div></div>
+  <div class="kpi"><div class="num">0%</div><div class="lbl">Fields verified (0 of 30)</div></div>
+  <div class="kpi warn"><div class="num">18</div><div class="lbl">Flagged for review (6 high)</div></div>
 </section>
 
 <section class="card">
   <h2>Executive summary</h2>
   <ul class="summary">
-    <li><strong>What this is.</strong> Three Amazon.com product links were supplied. All three resolve to Amazon product pages in the <em>Home &amp; Kitchen</em> department, and each title is an air-fryer-type appliance.</li>
-    <li><strong>What is verified.</strong> ASIN, product title, brand and capacity as written in each title, and department. Sources are linked on every row.</li>
-    <li><strong>What is not verified.</strong> Price, rating, review count and commission rate. These are left blank. Amazon's product-detail text did not render, and the official commission schedule was not reachable. No pricing, review or commission analysis is provided.</li>
+    <li><strong>What this is.</strong> Three product links were supplied. None resolves to a product: the identifiers are 9 characters (ASINs are 10) and each canonical check returns Amazon's page-not-found (<a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">S13</a>–<a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">S15</a>). The link.amazon redirects land on Amazon's <em>missing-page fallback</em> (random listings) — see flag F17.</li>
+    <li><strong>What is verified.</strong> Nothing product-level. All identity fields (title, brand, capacity, department, category) are blank and marked unverified because the mapping from submitted code to product is disputed (F17). The official commission rate table is verified (<a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">S16</a>).</li>
+    <li><strong>What is not verified.</strong> Product identity, price, rating, review count and per-product commission rate. These are left blank. No pricing, review or commission analysis is provided.</li>
     <li><strong>Compliance.</strong> None of the supplied links carry an Associates tag, and the Associates account is not confirmed. The required disclosure is shown with a pending status. See <a href="compliance.html">Compliance</a> and <a href="flagged.html">Flagged for Review</a>.</li>
     <li><strong>Not built.</strong> The full AI platform (automated product discovery, trend and niche detection, competitor analysis, article generation at scale, click and conversion tracking) needs Amazon API and account data that is not available here. No data was invented to fill that gap (flag F11).</li>
-    <li><strong>Next step for review.</strong> Work through the <a href="flagged.html">Flagged for Review</a> list. High-severity items F01, F02, F03, F06 and F11 need an owner decision.</li>
+    <li><strong>Next step for review.</strong> Work through the <a href="flagged.html">Flagged for Review</a> list. High-severity items F01, F03, F06, F11 and F17 need an owner decision.</li>
   </ul>
 </section>
 
@@ -59,8 +59,8 @@
   <h2>Categories</h2>
   <div class="cats">
     <a class="cat" href="categories/home-kitchen-air-fryers.html">
-      <div class="cat-title">Home &amp; Kitchen › Air Fryers</div>
-      <div class="cat-meta">3 products · department verified from Amazon page titles · category name derived from title words</div>
+      <div class="cat-title">Category page — identity unverified (F17)</div>
+      <div class="cat-meta">3 rows · identity fields blank: mapping from submitted code to product is disputed (F17) · page preserved for review</div>
     </a>
   </div>
 </section>
