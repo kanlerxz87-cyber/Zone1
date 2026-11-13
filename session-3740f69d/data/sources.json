@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "register_note": "Official sources only. Non-official sources excluded from value-bearing claims. Full narrative register: docs/sources/index.html",
+  "accessed": "2026-11-13",
+  "sources": [
+    {
+      "id": 1,
+      "publisher": "Amazon — Associates Central",
+      "title": "Associates Program Operating Agreement",
+      "url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "doc_updated": "2025-10-15",
+      "verified": ["OA §1 Special Links definition", "OA §5 exact required disclosure text", "no-income-guarantee statement", "term and termination"]
+    },
+    {
+      "id": 2,
+      "publisher": "Amazon — Associates Central",
+      "title": "Associates Program Policies",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "doc_updated": "2026-04-14",
+      "verified": ["Commission Income Statement §1 (24h session, 89-day cart, 180-day ship/pay, Qualifying Revenue definition)", "CIS §2 disqualifiers incl. paid-search and redirecting-link rules", "CIS §6 payment timing and minimums", "Participation Requirements §2(b) tag format and price-display rule", "PR §2(t) reviews/ratings rule", "PR §2(v)(w) cloaking/shortener rules", "PR §2(y) no price tracking/alerting", "PR §5 ML restriction", "Trademark Guidelines", "IP License §2(e)(h)(i)(k)", "IP License §4 Agent Terms", "Products Statement §3 Excluded Products"]
+    },
+    {
+      "id": 3,
+      "publisher": "Amazon — Associates Central",
+      "title": "Standard Commission Income (Appendix / rate card)",
+      "url": "https://affiliate-program.amazon.com/help/operating/schedule",
+      "doc_updated": null,
+      "verified": ["Redirects to sign-in with account-specific rate card — rates NOT publicly verifiable (flag F4)"]
+    },
+    {
+      "id": 4,
+      "publisher": "Amazon.com",
+      "title": "Product page — CHEFMAN 6 Quart Dual Basket Air Fryer Oven (B0CDY277D3)",
+      "url": "https://www.amazon.com/dp/B0CDY277D3",
+      "verified": ["listing title", "ASIN", "department Home & Kitchen"]
+    },
+    {
+      "id": 5,
+      "publisher": "Amazon.com",
+      "title": "Product page — Emeril Lagasse 26QT French Door Air Fryer Toaster Oven (B09B7SB46R)",
+      "url": "https://www.amazon.com/dp/B09B7SB46R",
+      "verified": ["listing title", "ASIN", "category breadcrumb Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers"]
+    },
+    {
+      "id": 6,
+      "publisher": "Amazon.com",
+      "title": "Product page — Chefman Air Fryer 8 Qt TurboFry (B08DKYBTPH)",
+      "url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "verified": ["listing title", "ASIN", "department Home & Kitchen"]
+    },
+    {
+      "id": 7,
+      "publisher": "Amazon.com",
+      "title": "Amazon Best Sellers — Air Fryers (node 17659096011)",
+      "url": "https://www.amazon.com/gp/bestsellers/kitchen/17659096011",
+      "verified": ["category taxonomy (Air Fryers 17659096011, Air Fryer Ovens 224479505011, Deep Fryers 289918, Fryers 17659095011)", "dated top-6 ranking snapshot with ASINs", "Amazon statement: most popular products based on sales, updated frequently"]
+    },
+    {
+      "id": 8,
+      "publisher": "Amazon — webservices.amazon.com",
+      "title": "Product Advertising API 5.0 — GetItems",
+      "url": "https://webservices.amazon.com/paapi5/documentation/get-items.html",
+      "verified": ["ASIN definition: 10-character alphanumeric unique identifier assigned by Amazon"]
+    },
+    {
+      "id": 9,
+      "publisher": "Amazon — kdp.amazon.com",
+      "title": "KDP Help — Linking from Your Website",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200652190",
+      "verified": ["ASIN is a 10-character Amazon Standard Identification Number (second official corroboration)"]
+    },
+    {
+      "id": 10,
+      "publisher": "U.S. Federal Trade Commission",
+      "title": "Disclosures 101 for Social Media Influencers",
+      "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "published": "2019-11",
+      "verified": ["material-connection disclosure duty", "hard-to-miss placement with the endorsement", "approved disclosure language", "no claims about untried products"]
+    },
+    {
+      "id": 11,
+      "publisher": "Amazon.com",
+      "title": "Error pages for provided IDs (amazon.com/dp/<provided-ID>)",
+      "url": "https://www.amazon.com/dp/B04G1MEwY",
+      "verified": ["'Page Not Found' for B04G1MEwY, B02NbDxp3, B00hJ57DV — IDs are not valid ASINs"]
+    },
+    {
+      "id": 12,
+      "publisher": "link.amazon (provenance unverified) -> amazon.com",
+      "title": "Redirect observations (3 links x 2 cache-busted fetches)",
+      "url": "https://link.amazon/B04G1MEwY",
+      "verified": ["stable mapping: B04G1MEwY->B0CDY277D3, B02NbDxp3->B09B7SB46R, B00hJ57DV->B08DKYBTPH", "redirect URL parameters channelId=704, plpRedirect=mhFallback, lv=shuf"]
+    }
+  ]
+}

@@ -27,6 +27,9 @@ OFFICIAL_HOSTS = {
     "www.amazon.com",
     "amazon.com",
     "link.amazon",
+    # official Amazon developer / publishing documentation (ASIN definition sources)
+    "webservices.amazon.com",
+    "kdp.amazon.com",
     "chefman.com",
     "cdn.shopify.com",
     "www.emerileveryday.com",
