@@ -83,9 +83,27 @@
   "candidate_asins_observed_by_other_session": {
     "note": "A second session recorded the ASINs that the fallback pages displayed. They are published here for transparency, NOT adopted as the operator's products, because a fallback shuffle target is not evidence of intent. Verify in the Associates dashboard before using them.",
     "rows": [
-      { "for_link": "P-1", "asin": "B0CDY277D3", "length": 10, "attributed_to_operator_link": false },
-      { "for_link": "P-2", "asin": "B09B7SB46R", "length": 10, "attributed_to_operator_link": false },
-      { "for_link": "P-3", "asin": "B08DKYBTPH", "length": 10, "attributed_to_operator_link": false }
+      {
+        "for_link": "P-1",
+        "asin": "B0CDY277D3",
+        "length": 10,
+        "attributed_to_operator_link": false,
+        "source": "https://www.amazon.com/dp/B0CDY277D3"
+      },
+      {
+        "for_link": "P-2",
+        "asin": "B09B7SB46R",
+        "length": 10,
+        "attributed_to_operator_link": false,
+        "source": "https://www.amazon.com/dp/B09B7SB46R"
+      },
+      {
+        "for_link": "P-3",
+        "asin": "B08DKYBTPH",
+        "length": 10,
+        "attributed_to_operator_link": false,
+        "source": "https://www.amazon.com/dp/B08DKYBTPH"
+      }
     ]
   }
 }

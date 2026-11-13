@@ -60,6 +60,18 @@ def main() -> int:
                 frag = anchor[1:]
                 if frag and f'id="{frag}"' not in open(dest, encoding="utf-8").read():
                     errors.append(f"{rel_from_root}: missing anchor {anchor} in {os.path.relpath(dest, ROOT)}")
+    # THE core promise of this site, enforced on rendered output:
+    # every data row in a table body must carry at least one link.
+    for path in html_files():
+        rel = os.path.relpath(path, ROOT).replace(os.sep, "/")
+        text = open(path, encoding="utf-8").read()
+        for tbl in re.findall(r"<tbody>(.*?)</tbody>", text, re.S):
+            for row in re.findall(r"<tr>(.*?)</tr>", tbl, re.S):
+                if "<th>" in row:
+                    continue
+                if "<a " not in row:
+                    errors.append(f"{rel}: table row with no source link -> {re.sub('<[^>]+>', ' ', row)[:70].strip()}")
+
     # every html file must reference the stylesheet that exists
     for path in html_files():
         rel = os.path.relpath(path, ROOT).replace(os.sep, "/")

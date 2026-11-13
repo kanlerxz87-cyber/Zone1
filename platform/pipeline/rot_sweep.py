@@ -1,4 +1,4 @@
-"""Staleness expiry (CN-5, F-14): nothing older than its window may render."""
+"""Staleness expiry (CN-5, F-05): nothing older than its window may render."""
 from __future__ import annotations
 
 from datetime import date

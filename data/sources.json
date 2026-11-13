@@ -111,6 +111,15 @@
       "type": "api",
       "used_for": "Pages configuration: build_type legacy, source branch main, path /, status built; html_url https://kanlerxz87-cyber.github.io/Zone1/",
       "access": "public repo, token-authenticated read"
+    },
+    {
+      "id": "S13",
+      "publisher": "Amazon.com",
+      "type": "official-page",
+      "name": "Amazon Best Sellers",
+      "url": "https://www.amazon.com/Best-Sellers/zgbs",
+      "used_for": "Proved the collector path end to end: the page states its own basis (\"Our most popular products based on sales. Updated frequently.\") and lists, per row, a 10-character ASIN, star rating, review count and price. Used only as an internal research demonstration, never as content for a monetized page.",
+      "access": "public"
     }
   ]
 }

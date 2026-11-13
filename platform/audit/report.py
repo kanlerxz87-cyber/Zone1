@@ -12,8 +12,17 @@ from __future__ import annotations
 import json
 import os
 import re
+import sys
 
-from _common import OFFICIAL_HOSTS, Report, is_official, repo_root
+# Works both as `python3 platform/audit/report.py` (CI) and as
+# `from audit.report import ...` (tests, scripts) — the import below needs
+# platform/ on sys.path, which a direct script invocation does not provide.
+_HERE = os.path.dirname(os.path.abspath(__file__))
+for _cand in (os.path.dirname(_HERE), os.path.dirname(os.path.dirname(_HERE))):
+    if _cand not in sys.path:
+        sys.path.insert(0, _cand)
+
+from _common import Report, is_official, repo_root  # noqa: E402
 
 FORBIDDEN_PHRASES = (
     "guaranteed commission", "risk-free", "no cost to the buyer", "officially endorsed",
@@ -76,6 +85,18 @@ def audit_data() -> Report:
     for f in flags["flags"]:
         if not f.get("sources"):
             r.add("A5", f"flag {f['id']} has no source links", context=f["id"])
+        if f["severity"] not in ("critical", "high", "medium", "low"):
+            r.add("A5", f"flag {f['id']} has an unknown severity {f['severity']!r}", context=f["id"])
+
+    # A6: a row may only point at a flag that actually exists and is published.
+    data_dir = os.path.join(repo_root(), "data")
+    for name in sorted(os.listdir(data_dir)):
+        if not name.endswith(".json") or name == "flags.json":
+            continue
+        text = open(os.path.join(data_dir, name), encoding="utf-8").read()
+        for ref in sorted(set(re.findall(r"\bF-\d{2}\b", text))):
+            if ref not in flag_ids:
+                r.add("A6", f"{name} references {ref}, which is not published in flags.json", context=name)
 
     blob = json.dumps([program, products, flags], ensure_ascii=False).lower()
     for phrase in FORBIDDEN_PHRASES:

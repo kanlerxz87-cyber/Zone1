@@ -36,25 +36,109 @@
     ]
   },
   "key_numbers": [
-    { "label": "Session window after a click", "value": "24 hours", "status": "verified", "url": "https://affiliate-program.amazon.com/help/operating/policies", "note": "Commission Income Statement §1(b)" },
-    { "label": "Cart-to-order window", "value": "89 days", "status": "verified", "url": "https://affiliate-program.amazon.com/help/operating/policies", "note": "§1(c)(i)" },
-    { "label": "Ship-and-pay condition", "value": "within 180 days of purchase", "status": "verified", "url": "https://affiliate-program.amazon.com/help/operating/policies", "note": "§1(iii)" },
-    { "label": "Payment lag", "value": "≈60 days after month end", "status": "verified", "url": "https://affiliate-program.amazon.com/help/operating/policies", "note": "§6" },
-    { "label": "Minimum payout, direct deposit", "value": "10 USD", "status": "verified", "url": "https://affiliate-program.amazon.com/help/operating/policies", "note": "Payment Minimum Chart" },
-    { "label": "Minimum payout, check (+15 USD fee)", "value": "100 USD", "status": "verified", "url": "https://affiliate-program.amazon.com/help/operating/policies", "note": "Payment Minimum Chart" },
-    { "label": "Commission rate published publicly", "value": "none — rate card is sign-in only", "status": "verified", "url": "https://affiliate-program.amazon.com/help/operating/schedule", "note": "redirect to /ap/signin observed 2026-11-13" },
-    { "label": "Products verifiable from the supplied links", "value": "0 of 3", "status": "verified", "url": "https://www.amazon.com/dp/B02NbDxp3", "note": "all three detail pages return Amazon's 404 page" },
-    { "label": "Policy constraints enforced in code", "value": "25", "status": "verified", "url": "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform", "note": "platform/ modules named in the Compliance table" },
-    { "label": "Unit tests passing", "value": "33", "status": "verified", "url": "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform/tests", "note": "python3 -m unittest discover -s platform/tests -t platform" }
+    {
+      "label": "Session window after a click",
+      "value": "24 hours",
+      "status": "verified",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "note": "Commission Income Statement §1(b)"
+    },
+    {
+      "label": "Cart-to-order window",
+      "value": "89 days",
+      "status": "verified",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "note": "§1(c)(i)"
+    },
+    {
+      "label": "Ship-and-pay condition",
+      "value": "within 180 days of purchase",
+      "status": "verified",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "note": "§1(iii)"
+    },
+    {
+      "label": "Payment lag",
+      "value": "≈60 days after month end",
+      "status": "verified",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "note": "§6"
+    },
+    {
+      "label": "Minimum payout, direct deposit",
+      "value": "10 USD",
+      "status": "verified",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "note": "Payment Minimum Chart"
+    },
+    {
+      "label": "Minimum payout, check (+15 USD fee)",
+      "value": "100 USD",
+      "status": "verified",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "note": "Payment Minimum Chart"
+    },
+    {
+      "label": "Commission rate published publicly",
+      "value": "none — rate card is sign-in only",
+      "status": "verified",
+      "url": "https://affiliate-program.amazon.com/help/operating/schedule",
+      "note": "redirect to /ap/signin observed 2026-11-13"
+    },
+    {
+      "label": "Products verifiable from the supplied links",
+      "value": "0 of 3",
+      "status": "verified",
+      "url": "https://www.amazon.com/dp/B02NbDxp3",
+      "note": "all three detail pages return Amazon's 404 page"
+    },
+    {
+      "label": "Policy constraints enforced in code",
+      "value": "25",
+      "status": "verified",
+      "url": "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform",
+      "note": "platform/ modules named in the Compliance table"
+    },
+    {
+      "label": "Unit tests passing",
+      "value": "33",
+      "status": "verified",
+      "url": "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform/tests",
+      "note": "python3 -m unittest discover -s platform/tests -t platform"
+    }
   ],
   "economics": {
     "formula": "commission = (gross_charged − shipping − gift_wrapping − handling − taxes − service_charges − credits − rebates − card_processing − bad_debt) × rate_pct / 100",
     "formula_source": "https://affiliate-program.amazon.com/help/operating/policies",
     "inputs": [
-      { "input": "gross_charged", "owner": "Amazon order report", "available_now": false, "why": "no account" },
-      { "input": "deduction set", "owner": "Commission Income Statement §1", "available_now": true, "why": "the ten deduction categories are stated in the policy text" },
-      { "input": "rate_pct", "owner": "your Associates rate card", "available_now": false, "why": "sign-in gated; see F-04" },
-      { "input": "order → click attribution", "owner": "Special Link tag + Amazon reports", "available_now": false, "why": "no tag issued" }
+      {
+        "input": "gross_charged",
+        "owner": "Amazon order report",
+        "available_now": false,
+        "why": "no account",
+        "source": "https://affiliate-program.amazon.com/help/operating/agreement"
+      },
+      {
+        "input": "deduction set",
+        "owner": "Commission Income Statement §1",
+        "available_now": true,
+        "why": "the ten deduction categories are stated in the policy text",
+        "source": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      {
+        "input": "rate_pct",
+        "owner": "your Associates rate card",
+        "available_now": false,
+        "why": "sign-in gated; see F-04",
+        "source": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      {
+        "input": "order → click attribution",
+        "owner": "Special Link tag + Amazon reports",
+        "available_now": false,
+        "why": "no tag issued",
+        "source": "https://affiliate-program.amazon.com/help/operating/agreement"
+      }
     ],
     "guard": "model/economics.py raises RateNotAvailable rather than defaulting to a plausible-looking percentage. A revenue model built on an assumed rate is how affiliate dashboards end up reporting money that does not exist.",
     "risk_note": "Amazon states it makes no representation about the traffic or commission income you can expect, and may cease all commission income on a breach — so the platform treats compliance as the primary control, not as a checklist afterthought."
@@ -62,66 +146,317 @@
   "niche_method": {
     "purpose": "How a niche gets selected once data exists — disclosed weights, no hidden coefficients, and no score emitted on partial input.",
     "weights": [
-      { "factor": "demand", "weight": 0.30, "input_source": "Amazon Best Sellers / New Releases rank movement", "status": "no data yet" },
-      { "factor": "competition", "weight": 0.20, "input_source": "count of offers on the ASIN and Buy Box ownership", "status": "no data yet" },
-      { "factor": "price_band", "weight": 0.15, "input_source": "price from an approved source (CN-1)", "status": "no data yet" },
-      { "factor": "review_quality", "weight": 0.15, "input_source": "rating and review count from the product page", "status": "no data yet" },
-      { "factor": "commission", "weight": 0.20, "input_source": "your rate card for the category", "status": "no data yet (F-04)" }
+      {
+        "factor": "demand",
+        "weight": 0.3,
+        "input_source": "Amazon Best Sellers / New Releases rank movement",
+        "status": "no data yet",
+        "source": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      {
+        "factor": "competition",
+        "weight": 0.2,
+        "input_source": "count of offers on the ASIN and Buy Box ownership",
+        "status": "no data yet",
+        "source": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      {
+        "factor": "price_band",
+        "weight": 0.15,
+        "input_source": "price from an approved source (CN-1)",
+        "status": "no data yet",
+        "source": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      {
+        "factor": "review_quality",
+        "weight": 0.15,
+        "input_source": "rating and review count from the product page",
+        "status": "no data yet",
+        "source": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      {
+        "factor": "commission",
+        "weight": 0.2,
+        "input_source": "your rate card for the category",
+        "status": "no data yet (F-04)",
+        "source": "https://affiliate-program.amazon.com/help/operating/schedule"
+      }
     ],
     "refusal_rule": "scoring.score() returns (None, missing[]) when any required factor is absent. Partial scores are never published, because a partial score is indistinguishable from a complete one in a sorted table.",
-    "source": "https://affiliate-program.amazon.com/help/operating/policies"
+    "source": "https://affiliate-program.amazon.com/help/operating/policies",
+    "signals": [
+      {
+        "signal": "Best Sellers rank movement",
+        "source_of_truth": "Amazon's own ranked list, which the page describes as \"Our most popular products based on sales. Updated frequently.\"",
+        "refresh": "page-dependent — Amazon states a cadence only as \"updated frequently\"",
+        "status": "collector verified against the live page",
+        "url": "https://www.amazon.com/Best-Sellers/zgbs"
+      },
+      {
+        "signal": "New Releases momentum",
+        "source_of_truth": "Amazon's New Releases list, linked from the same page family",
+        "refresh": "page-dependent",
+        "status": "collector not yet run",
+        "url": "https://www.amazon.com/gp/new-releases"
+      },
+      {
+        "signal": "Review-count velocity",
+        "source_of_truth": "difference between two dated snapshots of one product's page",
+        "refresh": "weekly, by schedule",
+        "status": "needs a stored prior snapshot",
+        "url": "https://www.amazon.com/Best-Sellers/zgbs"
+      },
+      {
+        "signal": "Price movement",
+        "source_of_truth": "an approved pricing source only; scraping a page is not one",
+        "refresh": "daily",
+        "status": "blocked — no PA-API credentials",
+        "url": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      {
+        "signal": "Category saturation",
+        "source_of_truth": "number of offers grouped onto one product detail page",
+        "refresh": "weekly",
+        "status": "blocked — no PA-API credentials",
+        "url": "https://sell.amazon.com/blog/how-to-create-a-new-asin-amazon"
+      }
+    ]
   },
   "content_engine": {
     "outputs": [
-      { "type": "product article", "template": "platform/content/generator.py::article", "slots": "title, brand, category, spec table, audience, one CTA", "state": "implemented, unfed" },
-      { "type": "comparison", "template": "platform/content/generator.py::comparison", "slots": "lowest new price, lowest used price, rating, one row per product", "state": "implemented, unfed" },
-      { "type": "buying guide", "template": "platform/content/generator.py::buying_guide", "slots": "criteria list, ranked picks, disclosure", "state": "implemented, unfed" }
+      {
+        "type": "product article",
+        "template": "platform/content/generator.py::article",
+        "slots": "title, brand, category, spec table, audience, one CTA",
+        "state": "implemented, unfed",
+        "source": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/content/generator.py"
+      },
+      {
+        "type": "comparison",
+        "template": "platform/content/generator.py::comparison",
+        "slots": "lowest new price, lowest used price, rating, one row per product",
+        "state": "implemented, unfed",
+        "source": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/content/generator.py"
+      },
+      {
+        "type": "buying guide",
+        "template": "platform/content/generator.py::buying_guide",
+        "slots": "criteria list, ranked picks, disclosure",
+        "state": "implemented, unfed",
+        "source": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/content/generator.py"
+      }
     ],
     "invariants": [
-      { "rule": "Every page carries Amazon's §5 sentence verbatim", "enforced_by": "compliance/gates.py::amazon_disclosure_exact", "url": "https://affiliate-program.amazon.com/help/operating/agreement" },
-      { "rule": "Disclosure sits adjacent to the link, not behind a 'DISCLOSURE' click", "enforced_by": "compliance/gates.py::disclosure_adjacent_to_link, no_buried_disclosure", "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" },
-      { "rule": "No unsourced number, price, or percentage survives the build", "enforced_by": "content/claims_checker.py::audit_draft", "url": "https://affiliate-program.amazon.com/help/operating/policies" },
-      { "rule": "Amazon copy may be truncated but not reworded", "enforced_by": "content/lint.py::no_altered_program_content", "url": "https://affiliate-program.amazon.com/help/operating/policies" },
-      { "rule": "A missing fact renders as an explicit placeholder, never as prose", "enforced_by": "content/generator.py::PLACEHOLDER", "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" },
-      { "rule": "No earnings promise and no implied Amazon endorsement in any draft", "enforced_by": "content/claims_checker.py::no_income_promise, no_implied_endorsement", "url": "https://affiliate-program.amazon.com/help/operating/agreement" }
+      {
+        "rule": "Every page carries Amazon's §5 sentence verbatim",
+        "enforced_by": "compliance/gates.py::amazon_disclosure_exact",
+        "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+      },
+      {
+        "rule": "Disclosure sits adjacent to the link, not behind a 'DISCLOSURE' click",
+        "enforced_by": "compliance/gates.py::disclosure_adjacent_to_link, no_buried_disclosure",
+        "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking"
+      },
+      {
+        "rule": "No unsourced number, price, or percentage survives the build",
+        "enforced_by": "content/claims_checker.py::audit_draft",
+        "url": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      {
+        "rule": "Amazon copy may be truncated but not reworded",
+        "enforced_by": "content/lint.py::no_altered_program_content",
+        "url": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      {
+        "rule": "A missing fact renders as an explicit placeholder, never as prose",
+        "enforced_by": "content/generator.py::PLACEHOLDER",
+        "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking"
+      },
+      {
+        "rule": "No earnings promise and no implied Amazon endorsement in any draft",
+        "enforced_by": "content/claims_checker.py::no_income_promise, no_implied_endorsement",
+        "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+      }
     ]
   },
   "campaign_plan": {
     "stages": [
-      { "stage": "0 · Account readiness", "action": "Complete the Associates application and tax interview; record the assigned tag", "gate": "tag matches XXXXX-##", "status": "blocked (no account)" },
-      { "stage": "1 · Niche shortlist", "action": "Score candidate niches with the disclosed weights; drop any with missing factors", "gate": "scoring.score() returns a number", "status": "blocked (no inputs)" },
-      { "stage": "2 · Product selection", "action": "Validate each ASIN's format, confirm the detail page loads, capture sourced fields only", "gate": "catalog/asin.py + pricing/source_guard.py", "status": "blocked (F-07)" },
-      { "stage": "3 · Content build", "action": "Generate article, comparison and guide; run the claim checker; inject the disclosure", "gate": "build fails on any unsourced claim", "status": "ready to run" },
-      { "stage": "4 · Publish", "action": "Deploy to GitHub Pages from main; verify no broken internal links", "gate": "scripts/ci-check.sh", "status": "delivered for this site" },
-      { "stage": "5 · Measure", "action": "Pull Associates reports on a schedule; count link clicks first-party without per-user tags", "gate": "no sub-tag bound to a visitor", "status": "blocked (no account)" },
-      { "stage": "6 · Optimise", "action": "Expire stale prices, prune finished promotions, retire pages whose product left the catalog", "gate": "pipeline/rot_sweep.py, promo_expiry.py", "status": "implemented, awaiting data" },
-      { "stage": "7 · Re-verify", "action": "Re-run the full audit monthly; publish every change on the Flagged page", "gate": "audit/report.py exits non-zero on any error", "status": "delivered" }
+      {
+        "stage": "0 · Account readiness",
+        "action": "Complete the Associates application and tax interview; record the assigned tag",
+        "gate": "tag matches XXXXX-##",
+        "status": "blocked (no account)",
+        "source": "https://github.com/kanlerxz87-cyber/Zone1"
+      },
+      {
+        "stage": "1 · Niche shortlist",
+        "action": "Score candidate niches with the disclosed weights; drop any with missing factors",
+        "gate": "scoring.score() returns a number",
+        "status": "blocked (no inputs)",
+        "source": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      {
+        "stage": "2 · Product selection",
+        "action": "Validate each ASIN's format, confirm the detail page loads, capture sourced fields only",
+        "gate": "catalog/asin.py + pricing/source_guard.py",
+        "status": "blocked (F-07)",
+        "source": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      {
+        "stage": "3 · Content build",
+        "action": "Generate article, comparison and guide; run the claim checker; inject the disclosure",
+        "gate": "build fails on any unsourced claim",
+        "status": "ready to run",
+        "source": "https://github.com/kanlerxz87-cyber/Zone1"
+      },
+      {
+        "stage": "4 · Publish",
+        "action": "Deploy to GitHub Pages from main; verify no broken internal links",
+        "gate": "scripts/ci-check.sh",
+        "status": "delivered for this site",
+        "source": "https://github.com/kanlerxz87-cyber/Zone1"
+      },
+      {
+        "stage": "5 · Measure",
+        "action": "Pull Associates reports on a schedule; count link clicks first-party without per-user tags",
+        "gate": "no sub-tag bound to a visitor",
+        "status": "blocked (no account)",
+        "source": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      {
+        "stage": "6 · Optimise",
+        "action": "Expire stale prices, prune finished promotions, retire pages whose product left the catalog",
+        "gate": "pipeline/rot_sweep.py, promo_expiry.py",
+        "status": "implemented, awaiting data",
+        "source": "https://affiliate-program.amazon.com/help/operating/policies"
+      },
+      {
+        "stage": "7 · Re-verify",
+        "action": "Re-run the full audit monthly; publish every change on the Flagged page",
+        "gate": "audit/report.py exits non-zero on any error",
+        "status": "delivered",
+        "source": "https://github.com/kanlerxz87-cyber/Zone1"
+      }
     ],
     "measurement": {
       "available": [
-        { "metric": "clicks per placement", "how": "first-party event counter on the outbound link", "privacy": "aggregate only, no user identifier" },
-        { "metric": "earnings, orders, items shipped", "how": "Associates Central reports", "status": "requires account" },
-        { "metric": "conversion rate", "how": "orders ÷ clicks, computed from the two sources above", "status": "requires account" }
+        {
+          "metric": "clicks per placement",
+          "how": "first-party event counter on the outbound link",
+          "privacy": "aggregate only, no user identifier",
+          "source": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "metric": "earnings, orders, items shipped",
+          "how": "Associates Central reports",
+          "status": "requires account",
+          "source": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "metric": "conversion rate",
+          "how": "orders ÷ clicks, computed from the two sources above",
+          "status": "requires account",
+          "source": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
       ],
       "forbidden": [
-        { "practice": "assigning a sub-tag per visitor to trace individuals", "rule": "LK-5", "url": "https://affiliate-program.amazon.com/help/operating/policies" },
-        { "practice": "wrapping links in a redirect service to make them shorter or hide the target", "rule": "DQ-3 / LK-3", "url": "https://affiliate-program.amazon.com/help/operating/policies" },
-        { "practice": "bidding on 'amazon' or misspellings to intercept the click", "rule": "DQ-1", "url": "https://affiliate-program.amazon.com/help/operating/policies" },
-        { "practice": "re-publishing Program Content into a newsletter archive or a syndication feed", "rule": "CN-4", "url": "https://affiliate-program.amazon.com/help/operating/policies" }
+        {
+          "practice": "assigning a sub-tag per visitor to trace individuals",
+          "rule": "LK-5",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "practice": "wrapping links in a redirect service to make them shorter or hide the target",
+          "rule": "DQ-3 / LK-3",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "practice": "bidding on 'amazon' or misspellings to intercept the click",
+          "rule": "DQ-1",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "practice": "re-publishing Program Content into a newsletter archive or a syndication feed",
+          "rule": "CN-4",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
       ]
     }
   },
   "automation_architecture": {
     "stages": [
-      { "stage": "intake", "module": "platform/research.py", "reads": "operator URLs", "writes": "candidate product records (all fields blank until sourced)", "needs": "nothing" },
-      { "stage": "resolve", "module": "platform/resolver/link.py", "reads": "candidate records", "writes": "attribution decision (accept or REFUSE)", "needs": "network egress to amazon.com" },
-      { "stage": "enrich", "module": "platform/catalog/asin.py + pricing/source_guard.py", "reads": "confirmed ASINs", "writes": "sourced product fields", "needs": "PA-API credentials" },
-      { "stage": "score", "module": "platform/scoring.py", "reads": "enriched records", "writes": "ranked shortlist", "needs": "complete factor set" },
-      { "stage": "draft", "module": "platform/content/generator.py", "reads": "ranked shortlist", "writes": "article / comparison / guide HTML", "needs": "sourced facts" },
-      { "stage": "gate", "module": "platform/content/claims_checker.py + compliance/gates.py", "reads": "drafts", "writes": "pass/fail with findings", "needs": "nothing" },
-      { "stage": "publish", "module": "scripts/build_site.py", "reads": "data/*.json + gated drafts", "writes": "static site", "needs": "nothing" },
-      { "stage": "audit", "module": "platform/audit/report.py", "reads": "the built data files", "writes": "CI pass/fail", "needs": "nothing" },
-      { "stage": "re-verify", "module": "platform/pipeline/rot_sweep.py + promo_expiry.py", "reads": "published pages", "writes": "expiry queue", "needs": "schedule + credentials" }
+      {
+        "stage": "intake",
+        "module": "platform/research.py",
+        "reads": "operator URLs",
+        "writes": "candidate product records (all fields blank until sourced)",
+        "needs": "nothing",
+        "source": "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform"
+      },
+      {
+        "stage": "resolve",
+        "module": "platform/resolver/link.py",
+        "reads": "candidate records",
+        "writes": "attribution decision (accept or REFUSE)",
+        "needs": "network egress to amazon.com",
+        "source": "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform"
+      },
+      {
+        "stage": "enrich",
+        "module": "platform/catalog/asin.py + pricing/source_guard.py",
+        "reads": "confirmed ASINs",
+        "writes": "sourced product fields",
+        "needs": "PA-API credentials",
+        "source": "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform"
+      },
+      {
+        "stage": "score",
+        "module": "platform/scoring.py",
+        "reads": "enriched records",
+        "writes": "ranked shortlist",
+        "needs": "complete factor set",
+        "source": "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform"
+      },
+      {
+        "stage": "draft",
+        "module": "platform/content/generator.py",
+        "reads": "ranked shortlist",
+        "writes": "article / comparison / guide HTML",
+        "needs": "sourced facts",
+        "source": "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform"
+      },
+      {
+        "stage": "gate",
+        "module": "platform/content/claims_checker.py + compliance/gates.py",
+        "reads": "drafts",
+        "writes": "pass/fail with findings",
+        "needs": "nothing",
+        "source": "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform"
+      },
+      {
+        "stage": "publish",
+        "module": "scripts/build_site.py",
+        "reads": "data/*.json + gated drafts",
+        "writes": "static site",
+        "needs": "nothing",
+        "source": "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform"
+      },
+      {
+        "stage": "audit",
+        "module": "platform/audit/report.py",
+        "reads": "the built data files",
+        "writes": "CI pass/fail",
+        "needs": "nothing",
+        "source": "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform"
+      },
+      {
+        "stage": "re-verify",
+        "module": "platform/pipeline/rot_sweep.py + promo_expiry.py",
+        "reads": "published pages",
+        "writes": "expiry queue",
+        "needs": "schedule + credentials",
+        "source": "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform"
+      }
     ],
     "credential_contract": [
       "AMAZON_ASSOCIATE_TAG — the tagged link suffix Amazon assigned to your account",
@@ -134,5 +469,34 @@
       "No simulated earnings, clicks or conversions when an account is absent.",
       "No auto-published content: drafts go through the claim checker and a human review step before they reach the site."
     ]
+  },
+  "collector_proof": {
+    "why": "To show the intake path works end to end, the collector was pointed at Amazon's own Best Sellers page and read the values that page states about itself. These are unrelated to the operator's three products — they exist to prove name, ASIN, rating and price can be captured with a source attached to each value.",
+    "retrieved": "2026-11-13",
+    "source_url": "https://www.amazon.com/Best-Sellers/zgbs",
+    "rows": [
+      {
+        "rank": "#1 in Health & Household",
+        "name": "Scott ComfortPlus Toilet Paper, 12 Triple Rolls, 231 Sheets per Roll, Septic-Safe, 1-Ply Toilet Tissue",
+        "asin": "B07BGLT25K",
+        "asin_length": 10,
+        "rating": "4.5 out of 5",
+        "reviews": "151,841",
+        "price": "$5.68",
+        "url": "https://www.amazon.com/Scott-Comfortplus-Toilet-Tissue-Double/dp/B07BGLT25K"
+      },
+      {
+        "rank": "#2 in Health & Household",
+        "name": "Bounty Paper Towels Quick Size, White, 16 Family Rolls = 40 Regular Rolls",
+        "asin": "B079VP6DH5",
+        "asin_length": 10,
+        "rating": null,
+        "reviews": null,
+        "price": null,
+        "url": "https://www.amazon.com/Bounty-Quick-Size-Paper-Towels-Family/dp/B079VP6DH5"
+      }
+    ],
+    "caveat": "Do not copy this table into a monetized page. A published affiliate page may display a price only if Amazon serves the link containing that price, or the price came from Creators API / PA API. This is internal research, stamped with its date, and these prices have already moved.",
+    "caveat_url": "https://affiliate-program.amazon.com/help/operating/policies"
   }
 }

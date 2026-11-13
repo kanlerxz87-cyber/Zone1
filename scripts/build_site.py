@@ -303,9 +303,9 @@ def p_exec(D) -> str:
     counts = {}
     for r in req:
         counts[r["status"]] = counts.get(r["status"], 0) + 1
-    dist = table(["Requirement", "Status", "Where it lives", "Note"],
+    dist = table(["Requirement", "Status", "Where it lives", "Note", "Source"],
                  [[f'<code>{esc(r["id"])}</code> {esc(r["requirement"])}', pill(r["status"]),
-                   esc(r["where"]), esc(r["note"])] for r in req])
+                   esc(r["where"]), esc(r["note"]), src(r["source"], esc(r["source_label"]))] for r in req])
     body = f"""
 <div class="card"><h3 style="margin-top:0">Conclusion</h3><p style="margin:0">{esc(a["headline"])}</p></div>
 <h2>What was established</h2><ul class="tight">{bullets}</ul>
@@ -342,8 +342,9 @@ def p_products(D) -> str:
         detail.append(
             f'<div class="card"><h3 style="margin-top:0">{esc(p["ref"])} · <code>{esc(p["supplied_token"])}</code></h3>'
             f'<p class="note">{esc(p["why_blank"])}</p>'
-            + table(["Field", "Value", "Status", "Basis"],
-                    [["product name", p["product_name"] or "— blank —", pill("unverified"), "no official page stated it"]])
+            + table(["Field", "Value", "Status", "Basis", "Source"],
+                    [["product name", p["product_name"] or "— blank —", pill("unverified"),
+                      "no official page stated it", src(p["direct_catalog_lookup"], "catalog lookup")]])
             + "</div>"
         )
     fields = ["product_name", "brand", "price", "currency", "rating", "review_count", "category",
@@ -353,11 +354,13 @@ def p_products(D) -> str:
         for f in fields:
             frows.append([esc(p["ref"]), f'<code>{esc(f)}</code>',
                           '<span class="pill blank">blank</span>' if p.get(f) in (None, "") else esc(p.get(f)),
-                          esc(p.get("blocker"))])
-    obs = table(["Link", "ASIN shown by the fallback page", "Chars", "Adopted as the operator's product?", "Why"],
+                          f'<a href="flagged.html#{esc(p.get("blocker"))}">{esc(p.get("blocker"))}</a>',
+                          src(p["direct_catalog_lookup"], "where it would come from")])
+    obs = table(["Link", "ASIN shown by the fallback page", "Chars", "Adopted as the operator's product?", "Why", "Source"],
                 [[esc(r["for_link"]), f'<code>{esc(r["asin"])}</code>', str(r["length"]),
                   '<span class="pill bad">no</span>',
-                  "reached through <code>lv=shuf</code> / <code>plpRedirect=mhFallback</code>, so it identifies nothing"]
+                  "reached through <code>lv=shuf</code> / <code>plpRedirect=mhFallback</code>, so it identifies nothing",
+                  src(r["source"], "that ASIN's page")]
                  for r in pr["candidate_asins_observed_by_other_session"]["rows"]])
     body = f"""
 <h2>Intake table</h2>
@@ -366,7 +369,7 @@ def p_products(D) -> str:
 <div class="alert"><b>Reading the blanks below.</b> A blank cell is a deliberate result, not unfinished work:
 the value was not stated by any official page, so it is left empty and flagged rather than estimated.</div>
 <h2>Per-product fields</h2>
-{table(["Ref", "Field", "Value", "Flag"], frows,
+{table(["Ref", "Field", "Value", "Flag", "Where it would come from"], frows,
        "Every field the brief asks the platform to analyse, for every product.")}
 {"".join(detail)}
 <h2>Candidate identifiers observed</h2>
@@ -418,10 +421,10 @@ def p_economics(D) -> str:
 <h2>The formula, with its missing input visible</h2>
 <div class="card"><p><code>{esc(e["formula"])}</code></p>
 <p class="note">Definition of the deduction set: {src(e["formula_source"], "Commission Income Statement §1")}</p></div>
-{table(["Input", "Owner", "Available in this build", "Why"],
+{table(["Input", "Owner", "Available in this build", "Why", "Source"],
        [[f'<code>{esc(i["input"])}</code>', esc(i["owner"]),
          '<span class="pill ok">yes</span>' if i["available_now"] else '<span class="pill bad">no</span>',
-         esc(i["why"])] for i in e["inputs"]])}
+         esc(i["why"]), src(i["source"], "rule")] for i in e["inputs"]])}
 <div class="alert"><b>Guard.</b> {esc(e["guard"])}</div>
 <div class="card"><b>Risk note.</b> {esc(e["risk_note"])}</div>
 <h2>Attribution windows</h2>{t(attr)}
@@ -433,10 +436,11 @@ def p_economics(D) -> str:
 
 def p_niche(D) -> str:
     n = D["analysis"]["niche_method"]
-    wrows = [[esc(x["factor"]), f'{x["weight"]:.2f}', esc(x["input_source"]), pill(x["status"])] for x in n["weights"]]
+    wrows = [[esc(x["factor"]), f'{x["weight"]:.2f}', esc(x["input_source"]), pill(x["status"]),
+              src(x["source"], "rule source")] for x in n["weights"]]
     body = f"""
 <p class="note">{esc(n["purpose"])}</p>
-{table(["Factor", "Weight", "Where the input comes from", "Status in this build"], wrows,
+{table(["Factor", "Weight", "Where the input comes from", "Status in this build", "Source"], wrows,
        "Weights are disclosed so a score can be reproduced or argued with.")}
 <div class="alert"><b>Refusal rule.</b> {esc(n["refusal_rule"])}</div>
 <h2>Why no niche is named as profitable</h2>
@@ -447,12 +451,23 @@ exactly the kind of unverified claim this brief excludes. The rubric is therefor
 the ranking empty.</p>
 <p class="note" style="margin:8px 0 0">{src(n["source"], "pricing and Program Content rules that constrain niche selection")}</p></div>
 <h2>Trend signal design</h2>
-{table(["Signal", "Source of truth", "Refresh", "Status"],
- [["Best Sellers / New Releases rank movement", "Amazon's own ranked pages", "daily", pill("needs account-free access review")],
-  ["Review-count velocity", "product page delta over time", "weekly", pill("needs storage of prior snapshot")],
-  ["Price movement", "approved pricing source only (CN-1)", "daily", pill("blocked: no PA-API credentials")],
-  ["Category saturation", "offer count per ASIN", "weekly", pill("blocked: no PA-API credentials")]],
- "Every signal is defined against a source that can actually be read; none is a model guess.")}"""
+{table(["Signal", "Source of truth", "Refresh", "Status in this build", "Source"],
+ [[esc(x["signal"]), esc(x["source_of_truth"]), esc(x["refresh"]), pill(x["status"]),
+   src(x["url"], "official page")] for x in n["signals"]],
+ "Every signal is defined against a page that can actually be read. None is a model guess, and none is populated from general knowledge.")}
+<h2>Collector proof — one real fetch</h2>
+<p class="note">{esc(D["analysis"]["collector_proof"]["why"])}</p>
+{table(["Rank on the page", "Product, titled by Amazon", "ASIN", "Chars", "Rating", "Reviews", "Price", "Source"],
+ [[esc(r["rank"]), f'<b>{esc(r["name"])}</b>', f'<code>{esc(r["asin"])}</code>', str(r["asin_length"]),
+   esc(r["rating"]) if r["rating"] else '<span class="pill blank">blank — not read</span>',
+   esc(r["reviews"]) if r["reviews"] else '<span class="pill blank">blank — not read</span>',
+   esc(r["price"]) if r["price"] else '<span class="pill blank">blank — not read</span>',
+   src(r["url"], "Amazon page")]
+  for r in D["analysis"]["collector_proof"]["rows"]],
+ f"Read from the live Best Sellers page on {esc(D['analysis']['collector_proof']['retrieved'])}; cells that were not read are blank, not estimated.")}
+<div class="alert"><b>Do not copy this table into a monetized page.</b> {esc(D["analysis"]["collector_proof"]["caveat"])}
+{src(D["analysis"]["collector_proof"]["caveat_url"], "CN-1")}</div>
+"""
     return page("Niche & trend method", "../", "pages/niche.html", body,
                 sub="The selection model, its disclosed weights, and the explicit reason no niche is declared profitable.")
 
@@ -461,8 +476,9 @@ def p_content(D) -> str:
     ce = D["analysis"]["content_engine"]
     body = f"""
 <h2>Outputs</h2>
-{table(["Content type", "Template", "Slots it fills", "State"],
-       [[esc(o["type"]), f'<code>{esc(o["template"])}</code>', esc(o["slots"]), pill(o["state"])] for o in ce["outputs"]])}
+{table(["Content type", "Template", "Slots it fills", "State", "Source"],
+       [[esc(o["type"]), f'<code>{esc(o["template"])}</code>', esc(o["slots"]), pill(o["state"]),
+         src(o["source"], "code")] for o in ce["outputs"]])}
 <h2>Invariants the generator cannot violate</h2>
 {table(["Rule", "Enforced by", "Source"],
        [[esc(i["rule"]), f'<code>{esc(i["enforced_by"])}</code>', src(i["url"])] for i in ce["invariants"]])}
@@ -490,12 +506,13 @@ def p_campaign(D) -> str:
     c = D["analysis"]["campaign_plan"]
     body = f"""
 <h2>Pipeline</h2>
-{table(["Stage", "Action", "Gate that must pass", "Status"],
-       [[esc(s["stage"]), esc(s["action"]), f'<code>{esc(s["gate"])}</code>', pill(s["status"])] for s in c["stages"]])}
+{table(["Stage", "Action", "Gate that must pass", "Status", "Source"],
+       [[esc(s["stage"]), esc(s["action"]), f'<code>{esc(s["gate"])}</code>', pill(s["status"]),
+         src(s["source"], "basis")] for s in c["stages"]])}
 <h2>What can be measured</h2>
-{table(["Metric", "How", "Status"],
+{table(["Metric", "How", "Status", "Source"],
        [[esc(m["metric"]), esc(m["how"]) + (f' — {esc(m["privacy"])}' if m.get("privacy") else ""),
-         pill(m.get("status", "available"))] for m in c["measurement"]["available"]])}
+         pill(m.get("status", "available")), src(m["source"], "rule")] for m in c["measurement"]["available"]])}
 <h2>What must not be measured</h2>
 {table(["Practice", "Rule", "Source"],
        [[esc(f["practice"]), f'<code>{esc(f["rule"])}</code>', src(f["url"])] for f in c["measurement"]["forbidden"]],
@@ -516,11 +533,12 @@ is wired into CI.</p></div>"""
 
 def p_automation(D) -> str:
     au = D["analysis"]["automation_architecture"]
+    repo = "https://github.com/kanlerxz87-cyber/Zone1/blob/main/"
     body = f"""
 <h2>Stages</h2>
-{table(["Stage", "Module", "Reads", "Writes", "Needs to run"],
-       [[f'<code>{esc(s["stage"])}</code>', f'<code>{esc(s["module"])}</code>', esc(s["reads"]), esc(s["writes"]), esc(s["needs"])]
-        for s in au["stages"]],
+{table(["Stage", "Module", "Reads", "Writes", "Needs to run", "Source"],
+       [[f'<code>{esc(s["stage"])}</code>', f'<code>{esc(s["module"])}</code>', esc(s["reads"]), esc(s["writes"]),
+         esc(s["needs"]), src(s["source"], "code")] for s in au["stages"]],
        "Every stage is idempotent: re-running it on unchanged input produces the same files.")}
 <h2>Credential contract</h2>
 <div class="card"><ul class="tight">{"".join(f"<li><code>{esc(c)}</code></li>" for c in au["credential_contract"])}</ul>
@@ -531,12 +549,12 @@ data on this site would be indistinguishable from research.</p>
 <h2>Non-goals</h2>
 <div class="card"><ul class="tight">{"".join(f"<li>{esc(x)}</li>" for x in au["non_goals"])}</ul></div>
 <h2>Repo layout</h2>
-{table(["Path", "Purpose"],
-       [["<code>data/*.json</code>", "single source of truth for every table cell on this site"],
-        ["<code>platform/</code>", "the engine: guards, resolver, scoring, generator, audit"],
-        ["<code>platform/tests/</code>", "33 regression tests, one per policy constraint that is enforced in code"],
-        ["<code>scripts/build_site.py</code>", "renders the site; fails if a page would ship without the disclosure"],
-        ["<code>scripts/ci-check.sh</code>", "test + audit + build + link check, run in CI and before every commit"]])}"""
+{table(["Path", "Purpose", "File"],
+       [["<code>data/*.json</code>", "single source of truth for every table cell on this site", src(repo + "data", "data/")],
+        ["<code>platform/</code>", "the engine: guards, resolver, scoring, generator, audit", src(repo + "platform", "platform/")],
+        ["<code>platform/tests/</code>", "33 regression tests, one per policy constraint that is enforced in code", src(repo + "platform/tests/test_platform.py", "test_platform.py")],
+        ["<code>scripts/build_site.py</code>", "renders the site; blocks the build if a page would ship without the disclosure", src(repo + "scripts/build_site.py", "build_site.py")],
+        ["<code>scripts/check_links.py</code>", "fails if any rendered table row lacks a source link", src(repo + "scripts/check_links.py", "check_links.py")]])}"""
     return page("Automation architecture", "../", "pages/automation.html", body,
                 sub="How the pipeline runs, what it refuses to do, and exactly which credentials unblock it.")
 
@@ -545,9 +563,9 @@ def p_requirements(D) -> str:
     req = D["requirements"]["requirements"]
     body = f"""
 <p class="note">{esc(D["requirements"]["rule"])}</p>
-{table(["#", "Requirement", "Status", "Where", "Evidence / note"],
+{table(["#", "Requirement", "Status", "Where", "Evidence / note", "Source"],
        [[f'<code>{esc(r["id"])}</code>', esc(r["requirement"]), pill(r["status"]),
-         esc(r["where"]), esc(r["note"])] for r in req],
+         esc(r["where"]), esc(r["note"]), src(r["source"], esc(r["source_label"]))] for r in req],
        "Decomposed from the brief: platform sentence, three products, and the five work orders.")}
 """
     return page("Requirements register", "../", "pages/requirements.html", body,
