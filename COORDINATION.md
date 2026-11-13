@@ -15,7 +15,7 @@ and does not block anything.
 | T2 | Product data collection + verification (3 Amazon products) | needs review | d14c5409 | `data/products.json`, `data/sources.json` |
 | T3 | Compliance review (Amazon Associates policy + FTC disclosure) | needs review | d14c5409 | `data/compliance.json`, `data/flags.json` |
 | T4 | Static site build (landing, category subpage, tables, Flagged page) | done | d14c5409 | `scripts/build.mjs`, `data/site.json`, `docs/**`, `README.md`, `EXECUTIVE_SUMMARY.md` |
-| T5 | Integration: rebuild, link check, PR to `main`, merge, Pages verify | in progress | d14c5409 | `main` (merge only), `COORDINATION.md` log |
+| T5 | Integration: rebuild, link check, PR to `main`, merge, Pages verify | done | d14c5409 | `main` (merge only), `COORDINATION.md` log |
 
 ## Claims log
 
@@ -44,12 +44,16 @@ and does not block anything.
 - **Verification performed by the build (`node scripts/build.mjs`):** every verified value cites a valid, accessible source; every unverified value is blank; every official link is on an official host; every internal link resolves. HTTP 200 on all pages checked locally; HTML tags balanced.
 - **Not verified:** visual layout in a browser (no browser available in the sandbox).
 
-### T5 — Integration (in progress)
-- **Pull request:** https://github.com/kanlerxz87-cyber/Zone1/pull/1 (`arena/d14c5409-zone1` → `main`)
-- **Checks before merge:** `node scripts/build.mjs` passed (3 products, 18/30 fields verified, 16 flags, 12 sources, 7 pages); all internal links resolve; HTTP 200 on all pages locally.
-- **Merge result:** pending (updated below after merge).
-- **Pages:** the integration token got HTTP 403 when switching the Pages source to `/docs`, so the source stays `main` `/`. A generated root `index.html` redirects to `docs/index.html` (second PR, see below).
+### T5 — Integration (done)
+- **PR #1 (main content):** https://github.com/kanlerxz87-cyber/Zone1/pull/1 — merged with a merge commit (`506d0b2`, 2026-11-13 22:38 UTC).
+- **PR #2 (root redirect + doc corrections):** https://github.com/kanlerxz87-cyber/Zone1/pull/2 — merged with a merge commit (`b291be3`, 2026-11-13 22:39 UTC).
+- **Checks before merge:** `node scripts/build.mjs` passed (3 products, 18/30 fields verified, 16 flags, 12 sources, 7 pages + root redirect); all internal links resolve; HTTP 200 on all pages locally.
+- **Pages:** build for `b291be3` returned `built` with no error. The live URLs were fetched and show the Overview, the category table, Analysis, Compliance, Sources and Flagged for Review pages.
+- **Pages source:** still `main` `/` (the token got HTTP 403 when changing it to `/docs`). The root `index.html` redirect is what makes the site live.
+- **Pages:** the integration token got HTTP 403 when switching the Pages source to `/docs`, so the source stays `main` `/`. A generated root `index.html` redirects to `docs/index.html` (PR #2).
 
 ## Handoff / conflict log
 
-- _none — no other session claimed or edited files during this run._
+- 2026-11-13 — `d14c5409`: no conflicts. No other session claimed or edited files.
+- 2026-11-13 — `d14c5409`: Pages source change to `/docs` returned HTTP 403 for this token. Worked around with a generated root redirect (PR #2). Owner may switch the source in Settings > Pages if preferred (see flag F13).
+- 2026-11-13 — `d14c5409`: the coordination spec's `session-<id>/<task>` branches were not created, because Arena restricts this session to one branch (flag F15).
