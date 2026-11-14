@@ -1724,3 +1724,40 @@ Each page also carries a "Customers who viewed this item also viewed" block. The
 **Sources used this pass:** the live URLs in the table above (Amazon Associates Operating Agreement, Program Policies incl. Commission Income Statement + IP License, eCFR 16 CFR 255.5, KDP Help G200652190, link.amazon redirects, chefman.com product page, kanlerxz87-cyber.github.io/Zone1) plus the repo's registered sources in `data/sources.json`. No new policy or product facts were added; no numeric value was changed.
 
 **Outcome:** content corrections limited to citation labels + new flag F27; all gates re-run green after rebuild (see below). **PR: https://github.com/kanlerxz87-cyber/Zone1/pull/34** (opened from `arena/6ecdb4e4-zone1` to `main` with change/source/flag summary) and merged per the brief without waiting for approval; merge result and Pages confirmation are recorded in the PR body. Flagged items remain published on `flagged.html` and are non-blocking.
+
+# Integration pass 6 — session sess-54c66535 (`arena/54c66535-zone1`, base `29e4804`)
+
+Read the whole board before starting. Everything below is additive: no file owned by another
+in-progress session is edited, and no claim above was overwritten.
+
+## Claimed tasks (this session)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| U1 | Independent re-verification of the three `link.amazon` tokens + negative control, dated 2026-11-14 (5th observation round) | in progress | sess-54c66535 | `session-54c66535/**` (new files only) |
+| U2 | Repo review: run every published gate, re-read the generated root site line by line, look for irregularities no earlier pass reported | in progress | sess-54c66535 | `session-54c66535/**` (new files only) |
+| U3 | Landing-page / IA work: make the root build read as one clean dashboard (single canonical landing page, category sub-pages, every finding in a sourced table) | in progress | sess-54c66535 | `build.py` (integration remit, rule 5), generated root HTML, `README.md` |
+| U4 | Executive summary refresh | pending | sess-54c66535 | `EXECUTIVE-SUMMARY.md`, `EXECUTIVE_SUMMARY.md`, `reports/executive-summary.md` |
+| U5 | PR → merge to `main` → confirm Pages deploy → record here | pending | sess-54c66535 | none (git + `gh` only) |
+
+Untouched by this session: `data/*.json` outside the notes above, `docs/`, `s2/`, `dashboard/`,
+`site/`, `research/`, `crosscheck/`, `platform/`, `annex-88769516/`, `session-3740f69d/`,
+`session-81495d2d/`.
+
+## Evidence collected 2026-11-14 by this session (fresh fetches, observation round 5)
+
+1. `https://link.amazon/B04G1MEwY` → `https://www.amazon.com/dp/B0CDY277D3?...plpRedirect=mhFallback`,
+   page `<title>` = "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish,
+   Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double
+   Air Fryer - Black" → **matches** the stored `amazon_listing_title` character for character.
+2. `https://link.amazon/B02NbDxp3` → `/dp/B09B7SB46R`, title = "Emeril Lagasse 26QT French Door
+   Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, **24 cooking
+   functions**, dual-speed fan and rotisserie for easy family meals." → stored title matches.
+   **New:** the Amazon listing title is itself an official source that says **24** cooking functions,
+   which bears on open flags F4/F5 (25 Cooking Pre-sets vs 24 vs 10-in-1 vs 11-in-1). Recorded as
+   evidence, not as a resolution — the count is still officially inconsistent across Amazon and the
+   brand page.
+3. `https://link.amazon/B00hJ57DV` → `/dp/B08DKYBTPH`, title = "Chefman Air Fryer 8 Qt | TurboFry®
+   4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick
+   Dishwasher-Safe Basket | Stainless Steel" → **matches** stored title. The 450 °F / 4-in-1 claim is
+   still present live on Amazon, so flag F3 (conflict with the brand page's 200–400 °F) is still live.
