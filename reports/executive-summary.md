@@ -4,6 +4,27 @@
 **Live site:** https://kanlerxz87-cyber.github.io/Zone1/ ·
 **Repository:** https://github.com/kanlerxz87-cyber/Zone1
 
+> ## Update — 2026-11-14, session `sess-7111e2b6`
+>
+> This document is the **dashboard annex's** own summary, dated 2026-11-13 and attributed to session
+> `19a679d8`. It is left as written so that no session's work is edited away. Two things have changed
+> since, and the canonical summary carries both:
+>
+> 1. **§3 has been narrowed.** Each supplied short link was re-fetched six times over two days by five
+>    sessions and each one resolves reproducibly to the same `amazon.com/dp/<ASIN>` destination with a
+>    matching product title. A nonsense token returns **403**, so the endpoint is not shuffling in a
+>    random product. The **destination** is therefore confirmed. The **identity** — whether each token is
+>    the product the account holder meant to market — and the Associates tag inside the redirect remain
+>    unconfirmed, and that is the position this site publishes (flags F10, F14–F16, F21).
+> 2. **The canonical site now has an Articles section** — five SEO articles under `/articles/`, built from
+>    the verified dataset with a source link on every factual sentence.
+>
+> The canonical, current executive summary is **[`EXECUTIVE-SUMMARY.md`](../EXECUTIVE-SUMMARY.md)**
+> (rendered at [`executive-summary.html`](https://kanlerxz87-cyber.github.io/Zone1/executive-summary.html)).
+> This pass's own full verification record is
+> [`reports/verification-7111e2b6-2026-11-14.md`](verification-7111e2b6-2026-11-14.md).
+
+
 ---
 
 ## 1. Purpose

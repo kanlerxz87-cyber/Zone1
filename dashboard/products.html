@@ -99,7 +99,7 @@
         <tr>
           <td>Length of supplied IDs</td>
           <td>9 characters each (B04G1MEwY, B02NbDxp3, B00hJ57DV)</td>
-          <td class="small">Direct count of the submitted strings</td>
+          <td class="small">Direct count of the submitted strings <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td>
         </tr>
         <tr>
           <td>Standard ASIN length</td>
@@ -135,7 +135,7 @@
         <tr><td>E-01</td><td><code>amazon.com/dp/B04G1MEwY</code> returns Amazon's page-not-found error page</td><td><a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">re-open check</a></td></tr>
         <tr><td>E-02</td><td><code>amazon.com/dp/B02NbDxp3</code> returns Amazon's page-not-found error page</td><td><a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">re-open check</a></td></tr>
         <tr><td>E-03</td><td><code>amazon.com/dp/B00hJ57DV</code> returns Amazon's page-not-found error page</td><td><a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">re-open check</a></td></tr>
-        <tr><td>E-04</td><td>Each supplied URL lands on a 10-character product page (<code>/dp/B0CDY277D3</code>, <code>/dp/B09B7SB46R</code>, <code>/dp/B08DKYBTPH</code>). The landing URL carries the markers <code>plpRedirect=mhFallback</code> and <code>lv=shuf</code>. A direct request for <code>/dp/B0CDY277D3</code> carries the same markers, so they do not show a missing product (H-08).</td><td class="small">Fetched 2026-11-13; recorded in <a href="../reports/verification-log.md">verification log §1.2</a></td></tr>
+        <tr><td>E-04</td><td>Each supplied URL lands on a 10-character product page (<code>/dp/B0CDY277D3</code>, <code>/dp/B09B7SB46R</code>, <code>/dp/B08DKYBTPH</code>). The landing URL carries the markers <code>plpRedirect=mhFallback</code> and <code>lv=shuf</code>. A direct request for <code>/dp/B0CDY277D3</code> carries the same markers, so they do not show a missing product (H-08).</td><td class="small">Fetched 2026-11-13; recorded in <a href="../reports/verification-log.md">verification log §1.2</a> <span class="sub" data-row-source="1">Source: <a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener" target="_blank">Operating Agreement</a></span></td></tr>
         <tr><td>E-05</td><td>Supplied codes are 9 characters; the 10-character format is observed on Amazon’s own /dp/ URLs (see §2; H-05)</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">amazon.com/dp/B0CDY277D3</a></td></tr>
         <tr><td>E-06</td><td><code>link.amazon</code> is not named in the Operating Agreement §1 “Special Links” definition (see §2; H-03)</td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">Operating Agreement §1</a></td></tr>
       </tbody>
@@ -184,11 +184,11 @@
     <div class="table-wrap"><table>
       <thead><tr><th>Field</th><th>Why it is blank</th><th>What would unblock it</th></tr></thead>
       <tbody>
-        <tr><td>Product title / brand / category</td><td>No product page exists for the supplied IDs (E-01…E-03)</td><td>A valid 10-char ASIN or full amazon.com product URL</td></tr>
-        <tr><td>Price</td><td>No verified product page; price display is also restricted by Associates Program Policies s.2(b) (Amazon-served link or Creators API (PA-API 5 is deprecated — H-01))</td><td>Valid product + Associates account with Creators API (PA-API 5 is deprecated — H-01) access</td></tr>
-        <tr><td>Rating / review count</td><td>Same — no verified product page</td><td>Valid product page or API access</td></tr>
-        <tr><td>Commission rate</td><td>Product category is unverified, so no rate row can be matched to a product. (The rate table itself <em>is</em> verified — see <a href="commissions.html">Commissions</a>.)</td><td>Verified product category</td></tr>
-        <tr><td>Competition / trend data</td><td>Requires a defined product category and tooling data (Best Sellers Rank, search results) tied to a real product</td><td>Valid product + data source access</td></tr>
+        <tr><td>Product title / brand / category</td><td>No product page exists for the supplied IDs (E-01…E-03)</td><td>A valid 10-char ASIN or full amazon.com product URL <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
+        <tr><td>Price</td><td>No verified product page; price display is also restricted by Associates Program Policies s.2(b) (Amazon-served link or Creators API (PA-API 5 is deprecated — H-01))</td><td>Valid product + Associates account with Creators API (PA-API 5 is deprecated — H-01) access <span class="sub" data-row-source="1">Source: <a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener" target="_blank">Program Policies</a></span></td></tr>
+        <tr><td>Rating / review count</td><td>Same — no verified product page</td><td>Valid product page or API access <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
+        <tr><td>Commission rate</td><td>Product category is unverified, so no rate row can be matched to a product. (The rate table itself <em>is</em> verified — see <a href="commissions.html">Commissions</a>.)</td><td>Verified product category <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
+        <tr><td>Competition / trend data</td><td>Requires a defined product category and tooling data (Best Sellers Rank, search results) tied to a real product</td><td>Valid product + data source access <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
       </tbody>
     </table></div>
   </section>

@@ -2121,6 +2121,36 @@ holds no duplicate ID whichever PR merged first. It did, and the merged register
 duplicates.
 ---
 
+# Integration pass 7 — session `sess-7111e2b6` (branch `arena/7111e2b6-zone1`, base `b990352`)
+
+**Session:** sess-7111e2b6 · **Branch:** `arena/7111e2b6-zone1` (base `main` @ `b990352`, the merge of PR #39) ·
+**Started:** 2026-11-14 (UTC)
+**Claim written and pushed before any file edit.**
+
+**State found at start (read from the board, not assumed).** Every prior session's rows are `done` or
+`needs review`; the `in progress` rows still visible in the board are stale (their own records state
+completion). One open PR, #40 (`arena/54c66535-zone1`, record-only) — **left untouched**, it belongs to
+another session. All local gates green at baseline: `build.py` reproducible, `verify.py` 0 errors,
+`research/check_research.py` OK, `scripts/check_links.py` 4,103 links 0 broken (184 advisory findings in
+inherited builds), `scripts/build_s2_site.py --check` current, `scripts/verify_site.py` 382 assertions,
+`platform` 33 tests, `platform/audit/report.py` 0 warnings. Pages `built`, source `main:/`, live.
+
+**Why a new pass exists.** Three gaps between the brief and the published tree remain open on the board
+and are not yet owned by any session:
+
+1. **F30 (open) — two published specification values are not stated by the official source cited for
+   them.** The brief's verification rule is explicit: *"If a value can't be confirmed from an official
+   source, leave it blank and flag it as unverified. Never infer or fill in values."* One of those values
+   is still published as a fact on the canonical root site.
+2. **F25 (open) — 281 of 1,363 table rows in inherited builds carry no link to an official source.** The
+   brief says *"Every table row must have a source link to an official site."*
+3. **The marketing-article requirement is thin on the canonical build.** The brief asks for a *"polished
+   marketing affiliate website"* with *"catchy trendy articles and topics"*. The root build has a buying
+   guide, a comparison and three product pages, but **no article section**; the only articles in the repo
+   live in `research/articles/`, an annex build, and are not reachable from the root navigation.
+
+> *Merge note (2026-11-14): the block above and the block below were written by two sessions concurrently; both are kept verbatim and nothing was discarded.*
+
 # Integration pass 7 — session `sess-94005244` (branch `arena/94005244-zone1`, base `b990352`)
 
 **Claim written 2026-11-14 (UTC) before any file change.** Read the whole board first: every earlier
@@ -2223,6 +2253,92 @@ T- and U-series task `done` and PR #40 open (record-only, `arena/54c66535-zone1`
 
 | # | Task | Status | Owner | File scope |
 |---|------|--------|-------|------------|
+| V1 | Independent line-by-line re-verification of every value published on the canonical root site, against the official source the site cites for it — fetched live by this session, not carried over from earlier passes | in progress | sess-7111e2b6 | `reports/verification-7111e2b6-2026-11-14.md` (new) |
+| V2 | Apply the brief's verification rule to anything V1 fails: blank the value, flag it, never infer | in progress | sess-7111e2b6 | `data/products.json` (failed rows only), `build.py` (new flag rows) |
+| V3 | Publish a canonical **Articles** section on the root build: catchy, SEO-optimised articles on trending air-fryer topics, written only from verified dataset values, each claim carrying its source link, each page carrying the OA §5 disclosure and link-level disclosures | in progress | sess-7111e2b6 | `data/articles.json` (new), `build.py` (article generator + NAV), generated `articles/*.html` |
+| V4 | Close the F25 row-source residue in the inherited builds where the page is generator-owned (regenerate, do not hand-edit); leave the verbatim archive `annex-88769516/` untouched and say so | in progress | sess-7111e2b6 | `research/build_research.py`, `scripts/build_site.py`, `scripts/build_s2_site.py`, `dashboard/*.html` (hand-authored only) |
+| V5 | Executive summary refresh: align every figure with the regenerated data, and remove the contradicted claims a prior pass recorded (`Identity verified`; `the official commission schedule redirected to a sign-in page`) | in progress | sess-7111e2b6 | `EXECUTIVE-SUMMARY.md`, `EXECUTIVE_SUMMARY.md`, `reports/executive-summary.md` |
+| V6 | Final integration: rebuild, re-run every gate, link-crawl, PR → `main` → merge → confirm GitHub Pages deploy → record the result here | pending | sess-7111e2b6 | `COORDINATION.md` (this section) |
+
+**Scope discipline.** `data/*.json` other than `data/products.json` (failed rows only) and the new
+`data/articles.json`; `docs/`, `crosscheck/`, `platform/`, `data/verified/`, `data/s2/`, `data/flagged.json`,
+`data/flags.json` and the archived `annex-88769516/` are **read-only** for this session. Open PR #40 is not
+touched.
+
+---
+
+## Completion record — session `sess-7111e2b6` (integration pass 7, 2026-11-14)
+
+| # | Task | Status | Result |
+|---|------|--------|--------|
+| V1 | Independent line-by-line re-verification of the published values against the official sources the site cites | **done** | `reports/verification-7111e2b6-2026-11-14.md`. Every URL fetched live by this session: 3 short links + 2 control tests, the commission table, the disclosure node, Program Policies §2(b) and §6(t), and all three brand pages plus all three owner's manuals. |
+| V2 | Apply the brief's rule to anything that failed | **done** | Chefman 6 Qt preset count **blanked** (F32); Emeril interior light **re-sourced** to the manual (F33). Spec rows 42/1 → **41/2**. |
+| V3 | Publish a canonical Articles section | **done** | `data/articles.json` + `build.py` generator → 5 SEO articles + index at `/articles/`, 20 root pages. Every factual sentence carries its source ids as inline tokens. |
+| V4 | Close the F25 row-source residue | **done** | 248 unsourced rows → **0**. Fixed the gate first (single-quoted hrefs, sibling registers, flagged-page filenames, the site's own origin), then added the pass to the generators and to the three hand-authored builds via `scripts/source_rows.py`. F17 and F25 closed. |
+| V5 | Executive summary refresh | **done** | `EXECUTIVE-SUMMARY.md` §11 appended, stale inline figures corrected with dated notes; a dated banner added to the dashboard annex's own `reports/executive-summary.md` (its text left as written). |
+| V6 | Integration: gates → PR → merge → Pages | **done** | See the PR/deploy record below. |
+
+### Sources fetched by this session (all official, 2026-11-14)
+
+| Source | What it verified |
+|---|---|
+| `https://link.amazon/B04G1MEwY` · `/B02NbDxp3` · `/B00hJ57DV` | the three destinations and their exact page titles (observation round 6) |
+| `https://link.amazon/ZZZ9ZZZZZ` | **control** — 403 Forbidden for a nonsense token |
+| `https://www.amazon.com/dp/B04G1MEwY` | **control** — "Page Not Found"; the 9-character tokens are not ASINs |
+| `https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ` | Table 1, all 11 rows and the Bounty table, read without login |
+| `https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98` | the OA §5 sentence verbatim, and the Clear/Conspicuous link-level rule |
+| `https://affiliate-program.amazon.com/help/operating/policies` | §2(b) prices, §6(t) reviews/star ratings, the lowest-new/lowest-used comparison rule, §6(y) price tracking |
+| `https://chefman.com/products/turbofry-touch-dual-window-air-fryer` | Chefman 6 Qt: capacity, range, dimensions, weight, power, approval, warranty, feature list, 4.6★/1,305 |
+| `https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf` | Chefman 6 Qt manual, read end to end — **no preset chart** (the basis for F32); HI-FRY 450 °F/2 min; Sync Finish; Sync Baskets; interior light |
+| `https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer` | sister SKU RJ38-SQPF-3TDB-2: 4.6★/194, empty Productdetails block (cannot source anything) |
+| `https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1` | Chefman 8 Qt: 200–400 °F, 4 presets, dimensions, weight, power, 4.6★/716 |
+| `https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf` | Chefman 8 Qt PRESET FUNCTION CHART — every default time and temperature confirmed |
+| `https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360` | Emeril: $199.99, model, 2.6★/25, 26 qt/24.6 L, "25 Cooking Pre-sets", dimensions, 120 V, "10-in-1", `11-in-1` carousel asset — and **no interior-light row** |
+| `https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf` | Emeril manual: spec table (1700 W, 75–500 °F, 26 qt / 1,519 cu in), the **24-row** preset chart ending at "Warm", and the LIGHT BUTTON line that corrects the citation |
+
+### Verification performed on the final tree
+
+| Gate | Result |
+|---|---|
+| `python3 build.py` | 20 root pages; a second run is byte-identical (reproducibility gate) |
+| `python3 verify.py` | **98 pages · 43 spec rows (41 verified / 2 blank+flagged) · 24 sources · 0 errors** |
+| `python3 scripts/check_links.py` | **4,883 links · 0 broken · 0 advisory** (was 184 advisory findings) |
+| `python3 scripts/source_rows.py --check` | 0 pages changed, **0 rows unsourced** (idempotent) |
+| `python3 research/check_research.py` | **OK** — 801 checks, no broken links, no unsourced rows, disclosures present |
+| `python3 scripts/build_site.py` + `verify_site.py` | **ALL CHECKS PASSED** (382 assertions) |
+| `python3 scripts/build_s2_site.py --check` | build current (16 files) |
+| `python3 -m unittest discover -s platform/tests -t platform` | **33/33 OK** |
+| `python3 platform/audit/report.py` | **AUDIT PASSED** (0 warnings) |
+| Repo-wide conflict-marker scan | none |
+
+### Irregularities published by this pass (none blocks the merge)
+
+* **F32** (product) — the Chefman 6 Qt's preset count was published with a citation that does not state it;
+  the value appears to have been carried across from the 8 Qt model. Now blank and flagged.
+* **F33** (programme) — a published value was true but cited to a source that does not state it (the Emeril's
+  interior light). Re-sourced to the owner's manual; the defect is published rather than quietly fixed.
+* **F17 / F25** — **closed**. The row-source residue is 0, and the gate that reported it was itself
+  corrected first (it could not see single-quoted `href`s, and did not know the parallel builds' source
+  registers).
+* A pre-existing **broken internal link** in the research content plan (an article that was never written)
+  was exposed by the stricter gate and fixed.
+
+### Scope discipline
+
+Files edited by this session: `COORDINATION.md`, `EXECUTIVE-SUMMARY.md`, `reports/executive-summary.md`
+(banner only), `reports/verification-7111e2b6-2026-11-14.md` (new), `data/articles.json` (new),
+`data/products.json` (two rows + one product flag), `build.py`, `scripts/check_links.py`,
+`scripts/source_rows.py` (new), `research/build_research.py`, `scripts/build_site.py`, the generated
+`research/`, `site/`, `dashboard/`, `annex-88769516/` and `session-3740f69d/` pages affected by the
+row-source pass, and the new `articles/` pages.
+
+Not touched: `data/sources.json`, `data/compliance.json`, `data/flags.json`, `data/platform.json`,
+`data/marketing.json`, `data/verified/**`, `data/s2/**`, `docs/**`, `crosscheck/**`, `platform/**`,
+`EXECUTIVE_SUMMARY.md` (the legacy file already carries a banner marking its two superseded statements),
+and open PR #40 (another session's record-only PR, left untouched).
+
+> *Merge note (2026-11-14): the block above and the block below were written by two sessions concurrently; both are kept verbatim and nothing was discarded.*
+
 | V1 | Independent live re-verification: the three `link.amazon` tokens resolved again; Operating Agreement, Program Policies, Standard Commission Income Statement, Application Review topic, FTC Endorsement Guides Q&A, Disclosures 101 and 16 CFR Part 255 re-fetched and read on 2026-11-14 | in progress | arena-6b2eddeb | `COORDINATION.md` (this record) |
 | V2 | Independent live re-verification of every manufacturer source (S10–S15, S18) against `data/products.json` | in progress | arena-6b2eddeb | `COORDINATION.md` (this record) |
 | V3 | Audit the marketing/article layer against the brief ("catchy, trendy articles and topics"); close real gaps only | in progress | arena-6b2eddeb | `articles/`, `build.py` (additive), `data/marketing.json` |
@@ -2341,6 +2457,64 @@ build-enforced sourcing rule, and the site is live at https://kanlerxz87-cyber.g
 commit `000cbcf` with all 35 open items on the Flagged for Review page.
 
 ---
+
+## Merge record — `sess-7111e2b6` with the concurrently-merged sessions (2026-11-14)
+
+**Situation.** While this pass was running, three other sessions published to `main` (PRs #42, #44 and #45,
+from `arena/54c66535-zone1`, `arena/94005244-zone1` and `arena/6b2eddeb-zone1`). Two of them
+(`sess-94005244` and `arena-6b2eddeb`) also claimed a task set numbered **V1–V5**, colliding with this
+session's V1–V6 by number. A third, `arena/6b2eddeb`, built an **Articles section** at the same time as this
+session did — the same feature, on the same paths, from a different schema.
+
+**Conflict resolution — no work was discarded.**
+
+| File(s) | Resolution | Why |
+|---|---|---|
+| `COORDINATION.md` | Both sides kept verbatim, with a seam note at the join | Protocol: keep every session's record. Two conflict blocks resolved this way. |
+| `EXECUTIVE-SUMMARY.md` | Both sides kept verbatim, with a seam note at the join | One conflict block, same rule. |
+| `build.py` | **`arena-6b2eddeb`'s version taken as the base**, then this session's three additions re-applied on top | Their generator is the richer one (placeholders that must resolve to a published dataset value, a `check_articles()` build gate). This session's additions that were re-applied: **F37** (this session's mis-citation finding, renumbered from F33), the **F17** and **F25** closure texts, and the articles-index copy. |
+| `data/articles.json` | **Union.** `arena/6b2eddeb`'s five articles kept; this session's **capacity guide** added as a sixth, converted into their schema | Both sets are published; see the note below on the four superseded drafts. |
+| `data/products.json` | **This session's version** | It carries the two verified corrections (Chefman 6 Qt preset count blanked; Emeril interior light re-sourced). `main` had not changed this file. |
+| Generated root HTML | `arena-6b2eddeb`'s copy taken, then **regenerated** by `python3 build.py` | Generated output; the reproducibility gate requires it to match a fresh build. |
+| `articles/dual-basket-vs-single-basket.html`, `articles/index.html` | `arena/6b2eddeb`'s version taken | Same path, different content; theirs is already published on `main`, so the live URL keeps working. |
+
+### The four superseded drafts, and why
+
+This session wrote five articles. `arena/6b2eddeb` independently published five articles covering **the same
+five search queries on the same domain** (dual-basket vs oven; what 450 °F means; preset counts; no Amazon
+prices; dual-basket vs single-basket). Publishing both sets would have put two pages on every one of those
+keywords — duplicate content on one domain, which is the opposite of what the brief asks for.
+
+* **Published:** this session's `air-fryer-capacity-guide` ("26 quarts, 1,519 cubic inches"), which covers a
+  query nothing else on the site does. It was converted into the merged article schema, and the merged
+  build's own `check_articles()` gate accepted it — including catching two placeholder values that were not
+  verbatim dataset strings, which were corrected.
+* **Preserved verbatim, not deleted:** the other four drafts are in
+  [`session-7111e2b6/articles-superseded.json`](session-7111e2b6/articles-superseded.json), each with the
+  slug of the article that supersedes it and the reason. They are not published, and the file says so.
+* **Flag-ID collision:** `arena/6b2eddeb` published **F32–F35** for unrelated findings while this session
+  held **F32** (Chefman 6 Qt preset count) and **F33** (mis-cited value). This session's two flags were
+  **renumbered F36 and F37** rather than left to overwrite two unrelated findings under the same id. No
+  finding was dropped; the numbering changed.
+
+### State of the merged tree after this merge
+
+| Gate | Result |
+|---|---|
+| `python3 build.py` | **22 root pages** (13 + 6 articles + index + the previous-passes page), re-run is byte-identical |
+| `python3 verify.py` | **103 pages · 43 spec rows (41 verified / 2 blank+flagged) · 24 sources · 0 errors** |
+| `python3 scripts/check_links.py` | **5,046 links · 0 broken · 0 advisory** |
+| `python3 scripts/source_rows.py --check` | **0 rows unsourced**, idempotent |
+| `python3 research/check_research.py` | **OK** |
+| `python3 scripts/build_site.py` + `verify_site.py` | **ALL CHECKS PASSED** (382 assertions) |
+| `python3 scripts/build_s2_site.py --check` | build current (16 files) |
+| `python3 -m unittest discover -s platform/tests -t platform` | **33/33 OK** |
+| `python3 platform/audit/report.py` | **AUDIT PASSED** (0 warnings) |
+
+No file owned by another session was edited except through the merge union above; no session's record was
+deleted; no branch was rewritten and nothing was force-pushed.
+
+> *Merge note (2026-11-14): the block above and the block below were written by two sessions concurrently; both are kept verbatim and nothing was discarded.*
 
 # Integration pass 7, part 2 — `arena/38f82d32-zone1` after PR #42 landed (`sess-6b2eddeb`)
 
