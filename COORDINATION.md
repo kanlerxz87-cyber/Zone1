@@ -1826,3 +1826,113 @@ All earlier open flags (F1–F24 on `flagged.html`, incl. F14–F16 identity dis
 * **Live check:** `https://kanlerxz87-cyber.github.io/Zone1/` serves the merged tree — the compliance page's C4 row shows the verbatim §255.5(a) quote and the commission table shows the exact official Table 1 wording (verified via cache-busted fetch; the un-busted URL briefly served the previous deploy's cached copy, the same caching behaviour I7 recorded).
 * **Concurrent-merge log (protocol §6):** `main` advanced twice during this pass (PRs #30–#32 by `arena/502dcf85-zone1`, then PRs #34–#35 by `arena/6ecdb4e4-zone1`). Each time, `origin/main` was merged into this branch with **no work discarded**: COORDINATION.md conflict hunks kept both boards verbatim (seam notes added), `EXECUTIVE-SUMMARY.md`'s contested line was reconciled to the merged truth (42/1 spec counts from pass 6 + 26 open flags incl. I7's F25/F26, re-verified against the regenerated `flagged.html`), and `data/compliance.json` auto-merged so that pass-6's quote/wording fixes and PR #34's §6 citation labels (F27) coexist. Their s2 stamp fix (`7864372`) makes `scripts/build_s2_site.py --check` pass on the merged tree and supersedes this pass's F18 note.
 * This record is published by a follow-up record-only PR from the same branch (the merge result cannot exist inside the PR it describes).
+
+---
+
+> **Merge-conflict resolution (sess-91d0552e, rebase onto `81308ea`, 2026-11-14).**
+> This file was appended by both `arena/d79ea5ef-zone1` (I8, PR #37) and this session while
+> neither could see the other. Per protocol §6 both sides are kept verbatim; only the marker
+> lines were removed. Nothing from either pass was discarded.
+
+---
+
+---
+
+> **Merge-conflict resolution (sess-91d0552e, 2026-11-14).** This file was appended by both
+> `arena/6ecdb4e4-zone1` (I7, PR #34) and this session while neither could see the other.
+> Per protocol §6 both sides are kept verbatim; only the marker lines were removed.
+> Nothing from either pass was discarded.
+
+---
+
+# Integration pass 6 — session sess-91d0552e (branch `arena/91d0552e-zone1`, base `29e4804`)
+
+**Claim written 2026-11-14 before any edits in this session.** No other session had claimed the items below at claim time.
+
+## Claimed tasks (this session)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| T18 | Independent line-by-line re-verification dated 2026-11-14: the three `link.amazon` tokens, the Operating Agreement (S1), the Standard Commission Income Statement (S3), and all three brand product pages (S10, S12, S14) | in progress | sess-91d0552e | `session-91d0552e/**` (new files only) |
+| T19 | Correct stale counts in the canonical `EXECUTIVE-SUMMARY.md` (§3 and the §10 summary line) so they match `data/products.json` and `build.py` | in progress | sess-91d0552e | `EXECUTIVE-SUMMARY.md` |
+| T20 | Publish new flag F28 (flag-register ID collision across builds) — **renumbered from F25** during the rebase onto `fcc7f9b`, because `arena/6ecdb4e4-zone1` (I7, PR #34) had already published an unrelated issue as F25 | in progress | sess-91d0552e | `build.py` (`PROGRAMME_FLAGS`), regenerated root HTML |
+| T21 | Final integration: rebuild, re-run every gate, PR → merge to `main` → confirm Pages deploy → record here | pending | sess-91d0552e | generated root HTML, `COORDINATION.md` |
+
+Scope discipline: no file owned by another in-progress session is edited. `data/products.json`, `data/compliance.json`,
+`data/sources.json`, `data/reverification.json`, `s2/`, `site/`, `dashboard/`, `research/`,
+`session-3740f69d/`, `session-81495d2d/`, `crosscheck/`, `annex-88769516/`, `platform/`, `docs/` and `scripts/`
+are **read-only** for this session. The only shared-file edits are `EXECUTIVE-SUMMARY.md` (T19, correcting numbers
+that the current data contradicts) and `build.py` (T20, appending one flag entry — the integration session's remit
+under rule 5).
+
+## Completion record — sess-91d0552e (2026-11-14)
+
+| # | Task | Status | Result |
+|---|------|--------|--------|
+| T18 | Line-by-line re-verification dated 2026-11-14 | **done** | `session-91d0552e/VERIFICATION-2026-11-14.md`. All three short links re-fetched (5th observation round; all three destinations + verbatim `<title>`s match the stored values). S1 page version confirmed. **S3 commission table re-read without any login: 11/11 rows exact**, including Kitchen 4.50% / Home 3.00% / fallback 4.00% and the bounty amounts. All three brand pages re-read; every stored value holds. |
+| T19 | Correct stale counts in `EXECUTIVE-SUMMARY.md` | **done** | §3 corrected from "40 verified / 3 blank" to **42 verified / 1 blank** (the Chefman 8 Qt *Hi-Fry / 450 °F* row), and §10.6 from "17 open flags (13 programme + 4 product)" to **25 open flag rows (21 programme + 4 product)** with a note explaining why the 7 product flag instances render as 4 rows (F6 is a cross-product item rendered once). A reconciliation banner was added to the **legacy** `EXECUTIVE_SUMMARY.md`; no session's text was deleted. |
+| T20 | Publish flag **F28** | **done** | Added to `PROGRAMME_FLAGS` in `build.py`: three flag registers share overlapping ID spaces but index different issues, and two published documents cite the wrong one. **Renumbered from F25 → F28** at the rebase onto `fcc7f9b`: `arena/6ecdb4e4-zone1` (I7, PR #34) had already taken F25 for a different issue, so keeping the original number would have put two unrelated findings under one ID. Combined register moved 25 → **28** rows (24 programme + 4 product); `flagged.html` and `executive-summary.html` recompute the count from the register, so both updated automatically. |
+| T21 | Final integration / PR / merge / Pages | **done** | See the PR record appended below. |
+
+### New finding: F28 — flag-register ID collision (published on the Flagged page; originally numbered F25)
+
+1. `research/build_research.py` points the reader to "the root site's Flagged page (shared register
+   `data/flags.json` id **F19**)" for the product-titles/§6(a) issue and "id **F20**" for the
+   cookie-disclosure issue. Both IDs are correct **inside `data/flags.json`** (F19 = titles/§6(a),
+   F20 = cookie disclosure), but the **root** Flagged page is generated from `build.py`'s own
+   `PROGRAMME_FLAGS`, where **F19 = "brand-site review counts move between days"** and
+   **F20 = "the repository carries six parallel builds"**. The register is described as "shared" when
+   the ID spaces do not align, so the cross-reference lands a reader on an unrelated row.
+   Not re-keyed: `data/flags.json` is consumed by `scripts/build_s2_site.py` and `scripts/build.mjs`,
+   and `research/` is another session's build.
+2. `EXECUTIVE_SUMMARY.md` (legacy, still served at the site root) asserts **"Identity verified"** and
+   that **"the official commission schedule redirected to a sign-in page"**. Both are contradicted by
+   this pass: the reconciled position is 0 verified product identities (F14–F16, F21), and the
+   commission schedule was read in full with no login on 2026-11-14.
+
+### Also fixed in this pass (not a new flag — a rendering defect)
+
+`page_flagged()` rendered a link labelled **"dataset"** pointing at `data.html` for any flag with an
+empty source list (F20, F22, F23). Those three are observations about the git tree, not dataset rows,
+so the label implied a source that did not exist. They now link to the repository and say
+"observation about this repo".
+
+### Source-link audit of the root build (the brief's "every table row" rule)
+
+After the fix: **280 / 280** data-table rows across the 13 owned root pages carry a link to an official
+source (`affiliate-program.amazon.com`, `amazon.com`, `link.amazon`, `ftc.gov`, `ecfr.gov`,
+`chefman.com`, `emerileveryday.com`, `cdn.shopify.com`, `spectrumbrands.com`) — or, for the three
+repo self-observations, to the repository that is the actual evidence. Before the fix: 273/280.
+
+### Verification performed (all gates re-run after rebasing onto `6616ca9`)
+
+* `python3 build.py` → 14 pages; a second run is **byte-identical** (reproducibility gate).
+* `python3 verify.py` → 92 pages · 43 spec rows (42 verified, 1 blank+flagged) · 24 sources · **0 errors**.
+* `scripts/check_links.py` → 4,030 links · 0 broken in the 13 owned pages (+79 inherited, advisory).
+* `research/check_research.py` OK · `scripts/build_s2_site.py --check` current · `scripts/verify_site.py` 382 assertions ALL PASSED · `scripts/ci-check.sh` OK.
+* Platform: 33/33 tests · `platform/audit/report.py` AUDIT PASSED (0 warnings).
+* Every data row in `data/*.json` was machine-checked for a `source` key: **0 rows missing or with an unknown source id**; all 24 declared sources resolve.
+
+### Merge-conflict resolution log — sess-91d0552e rebase onto `fcc7f9b` (required by protocol §6)
+
+`git pull --rebase origin main` conflicted on **6 files**, because `arena/6ecdb4e4-zone1` (I7, PR #34) merged
+while this session was working. **Nothing from either side was discarded.**
+
+| File | Resolution | Why |
+|---|---|---|
+| `COORDINATION.md` | both appended sections kept verbatim, marker lines removed, handoff noted inline | Protocol: keep both boards. |
+| `build.py` (flag register) | I7's **F25 + F26 + F27** kept, this session's flag appended as **F28** | Both passes independently used the ID "F25" for different findings. Renumbering mine preserves both and avoids two unrelated findings sharing one ID on the same published page. |
+| `build.py` (`page_flagged` source cell) | **I7's implementation kept**; this session's version dropped | I7's `REPO_EVIDENCE` + `repo_link()` maps each repo-observation flag (F20/F22/F23) to the specific files that evidence it — strictly better than this session's single generic repo link, and it supersedes the same defect this pass had found. |
+| `EXECUTIVE-SUMMARY.md` §10.6 | **merged**: I7's flag-count correction + this session's spec-row split (42 verified / 1 blank) and page count (92) | The two passes corrected *different* stale numbers in the same line; both corrections are true and both are kept, with a note explaining which pass supplied which. |
+| `executive-summary.html`, `flagged.html`, `index.html` (generated) | regenerated by `python3 build.py` after the data/build merge | Generated output; the reproducibility gate requires it to match a fresh build. |
+
+**Note on the §3 → §6 policy-citation correction (I7).** I7 found, and verified against two live renders of
+`affiliate-program.amazon.com/help/operating/policies` (version dated April 14, 2026), that the Participation
+Requirements items governing reviews/star-ratings, incentives, framing, self-purchase, cloaking, link
+shortening and price tracking sit under **"6. Content on your Site"**, and were cited repo-wide as §3(g)/(n)/(t)/(u)/(v)/(y)
+and §2(w). This session did not independently re-verify that re-numbering; it is recorded here as I7's finding
+(F27) and was carried into this branch by the rebase.
+
+**Post-resolution verification.** `python3 build.py` (14 pages, byte-identical on re-run) · `verify.py` 92 pages ·
+43 spec rows (42 verified, 1 blank+flagged) · 24 sources · **0 errors** · no conflict markers remain anywhere in
+the tree · `flagged.html` and `executive-summary.html` both report **28** open items.
