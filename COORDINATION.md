@@ -2848,3 +2848,37 @@ resolution; each resolution ran its marker assertion before `git add` this time.
 **Result: PR #48 merged as `e23b8e9`, all four workflows green, GitHub Pages live and verified at
 https://kanlerxz87-cyber.github.io/Zone1/. No stored value was found wrong; nothing was inferred;
 every open item remains published on the Flagged for Review page with its source links.**
+
+---
+
+## PR / merge / deploy record — pass 7, sess-ce4070ad (T26 closed)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/53 — "Integration pass 7 (sess-ce4070ad):
+  flag F36 (srctok evidence vs F10), robots.txt + sitemap.xml, round-6 live verification, S3 re-read".
+  Branch `arena/ce4070ad-zone1` → `main`.
+* **Merge:** `gh pr merge 53 --merge` at **2026-11-14T19:28:02Z**, without waiting for approval, per
+  the brief. **Merge commit on `main`: `3f7489c2`.** PR state was CONFLICTING → CLEAN across four
+  rebases (main moved four times during this pass: PRs #43/#46/#47/#50 → #48 → #51 → #52). All
+  conflicts were resolved keep-both; renumbering decisions are documented at the seams.
+* **Checks on the merged head:** `CI` ✓ · `Verify verification annex (site/)` ✓ ·
+  `Build, verify and deploy to GitHub Pages` ✓ · `pages build and deployment` ✓.
+* **GitHub Pages:** `gh api repos/…/pages/builds/latest` → `status: built`, commit `3f7489c2`,
+  `error: null`.
+* **Live verification (cache-busted fetches against https://kanlerxz87-cyber.github.io/Zone1/):**
+  * `robots.txt` → served, `Sitemap: …/Zone1/sitemap.xml` (first time the root build has shipped
+    either file).
+  * `flagged.html` → F36 rendered in register order with S17/S16 + both evidence-file links, and
+    F37 (sess-7111e2b6) rendered after it — register F1–F37, no duplicate IDs, both passes' work live
+    together.
+* **Flag-ID and task-number collisions handled this pass (all documented at seams, nothing
+  overwritten):** task T22 (with sess-840a25d3, PR #41), task T23 (with arena/2300f756, PR #50),
+  flag F32 (with arena/6b2eddeb, PR #46 — this session's flag renumbered F32 → F36).
+* **Sources used by this pass (fetched live, recorded in `session-ce4070ad/EVIDENCE-2026-11-14.md`):**
+  S3 re-read in full without login (all 11 Table 1 rows match `data/commission-rates.csv`);
+  the three `link.amazon` short links (round 6, destinations + titles + srctok quoted); the live
+  Pages deployment. Other official sources were cited from same-day passes rather than re-fetched
+  (PRs #33, #41, #46, #50, #51).
+
+**Result: this session's flag F36 is live, the register is consistent at 38 open rows
+(34 programme + 4 product), every gate is green, the site is live on commit `3f7489c2`, and no
+stored value was changed by this session.**
