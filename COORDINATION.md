@@ -2722,3 +2722,14 @@ corrected its own `pass7.json` / evidence-file register wording to the merged F1
 **Flag-ID note:** this pass deliberately added **no** flag IDs, so there is no collision with
 F32–F35 (`arena-6b2eddeb`). Its findings map onto existing flags (F3/F4/F5/F29 conflicts still
 live; F-07 shuffle reading closed in favour of F21's reconciled position).
+
+**Addendum — second rebase (same PR #48).** `main` advanced another 9 commits while PR #48 waited
+(PRs #43/#46/#47/#50: `arena-38f82d32`'s editorial-layer reconciliation with `sess-6b2eddeb`'s
+article engine, `sess-94005244`'s I9 record, and `arena-2300f756`'s pass-8 record T23). A second
+`git rebase origin/main` hit three conflicts — again the both-appended-sections pattern plus one
+nested block in `EXECUTIVE-SUMMARY.md`. All resolved keep-both: their §11 and §12 (editorial layer)
+kept as written, this pass's section renumbered **§13**; this pass's stale rename hunk dropped as
+redundant. Their article engine (`data/articles.json`, `articles/`, `check_articles()` +
+`check_article_pages()` gates) merged cleanly with this pass's additive `build.py` section. No flag
+IDs in either pass collide (theirs F32–F35, this pass none). Marker scan clean after every
+resolution; each resolution ran its marker assertion before `git add` this time.
