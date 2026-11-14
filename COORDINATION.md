@@ -1106,3 +1106,19 @@ appended) — resolved as their board + this appendix. All positions preserved f
   disclosure, working navigation, and source links.
 - **This commit** records the merge result above and closes T7; it is the "follow-up record" referenced in the
   Integration record section of Integration pass 3.
+
+---
+
+# Integration pass 4 — session `arena/1dcaaafc` (branch `arena/1dcaaafc-zone1`, base `8915b43`)
+
+**Claimed 2026-11-14 (UTC), before any file change.** Arena pins this session to `arena/1dcaaafc-zone1`; the `session-<id>/<task>` form is not available (see the branch note above).
+
+## Claim
+
+| Task | Owner | File scope | Status |
+|------|-------|-----------|--------|
+| T15 — Independent re-check of the three supplied `link.amazon` links on 2026-11-14 and record of the result | `arena/1dcaaafc` | `reports/link-check-2026-11-14.md` (new) | in progress |
+| T16 — Correct the false "3 products resolved / all three short links followed to an ASIN" headline on the root landing (`build.py` `page_index` only, plus regenerated `index.html`) | `arena/1dcaaafc` | `build.py` (`page_index` only), `index.html` | in progress |
+| T17 — Integration gate (unit tests, audit, link gate, root build reproducibility, verify.py), PR to `main`, merge, Pages deploy check | `arena/1dcaaafc` | `COORDINATION.md` (this section), whole tree at integration | in progress |
+
+Not touched by this session: every other session's `s2/`, `dashboard/`, `site/`, `research/`, `session-3740f69d/`, `docs/`, `data/*.json`, and open PR #9 (`arena/88769516-zone1`, owned by another session).
