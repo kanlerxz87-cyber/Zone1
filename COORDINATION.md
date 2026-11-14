@@ -1492,7 +1492,7 @@ Claimed after a fresh read of the board. Base `29e4804` (`main`, I4 complete). N
 
 | ID | Task | Status | Owner | File scope |
 |----|------|--------|-------|------------|
-| I6 | Re-run every repo gate, spot-check live site and primary sources, log new irregularities, PR → merge → confirm Pages | **done** (PR and merge recorded below) | `arena/1ee801af` | `COORDINATION.md` only (this section) |
+| I6 | Re-run every repo gate, spot-check live site and primary sources, log new irregularities, PR → merge → confirm Pages | **done** — PR #27, merge `827e949`, Pages `built` on `6ea38f5` | `arena/1ee801af` | `COORDINATION.md` only (this section) |
 
 ### I6 record — gates, live checks, primary-source spot checks
 
@@ -1531,6 +1531,12 @@ Claimed after a fresh read of the board. Base `29e4804` (`main`, I4 complete). N
 * **I6-3 — advisory rows without a source link (12 findings, not blocking).** `check_links.py` reports 12 table rows with no link: 6 in `dashboard/analysis.html` (placeholder rows, values "—", status "Blocked") and 6 in `annex-88769516/content.html` and `annex-88769516/tracking.html` (not-generated/blocked rows). None of these rows states a value, so nothing is fabricated; but the brief requires every row to carry a source link. Requests: the owning dashboard session should link each row to `flagged.html` (as done for other blanks); the annex is preserved verbatim from PR #9 and is left as is.
 
 **Re-run after merging `origin/main` (`4fffb9b`):** all gates above green on the merged tree (s2 `--check` current, verify 0 errors, links 4,028/0, tests 33/33, audit OK, research OK, annex 382 checks).
+
+**PR / merge / deploy record (I6):**
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/27 — opened from `arena/1ee801af-zone1`, merged with `gh pr merge 27 --merge` once its CI and annex checks passed on head `6ba7f1c`.
+* **Merge commit on `main`:** `827e949e2b024fe877f1caffae1aa0c542516ac9`.
+* **Checks:** CI ✓ · Verify verification annex (site/) ✓ on the PR head and again on `main` after the merge.
+* **Pages:** Build, verify and deploy ✓ · GitHub Pages status `built` · latest build commit `6ea38f5` (current `main` head, which contains PR #27) · error: none · https://kanlerxz87-cyber.github.io/Zone1/
 
 **Result of I6:** every gate green; live site serving the merged content; one ambiguous price flagged; three advisory items logged. Nothing is blocking the merge.
 
