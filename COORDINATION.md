@@ -1481,3 +1481,32 @@ Note: `arena/1dcaaafc`'s T16 headline correction ("0 verified product identities
 > - Site: https://kanlerxz87-cyber.github.io/Zone1/ · status `built` on `main`.
 > - Post-merge gates: build 14 pages · verify 0 errors · research OK · check_links 4028/0 broken owned · audit 0 · 33 tests · s2 --check · site 382 assertions.
 > - Open flags remain published on `flagged.html` (F14–F16 identity, F17 annex advisory, F18 s2 stamp, F19–F24 from main) — non-blocking per protocol.
+
+---
+
+## I5 — Re-verification pass (branch `arena/d43b81bc-zone1`, base `29e4804`)
+
+> **Status: done.** Claimed and completed in one session on 2026-11-14 (UTC). File scope: `COORDINATION.md` only. No data, site, or generated HTML was changed.
+
+**What was checked (independently, this session):**
+
+| Check | Command / source | Result |
+|---|---|---|
+| Engine tests | `python3 -m unittest discover -s platform/tests -t platform` | 33/33 OK |
+| Data audit | `python3 platform/audit/report.py` | AUDIT PASSED, 0 warnings (advisory notes only) |
+| Committed site is current | `python3 scripts/build_s2_site.py --check` | current |
+| Link and source coverage | `python3 scripts/check_links.py` | 4028 links, 0 broken owned; 13 pages owned, +79 inherited (advisory) |
+| Root build + gate | `python3 build.py` then `python3 verify.py` | 0 errors; `build.py` output matched committed tree |
+| Short links (re-fetched live) | `https://link.amazon/B04G1MEwY`, `/B02NbDxp3`, `/B00hJ57DV` | Resolve to `amazon.com/dp/B0CDY277D3`, `/dp/B09B7SB46R`, `/dp/B08DKYBTPH` **with** `lv=shuf&plpRedirect=mhFallback` in the URL. Same result as F-07 / F10. Identity of each token with the user's intended product remains **unconfirmed** (flag F10 / F21). |
+| Live site | `https://kanlerxz87-cyber.github.io/Zone1/flagged.html` | Serves; 24 open items shown, matching the repo. |
+| CI on `main` | `gh run list` | `CI`, `Build, verify and deploy to GitHub Pages`, `Verify verification annex (site/)`: all success on `29e4804`. |
+
+**Irregularities observed this pass (new, for manual review):**
+
+1. `scripts/verify_site.py` / `s2/pages/verification.html`: the verifier emits a WARN that `api.github.com` is not on the allow list. It is a warning, not an error, but it means the verification page cites an API host that the allow list does not cover. Flag for the next integration pass.
+2. This board's protocol text names branches `session-<id>/<task>`, but the active session branch is `arena/<id>-zone1`. This session stayed on its assigned branch and did not create a `session-*` branch. Flag for the account holder to confirm the naming rule.
+3. `COORDINATION.md` is now about 150 KB. Future sessions should read the task board table and the latest log entry rather than the full file.
+
+**Sources used this pass:** the live short-link destinations above (Amazon product pages, fetched 2026-11-14) and the existing registered sources in `data/sources.json`. No new policy or product facts were added.
+
+**Outcome:** no content changes were needed. This record is the only change in this PR. Open flags (F1, F6, F7, F9–F13, F21, F24, and the F14–F18 identity/annex items) remain published on the Flagged for Review page for the account holder's review and do not block the merge.
