@@ -464,7 +464,7 @@ def product_cta(p, prefix=""):
   <span class="paid-tag">Paid link</span>
   <span class="small muted">No Amazon price is shown here — the live price lives on the listing.</span>
 </div>
-<p class="cta-note">Link-level disclosure: this is an affiliate link and we may earn a commission if you buy, at no extra cost to you. ASIN <code>{e(p['asin']['v'])}</code> {src_links(['S17'])}</p>
+<p class="cta-note">Link-level disclosure: this is an affiliate link and we may earn a commission if you buy, at no extra cost to you. Candidate ASIN <code>{e(p['asin']['v'])}</code> — <strong>not confirmed</strong>: the supplied link reaches an Amazon fallback page (<a href="../reports/link-check-2026-11-14.md">link check, 2026-11-14</a>). {src_links(['S17'])}</p>
 """
 
 
@@ -593,7 +593,7 @@ def page_index():
   <h3><a href="products/{p['slug']}.html">{e(p['short_name'])}</a></h3>
   <p class="small muted" style="margin:.2rem 0">{e(p['name'])}</p>
   <div class="facts">
-    <span class="chip">ASIN {e(p['asin']['v'])}</span>
+    <span class="chip">candidate ASIN {e(p['asin']['v'])} (unconfirmed)</span>
     <span class="chip">{e(p['pricing']['brand_list_price']['v'])} brand list</span>
     <span class="chip">{len(p['flags'])} flag(s)</span>
   </div>
@@ -604,11 +604,11 @@ def page_index():
     )
     body = f"""
 <p class="crumbs">Dashboard</p>
-<h1>Three Amazon products, verified line by line</h1>
+<h1>Three supplied Amazon links: product identity not yet confirmed</h1>
 <p class="lede">This dashboard holds everything that could be confirmed about the three supplied Amazon listings from <strong>official sources only</strong> — Amazon's Associates documents, the US FTC's rule text, and each manufacturer's own product page and owner's manual. Where a fact could not be confirmed, the field is blank and the item appears on <a href="flagged.html">Flagged for review</a>. Nothing has been inferred, estimated or filled in.</p>
 
 <div class="grid grid-4" style="margin:1rem 0 1.25rem">
-  <div class="stat brand"><div class="n">3</div><div class="l">Products resolved</div><div class="h">All three short links followed to an ASIN</div></div>
+  <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">Supplied links reach Amazon fallback pages — see <a href="reports/link-check-2026-11-14.md">link check, 2026-11-14</a></div></div>
   <div class="stat ok"><div class="n">{verified}</div><div class="l">Verified spec values</div><div class="h">Each with a link to the manufacturer page or manual</div></div>
   <div class="stat warn"><div class="n">{unverified}</div><div class="l">Unconfirmed values</div><div class="h">Left blank, listed on Flagged for review</div></div>
   <div class="stat bad"><div class="n">{n_total_flags}</div><div class="l">Irregularities</div><div class="h">Including one hard spec conflict between sources</div></div>
