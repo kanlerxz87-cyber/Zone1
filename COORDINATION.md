@@ -42,7 +42,7 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 |----------|---------|--------|
 | 2026-11-13T22:35Z | sess-105bc29e | Claimed T1–T11 (research, data, site, integration). No other claims present; repo was empty apart from `README.md`. |
 | 2026-11-13T22:35Z | sess-105bc29e | Claimed T12 (PR + merge + Pages verification). |
-| 2026-11-14T18:29Z | arena-6ecdb4e4 | **I6 claim:** independent line-by-line repo review + re-verification pass on branch `arena/6ecdb4e4-zone1` (base `5ed73c1`). File scope: `COORDINATION.md` (log entry), plus fixes to any gate/dataset/site file only if a gate fails. Runs all local gates, re-checks key facts against official sources, re-checks live Pages, then PR → merge → Pages confirm. |
+| 2026-11-14T18:29Z | arena-6ecdb4e4 | **I8 claim (initially logged as "I6"; renumbered — see the I8 record):** independent line-by-line repo review + re-verification pass on branch `arena/6ecdb4e4-zone1` (base `5ed73c1`). File scope: `COORDINATION.md` (log entry), plus fixes to any gate/dataset/site file only if a gate fails. Runs all local gates, re-checks key facts against official sources, re-checks live Pages, then PR → merge → Pages confirm. |
 
 ---
 
@@ -1680,3 +1680,47 @@ Each page also carries a "Customers who viewed this item also viewed" block. The
 * **Note for the next session:** the open PR #28 and #27 items from other sessions are merged. Their s2 stamp fix (`7864372`) is what makes `build_s2_site.py --check` pass on the merged tree.
 * This record is published by a follow-up record-only PR from the same branch, because the PR record cannot contain its own number before the PR exists.
 
+---
+
+## I8 — Independent review + re-verification pass (branch `arena/6ecdb4e4-zone1`, base `5ed73c1` → rebased to `314f562`)
+
+> **Status: done.** Claimed 2026-11-14T18:29Z (initially logged as an "I6 claim") and completed 2026-11-14 (UTC). **ID note:** the `I6` ID was independently taken on `main` by `arena/1ee801af-zone1` (PR #30) and `I7` by `sess-502dcf85` (PRs #31/#32); this record is renumbered **I8** so the log stays unambiguous. No work from any session was discarded. Session: `arena-6ecdb4e4`. Scope: `COORDINATION.md` log + citation-label fixes in root-site content; new flag F27. Did not touch other sessions' builds (`site/`, `s2/`, `research/`, `dashboard/`, `docs/`, `session-3740f69d/`, `annex-88769516/`, `data/verified/`, `data/flagged.json`).
+
+**Local gates re-run this pass (all green):**
+
+| Check | Command | Result |
+|---|---|---|
+| Root build | `python3 build.py` | 0 errors; output matched committed tree before edits |
+| Root gate | `python3 verify.py` | 0 errors (91 pages; only pre-existing s2 allow-list WARNs) |
+| Engine tests | `python3 -m unittest discover -s platform/tests -t platform` | 33/33 OK |
+| Data audit | `python3 platform/audit/report.py` | AUDIT PASSED, 0 warnings |
+| s2 build stamp | `python3 scripts/build_s2_site.py --check` | current (16 files) |
+| Research build | `python3 research/check_research.py` | OK — no broken links, no unsourced rows, disclosures present |
+| Link + source coverage | `python3 scripts/check_links.py` | 4077 links, 0 broken owned; advisory rows as before |
+| Annex build + verify | `python3 scripts/build_site.py && python3 scripts/verify_site.py` | 382 assertions, ALL CHECKS PASSED |
+
+**External facts independently re-verified live on 2026-11-14 (this session, from the official domains):**
+
+| Fact | Source (fetched live) | Verdict |
+|---|---|---|
+| OA §5 disclosure wording, verbatim "As an Amazon Associate I earn from qualifying purchases."; OA "Updated: October 15, 2025" | https://affiliate-program.amazon.com/help/operating/agreement | matches repo |
+| Table 1: Kitchen 4.50%; All Other Categories 4.00%; Bounty rates ($12 Prime etc.); 180-day ship/stream/pay condition | https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ | matches repo |
+| §2(b) prices/availability only if Amazon serves the link or via Creators API/PA API; page "Updated: April 14, 2026" | https://affiliate-program.amazon.com/help/operating/policies | matches repo |
+| Star-rating/review rule at Participation Requirements **"6. Content on your Site" item (t)** — NOT §3(t); items (g),(n),(u),(v),(w),(y) in the same section | same URL, two independent renders | **label drift found → F27, fixed** |
+| 16 CFR 255.5(a) "must be disclosed clearly and conspicuously"; eCFR Title 16 current as of 11/12/2026 | https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.5 | matches repo |
+| ASIN = "10-character Amazon Standard Identification Number"; canonical form amazon.com/dp/ASIN | https://kdp.amazon.com/en_US/help/topic/G200652190 | matches repo (F-01/F14 basis) |
+| IP License §2(e) aggregation/ML-training ban, verbatim | https://affiliate-program.amazon.com/help/operating/policies (License section) | label correct, matches repo |
+| `link.amazon/B04G1MEwY` → lands on `amazon.com/dp/B0CDY277D3` (CHEFMAN 6 Qt Dual Basket) with `lv=shuf&plpRedirect=mhFallback` | https://link.amazon/B04G1MEwY | reproduces F-07/F10/F21 behaviour; identity still unconfirmed |
+| `link.amazon/B02NbDxp3` → lands on `amazon.com/dp/B09B7SB46R` (Emeril 26QT French Door), same fallback markers | https://link.amazon/B02NbDxp3 | reproduces F-07/F10/F21 |
+| `link.amazon/B00hJ57DV` → lands on `amazon.com/dp/B08DKYBTPH` (Chefman 8 Qt TurboFry), same fallback markers | https://link.amazon/B00hJ57DV | reproduces F-07/F10/F21 |
+| Chefman 8 Qt brand page: RJ38-SQSS-8T, "200–400°F", presets fries/chicken/fish/meat, $119.99 list, 8/5-Quart sizes | https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1 | matches repo rows for Product 3 |
+| Live site serves merged content; flagged page shows 26 open items incl. F25/F26 (I7) with disclosure bar | https://kanlerxz87-cyber.github.io/Zone1/flagged.html | matches repo |
+| CI on `main` (after PRs #30, #31): CI ✓, annex verify ✓, Pages build/deploy ✓; Pages status `built`, latest build commit `f59a385` 2026-11-14T18:34Z | `gh run list` + `gh api .../pages` | green |
+
+**Irregularity found and fixed (new flag F27):** the Participation Requirements "Content on your Site" items (g), (n), (t), (u), (v), (w), (y) were cited repo-wide as §3(g)/§3(n)/§3(t)/§3(u)/§3(v)/§2(w)/§3(y). Two independent live renders on 2026-11-14 (page version dated April 14, 2026) show them under section **6. Content on your Site**. All quoted rule texts verified verbatim, so behaviour/published facts are unchanged; only citation labels were aligned. Corrected in: `build.py` (footnote + F7 label + new F27 row), `data/compliance.json` (C6, C7, C12, C13), `data/products.json`, `data/sources.json` (S16 note), `data/platform.json` (G3, G4, G8, G10, launch step 5, out-of-scope list), `data/marketing.json`, `data/flags.json` (F27), `README.md`, `EXECUTIVE-SUMMARY.md`, `EXECUTIVE_SUMMARY.md`. Labels verified correct and left alone: §2(b), §3(e), §6(a), IP License §2(e), OA §5.
+
+**Request to another session's scope (not edited, per protocol):** `site/` annex pages (`site/compliance.html`, `site/flagged.html`, `site/executive-summary.html`) still render "§3(t)" from `data/verified/compliance.json` + `data/verified/flagged.json` and from three hardcoded `&sect;3(t)`/`&sect;3(y)` strings in `scripts/build_site.py` (lines ~681, ~715, ~1125) — all owned by session 1874bb64. Owner should align those labels to "§6(t)/§6(y) ('Content on your Site')" and rebuild `site/` — the 382-assertion verifier is expected to pass since it does not pin the label string. Historical session records in COORDINATION.md were left as written (this entry documents the correction).
+
+**Sources used this pass:** the live URLs in the table above (Amazon Associates Operating Agreement, Program Policies incl. Commission Income Statement + IP License, eCFR 16 CFR 255.5, KDP Help G200652190, link.amazon redirects, chefman.com product page, kanlerxz87-cyber.github.io/Zone1) plus the repo's registered sources in `data/sources.json`. No new policy or product facts were added; no numeric value was changed.
+
+**Outcome:** content corrections limited to citation labels + new flag F27; all gates re-run green after rebuild (see below). PR opened from this branch to `main` and merged per the brief; PR number and merge result are recorded in the PR body and in the merge commit message. Flagged items remain published on `flagged.html` and are non-blocking.

@@ -157,7 +157,7 @@
       "org": "Amazon.com (product listings)",
       "title": "Amazon detail pages for ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH",
       "url": "https://www.amazon.com/dp/B0CDY277D3",
-      "covers": "Listing titles only — used solely to prove which ASIN each short link resolves to. Amazon prices, star ratings and availability are deliberately not reproduced on this site (see S2 §2(b) and §3(t)).",
+      "covers": "Listing titles only — used solely to prove which ASIN each short link resolves to. Amazon prices, star ratings and availability are deliberately not reproduced on this site (see S2 §2(b) and §6(t)).",
       "kind": "Retail listing",
       "directness": "Primary for 'what does this short link point to'; not used for specification claims",
       "page_version": "Amazon listing detail page B0CDY277D3 — re-resolved through the supplied short link 2026-11-14; <title> unchanged"

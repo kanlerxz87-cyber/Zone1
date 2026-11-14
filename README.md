@@ -90,7 +90,7 @@ Values that fail the rule are stored as `null` with a written reason, render as
 
 No Amazon price, availability, star rating or customer review appears anywhere on the site.
 Amazon's Program Policies §2(b) permit price/availability display only when Amazon serves the
-link or when the data comes from Creators/PA API, and §3(t) restricts customer reviews and
+link or when the data comes from Creators/PA API, and §6(t) restricts customer reviews and
 star ratings to API-served content. The IP License §2(e) additionally forbids aggregating,
 analysing or repurposing Program Content, and forbids using it to train models.
 
@@ -150,7 +150,7 @@ dashboard-style site with subpages by category (Products, Analysis, Niches, Cont
 Compliance, Flagged, Sources), a marketing-content set (buying guide + comparison + per-product copy), and its own
 machine-readable registry in `session-3740f69d/data/`. Like the other builds, every table row carries an official
 source link or a policy-cited blank. Independent highlights: cache-busted double resolution of the three short links;
-the 2026 IP License §4 **Agent Terms** analysis for AI automation; link-policy mapping (§2(v)(w)) for the supplied
+the 2026 IP License §4 **Agent Terms** analysis for AI automation; link-policy mapping (§6(v)(w)) for the supplied
 `link.amazon` links; verified Commission Table 1 candidates (Kitchen 4.50% / All Other 4.00%) with the per-product
 mapping left flagged. Full record: `COORDINATION.md` → *Integration pass 3*.
 

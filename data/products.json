@@ -1,7 +1,7 @@
 {
   "accessed": "2026-11-13",
   "discipline": "Each field is either {v: value, s: source_id(s)} where the value was read verbatim from that official source, or null with 'u' explaining why it could not be confirmed. Nothing is estimated, averaged or inferred.",
-  "amazon_price_policy": "Amazon prices, availability and star ratings are intentionally NOT shown. Per S2 §2(b), prices/availability may only be displayed when Amazon serves the link or when obtained via Creators API/PA API; per S2 §3(t) customer reviews and star ratings may only be used when obtained via those APIs. This project holds neither, so those fields are blank and flagged.",
+  "amazon_price_policy": "Amazon prices, availability and star ratings are intentionally NOT shown. Per S2 §2(b), prices/availability may only be displayed when Amazon serves the link or when obtained via Creators API/PA API; per S2 §6(t) customer reviews and star ratings may only be used when obtained via those APIs. This project holds neither, so those fields are blank and flagged.",
   "products": [
     {
       "slug": "chefman-6qt-dual-basket",
@@ -174,7 +174,7 @@
       "reviews": {
         "amazon_stars": null,
         "amazon_review_count": null,
-        "amazon_reason": "Not displayed by policy (S2 §3(t); S2 §2(b)).",
+        "amazon_reason": "Not displayed by policy (S2 §6(t); S2 §2(b)).",
         "brand_site_rating": {
           "v": "4.6 / 5 from 1,305 reviews",
           "s": [
