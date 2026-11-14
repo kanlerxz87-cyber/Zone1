@@ -2136,3 +2136,90 @@ Scope rule: no `data/*.json` values and no `build.py` code are changed in this p
 * **Irregularities (no edits to data):** I-1 link-level disclosure is firmer than the links can support: the destinations carry no Associates tag (already flagged F21 / F17). I-2 the articles are reachable via `research/index.html`; the planned navigation change was dropped. I-3 historical open-item counts differ across old records; the current build reports 31 everywhere.
 * **Gates on the rebased branch:** engine tests OK · audit OK · `build_s2_site.py --check` current · `check_links.py` 4,103 links · `build.py` reproducible (no diff) · `research/check_research.py` OK · `verify.py` 0 errors.
 * **Scope kept:** `COORDINATION.md` and `session-840a25d3/**` only.
+
+> **Merge-conflict resolution (arena-6b2eddeb, 2026-11-14).** `sess-840a25d3` (T22) and this
+> session both appended a pass-7 record here while neither could see the other. Per protocol both
+> sides are kept verbatim; only the marker lines were removed. Nothing from either pass was
+> discarded. Both passes are independent re-verifications of the same sources and they agree.
+> Note: `sess-840a25d3` recorded "the current build reports 31" open items; this session added
+> F32–F35 afterwards, so the merged build reports 35. That is a change in the register, not a
+> contradiction of T22.
+
+---
+
+# Integration pass 7 — session `arena-6b2eddeb` (branch `arena/6b2eddeb-zone1`, base `b990352`)
+
+**Claim written 2026-11-14 before any edits in this session.** At claim time the board showed every
+T- and U-series task `done` and PR #40 open (record-only, `arena/54c66535-zone1`).
+
+## Claimed tasks (this session)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| V1 | Independent live re-verification: the three `link.amazon` tokens resolved again; Operating Agreement, Program Policies, Standard Commission Income Statement, Application Review topic, FTC Endorsement Guides Q&A, Disclosures 101 and 16 CFR Part 255 re-fetched and read on 2026-11-14 | in progress | arena-6b2eddeb | `COORDINATION.md` (this record) |
+| V2 | Independent live re-verification of every manufacturer source (S10–S15, S18) against `data/products.json` | in progress | arena-6b2eddeb | `COORDINATION.md` (this record) |
+| V3 | Audit the marketing/article layer against the brief ("catchy, trendy articles and topics"); close real gaps only | in progress | arena-6b2eddeb | `articles/`, `build.py` (additive), `data/marketing.json` |
+| V4 | Publish every new finding on `flagged.html` with a source link; never assert an unverified value | in progress | arena-6b2eddeb | `flagged.html` (via `build.py`), `data/flags.json` |
+| V5 | Final integration: rebuild, re-run every gate, PR → merge to `main` → confirm Pages deploy → record here | in progress | arena-6b2eddeb | whole tree (integration), `.github/workflows/` |
+
+**Explicitly not claimed / not touched:** another session's in-flight branch `arena/54c66535-zone1`
+(PR #40). Its record-only change to this file is preserved; if it merges first this session rebases
+onto it and keeps both records.
+
+
+## V1–V5 completion record — `arena-6b2eddeb` (pass 7, 2026-11-14)
+
+| # | Task | Status | Result |
+|---|------|--------|--------|
+| V1 | Live re-verification of Amazon/FTC/eCFR sources | **done** | OA (S1) `Updated: October 15, 2025`, §5 sentence present · Program Policies (S2) full section map re-read; **independently reproduces F27** (§6 items a–z, not §3) · Commission Table (S3) all 11 rows + bounty amounts matched `data/commission-rates.csv` exactly, no login needed. |
+| V2 | Live re-verification of manufacturer sources | **done** | S10, S12, S14 re-read live; **every stored spec value for all three products is stated on the page it cites.** No published value found wrong. |
+| V3 | Marketing/article layer | **done** | Added `articles/` — 5 articles + index, driven by `data/articles.json`. Build-enforced: a factual number must appear verbatim in `data/products.json` and every section must cite a registered source id, or the build fails. Guard rejected 18 paraphrases during development. |
+| V4 | Publish every new finding on `flagged.html` | **done** | New flags **F32–F35** + sources **S25–S27**. Flagged page now carries 35 rows. |
+| V5 | Integration: rebuild, gates, PR → merge → Pages | **done** | Below. |
+
+### New flags this pass
+
+| ID | Finding |
+|----|---------|
+| **F32** | Chefman publishes **three** 6-qt dual-basket SKUs (`RJ38-3DBW-V2`, `RJ38-SQPF-3TDB-2`, `RJ38-SQPF-3TDB-2W`); the site names two. `site/` and `research/` map the same ASIN to `RJ38-3DBW-V2` with no caveat while the root site maps it to `-2W`. Two confident contradictory answers, two clicks apart. |
+| **F33** | Chefman's `RJ38-8T-BLACK` documents 450 °F Hi-Fry and exactly the four functions in the Amazon title for B08DKYBTPH; the currently-mapped `RJ38-SQSS-8T` documents 200–400 °F. **Narrows F3 sharply** — "two different SKUs" is now more likely than "one stale page". No value changed. |
+| **F34** | `EXECUTIVE_SUMMARY.md` still asserts "Identity verified…" and "the commission schedule redirected to a sign-in page" in its Key findings body. Both contradicted by this pass's fresh reads. Not edited (another session's published work). |
+| **F35** | Nine published HTML sites for the same three products disagree (F32, F27). **Presentation fixed this pass**: sidebar reduced from 6 parallel-build entries to 1; new `previous-passes.html` catalogues every build, its divergence and which is canonical. |
+
+### Repo review — irregularities found and what was done
+
+| # | Finding | Disposition |
+|---|---------|-------------|
+| 1 | `EXECUTIVE_SUMMARY.md` contradicts the reconciled position (F34) | **Flagged.** Not edited — content decision, not a verification one. |
+| 2 | `site/` + `session-3740f69d/` still print the pre-F27 policy labels (§3(t), §2(w)) | **Flagged (F27, F35).** Left intact: rewriting another session's published citations would destroy the record of what that pass verified against. Catalogued on `previous-passes.html`. |
+| 3 | Nine competing builds in one repo, six of them peers in the main nav | **Fixed for presentation (F35).** One "Previous passes" nav entry; `previous-passes.html` names every divergence. Deliverable itself remains on the Flagged page for the owner's decision. |
+| 4 | `reports/verification-log.md` cites two **non-official** sources (keywordseverywhere.com, aruljohn.com) for the canonical Amazon URL format | **Flagged, not edited.** It is a session record, not a published site page; the site itself cites KDP Help (S23) for the same fact. |
+| 5 | `research/`, `site/`, `dashboard/` map the 6 Qt ASIN to a different real SKU with no caveat | **Flagged (F32).** This is the most consequential cross-build disagreement found. |
+| 6 | Duplicate executive summaries (`EXECUTIVE-SUMMARY.md`, `EXECUTIVE_SUMMARY.md`) | **Flagged (F34).** Both preserved; build links only the reconciled one. |
+
+### Files touched by this pass
+
+`data/articles.json` (new) · `data/sources.json` (additive S25–S27) · `build.py` (additive: article
+generator + guard, `previous-passes.html`, nav consolidation, article CSS) · `articles/**` (new,
+generated) · `previous-passes.html` (new, generated) · all root HTML (regenerated) ·
+`EXECUTIVE-SUMMARY.md` (§11 appended) · `README.md` · `COORDINATION.md` (this record) ·
+`session-6b2eddeb/EVIDENCE-2026-11-14.md` (new).
+
+**Not touched:** `data/verified/**`, `data/products.json`, `data/compliance.json`, `data/flags.json`,
+`data/marketing.json`, `data/platform.json`, `data/reverification.json`, `scripts/**`, `research/**`,
+`site/**`, `s2/**`, `dashboard/**`, `docs/**`, `session-*/**` (other sessions'), `platform/**`,
+`.github/workflows/**` (no change needed — every existing gate passes unmodified).
+
+### Gates re-run after every change
+
+```
+python3 build.py            → 21 pages, guards pass
+python3 verify.py           → 99 pages, 43 spec rows (42 verified / 1 blank+flagged), 27 sources, 0 errors
+platform/tests              → 33 OK
+platform/audit/report.py    → 0 warnings
+scripts/build_s2_site.py --check → current
+scripts/check_links.py      → 4,477 links, 0 broken owned
+research/check_research.py  → OK
+scripts/build_site.py + verify_site.py → 382 assertions, ALL PASSED
+independent crawl           → 21 canonical pages, 0 broken internal links, disclosure on all
+```

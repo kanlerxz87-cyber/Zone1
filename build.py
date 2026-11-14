@@ -143,6 +143,7 @@ NAV = [
     ("categories/kitchen-appliances.html", "Category: Kitchen", "All tracked products in one category"),
     ("compare.html", "Comparison", "Verified-only side-by-side matrix"),
     ("guides/buying-guide-air-fryers.html", "Buying guide", "How to choose a form factor"),
+    ("articles/index.html", "Articles", "Five sourced reads — comparisons, explainers, policy"),
     ("data.html", "Full dataset", "Every field, value, source and gap"),
     ("platform.html", "Platform blueprint", "The automation and compliance design"),
     ("compliance.html", "Compliance", "Program rules, quoted, with sources"),
@@ -150,16 +151,18 @@ NAV = [
     ("executive-summary.html", "Executive summary", "Decision-ready briefing"),
     # Added by the 2026-11-14 integration pass: the line-by-line re-read ledger.
     ("reverification.html", "Re-verification 2026-11-14", "Every published value re-read against its official source"),
-    # Additive section contributed by parallel session 8a2ddd06 (own data, own source register).
-    ("research/index.html", "Deep-dive research ↗", "Independent 25-source verification pass"),
-    # Additive section contributed by parallel session arena-3740f69d (own data, own source register).
-    ("session-3740f69d/index.html", "Session 3740f69d build ↗", "Independent dashboard build — link analysis, tracking design, AI Agent-Terms compliance"),
-    # Additive section contributed by parallel session zone1-s2 (own data in data/s2/, own site in s2/).
-    ("s2/index.html", "Verified platform pass ↗", "Compliance matrix, verification log, and this pass's own flags"),
-    # Two builds that were published into the tree but reachable from no page at all; the
-    # 2026-11-14 integration pass surfaced them so every finding in the repo is navigable.
-    ("site/index.html", "Verification annex ↗", "Session 1874bb64's independent build — 382-assertion verifier over data/verified/"),
-    ("dashboard/index.html", "Campaign dashboard ↗", "Session 19a679d8's dashboard build — niches, commissions, links and tracking views"),
+    # All parallel-session builds are now reached through one page rather than six sidebar
+    # entries (2026-11-14, arena/6b2eddeb). Six entries in the main nav made a reader choose
+    # between six answers to the same question; flag F35 records why that was a problem.
+    # NAV still lists them so the link checker keeps covering every published page.
+    ("previous-passes.html", "Previous passes", "Every parallel build in this repo, and which one is canonical"),
+    ("research/index.html", "Deep-dive research", "Independent 25-source verification pass (research/)"),
+    ("session-3740f69d/index.html", "Session 3740f69d build", "Independent dashboard build (session-3740f69d/)"),
+    ("s2/index.html", "Verified platform pass", "Compliance matrix and verification log (s2/)"),
+    ("site/index.html", "Verification annex", "382-assertion verifier over data/verified/ (site/)"),
+    ("dashboard/index.html", "Campaign dashboard", "Niches, commissions, links and tracking views (dashboard/)"),
+    ("docs/index.html", "Legacy docs build", "Retired build kept for its evidence (docs/)"),
+    ("annex-88769516/index.html", "Annex 88769516", "Independent annex build (annex-88769516/)"),
 ]
 
 # --------------------------------------------------------------------------- #
@@ -237,6 +240,14 @@ h3{font-size:1rem; margin:1.4rem 0 .4rem}
 
 /* cards */
 .card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:1.1rem 1.2rem; box-shadow:var(--shadow); margin:0 0 1rem}
+/* article layer */
+.cardgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1rem; margin:1.2rem 0}
+.cardgrid .card{margin:0; display:flex; flex-direction:column; gap:.4rem; transition:border-color .15s, transform .15s}
+.cardgrid .card:hover{border-color:var(--brand); transform:translateY(-1px); text-decoration:none}
+.kicker{display:inline-block; font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; font-weight:700; color:var(--brand); margin:0 0 .2rem}
+.cardtitle{font-size:1.06rem; font-weight:700; line-height:1.3; color:var(--ink)}
+.cardtext{font-size:.9rem; color:#4b5563; line-height:1.5}
+code.specval{background:var(--brand-soft); color:#0b3b36; border:1px solid #99f6e4; padding:.05em .4em; border-radius:5px; font-size:.86em; white-space:normal}
 .card.tight{padding:.85rem 1rem}
 .grid{display:grid; gap:1rem}
 .grid-3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
@@ -409,14 +420,13 @@ def layout(page_rel, title, body, active=None, description=""):
         f'<span class="sub">candidate ASIN {e(p["asin"]["v"])} (unconfirmed)</span></a>'
         for p in PRODUCT_LIST
     )
-    # additive nav entries contributed by parallel sessions (rendered as "More builds")
-    more_items = [
-        f'<a href="{prefix}{href}">{e(label)}<span class="sub">{e(sub)}</span></a>'
-        for href, label, sub in parallel
-    ]
+    # Sidebar gets ONE entry. Every parallel build is catalogued, with its disagreements
+    # named, on previous-passes.html.
     more_nav = (
-        '<div class="group"><h4>More builds</h4>' + "".join(more_items) + "</div>"
-        if more_items else ""
+        '<div class="group"><h4>Archive</h4>'
+        f'<a href="{prefix}previous-passes.html">Previous passes<span class="sub">'
+        f'{len(parallel)} parallel builds kept in this repo, catalogued</span></a></div>'
+        if parallel else ""
     )
     desc = f'<meta name="description" content="{e(description)}">' if description else ""
     return f"""<!doctype html>
@@ -644,7 +654,22 @@ def calc_widget():
 # pages
 # --------------------------------------------------------------------------- #
 
+def _dashboard_article_cards():
+    """Three headline articles, rendered as cards on the dashboard."""
+    picks = ARTICLES["articles"][:3]
+    out = []
+    for a in picks:
+        out.append(f"""<a class="card" href="articles/{a['slug']}.html">
+  <span class="kicker">{e(a['kicker'])}</span>
+  <span class="cardtitle">{e(a['title'])}</span>
+  <span class="cardtext">{e(a['standfirst'])}</span>
+  <span class="tiny muted">{e(a['kind'])} · {a['reading_minutes']} min read</span>
+</a>""")
+    return chr(10).join(out)
+
+
 def page_index():
+    _article_cards = _dashboard_article_cards()
     rev = REVERIFICATION["tests"]
     rev_total = len(rev)
     def _v(*keys):
@@ -717,6 +742,13 @@ def page_index():
 
 <h2>Commercial summary</h2>
 {commercial_table()}
+
+<h2>Articles</h2>
+<p class="small muted">Five reads written for this product set. Each one quotes the manufacturer's own pages or manuals, links every number to the page it came from, and names the places where the official record contradicts itself instead of smoothing them over. No first-hand testing is claimed anywhere.</p>
+<div class="cardgrid">
+{_article_cards}
+</div>
+<p class="small"><a class="btn btn-ghost" href="articles/index.html">All articles →</a></p>
 
 <h2>Where to go next</h2>
 <div class="grid grid-2">
@@ -937,6 +969,18 @@ PROGRAMME_FLAGS = [
     ("F31", "The two Chefman 6 Qt sister SKUs carry very different review counts on the brand's own site.",
      "Chefman 6 Qt Dual Basket",
      "Re-read 2026-11-14 by sess-54c66535. The dual-basket page RJ38-SQPF-3TDB-2 reports 4.6 stars from 194 reviews; the dual-window page RJ38-SQPF-3TDB-2W reports 4.6 stars from 1,305 reviews, on an identical list price and promo ladder. The 6.7x gap is a usable signal for deciding which SKU the supplied ASIN maps to, which is open flag F2. It is not an identification: Amazon does not publish the model number behind an ASIN, and a review count is not a product identifier. No SKU is asserted.", ["S11", "S10"]),
+    ("F32", "Chefman sells three different 6-quart dual-basket SKUs; the site names two of them.",
+     "Chefman 6 Qt Dual Basket",
+     "Found live 2026-11-14 by arena/6b2eddeb. Chefman's own store currently publishes RJ38-3DBW-V2 ('TurboFry 6 Qt. Double Basket Air Fryer with Easy View Windows': 6 Qt / 5.68 L as two 3 Qt / 2.84 L baskets, 90–400 °F / 32–204 °C, 1700 W, five functions — air fry, bake, reheat, dehydrate, frozen — easy-view windows, interior lights, shake notifications, 4.5 stars from 30 reviews, $99.99 list), RJ38-SQPF-3TDB-2 (dual-basket, 4.6 from 194, no specification block published) and RJ38-SQPF-3TDB-2W (dual-window, 200–450 °F, Hi-Fry, 4.6 from 1,305). The site records the -2W mapping because the Amazon title says 'Hi-Fry' and 'Easy View Windows', and Hi-Fry is documented only on the -2W page — but Easy View windows appear on all three, so the title does not discriminate on its own. This is an identification risk, not an identification. Two other builds shipped in this repo (site/, research/) map the same ASIN to RJ38-3DBW-V2 with no caveat, so a reader can reach two different official-looking answers two clicks apart. Decision needed: open the listing, read the model plate or the 'Product information' model number, and settle it once.", ["S25", "S27", "S10"]),
+    ("F33", "The 'Hi-Fry / 450 °F: None' row for the 8 Qt product is only true of the stainless SKU, and a second official SKU matches the Amazon title exactly.",
+     "Chefman 8 Qt TurboFry",
+     "Found live 2026-11-14 by arena/6b2eddeb — narrows F3, does not resolve it. Chefman sells RJ38-SQSS-8T (TurboFry Touch Stainless-Steel, max 400 °F / 205 °C, four food presets, stainless finish — the SKU the site currently maps) and RJ38-8T-BLACK (TurboFry 8 Qt Air Fryer w/ High Fry: Hi-Fry 450 °F / 232 °C for the final two minutes, and exactly four functions — air fry, bake, dehydrate, frozen — in a matte-black finish). The Amazon listing title for B08DKYBTPH reads '…4-in-1 with 450°F Hi-Fry Option… | Bake, Dehydrate, Frozen | … Stainless Steel'. The function list and the 450 °F Hi-Fry match RJ38-8T-BLACK word for word; the finish matches RJ38-SQSS-8T. So the title may describe a third variant, or may carry a finish that does not match the unit. The previous framing — 'one of the two official sources is stale' — is now the less likely explanation. No value is changed and neither model is asserted; a human should read the model number printed in the listing's Product information section.", ["S12", "S26", "S16"]),
+    ("F34", "The second executive summary at the repo root still asserts two things that are now known to be wrong.",
+     "EXECUTIVE_SUMMARY.md",
+     "Found 2026-11-14 by arena/6b2eddeb. EXECUTIVE_SUMMARY.md (the older of the two root summaries) states in its Key findings: 'Identity verified. All three short links resolve to Amazon.com product pages with different ASINs' and 'the official commission schedule redirected to a sign-in page'. This session re-fetched both on 2026-11-14: the Associates Program Standard Commission Income Statement (Table 1 and Bounty Events) was read in full with no login, and product identity is explicitly NOT verified anywhere on this site (F14–F16, F21, F32, F33). A dated correction banner was placed above that document by an earlier pass, but the contradicting sentences remain in the body and the file is still served from the site root by direct link. Decision needed: retire the duplicate document, or rewrite the two sentences. This pass did not edit it — the sentence is another session's published work and rewriting it is a content decision, not a verification one.", ["S1", "S3"]),
+    ("F35", "Nine separate HTML sites for the same three products are published in this repository, and they disagree with each other.",
+     "Whole repository",
+     "Found 2026-11-14 by arena/6b2eddeb. Alongside the canonical root build there are research/ (12 pages), session-3740f69d/ (11), s2/ (13), site/ (11), dashboard/ (14), docs/ (7) and annex-88769516/ (10), plus data-only trees in crosscheck/ and platform/. The root navigation links to six of them. They disagree on facts a reader would take as settled: the Chefman 6 Qt model (RJ38-SQPF-3TDB-2W on the root site, RJ38-3DBW-V2 in site/ and research/ — F32), and the policy section numbers for the review/star-rating and link-shortening rules (§6(t)/§6(w) on the root site after F27, §3(t)/§2(w) in site/ and session-3740f69d/). Each build is internally consistent and individually verified; the problem is that nothing tells a reader which one is canonical when they arrive from a search engine. Decision needed: keep one site and archive the rest behind a clearly labelled 'previous verification passes' page, or make every non-canonical page carry a fixed banner naming the canonical build.", ["S1", "S2"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -951,6 +995,10 @@ REPO_EVIDENCE = {
     "F29": ["session-54c66535/EVIDENCE-2026-11-14.md", "data/products.json"],
     "F30": ["session-54c66535/EVIDENCE-2026-11-14.md", "session-54c66535/pass6.json"],
     "F31": ["session-54c66535/EVIDENCE-2026-11-14.md"],
+    "F32": ["session-6b2eddeb/EVIDENCE-2026-11-14.md", "data/products.json", "site/", "research/"],
+    "F33": ["session-6b2eddeb/EVIDENCE-2026-11-14.md"],
+    "F34": ["EXECUTIVE_SUMMARY.md"],
+    "F35": ["build.py", "site/", "session-3740f69d/"],
 }
 
 VERDICTS = {
@@ -1820,6 +1868,85 @@ manufacturer does not publish stays blank.</p>
                   description="Line-by-line re-read of every value this site publishes, each against the official source it cites, with the verdict and the source link.")
 
 
+PARALLEL_BUILDS = [
+    ("research/index.html", "research/", "Deep-dive research",
+     "Independent 25-source pass: a 90-field product table, a 23-row compliance matrix with verbatim quotations, a 17-item flag register (I-1 to I-17), a content plan and a 10-step automation pipeline.",
+     "Maps the Chefman 6 Qt ASIN to **RJ38-3DBW-V2** with no caveat; the canonical site maps it to **RJ38-SQPF-3TDB-2W**. Both are real Chefman SKUs — see F32."),
+    ("site/index.html", "site/", "Verification annex",
+     "A second dataset and generator over the same three products: 53 spec fields, its own 382-assertion verifier, and a Kitchen 4.50% commission row.",
+     "Also maps the 6 Qt ASIN to **RJ38-3DBW-V2** (F32), and still prints the old policy labels **§3(t)** and **§2(w)** where the live page says **§6(t)** and **§6(w)** (F27)."),
+    ("session-3740f69d/index.html", "session-3740f69d/", "Session 3740f69d build",
+     "Dashboard-style build: link-resolution evidence, a link-policy map for the supplied link.amazon URLs, tracking design and an analysis of Amazon's 2026 IP License Agent Terms.",
+     "Prints the pre-F27 policy labels (Participant Requirements §2(t), §2(v)(w), §2(y)). Its link-policy reading agrees with the canonical site."),
+    ("s2/index.html", "s2/", "Verified platform pass",
+     "A compliance matrix, a verification log and its own flag register, generated from data/s2/ by scripts/build_s2_site.py with a build-date stamp.",
+     "None found against the canonical site at the time of this pass; its citations were spot-checked and matched."),
+    ("dashboard/index.html", "dashboard/", "Campaign dashboard",
+     "Niches, commissions, links and tracking views for the same three products, built by a separate session.",
+     "Maps the 6 Qt ASIN without the F32 caveat."),
+    ("docs/index.html", "docs/", "Legacy docs build",
+     "The earliest dashboard build. Retired; kept because its evidence files are cited by later passes.",
+     "Its build command is already documented as broken against the shared data schema (F23)."),
+    ("annex-88769516/index.html", "annex-88769516/", "Annex 88769516",
+     "An independent annex build with its own content, tracking and flagged pages.",
+     "Inherited advisory only; not re-verified by this pass."),
+]
+
+
+def page_previous_passes():
+    rows = []
+    for href, path, name, what, conflict in PARALLEL_BUILDS:
+        rows.append(
+            f'<tr><td><a href="{href}">{e(name)} ↗</a>'
+            f'<div class="tiny">{repo_link(path, "Source: " + path)}</div></td>'
+            f'<td class="small">{e(what)}</td>'
+            f'<td class="small">{conflict.replace("**", "")}</td></tr>')
+    body = f"""
+<p class="crumbs"><a href="index.html">Dashboard</a> / Previous passes</p>
+<h1>Every parallel build in this repository, and which one is canonical</h1>
+<p class="lede">Several agent sessions worked this repository at the same time. Nothing was thrown away, so {len(PARALLEL_BUILDS)} older builds are still published next to this one. That is a record of the work, but it is a bad thing to hand a reader cold: two of them answer the same question differently. This page says so, names the differences, and tells you which build to trust.</p>
+
+<div class="callout warn">
+  <strong>The canonical build is the root site you are on now</strong>
+  <p class="small">It is the only build generated by <code>build.py</code>, verified by <code>verify.py</code> on every push, and the only one that reconciles the flags below. If you arrived here from a search result and landed on one of the older pages instead, everything on this page applies to what you are reading.</p>
+</div>
+
+<h2>Where the older builds disagree with this one</h2>
+<div class="tablewrap">
+<table>
+  <caption>Parallel builds, what each adds, and where it diverges</caption>
+  <thead><tr><th>Build</th><th>What it adds</th><th>Where it disagrees with the canonical site</th></tr></thead>
+  <tbody>
+  {chr(10).join(rows)}
+  </tbody>
+</table>
+</div>
+<p class="small muted">Every disagreement above is published, with its source links, on <a href="flagged.html">Flagged for review</a>: the model-number question is <strong>F32</strong>, the policy-label question is <strong>F27</strong>, the number of parallel builds is <strong>F35</strong>.</p>
+
+<h2>Why the builds were not merged into one</h2>
+<p class="small">Merging them would mean picking a winner for each disagreement on evidence that does not exist yet. For the model number, only the account holder can settle it by reading the model plate on a unit or the listing's product-information block. For the policy labels, the live page settles it and the canonical build already matches the live page — but rewriting another session's published pages to match would destroy the record of what that pass actually verified against.</p>
+
+<h2>What "canonical" means here, precisely</h2>
+<div class="tablewrap">
+<table>
+  <caption>How each build is gated</caption>
+  <thead><tr><th>Build</th><th>Generator</th><th>Gate that runs on every push</th></tr></thead>
+  <tbody>
+    <tr><td>Root site (canonical)</td><td><code>build.py</code>{repo_link('build.py', '')}</td><td><code>verify.py</code> — no broken internal links, no specification row with a value but no official source, the required disclosure on every page, and no article number that is not in the verified dataset. {repo_link('verify.py', 'verify.py on GitHub')}</td></tr>
+    <tr><td><code>site/</code></td><td><code>scripts/build_site.py</code>{repo_link('scripts/build_site.py', '')}</td><td><code>scripts/verify_site.py</code> — 382 assertions over <code>data/verified/</code>. {repo_link('scripts/verify_site.py', 'verify_site.py on GitHub')}</td></tr>
+    <tr><td><code>s2/</code></td><td><code>scripts/build_s2_site.py</code>{repo_link('scripts/build_s2_site.py', '')}</td><td><code>--check</code> byte-comparison against a fresh rebuild. {repo_link('scripts/build_s2_site.py', 'build_s2_site.py on GitHub')}</td></tr>
+    <tr><td>Others</td><td>their own scripts</td><td>No CI gate. They are preserved evidence, not a maintained product. {repo_link('.github/workflows/', 'The only workflows that run')}</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="flagged.html">See every open irregularity →</a> <a class="btn btn-ghost" href="reverification.html">The 2026-11-14 line-by-line re-read →</a></p>
+"""
+    return layout("previous-passes.html", "Previous passes", body,
+                  active="previous-passes.html",
+                  description="Catalogue of every parallel build published in this repository, where each one disagrees with the canonical site, and which build to trust.")
+
+
 def page_404():
     body = """
 <p class="crumbs">Not found</p>
@@ -1845,6 +1972,203 @@ def page_404():
 </div>
 """
     return layout("404.html", "Page not found", body)
+
+
+# --------------------------------------------------------------------------- #
+# Articles — the editorial layer asked for in the brief ("catchy, trendy articles
+# and topics related to the product we are promoting").
+#
+# Discipline: data/articles.json holds prose whose factual numbers are written as
+# {{value}} placeholders and a per-section list of source ids. A section may not be
+# rendered unless every one of its source ids resolves in data/sources.json; the
+# article may not be rendered unless every placeholder in it appears verbatim in a
+# value published in data/products.json. That makes "the article invented a number"
+# a build failure rather than a proofreading task.
+# --------------------------------------------------------------------------- #
+
+ARTICLES = load("articles.json")
+
+_PRODUCT_VALUES = None
+
+
+def _published_values():
+    """Every value string this build publishes for a product, for placeholder checks."""
+    global _PRODUCT_VALUES
+    if _PRODUCT_VALUES is not None:
+        return _PRODUCT_VALUES
+    vals = set()
+    for p in PRODUCT_LIST:
+        for spec in p["specs"]:
+            vals.add(spec["value"])
+            vals.add(spec["label"])
+        for k in ("name", "short_name", "brand", "category"):
+            if p.get(k):
+                vals.add(p[k])
+        for k in ("asin", "model_number", "sibling_sku"):
+            f = p.get(k)
+            if isinstance(f, dict) and f.get("v"):
+                vals.add(f["v"])
+            elif isinstance(f, str):
+                vals.add(f)
+    # Values the dataset states inside an evidence/note string are still published;
+    # scan those too so a quoted dimension can be cited without re-typing it.
+    for p in PRODUCT_LIST:
+        for k, v in p.items():
+            if isinstance(v, str):
+                vals.add(v)
+        for spec in p["specs"]:
+            if spec.get("note"):
+                vals.add(spec["note"])
+    _PRODUCT_VALUES = vals
+    return vals
+
+
+def _article_text(paras):
+    """Render {{value}} placeholders as <code>, escaping everything else."""
+    out = []
+    for para in paras:
+        # **bold** -> <strong>
+        chunk = e(para)
+        chunk = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", chunk)
+        chunk = re.sub(r"\{\{(.+?)\}\}", r'<code class="specval">\1</code>', chunk)
+        out.append(f"<p>{chunk}</p>")
+    return "\n".join(out)
+
+
+def _article_placeholders(article):
+    found = []
+    for sec in article["sections"]:
+        for para in sec["paras"]:
+            found.extend(re.findall(r"\{\{(.+?)\}\}", para))
+    return found
+
+
+def check_articles():
+    """Fail the build if an article cites an unregistered source or invents a number."""
+    problems = []
+    values = _published_values()
+    for a in ARTICLES["articles"]:
+        for sec in a["sections"]:
+            for sid in sec.get("cite", []):
+                if sid not in SRC_BY_ID:
+                    problems.append(f"{a['slug']} §'{sec['h']}' cites unregistered source {sid}")
+        for ph in _article_placeholders(a):
+            if ph not in values:
+                problems.append(
+                    f"{a['slug']} states '{ph}' which is not a value published in data/products.json")
+    return problems
+
+
+def article_body(article, prefix="../"):
+    parts = []
+    for sec in article["sections"]:
+        parts.append(f"<h2>{e(sec['h'])}</h2>")
+        parts.append(_article_text(sec["paras"]))
+        if sec.get("cite"):
+            parts.append(
+                f'<p class="tiny muted">Sources for this section: {src_links(sec["cite"])}</p>')
+    body = "\n".join(parts)
+    return body
+
+
+def page_articles_index():
+    cards = []
+    for a in ARTICLES["articles"]:
+        prods = ""
+        if a["products"]:
+            links = []
+            for slug in a["products"]:
+                p = next((x for x in PRODUCT_LIST if x["slug"] == slug), None)
+                if p:
+                    links.append(f'<a href="../products/{slug}.html">{e(p["short_name"])}</a>')
+            if links:
+                prods = ('<p class="tiny muted" style="margin:.4rem 0 0">About: '
+                         + " · ".join(links) + "</p>")
+        cards.append(f"""<a class="card" href="../articles/{a['slug']}.html">
+  <span class="kicker">{e(a['kicker'])}</span>
+  <span class="cardtitle">{e(a['title'])}</span>
+  <span class="cardtext">{e(a['standfirst'])}</span>
+  <span class="tiny muted">{e(a['kind'])} · {a['reading_minutes']} min read</span>
+  {prods}
+</a>""")
+    body = f"""
+<p class="crumbs"><a href="../index.html">Dashboard</a> / Articles</p>
+<h1>Articles</h1>
+<p class="lede">Five pieces written for this product set. Each one states what the manufacturer's own pages and manuals establish, links to the page it came from, and names the places where the official record contradicts itself rather than tidying them away.</p>
+
+<div class="callout info">
+  <strong>How to read these articles</strong>
+  <p class="small">A <code class="specval">highlighted number</code> is a value published in this site's verified dataset and is a quotation from a manufacturer page or owner's manual. An ordinary number in prose is a date or a page reference. Anything marked <em>judgement</em> or written as a decision rule is the site's opinion, not a sourced fact. <strong>No product in this set was tested by anyone here</strong>, so no article claims a cooking result, a measured time or a hands-on comparison.</p>
+</div>
+
+<div class="cardgrid">
+{chr(10).join(cards)}
+</div>
+
+<h2>What these articles deliberately do not contain</h2>
+<div class="tablewrap">
+<table>
+  <caption>Editorial rules this section is built to</caption>
+  <thead><tr><th>Rule</th><th>Why</th><th>Source</th></tr></thead>
+  <tbody>
+    <tr><td>No hands-on testing is claimed</td><td>A first-person testing claim that never happened is a deceptive endorsement, not a style choice.</td><td>{src_links(['S8', 'S2'])}</td></tr>
+    <tr><td>No Amazon price, star rating or review count</td><td>Both may only be displayed when Amazon serves the link or the data comes from Creators/PA API.</td><td>{src_links(['S2'])}</td></tr>
+    <tr><td>No superlative asserted as fact</td><td>"Best", "quietest" and "fastest" are measurements. None were taken.</td><td>{src_links(['S2'])}</td></tr>
+    <tr><td>A conflict is published, not resolved</td><td>Picking a winner between two official sources without evidence would be a fabrication with a citation attached.</td><td>{src_links(['S14', 'S12'])}</td></tr>
+    <tr><td>Disclosure on every page</td><td>Operating Agreement §5 and 16 CFR §255.5(a) both require it, in a place a reader will actually see.</td><td>{src_links(['S1', 'S9'])}</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../guides/buying-guide-air-fryers.html">Buying guide →</a> <a class="btn btn-ghost" href="../compare.html">Comparison matrix →</a> <a class="btn btn-ghost" href="../flagged.html">Flagged for review →</a></p>
+"""
+    return layout("articles/index.html", "Articles", body, active="articles/index.html",
+                  description="Five sourced articles on dual-basket vs oven air fryers, what a 450 F badge means, preset-count conflicts, and why this site publishes no Amazon prices.")
+
+
+def page_article(a):
+    prods = ""
+    if a["products"]:
+        items = []
+        for slug in a["products"]:
+            p = next((x for x in PRODUCT_LIST if x["slug"] == slug), None)
+            if p:
+                items.append(
+                    f'<li><a href="../products/{slug}.html">{e(p["name"])}</a> '
+                    f'<span class="tiny muted">— {e(p["category"])}</span></li>')
+        if items:
+            prods = ('<div class="callout"><strong>Products covered</strong>'
+                     f'<ul class="tight small" style="margin:.4rem 0 0">{"".join(items)}</ul></div>')
+    related = [x for x in ARTICLES["articles"] if x["slug"] != a["slug"]][:3]
+    rel_html = "".join(
+        f'<li><a href="../articles/{x["slug"]}.html">{e(x["title"])}</a> '
+        f'<span class="tiny muted">— {e(x["kind"])}</span></li>' for x in related)
+    body = f"""
+<p class="crumbs"><a href="../index.html">Dashboard</a> / <a href="../articles/index.html">Articles</a> / {e(a['kind'])}</p>
+<p class="kicker">{e(a['kicker'])}</p>
+<h1>{e(a['title'])}</h1>
+<p class="lede">{e(a['standfirst'])}</p>
+<p class="tiny muted">{e(a['kind'])} · {a['reading_minutes']} min read · sources read {ARTICLES['accessed']} · no first-hand testing</p>
+
+<div class="callout warn">
+  <strong>No hands-on testing, and no Amazon numbers</strong>
+  <p class="small">Nobody here cooked with these appliances. Every specification below is quoted from the manufacturer's own product page or owner's manual and links to it. No Amazon price, star rating or review count appears, because Amazon's Program Policies only permit those when Amazon serves the link or via Creators/PA API {src_links(['S2'])}.</p>
+</div>
+
+{prods}
+
+{article_body(a)}
+
+<p class="small" style="margin-top:1.5rem"><em>{e(a['closing_note'])}</em></p>
+
+<h2>Read next</h2>
+<ul class="tight small">{rel_html}</ul>
+
+<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../articles/index.html">← All articles</a> <a class="btn btn-ghost" href="../flagged.html">What is unresolved →</a></p>
+"""
+    return layout(f"articles/{a['slug']}.html", a["title"], body,
+                  active="articles/index.html", description=a["standfirst"])
+
 
 
 # --------------------------------------------------------------------------- #
@@ -1911,7 +2235,7 @@ def main():
     (assets / "style.css").write_text(CSS, encoding="utf-8")
     (assets / "app.js").write_text(JS, encoding="utf-8")
 
-    for d in ("products", "categories", "guides"):
+    for d in ("products", "categories", "guides", "articles"):
         (ROOT / d).mkdir(exist_ok=True)
 
     pages = {}
@@ -1921,12 +2245,16 @@ def main():
     pages["categories/kitchen-appliances.html"] = page_category()
     pages["compare.html"] = page_compare()
     pages["guides/buying-guide-air-fryers.html"] = page_guide()
+    pages["articles/index.html"] = page_articles_index()
+    for _a in ARTICLES["articles"]:
+        pages[f"articles/{_a['slug']}.html"] = page_article(_a)
     pages["data.html"] = page_data()
     pages["compliance.html"] = page_compliance()
     pages["flagged.html"] = page_flagged()
     pages["platform.html"] = page_platform()
     pages["executive-summary.html"] = page_exec()
     pages["reverification.html"] = page_reverification()
+    pages["previous-passes.html"] = page_previous_passes()
     pages["404.html"] = page_404()
 
     # build guards
@@ -1936,6 +2264,10 @@ def main():
     missing = check_disclosure(list(pages.items()))
     if missing:
         raise SystemExit("BUILD FAILED — pages missing the required disclosure: " + ", ".join(missing))
+    article_problems = check_articles()
+    if article_problems:
+        raise SystemExit("BUILD FAILED — article cites an unregistered source or states an "
+                         "unpublished value:\n  " + "\n  ".join(article_problems))
     unsourced_rows = check_row_sources(pages)
     if unsourced_rows:
         raise SystemExit("BUILD FAILED — table rows with no official source link (cite a registered "
