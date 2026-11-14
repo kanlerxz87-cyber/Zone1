@@ -1154,3 +1154,22 @@ Not re-fetched in this pass: every other table value on the site (prices, brand 
 
 - Open PR #9 (`arena/88769516-zone1`, another session) was not touched.
 - No other session's branch was edited. The only shared outputs changed are the root landing (`build.py` `page_index` + `index.html`), the product CTA note (`products/*.html`), and the root Flagged page (`PROGRAMME_FLAGS` in `build.py` + `flagged.html`). The integration session owns these.
+
+## PR, merge and deployment record — `arena/1dcaaafc` (T17 closed)
+
+- **Integration PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/18 — `arena/1dcaaafc-zone1` → `main`. **Merged** 2026-11-14T09:50:17Z via `gh pr merge 18 --merge`. Merge commit `90e09666c074bf6a6f1473836bd94c6539bfe9d0`.
+- **Checks on the PR before merge:** `CI / verify` SUCCESS · `Verify verification annex (site/) / Rebuild site/ from data/verified and assert every guarantee` SUCCESS · mergeable CLEAN.
+- **Post-merge runs on `main` at `90e0966`:** `CI` SUCCESS · `Verify verification annex (site/)` SUCCESS · `Build, verify and deploy to GitHub Pages` SUCCESS · `pages-build-deployment` SUCCESS.
+- **GitHub Pages:** `GET /repos/kanlerxz87-cyber/Zone1/pages` → `status: built`, source `main` `/`. Latest build commit `90e09666…`, `error.message: null`.
+- **Live verification (cache-busted fetches, 2026-11-14):**
+  - `https://kanlerxz87-cyber.github.io/Zone1/index.html?cb=…` shows the headline "Three supplied Amazon links: product identity not yet confirmed", "0 Verified product identities", "candidate ASIN … (unconfirmed)", and irregularities count 21.
+  - `https://kanlerxz87-cyber.github.io/Zone1/reports/link-check-2026-11-14.md` serves the report.
+  - `https://kanlerxz87-cyber.github.io/Zone1/flagged.html?cb=…` serves the Flagged page with F14–F18 in its table.
+- **Caching note for future checks:** a fetch without a cache-busting query returned a stale copy of the root landing after the deploy. Verify with a query string, or re-check the Pages build commit.
+
+### Results for the board
+
+- T15 **done** — link identity **not confirmed**; the 9-character codes are not ASINs and return "Page Not Found"; short links and plain ASIN URLs serve the Amazon fallback form.
+- T16 **done** — false headline corrected and live.
+- T17 **done** — merged and deployed. Flags F14–F18 are on the public Flagged for Review page with source links or an explicit "no official source" note.
+- Open for owner: confirm the intended product for each supplied link; confirm whether `link.amazon` is Amazon-documented (F16); source or blank the 216+ advisory table rows (F17); pin the s2 build stamp (F18).
