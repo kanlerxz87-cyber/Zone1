@@ -1761,3 +1761,61 @@ Untouched by this session: `data/*.json` outside the notes above, `docs/`, `s2/`
    4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick
    Dishwasher-Safe Basket | Stainless Steel" → **matches** stored title. The 450 °F / 4-in-1 claim is
    still present live on Amazon, so flag F3 (conflict with the brand page's 200–400 °F) is still live.
+
+## Completion record — sess-54c66535 (pass 6, 2026-11-14)
+
+| # | Task | Status | Result |
+|---|------|--------|--------|
+| U1 | Independent re-verification, 5th observation round | **done** | All three short links re-fetched; destinations and `<title>` values match the stored values character for character. New: the Emeril listing title states "24 cooking functions". |
+| U2 | Repo review + gap analysis | **done** | Every published gate re-run green. Found and closed the one real gap: **9 rows** of the 61-row ledger were marked `not-rechecked` and had not been re-opened by any later pass. |
+| U3 | Landing-page / IA | **done as additive** | The root build already read as a single dashboard (disclosure bar, KPI counters, sourced tables, one nav). Rather than fork a 7th build (see F20), this pass added one section to the existing `reverification.html` and left the IA otherwise untouched. |
+| U4 | Executive summary refresh | **done** | `EXECUTIVE-SUMMARY.md` §10.7 added; flag count corrected 26 → 30. |
+| U5 | PR → merge → Pages | in progress | Below. |
+
+### The nine un-rechecked rows — outcome
+
+Re-read today against the official page or manual the site cites for each (details and verbatim
+quotes in `session-54c66535/EVIDENCE-2026-11-14.md`, machine-readable in
+`session-54c66535/pass6.json`, published in the new "Pass 6" section of `reverification.html`).
+
+**7 confirmed verbatim:** Emeril rated power 1700 W · Emeril temperature range 75–500 °F / 25–260 °C
+· Emeril 1-year warranty · Chefman 8 Qt all five preset defaults (including the **Fries 20 min /
+400 °F** row the earlier pass could not read) · LED shake reminder · "Designed for 4-6 people" ·
+"98% less oil".
+
+**2 not stated by the cited official source (new flag F29):**
+* *Chefman 6 Qt preset count* — the RJ38-SQPF-3TDB-2W guide was read end to end. It documents
+  HI-FRY, +2 MIN, MUTE, SYNC BASKETS, SYNC FINISH, START/STOP, TIME/TEMP and SHAKE and refers to
+  "a preset function", but has **no preset chart** and never names four food presets; its control
+  panel is artwork with no text layer. Contrast the 8 Qt guide, which does carry a chart.
+* *Emeril interior light* — the brand page's specification block has no interior-light row.
+
+Both were left published rather than deleted (deleting another session's sourced row is not this
+pass's call) and are flagged for a human decision. Neither was back-filled.
+
+### New flags added by this pass
+
+| ID | Item | Source |
+|----|------|--------|
+| **F28** | The Emeril preset count is stated **five** ways across official sources: Amazon listing title "24 cooking functions", Emeril's own prose "24 one-touch cooking presets", the spec block "25 Cooking Pre-sets", the heading "10-In-1", and a carousel asset named `11-in-1`. Two independent official sources now agree on 24, which is new — earlier passes had no tiebreaker. **Narrowed, not closed**: no preset count is asserted anywhere on the site. | S14, S17, S16 |
+| **F29** | Two published specification values are not stated by the official source cited for them (see above). | S18, S14 |
+| **F30** | The two Chefman 6 Qt sister SKUs diverge sharply on the brand's own site: RJ38-SQPF-3TDB-2 is 4.6 ★ / **194** reviews, RJ38-SQPF-3TDB-2W is 4.6 ★ / **1,305**, on an identical price ladder. A signal for the open ASIN→model question (F2), not an identification. | S11, S10 |
+
+**Flag-id collision, resolved.** F25/F26 were taken by `sess-502dcf85` (PR #31) and **F27** by
+`sess-6ecdb4e4` (PR #34) while this pass was running — the latter for an unrelated finding about
+Participation Requirements section numbering (§3(t) → §6(t)). Their F27 and all of PR #34's citation
+corrections are preserved unchanged; this pass's three flags are numbered **F28–F30**.
+
+### Verification performed
+
+* `python3 build.py` → 14 pages, reproducible; row-source gate and disclosure gate pass.
+* `python3 verify.py` → 92 pages, 43 spec rows (42 verified / 1 blank+flagged), 24 sources, **0 errors**.
+* `research/check_research.py` OK · `scripts/build_s2_site.py --check` current · `scripts/check_links.py` 4,101 links, 0 broken owned · `scripts/build_site.py` + `verify_site.py` 382 assertions pass · `platform` 33 tests OK · `platform/audit/report.py` 0 warnings.
+* Repo-wide conflict-marker scan: none.
+
+### Files touched
+
+`session-54c66535/**` (new, this session only) · `build.py` (additive: `PASS6` load, `source-silent`
+verdict, one new section on `reverification.html`, three flags, three repo-evidence entries) ·
+regenerated root HTML · `EXECUTIVE-SUMMARY.md`. **No `data/*.json` was edited,** and no file owned by
+another session was modified.
