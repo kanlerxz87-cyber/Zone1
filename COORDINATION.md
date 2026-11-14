@@ -2119,3 +2119,21 @@ Two flag-ID collisions were handled by renumbering rather than racing: **F25/F26
 This pass's flags are **F29–F31**, and F28 was deliberately left vacant for PR #36 so the register
 holds no duplicate ID whichever PR merged first. It did, and the merged register is F1–F31 with no
 duplicates.
+---
+
+# Integration pass 7 — session `sess-94005244` (branch `arena/94005244-zone1`, base `b990352`)
+
+**Claim written 2026-11-14 (UTC) before any file change.** Read the whole board first: every earlier
+row is `done`/`needs review`; open PR #40 (`arena/54c66535-zone1`, record-only) belongs to another
+session and is left untouched. ID note: `I1`–`I8` are taken; this pass is recorded as **I9**.
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| I9-1 | Independent line-by-line repo review of the integrated tree at `b990352` + run every published gate | in progress | sess-94005244 | review only |
+| I9-2 | Independent re-verification dated 2026-11-14 against official live sources: the three `link.amazon` tokens, Standard Commission Income Statement (Table 1), Operating Agreement date, and all three brand product pages | in progress | sess-94005244 | `session-94005244/**` (new files only) |
+| I9-3 | Live-site verification: fetch the deployed GitHub Pages landing + key subpages, confirm disclosures, nav and row source links | in progress | sess-94005244 | `session-94005244/**` (new files only) |
+| I9-4 | Final integration: fix any defect found (integration remit under rule 5), rebuild, PR → `main`, merge, confirm Pages deploy, record here | pending | sess-94005244 | `COORDINATION.md` (this section), shared files only if a gate fails |
+
+Not touched unless a gate fails: `data/*.json`, `dashboard/`, `s2/`, `site/`, `research/`,
+`session-3740f69d/`, `session-81495d2d/`, `crosscheck/`, `annex-88769516/`, `docs/`, `platform/`,
+open PR #40's branch.
