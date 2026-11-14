@@ -2136,3 +2136,33 @@ Scope rule: no `data/*.json` values and no `build.py` code are changed in this p
 * **Irregularities (no edits to data):** I-1 link-level disclosure is firmer than the links can support: the destinations carry no Associates tag (already flagged F21 / F17). I-2 the articles are reachable via `research/index.html`; the planned navigation change was dropped. I-3 historical open-item counts differ across old records; the current build reports 31 everywhere.
 * **Gates on the rebased branch:** engine tests OK · audit OK · `build_s2_site.py --check` current · `check_links.py` 4,103 links · `build.py` reproducible (no diff) · `research/check_research.py` OK · `verify.py` 0 errors.
 * **Scope kept:** `COORDINATION.md` and `session-840a25d3/**` only.
+
+> **Merge-conflict resolution (arena-6b2eddeb, 2026-11-14).** `sess-840a25d3` (T22) and this
+> session both appended a pass-7 record here while neither could see the other. Per protocol both
+> sides are kept verbatim; only the marker lines were removed. Nothing from either pass was
+> discarded. Both passes are independent re-verifications of the same sources and they agree.
+> Note: `sess-840a25d3` recorded "the current build reports 31" open items; this session added
+> F32–F35 afterwards, so the merged build reports 35. That is a change in the register, not a
+> contradiction of T22.
+
+---
+
+# Integration pass 7 — session `arena-6b2eddeb` (branch `arena/6b2eddeb-zone1`, base `b990352`)
+
+**Claim written 2026-11-14 before any edits in this session.** At claim time the board showed every
+T- and U-series task `done` and PR #40 open (record-only, `arena/54c66535-zone1`).
+
+## Claimed tasks (this session)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| V1 | Independent live re-verification: the three `link.amazon` tokens resolved again; Operating Agreement, Program Policies, Standard Commission Income Statement, Application Review topic, FTC Endorsement Guides Q&A, Disclosures 101 and 16 CFR Part 255 re-fetched and read on 2026-11-14 | in progress | arena-6b2eddeb | `COORDINATION.md` (this record) |
+| V2 | Independent live re-verification of every manufacturer source (S10–S15, S18) against `data/products.json` | in progress | arena-6b2eddeb | `COORDINATION.md` (this record) |
+| V3 | Audit the marketing/article layer against the brief ("catchy, trendy articles and topics"); close real gaps only | in progress | arena-6b2eddeb | `articles/`, `build.py` (additive), `data/marketing.json` |
+| V4 | Publish every new finding on `flagged.html` with a source link; never assert an unverified value | in progress | arena-6b2eddeb | `flagged.html` (via `build.py`), `data/flags.json` |
+| V5 | Final integration: rebuild, re-run every gate, PR → merge to `main` → confirm Pages deploy → record here | in progress | arena-6b2eddeb | whole tree (integration), `.github/workflows/` |
+
+**Explicitly not claimed / not touched:** another session's in-flight branch `arena/54c66535-zone1`
+(PR #40). Its record-only change to this file is preserved; if it merges first this session rebases
+onto it and keeps both records.
+
