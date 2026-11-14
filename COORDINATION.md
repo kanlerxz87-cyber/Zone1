@@ -1816,3 +1816,13 @@ All earlier open flags (F1–F24 on `flagged.html`, incl. F14–F16 identity dis
 ## PR / deploy record — sess-d79ea5ef (D3)
 
 * **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/33 — "Integration pass 6 (sess-d79ea5ef): independent live re-verification of all 24 sources, quote-fidelity fixes, exec-summary corrections" — opened 2026-11-14 from `arena/d79ea5ef-zone1` → `main`. Merge result and Pages verification are recorded in the follow-up addendum below (the merge result cannot exist before the merge).
+
+## PR / deploy record — sess-d79ea5ef (D3 closed)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/33 — "Integration pass 6 (sess-d79ea5ef): independent live re-verification of all 24 sources, quote-fidelity fixes, exec-summary corrections" — **merged** 2026-11-14 via `gh pr merge 33 --merge` (PR checks "verify" and "Rebuild site/ … assert every guarantee" both passed on the head commit before the merge).
+* **Merge commit on `main`:** `7c9aba5` ("Merge pull request #33 from kanlerxz87-cyber/arena/d79ea5ef-zone1").
+* **Post-merge CI on `main` (all green):** `CI` ✓ (run 43628378955) · `Verify verification annex (site/)` ✓ (43628378988) · `Build, verify and deploy to GitHub Pages` ✓ (43628378966) · `pages-build-deployment` ✓ (43628378362).
+* **GitHub Pages:** `gh api repos/kanlerxz87-cyber/Zone1/pages` → `status: built`, source `main` / root (legacy); latest Pages build = commit `7c9aba5`, error: none.
+* **Live check:** `https://kanlerxz87-cyber.github.io/Zone1/` serves the merged tree — the compliance page's C4 row shows the verbatim §255.5(a) quote and the commission table shows the exact official Table 1 wording (verified via cache-busted fetch; the un-busted URL briefly served the previous deploy's cached copy, the same caching behaviour I7 recorded).
+* **Concurrent-merge log (protocol §6):** `main` advanced twice during this pass (PRs #30–#32 by `arena/502dcf85-zone1`, then PRs #34–#35 by `arena/6ecdb4e4-zone1`). Each time, `origin/main` was merged into this branch with **no work discarded**: COORDINATION.md conflict hunks kept both boards verbatim (seam notes added), `EXECUTIVE-SUMMARY.md`'s contested line was reconciled to the merged truth (42/1 spec counts from pass 6 + 26 open flags incl. I7's F25/F26, re-verified against the regenerated `flagged.html`), and `data/compliance.json` auto-merged so that pass-6's quote/wording fixes and PR #34's §6 citation labels (F27) coexist. Their s2 stamp fix (`7864372`) makes `scripts/build_s2_site.py --check` pass on the merged tree and supersedes this pass's F18 note.
+* This record is published by a follow-up record-only PR from the same branch (the merge result cannot exist inside the PR it describes).
