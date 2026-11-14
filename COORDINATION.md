@@ -2658,3 +2658,40 @@ reserved for this pass.
 | V3 | Marketing/content audit: landing + articles + comparison + guides present, on-brand, compliant (disclosure on every money page), no unverified claims | in progress | arena-052f2c9f | `session-052f2c9f/**` |
 | V4 | Re-run every published gate (build.py, verify.py, platform tests/audit, scripts/*, research checks) | in progress | arena-052f2c9f | gate outputs in `session-052f2c9f/**` |
 | V5 | Final integration: fix gate failures if any (integration scope), PR → merge to `main`, Pages deploy confirm, record | in progress | arena-052f2c9f | `COORDINATION.md`, regenerated root HTML if build changes |
+
+## Completion record — arena-052f2c9f (pass 7, 2026-11-14)
+
+| # | Task | Status | Result |
+|---|------|--------|--------|
+| V1 | Line-by-line repo review | **done** | Whole tree reviewed. No conflict markers; no secrets or credentials committed (`platform/credentials.py` is an env-var gate stub; no `.pyc` tracked); `.github/workflows/` (ci/pages/verify) are consistent with the recorded gates; counts internally consistent (31 flag rows F1–F31 = 27 programme + 4 product, 24 sources S1–S24, 43 spec rows 42 verified + 1 blank+flagged). Every irregularity found maps to an existing flag — **no new flag was needed** (F17/F25 already cover the inherited-build row-source advisories; F20/F23 cover the parallel-builds and broken `scripts/build.mjs` issues; F14–F16/F21 cover the short-link identity question). |
+| V2 | Independent re-verification, round 7 | **done** | Fresh fetches 19:05–19:15Z (details in `session-052f2c9f/EVIDENCE-2026-11-14.md`, rendered as "Pass 7" on `reverification.html`). All three short links → same three ASINs, titles character-for-character, **and the same per-link `srctok` tokens earlier passes recorded** (7th stable round). Nonsense-token control re-run: `link.amazon/ZZZ9ZZZZZ` → hard **403 Forbidden** — the F-07 "fallback shuffle" reading cannot stand; only the intent question (F1/F6) remains, unprovable from outside. OA §5 disclosure wording, Commission Table 1 (Kitchen 4.50% / All Other 4.00%), Program Policies (Updated April 14, 2026), 16 CFR 255.5 (eCFR current 2026-11-12), PA-API 5 deprecation notice (F24), and both manufacturers' pages (RJ38-SQPF-3TDB-2W / 450ºF Hi-Fry / 1,305 reviews; RJ38-SQSS-8T 200–400°F; Emeril 4-00675-02A-VN / 25 Pre-sets / 10-in-1 / $199.99) all confirmed live verbatim. **Both hard conflicts remain live and unasserted (F3, F4/F5/F29).** No stored value changed. |
+| V3 | Marketing/content audit | **done** | Landing + 3 product review pages + comparison + buying guide + category page + research articles present and on-brand ("How to choose an air fryer without being sold to", "Air Fryer Buying Guide 2026: Basket, Dual-Basket or French-Door Oven?"). OA §5 disclosure present on every money page (2 occurrences each, bar + footer). No unverified claim found in copy; every figure in articles traces to `data/*.json`. |
+| V4 | Re-run every published gate | **done** | After this pass's changes: `python3 build.py` reproducible · `python3 verify.py` 92 pages, 43 rows (42/1), 24 sources, **0 errors** · `platform/tests` 33 OK · `platform/audit/report.py` 0 warnings · `scripts/check_links.py` 4,117 links, 0 broken owned · `scripts/build_s2_site.py --check` current · `research/check_research.py` OK · `scripts/build_site.py`+`verify_site.py` 382 assertions pass. |
+| V5 | Final integration: PR → merge → Pages | in progress | Below. |
+
+### Verification performed (all against official sources, 2026-11-14)
+
+S1 Operating Agreement (§5 verbatim, Updated Oct 15 2025) · S2 Program Policies (Updated Apr 14
+2026) · S3 Standard Commission Income Statement (Table 1 + Bounty table) · S9 eCFR 16 CFR Part 255
+(§255.5; Title 16 current to 2026-11-12) · S10 Chefman 6 Qt Dual-Window page · S12 Chefman 8 Qt page
+· S14 Emeril French Door 360 page · S16/S17 the three Amazon detail pages and the supplied short
+links · S22 nonsense-token control · S24 PA-API 5 Deprecation Notice. Every fetch is logged with
+its URL and verbatim observation in `session-052f2c9f/EVIDENCE-2026-11-14.md`.
+
+### Irregularities surfaced by this pass (all already registered, none new)
+
+1. **F-07 "fallback shuffle" reading is now closed** by two independent 403 control results plus
+   seven stable rounds with per-token `srctok` constants. The reconciled F21 position stands: the
+   *destination* is reproducible and documented; the *identity the account holder intended* and the
+   Associates tag stay unconfirmed (F1/F6) until checked in a logged-in browser / Associates Central.
+2. **Deploy-cache staleness — third recorded instance.** The first live fetch of `flagged.html`
+   after the pass-6 merges returned the pre-pass-6 copy ("28 Open items"); a cache-busting re-fetch
+   returned the current deploy (31 Open items, F29–F31 present). CDN artefact, not a build failure.
+3. **Inherited-build row-source advisories** (172+ rows in `dashboard/analysis.html`, ~281 rows repo-wide) remain non-blocking and are already published as **F17/F25**; the root build has **0** unsourced rows. Nothing was edited in other sessions' builds.
+
+### Files touched
+
+`session-052f2c9f/**` (new: `pass7.json`, `EVIDENCE-2026-11-14.md`) · `build.py` (one additive
+"Pass 7" section on `reverification.html`, mirroring the pass-6 pattern) · regenerated root HTML
+(`reverification.html`) · `EXECUTIVE-SUMMARY.md` (§11) · `COORDINATION.md` (this record). **No
+`data/*.json` edited; no flag added — the register remains F1–F31, 31 open rows.**
