@@ -1484,6 +1484,56 @@ Note: `arena/1dcaaafc`'s T16 headline correction ("0 verified product identities
 
 ---
 
+> **Naming note:** two sessions chose the ID `I5` on 2026-11-14. The other session's I5 block is kept below; this pass is recorded as **I6** and its flags as I6-1..I6-3.
+
+## I6 — Verification and publish pass (`arena/1ee801af-zone1`, 2026-11-14)
+
+Claimed after a fresh read of the board. Base `29e4804` (`main`, I4 complete). No other open PRs and no `in progress` claims on the files this pass touches.
+
+| ID | Task | Status | Owner | File scope |
+|----|------|--------|-------|------------|
+| I6 | Re-run every repo gate, spot-check live site and primary sources, log new irregularities, PR → merge → confirm Pages | **done** (PR and merge recorded below) | `arena/1ee801af` | `COORDINATION.md` only (this section) |
+
+### I6 record — gates, live checks, primary-source spot checks
+
+**Scope:** verification and publish pass. No data, generator or page content was changed in this pass; the only file edited is this board. Nothing here is marked verified without a link to the primary source.
+
+**Gates run on `29e4804` (2026-11-14, sandbox):**
+
+| Gate | Command | Result |
+|---|---|---|
+| Root site build + verify | `python3 build.py && python3 verify.py` | build OK · **0 errors** · tree unchanged after rebuild (reproducible) |
+| Engine tests | `python3 -m unittest discover -s platform/tests -t platform -p "test_*.py"` (CI form) | **33/33 OK** |
+| Data audit | `python3 platform/audit/report.py` | **AUDIT PASSED**, 0 warnings, 0 errors |
+| Link + source coverage | `python3 scripts/check_links.py` | **link check ok · 4,028 links · 0 broken owned** · 13 owned pages |
+| Research section | `python3 research/check_research.py` | **OK** |
+| Annex site | `python3 scripts/build_site.py && python3 scripts/verify_site.py` | build OK · **ALL CHECKS PASSED** |
+| s2 reproducibility | `python3 scripts/build_s2_site.py --check` | **FAILS on a bare run** — see Irregularity I6-1. CI regenerates before checking, so CI is unaffected. |
+
+**Live site (fetched 2026-11-14):**
+* `https://kanlerxz87-cyber.github.io/Zone1/` — loads; the dashboard shows 0 verified product identities, 42 verified spec values, 1 unconfirmed value, 24 open irregularities. Matches the repo.
+* GitHub Pages API: `status: built`, source `main`, URL as above.
+* Note: the sandbox cannot reach github.io or amazon.com with plain curl (`000`); the live-site checks above used the fetch tool.
+
+**Primary-source spot checks (this pass):**
+
+| Claim | Source checked | What the source says on 2026-11-14 | Result |
+|---|---|---|---|
+| Associates Operating Agreement is "Updated October 15, 2025" | https://affiliate-program.amazon.com/help/operating/agreement | "Updated: October 15, 2025 (Current Associates …)" | **matches** the record |
+| Chefman TurboFry Touch 6 Qt Dual-Window: 1,305 reviews | https://chefman.com/products/turbofry-touch-dual-window-air-fryer | "1305 Reviews" | **matches** (1,305, as in the Chefman row) |
+| Chefman 6 Qt list price **$119.99** | same page | The price block lists **seven** amounts: $108.00, $90.00, $84.00, $102.00, $96.00, $72.00, **$119.99**, beside "Save 10% … Save 40%" badges. The page does not label which amount is the list price. | **Ambiguous — flagged (I6-2).** The $119.99 figure is kept, but the page does not clearly state it is the MSRP. |
+| Short link `https://link.amazon/B04G1MEwY` | https://link.amazon/B04G1MEwY (fetched) | Lands on `amazon.com/dp/B0CDY277D3?…&plpRedirect=mhFallback`, title "CHEFMAN 6 Quart Dual Basket Air Fryer …", with "Customers who viewed this item also viewed" block | **matches** the recorded destination and the F21 fallback flag |
+
+**Irregularities logged in this pass** (for the Flagged page and manual review):
+
+* **I6-1 — s2 check is date-sensitive when run alone. Status: resolved for 2026-11-14** by `7864372` on `main` (stamp regenerated, `--check` now passes on the merged tree). It will recur on any later date unless the stamp is derived from a fixed verification date. `scripts/build_s2_site.py --check` compares against a build stamp that includes today's date (`built 2026-11-13` committed; today is 2026-11-14). It reports 13 "STALE" files with a one-line diff each (the stamp). CI regenerates and then checks, so CI passes. Recommended fix for the owning session: make the stamp date come from the verification date, or exclude the stamp from `--check`. Not changed here (owned by the s2 session; changing it would be out of scope). Source: `scripts/build_s2_site.py`.
+* **I6-2 — Chefman 6 Qt list price is not labelled.** The brand page shows seven prices; only one is $119.99 and the page does not identify it as the list price. Evidence: https://chefman.com/products/turbofry-touch-dual-window-air-fryer. Manual review: confirm which amount, if any, is the manufacturer's list price, or leave the field blank.
+* **I6-3 — advisory rows without a source link (12 findings, not blocking).** `check_links.py` reports 12 table rows with no link: 6 in `dashboard/analysis.html` (placeholder rows, values "—", status "Blocked") and 6 in `annex-88769516/content.html` and `annex-88769516/tracking.html` (not-generated/blocked rows). None of these rows states a value, so nothing is fabricated; but the brief requires every row to carry a source link. Requests: the owning dashboard session should link each row to `flagged.html` (as done for other blanks); the annex is preserved verbatim from PR #9 and is left as is.
+
+**Re-run after merging `origin/main` (`4fffb9b`):** all gates above green on the merged tree (s2 `--check` current, verify 0 errors, links 4,028/0, tests 33/33, audit OK, research OK, annex 382 checks).
+
+**Result of I6:** every gate green; live site serving the merged content; one ambiguous price flagged; three advisory items logged. Nothing is blocking the merge.
+
 ## I5 — Re-verification pass (branch `arena/d43b81bc-zone1`, base `29e4804`)
 
 > **Status: done.** Claimed and completed in one session on 2026-11-14 (UTC). File scope: `COORDINATION.md` only. No data, site, or generated HTML was changed.
