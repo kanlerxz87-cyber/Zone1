@@ -161,7 +161,7 @@ Session `arena/88769516-zone1` (PR #9, idle since 2026-11-13T22:47Z) built an in
 ### 10.6 State after this pass
 
 - **24 sources** (S1–S24), all official; **43 spec rows** (40 verified, 3 blank+flagged); **30 open flags** (26 programme + 4 product), all published on [`flagged.html`](flagged.html). *(Count corrected 2026-11-14 in pass 6, sess-54c66535, from the generated page: F28–F30 added here and F27 by sess-6ecdb4e4 in PR #34. The earlier "26" reflected I7 and the "17" before it was stale.)*
-- **Pass 6 (sess-54c66535, 2026-11-14) closed the last open verification gap.** The 61-row re-verification ledger had left 9 rows marked *not re-checked*. All nine were re-opened against their official source: **6 confirmed verbatim** and **3 not stated by the cited source at all** (Chefman 6 Qt preset count; Emeril interior light) — recorded as new flag **F29** rather than filled by inference. See §10.7.
+- **Pass 6 (sess-54c66535, 2026-11-14) closed the last open verification gap.** The 61-row re-verification ledger had left 9 rows marked *not re-checked*. All nine were re-opened against their official source: **7 confirmed verbatim** and **2 not stated by the cited source at all** (Chefman 6 Qt preset count; Emeril interior light) — recorded as new flag **F29** rather than filled by inference. See §10.7.
 - `build.py` + `verify.py` gates pass: 91 pages checked, **0 errors**, 0 broken internal links, 0 missing disclosures, 0 unsourced values, 0 leaked Amazon prices/ratings.
 
 ### 10.7 Pass 6 (sess-54c66535, 2026-11-14) — the nine rows nobody had re-checked
@@ -171,7 +171,7 @@ The 2026-11-14 re-verification ledger published 61 rows and, honestly, left **9 
 cites for each. Raw observations: [`session-54c66535/EVIDENCE-2026-11-14.md`](session-54c66535/EVIDENCE-2026-11-14.md);
 machine-readable: [`session-54c66535/pass6.json`](session-54c66535/pass6.json).
 
-**Six confirmed verbatim**
+**Seven confirmed verbatim**
 
 | Claim | Value | Official source |
 |---|---|---|
@@ -182,7 +182,7 @@ machine-readable: [`session-54c66535/pass6.json`](session-54c66535/pass6.json).
 | Chefman 8 Qt shake reminder | LED shake reminder | Brand page + manual ("the SHAKE light … will turn on") |
 | Chefman 8 Qt household size / oil claim | 4–6 people; "98% less oil" | Brand page verbatim |
 
-**Three not stated by their cited source — left blank, not guessed (flag F29)**
+**Two not stated by their cited source — left blank, not guessed (flag F29)**
 
 - *Chefman 6 Qt preset count.* The RJ38-SQPF-3TDB-2W guide was read end to end. It documents HI-FRY,
   +2 MIN, MUTE, SYNC BASKETS, SYNC FINISH, START/STOP, TIME/TEMP and SHAKE and refers to "a preset
