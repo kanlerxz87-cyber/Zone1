@@ -1173,3 +1173,47 @@ Not re-fetched in this pass: every other table value on the site (prices, brand 
 - T16 **done** — false headline corrected and live.
 - T17 **done** — merged and deployed. Flags F14–F18 are on the public Flagged for Review page with source links or an explicit "no official source" note.
 - Open for owner: confirm the intended product for each supplied link; confirm whether `link.amazon` is Amazon-documented (F16); source or blank the 216+ advisory table rows (F17); pin the s2 build stamp (F18).
+
+---
+
+## Session `arena/6ec3c2da` — refresh verification + integration (claim, 2026-11-14)
+
+**Session:** `arena/6ec3c2da` · **Branch:** `arena/6ec3c2da-zone1` (base `main` @ `8915b43`) · **Started:** 2026-11-14 (UTC)
+**Why a new claim:** every earlier board row is `done` or `needs review`; none is `in progress`. Open PR #9 (`arena/88769516-zone1`, another session) was left untouched.
+
+| # | Task | Status | Owner | File scope (only these) |
+|---|------|--------|-------|-------------------------|
+| H1 | Re-verify the 3 supplied links, the 3 canonical `/dp/` checks, the commission table, PA-API status, and the Chefman brand prices — all fetched 2026-11-14 | in progress | `arena/6ec3c2da` | `reports/verification-2026-11-14.md` (new) |
+| H2 | Source hygiene on the landing dashboard: replace non-official citations and remove overstated claims | in progress | `arena/6ec3c2da` | `dashboard/*.html` |
+| H3 | Add new irregularity flags (PA-API 5 deprecation, root-vs-dashboard conflict, unverified ASIN-length source) | in progress | `arena/6ec3c2da` | `dashboard/flagged.html` |
+| H4 | Executive summary refresh with this session's findings | in progress | `arena/6ec3c2da` | `dashboard/executive-summary.html` |
+| H5 | Integration: CI checks, PR `arena/6ec3c2da-zone1` → `main`, merge, confirm GitHub Pages | in progress | `arena/6ec3c2da` | this board section only |
+
+Not touched: root `build.py` / `index.html` (generator + CI reproducibility gate; the root-vs-dashboard conflict is flagged, not edited), `data/*`, `s2/`, `site/`, `research/`, `docs/`, `session-3740f69d/`, `platform/`, `.github/`.
+
+### Completion record — `arena/6ec3c2da` (2026-11-14, UTC)
+
+| # | Task | Status | Sources (official, fetched 2026-11-14) | Verification performed | Irregularities |
+|---|------|--------|----------------------------------------|------------------------|----------------|
+| H1 | Re-verify the links, canonical checks, commission table, PA-API status, Chefman prices | **done** | `link.amazon/B04G1MEwY`, `/B02NbDxp3`, `/B00hJ57DV`; `amazon.com/dp/B04G1MEwY`, `/dp/B02NbDxp3`, `/dp/B00hJ57DV`, `/dp/B0CDY277D3`, `/dp/B09B7SB46R`, `/dp/B08DKYBTPH`; [Commission Income Statement](https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ); [Operating Agreement](https://affiliate-program.amazon.com/help/operating/agreement); [PA-API 5 deprecation](https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation); [Creators API intro](https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction); chefman.com brand pages (RJ38-SQPF-3TDB-2W, RJ38-SQSS-8T) | Line-by-line record in [`reports/verification-2026-11-14.md`](reports/verification-2026-11-14.md) (sections 1–7). Status per row: Confirmed / Observed / Unconfirmed / Withdrawn. | H-04, H-05, H-07, H-08 |
+| H2 | Source hygiene on the dashboard | **done** | Operating Agreement §1; Commission Income Statement; `amazon.com/dp/…` observed pages | Removed citations to keywordseverywhere.com, barcode.graphics, aruljohn.com, u2l.ai, manuals.plus (one was labelled “official”). Removed “not an official link format” and “random unrelated listing” wording. Internal links: 371 checked, 0 broken. Tests 33/33, audit clean, `verify.py` 0 errors. | H-02, H-03, H-08 |
+| H3 | New flags | **done** | As H1 | Flagged for Review §E added: H-01…H-08 (`dashboard/flagged.html#refresh-2026-11-14`). Landing-page flag count updated 22 → 30. | H-01…H-08 |
+| H4 | Executive summary refresh | **done** | As H1 | Refresh card 0 added to `dashboard/executive-summary.html`; bullets carry their own official links. | H-01, H-03, H-06, H-08 |
+| H5 | Integration: CI, PR, merge, Pages | **in progress** | — | See the PR/deploy record below. | — |
+
+**New flags (all published on Flagged for Review §E, none blocks the merge):**
+
+- **H-01 (High) — PA-API 5 is deprecated.** Calls get HTTP 403. Earlier pages and the planned pipeline named PA-API 5. Source: [deprecation notice](https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation).
+- **H-02 (Med) — non-official citations.** Five third-party domains were cited in dashboard rows, and one was labelled “official”. All were replaced with official sources.
+- **H-03 (Med) — `link.amazon` overclaim.** Corrected to “not named in the Operating Agreement §1 Special Links definition; provenance unconfirmed”.
+- **H-04 (High) — root-vs-dashboard conflict.** The root site (`index.html`, `executive-summary.html`, `products/`, generated by `build.py`) states the three ASINs as “resolved from three short links” and shows derived commission amounts. The dashboard says the links resolve to no product. Not edited here (CI reproducibility gate; integration owner). Owner decision required.
+- **H-05 (Med) — ASIN length rule.** Observed on Amazon's own `/dp/` URLs. The official help page that states the rule was not re-read. Earlier sources were third-party.
+- **H-06 (High) — Creators API prerequisite.** Requires enrolment and **at least 10 qualifying sales in the past 30 days**. Automated product data is unavailable until then.
+- **H-07 (Low) — Chefman $119.99.** A brand-page reference price beside sale tiers, not an Amazon price; mapping to the ASIN unconfirmed.
+- **H-08 (Med) — withdrawn “random listing” claim.** A direct request for the real product page `/dp/B0CDY277D3` carries the same `plpRedirect=mhFallback&lv=shuf` parameters, so those parameters do not show a missing product. The mapping from the 9-character tokens is still unconfirmed.
+
+**Handoff / conflicts log (2026-11-14, `arena/6ec3c2da`)**
+
+- Running `scripts/build_s2_site.py` regenerated `s2/*` with a date-only stamp change (`built 2026-11-13` → `2026-11-14`). `s2/` is owned by `zone1-s2`, so the change was **reverted** (`git checkout -- s2/`) and not committed. Its stamp still reads 2026-11-13.
+- Open PR #9 (`arena/88769516-zone1`, another session) was not touched.
+- No merge conflicts in this session.
