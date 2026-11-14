@@ -2627,6 +2627,70 @@ Scope rule: no `data/*.json` values and no `build.py` code are changed in this p
 * **Scope note:** this record was committed after the merge (the PR number was not known at the time
   the completion record was written), so it ships as a record-only follow-up commit. Site output is
   unaffected: `build.py` does not read this file or `session-2300f756/`.
+
+---
+
+## PR / merge / deploy record — session `sess-7111e2b6` (V6 closed)
+
+* **PR:** [kanlerxz87-cyber/Zone1#51](https://github.com/kanlerxz87-cyber/Zone1/pull/51) —
+  *"Integration pass 7 (sess-7111e2b6): two values corrected, Articles section, 0 unsourced table rows"* —
+  opened from `arena/7111e2b6-zone1` → `main`, body lists the changes, the sources, the gate results and
+  the flagged irregularities.
+* **Checks on the head commit (both green):** `CI / verify` ✔ · `Verify verification annex (site/)` ✔ ·
+  merge state **CLEAN / MERGEABLE**.
+* **Merge:** `gh pr merge 51 --merge` at **2026-11-14T19:22:07Z** → merge commit
+  **`b899e2a`** on `main` (state MERGED). No approval wait, per the brief.
+* **Post-merge workflows on `main` (`b899e2a`, all green):** `CI` ✔ · `Verify verification annex (site/)` ✔ ·
+  `Build, verify and deploy to GitHub Pages` ✔ · `pages build and deployment` ✔.
+* **GitHub Pages:** `gh api repos/…/pages` → `status: built`, source `main` / `/`, build type `legacy`.
+  Latest build = commit **`b899e2a`**, created 2026-11-14T19:22:08Z, `error: null`.
+* **Live verification (cache-busted fetches, 2026-11-14):**
+  * `https://kanlerxz87-cyber.github.io/Zone1/articles/index.html` serves **"Eight pieces written for this
+    product set"** with all eight articles, each with its kicker, standfirst, target query and the products
+    it covers.
+  * `https://kanlerxz87-cyber.github.io/Zone1/articles/air-fryer-capacity-guide.html` (this session's
+    article) is live, with every section carrying its own source badges — S10, S12, S13, S14, S15, S18 —
+    and the "No hands-on testing, and no Amazon numbers" notice.
+  * `https://kanlerxz87-cyber.github.io/Zone1/flagged.html` serves **37 open items**, including **F36**
+    (Chefman 6 Qt preset count, blanked) and **F37** (the mis-cited value), and the two **CLOSED** markers
+    for F17 and F25.
+  * The OA §5 disclosure bar is present on every page fetched.
+* **Deploy-cache note (for the next session):** a fetch immediately after a merge can return the previous
+  deploy from the Pages CDN. Re-fetch with a cache-busting query, or re-check the Pages build commit, before
+  concluding that a deploy failed. Same artefact recorded by earlier passes (F14/I6/I8/I7).
+* **No branch was rewritten and nothing was force-pushed.** Two merge commits were made to absorb concurrent
+  work from `main` (PRs #42–#47), and every conflict was resolved as a union with a seam note.
+
+### Final state of this session's tasks
+
+| # | Task | Status |
+|---|------|--------|
+| V1 | Independent line-by-line re-verification against official sources | **done** |
+| V2 | Apply the brief's verification rule to anything that failed | **done** — 2 corrections, F36 + F37 |
+| V3 | Publish a canonical Articles section | **done** — 8 articles live (7 from the merged session, 1 from this one) |
+| V4 | Close the F25 row-source residue | **done** — 248 → 0, F17 and F25 closed |
+| V5 | Executive summary refresh | **done** — `EXECUTIVE-SUMMARY.md` §11 + dated corrections |
+| V6 | Integration: gates → PR → merge → Pages | **done** — PR #51, merge `b899e2a`, Pages `built` |
+
+**Result: two published values did not survive a first-hand re-read and were corrected rather than kept;
+the row-source rule is met across the whole repository; eight articles are live; every gate is green; and
+the site is live at https://kanlerxz87-cyber.github.io/Zone1/ on commit `b899e2a`.**
+
+### Note — PR #49 absorbed by this branch
+
+While this pass was closing out, session `38f82d32` had **PR #49** open: *"articles hub stated a stale
+count ('Five pieces' with seven articles on the page)"*. Its fix — computing the hub's count from
+`len(ARTICLES["articles"])` instead of hard-coding it — is strictly better than the hard-coded string this
+pass had written, and the two touched the same line, so merging one without the other would have left a
+conflict landmine for the next integrator.
+
+PR #49's head was therefore merged into this branch (`origin/pr49`, commit `3edb508`) and the conflict
+resolved in favour of the **computed** count. The hub now reads "Eight pieces" because there are eight
+articles, and it will stay correct whatever is added or removed next. PR #49's authorship is preserved in
+this branch's history and the change is live in `main` via PR #54.
+
+> *Merge note (2026-11-14): the block above and the block below were written by two sessions concurrently; both are kept verbatim and nothing was discarded.*
+
 ---
 
 ---
