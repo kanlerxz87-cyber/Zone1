@@ -2164,3 +2164,75 @@ and are not yet owned by any session:
 `data/articles.json`; `docs/`, `crosscheck/`, `platform/`, `data/verified/`, `data/s2/`, `data/flagged.json`,
 `data/flags.json` and the archived `annex-88769516/` are **read-only** for this session. Open PR #40 is not
 touched.
+
+---
+
+## Completion record — session `sess-7111e2b6` (integration pass 7, 2026-11-14)
+
+| # | Task | Status | Result |
+|---|------|--------|--------|
+| V1 | Independent line-by-line re-verification of the published values against the official sources the site cites | **done** | `reports/verification-7111e2b6-2026-11-14.md`. Every URL fetched live by this session: 3 short links + 2 control tests, the commission table, the disclosure node, Program Policies §2(b) and §6(t), and all three brand pages plus all three owner's manuals. |
+| V2 | Apply the brief's rule to anything that failed | **done** | Chefman 6 Qt preset count **blanked** (F32); Emeril interior light **re-sourced** to the manual (F33). Spec rows 42/1 → **41/2**. |
+| V3 | Publish a canonical Articles section | **done** | `data/articles.json` + `build.py` generator → 5 SEO articles + index at `/articles/`, 20 root pages. Every factual sentence carries its source ids as inline tokens. |
+| V4 | Close the F25 row-source residue | **done** | 248 unsourced rows → **0**. Fixed the gate first (single-quoted hrefs, sibling registers, flagged-page filenames, the site's own origin), then added the pass to the generators and to the three hand-authored builds via `scripts/source_rows.py`. F17 and F25 closed. |
+| V5 | Executive summary refresh | **done** | `EXECUTIVE-SUMMARY.md` §11 appended, stale inline figures corrected with dated notes; a dated banner added to the dashboard annex's own `reports/executive-summary.md` (its text left as written). |
+| V6 | Integration: gates → PR → merge → Pages | **done** | See the PR/deploy record below. |
+
+### Sources fetched by this session (all official, 2026-11-14)
+
+| Source | What it verified |
+|---|---|
+| `https://link.amazon/B04G1MEwY` · `/B02NbDxp3` · `/B00hJ57DV` | the three destinations and their exact page titles (observation round 6) |
+| `https://link.amazon/ZZZ9ZZZZZ` | **control** — 403 Forbidden for a nonsense token |
+| `https://www.amazon.com/dp/B04G1MEwY` | **control** — "Page Not Found"; the 9-character tokens are not ASINs |
+| `https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ` | Table 1, all 11 rows and the Bounty table, read without login |
+| `https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98` | the OA §5 sentence verbatim, and the Clear/Conspicuous link-level rule |
+| `https://affiliate-program.amazon.com/help/operating/policies` | §2(b) prices, §6(t) reviews/star ratings, the lowest-new/lowest-used comparison rule, §6(y) price tracking |
+| `https://chefman.com/products/turbofry-touch-dual-window-air-fryer` | Chefman 6 Qt: capacity, range, dimensions, weight, power, approval, warranty, feature list, 4.6★/1,305 |
+| `https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf` | Chefman 6 Qt manual, read end to end — **no preset chart** (the basis for F32); HI-FRY 450 °F/2 min; Sync Finish; Sync Baskets; interior light |
+| `https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer` | sister SKU RJ38-SQPF-3TDB-2: 4.6★/194, empty Productdetails block (cannot source anything) |
+| `https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1` | Chefman 8 Qt: 200–400 °F, 4 presets, dimensions, weight, power, 4.6★/716 |
+| `https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf` | Chefman 8 Qt PRESET FUNCTION CHART — every default time and temperature confirmed |
+| `https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360` | Emeril: $199.99, model, 2.6★/25, 26 qt/24.6 L, "25 Cooking Pre-sets", dimensions, 120 V, "10-in-1", `11-in-1` carousel asset — and **no interior-light row** |
+| `https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf` | Emeril manual: spec table (1700 W, 75–500 °F, 26 qt / 1,519 cu in), the **24-row** preset chart ending at "Warm", and the LIGHT BUTTON line that corrects the citation |
+
+### Verification performed on the final tree
+
+| Gate | Result |
+|---|---|
+| `python3 build.py` | 20 root pages; a second run is byte-identical (reproducibility gate) |
+| `python3 verify.py` | **98 pages · 43 spec rows (41 verified / 2 blank+flagged) · 24 sources · 0 errors** |
+| `python3 scripts/check_links.py` | **4,883 links · 0 broken · 0 advisory** (was 184 advisory findings) |
+| `python3 scripts/source_rows.py --check` | 0 pages changed, **0 rows unsourced** (idempotent) |
+| `python3 research/check_research.py` | **OK** — 801 checks, no broken links, no unsourced rows, disclosures present |
+| `python3 scripts/build_site.py` + `verify_site.py` | **ALL CHECKS PASSED** (382 assertions) |
+| `python3 scripts/build_s2_site.py --check` | build current (16 files) |
+| `python3 -m unittest discover -s platform/tests -t platform` | **33/33 OK** |
+| `python3 platform/audit/report.py` | **AUDIT PASSED** (0 warnings) |
+| Repo-wide conflict-marker scan | none |
+
+### Irregularities published by this pass (none blocks the merge)
+
+* **F32** (product) — the Chefman 6 Qt's preset count was published with a citation that does not state it;
+  the value appears to have been carried across from the 8 Qt model. Now blank and flagged.
+* **F33** (programme) — a published value was true but cited to a source that does not state it (the Emeril's
+  interior light). Re-sourced to the owner's manual; the defect is published rather than quietly fixed.
+* **F17 / F25** — **closed**. The row-source residue is 0, and the gate that reported it was itself
+  corrected first (it could not see single-quoted `href`s, and did not know the parallel builds' source
+  registers).
+* A pre-existing **broken internal link** in the research content plan (an article that was never written)
+  was exposed by the stricter gate and fixed.
+
+### Scope discipline
+
+Files edited by this session: `COORDINATION.md`, `EXECUTIVE-SUMMARY.md`, `reports/executive-summary.md`
+(banner only), `reports/verification-7111e2b6-2026-11-14.md` (new), `data/articles.json` (new),
+`data/products.json` (two rows + one product flag), `build.py`, `scripts/check_links.py`,
+`scripts/source_rows.py` (new), `research/build_research.py`, `scripts/build_site.py`, the generated
+`research/`, `site/`, `dashboard/`, `annex-88769516/` and `session-3740f69d/` pages affected by the
+row-source pass, and the new `articles/` pages.
+
+Not touched: `data/sources.json`, `data/compliance.json`, `data/flags.json`, `data/platform.json`,
+`data/marketing.json`, `data/verified/**`, `data/s2/**`, `docs/**`, `crosscheck/**`, `platform/**`,
+`EXECUTIVE_SUMMARY.md` (the legacy file already carries a banner marking its two superseded statements),
+and open PR #40 (another session's record-only PR, left untouched).

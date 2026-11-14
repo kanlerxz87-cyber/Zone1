@@ -35,13 +35,19 @@ identity mapping.
 ## 3. Verification result
 
 - **43 specification rows** across the three products.
-- **42 verified** — each read on the manufacturer's own product page or owner's manual, each with a
-  clickable source link. *(Count corrected 2026-11-14 by two independent passes to match `verify.py`: 42
-  verified — one of them, the 8 Qt's basket-divider row, carries a caution note — and 1 blank+flagged.)*
-- **1 blank and flagged** — the Chefman 8 Qt's *Hi-Fry / 450 °F mode* row. Two official sources contradict
-  each other (the Amazon listing advertises 450 °F Hi-Fry; the brand page and the RJ38-SQSS-8T manual
-  document 200–400 °F), so no value is asserted. Verified 42 / blank 1 against `data/products.json` on
-  2026-11-14.
+- **41 verified** — each read on the manufacturer's own product page or owner's manual, each with a
+  clickable source link. *(Count corrected 2026-11-14 by two independent passes to match `verify.py`; then
+  corrected again on 2026-11-14 by pass 7 (sess-7111e2b6) to **41 verified / 2 blank+flagged**, after one
+  more published value was blanked because the official source cited for it does not state it — see §11.)*
+- **2 blank and flagged**:
+  - the Chefman 8 Qt's *Hi-Fry / 450 °F mode* row. Two official sources contradict
+    each other (the Amazon listing advertises 450 °F Hi-Fry; the brand page and the RJ38-SQSS-8T manual
+    document 200–400 °F), so no value is asserted.
+  - the Chefman 6 Qt's *Number of presets* row, blanked by pass 7 on 2026-11-14: the value that was
+    published cited the RJ38-SQPF-3TDB-2W owner's manual, and that guide was re-read end to end and
+    **contains no preset chart and names no food presets**. The four presets published for the *8 Qt*
+    model belong to a different appliance and were not carried across. Blanked and flagged as **F32**.
+  Verified 41 / blank 2 against `data/products.json` on 2026-11-14.
 - **24 sources**, all official: Amazon Associates documents, the US FTC and eCFR, three manufacturer owner's manuals, two manufacturer product pages, and the Amazon listings themselves. *(Correction 2026-11-14: the completed register in [`data/sources.json`](data/sources.json) now holds **24** official sources, S1–S24 — see §10.)*
 
 Two rows were initially blank and were later **upgraded to verified** using the manufacturers' own owner's manuals rather than by guessing: the Chefman 6 Qt's per-basket capacity (the manual states "two 3-quart baskets") and the Emeril's preset count (the manual's preset chart names exactly 24). Two further rows, the 6 Qt's preset list and the 8 Qt's warranty, were added from the manuals. The blank that remains is blank because no official source resolves it — the 8 Qt's Hi-Fry/450 °F row, where official sources disagree. *(2026-11-14 pass 6: count corrected to the single remaining blank.)*
@@ -165,7 +171,9 @@ Session `arena/88769516-zone1` (PR #9, idle since 2026-11-13T22:47Z) built an in
 
 ### 10.6 State after this pass
 
-- **24 sources** (S1–S24), all official; **43 spec rows** (**42 verified, 1 blank+flagged**);
+- **24 sources** (S1–S24), all official; **43 spec rows** (**41 verified, 2 blank+flagged** —
+  *corrected 2026-11-14 by pass 7 (sess-7111e2b6); this line read 42/1 before that pass blanked the
+  Chefman 6 Qt preset count*);
   **31 open flag rows** (27 programme + 4 product), all published on [`flagged.html`](flagged.html).
   *Counting note (corrected 2026-11-14; two independent passes converged on the spec-row split and this
   line is their merge).* The register holds 7 product-level flag instances, but three of them are the same
@@ -177,8 +185,9 @@ Session `arena/88769516-zone1` (PR #9, idle since 2026-11-13T22:47Z) built an in
   *Hi-Fry / 450 °F mode* as the only blank (F3). The flag count then rose as F18–F27 were added by later
   passes,
   **F28** by sess-91d0552e (PR #36), and **F29–F31** by pass 6 (sess-54c66535).
-- `build.py` + `verify.py` gates pass: 92 pages checked, **0 errors**, 0 broken internal links,
+- `build.py` + `verify.py` gates pass: **98** pages checked, **0 errors**, 0 broken internal links,
   0 missing disclosures, 0 unsourced values, 0 leaked Amazon prices/ratings.
+  *(92 pages before pass 7 added the Articles section on 2026-11-14.)*
 
 ### 10.7 Pass 6 (sess-54c66535, 2026-11-14) — the nine rows nobody had re-checked
 
@@ -225,3 +234,120 @@ machine-readable: [`session-54c66535/pass6.json`](session-54c66535/pass6.json).
 same three destinations (B0CDY277D3, B09B7SB46R, B08DKYBTPH) with titles matching the stored values
 character for character. Five sessions across two days now agree on the **destination**; the
 **identity** of the intended product and the Associates tag remain unconfirmed (F10, F14–F16, F21).
+
+---
+
+## 11. Integration pass 7 — session `sess-7111e2b6` (2026-11-14)
+
+**Branch:** `arena/7111e2b6-zone1` (base `main` @ `b990352`) · **Claim:** V1–V6, pushed before any file edit.
+**Full record:** [`reports/verification-7111e2b6-2026-11-14.md`](reports/verification-7111e2b6-2026-11-14.md).
+
+This pass did three things: it re-read the published facts against the official sources the site cites for
+them, it applied the brief's verification rule to anything that failed, and it closed the two gaps the
+board still had open against the brief — the row-source rule and the marketing-article requirement.
+
+### 11.1 One published value did not survive the re-read
+
+The brief's verification rule is explicit: *"If a value can't be confirmed from an official source, leave it
+blank and flag it as unverified. Never infer or fill in values."* One published value did not survive.
+
+The **Chefman 6 Qt's "Number of presets"** row read *"Four one-touch food presets: French fries, chicken,
+meat, fish"*, cited to the model's own owner's manual
+([RJ38-SQPF-3TDB-2W](https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf)).
+That guide was re-read end to end in this pass: it refers once to "a preset function", it has **no preset
+chart**, and it **names no food preset**. The brand page's feature list does not mention presets either.
+
+The four names published for the 6 Qt are exactly the four food presets in the **8 Qt** guide
+([RJ38-SQSS-8T](https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf)), which *does*
+carry a PRESET FUNCTION CHART. **The value appears to have been carried across from a different
+appliance.** The row is now blank, the reason is written out on the page, and it is flagged as **F32**.
+The 8 Qt's own preset row and its default times and temperatures were re-read and confirmed
+character for character.
+
+### 11.2 One value was true but mis-cited
+
+The **Emeril's "Interior light"** row cited the brand product page. That page's specification strip lists
+Timer, 26-Quart Capacity, Dual-Speed Fan, 25 Cooking Pre-sets, 16.9″D × 15.8″W × 14.8″H, 24.6 Liters,
+Temperature Control and 120 volts — **and no interior light**. The value is nonetheless correct: the
+owner's manual documents it in the control-panel section — *"F. LIGHT BUTTON: May be selected at any time
+during the cooking process to light the appliance's interior."* The row has been re-sourced to the manual
+and the manual's wording recorded in the row. Published as **F33**, because a citation that does not
+support its value is as much a defect as an invented number.
+
+### 11.3 The Articles section (new)
+
+The brief asks for a *"polished marketing affiliate website"* with *"catchy trendy articles and topics"*.
+The canonical build had a buying guide, a comparison and three product pages, but **no article section**;
+the only articles in the repository lived in an annex build and were not reachable from the root
+navigation. There are now **five articles** on the canonical site, at `/articles/`:
+
+| Article | Target query | What it does |
+|---|---|---|
+| [Air fryer vs toaster oven](https://kanlerxz87-cyber.github.io/Zone1/articles/air-fryer-vs-toaster-oven.html) | air fryer vs toaster oven | Compares the three units on documented presets, ceilings and clearance |
+| [450 °F "Hi-Fry" explained](https://kanlerxz87-cyber.github.io/Zone1/articles/450f-hi-fry-explained.html) | air fryer 450 degrees hi fry | Teaches the 60-second manual check, from the live conflict in this product set |
+| [Dual-basket vs single-basket](https://kanlerxz87-cyber.github.io/Zone1/articles/dual-basket-vs-single-basket.html) | dual basket vs single basket air fryer | The one question that decides it, with Sync Finish as documented |
+| [26 quarts, 1,519 cubic inches](https://kanlerxz87-cyber.github.io/Zone1/articles/air-fryer-capacity-guide.html) | 26 quart air fryer capacity | Capacity from published numbers only, including the arithmetic |
+| [Why this site shows no Amazon prices](https://kanlerxz87-cyber.github.io/Zone1/articles/why-no-amazon-prices.html) | affiliate disclosure no prices trust | The rule in Amazon's own words, and what is shown instead |
+
+Editorial rules, enforced by the build: article copy is **data**, not hand-written HTML, and every
+factual sentence carries the source ids it was written from as inline `[[Sxx]]` tokens that expand into
+links to the official page. A paragraph with no source is visibly unsourced rather than quietly
+authoritative. Every article page carries the Operating Agreement §5 disclosure in the site-wide bar and a
+**link-level disclosure beside every affiliate link**. No article claims a product was tested, and none
+quotes an Amazon price, rating or review count.
+
+### 11.4 The row-source rule is now met across the whole repository (F17, F25 closed)
+
+The brief: *"Every table row must have a source link to an official site."* At the start of this pass the
+audit said **281 rows** failed. Two thirds of that number was the gate's own fault:
+
+* the link gate's regex only matched **double-quoted** `href` attributes, so 33 rows that did carry a
+  source link were being reported as unsourced;
+* it recognised only one filename for the flagged page, so a sibling build's `flagged-for-review.html`
+  did not count;
+* it did not know the source registers of the parallel builds, so rows citing `sell.amazon.com` or
+  `advertising.amazon.com` — official Amazon domains — were reported as unsourced.
+
+With the gate corrected, the true figure was **248 rows**. A row-source pass was then added **inside the
+research/ and site/ generators** (so it survives a rebuild) and **scripts/source_rows.py** applies the same
+pass to the three hand-authored builds. Rows that state a fact now link to that fact's official document;
+rows that are judgements, blocked metrics or unverified values link to the flagged page, which is where
+this project puts unconfirmed values.
+
+**Result: 248 → 0.** The stricter gate then exposed a genuine defect — the research content plan linked to
+an article that was never written — which is now rendered as plain text marked *not published*.
+
+### 11.5 What this pass verified, in one line each
+
+| Fact | Source | Result |
+|---|---|---|
+| Three short links → their three destinations | the three `link.amazon` URLs | confirmed, titles match character for character |
+| A nonsense token | `link.amazon/ZZZ9ZZZZZ` | **403**, not a shuffled product |
+| A 9-character token as an ASIN | `amazon.com/dp/B04G1MEwY` | **Page Not Found** |
+| Commission Table 1 | Standard Commission Income Statement | all 11 rows + bounty amounts match |
+| Disclosure wording and Clear/Conspicuous rule | Associates help topic | verbatim match |
+| Price rule (§2(b)), reviews/star ratings (§6(t)), lowest-new/lowest-used comparison rule | Program Policies | re-read first-hand in this pass before being asserted in new copy |
+| Chefman 6 Qt interior light, capacity, dimensions, Hi-Fry, Sync Finish | brand page + user guide | confirmed |
+| Chefman 8 Qt presets and every default time/temperature | user guide | confirmed |
+| Emeril spec table, 24 named presets, interior light | owner's manual | confirmed (preset chart ends at "Warm") |
+| Emeril preset count across official sources | brand page + manual + Amazon title | **still inconsistent (F29)** — no count asserted |
+
+### 11.6 State after this pass
+
+* **20** root pages generated by `build.py` (was 13), **98** pages verified in total, **0 errors**.
+* **43 spec rows: 41 verified, 2 blank+flagged** (was 42/1 — the sixth pass blanked one more row).
+* **24 official sources**, all linked, none third-party.
+* **4,883 links, 0 broken, 0 advisory**; **0 table rows without a source link** in the entire repository.
+* Research 801 checks OK · annex 382 assertions OK · s2 build current · platform 33/33 · audit 0 warnings.
+* Flags: **F32** (Chefman 6 Qt preset count) and **F33** (mis-cited value) added; **F17** and **F25** closed.
+
+### 11.7 Open for the account holder — none of it blocks the merge
+
+1. **Confirm the product identity for each supplied link.** The destination is reproducible; whether each
+   token is the product you meant to market, and which Associates tag rides on the redirect, can only be
+   settled from inside Associates Central (F10, F14–F16, F21).
+2. **Set the Associates tag.** No page on this site can earn until the account holder confirms it (F6).
+3. **Read F29 and F3.** The Emeril's preset count is stated five ways by official sources, and the Chefman
+   8 Qt's 450 °F Hi-Fry claim contradicts the brand's own manual. Both are published, neither is resolved.
+4. **Decide the canonical build.** Six parallel builds are published on one domain (F20). The root build is
+   the canonical one and the one this summary describes; the others are preserved annexes.
