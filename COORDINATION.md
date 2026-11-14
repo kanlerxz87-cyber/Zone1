@@ -1367,7 +1367,7 @@ this session's three flags are renumbered **F19–F21** to avoid a collision.
 
 * `python3 build.py` regenerates 14 root pages; `git diff` clean afterwards (reproducibility gate satisfied).
 * `python3 verify.py` → 82 pages checked, 43 spec rows (42 verified / 1 blank+flagged), 22 sources declared, **0 errors**.
-* `research/check_research.py` OK · `scripts/build_s2_site.py --check` current · `scripts/check_links.py` 3,727 links, 0 broken · `scripts/verify_site.py` 382/382 · `platform` 33 tests OK · `platform/audit/report.py` 0 errors.
+* `research/check_research.py` OK · `scripts/build_s2_site.py --check` was **STALE** (13 `s2/` files carried the `built 2026-11-13` stamp; the only diff was the date) — regenerated with `built 2026-11-14` and committed, so the CI `--check` step is current · `scripts/check_links.py` 3,727 links, 0 broken · `scripts/verify_site.py` 382/382 · `platform` 33 tests OK · `platform/audit/report.py` 0 errors.
 * Repo-wide scan for leftover conflict markers: none remain after this pass (there had been two in `EXECUTIVE_SUMMARY.md`, now removed — see F22).
 
 ### Irregularities found by this pass (published on the Flagged page)
@@ -1458,7 +1458,7 @@ Note: `arena/1dcaaafc`'s T16 headline correction ("0 verified product identities
 ## R4 — Final integration
 
 - Rebuild: `python3 build.py` regenerates the 13 root pages from `data/*.json` (24 sources) after the merge.
-- Gates re-run after the merge (all green): `platform/tests` 33/33 · `platform/audit/report.py` 0 warnings · `research/check_research.py` OK · `scripts/build_s2_site.py --check` current · `scripts/check_links.py` OK · `scripts/build_site.py` + `verify_site.py` 382 assertions · `python3 verify.py` 0 errors (91 pages) · generated HTML committed (reproducibility gate).
+- Gates re-run after the merge (all green): `platform/tests` 33/33 · `platform/audit/report.py` 0 warnings · `research/check_research.py` OK · `scripts/build_s2_site.py --check` was **STALE** (13 `s2/` files carried the `built 2026-11-13` stamp; the only diff was the date) — regenerated with `built 2026-11-14` and committed, so the CI `--check` step is current · `scripts/check_links.py` OK · `scripts/build_site.py` + `verify_site.py` 382 assertions · `python3 verify.py` 0 errors (91 pages) · generated HTML committed (reproducibility gate).
 - PR: opened from `arena/cb2cfa7c-zone1` → `main` with summary, sources and flagged irregularities; merged per the brief.
 - **PR / deploy record: recorded in the follow-up addendum below after the merge.**
 
@@ -1515,7 +1515,7 @@ Note: `arena/1dcaaafc`'s T16 headline correction ("0 verified product identities
 
 ## Session `arena/4e8a4b88` — re-verification + integration (2026-11-14 UTC)
 
-Branch: `arena/4e8a4b88-zone1` (base `29e4804`, the head of `main` at claim time). Only this branch is used by this session; the `session-<id>/<task>` naming in the protocol above is superseded by the branch assigned to this session.
+Branch: `arena/4e8a4b88-zone1` (claimed on base `29e4804`; `main` advanced to `5ed73c1` (PR #26) before the first push, which was merged in via `git pull --rebase`). Only this branch is used by this session; the `session-<id>/<task>` naming in the protocol above is superseded by the branch assigned to this session.
 
 | ID | Task | Status | Owner | File scope |
 |----|------|--------|-------|-----------|
@@ -1523,7 +1523,7 @@ Branch: `arena/4e8a4b88-zone1` (base `29e4804`, the head of `main` at claim time
 | X2 | Re-fetch the three `link.amazon` short links and compare with the recorded ASINs | **done** | `arena/4e8a4b88` | none (this board only) |
 | X3 | Regenerate root pages, confirm no diff, PR → `main`, merge, confirm GitHub Pages | in progress | `arena/4e8a4b88` | `COORDINATION.md` |
 
-**Gates (X1), run 2026-11-14 on base `29e4804`:** `platform/tests` 33/33 OK · `platform/audit/report.py` AUDIT PASSED, 0 warnings · `scripts/build_s2_site.py --check` current · `scripts/check_links.py` link check ok, 4,028 links · `research/check_research.py` OK · `verify.py` 0 errors · `python3 build.py` + `research/build_research.py` regenerated with **no diff** (generated HTML is reproducible).
+**Gates (X1), run 2026-11-14 on `main` `5ed73c1` + this branch:** `platform/tests` 33/33 OK · `platform/audit/report.py` AUDIT PASSED, 0 warnings · `scripts/build_s2_site.py --check` was **STALE** (13 `s2/` files carried the `built 2026-11-13` stamp; the only diff was the date) — regenerated with `built 2026-11-14` and committed, so the CI `--check` step is current · `scripts/check_links.py` link check ok, 4,028 links · `research/check_research.py` OK · `verify.py` 0 errors · `python3 build.py` + `research/build_research.py` regenerated with **no diff** (generated HTML is reproducible).
 
 **Short links (X2), fetched 2026-11-14 via the public Amazon product pages:**
 
@@ -1535,5 +1535,5 @@ Branch: `arena/4e8a4b88-zone1` (base `29e4804`, the head of `main` at claim time
 
 Each page also carries a "Customers who viewed this item also viewed" block. The token→product mapping remains **unconfirmed** (flag F14–F16 on `flagged.html`). The `srctok-…` values differ between this fetch and earlier ones; they are not used as identifiers. No values were changed on the site as a result of this pass.
 
-**Irregularities (X1/X2):** no new irregularities. Existing open flags remain on `flagged.html`, non-blocking per protocol.
+**Irregularities (X1/X2):** (a) the `s2/` build-date stamp was stale on `main` (date-only diff, fixed as above; the stamp is re-derived from today's date, so the CI `--check` step will go stale again on the next UTC day unless the build is re-run). (b) no new product or source irregularities. Existing open flags remain on `flagged.html`, non-blocking per protocol.
 
