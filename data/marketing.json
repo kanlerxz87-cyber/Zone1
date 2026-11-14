@@ -7,7 +7,7 @@
     "why_this_niche": "All three supplied links resolve to air fryers / air fryer toaster ovens, so the niche is dictated by the product set, not chosen by preference. Air fryers sit in a category Amazon publishes official rates for (S3: Kitchen 4.50%, Home 3.00%, fallback 4.00%), which is the only rate information that can be used legitimately.",
     "audience": "Households of 2–6 people comparing a compact dual-basket air fryer, a large single-basket air fryer, and a multi-function countertop oven.",
     "search_intent": "Commercial investigation — the buyer already knows they want an air fryer and is choosing a form factor and a size.",
-    "differentiator": "Every specification on the site is traceable to a manufacturer page or owner's manual, and every gap is admitted rather than filled. That is the trust asset; it is also what keeps the site inside Program Policies §2(b) and §3(t)."
+    "differentiator": "Every specification on the site is traceable to a manufacturer page or owner's manual, and every gap is admitted rather than filled. That is the trust asset; it is also what keeps the site inside Program Policies §2(b) and §6(t)."
   },
 
   "pages": [
@@ -124,7 +124,7 @@
     },
     {
       "title": "Why this site shows no Amazon prices",
-      "angle": "Explains Program Policies §2(b) and §3(t) in plain language and shows the source. Turns a limitation into a trust signal.",
+      "angle": "Explains Program Policies §2(b) and §6(t) in plain language and shows the source. Turns a limitation into a trust signal.",
       "status": "drafted on /compliance"
     }
   ],

@@ -54,7 +54,7 @@
       "inputs": "Verified fact table + outline",
       "outputs": "Product pages, comparisons, buying guides",
       "guardrail": "G2, G7",
-      "compliance_note": "No experience claims, no invented testing, no Amazon prices or ratings (S2 §2(b), §3(t); S8)."
+      "compliance_note": "No experience claims, no invented testing, no Amazon prices or ratings (S2 §2(b), §6(t); S8)."
     },
     {
       "stage": 6,
@@ -97,14 +97,14 @@
   "guardrails": [
     { "id": "G1", "rule": "No paid search on Amazon Marks or misspellings", "source": ["S2"], "clause": "Commission Income Statement §2(c)", "enforcement": "Negative-keyword list applied to every campaign; automated check before launch." },
     { "id": "G2", "rule": "No published claim without an official source", "source": ["S2", "S8"], "clause": "Participation Requirements §2(b); Disclosures 101", "enforcement": "Schema-level: value must carry source_id, else it renders as a flagged blank." },
-    { "id": "G3", "rule": "No Amazon price, availability or star rating without API-served data", "source": ["S2"], "clause": "Participation Requirements §2(b) and §3(t)", "enforcement": "Template has no slot for Amazon price/rating; the build has nothing to leak." },
-    { "id": "G4", "rule": "No incentives, no self-purchase, no friend-and-family purchases", "source": ["S2"], "clause": "Participation Requirements §3(g), §3(u)", "enforcement": "Policy statement in the ops runbook; no loyalty or rewards feature exists in the design." },
+    { "id": "G3", "rule": "No Amazon price, availability or star rating without API-served data", "source": ["S2"], "clause": "Participation Requirements §2(b) and §6(t)", "enforcement": "Template has no slot for Amazon price/rating; the build has nothing to leak." },
+    { "id": "G4", "rule": "No incentives, no self-purchase, no friend-and-family purchases", "source": ["S2"], "clause": "Participation Requirements §6(g), §6(u)", "enforcement": "Policy statement in the ops runbook; no loyalty or rewards feature exists in the design." },
     { "id": "G5", "rule": "Sub-tags are per placement, never per user", "source": ["S2", "S6"], "clause": "Participation Requirements §2(b)", "enforcement": "Link config is a static map keyed by page, not a function of the request." },
     { "id": "G6", "rule": "Program Content is never an analytics or training input", "source": ["S2"], "clause": "IP License §2(e)", "enforcement": "Data contracts: analytics tables accept only first-party events and operator-owned product facts." },
     { "id": "G7", "rule": "No experience claims, no invented testing", "source": ["S8"], "clause": "Disclosures 101 — What Else to Know", "enforcement": "Copy review checklist; the phrase 'we tested' is a build-time fail." },
-    { "id": "G8", "rule": "No price tracking or price alerts", "source": ["S2"], "clause": "Participation Requirements §3(y)", "enforcement": "Feature explicitly out of scope; the pricing panel shows brand list price only." },
+    { "id": "G8", "rule": "No price tracking or price alerts", "source": ["S2"], "clause": "Participation Requirements §6(y)", "enforcement": "Feature explicitly out of scope; the pricing panel shows brand list price only." },
     { "id": "G9", "rule": "Disclosure is unremovable", "source": ["S1", "S5"], "clause": "Operating Agreement §5; disclosure help article", "enforcement": "Injected by the layout function; a page without it cannot be generated." },
-    { "id": "G10", "rule": "No framing, cloaking or auto-redirect", "source": ["S2"], "clause": "Participation Requirements §3(n), §3(v)", "enforcement": "Outbound links are direct; no iframes; no meta-refresh." }
+    { "id": "G10", "rule": "No framing, cloaking or auto-redirect", "source": ["S2"], "clause": "Participation Requirements §6(n), §6(v)", "enforcement": "Outbound links are direct; no iframes; no meta-refresh." }
   ],
 
   "automation_vs_human": [
@@ -133,16 +133,16 @@
     { "step": 2, "action": "Resolve every item on /flagged with the account holder.", "why": "ASIN→model, the 450 °F conflict and the preset count change what the copy is allowed to say." },
     { "step": 3, "action": "Add the real Associates tag to every link and create sub-tags.", "why": "Special Links must use the assigned Associates ID (S2 §2(b))." },
     { "step": 4, "action": "Apply to Associates, then work the 180-day window to three qualifying sales.", "why": "S4: three qualifying sales in 180 days, personal orders excluded." },
-    { "step": 5, "action": "Only after API approval, consider price/rating display.", "why": "S2 §2(b) and §3(t) permit it only through Creators/PA API." }
+    { "step": 5, "action": "Only after API approval, consider price/rating display.", "why": "S2 §2(b) and §6(t) permit it only through Creators/PA API." }
   ],
 
   "explicitly_out_of_scope": [
-    "Price history charts or price-drop alerts (S2 §3(y)).",
-    "Republishing Amazon customer reviews or star ratings (S2 §3(t)).",
+    "Price history charts or price-drop alerts (S2 §6(y)).",
+    "Republishing Amazon customer reviews or star ratings (S2 §6(t)).",
     "Scraping Amazon and feeding the result into a model (S2 IP License §2(e)).",
     "Auto-generating product claims from any source other than the manufacturer.",
     "Paid search on Amazon or Kindle marks (S2 §2(c)).",
-    "Incentivised clicks, rewards or giveaways tied to links (S2 §3(g)).",
+    "Incentivised clicks, rewards or giveaways tied to links (S2 §6(g)).",
     "Any claim that the author tested or owns these appliances."
   ]
 }
