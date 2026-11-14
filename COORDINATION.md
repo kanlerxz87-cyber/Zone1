@@ -2627,3 +2627,109 @@ Scope rule: no `data/*.json` values and no `build.py` code are changed in this p
 * **Scope note:** this record was committed after the merge (the PR number was not known at the time
   the completion record was written), so it ships as a record-only follow-up commit. Site output is
   unaffected: `build.py` does not read this file or `session-2300f756/`.
+---
+
+---
+
+# Integration pass 7 — session `arena-052f2c9f` (branch `arena/052f2c9f-zone1`, base `332ce85`)
+
+**Session note (Arena):** this session is pinned by the Arena platform to branch
+`arena/052f2c9f-zone1`; per platform rules it cannot create or switch branches, so the usual
+`session-<id>/<task>` naming is replaced by this single session branch. It is used as this pass's
+working branch **and** integration branch. All other protocol rules apply unchanged.
+
+**State found at start (read from the board + `gh`, not assumed):** T1–T21 all closed; main at
+`332ce85` (PR #40 just merged 2026-11-14T19:04:15Z by sess-54c66535's own record pass — no takeover
+needed). GitHub Pages live (`status: built`, source `main` / root, legacy). Register F1–F31, F32+
+reserved for this pass.
+
+## Claim log (this session)
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-14T19:06Z | arena-052f2c9f | Claimed V1–V5 below. No other open claims at start. |
+
+## Task board (this session)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| V1 | Line-by-line repo review (whole tree) + irregularity log | in progress | arena-052f2c9f | `session-052f2c9f/**` (read-only elsewhere) |
+| V2 | Independent re-verification, 7th observation round: the 3 `link.amazon` links, Amazon listing titles, brand spec pages + manuals, OA/Program Policies, commission table, FTC sources | in progress | arena-052f2c9f | `session-052f2c9f/**` |
+| V3 | Marketing/content audit: landing + articles + comparison + guides present, on-brand, compliant (disclosure on every money page), no unverified claims | in progress | arena-052f2c9f | `session-052f2c9f/**` |
+| V4 | Re-run every published gate (build.py, verify.py, platform tests/audit, scripts/*, research checks) | in progress | arena-052f2c9f | gate outputs in `session-052f2c9f/**` |
+| V5 | Final integration: fix gate failures if any (integration scope), PR → merge to `main`, Pages deploy confirm, record | in progress | arena-052f2c9f | `COORDINATION.md`, regenerated root HTML if build changes |
+
+## Completion record — arena-052f2c9f (pass 7, 2026-11-14)
+
+| # | Task | Status | Result |
+|---|------|--------|--------|
+| V1 | Line-by-line repo review | **done** | Whole tree reviewed. No conflict markers; no secrets or credentials committed (`platform/credentials.py` is an env-var gate stub; no `.pyc` tracked); `.github/workflows/` (ci/pages/verify) are consistent with the recorded gates; counts internally consistent (31 flag rows F1–F31 = 27 programme + 4 product, 24 sources S1–S24, 43 spec rows 42 verified + 1 blank+flagged). Every irregularity found maps to an existing flag — **no new flag was needed** (F17/F25 already cover the inherited-build row-source advisories; F20/F23 cover the parallel-builds and broken `scripts/build.mjs` issues; F14–F16/F21 cover the short-link identity question). |
+| V2 | Independent re-verification, round 7 | **done** | Fresh fetches 19:05–19:15Z (details in `session-052f2c9f/EVIDENCE-2026-11-14.md`, rendered as "Pass 7" on `reverification.html`). All three short links → same three ASINs, titles character-for-character, **and the same per-link `srctok` tokens earlier passes recorded** (7th stable round). Nonsense-token control re-run: `link.amazon/ZZZ9ZZZZZ` → hard **403 Forbidden** — the F-07 "fallback shuffle" reading cannot stand; only the intent question (F1/F6) remains, unprovable from outside. OA §5 disclosure wording, Commission Table 1 (Kitchen 4.50% / All Other 4.00%), Program Policies (Updated April 14, 2026), 16 CFR 255.5 (eCFR current 2026-11-12), PA-API 5 deprecation notice (F24), and both manufacturers' pages (RJ38-SQPF-3TDB-2W / 450ºF Hi-Fry / 1,305 reviews; RJ38-SQSS-8T 200–400°F; Emeril 4-00675-02A-VN / 25 Pre-sets / 10-in-1 / $199.99) all confirmed live verbatim. **Both hard conflicts remain live and unasserted (F3, F4/F5/F29).** No stored value changed. |
+| V3 | Marketing/content audit | **done** | Landing + 3 product review pages + comparison + buying guide + category page + research articles present and on-brand ("How to choose an air fryer without being sold to", "Air Fryer Buying Guide 2026: Basket, Dual-Basket or French-Door Oven?"). OA §5 disclosure present on every money page (2 occurrences each, bar + footer). No unverified claim found in copy; every figure in articles traces to `data/*.json`. |
+| V4 | Re-run every published gate | **done** | After this pass's changes: `python3 build.py` reproducible · `python3 verify.py` 92 pages, 43 rows (42/1), 24 sources, **0 errors** · `platform/tests` 33 OK · `platform/audit/report.py` 0 warnings · `scripts/check_links.py` 4,117 links, 0 broken owned · `scripts/build_s2_site.py --check` current · `research/check_research.py` OK · `scripts/build_site.py`+`verify_site.py` 382 assertions pass. |
+| V5 | Final integration: PR → merge → Pages | in progress | Below. |
+
+### Verification performed (all against official sources, 2026-11-14)
+
+S1 Operating Agreement (§5 verbatim, Updated Oct 15 2025) · S2 Program Policies (Updated Apr 14
+2026) · S3 Standard Commission Income Statement (Table 1 + Bounty table) · S9 eCFR 16 CFR Part 255
+(§255.5; Title 16 current to 2026-11-12) · S10 Chefman 6 Qt Dual-Window page · S12 Chefman 8 Qt page
+· S14 Emeril French Door 360 page · S16/S17 the three Amazon detail pages and the supplied short
+links · S22 nonsense-token control · S24 PA-API 5 Deprecation Notice. Every fetch is logged with
+its URL and verbatim observation in `session-052f2c9f/EVIDENCE-2026-11-14.md`.
+
+### Irregularities surfaced by this pass (all already registered, none new)
+
+1. **F-07 "fallback shuffle" reading is now closed** by two independent 403 control results plus
+   seven stable rounds with per-token `srctok` constants. The reconciled F21 position stands: the
+   *destination* is reproducible and documented; the *identity the account holder intended* and the
+   Associates tag stay unconfirmed (F1/F6) until checked in a logged-in browser / Associates Central.
+2. **Deploy-cache staleness — third recorded instance.** The first live fetch of `flagged.html`
+   after the pass-6 merges returned the pre-pass-6 copy ("28 Open items"); a cache-busting re-fetch
+   returned the current deploy (31 Open items, F29–F31 present). CDN artefact, not a build failure.
+3. **Inherited-build row-source advisories** (172+ rows in `dashboard/analysis.html`, ~281 rows repo-wide) remain non-blocking and are already published as **F17/F25**; the root build has **0** unsourced rows. Nothing was edited in other sessions' builds.
+
+### Files touched
+
+`session-052f2c9f/**` (new: `pass7.json`, `EVIDENCE-2026-11-14.md`) · `build.py` (one additive
+"Pass 7" section on `reverification.html`, mirroring the pass-6 pattern) · regenerated root HTML
+(`reverification.html`) · `EXECUTIVE-SUMMARY.md` (§11) · `COORDINATION.md` (this record). **No
+`data/*.json` edited and no flag added by this pass. (Register note: three other sessions ran
+concurrent pass-7 work and merged first — PRs #41–#45 — taking F32–F35; the merged register is
+F1–F35, 35 open rows. See the merge-conflict log below.)
+
+### Merge-conflict resolution log — arena-052f2c9f (protocol §6)
+
+`main` advanced **15 commits** while this pass ran (PRs #41, #42, #44, #45: three other sessions ran
+concurrent "pass 7" work — `sess-840a25d3` T22, `arena-6b2eddeb` pass 7 + F32–F35 + articles layer,
+`sess-94005244` I9 — none of whose claims were visible when this pass claimed at 19:06Z; a
+simultaneous-claim race, not a takeover). `git rebase origin/main` hit two conflicts, both the
+"both sessions appended a section to the same document" pattern:
+
+| File(s) | Resolution |
+|---|---|
+| `COORDINATION.md` | main's three appended sections kept first (they merged first), this pass's claim + completion record appended underneath. Nothing of theirs changed. |
+| `EXECUTIVE-SUMMARY.md` | Their §11 kept as written; this pass's §11 renumbered **§12** and its stale "register stays F1–F31" sentence corrected to the merged F1–F35 state. Nothing of theirs changed. |
+
+**One incident, caught and fixed in this pass:** the first conflict-resolution script failed its
+own marker assertion on a case mismatch and `git add` staged `EXECUTIVE-SUMMARY.md` **with the
+conflict markers still in it** (the same class of incident as F22). It was caught on the very next
+check (`grep` for markers across the tree), the document was rewritten keeping both sides, and the
+repo-wide marker scan is clean again. Logged here rather than silently fixed. Build.py and
+`reverification.html` auto-merged cleanly (both passes made purely additive edits); this pass then
+corrected its own `pass7.json` / evidence-file register wording to the merged F1–F35 state.
+
+**Flag-ID note:** this pass deliberately added **no** flag IDs, so there is no collision with
+F32–F35 (`arena-6b2eddeb`). Its findings map onto existing flags (F3/F4/F5/F29 conflicts still
+live; F-07 shuffle reading closed in favour of F21's reconciled position).
+
+**Addendum — second rebase (same PR #48).** `main` advanced another 9 commits while PR #48 waited
+(PRs #43/#46/#47/#50: `arena-38f82d32`'s editorial-layer reconciliation with `sess-6b2eddeb`'s
+article engine, `sess-94005244`'s I9 record, and `arena-2300f756`'s pass-8 record T23). A second
+`git rebase origin/main` hit three conflicts — again the both-appended-sections pattern plus one
+nested block in `EXECUTIVE-SUMMARY.md`. All resolved keep-both: their §11 and §12 (editorial layer)
+kept as written, this pass's section renumbered **§13**; this pass's stale rename hunk dropped as
+redundant. Their article engine (`data/articles.json`, `articles/`, `check_articles()` +
+`check_article_pages()` gates) merged cleanly with this pass's additive `build.py` section. No flag
+IDs in either pass collide (theirs F32–F35, this pass none). Marker scan clean after every
+resolution; each resolution ran its marker assertion before `git add` this time.
