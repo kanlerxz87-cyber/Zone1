@@ -1,5 +1,28 @@
 # Executive Summary
 
+> ## ⚠ Read this first — added 2026-11-14 by session `arena/91d0552e-zone1`
+>
+> There are **two** executive summaries at the root of this repository, written by different sessions
+> on different days, and they disagree. **This one is the older of the two.** The summary that the
+> published site links to, and that reflects the current dataset, is
+> **[`EXECUTIVE-SUMMARY.md`](EXECUTIVE-SUMMARY.md)** (rendered as
+> [`executive-summary.html`](executive-summary.html)).
+>
+> Two statements below are **superseded** by a verification pass on 2026-11-14 and are left in place
+> only so that no session's work is deleted; both are recorded as flag **F28** on the
+> [Flagged for review](flagged.html) page:
+>
+> 1. **"Identity verified"** (§Key findings, point 1) — the current, reconciled position is
+>    **0 verified product identities**. The three short links have a reproducible *destination*, but
+>    the token → product mapping and the Associates tag are unconfirmed. See F14–F16 and F21.
+> 2. **"the official commission schedule redirected to a sign-in page"** (§Key findings, point 3) —
+>    the Standard Commission Income Statement was fetched **without any login** on 2026-11-14 and all
+>    11 rate rows were read and matched. See
+>    [`session-91d0552e/VERIFICATION-2026-11-14.md`](session-91d0552e/VERIFICATION-2026-11-14.md) §3.
+>
+> Coverage figures below (e.g. "18 of 30 product fields") describe the **legacy `docs/` and `site/`
+> builds**, not the current root site, which reports 43 spec rows: 42 verified, 1 blank and flagged.
+
 **Project:** Amazon Associates property covering three air fryers, with a verification and
 compliance layer.
 **Audit date:** 13 November 2026 (UTC)
