@@ -2119,3 +2119,13 @@ Two flag-ID collisions were handled by renumbering rather than racing: **F25/F26
 This pass's flags are **F29–F31**, and F28 was deliberately left vacant for PR #36 so the register
 holds no duplicate ID whichever PR merged first. It did, and the merged register is F1–F31 with no
 duplicates.
+
+---
+
+## Claim — sess-840a25d3 (branch `arena/840a25d3-zone1`, base `b990352`, 2026-11-14)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| T22 | Integration pass 7: independent re-verification of the three `link.amazon` short links, Operating Agreement §5 disclosure wording, Program Policies §2(b) price rule, and 16 CFR 255.5 text; expose the existing research articles from the root navigation; regenerate, run every gate, PR → merge → confirm Pages | in progress | sess-840a25d3 | `COORDINATION.md` (log entry only), `session-840a25d3/**` (new), `build.py` (navigation entry only), regenerated root HTML |
+
+Scope rule: no `data/*.json` values are changed in this pass. Any value that cannot be re-confirmed is flagged, not edited.
