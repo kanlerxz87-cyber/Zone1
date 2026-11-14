@@ -12,7 +12,6 @@ Usage:  python3 scripts/build_s2_site.py [--check]
 from __future__ import annotations
 
 import argparse
-import datetime as dt
 import hashlib
 import json
 import os
@@ -264,7 +263,9 @@ FAVICON = (
 
 
 def page(title: str, rel: str, current: str, body: str, *, sub: str = "") -> str:
-    today = dt.date.today().isoformat()
+    # Verification date belongs to the evidence metadata, not the build clock. A
+    # wall-clock timestamp made an otherwise deterministic build stale every day.
+    verified_on = load("meta.json").get("verification_date", "unrecorded")
     html = f"""<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -276,7 +277,7 @@ def page(title: str, rel: str, current: str, body: str, *, sub: str = "") -> str
 <header class="top"><div class="wrap">
 <div class="brand"><div class="logo">Z1</div><div>Zone1 — Amazon Associates platform
 <small>data-driven · source-linked · no inferred values</small></div></div>
-<div class="stamp">verified against official sources on 2026-11-13 · built {today}</div>
+<div class="stamp">verified against official sources on {esc(verified_on)}</div>
 </div></header>
 <div class="wrap layout">
 {nav_html(rel, current)}
