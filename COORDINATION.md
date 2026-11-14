@@ -2339,3 +2339,55 @@ independent crawl           → 21 canonical pages, 0 broken internal links, dis
 irregularities were found and published, the article layer the brief asked for was built to a
 build-enforced sourcing rule, and the site is live at https://kanlerxz87-cyber.github.io/Zone1/ on
 commit `000cbcf` with all 35 open items on the Flagged for Review page.
+
+---
+
+# Integration pass 7, part 2 — `arena/38f82d32-zone1` after PR #42 landed (`sess-6b2eddeb`)
+
+**Situation.** This session's PR #43 was opened against `main` @ `f45374b`. Before it could merge,
+**PR #42 (`sess-6b2eddeb`) and PR #44 (`sess-94005244`) landed**, taking `main` to `4f5face`. PR #43
+went `CONFLICTING`. The rebase conflicted on `COORDINATION.md`, and inspection showed a **direct
+collision on `articles/`**: session `6b2eddeb` had independently built an editorial layer (five
+articles, `data/articles.json`, `check_articles()`), which is exactly the gap this session had claimed
+as V3.
+
+## Resolution — the other session's engine is canonical; nothing was discarded
+
+| Artifact | Decision | Reasoning |
+|---|---|---|
+| `data/articles.json` (theirs, 5 articles) | **kept as canonical** | Their design is better understood and already gated: every `{{value}}` must appear verbatim in `data/products.json`, every `cite` id must be registered. |
+| `editorial.py` + 4 articles (mine) | **retired from `main`**, preserved on `backup-38f82d32-before-merge` and in `f9daccb` | Two hubs would have shipped duplicate targets competing for the same queries, one of them orphaned. |
+| My "dual-basket vs oven" + "450 °F" articles | **dropped** | Near-duplicates of their `dual-basket-vs-oven-air-fryer` and `what-450f-actually-means`. Their 450 article incorporates flag **F33** (a second 8-qt SKU whose documented feature list matches the Amazon title), which is stronger than my version's conclusion. |
+| My "6 Qt review" + "spec-sheet guide" articles | **kept, ported into `data/articles.json`** as articles 6 and 7 | These were not covered by their set. Re-written to their schema; every `{{value}}` verified against `data/products.json` by their own gate. |
+| `check_article_numbers()` (mine) | superseded by their `check_articles()` | Same purpose, theirs is simpler to maintain. |
+| `check_article_pages()` (mine) | **kept and wired into `main()`** | They had no gate for disclosure presence / no-testing statement / prohibited rating patterns on article pages. Negative-tested: fed a synthetic page it returns all three failures. |
+| `EXECUTIVE-SUMMARY.md` §1 page count | **corrected 13 → 23** | Stale by several passes. |
+| New **§12** added to `EXECUTIVE-SUMMARY.md` | kept | Documents the two-session convergence, the gates, and the current counts (23 pages, 101 files, 27 sources, 35 flags). |
+
+## Verification after the reconciliation
+
+* `python3 build.py` → **23 pages**, all guards pass (rows sourced, disclosure, article values, article pages).
+* `python3 verify.py` → **101 pages** · 43 spec rows (42 verified, 1 blank+flagged) · **27 sources** · **0 errors**.
+* Independent crawl of the canonical build → **0 broken internal links**.
+* `check_article_pages()` negative + positive tests both behave correctly (see `session-38f82d32/`).
+* `flagged.html` renders **35** open items, F1–F35, no duplicate ids.
+
+## Honest note on scope discipline
+
+This session did edit `data/articles.json` and `EXECUTIVE-SUMMARY.md`, both of which another session's
+PR had just touched. That is deliberate and is permitted only because this is the **integration**
+session under protocol rule 5, and because the edits are additive (two appended articles, one appended
+section) rather than overwrites. The one thing this session did **not** do is keep its own competing
+article hub alive next to theirs; that would have been the worse outcome for the reader.
+
+## PR / merge record — pass 7 part 2
+
+* PR: https://github.com/kanlerxz87-cyber/Zone1/pull/43 (updated in place after the rebase; the title
+  and body now describe the reconciled state).
+* Base at merge: `main` @ `4f5face` (PRs #42 and #44 included).
+* Superseded branch state preserved at `backup-38f82d32-before-merge` (`6d7c969`).
+
+**Conflict resolution, second rebase of this session.** `main` advanced to `99b6fb5` (PR #45,
+`sess-6b2eddeb` follow-up). The only conflict was here: both sides appended a record section to the
+end of this file. **Both kept, theirs first in merge order.** No other file conflicted in either
+rebase, and no session's claim or completion record was overwritten.
