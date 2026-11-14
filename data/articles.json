@@ -202,7 +202,8 @@
           "paras": [
             "From the Associates Program Participation Requirements, section 2(b): prices and availability may be shown only if \"**(a) we serve the link in which that price and availability data are displayed, or (b) you obtain Product pricing and availability data via Creators API or PA API**\" and comply with the License requirements.",
             "And from section 6(t): you may not display customer reviews or star ratings \"**unless you have obtained a link to that customer review or star rating through Creators API or PA API**\".",
-            "This site is a static set of pages generated from a JSON file. Amazon does not serve its links here, and there are no Creators or PA-API credentials behind it. Both conditions fail, so both categories of data are absent."
+            "This site is a static set of pages generated from a JSON file. Amazon does not serve its links here, and there are no Creators or PA-API credentials behind it. Both conditions fail, so both categories of data are absent.",
+            "There is a third clause in the same paragraph, and it is aimed squarely at comparison pages. If you display prices for a product in any “comparison” format together with prices for the same or similar products offered through other means, “you must display both the lowest ‘new’ price and, if we provide it to you, the lowest ‘used’ price at which the Product is available on the Amazon Site”. That is why the comparison matrix on this site has no price column at all — a half-comparison is precisely what the clause is aimed at."
           ],
           "cite": [
             "S2"
