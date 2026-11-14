@@ -1609,7 +1609,7 @@ Each page also carries a "Customers who viewed this item also viewed" block. The
 | I7-2 | Make the root gate enforce the row-source rule: `build.py` fails if any root table row lacks an official or registered-brand link | **done** | sess-502dcf85 | `build.py` (`main`, new check) |
 | I7-3 | Close the 29 residual rows on the root site with official-source links (or flag them) | **done** | sess-502dcf85 | `build.py` (`page_platform`, `page_index`, `page_flagged`), regenerated `index.html`, `platform.html`, `flagged.html` |
 | I7-4 | Publish the inherited-build residue (counts + locations) as a Flagged item; do not edit inherited builds | **done** | sess-502dcf85 | `build.py` (`PROGRAMME_FLAGS`) |
-| I7-5 | Integration gate, PR → `main`, merge, Pages deploy check, record | in progress (PR record below) | sess-502dcf85 | `COORDINATION.md` (this section) |
+| I7-5 | Integration gate, PR → `main`, merge, Pages deploy check, record | **done** (see PR record below) | sess-502dcf85 | `COORDINATION.md` (this section) |
 
 **Not touched by this session (owned or inherited elsewhere):** `s2/**` (open PRs #27 and #28 by other sessions), `dashboard/**`, `research/**`, `site/**`, `session-3740f69d/**`, `annex-88769516/**`, `docs/**`, `data/*.json`.
 
@@ -1660,3 +1660,16 @@ Each page also carries a "Customers who viewed this item also viewed" block. The
 4. Open PRs #27 (`arena/1ee801af-zone1`) and #28 (`arena/4e8a4b88-zone1`) touch `COORDINATION.md` and `s2/`. This branch was fast-forwarded to `origin/main` 5ed73c1 before the claim, so there was no conflict. Those PRs will need a rebase after this merge.
 
 **Sources used this pass:** S1, S3, S16, S17 (live fetches above); S23 (carried from I5/R2); the existing registry in `data/sources.json`.
+
+### PR / merge / deploy record — I7 (sess-502dcf85)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/31 — "I7: row-source gate, root residue closed to 0, F25/F26 flags, live re-verification (sess-502dcf85)". Head `994d748`, base `main` @ `5ed73c1`.
+* **Checks before merge:** `CI` (verify job) ✓, `Verify verification annex (site/)` ✓, mergeable CLEAN.
+* **Merge:** `gh pr merge 31 --merge` at 2026-11-14T18:34:10Z → merge commit **`f59a385`** on `main` (state MERGED).
+* **Post-merge workflows on `main` (`f59a385`):** `CI` ✓ · `Verify verification annex (site/)` ✓ · `Build, verify and deploy to GitHub Pages` ✓ · `pages-build-deployment` ✓.
+* **GitHub Pages:** `gh api repos/kanlerxz87-cyber/Zone1/pages` → `status: built`, `source: main /`, `build_type: legacy`. Latest build: commit `f59a385`, created 2026-11-14T18:34:12Z, no error.
+* **Live check:** `https://kanlerxz87-cyber.github.io/Zone1/flagged.html` now lists **F25** and **F26**. The first fetch, at 18:35 UTC, returned the pre-merge copy from a cache (24 items). A re-fetch after the Pages build finished (18:38 UTC) returned the new copy.
+* **Note on the "I6" ID:** `I6` was taken on `main` by `arena/1ee801af-zone1` (PR #30). This pass is recorded as I7 throughout. No work from either session was discarded.
+* **Note for the next session:** the open PR #28 and #27 items from other sessions are merged. Their s2 stamp fix (`7864372`) is what makes `build_s2_site.py --check` pass on the merged tree.
+* This record is published by a follow-up record-only PR from the same branch, because the PR record cannot contain its own number before the PR exists.
+
