@@ -1481,3 +1481,13 @@ Note: `arena/1dcaaafc`'s T16 headline correction ("0 verified product identities
 > - Site: https://kanlerxz87-cyber.github.io/Zone1/ · status `built` on `main`.
 > - Post-merge gates: build 14 pages · verify 0 errors · research OK · check_links 4028/0 broken owned · audit 0 · 33 tests · s2 --check · site 382 assertions.
 > - Open flags remain published on `flagged.html` (F14–F16 identity, F17 annex advisory, F18 s2 stamp, F19–F24 from main) — non-blocking per protocol.
+
+---
+
+## I5 — Verification and publish pass (`arena/1ee801af-zone1`, 2026-11-14)
+
+Claimed after a fresh read of the board. Base `29e4804` (`main`, I4 complete). No other open PRs and no `in progress` claims on the files this pass touches.
+
+| ID | Task | Status | Owner | File scope |
+|----|------|--------|-------|------------|
+| I5 | Re-run every repo gate, spot-check live site and primary sources, log new irregularities, PR → merge → confirm Pages | **in progress** | `arena/1ee801af` | `COORDINATION.md` only (this section) |
