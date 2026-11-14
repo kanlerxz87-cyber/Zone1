@@ -2119,3 +2119,48 @@ Two flag-ID collisions were handled by renumbering rather than racing: **F25/F26
 This pass's flags are **F29–F31**, and F28 was deliberately left vacant for PR #36 so the register
 holds no duplicate ID whichever PR merged first. It did, and the merged register is F1–F31 with no
 duplicates.
+---
+
+# Integration pass 7 — session `sess-7111e2b6` (branch `arena/7111e2b6-zone1`, base `b990352`)
+
+**Session:** sess-7111e2b6 · **Branch:** `arena/7111e2b6-zone1` (base `main` @ `b990352`, the merge of PR #39) ·
+**Started:** 2026-11-14 (UTC)
+**Claim written and pushed before any file edit.**
+
+**State found at start (read from the board, not assumed).** Every prior session's rows are `done` or
+`needs review`; the `in progress` rows still visible in the board are stale (their own records state
+completion). One open PR, #40 (`arena/54c66535-zone1`, record-only) — **left untouched**, it belongs to
+another session. All local gates green at baseline: `build.py` reproducible, `verify.py` 0 errors,
+`research/check_research.py` OK, `scripts/check_links.py` 4,103 links 0 broken (184 advisory findings in
+inherited builds), `scripts/build_s2_site.py --check` current, `scripts/verify_site.py` 382 assertions,
+`platform` 33 tests, `platform/audit/report.py` 0 warnings. Pages `built`, source `main:/`, live.
+
+**Why a new pass exists.** Three gaps between the brief and the published tree remain open on the board
+and are not yet owned by any session:
+
+1. **F30 (open) — two published specification values are not stated by the official source cited for
+   them.** The brief's verification rule is explicit: *"If a value can't be confirmed from an official
+   source, leave it blank and flag it as unverified. Never infer or fill in values."* One of those values
+   is still published as a fact on the canonical root site.
+2. **F25 (open) — 281 of 1,363 table rows in inherited builds carry no link to an official source.** The
+   brief says *"Every table row must have a source link to an official site."*
+3. **The marketing-article requirement is thin on the canonical build.** The brief asks for a *"polished
+   marketing affiliate website"* with *"catchy trendy articles and topics"*. The root build has a buying
+   guide, a comparison and three product pages, but **no article section**; the only articles in the repo
+   live in `research/articles/`, an annex build, and are not reachable from the root navigation.
+
+## Claimed tasks (this session)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| V1 | Independent line-by-line re-verification of every value published on the canonical root site, against the official source the site cites for it — fetched live by this session, not carried over from earlier passes | in progress | sess-7111e2b6 | `reports/verification-7111e2b6-2026-11-14.md` (new) |
+| V2 | Apply the brief's verification rule to anything V1 fails: blank the value, flag it, never infer | in progress | sess-7111e2b6 | `data/products.json` (failed rows only), `build.py` (new flag rows) |
+| V3 | Publish a canonical **Articles** section on the root build: catchy, SEO-optimised articles on trending air-fryer topics, written only from verified dataset values, each claim carrying its source link, each page carrying the OA §5 disclosure and link-level disclosures | in progress | sess-7111e2b6 | `data/articles.json` (new), `build.py` (article generator + NAV), generated `articles/*.html` |
+| V4 | Close the F25 row-source residue in the inherited builds where the page is generator-owned (regenerate, do not hand-edit); leave the verbatim archive `annex-88769516/` untouched and say so | in progress | sess-7111e2b6 | `research/build_research.py`, `scripts/build_site.py`, `scripts/build_s2_site.py`, `dashboard/*.html` (hand-authored only) |
+| V5 | Executive summary refresh: align every figure with the regenerated data, and remove the contradicted claims a prior pass recorded (`Identity verified`; `the official commission schedule redirected to a sign-in page`) | in progress | sess-7111e2b6 | `EXECUTIVE-SUMMARY.md`, `EXECUTIVE_SUMMARY.md`, `reports/executive-summary.md` |
+| V6 | Final integration: rebuild, re-run every gate, link-crawl, PR → `main` → merge → confirm GitHub Pages deploy → record the result here | pending | sess-7111e2b6 | `COORDINATION.md` (this section) |
+
+**Scope discipline.** `data/*.json` other than `data/products.json` (failed rows only) and the new
+`data/articles.json`; `docs/`, `crosscheck/`, `platform/`, `data/verified/`, `data/s2/`, `data/flagged.json`,
+`data/flags.json` and the archived `annex-88769516/` are **read-only** for this session. Open PR #40 is not
+touched.
