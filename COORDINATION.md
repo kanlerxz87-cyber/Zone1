@@ -1173,3 +1173,20 @@ Not re-fetched in this pass: every other table value on the site (prices, brand 
 - T16 **done** — false headline corrected and live.
 - T17 **done** — merged and deployed. Flags F14–F18 are on the public Flagged for Review page with source links or an explicit "no official source" note.
 - Open for owner: confirm the intended product for each supplied link; confirm whether `link.amazon` is Amazon-documented (F16); source or blank the 216+ advisory table rows (F17); pin the s2 build stamp (F18).
+
+---
+
+## Session `arena/6ec3c2da` — refresh verification + integration (claim, 2026-11-14)
+
+**Session:** `arena/6ec3c2da` · **Branch:** `arena/6ec3c2da-zone1` (base `main` @ `8915b43`) · **Started:** 2026-11-14 (UTC)
+**Why a new claim:** every earlier board row is `done` or `needs review`; none is `in progress`. Open PR #9 (`arena/88769516-zone1`, another session) was left untouched.
+
+| # | Task | Status | Owner | File scope (only these) |
+|---|------|--------|-------|-------------------------|
+| H1 | Re-verify the 3 supplied links, the 3 canonical `/dp/` checks, the commission table, PA-API status, and the Chefman brand prices — all fetched 2026-11-14 | in progress | `arena/6ec3c2da` | `reports/verification-2026-11-14.md` (new) |
+| H2 | Source hygiene on the landing dashboard: replace non-official citations and remove overstated claims | in progress | `arena/6ec3c2da` | `dashboard/*.html` |
+| H3 | Add new irregularity flags (PA-API 5 deprecation, root-vs-dashboard conflict, unverified ASIN-length source) | in progress | `arena/6ec3c2da` | `dashboard/flagged.html` |
+| H4 | Executive summary refresh with this session's findings | in progress | `arena/6ec3c2da` | `dashboard/executive-summary.html` |
+| H5 | Integration: CI checks, PR `arena/6ec3c2da-zone1` → `main`, merge, confirm GitHub Pages | in progress | `arena/6ec3c2da` | this board section only |
+
+Not touched: root `build.py` / `index.html` (generator + CI reproducibility gate; the root-vs-dashboard conflict is flagged, not edited), `data/*`, `s2/`, `site/`, `research/`, `docs/`, `session-3740f69d/`, `platform/`, `.github/`.
