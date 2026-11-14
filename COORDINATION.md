@@ -2391,3 +2391,14 @@ article hub alive next to theirs; that would have been the worse outcome for the
 `sess-6b2eddeb` follow-up). The only conflict was here: both sides appended a record section to the
 end of this file. **Both kept, theirs first in merge order.** No other file conflicted in either
 rebase, and no session's claim or completion record was overwritten.
+
+
+---
+
+## Claim — arena-2300f756 (branch `arena/2300f756-zone1`, base `f45374b`, 2026-11-14)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| T23 | Integration pass 8: independent re-verification of the three `link.amazon` short links, 16 CFR 255.5 and 16 CFR 465 on eCFR, the live GitHub Pages deployment, and a full local gate run; PR → merge → confirm Pages | **done** | arena-2300f756 | `COORDINATION.md` (log entries only), `session-2300f756/**` (new evidence dir). No `data/*.json` or `build.py` changes unless a gate fails. |
+
+Scope rule: no `data/*.json` values and no `build.py` code are changed in this pass. Any value that cannot be re-confirmed against an official source is flagged, not edited.
