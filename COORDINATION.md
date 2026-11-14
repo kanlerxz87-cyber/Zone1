@@ -2132,7 +2132,7 @@ session and is left untouched. ID note: `I1`–`I8` are taken; this pass is reco
 | I9-1 | Independent line-by-line repo review of the integrated tree + run every published gate | **done** | sess-94005244 | review only |
 | I9-2 | Independent re-verification dated 2026-11-14 against official live sources: the three `link.amazon` tokens, Standard Commission Income Statement (Table 1), Operating Agreement date, and all three brand product pages | **done** | sess-94005244 | `session-94005244/**` (new files only) |
 | I9-3 | Live-site verification: fetch the deployed GitHub Pages landing + key subpages, confirm disclosures, nav and row source links | **done** | sess-94005244 | `session-94005244/**` (new files only) |
-| I9-4 | Final integration: fix any defect found (integration remit under rule 5), rebuild, PR → `main`, merge, confirm Pages deploy, record here | in progress | sess-94005244 | `COORDINATION.md` (this section) |
+| I9-4 | Final integration: fix any defect found (integration remit under rule 5), rebuild, PR → `main`, merge, confirm Pages deploy, record here | **done** | sess-94005244 | `COORDINATION.md` (this section) |
 
 Not touched unless a gate fails: `data/*.json`, `dashboard/`, `s2/`, `site/`, `research/`,
 `session-3740f69d/`, `session-81495d2d/`, `crosscheck/`, `annex-88769516/`, `docs/`, `platform/`.
@@ -2159,6 +2159,33 @@ Not touched unless a gate fails: `data/*.json`, `dashboard/`, `s2/`, `site/`, `r
 * **Parallel session note:** `sess-840a25d3` (T22) verified disclosure wording, §2(b) and 16 CFR
   255.5 the same day; complementary to this pass (commission table, OA date, brand pages, links,
   live site). No scope overlap; their PR #41 files were merged, not edited.
+
+### PR / merge / deploy record — sess-94005244 (I9-4 closed)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/44 — "I9 (sess-94005244): pass-7
+  line-by-line re-verification — 12 live official-source checks, all gates green, live Pages
+  verified" — `arena/94005244-zone1` → `main`, with a full change/sources/flags summary in the body.
+* **Checks on the head commit (both green):** `verify` ✓ · `Rebuild site/ from data/verified and
+  assert every guarantee` ✓. PR state `CLEAN` / `MERGEABLE` at merge time.
+* **Merge:** `gh pr merge 44 --merge` (no approval wait, per the brief) → merge commit
+  **`4f5face050767b25bf75bd2a39b8bb2a38c4dec4`** on `main` (state MERGED).
+* **Post-merge workflows on `main` (`4f5face`) — all green:** `CI` ✓ (run 43630930719) ·
+  `Verify verification annex (site/)` ✓ (43630930699) · `Build, verify and deploy to GitHub
+  Pages` ✓ (43630930707) · `pages build and deployment` ✓ (43630930410).
+* **GitHub Pages:** `gh api repos/…/pages` → `status: built`, source `main` `/`, build type
+  `legacy`; `…/pages/builds/latest` → `status: built`, created 2026-11-14T19:13:38Z, `error: null`.
+* **Live verification (cache-busted fetches after the deploy settled):**
+  `…/flagged.html` serves the merged Flagged page — **35 open items** (PR #42 had added four flags
+  immediately before this merge; the count matches), 3 hard source conflicts, 0 values guessed,
+  100% asserted values sourced, every row carrying an official source link; `…/index.html` serves
+  the dashboard with **35 open irregularities** on the KPI card ("38 recorded … 35 distinct rows") —
+  landing and Flagged counts agree — plus the OA §5 disclosure bar, candidate/unconfirmed ASIN
+  labelling, and the Articles section added by PR #42.
+* **No stored value was changed by this pass.** Only `COORDINATION.md` (this record) and
+  `session-94005244/**` (evidence) were added. Open flags remain published and non-blocking:
+  F1–F35 as rendered, including identity (F14–F16/F21), tag observability (F6), the Chefman 450 °F
+  official-vs-official conflict (F3), the Emeril five-way preset count (F29), and `link.amazon`
+  provenance (F16).
 
 ---
 
