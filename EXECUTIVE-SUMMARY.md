@@ -160,5 +160,5 @@ Session `arena/88769516-zone1` (PR #9, idle since 2026-11-13T22:47Z) built an in
 
 ### 10.6 State after this pass
 
-- **24 sources** (S1–S24), all official; **43 spec rows** (42 verified, 1 blank+flagged); **24 open flags** (20 programme + 4 product), all published on [`flagged.html`](flagged.html). *(Counts corrected 2026-11-14 pass 6 against `verify.py` and the generated `flagged.html`.)*
+- **24 sources** (S1–S24), all official; **43 spec rows** (42 verified, 1 blank+flagged); **26 open flags** (22 programme + 4 product), all published on [`flagged.html`](flagged.html). *(Counts corrected 2026-11-14: pass 6 corrected the spec counts against `verify.py`; I7 added F25/F26 and corrected the flag counts from the generated page.)*
 - `build.py` + `verify.py` gates pass: 91 pages checked, **0 errors**, 0 broken internal links, 0 missing disclosures, 0 unsourced values, 0 leaked Amazon prices/ratings.
