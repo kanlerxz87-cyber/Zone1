@@ -152,11 +152,12 @@
         },
         {
           "label": "Number of presets",
-          "value": "Four one-touch food presets: French fries, chicken, meat, fish",
+          "value": null,
           "source": [
             "S18"
           ],
-          "note": "The manual names the preset food types; it does not publish a default time/temperature chart for them."
+          "status": "unverified",
+          "unverified": "No official source states a preset count for this model. The RJ38-SQPF-3TDB-2W user guide was re-read end to end on 2026-11-14: it refers once to 'a preset function' but publishes no preset chart and names no food presets, and the brand product page's feature list does not mention presets either. The four food presets published for the 8 Qt model (fries, chicken, fish, meat) belong to a different model and are not transferred here. The count is left blank rather than inferred. See flag F32."
         }
       ],
       "pricing": {
@@ -227,6 +228,16 @@
           "sources": [
             "S2",
             "S17"
+          ]
+        },
+        {
+          "id": "F32",
+          "issue": "The preset count published for this model was not stated by the source it cited. The value \"Four one-touch food presets: French fries, chicken, meat, fish\" was attributed to the RJ38-SQPF-3TDB-2W user guide, but that guide contains no preset chart and names no food presets. The same four food types belong to the different 8 Qt model (RJ38-SQSS-8T), whose guide does carry a PRESET FUNCTION CHART. The value appears to have been carried across from the 8 Qt.",
+          "action": "The count is now blank and flagged as unverified. Re-read on 2026-11-14 by sess-7111e2b6: the guide was checked end to end (features, control panel, operating instructions, special functions, cooking tips, troubleshooting, cleaning, terms) and the brand product page's feature list was checked; neither states a preset count. Nothing was inferred to fill the gap.",
+          "sources": [
+            "S18",
+            "S10",
+            "S13"
           ]
         }
       ]
@@ -339,8 +350,9 @@
           "label": "Interior light",
           "value": "Yes",
           "source": [
-            "S14"
-          ]
+            "S15"
+          ],
+          "note": "Documented in the owner's manual's control-panel section: \"F. LIGHT BUTTON: May be selected at any time during the cooking process to light the appliance's interior.\" The brand product page does not list an interior light, so the manual is the source of record. Re-sourced 2026-11-14 (see flag F33)."
         },
         {
           "label": "Warranty",

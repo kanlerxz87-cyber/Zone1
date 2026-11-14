@@ -937,6 +937,10 @@ PROGRAMME_FLAGS = [
     ("F31", "The two Chefman 6 Qt sister SKUs carry very different review counts on the brand's own site.",
      "Chefman 6 Qt Dual Basket",
      "Re-read 2026-11-14 by sess-54c66535. The dual-basket page RJ38-SQPF-3TDB-2 reports 4.6 stars from 194 reviews; the dual-window page RJ38-SQPF-3TDB-2W reports 4.6 stars from 1,305 reviews, on an identical list price and promo ladder. The 6.7x gap is a usable signal for deciding which SKU the supplied ASIN maps to, which is open flag F2. It is not an identification: Amazon does not publish the model number behind an ASIN, and a review count is not a product identifier. No SKU is asserted.", ["S11", "S10"]),
+    ("F33", "A published value was cited to a source that does not state it.",
+     "Emeril 26 QT French Door — the \"Interior light: Yes\" row",
+     "Found and fixed 2026-11-14 by sess-7111e2b6. The row cited the brand product page (S14), whose Specifications block lists Timer, 26-Quart Capacity, Dual-Speed Fan, 25 Cooking Pre-sets, 16.9\"D x 15.8\"W x 14.8\"H, 24.6 Liters, Temperature Control and 120 volts — and no interior light. The value is nonetheless correct: the owner's manual (S15) documents it in the control-panel section, \"F. LIGHT BUTTON: May be selected at any time during the cooking process to light the appliance's interior.\" The row has been re-sourced from S14 to S15 and the manual's wording recorded in the row note. The lesson is published rather than quietly fixed: a value can be true and still be mis-cited, and a citation that does not support its value is as much a defect as an invented number.",
+     ["S14", "S15"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
