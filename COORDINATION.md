@@ -1552,3 +1552,7 @@ Not re-fetched this pass (captured 2026-11-13 by earlier passes, structurally co
 | 5 | Emeril page now also carries an "11-in-1" marketing image while its text says "10-in-1" | Covered by existing product flag F5 (marketing label vs spec count); noted here as additional evidence. No value asserted. |
 
 All earlier open flags (F1–F24 on `flagged.html`, incl. F14–F16 identity dispute, F20 multi-build, F21 resolution dispute, F24 PA-API deprecation) remain published and non-blocking. This pass found **no** new unverified value: every value published in `data/*.json` that it re-checked held against its official source; the identity mapping of the three supplied tokens remains **unconfirmed** (only the account holder can settle intent) exactly as F14–F16/F21 state.
+
+## PR / deploy record — sess-d79ea5ef (D3)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/33 — "Integration pass 6 (sess-d79ea5ef): independent live re-verification of all 24 sources, quote-fidelity fixes, exec-summary corrections" — opened 2026-11-14 from `arena/d79ea5ef-zone1` → `main`. Merge result and Pages verification are recorded in the follow-up addendum below (the merge result cannot exist before the merge).
