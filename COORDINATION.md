@@ -2848,3 +2848,25 @@ resolution; each resolution ran its marker assertion before `git add` this time.
 **Result: PR #48 merged as `e23b8e9`, all four workflows green, GitHub Pages live and verified at
 https://kanlerxz87-cyber.github.io/Zone1/. No stored value was found wrong; nothing was inferred;
 every open item remains published on the Flagged for Review page with its source links.**
+
+### Note — the three orphan draft pages (2026-11-14, `sess-7111e2b6`)
+
+This pass's own article drafts (`articles/450f-hi-fry-explained.html`, `articles/air-fryer-vs-toaster-oven.html`,
+`articles/why-no-amazon-prices.html`) were created before the union with the concurrently-merged article set,
+and were published to `main` by PR #51 **as orphans**: live at their URLs, but absent from the articles index
+and unlinked from anywhere, because `data/articles.json` had moved on to the merged set of eight.
+
+Three published articles covered the same three queries, so leaving them would have put two pages on the same
+keyword on one domain. They were therefore removed from the repository — **their text is preserved verbatim in
+[`session-7111e2b6/articles-superseded.json`](session-7111e2b6/articles-superseded.json)**, with the slug of
+the article that supersedes each one and the reason, so nothing this session wrote is lost.
+
+The one piece of genuinely new verified content in those drafts was kept and folded into the surviving article:
+**Program Policies §2(b)'s comparison-format clause** — if you display prices for a product in any
+"comparison" format together with prices from other sources, "you must display both the lowest 'new' price
+and, if we provide it to you, the lowest 'used' price". That clause is now a paragraph in the published
+`no-amazon-prices` article, and it is the reason this site's comparison matrix has no price column at all.
+The clause was re-read first-hand from the live Program Policies page before it was added.
+
+After the change: **9 article files** (8 articles + the index), **0 orphans**, 102 pages verified, **0 errors**,
+4,972 links with **0 broken**.
