@@ -1510,3 +1510,21 @@ Note: `arena/1dcaaafc`'s T16 headline correction ("0 verified product identities
 **Sources used this pass:** the live short-link destinations above (Amazon product pages, fetched 2026-11-14) and the existing registered sources in `data/sources.json`. No new policy or product facts were added.
 
 **Outcome:** no content changes were needed. This record is the only change in this PR. Open flags (F1, F6, F7, F9–F13, F21, F24, and the F14–F18 identity/annex items) remain published on the Flagged for Review page for the account holder's review and do not block the merge.
+
+---
+
+# I6 — Row-source gate + independent re-verification (branch `arena/502dcf85-zone1`, base `5ed73c1`)
+
+> **Status: in progress.** Claimed 2026-11-14 (UTC) by session `sess-502dcf85`, before any file change.
+
+**Why this pass exists.** The brief requires that *every table row* carry a link to an official source. The existing build gate (`scripts/check_links.py`) only tests that a row contains *some* `<a>`, and the existing root gate (`verify.py`) does not test row links at all. A strict audit on 2026-11-14 found that, across the whole tree, 1,337 table rows exist; under the project's own official-host rule (Amazon, FTC, eCFR, and each brand's own domain for its own product specs, as registered in `data/sources.json`), 311 of them have no such link. On the canonical root site the residue is 29 rows: `platform.html` (20), `index.html` (6), `flagged.html` (3). The rest sit in inherited builds (`dashboard/`, `research/`, `site/`, `s2/`, `session-3740f69d/`, `annex-88769516/`).
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| I6-1 | Re-verify the three supplied `link.amazon` short links, the commission table, and the Operating Agreement date against official pages (live, 2026-11-14) | in progress | sess-502dcf85 | none (evidence recorded here) |
+| I6-2 | Make the root gate enforce the row-source rule: `build.py` fails if any root table row lacks an official or registered-brand link | in progress | sess-502dcf85 | `build.py` (`main`, new check) |
+| I6-3 | Close the 29 residual rows on the root site with official-source links (or flag them) | in progress | sess-502dcf85 | `build.py` (`page_platform`, `page_index`, `page_flagged`), regenerated `index.html`, `platform.html`, `flagged.html` |
+| I6-4 | Publish the inherited-build residue (counts + locations) as a Flagged item; do not edit inherited builds | in progress | sess-502dcf85 | `build.py` (`PROGRAMME_FLAGS`) |
+| I6-5 | Integration gate, PR → `main`, merge, Pages deploy check, record | in progress | sess-502dcf85 | `COORDINATION.md` (this section) |
+
+**Not touched by this session (owned or inherited elsewhere):** `s2/**` (open PRs #27 and #28 by other sessions), `dashboard/**`, `research/**`, `site/**`, `session-3740f69d/**`, `annex-88769516/**`, `docs/**`, `data/*.json`.
