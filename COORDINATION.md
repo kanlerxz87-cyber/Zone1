@@ -2437,3 +2437,19 @@ Scope rule: no `data/*.json` values and no `build.py` code are changed in this p
   `--force-with-lease` push of this branch superseded only this session's own claim commit
   (`7a9ef26` → `6cba075`), checked via `git ls-remote` before pushing.
 * **Scope kept:** `COORDINATION.md` and `session-2300f756/**` only.
+
+## PR / merge / deploy record — arena-2300f756 (T23 closed)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/50 — "Integration pass 8 (arena-2300f756):
+  round-7 link verification, eCFR 255.5 + 465 live reads, all gates green, live Pages audit".
+  Branch `arena/2300f756-zone1` → `main`.
+* **Merge:** `gh pr merge 50 --merge` at **2026-11-14T19:19:08Z**, without waiting for approval,
+  per the brief. **Merge commit on `main`: `cad48c7af49da7f42ae7116e6175a08ca1ae389e`.**
+* **Post-merge workflows on `main` (`cad48c7`) — all four green:** `CI` ✓ ·
+  `Build, verify and deploy to GitHub Pages` ✓ · `Verify verification annex (site/)` ✓ ·
+  `pages build and deployment` ✓.
+* **GitHub Pages:** `…/pages/builds/latest` → `status: built`, commit `cad48c7…` (the merge commit),
+  `error: null`, created 2026-11-14T19:19:09Z. Source `main` / `/`, build type `legacy`.
+* **Scope note:** this record was committed after the merge (the PR number was not known at the time
+  the completion record was written), so it ships as a record-only follow-up commit. Site output is
+  unaffected: `build.py` does not read this file or `session-2300f756/`.
