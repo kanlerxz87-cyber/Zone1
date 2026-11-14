@@ -1246,3 +1246,18 @@ Not touched: root `build.py` / `index.html` (generator + CI reproducibility gate
 
 Not touched: open PR #9, `dashboard/**` (arena/6ec3c2da), `s2/**` (zone1-s2), `site/**`, `session-3740f69d/**`, `docs/**`, `data/*.json` schema, `.github/workflows/**`.
 
+### Completion record — `arena/0c7445c7` (2026-11-14, UTC)
+
+| # | Task | Status | Sources / evidence | Verification | Irregularities |
+|---|------|--------|--------------------|--------------|----------------|
+| I1 | H-04 root-vs-dashboard identity alignment | **done** | `reports/link-check-2026-11-14.md` (S16/S17 fetches 2026-11-14); F14–F16 already on `flagged.html` | Exec summary stats/rows, product/compare/data ASIN labels, category lede, `README.md`, `EXECUTIVE-SUMMARY.md`, `EXECUTIVE_SUMMARY.md` all say **candidate / unconfirmed**; no page retains "Resolved to ASINs" or "resolved from three short links" as a live claim | H-04 closed for root pages; annex pages may still carry older wording (advisory) |
+| I2 | F17 root table rows sourced | **done** | Policy sources S1/S2/S3/S10/S12/S14 already in `data/sources.json`; blanks link `flagged.html` | Custom scan: **0** unsourced `<tbody>` rows across all 13 build.py-owned pages (was 6+ on root, plus platform 27) | F17 text updated: remaining ~178 advisory rows live only in other sessions' annexes |
+| I3 | Research fragment links | **done** | `research/compliance-policies.json` C24/C25 (F19/F20); `data/flags.json` F19/F20 | `id="sources"` on `research/analysis.html`; `id="F19"`/`id="F20"` cross-ref cards on `research/flagged-for-review.html`; `scripts/check_links.py` reports **0 missing anchors** | None |
+| I4 | Integration gates → PR → merge → Pages | in progress | — | Gates run green before PR (see below) | — |
+
+**Gates (local, 2026-11-14):** `python3 build.py` ✓ · `verify.py` 0 errors ✓ · `research/build_research.py` + `check_research.py` 801 checks OK ✓ · `platform/audit/report.py` 0 findings ✓ · `unittest` 33/33 ✓ · `scripts/build_s2_site.py --check` ✓ · `scripts/build_site.py` + `verify_site.py` 382 assertions ✓ · `scripts/check_links.py` 3,694 links, 0 broken on owned pages ✓.
+
+**Sources used this pass (official, already registered):** S1 Operating Agreement · S2 Program Policies · S3 Standard Commission Income Statement · S10/S12/S14 brand product pages · S16 Amazon `/dp/` pages · S17 `link.amazon` short links · plus the session's own `reports/link-check-2026-11-14.md` (fetched 2026-11-14). No new external hosts introduced; no value was inferred.
+
+**Irregularities still open (published, non-blocking):** F14–F16 product identity · F17 annex-only advisory rows · F18 s2 date stamp · H-01/H-06 PA-API 5 deprecated / Creators API 10-sales prerequisite · H-08 token→ASIN mapping · PR #9 (`arena/88769516-zone1`) left untouched for its owner.
+
