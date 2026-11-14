@@ -1007,7 +1007,7 @@ VERDICTS = {
     "emeril-26qt-french-door":
         "The largest cavity in the set by a wide margin (26 qt against 6 qt and 8 qt) and the only unit that is an oven rather than a basket. The manufacturer documents the power draw (1700 W), the temperature range (75–500 °F) and the physical footprint, which is what actually decides whether it fits a kitchen. On preset count the manual is the controlling document: its chart names exactly 24 presets, which matches the description text and the Amazon title rather than the spec block's 25. The brand's own on-site rating is unusually low (2.6 from 25 reviews) and is reported here as displayed, not softened.",
     "chefman-8qt-turbofry":
-        "A conventional single-basket 8-quart air fryer with a documented 200–400 °F range, four food-type presets and dishwasher-safe nonstick parts. The unresolved problem is that the Amazon listing title advertises a 450 °F Hi-Fry mode and bake/dehydrate/frozen functions that the brand page and the owner's manual do not document. Until that is resolved, the honest position is that the temperature ceiling of the unit shipping against this ASIN is unknown, and the buyer should read the manual that arrives with the unit.",
+        "A conventional single-basket 8-quart air fryer with a documented 200–400 °F range, four food-type presets and dishwasher-safe nonstick parts. The unresolved problem is that the Amazon listing title advertises a 450 °F Hi-Fry mode and bake/dehydrate/frozen functions that the RJ38-SQSS-8T page and manual do not document. A 2026-11-14 read found that Chefman sells a second 8-quart SKU, RJ38-8T-BLACK, whose page states exactly that Hi-Fry mode and exactly those four functions — so the listing probably describes a different unit rather than a stale page (flag F33). Until someone opens the listing and reads the model number, the honest position is that the temperature ceiling of the unit shipping against this ASIN is unknown, and the buyer should read the manual that arrives with the unit.",
 }
 
 
@@ -1399,7 +1399,7 @@ def page_flagged():
 
 <div class="callout bad">
   <strong>The one that matters most</strong>
-  <p class="small">The Chefman 8 Qt listing advertises a <strong>450 °F Hi-Fry</strong> mode and bake/dehydrate/frozen functions. The brand's own product page and its RJ38-SQSS-8T owner's manual document a <strong>200–400 °F</strong> range with four food-type presets. One of those official sources is describing a different product, or one is stale. This site asserts neither, and the buying guide tells readers to read the manual that ships with the unit. {src_links(['S12', 'S13', 'S16'])}</p>
+  <p class="small">The Chefman 8 Qt listing advertises a <strong>450 °F Hi-Fry</strong> mode and bake/dehydrate/frozen functions. The brand's page and owner's manual for <code>RJ38-SQSS-8T</code> — the model this site maps to that listing — document a <strong>200–400 °F</strong> range with four food-type presets. <strong>Read 2026-11-14:</strong> Chefman also sells <code>RJ38-8T-BLACK</code>, whose page states a <strong>450 °F Hi-Fry</strong> and exactly those four functions, in a matte-black finish. So this is most likely <em>two different units</em> rather than one stale page — which narrows the problem without settling which unit the ASIN ships. This site asserts neither, and the buying guide tells readers to read the manual that ships with the unit. {src_links(['S12', 'S13', 'S26', 'S16'])}</p>
 </div>
 
 <h2>Programme-level flags</h2>
