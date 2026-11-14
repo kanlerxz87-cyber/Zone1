@@ -1425,3 +1425,12 @@ Note: `arena/1dcaaafc`'s T16 headline correction ("0 verified product identities
 - Gates re-run after the merge (all green): `platform/tests` 33/33 · `platform/audit/report.py` 0 warnings · `research/check_research.py` OK · `scripts/build_s2_site.py --check` current · `scripts/check_links.py` OK · `scripts/build_site.py` + `verify_site.py` 382 assertions · `python3 verify.py` 0 errors (91 pages) · generated HTML committed (reproducibility gate).
 - PR: opened from `arena/cb2cfa7c-zone1` → `main` with summary, sources and flagged irregularities; merged per the brief.
 - **PR / deploy record: recorded in the follow-up addendum below after the merge.**
+
+## PR / deploy record — sess-cb2cfa7c (R4 closed)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/23 — "Integration pass 5 (sess-cb2cfa7c): line-by-line re-verification, PA-API 5 deprecation finding, citation fixes, PR #9 preservation" — opened and **merged** 2026-11-14 via `gh pr merge 23 --merge` after both PR checks (CI, Verify verification annex) passed on the head commit `6a55706`.
+* **Merge commit on `main`:** `0a2f02c1` ("Merge pull request #23 from kanlerxz87-cyber/arena/cb2cfa7c-zone1").
+* **Post-merge CI on `main` (all green, 2026-11-14T10:16Z):** `CI` ✓ · `Verify verification annex (site/)` ✓ · `Build, verify and deploy to GitHub Pages` ✓ · `pages-build-deployment` ✓.
+* **GitHub Pages:** https://kanlerxz87-cyber.github.io/Zone1/ — status `built`, latest Pages build = commit `0a2f02c1` (2026-11-14T10:16:26Z), error: none, source `main`/root (legacy). Live fetch confirmed the deployed tree serves the merged content: the Flagged page lists 24 open items including F10 (re-tested 2026-11-13 and 2026-11-14), F21 and F24, and the OA §5 disclosure on every page.
+* **PR #9:** closed 2026-11-14 as superseded, with all 16 files preserved at `annex-88769516/` (published at https://kanlerxz87-cyber.github.io/Zone1/annex-88769516/) and the branch retained. Closure comment documents the disposition.
+* This record is published by the follow-up PR referenced in its own body (the record cannot contain its own PR number before creation).
