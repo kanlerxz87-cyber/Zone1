@@ -2031,3 +2031,53 @@ corrections are preserved unchanged; this pass's three flags are numbered **F29�
 verdict, one new section on `reverification.html`, three flags, three repo-evidence entries) ·
 regenerated root HTML · `EXECUTIVE-SUMMARY.md`. **No `data/*.json` was edited,** and no file owned by
 another session was modified.
+
+---
+
+## PR / merge / deploy record — sess-91d0552e (T21 closed)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/36 — "Integration pass 6 (sess-91d0552e): live
+  re-verification, flag-register collision F28, exec-summary count corrections".
+  Branch `arena/91d0552e-zone1` → `main`.
+* **Checks on the head commit (`00df880`):** `CI` ✓ · `Verify verification annex (site/)` ✓
+  (`verify` + `Rebuild site/ from data/verified and assert every guarantee`). PR state went
+  `CONFLICTING` → `CLEAN` after the second rebase, then MERGEABLE.
+* **Merge:** `gh pr merge 36 --merge` at **2026-11-14T18:54:06Z**, without waiting for approval, per the brief.
+  **Merge commit on `main`: `fa417c9f0725707d240435e25441c8bf7f112298`.**
+* **Post-merge workflows on `main` (`fa417c9`) — all green:** `CI` ✓ ·
+  `Verify verification annex (site/)` ✓ · `Build, verify and deploy to GitHub Pages` ✓ ·
+  `pages build and deployment` ✓.
+* **GitHub Pages:** `gh api repos/…/pages` → `status: built`; `…/pages/builds/latest` → `status: built`,
+  commit `fa417c9`, created 2026-11-14T18:54:07Z, `error: null`. Source `main` / `/`, build type `legacy`.
+* **Live verification (fetched from https://kanlerxz87-cyber.github.io/Zone1/ after the deploy settled):**
+  * `flagged.html` → **28 Open items**, and **F28 is present** with both source links (S1 Operating
+    Agreement, S3 Standard Commission Income Statement). F25/F26/F27 from `arena/6ecdb4e4` (I7) and F28
+    from this session all render together with no ID collision.
+  * `executive-summary.html` → **28 Open flag rows**, 24 Sources, 0 Verified product identities,
+    0 Numbers invented.
+  * The OA §5 disclosure bar ("As an Amazon Associate I earn from qualifying purchases.") is present on
+    both pages.
+* **Deploy-cache note (recorded for future passes):** the first live fetch after the merge returned the
+  *previous* deploy (27 items) from the Pages CDN. A fetch a few minutes later returned the new copy
+  (28 items, F28 present). A stale live read immediately after a merge is a CDN artefact, not a build
+  failure — re-fetch before concluding the deploy is wrong. This matches the same note recorded by
+  `arena/6ecdb4e4` in I8.
+* **Two force-pushes of this branch were required**, once per rebase (main moved under this session twice:
+  PR #34 and PR #37). In both cases `git log HEAD..origin/arena/91d0552e-zone1` was checked first and
+  showed **only this session's own superseded commits** and nothing belonging to any other session,
+  before pushing with `--force-with-lease`.
+* **Board hygiene:** the original board's T12 row (left `in progress` since 2026-11-13) was already
+  marked `done` by `arena/6ecdb4e4`'s I8 record. PR #36 is the 8th merged integration PR in this sequence.
+
+### Final state of this session's tasks
+
+| # | Task | Status |
+|---|------|--------|
+| T18 | Independent line-by-line re-verification dated 2026-11-14 | **done** |
+| T19 | Correct stale counts in `EXECUTIVE-SUMMARY.md` | **done** |
+| T20 | Publish flag F28 (renumbered from F25) | **done** |
+| T21 | Final integration: rebuild, re-run every gate, PR → merge → Pages | **done** |
+
+**Result: no stored value was found to be wrong. Every gate passes, the site is live at
+https://kanlerxz87-cyber.github.io/Zone1/ on commit `fa417c9`, and all 28 open items — including this
+session's F28 — are published on the Flagged for Review page with their source links.**
