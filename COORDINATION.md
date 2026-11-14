@@ -1936,3 +1936,98 @@ and §2(w). This session did not independently re-verify that re-numbering; it i
 **Post-resolution verification.** `python3 build.py` (14 pages, byte-identical on re-run) · `verify.py` 92 pages ·
 43 spec rows (42 verified, 1 blank+flagged) · 24 sources · **0 errors** · no conflict markers remain anywhere in
 the tree · `flagged.html` and `executive-summary.html` both report **28** open items.
+
+# Integration pass 6 — session sess-54c66535 (`arena/54c66535-zone1`, base `29e4804`)
+
+Read the whole board before starting. Everything below is additive: no file owned by another
+in-progress session is edited, and no claim above was overwritten.
+
+## Claimed tasks (this session)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| U1 | Independent re-verification of the three `link.amazon` tokens + negative control, dated 2026-11-14 (5th observation round) | in progress | sess-54c66535 | `session-54c66535/**` (new files only) |
+| U2 | Repo review: run every published gate, re-read the generated root site line by line, look for irregularities no earlier pass reported | in progress | sess-54c66535 | `session-54c66535/**` (new files only) |
+| U3 | Landing-page / IA work: make the root build read as one clean dashboard (single canonical landing page, category sub-pages, every finding in a sourced table) | in progress | sess-54c66535 | `build.py` (integration remit, rule 5), generated root HTML, `README.md` |
+| U4 | Executive summary refresh | pending | sess-54c66535 | `EXECUTIVE-SUMMARY.md`, `EXECUTIVE_SUMMARY.md`, `reports/executive-summary.md` |
+| U5 | PR → merge to `main` → confirm Pages deploy → record here | pending | sess-54c66535 | none (git + `gh` only) |
+
+Untouched by this session: `data/*.json` outside the notes above, `docs/`, `s2/`, `dashboard/`,
+`site/`, `research/`, `crosscheck/`, `platform/`, `annex-88769516/`, `session-3740f69d/`,
+`session-81495d2d/`.
+
+## Evidence collected 2026-11-14 by this session (fresh fetches, observation round 5)
+
+1. `https://link.amazon/B04G1MEwY` → `https://www.amazon.com/dp/B0CDY277D3?...plpRedirect=mhFallback`,
+   page `<title>` = "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish,
+   Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double
+   Air Fryer - Black" → **matches** the stored `amazon_listing_title` character for character.
+2. `https://link.amazon/B02NbDxp3` → `/dp/B09B7SB46R`, title = "Emeril Lagasse 26QT French Door
+   Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, **24 cooking
+   functions**, dual-speed fan and rotisserie for easy family meals." → stored title matches.
+   **New:** the Amazon listing title is itself an official source that says **24** cooking functions,
+   which bears on open flags F4/F5 (25 Cooking Pre-sets vs 24 vs 10-in-1 vs 11-in-1). Recorded as
+   evidence, not as a resolution — the count is still officially inconsistent across Amazon and the
+   brand page.
+3. `https://link.amazon/B00hJ57DV` → `/dp/B08DKYBTPH`, title = "Chefman Air Fryer 8 Qt | TurboFry®
+   4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick
+   Dishwasher-Safe Basket | Stainless Steel" → **matches** stored title. The 450 °F / 4-in-1 claim is
+   still present live on Amazon, so flag F3 (conflict with the brand page's 200–400 °F) is still live.
+
+## Completion record — sess-54c66535 (pass 6, 2026-11-14)
+
+| # | Task | Status | Result |
+|---|------|--------|--------|
+| U1 | Independent re-verification, 5th observation round | **done** | All three short links re-fetched; destinations and `<title>` values match the stored values character for character. New: the Emeril listing title states "24 cooking functions". |
+| U2 | Repo review + gap analysis | **done** | Every published gate re-run green. Found and closed the one real gap: **9 rows** of the 61-row ledger were marked `not-rechecked` and had not been re-opened by any later pass. |
+| U3 | Landing-page / IA | **done as additive** | The root build already read as a single dashboard (disclosure bar, KPI counters, sourced tables, one nav). Rather than fork a 7th build (see F20), this pass added one section to the existing `reverification.html` and left the IA otherwise untouched. |
+| U4 | Executive summary refresh | **done** | `EXECUTIVE-SUMMARY.md` §10.7 added; flag count corrected 26 → 30. |
+| U5 | PR → merge → Pages | in progress | Below. |
+
+### The nine un-rechecked rows — outcome
+
+Re-read today against the official page or manual the site cites for each (details and verbatim
+quotes in `session-54c66535/EVIDENCE-2026-11-14.md`, machine-readable in
+`session-54c66535/pass6.json`, published in the new "Pass 6" section of `reverification.html`).
+
+**7 confirmed verbatim:** Emeril rated power 1700 W · Emeril temperature range 75–500 °F / 25–260 °C
+· Emeril 1-year warranty · Chefman 8 Qt all five preset defaults (including the **Fries 20 min /
+400 °F** row the earlier pass could not read) · LED shake reminder · "Designed for 4-6 people" ·
+"98% less oil".
+
+**2 not stated by the cited official source (new flag F30):**
+* *Chefman 6 Qt preset count* — the RJ38-SQPF-3TDB-2W guide was read end to end. It documents
+  HI-FRY, +2 MIN, MUTE, SYNC BASKETS, SYNC FINISH, START/STOP, TIME/TEMP and SHAKE and refers to
+  "a preset function", but has **no preset chart** and never names four food presets; its control
+  panel is artwork with no text layer. Contrast the 8 Qt guide, which does carry a chart.
+* *Emeril interior light* — the brand page's specification block has no interior-light row.
+
+Both were left published rather than deleted (deleting another session's sourced row is not this
+pass's call) and are flagged for a human decision. Neither was back-filled.
+
+### New flags added by this pass
+
+| ID | Item | Source |
+|----|------|--------|
+| **F29** | The Emeril preset count is stated **five** ways across official sources: Amazon listing title "24 cooking functions", Emeril's own prose "24 one-touch cooking presets", the spec block "25 Cooking Pre-sets", the heading "10-In-1", and a carousel asset named `11-in-1`. Two independent official sources now agree on 24, which is new — earlier passes had no tiebreaker. **Narrowed, not closed**: no preset count is asserted anywhere on the site. | S14, S17, S16 |
+| **F30** | Two published specification values are not stated by the official source cited for them (see above). | S18, S14 |
+| **F31** | The two Chefman 6 Qt sister SKUs diverge sharply on the brand's own site: RJ38-SQPF-3TDB-2 is 4.6 ★ / **194** reviews, RJ38-SQPF-3TDB-2W is 4.6 ★ / **1,305**, on an identical price ladder. A signal for the open ASIN→model question (F2), not an identification. | S11, S10 |
+
+**Flag-id collision, resolved.** F25/F26 were taken by `sess-502dcf85` (PR #31) and **F27** by
+`sess-6ecdb4e4` (PR #34) while this pass was running — the latter for an unrelated finding about
+Participation Requirements section numbering (§3(t) → §6(t)). Their F27 and all of PR #34's citation
+corrections are preserved unchanged; this pass's three flags are numbered **F29–F31**.
+
+### Verification performed
+
+* `python3 build.py` → 14 pages, reproducible; row-source gate and disclosure gate pass.
+* `python3 verify.py` → 92 pages, 43 spec rows (42 verified / 1 blank+flagged), 24 sources, **0 errors**.
+* `research/check_research.py` OK · `scripts/build_s2_site.py --check` current · `scripts/check_links.py` 4,101 links, 0 broken owned · `scripts/build_site.py` + `verify_site.py` 382 assertions pass · `platform` 33 tests OK · `platform/audit/report.py` 0 warnings.
+* Repo-wide conflict-marker scan: none.
+
+### Files touched
+
+`session-54c66535/**` (new, this session only) · `build.py` (additive: `PASS6` load, `source-silent`
+verdict, one new section on `reverification.html`, three flags, three repo-evidence entries) ·
+regenerated root HTML · `EXECUTIVE-SUMMARY.md`. **No `data/*.json` was edited,** and no file owned by
+another session was modified.
