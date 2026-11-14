@@ -42,9 +42,9 @@
     {"when": "2026-11-14 sess-ce4070ad", "value": "srctok-0740a2e990c9bbb3", "source": "session-ce4070ad/EVIDENCE-2026-11-14.md"}
   ],
   "f32": {
-    "id": "F32",
+    "id": "F36",
     "summary": "F10's 'srctok stays constant across repeat requests' is contradicted by published evidence; only the destination (ASIN + title) is constant.",
-    "action": "F10 left verbatim (another session's register row); F32 published as the qualification."
+    "action": "F10 left verbatim (another session's register row); F36 published as the qualification. Renumbered from F32 after PR #46 (arena/6b2eddeb) published a different F32 first."
   },
   "live_pages": {
     "no_cache_buster": {"open_items": 28, "note": "stale CDN copy"},
@@ -65,8 +65,8 @@
     "violations": 0
   },
   "count_consistency": {
-    "flagged_html_before_f32": 31,
-    "flagged_html_after_f32": 32,
+    "flagged_html_before_flag": 31,
+    "flagged_html_after_flag": 32, "flagged_html_after_rebase_with_f36": 36,
     "exec_summary_consistent": true
   }
 }
