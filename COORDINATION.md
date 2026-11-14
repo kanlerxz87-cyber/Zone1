@@ -2136,3 +2136,11 @@ Scope rule: no `data/*.json` values and no `build.py` code are changed in this p
 * **Irregularities (no edits to data):** I-1 link-level disclosure is firmer than the links can support: the destinations carry no Associates tag (already flagged F21 / F17). I-2 the articles are reachable via `research/index.html`; the planned navigation change was dropped. I-3 historical open-item counts differ across old records; the current build reports 31 everywhere.
 * **Gates on the rebased branch:** engine tests OK · audit OK · `build_s2_site.py --check` current · `check_links.py` 4,103 links · `build.py` reproducible (no diff) · `research/check_research.py` OK · `verify.py` 0 errors.
 * **Scope kept:** `COORDINATION.md` and `session-840a25d3/**` only.
+
+### PR / merge / deploy record — sess-840a25d3 (T22)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/41 — branch `arena/840a25d3-zone1` → `main`. Checks on `1d55503`: `verify` ✓ · `Rebuild site/ from data/verified and assert every guarantee` ✓. Merged with `gh pr merge 41 --merge` at 2026-11-14T19:06:25Z.
+* **Merge commit on `main`:** `f45374b23de2c7f56c6c3de0cfad029fb54b94ea`.
+* **Post-merge workflows on `f45374b`:** `CI` ✓ · `Build, verify and deploy to GitHub Pages` ✓ · `Verify verification annex (site/)` ✓ · `pages build and deployment` ✓.
+* **GitHub Pages:** `pages/builds/latest` → `status: built`, `commit: f45374b`, `error: null`. Live fetch of `https://kanlerxz87-cyber.github.io/Zone1/session-840a25d3/VERIFICATION-2026-11-14.md` returns the new record.
+* **Note:** this record is committed on the session branch after the merge, so it is not on `main`. It is kept here as the board record.
