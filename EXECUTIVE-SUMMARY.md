@@ -35,8 +35,13 @@ identity mapping.
 ## 3. Verification result
 
 - **43 specification rows** across the three products.
-- **42 verified** — each read on the manufacturer's own product page or owner's manual, each with a clickable source link. *(Count corrected 2026-11-14 (pass 6) to match `verify.py`: 42 verified — one of them, the 8 Qt's basket-divider row, carries a caution note — and 1 blank+flagged.)*
-- **1 blank and flagged** — no official source states the value, or official sources disagree.
+- **42 verified** — each read on the manufacturer's own product page or owner's manual, each with a
+  clickable source link. *(Count corrected 2026-11-14 by two independent passes to match `verify.py`: 42
+  verified — one of them, the 8 Qt's basket-divider row, carries a caution note — and 1 blank+flagged.)*
+- **1 blank and flagged** — the Chefman 8 Qt's *Hi-Fry / 450 °F mode* row. Two official sources contradict
+  each other (the Amazon listing advertises 450 °F Hi-Fry; the brand page and the RJ38-SQSS-8T manual
+  document 200–400 °F), so no value is asserted. Verified 42 / blank 1 against `data/products.json` on
+  2026-11-14.
 - **24 sources**, all official: Amazon Associates documents, the US FTC and eCFR, three manufacturer owner's manuals, two manufacturer product pages, and the Amazon listings themselves. *(Correction 2026-11-14: the completed register in [`data/sources.json`](data/sources.json) now holds **24** official sources, S1–S24 — see §10.)*
 
 Two rows were initially blank and were later **upgraded to verified** using the manufacturers' own owner's manuals rather than by guessing: the Chefman 6 Qt's per-basket capacity (the manual states "two 3-quart baskets") and the Emeril's preset count (the manual's preset chart names exactly 24). Two further rows, the 6 Qt's preset list and the 8 Qt's warranty, were added from the manuals. The blank that remains is blank because no official source resolves it — the 8 Qt's Hi-Fry/450 °F row, where official sources disagree. *(2026-11-14 pass 6: count corrected to the single remaining blank.)*
@@ -160,5 +165,16 @@ Session `arena/88769516-zone1` (PR #9, idle since 2026-11-13T22:47Z) built an in
 
 ### 10.6 State after this pass
 
-- **24 sources** (S1–S24), all official; **43 spec rows** (42 verified, 1 blank+flagged); **26 open flags** (22 programme + 4 product), all published on [`flagged.html`](flagged.html). *(Counts corrected 2026-11-14: pass 6 corrected the spec counts against `verify.py`; I7 added F25/F26 and corrected the flag counts from the generated page.)*
-- `build.py` + `verify.py` gates pass: 91 pages checked, **0 errors**, 0 broken internal links, 0 missing disclosures, 0 unsourced values, 0 leaked Amazon prices/ratings.
+- **24 sources** (S1–S24), all official; **43 spec rows** (**42 verified, 1 blank+flagged**);
+  **28 open flag rows** (24 programme + 4 product), all published on [`flagged.html`](flagged.html).
+  *Counting note (corrected 2026-11-14; two independent passes converged on the spec-row split and this
+  line is their merge).* The register holds 7 product-level flag instances, but three of them are the same
+  cross-product item — **F6**, the unobservable Associates tag — raised once per product. `build.py`'s
+  `page_flagged()` renders F6 once at programme level and suppresses the three per-product copies, so the
+  page shows 24 + 4 = **28** distinct rows, not 31.
+  *History of this line:* it originally read **40 verified / 3 blank** and **17 open flags (13 programme +
+  4 product)**. Two rows were filled from the manufacturers' own owner's manuals, leaving the Chefman 8 Qt's
+  *Hi-Fry / 450 °F mode* as the only blank (F3). The flag count then rose as F18–F27 were added by later
+  passes and **F28** by pass 6.
+- `build.py` + `verify.py` gates pass: 92 pages checked, **0 errors**, 0 broken internal links,
+  0 missing disclosures, 0 unsourced values, 0 leaked Amazon prices/ratings.
