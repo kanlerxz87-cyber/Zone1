@@ -1122,3 +1122,35 @@ appended) — resolved as their board + this appendix. All positions preserved f
 | T17 — Integration gate (unit tests, audit, link gate, root build reproducibility, verify.py), PR to `main`, merge, Pages deploy check | `arena/1dcaaafc` | `COORDINATION.md` (this section), whole tree at integration | in progress |
 
 Not touched by this session: every other session's `s2/`, `dashboard/`, `site/`, `research/`, `session-3740f69d/`, `docs/`, `data/*.json`, and open PR #9 (`arena/88769516-zone1`, owned by another session).
+
+## Completion record — `arena/1dcaaafc` (2026-11-14 UTC)
+
+| Task | Status | Result |
+|------|--------|--------|
+| T15 | **done** | `reports/link-check-2026-11-14.md`. Fetched on 2026-11-14: the three `link.amazon` links each redirect to an `amazon.com/dp/<ASIN>` URL carrying `lv=shuf` and `plpRedirect=mhFallback`. `amazon.com/dp/B04G1MEwY` returns "Page Not Found". The plain ASIN URLs also returned the fallback-parameter form. Identity of the supplied links is therefore **not confirmed**. |
+| T16 | **done** | `build.py` `page_index` and `product_cta`, plus regenerated `index.html`, `products/*.html`. Changes: the false headline "3 products resolved / all three short links followed to an ASIN" is now "0 verified product identities"; the H1 no longer says "verified line by line"; ASINs are labelled "candidate (unconfirmed)"; the CTA note states the identity is not confirmed and links the report. |
+| T17 | in progress → see PR | Gates run locally, all green: `platform/tests` 33/33; `platform/audit/report.py` 0 errors; `scripts/build_s2_site.py --check` current; `research/check_research.py` OK; `build.py` + `verify.py` 0 errors; `scripts/build_site.py` + `verify_site.py` 382 assertions; `scripts/check_links.py` 3,537 links, 0 broken. |
+
+### Sources (official unless marked)
+
+- Amazon product pages, fetched 2026-11-14: `https://www.amazon.com/dp/B0CDY277D3`, `https://www.amazon.com/dp/B09B7SB46R`, `https://www.amazon.com/dp/B08DKYBTPH`, `https://www.amazon.com/dp/B04G1MEwY` (registered as S16 in `build.py`).
+- Supplied short links, fetched 2026-11-14: `https://link.amazon/B04G1MEwY`, `https://link.amazon/B02NbDxp3`, `https://link.amazon/B00hJ57DV` (registered as S17).
+- Associates Program Policies (S2, cited by earlier sessions; not re-fetched in this pass).
+- Third-party only (not an official source, not used for any value): a web search on 2026-11-14 for an official Amazon short-link domain list returned blogs naming `amzn.to` and `a.co`. No official page naming `link.amazon` was found.
+
+### Irregularities (published on the Flagged for Review page as F14–F18)
+
+- **F14** — the landing page headline overstated product resolution. Corrected in this pass.
+- **F15** — the plain ASIN URLs were also answered with the fallback-parameter form on 2026-11-14.
+- **F16** — `link.amazon` is not confirmed as an Amazon-documented short-link domain. Open item.
+- **F17** — advisory link gate reports 216 or more table rows with no source link on inherited pages (`compare.html`, `executive-summary.html`, others). Advisory only, non-blocking. **Not fixed in this pass**: the rows are in pages built from shared data. The owner must source or blank each one.
+- **F18** — the committed `s2/` build stamp (2026-11-13) changes with the calendar date. Re-running on 2026-11-14 changes 13 files by the stamp alone. These changes were reverted, not committed. CI regenerates before it checks, so the gate passes.
+
+### Scope limit (stated honestly)
+
+Not re-fetched in this pass: every other table value on the site (prices, brand specs, commission rows, FTC and Associates policy text). Those rest on the earlier sessions' records and the automated gates, which check that each row has a source link. The gates do not check that a value is correct. Only the three supplied links and the landing headline were re-verified here.
+
+### Coordination notes
+
+- Open PR #9 (`arena/88769516-zone1`, another session) was not touched.
+- No other session's branch was edited. The only shared outputs changed are the root landing (`build.py` `page_index` + `index.html`), the product CTA note (`products/*.html`), and the root Flagged page (`PROGRAMME_FLAGS` in `build.py` + `flagged.html`). The integration session owns these.

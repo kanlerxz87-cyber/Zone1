@@ -800,6 +800,16 @@ PROGRAMME_FLAGS = [
      "Platform", "Automated trend detection, competition scoring and conversion optimisation need an Associates account, Creators/PA API credentials and sales reports. PA API access is registered through Associates Central and credentials are tied to the primary account holder, with request rate scaled to account sales performance. None of that exists in this repository, and inventing the data to fill the gap would defeat the point of the project.", ["S2", "S19", "S20"]),
     ("F13", "Product listing titles are reproduced from Amazon; §6(a) restricts altering Program Content.",
      "All three", "Titles are shown verbatim and unedited. §6(a) permits truncation only where meaning is not materially altered, and whether a listing title counts as Program Content is not stated. Recorded so the operator can confirm before adding any paraphrase.", ["S2"]),
+    ("F14", "The landing page overstated product resolution (corrected 2026-11-14).",
+     "Root landing page", "The headline read '3 products resolved — all three short links followed to an ASIN'. The 2026-11-14 check found the short links reach Amazon fallback pages and the bare 9-character codes return 'Page Not Found'. The headline now reads '0 verified product identities' and the ASINs are labelled as unconfirmed candidates. Evidence: reports/link-check-2026-11-14.md.", ["S16", "S17"]),
+    ("F15", "Plain ASIN URLs were also answered with Amazon's fallback form on 2026-11-14.",
+     "All three ASINs", "amazon.com/dp/B0CDY277D3, /dp/B09B7SB46R and /dp/B08DKYBTPH each returned a URL carrying lv=shuf and plpRedirect=mhFallback, so a fetch cannot show that the ASIN is the live product page. Confirm from a logged-in browser before any ASIN is treated as the supplied product.", ["S16"]),
+    ("F16", "link.amazon is not confirmed as an Amazon-documented short-link domain.",
+     "All three links", "A web search on 2026-11-14 returned only third-party blogs naming amzn.to and a.co. No official Amazon page listing link.amazon was found. An official Associates help page is needed before the domain is described as Amazon's.", ["S2", "S17"]),
+    ("F17", "Advisory link gate: table rows with no source link on inherited pages.",
+     "compare.html, executive-summary.html and other inherited pages", "scripts/check_links.py reports 216 or more table rows with no source link as an advisory, non-blocking finding. This breaks the 'every row has a source' rule. Not fixed in this pass. The owner must source each row or leave it blank.", []),
+    ("F18", "Committed s2 build stamp changes with the calendar date.",
+     "s2/ (session zone1-s2 build)", "scripts/build_s2_site.py writes today's date into the 'built' stamp. Re-running on 2026-11-14 changes 13 files by that stamp alone (committed stamp: 2026-11-13). The CI gate regenerates before it checks, so it passes, but the committed copy is not pinned. Not changed in this pass because another session owns the file.", []),
 ]
 
 VERDICTS = {
