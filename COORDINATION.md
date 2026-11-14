@@ -1587,3 +1587,10 @@ Each page also carries a "Customers who viewed this item also viewed" block. The
 
 **Irregularities (X1/X2):** (a) the `s2/` build-date stamp was stale on `main` (date-only diff, fixed as above; the stamp is re-derived from today's date, so the CI `--check` step will go stale again on the next UTC day unless the build is re-run). (b) no new product or source irregularities. Existing open flags remain on `flagged.html`, non-blocking per protocol.
 
+
+**X3 — PR / deploy record (`arena/4e8a4b88`), 2026-11-14 UTC**
+
+- **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/28 — "arena/4e8a4b88: re-verification pass + s2 build-date stamp" — merged with `gh pr merge 28 --merge` after the `verify` and `Rebuild site/ from data/verified…` checks passed on head `7864372`.
+- **Merge commit on `main`:** `4fffb9b`. Post-merge workflows on `4fffb9b`: `CI` ✓ · `Verify verification annex (site/)` ✓ · `Build, verify and deploy to GitHub Pages` ✓ · `pages build and deployment` ✓.
+- **GitHub Pages:** latest build `827e949` (PR #27, which contains `4fffb9b`) status `built`, source `main`/`/`. Live fetch of `https://kanlerxz87-cyber.github.io/Zone1/flagged.html` returns the merged Flagged page (24 open items).
+- **Status:** X1, X2, X3 **done**. No product values were changed in this session; the three short-link identities remain flagged as unconfirmed (F10, F14–F16).
