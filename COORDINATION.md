@@ -1515,16 +1515,65 @@ Note: `arena/1dcaaafc`'s T16 headline correction ("0 verified product identities
 
 # I6 — Row-source gate + independent re-verification (branch `arena/502dcf85-zone1`, base `5ed73c1`)
 
-> **Status: in progress.** Claimed 2026-11-14 (UTC) by session `sess-502dcf85`, before any file change.
+> **Status: done (pending PR merge).** Claimed 2026-11-14 (UTC) by session `sess-502dcf85`, before any file change. Scope extended by one data-free file change: `EXECUTIVE-SUMMARY.md` (stale flag count).
 
 **Why this pass exists.** The brief requires that *every table row* carry a link to an official source. The existing build gate (`scripts/check_links.py`) only tests that a row contains *some* `<a>`, and the existing root gate (`verify.py`) does not test row links at all. A strict audit on 2026-11-14 found that, across the whole tree, 1,337 table rows exist; under the project's own official-host rule (Amazon, FTC, eCFR, and each brand's own domain for its own product specs, as registered in `data/sources.json`), 311 of them have no such link. On the canonical root site the residue is 29 rows: `platform.html` (20), `index.html` (6), `flagged.html` (3). The rest sit in inherited builds (`dashboard/`, `research/`, `site/`, `s2/`, `session-3740f69d/`, `annex-88769516/`).
 
 | # | Task | Status | Owner | File scope |
 |---|------|--------|-------|------------|
-| I6-1 | Re-verify the three supplied `link.amazon` short links, the commission table, and the Operating Agreement date against official pages (live, 2026-11-14) | in progress | sess-502dcf85 | none (evidence recorded here) |
-| I6-2 | Make the root gate enforce the row-source rule: `build.py` fails if any root table row lacks an official or registered-brand link | in progress | sess-502dcf85 | `build.py` (`main`, new check) |
-| I6-3 | Close the 29 residual rows on the root site with official-source links (or flag them) | in progress | sess-502dcf85 | `build.py` (`page_platform`, `page_index`, `page_flagged`), regenerated `index.html`, `platform.html`, `flagged.html` |
-| I6-4 | Publish the inherited-build residue (counts + locations) as a Flagged item; do not edit inherited builds | in progress | sess-502dcf85 | `build.py` (`PROGRAMME_FLAGS`) |
-| I6-5 | Integration gate, PR → `main`, merge, Pages deploy check, record | in progress | sess-502dcf85 | `COORDINATION.md` (this section) |
+| I6-1 | Re-verify the three supplied `link.amazon` short links, the commission table, and the Operating Agreement date against official pages (live, 2026-11-14) | **done** | sess-502dcf85 | none (evidence recorded here) |
+| I6-2 | Make the root gate enforce the row-source rule: `build.py` fails if any root table row lacks an official or registered-brand link | **done** | sess-502dcf85 | `build.py` (`main`, new check) |
+| I6-3 | Close the 29 residual rows on the root site with official-source links (or flag them) | **done** | sess-502dcf85 | `build.py` (`page_platform`, `page_index`, `page_flagged`), regenerated `index.html`, `platform.html`, `flagged.html` |
+| I6-4 | Publish the inherited-build residue (counts + locations) as a Flagged item; do not edit inherited builds | **done** | sess-502dcf85 | `build.py` (`PROGRAMME_FLAGS`) |
+| I6-5 | Integration gate, PR → `main`, merge, Pages deploy check, record | in progress (PR record below) | sess-502dcf85 | `COORDINATION.md` (this section) |
 
 **Not touched by this session (owned or inherited elsewhere):** `s2/**` (open PRs #27 and #28 by other sessions), `dashboard/**`, `research/**`, `site/**`, `session-3740f69d/**`, `annex-88769516/**`, `docs/**`, `data/*.json`.
+
+### Completion record — I6 (sess-502dcf85, 2026-11-14 UTC)
+
+**I6-1 · Independent re-verification (live, official sources).** Fetched 2026-11-14 with the page `<title>` read from each response:
+
+| Check | Official source (fetched) | Observed | Matches the site? |
+|---|---|---|---|
+| `link.amazon/B04G1MEwY` | redirect → https://www.amazon.com/dp/B0CDY277D3 (S16) | title "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows…" | Yes (candidate identity, still unconfirmed by the owner — F10, F14–F16, F21) |
+| `link.amazon/B02NbDxp3` | redirect → https://www.amazon.com/dp/B09B7SB46R (S17) | title "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven…" | Yes (same caveat) |
+| `link.amazon/B00hJ57DV` | redirect → https://www.amazon.com/dp/B08DKYBTPH (S17) | title "Amazon.com: Chefman Air Fryer 8 Qt \| TurboFry® 4-in-1 with 450°F Hi-Fry Option… Bake, Dehydrate, Frozen…" | Yes. The 450 °F / bake / dehydrate claim is the conflict already flagged as F3 against the brand's 200–400 °F page. |
+| Commission table | https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ (S3, Table 1) | Kitchen, Physical Books, Automotive **4.50%**; Home 3.00%; All Other Categories 4.00% | Yes |
+| Operating Agreement | https://affiliate-program.amazon.com/help/operating/agreement (S1) | "Updated: October 15, 2025"; §1 requires the tagged link formats; §2 allows cessation of commission for violations | Yes |
+
+* Amazon-served prices and star ratings appear in the listing HTML. They were **not** recorded, consistent with Program Policies §2(b) and §3(t) as the site already states.
+* The 9-character tokens are still not ASINs (a 10-character ASIN rule, S23 KDP Help G200652190, re-verified in I5/R2). Destinations carry `lv=shuf` and `plpRedirect=mhFallback`. Whether each token is the product the owner intended is still for the account holder to confirm.
+
+**I6-2 · Gate.** `build.py` now fails the build if any table data row on a page it generates has no link to (a) a host of a registered source in `data/sources.json`, (b) this repository on GitHub, or (c) `flagged.html`. Proof that it bites: before the fix it failed on exactly F20, F22 and F23, which had no source.
+
+**I6-3 · Root residue closed (29 rows → 0).**
+* `platform.html` (20): 9 pipeline guard cells now show the registered sources of their guardrail (the guardrails used resolve to S1, S2, S5, S6, S8). 5 operating-policy rows show their governing guardrail (G5, G2, G7, G6, G9) and sources. 4 KPIs have a governing source (Clicks per page → S6; EPC → S3; Disclosure coverage → S1, S5; Policy incidents → S1). 2 KPIs (Verified-row coverage, Flag resolution time) are internal design targets with no official source, so they carry flag F26.
+* `index.html` (6): 4 nav rows link to the repository folder that holds each build. 2 legend rows (Unverified, Conflict) link to the Flagged page, which is the designed place for unverified values.
+* `flagged.html` (3): F20, F22, F23 link to the repository files that evidence them.
+
+**I6-4 · Inherited residue published as a flag (F25), not hidden.** Audit at 2026-11-14 with the gate's own rule: **281 of 1,363** table rows in the repository lack a sourced link. Root pages built by `build.py`: **0 of 306**. Inherited builds: 281 of 1,057. Per page (rows lacking a sourced link / total): `research/analysis.html` 47/47 · `dashboard/analysis.html` 28/35 · `dashboard/compliance.html` 26/27 · `dashboard/commissions.html` 17/20 · `dashboard/flagged.html` 16/30 · `dashboard/comparison.html` 13/13 · `dashboard/buying-guide.html` 12/12 · `dashboard/content.html` 12/12 · `dashboard/niches.html` 12/19 · `research/executive-summary.html` 12/15 · `s2/pages/compliance.html` 12/85 · `site/methodology.html` 12/13 · `dashboard/analytics.html` 8/8 · `dashboard/executive-summary.html` 8/13 · `dashboard/products.html` 7/22 · `s2/index.html` 7/36 · `site/sources.html` 6/22 · `site/executive-summary.html` 5/11 · `annex-88769516/content.html` 4/4 · `research/articles/index.html` 4/4 · `s2/pages/sources.html` 4/14 · `annex-88769516/tracking.html` 2/6 · `research/flagged-for-review.html` 2/22 · `s2/pages/verification.html` 2/36 · `s2/pages/niche.html` 1/12 · `session-3740f69d/niches/index.html` 1/8 · `session-3740f69d/sources/index.html` 1/13. Each owner must source, blank, or remove these rows. This pass did not edit them.
+
+**I6-4b · Counts in the executive summary.** F26 (KPI targets) added. `EXECUTIVE-SUMMARY.md` said "17 open flags (13 programme + 4 product)" and was stale. The generated Flagged page counted 26 (22 programme + 4 product) even before this pass's additions. The Markdown now says 26 with a dated correction.
+
+**Verification performed on the final tree (2026-11-14 UTC):**
+
+| Gate | Result |
+|---|---|
+| `python3 build.py` | 14 pages; row-source gate and disclosure gate pass |
+| `python3 build.py` re-run | identical output (reproducible) |
+| `python3 verify.py` | 0 errors |
+| `python3 research/build_research.py` + `check_research.py` | regenerated with no drift; OK |
+| `python3 -m unittest discover -s platform/tests …` | 33 tests OK |
+| `python3 platform/audit/report.py` | AUDIT PASSED, 0 warnings |
+| `python3 scripts/check_links.py` | 4,076 links; 0 broken in owned pages |
+| `python3 scripts/build_site.py` + `verify_site.py` | ALL CHECKS PASSED (annex unchanged) |
+| `python3 scripts/build_s2_site.py --check` | reports 13 s2 files stale. Cause: the committed build-date stamp is 2026-11-13, and today is 2026-11-14. A clean regeneration in a scratch copy changes only that stamp (F18). CI regenerates before it checks, so CI passes. Not edited, because `s2/` is owned by open PRs #27/#28. |
+
+**Other irregularities found in this pass (for manual review; none blocks the merge):**
+1. `EXECUTIVE-SUMMARY.md` carried a stale open-flag count (see I6-4b).
+2. `build.py`'s PROGRAMME_FLAGS list is out of numeric order (F23 and F22 sit before F21). It is cosmetic and was left as is.
+3. The gate accepts a link to `flagged.html` as a source. That is by design for unverified values, but it also means a row can pass without an official source. Four rows use it now (2 legend, 2 KPI), and all four are named in F26 or the legend text.
+4. Open PRs #27 (`arena/1ee801af-zone1`) and #28 (`arena/4e8a4b88-zone1`) touch `COORDINATION.md` and `s2/`. This branch was fast-forwarded to `origin/main` 5ed73c1 before the claim, so there was no conflict. Those PRs will need a rebase after this merge.
+
+**Sources used this pass:** S1, S3, S16, S17 (live fetches above); S23 (carried from I5/R2); the existing registry in `data/sources.json`.
+

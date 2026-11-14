@@ -73,6 +73,48 @@ def src_links(ids):
     return " ".join(src_link(i) for i in ids)
 
 
+def uniq(seq):
+    out = []
+    for x in seq:
+        if x not in out:
+            out.append(x)
+    return out
+
+
+REPO_URL = "https://github.com/kanlerxz87-cyber/Zone1"
+
+
+def repo_link(path, label=None):
+    """Link to a file or folder in this repository on GitHub.
+
+    Used only for facts about the repository itself (its own irregularities and
+    builds). GitHub is the official host for those files, so they count as a source.
+    """
+    kind = "tree" if path.endswith("/") else "blob"
+    url = f"{REPO_URL}/{kind}/main/{path.rstrip('/')}"
+    return (f'<a href="{e(url)}" target="_blank" rel="noopener">'
+            f'{e(label or path)} ↗</a>')
+
+
+def governed_by(guardrail_ids):
+    """Source badges for the registered sources a platform guardrail cites."""
+    ids = []
+    for g in PLATFORM["guardrails"]:
+        if g["id"] in guardrail_ids:
+            ids.extend(g["source"])
+    return src_links(uniq(ids))
+
+
+# Which guardrail governs each human/automated operating policy on platform.html.
+AUTOMATION_GOVERNANCE = {
+    "Broken link detection": "G5",          # link placement and integrity (S2, S6)
+    "Fact-table verification": "G2",        # no published claim without an official source (S2, S8)
+    "Content drafting": "G7",               # no experience claims, no invented testing (S8)
+    "Click/conversion reporting": "G6",     # Program Content is never an analytics input (S2)
+    "Publication decision": "G9",           # disclosure is unremovable (S1, S5)
+}
+
+
 def flag_pill(state):
     return {
         "verified": '<span class="pill pill-ok">Verified</span>',
@@ -711,10 +753,10 @@ def page_index():
     <caption>Session builds and annexes</caption>
     <thead><tr><th>Build</th><th>What it adds</th></tr></thead>
     <tbody>
-      <tr><td><a href="research/index.html">Deep-dive research ↗</a></td><td>Independent 25-source verification pass (session 8a2ddd06).</td></tr>
-      <tr><td><a href="site/index.html">Verification annex ↗</a></td><td>Independent dataset and generator, 53 spec fields, Kitchen 4.50% rate row (session 1874bb64).</td></tr>
-      <tr><td><a href="session-3740f69d/index.html">Session 3740f69d build ↗</a></td><td>Dashboard build: link-resolution evidence, affiliate-link policy mapping, tracking design, AI Agent-Terms compliance (session arena-3740f69d).</td></tr>
-      <tr><td><a href="crosscheck/arena-4ba9e055/README.md">Cross-check reports ↗</a></td><td>Independent cross-check notes (session arena-4ba9e055).</td></tr>
+      <tr><td><a href="research/index.html">Deep-dive research ↗</a></td><td>Independent 25-source verification pass (session 8a2ddd06).<div class="tiny">{repo_link('research/', 'Source: research/ in this repository')}</div></td></tr>
+      <tr><td><a href="site/index.html">Verification annex ↗</a></td><td>Independent dataset and generator, 53 spec fields, Kitchen 4.50% rate row (session 1874bb64).<div class="tiny">{repo_link('site/', 'Source: site/ in this repository')}</div></td></tr>
+      <tr><td><a href="session-3740f69d/index.html">Session 3740f69d build ↗</a></td><td>Dashboard build: link-resolution evidence, affiliate-link policy mapping, tracking design, AI Agent-Terms compliance (session arena-3740f69d).<div class="tiny">{repo_link('session-3740f69d/', 'Source: session-3740f69d/ in this repository')}</div></td></tr>
+      <tr><td><a href="crosscheck/arena-4ba9e055/README.md">Cross-check reports ↗</a></td><td>Independent cross-check notes (session arena-4ba9e055).<div class="tiny">{repo_link('crosscheck/arena-4ba9e055/README.md', 'Source: crosscheck/arena-4ba9e055/README.md')}</div></td></tr>
     </tbody>
   </table>
 </div>
@@ -868,7 +910,24 @@ PROGRAMME_FLAGS = [
      "The three supplied links", "arena/1dcaaafc (reports/link-check-2026-11-14.md) reads the fallback marker plus the 9-character-token 404 as 'product identity not confirmed' and removed the 'products resolved' headline. sess-81495d2d (reverification.html) re-tested with a repeat request and a nonsense-token control: the target was identical across four sessions on two days, while an unrecognised token returns 403 instead of a product page, which is not what a pure not-found fallback would do. The reconciled position on this site: the *destination* of the links is reproducible and is documented; the *identity* of the product the operator meant, and the Associates tag attached to the link, are not confirmed and are not asserted. Confirm both in a logged-in browser and in Associates Central before publishing.", ["S16", "S17", "S21", "S22"]),
     ("F24", "PA-API 5 is officially deprecated (confirmed live 2026-11-14); the successor is Amazon's Creators API.",
      "Platform design", "The official docs URL now serves a deprecation notice: PA-API 5 calls return 403 AccessDeniedException and integrations are told to migrate to the Creators API. This supersedes the earlier board retraction of the cross-check's F18 claim and means every automated feature in the blueprint must target the Creators API, not PA-API 5. The Program Policies phrase their data-use rules as 'Creators API or PA API', so the compliance quotes remain accurate. Independently noted in the dashboard annex as H-01.", ["S24", "S20"]),
+    ("F25", "Table rows on inherited builds have no link to a registered official source.",
+     "dashboard/, research/, site/, s2/, session-3740f69d/, annex-88769516/",
+     "Audited 2026-11-14 with the project's own official-host list (every host in data/sources.json, plus this repo on GitHub). Root pages generated by build.py now pass, and the build fails on any unsourced row. Inherited builds were not edited by this pass because other sessions own them. Count at 2026-11-14: 281 of 1,363 table rows in the repository have no sourced link (inherited builds: 281 of 1,057; root pages built by build.py: 0 of 306). Each owner must add a source to each row, blank it, or remove it.", []),
+    ("F26", "Two platform KPIs are internal design targets; no official source states them.",
+     "platform.html, KPI table: Verified-row coverage, Flag resolution time",
+     "Shown with this flag, not with an invented source. They are operating targets for this project, not facts about Amazon, the FTC or any product, and they feed no published product value. The owner should decide whether to keep them as targets.", []),
 ]
+
+# Repository files that evidence a programme-level flag. Used where the irregularity is a
+# fact about this repository, so the repository itself (on GitHub) is the source.
+REPO_EVIDENCE = {
+    "F20": ["s2/", "site/", "dashboard/", "research/", "session-3740f69d/", "docs/"],
+    "F22": ["EXECUTIVE_SUMMARY.md"],
+    "F23": ["scripts/build.mjs"],
+    "F25": ["scripts/check_links.py", "dashboard/", "research/", "site/", "s2/",
+            "session-3740f69d/", "annex-88769516/"],
+    "F26": ["data/platform.json"],
+}
 
 VERDICTS = {
     "chefman-6qt-dual-basket":
@@ -1229,7 +1288,8 @@ def page_flagged():
             prod_flags.append((f["id"], f["issue"], p["short_name"], f["action"], f.get("sources", [])))
 
     def row(fid, issue, scope, action, srcs):
-        src_html = src_links(srcs) if srcs else '<a href="data.html">dataset</a>'
+        parts = ([src_links(srcs)] if srcs else []) + [repo_link(p) for p in REPO_EVIDENCE.get(fid, [])]
+        src_html = " ".join(parts) if parts else '<a href="data.html">dataset</a>'
         return (f'<tr><td class="num"><strong>{e(fid)}</strong></td><td>{e(issue)}<div class="tiny muted">Scope: {e(scope)}</div></td>'
                 f'<td class="small">{e(action)}</td><td>{src_html}</td></tr>')
 
@@ -1329,7 +1389,7 @@ def page_platform():
           <td><strong>{e(s['name'])}</strong><div class="tiny muted">Automation: {e(s['automation'])}</div></td>
           <td class="small">{e(s['inputs'])}</td>
           <td class="small">{e(s['outputs'])}</td>
-          <td class="num"><a href="compliance.html">{e(s['guardrail'])}</a></td>
+          <td class="num"><a href="compliance.html">{e(s['guardrail'])}</a><div class="tiny">{governed_by([c.strip() for c in s['guardrail'].split(',')])}</div></td>
         </tr>"""
         for s in PLATFORM["pipeline"]
     )
@@ -1352,14 +1412,35 @@ def page_platform():
             return e(task) + " " + src_link("S3")
         if "Compliance" in task:
             return e(task) + " " + src_link("S2")
+        # Operating policies map to the guardrail that governs them (see the guardrail table).
+        code = AUTOMATION_GOVERNANCE.get(task)
+        if code:
+            return e(task) + f' <a href="compliance.html">policy {e(code)}</a> ' + governed_by([code])
         return e(task) + ' <a href="compliance.html">policy</a>'
 
     modes = "".join(
         f'<tr><td>{_mode_task(m["task"])}</td><td>{e(m["mode"])}</td><td class="num">{e(m["frequency"])}</td></tr>'
         for m in PLATFORM["automation_vs_human"]
     )
+    # Official source that governs each KPI's definition. Where none exists the row says so
+    # and links to flag F26 — a design target is not a fact, and no official source states it.
+    kpi_sources = {
+        "Clicks per page": ["S6"],
+        "Earnings per click (EPC)": ["S3"],
+        "Disclosure coverage": ["S1", "S5"],
+        "Policy incidents": ["S1"],
+    }
+
+    def _kpi_source(name):
+        ids = kpi_sources.get(name)
+        if ids:
+            return src_links(ids)
+        return 'Internal design target — no official source states it (<a href="flagged.html">F26</a>)'
+
     kpis = "".join(
-        f'<tr><td><strong>{e(k["kpi"])}</strong></td><td class="small">{e(k["definition"])}</td><td class="small">{e(k["target"])} <a href="flagged.html">open items</a></td></tr>'
+        f'<tr><td><strong>{e(k["kpi"])}</strong></td><td class="small">{e(k["definition"])}</td>'
+        f'<td class="small">{e(k["target"])} <a href="flagged.html">open items</a>'
+        f'<div class="tiny">{_kpi_source(k["kpi"])}</div></td></tr>'
         for k in PLATFORM["kpis"]
     )
     launch = "".join(
@@ -1704,6 +1785,45 @@ def check_disclosure(pages):
     return missing
 
 
+# Hosts a table row may cite: every registered source in data/sources.json, plus this
+# repository on GitHub. A row that links to none of them fails the build.
+def _registered_hosts():
+    from urllib.parse import urlparse
+    hosts = {(urlparse(s["url"]).hostname or "").lower() for s in SOURCES["sources"]}
+    hosts.add("github.com")
+    return {h for h in hosts if h}
+
+
+REGISTERED_HOSTS = _registered_hosts()
+
+
+def row_is_sourced(row_html):
+    """Row passes if it links to a registered official host, to this repo on GitHub,
+    or to the Flagged-for-review page (the designed place for an unconfirmed value)."""
+    from urllib.parse import urlparse
+    for href in re.findall(r'href="([^"]+)"', row_html):
+        u = urlparse(href)
+        if u.scheme == "https" and (u.hostname or "").lower() in REGISTERED_HOSTS:
+            return True
+        if href.endswith("flagged.html") or "flagged.html#" in href:
+            return True
+    return False
+
+
+def check_row_sources(pages):
+    """Every table data row on every generated page must be sourced (see row_is_sourced)."""
+    problems = []
+    for rel, html_text in pages.items():
+        for tbl in re.findall(r"<tbody>(.*?)</tbody>", html_text, re.S):
+            for row in re.findall(r"<tr\b[^>]*>(.*?)</tr>", tbl, re.S):
+                if "<th" in row:
+                    continue
+                if not row_is_sourced(row):
+                    text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", row)).strip()[:90]
+                    problems.append(f"{rel}: {text}")
+    return problems
+
+
 def main():
     assets = ROOT / "assets"
     assets.mkdir(exist_ok=True)
@@ -1735,6 +1855,11 @@ def main():
     missing = check_disclosure(list(pages.items()))
     if missing:
         raise SystemExit("BUILD FAILED — pages missing the required disclosure: " + ", ".join(missing))
+    unsourced_rows = check_row_sources(pages)
+    if unsourced_rows:
+        raise SystemExit("BUILD FAILED — table rows with no official source link (cite a registered "
+                         "source, this repo on GitHub, or the Flagged page):\n  "
+                         + "\n  ".join(unsourced_rows))
 
     for rel, text in pages.items():
         # Page bodies are authored with ../ prefixes so they can be reused at any
