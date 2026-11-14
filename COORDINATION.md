@@ -2733,3 +2733,54 @@ redundant. Their article engine (`data/articles.json`, `articles/`, `check_artic
 `check_article_pages()` gates) merged cleanly with this pass's additive `build.py` section. No flag
 IDs in either pass collide (theirs F32–F35, this pass none). Marker scan clean after every
 resolution; each resolution ran its marker assertion before `git add` this time.
+
+## PR / merge / deploy record — arena-052f2c9f (V5 closed, 2026-11-14)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/48 — "Integration pass 7 (arena-052f2c9f):
+  independent re-verification round 7 — 7th stable link round, 403 control re-run, all policy/brand
+  facts confirmed verbatim". Branch `arena/052f2c9f-zone1` → `main`. Body carries the summary of
+  changes, the sources used (S1/S2/S3/S9/S10/S12/S14/S16/S17/S22/S24) and the flagged
+  irregularities, per the brief.
+* **Rebases:** three total (main advanced 15, then 9, then 2+ commits mid-PR — PRs #41–#47, #50,
+  #51, #52 from concurrent sessions). Every conflict resolved keep-both; full log in the
+  "Merge-conflict resolution log" section above. No other session's work discarded. Two
+  `--force-with-lease` pushes, each preceded by confirming the remote branch held only this
+  session's own superseded commits.
+* **PR checks on the head commit (`b428aec`), both green:** `verify` ✓ ·
+  `Rebuild site/ from data/verified and assert every guarantee` ✓.
+* **Merge:** `gh pr merge 48 --merge` at 2026-11-14 (UTC), without waiting for approval, per the
+  brief. **Merge commit on `main`: `e23b8e99d0ba1ba9026c841cfb45a60ee5426344`.**
+* **Post-merge workflows on `main` at `e23b8e9`, all success:** `CI` ✓ ·
+  `Verify verification annex (site/)` ✓ · `Build, verify and deploy to GitHub Pages` ✓ ·
+  `pages build and deployment` ✓.
+* **GitHub Pages:** `gh api repos/…/pages/builds/latest` → `status: built`, commit `e23b8e9`,
+  `error: {message: null}`. Source `main` / root, legacy. Site URL:
+  https://kanlerxz87-cyber.github.io/Zone1/
+* **Live verification (fetched from the deployed URL with a cache-busting query, per the recorded
+  deploy-cache behaviour):**
+  * `index.html` → disclosure bar present; H1 "Three supplied Amazon links: product identity not
+    yet confirmed"; three product cards each with a link-level "(Paid link)" + commission
+    disclosure and a "not confirmed" identity caveat; commercial summary table with per-row source
+    links; **37 open irregularities** counter.
+  * `flagged.html` → **37 Open items**, 3 hard source conflicts, 0 values guessed, 100% asserted
+    values sourced; the F3 callout now carries the concurrent passes' S26 finding (the
+    `RJ38-8T-BLACK` 450 °F unit). Every row has its source link.
+  * `reverification.html` → the full ledger including this pass's **"Pass 7 — independent
+    re-verification round 7 (2026-11-14, arena-052f2c9f)"** section with all 12 rows and both
+    evidence callouts, live.
+* **Register at merge:** 37 open rows (this pass added none; concurrent passes added F32+). All
+  non-blocking per protocol.
+
+**Final state of this session's tasks**
+
+| # | Task | Status |
+|---|------|--------|
+| V1 | Line-by-line repo review | **done** |
+| V2 | Independent re-verification round 7 | **done** |
+| V3 | Marketing/content audit | **done** |
+| V4 | Re-run every published gate | **done** |
+| V5 | PR → merge → Pages verify → record | **done** (this record) |
+
+**Result: PR #48 merged as `e23b8e9`, all four workflows green, GitHub Pages live and verified at
+https://kanlerxz87-cyber.github.io/Zone1/. No stored value was found wrong; nothing was inferred;
+every open item remains published on the Flagged for Review page with its source links.**
