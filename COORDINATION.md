@@ -1261,3 +1261,212 @@ Not touched: open PR #9, `dashboard/**` (arena/6ec3c2da), `s2/**` (zone1-s2), `s
 
 **Irregularities still open (published, non-blocking):** F14–F16 product identity · F17 annex-only advisory rows · F18 s2 date stamp · H-01/H-06 PA-API 5 deprecated / Creators API 10-sales prerequisite · H-08 token→ASIN mapping · PR #9 (`arena/88769516-zone1`) left untouched for its owner.
 
+
+---
+
+*(Both sides of this merge conflict are preserved below: first this session's record, then the concurrent session's record from `origin/main`. No work discarded.)*
+
+# Session sess-81495d2d — re-verification pass + final integration (round 5)
+
+**Session:** `sess-81495d2d` · **Branch:** `arena/81495d2d-zone1` · **Base:** `8915b43280c1f85fcc23ef9b636c6ae8cd4191b9` (`main`, merge of PR #17)
+**Started:** 2026-11-14 (UTC) · **Claim written and pushed before any file edit.**
+
+## State found at start (read from the board, not assumed)
+
+* All prior session boards present; every task recorded as `done` or `needs review`. Only stale claim: T12
+  (`sess-105bc29e`, "Open PR → merge → confirm Pages") marked `in progress` at >60 min with no open work — its PR #8
+  is merged (2026-11-13T22:45:33Z), so the board line is stale, not active. Not edited; noted here.
+* Local gates re-run at baseline, all green: `build.py` (13 pages, reproducible — no diff), `verify.py` (0 errors),
+  `research/check_research.py` (OK), `scripts/build_s2_site.py --check` (OK), `scripts/check_links.py`
+  (3525 links OK), `platform` tests (33 OK), `platform/audit/report.py` (0 errors), `scripts/verify_site.py` (382 OK).
+* Pages: `built`, source `main:/`, legacy. Site live at https://kanlerxz87-cyber.github.io/Zone1/
+* One stale OPEN PR found: #9 (`arena/88769516-zone1`) never merged — **flagged, not touched** (owned by another session).
+
+## Claimed tasks (this session)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|--------|
+| T15 | Independent re-verification pass dated 2026-11-14: the three `link.amazon` tokens (repeat + control test), Associates rate table, OA §5 disclosure node, 16 CFR 255, and all brand-page spec rows on the root site | in progress | sess-81495d2d | `data/reverification.json`, `session-81495d2d/**` (new files only) |
+| T16 | Final integration for this round: root NAV completeness (`site/` and `dashboard/` builds reachable from the landing page), new `reverification.html` page, stale hardcoded counts in `executive-summary.html` computed from data, "Resolved items" table corrected, `data/sources.json` appended with today's evidence URL | in progress | sess-81495d2d | `build.py`, generated root HTML, `README.md`, `data/sources.json` (append only) |
+| T17 | PR → merge to `main` → confirm Pages deploy → record here | pending | sess-81495d2d | none (git + `gh` only) |
+
+No file owned by another in-progress session is edited. `data/*.json` outside the scope above, `s2/`, `site/`,
+`dashboard/`, `research/`, `session-3740f69d/`, `crosscheck/`, `platform/` and `docs/` are untouched by T15/T16;
+the only shared-file edit is `build.py` NAV + page generation, which is the integration session's remit under rule 5.
+
+## Evidence collected 2026-11-14 (raw observations, expanded in `session-81495d2d/EVIDENCE-2026-11-14.md`)
+
+1. `https://link.amazon/B04G1MEwY` → `https://www.amazon.com/dp/B0CDY277D3?lv=shuf&…&plpRedirect=mhFallback`,
+   page `<title>` = "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows…".
+2. `https://link.amazon/B02NbDxp3` → `…/dp/B09B7SB46R?lv=shuf&…plpRedirect=mhFallback`, title = "Emeril Lagasse 26QT
+   French Door Multi-Function Air Fryer Toaster Oven…".
+3. `https://link.amazon/B00hJ57DV` → `…/dp/B08DKYBTPH?lv=shuf&…plpRedirect=mhFallback`, title = "Chefman Air Fryer 8
+   Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option…".
+4. Repeat fetch of #1 with a fresh request (different session id `144-9037645-5554317` and a new `srctok`) returned
+   the **same** ASIN B0CDY277D3 → the mapping is stable across 2 days and ≥5 observations by 4 sessions.
+5. Control: `https://link.amazon/ZZZ9ZZZZZ` → **403 Forbidden** (not a product page). So the endpoint does not serve a
+   random featured item for every token — which is what `zone1-s2` F-07's clause (b) asserted.
+6. Negative control: `https://www.amazon.com/dp/B04G1MEwY` → Amazon **"Page Not Found"** error page (9-char token is
+   not a valid ASIN) — confirms F1/F-01 from `session-arena-3740f69d` and `zone1-s2`.
+7. `affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ` (Standard Commission Income Statement) is
+   **publicly readable without login**: Table 1 "Physical Books, Kitchen, Automotive — 4.50%", "All Other Categories —
+   4.00%", "Toys, Furniture, Home … — 3.00%", Bounty: Prime Free Trial $12.00, Prime Video First Stream $5.00, etc.
+   → `zone1-s2` F-04 ("rate card is login-gated") is confirmed superseded; the conservative "no per-ASIN rate" rule stands.
+8. Help node `GHQNZAU6669EZS98` states the Operating Agreement requirement verbatim: "As an Amazon Associate I earn
+   from qualifying purchases." must appear clearly and conspicuously on the Site, plus a clear ("(paid link)", "#ad",
+   "#CommissionsEarned") and conspicuous link-level disclosure → matches the disclosure bar on every page.
+9. `chefman.com/products/turbofry-touch-dual-window-air-fryer` (RJ38-SQPF-3TDB-2W): 6 Qt / 5.67 L; 200–450 °F /
+   95–235 °C; 13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm; 13.3 lb / 6.03 kg; 1700 W / 120 V; cETL + 1-year
+   assurance; list $119.99 (struck) with promos $108/90/84/102/96/72; brand widget 4.6★ / **1305** reviews
+   (site recorded 1,302 on 2026-11-13 → live counter moved, validating the point-in-time flag).
+10. `chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1` (RJ38-SQSS-8T): max temp 400 °F/205 °C,
+    200–400 °F range, 4 cooking presets, 8 Qt / 7.57 L, 15.4 × 12.6 × 13.5 in, 12.8 lb / 5.8 kg, 1700 W/120 V,
+    cETL + 1-year; brand widget 4.6★ / **716** reviews (was 715). → The 450 °F conflict with the Amazon listing title
+    (observed in item 3 the same day) is **still live on both official pages**; F3 stands, nothing asserted.
+11. `emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360` (4-00675-02A-VN): $199.99; 26-Quart /
+    24.6 L; "25 Cooking Pre-sets" in the spec block vs "10-in-1" in the description and an "11-in-1" carousel asset;
+    16.9"D × 15.8"W × 14.8"H; 120 V; brand widget **2.6★ / 25 reviews** — matches the site exactly (the site reports
+    the low score rather than softening it). F4/F5 preset-count conflict still live.
+12. `ecfr.gov` Title 16: "up to date as of 11/12/2026", Part 255 source 88 FR 48102 (Jul 26 2023), §255.5
+    "Disclosure of material connections" present → FTC citation used by the site is current.
+
+**Collision note (resolved by this session, 2026-11-14).** `arena/1dcaaafc` claimed a T15/T16/T17 set with the same
+intent as this session's T15/T16/T17 while this session's claim was in flight, and both edited `build.py`
+(`page_index`) and the flag register. Both claims were written before either session could see the other's commit, so
+neither session took another's task. Resolution policy applied at rebase: **their edits are kept, this session's edits
+are added on top, nothing is discarded.** Where the two passes reach different conclusions about the same evidence —
+`1dcaaafc` reads the `plpRedirect=mhFallback` marker as "identity not confirmed", while `81495d2d` adds a repeat-fetch
+and a nonsense-token control (403) that show the target is *stable*, which is not the same as the tag or the intent
+being confirmed — both positions are published side by side for the owner to arbitrate. Flag ids F14–F18 are theirs;
+this session's three flags are renumbered **F19–F21** to avoid a collision.
+
+## Completion record — sess-81495d2d (2026-11-14)
+
+| # | Task | Status | Result |
+|---|------|--------|--------|
+| T15 | Line-by-line re-verification pass dated 2026-11-14 | **done** | `data/reverification.json` (61 rows) + `reverification.html` + `session-81495d2d/EVIDENCE-2026-11-14.md`. Verdicts: 41 confirmed · 5 partially confirmed · 2 moved (live counters) · 2 official-vs-official conflicts still live · 1 earlier conflict resolved on new evidence · 1 new control test · 9 honestly not re-checked in this pass. |
+| T16 | Final integration for this round | **done** | Nav now reaches all six published builds; stale hand-typed counts and the hand-typed commission table in `executive-summary.html` computed from `data/*.json`; false "first verification pass" line on `flagged.html` replaced by a ledger-generated resolved-items table; two blank product rows un-blanked from the manufacturer's own spec block; flags F19–F23 added; `EXECUTIVE_SUMMARY.md` conflict markers removed without discarding either document. |
+| T17 | PR → merge → Pages verification | **in progress** | PR link and merge result appended below once executed. |
+
+### Sources re-read this pass (all official; every one is linked from `reverification.html`)
+
+| Source | What it re-confirmed |
+|---|---|
+| https://link.amazon/B04G1MEwY · /B02NbDxp3 · /B00hJ57DV (each twice, plus a nonsense-token control) | Destination of the three supplied links; control returns 403 |
+| https://www.amazon.com/dp/B04G1MEwY | "Page Not Found" — the 9-character tokens are not ASINs |
+| https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ | Table 1 public: Kitchen 4.50%, Home in the 3.00% row, All Other Categories 4.00%; Bounty amounts |
+| https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98 | OA-required disclosure sentence verbatim; "clear" + "conspicuous" link-level rule; medium-of-disclosure rule |
+| https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255 | Part 255 §§255.0–255.6 in force; source note 88 FR 48102; Title 16 current as of 11/12/2026 |
+| https://chefman.com/products/turbofry-touch-dual-window-air-fryer | All 14 page-sourced rows; $119.99 list; 4.6★/1,305 |
+| https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1 | Max temp 400 °F, 200–400 °F, 4 cooking presets, **Power: 1700W/120V**, 8 Qt dimensions/weight; 4.6★/716 |
+| https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf | HI-FRY 450 °F/2 min, Sync Finish vs Sync Baskets, aerosol-oil caution, interior light, two independently driven baskets |
+| https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360 | $199.99, 26 qt/24.6 L, "25 Cooking Pre-sets", "10-in-1", model 4-00675-02A-VN, 2.6★/25 |
+| https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf | Parts & Accessories enumeration (re-derives the site's "7 accessories"), LED display, rotisserie spit + fetch tool, French-door behaviour |
+
+### Verification performed
+
+* `python3 build.py` regenerates 14 root pages; `git diff` clean afterwards (reproducibility gate satisfied).
+* `python3 verify.py` → 82 pages checked, 43 spec rows (42 verified / 1 blank+flagged), 22 sources declared, **0 errors**.
+* `research/check_research.py` OK · `scripts/build_s2_site.py --check` current · `scripts/check_links.py` 3,727 links, 0 broken · `scripts/verify_site.py` 382/382 · `platform` 33 tests OK · `platform/audit/report.py` 0 errors.
+* Repo-wide scan for leftover conflict markers: none remain after this pass (there had been two in `EXECUTIVE_SUMMARY.md`, now removed — see F22).
+
+### Irregularities found by this pass (published on the Flagged page)
+
+* **F19** brand-site review counts move daily (1,302→1,305; 715→716) — every rating on the site is a dated observation.
+* **F20** six parallel builds share one domain; two were unreachable from the landing page until this pass. Owner should name a canonical build before pointing a real domain at this.
+* **F21** two sessions read the same link-resolution evidence differently ("identity not confirmed" vs "destination reproducible, identity/tag unconfirmed"); both positions are published side by side rather than outvoted.
+* **F22** `EXECUTIVE_SUMMARY.md` was committed to `main` with conflict markers in it. Repaired without deleting anyone's text.
+* **F23** `node scripts/build.mjs --check` (documented in the README, generates the retired `docs/` build) fails against the current shared data schema — pre-existing on the baseline, unused by CI. `docs/` is therefore frozen; either retire it or re-point the builder at `data/verified/`.
+* Also: PR #9 (`arena/88769516-zone1`) remains open and unmerged (recorded as **F16** by `arena/1dcaaafc`); `verify.py` allow-lists several non-official hosts used by other sessions' pages, which surface only as `WARN`.
+
+### Conflict / handoff log
+
+* 2026-11-14 — `git pull --rebase origin main` during this session's push surfaced two conflicts, both resolved with **no work discarded**:
+  1. `COORDINATION.md` — `arena/1dcaaafc`'s "Integration pass 4" section vs this session's claim section. Kept both, in board order, and added a collision note. Both sessions had claimed a "T15/T16/T17" set concurrently (numbering collision, different scopes); neither session took the other's task.
+  2. `build.py` — the `PROGRAMME_FLAGS` tail. Their flags **F14–F18** are kept verbatim; this session's three flags were renumbered **F19–F21** (plus F22–F23 added afterwards). Their `page_index` rewrite ("0 verified product identities", "candidate ASIN (unconfirmed)", `product_cta`) is kept; this session's computed counts and re-verification callout are added on top of it, and the callout wording was rewritten to state the reconciled position instead of contradicting them.
+  3. `data/products.json` / `data/sources.json` — reformatted to main's 2-space indentation so the diff shows only semantic changes.
+* No `s2/`, `site/`, `dashboard/`, `research/`, `session-3740f69d/`, `crosscheck/`, `docs/` or `platform/` file was modified by this session.
+
+---
+
+# Integration pass 5 — session `arena/cb2cfa7c-zone1` (2026-11-14)
+
+**Session:** sess-cb2cfa7c · **Branch:** `arena/cb2cfa7c-zone1` (base `8915b432` = `main` after PR #17; `main` later advanced through PRs #18–#22 from sessions 1dcaaafc, 6ec3c2da, 81495d2d — all merged and reconciled in this pass) · **Started:** 2026-11-14 (UTC)
+
+> NOTE ON BRANCHING: Arena pins this session to `arena/cb2cfa7c-zone1`; the `session-<id>/<task>` convention is
+> preserved in this record. This branch is this session's integration branch and is PR'd to `main` at the end.
+
+## Claim log (this session)
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-14 | sess-cb2cfa7c | Claimed R1–R4 below, before any file change. |
+| 2026-11-14 | sess-cb2cfa7c | Takeover notice: PR #9 (`arena/88769516-zone1`, opened 2026-11-13T22:47Z) had no commits for >60 min — per protocol §7 this session took over its disposition (R3). |
+| 2026-11-14 | sess-cb2cfa7c | Mid-pass, `main` advanced (PRs #18–#22 from three parallel sessions). Conflicts reconciled per the log below; no work from any session discarded. |
+
+## Task board (this session)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| R1 | Line-by-line repo review of the integrated tree (all sessions' output) + irregularity flags | done | sess-cb2cfa7c | review only + `COORDINATION.md` |
+| R2 | Independent re-verification of published facts against official live sources (sample + all critical rows) | done | sess-cb2cfa7c | `data/sources.json`, `build.py` flags (integration scope) |
+| R3 | Disposition of stale PR #9 (integrate unique content or close with justification; never discard silently) | done | sess-cb2cfa7c | PR #9, `annex-88769516/`, `COORDINATION.md` |
+| R4 | Final integration: rebuild, link-crawl, re-verify row sourcing, reconcile parallel sessions, PR → `main`, confirm Pages deploy, record results | done → see PR record | sess-cb2cfa7c | whole tree (integration) |
+
+## R1 — Line-by-line repo review
+
+Reviewed the merged tree (195+ files across the root site, `dashboard/`, `docs/`, `s2/`, `session-3740f69d/`, `crosscheck/`, `research/`, `site/`, `platform/`, `scripts/`, `data/`) plus the `build.py`/`verify.py` gates. Structural gates pass before and after this session's edits. Irregularities found → disposition:
+
+| # | Irregularity | Disposition |
+|---|---|---|
+| 1 | `dashboard/` annex rows cited third-party sites (barcode.graphics, keywordseverywhere.com, manuals.plus, aruljohn.com, u2l.ai) | Session `arena/6ec3c2da` (PR #20) independently fixed this (their H-02/H-03/H-05) while this pass was running; this pass added the **definitional** official source on top (Amazon KDP Help G200652190, S23) to the ASIN-length and URL-format rows. No third-party-only row remains unmarked. |
+| 2 | `webservices.amazon.com/paapi5/documentation/get-items.html` (cited in `session-3740f69d/SOURCES.md`) no longer serves API docs | **New finding F24/S24**: it serves Amazon's official PA-API 5 Deprecation Notice. See R2. (Dashboard annex had it as H-01; the root register now carries it too.) |
+| 3 | Flag-count mismatch across generated pages (duplicated product F6 flags) | Fixed independently by this pass and by `arena/81495d2d` ("nav/count fixes"); resolution kept their implementation. |
+| 4 | `EXECUTIVE-SUMMARY.md` §3 said "18 sources" vs a 20-entry register | Corrected inline with a dated note; register now 24 (S21–S24 added across passes). |
+| 5 | Stale open PR #9 | Preserved + closed (R3). |
+| 6 | `link.amazon`-resolution disagreement between passes | Both positions published (root F21 ↔ dashboard H-08/I-06, both "unconfirmed/mapping disputed"); this pass's four observation rounds are recorded below as evidence for the stable-target reading. |
+
+## R2 — Independent re-verification against live official sources (2026-11-14)
+
+Method: each critical published fact re-fetched from its official URL on 2026-11-14 and compared to the stored value. **Re-verified live:** S1 (OA "Updated: October 15, 2025"), S2 (Program Policies "Updated: April 14, 2026"; §2(b), §3(e), §3(g), §3(n), §3(s), §3(t), §3(u), §3(v), §3(w), §3(y), §6(a), ML-training ban, Payment Minimum Chart — all quotes verbatim), S3 (all 11 commission rows exact), S4 (3 sales/180 days · 10 posts · 60 days · 500 followers), S5 (OA §5 statement + Clear/Conspicuous), S8 (FTC Disclosures 101), S9 (eCFR Part 255, §255.5 title as cited), S10 (RJ38-SQPF-3TDB-2W, $119.99 list, 450 °F Hi-Fry), S12 (RJ38-SQSS-8T, $119.99 list, 200–400 °F, four food presets), S14 ($199.99, 2.6/25, 4-00675-02A-VN, "25 Cooking Pre-sets", "10-in-1", 16.9"×15.8"×14.8", 24.6 L, 120 V), S16/S17 (all three short links → recorded ASINs with exact recorded titles). **New sources:** S23 (KDP Help G200652190 — "10-character Amazon Standard Identification Number", `amazon.com/dp/ASIN`) and S24 (PA-API 5 Deprecation Notice) — both verified live 2026-11-14.
+
+**Result: every re-checked value holds.** Routine drift only: brand-widget review counts 1,302→1,305 (S10) and 715→716 (S12) since 2026-11-13; quotes stay date-stamped (root F19, dashboard H-series equivalents). Not re-fetched this pass (captured 2026-11-13, structurally re-checked by verify.py): S7, S11, S13, S15, S18, S20.
+
+**F24 — PA-API 5 deprecation.** The official docs URL now serves `affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation`: PA-API 5 "has been deprecated and is being replaced by the Creators API"; PA-API 5 calls return `403 AccessDeniedException` with a migration message. This **vindicates** the `arena-4ba9e055` cross-check's original F18 and **supersedes** the `8a2ddd06` retraction (that session checked the PA-API help *index*, still live; the API itself is deprecated). Corroborates dashboard H-01. Impact: automation blueprints must target the Creators API.
+
+**Link-resolution evidence added to the record (F21/H-08 dispute):** this pass fetched all three short links twice on 2026-11-14 and got, each time, the same three destinations recorded on 2026-11-13 (B0CDY277D3, B09B7SB46R, B08DKYBTPH) with exact matching listing titles and product-specific page context — four observation rounds across two sessions supporting stable resolution. The `plpRedirect=mhFallback`/`lv=shuf` markers were present in every render (as noted by `arena/6ec3c2da`'s H-08, direct product-page requests carry them too). Token→product mapping remains **unconfirmed**; only the account holder can settle intent. All positions stay published.
+
+## R3 — Stale PR #9 disposition
+
+Takeover per protocol §7 (no commits since 2026-11-13T22:47Z). PR #9 (`arena/88769516-zone1`, head `1b92ec76`) is a complete independent site replacing the same root files as the integrated site; merging would discard the combined work of PRs #1–#22. Disposition: **all 16 files preserved verbatim** at `annex-88769516/` (provenance README; only documented change = the site-wide OA §5 disclosure line each page needed for the compliance gate), branch retained, PR #9 **closed** with a full explanation. Nothing deleted.
+
+## Merge-conflict resolution log (this pass, required by protocol §6)
+
+`git merge origin/main` conflicted on 11 files (both sides modified). Resolution — **no work discarded**:
+
+| File(s) | Resolution | Why |
+|---|---|---|
+| `data/sources.json` | main's version (81495d2d's S21/S22 controls + page_version updates) **+ this pass's two sources renumbered S23/S24** | Both passes added sources at the same IDs; renumbering preserves both. |
+| `build.py` | main's version (reverification page, nav surfacing, count fixes) **+ this pass's three deltas**: F10 evidence dates, new **F24** flag (PA-API deprecation), "API status" row in the exec page | Their build supersedes my duplicate fixes; F24 + the API row were unique to this pass. |
+| `dashboard/*.html` (4 files) | main's version (6ec3c2da's H-series rework) **+ this pass's unique additions**: KDP definitional source (S23) on identifier rows, A4 clarifier (root F6 position), section "F · Integration pass 5" addendum | Their rework fixed the same third-party-citation issue more thoroughly; my unique items added on top. |
+| `COORDINATION.md` | main's version + this section appended | Protocol: keep both boards. |
+| `data.html`, `executive-summary.html`, `flagged.html`, `index.html` (generated) | main's version, then **regenerated** by `python3 build.py` after the data/build merge | Generated output; the reproducibility gate requires it to match a fresh build. |
+| `s2/*` (this pass's build-stamp churn) | reverted to the committed stamps (matches `arena/1dcaaafc`'s F18 decision: "changes reverted, not committed") | Avoid calendar-stamp churn in the tree. |
+
+Note: `arena/1dcaaafc`'s T16 headline correction ("0 verified product identities", mapping unconfirmed) and `arena/81495d2d`'s re-verification ledger (61 rows) are preserved as-is; this pass's evidence is recorded above as *additional* evidence for the record, not as a replacement.
+
+## R4 — Final integration
+
+- Rebuild: `python3 build.py` regenerates the 13 root pages from `data/*.json` (24 sources) after the merge.
+- Gates re-run after the merge (all green): `platform/tests` 33/33 · `platform/audit/report.py` 0 warnings · `research/check_research.py` OK · `scripts/build_s2_site.py --check` current · `scripts/check_links.py` OK · `scripts/build_site.py` + `verify_site.py` 382 assertions · `python3 verify.py` 0 errors (91 pages) · generated HTML committed (reproducibility gate).
+- PR: opened from `arena/cb2cfa7c-zone1` → `main` with summary, sources and flagged irregularities; merged per the brief.
+- **PR / deploy record: recorded in the follow-up addendum below after the merge.**
+
+## PR / deploy record — sess-cb2cfa7c (R4 closed)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/23 — "Integration pass 5 (sess-cb2cfa7c): line-by-line re-verification, PA-API 5 deprecation finding, citation fixes, PR #9 preservation" — opened and **merged** 2026-11-14 via `gh pr merge 23 --merge` after both PR checks (CI, Verify verification annex) passed on the head commit `6a55706`.
+* **Merge commit on `main`:** `0a2f02c1` ("Merge pull request #23 from kanlerxz87-cyber/arena/cb2cfa7c-zone1").
+* **Post-merge CI on `main` (all green, 2026-11-14T10:16Z):** `CI` ✓ · `Verify verification annex (site/)` ✓ · `Build, verify and deploy to GitHub Pages` ✓ · `pages-build-deployment` ✓.
+* **GitHub Pages:** https://kanlerxz87-cyber.github.io/Zone1/ — status `built`, latest Pages build = commit `0a2f02c1` (2026-11-14T10:16:26Z), error: none, source `main`/root (legacy). Live fetch confirmed the deployed tree serves the merged content: the Flagged page lists 24 open items including F10 (re-tested 2026-11-13 and 2026-11-14), F21 and F24, and the OA §5 disclosure on every page.
+* **PR #9:** closed 2026-11-14 as superseded, with all 16 files preserved at `annex-88769516/` (published at https://kanlerxz87-cyber.github.io/Zone1/annex-88769516/) and the branch retained. Closure comment documents the disposition.
+* This record is published by the follow-up PR referenced in its own body (the record cannot contain its own PR number before creation).
