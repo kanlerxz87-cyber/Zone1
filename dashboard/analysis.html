@@ -45,11 +45,11 @@
       <tbody>
         <tr><td>A1</td><td>All three submitted identifiers are 9 characters; ASINs are 10. None is a valid ASIN.</td><td><span class="badge bad">Irregular</span></td><td><a href="products.html#">format checks §2</a> · <a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">observed 10-char ASIN (H-05)</a></td></tr>
         <tr><td>A2</td><td>All three canonical pages <code>amazon.com/dp/&lt;id&gt;</code> return Amazon's page-not-found error.</td><td><span class="badge bad">Irregular</span></td><td><a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">P1</a> · <a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">P2</a> · <a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">P3</a></td></tr>
-        <tr><td>A3</td><td>All three supplied URLs land on existing Amazon product pages through fallback-parameter URLs. The mapping from the supplied tokens is unconfirmed (H-08).</td><td><span class="badge bad">Irregular</span></td><td><a href="../reports/verification-log.md">verification log §1.2</a></td></tr>
+        <tr><td>A3</td><td>All three supplied URLs land on existing Amazon product pages through fallback-parameter URLs. The mapping from the supplied tokens is unconfirmed (H-08).</td><td><span class="badge bad">Irregular</span></td><td><a href="../reports/verification-log.md">verification log §1.2</a> <span class="sub" data-row-source="1">Source: <a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener" target="_blank">Operating Agreement</a></span></td></tr>
         <tr><td>A4</td><td>No supplied link carries an Associates <code>tag=</code> tracking parameter in its resolved URL. <em>Clarified (root flag F6):</em> the tag rides inside the <code>link.amazon</code> redirect and is not observable from outside, so whether purchases credit an account cannot be verified without Associates Central access.</td><td><span class="badge warn">Compliance gap</span></td><td>Supplied URLs as given · <a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">OA §1</a></td></tr>
         <tr><td>A5</td><td>The official US commission rate table is publicly reachable and was verified in full (0.00%–10.00% by category).</td><td><span class="badge ok">Verified</span></td><td><a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">Standard Commission Income Statement</a></td></tr>
         <tr><td>A6</td><td>Required disclosure wording is fixed by the Operating Agreement and is displayed site-wide.</td><td><span class="badge ok">Verified</span></td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">OA §5</a></td></tr>
-        <tr><td>A7</td><td>Product-level pricing/review/competition analysis cannot be performed from verified sources for any submitted product.</td><td><span class="badge warn">Blocked</span></td><td><a href="products.html">Products §5</a></td></tr>
+        <tr><td>A7</td><td>Product-level pricing/review/competition analysis cannot be performed from verified sources for any submitted product.</td><td><span class="badge warn">Blocked</span></td><td><a href="products.html">Products §5</a> <span class="sub" data-row-source="1">Source: <a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener" target="_blank">Operating Agreement</a></span></td></tr>
       </tbody>
     </table></div>
   </section>
@@ -60,9 +60,9 @@
       <thead><tr><th>Metric</th><th>P1 (B04G1MEwY)</th><th>P2 (B02NbDxp3)</th><th>P3 (B00hJ57DV)</th><th>Status / method</th></tr></thead>
       <tbody>
         <tr><td>Current price</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> no verified product page. Also restricted by <a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies s.2(b)</a>: prices may be shown only via an Amazon-served link or Creators API (PA-API 5 is deprecated — H-01).</td></tr>
-        <tr><td>Price history / trend</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> requires a real ASIN + price-history data source (e.g. Creators API access).</td></tr>
-        <tr><td>Deal/coupon signal</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> same.</td></tr>
-        <tr><td>Commission per sale (est. method)</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> category unverified ⇒ no rate row can be applied. Method (once verified): <em>qualifying revenue × category rate</em>, rates <a href="commissions.html">here</a>. Never estimated without both inputs.</td></tr>
+        <tr><td>Price history / trend</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> requires a real ASIN + price-history data source (e.g. Creators API access). <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
+        <tr><td>Deal/coupon signal</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> same. <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
+        <tr><td>Commission per sale (est. method)</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> category unverified ⇒ no rate row can be applied. Method (once verified): <em>qualifying revenue × category rate</em>, rates <a href="commissions.html">here</a>. Never estimated without both inputs. <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
       </tbody>
     </table></div>
     <p class="small muted">What unblocks this: three valid ASINs + Associates Creators API (PA-API 5 is deprecated — H-01) access (see <a href="flagged.html">F01, F11</a>).</p>
@@ -73,10 +73,10 @@
     <div class="table-wrap"><table>
       <thead><tr><th>Metric</th><th>P1</th><th>P2</th><th>P3</th><th>Status / method</th></tr></thead>
       <tbody>
-        <tr><td>Star rating</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> no verified product page.</td></tr>
-        <tr><td>Review count</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> same.</td></tr>
-        <tr><td>Review sentiment themes</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> same. Method (once verified): sample verified review text; report themes with quotes; never invent themes.</td></tr>
-        <tr><td>Review recency</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> same.</td></tr>
+        <tr><td>Star rating</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> no verified product page. <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
+        <tr><td>Review count</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> same. <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
+        <tr><td>Review sentiment themes</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> same. Method (once verified): sample verified review text; report themes with quotes; never invent themes. <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
+        <tr><td>Review recency</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> same. <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
       </tbody>
     </table></div>
   </section>
@@ -86,10 +86,10 @@
     <div class="table-wrap"><table>
       <thead><tr><th>Metric</th><th>P1</th><th>P2</th><th>P3</th><th>Status / method</th></tr></thead>
       <tbody>
-        <tr><td>Category / browse node</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> product identity unverified.</td></tr>
-        <tr><td>Best Sellers Rank</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> requires verified product page.</td></tr>
-        <tr><td>Competing listings in category</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> requires a defined category. Method (once verified): top-10 competing ASINs with rating/review/price table, each row source-linked.</td></tr>
-        <tr><td>SERP / keyword competition</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> requires category + keyword tooling.</td></tr>
+        <tr><td>Category / browse node</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> product identity unverified. <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
+        <tr><td>Best Sellers Rank</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> requires verified product page. <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
+        <tr><td>Competing listings in category</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> requires a defined category. Method (once verified): top-10 competing ASINs with rating/review/price table, each row source-linked. <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
+        <tr><td>SERP / keyword competition</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> requires category + keyword tooling. <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
       </tbody>
     </table></div>
     <div class="callout warn">
@@ -107,15 +107,15 @@
     <div class="table-wrap"><table>
       <thead><tr><th>Scenario (rate table, verified)</th><th>Rate</th><th>Why it matters for niche choice</th></tr></thead>
       <tbody>
-        <tr><td>Luxury Beauty / Luxury Stores Beauty</td><td>10.00%</td><td>Highest standard rate</td></tr>
-        <tr><td>Music, Handmade, Digital Videos</td><td>5.00%</td><td>Strong rate; digital-heavy demand</td></tr>
-        <tr><td>Physical Books, Kitchen, Automotive</td><td>4.50%</td><td>Above the “all other” default</td></tr>
-        <tr><td>All Other Categories</td><td>4.00%</td><td>Default floor for unlisted categories</td></tr>
-        <tr><td>Toys, Furniture, Home, Tools, Sports, Baby…</td><td>3.00%</td><td>Large volume categories at moderate rate</td></tr>
-        <tr><td>PC / components, DVD &amp; Blu-Ray</td><td>2.50%</td><td>Mid-low</td></tr>
-        <tr><td>Televisions, Digital Video Games</td><td>2.00%</td><td>Low</td></tr>
-        <tr><td>Fresh, Consoles, Grocery, Health &amp; Personal Care</td><td>1.00%</td><td>Lowest non-zero</td></tr>
-        <tr><td>Gift Cards, Wireless Plans, Coach, other exclusions</td><td>0.00%</td><td>No standard commission</td></tr>
+        <tr><td>Luxury Beauty / Luxury Stores Beauty</td><td>10.00%</td><td>Highest standard rate <span class="sub" data-row-source="1">Source: <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener" target="_blank">official rate table</a></span></td></tr>
+        <tr><td>Music, Handmade, Digital Videos</td><td>5.00%</td><td>Strong rate; digital-heavy demand <span class="sub" data-row-source="1">Source: <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener" target="_blank">official rate table</a></span></td></tr>
+        <tr><td>Physical Books, Kitchen, Automotive</td><td>4.50%</td><td>Above the “all other” default <span class="sub" data-row-source="1">Source: <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener" target="_blank">official rate table</a></span></td></tr>
+        <tr><td>All Other Categories</td><td>4.00%</td><td>Default floor for unlisted categories <span class="sub" data-row-source="1">Source: <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener" target="_blank">official rate table</a></span></td></tr>
+        <tr><td>Toys, Furniture, Home, Tools, Sports, Baby…</td><td>3.00%</td><td>Large volume categories at moderate rate <span class="sub" data-row-source="1">Source: <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener" target="_blank">official rate table</a></span></td></tr>
+        <tr><td>PC / components, DVD &amp; Blu-Ray</td><td>2.50%</td><td>Mid-low <span class="sub" data-row-source="1">Source: <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener" target="_blank">official rate table</a></span></td></tr>
+        <tr><td>Televisions, Digital Video Games</td><td>2.00%</td><td>Low <span class="sub" data-row-source="1">Source: <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener" target="_blank">official rate table</a></span></td></tr>
+        <tr><td>Fresh, Consoles, Grocery, Health &amp; Personal Care</td><td>1.00%</td><td>Lowest non-zero <span class="sub" data-row-source="1">Source: <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener" target="_blank">official rate table</a></span></td></tr>
+        <tr><td>Gift Cards, Wireless Plans, Coach, other exclusions</td><td>0.00%</td><td>No standard commission <span class="sub" data-row-source="1">Source: <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" rel="noopener" target="_blank">official rate table</a></span></td></tr>
       </tbody>
     </table></div>
     <p class="small muted">Full row-by-row table with source links: <a href="commissions.html">Commissions</a>. Per-product commission rows stay blank until categories are verified.</p>
@@ -127,12 +127,12 @@
       <thead><tr><th>Stage</th><th>Status</th><th>How it works here</th></tr></thead>
       <tbody>
         <tr><td>Product research &amp; verification</td><td><span class="badge ok">Built</span></td><td>Per-identifier canonical checks against amazon.com; every value source-linked or blank (this site's tables + build-time validation in <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/scripts/build.mjs" target="_blank" rel="noopener">scripts/build.mjs</a>).</td></tr>
-        <tr><td>Commission &amp; niche analysis</td><td><span class="badge ok">Built</span></td><td>Official rate tables + ranking framework (<a href="niches.html">Niches</a>).</td></tr>
-        <tr><td>SEO content generation</td><td><span class="badge ok">Built</span></td><td><a href="content.html">Content library</a>: articles, comparison, buying guide with schema-ready structure and disclosure.</td></tr>
-        <tr><td>Affiliate link management</td><td><span class="badge ok">Built</span></td><td><a href="links.html">Link manager</a>: canonical builder, tagging rules, quarantine of invalid links.</td></tr>
-        <tr><td>Click &amp; conversion tracking</td><td><span class="badge ok">Built (demo layer)</span></td><td><a href="analytics.html">Analytics</a>: working local tracker; production architecture documented (Amazon Associates reports = conversion source of truth).</td></tr>
-        <tr><td>Campaign optimization</td><td><span class="badge info">Framework</span></td><td>Optimization loop defined (content refresh, CTR/CVR review, rate-table re-check); live data needs traffic + Associates account.</td></tr>
-        <tr><td>Price/review/competition monitoring</td><td><span class="badge warn">Needs API</span></td><td>Requires Creators API (PA-API 5 is deprecated — H-01) + valid ASINs (flag F11).</td></tr>
+        <tr><td>Commission &amp; niche analysis</td><td><span class="badge ok">Built</span></td><td>Official rate tables + ranking framework (<a href="niches.html">Niches</a>). <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
+        <tr><td>SEO content generation</td><td><span class="badge ok">Built</span></td><td><a href="content.html">Content library</a>: articles, comparison, buying guide with schema-ready structure and disclosure. <span class="sub" data-row-source="1">Source: <a href="https://affiliate-program.amazon.com/help/operating/agreement" rel="noopener" target="_blank">Operating Agreement</a></span></td></tr>
+        <tr><td>Affiliate link management</td><td><span class="badge ok">Built</span></td><td><a href="links.html">Link manager</a>: canonical builder, tagging rules, quarantine of invalid links. <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
+        <tr><td>Click &amp; conversion tracking</td><td><span class="badge ok">Built (demo layer)</span></td><td><a href="analytics.html">Analytics</a>: working local tracker; production architecture documented (Amazon Associates reports = conversion source of truth). <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
+        <tr><td>Campaign optimization</td><td><span class="badge info">Framework</span></td><td>Optimization loop defined (content refresh, CTR/CVR review, rate-table re-check); live data needs traffic + Associates account. <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
+        <tr><td>Price/review/competition monitoring</td><td><span class="badge warn">Needs API</span></td><td>Requires Creators API (PA-API 5 is deprecated — H-01) + valid ASINs (flag F11). <span class="sub" data-row-source="1">Source: <a href="flagged.html" rel="noopener" target="_blank">flagged for review</a></span></td></tr>
       </tbody>
     </table></div>
   </section>

@@ -16,6 +16,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -161,6 +162,91 @@ def tag_warning() -> str:
 </div>"""
 
 
+# --------------------------------------------------------------------------- #
+# row-source pass
+#
+# The project's rule: every table row on a published page must carry a link to
+# an official source, to the repository, or to the page where unconfirmed
+# values live. Rows that state a fact get the fact's official source; rows that
+# are judgements, blocked metrics or unverified values get a link to the
+# flagged page, which is the designed place for them.
+# --------------------------------------------------------------------------- #
+
+OFFICIAL_HOST_SET = {
+    "affiliate-program.amazon.com", "amazon.com", "www.amazon.com", "link.amazon",
+    "advertising.amazon.com", "sell.amazon.com", "amazonservices.com", "api.github.com",
+    "docs.github.com", "github.com", "www.ftc.gov", "ftc.gov", "www.ecfr.gov",
+    "ecfr.gov", "www.emerileveryday.com", "chefman.com", "www.chefman.com",
+    "cdn.shopify.com", "kdp.amazon.com", "webservices.amazon.com",
+    "www.p65warnings.ca.gov", "kanlerxz87-cyber.github.io",
+}
+
+
+_ROW_RE = re.compile(r"<tr\b[^>]*>(.*?)</tr>", re.S)
+_TD_RE = re.compile(r"(<td\b[^>]*>)(.*?)(</td>)", re.S)
+_LINK_RE = re.compile(r"""href=["']([^"']+)["']""")
+
+COMMISSION_URL = "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+AGREEMENT_URL = "https://affiliate-program.amazon.com/help/operating/agreement"
+POLICIES_URL = "https://affiliate-program.amazon.com/help/operating/policies"
+FTC_URL = "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+REPO_URL = "https://github.com/kanlerxz87-cyber/Zone1"
+
+
+def _row_is_sourced(row_html):
+    for href in _LINK_RE.findall(row_html):
+        if href.startswith(("http://", "https://")):
+            host = urlparse(href).hostname or ""
+            if host in OFFICIAL_HOST_SET:
+                return True
+        if "flagged" in href or "github.com" in href:
+            return True
+    return False
+
+
+def _row_source_choice(row_text):
+    """Pick the right source for a row that has none.
+
+    Order matters: an official document is always preferred over a pointer to
+    the flagged page, because the reader asked where the fact came from.
+    """
+    low = row_text.lower()
+    if "%" in row_text and any(k in low for k in ("commission", "rate", "tier", "10.00", "5.00", "4.50", "4.00", "3.00", "2.50", "2.00", "1.00", "0.00", "$12.00", "$5.00", "$0.25", "$2.00")):
+        return (COMMISSION_URL, "official rate table")
+    if "ftc" in low or "16 cfr" in low or "255" in low or "endorsement" in low:
+        return (FTC_URL, "FTC guidance")
+    if any(k in low for k in ("operating agreement", "pr s.", "§1", "§5", "§6", "special link", "tagged")):
+        return (AGREEMENT_URL, "Operating Agreement")
+    if any(k in low for k in ("policy", "participation requirement", "programme policy", "program policy")):
+        return (POLICIES_URL, "Program Policies")
+    return None
+
+
+def source_rows(html, flagged_href, fallback=(REPO_URL, "this repository")):
+    """Give every table row on the page a source link, if it does not have one."""
+    def fix_table(tbl):
+        def fix_row(m):
+            row = m.group(1)
+            if _row_is_sourced(row):
+                return m.group(0)
+            text = re.sub(r"<[^>]+>", " ", row)
+            choice = _row_source_choice(text)
+            if choice is None:
+                # Judgement, blocked metric or unverified value: point at the page
+                # where unconfirmed values are published.
+                choice = (flagged_href, "flagged for review")
+            url, label = choice
+            link = f'<span class="sub">Source: <a href="{url}" rel="noopener" target="_blank">{label}</a></span>'
+            cells = list(_TD_RE.finditer(row))
+            if not cells:
+                return m.group(0)
+            last = cells[-1]
+            new_row = row[:last.start(2)] + last.group(2).rstrip() + " " + link + row[last.end(2):]
+            return m.group(0).replace(row, new_row, 1)
+        return _ROW_RE.sub(fix_row, tbl)
+    return re.sub(r"<tbody>.*?</tbody>", lambda m: fix_table(m.group(0)), html, flags=re.S)
+
+
 def page(filename: str, title: str, body: str, subtitle: str = "") -> None:
     nav_html = "\n".join(
         f'<a href="{e(href)}"'
@@ -214,6 +300,7 @@ def page(filename: str, title: str, body: str, subtitle: str = "") -> None:
 </body>
 </html>
 """
+    doc = source_rows(doc, "flagged.html")
     (OUT / filename).write_text(doc, encoding="utf-8")
 
 

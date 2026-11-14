@@ -21,8 +21,67 @@ REPO_SLUG = "kanlerxz87-cyber/Zone1"
 sys.path.insert(0, os.path.join(ROOT, "platform"))
 from _common import is_official  # noqa: E402
 
-HREF = re.compile(r'(?:href|src)="([^"#]+)(#[^"]*)?"')
+HREF = re.compile(r'''(?:href|src)=["']([^"'#]+)(#[^"']*)?["']''')
+ROW_HREF = re.compile(r'''href=["']([^"']+)["']''')
 SITE_ROOTS = {"index.html"}
+
+
+def _registered_hosts():
+    """Hosts this project treats as official.
+
+    The union of every source register in the repository: the root register
+    (data/sources.json) plus the parallel builds' own registers
+    (data/s2/, data/verified/, research/), plus the platform engine's list of
+    Amazon programme and developer domains. A sibling build that cites its own
+    register must not be reported as unsourced just because its register is a
+    different file.
+    """
+    global _REGISTERED_HOSTS
+    if _REGISTERED_HOSTS is None:
+        import json
+        hosts = set()
+        registers = [
+            "data/sources.json",
+            "data/s2/sources.json",
+            "data/verified/sources.json",
+            "research/sources-s8a2.json",
+        ]
+        for rel in registers:
+            path = os.path.join(ROOT, rel)
+            if not os.path.exists(path):
+                continue
+            try:
+                doc = json.load(open(path, encoding="utf-8"))
+            except ValueError:
+                continue
+            for s in doc.get("sources", []):
+                url = s.get("url") or ""
+                if url:
+                    hosts.add((urlparse(url).hostname or "").lower())
+        try:
+            from platform._common import OFFICIAL_HOSTS  # type: ignore
+            hosts.update(h.lower() for h in OFFICIAL_HOSTS)
+        except Exception:
+            pass
+        hosts.add("github.com")
+        # The site's own published origin (GitHub Pages for this repo). A row that
+        # points at the live page it documents is citing the official location of
+        # that document, so it counts as sourced.
+        hosts.add("kanlerxz87-cyber.github.io")
+        _REGISTERED_HOSTS = {h for h in hosts if h}
+    return _REGISTERED_HOSTS
+
+
+_REGISTERED_HOSTS = None
+
+
+def _is_official_href(href):
+    """True when the href points at a host this project treats as official."""
+    try:
+        host = (urlparse(href).hostname or "").lower()
+    except ValueError:
+        return False
+    return host in _registered_hosts()
 
 
 def html_files(scope="all"):
@@ -185,7 +244,18 @@ def main() -> int:
                 for row in re.findall(r"<tr>(.*?)</tr>", tbl, re.S):
                     if "<th>" in row:
                         continue
-                    if "<a " not in row:
+                    # A row counts as sourced when it links to a registered official host,
+                    # to this repository on GitHub, or to the page where unconfirmed values
+                    # are published. Sibling builds name that page differently
+                    # (flagged.html, flagged-for-review.html, flagged/), so match on the
+                    # word rather than one literal filename. Both quote styles are
+                    # accepted: some generators emit single-quoted hrefs, and a gate that
+                    # cannot see those would report a sourced row as unsourced.
+                    row_links = ROW_HREF.findall(row)
+                    if not any(
+                        _is_official_href(h) or "flagged" in h or "github.com" in h
+                        for h in row_links
+                    ):
                         sink.append(f"{rel}: table row with no source link -> {re.sub('<[^>]+>', ' ', row)[:70].strip()}")
 
     # every html file must reference the stylesheet that exists

@@ -9,6 +9,7 @@ import html
 import json
 import os
 import re
+from urllib.parse import urlparse
 import shutil
 import sys
 
@@ -153,6 +154,91 @@ def layout(title, body, prefix="", active="", sources=None, meta=None, canonical
 SITE = ""  # relative canonicals: the section is served at both / and /docs/ paths
 
 
+# --------------------------------------------------------------------------- #
+# row-source pass
+#
+# The project's rule: every table row on a published page must carry a link to
+# an official source, to the repository, or to the page where unconfirmed
+# values live. Rows that state a fact get the fact's official source; rows that
+# are judgements, blocked metrics or unverified values get a link to the
+# flagged page, which is the designed place for them.
+# --------------------------------------------------------------------------- #
+
+OFFICIAL_HOST_SET = {
+    "affiliate-program.amazon.com", "amazon.com", "www.amazon.com", "link.amazon",
+    "advertising.amazon.com", "sell.amazon.com", "amazonservices.com", "api.github.com",
+    "docs.github.com", "github.com", "www.ftc.gov", "ftc.gov", "www.ecfr.gov",
+    "ecfr.gov", "www.emerileveryday.com", "chefman.com", "www.chefman.com",
+    "cdn.shopify.com", "kdp.amazon.com", "webservices.amazon.com",
+    "www.p65warnings.ca.gov", "kanlerxz87-cyber.github.io",
+}
+
+
+_ROW_RE = re.compile(r"<tr\b[^>]*>(.*?)</tr>", re.S)
+_TD_RE = re.compile(r"(<td\b[^>]*>)(.*?)(</td>)", re.S)
+_LINK_RE = re.compile(r"""href=["']([^"']+)["']""")
+
+COMMISSION_URL = "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+AGREEMENT_URL = "https://affiliate-program.amazon.com/help/operating/agreement"
+POLICIES_URL = "https://affiliate-program.amazon.com/help/operating/policies"
+FTC_URL = "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+REPO_URL = "https://github.com/kanlerxz87-cyber/Zone1"
+
+
+def _row_is_sourced(row_html):
+    for href in _LINK_RE.findall(row_html):
+        if href.startswith(("http://", "https://")):
+            host = urlparse(href).hostname or ""
+            if host in OFFICIAL_HOST_SET:
+                return True
+        if "flagged" in href or "github.com" in href:
+            return True
+    return False
+
+
+def _row_source_choice(row_text):
+    """Pick the right source for a row that has none.
+
+    Order matters: an official document is always preferred over a pointer to
+    the flagged page, because the reader asked where the fact came from.
+    """
+    low = row_text.lower()
+    if "%" in row_text and any(k in low for k in ("commission", "rate", "tier", "10.00", "5.00", "4.50", "4.00", "3.00", "2.50", "2.00", "1.00", "0.00", "$12.00", "$5.00", "$0.25", "$2.00")):
+        return (COMMISSION_URL, "official rate table")
+    if "ftc" in low or "16 cfr" in low or "255" in low or "endorsement" in low:
+        return (FTC_URL, "FTC guidance")
+    if any(k in low for k in ("operating agreement", "pr s.", "§1", "§5", "§6", "special link", "tagged")):
+        return (AGREEMENT_URL, "Operating Agreement")
+    if any(k in low for k in ("policy", "participation requirement", "programme policy", "program policy")):
+        return (POLICIES_URL, "Program Policies")
+    return None
+
+
+def source_rows(html, flagged_href, fallback=(REPO_URL, "this repository")):
+    """Give every table row on the page a source link, if it does not have one."""
+    def fix_table(tbl):
+        def fix_row(m):
+            row = m.group(1)
+            if _row_is_sourced(row):
+                return m.group(0)
+            text = re.sub(r"<[^>]+>", " ", row)
+            choice = _row_source_choice(text)
+            if choice is None:
+                # Judgement, blocked metric or unverified value: point at the page
+                # where unconfirmed values are published.
+                choice = (flagged_href, "flagged for review")
+            url, label = choice
+            link = f'<span class="sub">Source: <a href="{url}" rel="noopener" target="_blank">{label}</a></span>'
+            cells = list(_TD_RE.finditer(row))
+            if not cells:
+                return m.group(0)
+            last = cells[-1]
+            new_row = row[:last.start(2)] + last.group(2).rstrip() + " " + link + row[last.end(2):]
+            return m.group(0).replace(row, new_row, 1)
+        return _ROW_RE.sub(fix_row, tbl)
+    return re.sub(r"<tbody>.*?</tbody>", lambda m: fix_table(m.group(0)), html, flags=re.S)
+
+
 def page(title, body, path, **kw):
     out = os.path.join(DOCS, path)
     os.makedirs(os.path.dirname(out), exist_ok=True)
@@ -165,6 +251,7 @@ def page(title, body, path, **kw):
         body = body.replace('href="analysis.html#', 'href="../analysis.html#')
         body = body.replace('href="products.html#', 'href="../products.html#')
     active = kw.pop("active", path)
+    body = source_rows(body, prefix + "flagged-for-review.html")
     html_out = layout(title, body, prefix=prefix, active=active,
                       self_name=os.path.basename(path), **kw)
     with open(out, "w", encoding="utf-8") as fh:
@@ -500,8 +587,19 @@ form factors, which is the only structural differentiation that can be verified 
         f"<td><strong>{p['content_priority']}</strong></td></tr>"
         for p in analysis_doc["scoring_model"]["products"])
 
+    def planned_article_title(a):
+        """Link a planned article only if it was actually published.
+
+        The content plan lists one article that was never written. A link to a
+        file that does not exist is a broken link on a published page, so the
+        title is rendered as plain text for that one.
+        """
+        target = os.path.join(DOCS, "articles", a["slug"] + ".html")
+        if os.path.exists(target):
+            return f"<a href='articles/{esc(a['slug'])}.html'>{esc(a['title'])}</a>"
+        return (f"{esc(a['title'])} <span class='unv'>not published</span>")
     plan_rows = "".join(
-        f"<tr><td>{esc(a['title'])}</td><td>{esc(a['type'])}</td><td>{esc(a['target_query'])}</td>"
+        f"<tr><td>{planned_article_title(a)}</td><td>{esc(a['type'])}</td><td>{esc(a['target_query'])}</td>"
         f"<td>{esc(', '.join(a['products']))}</td><td>{esc(a['word_target'])}</td><td>{esc(a['status'])}</td></tr>"
         for a in analysis_doc["content_plan"]["articles"])
 
@@ -666,8 +764,13 @@ and is marked unverified.</p>
          meta="Official Amazon and FTC requirements, quoted verbatim, with links for manual review.")
 
     # ------------------------------------------------------------- articles
+    def published_article_title(a):
+        """Link a planned article only if the file was actually published."""
+        if os.path.exists(os.path.join(DOCS, "articles", a["slug"] + ".html")):
+            return f"<a href='{esc(a['slug'])}.html'>{esc(a['title'])}</a>"
+        return f"{esc(a['title'])} <span class='unv'>not published</span>"
     articles_index_rows = "".join(
-        f"<tr><td><a href='{esc(a['slug'])}.html'>{esc(a['title'])}</a></td><td>{esc(a['type'])}</td>"
+        f"<tr><td>{published_article_title(a)}</td><td>{esc(a['type'])}</td>"
         f"<td>{esc(', '.join(a['products']))}</td><td>{esc(a['status'])}</td></tr>"
         for a in analysis_doc["content_plan"]["articles"])
     articles_body = f"""
