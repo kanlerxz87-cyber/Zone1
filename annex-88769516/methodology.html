@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Methodology — Zone1 Amazon Affiliate Platform</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<!-- Added by integration session sess-cb2cfa7c on 2026-11-14: Operating Agreement §5 disclosure required site-wide by the project's verification gate. All other content on this page is preserved verbatim from session arena/88769516-zone1 (PR #9). See README.md. -->
+<p style="font:13px/1.4 -apple-system,Segoe UI,sans-serif;background:#fff8e6;border-bottom:1px solid #e5c07b;margin:0;padding:.55rem 1rem;text-align:center">As an Amazon Associate I earn from qualifying purchases. <span style="opacity:.75">(disclosure added 2026-11-14 by the integration session; this annex is preserved content from session arena/88769516-zone1)</span></p>
+<header class="topbar">
+  <div class="brand">Zone<span>1</span> · Amazon Affiliate Platform</div>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="executive-summary.html">Executive Summary</a>
+    <a href="products.html">Products</a>
+    <a href="research.html">Research</a>
+    <a href="content.html">Content</a>
+    <a href="tracking.html">Tracking</a>
+    <a href="compliance.html">Compliance</a>
+    <a href="methodology.html" class="active">Methodology</a>
+    <a href="flagged-for-review.html">Flagged for Review</a>
+  </nav>
+</header>
+
+<main>
+  <h1 class="page-title">Verification Methodology</h1>
+  <p class="page-sub">Every table row on this site must trace to an official source. Where a value could not be
+  confirmed from an official source, it is left blank and flagged UNVERIFIED — never inferred or filled.</p>
+
+  <div class="card">
+    <h3>Principles</h3>
+    <ul class="clean">
+      <li><strong>Official sources only</strong> — product data from Amazon; policy/commission data from the Amazon Associates pages on <code>affiliate-program.amazon.com</code>.</li>
+      <li><strong>No inference</strong> — if a value cannot be confirmed, it stays blank and is flagged.</li>
+      <li><strong>Line-by-line</strong> — each value is checked against its cited source before publication.</li>
+      <li><strong>Irregularity flagging</strong> — any blocker or contradiction is published on the <a href="flagged-for-review.html">Flagged for Review</a> page.</li>
+    </ul>
+  </div>
+
+  <div class="card" style="margin-top:18px;">
+    <h3>Routes attempted for product verification</h3>
+    <ul class="clean">
+      <li><strong>Direct Amazon pages</strong> (<code>/dp/</code>, <code>/gp/product/</code>, <code>/gp/aw/d/</code>) on <code>amazon.com</code> — bot-blocked (Dogs of Amazon).</li>
+      <li><strong>Other marketplaces</strong> (<code>amazon.co.uk</code>, <code>amazon.de</code>) — 404 / homepage redirect.</li>
+      <li><strong>Reader &amp; render proxies</strong> (Jina reader, microlink real-browser) — bot-blocked; even a known-valid ASIN returns 404 (calibration).</li>
+      <li><strong>CORS proxies</strong> (allorigins, codetabs, corsproxy) — timed out / 403.</li>
+      <li><strong>Archives</strong> (Wayback availability + CDX) — no snapshots for the ASINs.</li>
+      <li><strong>Search engines</strong> (Bing, Google) — no relevant results for the ASINs.</li>
+      <li><strong>ASIN trackers</strong> (CamelCamelCamel, Keepa) — no valid record / "invalid product identifier".</li>
+      <li><strong>Provided link redirect chains</strong> — marketplace fallback to different ASINs.</li>
+    </ul>
+    <p>The Amazon Associates <code>affiliate-program.amazon.com</code> help pages were reachable and verified for
+    commission and compliance content.</p>
+  </div>
+
+  <div class="card" style="margin-top:18px;">
+    <h3>Verification log</h3>
+    <div class="table-wrap" style="margin-top:10px;">
+      <div id="verification-table"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">Zone1 · Amazon Affiliate Marketing Platform · methodology · <span id="gen"></span></footer>
+<script src="assets/data.js"></script>
+<script src="assets/app.js"></script>
+<script>document.getElementById('gen').textContent = 'generated ' + (window.ZONE1_DATA ? window.ZONE1_DATA.meta.generated : '');</script>
+</body>
+</html>

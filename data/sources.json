@@ -1,6 +1,6 @@
 {
   "accessed": "2026-11-13",
-  "note": "Every entry below was fetched live on the access date. 'official' means the page is published by the party that owns the fact (Amazon, the FTC, the brand). No secondary blogs, retailer resellers or review aggregators are used anywhere in this project. Re-verification pass 2026-11-14 (sess-81495d2d) re-read S3, S5, S9, S10, S12, S14, S15, S16, S17 and S18 and added the two control lookups S21 and S22; see the Re-verification page.",
+  "note": "Every entry below was fetched live on the access date. 'official' means the page is published by the party that owns the fact (Amazon, the FTC, the brand). No secondary blogs, retailer resellers or review aggregators are used anywhere in this project. Re-verification pass 2026-11-14 (sess-81495d2d) re-read S3, S5, S9, S10, S12, S14, S15, S16, S17 and S18 and added the two control lookups S21 and S22; see the Re-verification page. The same day's sess-cb2cfa7c pass additionally re-read S1–S5, S8–S10, S12, S14, S16, S17, S19 and added S23 (official ASIN definition) and S24 (PA-API 5 deprecation notice).",
   "sources": [
     {
       "id": "S1",
@@ -221,6 +221,26 @@
       "kind": "Negative finding",
       "directness": "Primary — Amazon's own response to the request",
       "page_version": "Fetched 2026-11-14"
+    },
+    {
+      "id": "S23",
+      "org": "Amazon.com Kindle Direct Publishing (help centre)",
+      "title": "Linking from Your Website (KDP Help G200652190)",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200652190",
+      "covers": "Official Amazon definition: the ASIN is a 10-character Amazon Standard Identification Number, and the canonical product URL format is http://www.amazon.com/dp/ASIN. Used to source the ASIN-length and URL-format rows in the dashboard annex, which previously cited only third-party sites.",
+      "kind": "Help article",
+      "directness": "Primary (published by Amazon)",
+      "page_version": "Live page, re-verified 2026-11-14 (sess-cb2cfa7c)"
+    },
+    {
+      "id": "S24",
+      "org": "Amazon.com Associates Central — Creators API documentation",
+      "title": "PA-API 5 Deprecation Notice",
+      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation",
+      "covers": "Official notice that PA-API 5 has been deprecated and is replaced by the Creators API; PA-API 5 calls return 403 AccessDeniedException with a migration message. The former PA-API 5 documentation URL (webservices.amazon.com/paapi5/documentation/get-items.html) now serves this notice. Re-verified 2026-11-14 (sess-cb2cfa7c).",
+      "kind": "Deprecation notice",
+      "directness": "Primary (published by Amazon)",
+      "page_version": "Live page, re-verified 2026-11-14 (sess-cb2cfa7c)"
     }
   ],
   "reverified": "2026-11-14"

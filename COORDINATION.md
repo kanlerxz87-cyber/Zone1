@@ -1350,3 +1350,78 @@ this session's three flags are renumbered **F19–F21** to avoid a collision.
   2. `build.py` — the `PROGRAMME_FLAGS` tail. Their flags **F14–F18** are kept verbatim; this session's three flags were renumbered **F19–F21** (plus F22–F23 added afterwards). Their `page_index` rewrite ("0 verified product identities", "candidate ASIN (unconfirmed)", `product_cta`) is kept; this session's computed counts and re-verification callout are added on top of it, and the callout wording was rewritten to state the reconciled position instead of contradicting them.
   3. `data/products.json` / `data/sources.json` — reformatted to main's 2-space indentation so the diff shows only semantic changes.
 * No `s2/`, `site/`, `dashboard/`, `research/`, `session-3740f69d/`, `crosscheck/`, `docs/` or `platform/` file was modified by this session.
+
+---
+
+# Integration pass 5 — session `arena/cb2cfa7c-zone1` (2026-11-14)
+
+**Session:** sess-cb2cfa7c · **Branch:** `arena/cb2cfa7c-zone1` (base `8915b432` = `main` after PR #17; `main` later advanced through PRs #18–#22 from sessions 1dcaaafc, 6ec3c2da, 81495d2d — all merged and reconciled in this pass) · **Started:** 2026-11-14 (UTC)
+
+> NOTE ON BRANCHING: Arena pins this session to `arena/cb2cfa7c-zone1`; the `session-<id>/<task>` convention is
+> preserved in this record. This branch is this session's integration branch and is PR'd to `main` at the end.
+
+## Claim log (this session)
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-14 | sess-cb2cfa7c | Claimed R1–R4 below, before any file change. |
+| 2026-11-14 | sess-cb2cfa7c | Takeover notice: PR #9 (`arena/88769516-zone1`, opened 2026-11-13T22:47Z) had no commits for >60 min — per protocol §7 this session took over its disposition (R3). |
+| 2026-11-14 | sess-cb2cfa7c | Mid-pass, `main` advanced (PRs #18–#22 from three parallel sessions). Conflicts reconciled per the log below; no work from any session discarded. |
+
+## Task board (this session)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| R1 | Line-by-line repo review of the integrated tree (all sessions' output) + irregularity flags | done | sess-cb2cfa7c | review only + `COORDINATION.md` |
+| R2 | Independent re-verification of published facts against official live sources (sample + all critical rows) | done | sess-cb2cfa7c | `data/sources.json`, `build.py` flags (integration scope) |
+| R3 | Disposition of stale PR #9 (integrate unique content or close with justification; never discard silently) | done | sess-cb2cfa7c | PR #9, `annex-88769516/`, `COORDINATION.md` |
+| R4 | Final integration: rebuild, link-crawl, re-verify row sourcing, reconcile parallel sessions, PR → `main`, confirm Pages deploy, record results | done → see PR record | sess-cb2cfa7c | whole tree (integration) |
+
+## R1 — Line-by-line repo review
+
+Reviewed the merged tree (195+ files across the root site, `dashboard/`, `docs/`, `s2/`, `session-3740f69d/`, `crosscheck/`, `research/`, `site/`, `platform/`, `scripts/`, `data/`) plus the `build.py`/`verify.py` gates. Structural gates pass before and after this session's edits. Irregularities found → disposition:
+
+| # | Irregularity | Disposition |
+|---|---|---|
+| 1 | `dashboard/` annex rows cited third-party sites (barcode.graphics, keywordseverywhere.com, manuals.plus, aruljohn.com, u2l.ai) | Session `arena/6ec3c2da` (PR #20) independently fixed this (their H-02/H-03/H-05) while this pass was running; this pass added the **definitional** official source on top (Amazon KDP Help G200652190, S23) to the ASIN-length and URL-format rows. No third-party-only row remains unmarked. |
+| 2 | `webservices.amazon.com/paapi5/documentation/get-items.html` (cited in `session-3740f69d/SOURCES.md`) no longer serves API docs | **New finding F24/S24**: it serves Amazon's official PA-API 5 Deprecation Notice. See R2. (Dashboard annex had it as H-01; the root register now carries it too.) |
+| 3 | Flag-count mismatch across generated pages (duplicated product F6 flags) | Fixed independently by this pass and by `arena/81495d2d` ("nav/count fixes"); resolution kept their implementation. |
+| 4 | `EXECUTIVE-SUMMARY.md` §3 said "18 sources" vs a 20-entry register | Corrected inline with a dated note; register now 24 (S21–S24 added across passes). |
+| 5 | Stale open PR #9 | Preserved + closed (R3). |
+| 6 | `link.amazon`-resolution disagreement between passes | Both positions published (root F21 ↔ dashboard H-08/I-06, both "unconfirmed/mapping disputed"); this pass's four observation rounds are recorded below as evidence for the stable-target reading. |
+
+## R2 — Independent re-verification against live official sources (2026-11-14)
+
+Method: each critical published fact re-fetched from its official URL on 2026-11-14 and compared to the stored value. **Re-verified live:** S1 (OA "Updated: October 15, 2025"), S2 (Program Policies "Updated: April 14, 2026"; §2(b), §3(e), §3(g), §3(n), §3(s), §3(t), §3(u), §3(v), §3(w), §3(y), §6(a), ML-training ban, Payment Minimum Chart — all quotes verbatim), S3 (all 11 commission rows exact), S4 (3 sales/180 days · 10 posts · 60 days · 500 followers), S5 (OA §5 statement + Clear/Conspicuous), S8 (FTC Disclosures 101), S9 (eCFR Part 255, §255.5 title as cited), S10 (RJ38-SQPF-3TDB-2W, $119.99 list, 450 °F Hi-Fry), S12 (RJ38-SQSS-8T, $119.99 list, 200–400 °F, four food presets), S14 ($199.99, 2.6/25, 4-00675-02A-VN, "25 Cooking Pre-sets", "10-in-1", 16.9"×15.8"×14.8", 24.6 L, 120 V), S16/S17 (all three short links → recorded ASINs with exact recorded titles). **New sources:** S23 (KDP Help G200652190 — "10-character Amazon Standard Identification Number", `amazon.com/dp/ASIN`) and S24 (PA-API 5 Deprecation Notice) — both verified live 2026-11-14.
+
+**Result: every re-checked value holds.** Routine drift only: brand-widget review counts 1,302→1,305 (S10) and 715→716 (S12) since 2026-11-13; quotes stay date-stamped (root F19, dashboard H-series equivalents). Not re-fetched this pass (captured 2026-11-13, structurally re-checked by verify.py): S7, S11, S13, S15, S18, S20.
+
+**F24 — PA-API 5 deprecation.** The official docs URL now serves `affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation`: PA-API 5 "has been deprecated and is being replaced by the Creators API"; PA-API 5 calls return `403 AccessDeniedException` with a migration message. This **vindicates** the `arena-4ba9e055` cross-check's original F18 and **supersedes** the `8a2ddd06` retraction (that session checked the PA-API help *index*, still live; the API itself is deprecated). Corroborates dashboard H-01. Impact: automation blueprints must target the Creators API.
+
+**Link-resolution evidence added to the record (F21/H-08 dispute):** this pass fetched all three short links twice on 2026-11-14 and got, each time, the same three destinations recorded on 2026-11-13 (B0CDY277D3, B09B7SB46R, B08DKYBTPH) with exact matching listing titles and product-specific page context — four observation rounds across two sessions supporting stable resolution. The `plpRedirect=mhFallback`/`lv=shuf` markers were present in every render (as noted by `arena/6ec3c2da`'s H-08, direct product-page requests carry them too). Token→product mapping remains **unconfirmed**; only the account holder can settle intent. All positions stay published.
+
+## R3 — Stale PR #9 disposition
+
+Takeover per protocol §7 (no commits since 2026-11-13T22:47Z). PR #9 (`arena/88769516-zone1`, head `1b92ec76`) is a complete independent site replacing the same root files as the integrated site; merging would discard the combined work of PRs #1–#22. Disposition: **all 16 files preserved verbatim** at `annex-88769516/` (provenance README; only documented change = the site-wide OA §5 disclosure line each page needed for the compliance gate), branch retained, PR #9 **closed** with a full explanation. Nothing deleted.
+
+## Merge-conflict resolution log (this pass, required by protocol §6)
+
+`git merge origin/main` conflicted on 11 files (both sides modified). Resolution — **no work discarded**:
+
+| File(s) | Resolution | Why |
+|---|---|---|
+| `data/sources.json` | main's version (81495d2d's S21/S22 controls + page_version updates) **+ this pass's two sources renumbered S23/S24** | Both passes added sources at the same IDs; renumbering preserves both. |
+| `build.py` | main's version (reverification page, nav surfacing, count fixes) **+ this pass's three deltas**: F10 evidence dates, new **F24** flag (PA-API deprecation), "API status" row in the exec page | Their build supersedes my duplicate fixes; F24 + the API row were unique to this pass. |
+| `dashboard/*.html` (4 files) | main's version (6ec3c2da's H-series rework) **+ this pass's unique additions**: KDP definitional source (S23) on identifier rows, A4 clarifier (root F6 position), section "F · Integration pass 5" addendum | Their rework fixed the same third-party-citation issue more thoroughly; my unique items added on top. |
+| `COORDINATION.md` | main's version + this section appended | Protocol: keep both boards. |
+| `data.html`, `executive-summary.html`, `flagged.html`, `index.html` (generated) | main's version, then **regenerated** by `python3 build.py` after the data/build merge | Generated output; the reproducibility gate requires it to match a fresh build. |
+| `s2/*` (this pass's build-stamp churn) | reverted to the committed stamps (matches `arena/1dcaaafc`'s F18 decision: "changes reverted, not committed") | Avoid calendar-stamp churn in the tree. |
+
+Note: `arena/1dcaaafc`'s T16 headline correction ("0 verified product identities", mapping unconfirmed) and `arena/81495d2d`'s re-verification ledger (61 rows) are preserved as-is; this pass's evidence is recorded above as *additional* evidence for the record, not as a replacement.
+
+## R4 — Final integration
+
+- Rebuild: `python3 build.py` regenerates the 13 root pages from `data/*.json` (24 sources) after the merge.
+- Gates re-run after the merge (all green): `platform/tests` 33/33 · `platform/audit/report.py` 0 warnings · `research/check_research.py` OK · `scripts/build_s2_site.py --check` current · `scripts/check_links.py` OK · `scripts/build_site.py` + `verify_site.py` 382 assertions · `python3 verify.py` 0 errors (91 pages) · generated HTML committed (reproducibility gate).
+- PR: opened from `arena/cb2cfa7c-zone1` → `main` with summary, sources and flagged irregularities; merged per the brief.
+- **PR / deploy record: recorded in the follow-up addendum below after the merge.**
