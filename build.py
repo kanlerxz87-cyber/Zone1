@@ -986,11 +986,15 @@ PROGRAMME_FLAGS = [
     ("F35", "Nine separate HTML sites for the same three products are published in this repository, and they disagree with each other.",
      "Whole repository",
      "Found 2026-11-14 by arena/6b2eddeb. Alongside the canonical root build there are research/ (12 pages), session-3740f69d/ (11), s2/ (13), site/ (11), dashboard/ (14), docs/ (7) and annex-88769516/ (10), plus data-only trees in crosscheck/ and platform/. The root navigation links to six of them. They disagree on facts a reader would take as settled: the Chefman 6 Qt model (RJ38-SQPF-3TDB-2W on the root site, RJ38-3DBW-V2 in site/ and research/ — F32), and the policy section numbers for the review/star-rating and link-shortening rules (§6(t)/§6(w) on the root site after F27, §3(t)/§2(w) in site/ and session-3740f69d/). Each build is internally consistent and individually verified; the problem is that nothing tells a reader which one is canonical when they arrive from a search engine. Decision needed: keep one site and archive the rest behind a clearly labelled 'previous verification passes' page, or make every non-canonical page carry a fixed banner naming the canonical build.", ["S1", "S2"]),
+    # sess-ce4070ad, pass 7, 2026-11-14 (additive; renumbered F32 -> F36 after PR #46 took F32): the F10 wording vs the repository's own evidence.
+    ("F36", "Published flag F10 says the short links' srctok marker \u201cstays constant across repeat requests\u201d; the repository's own published evidence shows the marker changes and only the destination is stable.",
+     "All three links",
+     "Recorded 2026-11-14 by sess-ce4070ad (observation round 6). Stable across every reading, including today's two independent fetches: each link.amazon token resolves to the same ASIN with the same listing title \u2014 B04G1MEwY \u2192 B0CDY277D3, B02NbDxp3 \u2192 B09B7SB46R, B00hJ57DV \u2192 B08DKYBTPH, now re-confirmed by six sessions over two days. Not stable: the btn_ref/srctok marker in the landing URL \u2014 srctok-2cef40d2904c29d8 on 2026-11-13; srctok-1e229870efde5acf changing to srctok-397b5ba66db39bbf on a cache-busted repeat minutes later (sess-81495d2d's published evidence, row 4); srctok-704dc575b940a94c (sess-54c66535); srctok-0740a2e990c9bbb3, the same value in two independent fetches by sess-840a25d3 and sess-ce4070ad later the same day. F10's constancy wording therefore overstates what the evidence supports: it is the ASIN + title destination that is constant, not the marker. Decision needed: reword F10 to claim destination stability only. F10 is another session's register row and is left verbatim.", ["S17", "S16"]),
+
     ("F37", "A published value was cited to a source that does not state it.",
      "Emeril 26 QT French Door — the \"Interior light: Yes\" row",
      "Found and fixed 2026-11-14 by sess-7111e2b6. The row cited the brand product page (S14), whose specification strip lists Timer, 26-Quart Capacity, Dual-Speed Fan, 25 Cooking Pre-sets, 16.9\"D x 15.8\"W x 14.8\"H, 24.6 Liters, Temperature Control and 120 volts — and no interior light. The value is nonetheless correct: the owner\'s manual (S15) documents it in the control-panel section, \"F. LIGHT BUTTON: May be selected at any time during the cooking process to light the appliance\'s interior.\" The row has been re-sourced from S14 to S15 and the manual\'s wording recorded in the row note. The lesson is published rather than quietly fixed: a value can be true and still be mis-cited, and a citation that does not support its value is as much a defect as an invented number.",
      ["S14", "S15"]),
-
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -1009,6 +1013,7 @@ REPO_EVIDENCE = {
     "F33": ["session-6b2eddeb/EVIDENCE-2026-11-14.md"],
     "F34": ["EXECUTIVE_SUMMARY.md"],
     "F35": ["build.py", "site/", "session-3740f69d/"],
+    "F36": ["session-81495d2d/EVIDENCE-2026-11-14.md", "session-ce4070ad/EVIDENCE-2026-11-14.md"],
 }
 
 VERDICTS = {
@@ -2370,6 +2375,32 @@ def main():
     print(f"built {len(pages)} pages ({total_bytes/1024:.0f} KB of HTML)")
     for rel in sorted(pages):
         print(f"  {rel}")
+
+    # ---- pass 7 additive (sess-ce4070ad, T25): SEO plumbing -----------------
+    # The brief calls for an SEO-optimized site; until this pass the root build
+    # shipped neither robots.txt nor a sitemap. Both are generated here from the
+    # same page list the HTML is generated from, so they cannot drift from it.
+    # 404.html is excluded (not an indexable page). The annex builds (docs/,
+    # research/, s2/, site/, dashboard/, session-*/) are separate sub-sites owned
+    # by other sessions and deliberately stay out of the root sitemap.
+    base = "https://kanlerxz87-cyber.github.io/Zone1/"
+    indexable = sorted(
+        rel for rel in pages
+        if rel.endswith(".html") and rel != "404.html"
+    )
+    (ROOT / "robots.txt").write_text(
+        "User-agent: *\nAllow: /\n\nSitemap: " + base + "sitemap.xml\n",
+        encoding="utf-8")
+    locs = "".join(
+        f"  <url><loc>{base}{'' if rel == 'index.html' else rel}</loc></url>\n"
+        for rel in indexable
+    )
+    (ROOT / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        + locs + "</urlset>\n",
+        encoding="utf-8")
+    print(f"wrote robots.txt + sitemap.xml ({len(indexable)} urls)")
 
 
 if __name__ == "__main__":
