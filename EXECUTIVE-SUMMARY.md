@@ -171,21 +171,26 @@ Session `arena/88769516-zone1` (PR #9, idle since 2026-11-13T22:47Z) built an in
 
 ### 10.6 State after this pass
 
-- **24 sources** (S1–S24), all official; **43 spec rows** (**41 verified, 2 blank+flagged** —
-  *corrected 2026-11-14 by pass 7 (sess-7111e2b6); this line read 42/1 before that pass blanked the
-  Chefman 6 Qt preset count*);
-  **31 open flag rows** (27 programme + 4 product), all published on [`flagged.html`](flagged.html).
+- **27 sources** (S1–S27), all official; **43 spec rows** (**41 verified, 2 blank+flagged** —
+  *corrected 2026-11-14 by pass 7 (sess-7111e2b6); that pass blanked the Chefman 6 Qt preset count,
+  which its cited source does not state (F30), and re-sourced the Emeril interior light to the
+  owner's manual (F37)*);
+  **38 open flag rows** (34 programme + 4 product), all published on [`flagged.html`](flagged.html).
   *Counting note (corrected 2026-11-14; two independent passes converged on the spec-row split and this
   line is their merge).* The register holds 7 product-level flag instances, but three of them are the same
   cross-product item — **F6**, the unobservable Associates tag — raised once per product. `build.py`'s
   `page_flagged()` renders F6 once at programme level and suppresses the three per-product copies, so the
-  page shows 27 + 4 = **31** distinct rows, not 34.
+  page shows 34 + 4 = **38** distinct rows, not 41.
   *History of this line:* it originally read **40 verified / 3 blank** and **17 open flags (13 programme +
   4 product)**. Two rows were filled from the manufacturers' own owner's manuals, leaving the Chefman 8 Qt's
   *Hi-Fry / 450 °F mode* as the only blank (F3). The flag count then rose as F18–F27 were added by later
   passes,
-  **F28** by sess-91d0552e (PR #36), and **F29–F31** by pass 6 (sess-54c66535).
-- `build.py` + `verify.py` gates pass: **98** pages checked, **0 errors**, 0 broken internal links,
+  **F28** by sess-91d0552e (PR #36), **F29–F31** by pass 6 (sess-54c66535), **F32–F35** by
+  `arena/6b2eddeb` (PR #46), **F36** by pass 7 (sess-ce4070ad) — F36 records that the short links'
+  `srctok` marker changes between sessions and on cache-busted repeats, contradicting F10's "stays
+  constant" wording (renumbered from F32 after PR #46 took that ID) — and **F37** by sess-7111e2b6
+  (PR #51).
+- `build.py` + `verify.py` gates pass: PAGES pages checked, **0 errors**, 0 broken internal links,
   0 missing disclosures, 0 unsourced values, 0 leaked Amazon prices/ratings.
   *(92 pages before pass 7 added the Articles section on 2026-11-14.)*
 

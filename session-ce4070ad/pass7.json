@@ -1,0 +1,72 @@
+{
+  "session": "sess-ce4070ad",
+  "branch": "arena/ce4070ad-zone1",
+  "date_utc": "2026-11-14",
+  "pass": 7,
+  "tasks": {
+    "T23": "repo-wide row-source audit (all builds)",
+    "T24": "live observation round 6 + live Pages deployment state + S3 re-read",
+    "T25": "SEO plumbing: generated robots.txt + sitemap.xml (additive in build.py)",
+    "T26": "final integration: gates, PR, merge, Pages confirm"
+  },
+  "short_links_round6": [
+    {
+      "short": "https://link.amazon/B04G1MEwY",
+      "landed": "https://www.amazon.com/dp/B0CDY277D3",
+      "params": "lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-0740a2e990c9bbb3&channelId=704&plpRedirect=mhFallback",
+      "title": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen",
+      "matches_stored": true
+    },
+    {
+      "short": "https://link.amazon/B02NbDxp3",
+      "landed": "https://www.amazon.com/dp/B09B7SB46R",
+      "params": "lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-3541f5edba6b914c&channelId=704&plpRedirect=mhFallback",
+      "title": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals. : Home & Kitchen",
+      "matches_stored": true
+    },
+    {
+      "short": "https://link.amazon/B00hJ57DV",
+      "landed": "https://www.amazon.com/dp/B08DKYBTPH",
+      "params": "lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-507e2d3d167072eb&channelId=704&plpRedirect=mhFallback",
+      "title": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel : Home & Kitchen",
+      "matches_stored": true
+    }
+  ],
+  "srctok_history_B04G1MEwY": [
+    {"when": "2026-11-13 sess-105bc29e", "value": "srctok-2cef40d2904c29d8", "source": "COORDINATION.md line 442"},
+    {"when": "2026-11-13 crosscheck/arena-4ba9e055", "value": "srctok-2cef40d2904c29d8", "source": "crosscheck/arena-4ba9e055/README.md"},
+    {"when": "2026-11-14 sess-81495d2d first read", "value": "srctok-1e229870efde5acf", "source": "session-81495d2d/EVIDENCE-2026-11-14.md row 1"},
+    {"when": "2026-11-14 sess-81495d2d cache-busted repeat", "value": "srctok-397b5ba66db39bbf", "source": "session-81495d2d/EVIDENCE-2026-11-14.md row 4"},
+    {"when": "2026-11-14 sess-54c66535", "value": "srctok-704dc575b940a94c", "source": "session-54c66535/EVIDENCE-2026-11-14.md"},
+    {"when": "2026-11-14 sess-840a25d3", "value": "srctok-0740a2e990c9bbb3", "source": "session-840a25d3/VERIFICATION-2026-11-14.md"},
+    {"when": "2026-11-14 sess-ce4070ad", "value": "srctok-0740a2e990c9bbb3", "source": "session-ce4070ad/EVIDENCE-2026-11-14.md"}
+  ],
+  "f32": {
+    "id": "F32",
+    "summary": "F10's 'srctok stays constant across repeat requests' is contradicted by published evidence; only the destination (ASIN + title) is constant.",
+    "action": "F10 left verbatim (another session's register row); F32 published as the qualification."
+  },
+  "live_pages": {
+    "no_cache_buster": {"open_items": 28, "note": "stale CDN copy"},
+    "cache_busted": {"open_items": 31, "f29_f30_f31_rendered": true},
+    "pages_builds_latest": {"status": "built", "commit": "f45374b", "created": "2026-11-14T19:06:27Z", "error": null}
+  },
+  "s3_recheck_2026_11_14": {
+    "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+    "login_required": false,
+    "table1_rows_checked": 11,
+    "stored_csv_matches_live": true,
+    "kitchen": "4.50%",
+    "all_other_categories": "4.00%"
+  },
+  "row_source_audit": {
+    "rule": "any <tr> with an external href must link an official-allowlist host",
+    "scope": "every published HTML file, all builds",
+    "violations": 0
+  },
+  "count_consistency": {
+    "flagged_html_before_f32": 31,
+    "flagged_html_after_f32": 32,
+    "exec_summary_consistent": true
+  }
+}
