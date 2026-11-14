@@ -1303,3 +1303,50 @@ are added on top, nothing is discarded.** Where the two passes reach different c
 and a nonsense-token control (403) that show the target is *stable*, which is not the same as the tag or the intent
 being confirmed — both positions are published side by side for the owner to arbitrate. Flag ids F14–F18 are theirs;
 this session's three flags are renumbered **F19–F21** to avoid a collision.
+
+## Completion record — sess-81495d2d (2026-11-14)
+
+| # | Task | Status | Result |
+|---|------|--------|--------|
+| T15 | Line-by-line re-verification pass dated 2026-11-14 | **done** | `data/reverification.json` (61 rows) + `reverification.html` + `session-81495d2d/EVIDENCE-2026-11-14.md`. Verdicts: 41 confirmed · 5 partially confirmed · 2 moved (live counters) · 2 official-vs-official conflicts still live · 1 earlier conflict resolved on new evidence · 1 new control test · 9 honestly not re-checked in this pass. |
+| T16 | Final integration for this round | **done** | Nav now reaches all six published builds; stale hand-typed counts and the hand-typed commission table in `executive-summary.html` computed from `data/*.json`; false "first verification pass" line on `flagged.html` replaced by a ledger-generated resolved-items table; two blank product rows un-blanked from the manufacturer's own spec block; flags F19–F23 added; `EXECUTIVE_SUMMARY.md` conflict markers removed without discarding either document. |
+| T17 | PR → merge → Pages verification | **in progress** | PR link and merge result appended below once executed. |
+
+### Sources re-read this pass (all official; every one is linked from `reverification.html`)
+
+| Source | What it re-confirmed |
+|---|---|
+| https://link.amazon/B04G1MEwY · /B02NbDxp3 · /B00hJ57DV (each twice, plus a nonsense-token control) | Destination of the three supplied links; control returns 403 |
+| https://www.amazon.com/dp/B04G1MEwY | "Page Not Found" — the 9-character tokens are not ASINs |
+| https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ | Table 1 public: Kitchen 4.50%, Home in the 3.00% row, All Other Categories 4.00%; Bounty amounts |
+| https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98 | OA-required disclosure sentence verbatim; "clear" + "conspicuous" link-level rule; medium-of-disclosure rule |
+| https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255 | Part 255 §§255.0–255.6 in force; source note 88 FR 48102; Title 16 current as of 11/12/2026 |
+| https://chefman.com/products/turbofry-touch-dual-window-air-fryer | All 14 page-sourced rows; $119.99 list; 4.6★/1,305 |
+| https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1 | Max temp 400 °F, 200–400 °F, 4 cooking presets, **Power: 1700W/120V**, 8 Qt dimensions/weight; 4.6★/716 |
+| https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf | HI-FRY 450 °F/2 min, Sync Finish vs Sync Baskets, aerosol-oil caution, interior light, two independently driven baskets |
+| https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360 | $199.99, 26 qt/24.6 L, "25 Cooking Pre-sets", "10-in-1", model 4-00675-02A-VN, 2.6★/25 |
+| https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf | Parts & Accessories enumeration (re-derives the site's "7 accessories"), LED display, rotisserie spit + fetch tool, French-door behaviour |
+
+### Verification performed
+
+* `python3 build.py` regenerates 14 root pages; `git diff` clean afterwards (reproducibility gate satisfied).
+* `python3 verify.py` → 82 pages checked, 43 spec rows (42 verified / 1 blank+flagged), 22 sources declared, **0 errors**.
+* `research/check_research.py` OK · `scripts/build_s2_site.py --check` current · `scripts/check_links.py` 3,727 links, 0 broken · `scripts/verify_site.py` 382/382 · `platform` 33 tests OK · `platform/audit/report.py` 0 errors.
+* Repo-wide scan for leftover conflict markers: none remain after this pass (there had been two in `EXECUTIVE_SUMMARY.md`, now removed — see F22).
+
+### Irregularities found by this pass (published on the Flagged page)
+
+* **F19** brand-site review counts move daily (1,302→1,305; 715→716) — every rating on the site is a dated observation.
+* **F20** six parallel builds share one domain; two were unreachable from the landing page until this pass. Owner should name a canonical build before pointing a real domain at this.
+* **F21** two sessions read the same link-resolution evidence differently ("identity not confirmed" vs "destination reproducible, identity/tag unconfirmed"); both positions are published side by side rather than outvoted.
+* **F22** `EXECUTIVE_SUMMARY.md` was committed to `main` with conflict markers in it. Repaired without deleting anyone's text.
+* **F23** `node scripts/build.mjs --check` (documented in the README, generates the retired `docs/` build) fails against the current shared data schema — pre-existing on the baseline, unused by CI. `docs/` is therefore frozen; either retire it or re-point the builder at `data/verified/`.
+* Also: PR #9 (`arena/88769516-zone1`) remains open and unmerged (recorded as **F16** by `arena/1dcaaafc`); `verify.py` allow-lists several non-official hosts used by other sessions' pages, which surface only as `WARN`.
+
+### Conflict / handoff log
+
+* 2026-11-14 — `git pull --rebase origin main` during this session's push surfaced two conflicts, both resolved with **no work discarded**:
+  1. `COORDINATION.md` — `arena/1dcaaafc`'s "Integration pass 4" section vs this session's claim section. Kept both, in board order, and added a collision note. Both sessions had claimed a "T15/T16/T17" set concurrently (numbering collision, different scopes); neither session took the other's task.
+  2. `build.py` — the `PROGRAMME_FLAGS` tail. Their flags **F14–F18** are kept verbatim; this session's three flags were renumbered **F19–F21** (plus F22–F23 added afterwards). Their `page_index` rewrite ("0 verified product identities", "candidate ASIN (unconfirmed)", `product_cta`) is kept; this session's computed counts and re-verification callout are added on top of it, and the callout wording was rewritten to state the reconciled position instead of contradicting them.
+  3. `data/products.json` / `data/sources.json` — reformatted to main's 2-space indentation so the diff shows only semantic changes.
+* No `s2/`, `site/`, `dashboard/`, `research/`, `session-3740f69d/`, `crosscheck/`, `docs/` or `platform/` file was modified by this session.

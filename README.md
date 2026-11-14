@@ -129,7 +129,8 @@ Build and verify it independently:
 ```bash
 python3 research/build_research.py     # regenerate research/*.html
 python3 research/check_research.py     # 774 checks; exits non-zero on any failure
-node scripts/build.mjs                 # main site; also requires every research/ output to exist
+node scripts/build.mjs --check         # validator for the retired docs/ build — currently FAILS
+                                       # against the shared data schema (see flag F23); no CI workflow uses it
 ```
 
 Neither generator touches the other's files. The only cross-file dependency is the nav entry in
