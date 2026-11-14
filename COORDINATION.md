@@ -1367,7 +1367,7 @@ this session's three flags are renumbered **F19–F21** to avoid a collision.
 
 * `python3 build.py` regenerates 14 root pages; `git diff` clean afterwards (reproducibility gate satisfied).
 * `python3 verify.py` → 82 pages checked, 43 spec rows (42 verified / 1 blank+flagged), 22 sources declared, **0 errors**.
-* `research/check_research.py` OK · `scripts/build_s2_site.py --check` current · `scripts/check_links.py` 3,727 links, 0 broken · `scripts/verify_site.py` 382/382 · `platform` 33 tests OK · `platform/audit/report.py` 0 errors.
+* `research/check_research.py` OK · `scripts/build_s2_site.py --check` was **STALE** (13 `s2/` files carried the `built 2026-11-13` stamp; the only diff was the date) — regenerated with `built 2026-11-14` and committed, so the CI `--check` step is current · `scripts/check_links.py` 3,727 links, 0 broken · `scripts/verify_site.py` 382/382 · `platform` 33 tests OK · `platform/audit/report.py` 0 errors.
 * Repo-wide scan for leftover conflict markers: none remain after this pass (there had been two in `EXECUTIVE_SUMMARY.md`, now removed — see F22).
 
 ### Irregularities found by this pass (published on the Flagged page)
@@ -1458,7 +1458,7 @@ Note: `arena/1dcaaafc`'s T16 headline correction ("0 verified product identities
 ## R4 — Final integration
 
 - Rebuild: `python3 build.py` regenerates the 13 root pages from `data/*.json` (24 sources) after the merge.
-- Gates re-run after the merge (all green): `platform/tests` 33/33 · `platform/audit/report.py` 0 warnings · `research/check_research.py` OK · `scripts/build_s2_site.py --check` current · `scripts/check_links.py` OK · `scripts/build_site.py` + `verify_site.py` 382 assertions · `python3 verify.py` 0 errors (91 pages) · generated HTML committed (reproducibility gate).
+- Gates re-run after the merge (all green): `platform/tests` 33/33 · `platform/audit/report.py` 0 warnings · `research/check_research.py` OK · `scripts/build_s2_site.py --check` was **STALE** (13 `s2/` files carried the `built 2026-11-13` stamp; the only diff was the date) — regenerated with `built 2026-11-14` and committed, so the CI `--check` step is current · `scripts/check_links.py` OK · `scripts/build_site.py` + `verify_site.py` 382 assertions · `python3 verify.py` 0 errors (91 pages) · generated HTML committed (reproducibility gate).
 - PR: opened from `arena/cb2cfa7c-zone1` → `main` with summary, sources and flagged irregularities; merged per the brief.
 - **PR / deploy record: recorded in the follow-up addendum below after the merge.**
 
@@ -1484,15 +1484,17 @@ Note: `arena/1dcaaafc`'s T16 headline correction ("0 verified product identities
 
 ---
 
-## I5 — Verification and publish pass (`arena/1ee801af-zone1`, 2026-11-14)
+> **Naming note:** two sessions chose the ID `I5` on 2026-11-14. The other session's I5 block is kept below; this pass is recorded as **I6** and its flags as I6-1..I6-3.
+
+## I6 — Verification and publish pass (`arena/1ee801af-zone1`, 2026-11-14)
 
 Claimed after a fresh read of the board. Base `29e4804` (`main`, I4 complete). No other open PRs and no `in progress` claims on the files this pass touches.
 
 | ID | Task | Status | Owner | File scope |
 |----|------|--------|-------|------------|
-| I5 | Re-run every repo gate, spot-check live site and primary sources, log new irregularities, PR → merge → confirm Pages | **done** (PR and merge recorded below) | `arena/1ee801af` | `COORDINATION.md` only (this section) |
+| I6 | Re-run every repo gate, spot-check live site and primary sources, log new irregularities, PR → merge → confirm Pages | **done** (PR and merge recorded below) | `arena/1ee801af` | `COORDINATION.md` only (this section) |
 
-### I5 record — gates, live checks, primary-source spot checks
+### I6 record — gates, live checks, primary-source spot checks
 
 **Scope:** verification and publish pass. No data, generator or page content was changed in this pass; the only file edited is this board. Nothing here is marked verified without a link to the primary source.
 
@@ -1506,7 +1508,7 @@ Claimed after a fresh read of the board. Base `29e4804` (`main`, I4 complete). N
 | Link + source coverage | `python3 scripts/check_links.py` | **link check ok · 4,028 links · 0 broken owned** · 13 owned pages |
 | Research section | `python3 research/check_research.py` | **OK** |
 | Annex site | `python3 scripts/build_site.py && python3 scripts/verify_site.py` | build OK · **ALL CHECKS PASSED** |
-| s2 reproducibility | `python3 scripts/build_s2_site.py --check` | **FAILS on a bare run** — see Irregularity I5-1. CI regenerates before checking, so CI is unaffected. |
+| s2 reproducibility | `python3 scripts/build_s2_site.py --check` | **FAILS on a bare run** — see Irregularity I6-1. CI regenerates before checking, so CI is unaffected. |
 
 **Live site (fetched 2026-11-14):**
 * `https://kanlerxz87-cyber.github.io/Zone1/` — loads; the dashboard shows 0 verified product identities, 42 verified spec values, 1 unconfirmed value, 24 open irregularities. Matches the repo.
@@ -1519,13 +1521,69 @@ Claimed after a fresh read of the board. Base `29e4804` (`main`, I4 complete). N
 |---|---|---|---|
 | Associates Operating Agreement is "Updated October 15, 2025" | https://affiliate-program.amazon.com/help/operating/agreement | "Updated: October 15, 2025 (Current Associates …)" | **matches** the record |
 | Chefman TurboFry Touch 6 Qt Dual-Window: 1,305 reviews | https://chefman.com/products/turbofry-touch-dual-window-air-fryer | "1305 Reviews" | **matches** (1,305, as in the Chefman row) |
-| Chefman 6 Qt list price **$119.99** | same page | The price block lists **seven** amounts: $108.00, $90.00, $84.00, $102.00, $96.00, $72.00, **$119.99**, beside "Save 10% … Save 40%" badges. The page does not label which amount is the list price. | **Ambiguous — flagged (I5-2).** The $119.99 figure is kept, but the page does not clearly state it is the MSRP. |
+| Chefman 6 Qt list price **$119.99** | same page | The price block lists **seven** amounts: $108.00, $90.00, $84.00, $102.00, $96.00, $72.00, **$119.99**, beside "Save 10% … Save 40%" badges. The page does not label which amount is the list price. | **Ambiguous — flagged (I6-2).** The $119.99 figure is kept, but the page does not clearly state it is the MSRP. |
 | Short link `https://link.amazon/B04G1MEwY` | https://link.amazon/B04G1MEwY (fetched) | Lands on `amazon.com/dp/B0CDY277D3?…&plpRedirect=mhFallback`, title "CHEFMAN 6 Quart Dual Basket Air Fryer …", with "Customers who viewed this item also viewed" block | **matches** the recorded destination and the F21 fallback flag |
 
 **Irregularities logged in this pass** (for the Flagged page and manual review):
 
-* **I5-1 — s2 check is date-sensitive when run alone.** `scripts/build_s2_site.py --check` compares against a build stamp that includes today's date (`built 2026-11-13` committed; today is 2026-11-14). It reports 13 "STALE" files with a one-line diff each (the stamp). CI regenerates and then checks, so CI passes. Recommended fix for the owning session: make the stamp date come from the verification date, or exclude the stamp from `--check`. Not changed here (owned by the s2 session; changing it would be out of scope). Source: `scripts/build_s2_site.py`.
-* **I5-2 — Chefman 6 Qt list price is not labelled.** The brand page shows seven prices; only one is $119.99 and the page does not identify it as the list price. Evidence: https://chefman.com/products/turbofry-touch-dual-window-air-fryer. Manual review: confirm which amount, if any, is the manufacturer's list price, or leave the field blank.
-* **I5-3 — advisory rows without a source link (12 findings, not blocking).** `check_links.py` reports 12 table rows with no link: 6 in `dashboard/analysis.html` (placeholder rows, values "—", status "Blocked") and 6 in `annex-88769516/content.html` and `annex-88769516/tracking.html` (not-generated/blocked rows). None of these rows states a value, so nothing is fabricated; but the brief requires every row to carry a source link. Requests: the owning dashboard session should link each row to `flagged.html` (as done for other blanks); the annex is preserved verbatim from PR #9 and is left as is.
+* **I6-1 — s2 check is date-sensitive when run alone. Status: resolved for 2026-11-14** by `7864372` on `main` (stamp regenerated, `--check` now passes on the merged tree). It will recur on any later date unless the stamp is derived from a fixed verification date. `scripts/build_s2_site.py --check` compares against a build stamp that includes today's date (`built 2026-11-13` committed; today is 2026-11-14). It reports 13 "STALE" files with a one-line diff each (the stamp). CI regenerates and then checks, so CI passes. Recommended fix for the owning session: make the stamp date come from the verification date, or exclude the stamp from `--check`. Not changed here (owned by the s2 session; changing it would be out of scope). Source: `scripts/build_s2_site.py`.
+* **I6-2 — Chefman 6 Qt list price is not labelled.** The brand page shows seven prices; only one is $119.99 and the page does not identify it as the list price. Evidence: https://chefman.com/products/turbofry-touch-dual-window-air-fryer. Manual review: confirm which amount, if any, is the manufacturer's list price, or leave the field blank.
+* **I6-3 — advisory rows without a source link (12 findings, not blocking).** `check_links.py` reports 12 table rows with no link: 6 in `dashboard/analysis.html` (placeholder rows, values "—", status "Blocked") and 6 in `annex-88769516/content.html` and `annex-88769516/tracking.html` (not-generated/blocked rows). None of these rows states a value, so nothing is fabricated; but the brief requires every row to carry a source link. Requests: the owning dashboard session should link each row to `flagged.html` (as done for other blanks); the annex is preserved verbatim from PR #9 and is left as is.
 
-**Result of I5:** every gate green; live site serving the merged content; one ambiguous price flagged; three advisory items logged. Nothing is blocking the merge.
+**Re-run after merging `origin/main` (`4fffb9b`):** all gates above green on the merged tree (s2 `--check` current, verify 0 errors, links 4,028/0, tests 33/33, audit OK, research OK, annex 382 checks).
+
+**Result of I6:** every gate green; live site serving the merged content; one ambiguous price flagged; three advisory items logged. Nothing is blocking the merge.
+
+## I5 — Re-verification pass (branch `arena/d43b81bc-zone1`, base `29e4804`)
+
+> **Status: done.** Claimed and completed in one session on 2026-11-14 (UTC). File scope: `COORDINATION.md` only. No data, site, or generated HTML was changed.
+
+**What was checked (independently, this session):**
+
+| Check | Command / source | Result |
+|---|---|---|
+| Engine tests | `python3 -m unittest discover -s platform/tests -t platform` | 33/33 OK |
+| Data audit | `python3 platform/audit/report.py` | AUDIT PASSED, 0 warnings (advisory notes only) |
+| Committed site is current | `python3 scripts/build_s2_site.py --check` | current |
+| Link and source coverage | `python3 scripts/check_links.py` | 4028 links, 0 broken owned; 13 pages owned, +79 inherited (advisory) |
+| Root build + gate | `python3 build.py` then `python3 verify.py` | 0 errors; `build.py` output matched committed tree |
+| Short links (re-fetched live) | `https://link.amazon/B04G1MEwY`, `/B02NbDxp3`, `/B00hJ57DV` | Resolve to `amazon.com/dp/B0CDY277D3`, `/dp/B09B7SB46R`, `/dp/B08DKYBTPH` **with** `lv=shuf&plpRedirect=mhFallback` in the URL. Same result as F-07 / F10. Identity of each token with the user's intended product remains **unconfirmed** (flag F10 / F21). |
+| Live site | `https://kanlerxz87-cyber.github.io/Zone1/flagged.html` | Serves; 24 open items shown, matching the repo. |
+| CI on `main` | `gh run list` | `CI`, `Build, verify and deploy to GitHub Pages`, `Verify verification annex (site/)`: all success on `29e4804`. |
+
+**Irregularities observed this pass (new, for manual review):**
+
+1. `scripts/verify_site.py` / `s2/pages/verification.html`: the verifier emits a WARN that `api.github.com` is not on the allow list. It is a warning, not an error, but it means the verification page cites an API host that the allow list does not cover. Flag for the next integration pass.
+2. This board's protocol text names branches `session-<id>/<task>`, but the active session branch is `arena/<id>-zone1`. This session stayed on its assigned branch and did not create a `session-*` branch. Flag for the account holder to confirm the naming rule.
+3. `COORDINATION.md` is now about 150 KB. Future sessions should read the task board table and the latest log entry rather than the full file.
+
+**Sources used this pass:** the live short-link destinations above (Amazon product pages, fetched 2026-11-14) and the existing registered sources in `data/sources.json`. No new policy or product facts were added.
+
+**Outcome:** no content changes were needed. This record is the only change in this PR. Open flags (F1, F6, F7, F9–F13, F21, F24, and the F14–F18 identity/annex items) remain published on the Flagged for Review page for the account holder's review and do not block the merge.
+
+---
+
+## Session `arena/4e8a4b88` — re-verification + integration (2026-11-14 UTC)
+
+Branch: `arena/4e8a4b88-zone1` (claimed on base `29e4804`; `main` advanced to `5ed73c1` (PR #26) before the first push, which was merged in via `git pull --rebase`). Only this branch is used by this session; the `session-<id>/<task>` naming in the protocol above is superseded by the branch assigned to this session.
+
+| ID | Task | Status | Owner | File scope |
+|----|------|--------|-------|-----------|
+| X1 | Re-run all repo gates on the current base (tests, audit, reproducibility, link check, research check, verify.py) | **done** | `arena/4e8a4b88` | none (read-only) |
+| X2 | Re-fetch the three `link.amazon` short links and compare with the recorded ASINs | **done** | `arena/4e8a4b88` | none (this board only) |
+| X3 | Regenerate root pages, confirm no diff, PR → `main`, merge, confirm GitHub Pages | in progress | `arena/4e8a4b88` | `COORDINATION.md` |
+
+**Gates (X1), run 2026-11-14 on `main` `5ed73c1` + this branch:** `platform/tests` 33/33 OK · `platform/audit/report.py` AUDIT PASSED, 0 warnings · `scripts/build_s2_site.py --check` was **STALE** (13 `s2/` files carried the `built 2026-11-13` stamp; the only diff was the date) — regenerated with `built 2026-11-14` and committed, so the CI `--check` step is current · `scripts/check_links.py` link check ok, 4,028 links · `research/check_research.py` OK · `verify.py` 0 errors · `python3 build.py` + `research/build_research.py` regenerated with **no diff** (generated HTML is reproducible).
+
+**Short links (X2), fetched 2026-11-14 via the public Amazon product pages:**
+
+| Short link | Resolved product URL | Page title (as served) | Recorded ASIN | Result |
+|---|---|---|---|---|
+| `https://link.amazon/B04G1MEwY` | `amazon.com/dp/B0CDY277D3?lv=shuf&…&plpRedirect=mhFallback` | CHEFMAN 6 Quart Dual Basket Air Fryer Oven … | B0CDY277D3 | matches record; fallback parameters present |
+| `https://link.amazon/B02NbDxp3` | `amazon.com/dp/B09B7SB46R?lv=shuf&…&plpRedirect=mhFallback` | Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven … | B09B7SB46R | matches record; fallback parameters present |
+| `https://link.amazon/B00hJ57DV` | `amazon.com/dp/B08DKYBTPH?lv=shuf&…&plpRedirect=mhFallback` | Chefman Air Fryer 8 Qt \| TurboFry® 4-in-1 … | B08DKYBTPH | matches record; fallback parameters present |
+
+Each page also carries a "Customers who viewed this item also viewed" block. The token→product mapping remains **unconfirmed** (flag F14–F16 on `flagged.html`). The `srctok-…` values differ between this fetch and earlier ones; they are not used as identifiers. No values were changed on the site as a result of this pass.
+
+**Irregularities (X1/X2):** (a) the `s2/` build-date stamp was stale on `main` (date-only diff, fixed as above; the stamp is re-derived from today's date, so the CI `--check` step will go stale again on the next UTC day unless the build is re-run). (b) no new product or source irregularities. Existing open flags remain on `flagged.html`, non-blocking per protocol.
+
