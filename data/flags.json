@@ -296,6 +296,17 @@
     "S15"
    ],
    "action": "Owner to confirm intended products with valid 10-character ASINs; until then keep product claims unpublished (root site keeps the mapping flagged via F17; dashboard/ publishes no product claims)."
+  },
+  {
+   "id": "F27",
+   "severity": "Low",
+   "type": "Citation metadata",
+   "item": "Policy citations for the Participation Requirements 'Content on your Site' items used section numbers that do not match the live page.",
+   "detail": "Live reads of affiliate-program.amazon.com/help/operating/policies on 2026-11-14 (two independent renders; version dated April 14, 2026) place the customer-review/star-rating rule at Participation Requirements '6. Content on your Site' item (t); items (g) incentives, (n) framing, (u) self-purchase, (v) cloaking, (w) link shortening and (y) price tracking sit in the same section. Repo content had cited these as §3(t), §3(g), §3(n), §3(u), §3(v), §2(w) and §3(y). Every quoted rule text was verified verbatim, so no published behaviour changes; only citation labels were aligned to the live structure (root site content, 2026-11-14, session arena-6ecdb4e4). Spot-checked labels already correct: §2(b) prices/availability, §3(e) cookies, §6(a) alteration, IP License §2(e) aggregation/ML-training, OA §5 disclosure. The site/ annex (data/verified/) still carries the old labels; its owner should align them (request logged in COORDINATION.md). Historical session records in COORDINATION.md left as written.",
+   "sources": [
+    "S2"
+   ],
+   "action": "Labels corrected in build.py, data/compliance.json, data/products.json, data/sources.json, data/platform.json, data/marketing.json, README.md, EXECUTIVE-SUMMARY.md and EXECUTIVE_SUMMARY.md; no content change."
   }
  ]
 }

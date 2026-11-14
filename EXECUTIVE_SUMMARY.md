@@ -80,8 +80,8 @@ changes what the site is allowed to show.**
 
 Amazon's Associates Program Policies permit publishing prices and availability only if Amazon
 serves the data or it is obtained through the Creators API / PA API (§2(b)), and permit displaying
-Amazon reviews and star ratings only from those same APIs (§3(t)). Neither condition is met here.
-The same policies also prohibit price-tracking and price-alert functionality outright (§3(y)).
+Amazon reviews and star ratings only from those same APIs (§6(t)). Neither condition is met here.
+The same policies also prohibit price-tracking and price-alert functionality outright (§6(y)).
 
 So this site publishes **no Amazon prices, no Amazon availability, and no Amazon star ratings**.
 Every one of those cells is blank and links to the flag **F-08** explaining why. Most affiliate
@@ -156,9 +156,9 @@ the specific implementation named. The five prohibitions that shaped the build m
 
 | Prohibited by Amazon | Policy | What this site does instead |
 | --- | --- | --- |
-| Price tracking / price alerts | §3(y) | Not built, and stated as a permanent non-feature |
+| Price tracking / price alerts | §6(y) | Not built, and stated as a permanent non-feature |
 | Amazon prices & availability without API data | §2(b) | Blank cells, labelled unverified |
-| Amazon reviews & star ratings without API data | §3(t) | Brand-store ratings only, always labelled as such |
+| Amazon reviews & star ratings without API data | §6(t) | Brand-store ratings only, always labelled as such |
 | Cloaked or indirect outbound links | §3(v) | Full `amazon.com/dp/<ASIN>` printed; build rejects anything else |
 | Click incentives / rebates / points | §3(g) | None exist anywhere in the build |
 
@@ -194,7 +194,7 @@ contains:
 | Product research and verification | Implemented | The sourced data layer plus build-time assertions |
 | Commission-potential analysis | Implemented | 4.50% Kitchen rate sourced; arithmetic shown, volume deliberately blank |
 | SEO-oriented guides and comparisons | Implemented | Three situation-based guides and a comparison page, verified specs only |
-| Pricing and competition analysis | Partial, deliberately limited | Brand-store prices only; no Amazon price; no tracker (§2(b), §3(y)) |
+| Pricing and competition analysis | Partial, deliberately limited | Brand-store prices only; no Amazon price; no tracker (§2(b), §6(y)) |
 | Affiliate link management | Partial | Rendering and validation built; the tag itself is missing (**F-10**) |
 | Click and conversion tracking | Not shipped | A static site cannot truthfully do it; data lives in the Associates dashboard (**F-11**) |
 | Continuous campaign optimisation | Not shipped | Optimising without observed traffic would be theatre (**F-13**) |
@@ -365,7 +365,7 @@ Associates policies and FTC disclosure requirements. Build marketing for three p
 - Restricted values (prices, ratings, review counts, commission rates) are blank with the governing rule cited —
   never inferred, estimated, or copied from non-official sources.
 - No price tracking/alerting functionality (PR §2(y)); no incentivized or artificial clicks (PR §2(g), §2(s));
-  no URL cloaking (PR §2(v)); link shorteners must show the Amazon destination (PR §2(w)) — provided `link.amazon`
+  no URL cloaking (PR §6(v)); link shorteners must show the Amazon destination (PR §6(w)) — provided `link.amazon`
   links flagged for replacement with tagged Special Links.
 - FTC "hard to miss" disclosure placement implemented on all marketing content.
 
