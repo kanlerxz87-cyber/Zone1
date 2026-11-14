@@ -14,24 +14,30 @@ It asked for that to be built around three supplied links, with no manual input,
 
 ## 2. The three products
 
-All three short links were followed and each resolved to an Amazon ASIN.
+**Product identity is not confirmed** (corrected 2026-11-14, F14–F16). Each supplied short link was followed;
+each fetch observed a landing on an air-fryer listing, but the token-to-ASIN mapping is unverified: the bare
+9-character codes return "Page Not Found" on `amazon.com/dp/`, and both the short links and the plain ASIN URLs
+served Amazon's fallback-parameter form on 2026-11-14. Evidence: [`reports/link-check-2026-11-14.md`](reports/link-check-2026-11-14.md).
 
-| Supplied link | ASIN | Product (from the listing title) | Category |
+| Supplied link | Candidate ASIN (unconfirmed) | Observed listing title | Category (provisional) |
 |---|---|---|---|
 | https://link.amazon/B04G1MEwY | **B0CDY277D3** | CHEFMAN 6 Quart Dual Basket Air Fryer Oven, Sync Finish, 2 × 3 qt baskets | Air fryer |
 | https://link.amazon/B02NbDxp3 | **B09B7SB46R** | Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Air fryer oven |
 | https://link.amazon/B00hJ57DV | **B08DKYBTPH** | Chefman Air Fryer 8 Qt, TurboFry 4-in-1, stainless steel | Air fryer |
 
-Source: the Amazon detail pages themselves (S16) reached via the short links (S17).
+Sources: Amazon detail pages (S16) and the supplied short links (S17); link-check report 2026-11-14.
+Confirm each intended product from a logged-in browser before treating any candidate ASIN as final.
 
-The niche is therefore **home-kitchen air frying**, dictated by the product set rather than chosen.
+The observed listings are all **home-kitchen air frying**, so that remains the working niche — dictated by
+the product set rather than chosen — but the niche claim rests on the observed titles, not on a confirmed
+identity mapping.
 
 ## 3. Verification result
 
 - **43 specification rows** across the three products.
 - **40 verified** — each read on the manufacturer's own product page or owner's manual, each with a clickable source link.
 - **3 blank and flagged** — no official source states the value, or official sources disagree.
-- **18 sources**, all official: Amazon Associates documents, the US FTC and eCFR, three manufacturer owner's manuals, two manufacturer product pages, and the Amazon listings themselves. *(Correction 2026-11-14: the completed register in [`data/sources.json`](data/sources.json) now holds **22** official sources, S1–S22 — see §10.)*
+- **24 sources**, all official: Amazon Associates documents, the US FTC and eCFR, three manufacturer owner's manuals, two manufacturer product pages, and the Amazon listings themselves. *(Correction 2026-11-14: the completed register in [`data/sources.json`](data/sources.json) now holds **24** official sources, S1–S24 — see §10.)*
 
 Two rows were initially blank and were later **upgraded to verified** using the manufacturers' own owner's manuals rather than by guessing: the Chefman 6 Qt's per-basket capacity (the manual states "two 3-quart baskets") and the Emeril's preset count (the manual's preset chart names exactly 24). Two further rows, the 6 Qt's preset list and the 8 Qt's warranty, were added from the manuals. The blanks that remain are blanks because no official document answers them.
 - **0 values inferred, estimated or back-filled.**
@@ -154,5 +160,5 @@ Session `arena/88769516-zone1` (PR #9, idle since 2026-11-13T22:47Z) built an in
 
 ### 10.6 State after this pass
 
-- **22 sources** (S1–S22), all official; **43 spec rows** (40 verified, 3 blank+flagged); **17 open flags** (13 programme + 4 product), all published on [`flagged.html`](flagged.html).
+- **24 sources** (S1–S24), all official; **43 spec rows** (40 verified, 3 blank+flagged); **17 open flags** (13 programme + 4 product), all published on [`flagged.html`](flagged.html).
 - `build.py` + `verify.py` gates pass: 91 pages checked, **0 errors**, 0 broken internal links, 0 missing disclosures, 0 unsourced values, 0 leaked Amazon prices/ratings.
