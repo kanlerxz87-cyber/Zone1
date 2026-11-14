@@ -1,0 +1,111 @@
+{
+  "id": "pass6",
+  "pass_date": "2026-11-14",
+  "performed_by": "sess-54c66535",
+  "branch": "arena/54c66535-zone1",
+  "baseline_commit": "f59a385",
+  "title": "Pass 6 — the nine rows earlier passes could not re-check",
+  "lede": "The 2026-11-14 ledger published 61 rows and left 9 marked 'not re-checked'. This pass re-opened every one of those nine against the official page or manual the site cites for it. Six are now confirmed verbatim. Three could not be confirmed: for two of them the official source does not state the value at all, and for one the value is not present in the parts of the page readable as text. Nothing was inferred to fill them.",
+  "method": "Each row's official URL was re-fetched on 2026-11-14 and the published value compared to what the source actually says, character by character where the value is a number or a quoted phrase. A row is only marked confirmed when the source states it outright. Where a source does not state the value, the row is marked 'source silent' and left as-is rather than being filled by inference.",
+  "scope_note": "Files touched by this pass: session-54c66535/** (new), build.py (a new additive section on this page and two new flags), and the regenerated root HTML. No file owned by another session was edited. Flag ids F28-F30 are used because F25 and F26 were taken by sess-502dcf85 (PR #31) and F27 by sess-6ecdb4e4 (PR #34) while this pass was running.",
+  "rows": [
+    {
+      "claim": "Number of presets (Chefman 6 Qt Dual Basket)",
+      "published_value": "Four one-touch food presets: French fries, chicken, meat, fish",
+      "observed": "The RJ38-SQPF-3TDB-2W user guide was read end to end (all four extracted chunks). It documents HI-FRY, +2 MIN, MUTE, SYNC BASKETS, SYNC FINISH, START/STOP, TIME/TEMP and SHAKE, and says 'set the time and temperature (or a preset function)'. It contains no preset chart and never names four food presets. Unlike the 8 Qt guide RJ38-SQSS-8T, which has an explicit PRESET FUNCTION CHART table, the dual-window guide shows its control panel only as artwork, which carries no text layer.",
+      "verdict": "source-silent",
+      "source_url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf",
+      "source_label": "Chefman user guide RJ38-SQPF-3TDB-2W (re-read 2026-11-14)"
+    },
+    {
+      "claim": "Rated power (Emeril 26 QT French Door)",
+      "published_value": "1700 W",
+      "observed": "Appliance Specifications table, row 1: 'Model Number FAFO-001 | Supply Power 120 V/1700 W/60 Hz | Rated Power 1700 W | Capacity 26 quarts (1519 cubic inches) | Temperature 75° F - 500° F/25° C - 260° C | Display LED'. Rated power is stated outright as 1700 W.",
+      "verdict": "confirmed",
+      "source_url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf",
+      "source_label": "Emeril owner's manual FAFO-001 (re-read 2026-11-14)"
+    },
+    {
+      "claim": "Temperature range (Emeril 26 QT French Door)",
+      "published_value": "75–500 °F / 25–260 °C",
+      "observed": "Same Appliance Specifications table: Temperature '75° F - 500° F/25° C - 260° C'. Matches the published value exactly.",
+      "verdict": "confirmed",
+      "source_url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf",
+      "source_label": "Emeril owner's manual FAFO-001 (re-read 2026-11-14)"
+    },
+    {
+      "claim": "Interior light (Emeril 26 QT French Door)",
+      "published_value": "Yes",
+      "observed": "The brand page's Specifications block was re-read today and lists: Timer, 26-Quart Capacity, Dual-Speed Fan, 25 Cooking Pre-sets, 16.9\"D x 15.8\"W x 14.8\"H, 24.6 Liters, Temperature Control, 120 volts. No interior-light row. The description paragraph does not mention it either. Not located in this pass, so it is not re-asserted.",
+      "verdict": "source-silent",
+      "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+      "source_label": "Emeril product page (re-read 2026-11-14)"
+    },
+    {
+      "claim": "Warranty (Emeril 26 QT French Door)",
+      "published_value": "1-year warranty",
+      "observed": "'1-Years Warranty' shown in the page's assurance strip alongside Free Shipping, and a link to the Product Manual (FAFO-001). Matches the published value.",
+      "verdict": "confirmed",
+      "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+      "source_label": "Emeril product page (re-read 2026-11-14)"
+    },
+    {
+      "claim": "Preset defaults (Chefman 8 Qt TurboFry)",
+      "published_value": "Default 400 °F / 15 min · Meat 375 °F / 18 min · Chicken 375 °F / 22 min · Fish 350 °F / 10 min · Fries 400 °F / 20 min",
+      "observed": "PRESET FUNCTION CHART in the RJ38-SQSS-8T user guide gives all five rows exactly: Default 15 min / 400°F; Meat 18 min / 375°F; Chicken 22 min / 375°F; Fish 10 min / 350°F; Fries 20 min / 400°F. All five match, including the Fries row that the earlier pass could not read.",
+      "verdict": "confirmed",
+      "source_url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf",
+      "source_label": "Chefman user guide RJ38-SQSS-8T (re-read 2026-11-14)"
+    },
+    {
+      "claim": "Shake reminder (Chefman 8 Qt TurboFry)",
+      "published_value": "LED shake reminder",
+      "observed": "Brand page: 'the fryer's ... LED shake reminder'. User guide: 'the SHAKE light on the control panel will turn on, and the air fryer will beep as a reminder to shake (or flip) food'. Both state it.",
+      "verdict": "confirmed",
+      "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+      "source_label": "Chefman 8 Qt product page + RJ38-SQSS-8T guide (2026-11-14)"
+    },
+    {
+      "claim": "Stated household size (Chefman 8 Qt TurboFry)",
+      "published_value": "Designed for 4–6 people",
+      "observed": "Brand page verbatim: 'Designed for 4-6 people, this family-sized air fryer...'",
+      "verdict": "confirmed",
+      "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+      "source_label": "Chefman 8 Qt product page (re-read 2026-11-14)"
+    },
+    {
+      "claim": "Oil-reduction claim (Chefman 8 Qt TurboFry)",
+      "published_value": "Brand claim: meals with '98% less oil'",
+      "observed": "Brand page verbatim: 'Indulge in extra-crispy meals with 98% less oil'. A brand marketing claim, recorded as the brand's own wording, not as a tested result.",
+      "verdict": "confirmed",
+      "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+      "source_label": "Chefman 8 Qt product page (re-read 2026-11-14)"
+    }
+  ],
+  "new_evidence": [
+    {
+      "id": "P6-E1",
+      "title": "The Emeril preset count is now stated five different ways across official sources",
+      "detail": "Re-read 2026-11-14. Amazon listing title (S16/S17 target B09B7SB46R): '24 cooking functions'. Emeril's own description paragraph: 'Equipped with 24 one-touch cooking presets'. Emeril's specification block: '25 Cooking Pre-sets'. The page's feature heading and hero: '10-in-1'. A carousel image asset on the same page: '11-in-1'. Two official sources now independently say 24, which is new: the earlier passes had recorded the conflict as 25 vs 10-in-1 vs 11-in-1 with no tiebreaker. The conflict is narrowed, not closed — the same page still says 25 in one block and 24 in another, so no single number is asserted anywhere on this site.",
+      "flag": "F28",
+      "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+      "source_label": "Emeril product page + Amazon listing title (2026-11-14)"
+    },
+    {
+      "id": "P6-E2",
+      "title": "The two Chefman 6 Qt sister SKUs carry very different review counts on the brand's own site",
+      "detail": "Re-read 2026-11-14. The dual-basket page RJ38-SQPF-3TDB-2 (S11) reports 4.6 stars from 194 reviews. The dual-window page RJ38-SQPF-3TDB-2W (S10) reports 4.6 stars from 1,305 reviews — the same list price ladder ($119.99 struck through, with $108/$90/$84/$102/$96/$72 promos) on both. The 6.7x gap in review counts is a useful signal for deciding which SKU the supplied ASIN maps to, but Amazon does not publish the model number, so it remains a signal and not an identification. This is added to the existing F2 record.",
+      "flag": "F2",
+      "source_url": "https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer",
+      "source_label": "Chefman RJ38-SQPF-3TDB-2 page (re-read 2026-11-14)"
+    },
+    {
+      "id": "P6-E3",
+      "title": "Link resolution, fifth observation round",
+      "detail": "Fetched all three supplied short links on 2026-11-14. B04G1MEwY -> amazon.com/dp/B0CDY277D3, title 'CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black'. B02NbDxp3 -> /dp/B09B7SB46R, title 'Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.' B00hJ57DV -> /dp/B08DKYBTPH, title 'Chefman Air Fryer 8 Qt | TurboFry 4-in-1 with 450F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel'. All three titles match the values stored in the dataset character for character. This is the fifth round of observations by five sessions across two days; the destination is reproducible. The identity of the intended product and the Associates tag remain unconfirmed (F10, F14-F16, F21).",
+      "flag": "F21",
+      "source_url": "https://link.amazon/B04G1MEwY",
+      "source_label": "The three supplied short links (re-fetched 2026-11-14)"
+    }
+  ]
+}

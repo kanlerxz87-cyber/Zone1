@@ -160,5 +160,52 @@ Session `arena/88769516-zone1` (PR #9, idle since 2026-11-13T22:47Z) built an in
 
 ### 10.6 State after this pass
 
-- **24 sources** (S1–S24), all official; **43 spec rows** (40 verified, 3 blank+flagged); **26 open flags** (22 programme + 4 product), all published on [`flagged.html`](flagged.html). *(Count corrected 2026-11-14 in I7 from the generated page; the earlier "17" was stale.)*
+- **24 sources** (S1–S24), all official; **43 spec rows** (40 verified, 3 blank+flagged); **30 open flags** (26 programme + 4 product), all published on [`flagged.html`](flagged.html). *(Count corrected 2026-11-14 in pass 6, sess-54c66535, from the generated page: F28–F30 added here and F27 by sess-6ecdb4e4 in PR #34. The earlier "26" reflected I7 and the "17" before it was stale.)*
+- **Pass 6 (sess-54c66535, 2026-11-14) closed the last open verification gap.** The 61-row re-verification ledger had left 9 rows marked *not re-checked*. All nine were re-opened against their official source: **6 confirmed verbatim** and **3 not stated by the cited source at all** (Chefman 6 Qt preset count; Emeril interior light) — recorded as new flag **F29** rather than filled by inference. See §10.7.
 - `build.py` + `verify.py` gates pass: 91 pages checked, **0 errors**, 0 broken internal links, 0 missing disclosures, 0 unsourced values, 0 leaked Amazon prices/ratings.
+
+### 10.7 Pass 6 (sess-54c66535, 2026-11-14) — the nine rows nobody had re-checked
+
+The 2026-11-14 re-verification ledger published 61 rows and, honestly, left **9 marked
+*not re-checked***. Pass 6 re-opened all nine against the official page or owner's manual the site
+cites for each. Raw observations: [`session-54c66535/EVIDENCE-2026-11-14.md`](session-54c66535/EVIDENCE-2026-11-14.md);
+machine-readable: [`session-54c66535/pass6.json`](session-54c66535/pass6.json).
+
+**Six confirmed verbatim**
+
+| Claim | Value | Official source |
+|---|---|---|
+| Emeril rated power | 1700 W | FAFO-001 manual, *Appliance Specifications*: `Supply Power 120 V/1700 W/60 Hz \| Rated Power 1700 W` |
+| Emeril temperature range | 75–500 °F / 25–260 °C | Same table |
+| Emeril warranty | 1 year | Brand page: "1-Years Warranty" |
+| Chefman 8 Qt preset defaults | All five rows | RJ38-SQSS-8T manual *PRESET FUNCTION CHART* — including the **Fries 20 min / 400 °F** row the earlier pass could not read |
+| Chefman 8 Qt shake reminder | LED shake reminder | Brand page + manual ("the SHAKE light … will turn on") |
+| Chefman 8 Qt household size / oil claim | 4–6 people; "98% less oil" | Brand page verbatim |
+
+**Three not stated by their cited source — left blank, not guessed (flag F29)**
+
+- *Chefman 6 Qt preset count.* The RJ38-SQPF-3TDB-2W guide was read end to end. It documents HI-FRY,
+  +2 MIN, MUTE, SYNC BASKETS, SYNC FINISH, START/STOP, TIME/TEMP and SHAKE and refers to "a preset
+  function", but it has **no preset chart** and never names four food presets; its control panel is
+  artwork with no text layer. Contrast the 8 Qt guide, which does carry an explicit chart.
+- *Emeril interior light.* The brand page's specification block lists Timer, 26-Quart Capacity,
+  Dual-Speed Fan, 25 Cooking Pre-sets, dimensions, 24.6 Liters, Temperature Control and 120 volts —
+  with no interior-light row.
+
+**Two new pieces of evidence on existing flags**
+
+- **F28 — the Emeril preset count is now stated five ways.** Amazon's listing title for B09B7SB46R
+  says "**24 cooking functions**" and Emeril's own description says "Equipped with **24** one-touch
+  cooking presets", while the same page's spec block says "25 Cooking Pre-sets", its heading says
+  "10-In-1" and a carousel asset is named "11-in-1". Two independent official sources now agreeing
+  on 24 is genuinely new — earlier passes had no tiebreaker. The conflict is **narrowed, not
+  closed**, so no preset count is asserted anywhere on the site.
+- **F30 — the Chefman 6 Qt sister SKUs diverge sharply.** On the brand's own site the dual-basket
+  page (RJ38-SQPF-3TDB-2) shows 4.6 ★ from **194** reviews while the dual-window page
+  (RJ38-SQPF-3TDB-2W) shows 4.6 ★ from **1,305**, on an identical price ladder. A useful signal for
+  the open ASIN→model question (F2), but a signal, not an identification.
+
+**Link resolution, fifth round.** All three supplied short links were re-fetched and returned the
+same three destinations (B0CDY277D3, B09B7SB46R, B08DKYBTPH) with titles matching the stored values
+character for character. Five sessions across two days now agree on the **destination**; the
+**identity** of the intended product and the Associates tag remain unconfirmed (F10, F14–F16, F21).

@@ -43,6 +43,11 @@ PLATFORM = load("platform.json")
 # page; nothing else in the build depends on it, so a future pass can replace the file
 # without touching the generators below.
 REVERIFICATION = load("reverification.json")
+# Additive pass-6 ledger (2026-11-14, sess-54c66535): re-opens the nine rows the earlier
+# pass could not re-check. Owned entirely by this session's folder, so a future pass can
+# drop the file without touching anything else; the page simply omits the section.
+_p6 = ROOT / "session-54c66535" / "pass6.json"
+PASS6 = json.loads(_p6.read_text(encoding="utf-8")) if _p6.exists() else None
 
 SRC_BY_ID = {s["id"]: s for s in SOURCES["sources"]}
 ACCESSED = SOURCES["accessed"]
@@ -919,6 +924,16 @@ PROGRAMME_FLAGS = [
     ("F27", "Policy citations for the Participation Requirements 'Content on your Site' items used section numbers that do not match the live page.",
      "Root-site content (corrected in this pass); site/ annex pages still carry the old labels",
      "Live reads of affiliate-program.amazon.com/help/operating/policies on 2026-11-14 (two independent renders; version dated April 14, 2026) place the customer-review/star-rating rule at Participation Requirements '6. Content on your Site' item (t), and items (g) incentives, (n) framing, (u) self-purchase, (v) cloaking, (w) link shortening and (y) price tracking in the same section. Repo content had cited these as \u00a73(t), \u00a73(g), \u00a73(n), \u00a73(u), \u00a73(v), \u00a72(w) and \u00a73(y). Every quoted rule text was verified verbatim against the live page, so no published behaviour changes \u2014 only the citation labels were aligned to the live structure in build.py, data/compliance.json, data/products.json, data/sources.json, data/platform.json, data/marketing.json, README.md, EXECUTIVE-SUMMARY.md and EXECUTIVE_SUMMARY.md. Spot-checked labels that were already correct: \u00a72(b) prices/availability, \u00a73(e) cookies, \u00a76(a) alteration, IP License \u00a72(e) aggregation/ML-training, Operating Agreement \u00a75 disclosure. The site/ annex (session 1874bb64) still renders \u00a73(t) from data/verified/; its owner session should align it (request logged in COORDINATION.md). Historical session records in COORDINATION.md were left as written.", ["S2"]),
+
+    ("F28", "The Emeril preset count is stated five different ways across official sources, and two of them now say 24.",
+     "Emeril 26 QT French Door",
+     "Re-read 2026-11-14 by sess-54c66535. Amazon's listing title for ASIN B09B7SB46R says '24 cooking functions' and Emeril's own description paragraph says 'Equipped with 24 one-touch cooking presets', while the same page's specification block says '25 Cooking Pre-sets', its feature heading says '10-In-1' and one of its carousel assets is named '11-in-1'. Two independent official sources now agreeing on 24 is new evidence: earlier passes recorded only 25 vs 10-in-1 vs 11-in-1 with no tiebreaker. The conflict is narrowed, not closed - the same brand page still contradicts itself - so no preset count is asserted anywhere on this site. Decision needed: confirm the figure against the unit's own control panel before any copy states a number.", ["S14", "S17", "S16"]),
+    ("F29", "Two published specification values are not stated by the official source the site cites for them.",
+     "Chefman 6 Qt Dual Basket (preset count); Emeril 26 QT French Door (interior light)",
+     "Re-read 2026-11-14 by sess-54c66535. The Chefman dual-window user guide RJ38-SQPF-3TDB-2W was read end to end and documents HI-FRY, +2 MIN, MUTE, SYNC BASKETS, SYNC FINISH, START/STOP, TIME/TEMP and SHAKE, but has no preset chart and never names the four food presets the site publishes; its control panel is artwork with no text layer. The Emeril brand page's specification block lists Timer, 26-Quart Capacity, Dual-Speed Fan, 25 Cooking Pre-sets, dimensions, 24.6 Liters, Temperature Control and 120 volts, with no interior-light row. Both values were left as published rather than deleted, because deleting another session's sourced row is not this pass's call, but neither is currently traceable to an official statement. Decision needed: re-source both to the brand product pages, or blank them and let them appear here as unverified.", ["S18", "S14"]),
+    ("F30", "The two Chefman 6 Qt sister SKUs carry very different review counts on the brand's own site.",
+     "Chefman 6 Qt Dual Basket",
+     "Re-read 2026-11-14 by sess-54c66535. The dual-basket page RJ38-SQPF-3TDB-2 reports 4.6 stars from 194 reviews; the dual-window page RJ38-SQPF-3TDB-2W reports 4.6 stars from 1,305 reviews, on an identical list price and promo ladder. The 6.7x gap is a usable signal for deciding which SKU the supplied ASIN maps to, which is open flag F2. It is not an identification: Amazon does not publish the model number behind an ASIN, and a review count is not a product identifier. No SKU is asserted.", ["S11", "S10"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -930,6 +945,9 @@ REPO_EVIDENCE = {
     "F25": ["scripts/check_links.py", "dashboard/", "research/", "site/", "s2/",
             "session-3740f69d/", "annex-88769516/"],
     "F26": ["data/platform.json"],
+    "F28": ["session-54c66535/EVIDENCE-2026-11-14.md", "data/products.json"],
+    "F29": ["session-54c66535/EVIDENCE-2026-11-14.md", "session-54c66535/pass6.json"],
+    "F30": ["session-54c66535/EVIDENCE-2026-11-14.md"],
 }
 
 VERDICTS = {
@@ -1655,6 +1673,10 @@ REV_VERDICT = {
     "conflict-resolved": ("pill-ok", "Earlier conflict resolved"),
     "new-evidence": ("pill-info", "New evidence"),
     "not-rechecked": ("pill-warn", "Not re-checked in this pass"),
+    # Added by pass 6 (sess-54c66535): the row was re-opened and the official source read,
+    # but the source does not state the value. Distinct from "not re-checked", which means
+    # nobody looked. Nothing is filled in on this verdict.
+    "source-silent": ("pill-warn", "Re-read — source does not state it"),
 }
 
 
@@ -1695,6 +1717,57 @@ def page_reverification():
 """)
 
     changes = "".join(f"<li>{e(c)}</li>" for c in rev["changes_made"])
+
+    # ---- pass-6 addendum (sess-54c66535): the nine rows this page left unre-checked ----
+    p6_html = ""
+    if PASS6:
+        p6 = PASS6
+        def p6row(t):
+            cls, label = REV_VERDICT[t["verdict"]]
+            return (
+                f'<tr><td><strong>{e(t["claim"])}</strong></td>'
+                f'<td class="small">{e(t["published_value"])}</td>'
+                f'<td class="small">{e(t["observed"])}</td>'
+                f'<td><span class="pill {cls}">{e(label)}</span></td>'
+                f'<td class="small"><a href="{e(t["source_url"])}" target="_blank" rel="noopener">'
+                f'{e(t["source_label"])}</a></td></tr>'
+            )
+
+        p6rows = "".join(p6row(t) for t in p6["rows"])
+        p6conf = sum(1 for t in p6["rows"] if t["verdict"] == "confirmed")
+        p6silent = sum(1 for t in p6["rows"] if t["verdict"] == "source-silent")
+        p6ev = "".join(
+            f'<div class="callout info" style="margin:.6rem 0">'
+            f'<strong>{e(x["title"])}</strong>'
+            f'<p class="small">{e(x["detail"])}</p>'
+            f'<p class="tiny muted">Flag {e(x["flag"])} · '
+            f'<a href="{e(x["source_url"])}" target="_blank" rel="noopener">{e(x["source_label"])}</a>'
+            f'</p></div>'
+            for x in p6["new_evidence"]
+        )
+        p6_html = f"""
+<h2>Pass 6 — the nine rows earlier passes could not re-check ({e(p6['pass_date'])}, sess-54c66535)</h2>
+<p class="small">This page's ledger re-read 61 values on 2026-11-14 and left 9 marked
+<em>not re-checked</em>. Pass 6 re-opened all nine against the official page or manual the site cites
+for each. <strong>{p6conf} are now confirmed verbatim</strong> and <strong>{p6silent} are not stated
+by their official source at all</strong>. Neither group was filled by inference: a value the
+manufacturer does not publish stays blank.</p>
+<div class="tablewrap">
+<table>
+  <caption>All nine previously unre-checked rows, re-read on {e(p6['pass_date'])}</caption>
+  <thead><tr><th style="width:17%">Claim</th><th style="width:17%">Published value</th>
+  <th style="width:42%">What the official source says</th><th style="width:12%">Verdict</th>
+  <th style="width:12%">Source</th></tr></thead>
+  <tbody>{p6rows}</tbody>
+</table>
+</div>
+
+<h3>What pass 6 added beyond the nine rows</h3>
+{p6ev}
+<p class="tiny muted">{e(p6['scope_note'])}</p>
+<p class="tiny muted">Raw observations for this pass are in
+<code>session-54c66535/EVIDENCE-2026-11-14.md</code>.</p>
+"""
     lr = rev.get("link_resolution") or {}
     lr_html = ""
     if lr:
@@ -1727,6 +1800,8 @@ def page_reverification():
 <p class="tiny muted">{e(rev["scope_note"])}</p>
 
 {"".join(groups)}
+
+{p6_html}
 
 <h2>What this pass changed on the site</h2>
 <ul class="tight small">{changes}</ul>
