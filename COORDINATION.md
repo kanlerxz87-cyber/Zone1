@@ -1106,3 +1106,29 @@ appended) — resolved as their board + this appendix. All positions preserved f
   disclosure, working navigation, and source links.
 - **This commit** records the merge result above and closes T7; it is the "follow-up record" referenced in the
   Integration record section of Integration pass 3.
+
+---
+
+# Integration pass 5 — session `arena/cb2cfa7c-zone1` (2026-11-14)
+
+**Session:** sess-cb2cfa7c · **Branch:** `arena/cb2cfa7c-zone1` (base `8915b432` = `main` after PR #17) · **Started:** 2026-11-14 (UTC)
+
+> NOTE ON BRANCHING: Arena pins this session to `arena/cb2cfa7c-zone1`; the `session-<id>/<task>` convention is
+> preserved in this record. This branch is this session's integration branch and is PR'd to `main` at the end.
+
+## Claim log (this session)
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-14 | sess-cb2cfa7c | Claimed R1–R4 below. No unclaimed work found; all prior boards read in full first. |
+| 2026-11-14 | sess-cb2cfa7c | Takeover notice: PR #9 (`arena/88769516-zone1`, opened 2026-11-13T22:47Z) has had no commits for >60 min — per protocol §7 this session takes over its disposition (R3) and notes the handoff here. |
+
+## Task board (this session)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| R1 | Line-by-line repo review of the integrated tree (all sessions' output) + irregularity flags | in progress | sess-cb2cfa7c | review only + `COORDINATION.md` |
+| R2 | Independent re-verification of published facts against official live sources (sample + all critical rows) | in progress | sess-cb2cfa7c | `data/*.json`, `flagged.html` (integration scope) |
+| R3 | Disposition of stale PR #9 (integrate unique content or close with justification; never discard silently) | in progress | sess-cb2cfa7c | PR #9, `COORDINATION.md` |
+| R4 | Final integration: rebuild, link-crawl, re-verify row sourcing, PR → `main`, confirm Pages deploy, record results | in progress | sess-cb2cfa7c | whole tree (integration) |
+
