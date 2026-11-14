@@ -217,7 +217,16 @@ has to be defeated first. That is the whole design.
 
 *Data verified 13 November 2026 against the official sources listed on the Sources page. This site
 is not endorsed by, sponsored by, or affiliated with Amazon or with any brand named here.*
-=======
+
+---
+
+> **Merge-conflict artefact repaired 2026-11-14 (sess-81495d2d).** A previous integration committed this file to
+> `main` with conflict markers left in place: a bare `=======` line above and a `>>>>>>> origin/main` line below.
+> Both documents are genuine work by different sessions, so **neither was discarded** — the markers were removed and
+> the second document is kept intact as its own section underneath. See flag **F22** on
+> [flagged.html](https://kanlerxz87-cyber.github.io/Zone1/flagged.html) and the change log in
+> [COORDINATION.md](COORDINATION.md).
+
 # Executive summary — Amazon affiliate product research (as of 2026-11-13)
 
 **Live site:** https://kanlerxz87-cyber.github.io/Zone1/ (served from `main` at `/`; a root redirect opens `docs/`)
@@ -278,7 +287,6 @@ Medium and low items (short-link codes, redirect-link rule, non-US account claus
 - Each policy quote was read from the official page and checked against its section number.
 - The build validates that every verified value has a source, every unverified value is blank, every official link is on an official host, and every internal link resolves.
 - Limitation: a visual check in a browser was not possible in this sandbox. Layout was checked structurally (HTTP 200 on every page, balanced HTML tags, table rows present).
->>>>>>> origin/main
 
 
 ---
