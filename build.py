@@ -1013,7 +1013,7 @@ VERDICTS = {
     "emeril-26qt-french-door":
         "The largest cavity in the set by a wide margin (26 qt against 6 qt and 8 qt) and the only unit that is an oven rather than a basket. The manufacturer documents the power draw (1700 W), the temperature range (75–500 °F) and the physical footprint, which is what actually decides whether it fits a kitchen. On preset count the manual is the controlling document: its chart names exactly 24 presets, which matches the description text and the Amazon title rather than the spec block's 25. The brand's own on-site rating is unusually low (2.6 from 25 reviews) and is reported here as displayed, not softened.",
     "chefman-8qt-turbofry":
-        "A conventional single-basket 8-quart air fryer with a documented 200–400 °F range, four food-type presets and dishwasher-safe nonstick parts. The unresolved problem is that the Amazon listing title advertises a 450 °F Hi-Fry mode and bake/dehydrate/frozen functions that the brand page and the owner's manual do not document. Until that is resolved, the honest position is that the temperature ceiling of the unit shipping against this ASIN is unknown, and the buyer should read the manual that arrives with the unit.",
+        "A conventional single-basket 8-quart air fryer with a documented 200–400 °F range, four food-type presets and dishwasher-safe nonstick parts. The unresolved problem is that the Amazon listing title advertises a 450 °F Hi-Fry mode and bake/dehydrate/frozen functions that the RJ38-SQSS-8T page and manual do not document. A 2026-11-14 read found that Chefman sells a second 8-quart SKU, RJ38-8T-BLACK, whose page states exactly that Hi-Fry mode and exactly those four functions — so the listing probably describes a different unit rather than a stale page (flag F33). Until someone opens the listing and reads the model number, the honest position is that the temperature ceiling of the unit shipping against this ASIN is unknown, and the buyer should read the manual that arrives with the unit.",
 }
 
 
@@ -1405,7 +1405,7 @@ def page_flagged():
 
 <div class="callout bad">
   <strong>The one that matters most</strong>
-  <p class="small">The Chefman 8 Qt listing advertises a <strong>450 °F Hi-Fry</strong> mode and bake/dehydrate/frozen functions. The brand's own product page and its RJ38-SQSS-8T owner's manual document a <strong>200–400 °F</strong> range with four food-type presets. One of those official sources is describing a different product, or one is stale. This site asserts neither, and the buying guide tells readers to read the manual that ships with the unit. {src_links(['S12', 'S13', 'S16'])}</p>
+  <p class="small">The Chefman 8 Qt listing advertises a <strong>450 °F Hi-Fry</strong> mode and bake/dehydrate/frozen functions. The brand's page and owner's manual for <code>RJ38-SQSS-8T</code> — the model this site maps to that listing — document a <strong>200–400 °F</strong> range with four food-type presets. <strong>Read 2026-11-14:</strong> Chefman also sells <code>RJ38-8T-BLACK</code>, whose page states a <strong>450 °F Hi-Fry</strong> and exactly those four functions, in a matte-black finish. So this is most likely <em>two different units</em> rather than one stale page — which narrows the problem without settling which unit the ASIN ships. This site asserts neither, and the buying guide tells readers to read the manual that ships with the unit. {src_links(['S12', 'S13', 'S26', 'S16'])}</p>
 </div>
 
 <h2>Programme-level flags</h2>
@@ -2065,6 +2065,24 @@ def check_articles():
     return problems
 
 
+def check_article_pages(rendered):
+    """Every rendered article must carry the Associates sentence, say that nothing was tested, and
+    contain no Amazon price or star-rating pattern (Program Policies 2(b) and 6(t))."""
+    problems = []
+    for rel, text in rendered.items():
+        if not rel.startswith("articles/") or not rel.endswith(".html"):
+            continue
+        if DISCLOSURE not in text.split("</header>")[0]:
+            problems.append(f"{rel}: the Associates sentence is not in the page header")
+        low = text.lower()
+        if "tested" not in low and "hands-on" not in low:
+            problems.append(f"{rel}: no statement that nothing was tested")
+        for bad in ("out of 5 stars", "a-icon-alt", "Amazon price:"):
+            if bad in text:
+                problems.append(f"{rel}: prohibited Amazon price/rating pattern {bad!r}")
+    return problems
+
+
 def article_body(article, prefix="../"):
     parts = []
     for sec in article["sections"]:
@@ -2100,7 +2118,7 @@ def page_articles_index():
     body = f"""
 <p class="crumbs"><a href="../index.html">Dashboard</a> / Articles</p>
 <h1>Articles</h1>
-<p class="lede">Six pieces written for this product set. Each one states what the manufacturer's own pages and manuals establish, links to the page it came from, and names the places where the official record contradicts itself rather than tidying them away.</p>
+<p class="lede">Eight pieces written for this product set. Each one states what the manufacturer's own pages and manuals establish, links to the page it came from, and names the places where the official record contradicts itself rather than tidying them away.</p>
 
 <div class="callout info">
   <strong>How to read these articles</strong>
@@ -2129,7 +2147,7 @@ def page_articles_index():
 <p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../guides/buying-guide-air-fryers.html">Buying guide →</a> <a class="btn btn-ghost" href="../compare.html">Comparison matrix →</a> <a class="btn btn-ghost" href="../flagged.html">Flagged for review →</a></p>
 """
     return layout("articles/index.html", "Articles", body, active="articles/index.html",
-                  description="Six sourced articles on dual-basket vs oven air fryers, what a 450 F badge means, preset-count conflicts, capacity from published numbers, and why this site publishes no Amazon prices.")
+                  description="Eight sourced articles on dual-basket vs oven air fryers, what a 450 F badge means, preset-count conflicts, capacity from published numbers, and why this site publishes no Amazon prices.")
 
 
 def page_article(a):
@@ -2274,6 +2292,10 @@ def main():
     if article_problems:
         raise SystemExit("BUILD FAILED — article cites an unregistered source or states an "
                          "unpublished value:\n  " + "\n  ".join(article_problems))
+    article_page_problems = check_article_pages(pages)
+    if article_page_problems:
+        raise SystemExit("BUILD FAILED — article page violated a disclosure/claims rule:\n  "
+                         + "\n  ".join(article_page_problems))
     unsourced_rows = check_row_sources(pages)
     if unsourced_rows:
         raise SystemExit("BUILD FAILED — table rows with no official source link (cite a registered "

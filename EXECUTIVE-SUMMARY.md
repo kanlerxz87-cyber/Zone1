@@ -10,7 +10,7 @@ The brief asked for an AI-powered Amazon affiliate platform that automates produ
 
 It asked for that to be built around three supplied links, with no manual input, line-by-line verification against official sources, a GitHub Pages site, and a "Flagged for Review" page for anything unverified.
 
-**What exists now:** a live, dependency-free static site of 13 pages generated from a verified JSON dataset, plus a platform blueprint, a compliance register of 16 quoted requirements, and a flagged list that every unresolved item is published on. Every asserted value carries a link to the official page it came from. Nothing is estimated.
+**What exists now:** a live, dependency-free static site of **23 pages** generated from a verified JSON dataset — the dashboard and verification set, plus a **7-article editorial layer** — with a platform blueprint, a compliance register, and a flagged list that every unresolved item is published on. Every asserted value carries a link to the official page it came from. Nothing is estimated. *(Page count corrected 2026-11-14 at integration pass 7: the long-standing "13 pages" figure was stale by several passes; the root build is now 23 pages and `verify.py` checks 101 HTML files across the repo.)*
 
 ## 2. The three products
 
@@ -464,3 +464,71 @@ re-read on 2026-11-14 by earlier sessions and are structurally covered by `verif
 edit `EXECUTIVE_SUMMARY.md`, any `data/verified/` file, or any other session's build. It did not
 resolve F32 or F33, because resolving them requires opening a logged-in listing, which this session
 cannot do. **No number on this site changed as a result of this pass.**
+
+
+---
+
+## 12. Integration pass 7 — the editorial layer, and two sessions converging on it (2026-11-14)
+
+### 12.1 What was missing
+
+The brief asked for a site that **looks like a polished marketing affiliate website** with **catchy,
+trendy articles and topics related to the product set**. Before this pass the canonical build had no
+editorial layer of its own at the root: the only articles in the repository lived inside a parallel
+session's `research/` annex, unreachable from the main navigation.
+
+### 12.2 What landed
+
+Two sessions worked this gap **at the same time** and merged independently:
+
+| Session | Contribution | Now on `main` as |
+|---|---|---|
+| `sess-6b2eddeb` (PR #42) | A data-driven article engine: `data/articles.json` → `articles/*.html`, five articles, with a build gate (`check_articles()`) that refuses any `{{value}}` not present verbatim in `data/products.json` and any `cite` id not in `data/sources.json`. | The canonical engine and five articles |
+| `arena/38f82d32` (this pass, PR #43) | Two further articles (a documentation-based 6 Qt review and an eight-line spec-sheet guide), ported into the same `data/articles.json` schema rather than shipped as a second competing hub; plus a **new gate**, `check_article_pages()`, and this section. | Articles 6 and 7, and one new build guard |
+
+**The merge decision, recorded honestly.** This pass originally generated four articles of its own in a
+separate `editorial.py` module. When PR #42 landed first with five articles and a better-understood data
+contract, shipping both would have produced two articles hubs, one of them orphaned, and duplicate
+targets competing for the same queries. The resolution: **the other session's engine is canonical**;
+this pass kept only the two articles that did not duplicate it (a product review and a spec-sheet
+guide), rewrote them into `data/articles.json`, and dropped the module. No published value was lost, and
+nothing the other session wrote was overwritten. The superseded module remains in this branch's history
+(commit `f9daccb`) and in `backup-38f82d32-before-merge` for audit.
+
+### 12.3 Two gates now protect the article layer
+
+| Gate | Protects against |
+|---|---|
+| `check_articles()` (from PR #42) | An article citing an unregistered source id, or stating a number that is not present verbatim in the verified dataset. Its author reports it rejected 18 paraphrases while writing. |
+| `check_article_pages()` (this pass) | An article page that ships **without the Associates sentence in its header**, without a statement that nothing was tested, or containing a prohibited Amazon price/rating pattern. Verified by negative test: fed a synthetic page, it correctly returns all three failures. |
+
+### 12.4 Compliance position of the article layer
+
+- **Operating Agreement §5** — the required sentence is injected by `layout()` on every page and is now
+  also checked specifically on article pages.
+- **FTC Disclosures 101** — "you can't talk about your experience with a product you haven't tried."
+  Every article carries a no-testing statement; the new gate makes its absence a build failure.
+- **Program Policies §2(b) and §6(t)** — no Amazon price, availability, star rating or review count
+  appears in any article. The gate rejects the patterns.
+- **Program Policies §6(a)** — Amazon listing titles are quoted, not rewritten.
+
+### 12.5 State of the record after this pass
+
+| Measure | Value |
+|---|---|
+| Root build pages | **23** |
+| HTML files checked by `verify.py` | **101** |
+| Specification rows | 43 (42 verified, 1 blank + flagged) |
+| Registered official sources | **27** (S25–S27 added by PR #42: the three further Chefman SKU pages) |
+| Open flagged items | **35** (F1–F35 — F32–F35 added by PR #42) |
+| Values invented, estimated or back-filled | **0** |
+
+### 12.6 New flags from the concurrent pass, carried and not re-litigated
+
+F32 (Chefman publishes three 6-quart dual-basket SKUs, not two), F33 (Chefman's RJ38-8T-BLACK
+documents the 450 °F Hi-Fry and the exact four functions in the Amazon title for B08DKYBTPH — which
+sharply narrows F3 toward "two different SKUs" rather than "one stale page"), F34 (a legacy
+`EXECUTIVE_SUMMARY.md` asserts two claims a later pass disproved) and F35 (nine competing builds in
+one repository). All four are published on `flagged.html` with their sources. **F33 is the most
+consequential finding of the day**: it does not resolve F3, but it changes which explanation is more
+likely, and it is recorded as evidence rather than as a resolution.
