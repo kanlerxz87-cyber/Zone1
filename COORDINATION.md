@@ -1510,3 +1510,30 @@ Note: `arena/1dcaaafc`'s T16 headline correction ("0 verified product identities
 **Sources used this pass:** the live short-link destinations above (Amazon product pages, fetched 2026-11-14) and the existing registered sources in `data/sources.json`. No new policy or product facts were added.
 
 **Outcome:** no content changes were needed. This record is the only change in this PR. Open flags (F1, F6, F7, F9–F13, F21, F24, and the F14–F18 identity/annex items) remain published on the Flagged for Review page for the account holder's review and do not block the merge.
+
+---
+
+## Session `arena/4e8a4b88` — re-verification + integration (2026-11-14 UTC)
+
+Branch: `arena/4e8a4b88-zone1` (base `29e4804`, the head of `main` at claim time). Only this branch is used by this session; the `session-<id>/<task>` naming in the protocol above is superseded by the branch assigned to this session.
+
+| ID | Task | Status | Owner | File scope |
+|----|------|--------|-------|-----------|
+| X1 | Re-run all repo gates on the current base (tests, audit, reproducibility, link check, research check, verify.py) | **done** | `arena/4e8a4b88` | none (read-only) |
+| X2 | Re-fetch the three `link.amazon` short links and compare with the recorded ASINs | **done** | `arena/4e8a4b88` | none (this board only) |
+| X3 | Regenerate root pages, confirm no diff, PR → `main`, merge, confirm GitHub Pages | in progress | `arena/4e8a4b88` | `COORDINATION.md` |
+
+**Gates (X1), run 2026-11-14 on base `29e4804`:** `platform/tests` 33/33 OK · `platform/audit/report.py` AUDIT PASSED, 0 warnings · `scripts/build_s2_site.py --check` current · `scripts/check_links.py` link check ok, 4,028 links · `research/check_research.py` OK · `verify.py` 0 errors · `python3 build.py` + `research/build_research.py` regenerated with **no diff** (generated HTML is reproducible).
+
+**Short links (X2), fetched 2026-11-14 via the public Amazon product pages:**
+
+| Short link | Resolved product URL | Page title (as served) | Recorded ASIN | Result |
+|---|---|---|---|---|
+| `https://link.amazon/B04G1MEwY` | `amazon.com/dp/B0CDY277D3?lv=shuf&…&plpRedirect=mhFallback` | CHEFMAN 6 Quart Dual Basket Air Fryer Oven … | B0CDY277D3 | matches record; fallback parameters present |
+| `https://link.amazon/B02NbDxp3` | `amazon.com/dp/B09B7SB46R?lv=shuf&…&plpRedirect=mhFallback` | Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven … | B09B7SB46R | matches record; fallback parameters present |
+| `https://link.amazon/B00hJ57DV` | `amazon.com/dp/B08DKYBTPH?lv=shuf&…&plpRedirect=mhFallback` | Chefman Air Fryer 8 Qt \| TurboFry® 4-in-1 … | B08DKYBTPH | matches record; fallback parameters present |
+
+Each page also carries a "Customers who viewed this item also viewed" block. The token→product mapping remains **unconfirmed** (flag F14–F16 on `flagged.html`). The `srctok-…` values differ between this fetch and earlier ones; they are not used as identifiers. No values were changed on the site as a result of this pass.
+
+**Irregularities (X1/X2):** no new irregularities. Existing open flags remain on `flagged.html`, non-blocking per protocol.
+
