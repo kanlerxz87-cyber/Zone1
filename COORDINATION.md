@@ -33,7 +33,7 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 | T10 | Executive summary | done | sess-105bc29e | `EXECUTIVE-SUMMARY.md`, `executive-summary.html` |
 | T11 | Final integration: rebuild, crawl for broken internal links, re‑verify every row has an official source | done | sess-105bc29e | whole tree (integration) |
 | T12 | Open PR → merge to `main` → confirm GitHub Pages deploy | done | sess-105bc29e (closed by I8, arena-6ecdb4e4) | `.github/workflows/` |
-| T13 | Final integration follow-up: make S2 builds reproducible, align the executive summary with current verification counts, and record remaining review items | in progress | `arena/3929371a-zone1` | `scripts/build_s2_site.py`, `s2/`, `.github/workflows/ci.yml`, `scripts/ci-check.sh`, `EXECUTIVE-SUMMARY.md`, `COORDINATION.md` |
+| T13 | Final integration follow-up: make S2 builds reproducible, reconcile product price and executive-summary claims with the source record, and publish remaining review items | in progress | `arena/3929371a-zone1` | `scripts/build_s2_site.py`, `s2/`, `.github/workflows/ci.yml`, `scripts/ci-check.sh`, `data/products.json`, `data/sources.json`, `data/platform.json`, `data/reverification.json`, `data/opportunities.json`, `data/verified/*.json`, `build.py`, `scripts/build_site.py`, `scripts/verify_site.py`, `EXECUTIVE-SUMMARY.md`, `reports/verification-2026-11-14.md`, `dashboard/flagged.html`, generated root and `site/` pages, `COORDINATION.md` |
 
 ---
 
@@ -44,7 +44,8 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 | 2026-11-13T22:35Z | sess-105bc29e | Claimed T1–T11 (research, data, site, integration). No other claims present; repo was empty apart from `README.md`. |
 | 2026-11-13T22:35Z | sess-105bc29e | Claimed T12 (PR + merge + Pages verification). |
 | 2026-11-14T18:29Z | arena-6ecdb4e4 | **I8 claim (initially logged as "I6"; renumbered — see the I8 record):** independent line-by-line repo review + re-verification pass on branch `arena/6ecdb4e4-zone1` (base `5ed73c1`). File scope: `COORDINATION.md` (log entry), plus fixes to any gate/dataset/site file only if a gate fails. Runs all local gates, re-checks key facts against official sources, re-checks live Pages, then PR → merge → Pages confirm. |
-| 2026-11-14T18:31Z | `arena/3929371a-zone1` | Claimed T13 after reading the current task board; scope is S2 reproducibility/CI and the executive-summary verification counts. Synced to current `origin/main` first; prior PRs #27–#29 are merged and no open PRs remain. |
+| 2026-11-14T18:31Z | `arena/3929371a-zone1` | Claimed T13 after reading the current task board; initial scope was S2 reproducibility/CI and executive-summary counts. Synced to `origin/main`; PRs #27–#29 were merged and no open PRs remained at claim time. After PR #31 merged, expanded scope to the remaining product-price ambiguity and executive-summary reconciliation; PR #31's gate, F25/F26 flags, and flag-count correction are preserved. |
+| 2026-11-14T18:47Z | `arena/3929371a-zone1` | Expanded T13 final-integration scope after re-fetching official Chefman pages: three Chefman product pages show multiple unlabeled price amounts. The review now includes affected opportunity arithmetic and linked verification-annex outputs (`data/verified/`, `site/`) as well as root price data/copy; no other session has an active claim. |
 
 ---
 
