@@ -1481,3 +1481,26 @@ Note: `arena/1dcaaafc`'s T16 headline correction ("0 verified product identities
 > - Site: https://kanlerxz87-cyber.github.io/Zone1/ · status `built` on `main`.
 > - Post-merge gates: build 14 pages · verify 0 errors · research OK · check_links 4028/0 broken owned · audit 0 · 33 tests · s2 --check · site 382 assertions.
 > - Open flags remain published on `flagged.html` (F14–F16 identity, F17 annex advisory, F18 s2 stamp, F19–F24 from main) — non-blocking per protocol.
+
+---
+
+# Session `d79ea5ef` — independent re-verification + integration pass 6 (2026-11-14)
+
+**Session:** sess-d79ea5ef · **Branch:** `arena/d79ea5ef-zone1` (base `29e4804` = `main` after PR #25 / I4 COMPLETE) · **Started:** 2026-11-14 (UTC)
+
+> NOTE ON BRANCHING: Arena pins this session to `arena/d79ea5ef-zone1`; the `session-<id>/<task>` convention is
+> preserved in this record. This branch is this session's integration branch and is PR'd to `main` at the end.
+
+## Claim log (this session)
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-14 | sess-d79ea5ef | Claimed D1–D3 below, before any file change. No other open claims at start (all prior sessions complete). |
+
+## Task board (this session)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| D1 | Line-by-line repo review of the integrated tree + irregularity flags | in progress | sess-d79ea5ef | review only + `COORDINATION.md` |
+| D2 | Independent re-verification of published facts against live official sources (this session fetches each source itself; no reliance on earlier sessions' fetches) | in progress | sess-d79ea5ef | `data/*.json`, `build.py` flags (integration scope) |
+| D3 | Final integration: rebuild, link-crawl, gate re-run, PR → `main`, confirm Pages deploy, record results | in progress | sess-d79ea5ef | whole tree (integration) |
