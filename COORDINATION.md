@@ -2223,3 +2223,52 @@ research/check_research.py  → OK
 scripts/build_site.py + verify_site.py → 382 assertions, ALL PASSED
 independent crawl           → 21 canonical pages, 0 broken internal links, disclosure on all
 ```
+
+## PR / merge / deploy record — `arena-6b2eddeb` (V5 closed)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/42 — "Pass 7 (arena-6b2eddeb): live
+  re-verification, articles section, flags F32-F35". Branch `arena/6b2eddeb-zone1` → `main`.
+* **Checks on the head commit (`3616cd5`), both green:** `verify` ✓ (run 43630756690) ·
+  `Rebuild site/ from data/verified and assert every guarantee` ✓ (run 43630756777).
+  PR state `CLEAN` / `MERGEABLE` on the first attempt; no rebase was needed for the merge itself.
+* **Merge:** `gh pr merge 42 --merge` at **2026-11-14T19:12:34Z**, without waiting for approval, per
+  the brief. **Merge commit on `main`: `000cbcf9777baf757b863e507d59a419377f9194`.**
+* **Post-merge workflows on `main` (`000cbcf`) — all four green:** `CI` ✓ (43630839727) ·
+  `Build, verify and deploy to GitHub Pages` ✓ (43630839734) · `Verify verification annex (site/)` ✓
+  (43630839724) · `pages build and deployment` ✓ (43630839042).
+* **GitHub Pages:** `gh api …/pages` → `status: built`, source `main` / root, build type `legacy`,
+  URL https://kanlerxz87-cyber.github.io/Zone1/ . `…/pages/builds/latest` → `status: built`,
+  `commit: 000cbcf…`, `error: null`.
+* **Live verification after the deploy settled** (fetched from the public URL, not localhost):
+  * `https://kanlerxz87-cyber.github.io/Zone1/articles/index.html` → **serves the new Articles
+    section**: all five article cards, the "How to read these articles" box, and the editorial-rules
+    table with its S1/S2/S8/S9/S12/S14 source badges. The OA §5 disclosure bar is present.
+  * `https://kanlerxz87-cyber.github.io/Zone1/previous-passes.html` → **live**, listing all seven
+    parallel builds with the divergence column populated (F32 model mapping, F27 policy labels,
+    F23 broken docs build) and the canonical/gating table.
+  * Both pages carry the required disclosure sentence.
+* **Deploy-cache note honoured:** per the note recorded by `arena/6ecdb4e4` and `sess-91d0552e`, the
+  live pages were re-fetched after the deploy window rather than read once immediately after merge.
+* **Merge conflict (protocol §6):** one, in `COORDINATION.md`, against `sess-840a25d3`'s concurrent
+  pass-7 record landed by PR #41. Resolved by keeping **both** sides verbatim with a seam note; no
+  work from either session was discarded. Both passes independently re-verified the same sources and
+  they agree. The one count difference — that record says 31 open items, this pass's build reports
+  35 after adding F32–F35 — is a register change, not a contradiction, and is noted at the seam.
+* **Force-push log:** one `--force-with-lease`, after the rebase onto `f45374b`. `git log
+  HEAD..origin/arena/6b2eddeb-zone1` was checked first and showed only this session's own superseded
+  claim commit.
+
+### Final state of this session's tasks
+
+| # | Task | Status |
+|---|------|--------|
+| V1 | Live re-verification of Amazon sources (S1, S2, S3) | **done** |
+| V2 | Live re-verification of manufacturer sources (S10, S12, S14) | **done** |
+| V3 | Articles layer built and gate-enforced | **done** |
+| V4 | Findings published on `flagged.html` (F32–F35, S25–S27) | **done** |
+| V5 | PR → merge → Pages verified | **done** |
+
+**Result: no stored value was found to be wrong, and no number on the site changed.** Four new
+irregularities were found and published, the article layer the brief asked for was built to a
+build-enforced sourcing rule, and the site is live at https://kanlerxz87-cyber.github.io/Zone1/ on
+commit `000cbcf` with all 35 open items on the Flagged for Review page.
