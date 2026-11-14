@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Executive Summary — Zone1 Amazon Affiliate Platform</title>
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<!-- Added by integration session sess-cb2cfa7c on 2026-11-14: Operating Agreement §5 disclosure required site-wide by the project's verification gate. All other content on this page is preserved verbatim from session arena/88769516-zone1 (PR #9). See README.md. -->
+<p style="font:13px/1.4 -apple-system,Segoe UI,sans-serif;background:#fff8e6;border-bottom:1px solid #e5c07b;margin:0;padding:.55rem 1rem;text-align:center">As an Amazon Associate I earn from qualifying purchases. <span style="opacity:.75">(disclosure added 2026-11-14 by the integration session; this annex is preserved content from session arena/88769516-zone1)</span></p>
+<header class="topbar">
+  <div class="brand">Zone<span>1</span> · Amazon Affiliate Platform</div>
+  <nav>
+    <a href="index.html">Dashboard</a>
+    <a href="executive-summary.html" class="active">Executive Summary</a>
+    <a href="products.html">Products</a>
+    <a href="research.html">Research</a>
+    <a href="content.html">Content</a>
+    <a href="tracking.html">Tracking</a>
+    <a href="compliance.html">Compliance</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="flagged-for-review.html">Flagged for Review</a>
+  </nav>
+</header>
+
+<main>
+  <h1 class="page-title">Executive Summary</h1>
+  <p class="page-sub">Zone1 is an AI-powered Amazon affiliate marketing platform. This summary captures the objective,
+  the deliverable, the verification outcome, and the decisions required.</p>
+
+  <div class="note danger">
+    <strong>Headline finding:</strong> the three supplied affiliate links could not be verified against a live,
+    resolvable Amazon product listing from this environment. Every product attribute is left blank and flagged
+    <strong>UNVERIFIED</strong>. This does not block the site; it is published for your review.
+  </div>
+
+  <div class="grid grid-3">
+    <div class="stat"><div class="label">Objective</div><div class="value" style="font-size:16px;">Automate affiliate revenue</div>
+      <div class="sub">Product research, content, links, tracking, optimization, compliance.</div></div>
+    <div class="stat"><div class="label">Products supplied</div><div class="value">3</div>
+      <div class="sub">ASINs B04G1MEwY · B02NbDxp3 · B00hJ57DV</div></div>
+    <div class="stat"><div class="label">Verified product data</div><div class="value">0</div>
+      <div class="sub">Amazon blocked automated verification for all routes.</div></div>
+  </div>
+
+  <div class="card" style="margin-top:18px;">
+    <h3>1 · Scope delivered</h3>
+    <p>The platform is implemented as a clean, dashboard-style website with a landing page and category subpages:
+    <strong>Products, Research, Content, Tracking, Compliance, Methodology</strong>, plus a dedicated
+    <strong>Flagged for Review</strong> page. All entries and findings are presented in simple tables, each row
+    carrying a source link to an official site; values that could not be confirmed are left blank and flagged.</p>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>2 · Platform capabilities (all implemented as documented workflows)</h3>
+    <ul class="clean">
+      <li><strong>Automated product research</strong> — ingest affiliate links, extract ASINs, and pull category, price, rating and availability for trending / high-converting identification.</li>
+      <li><strong>Analysis</strong> — pricing, reviews, competition and commission potential, computed from the official category rate table.</li>
+      <li><strong>Content generation</strong> — SEO-optimized product articles, comparisons and buying guides, generated only from verified facts.</li>
+      <li><strong>Link management</strong> — publish and manage tagged affiliate links; enforce the official Special Link rules.</li>
+      <li><strong>Tracking &amp; optimization</strong> — click/conversion tracking and continuous campaign optimization.</li>
+      <li><strong>Compliance</strong> — adherence to the Amazon Associates Operating Agreement, Program Policies, and disclosure requirements, sourced from official pages.</li>
+    </ul>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>3 · Verification outcome (line-by-line, official sources only)</h3>
+    <p>Product data was checked against the official Amazon product pages, a real-browser render service, the
+    Wayback Machine, search engines, and two independent ASIN trackers. <strong>Amazon bot-blocks automated
+    access on every route</strong> (even a known-valid ASIN returns 404 via the available tools), there are no
+    archive snapshots, and no search-engine footprint exists for these ASINs. Two trackers
+    (CamelCamelCamel, Keepa) report no valid record. The provided <code>link.amazon</code> short links each
+    redirect via a <code>plpRedirect=mhFallback</code> marketplace-fallback to a <strong>different</strong> ASIN
+    rather than to <code>amazon.com/dp/&lt;ASIN&gt;</code>. Full evidence: <a href="flagged-for-review.html">Flagged for Review</a>.</p>
+    <p>Commission and compliance content <strong>were verified</strong> from the official Amazon Associates pages
+    (Operating Agreement, Program Policies, Commission Income Statement).</p>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <h3>4 · Decisions required (non-blocking)</h3>
+    <ul class="clean">
+      <li>Confirm or correct the three ASINs / affiliate links (the current links fall back to unrelated products).</li>
+      <li>Provide the product category for each listing so commission potential can be computed.</li>
+      <li>Approve the flagged items on the <a href="flagged-for-review.html">Flagged for Review</a> page.</li>
+    </ul>
+    <p>None of the above blocks the live site; the platform is functional and the flagged items are published for review.</p>
+  </div>
+</main>
+
+<footer class="foot">Zone1 · Amazon Affiliate Marketing Platform · executive summary · <span id="gen"></span></footer>
+<script src="assets/data.js"></script>
+<script>document.getElementById('gen').textContent = 'generated ' + (window.ZONE1_DATA ? window.ZONE1_DATA.meta.generated : '');</script>
+</body>
+</html>
