@@ -43,6 +43,10 @@ PLATFORM = load("platform.json")
 # page; nothing else in the build depends on it, so a future pass can replace the file
 # without touching the generators below.
 REVERIFICATION = load("reverification.json")
+# Editorial content (2026-11-14, sess-7111e2b6). Articles are data, not hand-written
+# HTML, so that every factual sentence in them carries the source ids it was written
+# from and the build can fail if one of those ids stops resolving.
+ARTICLES = load("articles.json")
 # Additive pass-6 ledger (2026-11-14, sess-54c66535): re-opens the nine rows the earlier
 # pass could not re-check. Owned entirely by this session's folder, so a future pass can
 # drop the file without touching anything else; the page simply omits the section.
@@ -143,6 +147,7 @@ NAV = [
     ("categories/kitchen-appliances.html", "Category: Kitchen", "All tracked products in one category"),
     ("compare.html", "Comparison", "Verified-only side-by-side matrix"),
     ("guides/buying-guide-air-fryers.html", "Buying guide", "How to choose a form factor"),
+    ("articles/index.html", "Articles", "SEO guides written only from verified facts"),
     ("data.html", "Full dataset", "Every field, value, source and gap"),
     ("platform.html", "Platform blueprint", "The automation and compliance design"),
     ("compliance.html", "Compliance", "Program rules, quoted, with sources"),
@@ -737,6 +742,17 @@ def page_index():
       <li><a href="executive-summary.html">Executive summary</a> — the one-page version.</li>
     </ul>
   </div>
+  <div class="card">
+    <h3 style="margin-top:0">Read the articles</h3>
+    <ul class="tight small">
+      <li><a href="articles/index.html">All articles</a> — search-driven guides, each sentence sourced.</li>
+      <li><a href="articles/air-fryer-vs-toaster-oven.html">Air fryer vs toaster oven</a> — which one earns its counter space.</li>
+      <li><a href="articles/450f-hi-fry-explained.html">450 °F “Hi-Fry”</a> — what the top setting really means.</li>
+      <li><a href="articles/dual-basket-vs-single-basket.html">Dual-basket vs single-basket</a> — the one question that decides it.</li>
+      <li><a href="articles/air-fryer-capacity-guide.html">Capacity guide</a> — 26 quarts, 1,519 cubic inches.</li>
+      <li><a href="articles/why-no-amazon-prices.html">Why no Amazon prices</a> — the rule, in Amazon’s own words.</li>
+    </ul>
+  </div>
 </div>
 
 <h2>How a value earns its place on this site</h2>
@@ -1154,6 +1170,177 @@ def page_guide():
     return layout("guides/buying-guide-air-fryers.html", "Buying guide", body,
                   active="guides/buying-guide-air-fryers.html",
                   description="How to choose an air fryer: form factor, documented capacity, real temperature ceilings, cleaning and footprint.")
+
+
+# --------------------------------------------------------------------------- #
+# articles (added 2026-11-14, sess-7111e2b6)
+#
+# Editorial content lives in data/articles.json so that the factual sentences and
+# the source ids they were written from cannot drift apart: a paragraph that cites
+# [[S10]] renders as a link to that source's official page, and a paragraph that
+# cites nothing is visibly unsourced rather than quietly authoritative.
+# --------------------------------------------------------------------------- #
+
+TOKEN = re.compile(r"\[\[([^\]]+)\]\]")
+
+
+def expand_tokens(text):
+    """[[S10]] or [[S10|S14]] -> inline source badges."""
+    if not text:
+        return ""
+    return TOKEN.sub(
+        lambda m: src_links([i.strip() for i in m.group(1).split("|")]), str(text)
+    )
+
+
+def article_table(t):
+    head = "".join(f"<th>{e(h)}</th>" for h in t["head"])
+    rows = []
+    for r in t["rows"]:
+        cells = []
+        for c in r:
+            if c is None:
+                cells.append(
+                    '<td class="blank">— not published — '
+                    '<a href="../flagged.html">flagged</a></td>'
+                )
+            else:
+                cells.append(f"<td>{expand_tokens(c)}</td>")
+        rows.append("<tr>" + "".join(cells) + "</tr>")
+    return f"""
+<div class="tablewrap">
+<table>
+  <caption>{expand_tokens(t["caption"])}</caption>
+  <thead><tr>{head}</tr></thead>
+  <tbody>{''.join(rows)}</tbody>
+</table>
+</div>
+"""
+
+
+def article_cta(slugs):
+    """Affiliate CTA blocks for the products an article discusses.
+
+    product_cta() carries the link-level disclosure Amazon's Program Policies and
+    the FTC both require to sit next to the link, so every affiliate link on an
+    article page is disclosed in place and not only in the site-wide bar.
+    """
+    out = []
+    for slug in slugs:
+        p = next((x for x in PRODUCT_LIST if x["slug"] == slug), None)
+        if not p:
+            continue
+        out.append(
+            f'<div class="card" style="margin:.6rem 0">'
+            f'<h3 style="margin:0 0 .35rem 0"><a href="../products/{e(p["slug"])}.html">'
+            f'{e(p["short_name"])}</a></h3>'
+            f'<p class="tiny muted" style="margin:0 0 .5rem 0">{e(p["brand"])}'
+            f' · {e(p["category"])}</p>'
+            f'{product_cta(p)}'
+            f'</div>'
+        )
+    return "".join(out)
+
+
+def page_articles_index():
+    cards = []
+    for a in ARTICLES["articles"]:
+        srcs = " ".join(src_link(s) for s in a.get("sources_used", []))
+        cards.append(f"""
+<div class="card">
+  <h3 style="margin-top:0"><a href="{e(a['slug'])}.html">{e(a['title'])}</a></h3>
+  <p class="small">{e(a['dek'])}</p>
+  <p class="tiny muted" style="margin:0">
+    {e(a['published'])} · {e(str(a['read_minutes']))} min read ·
+    target query: <code>{e(a['target_query'])}</code><br>
+    Built from: {srcs}
+  </p>
+</div>""")
+    body = f"""
+<p class="crumbs"><a href="../index.html">Dashboard</a> / Articles</p>
+<h1>Articles</h1>
+<p class="lede">Five search-driven guides, written only from manufacturer-published facts.
+Every factual sentence carries a link to the official page or owner's manual it came from,
+and nothing on this site is claimed to have been tested.</p>
+
+<div class="grid grid-2">
+{''.join(cards)}
+</div>
+
+<div class="panel" style="margin-top:22px">
+  <h3 style="margin-top:0">How these articles are written</h3>
+  <ul class="tight small">
+    <li>{e(ARTICLES['editorial_policy'])}</li>
+    <li>No product is claimed to have been tested, and no cooking result is promised.</li>
+    <li>No Amazon price, star rating or review count appears in any article. The reason is
+        set out in <a href="../articles/why-no-amazon-prices.html">why this site shows no Amazon prices</a>.</li>
+    <li>Where a value could not be confirmed from an official source, it is left blank and
+        linked to the <a href="../flagged.html">Flagged for review</a> page.</li>
+  </ul>
+</div>
+"""
+    return layout("articles/index.html", "Articles", body, active="articles/index.html",
+                  description="Search-driven air fryer guides written only from manufacturer-published facts.")
+
+
+def page_article(a):
+    slug = a["slug"]
+    sections = []
+    for sec in a["sections"]:
+        parts = [f"<h2>{e(sec['h2'])}</h2>"]
+        for para in sec.get("p", []):
+            parts.append(f'<p class="small">{expand_tokens(para)}</p>')
+        if sec.get("table"):
+            parts.append(article_table(sec["table"]))
+        if sec.get("callout"):
+            c = sec["callout"]
+            parts.append(
+                f'<div class="callout"><strong>{e(c["title"])}</strong>'
+                f'<p class="small">{expand_tokens(c["body"])}</p></div>'
+            )
+        if sec.get("products"):
+            parts.append('<h3>Check the current price</h3>')
+            parts.append(article_cta(sec["products"]))
+        sections.append("".join(parts))
+
+    related = []
+    for slug2 in a.get("related", []):
+        other = next((x for x in ARTICLES["articles"] if x["slug"] == slug2), None)
+        if not other:
+            continue
+        related.append(
+            f'<li><a href="{e(other["slug"])}.html">{e(other["title"])}</a></li>'
+        )
+
+    body = f"""
+<p class="crumbs"><a href="../index.html">Dashboard</a> / <a href="../articles/index.html">Articles</a> / {e(a['title'])}</p>
+<article>
+<h1>{e(a['h1'])}</h1>
+<p class="lede">{e(a['dek'])}</p>
+<p class="tiny muted">Published {e(a['published'])} · {e(str(a['read_minutes']))} min read ·
+target query <code>{e(a['target_query'])}</code> ·
+tags: {e(', '.join(a.get('tags', [])))}</p>
+
+<div class="panel">
+  <p class="tiny" style="margin:0"><strong>What this article is built on:</strong>
+  {' '.join(src_link(s) for s in a.get('sources_used', []))}
+  <br><span class="muted">Every factual statement below carries a source badge linking to the
+  official page or owner's manual it was read from. Nothing here was tested; no result is promised.</span></p>
+</div>
+
+{''.join(sections)}
+
+<h2>Keep reading</h2>
+<ul class="tight small">
+{''.join(related)}
+<li><a href="../guides/buying-guide-air-fryers.html">Buying guide: how to choose an air fryer</a></li>
+<li><a href="../compare.html">Comparison matrix</a> — verified fields only, blanks kept visible.</li>
+<li><a href="../flagged.html">Flagged for review</a> — every value this site could not confirm.</li>
+</ul>
+</article>
+"""
+    return layout(f"articles/{slug}.html", a["title"], body, active="articles/index.html",
+                  description=a.get("meta_description", ""))
 
 
 def page_data():
@@ -1915,7 +2102,7 @@ def main():
     (assets / "style.css").write_text(CSS, encoding="utf-8")
     (assets / "app.js").write_text(JS, encoding="utf-8")
 
-    for d in ("products", "categories", "guides"):
+    for d in ("products", "categories", "guides", "articles"):
         (ROOT / d).mkdir(exist_ok=True)
 
     pages = {}
@@ -1925,6 +2112,9 @@ def main():
     pages["categories/kitchen-appliances.html"] = page_category()
     pages["compare.html"] = page_compare()
     pages["guides/buying-guide-air-fryers.html"] = page_guide()
+    pages["articles/index.html"] = page_articles_index()
+    for a in ARTICLES["articles"]:
+        pages[f"articles/{a['slug']}.html"] = page_article(a)
     pages["data.html"] = page_data()
     pages["compliance.html"] = page_compliance()
     pages["flagged.html"] = page_flagged()

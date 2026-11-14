@@ -1,0 +1,546 @@
+{
+  "updated": "2026-11-14",
+  "editorial_policy": "Every article on this site is written from manufacturer-published facts only. Each factual statement carries a link to the official page or owner's manual it comes from, shown as a source badge after the sentence. No product is claimed to have been tested, no performance is promised, and no Amazon price, star rating or review count is quoted. Where a value could not be confirmed from an official source, the cell is left blank and linked to the Flagged for review page instead of being filled in. Inline tokens of the form [[S10]] or [[S10|S14]] are expanded into source badges when the page is built.",
+  "articles": [
+    {
+      "slug": "air-fryer-vs-toaster-oven",
+      "title": "Air Fryer vs Toaster Oven in 2026: Which One Earns Its Counter Space?",
+      "h1": "Air fryer vs toaster oven: which one earns its counter space?",
+      "meta_description": "A toaster oven and an air fryer are not the same appliance. Compare the three units in this set on documented presets, temperature ceilings, capacity and clearance.",
+      "target_query": "air fryer vs toaster oven",
+      "dek": "The shelf space argument is really an argument about what each machine is documented to do. One of these three appliances is a 24-preset countertop oven. The other two are fryers with one to five buttons. That difference shows up in your kitchen long before it shows up in a price comparison.",
+      "published": "2026-11-14",
+      "read_minutes": 7,
+      "tags": [
+        "air fryer",
+        "toaster oven",
+        "countertop oven",
+        "buying guide"
+      ],
+      "sources_used": [
+        "S10",
+        "S12",
+        "S13",
+        "S14",
+        "S15",
+        "S18"
+      ],
+      "sections": [
+        {
+          "h2": "The short answer",
+          "p": [
+            "If the word <em>oven</em> in the box is doing real work, you are not buying an air fryer. The 26-quart French-door unit in this set is documented in its owner's manual with 24 named cooking presets, and the list includes Toast, Pizza, Bake, Rotisserie, Broil, Slow Cook, Roast, Dehydrate, Reheat, Pastry and Proof alongside the fryer presets [[S15]]. That is an oven with an air-fryer mode attached — the manual's own heating-element chart splits its modes into Convection Oven, Dehydrate, Grill and Turbo Fan with Spiral Heating Element [[S15]].",
+            "The two fryers are not competing with it. The Chefman 8 Qt is documented by its brand as <em>4 cooking presets</em> on a 200–400 °F range [[S12]], and its manual's preset chart is a single page of food types — Default, Meat, Chicken, Fish and Fries, each with a default time and temperature [[S13]]. The Chefman 6 Qt's manual documents HI-FRY, +2 MIN, SYNC BASKETS and SYNC FINISH as functions, and refers once to \"a preset function\" without publishing a preset list at all [[S18]].",
+            "So the decision is not air fryer <em>versus</em> toaster oven. It is: do you want the smallest tool that air-fries well, or do you want to retire the toaster oven and the microwave's leftovers duty in one box?"
+          ]
+        },
+        {
+          "h2": "What each one is actually documented to do",
+          "p": [
+            "The table below uses only what the manufacturers publish. Anything a brand does not publish is left blank rather than filled with a reasonable guess."
+          ],
+          "table": {
+            "caption": "Documented capability — the three units in this set",
+            "head": [
+              "Unit",
+              "Documented presets / functions",
+              "Documented temperature range",
+              "Source"
+            ],
+            "rows": [
+              [
+                "Chefman 6 Qt Dual-Window",
+                "Functions documented: HI-FRY, +2 MIN, SYNC BASKETS, SYNC FINISH. No preset list published",
+                "200–450 °F / 95–235 °C",
+                "[[S10]] [[S18]]"
+              ],
+              [
+                "Chefman 8 Qt TurboFry",
+                "4 cooking presets: Fries, Chicken, Fish, Meat",
+                "200–400 °F / 95–205 °C",
+                "[[S12]] [[S13]]"
+              ],
+              [
+                "Emeril 26 QT French Door",
+                "24 named presets: Airfry, Fries, Bacon, Grill, Eggs, Fish, Ribs, Defrost, Steak, Vegetables, Wings, Bake, Rotisserie, Toast, Chicken, Pizza, Pastry, Proof, Broil, Slow Cook, Roast, Dehydrate, Reheat, Warm",
+                "75–500 °F / 25–260 °C",
+                "[[S15]]"
+              ]
+            ]
+          }
+        },
+        {
+          "h2": "Three different temperature ceilings — and only one of them is a full cycle",
+          "p": [
+            "This is the number most comparison articles get wrong, so it is worth being precise. The Chefman 6 Qt's brand page gives a range of 200–450 °F [[S10]], and its manual explains the top of that range as a two-minute boost: the HI-FRY button \"will raise the cooking temperature to 450˚F (235˚C) for 2 minutes, to give foods a little additional browning\" [[S18]]. The 450 °F is real, but it is a finishing move, not a setting you cook at.",
+            "The Chefman 8 Qt's brand page gives 200–400 °F and states \"Max temp: 400ºF/ 205ºC\" [[S12]] — a plain, full-cycle ceiling.",
+            "The Emeril manual's specifications table gives 75 °F – 500 °F / 25 °C – 260 °C, with 120 V / 1700 W / 60 Hz and a rated power of 1700 W [[S15]]. Note that 75 °F is a low-temperature floor, useful for proofing and warming rather than for frying.",
+            "If your food needs 425 °F for more than two minutes, only two of these three machines can do it at all, and neither of those two is the one advertising 450 °F."
+          ]
+        },
+        {
+          "h2": "The clearance question nobody asks until the box is open",
+          "p": [
+            "Counter-top ovens have ventilation requirements that fryers do not, and the Emeril manual states them plainly: leave at least 5 inches of free space on the top, back and sides and above the appliance, never put anything on top of it, never operate it under hanging cabinets, and never set it on a cooktop [[S15]]. The unit itself is 16.9″D × 15.8″W × 14.8″H [[S14]].",
+            "The two fryers are smaller and simpler: 13.38 × 11.81 × 10.63 in and 13.3 lb for the Chefman 6 Qt [[S10]], and 15.4 × 12.6 × 13.5 in and 12.8 lb for the 8 Qt [[S12]].",
+            "Do the arithmetic against your own kitchen before the box is on the counter. An oven that needs five inches of clearance on every side and cannot go under a cabinet is not a small appliance."
+          ]
+        },
+        {
+          "h2": "What the paperwork does not tell you",
+          "p": [
+            "No unit in this set publishes a <em>usable food volume</em>, and none has been tested by anyone who wrote this. Those gaps are real, and they are the reason this site refuses to declare a winner. If you need a capacity guide that works from published numbers, <a href=\"../articles/air-fryer-capacity-guide.html\">read the capacity guide</a> — it uses the manufacturers' own quart and litre figures and nothing else.",
+            "There is also an unresolved conflict in this product set worth knowing about before you shop: the Chefman 8 Qt's Amazon listing advertises a 450 °F Hi-Fry option plus bake, dehydrate and frozen functions, while the brand's own page and manual document 200–400 °F with four food presets [[S12]] [[S13]] [[S16]]. Both official pages are live at the same time, saying different things. <a href=\"../flagged.html\">That contradiction is flagged here</a> rather than smoothed over — and it is the reason the article below exists."
+          ]
+        },
+        {
+          "h2": "How to pick in one line",
+          "p": [
+            "Buy a <strong>toaster-oven-style</strong> unit if you currently own a toaster oven and a microwave and want one box to do both jobs. Buy an <strong>air fryer</strong> if you want the smallest thing that crisps food well, and you are happy to use the oven you already have for toast and baking."
+          ],
+          "products": [
+            "chefman-6qt-dual-basket",
+            "chefman-8qt-turbofry",
+            "emeril-26qt-french-door"
+          ]
+        }
+      ],
+      "related": [
+        "450f-hi-fry-explained",
+        "dual-basket-vs-single-basket",
+        "air-fryer-capacity-guide"
+      ]
+    },
+    {
+      "slug": "450f-hi-fry-explained",
+      "title": "450°F \"Hi-Fry\": What the Top Setting on an Air Fryer Box Actually Means",
+      "h1": "450 °F “Hi-Fry”: what the top setting on an air fryer box actually means",
+      "meta_description": "A 450 °F badge on an air fryer can mean a full-cycle setting, a two-minute finish mode, or a claim the manual contradicts. Here is how to tell which one you have.",
+      "target_query": "air fryer 450 degrees hi fry",
+      "dek": "There are two completely different things a 450 °F badge can mean, and the difference is the difference between a 30-minute cook and a 2-minute finish. Sixty seconds with the manual tells you which one you are holding.",
+      "published": "2026-11-14",
+      "read_minutes": 6,
+      "tags": [
+        "air fryer temperature",
+        "hi-fry",
+        "how to check a manual",
+        "buying advice"
+      ],
+      "sources_used": [
+        "S10",
+        "S12",
+        "S13",
+        "S16",
+        "S18"
+      ],
+      "sections": [
+        {
+          "h2": "Two meanings, one number",
+          "p": [
+            "Amazon sells air fryers whose listings advertise a \"450°F Hi-Fry Option for Crispier Results\" [[S16]]. Plenty of brand pages advertise the same 450 °F figure. On some machines that number is the highest temperature the heating element runs at for a whole cycle. On others it is a button that raises the temperature for a couple of minutes at the end of a cook, purely for extra browning.",
+            "Neither is a scam. But they are not interchangeable, and only one of them changes what you can cook."
+          ]
+        },
+        {
+          "h2": "The sixty-second check",
+          "p": [
+            "Open the owner's manual and search for the temperature range and for any button that names a high-heat mode. You are looking for one of three answers:",
+            "<strong>Answer one — a full-cycle ceiling.</strong> The manual's specifications give a range whose top end is the advertised number, and nothing else about it is special. You can cook at 450 °F for as long as you like.",
+            "<strong>Answer two — a timed boost.</strong> The manual documents a button that raises the temperature to 450 °F for a fixed, short period. This is a finishing move: it browns the last two minutes of a cook, it does not cook a pizza at 450 °F from cold.",
+            "<strong>Answer three — the manual says something different from the box.</strong> In that case the box is describing a different machine, a different mode, or a stale claim. Do not guess which."
+          ],
+          "callout": {
+            "title": "Answer two, in the manufacturer's own words",
+            "body": "The Chefman 6 Qt manual says of its HI-FRY button: \"The HI-FRY button illuminates partway through cooking. When pressed, it will raise the cooking temperature to 450˚F (235˚C) for 2 minutes, to give foods a little additional browning.\" [[S18]] The brand page lists the same feature as \"Max temp: 450ºF/ 235ºC with Hi-Fry function\" alongside a range of 200–450 °F [[S10]]. Two minutes. That is the entire difference between this badge and a full-cycle 450 °F."
+          }
+        },
+        {
+          "h2": "The same badge, three different machines",
+          "p": [
+            "Reading the three units in this set side by side is the clearest illustration of why the check is worth doing."
+          ],
+          "table": {
+            "caption": "What 450 °F actually means, machine by machine",
+            "head": [
+              "Unit",
+              "What the brand page says",
+              "What the manual says",
+              "Verdict"
+            ],
+            "rows": [
+              [
+                "Chefman 6 Qt",
+                "\"Max temp: 450ºF/ 235ºC with Hi-Fry function\"; range 200–450 °F [[S10]]",
+                "HI-FRY raises the temperature to 450 °F for 2 minutes for extra browning [[S18]]",
+                "Timed boost, clearly documented"
+              ],
+              [
+                "Chefman 8 Qt",
+                "\"Max temp: 400ºF/ 205ºC\"; range 200–400 °F [[S12]]",
+                "Chart tops out at 400 °F [[S13]]",
+                "Full-cycle ceiling is 400 °F — but the Amazon listing advertises 450 °F [[S16]]"
+              ],
+              [
+                "Emeril 26 QT",
+                "No Hi-Fry marketing claim [[S14]]",
+                "Specifications give 75 °F – 500 °F as the full range [[S15]]",
+                "Full-cycle ceiling is 500 °F"
+              ]
+            ]
+          }
+        },
+        {
+          "h2": "The case that is still unresolved",
+          "p": [
+            "The Chefman 8 Qt row above is the uncomfortable one. Its Amazon listing says \"Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel\" [[S16]], while the brand's own product page says 200–400 °F with four cooking presets and touch screen controls [[S12]], and its manual's preset chart tops out at 400 °F [[S13]].",
+            "Three official pages, live at the same time, describing two different machines. Either the ASIN is a different SKU, or one of the pages is out of date. <a href=\"../flagged.html\">This site flags the conflict and asserts neither reading</a> — and it is exactly the scenario the sixty-second check exists to catch, because it is only discoverable by reading the manual yourself.",
+            "The practical rule: a temperature badge on a listing is a marketing claim. The manual is the specification."
+          ]
+        },
+        {
+          "h2": "What to do with a 450 °F finish, if that is what you have",
+          "p": [
+            "If your machine's high heat is a two-minute boost, the Chefman 6 Qt's own manual gives you the baseline to boost from: \"Most foods will air fry best between 375°F and 400°F (190°C and 205 °C). For gentler cooking and reheating, use a lower temperature to avoid overcooking\" [[S18]]. Cook at 375–400 °F, then use the boost at the end if you want extra browning on something that has already crisped.",
+            "For comparison, the Chefman 8 Qt's manual publishes its own preset defaults, which is the kind of table a 450 °F machine should have published instead of a badge: Default 400 °F / 15 min, Meat 375 °F / 18 min, Chicken 375 °F / 22 min, Fish 350 °F / 10 min, Fries 400 °F / 20 min [[S13]]."
+          ],
+          "products": [
+            "chefman-6qt-dual-basket",
+            "chefman-8qt-turbofry"
+          ]
+        }
+      ],
+      "related": [
+        "air-fryer-vs-toaster-oven",
+        "dual-basket-vs-single-basket",
+        "why-no-amazon-prices"
+      ]
+    },
+    {
+      "slug": "dual-basket-vs-single-basket",
+      "title": "Dual-Basket vs Single-Basket Air Fryers: The One Question That Decides It",
+      "h1": "Dual-basket vs single-basket air fryers: the one question that decides it",
+      "meta_description": "Two baskets change what you can cook at once, not just how much. Here is how the dual-basket and single-basket units in this set differ on documented functions.",
+      "target_query": "dual basket vs single basket air fryer",
+      "dek": "Capacity is the number everyone compares. It is not the one that decides anything. The question that matters is whether you need to cook two things at once, at different temperatures, and have them finish together.",
+      "published": "2026-11-14",
+      "read_minutes": 6,
+      "tags": [
+        "dual basket air fryer",
+        "sync finish",
+        "air fryer comparison"
+      ],
+      "sources_used": [
+        "S10",
+        "S12",
+        "S13",
+        "S18"
+      ],
+      "sections": [
+        {
+          "h2": "The question to ask first",
+          "p": [
+            "<strong>Do you regularly need two different foods cooking at two different temperatures, at the same time, ready at the same minute?</strong> If yes, a dual-basket machine is the only form factor that answers it. If no, a single basket is simpler to wash, simpler to store, and cheaper to replace.",
+            "That is the whole decision. Everything else — quarts, watts, presets — is a detail that only matters once you have answered it."
+          ]
+        },
+        {
+          "h2": "What the dual-basket machine actually does",
+          "p": [
+            "The Chefman 6 Qt is documented as a 6-quart unit built from two 3-quart baskets [[S10]] [[S18]], and its brand page lists both a Sync Function and two independent baskets [[S10]]. The manual explains two different sync behaviours, and the distinction is the useful part:",
+            "<strong>Sync Baskets</strong> is a shortcut — \"The SYNC BASKETS button is a shortcut for setting both baskets to cook simultaneously with the same time and temperature\" [[S18]]. Same food, same settings, both baskets.",
+            "<strong>Sync Finish</strong> is the interesting one — it \"delays the start of the cooking cycle for the basket with the shorter cook time so that both baskets finish cooking at the same time\" [[S18]]. Two different foods, two different temperatures, one finish time. That is the feature dual-basket machines actually exist for.",
+            "The manual is precise about what breaks the sync: pressing HI-FRY or +2 MIN on one side breaks it, and manually adjusting one basket's time or temperature breaks it [[S18]]. Worth knowing before you plan a two-dish cook."
+          ],
+          "callout": {
+            "title": "The trade-off is one more thing to wash",
+            "body": "Dual-basket machines have two baskets, two racks and two handles. The brand page lists nonstick, dishwasher-safe baskets for the Chefman 6 Qt [[S10]], and the manual adds a specific caution: never spray the baskets or racks with cooking oil from an aerosol spray can, \"which includes harsh components that can cause chipping of the nonstick coating. However, you can oil the racks or spray them with oil from a non-aerosol mister\" [[S18]]. Two baskets means twice the coating to look after, and it is the one line in that manual that decides whether the coating survives a year."
+          }
+        },
+        {
+          "h2": "Side by side, using only published numbers",
+          "p": [
+            "No hands-on testing was done for this comparison, and no cooking result is claimed. These are the manufacturers' own figures."
+          ],
+          "table": {
+            "caption": "Dual-basket vs single-basket, as documented",
+            "head": [
+              "",
+              "Chefman 6 Qt (dual-basket)",
+              "Chefman 8 Qt (single basket)"
+            ],
+            "rows": [
+              [
+                "Published capacity",
+                "6 Qt / 5.67 L, as two 3-quart baskets [[S10]] [[S18]]",
+                "8 qt, brand also sells a 5 qt version of the same page [[S12]]"
+              ],
+              [
+                "Baskets",
+                "2, independently controlled [[S10]]",
+                "1 [[S12]]"
+              ],
+              [
+                "Cook two foods at different temperatures at once",
+                "Yes — Sync Finish delays the shorter cook so both finish together [[S18]]",
+                "No"
+              ],
+              [
+                "Published temperature range",
+                "200–450 °F / 95–235 °C [[S10]]",
+                "200–400 °F / 95–205 °C [[S12]]"
+              ],
+              [
+                "Published presets",
+                "Not published — see the Flagged page [[S18]]",
+                "4: Fries, Chicken, Fish, Meat [[S12]] [[S13]]"
+              ],
+              [
+                "Dimensions",
+                "13.38 × 11.81 × 10.63 in [[S10]]",
+                "15.4 × 12.6 × 13.5 in (8 Qt model) [[S12]]"
+              ],
+              [
+                "Weight",
+                "13.3 lb [[S10]]",
+                "12.8 lb (8 Qt model) [[S12]]"
+              ],
+              [
+                "Basket care",
+                "Nonstick, dishwasher-safe; no aerosol oil on the coating [[S10]] [[S18]]",
+                "Nonstick basket and rack, top-rack dishwasher safe [[S12]] [[S13]]"
+              ]
+            ]
+          }
+        },
+        {
+          "h2": "Who should buy which",
+          "p": [
+            "<strong>Buy the dual-basket</strong> if your household eats protein and sides at the same time and you dislike reheating because the first side went cold while the second cooked. The Sync Finish function exists for exactly that dinner, and the manual documents it in detail [[S18]].",
+            "<strong>Buy the single basket</strong> if you mostly cook one thing at a time, want the fewest parts to wash, or want the larger single cavity. The 8 Qt's brand page describes it as designed for 4–6 people [[S12]] and it publishes four one-touch presets with their default times and temperatures [[S13]].",
+            "If you are still torn, the capacity guide in this set works from the published numbers only — <a href=\"../articles/air-fryer-capacity-guide.html\">26 quarts, 1,519 cubic inches: an honest capacity guide</a>."
+          ],
+          "products": [
+            "chefman-6qt-dual-basket",
+            "chefman-8qt-turbofry"
+          ]
+        }
+      ],
+      "related": [
+        "air-fryer-vs-toaster-oven",
+        "air-fryer-capacity-guide",
+        "450f-hi-fry-explained"
+      ]
+    },
+    {
+      "slug": "air-fryer-capacity-guide",
+      "title": "26 Quarts, 1,519 Cubic Inches: An Honest Air Fryer Capacity Guide",
+      "h1": "26 quarts, 1,519 cubic inches: an honest air fryer capacity guide",
+      "meta_description": "Quart capacity is nominal, not usable. Here is what three manufacturers actually publish, what the arithmetic does to it, and what nobody publishes at all.",
+      "target_query": "26 quart air fryer capacity",
+      "dek": "Air fryer capacity is quoted in quarts, and quarts are a cavity measurement rather than a food measurement. So this guide uses the numbers the brands print, shows you the arithmetic they imply, and is explicit about the one thing none of them publish.",
+      "published": "2026-11-14",
+      "read_minutes": 6,
+      "tags": [
+        "air fryer capacity",
+        "quart to litre",
+        "countertop oven size"
+      ],
+      "sources_used": [
+        "S10",
+        "S12",
+        "S13",
+        "S14",
+        "S15",
+        "S18"
+      ],
+      "sections": [
+        {
+          "h2": "What the brands publish",
+          "p": [
+            "Three units, three different ways of stating the same idea, all from official pages:"
+          ],
+          "table": {
+            "caption": "Published capacity — as stated by each manufacturer",
+            "head": [
+              "Unit",
+              "Capacity as published",
+              "Source"
+            ],
+            "rows": [
+              [
+                "Chefman 6 Qt Dual-Window",
+                "6 Qt / 5.67 L",
+                "[[S10]]"
+              ],
+              [
+                "Chefman 8 Qt TurboFry",
+                "8 qt (the brand also sells a 5 qt version of the same product page, listed as 5 Qt or 8 Qt / 4.73 L or 7.57 L)",
+                "[[S12]] [[S13]]"
+              ],
+              [
+                "Emeril 26 QT French Door",
+                "26 qt / 24.6 L; the owner's manual states 26 quarts (1,519 cubic inches)",
+                "[[S14]] [[S15]]"
+              ]
+            ]
+          }
+        },
+        {
+          "h2": "Do the arithmetic, because the brands make you",
+          "p": [
+            "The Emeril is the one unit that publishes both a cubic-inch figure and a litre figure, which lets you check the arithmetic rather than take it on trust. The manual's specifications table reads: \"FAFO-001 | 120 V/1700 W/60 Hz | 1700 W | 26 quarts (1,519 cubic inches) | 75° F - 500° F/ 25° C - 260° C | LED\" [[S15]].",
+            "Converting 1,519 cubic inches gives roughly 24.9 litres. The brand's product page states 24.6 Liters [[S14]]. These sit about 1% apart — close enough that both are consistent with the same cavity, and far enough that anyone quoting one to two decimal places should say which document it came from. The same page also lists \"26-Quart Capacity\" in its specification strip and describes the unit as \"big enough to accommodate nearly all your cooking needs\" [[S14]].",
+            "<strong>Do the same check on the Chefman numbers.</strong> The 6 Qt's published 5.67 L and the 8 Qt's published 7.57 L are direct brand figures from the two product pages [[S10]] [[S12]] — no conversion needed, and no reason to distrust them."
+          ],
+          "callout": {
+            "title": "The conversion is arithmetic, not a published figure",
+            "body": "24.9 litres is our own conversion of the manual's 1,519 cubic inches, not a number any manufacturer published. The published figures are 26 quarts and 24.6 Liters. Where this site shows derived numbers, it says so."
+          }
+        },
+        {
+          "h2": "The only household-size claim in this set — and why it is the only one",
+          "p": [
+            "Exactly one official page in this product set maps a capacity to a number of people. Chefman's 8 Qt page says the basket is \"Designed for 4-6 people\" [[S12]]. No other unit here makes that mapping, and the Emeril page, which does name a large household context, stops at describing the cavity as spacious rather than assigning it to a family size [[S14]].",
+            "That single claim is worth more than a page of folk maths, because it is a manufacturer telling you how it expects the product to be used. Everything else — the \"feeds 6-8\", \"perfect for a family of four\" lines that fill comparison blogs — is somebody's estimate built on a quart figure that was never a food volume to begin with.",
+            "One caution on the 8 Qt page specifically: it covers two products, the 5 qt and the 8 qt, and the capacity, dimensions and weight rows are given for both models [[S12]]. Check which model you are actually reading before you measure your shelf."
+          ]
+        },
+        {
+          "h2": "What nobody publishes: usable food volume",
+          "p": [
+            "This is the number that would actually answer \"will this feed my family\", and not one of these three manufacturers publishes it. Usable volume is smaller than cavity volume because the heating element, the basket walls and the rack all take space, and how much depends on the food.",
+            "So this guide cannot tell you how many chicken wings fit, and neither can any other page that quotes only a quart figure. What it can tell you is the relative scale, which is a real decision:",
+            "The 8 Qt is a single cavity of 7.57 L that the brand says is designed for 4–6 people [[S12]]. The 6 Qt is the same class of cooking in two 3-quart baskets [[S10]] [[S18]] — the same nominal total, split so two dishes can finish together. The 26 QT is a different category entirely at 24.6 L [[S14]], documented with a rotisserie, a crisper tray, a baking pan and a wire rack [[S15]].",
+            "Any page that tells you the exact number of drumsticks will be guessing. This one will not."
+          ]
+        },
+        {
+          "h2": "Before you measure your counter",
+          "p": [
+            "Capacity is the number you will argue about with other shoppers. Counter space is the number that will argue with your kitchen. The Emeril manual sets out its own ventilation requirements: at least 5 inches of free space on the top, back and sides, nothing on top of the appliance, and never under hanging cabinets [[S15]]. The unit measures 16.9″D × 15.8″W × 14.8″H [[S14]].",
+            "The fryers need less: 13.38 × 11.81 × 10.63 in for the Chefman 6 Qt [[S10]] and 15.4 × 12.6 × 13.5 in for the 8 Qt [[S12]].",
+            "And if you are still choosing between them, <a href=\"../articles/dual-basket-vs-single-basket.html\">the dual-basket question</a> comes before capacity, and <a href=\"../articles/air-fryer-vs-toaster-oven.html\">the toaster-oven question</a> comes before both."
+          ],
+          "products": [
+            "chefman-8qt-turbofry",
+            "emeril-26qt-french-door"
+          ]
+        }
+      ],
+      "related": [
+        "dual-basket-vs-single-basket",
+        "air-fryer-vs-toaster-oven",
+        "450f-hi-fry-explained"
+      ]
+    },
+    {
+      "slug": "why-no-amazon-prices",
+      "title": "Why This Site Shows No Amazon Prices (and Why That's the Point)",
+      "h1": "Why this site shows no Amazon prices — and why that is the point",
+      "meta_description": "Amazon's Program Policies restrict displaying prices and star ratings outside API-served content. Here is the rule in Amazon's own words, and what this site shows instead.",
+      "target_query": "affiliate disclosure no prices trust",
+      "dek": "Most affiliate pages show a price, a star rating and a review count. This one shows none of them, on purpose. The reason is a rule in Amazon's Program Policies, and the reason that rule exists is a good reason to keep reading a page like this one.",
+      "published": "2026-11-14",
+      "read_minutes": 5,
+      "tags": [
+        "affiliate disclosure",
+        "amazon associates policy",
+        "transparency"
+      ],
+      "sources_used": [
+        "S1",
+        "S2",
+        "S3",
+        "S5",
+        "S8",
+        "S9",
+        "S10",
+        "S12",
+        "S14"
+      ],
+      "sections": [
+        {
+          "h2": "The rule, in Amazon's own words",
+          "p": [
+            "Amazon's Program Policies govern what an Associate may publish. Two of the Participation Requirements cover the things you see on every other affiliate page in your feed:",
+            "Participation Requirement 2(b) permits displaying price and availability information only where Amazon serves the link or where the data comes through the official API. Requirement 6(t) restricts customer reviews and star ratings to content obtained through that same API [[S2]].",
+            "The same paragraph carries a rule that bites affiliate comparison pages specifically: if you display prices for a product in any “comparison” format, together with prices for the same or similar products from other sources, “you must display both the lowest ‘new’ price and, if we provide it to you, the lowest ‘used’ price at which the Product is available on the Amazon Site” [[S2]]. That is why the comparison matrix on this site has no price column at all — a half-comparison is the thing the rule is aimed at.",
+            "That is why there is no Amazon price, no Amazon star rating and no Amazon review count anywhere on this site. It is not a stylistic choice and it is not an oversight. It is the program rules being followed.",
+            "The incentive structure follows from the same rule. If a commission rate only pays for a purchase, and the price on the page is whatever the page says, then a publisher has an incentive to quote a stale or wrong price — not to lie, usually, but to never update. A price that is allowed to update automatically from Amazon's own servers removes that incentive entirely. The same is true of ratings: a rating you typed yourself is an opinion, and a rating Amazon serves is data."
+          ]
+        },
+        {
+          "h2": "What this site shows instead",
+          "p": [
+            "Where a manufacturer publishes a list price on its own product page, that figure appears here with a link to that page, and it is labelled as a manufacturer list price rather than as the price you will pay [[S10]] [[S12]] [[S14]]. Where a brand publishes a rating on its own site, that rating appears with its source and is labelled as a brand-site rating rather than as an Amazon rating [[S10]] [[S12]] [[S14]].",
+            "Every one of these figures moves. A brand's own review widget moves with every sale, which is why the figures here are dated rather than presented as permanent. The honest version of a price is a price with a date on it."
+          ],
+          "table": {
+            "caption": "What is shown, what is not, and why",
+            "head": [
+              "Figure",
+              "Shown here?",
+              "Reason"
+            ],
+            "rows": [
+              [
+                "Amazon price",
+                "No — blank and linked to the Flagged page",
+                "Program Policies §2(b): only when Amazon serves the link or via the official API [[S2]]"
+              ],
+              [
+                "Amazon star rating",
+                "No — blank and linked to the Flagged page",
+                "Program Policies §6(t): review and rating content only from the API [[S2]]"
+              ],
+              [
+                "Amazon review count",
+                "No — blank and linked to the Flagged page",
+                "Program Policies §6(t) [[S2]]"
+              ],
+              [
+                "Manufacturer list price",
+                "Yes, labelled as such, with the brand's own link",
+                "Published by the manufacturer on its own page [[S10]] [[S12]] [[S14]]"
+              ],
+              [
+                "Brand-site rating",
+                "Yes, labelled as such, with the brand's own link",
+                "Published by the manufacturer; dated, because it moves [[S10]] [[S12]] [[S14]]"
+              ],
+              [
+                "Commission rate for a specific product",
+                "No — blank and linked to the Flagged page",
+                "Amazon publishes fixed rates by category, not by ASIN [[S3]]"
+              ]
+            ]
+          }
+        },
+        {
+          "h2": "The commission rate, stated honestly",
+          "p": [
+            "Amazon's Standard Commission Income Statement publishes fixed rates by product category, and the table is public — no sign-in needed [[S3]]. Kitchen, Physical Books and Automotive earn 4.50%. Toys, Furniture, Home, Home Improvement, Lawn & Garden, Pets Products, Headphones, Beauty, Musical Instruments, Business & Industrial Supplies, Outdoors, Tools, Sports and Baby Products earn 3.00%. All Other Categories earn 4.00% [[S3]].",
+            "What Amazon does not publish is the category assigned to a given ASIN. That means the rate for any specific product on this site is not knowable from the outside, so it is left blank rather than guessed at. Every figure on this site follows the same rule: published with its source, or blank and flagged."
+          ]
+        },
+        {
+          "h2": "How to check anything we claim",
+          "p": [
+            "This is the part that matters more than the price. Every factual statement on this site carries a small source badge linking to the official page it came from — Amazon's own Associates Central documents, the US Federal Trade Commission's rule text, or the manufacturer's product page and owner's manual. Click any badge and you land on the document.",
+            "If a value could not be confirmed from an official source, it is not on the page in a filled-in form. It is on the <a href=\"../flagged.html\">Flagged for review</a> page, with the reason and the evidence. That page currently lists every open irregularity in the project, including the ones we have not resolved.",
+            "The FTC's own guidance is the reason the rules are strict rather than decorative: the Endorsement Guides require that a material connection be disclosed clearly and conspicuously [[S8]], and 16 CFR Part 255 is the binding rule that backs it [[S9]]. Amazon's own help page restates the requirement that the statement \"As an Amazon Associate I earn from qualifying purchases.\" appear clearly and conspicuously on the site, and that the link-level disclosure be both <em>clear</em> — such as \"(paid link)\", \"#ad\" or \"#CommissionsEarned\" — and <em>conspicuous</em>, placed near the link rather than buried [[S5]].",
+            "So the absence of a price on this page is not a gap in the research. It is the research, applied honestly."
+          ],
+          "products": [
+            "chefman-8qt-turbofry"
+          ]
+        }
+      ],
+      "related": [
+        "air-fryer-vs-toaster-oven",
+        "450f-hi-fry-explained",
+        "dual-basket-vs-single-basket"
+      ]
+    }
+  ]
+}
