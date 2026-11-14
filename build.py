@@ -2089,6 +2089,15 @@ def article_body(article, prefix="../"):
     return body
 
 
+_NUM_WORDS = {1: "One piece", 2: "Two pieces", 3: "Three pieces", 4: "Four pieces", 5: "Five pieces",
+              6: "Six pieces", 7: "Seven pieces", 8: "Eight pieces", 9: "Nine pieces", 10: "Ten pieces"}
+
+
+def _n_words(n):
+    """Spell a small count so the hub's lede cannot go stale when an article is added."""
+    return _NUM_WORDS.get(n, f"{n} pieces")
+
+
 def page_articles_index():
     cards = []
     for a in ARTICLES["articles"]:
@@ -2112,7 +2121,7 @@ def page_articles_index():
     body = f"""
 <p class="crumbs"><a href="../index.html">Dashboard</a> / Articles</p>
 <h1>Articles</h1>
-<p class="lede">Five pieces written for this product set. Each one states what the manufacturer's own pages and manuals establish, links to the page it came from, and names the places where the official record contradicts itself rather than tidying them away.</p>
+<p class="lede">{_n_words(len(ARTICLES["articles"]))} written for this product set. Each one states what the manufacturer's own pages and manuals establish, links to the page it came from, and names the places where the official record contradicts itself rather than tidying them away.</p>
 
 <div class="callout info">
   <strong>How to read these articles</strong>
