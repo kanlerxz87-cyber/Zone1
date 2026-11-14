@@ -76,9 +76,9 @@
       </tbody>
     </table></div>
     <ul class="clean">
-      <li><strong>Invalid identifiers</strong> — ASINs are 10-character codes; these are 9. Sources: <a href="https://www.barcode.graphics/amazon-product-id/" target="_blank" rel="noopener">ASIN definition</a>, <a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere</a>.</li>
+      <li><strong>Invalid identifiers</strong> — ASINs are 10-character codes; these are 9. Official source: <a href="https://kdp.amazon.com/en_US/help/topic/G200652190" target="_blank" rel="noopener">Amazon KDP Help G200652190</a> (verified live 2026-11-14). Third-party, secondary: <a href="https://www.barcode.graphics/amazon-product-id/" target="_blank" rel="noopener">barcode.graphics</a>, <a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere</a>.</li>
       <li><strong>Invalid link domain</strong> — <code>link.amazon</code> is not an official Amazon link/short domain (canonical: <code>amazon.com/dp/&lt;ASIN&gt;</code>; Amazon shorts: <code>amzn.com</code>, <code>amzn.to</code>, <code>a.co</code>).</li>
-      <li><strong>Broken resolution</strong> — each supplied URL falls through Amazon's missing-page fallback (<code>plpRedirect=mhFallback</code>, <code>lv=shuf</code>) to a different random unrelated listing.</li>
+      <li><strong>Broken resolution</strong> — each supplied URL falls through Amazon's missing-page fallback (<code>plpRedirect=mhFallback</code>, <code>lv=shuf</code>) to a different random unrelated listing. <em>⚠ Contested (F16):</em> repeat observations on 2026-11-13/14 returned the same three recorded products every time — see the <a href="flagged.html">integration addendum</a>.</li>
     </ul>
     <div class="callout bad">
       <strong>Consequence (no-hallucination policy):</strong> product title, price, rating, review count, category, competition,

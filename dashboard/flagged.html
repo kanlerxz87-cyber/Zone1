@@ -39,6 +39,36 @@
   Evidence log: <a href="../reports/verification-log.md">reports/verification-log.md</a> ·
   coordination record: <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/COORDINATION.md" target="_blank" rel="noopener">COORDINATION.md</a>.</p>
 
+  <section class="card" style="border-left:4px solid #b45309">
+    <h2>Integration addendum — 2026-11-14 (session sess-cb2cfa7c)</h2>
+    <p class="small">This annex records one session's reading of the evidence. The integrated root site
+    (<a href="../index.html">/Zone1/</a>) reached different conclusions from the same three short links and publishes a
+    fully sourced dataset (43 spec rows, 22 official sources) in its own
+    <a href="../flagged.html">Flagged for Review</a> page. Per the coordination protocol both positions are preserved.
+    The material disagreements:</p>
+    <ul class="small">
+      <li><strong>Link resolution (I-03 / E-04 vs root F10/F16):</strong> this annex reads the
+      <code>plpRedirect=mhFallback</code>/<code>lv=shuf</code> markers as a missing-page fallback to random listings.
+      Four independent observation rounds on 2026-11-13 and 2026-11-14 (two sessions, repeat fetches) instead returned
+      the same three destinations every time — B0CDY277D3, B09B7SB46R, B08DKYBTPH — with listing titles matching the
+      recorded products exactly. Unsettled; see root flag F16. The account holder can settle it by opening the three
+      links while signed in to Amazon.</li>
+      <li><strong>“All product-level data is unverified” (I-04):</strong> the root site verified 40 specification rows
+      from manufacturer product pages and owner's-manual PDFs (chefman.com, emerileveryday.com, brand CDN manuals),
+      not from Amazon listings. See <a href="../data.html">the full dataset</a>.</li>
+      <li><strong>PA-API 5 deprecation (new, 2026-11-14):</strong> Amazon's official docs now state PA-API 5 is
+      deprecated and replaced by the <strong>Creators API</strong>
+      (<a href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation" target="_blank" rel="noopener">official notice</a>,
+      verified live 2026-11-14). Any automated pipeline described anywhere in this repository must target the Creators
+      API. Root flag F14.</li>
+      <li><strong>Third-party citations:</strong> rows on this annex's pages that cite barcode.graphics,
+      keywordseverywhere.com, manuals.plus, aruljohn.com or u2l.ai are third-party. Where an official source exists it
+      has been added (Amazon KDP Help G200652190 for ASIN length and URL format); where none exists (the short-domain
+      list) the row is marked unverified. Root flag F15.</li>
+    </ul>
+    <p class="small">Nothing in this annex was deleted or rewritten — only additive corrections above.</p>
+  </section>
+
   <section class="card">
     <h2>A · Critical — supplied product links are invalid (integration session 19a679d8)</h2>
     <div class="table-wrap"><table>
@@ -47,13 +77,13 @@
         <tr>
           <td>I-01 <span class="badge bad">High</span></td>
           <td>Supplied IDs <code>B04G1MEwY</code>, <code>B02NbDxp3</code>, <code>B00hJ57DV</code> are <strong>9 characters</strong>; ASINs are 10 characters by definition. They are not valid ASINs.</td>
-          <td><a href="https://www.barcode.graphics/amazon-product-id/" target="_blank" rel="noopener">ASIN = 10 chars</a> · <a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere</a> · <a href="https://manuals.plus/asin/" target="_blank" rel="noopener">manuals.plus</a></td>
+          <td><strong>Official:</strong> <a href="https://kdp.amazon.com/en_US/help/topic/G200652190" target="_blank" rel="noopener">Amazon KDP Help G200652190 — “10-character Amazon Standard Identification Number”</a> (verified live 2026-11-14) · <span class="small">third-party, secondary:</span> <a href="https://www.barcode.graphics/amazon-product-id/" target="_blank" rel="noopener">barcode.graphics</a> · <a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere</a> · <a href="https://manuals.plus/asin/" target="_blank" rel="noopener">manuals.plus</a></td>
           <td>Provide the correct 10-character ASINs or full <code>amazon.com/dp/…</code> URLs.</td>
         </tr>
         <tr>
           <td>I-02 <span class="badge bad">High</span></td>
           <td><code>link.amazon</code> is not among Amazon's published product-link or short-link formats (<code>amazon.com/dp/&lt;ASIN&gt;</code> canonical; <code>amzn.com</code>/<code>amzn.to</code>/<code>a.co</code> are Amazon's short domains).</td>
-          <td><a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">official URL formats</a> · <a href="https://u2l.ai/tools/amazon-link-shortener" target="_blank" rel="noopener">amzn.to / a.co</a> · <a href="https://aruljohn.com/blog/how-to-shorten-amazon-links/" target="_blank" rel="noopener">amzn.com</a></td>
+          <td><span class="small">⚠ Third-party sources only — unverified absence claim (no official Amazon page enumerates short-link domains).</span> <a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere</a> · <a href="https://u2l.ai/tools/amazon-link-shortener" target="_blank" rel="noopener">u2l.ai</a> · <a href="https://aruljohn.com/blog/how-to-shorten-amazon-links/" target="_blank" rel="noopener">aruljohn</a></td>
           <td>Use canonical <code>amazon.com/dp/&lt;ASIN&gt;</code> links (or Amazon's own short domains) going forward.</td>
         </tr>
         <tr>

@@ -104,21 +104,23 @@
         <tr>
           <td>Standard ASIN length</td>
           <td><strong>10 characters</strong> — “unique blocks of 10 letters and/or numbers”</td>
-          <td><a href="https://www.barcode.graphics/amazon-product-id/" target="_blank" rel="noopener">Barcode.graphics — Amazon Product Identification Numbers</a> ·
-          <a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere — “the 10-character code after /dp/”</a> ·
-          <a href="https://manuals.plus/asin/" target="_blank" rel="noopener">manuals.plus — “enter a 10-character ASIN”</a></td>
+          <td><strong>Official:</strong> <a href="https://kdp.amazon.com/en_US/help/topic/G200652190" target="_blank" rel="noopener">Amazon KDP Help G200652190 — “your 10-character Amazon Standard Identification Number”</a> (verified live 2026-11-14) ·
+          <span class="small">third-party, secondary:</span> <a href="https://www.barcode.graphics/amazon-product-id/" target="_blank" rel="noopener">Barcode.graphics</a> ·
+          <a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere</a> ·
+          <a href="https://manuals.plus/asin/" target="_blank" rel="noopener">manuals.plus</a></td>
         </tr>
         <tr>
           <td>Canonical product URL format</td>
           <td><code>https://www.amazon.com/dp/&lt;ASIN&gt;</code></td>
-          <td><a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere</a> ·
-          <a href="https://aruljohn.com/blog/how-to-shorten-amazon-links/" target="_blank" rel="noopener">aruljohn — How to shorten Amazon links</a></td>
+          <td><strong>Official:</strong> <a href="https://kdp.amazon.com/en_US/help/topic/G200652190" target="_blank" rel="noopener">Amazon KDP Help G200652190 — “http://www.amazon.com/dp/ASIN”</a> (verified live 2026-11-14) ·
+          <span class="small">third-party, secondary:</span> <a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere</a> ·
+          <a href="https://aruljohn.com/blog/how-to-shorten-amazon-links/" target="_blank" rel="noopener">aruljohn</a></td>
         </tr>
         <tr>
           <td>Amazon's own short domains</td>
           <td><code>amzn.com</code> (redirect), <code>amzn.to</code> (consumer), <code>a.co</code> (associate-grade) — <strong>not</strong> <code>link.amazon</code></td>
-          <td><a href="https://aruljohn.com/blog/how-to-shorten-amazon-links/" target="_blank" rel="noopener">aruljohn</a> ·
-          <a href="https://u2l.ai/tools/amazon-link-shortener" target="_blank" rel="noopener">u2l.ai — amzn.to / a.co guide</a></td>
+          <td><span class="small">⚠ Third-party sources only — no official Amazon page confirms this complete list. Treat as <strong>unverified</strong> pending owner review.</span> <a href="https://aruljohn.com/blog/how-to-shorten-amazon-links/" target="_blank" rel="noopener">aruljohn</a> ·
+          <a href="https://u2l.ai/tools/amazon-link-shortener" target="_blank" rel="noopener">u2l.ai</a></td>
         </tr>
         <tr>
           <td><code>link.amazon</code> domain</td>
@@ -137,9 +139,9 @@
         <tr><td>E-01</td><td><code>amazon.com/dp/B04G1MEwY</code> returns Amazon's page-not-found error page</td><td><a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">re-open check</a></td></tr>
         <tr><td>E-02</td><td><code>amazon.com/dp/B02NbDxp3</code> returns Amazon's page-not-found error page</td><td><a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">re-open check</a></td></tr>
         <tr><td>E-03</td><td><code>amazon.com/dp/B00hJ57DV</code> returns Amazon's page-not-found error page</td><td><a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">re-open check</a></td></tr>
-        <tr><td>E-04</td><td>Each supplied URL lands on a <em>different</em> random listing whose final URL carries Amazon's missing-page fallback markers <code>plpRedirect=mhFallback</code> and <code>lv=shuf</code> (shuffle). Genuine product redirects land on clean <code>/dp/&lt;ASIN&gt;</code> URLs.</td><td class="small">Fetched 2026-11-13; recorded in <a href="../reports/verification-log.md">verification log §1.2</a></td></tr>
-        <tr><td>E-05</td><td>Supplied codes are 9 characters; ASINs are 10 by definition (see §2)</td><td><a href="https://www.barcode.graphics/amazon-product-id/" target="_blank" rel="noopener">ASIN definition</a></td></tr>
-        <tr><td>E-06</td><td><code>link.amazon</code> is not an official Amazon link/short-link format (see §2)</td><td><a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">official URL formats</a></td></tr>
+        <tr><td>E-04</td><td>Each supplied URL lands on a <em>different</em> random listing whose final URL carries Amazon's missing-page fallback markers <code>plpRedirect=mhFallback</code> and <code>lv=shuf</code> (shuffle). Genuine product redirects land on clean <code>/dp/&lt;ASIN&gt;</code> URLs. <strong>⚠ Contested (F16):</strong> four independent observation rounds on 2026-11-13 and 2026-11-14 (two sessions) instead returned the same three destinations each time, with listing titles matching the recorded products exactly. Both readings are preserved; the account holder can settle it by opening the links while signed in.</td><td class="small">Fetched 2026-11-13; recorded in <a href="../reports/verification-log.md">verification log §1.2</a> · competing observations in <a href="../COORDINATION.md">COORDINATION.md</a></td></tr>
+        <tr><td>E-05</td><td>Supplied codes are 9 characters; ASINs are 10 by definition (see §2)</td><td><a href="https://kdp.amazon.com/en_US/help/topic/G200652190" target="_blank" rel="noopener">Official: Amazon KDP Help G200652190 — “10-character Amazon Standard Identification Number”</a> (verified live 2026-11-14)</td></tr>
+        <tr><td>E-06</td><td><code>link.amazon</code> is not an official Amazon link/short-link format (see §2)</td><td><span class="small">⚠ Third-party sources only — unverified absence claim.</span> <a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere</a></td></tr>
       </tbody>
     </table></div>
     <div class="callout bad">
