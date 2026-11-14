@@ -341,7 +341,24 @@ an article that was never written — which is now rendered as plain text marked
 * Research 801 checks OK · annex 382 assertions OK · s2 build current · platform 33/33 · audit 0 warnings.
 * Flags: **F36** (Chefman 6 Qt preset count) and **F33** (mis-cited value) added; **F17** and **F25** closed.
 
-### 11.7 Open for the account holder — none of it blocks the merge
+### 11.7 PR, merge and deployment
+
+**PR [kanlerxz87-cyber/Zone1#51](https://github.com/kanlerxz87-cyber/Zone1/pull/51)** — opened from
+`arena/7111e2b6-zone1` to `main` with the change summary, the sources, the gate results and the flagged
+irregularities. Checks on the head commit: `CI / verify` ✔ · `Verify verification annex (site/)` ✔ ·
+merge state CLEAN. **Merged 2026-11-14T19:22:07Z** with `gh pr merge 51 --merge` (no approval wait),
+merge commit **`b899e2a`**.
+
+Post-merge workflows on `main`: `CI` ✔ · `Verify verification annex (site/)` ✔ · `Build, verify and deploy
+to GitHub Pages` ✔ · `pages build and deployment` ✔. GitHub Pages reports `status: built`, source `main` /
+`/`, build type `legacy`, latest build commit `b899e2a`, error `none`.
+
+Live check (cache-busted): `/articles/index.html` serves "Eight pieces written for this product set" with
+all eight articles; `/articles/air-fryer-capacity-guide.html` is live with every section's source badges;
+`/flagged.html` serves 37 open items including **F36** and **F37**, with the two **CLOSED** markers for F17
+and F25. Site: **https://kanlerxz87-cyber.github.io/Zone1/**
+
+### 11.8 Open for the account holder — none of it blocks the merge
 
 1. **Confirm the product identity for each supplied link.** The destination is reproducible; whether each
    token is the product you meant to market, and which Associates tag rides on the redirect, can only be
