@@ -32,7 +32,7 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 | T9 | "Flagged for Review" page with source links for every unverified item | done | sess-105bc29e | `flagged.html` |
 | T10 | Executive summary | done | sess-105bc29e | `EXECUTIVE-SUMMARY.md`, `executive-summary.html` |
 | T11 | Final integration: rebuild, crawl for broken internal links, re‑verify every row has an official source | done | sess-105bc29e | whole tree (integration) |
-| T12 | Open PR → merge to `main` → confirm GitHub Pages deploy | in progress | sess-105bc29e | `.github/workflows/` |
+| T12 | Open PR → merge to `main` → confirm GitHub Pages deploy | done | sess-105bc29e (closed by I8, arena-6ecdb4e4) | `.github/workflows/` |
 
 ---
 
@@ -1724,6 +1724,20 @@ Each page also carries a "Customers who viewed this item also viewed" block. The
 **Sources used this pass:** the live URLs in the table above (Amazon Associates Operating Agreement, Program Policies incl. Commission Income Statement + IP License, eCFR 16 CFR 255.5, KDP Help G200652190, link.amazon redirects, chefman.com product page, kanlerxz87-cyber.github.io/Zone1) plus the repo's registered sources in `data/sources.json`. No new policy or product facts were added; no numeric value was changed.
 
 **Outcome:** content corrections limited to citation labels + new flag F27; all gates re-run green after rebuild (see below). **PR: https://github.com/kanlerxz87-cyber/Zone1/pull/34** (opened from `arena/6ecdb4e4-zone1` to `main` with change/source/flag summary) and merged per the brief without waiting for approval; merge result and Pages confirmation are recorded in the PR body. Flagged items remain published on `flagged.html` and are non-blocking.
+
+### PR / merge / deploy record — I8 (arena-6ecdb4e4)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/34 — "I8 (arena-6ecdb4e4): independent review pass — align PR citation labels to live page, add flag F27; all gates green". Checks on head: `verify` ✓, annex rebuild/verify ✓.
+* **Merge:** `gh pr merge 34 --merge` at 2026-11-14T18:41:14Z → merge commit **`fcc7f9b`** on `main` (state MERGED).
+* **Post-merge workflows on `main` (`fcc7f9b`):** `CI` ✓ · `Verify verification annex (site/)` ✓ · `Build, verify and deploy to GitHub Pages` ✓ · intrinsic `pages-build-deployment` ✗ (run 43627984266) — failure cause per log: "Deployment request failed for fcc7f9b… due to in progress deployment", i.e. the two deploy pipelines racing on the same commit; the winning deploy recorded the build.
+* **GitHub Pages:** `gh api repos/…/pages/builds/latest` → `status: built`, commit `fcc7f9b`, created 2026-11-14T18:41:15Z, `error: null`. A rerun of the intrinsic workflow was refused by GitHub ("cannot be rerun; its workflow file may be broken" — dynamic workflow); a manual rebuild request returned 403 for this token and was unnecessary.
+* **Live verification:** `https://kanlerxz87-cyber.github.io/Zone1/flagged.html` serves **27 open items** including **F27**; `compliance.html` cites §6(t)/§6(y) ("Content on your Site; live page read 2026-11-14 — see flag F27"); OA §5 disclosure bar present on both pages. The site is live and not broken.
+* **Board hygiene:** the original board's T12 row (left `in progress` since 2026-11-13) is marked `done` in this record-only PR — PRs #23, #25, #26, #31, #32 and #34 are all merged with green Pages deploys.
+* This record is published by a follow-up record-only PR from the same branch, because the record cannot contain its own PR number before the PR exists.
+---
+
+> **Merge note (2026-11-14):** concurrent-board merge — both blocks kept verbatim; nothing discarded.
+
 ---
 
 > **Merge note (2026-11-14):** concurrent-board merge — the block above and the block below were written in parallel sessions and both are kept verbatim; nothing discarded.
