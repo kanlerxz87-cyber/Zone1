@@ -4,121 +4,121 @@
   "performed_by": "arena-052f2c9f",
   "branch": "arena/052f2c9f-zone1",
   "baseline_commit": "332ce85",
-  "title": "Pass 7 \u2014 independent re-verification round 7 (arena-052f2c9f)",
-  "lede": "An independent session re-read the site's load-bearing facts against the live official sources on 2026-11-14, hours after pass 6. The three supplied short links resolved to the same three ASINs for the seventh consecutive observation round, with the same srctok tokens as earlier rounds; the nonsense-token control was re-run and again refused with 403. Policy and brand facts were re-read verbatim. No stored value changed, no new value was filled in, and the register stays at F1\u2013F31.",
-  "method": "Each row below is one live fetch on 2026-11-14 (UTC 19:05\u201319:15) of the official URL the site cites for the row: the three link.amazon short links, the Amazon detail pages they resolve to, Amazon Associates Central help nodes, eCFR, and the two manufacturers' own product pages. A row is confirmed only when the source states the published value outright; conflicts are reported as still live and nothing is asserted between them.",
-  "scope_note": "Files touched by this pass: session-052f2c9f/** (new), build.py (one additive section on the re-verification page), and the regenerated root HTML. No data/*.json was edited and no flag was added \u2014 the register remains F1\u2013F31 with 31 open rows.",
+  "title": "Pass 7 — independent re-verification round 7 (arena-052f2c9f)",
+  "lede": "An independent session re-read the site's load-bearing facts against the live official sources on 2026-11-14, hours after pass 6. The three supplied short links resolved to the same three ASINs for the seventh consecutive observation round, with the same srctok tokens as earlier rounds; the nonsense-token control was re-run and again refused with 403. Policy and brand facts were re-read verbatim. No stored value changed, no new value was filled in, and the register stays at F1–F31.",
+  "method": "Each row below is one live fetch on 2026-11-14 (UTC 19:05–19:15) of the official URL the site cites for the row: the three link.amazon short links, the Amazon detail pages they resolve to, Amazon Associates Central help nodes, eCFR, and the two manufacturers' own product pages. A row is confirmed only when the source states the published value outright; conflicts are reported as still live and nothing is asserted between them.",
+  "scope_note": "Files touched by this pass: session-052f2c9f/** (new), build.py (one additive section on the re-verification page), and the regenerated root HTML. No data/*.json was edited. This pass added no flag of its own; the register as merged is F1-F35 after the concurrent arena-6b2eddeb pass 7 added F32-F35.",
   "rows": [
     {
-      "claim": "link.amazon/B04G1MEwY \u2192 ASIN B0CDY277D3 (7th observation round)",
+      "claim": "link.amazon/B04G1MEwY → ASIN B0CDY277D3 (7th observation round)",
       "published_value": "B0CDY277D3",
-      "observed": "Resolved at 2026-11-14T19:05Z to www.amazon.com/dp/B0CDY277D3 with lv=shuf & plpRedirect=mhFallback and btn_ref=srctok-0740a2e990c9bbb3 \u2014 the same srctok this and earlier passes recorded. Page title matches the stored amazon_listing_title character for character (CHEFMAN 6 Quart Dual Basket \u2026 Easy View Windows \u2026).",
+      "observed": "Resolved at 2026-11-14T19:05Z to www.amazon.com/dp/B0CDY277D3 with lv=shuf & plpRedirect=mhFallback and btn_ref=srctok-0740a2e990c9bbb3 — the same srctok this and earlier passes recorded. Page title matches the stored amazon_listing_title character for character (CHEFMAN 6 Quart Dual Basket … Easy View Windows …).",
       "verdict": "confirmed",
-      "source_label": "Amazon \u2014 the supplied short link and its redirect target",
+      "source_label": "Amazon — the supplied short link and its redirect target",
       "source_url": "https://link.amazon/B04G1MEwY"
     },
     {
-      "claim": "link.amazon/B02NbDxp3 \u2192 ASIN B09B7SB46R (7th observation round)",
+      "claim": "link.amazon/B02NbDxp3 → ASIN B09B7SB46R (7th observation round)",
       "published_value": "B09B7SB46R",
-      "observed": "Resolved at 2026-11-14T19:05Z to \u2026/dp/B09B7SB46R, btn_ref=srctok-3541f5edba6b914c (same token as earlier rounds). Title matches the stored value and still says \u201c24 cooking functions\u201d \u2014 the tiebreaker figure that bears on F4/F5/F29.",
+      "observed": "Resolved at 2026-11-14T19:05Z to …/dp/B09B7SB46R, btn_ref=srctok-3541f5edba6b914c (same token as earlier rounds). Title matches the stored value and still says “24 cooking functions” — the tiebreaker figure that bears on F4/F5/F29.",
       "verdict": "confirmed",
-      "source_label": "Amazon \u2014 the supplied short link and its redirect target",
+      "source_label": "Amazon — the supplied short link and its redirect target",
       "source_url": "https://link.amazon/B02NbDxp3"
     },
     {
-      "claim": "link.amazon/B00hJ57DV \u2192 ASIN B08DKYBTPH (7th observation round)",
+      "claim": "link.amazon/B00hJ57DV → ASIN B08DKYBTPH (7th observation round)",
       "published_value": "B08DKYBTPH",
-      "observed": "Resolved at 2026-11-14T19:05Z to \u2026/dp/B08DKYBTPH, btn_ref=srctok-507e2d3d167072eb (same token as earlier rounds). Title matches the stored value and still advertises \u201c450\u00b0F Hi-Fry \u2026 Bake, Dehydrate, Frozen\u201d \u2014 the claim in conflict with the brand page (F3).",
+      "observed": "Resolved at 2026-11-14T19:05Z to …/dp/B08DKYBTPH, btn_ref=srctok-507e2d3d167072eb (same token as earlier rounds). Title matches the stored value and still advertises “450°F Hi-Fry … Bake, Dehydrate, Frozen” — the claim in conflict with the brand page (F3).",
       "verdict": "confirmed",
-      "source_label": "Amazon \u2014 the supplied short link and its redirect target",
+      "source_label": "Amazon — the supplied short link and its redirect target",
       "source_url": "https://link.amazon/B00hJ57DV"
     },
     {
-      "claim": "The resolver is deterministic (re-test of the F-07 \u201c404 fallback shuffle\u201d reading)",
-      "published_value": "Nonsense-token control: link.amazon/ZZZ9ZZZZZ \u2192 403 Forbidden",
-      "observed": "Re-run independently at 2026-11-14T19:14Z: https://link.amazon/ZZZ9ZZZZZ returns exactly \u201c403 Forbidden\u201d. An unrecognised token is refused, not replaced by a featured product or a shuffled search page. Combined with seven stable resolution rounds over two days, the \u201cfallback shuffle\u201d reading of F-07 cannot stand; what remains open is only whether these are the products the account holder intended (F1/F6) \u2014 unprovable from outside.",
+      "claim": "The resolver is deterministic (re-test of the F-07 “404 fallback shuffle” reading)",
+      "published_value": "Nonsense-token control: link.amazon/ZZZ9ZZZZZ → 403 Forbidden",
+      "observed": "Re-run independently at 2026-11-14T19:14Z: https://link.amazon/ZZZ9ZZZZZ returns exactly “403 Forbidden”. An unrecognised token is refused, not replaced by a featured product or a shuffled search page. Combined with seven stable resolution rounds over two days, the “fallback shuffle” reading of F-07 cannot stand; what remains open is only whether these are the products the account holder intended (F1/F6) — unprovable from outside.",
       "verdict": "conflict-resolved",
-      "source_label": "Amazon \u2014 control request to the same resolver",
+      "source_label": "Amazon — control request to the same resolver",
       "source_url": "https://link.amazon/ZZZ9ZZZZZ"
     },
     {
-      "claim": "OA \u00a75 disclosure wording carried on every page",
-      "published_value": "\u201cAs an Amazon Associate I earn from qualifying purchases.\u201d",
-      "observed": "Operating Agreement (Updated: October 15, 2025) \u00a75 read live: \u201cYou must clearly and prominently state the following \u2026 : \u2018As an Amazon Associate I earn from qualifying purchases.\u2019\u201d Verbatim match to the disclosure bar rendered on all 92 pages.",
+      "claim": "OA §5 disclosure wording carried on every page",
+      "published_value": "“As an Amazon Associate I earn from qualifying purchases.”",
+      "observed": "Operating Agreement (Updated: October 15, 2025) §5 read live: “You must clearly and prominently state the following … : ‘As an Amazon Associate I earn from qualifying purchases.’” Verbatim match to the disclosure bar rendered on all 92 pages.",
       "verdict": "confirmed",
-      "source_label": "Amazon Associates Central \u2014 Operating Agreement",
+      "source_label": "Amazon Associates Central — Operating Agreement",
       "source_url": "https://affiliate-program.amazon.com/help/operating/agreement"
     },
     {
       "claim": "Commission Table 1 candidate rows (Kitchen 4.50% / All Other 4.00%)",
-      "published_value": "4.50% (Kitchen) or 4.00% (All Other Categories) \u2014 no per-ASIN rate asserted",
-      "observed": "Table 1 read live: \u201cPhysical Books, Kitchen, Automotive | 4.50%\u201d and \u201cAll Other Categories | 4.00%\u201d. Air fryers are still not named anywhere in the table, so the per-product rate stays unasserted exactly as published.",
+      "published_value": "4.50% (Kitchen) or 4.00% (All Other Categories) — no per-ASIN rate asserted",
+      "observed": "Table 1 read live: “Physical Books, Kitchen, Automotive | 4.50%” and “All Other Categories | 4.00%”. Air fryers are still not named anywhere in the table, so the per-product rate stays unasserted exactly as published.",
       "verdict": "confirmed",
-      "source_label": "Amazon Associates Central \u2014 Standard Commission Income Statement",
+      "source_label": "Amazon Associates Central — Standard Commission Income Statement",
       "source_url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
     },
     {
       "claim": "Program Policies recency as recorded in the source register",
       "published_value": "Updated April 14, 2026",
-      "observed": "The live Program Policies page heading reads \u201cUpdated: April 14, 2026.\u201d Matches the register. Section structure (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License, Influencer Program Policy, Creator Ads Boost) unchanged.",
+      "observed": "The live Program Policies page heading reads “Updated: April 14, 2026.” Matches the register. Section structure (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License, Influencer Program Policy, Creator Ads Boost) unchanged.",
       "verdict": "confirmed",
-      "source_label": "Amazon Associates Central \u2014 Program Policies",
+      "source_label": "Amazon Associates Central — Program Policies",
       "source_url": "https://affiliate-program.amazon.com/help/operating/policies"
     },
     {
       "claim": "FTC endorsement rule as cited (16 CFR 255.5)",
-      "published_value": "16 CFR Part 255 \u00a7255.5 Disclosure of material connections; source 88 FR 48102",
-      "observed": "eCFR renders Part 255 \u00a7\u00a7255.0\u2013255.6 including \u00a7255.5 \u201cDisclosure of material connections\u201d, source note \u201c88 FR 48102, July 26, 2023\u201d; Title 16 up to date as of 11/12/2026 with no later Part 255 amendment on the timeline. The FTC \u201cDisclosures 101 for Social Media Influencers\u201d publication referenced by the site also confirmed live on ftc.gov.",
+      "published_value": "16 CFR Part 255 §255.5 Disclosure of material connections; source 88 FR 48102",
+      "observed": "eCFR renders Part 255 §§255.0–255.6 including §255.5 “Disclosure of material connections”, source note “88 FR 48102, July 26, 2023”; Title 16 up to date as of 11/12/2026 with no later Part 255 amendment on the timeline. The FTC “Disclosures 101 for Social Media Influencers” publication referenced by the site also confirmed live on ftc.gov.",
       "verdict": "confirmed",
-      "source_label": "eCFR \u2014 16 CFR Part 255",
+      "source_label": "eCFR — 16 CFR Part 255",
       "source_url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255"
     },
     {
       "claim": "Chefman 8 Qt temperature range vs the Amazon listing title (F3)",
-      "published_value": "Blank \u2014 asserted by neither source",
-      "observed": "Brand page read live at 2026-11-14T19:13Z: \u201cprecise temperatures ranging from 200\u2013400\u00b0F\u201d with fries/chicken/fish/meat presets, LED shake reminder, \u201c98% less oil\u201d, \u201cDesigned for 4-6 people\u201d. The Amazon title still advertises \u201c450\u00b0F Hi-Fry \u2026 Bake, Dehydrate, Frozen\u201d. The conflict is still live on both official pages; the site still asserts neither figure.",
+      "published_value": "Blank — asserted by neither source",
+      "observed": "Brand page read live at 2026-11-14T19:13Z: “precise temperatures ranging from 200–400°F” with fries/chicken/fish/meat presets, LED shake reminder, “98% less oil”, “Designed for 4-6 people”. The Amazon title still advertises “450°F Hi-Fry … Bake, Dehydrate, Frozen”. The conflict is still live on both official pages; the site still asserts neither figure.",
       "verdict": "conflict-live",
-      "source_label": "Chefman \u2014 8 Qt TurboFry Touch product page",
+      "source_label": "Chefman — 8 Qt TurboFry Touch product page",
       "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
     },
     {
       "claim": "Chefman 6 Qt Dual-Window model, max temp and review count",
-      "published_value": "RJ38-SQPF-3TDB-2W; 450 \u00b0F max with Hi-Fry; brand review count 1,305",
-      "observed": "Brand page read live at 2026-11-14T19:10Z: model code \u201cRJ38-SQPF-3TDB-2W\u201d under the title, \u201cMax temp: 450\u00baF/ 235\u00baC with Hi-Fry function\u201d, \u201cSync Function so both baskets finish cook\u2026\u201d, and \u201c1305 Reviews\u201d. Matches the published rows and F31's 1,305 figure for the -2W sister SKU.",
+      "published_value": "RJ38-SQPF-3TDB-2W; 450 °F max with Hi-Fry; brand review count 1,305",
+      "observed": "Brand page read live at 2026-11-14T19:10Z: model code “RJ38-SQPF-3TDB-2W” under the title, “Max temp: 450ºF/ 235ºC with Hi-Fry function”, “Sync Function so both baskets finish cook…”, and “1305 Reviews”. Matches the published rows and F31's 1,305 figure for the -2W sister SKU.",
       "verdict": "confirmed",
-      "source_label": "Chefman \u2014 TurboFry Touch 6 Qt Dual-Window product page",
+      "source_label": "Chefman — TurboFry Touch 6 Qt Dual-Window product page",
       "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
     },
     {
       "claim": "Emeril 26QT preset count and model (F4/F5/F29)",
       "published_value": "No preset count asserted; model 4-00675-02A-VN",
-      "observed": "Brand page read live at 2026-11-14T19:10Z: the spec block still says \u201c25 Cooking Pre-sets\u201d while the prose on the same page says \u201c10-in-1\u201d and a carousel asset is named \u201c11-in-1_convection_oven_in_action.png\u201d; the Amazon title says \u201c24 cooking functions\u201d. Model \u201c4-00675-02A-VN\u201d and MSRP $199.99 confirmed as published. The preset count remains officially inconsistent across four figures; no count is asserted anywhere on the site.",
+      "observed": "Brand page read live at 2026-11-14T19:10Z: the spec block still says “25 Cooking Pre-sets” while the prose on the same page says “10-in-1” and a carousel asset is named “11-in-1_convection_oven_in_action.png”; the Amazon title says “24 cooking functions”. Model “4-00675-02A-VN” and MSRP $199.99 confirmed as published. The preset count remains officially inconsistent across four figures; no count is asserted anywhere on the site.",
       "verdict": "conflict-live",
-      "source_label": "Emeril Everyday \u2014 French Door AirFryer 360 product page",
+      "source_label": "Emeril Everyday — French Door AirFryer 360 product page",
       "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
     },
     {
       "claim": "PA-API 5 deprecation notice (F24)",
       "published_value": "PA-API 5 deprecated; successor is Amazon's Creators API",
-      "observed": "The official notice is live verbatim: \u201cThe Amazon Product Advertising API 5.0 (PA-API 5) has been deprecated and is being replaced by the Creators API\u201d, with the documented 403 AccessDeniedException response for remaining PA-API 5 callers and links to the migration guide. F24 stands exactly as published.",
+      "observed": "The official notice is live verbatim: “The Amazon Product Advertising API 5.0 (PA-API 5) has been deprecated and is being replaced by the Creators API”, with the documented 403 AccessDeniedException response for remaining PA-API 5 callers and links to the migration guide. F24 stands exactly as published.",
       "verdict": "confirmed",
-      "source_label": "Amazon Associates Central \u2014 PA-API 5 Deprecation Notice",
+      "source_label": "Amazon Associates Central — PA-API 5 Deprecation Notice",
       "source_url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation"
     }
   ],
   "new_evidence": [
     {
       "title": "Nonsense-token control re-run by an independent session",
-      "detail": "https://link.amazon/ZZZ9ZZZZZ \u2192 \u201c403 Forbidden\u201d at 2026-11-14T19:14Z (pass 5 obtained the same result). The resolver refuses an unknown token outright. A \u201c404 fallback shuffle\u201d would have to serve something; this serves a hard refusal. Read together with seven resolution rounds that returned identical ASINs \u2014 and identical per-token srctok values (srctok-0740a2e990c9bbb3, srctok-3541f5edba6b914c, srctok-507e2d3d167072eb) \u2014 the deterministic-redirect reading of F21 is the only reading the evidence supports.",
+      "detail": "https://link.amazon/ZZZ9ZZZZZ → “403 Forbidden” at 2026-11-14T19:14Z (pass 5 obtained the same result). The resolver refuses an unknown token outright. A “404 fallback shuffle” would have to serve something; this serves a hard refusal. Read together with seven resolution rounds that returned identical ASINs — and identical per-token srctok values (srctok-0740a2e990c9bbb3, srctok-3541f5edba6b914c, srctok-507e2d3d167072eb) — the deterministic-redirect reading of F21 is the only reading the evidence supports.",
       "flag": "F21",
-      "source_label": "Amazon \u2014 control request to the link.amazon resolver",
+      "source_label": "Amazon — control request to the link.amazon resolver",
       "source_url": "https://link.amazon/ZZZ9ZZZZZ"
     },
     {
       "title": "Seventh consecutive stable resolution round, srctok constants unchanged",
-      "detail": "On 2026-11-14T19:05Z all three supplied links resolved to the same three ASINs recorded since 2026-11-13, each with the same btn_ref=srctok token earlier passes recorded for that link. A rotating or shuffled target would not preserve a per-token srctok across two days of independent sessions. The F-07 dispute (zone1-s2 board) over whether resolution is genuine is closed on the \u201cshuffle\u201d point; the remaining identity question (whether these are the products the account holder meant) stays flagged as F1/F6 because no external check can read intent.",
+      "detail": "On 2026-11-14T19:05Z all three supplied links resolved to the same three ASINs recorded since 2026-11-13, each with the same btn_ref=srctok token earlier passes recorded for that link. A rotating or shuffled target would not preserve a per-token srctok across two days of independent sessions. The F-07 dispute (zone1-s2 board) over whether resolution is genuine is closed on the “shuffle” point; the remaining identity question (whether these are the products the account holder meant) stays flagged as F1/F6 because no external check can read intent.",
       "flag": "F10",
-      "source_label": "Amazon \u2014 the three supplied short links",
+      "source_label": "Amazon — the three supplied short links",
       "source_url": "https://link.amazon/B04G1MEwY"
     }
   ]

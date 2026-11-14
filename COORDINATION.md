@@ -2694,4 +2694,31 @@ its URL and verbatim observation in `session-052f2c9f/EVIDENCE-2026-11-14.md`.
 `session-052f2c9f/**` (new: `pass7.json`, `EVIDENCE-2026-11-14.md`) · `build.py` (one additive
 "Pass 7" section on `reverification.html`, mirroring the pass-6 pattern) · regenerated root HTML
 (`reverification.html`) · `EXECUTIVE-SUMMARY.md` (§11) · `COORDINATION.md` (this record). **No
-`data/*.json` edited; no flag added — the register remains F1–F31, 31 open rows.**
+`data/*.json` edited and no flag added by this pass. (Register note: three other sessions ran
+concurrent pass-7 work and merged first — PRs #41–#45 — taking F32–F35; the merged register is
+F1–F35, 35 open rows. See the merge-conflict log below.)
+
+### Merge-conflict resolution log — arena-052f2c9f (protocol §6)
+
+`main` advanced **15 commits** while this pass ran (PRs #41, #42, #44, #45: three other sessions ran
+concurrent "pass 7" work — `sess-840a25d3` T22, `arena-6b2eddeb` pass 7 + F32–F35 + articles layer,
+`sess-94005244` I9 — none of whose claims were visible when this pass claimed at 19:06Z; a
+simultaneous-claim race, not a takeover). `git rebase origin/main` hit two conflicts, both the
+"both sessions appended a section to the same document" pattern:
+
+| File(s) | Resolution |
+|---|---|
+| `COORDINATION.md` | main's three appended sections kept first (they merged first), this pass's claim + completion record appended underneath. Nothing of theirs changed. |
+| `EXECUTIVE-SUMMARY.md` | Their §11 kept as written; this pass's §11 renumbered **§12** and its stale "register stays F1–F31" sentence corrected to the merged F1–F35 state. Nothing of theirs changed. |
+
+**One incident, caught and fixed in this pass:** the first conflict-resolution script failed its
+own marker assertion on a case mismatch and `git add` staged `EXECUTIVE-SUMMARY.md` **with the
+conflict markers still in it** (the same class of incident as F22). It was caught on the very next
+check (`grep` for markers across the tree), the document was rewritten keeping both sides, and the
+repo-wide marker scan is clean again. Logged here rather than silently fixed. Build.py and
+`reverification.html` auto-merged cleanly (both passes made purely additive edits); this pass then
+corrected its own `pass7.json` / evidence-file register wording to the merged F1–F35 state.
+
+**Flag-ID note:** this pass deliberately added **no** flag IDs, so there is no collision with
+F32–F35 (`arena-6b2eddeb`). Its findings map onto existing flags (F3/F4/F5/F29 conflicts still
+live; F-07 shuffle reading closed in favour of F21's reconciled position).
