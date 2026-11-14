@@ -1826,3 +1826,41 @@ All earlier open flags (F1–F24 on `flagged.html`, incl. F14–F16 identity dis
 * **Live check:** `https://kanlerxz87-cyber.github.io/Zone1/` serves the merged tree — the compliance page's C4 row shows the verbatim §255.5(a) quote and the commission table shows the exact official Table 1 wording (verified via cache-busted fetch; the un-busted URL briefly served the previous deploy's cached copy, the same caching behaviour I7 recorded).
 * **Concurrent-merge log (protocol §6):** `main` advanced twice during this pass (PRs #30–#32 by `arena/502dcf85-zone1`, then PRs #34–#35 by `arena/6ecdb4e4-zone1`). Each time, `origin/main` was merged into this branch with **no work discarded**: COORDINATION.md conflict hunks kept both boards verbatim (seam notes added), `EXECUTIVE-SUMMARY.md`'s contested line was reconciled to the merged truth (42/1 spec counts from pass 6 + 26 open flags incl. I7's F25/F26, re-verified against the regenerated `flagged.html`), and `data/compliance.json` auto-merged so that pass-6's quote/wording fixes and PR #34's §6 citation labels (F27) coexist. Their s2 stamp fix (`7864372`) makes `scripts/build_s2_site.py --check` pass on the merged tree and supersedes this pass's F18 note.
 * This record is published by a follow-up record-only PR from the same branch (the merge result cannot exist inside the PR it describes).
+
+---
+
+> **Merge-conflict resolution (sess-91d0552e, rebase onto `81308ea`, 2026-11-14).**
+> This file was appended by both `arena/d79ea5ef-zone1` (I8, PR #37) and this session while
+> neither could see the other. Per protocol §6 both sides are kept verbatim; only the marker
+> lines were removed. Nothing from either pass was discarded.
+
+---
+
+---
+
+> **Merge-conflict resolution (sess-91d0552e, 2026-11-14).** This file was appended by both
+> `arena/6ecdb4e4-zone1` (I7, PR #34) and this session while neither could see the other.
+> Per protocol §6 both sides are kept verbatim; only the marker lines were removed.
+> Nothing from either pass was discarded.
+
+---
+
+# Integration pass 6 — session sess-91d0552e (branch `arena/91d0552e-zone1`, base `29e4804`)
+
+**Claim written 2026-11-14 before any edits in this session.** No other session had claimed the items below at claim time.
+
+## Claimed tasks (this session)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| T18 | Independent line-by-line re-verification dated 2026-11-14: the three `link.amazon` tokens, the Operating Agreement (S1), the Standard Commission Income Statement (S3), and all three brand product pages (S10, S12, S14) | in progress | sess-91d0552e | `session-91d0552e/**` (new files only) |
+| T19 | Correct stale counts in the canonical `EXECUTIVE-SUMMARY.md` (§3 and the §10 summary line) so they match `data/products.json` and `build.py` | in progress | sess-91d0552e | `EXECUTIVE-SUMMARY.md` |
+| T20 | Publish new flag F25 (two competing executive summaries at the repo root + orphaned flag registers whose ID spaces collide with the root register) | in progress | sess-91d0552e | `build.py` (`PROGRAMME_FLAGS`), regenerated root HTML |
+| T21 | Final integration: rebuild, re-run every gate, PR → merge to `main` → confirm Pages deploy → record here | pending | sess-91d0552e | generated root HTML, `COORDINATION.md` |
+
+Scope discipline: no file owned by another in-progress session is edited. `data/products.json`, `data/compliance.json`,
+`data/sources.json`, `data/reverification.json`, `s2/`, `site/`, `dashboard/`, `research/`,
+`session-3740f69d/`, `session-81495d2d/`, `crosscheck/`, `annex-88769516/`, `platform/`, `docs/` and `scripts/`
+are **read-only** for this session. The only shared-file edits are `EXECUTIVE-SUMMARY.md` (T19, correcting numbers
+that the current data contradicts) and `build.py` (T20, appending one flag entry — the integration session's remit
+under rule 5).
