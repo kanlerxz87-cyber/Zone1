@@ -48,6 +48,10 @@ REVERIFICATION = load("reverification.json")
 # drop the file without touching anything else; the page simply omits the section.
 _p6 = ROOT / "session-54c66535" / "pass6.json"
 PASS6 = json.loads(_p6.read_text(encoding="utf-8")) if _p6.exists() else None
+# Additive pass-7 ledger (2026-11-14, arena-052f2c9f): independent re-verification round 7.
+# Owned entirely by this session's folder; the page omits the section if the file is absent.
+_p7 = ROOT / "session-052f2c9f" / "pass7.json"
+PASS7 = json.loads(_p7.read_text(encoding="utf-8")) if _p7.exists() else None
 
 SRC_BY_ID = {s["id"]: s for s in SOURCES["sources"]}
 ACCESSED = SOURCES["accessed"]
@@ -1825,6 +1829,55 @@ manufacturer does not publish stays blank.</p>
 <p class="tiny muted">Raw observations for this pass are in
 <code>session-54c66535/EVIDENCE-2026-11-14.md</code>.</p>
 """
+    # ---- pass-7 addendum (arena-052f2c9f): independent re-verification round 7 ----
+    p7_html = ""
+    if PASS7:
+        p7 = PASS7
+        def p7row(t):
+            cls, label = REV_VERDICT[t["verdict"]]
+            return (
+                f'<tr><td><strong>{e(t["claim"])}</strong></td>'
+                f'<td class="small">{e(t["published_value"])}</td>'
+                f'<td class="small">{e(t["observed"])}</td>'
+                f'<td><span class="pill {cls}">{e(label)}</span></td>'
+                f'<td class="small"><a href="{e(t["source_url"])}" target="_blank" rel="noopener">'
+                f'{e(t["source_label"])}</a></td></tr>'
+            )
+
+        p7rows = "".join(p7row(t) for t in p7["rows"])
+        p7ev = "".join(
+            f'<div class="callout info" style="margin:.6rem 0">'
+            f'<strong>{e(x["title"])}</strong>'
+            f'<p class="small">{e(x["detail"])}</p>'
+            f'<p class="tiny muted">Flag {e(x["flag"])} · '
+            f'<a href="{e(x["source_url"])}" target="_blank" rel="noopener">{e(x["source_label"])}</a>'
+            f'</p></div>'
+            for x in p7["new_evidence"]
+        )
+        p7_html = f"""
+<h2>Pass 7 — independent re-verification round 7 ({e(p7['pass_date'])}, arena-052f2c9f)</h2>
+<p class="small">A session that wrote none of the stored values re-read the load-bearing facts
+against the live official sources on {e(p7['pass_date'])}, hours after pass 6. The three supplied
+short links resolved to the same three ASINs for the <strong>seventh consecutive observation
+round</strong>, the nonsense-token control was re-run and again refused with 403, and every policy
+and brand fact checked below matched what the site publishes. No stored value changed and no new
+value was filled in.</p>
+<div class="tablewrap">
+<table>
+  <caption>Round-7 re-reads, {e(p7['pass_date'])} (UTC 19:05–19:15)</caption>
+  <thead><tr><th style="width:17%">Claim</th><th style="width:17%">Published value</th>
+  <th style="width:42%">What the official source says</th><th style="width:12%">Verdict</th>
+  <th style="width:12%">Source</th></tr></thead>
+  <tbody>{p7rows}</tbody>
+</table>
+</div>
+
+<h3>What pass 7 added beyond the re-reads</h3>
+{p7ev}
+<p class="tiny muted">{e(p7['scope_note'])}</p>
+<p class="tiny muted">Raw observations for this pass are in
+<code>session-052f2c9f/EVIDENCE-2026-11-14.md</code>.</p>
+"""
     lr = rev.get("link_resolution") or {}
     lr_html = ""
     if lr:
@@ -1859,6 +1912,8 @@ manufacturer does not publish stays blank.</p>
 {"".join(groups)}
 
 {p6_html}
+
+{p7_html}
 
 <h2>What this pass changed on the site</h2>
 <ul class="tight small">{changes}</ul>
