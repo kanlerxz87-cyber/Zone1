@@ -2119,6 +2119,46 @@ Two flag-ID collisions were handled by renumbering rather than racing: **F25/F26
 This pass's flags are **F29–F31**, and F28 was deliberately left vacant for PR #36 so the register
 holds no duplicate ID whichever PR merged first. It did, and the merged register is F1–F31 with no
 duplicates.
+---
+
+# Integration pass 7 — session `sess-94005244` (branch `arena/94005244-zone1`, base `b990352`)
+
+**Claim written 2026-11-14 (UTC) before any file change.** Read the whole board first: every earlier
+row is `done`/`needs review`; open PR #40 (`arena/54c66535-zone1`, record-only) belongs to another
+session and is left untouched. ID note: `I1`–`I8` are taken; this pass is recorded as **I9**.
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| I9-1 | Independent line-by-line repo review of the integrated tree + run every published gate | **done** | sess-94005244 | review only |
+| I9-2 | Independent re-verification dated 2026-11-14 against official live sources: the three `link.amazon` tokens, Standard Commission Income Statement (Table 1), Operating Agreement date, and all three brand product pages | **done** | sess-94005244 | `session-94005244/**` (new files only) |
+| I9-3 | Live-site verification: fetch the deployed GitHub Pages landing + key subpages, confirm disclosures, nav and row source links | **done** | sess-94005244 | `session-94005244/**` (new files only) |
+| I9-4 | Final integration: fix any defect found (integration remit under rule 5), rebuild, PR → `main`, merge, confirm Pages deploy, record here | in progress | sess-94005244 | `COORDINATION.md` (this section) |
+
+Not touched unless a gate fails: `data/*.json`, `dashboard/`, `s2/`, `site/`, `research/`,
+`session-3740f69d/`, `session-81495d2d/`, `crosscheck/`, `annex-88769516/`, `docs/`, `platform/`.
+
+### Completion record — sess-94005244 (I9-1…I9-3, 2026-11-14 UTC)
+
+* **Evidence:** `session-94005244/VERIFICATION-2026-11-14.md` — sources table, gate results, and
+  the live-site checks, all fetched by this session on 2026-11-14.
+* **Gates (all green):** `build.py` reproducible · `verify.py` 0 errors · 33/33 tests · audit 0
+  warnings · `check_research.py` OK · `check_links.py` 4,103 links / 0 broken owned ·
+  `build_s2_site.py --check` current · annex 382/382 · repo-wide conflict-marker scan clean.
+* **Sources re-fetched live (12 checks, official):** all three `link.amazon` short links (round 6 —
+  destinations + titles match; fallback markers still present), Standard Commission Income Statement
+  Table 1 (11/11 rows + bounty amounts exact), Operating Agreement "Updated: October 15, 2025",
+  Chefman 6 Qt page (RJ38-SQPF-3TDB-2W, 1,305 reviews, price ladder, 450 °F Hi-Fry spec line),
+  Chefman 8 Qt page (RJ38-SQSS-8T, 716 reviews, 200–400 °F, four presets), Emeril page ($199.99,
+  4-00675-02A-VN, 2.6/25, 25-vs-10-vs-11 preset conflict still live), and the deployed site
+  (landing, flagged, compliance, product page — disclosures, nav and row source links all present).
+* **No stored value was found wrong; no data file was changed.** One cosmetic observation logged
+  (S17 badge hrefs to the first of the three short links because S17 is one registered source
+  covering all three) — non-blocking, not changed.
+* **Conflict log:** `main` advanced twice during this pass (PRs #40 and #41 from other sessions).
+  Both were merged in with `COORDINATION.md` resolved as a union — no session's record discarded.
+* **Parallel session note:** `sess-840a25d3` (T22) verified disclosure wording, §2(b) and 16 CFR
+  255.5 the same day; complementary to this pass (commission table, OA date, brand pages, links,
+  live site). No scope overlap; their PR #41 files were merged, not edited.
 
 ---
 
