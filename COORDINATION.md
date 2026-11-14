@@ -2149,6 +2149,79 @@ and are not yet owned by any session:
    guide, a comparison and three product pages, but **no article section**; the only articles in the repo
    live in `research/articles/`, an annex build, and are not reachable from the root navigation.
 
+> *Merge note (2026-11-14): the block above and the block below were written by two sessions concurrently; both are kept verbatim and nothing was discarded.*
+
+# Integration pass 7 — session `sess-94005244` (branch `arena/94005244-zone1`, base `b990352`)
+
+**Claim written 2026-11-14 (UTC) before any file change.** Read the whole board first: every earlier
+row is `done`/`needs review`; open PR #40 (`arena/54c66535-zone1`, record-only) belongs to another
+session and is left untouched. ID note: `I1`–`I8` are taken; this pass is recorded as **I9**.
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| I9-1 | Independent line-by-line repo review of the integrated tree + run every published gate | **done** | sess-94005244 | review only |
+| I9-2 | Independent re-verification dated 2026-11-14 against official live sources: the three `link.amazon` tokens, Standard Commission Income Statement (Table 1), Operating Agreement date, and all three brand product pages | **done** | sess-94005244 | `session-94005244/**` (new files only) |
+| I9-3 | Live-site verification: fetch the deployed GitHub Pages landing + key subpages, confirm disclosures, nav and row source links | **done** | sess-94005244 | `session-94005244/**` (new files only) |
+| I9-4 | Final integration: fix any defect found (integration remit under rule 5), rebuild, PR → `main`, merge, confirm Pages deploy, record here | in progress | sess-94005244 | `COORDINATION.md` (this section) |
+
+Not touched unless a gate fails: `data/*.json`, `dashboard/`, `s2/`, `site/`, `research/`,
+`session-3740f69d/`, `session-81495d2d/`, `crosscheck/`, `annex-88769516/`, `docs/`, `platform/`.
+
+### Completion record — sess-94005244 (I9-1…I9-3, 2026-11-14 UTC)
+
+* **Evidence:** `session-94005244/VERIFICATION-2026-11-14.md` — sources table, gate results, and
+  the live-site checks, all fetched by this session on 2026-11-14.
+* **Gates (all green):** `build.py` reproducible · `verify.py` 0 errors · 33/33 tests · audit 0
+  warnings · `check_research.py` OK · `check_links.py` 4,103 links / 0 broken owned ·
+  `build_s2_site.py --check` current · annex 382/382 · repo-wide conflict-marker scan clean.
+* **Sources re-fetched live (12 checks, official):** all three `link.amazon` short links (round 6 —
+  destinations + titles match; fallback markers still present), Standard Commission Income Statement
+  Table 1 (11/11 rows + bounty amounts exact), Operating Agreement "Updated: October 15, 2025",
+  Chefman 6 Qt page (RJ38-SQPF-3TDB-2W, 1,305 reviews, price ladder, 450 °F Hi-Fry spec line),
+  Chefman 8 Qt page (RJ38-SQSS-8T, 716 reviews, 200–400 °F, four presets), Emeril page ($199.99,
+  4-00675-02A-VN, 2.6/25, 25-vs-10-vs-11 preset conflict still live), and the deployed site
+  (landing, flagged, compliance, product page — disclosures, nav and row source links all present).
+* **No stored value was found wrong; no data file was changed.** One cosmetic observation logged
+  (S17 badge hrefs to the first of the three short links because S17 is one registered source
+  covering all three) — non-blocking, not changed.
+* **Conflict log:** `main` advanced twice during this pass (PRs #40 and #41 from other sessions).
+  Both were merged in with `COORDINATION.md` resolved as a union — no session's record discarded.
+* **Parallel session note:** `sess-840a25d3` (T22) verified disclosure wording, §2(b) and 16 CFR
+  255.5 the same day; complementary to this pass (commission table, OA date, brand pages, links,
+  live site). No scope overlap; their PR #41 files were merged, not edited.
+
+---
+
+## Claim — sess-840a25d3 (branch `arena/840a25d3-zone1`, base `b990352`, 2026-11-14)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| T22 | Integration pass 7: independent re-verification of the three `link.amazon` short links, Operating Agreement disclosure wording, Program Policies §2(b) price rule, and 16 CFR 255.5 text; run every gate, PR → merge → confirm Pages | **done** | sess-840a25d3 | `COORDINATION.md` (log entry only), `session-840a25d3/**` (new). No `build.py` or `data/*.json` change (see I-2 in the record). |
+
+Scope rule: no `data/*.json` values and no `build.py` code are changed in this pass. Any value that cannot be re-confirmed is flagged, not edited.
+
+### Completion record — sess-840a25d3 (T22, 2026-11-14 UTC)
+
+* **Verification:** `session-840a25d3/VERIFICATION-2026-11-14.md`. Re-read all three `link.amazon` short links (titles match the stored values), the Operating Agreement disclosure wording (Help topic `GHQNZAU6669EZS98`), Program Policies §2(b) (price and availability rule, lowest-new/lowest-used rule), and 16 CFR 255.5(a) on eCFR. All confirmed verbatim.
+* **Irregularities (no edits to data):** I-1 link-level disclosure is firmer than the links can support: the destinations carry no Associates tag (already flagged F21 / F17). I-2 the articles are reachable via `research/index.html`; the planned navigation change was dropped. I-3 historical open-item counts differ across old records; the current build reports 31 everywhere.
+* **Gates on the rebased branch:** engine tests OK · audit OK · `build_s2_site.py --check` current · `check_links.py` 4,103 links · `build.py` reproducible (no diff) · `research/check_research.py` OK · `verify.py` 0 errors.
+* **Scope kept:** `COORDINATION.md` and `session-840a25d3/**` only.
+
+> **Merge-conflict resolution (arena-6b2eddeb, 2026-11-14).** `sess-840a25d3` (T22) and this
+> session both appended a pass-7 record here while neither could see the other. Per protocol both
+> sides are kept verbatim; only the marker lines were removed. Nothing from either pass was
+> discarded. Both passes are independent re-verifications of the same sources and they agree.
+> Note: `sess-840a25d3` recorded "the current build reports 31" open items; this session added
+> F32–F35 afterwards, so the merged build reports 35. That is a change in the register, not a
+> contradiction of T22.
+
+---
+
+# Integration pass 7 — session `arena-6b2eddeb` (branch `arena/6b2eddeb-zone1`, base `b990352`)
+
+**Claim written 2026-11-14 before any edits in this session.** At claim time the board showed every
+T- and U-series task `done` and PR #40 open (record-only, `arena/54c66535-zone1`).
+
 ## Claimed tasks (this session)
 
 | # | Task | Status | Owner | File scope |
@@ -2236,3 +2309,180 @@ Not touched: `data/sources.json`, `data/compliance.json`, `data/flags.json`, `da
 `data/marketing.json`, `data/verified/**`, `data/s2/**`, `docs/**`, `crosscheck/**`, `platform/**`,
 `EXECUTIVE_SUMMARY.md` (the legacy file already carries a banner marking its two superseded statements),
 and open PR #40 (another session's record-only PR, left untouched).
+
+> *Merge note (2026-11-14): the block above and the block below were written by two sessions concurrently; both are kept verbatim and nothing was discarded.*
+
+| V1 | Independent live re-verification: the three `link.amazon` tokens resolved again; Operating Agreement, Program Policies, Standard Commission Income Statement, Application Review topic, FTC Endorsement Guides Q&A, Disclosures 101 and 16 CFR Part 255 re-fetched and read on 2026-11-14 | in progress | arena-6b2eddeb | `COORDINATION.md` (this record) |
+| V2 | Independent live re-verification of every manufacturer source (S10–S15, S18) against `data/products.json` | in progress | arena-6b2eddeb | `COORDINATION.md` (this record) |
+| V3 | Audit the marketing/article layer against the brief ("catchy, trendy articles and topics"); close real gaps only | in progress | arena-6b2eddeb | `articles/`, `build.py` (additive), `data/marketing.json` |
+| V4 | Publish every new finding on `flagged.html` with a source link; never assert an unverified value | in progress | arena-6b2eddeb | `flagged.html` (via `build.py`), `data/flags.json` |
+| V5 | Final integration: rebuild, re-run every gate, PR → merge to `main` → confirm Pages deploy → record here | in progress | arena-6b2eddeb | whole tree (integration), `.github/workflows/` |
+
+**Explicitly not claimed / not touched:** another session's in-flight branch `arena/54c66535-zone1`
+(PR #40). Its record-only change to this file is preserved; if it merges first this session rebases
+onto it and keeps both records.
+
+
+## V1–V5 completion record — `arena-6b2eddeb` (pass 7, 2026-11-14)
+
+| # | Task | Status | Result |
+|---|------|--------|--------|
+| V1 | Live re-verification of Amazon/FTC/eCFR sources | **done** | OA (S1) `Updated: October 15, 2025`, §5 sentence present · Program Policies (S2) full section map re-read; **independently reproduces F27** (§6 items a–z, not §3) · Commission Table (S3) all 11 rows + bounty amounts matched `data/commission-rates.csv` exactly, no login needed. |
+| V2 | Live re-verification of manufacturer sources | **done** | S10, S12, S14 re-read live; **every stored spec value for all three products is stated on the page it cites.** No published value found wrong. |
+| V3 | Marketing/article layer | **done** | Added `articles/` — 5 articles + index, driven by `data/articles.json`. Build-enforced: a factual number must appear verbatim in `data/products.json` and every section must cite a registered source id, or the build fails. Guard rejected 18 paraphrases during development. |
+| V4 | Publish every new finding on `flagged.html` | **done** | New flags **F32–F35** + sources **S25–S27**. Flagged page now carries 35 rows. |
+| V5 | Integration: rebuild, gates, PR → merge → Pages | **done** | Below. |
+
+### New flags this pass
+
+| ID | Finding |
+|----|---------|
+| **F32** | Chefman publishes **three** 6-qt dual-basket SKUs (`RJ38-3DBW-V2`, `RJ38-SQPF-3TDB-2`, `RJ38-SQPF-3TDB-2W`); the site names two. `site/` and `research/` map the same ASIN to `RJ38-3DBW-V2` with no caveat while the root site maps it to `-2W`. Two confident contradictory answers, two clicks apart. |
+| **F33** | Chefman's `RJ38-8T-BLACK` documents 450 °F Hi-Fry and exactly the four functions in the Amazon title for B08DKYBTPH; the currently-mapped `RJ38-SQSS-8T` documents 200–400 °F. **Narrows F3 sharply** — "two different SKUs" is now more likely than "one stale page". No value changed. |
+| **F34** | `EXECUTIVE_SUMMARY.md` still asserts "Identity verified…" and "the commission schedule redirected to a sign-in page" in its Key findings body. Both contradicted by this pass's fresh reads. Not edited (another session's published work). |
+| **F35** | Nine published HTML sites for the same three products disagree (F32, F27). **Presentation fixed this pass**: sidebar reduced from 6 parallel-build entries to 1; new `previous-passes.html` catalogues every build, its divergence and which is canonical. |
+
+### Repo review — irregularities found and what was done
+
+| # | Finding | Disposition |
+|---|---------|-------------|
+| 1 | `EXECUTIVE_SUMMARY.md` contradicts the reconciled position (F34) | **Flagged.** Not edited — content decision, not a verification one. |
+| 2 | `site/` + `session-3740f69d/` still print the pre-F27 policy labels (§3(t), §2(w)) | **Flagged (F27, F35).** Left intact: rewriting another session's published citations would destroy the record of what that pass verified against. Catalogued on `previous-passes.html`. |
+| 3 | Nine competing builds in one repo, six of them peers in the main nav | **Fixed for presentation (F35).** One "Previous passes" nav entry; `previous-passes.html` names every divergence. Deliverable itself remains on the Flagged page for the owner's decision. |
+| 4 | `reports/verification-log.md` cites two **non-official** sources (keywordseverywhere.com, aruljohn.com) for the canonical Amazon URL format | **Flagged, not edited.** It is a session record, not a published site page; the site itself cites KDP Help (S23) for the same fact. |
+| 5 | `research/`, `site/`, `dashboard/` map the 6 Qt ASIN to a different real SKU with no caveat | **Flagged (F32).** This is the most consequential cross-build disagreement found. |
+| 6 | Duplicate executive summaries (`EXECUTIVE-SUMMARY.md`, `EXECUTIVE_SUMMARY.md`) | **Flagged (F34).** Both preserved; build links only the reconciled one. |
+
+### Files touched by this pass
+
+`data/articles.json` (new) · `data/sources.json` (additive S25–S27) · `build.py` (additive: article
+generator + guard, `previous-passes.html`, nav consolidation, article CSS) · `articles/**` (new,
+generated) · `previous-passes.html` (new, generated) · all root HTML (regenerated) ·
+`EXECUTIVE-SUMMARY.md` (§11 appended) · `README.md` · `COORDINATION.md` (this record) ·
+`session-6b2eddeb/EVIDENCE-2026-11-14.md` (new).
+
+**Not touched:** `data/verified/**`, `data/products.json`, `data/compliance.json`, `data/flags.json`,
+`data/marketing.json`, `data/platform.json`, `data/reverification.json`, `scripts/**`, `research/**`,
+`site/**`, `s2/**`, `dashboard/**`, `docs/**`, `session-*/**` (other sessions'), `platform/**`,
+`.github/workflows/**` (no change needed — every existing gate passes unmodified).
+
+### Gates re-run after every change
+
+```
+python3 build.py            → 21 pages, guards pass
+python3 verify.py           → 99 pages, 43 spec rows (42 verified / 1 blank+flagged), 27 sources, 0 errors
+platform/tests              → 33 OK
+platform/audit/report.py    → 0 warnings
+scripts/build_s2_site.py --check → current
+scripts/check_links.py      → 4,477 links, 0 broken owned
+research/check_research.py  → OK
+scripts/build_site.py + verify_site.py → 382 assertions, ALL PASSED
+independent crawl           → 21 canonical pages, 0 broken internal links, disclosure on all
+```
+
+## PR / merge / deploy record — `arena-6b2eddeb` (V5 closed)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/42 — "Pass 7 (arena-6b2eddeb): live
+  re-verification, articles section, flags F32-F35". Branch `arena/6b2eddeb-zone1` → `main`.
+* **Checks on the head commit (`3616cd5`), both green:** `verify` ✓ (run 43630756690) ·
+  `Rebuild site/ from data/verified and assert every guarantee` ✓ (run 43630756777).
+  PR state `CLEAN` / `MERGEABLE` on the first attempt; no rebase was needed for the merge itself.
+* **Merge:** `gh pr merge 42 --merge` at **2026-11-14T19:12:34Z**, without waiting for approval, per
+  the brief. **Merge commit on `main`: `000cbcf9777baf757b863e507d59a419377f9194`.**
+* **Post-merge workflows on `main` (`000cbcf`) — all four green:** `CI` ✓ (43630839727) ·
+  `Build, verify and deploy to GitHub Pages` ✓ (43630839734) · `Verify verification annex (site/)` ✓
+  (43630839724) · `pages build and deployment` ✓ (43630839042).
+* **GitHub Pages:** `gh api …/pages` → `status: built`, source `main` / root, build type `legacy`,
+  URL https://kanlerxz87-cyber.github.io/Zone1/ . `…/pages/builds/latest` → `status: built`,
+  `commit: 000cbcf…`, `error: null`.
+* **Live verification after the deploy settled** (fetched from the public URL, not localhost):
+  * `https://kanlerxz87-cyber.github.io/Zone1/articles/index.html` → **serves the new Articles
+    section**: all five article cards, the "How to read these articles" box, and the editorial-rules
+    table with its S1/S2/S8/S9/S12/S14 source badges. The OA §5 disclosure bar is present.
+  * `https://kanlerxz87-cyber.github.io/Zone1/previous-passes.html` → **live**, listing all seven
+    parallel builds with the divergence column populated (F32 model mapping, F27 policy labels,
+    F23 broken docs build) and the canonical/gating table.
+  * Both pages carry the required disclosure sentence.
+* **Deploy-cache note honoured:** per the note recorded by `arena/6ecdb4e4` and `sess-91d0552e`, the
+  live pages were re-fetched after the deploy window rather than read once immediately after merge.
+* **Merge conflict (protocol §6):** one, in `COORDINATION.md`, against `sess-840a25d3`'s concurrent
+  pass-7 record landed by PR #41. Resolved by keeping **both** sides verbatim with a seam note; no
+  work from either session was discarded. Both passes independently re-verified the same sources and
+  they agree. The one count difference — that record says 31 open items, this pass's build reports
+  35 after adding F32–F35 — is a register change, not a contradiction, and is noted at the seam.
+* **Force-push log:** one `--force-with-lease`, after the rebase onto `f45374b`. `git log
+  HEAD..origin/arena/6b2eddeb-zone1` was checked first and showed only this session's own superseded
+  claim commit.
+
+### Final state of this session's tasks
+
+| # | Task | Status |
+|---|------|--------|
+| V1 | Live re-verification of Amazon sources (S1, S2, S3) | **done** |
+| V2 | Live re-verification of manufacturer sources (S10, S12, S14) | **done** |
+| V3 | Articles layer built and gate-enforced | **done** |
+| V4 | Findings published on `flagged.html` (F32–F35, S25–S27) | **done** |
+| V5 | PR → merge → Pages verified | **done** |
+
+**Result: no stored value was found to be wrong, and no number on the site changed.** Four new
+irregularities were found and published, the article layer the brief asked for was built to a
+build-enforced sourcing rule, and the site is live at https://kanlerxz87-cyber.github.io/Zone1/ on
+commit `000cbcf` with all 35 open items on the Flagged for Review page.
+
+---
+
+## Merge record — `sess-7111e2b6` with the concurrently-merged sessions (2026-11-14)
+
+**Situation.** While this pass was running, three other sessions published to `main` (PRs #42, #44 and #45,
+from `arena/54c66535-zone1`, `arena/94005244-zone1` and `arena/6b2eddeb-zone1`). Two of them
+(`sess-94005244` and `arena-6b2eddeb`) also claimed a task set numbered **V1–V5**, colliding with this
+session's V1–V6 by number. A third, `arena/6b2eddeb`, built an **Articles section** at the same time as this
+session did — the same feature, on the same paths, from a different schema.
+
+**Conflict resolution — no work was discarded.**
+
+| File(s) | Resolution | Why |
+|---|---|---|
+| `COORDINATION.md` | Both sides kept verbatim, with a seam note at the join | Protocol: keep every session's record. Two conflict blocks resolved this way. |
+| `EXECUTIVE-SUMMARY.md` | Both sides kept verbatim, with a seam note at the join | One conflict block, same rule. |
+| `build.py` | **`arena-6b2eddeb`'s version taken as the base**, then this session's three additions re-applied on top | Their generator is the richer one (placeholders that must resolve to a published dataset value, a `check_articles()` build gate). This session's additions that were re-applied: **F37** (this session's mis-citation finding, renumbered from F33), the **F17** and **F25** closure texts, and the articles-index copy. |
+| `data/articles.json` | **Union.** `arena/6b2eddeb`'s five articles kept; this session's **capacity guide** added as a sixth, converted into their schema | Both sets are published; see the note below on the four superseded drafts. |
+| `data/products.json` | **This session's version** | It carries the two verified corrections (Chefman 6 Qt preset count blanked; Emeril interior light re-sourced). `main` had not changed this file. |
+| Generated root HTML | `arena-6b2eddeb`'s copy taken, then **regenerated** by `python3 build.py` | Generated output; the reproducibility gate requires it to match a fresh build. |
+| `articles/dual-basket-vs-single-basket.html`, `articles/index.html` | `arena/6b2eddeb`'s version taken | Same path, different content; theirs is already published on `main`, so the live URL keeps working. |
+
+### The four superseded drafts, and why
+
+This session wrote five articles. `arena/6b2eddeb` independently published five articles covering **the same
+five search queries on the same domain** (dual-basket vs oven; what 450 °F means; preset counts; no Amazon
+prices; dual-basket vs single-basket). Publishing both sets would have put two pages on every one of those
+keywords — duplicate content on one domain, which is the opposite of what the brief asks for.
+
+* **Published:** this session's `air-fryer-capacity-guide` ("26 quarts, 1,519 cubic inches"), which covers a
+  query nothing else on the site does. It was converted into the merged article schema, and the merged
+  build's own `check_articles()` gate accepted it — including catching two placeholder values that were not
+  verbatim dataset strings, which were corrected.
+* **Preserved verbatim, not deleted:** the other four drafts are in
+  [`session-7111e2b6/articles-superseded.json`](session-7111e2b6/articles-superseded.json), each with the
+  slug of the article that supersedes it and the reason. They are not published, and the file says so.
+* **Flag-ID collision:** `arena/6b2eddeb` published **F32–F35** for unrelated findings while this session
+  held **F32** (Chefman 6 Qt preset count) and **F33** (mis-cited value). This session's two flags were
+  **renumbered F36 and F37** rather than left to overwrite two unrelated findings under the same id. No
+  finding was dropped; the numbering changed.
+
+### State of the merged tree after this merge
+
+| Gate | Result |
+|---|---|
+| `python3 build.py` | **22 root pages** (13 + 6 articles + index + the previous-passes page), re-run is byte-identical |
+| `python3 verify.py` | **103 pages · 43 spec rows (41 verified / 2 blank+flagged) · 24 sources · 0 errors** |
+| `python3 scripts/check_links.py` | **5,046 links · 0 broken · 0 advisory** |
+| `python3 scripts/source_rows.py --check` | **0 rows unsourced**, idempotent |
+| `python3 research/check_research.py` | **OK** |
+| `python3 scripts/build_site.py` + `verify_site.py` | **ALL CHECKS PASSED** (382 assertions) |
+| `python3 scripts/build_s2_site.py --check` | build current (16 files) |
+| `python3 -m unittest discover -s platform/tests -t platform` | **33/33 OK** |
+| `python3 platform/audit/report.py` | **AUDIT PASSED** (0 warnings) |
+
+No file owned by another session was edited except through the merge union above; no session's record was
+deleted; no branch was rewritten and nothing was force-pushed.

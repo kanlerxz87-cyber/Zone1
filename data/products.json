@@ -157,7 +157,7 @@
             "S18"
           ],
           "status": "unverified",
-          "unverified": "No official source states a preset count for this model. The RJ38-SQPF-3TDB-2W user guide was re-read end to end on 2026-11-14: it refers once to 'a preset function' but publishes no preset chart and names no food presets, and the brand product page's feature list does not mention presets either. The four food presets published for the 8 Qt model (fries, chicken, fish, meat) belong to a different model and are not transferred here. The count is left blank rather than inferred. See flag F32."
+          "unverified": "No official source states a preset count for this model. The RJ38-SQPF-3TDB-2W user guide was re-read end to end on 2026-11-14: it refers once to 'a preset function' but publishes no preset chart and names no food presets, and the brand product page's feature list does not mention presets either. The four food presets published for the 8 Qt model (fries, chicken, fish, meat) belong to a different model and are not transferred here. The count is left blank rather than inferred. See flag F36."
         }
       ],
       "pricing": {
@@ -231,7 +231,7 @@
           ]
         },
         {
-          "id": "F32",
+          "id": "F36",
           "issue": "The preset count published for this model was not stated by the source it cited. The value \"Four one-touch food presets: French fries, chicken, meat, fish\" was attributed to the RJ38-SQPF-3TDB-2W user guide, but that guide contains no preset chart and names no food presets. The same four food types belong to the different 8 Qt model (RJ38-SQSS-8T), whose guide does carry a PRESET FUNCTION CHART. The value appears to have been carried across from the 8 Qt.",
           "action": "The count is now blank and flagged as unverified. Re-read on 2026-11-14 by sess-7111e2b6: the guide was checked end to end (features, control panel, operating instructions, special functions, cooking tips, troubleshooting, cleaning, terms) and the brand product page's feature list was checked; neither states a preset count. Nothing was inferred to fill the gap.",
           "sources": [

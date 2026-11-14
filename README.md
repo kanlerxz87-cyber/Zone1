@@ -10,11 +10,13 @@ could not be confirmed is left blank and published on the **Flagged for review**
 
 | Path | What it is |
 |---|---|
-| `index.html` | Dashboard — the three products, verification counts, commercial summary |
+| `index.html` | Dashboard — the three products, verification counts, commercial summary, article cards |
+| `articles/` | **Five sourced articles** — comparisons, an explainer, a source-forensics piece and a policy explainer. Every number in them must appear verbatim in `data/products.json` or the build fails. |
 | `categories/` | Category pages (currently: kitchen appliances / air fryers) |
 | `products/` | One documentation-based review per product |
 | `compare.html` | Verified-only comparison matrix, gaps left visible |
 | `guides/` | Buying guide |
+| `previous-passes.html` | Catalogue of every older build in this repo, where each one disagrees with this one, and which is canonical |
 | `data.html` | Full specification register + source register |
 | `platform.html` | Automation blueprint, guardrails, KPIs, launch sequence |
 | `compliance.html` | 16 program/legal requirements, quoted, each with a source link |
@@ -69,7 +71,10 @@ python3 verify.py    # exit 0 = no broken links, no unsourced values, disclosure
 ```
 
 `build.py` refuses to emit a page if a specification row has a value but no official source,
-or if any page is missing the required Amazon Associates disclosure statement.
+if any page is missing the required Amazon Associates disclosure statement, or if an article states
+a number that is not a value published in `data/products.json`, or cites a source id that is not in
+`data/sources.json`. The article guard rejected 18 paraphrased values while the article set was being
+written, which is the point of having it.
 
 ## The verification rule
 
@@ -192,3 +197,34 @@ What the pass changed:
 python3 build.py                 # regenerate every page, including reverification.html
 python3 verify.py                # 0 errors = no broken link, no unsourced value, disclosure everywhere
 ```
+
+
+---
+
+## Pass 7 — 2026-11-14 (`arena/6b2eddeb`)
+
+An independent pass that re-fetched its own sources rather than trusting the recorded ones. Raw
+evidence: [`session-6b2eddeb/EVIDENCE-2026-11-14.md`](session-6b2eddeb/EVIDENCE-2026-11-14.md).
+
+**No published value was found to be wrong.** All three supplied short links resolved to the same
+three ASINs with titles matching the stored strings character for character; the Associates Program
+Policies section map, the full Standard Commission Income Statement and all three manufacturer
+product pages were re-read live and matched the dataset.
+
+Four new findings, all published on [`flagged.html`](flagged.html):
+
+* **F32 — Chefman publishes three 6-quart dual-basket SKUs, not two.** `RJ38-3DBW-V2` (90–400 °F,
+  five functions), `RJ38-SQPF-3TDB-2` and `RJ38-SQPF-3TDB-2W` (200–450 °F, Hi-Fry). The root site
+  maps the 6 Qt ASIN to `-2W` on the `Hi-Fry` wording; two other builds in this repo map the same
+  ASIN to `RJ38-3DBW-V2` with no caveat.
+* **F33 — the 8 Qt "450 °F conflict" is probably two different SKUs.** Chefman's `RJ38-8T-BLACK`
+  documents 450 °F Hi-Fry and exactly the four functions named in the Amazon listing title, while
+  the currently mapped `RJ38-SQSS-8T` documents 200–400 °F. This narrows flag F3 sharply without
+  resolving it.
+* **F34** — the older `EXECUTIVE_SUMMARY.md` still asserts two things this pass disproved.
+* **F35** — nine published sites for the same three products disagree. The sidebar was reduced from
+  six parallel-build entries to one; `previous-passes.html` now catalogues every build and names
+  each divergence.
+
+The highest-value action for the account holder is unchanged and now more specific: open the three
+listings, read the model number in each one's product-information block, and settle F32 and F33.

@@ -46,7 +46,7 @@ identity mapping.
   - the Chefman 6 Qt's *Number of presets* row, blanked by pass 7 on 2026-11-14: the value that was
     published cited the RJ38-SQPF-3TDB-2W owner's manual, and that guide was re-read end to end and
     **contains no preset chart and names no food presets**. The four presets published for the *8 Qt*
-    model belong to a different appliance and were not carried across. Blanked and flagged as **F32**.
+    model belong to a different appliance and were not carried across. Blanked and flagged as **F36**.
   Verified 41 / blank 2 against `data/products.json` on 2026-11-14.
 - **24 sources**, all official: Amazon Associates documents, the US FTC and eCFR, three manufacturer owner's manuals, two manufacturer product pages, and the Amazon listings themselves. *(Correction 2026-11-14: the completed register in [`data/sources.json`](data/sources.json) now holds **24** official sources, S1–S24 — see §10.)*
 
@@ -260,7 +260,7 @@ chart**, and it **names no food preset**. The brand page's feature list does not
 The four names published for the 6 Qt are exactly the four food presets in the **8 Qt** guide
 ([RJ38-SQSS-8T](https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf)), which *does*
 carry a PRESET FUNCTION CHART. **The value appears to have been carried across from a different
-appliance.** The row is now blank, the reason is written out on the page, and it is flagged as **F32**.
+appliance.** The row is now blank, the reason is written out on the page, and it is flagged as **F36**.
 The 8 Qt's own preset row and its default times and temperatures were re-read and confirmed
 character for character.
 
@@ -339,7 +339,7 @@ an article that was never written — which is now rendered as plain text marked
 * **24 official sources**, all linked, none third-party.
 * **4,883 links, 0 broken, 0 advisory**; **0 table rows without a source link** in the entire repository.
 * Research 801 checks OK · annex 382 assertions OK · s2 build current · platform 33/33 · audit 0 warnings.
-* Flags: **F32** (Chefman 6 Qt preset count) and **F33** (mis-cited value) added; **F17** and **F25** closed.
+* Flags: **F36** (Chefman 6 Qt preset count) and **F33** (mis-cited value) added; **F17** and **F25** closed.
 
 ### 11.7 Open for the account holder — none of it blocks the merge
 
@@ -351,3 +351,116 @@ an article that was never written — which is now rendered as plain text marked
    8 Qt's 450 °F Hi-Fry claim contradicts the brand's own manual. Both are published, neither is resolved.
 4. **Decide the canonical build.** Six parallel builds are published on one domain (F20). The root build is
    the canonical one and the one this summary describes; the others are preserved annexes.
+
+> *Merge note (2026-11-14): the block above and the block below were written by two sessions concurrently; both are kept verbatim and nothing was discarded.*
+
+## 11. Pass 7 — independent re-verification and the model-mapping finding, 2026-11-14
+
+**Session:** `arena/6b2eddeb` · **Branch:** `arena/6b2eddeb-zone1` · **Base commit:** `b990352`
+**Raw evidence:** [`session-6b2eddeb/EVIDENCE-2026-11-14.md`](session-6b2eddeb/EVIDENCE-2026-11-14.md)
+
+This pass re-fetched the sources it relied on rather than trusting any earlier record. Everything
+below is what a live read on 2026-11-14 actually returned.
+
+### 11.1 What was re-read, and what held
+
+| Re-read | Result |
+|---|---|
+| The three `link.amazon` tokens | All three resolved to `B0CDY277D3`, `B09B7SB46R`, `B08DKYBTPH` again, and all three landing `<title>` values matched the stored `amazon_listing_title` strings **character for character**. Still `plpRedirect=mhFallback` on each. |
+| Associates Program Operating Agreement (S1) | `Updated: October 15, 2025`; §5 disclosure sentence present. |
+| Associates Program Policies (S2) | Read the whole Participation Requirements section map. §2(b) holds special links, prices, sub-tags and misleading claims; **§6 "Content on your Site"** holds items (a)–(z) including (g) incentives, (n) framing, (t) reviews/ratings, (u) self-purchase, (v) cloaking, (w) link shortening, (y) price tracking. All quoted texts matched the stored quotes. This independently reproduces flag **F27**. |
+| Standard Commission Income Statement (S3) | All 11 Table 1 rows matched `data/commission-rates.csv` **word for word and rate for rate** (Kitchen 4.50%, Home 3.00%, All Other 4.00%, Coach 0.00%). Bounty amounts matched. Read with no login. |
+| Chefman RJ38-SQPF-3TDB-2W page (S10) | Every stored value for product 1 is stated on the page. No discrepancy. |
+| Chefman RJ38-SQSS-8T page (S12) | Every stored value for product 3 is stated on the page. No discrepancy. |
+| Emeril 26 QT page (S14) | All stored values still present, and the 25-vs-24-vs-10-in-1-vs-11-in-1 conflict is **still live on the brand's own page**. |
+
+**No published value was found to be wrong.** Three new sources (S25–S27) were added, and four new
+flags (F32–F35) were published.
+
+### 11.2 The new finding: two Chefman model families, not one (F32, F33)
+
+This is the substantive result of the pass.
+
+**6-quart family (product 1, ASIN B0CDY277D3).** Chefman's own store currently publishes **three**
+different 6-quart dual-basket SKUs, not the two the site records:
+
+| Model | Temperature range | Functions | Rating on chefman.com |
+|---|---|---|---|
+| `RJ38-3DBW-V2` | 90–400 °F / 32–204 °C | 5: air fry, bake, reheat, dehydrate, frozen | 4.5 from 30 |
+| `RJ38-SQPF-3TDB-2` | no spec block published | none published | 4.6 from 194 |
+| `RJ38-SQPF-3TDB-2W` | 200–450 °F / 95–235 °C | Hi-Fry 450 °F, Sync Finish, Sync Baskets | 4.6 from 1,305 |
+
+The site's mapping to `-2W` stands on the `Hi-Fry` wording in the Amazon title, which only the `-2W`
+page documents. But "Easy View windows" appears on **all three**, so the title does not discriminate
+by itself. More importantly, two other builds shipped in this repo (`site/`, `research/`) map the
+same ASIN to `RJ38-3DBW-V2` **with no caveat** — so the repository currently publishes two confident,
+contradictory answers for the same ASIN, two clicks apart.
+
+**8-quart family (product 3, ASIN B08DKYBTPH) — this materially changes flag F3.**
+
+| Model | Hi-Fry | Functions | Finish |
+|---|---|---|---|
+| `RJ38-SQSS-8T` (currently mapped) | none — max 400 °F / 205 °C | 4 food presets | stainless steel |
+| `RJ38-8T-BLACK` | **450 °F / 232 °C for the final two minutes** | **air fry, bake, dehydrate, frozen** | **matte black** |
+
+The Amazon title reads `…4-in-1 with 450°F Hi-Fry Option… | Bake, Dehydrate, Frozen | … Stainless
+Steel`. The **function list and the 450 °F Hi-Fry match `RJ38-8T-BLACK` word for word**; the finish
+matches `RJ38-SQSS-8T`. The site has been presenting this as "one of the two official sources is
+stale". That is now the **less** likely explanation: the more likely one is that the listing
+describes a unit whose documented features belong to `RJ38-8T-BLACK`. **No value was changed** — the
+`Hi-Fry / 450 °F: None` row remains true of `RJ38-SQSS-8T`, which is what it is sourced to — and no
+model is asserted.
+
+**What the owner should do:** open each listing, read the model number in the product-information
+block, and settle F32 and F33 in one sitting. It is the single highest-value action available and it
+takes about two minutes. Everything downstream — copy, comparisons, the buying guide — is written to
+be safe either way, but it cannot become *specific* until that is done.
+
+### 11.3 The other new flags
+
+| ID | Item |
+|---|---|
+| **F34** | `EXECUTIVE_SUMMARY.md` (the older second summary at the repo root) still asserts "Identity verified. All three short links resolve to Amazon.com product pages with different ASINs" and "the official commission schedule redirected to a sign-in page". Both are contradicted by this session's fresh reads. A warning banner sits above it, but the sentences remain and the file is still linked from the site. Not edited — rewriting another session's published sentence is a content decision. |
+| **F35** | Nine separate HTML sites for the same three products are published in this repo and disagree (F32, F27). The root nav used to list six of them as peers. **This pass fixed the presentation**: the sidebar now carries one "Previous passes" entry, and the new `previous-passes.html` catalogues every build, states exactly where each diverges, and names which one is canonical. |
+
+### 11.4 Editorial layer added
+
+The brief asks for "catchy, trendy articles and topics related to the product". The site had one
+buying guide and a comparison matrix but no article set, so this pass added **five articles** at
+`articles/`:
+
+1. *Dual-basket or countertop oven? The 8-quart question nobody answers* — comparison
+2. *What "450 °F" actually means on an air fryer listing* — explainer
+3. *25 presets, 24 presets, or 10-in-1? One brand page says all three* — source forensics
+4. *Why this affiliate site shows no Amazon prices, ratings or review counts* — policy explainer
+5. *Two 3-quart drawers or one 8-quart basket: which actually feeds four people?* — head-to-head
+
+They are written to a build-enforced rule, not a style guide: a factual number in an article must
+appear **verbatim** in `data/products.json` or the build fails, and every section must cite a source
+id that resolves in `data/sources.json` or the build fails. During development that guard rejected
+18 paraphrased values, which is why it exists. No article claims first-hand testing, and none states
+an Amazon price, rating or review count.
+
+### 11.5 Verification performed this pass
+
+```
+python3 build.py                 → 21 pages, all guards pass (rows sourced, disclosure, article values)
+python3 verify.py                → 99 pages, 43 spec rows (42 verified / 1 blank+flagged),
+                                   27 sources, 0 errors
+platform/tests                   → 33 tests OK
+platform/audit/report.py         → AUDIT PASSED, 0 warnings
+scripts/build_s2_site.py --check → build current, 16 files
+scripts/check_links.py           → 4,477 links, 0 broken owned
+research/check_research.py       → OK
+scripts/build_site.py + verify_site.py → ALL CHECKS PASSED (382 assertions)
+Independent crawl of the canonical build → 21 pages, 0 broken internal links,
+                                   disclosure on every page, no template residue
+```
+
+### 11.6 What this pass did not do
+
+It did not re-read the three owner's-manual PDFs, the FTC pages or 16 CFR Part 255 — those were
+re-read on 2026-11-14 by earlier sessions and are structurally covered by `verify.py`. It did not
+edit `EXECUTIVE_SUMMARY.md`, any `data/verified/` file, or any other session's build. It did not
+resolve F32 or F33, because resolving them requires opening a logged-in listing, which this session
+cannot do. **No number on this site changed as a result of this pass.**
