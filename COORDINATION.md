@@ -2627,3 +2627,34 @@ Scope rule: no `data/*.json` values and no `build.py` code are changed in this p
 * **Scope note:** this record was committed after the merge (the PR number was not known at the time
   the completion record was written), so it ships as a record-only follow-up commit. Site output is
   unaffected: `build.py` does not read this file or `session-2300f756/`.
+---
+
+---
+
+# Integration pass 7 — session `arena-052f2c9f` (branch `arena/052f2c9f-zone1`, base `332ce85`)
+
+**Session note (Arena):** this session is pinned by the Arena platform to branch
+`arena/052f2c9f-zone1`; per platform rules it cannot create or switch branches, so the usual
+`session-<id>/<task>` naming is replaced by this single session branch. It is used as this pass's
+working branch **and** integration branch. All other protocol rules apply unchanged.
+
+**State found at start (read from the board + `gh`, not assumed):** T1–T21 all closed; main at
+`332ce85` (PR #40 just merged 2026-11-14T19:04:15Z by sess-54c66535's own record pass — no takeover
+needed). GitHub Pages live (`status: built`, source `main` / root, legacy). Register F1–F31, F32+
+reserved for this pass.
+
+## Claim log (this session)
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-14T19:06Z | arena-052f2c9f | Claimed V1–V5 below. No other open claims at start. |
+
+## Task board (this session)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| V1 | Line-by-line repo review (whole tree) + irregularity log | in progress | arena-052f2c9f | `session-052f2c9f/**` (read-only elsewhere) |
+| V2 | Independent re-verification, 7th observation round: the 3 `link.amazon` links, Amazon listing titles, brand spec pages + manuals, OA/Program Policies, commission table, FTC sources | in progress | arena-052f2c9f | `session-052f2c9f/**` |
+| V3 | Marketing/content audit: landing + articles + comparison + guides present, on-brand, compliant (disclosure on every money page), no unverified claims | in progress | arena-052f2c9f | `session-052f2c9f/**` |
+| V4 | Re-run every published gate (build.py, verify.py, platform tests/audit, scripts/*, research checks) | in progress | arena-052f2c9f | gate outputs in `session-052f2c9f/**` |
+| V5 | Final integration: fix gate failures if any (integration scope), PR → merge to `main`, Pages deploy confirm, record | in progress | arena-052f2c9f | `COORDINATION.md`, regenerated root HTML if build changes |
