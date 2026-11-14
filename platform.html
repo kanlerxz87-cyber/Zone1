@@ -31,7 +31,7 @@
     <div class="group">
       <h4>Products</h4>
       <a href="categories/kitchen-appliances.html">Category: Kitchen<span class="sub">3 tracked products</span></a>
-      <a href="products/chefman-6qt-dual-basket.html">Chefman 6 Qt Dual Basket<span class="sub">ASIN B0CDY277D3</span></a><a href="products/emeril-26qt-french-door.html">Emeril 26 QT French Door<span class="sub">ASIN B09B7SB46R</span></a><a href="products/chefman-8qt-turbofry.html">Chefman 8 Qt TurboFry<span class="sub">ASIN B08DKYBTPH</span></a>
+      <a href="products/chefman-6qt-dual-basket.html">Chefman 6 Qt Dual Basket<span class="sub">candidate ASIN B0CDY277D3 (unconfirmed)</span></a><a href="products/emeril-26qt-french-door.html">Emeril 26 QT French Door<span class="sub">candidate ASIN B09B7SB46R (unconfirmed)</span></a><a href="products/chefman-8qt-turbofry.html">Chefman 8 Qt TurboFry<span class="sub">candidate ASIN B08DKYBTPH (unconfirmed)</span></a>
       <a href="compare.html">Comparison<span class="sub">Verified-only side-by-side matrix</span></a>
     </div>
     <div class="group">
@@ -67,55 +67,55 @@
           <td><strong>Niche &amp; demand discovery</strong><div class="tiny muted">Automation: High</div></td>
           <td class="small">Operator-owned keyword export, Google Trends-style public signals, the supplied product set</td>
           <td class="small">Candidate niches with form-factor clusters</td>
-          <td class="num">G1</td>
+          <td class="num"><a href="compliance.html">G1</a></td>
         </tr><tr>
           <td class="num">2</td>
           <td><strong>Product ingestion</strong><div class="tiny muted">Automation: Medium</div></td>
           <td class="small">Associates short links, ASINs, manufacturer pages, manufacturer manuals (PDF)</td>
           <td class="small">A per-product fact table where each field is value + source_id, or null + reason</td>
-          <td class="num">G2</td>
+          <td class="num"><a href="compliance.html">G2</a></td>
         </tr><tr>
           <td class="num">3</td>
           <td><strong>Verification gate</strong><div class="tiny muted">Automation: Medium (human sign-off)</div></td>
           <td class="small">Draft fact table</td>
           <td class="small">Rows promoted to &#x27;verified&#x27; only when an official URL supports the value; everything else routed to /flagged</td>
-          <td class="num">G2</td>
+          <td class="num"><a href="compliance.html">G2</a></td>
         </tr><tr>
           <td class="num">4</td>
           <td><strong>Commercial scoring</strong><div class="tiny muted">Automation: High</div></td>
           <td class="small">Published category rates (S3), brand list prices, operator conversion data</td>
           <td class="small">Expected value per click, per product and per page</td>
-          <td class="num">G6</td>
+          <td class="num"><a href="compliance.html">G6</a></td>
         </tr><tr>
           <td class="num">5</td>
           <td><strong>Content generation</strong><div class="tiny muted">Automation: High with human edit</div></td>
           <td class="small">Verified fact table + outline</td>
           <td class="small">Product pages, comparisons, buying guides</td>
-          <td class="num">G2, G7</td>
+          <td class="num"><a href="compliance.html">G2, G7</a></td>
         </tr><tr>
           <td class="num">6</td>
           <td><strong>Link management</strong><div class="tiny muted">Automation: High</div></td>
           <td class="small">Special links, sub-tags per placement</td>
           <td class="small">Link inventory with health status</td>
-          <td class="num">G5</td>
+          <td class="num"><a href="compliance.html">G5</a></td>
         </tr><tr>
           <td class="num">7</td>
           <td><strong>Tracking &amp; attribution</strong><div class="tiny muted">Automation: High</div></td>
           <td class="small">Click events, Amazon commission reports</td>
           <td class="small">Clicks, EPC, conversion rate, revenue by page and sub-tag</td>
-          <td class="num">G6</td>
+          <td class="num"><a href="compliance.html">G6</a></td>
         </tr><tr>
           <td class="num">8</td>
           <td><strong>Optimisation loop</strong><div class="tiny muted">Automation: Medium</div></td>
           <td class="small">Stage 7 metrics</td>
           <td class="small">Ranked backlog of content and placement experiments</td>
-          <td class="num">G8</td>
+          <td class="num"><a href="compliance.html">G8</a></td>
         </tr><tr>
           <td class="num">9</td>
           <td><strong>Publish &amp; audit</strong><div class="tiny muted">Automation: High</div></td>
           <td class="small">Approved content</td>
           <td class="small">Static site, broken-link report, disclosure diff</td>
-          <td class="num">G2, G9</td>
+          <td class="num"><a href="compliance.html">G2, G9</a></td>
         </tr></tbody>
 </table>
 </div>
@@ -194,7 +194,7 @@
 <table>
   <caption>Who owns which decision</caption>
   <thead><tr><th>Task</th><th>Mode</th><th>Frequency</th></tr></thead>
-  <tbody><tr><td>Broken link detection</td><td>Automated</td><td class="num">Every build + daily</td></tr><tr><td>Rate-table diff (S3 changes)</td><td>Automated fetch, human confirm</td><td class="num">Weekly</td></tr><tr><td>Fact-table verification</td><td>Human sign-off</td><td class="num">Per product, before publish</td></tr><tr><td>Content drafting</td><td>Automated draft, human edit</td><td class="num">Per page</td></tr><tr><td>Click/conversion reporting</td><td>Automated</td><td class="num">Daily</td></tr><tr><td>Publication decision</td><td>Human</td><td class="num">Per page</td></tr><tr><td>Compliance audit</td><td>Automated checks + human review</td><td class="num">Monthly</td></tr></tbody>
+  <tbody><tr><td>Broken link detection <a href="compliance.html">policy</a></td><td>Automated</td><td class="num">Every build + daily</td></tr><tr><td>Rate-table diff (S3 changes) <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a></td><td>Automated fetch, human confirm</td><td class="num">Weekly</td></tr><tr><td>Fact-table verification <a href="compliance.html">policy</a></td><td>Human sign-off</td><td class="num">Per product, before publish</td></tr><tr><td>Content drafting <a href="compliance.html">policy</a></td><td>Automated draft, human edit</td><td class="num">Per page</td></tr><tr><td>Click/conversion reporting <a href="compliance.html">policy</a></td><td>Automated</td><td class="num">Daily</td></tr><tr><td>Publication decision <a href="compliance.html">policy</a></td><td>Human</td><td class="num">Per page</td></tr><tr><td>Compliance audit <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td><td>Automated checks + human review</td><td class="num">Monthly</td></tr></tbody>
 </table>
 </div>
 
@@ -236,7 +236,7 @@
 <table>
   <caption>What gets measured, and the target</caption>
   <thead><tr><th>KPI</th><th>Definition</th><th>Target</th></tr></thead>
-  <tbody><tr><td><strong>Verified-row coverage</strong></td><td class="small">Share of published table rows whose every value carries an official source link</td><td class="small">100% of asserted values; gaps must be blank and flagged</td></tr><tr><td><strong>Flag resolution time</strong></td><td class="small">Days from a row appearing on /flagged to a decision</td><td class="small">≤ 14 days</td></tr><tr><td><strong>Clicks per page</strong></td><td class="small">Outbound Amazon clicks attributed to a page</td><td class="small">Baseline in month 1, then +15% MoM</td></tr><tr><td><strong>Earnings per click (EPC)</strong></td><td class="small">Commission revenue ÷ outbound clicks, from Amazon reports</td><td class="small">Improve monthly; scenarios below show the ceiling imposed by published rates</td></tr><tr><td><strong>Disclosure coverage</strong></td><td class="small">Pages with a visible disclosure above the fold</td><td class="small">100%</td></tr><tr><td><strong>Policy incidents</strong></td><td class="small">Warnings or compliance contacts from Amazon</td><td class="small">0</td></tr></tbody>
+  <tbody><tr><td><strong>Verified-row coverage</strong></td><td class="small">Share of published table rows whose every value carries an official source link</td><td class="small">100% of asserted values; gaps must be blank and flagged <a href="flagged.html">open items</a></td></tr><tr><td><strong>Flag resolution time</strong></td><td class="small">Days from a row appearing on /flagged to a decision</td><td class="small">≤ 14 days <a href="flagged.html">open items</a></td></tr><tr><td><strong>Clicks per page</strong></td><td class="small">Outbound Amazon clicks attributed to a page</td><td class="small">Baseline in month 1, then +15% MoM <a href="flagged.html">open items</a></td></tr><tr><td><strong>Earnings per click (EPC)</strong></td><td class="small">Commission revenue ÷ outbound clicks, from Amazon reports</td><td class="small">Improve monthly; scenarios below show the ceiling imposed by published rates <a href="flagged.html">open items</a></td></tr><tr><td><strong>Disclosure coverage</strong></td><td class="small">Pages with a visible disclosure above the fold</td><td class="small">100% <a href="flagged.html">open items</a></td></tr><tr><td><strong>Policy incidents</strong></td><td class="small">Warnings or compliance contacts from Amazon</td><td class="small">0 <a href="flagged.html">open items</a></td></tr></tbody>
 </table>
 </div>
 
@@ -245,7 +245,7 @@
 <table>
   <caption>The order matters, because application review is conditional on sales</caption>
   <thead><tr><th style="width:6%">#</th><th style="width:52%">Action</th><th style="width:42%">Why this order</th></tr></thead>
-  <tbody><tr><td class="num">1</td><td class="small">Publish the buying guide, comparison and three product pages (this build).</td><td class="small muted">Review requires robust original content, ~10 posts, recent (S4).</td></tr><tr><td class="num">2</td><td class="small">Resolve every item on /flagged with the account holder.</td><td class="small muted">ASIN→model, the 450 °F conflict and the preset count change what the copy is allowed to say.</td></tr><tr><td class="num">3</td><td class="small">Add the real Associates tag to every link and create sub-tags.</td><td class="small muted">Special Links must use the assigned Associates ID (S2 §2(b)).</td></tr><tr><td class="num">4</td><td class="small">Apply to Associates, then work the 180-day window to three qualifying sales.</td><td class="small muted">S4: three qualifying sales in 180 days, personal orders excluded.</td></tr><tr><td class="num">5</td><td class="small">Only after API approval, consider price/rating display.</td><td class="small muted">S2 §2(b) and §3(t) permit it only through Creators/PA API.</td></tr></tbody>
+  <tbody><tr><td class="num">1</td><td class="small">Publish the buying guide, comparison and three product pages (this build).</td><td class="small muted">Review requires robust original content, ~10 posts, recent (S4). <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a> <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM" title="Amazon.com Associates Central — Application Review Process" rel="noopener" target="_blank">S4</a></td></tr><tr><td class="num">2</td><td class="small">Resolve every item on /flagged with the account holder.</td><td class="small muted">ASIN→model, the 450 °F conflict and the preset count change what the copy is allowed to say. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a> <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM" title="Amazon.com Associates Central — Application Review Process" rel="noopener" target="_blank">S4</a></td></tr><tr><td class="num">3</td><td class="small">Add the real Associates tag to every link and create sub-tags.</td><td class="small muted">Special Links must use the assigned Associates ID (S2 §2(b)). <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a> <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM" title="Amazon.com Associates Central — Application Review Process" rel="noopener" target="_blank">S4</a></td></tr><tr><td class="num">4</td><td class="small">Apply to Associates, then work the 180-day window to three qualifying sales.</td><td class="small muted">S4: three qualifying sales in 180 days, personal orders excluded. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a> <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM" title="Amazon.com Associates Central — Application Review Process" rel="noopener" target="_blank">S4</a></td></tr><tr><td class="num">5</td><td class="small">Only after API approval, consider price/rating display.</td><td class="small muted">S2 §2(b) and §3(t) permit it only through Creators/PA API. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a> <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM" title="Amazon.com Associates Central — Application Review Process" rel="noopener" target="_blank">S4</a></td></tr></tbody>
 </table>
 </div>
 <p class="small">Amazon requires at least three qualifying sales within the first 180 days and states that personal orders do not qualify <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM" title="Amazon.com Associates Central — Application Review Process" rel="noopener" target="_blank">S4</a>. Applying before the site has traffic and content is the most common way this fails, so the sequence above puts publication first.</p>

@@ -25,7 +25,9 @@ published:
 | Open review items | 16 | 17 |
 | Commission rate | recorded unreachable (F02) | **published: Kitchen 4.50%** |
 
-Both sessions independently resolved the same three short links to the same three ASINs. Build B
+Both sessions independently observed the same three short links landing on the same three candidate ASINs.
+**Correction (2026-11-14, F14–F16):** that mapping is **not confirmed** — bare `/dp/<token>` URLs return
+"Page Not Found", and re-checks served Amazon's fallback-parameter form; see `reports/link-check-2026-11-14.md`. Build B
 closed the one substantive gap build A left open — the commission rate — and added manufacturer
 specification verification against the brands' own product pages. Build B did **not** edit build A's
 data files, so build A's own records still show that gap honestly. The coexistence of two live sites

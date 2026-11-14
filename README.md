@@ -51,10 +51,13 @@ python3 scripts/build_site.py    # regenerate site/ from data/verified/
 python3 scripts/verify_site.py   # 382 assertions; exit 0 = all passed
 ```
 
-Both verifiers run in CI (`.github/workflows/`). Three independent sessions resolved the same three
-opaque `link.amazon` short links to the same three ASINs — a useful cross-check on the project's most
-consequential fact. See `COORDINATION.md` and annex flag **F-16** for the relationship between the two
-sites.
+Both verifiers run in CI (`.github/workflows/`). Earlier sessions reported the same three candidate ASINs from cache-busted fetches of the
+opaque `link.amazon` short links. **Correction (2026-11-14, F14–F16):** product identity is **not confirmed** —
+the bare 9-character codes return "Page Not Found", and both the short links and the plain ASIN URLs served
+Amazon's fallback-parameter form on re-check. Evidence: `reports/link-check-2026-11-14.md`. That cross-check remains useful on the
+project's most consequential fact — which listing each token points to — but it is an observation of a
+redirect, not a confirmed identity mapping. See `COORDINATION.md` and annex flag **F-16** for the
+relationship between the two sites.
 
 ## Build
 

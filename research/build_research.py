@@ -585,7 +585,7 @@ derived judgement or a proposal. Nothing here is Amazon data, and nothing here i
   <ul class="crosses">{''.join(f'<li>{esc(k)}</li>' for k in analysis_doc['campaign_playbook']['kpis_that_cannot_be_measured_yet'])}</ul>
 </section>
 
-<section class="card">
+<section class="card" id="sources">
   <h2>6. Source register</h2>
   <p class="cardnote">{len(sources)} sources were consulted. Every one is listed below with what it supports.</p>
   <div class="tablewrap">
@@ -924,6 +924,41 @@ the site is live and every item below has its source link attached so it can be 
 <nav class="jumplinks">{''.join(f'<a href="#{esc(i["id"])}">{esc(i["id"])} &middot; {esc(i["title"])}</a>' for i in irr_items)}</nav>
 
 {''.join(flag_cards)}
+
+<section class="card" id="F19">
+  <div class="flaghead">
+    <span class="chip sev">MEDIUM</span>
+    <span class="chip">Cross-reference from compliance C24</span>
+    <span class="chip warn">unverified / no public source</span>
+  </div>
+  <h2>F19 — Product titles and Program Content (§6(a))</h2>
+  <p>Whether an Amazon listing title counts as Program Content under Participation Requirements §6(a) is not
+  confirmed by Amazon. Titles on this research build are reproduced verbatim and never paraphrased. Full text
+  and decision needed: see compliance row C24 and the root site's Flagged page (shared register
+  <code>data/flags.json</code> id F19).</p>
+  <p class="cardnote"><strong>Action required:</strong> Decide whether titles may stay on the site, or replace
+  them with the site's own descriptions, after reading §6(a) with counsel.</p>
+  <div class="tablewrap"><table class="grid compact"><thead><tr><th>Source link for manual review</th></tr></thead>
+  <tbody><tr><td><a href="compliance.html#C24">Compliance matrix C24</a></td></tr>
+  <tr><td><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank">Associates Program Policies</a></td></tr></tbody></table></div>
+</section>
+
+<section class="card" id="F20">
+  <div class="flaghead">
+    <span class="chip sev">MEDIUM</span>
+    <span class="chip">Cross-reference from compliance C25</span>
+    <span class="chip warn">unverified / no public source</span>
+  </div>
+  <h2>F20 — Cookie and privacy disclosure (§3(e))</h2>
+  <p>Participation Requirements §3(e) requires an accurate disclosure of cookie and third-party technology use.
+  This research build sets no cookies and runs no analytics, but it links to Amazon, whose pages may set cookies
+  on the visitor's browser, and it carries no privacy policy page. Full text and decision needed: see compliance
+  row C25 and the root site's Flagged page (shared register <code>data/flags.json</code> id F20).</p>
+  <p class="cardnote"><strong>Action required:</strong> Add a short privacy and cookie note, and have counsel review it.</p>
+  <div class="tablewrap"><table class="grid compact"><thead><tr><th>Source link for manual review</th></tr></thead>
+  <tbody><tr><td><a href="compliance.html#C25">Compliance matrix C25</a></td></tr>
+  <tr><td><a href="https://affiliate-program.amazon.com/help/operating/policies" rel="noopener nofollow" target="_blank">Associates Program Policies</a></td></tr></tbody></table></div>
+</section>
 
 <section class="card">
   <h2>What "unverified" means here</h2>

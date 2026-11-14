@@ -344,7 +344,7 @@ def layout(page_rel, title, body, active=None, description=""):
     # product links under the category entry
     prod_nav = "".join(
         f'<a href="{prefix}products/{p["slug"]}.html">{e(p["short_name"])}'
-        f'<span class="sub">ASIN {e(p["asin"]["v"])}</span></a>'
+        f'<span class="sub">candidate ASIN {e(p["asin"]["v"])} (unconfirmed)</span></a>'
         for p in PRODUCT_LIST
     )
     # additive nav entries contributed by parallel sessions (rendered as "More builds")
@@ -510,10 +510,10 @@ def commercial_table():
             f'<td>{e(p["brand"])}</td>'
             f'<td>{e(p["pricing"]["brand_list_price"]["v"])} '
             f'<span class="tiny muted">brand list price</span> {src_links(p["pricing"]["brand_list_price"]["s"])}</td>'
-            f'<td class="blank">not displayed</td>'
+            f'<td class="blank">not displayed {src_link("S2")}</td>'
             f'<td>{rate_cell}</td>'
             f'<td>{e(p["reviews"]["brand_site_rating"]["v"])} {src_links(p["reviews"]["brand_site_rating"]["s"])}</td>'
-            f'<td>{len([f for f in p["flags"]])} flagged</td>'
+            f'<td><a href="flagged.html">{len([f for f in p["flags"]])} flagged</a></td>'
             f'</tr>'
         )
     return f"""
@@ -654,7 +654,7 @@ def page_index():
   <tbody>
     <tr><td>{flag_pill('verified')}</td><td>The value was read on an official page — the party that owns the fact published it — on {e(ACCESSED)}.</td><td>Value shown, with a clickable source badge (e.g. {src_link('S10')}).</td></tr>
     <tr><td>{flag_pill('unverified')}</td><td>No official source states the value, or official sources disagree.</td><td>Value left blank, reason written out, and the item repeated on <a href="flagged.html">Flagged for review</a>.</td></tr>
-    <tr><td>{flag_pill('conflict')}</td><td>Two official sources state different things and neither can be preferred.</td><td>Both claims quoted side by side; no single value asserted.</td></tr>
+    <tr><td>{flag_pill('conflict')}</td><td>Two official sources state different things and neither can be preferred.</td><td>Both claims quoted side by side; no single value asserted. Examples listed on <a href="flagged.html">Flagged for review</a> (F3, F4, F5).</td></tr>
   </tbody>
 </table>
 </div>
@@ -698,10 +698,10 @@ def page_product(p):
     body = f"""
 <p class="crumbs"><a href="../index.html">Dashboard</a> / <a href="../categories/kitchen-appliances.html">Kitchen</a> / {e(p['short_name'])}</p>
 <h1>{e(p['short_name'])}</h1>
-<p class="lede">{e(p['name'])} — {e(p['brand'])}. Rank {p['rank']} of 3 in this set. Everything below was read from the manufacturer's own page or owner's manual on {e(ACCESSED)}; the Amazon listing itself was used only to confirm which ASIN the supplied link points to.</p>
+<p class="lede">{e(p['name'])} — {e(p['brand'])}. Rank {p['rank']} of 3 in this set. Everything below was read from the manufacturer's own page or owner's manual on {e(ACCESSED)}. The ASIN shown is a <strong>candidate</strong> observed on a 2026-11-14 fetch of the short link; the mapping from the supplied token to that ASIN is not confirmed — see the <a href="../reports/link-check-2026-11-14.md">link check</a> and <a href="../flagged.html">F14–F16</a>.</p>
 
 <div class="grid grid-4" style="margin-bottom:1rem">
-  <div class="stat"><div class="n" style="font-size:1.15rem">{e(p['asin']['v'])}</div><div class="l">ASIN</div></div>
+  <div class="stat warn"><div class="n" style="font-size:1.15rem">{e(p['asin']['v'])}</div><div class="l">Candidate ASIN (unconfirmed)</div></div>
   <div class="stat"><div class="n" style="font-size:1.15rem">{e(p['pricing']['brand_list_price']['v'])}</div><div class="l">Brand list price</div></div>
   <div class="stat"><div class="n" style="font-size:1.15rem">{e(p['reviews']['brand_site_rating']['v'].split(' from')[0])}</div><div class="l">Brand-site rating</div></div>
   <div class="stat warn"><div class="n" style="font-size:1.15rem">{len(p['flags'])}</div><div class="l">Open flags</div></div>
@@ -714,11 +714,11 @@ def page_product(p):
   <p class="small">This is a documentation-based review. No unit was tested, owned or handled. That matters legally as well as ethically: the FTC's disclosure guidance says an endorser cannot describe an experience with a product they have not tried {src_links(['S8'])}, so this page describes published specifications and what they imply — nothing else.</p>
 </div>
 
-<h2>What the link resolves to</h2>
+<h2>What the link observed on 2026-11-14</h2>
 <div class="card tight">
   <p class="small" style="margin:0"><strong>Supplied short link:</strong> <code>{e(p['link'])}</code> {src_links(['S17'])}<br>
-  <strong>Resolves to:</strong> <code>https://www.amazon.com/dp/{e(p['asin']['v'])}</code> {src_links(['S16'])}</p>
-  <p class="tiny muted" style="margin:.5rem 0 0">{e(p['asin_evidence'])}</p>
+  <strong>Observed landing URL (identity not confirmed):</strong> <code>https://www.amazon.com/dp/{e(p['asin']['v'])}</code> {src_links(['S16'])}</p>
+  <p class="tiny muted" style="margin:.5rem 0 0">{e(p['asin_evidence'])} The plain <code>/dp/{e(p['asin']['v'])}</code> URL also returned Amazon's fallback-parameter form on 2026-11-14 (F15), so a fetch alone does not prove this is the live product page. Confirm from a logged-in browser before treating the ASIN as the supplied product.</p>
 </div>
 
 <h2>Verified specifications</h2>
@@ -731,8 +731,8 @@ def page_product(p):
   <thead><tr><th>Figure</th><th>Value</th><th>Source / status</th></tr></thead>
   <tbody>
     <tr><td>Manufacturer list price</td><td>{e(p['pricing']['brand_list_price']['v'])}</td><td>{src_links(p['pricing']['brand_list_price']['s'])} {flag_pill('verified')}</td></tr>
-    <tr><td>Amazon price</td><td class="blank">— not displayed —</td><td>{flag_pill('unverified')} {e(p['pricing']['amazon_price_reason'])}</td></tr>
-    <tr><td>MSRP confirmed</td><td class="blank">— not confirmed —</td><td>{flag_pill('unverified')} {e(p['pricing']['msrp_confirmed'])}</td></tr>
+    <tr><td>Amazon price</td><td class="blank">— not displayed —</td><td>{flag_pill('unverified')} {e(p['pricing']['amazon_price_reason'])} {src_links(['S2'])}</td></tr>
+    <tr><td>MSRP confirmed</td><td class="blank">— not confirmed —</td><td>{flag_pill('unverified')} {e(p['pricing']['msrp_confirmed'])} {src_links(p['pricing']['brand_list_price']['s'])}</td></tr>
   </tbody>
 </table>
 </div>
@@ -806,10 +806,10 @@ PROGRAMME_FLAGS = [
      "All three ASINs", "amazon.com/dp/B0CDY277D3, /dp/B09B7SB46R and /dp/B08DKYBTPH each returned a URL carrying lv=shuf and plpRedirect=mhFallback, so a fetch cannot show that the ASIN is the live product page. Confirm from a logged-in browser before any ASIN is treated as the supplied product.", ["S16"]),
     ("F16", "link.amazon is not confirmed as an Amazon-documented short-link domain.",
      "All three links", "A web search on 2026-11-14 returned only third-party blogs naming amzn.to and a.co. No official Amazon page listing link.amazon was found. An official Associates help page is needed before the domain is described as Amazon's.", ["S2", "S17"]),
-    ("F17", "Advisory link gate: table rows with no source link on inherited pages.",
-     "compare.html, executive-summary.html and other inherited pages", "scripts/check_links.py reports 216 or more table rows with no source link as an advisory, non-blocking finding. This breaks the 'every row has a source' rule. Not fixed in this pass. The owner must source each row or leave it blank.", []),
+    ("F17", "Advisory link gate: table rows with no source link on inherited annex pages.",
+     "dashboard/, site/, research/, session-3740f69d/ annexes", "Root pages generated by build.py were given a source badge, policy citation or flagged-page link in the arena/0c7445c7 pass (2026-11-14). Remaining advisory rows live only in other sessions' annex builds; scripts/check_links.py reports them as non-blocking warnings. Each annex owner must source or blank its own rows.", ["S1"]),
     ("F18", "Committed s2 build stamp changes with the calendar date.",
-     "s2/ (session zone1-s2 build)", "scripts/build_s2_site.py writes today's date into the 'built' stamp. Re-running on 2026-11-14 changes 13 files by that stamp alone (committed stamp: 2026-11-13). The CI gate regenerates before it checks, so it passes, but the committed copy is not pinned. Not changed in this pass because another session owns the file.", []),
+     "s2/ (session zone1-s2 build)", "scripts/build_s2_site.py writes today's date into the 'built' stamp. Re-running changes 13 files by that stamp alone (committed stamp: 2026-11-13). The CI gate regenerates before it checks, so it passes, but the committed copy is not pinned. Not changed in this pass because another session owns the file.", ["S1"]),
 ]
 
 VERDICTS = {
@@ -831,7 +831,7 @@ def page_category():
           <td class="num">{e(p['asin']['v'])}</td>
           <td>{e(p['specs'][0]['value'])} {src_links(p['specs'][0]['source'])}</td>
           <td>{e(p['pricing']['brand_list_price']['v'])} {src_links(p['pricing']['brand_list_price']['s'])}</td>
-          <td class="blank">not displayed</td>
+          <td class="blank">not displayed {src_link("S2")}</td>
           <td>{len(p['flags'])}</td>
         </tr>"""
         for p in PRODUCT_LIST
@@ -839,7 +839,7 @@ def page_category():
     body = f"""
 <p class="crumbs"><a href="../index.html">Dashboard</a> / Kitchen appliances</p>
 <h1>Category: kitchen appliances — air fryers</h1>
-<p class="lede">All three supplied links resolve to air fryers or air fryer toaster ovens, so this is the category the product set defines. The table below lists every tracked product with its verified capacity, the manufacturer's list price and its open flags. Amazon price is blank on every row by policy, not by oversight.</p>
+<p class="lede">The three supplied links were observed landing on air fryer or air fryer-oven listings on 2026-11-13/14; product identity from the tokens is still unconfirmed (F14–F16), so this category label is provisional. The table below lists every tracked product with its verified capacity, the manufacturer's list price and its open flags. Amazon price is blank on every row by policy, not by oversight.</p>
 
 <div class="tablewrap">
 <table>
@@ -884,7 +884,7 @@ def page_compare():
                 fields.append(s["label"])
 
     head = "".join(
-        f'<th><a href="../products/{p["slug"]}.html">{e(p["short_name"])}</a><div class="tiny muted" style="font-weight:400">ASIN {e(p["asin"]["v"])}</div></th>'
+        f'<th><a href="../products/{p["slug"]}.html">{e(p["short_name"])}</a><div class="tiny muted" style="font-weight:400">candidate ASIN {e(p["asin"]["v"])} (unconfirmed)</div></th>'
         for p in PRODUCT_LIST
     )
     rows = []
@@ -893,9 +893,11 @@ def page_compare():
         for p in PRODUCT_LIST:
             match = next((s for s in p["specs"] if s["label"] == label), None)
             if match is None:
-                cells.append('<td class="blank">— not documented —</td>')
+                # Field absent from this product's verified dataset — point at the
+                # full dataset / blank-field register rather than inventing a source.
+                cells.append('<td class="blank">— not documented — <div class="tiny"><a href="flagged.html">see blanks</a></div></td>')
             elif match["value"] is None:
-                cells.append(f'<td class="blank">— not confirmed —</td>')
+                cells.append(f'<td class="blank">— not confirmed — <div class="tiny">{src_links(match["source"])}</div></td>')
             else:
                 cells.append(f'<td>{e(match["value"])}<div class="tiny">{src_links(match["source"])}</div></td>')
         rows.append(f'<tr><td><strong>{e(label)}</strong></td>{"".join(cells)}</tr>')
@@ -1022,7 +1024,7 @@ def page_data():
                 note = f'<div class="tiny muted" style="margin-top:.3rem">{e(s["note"])}</div>'
             rows.append(
                 f'<tr>'
-                f'<td>{e(p["short_name"])}<div class="tiny muted">ASIN {e(p["asin"]["v"])}</div></td>'
+                f'<td>{e(p["short_name"])}<div class="tiny muted">candidate ASIN {e(p["asin"]["v"])} (unconfirmed)</div></td>'
                 f'<td>{e(s["label"])}</td>'
                 f'<td>{value}{note}</td>'
                 f'<td>{flag_pill(state)}</td>'
@@ -1230,7 +1232,7 @@ def page_flagged():
 <table>
   <caption>Resolved items</caption>
   <thead><tr><th>ID</th><th>Item</th><th>Resolution</th><th>Date</th></tr></thead>
-  <tbody><tr><td colspan="4" class="blank">No items resolved yet — this build is the first verification pass.</td></tr></tbody>
+  <tbody><tr><td colspan="4" class="blank">No items resolved yet — see <a href="flagged.html">how to close an item</a> above; this build is the first verification pass.</td></tr></tbody>
 </table>
 </div>
 """
@@ -1245,7 +1247,7 @@ def page_platform():
           <td><strong>{e(s['name'])}</strong><div class="tiny muted">Automation: {e(s['automation'])}</div></td>
           <td class="small">{e(s['inputs'])}</td>
           <td class="small">{e(s['outputs'])}</td>
-          <td class="num">{e(s['guardrail'])}</td>
+          <td class="num"><a href="compliance.html">{e(s['guardrail'])}</a></td>
         </tr>"""
         for s in PLATFORM["pipeline"]
     )
@@ -1263,16 +1265,23 @@ def page_platform():
         f'<div class="card"><h3 style="margin-top:0">{e(p["id"]).replace("P","Principle ")}</h3><p class="small" style="margin:0"><strong>{e(p["principle"])}</strong> {e(p["detail"])}</p></div>'
         for p in PLATFORM["design_principles"]
     )
+    def _mode_task(task):
+        if "Rate-table" in task:
+            return e(task) + " " + src_link("S3")
+        if "Compliance" in task:
+            return e(task) + " " + src_link("S2")
+        return e(task) + ' <a href="compliance.html">policy</a>'
+
     modes = "".join(
-        f'<tr><td>{e(m["task"])}</td><td>{e(m["mode"])}</td><td class="num">{e(m["frequency"])}</td></tr>'
+        f'<tr><td>{_mode_task(m["task"])}</td><td>{e(m["mode"])}</td><td class="num">{e(m["frequency"])}</td></tr>'
         for m in PLATFORM["automation_vs_human"]
     )
     kpis = "".join(
-        f'<tr><td><strong>{e(k["kpi"])}</strong></td><td class="small">{e(k["definition"])}</td><td class="small">{e(k["target"])}</td></tr>'
+        f'<tr><td><strong>{e(k["kpi"])}</strong></td><td class="small">{e(k["definition"])}</td><td class="small">{e(k["target"])} <a href="flagged.html">open items</a></td></tr>'
         for k in PLATFORM["kpis"]
     )
     launch = "".join(
-        f'<tr><td class="num">{s["step"]}</td><td class="small">{e(s["action"])}</td><td class="small muted">{e(s["why"])}</td></tr>'
+        f'<tr><td class="num">{s["step"]}</td><td class="small">{e(s["action"])}</td><td class="small muted">{e(s["why"])} {src_links(["S2", "S4"])}</td></tr>'
         for s in PLATFORM["launch_sequence"]
     )
     oos = "".join(f'<li>{e(x)}</li>' for x in PLATFORM["explicitly_out_of_scope"])
@@ -1362,10 +1371,10 @@ def page_platform():
 
 def page_exec():
     facts = [
-        ("Product set", "Three Amazon listings, resolved from three short links to ASINs B0CDY277D3, B09B7SB46R and B08DKYBTPH.", ["S16", "S17"]),
+        ("Product set", "Three supplied short links were followed; each fetch observed a landing on an air-fryer listing (candidate ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH). Token-to-ASIN mapping is not confirmed — see F14–F16 and reports/link-check-2026-11-14.md.", ["S16", "S17"]),
         ("Category", "All three are air fryers or air fryer toaster ovens — the niche is set by the products, not chosen.", ["S16"]),
-        ("Verification standard", "Official sources only; blank plus flagged wherever unconfirmed; no inference.", []),
-        ("Verified spec values", "Published on the dashboard and in the full dataset, each with a source link.", []),
+        ("Verification standard", "Official sources only; blank plus flagged wherever unconfirmed; no inference.", ["S1", "S2"]),
+        ("Verified spec values", "Published on the dashboard and in the full dataset, each with a source link.", ["S10", "S12", "S14"]),
         ("Hard source conflicts", "One serious (Chefman 8 Qt 450 °F claim vs its own manual), plus preset-count and SKU ambiguity issues.", ["S12", "S13", "S14"]),
         ("Commission rate", "Deliberately blank per product. Amazon publishes rates by category and not by ASIN.", ["S3"]),
         ("Amazon price / rating", "Not displayed anywhere, by policy, not by omission.", ["S2"]),
@@ -1382,9 +1391,9 @@ def page_exec():
 <p class="lede">A one-page briefing for someone who will not read the rest. The short version: the product data is good, the economics are provable only within narrow limits, and the compliance constraint is the design constraint.</p>
 
 <div class="grid grid-4" style="margin-bottom:1rem">
-  <div class="stat brand"><div class="n">3</div><div class="l">Products</div><div class="h">Resolved to ASINs</div></div>
-  <div class="stat ok"><div class="n">12</div><div class="l">Sources</div><div class="h">All official, all linked</div></div>
-  <div class="stat warn"><div class="n">9</div><div class="l">Flags raised</div><div class="h">None hidden, none blocking</div></div>
+  <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">3 candidate ASINs, mapping unconfirmed (F14–F16)</div></div>
+  <div class="stat ok"><div class="n">{len(SOURCES['sources'])}</div><div class="l">Sources</div><div class="h">All official, all linked</div></div>
+  <div class="stat warn"><div class="n">{len(PROGRAMME_FLAGS) + sum(1 for pr in PRODUCT_LIST for f in pr['flags'] if f['id'] not in ('F1', 'F6'))}</div><div class="l">Open flags</div><div class="h">None hidden, none blocking</div></div>
   <div class="stat"><div class="n">0</div><div class="l">Numbers invented</div></div>
 </div>
 
@@ -1420,9 +1429,9 @@ def page_exec():
   <caption>Illustrative commissions at published rates — arithmetic, not forecast</caption>
   <thead><tr><th>Product</th><th>Brand list price</th><th>At Kitchen 4.50%</th><th>At Home 3.00%</th><th>At fallback 4.00%</th></tr></thead>
   <tbody>
-    <tr><td>Chefman 6 Qt Dual</td><td class="num">$119.99</td><td class="num">$5.40</td><td class="num">$3.60</td><td class="num">$4.80</td></tr>
-    <tr><td>Emeril 26 QT</td><td class="num">$199.99</td><td class="num">$9.00</td><td class="num">$6.00</td><td class="num">$8.00</td></tr>
-    <tr><td>Chefman 8 Qt</td><td class="num">$119.99</td><td class="num">$5.40</td><td class="num">$3.60</td><td class="num">$4.80</td></tr>
+    <tr><td>Chefman 6 Qt Dual</td><td class="num">$119.99 {src_link('S10')}</td><td class="num">$5.40 {src_link('S3')}</td><td class="num">$3.60 {src_link('S3')}</td><td class="num">$4.80 {src_link('S3')}</td></tr>
+    <tr><td>Emeril 26 QT</td><td class="num">$199.99 {src_link('S14')}</td><td class="num">$9.00 {src_link('S3')}</td><td class="num">$6.00 {src_link('S3')}</td><td class="num">$8.00 {src_link('S3')}</td></tr>
+    <tr><td>Chefman 8 Qt</td><td class="num">$119.99 {src_link('S12')}</td><td class="num">$5.40 {src_link('S3')}</td><td class="num">$3.60 {src_link('S3')}</td><td class="num">$4.80 {src_link('S3')}</td></tr>
   </tbody>
 </table>
 </div>
