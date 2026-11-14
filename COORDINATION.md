@@ -2126,6 +2126,13 @@ duplicates.
 
 | # | Task | Status | Owner | File scope |
 |---|------|--------|-------|------------|
-| T22 | Integration pass 7: independent re-verification of the three `link.amazon` short links, Operating Agreement disclosure wording, Program Policies §2(b) price rule, and 16 CFR 255.5 text; run every gate, PR → merge → confirm Pages | in progress | sess-840a25d3 | `COORDINATION.md` (log entry only), `session-840a25d3/**` (new). No `build.py` or `data/*.json` change (see I-2 in the record). |
+| T22 | Integration pass 7: independent re-verification of the three `link.amazon` short links, Operating Agreement disclosure wording, Program Policies §2(b) price rule, and 16 CFR 255.5 text; run every gate, PR → merge → confirm Pages | **done** | sess-840a25d3 | `COORDINATION.md` (log entry only), `session-840a25d3/**` (new). No `build.py` or `data/*.json` change (see I-2 in the record). |
 
 Scope rule: no `data/*.json` values and no `build.py` code are changed in this pass. Any value that cannot be re-confirmed is flagged, not edited.
+
+### Completion record — sess-840a25d3 (T22, 2026-11-14 UTC)
+
+* **Verification:** `session-840a25d3/VERIFICATION-2026-11-14.md`. Re-read all three `link.amazon` short links (titles match the stored values), the Operating Agreement disclosure wording (Help topic `GHQNZAU6669EZS98`), Program Policies §2(b) (price and availability rule, lowest-new/lowest-used rule), and 16 CFR 255.5(a) on eCFR. All confirmed verbatim.
+* **Irregularities (no edits to data):** I-1 link-level disclosure is firmer than the links can support: the destinations carry no Associates tag (already flagged F21 / F17). I-2 the articles are reachable via `research/index.html`; the planned navigation change was dropped. I-3 historical open-item counts differ across old records; the current build reports 31 everywhere.
+* **Gates on the rebased branch:** engine tests OK · audit OK · `build_s2_site.py --check` current · `check_links.py` 4,103 links · `build.py` reproducible (no diff) · `research/check_research.py` OK · `verify.py` 0 errors.
+* **Scope kept:** `COORDINATION.md` and `session-840a25d3/**` only.
