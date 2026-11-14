@@ -35,11 +35,11 @@ identity mapping.
 ## 3. Verification result
 
 - **43 specification rows** across the three products.
-- **40 verified** — each read on the manufacturer's own product page or owner's manual, each with a clickable source link.
-- **3 blank and flagged** — no official source states the value, or official sources disagree.
+- **42 verified** — each read on the manufacturer's own product page or owner's manual, each with a clickable source link. *(Count corrected 2026-11-14 (pass 6) to match `verify.py`: 42 verified — one of them, the 8 Qt's basket-divider row, carries a caution note — and 1 blank+flagged.)*
+- **1 blank and flagged** — no official source states the value, or official sources disagree.
 - **24 sources**, all official: Amazon Associates documents, the US FTC and eCFR, three manufacturer owner's manuals, two manufacturer product pages, and the Amazon listings themselves. *(Correction 2026-11-14: the completed register in [`data/sources.json`](data/sources.json) now holds **24** official sources, S1–S24 — see §10.)*
 
-Two rows were initially blank and were later **upgraded to verified** using the manufacturers' own owner's manuals rather than by guessing: the Chefman 6 Qt's per-basket capacity (the manual states "two 3-quart baskets") and the Emeril's preset count (the manual's preset chart names exactly 24). Two further rows, the 6 Qt's preset list and the 8 Qt's warranty, were added from the manuals. The blanks that remain are blanks because no official document answers them.
+Two rows were initially blank and were later **upgraded to verified** using the manufacturers' own owner's manuals rather than by guessing: the Chefman 6 Qt's per-basket capacity (the manual states "two 3-quart baskets") and the Emeril's preset count (the manual's preset chart names exactly 24). Two further rows, the 6 Qt's preset list and the 8 Qt's warranty, were added from the manuals. The blank that remains is blank because no official source resolves it — the 8 Qt's Hi-Fry/450 °F row, where official sources disagree. *(2026-11-14 pass 6: count corrected to the single remaining blank.)*
 - **0 values inferred, estimated or back-filled.**
 
 ## 4. Findings
@@ -142,13 +142,13 @@ Only routine drift was found: brand-widget review counts moved 1,302→1,305 and
 
 ### 10.2 New finding: PA-API 5 is officially deprecated (flag **F14**)
 
-The official PA-API 5 documentation URL now serves a **deprecation notice**: PA-API 5 "has been deprecated and is being replaced by the **Creators API**"; PA-API 5 calls return `403 AccessDeniedException` with a migration message ([official notice](https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation), verified live 2026-11-14; added to the register as **S22**).
+The official PA-API 5 documentation URL now serves a **deprecation notice**: PA-API 5 "has been deprecated and is being replaced by the **Creators API**"; PA-API 5 calls return `403 AccessDeniedException` with a migration message ([official notice](https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation), verified live 2026-11-14; added to the register as **S24**).
 
 This settles a disagreement between earlier sessions in favour of the cross-check's original F18 claim: the platform blueprint's automation features must target the **Creators API**. The compliance quotes (which read "Creators API or PA API") are unaffected.
 
 ### 10.3 Citation-quality fixes in the dashboard annex (flag **F15**)
 
-Some rows in the separately-built `dashboard/` annex cited third-party sites (barcode.graphics, keywordseverywhere.com, manuals.plus, aruljohn.com, u2l.ai) instead of official sources. Where an official source exists it has been added — Amazon's own [KDP Help G200652190](https://kdp.amazon.com/en_US/help/topic/G200652190) ("your 10-character Amazon Standard Identification Number"; canonical `amazon.com/dp/ASIN` format), verified live and added as **S21**. Where no official source exists (the short-domain list), the row is now explicitly marked **unverified**. No original claim was deleted.
+Some rows in the separately-built `dashboard/` annex cited third-party sites (barcode.graphics, keywordseverywhere.com, manuals.plus, aruljohn.com, u2l.ai) instead of official sources. Where an official source exists it has been added — Amazon's own [KDP Help G200652190](https://kdp.amazon.com/en_US/help/topic/G200652190) ("your 10-character Amazon Standard Identification Number"; canonical `amazon.com/dp/ASIN` format), verified live and added as **S23**. Where no official source exists (the short-domain list), the row is now explicitly marked **unverified**. No original claim was deleted.
 
 ### 10.4 Preserved disagreements (flag **F16**)
 
@@ -160,5 +160,5 @@ Session `arena/88769516-zone1` (PR #9, idle since 2026-11-13T22:47Z) built an in
 
 ### 10.6 State after this pass
 
-- **24 sources** (S1–S24), all official; **43 spec rows** (40 verified, 3 blank+flagged); **17 open flags** (13 programme + 4 product), all published on [`flagged.html`](flagged.html).
+- **24 sources** (S1–S24), all official; **43 spec rows** (42 verified, 1 blank+flagged); **24 open flags** (20 programme + 4 product), all published on [`flagged.html`](flagged.html). *(Counts corrected 2026-11-14 pass 6 against `verify.py` and the generated `flagged.html`.)*
 - `build.py` + `verify.py` gates pass: 91 pages checked, **0 errors**, 0 broken internal links, 0 missing disclosures, 0 unsourced values, 0 leaked Amazon prices/ratings.
