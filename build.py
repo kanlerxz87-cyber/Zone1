@@ -582,7 +582,7 @@ def calc_widget():
 # --------------------------------------------------------------------------- #
 
 def page_index():
-    n_flags = sum(len(p["flags"]) for p in PRODUCT_LIST)
+    n_flags = sum(1 for p in PRODUCT_LIST for f in p["flags"] if f["id"] not in ("F1", "F6"))
     n_total_flags = n_flags + len(PROGRAMME_FLAGS)
     verified = sum(1 for p in PRODUCT_LIST for s in p["specs"] if s["value"] is not None)
     unverified = sum(1 for p in PRODUCT_LIST for s in p["specs"] if s["value"] is None)
@@ -793,13 +793,21 @@ PROGRAMME_FLAGS = [
     ("F9", "No Amazon price, star rating or review count is available to this build.",
      "All three", "Left blank everywhere by policy rather than by omission. Becomes fillable only if the operator secures Creators/PA API credentials.", ["S2", "S19"]),
     ("F10", "The short links are generated redirects with fallback parameters, not plain product links.",
-     "All three links", "Each resolves with lv=shuf and plpRedirect=mhFallback in the landing URL, and the srctok value stays constant across repeat requests (re-tested 2026-11-13). That pattern is Amazon's server-side redirect, not a guarantee of a stable destination. Open each link yourself before publishing and confirm the product is the one intended.", ["S17", "S16"]),
+     "All three links", "Each resolves with lv=shuf and plpRedirect=mhFallback in the landing URL, and the srctok value stays constant across repeat requests (re-tested 2026-11-13 and 2026-11-14). That pattern is Amazon's server-side redirect, not a guarantee of a stable destination. Open each link yourself before publishing and confirm the product is the one intended. See also F16 for the competing reading of these markers.", ["S17", "S16"]),
     ("F11", "The site does not disclose cookies, pixels and third-party technologies as Participation Requirements §3(e) requires.",
      "Whole site", "The site itself sets no cookies and runs no analytics, but §3(e) requires an accurate disclosure of cookie and third-party technology use, including that third parties may place or recognise cookies. Only a minimal notice is in the footer; a proper privacy/cookie statement is needed before launch. Legal review recommended.", ["S2"]),
     ("F12", "The automated platform functions in the brief are not running — by design, not by omission.",
      "Platform", "Automated trend detection, competition scoring and conversion optimisation need an Associates account, Creators/PA API credentials and sales reports. PA API access is registered through Associates Central and credentials are tied to the primary account holder, with request rate scaled to account sales performance. None of that exists in this repository, and inventing the data to fill the gap would defeat the point of the project.", ["S2", "S19", "S20"]),
     ("F13", "Product listing titles are reproduced from Amazon; §6(a) restricts altering Program Content.",
      "All three", "Titles are shown verbatim and unedited. §6(a) permits truncation only where meaning is not materially altered, and whether a listing title counts as Program Content is not stated. Recorded so the operator can confirm before adding any paraphrase.", ["S2"]),
+    ("F14", "PA-API 5 is officially deprecated (confirmed live 2026-11-14); the successor is Amazon's Creators API.",
+     "Platform design", "The official docs URL now serves a deprecation notice: PA-API 5 calls return 403 AccessDeniedException and integrations are told to migrate to the Creators API. This supersedes the earlier board retraction of the cross-check's F18 claim and means every automated feature in the blueprint must target the Creators API, not PA-API 5. Also note the Product Policies phrase their data-use rules as 'Creators API or PA API', so the compliance quotes above remain accurate.", ["S22", "S20"]),
+    ("F15", "Some rows in the dashboard annex cite third-party sites instead of official sources.",
+     "dashboard/ pages", "Rows for ASIN length and canonical URL format cited barcode.graphics, keywordseverywhere.com and manuals.plus. These are now backed by Amazon's own KDP help page (10-character ASIN; amazon.com/dp/ASIN format), which is linked alongside. The annex row listing Amazon's short domains (amzn.com / amzn.to / a.co) has no official source that can confirm the complete list and stays third-party-only — treat it as unverified.", ["S21"]),
+    ("F16", "Two readings of the link.amazon redirect remain on record and neither is proven.",
+     "All three links", "One annex claims each short link lands on a random listing via Amazon's missing-page fallback (markers lv=shuf / plpRedirect=mhFallback). Four independent observation rounds on 2026-11-13 and 2026-11-14 (two sessions, repeat fetches) instead show the same three destinations every time, with listing titles matching the recorded products exactly. Both positions are preserved for the account holder, who can settle it by opening the links while signed in.", ["S17", "S16"]),
+    ("F17", "Brand-site review counts drift between observation dates; quotes are date-stamped.",
+     "Chefman pages", "The Chefman 6 Qt page showed 1,302 reviews on 2026-11-13 and 1,305 on 2026-11-14; the 8 Qt page showed 715 then 716. The published figures are verbatim quotes of the access date and are labelled as such; they are not live counters.", ["S10", "S12"]),
 ]
 
 VERDICTS = {
@@ -1361,11 +1369,14 @@ def page_exec():
         ("Amazon price / rating", "Not displayed anywhere, by policy, not by omission.", ["S2"]),
         ("Disclosure", "Required statement on every page plus a link-level badge on every outbound link.", ["S1", "S5"]),
         ("Biggest constraint", "Program Content may not be aggregated, analysed or trained on — which rules out the obvious version of an AI research engine.", ["S2"]),
+        ("API status (re-verified 2026-11-14)", "PA-API 5 is officially deprecated; Amazon's docs direct integrations to migrate to the Creators API. The automation blueprint must target the Creators API.", ["S22"]),
         ("Next decision", "Resolve the remaining flagged items, then publish, then apply.", ["S4"]),
     ]
     rows = "".join(
         f'<tr><td><strong>{e(k)}</strong></td><td>{e(v)}</td><td>{src_links(s)}</td></tr>' for k, v, s in facts
     )
+    n_src = len(SOURCES["sources"])
+    n_flags = len(PROGRAMME_FLAGS) + sum(1 for p in PRODUCT_LIST for f in p["flags"] if f["id"] not in ("F1", "F6"))
     body = f"""
 <p class="crumbs"><a href="../index.html">Dashboard</a> / Executive summary</p>
 <h1>Executive summary</h1>
@@ -1373,8 +1384,8 @@ def page_exec():
 
 <div class="grid grid-4" style="margin-bottom:1rem">
   <div class="stat brand"><div class="n">3</div><div class="l">Products</div><div class="h">Resolved to ASINs</div></div>
-  <div class="stat ok"><div class="n">12</div><div class="l">Sources</div><div class="h">All official, all linked</div></div>
-  <div class="stat warn"><div class="n">9</div><div class="l">Flags raised</div><div class="h">None hidden, none blocking</div></div>
+  <div class="stat ok"><div class="n">{n_src}</div><div class="l">Sources</div><div class="h">All official, all linked</div></div>
+  <div class="stat warn"><div class="n">{n_flags}</div><div class="l">Flags raised</div><div class="h">None hidden, none blocking</div></div>
   <div class="stat"><div class="n">0</div><div class="l">Numbers invented</div></div>
 </div>
 

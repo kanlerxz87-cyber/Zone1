@@ -201,6 +201,26 @@
       "kind": "Help article",
       "directness": "Primary",
       "page_version": "Live page, 2026-11-13"
+    },
+    {
+      "id": "S21",
+      "org": "Amazon.com Kindle Direct Publishing (help centre)",
+      "title": "Linking from Your Website (KDP Help G200652190)",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200652190",
+      "covers": "Official Amazon definition: the ASIN is a 10-character Amazon Standard Identification Number, and the canonical product URL format is http://www.amazon.com/dp/ASIN. Used to source the ASIN-length and URL-format rows in the dashboard annex, which previously cited only third-party sites.",
+      "kind": "Help article",
+      "directness": "Primary (published by Amazon)",
+      "page_version": "Live page, re-verified 2026-11-14"
+    },
+    {
+      "id": "S22",
+      "org": "Amazon.com Associates Central — Creators API documentation",
+      "title": "PA-API 5 Deprecation Notice",
+      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation",
+      "covers": "Official notice that PA-API 5 has been deprecated and is replaced by the Creators API; PA-API 5 calls return 403 AccessDeniedException with a migration message. The former PA-API 5 documentation URL (webservices.amazon.com/paapi5/documentation/get-items.html) now serves this notice. Re-verified 2026-11-14.",
+      "kind": "Deprecation notice",
+      "directness": "Primary (published by Amazon)",
+      "page_version": "Live page, re-verified 2026-11-14"
     }
   ]
 }
