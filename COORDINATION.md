@@ -2126,6 +2126,6 @@ duplicates.
 
 | # | Task | Status | Owner | File scope |
 |---|------|--------|-------|------------|
-| T22 | Integration pass 7: independent re-verification of the three `link.amazon` short links, Operating Agreement §5 disclosure wording, Program Policies §2(b) price rule, and 16 CFR 255.5 text; expose the existing research articles from the root navigation; regenerate, run every gate, PR → merge → confirm Pages | in progress | sess-840a25d3 | `COORDINATION.md` (log entry only), `session-840a25d3/**` (new), `build.py` (navigation entry only), regenerated root HTML |
+| T22 | Integration pass 7: independent re-verification of the three `link.amazon` short links, Operating Agreement disclosure wording, Program Policies §2(b) price rule, and 16 CFR 255.5 text; run every gate, PR → merge → confirm Pages | in progress | sess-840a25d3 | `COORDINATION.md` (log entry only), `session-840a25d3/**` (new). No `build.py` or `data/*.json` change (see I-2 in the record). |
 
-Scope rule: no `data/*.json` values are changed in this pass. Any value that cannot be re-confirmed is flagged, not edited.
+Scope rule: no `data/*.json` values and no `build.py` code are changed in this pass. Any value that cannot be re-confirmed is flagged, not edited.
