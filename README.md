@@ -20,6 +20,8 @@ could not be confirmed is left blank and published on the **Flagged for review**
 | `compliance.html` | 16 program/legal requirements, quoted, each with a source link |
 | `flagged.html` | Every unverified value, source conflict and irregularity |
 | `executive-summary.html` | One-page briefing |
+| `reverification.html` | Line-by-line re-read of every published value (2026-11-14 pass), each row with its verdict and source link |
+| `session-81495d2d/EVIDENCE-2026-11-14.md` | Raw evidence behind that ledger: exact requests, exact responses, and what was not re-read |
 | `data/*.json` | The verified dataset the site is generated from |
 | `build.py` | Static site generator (stdlib only — no dependencies) |
 | `verify.py` | Build gate: broken links, missing disclosures, unsourced values |
@@ -127,7 +129,8 @@ Build and verify it independently:
 ```bash
 python3 research/build_research.py     # regenerate research/*.html
 python3 research/check_research.py     # 774 checks; exits non-zero on any failure
-node scripts/build.mjs                 # main site; also requires every research/ output to exist
+node scripts/build.mjs --check         # validator for the retired docs/ build — currently FAILS
+                                       # against the shared data schema (see flag F23); no CI workflow uses it
 ```
 
 Neither generator touches the other's files. The only cross-file dependency is the nav entry in
@@ -148,3 +151,41 @@ the 2026 IP License §4 **Agent Terms** analysis for AI automation; link-policy 
 `link.amazon` links; verified Commission Table 1 candidates (Kitchen 4.50% / All Other 4.00%) with the per-product
 mapping left flagged. Full record: `COORDINATION.md` → *Integration pass 3*.
 
+
+---
+
+## Fifth pass — independent re-verification, 2026-11-14 (`sess-81495d2d`)
+
+Every value the root site publishes was re-read against the official source the site cites for it — the
+manufacturer's own product page, its own owner's manual PDF, Amazon Associates Central, and the eCFR — and the
+result is published as a ledger: **`reverification.html`** (61 rows: claim, value as published, what the source said
+on the day, verdict, source link). Raw evidence and the two control requests are in
+`session-81495d2d/EVIDENCE-2026-11-14.md`.
+
+What the pass changed:
+
+* **The link-resolution dispute is closed on the evidence.** Four sessions over two days, each with a fresh Amazon
+  session id, obtained the same three ASINs (`B0CDY277D3`, `B09B7SB46R`, `B08DKYBTPH`), and a nonsense-token control
+  returns **403** instead of a shuffled product. The "resolves to a different featured item on each request" clause
+  raised by an earlier pass is retired. What remains open is narrower and is still flagged: the tokens are not ASINs
+  (9 characters), every landing URL carries `plpRedirect=mhFallback`, and the Associates tag inside the link cannot
+  be observed from outside Associates Central.
+* **Two blank rows are now filled.** The Chefman 8 Qt `Wattage` and `Dimensions / weight` rows were blank with the
+  reason "not stated on the brand product page". The manufacturer's own Specifications block states
+  `Power: 1700W/120V`, `(8 Qt Model) 15.4 in x 12.6 in x 13.5 in` and `(8 Qt Model) 12.8 lbs / 5.8 kg`, so both rows
+  now carry values sourced to that page (verified spec rows: 40 → 42 of 43).
+* **Volatile figures are stamped.** Brand-hosted review counts moved in 24 hours (1,302 → 1,305 and 715 → 716)
+  while the averages held at 4.6. New flag F14 records why every rating on this site must carry its read date.
+* **The conflicts are still conflicts.** Chefman 8 Qt: Amazon title says "450°F Hi-Fry … Bake, Dehydrate, Frozen",
+  brand page says "Max temp: 400ºF/ 205ºC / 200–400°F". Emeril 26QT: **10-in-1**, **11-in-1** (a carousel asset's own
+  filename), **24 cooking functions** (Amazon title) and **25 Cooking Pre-sets** (brand spec block) all appear on
+  official pages on the same day. The site asserts none of them.
+* **Stale build artefacts corrected:** root navigation now reaches all six published builds (it previously exposed
+  three); the executive summary's hand-typed "12 sources / 9 flags" and its hand-typed commission table are computed
+  from `data/*.json`; the Flagged page's "this build is the first verification pass" line is replaced by a real
+  resolved-items table.
+
+```bash
+python3 build.py                 # regenerate every page, including reverification.html
+python3 verify.py                # 0 errors = no broken link, no unsourced value, disclosure everywhere
+```

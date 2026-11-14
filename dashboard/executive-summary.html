@@ -38,6 +38,17 @@
   Repository: <a href="https://github.com/kanlerxz87-cyber/Zone1" target="_blank" rel="noopener">kanlerxz87-cyber/Zone1</a> ·
   Markdown copy: <a href="../reports/executive-summary.md">reports/executive-summary.md</a></p>
 
+  <section class="card" id="refresh-2026-11-14">
+    <h2>0 · Refresh 2026-11-14 (session arena/6ec3c2da)</h2>
+    <ul class="clean">
+      <li><strong>Supplied links re-checked.</strong> All three short links still redirect to Amazon’s fallback URL (<code>plpRedirect=mhFallback</code>, <code>lv=shuf</code>) on <code>/dp/B0CDY277D3</code>, <code>/dp/B09B7SB46R</code> and <code>/dp/B08DKYBTPH</code>. The canonical pages for the three supplied codes return “Page Not Found”: <a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">B04G1MEwY</a> · <a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">B02NbDxp3</a> · <a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">B00hJ57DV</a>. Product identity remains unconfirmed (I-06, H-04). Earlier “random listing” wording is withdrawn (H-08).</li>
+      <li><strong>Commission table re-confirmed.</strong> Amazon’s Standard Commission Income Statement, Table 1: Kitchen 4.50%, Home 3.00%, All Other Categories 4.00%. The category for each ASIN is still not published (MN-11). <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">Official source</a></li>
+      <li><strong>Data source changed.</strong> PA-API 5 is deprecated (H-01). The Creators API requires at least 10 qualifying sales in the past 30 days (H-06), so automated product data is not available to this project today.</li>
+      <li><strong>Source hygiene.</strong> Non-official citations were replaced, and the “not an official link format” overstatement was corrected (H-02, H-03).</li>
+      <li><strong>Full record:</strong> <a href="../reports/verification-2026-11-14.md">verification-2026-11-14.md</a> · new flags in <a href="flagged.html#refresh-2026-11-14">Flagged for Review §E</a>.</li>
+    </ul>
+  </section>
+
   <section class="card">
     <h2>1 · Purpose</h2>
     <p>Build an AI-powered Amazon affiliate marketing platform that automates product research, verifies product data against
@@ -76,9 +87,9 @@
       </tbody>
     </table></div>
     <ul class="clean">
-      <li><strong>Invalid identifiers</strong> — ASINs are 10-character codes; these are 9. Official source: <a href="https://kdp.amazon.com/en_US/help/topic/G200652190" target="_blank" rel="noopener">Amazon KDP Help G200652190</a> (verified live 2026-11-14). Third-party, secondary: <a href="https://www.barcode.graphics/amazon-product-id/" target="_blank" rel="noopener">barcode.graphics</a>, <a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere</a>.</li>
-      <li><strong>Invalid link domain</strong> — <code>link.amazon</code> is not an official Amazon link/short domain (canonical: <code>amazon.com/dp/&lt;ASIN&gt;</code>; Amazon shorts: <code>amzn.com</code>, <code>amzn.to</code>, <code>a.co</code>).</li>
-      <li><strong>Broken resolution</strong> — each supplied URL falls through Amazon's missing-page fallback (<code>plpRedirect=mhFallback</code>, <code>lv=shuf</code>) to a different random unrelated listing. <em>⚠ Contested (F16):</em> repeat observations on 2026-11-13/14 returned the same three recorded products every time — see the <a href="flagged.html">integration addendum</a>.</li>
+      <li><strong>Invalid identifiers</strong> — ASINs are 10-character codes; these are 9. Sources: official definition — <a href="https://kdp.amazon.com/en_US/help/topic/G200652190" target="_blank" rel="noopener">Amazon KDP Help G200652190</a> (“10-character Amazon Standard Identification Number”, S23, verified live 2026-11-14); observed 10-character codes on <a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">amazon.com/dp/B0CDY277D3</a> (H-05). The 9-character count is a direct count of the supplied strings.</li>
+      <li><strong>Unconfirmed link domain</strong> — <code>link.amazon</code> is not named in the Operating Agreement §1 “Special Links” definition; its provenance is unconfirmed (H-03). Canonical product URLs use <code>amazon.com/dp/&lt;ASIN&gt;</code>.</li>
+      <li><strong>Resolution unconfirmed</strong> — each supplied URL lands on an existing 10-character Amazon product page, reached through fallback-parameter URLs (<code>plpRedirect=mhFallback</code>, <code>lv=shuf</code>). The mapping from the 9-character token to that ASIN is unconfirmed (H-08).</li>
     </ul>
     <div class="callout bad">
       <strong>Consequence (no-hallucination policy):</strong> product title, price, rating, review count, category, competition,
@@ -125,7 +136,7 @@
       <li>Supply correct <strong>10-character ASINs</strong> (or full <code>amazon.com</code> product URLs).</li>
       <li>Supply the Associates <strong>tracking tag</strong> (format <code>XXXXX-##</code>).</li>
       <li>Confirm Associates enrollment + tax information (Norway — non-US clause, flag F08).</li>
-      <li>Optional: PA-API/Creators API + analytics access to activate live monitoring and scale content (flag F11).</li>
+      <li>Optional: Creators API (PA-API 5 is deprecated — H-01) + analytics access to activate live monitoring and scale content (flag F11).</li>
     </ol>
   </section>
 

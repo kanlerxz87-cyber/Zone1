@@ -43,10 +43,10 @@
     <div class="table-wrap"><table>
       <thead><tr><th>ID</th><th>Finding</th><th>Verdict</th><th>Source</th></tr></thead>
       <tbody>
-        <tr><td>A1</td><td>All three submitted identifiers are 9 characters; ASINs are 10. None is a valid ASIN.</td><td><span class="badge bad">Irregular</span></td><td><a href="products.html#">format checks §2</a> · <a href="https://kdp.amazon.com/en_US/help/topic/G200652190" target="_blank" rel="noopener">Official: Amazon KDP Help G200652190</a> (verified live 2026-11-14)</td></tr>
+        <tr><td>A1</td><td>All three submitted identifiers are 9 characters; ASINs are 10. None is a valid ASIN.</td><td><span class="badge bad">Irregular</span></td><td><a href="products.html#">format checks §2</a> · <a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">observed 10-char ASIN (H-05)</a></td></tr>
         <tr><td>A2</td><td>All three canonical pages <code>amazon.com/dp/&lt;id&gt;</code> return Amazon's page-not-found error.</td><td><span class="badge bad">Irregular</span></td><td><a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">P1</a> · <a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">P2</a> · <a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">P3</a></td></tr>
-        <tr><td>A3</td><td>All three supplied URLs fall through Amazon's missing-page fallback to random unrelated listings. <strong>⚠ Contested (F16):</strong> four observation rounds on 2026-11-13/14 instead returned the same three recorded products every time — see the integration addendum on <a href="flagged.html">Flagged</a>.</td><td><span class="badge warn">Contested</span></td><td><a href="../reports/verification-log.md">verification log §1.2</a> · <a href="../COORDINATION.md">COORDINATION.md</a></td></tr>
-        <tr><td>A4</td><td>No supplied link carries an Associates <code>tag=</code> tracking parameter in its resolved URL — but the tag rides inside the <code>link.amazon</code> redirect and is not observable from outside. Whether purchases credit an account <strong>cannot be verified</strong> without Associates Central access (root flag F6).</td><td><span class="badge warn">Unverifiable</span></td><td>Supplied URLs as given · <a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">OA §1</a></td></tr>
+        <tr><td>A3</td><td>All three supplied URLs land on existing Amazon product pages through fallback-parameter URLs. The mapping from the supplied tokens is unconfirmed (H-08).</td><td><span class="badge bad">Irregular</span></td><td><a href="../reports/verification-log.md">verification log §1.2</a></td></tr>
+        <tr><td>A4</td><td>No supplied link carries an Associates <code>tag=</code> tracking parameter in its resolved URL. <em>Clarified (root flag F6):</em> the tag rides inside the <code>link.amazon</code> redirect and is not observable from outside, so whether purchases credit an account cannot be verified without Associates Central access.</td><td><span class="badge warn">Compliance gap</span></td><td>Supplied URLs as given · <a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">OA §1</a></td></tr>
         <tr><td>A5</td><td>The official US commission rate table is publicly reachable and was verified in full (0.00%–10.00% by category).</td><td><span class="badge ok">Verified</span></td><td><a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">Standard Commission Income Statement</a></td></tr>
         <tr><td>A6</td><td>Required disclosure wording is fixed by the Operating Agreement and is displayed site-wide.</td><td><span class="badge ok">Verified</span></td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">OA §5</a></td></tr>
         <tr><td>A7</td><td>Product-level pricing/review/competition analysis cannot be performed from verified sources for any submitted product.</td><td><span class="badge warn">Blocked</span></td><td><a href="products.html">Products §5</a></td></tr>
@@ -59,13 +59,13 @@
     <div class="table-wrap"><table>
       <thead><tr><th>Metric</th><th>P1 (B04G1MEwY)</th><th>P2 (B02NbDxp3)</th><th>P3 (B00hJ57DV)</th><th>Status / method</th></tr></thead>
       <tbody>
-        <tr><td>Current price</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> no verified product page. Also restricted by <a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies s.2(b)</a>: prices may be shown only via an Amazon-served link or PA-API/Creators API.</td></tr>
-        <tr><td>Price history / trend</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> requires a real ASIN + price-history data source (e.g. PA-API access).</td></tr>
+        <tr><td>Current price</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> no verified product page. Also restricted by <a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies s.2(b)</a>: prices may be shown only via an Amazon-served link or Creators API (PA-API 5 is deprecated — H-01).</td></tr>
+        <tr><td>Price history / trend</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> requires a real ASIN + price-history data source (e.g. Creators API access).</td></tr>
         <tr><td>Deal/coupon signal</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> same.</td></tr>
         <tr><td>Commission per sale (est. method)</td><td>—</td><td>—</td><td>—</td><td><span class="badge warn">Blocked</span> category unverified ⇒ no rate row can be applied. Method (once verified): <em>qualifying revenue × category rate</em>, rates <a href="commissions.html">here</a>. Never estimated without both inputs.</td></tr>
       </tbody>
     </table></div>
-    <p class="small muted">What unblocks this: three valid ASINs + Associates PA-API/Creators API access (see <a href="flagged.html">F01, F11</a>).</p>
+    <p class="small muted">What unblocks this: three valid ASINs + Associates Creators API (PA-API 5 is deprecated — H-01) access (see <a href="flagged.html">F01, F11</a>).</p>
   </section>
 
   <section class="card">
@@ -94,7 +94,7 @@
     </table></div>
     <div class="callout warn">
       Note on a tempting shortcut: the fallback redirects landed on listings in “Home &amp; Kitchen” (air-fryer-type appliances).
-      Those are <strong>random missing-page fallbacks</strong>, not evidence of the intended products' category — see
+      Those are <strong>fallback-parameter landings on existing product pages</strong> (H-08), not evidence of the intended products' category — see
       <a href="products.html">Products §3–4</a>. Building competition analysis on them would be inference, which this project forbids.
     </div>
   </section>
@@ -132,7 +132,7 @@
         <tr><td>Affiliate link management</td><td><span class="badge ok">Built</span></td><td><a href="links.html">Link manager</a>: canonical builder, tagging rules, quarantine of invalid links.</td></tr>
         <tr><td>Click &amp; conversion tracking</td><td><span class="badge ok">Built (demo layer)</span></td><td><a href="analytics.html">Analytics</a>: working local tracker; production architecture documented (Amazon Associates reports = conversion source of truth).</td></tr>
         <tr><td>Campaign optimization</td><td><span class="badge info">Framework</span></td><td>Optimization loop defined (content refresh, CTR/CVR review, rate-table re-check); live data needs traffic + Associates account.</td></tr>
-        <tr><td>Price/review/competition monitoring</td><td><span class="badge warn">Needs API</span></td><td>Requires PA-API/Creators API + valid ASINs (flag F11).</td></tr>
+        <tr><td>Price/review/competition monitoring</td><td><span class="badge warn">Needs API</span></td><td>Requires Creators API (PA-API 5 is deprecated — H-01) + valid ASINs (flag F11).</td></tr>
       </tbody>
     </table></div>
   </section>

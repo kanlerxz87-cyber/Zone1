@@ -34,40 +34,10 @@
 
   <h1 class="page-title">Flagged for Review</h1>
   <p class="page-lede">Every irregularity, unverified value and open decision from both agent sessions —
-  <strong>22 items</strong>, each with its source links and the action that would resolve it. Per the project rules these do
+  <strong>30 items</strong>, each with its source links and the action that would resolve it. Per the project rules these do
   <strong>not</strong> block anything: the site is live and this page exists so you can review after launch and request changes.
   Evidence log: <a href="../reports/verification-log.md">reports/verification-log.md</a> ·
   coordination record: <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/COORDINATION.md" target="_blank" rel="noopener">COORDINATION.md</a>.</p>
-
-  <section class="card" style="border-left:4px solid #b45309">
-    <h2>Integration addendum — 2026-11-14 (session sess-cb2cfa7c)</h2>
-    <p class="small">This annex records one session's reading of the evidence. The integrated root site
-    (<a href="../index.html">/Zone1/</a>) reached different conclusions from the same three short links and publishes a
-    fully sourced dataset (43 spec rows, 22 official sources) in its own
-    <a href="../flagged.html">Flagged for Review</a> page. Per the coordination protocol both positions are preserved.
-    The material disagreements:</p>
-    <ul class="small">
-      <li><strong>Link resolution (I-03 / E-04 vs root F10/F16):</strong> this annex reads the
-      <code>plpRedirect=mhFallback</code>/<code>lv=shuf</code> markers as a missing-page fallback to random listings.
-      Four independent observation rounds on 2026-11-13 and 2026-11-14 (two sessions, repeat fetches) instead returned
-      the same three destinations every time — B0CDY277D3, B09B7SB46R, B08DKYBTPH — with listing titles matching the
-      recorded products exactly. Unsettled; see root flag F16. The account holder can settle it by opening the three
-      links while signed in to Amazon.</li>
-      <li><strong>“All product-level data is unverified” (I-04):</strong> the root site verified 40 specification rows
-      from manufacturer product pages and owner's-manual PDFs (chefman.com, emerileveryday.com, brand CDN manuals),
-      not from Amazon listings. See <a href="../data.html">the full dataset</a>.</li>
-      <li><strong>PA-API 5 deprecation (new, 2026-11-14):</strong> Amazon's official docs now state PA-API 5 is
-      deprecated and replaced by the <strong>Creators API</strong>
-      (<a href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation" target="_blank" rel="noopener">official notice</a>,
-      verified live 2026-11-14). Any automated pipeline described anywhere in this repository must target the Creators
-      API. Root flag F14.</li>
-      <li><strong>Third-party citations:</strong> rows on this annex's pages that cite barcode.graphics,
-      keywordseverywhere.com, manuals.plus, aruljohn.com or u2l.ai are third-party. Where an official source exists it
-      has been added (Amazon KDP Help G200652190 for ASIN length and URL format); where none exists (the short-domain
-      list) the row is marked unverified. Root flag F15.</li>
-    </ul>
-    <p class="small">Nothing in this annex was deleted or rewritten — only additive corrections above.</p>
-  </section>
 
   <section class="card">
     <h2>A · Critical — supplied product links are invalid (integration session 19a679d8)</h2>
@@ -77,18 +47,18 @@
         <tr>
           <td>I-01 <span class="badge bad">High</span></td>
           <td>Supplied IDs <code>B04G1MEwY</code>, <code>B02NbDxp3</code>, <code>B00hJ57DV</code> are <strong>9 characters</strong>; ASINs are 10 characters by definition. They are not valid ASINs.</td>
-          <td><strong>Official:</strong> <a href="https://kdp.amazon.com/en_US/help/topic/G200652190" target="_blank" rel="noopener">Amazon KDP Help G200652190 — “10-character Amazon Standard Identification Number”</a> (verified live 2026-11-14) · <span class="small">third-party, secondary:</span> <a href="https://www.barcode.graphics/amazon-product-id/" target="_blank" rel="noopener">barcode.graphics</a> · <a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere</a> · <a href="https://manuals.plus/asin/" target="_blank" rel="noopener">manuals.plus</a></td>
+          <td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">observed 10-char ASIN on amazon.com/dp/B0CDY277D3</a> (H-05)</td>
           <td>Provide the correct 10-character ASINs or full <code>amazon.com/dp/…</code> URLs.</td>
         </tr>
         <tr>
           <td>I-02 <span class="badge bad">High</span></td>
-          <td><code>link.amazon</code> is not among Amazon's published product-link or short-link formats (<code>amazon.com/dp/&lt;ASIN&gt;</code> canonical; <code>amzn.com</code>/<code>amzn.to</code>/<code>a.co</code> are Amazon's short domains).</td>
-          <td><span class="small">⚠ Third-party sources only — unverified absence claim (no official Amazon page enumerates short-link domains).</span> <a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere</a> · <a href="https://u2l.ai/tools/amazon-link-shortener" target="_blank" rel="noopener">u2l.ai</a> · <a href="https://aruljohn.com/blog/how-to-shorten-amazon-links/" target="_blank" rel="noopener">aruljohn</a></td>
+          <td><code>link.amazon</code> is not named in the Operating Agreement §1 “Special Links” definition (checked 2026-11-14). Canonical product URLs use <code>amazon.com/dp/&lt;ASIN&gt;</code>. Provenance unconfirmed (H-03).</td>
+          <td><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">Operating Agreement §1</a></td>
           <td>Use canonical <code>amazon.com/dp/&lt;ASIN&gt;</code> links (or Amazon's own short domains) going forward.</td>
         </tr>
         <tr>
           <td>I-03 <span class="badge bad">High</span></td>
-          <td>All three supplied URLs fall through Amazon's <strong>missing-page fallback</strong> (<code>plpRedirect=mhFallback</code>, <code>lv=shuf</code>) to random unrelated listings — each to a different one. Canonical checks return Amazon's “Sorry! We couldn't find that page.”</td>
+          <td>All three supplied URLs land on existing 10-character Amazon product pages, reached through fallback-parameter URLs (<code>plpRedirect=mhFallback</code>, <code>lv=shuf</code>). The mapping from the 9-character tokens is unconfirmed (H-08). Canonical checks return Amazon's “Sorry! We couldn't find that page.”</td>
           <td><a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">check P1</a> · <a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">check P2</a> · <a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">check P3</a> · <a href="../reports/verification-log.md">log §1.2</a></td>
           <td>Replace the three links; they cannot be used for affiliate marketing as-is.</td>
         </tr>
@@ -116,7 +86,7 @@
         <tr>
           <td>I-06 <span class="badge bad">High</span></td>
           <td>Product identities attributed to the submitted links via short-link redirects are <strong>disputed and not accepted</strong>.</td>
-          <td>Session d14c5409 mapped each link to the listing reached through the redirect (air-fryer-type appliances in “Home &amp; Kitchen”). Integration re-verification shows those landings are Amazon's random missing-page fallbacks (I-03), and the canonical pages for the submitted IDs do not exist (I-01). The observed listings are real products (e.g. <a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">B0CDY277D3</a>) but there is <strong>no evidence they are the intended products</strong>. Full evidence: <a href="products.html">Products §3–4</a>.</td>
+          <td>Session d14c5409 mapped each link to the listing reached through the redirect (air-fryer-type appliances in “Home &amp; Kitchen”). Integration re-verification shows those landings are fallback-parameter URLs to existing product pages (I-03; H-08), and the canonical pages for the submitted IDs do not exist (I-01). The observed listings are real products (e.g. <a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">B0CDY277D3</a>) but there is <strong>no evidence they are the intended products</strong>. Full evidence: <a href="products.html">Products §3–4</a>.</td>
           <td>Confirm the intended products (valid ASINs). The observed fallback listings are preserved on the Products page for comparison.</td>
         </tr>
       </tbody>
@@ -129,8 +99,7 @@
       links to the <strong>same</strong> ASINs. Integration re-fetches show this is explained by <strong>fetch-layer response
       caching</strong>: re-requesting the same URL returned a byte-identical redirect including the same session token
       (<code>btn_ref=srctok-…</code>), so cross-session agreement is not independent corroboration. The
-      <code>plpRedirect=mhFallback</code> + <code>lv=shuf</code> markers remain the strongest evidence that the landings are
-      Amazon's missing-page fallback, not product mappings. Recommendation stands: treat the mapping as
+      <code>plpRedirect=mhFallback</code> + <code>lv=shuf</code> markers do <em>not</em> show a missing product: a direct request for the real product page <code>/dp/B0CDY277D3</code> carries the same markers (H-08). They show only that the landing came through a fallback path, so the mapping stays unconfirmed. Recommendation stands: treat the mapping as
       <strong>candidate, owner-confirmation required</strong> before any product claim is published.
     </div>
   </section>
@@ -141,7 +110,7 @@
     <div class="table-wrap"><table>
       <thead><tr><th>ID</th><th>Sev.</th><th>Item</th><th>Sources</th><th>Action / integration note</th></tr></thead>
       <tbody>
-        <tr><td>F01</td><td><span class="badge bad">High</span></td><td>Price, rating, review count and availability are blank for all 3 products.</td><td>S1–S3</td><td>Review live pages manually or provide Creators API / PA-API access. (Integration: blanks are correct and consistent with I-04.)</td></tr>
+        <tr><td>F01</td><td><span class="badge bad">High</span></td><td>Price, rating, review count and availability are blank for all 3 products.</td><td>S1–S3</td><td>Review live pages manually or provide Creators API (PA-API 5 is deprecated — H-01) access. (Integration: blanks are correct and consistent with I-04.)</td></tr>
         <tr><td>F02</td><td><span class="badge bad">High</span></td><td>Commission rates were left blank for all 3 products (official schedule not reachable at the URL tried; third-party tables disagreed).</td><td>S8, S9</td><td><strong>Partly resolved at integration:</strong> the official rate table <em>is</em> publicly reachable at <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">this official page</a> and is now published (verified) on <a href="commissions.html">Commissions</a>. Per-product rates stay blank because categories are unverified.</td></tr>
         <tr><td>F03</td><td><span class="badge bad">High</span></td><td>None of the supplied links carry an Associates tag — no purchase could be credited.</td><td>S4–S6, S8</td><td>Provide the Associates ID. (Consistent with I-05.)</td></tr>
         <tr><td>F04</td><td><span class="badge warn">Med</span></td><td>Short-link codes do not match the ASINs they “resolve” to (B04G1MEwY→B0CDY277D3 etc.). “The short codes are not ASINs.”</td><td>S4–S6</td><td>Confirm intended products. (Integration: the mapping itself is rejected — see I-06.)</td></tr>
@@ -151,7 +120,7 @@
         <tr><td>F08</td><td><span class="badge warn">Med</span></td><td>Non-US Associate clause and Norway residence: PR s.1 requires services performed outside the US unless tax info says otherwise. Schedule 3 (taxes) not reviewed.</td><td>S7, S8</td><td>Confirm Associates eligibility and tax info for a Norway-based account holder.</td></tr>
         <tr><td>F09</td><td><span class="badge info">Low</span></td><td>Marketplace and shipping to Norway not verified.</td><td>S1–S3</td><td>Confirm the target marketplace per product link.</td></tr>
         <tr><td>F10</td><td><span class="badge info">Low</span></td><td>Brand spelled “CHEFMAN” in one fallback title and “Chefman” in another; brand match not confirmed.</td><td>S1, S6</td><td>Confirm on the Amazon brand field. (Integration: fallback listings — see I-06.)</td></tr>
-        <tr><td>F11</td><td><span class="badge bad">High</span></td><td>Scope: full AI automation (discovery, trends, competitor/price analysis at scale, publishing, tracking, optimization) needs Creators API / PA-API, an Associates account and analytics access — not available to the session; built without inventing data instead.</td><td>S7, S8</td><td>Provide API + analytics access to enable those layers. (Integration: the analytics/link/optimization layers exist as working frameworks — see <a href="analytics.html">Analytics</a>.)</td></tr>
+        <tr><td>F11</td><td><span class="badge bad">High</span></td><td>Scope: full AI automation (discovery, trends, competitor/price analysis at scale, publishing, tracking, optimization) needs Creators API (PA-API 5 is deprecated — H-01), an Associates account and analytics access — not available to the session; built without inventing data instead.</td><td>S7, S8</td><td>Provide API + analytics access to enable those layers. (Integration: the analytics/link/optimization layers exist as working frameworks — see <a href="analytics.html">Analytics</a>.)</td></tr>
         <tr><td>F12</td><td><span class="badge warn">Med</span></td><td>Repo started with only README.md; no .gitignore, LICENSE or build tooling.</td><td>S12</td><td>Add a license and .gitignore if wanted. (Integration: build tooling now exists — <code>scripts/build.mjs</code>; license still open.)</td></tr>
         <tr><td>F13</td><td><span class="badge info">Low</span></td><td>GitHub Pages was already enabled from <code>main</code> <code>/</code>. That session planned to switch the source to <code>/docs</code>.</td><td>S11, S12</td><td><strong>Integration decision:</strong> source stays <code>main</code> <code>/</code> — the integrated dashboard publishes at the root and the d14c5409 build remains at <a href="../docs/index.html">/docs/</a>. Nothing is hidden or deleted.</td></tr>
         <tr><td>F14</td><td><span class="badge info">Low</span></td><td>Commit author's email is visible in public commit history (initial commit metadata). History not rewritten.</td><td>S12</td><td>Decide whether to keep the address in public history.</td></tr>
@@ -161,13 +130,43 @@
     </table></div>
   </section>
 
+  <section class="card" id="refresh-2026-11-14">
+    <h2>E · Refresh 2026-11-14 — new flags (session arena/6ec3c2da)</h2>
+    <p class="section-note">Each item was re-checked on 2026-11-14 against the linked official page, or it is marked as unverified. Nothing here is inferred. Full record: <a href="../reports/verification-2026-11-14.md">reports/verification-2026-11-14.md</a> · board: <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/arena/6ec3c2da-zone1/COORDINATION.md" target="_blank" rel="noopener">COORDINATION.md</a>.</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>ID</th><th>Sev.</th><th>Item</th><th>Evidence / official link</th><th>Action for owner</th></tr></thead>
+      <tbody>
+        <tr><td>H-01</td><td><span class="badge bad">High</span></td><td>Amazon’s Product Advertising API 5.0 (Creators API 5) is deprecated. Existing calls receive HTTP 403 <code>AccessDeniedException</code>. Earlier pages and the planned pipeline name Creators API 5 as the data source.</td><td><a href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation" target="_blank" rel="noopener">Creators API 5 deprecation notice</a></td><td>Use the Creators API for any future product-data work. Do not build against Creators API 5.</td></tr>
+        <tr><td>H-02</td><td><span class="badge warn">Med</span></td><td>Several rows cited non-official sites (keywordseverywhere.com, barcode.graphics, aruljohn.com, u2l.ai, manuals.plus). One link was labelled “official” but pointed to keywordseverywhere.com. Those citations are replaced in this refresh with official Amazon pages or the Operating Agreement.</td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">Operating Agreement</a></td><td>Owner: review the replaced rows in products.html §2–3.</td></tr>
+        <tr><td>H-03</td><td><span class="badge warn">Med</span></td><td>The claim that <code>link.amazon</code> is “not an official Amazon link format” went further than the evidence. The corrected statement: the domain is not named in the Operating Agreement §1 “Special Links” definition, and its provenance is unconfirmed.</td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">Operating Agreement §1</a></td><td>Owner: confirm the origin of the supplied links with Associates Central.</td></tr>
+        <tr><td>H-04</td><td><span class="badge bad">High</span></td><td><strong>Conflict on the same site.</strong> The root site (<code>index.html</code>, <code>executive-summary.html</code>) says the three ASINs were “resolved from three short links”, shows prices, and publishes derived commission amounts. The dashboard says the links resolve to no product. The root site is generated by <code>build.py</code>, which CI checks for reproducibility, and it was not edited in this session.</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">amazon.com/dp/B0CDY277D3 (fetched 2026-11-14: fallback URL)</a></td><td>Owner or integration session: reconcile the root site with the dashboard position (see I-06).</td></tr>
+        <tr><td>H-05</td><td><span class="badge warn">Med</span></td><td>The 10-character ASIN format is shown on Amazon’s own product URLs (<code>/dp/B0CDY277D3</code>, <code>/dp/B09B7SB46R</code>, <code>/dp/B08DKYBTPH</code>). The official Amazon help page that states the rule was not re-read in this session. Earlier citations for the rule were third-party sites.</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">amazon.com/dp/B0CDY277D3</a></td><td>Owner: confirm the rule against an official Amazon help page.</td></tr>
+        <tr><td>H-06</td><td><span class="badge bad">High</span></td><td>Creators API access requires Associates enrolment, at least <strong>10 qualifying sales in the past 30 days</strong>, and API registration. Automated product data is therefore unavailable until the account qualifies.</td><td><a href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/introduction" target="_blank" rel="noopener">Creators API — Prerequisites</a></td><td>Owner: confirm account status. Until then, product fields stay blank (no inferred values).</td></tr>
+        <tr><td>H-07</td><td><span class="badge warn">Low</span></td><td>The $119.99 figure for the two Chefman products is the compare-at price printed on the Chefman brand pages next to sale tiers. It is not an Amazon price, and it is not confirmed to belong to the Amazon ASIN.</td><td><a href="https://chefman.com/products/turbofry-touch-dual-window-air-fryer" target="_blank" rel="noopener">Chefman 6 Qt Dual-Window page</a> · <a href="https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1" target="_blank" rel="noopener">Chefman 8 Qt page</a></td><td>Treat as a manufacturer reference only. Do not present it as an Amazon price.</td></tr>
+        <tr><td>H-08</td><td><span class="badge warn">Med</span></td><td>Earlier wording said the supplied links land on “random unrelated listings” (a missing-page shuffle). The refresh evidence does not support that. This session’s fetches returned the same three existing product pages. A direct request for <code>/dp/B0CDY277D3</code> carries the same fallback parameters, so those parameters do not show a missing product. Earlier logs report both matching and differing landings, so the landings are not stable evidence either way. The mapping from the 9-character tokens is still unconfirmed.</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">amazon.com/dp/B0CDY277D3</a> · <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">B09B7SB46R</a> · <a href="https://www.amazon.com/dp/B08DKYBTPH" target="_blank" rel="noopener">B08DKYBTPH</a></td><td>Owner: confirm with Associates Central which product each supplied link is meant to be. Until then, no product identity is asserted.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="card" style="border-left:4px solid #b45309">
+    <h2>F · Integration pass 5 — sess-cb2cfa7c (2026-11-14)</h2>
+    <p class="section-note">Independent line-by-line re-verification of the merged tree, run after sessions 1dcaaafc, 6ec3c2da and 81495d2d merged. Record: <a href="../COORDINATION.md">COORDINATION.md</a> (integration pass 5) · root <a href="../flagged.html">Flagged for Review</a>.</p>
+    <ul class="clean small">
+      <li><strong>Live re-verification holds.</strong> Every critical published value was re-fetched from its official URL on 2026-11-14 (commission table, all three short-link targets and listing titles, Program Policies clauses, application-review thresholds, brand pages) and matches the dataset. Details in <a href="../EXECUTIVE-SUMMARY.md">EXECUTIVE-SUMMARY.md</a> §10.</li>
+      <li><strong>PA-API 5 deprecation — root flag F24, source S24.</strong> The official docs URL now serves Amazon's <a href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation" target="_blank" rel="noopener">PA-API 5 Deprecation Notice</a> ("deprecated… replaced by the Creators API"; PA-API 5 calls return 403 AccessDeniedException). This corroborates this annex's H-01 at the root site and supersedes the earlier board retraction of cross-check F18.</li>
+      <li><strong>Official ASIN definition added — source S23.</strong> Amazon's own <a href="https://kdp.amazon.com/en_US/help/topic/G200652190" target="_blank" rel="noopener">KDP Help G200652190</a> ("your 10-character Amazon Standard Identification Number"; canonical <code>amazon.com/dp/ASIN</code> format) now backs the identifier-format rows, alongside the observed evidence (H-05).</li>
+      <li><strong>Stale PR #9 preserved.</strong> Session arena/88769516-zone1's complete independent build (PR #9, idle since 2026-11-13) was closed as superseded and preserved verbatim at <a href="../annex-88769516/README.md">annex-88769516/</a>. Nothing discarded.</li>
+      <li><strong>Flag-numbering note.</strong> Root flags F14–F23 and this annex's I/H/F0-series use different numbering from earlier boards; root F21 (two readings of the redirects) and F19 (dated rating observations) are the root-site counterparts of H-08 and this annex's rating notes. All positions stay published.</li>
+    </ul>
+  </section>
+
   <section class="card">
     <h2>D · Fastest path to resolution</h2>
     <ol class="clean">
       <li><strong>Send three valid ASINs</strong> (or full product-page URLs) — resolves I-01, I-03, I-04, F01, F04, F07, F09, F10, I-06 and activates the <a href="content.html">content library</a>.</li>
       <li><strong>Send the Associates tracking tag</strong> — resolves I-05, F03; the <a href="links.html">link builder</a> then produces compliant Special Links.</li>
       <li><strong>Confirm enrollment + tax info</strong> (Norway) — resolves F06, F08, F13's status note.</li>
-      <li><strong>Optional:</strong> PA-API/Creators API + analytics access — unlocks live price/review/competition monitoring (F11); license/.gitignore decision (F12); commit-email decision (F14).</li>
+      <li><strong>Optional:</strong> Creators API (PA-API 5 is deprecated — H-01) + analytics access — unlocks live price/review/competition monitoring (F11); license/.gitignore decision (F12); commit-email decision (F14).</li>
     </ol>
     <p class="small muted">Requests and decisions can be filed as GitHub issues on
     <a href="https://github.com/kanlerxz87-cyber/Zone1" target="_blank" rel="noopener">the repository</a>.</p>

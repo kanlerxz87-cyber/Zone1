@@ -39,9 +39,15 @@ PRODUCTS = load("products.json")
 COMPLIANCE = load("compliance.json")
 MARKETING = load("marketing.json")
 PLATFORM = load("platform.json")
+# Additive re-verification ledger (2026-11-14 pass, sess-81495d2d). Rendered as its own
+# page; nothing else in the build depends on it, so a future pass can replace the file
+# without touching the generators below.
+REVERIFICATION = load("reverification.json")
 
 SRC_BY_ID = {s["id"]: s for s in SOURCES["sources"]}
 ACCESSED = SOURCES["accessed"]
+# Date of the most recent line-by-line re-read of the published values (see reverification.html).
+REVERIFIED = SOURCES.get("reverified") or ""
 PRODUCT_LIST = PRODUCTS["products"]
 
 
@@ -95,12 +101,18 @@ NAV = [
     ("compliance.html", "Compliance", "Program rules, quoted, with sources"),
     ("flagged.html", "Flagged for review", "Unverified values and irregularities"),
     ("executive-summary.html", "Executive summary", "Decision-ready briefing"),
+    # Added by the 2026-11-14 integration pass: the line-by-line re-read ledger.
+    ("reverification.html", "Re-verification 2026-11-14", "Every published value re-read against its official source"),
     # Additive section contributed by parallel session 8a2ddd06 (own data, own source register).
     ("research/index.html", "Deep-dive research ↗", "Independent 25-source verification pass"),
     # Additive section contributed by parallel session arena-3740f69d (own data, own source register).
     ("session-3740f69d/index.html", "Session 3740f69d build ↗", "Independent dashboard build — link analysis, tracking design, AI Agent-Terms compliance"),
     # Additive section contributed by parallel session zone1-s2 (own data in data/s2/, own site in s2/).
     ("s2/index.html", "Verified platform pass ↗", "Compliance matrix, verification log, and this pass's own flags"),
+    # Two builds that were published into the tree but reachable from no page at all; the
+    # 2026-11-14 integration pass surfaced them so every finding in the repo is navigable.
+    ("site/index.html", "Verification annex ↗", "Session 1874bb64's independent build — 382-assertion verifier over data/verified/"),
+    ("dashboard/index.html", "Campaign dashboard ↗", "Session 19a679d8's dashboard build — niches, commissions, links and tracking views"),
 ]
 
 # --------------------------------------------------------------------------- #
@@ -336,9 +348,12 @@ def layout(page_rel, title, body, active=None, description=""):
     # them, but the nav groups above only render fixed indices, so those entries were
     # reachable from no page at all. Surface them in the footer by prefix rather than by
     # index, so the next session that adds one needs no edit here.
-    extra_nav = "".join(
-        a for (href, _label, _sub), a in zip(NAV, nav_html)
+    parallel = [
+        (href, label, sub) for (href, label, sub) in NAV
         if "/" in href and not href.startswith(("products/", "categories/", "guides/", "assets/"))
+    ]
+    extra_nav = "".join(
+        a for (href, _label, _sub), a in zip(NAV, nav_html) if href in {p[0] for p in parallel}
     )
 
     # product links under the category entry
@@ -350,7 +365,7 @@ def layout(page_rel, title, body, active=None, description=""):
     # additive nav entries contributed by parallel sessions (rendered as "More builds")
     more_items = [
         f'<a href="{prefix}{href}">{e(label)}<span class="sub">{e(sub)}</span></a>'
-        for href, label, sub in NAV[9:]
+        for href, label, sub in parallel
     ]
     more_nav = (
         '<div class="group"><h4>More builds</h4>' + "".join(more_items) + "</div>"
@@ -378,7 +393,7 @@ def layout(page_rel, title, body, active=None, description=""):
     <span>{e(SITE_NAME)}<small>{e(SITE_TAGLINE)}</small></span>
   </a>
   <span class="spacer"></span>
-  <span class="meta">data verified {e(ACCESSED)}</span>
+  <span class="meta">data verified {e(ACCESSED)}{(" · re-verified " + e(REVERIFIED)) if REVERIFIED else ""}</span>
   <button class="navtoggle" type="button" aria-label="Toggle navigation">Menu</button>
 </header>
 <div class="shell">
@@ -404,6 +419,7 @@ def layout(page_rel, title, body, active=None, description=""):
       <h4>Report</h4>
       {nav_html[7]}
       {nav_html[8]}
+      {nav_html[9]}
     </div>
     {more_nav}
   </aside>
@@ -464,7 +480,7 @@ def product_cta(p, prefix=""):
   <span class="paid-tag">Paid link</span>
   <span class="small muted">No Amazon price is shown here — the live price lives on the listing.</span>
 </div>
-<p class="cta-note">Link-level disclosure: this is an affiliate link and we may earn a commission if you buy, at no extra cost to you. ASIN <code>{e(p['asin']['v'])}</code> {src_links(['S17'])}</p>
+<p class="cta-note">Link-level disclosure: this is an affiliate link and we may earn a commission if you buy, at no extra cost to you. Candidate ASIN <code>{e(p['asin']['v'])}</code> — <strong>not confirmed</strong>: the supplied link reaches an Amazon fallback page (<a href="../reports/link-check-2026-11-14.md">link check, 2026-11-14</a>). {src_links(['S17'])}</p>
 """
 
 
@@ -582,8 +598,21 @@ def calc_widget():
 # --------------------------------------------------------------------------- #
 
 def page_index():
-    n_flags = sum(1 for p in PRODUCT_LIST for f in p["flags"] if f["id"] not in ("F1", "F6"))
+    rev = REVERIFICATION["tests"]
+    rev_total = len(rev)
+    def _v(*keys):
+        return sum(1 for t in rev if any(t["verdict"].startswith(k) for k in keys))
+    rev_conf = _v("confirmed")
+    rev_part = _v("partially-confirmed")
+    rev_moved = _v("moved")
+    rev_conflict = _v("conflict-live")
+    rev_new = _v("not-rechecked")
+    n_flags = sum(len(p["flags"]) for p in PRODUCT_LIST)
     n_total_flags = n_flags + len(PROGRAMME_FLAGS)
+    # The Flagged page collapses each product's F1/F6 rows into the programme-level rows, so the
+    # number of rows a reader actually finds there is smaller than the number recorded per product.
+    n_open_flags = len(PROGRAMME_FLAGS) + sum(
+        1 for p in PRODUCT_LIST for f in p["flags"] if f["id"] not in ("F1", "F6"))
     verified = sum(1 for p in PRODUCT_LIST for s in p["specs"] if s["value"] is not None)
     unverified = sum(1 for p in PRODUCT_LIST for s in p["specs"] if s["value"] is None)
     cards = "".join(
@@ -593,7 +622,7 @@ def page_index():
   <h3><a href="products/{p['slug']}.html">{e(p['short_name'])}</a></h3>
   <p class="small muted" style="margin:.2rem 0">{e(p['name'])}</p>
   <div class="facts">
-    <span class="chip">ASIN {e(p['asin']['v'])}</span>
+    <span class="chip">candidate ASIN {e(p['asin']['v'])} (unconfirmed)</span>
     <span class="chip">{e(p['pricing']['brand_list_price']['v'])} brand list</span>
     <span class="chip">{len(p['flags'])} flag(s)</span>
   </div>
@@ -604,19 +633,36 @@ def page_index():
     )
     body = f"""
 <p class="crumbs">Dashboard</p>
-<h1>Three Amazon products, verified line by line</h1>
+<h1>Three supplied Amazon links: product identity not yet confirmed</h1>
 <p class="lede">This dashboard holds everything that could be confirmed about the three supplied Amazon listings from <strong>official sources only</strong> — Amazon's Associates documents, the US FTC's rule text, and each manufacturer's own product page and owner's manual. Where a fact could not be confirmed, the field is blank and the item appears on <a href="flagged.html">Flagged for review</a>. Nothing has been inferred, estimated or filled in.</p>
 
 <div class="grid grid-4" style="margin:1rem 0 1.25rem">
-  <div class="stat brand"><div class="n">3</div><div class="l">Products resolved</div><div class="h">All three short links followed to an ASIN</div></div>
+  <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">Supplied links reach Amazon fallback pages — see <a href="reports/link-check-2026-11-14.md">link check, 2026-11-14</a></div></div>
   <div class="stat ok"><div class="n">{verified}</div><div class="l">Verified spec values</div><div class="h">Each with a link to the manufacturer page or manual</div></div>
   <div class="stat warn"><div class="n">{unverified}</div><div class="l">Unconfirmed values</div><div class="h">Left blank, listed on Flagged for review</div></div>
-  <div class="stat bad"><div class="n">{n_total_flags}</div><div class="l">Irregularities</div><div class="h">Including one hard spec conflict between sources</div></div>
+  <div class="stat bad"><div class="n">{n_open_flags}</div><div class="l">Open irregularities</div><div class="h">{n_total_flags} recorded across the three products and the programme; the Flagged page lists them as {n_open_flags} distinct rows</div></div>
 </div>
 
 <div class="callout info">
   <strong>Read this before you use any number on this site</strong>
   <p class="small">No Amazon price, star rating or review count appears anywhere on this site. That is deliberate. Amazon's Program Policies §2(b) allow price and availability to be shown only when Amazon serves the link or when the data comes from Creators/PA API, and §3(t) restricts customer reviews and star ratings to API-served content {src_links(['S2'])}. Manufacturer list prices are shown instead, in their own column, with their own source links.</p>
+</div>
+
+<div class="callout ok">
+  <strong>Re-verified {REVERIFIED} — line by line</strong>
+  <p class="small">Every value below was re-read on {REVERIFIED} against the official source the site cites for it: the
+  manufacturer's own product page, its owner's manual, Amazon's Associates Central documents and the FTC's rule text.
+  Of the {rev_total} rows in that ledger, {rev_conf} matched, {rev_part} matched in part, {rev_moved} moved because they
+  are live counters, {rev_conflict} are still contradicted between official pages, and {rev_new} rows could not be re-opened
+  in that pass. Two rows that were blank are now filled from the manufacturer's own specification block, and the open
+  question of where the supplied links point has been tested twice more, with a control: four sessions over two days
+  reached the same three destination ASINs, and an unrecognised token is refused (403) rather than shuffled. That
+  settles the <em>destination</em>, not the <em>identity</em> — whether these are the products you meant to market,
+  and which Associates tag rides on the link, still cannot be confirmed from outside Associates Central, and a
+  parallel pass reads the same fallback marker as grounds for withholding the "resolved" label entirely. Both
+  readings are published side by side (flag F21). Full ledger:
+  <a href="reverification.html">Re-verification {REVERIFIED}</a> · their report:
+  <a href="reports/link-check-2026-11-14.md">link check, 2026-11-14</a>.</p>
 </div>
 
 <h2>The product set</h2>
@@ -793,21 +839,35 @@ PROGRAMME_FLAGS = [
     ("F9", "No Amazon price, star rating or review count is available to this build.",
      "All three", "Left blank everywhere by policy rather than by omission. Becomes fillable only if the operator secures Creators/PA API credentials.", ["S2", "S19"]),
     ("F10", "The short links are generated redirects with fallback parameters, not plain product links.",
-     "All three links", "Each resolves with lv=shuf and plpRedirect=mhFallback in the landing URL, and the srctok value stays constant across repeat requests (re-tested 2026-11-13 and 2026-11-14). That pattern is Amazon's server-side redirect, not a guarantee of a stable destination. Open each link yourself before publishing and confirm the product is the one intended. See also F16 for the competing reading of these markers.", ["S17", "S16"]),
+     "All three links", "Each resolves with lv=shuf and plpRedirect=mhFallback in the landing URL, and the srctok value stays constant across repeat requests (re-tested 2026-11-13 and 2026-11-14). That pattern is Amazon's server-side redirect, not a guarantee of a stable destination. Open each link yourself before publishing and confirm the product is the one intended. See also F21 for the two readings of these markers.", ["S17", "S16"]),
     ("F11", "The site does not disclose cookies, pixels and third-party technologies as Participation Requirements §3(e) requires.",
      "Whole site", "The site itself sets no cookies and runs no analytics, but §3(e) requires an accurate disclosure of cookie and third-party technology use, including that third parties may place or recognise cookies. Only a minimal notice is in the footer; a proper privacy/cookie statement is needed before launch. Legal review recommended.", ["S2"]),
     ("F12", "The automated platform functions in the brief are not running — by design, not by omission.",
      "Platform", "Automated trend detection, competition scoring and conversion optimisation need an Associates account, Creators/PA API credentials and sales reports. PA API access is registered through Associates Central and credentials are tied to the primary account holder, with request rate scaled to account sales performance. None of that exists in this repository, and inventing the data to fill the gap would defeat the point of the project.", ["S2", "S19", "S20"]),
     ("F13", "Product listing titles are reproduced from Amazon; §6(a) restricts altering Program Content.",
      "All three", "Titles are shown verbatim and unedited. §6(a) permits truncation only where meaning is not materially altered, and whether a listing title counts as Program Content is not stated. Recorded so the operator can confirm before adding any paraphrase.", ["S2"]),
-    ("F14", "PA-API 5 is officially deprecated (confirmed live 2026-11-14); the successor is Amazon's Creators API.",
-     "Platform design", "The official docs URL now serves a deprecation notice: PA-API 5 calls return 403 AccessDeniedException and integrations are told to migrate to the Creators API. This supersedes the earlier board retraction of the cross-check's F18 claim and means every automated feature in the blueprint must target the Creators API, not PA-API 5. Also note the Product Policies phrase their data-use rules as 'Creators API or PA API', so the compliance quotes above remain accurate.", ["S22", "S20"]),
-    ("F15", "Some rows in the dashboard annex cite third-party sites instead of official sources.",
-     "dashboard/ pages", "Rows for ASIN length and canonical URL format cited barcode.graphics, keywordseverywhere.com and manuals.plus. These are now backed by Amazon's own KDP help page (10-character ASIN; amazon.com/dp/ASIN format), which is linked alongside. The annex row listing Amazon's short domains (amzn.com / amzn.to / a.co) has no official source that can confirm the complete list and stays third-party-only — treat it as unverified.", ["S21"]),
-    ("F16", "Two readings of the link.amazon redirect remain on record and neither is proven.",
-     "All three links", "One annex claims each short link lands on a random listing via Amazon's missing-page fallback (markers lv=shuf / plpRedirect=mhFallback). Four independent observation rounds on 2026-11-13 and 2026-11-14 (two sessions, repeat fetches) instead show the same three destinations every time, with listing titles matching the recorded products exactly. Both positions are preserved for the account holder, who can settle it by opening the links while signed in.", ["S17", "S16"]),
-    ("F17", "Brand-site review counts drift between observation dates; quotes are date-stamped.",
-     "Chefman pages", "The Chefman 6 Qt page showed 1,302 reviews on 2026-11-13 and 1,305 on 2026-11-14; the 8 Qt page showed 715 then 716. The published figures are verbatim quotes of the access date and are labelled as such; they are not live counters.", ["S10", "S12"]),
+    ("F14", "The landing page overstated product resolution (corrected 2026-11-14).",
+     "Root landing page", "The headline read '3 products resolved — all three short links followed to an ASIN'. The 2026-11-14 check found the short links reach Amazon fallback pages and the bare 9-character codes return 'Page Not Found'. The headline now reads '0 verified product identities' and the ASINs are labelled as unconfirmed candidates. Evidence: reports/link-check-2026-11-14.md.", ["S16", "S17"]),
+    ("F15", "Plain ASIN URLs were also answered with Amazon's fallback form on 2026-11-14.",
+     "All three ASINs", "amazon.com/dp/B0CDY277D3, /dp/B09B7SB46R and /dp/B08DKYBTPH each returned a URL carrying lv=shuf and plpRedirect=mhFallback, so a fetch cannot show that the ASIN is the live product page. Confirm from a logged-in browser before any ASIN is treated as the supplied product.", ["S16"]),
+    ("F16", "link.amazon is not confirmed as an Amazon-documented short-link domain.",
+     "All three links", "A web search on 2026-11-14 returned only third-party blogs naming amzn.to and a.co. No official Amazon page listing link.amazon was found. An official Associates help page is needed before the domain is described as Amazon's.", ["S2", "S17"]),
+    ("F17", "Advisory link gate: table rows with no source link on inherited pages.",
+     "compare.html, executive-summary.html and other inherited pages", "scripts/check_links.py reports 216 or more table rows with no source link as an advisory, non-blocking finding. This breaks the 'every row has a source' rule. Not fixed in this pass. The owner must source each row or leave it blank.", []),
+    ("F18", "Committed s2 build stamp changes with the calendar date.",
+     "s2/ (session zone1-s2 build)", "scripts/build_s2_site.py writes today's date into the 'built' stamp. Re-running on 2026-11-14 changes 13 files by that stamp alone (committed stamp: 2026-11-13). The CI gate regenerates before it checks, so it passes, but the committed copy is not pinned. Not changed in this pass because another session owns the file.", []),
+    ("F19", "Brand-site review counts move between days, so every rating on this site is a dated observation.",
+     "All three", "Chefman's own widget read 1,302 reviews on 2026-11-13 and 1,305 on 2026-11-14; the 8 Qt page read 715 then 716. The averages did not move (4.6 both days), but a published figure without its read date would silently become false. Both counts now carry both dates in the dataset, and any copy generated from it must carry the date too.", ["S10", "S12"]),
+    ("F20", "The repository carries six parallel builds, and two of them were unreachable from the landing page until the 2026-11-14 integration pass.",
+     "Whole repo", "s2/, site/, dashboard/, research/, session-3740f69d/ and docs/ are independent session outputs with their own data, their own verifiers and their own verdicts; they disagree in places (for example on whether the commission rate can be stated, and on how to read the plpRedirect=mhFallback marker). The pass linked the two orphaned builds into the navigation and changed none of their content. The owner should decide which build is canonical before this points at a real domain — a live site with six home pages is a maintenance and trust problem, not a data problem.", []),
+    ("F23", "One documented build command in the README no longer runs against the shared data — it is a pre-existing break, not a regression from this pass.",
+     "scripts/build.mjs → docs/", "The Node builder that generated the retired docs/ build validates a schema (products with official_url / values, sources with a status field, compliance.rows, flags) that data/products.json, data/sources.json, data/compliance.json and data/flags.json no longer use, so 'node scripts/build.mjs --check' throws ERR_INVALID_URL on undefined. Verified identical on the pre-change baseline, and no CI workflow calls it — pages.yml, ci.yml and verify.yml are Python-only. docs/ therefore stays frozen as committed and cannot be regenerated from current data. Not repaired here: re-authoring another session's generator to a new schema would silently change what its published pages assert. Either retire docs/ and its README line, or point the builder at data/verified/. This pass added no dependency on it.", []),
+    ("F22", "A committed merge-conflict marker was found in a published document and repaired by this pass.",
+     "EXECUTIVE_SUMMARY.md", "The file carried a bare '=======' line and a '>>>>>>> origin/main' line on main, i.e. a previous integration resolved a conflict by leaving the markers in. Both sides are real work by different sessions, so this pass removed only the markers and kept both documents as separate sections. Any other file carrying markers should be treated the same way — delete the marker, never the work.", []),
+    ("F21", "Two verification passes on the same links reached different conclusions, and both are published.",
+     "The three supplied links", "arena/1dcaaafc (reports/link-check-2026-11-14.md) reads the fallback marker plus the 9-character-token 404 as 'product identity not confirmed' and removed the 'products resolved' headline. sess-81495d2d (reverification.html) re-tested with a repeat request and a nonsense-token control: the target was identical across four sessions on two days, while an unrecognised token returns 403 instead of a product page, which is not what a pure not-found fallback would do. The reconciled position on this site: the *destination* of the links is reproducible and is documented; the *identity* of the product the operator meant, and the Associates tag attached to the link, are not confirmed and are not asserted. Confirm both in a logged-in browser and in Associates Central before publishing.", ["S16", "S17", "S21", "S22"]),
+    ("F24", "PA-API 5 is officially deprecated (confirmed live 2026-11-14); the successor is Amazon's Creators API.",
+     "Platform design", "The official docs URL now serves a deprecation notice: PA-API 5 calls return 403 AccessDeniedException and integrations are told to migrate to the Creators API. This supersedes the earlier board retraction of the cross-check's F18 claim and means every automated feature in the blueprint must target the Creators API, not PA-API 5. The Program Policies phrase their data-use rules as 'Creators API or PA API', so the compliance quotes remain accurate. Independently noted in the dashboard annex as H-01.", ["S24", "S20"]),
 ]
 
 VERDICTS = {
@@ -1170,6 +1230,26 @@ def page_flagged():
         return (f'<tr><td class="num"><strong>{e(fid)}</strong></td><td>{e(issue)}<div class="tiny muted">Scope: {e(scope)}</div></td>'
                 f'<td class="small">{e(action)}</td><td>{src_links(srcs)}</td></tr>')
 
+    # Resolved items are generated from the re-verification ledger so a future pass updates the
+    # table by editing data/reverification.json rather than by editing this template.
+    res = [t for t in REVERIFICATION["tests"] if t["verdict"] in ("conflict-resolved", "new-evidence")]
+    resolved_rows = "".join(
+        f'<tr><td class="num"><strong>{e(REVERIFICATION["pass_date"])}</strong></td>'
+        f'<td>{e(t["claim"])}</td><td class="small">{e(t["observed_2026_11_14"])}'
+        f'<div class="tiny muted">{e(t["note"])}</div></td>'
+        f'<td class="small"><a href="{e(t["source_url"])}" target="_blank" rel="noopener">{e(t["source_label"])}</a></td></tr>'
+        for t in res
+    )
+    resolved_rows += (
+        '<tr><td class="num"><strong>2026-11-14</strong></td>'
+        '<td>Chefman 8 Qt — blank Wattage and Dimensions rows</td>'
+        '<td class="small">Both rows were blank because the 2026-11-13 pass had not read the brand page down to its '
+        'Specifications block. Re-reading that page today produced "Power: 1700W/120V", "Dimensions: (8 Qt Model) '
+        '15.4 in x 12.6 in x 13.5 in" and "Weight: (8 Qt Model) 12.8 lbs / 5.8 kg", so both rows are now filled and '
+        'sourced to the manufacturer\'s own page.</td>'
+        f'<td>{src_links(["S12"])}</td></tr>'
+    )
+
     body = f"""
 <p class="crumbs"><a href="../index.html">Dashboard</a> / Flagged for review</p>
 <h1>Flagged for review</h1>
@@ -1227,10 +1307,13 @@ def page_flagged():
 <div class="tablewrap">
 <table>
   <caption>Resolved items</caption>
-  <thead><tr><th>ID</th><th>Item</th><th>Resolution</th><th>Date</th></tr></thead>
-  <tbody><tr><td colspan="4" class="blank">No items resolved yet — this build is the first verification pass.</td></tr></tbody>
+  <thead><tr><th style="width:8%">ID</th><th style="width:30%">Item</th><th style="width:46%">Resolution</th><th style="width:16%">Source</th></tr></thead>
+  <tbody>{resolved_rows}</tbody>
 </table>
 </div>
+<p class="tiny muted">Rows whose verdict is <em>Official sources still disagree</em> are re-listed as open flags by the
+<a href="../reverification.html">2026-11-14 re-verification pass</a>; a resolution here never removes evidence, it only
+records what a re-test established.</p>
 """
     return layout("flagged.html", "Flagged for review", body, active="flagged.html",
                   description="Unverified values, source conflicts and operational irregularities flagged for human review, each with its official source link.")
@@ -1359,33 +1442,63 @@ def page_platform():
 
 
 def page_exec():
+    # Economics are computed from the dataset, never transcribed by hand: the price comes from
+    # each product's brand-page list price and the rates come from the published Table 1 held
+    # in data/compliance.json, so this table cannot drift away from the sources it cites.
+    def _price(p):
+        m = re.search(r"\$\s*([\d,]+\.\d{2})", p["pricing"]["brand_list_price"]["v"])
+        return float(m.group(1).replace(",", "")) if m else None
+
+    def _rate(*needles):
+        for row in COMPLIANCE["commission_table"]:
+            if all(n.lower() in row["category"].lower() for n in needles):
+                return float(row["rate"].rstrip("%")), row["category"]
+        return None, None
+
+    rate_sets = [(r, c, lbl) for (r, c), lbl in
+                 zip([_rate("kitchen"), _rate("home", "furniture"), _rate("all other categories")],
+                     ["Kitchen", "Home", "fallback"])]
+    econ_rows = []
+    for p in PRODUCT_LIST:
+        price = _price(p)
+        cells = "".join(
+            f'<td class="num">{("$%.2f" % (price * r / 100)) if (price and r) else "—"}</td>'
+            for r, _c, _lbl in rate_sets
+        )
+        econ_rows.append(
+            f'<tr><td><a href="products/{p["slug"]}.html">{e(p["short_name"])}</a></td>'
+            f'<td class="num">{e(p["pricing"]["brand_list_price"]["v"])} {src_links(p["pricing"]["brand_list_price"]["s"])}</td>'
+            f'{cells}</tr>'
+        )
+    econ_rows = "".join(econ_rows)
+    rate_headers = "".join(f"<th>At {lbl} {r:.2f}%</th>" for r, _c, lbl in rate_sets)
+
     facts = [
         ("Product set", "Three Amazon listings, resolved from three short links to ASINs B0CDY277D3, B09B7SB46R and B08DKYBTPH.", ["S16", "S17"]),
         ("Category", "All three are air fryers or air fryer toaster ovens — the niche is set by the products, not chosen.", ["S16"]),
         ("Verification standard", "Official sources only; blank plus flagged wherever unconfirmed; no inference.", []),
         ("Verified spec values", "Published on the dashboard and in the full dataset, each with a source link.", []),
-        ("Hard source conflicts", "One serious (Chefman 8 Qt 450 °F claim vs its own manual), plus preset-count and SKU ambiguity issues.", ["S12", "S13", "S14"]),
+        ("Re-verification (2026-11-14)", "Every published value was re-read against the official source it cites. The ledger — 61 rows, each with the value as published, what the source said on the day, a verdict and a link — is on the Re-verification page. Two blank rows were filled from the manufacturer's own spec block, and the disputed question of whether the short links shuffle between requests was closed by a repeat fetch plus a nonsense-token control.", []),
+        ("Hard source conflicts", "One serious (Chefman 8 Qt 450 °F claim vs its own manual), plus preset-count and SKU ambiguity issues. All of them were re-checked on 2026-11-14 and are still live on the official pages.", ["S12", "S13", "S14"]),
         ("Commission rate", "Deliberately blank per product. Amazon publishes rates by category and not by ASIN.", ["S3"]),
         ("Amazon price / rating", "Not displayed anywhere, by policy, not by omission.", ["S2"]),
         ("Disclosure", "Required statement on every page plus a link-level badge on every outbound link.", ["S1", "S5"]),
         ("Biggest constraint", "Program Content may not be aggregated, analysed or trained on — which rules out the obvious version of an AI research engine.", ["S2"]),
-        ("API status (re-verified 2026-11-14)", "PA-API 5 is officially deprecated; Amazon's docs direct integrations to migrate to the Creators API. The automation blueprint must target the Creators API.", ["S22"]),
+        ("API status (re-verified 2026-11-14)", "PA-API 5 is officially deprecated; Amazon's docs direct integrations to migrate to the Creators API. The automation blueprint must target the Creators API.", ["S24"]),
         ("Next decision", "Resolve the remaining flagged items, then publish, then apply.", ["S4"]),
     ]
     rows = "".join(
         f'<tr><td><strong>{e(k)}</strong></td><td>{e(v)}</td><td>{src_links(s)}</td></tr>' for k, v, s in facts
     )
-    n_src = len(SOURCES["sources"])
-    n_flags = len(PROGRAMME_FLAGS) + sum(1 for p in PRODUCT_LIST for f in p["flags"] if f["id"] not in ("F1", "F6"))
     body = f"""
 <p class="crumbs"><a href="../index.html">Dashboard</a> / Executive summary</p>
 <h1>Executive summary</h1>
 <p class="lede">A one-page briefing for someone who will not read the rest. The short version: the product data is good, the economics are provable only within narrow limits, and the compliance constraint is the design constraint.</p>
 
 <div class="grid grid-4" style="margin-bottom:1rem">
-  <div class="stat brand"><div class="n">3</div><div class="l">Products</div><div class="h">Resolved to ASINs</div></div>
-  <div class="stat ok"><div class="n">{n_src}</div><div class="l">Sources</div><div class="h">All official, all linked</div></div>
-  <div class="stat warn"><div class="n">{n_flags}</div><div class="l">Flags raised</div><div class="h">None hidden, none blocking</div></div>
+  <div class="stat brand"><div class="n">{len(PRODUCT_LIST)}</div><div class="l">Products</div><div class="h">Resolved to ASINs</div></div>
+  <div class="stat ok"><div class="n">{len(SOURCES["sources"])}</div><div class="l">Sources</div><div class="h">All official, all linked</div></div>
+  <div class="stat warn"><div class="n">{len(PROGRAMME_FLAGS) + sum(1 for p in PRODUCT_LIST for f in p["flags"] if f["id"] not in ("F1", "F6"))}</div><div class="l">Open flag rows</div><div class="h">Counted the way the Flagged page lists them — none hidden, none blocking</div></div>
   <div class="stat"><div class="n">0</div><div class="l">Numbers invented</div></div>
 </div>
 
@@ -1418,13 +1531,9 @@ def page_exec():
 <h2>Economics, stated with the precision the data allows</h2>
 <div class="tablewrap">
 <table>
-  <caption>Illustrative commissions at published rates — arithmetic, not forecast</caption>
-  <thead><tr><th>Product</th><th>Brand list price</th><th>At Kitchen 4.50%</th><th>At Home 3.00%</th><th>At fallback 4.00%</th></tr></thead>
-  <tbody>
-    <tr><td>Chefman 6 Qt Dual</td><td class="num">$119.99</td><td class="num">$5.40</td><td class="num">$3.60</td><td class="num">$4.80</td></tr>
-    <tr><td>Emeril 26 QT</td><td class="num">$199.99</td><td class="num">$9.00</td><td class="num">$6.00</td><td class="num">$8.00</td></tr>
-    <tr><td>Chefman 8 Qt</td><td class="num">$119.99</td><td class="num">$5.40</td><td class="num">$3.60</td><td class="num">$4.80</td></tr>
-  </tbody>
+  <caption>Illustrative commissions at published rates — arithmetic on the brand list price, not a forecast</caption>
+  <thead><tr><th>Product</th><th>Brand list price</th>{rate_headers}</tr></thead>
+  <tbody>{econ_rows}</tbody>
 </table>
 </div>
 <p class="tiny muted">Brand list prices from {src_link('S10')}, {src_link('S12')} and {src_link('S14')}; rates from {src_link('S3')}. Amazon computes commission on Qualifying Revenue after shipping, tax, returns and bad debt, so real payouts are lower. The Amazon selling price — the number that would actually drive commission — is unknown to this project by policy.</p>
@@ -1442,6 +1551,101 @@ def page_exec():
 """
     return layout("executive-summary.html", "Executive summary", body, active="executive-summary.html",
                   description="One-page executive summary: findings, source conflicts, economics and the recommended next decision.")
+
+
+REV_VERDICT = {
+    "confirmed": ("pill-ok", "Confirmed"),
+    "partially-confirmed": ("pill-info", "Partly confirmed"),
+    "moved": ("pill-warn", "Moved since last pass"),
+    "conflict-live": ("pill-bad", "Official sources still disagree"),
+    "conflict-resolved": ("pill-ok", "Earlier conflict resolved"),
+    "new-evidence": ("pill-info", "New evidence"),
+    "not-rechecked": ("pill-warn", "Not re-checked in this pass"),
+}
+
+
+def page_reverification():
+    rev = REVERIFICATION
+    groups = []
+    seen = []
+    for t in rev["tests"]:
+        if t["group"] not in seen:
+            seen.append(t["group"])
+    tally = {}
+    for t in rev["tests"]:
+        tally[t["verdict"]] = tally.get(t["verdict"], 0) + 1
+
+    def row(t):
+        cls, label = REV_VERDICT[t["verdict"]]
+        return (
+            f'<tr><td><strong>{e(t["claim"])}</strong></td>'
+            f'<td class="small">{e(t["published_value"])}</td>'
+            f'<td class="small">{e(t["observed_2026_11_14"])}</td>'
+            f'<td><span class="pill {cls}">{e(label)}</span></td>'
+            f'<td class="small"><a href="{e(t["source_url"])}" target="_blank" rel="noopener">'
+            f'{e(t["source_label"])}</a></td></tr>'
+        )
+
+    for g in seen:
+        rows = "".join(row(t) for t in rev["tests"] if t["group"] == g)
+        groups.append(f"""
+<h2>{e(g)}</h2>
+<div class="tablewrap">
+<table>
+  <thead><tr><th style="width:19%">Claim</th><th style="width:19%">Published value</th>
+  <th style="width:38%">What the official source said on {e(rev["pass_date"])}</th>
+  <th style="width:13%">Verdict</th><th style="width:11%">Source</th></tr></thead>
+  <tbody>{rows}</tbody>
+</table>
+</div>
+""")
+
+    changes = "".join(f"<li>{e(c)}</li>" for c in rev["changes_made"])
+    lr = rev.get("link_resolution") or {}
+    lr_html = ""
+    if lr:
+        lr_html = (
+            '<div class="callout ok"><strong>' + e(lr.get("question", "")) + "</strong>"
+            + '<p class="small">' + e(lr.get("answer", "")) + "</p>"
+            + '<p class="tiny muted">' + e(lr.get("evidence_note", "")) + "</p></div>"
+        )
+    stats = [
+        ("ok", tally.get("confirmed", 0), "Confirmed against the live official source"),
+        ("brand", tally.get("partially-confirmed", 0), "Partly confirmed (document read in part)"),
+        ("warn", tally.get("not-rechecked", 0), "Not re-checked in this pass — earlier record stands"),
+        ("bad", tally.get("conflict-live", 0), "Official sources still disagree — nothing asserted"),
+    ]
+    stat_html = "".join(
+        f'<div class="stat {cls}"><div class="n">{n}</div><div class="l">{e(lbl)}</div></div>'
+        for cls, n, lbl in stats
+    )
+    body = f"""
+<p class="crumbs"><a href="../index.html">Dashboard</a> / Re-verification {e(rev["pass_date"])}</p>
+<h1>{e(rev["title"])}</h1>
+<p class="lede">{e(rev["lede"])}</p>
+
+<div class="grid grid-4" style="margin:1rem 0 1.25rem">{stat_html}</div>
+
+<div class="callout info">
+  <strong>Method</strong>
+  <p class="small">{e(rev["method"])}</p>
+</div>
+<p class="tiny muted">{e(rev["scope_note"])}</p>
+
+{"".join(groups)}
+
+<h2>What this pass changed on the site</h2>
+<ul class="tight small">{changes}</ul>
+
+{lr_html}
+
+<p class="tiny muted">Full raw observations, including the two control requests, are in
+<code>session-81495d2d/EVIDENCE-2026-11-14.md</code> and in the
+<a href="../COORDINATION.md">coordination log</a>.</p>
+"""
+    return layout("reverification.html", f"Re-verification {rev['pass_date']}", body,
+                  active="reverification.html",
+                  description="Line-by-line re-read of every value this site publishes, each against the official source it cites, with the verdict and the source link.")
 
 
 def page_404():
@@ -1511,6 +1715,7 @@ def main():
     pages["flagged.html"] = page_flagged()
     pages["platform.html"] = page_platform()
     pages["executive-summary.html"] = page_exec()
+    pages["reverification.html"] = page_reverification()
     pages["404.html"] = page_404()
 
     # build guards
