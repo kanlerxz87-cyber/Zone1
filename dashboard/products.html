@@ -52,7 +52,7 @@
           <td class="mono small"><a href="https://link.amazon/B04G1MEwY" target="_blank" rel="noopener">https://link.amazon/B04G1MEwY</a></td>
           <td class="mono">B04G1MEwY<span class="sub">9 chars · ASIN = 10 · <span class="badge bad">invalid</span></span></td>
           <td><a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">amazon.com/dp/B04G1MEwY</a><span class="sub">Amazon error page: “Sorry! We couldn't find that page”</span></td>
-          <td>Missing-page fallback (<code>plpRedirect=mhFallback</code>) → random listing <code>/dp/B0CDY277D3</code><span class="sub">shuffle redirect — not a product mapping</span></td>
+          <td>Fallback-parameter URL (<code>plpRedirect=mhFallback</code>) → existing product page <code>/dp/B0CDY277D3</code><span class="sub">mapping from the supplied token unconfirmed (H-08)</span></td>
           <td><span class="badge warn">unverified</span></td>
           <td><span class="badge warn">unverified</span></td>
           <td><span class="badge warn">unverified</span></td>
@@ -65,7 +65,7 @@
           <td class="mono small"><a href="https://link.amazon/B02NbDxp3" target="_blank" rel="noopener">https://link.amazon/B02NbDxp3</a></td>
           <td class="mono">B02NbDxp3<span class="sub">9 chars · ASIN = 10 · <span class="badge bad">invalid</span></span></td>
           <td><a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">amazon.com/dp/B02NbDxp3</a><span class="sub">Amazon error page: “Sorry! We couldn't find that page”</span></td>
-          <td>Missing-page fallback (<code>plpRedirect=mhFallback</code>) → random listing <code>/dp/B09B7SB46R</code><span class="sub">shuffle redirect — not a product mapping</span></td>
+          <td>Fallback-parameter URL (<code>plpRedirect=mhFallback</code>) → existing product page <code>/dp/B09B7SB46R</code><span class="sub">mapping from the supplied token unconfirmed (H-08)</span></td>
           <td><span class="badge warn">unverified</span></td>
           <td><span class="badge warn">unverified</span></td>
           <td><span class="badge warn">unverified</span></td>
@@ -78,7 +78,7 @@
           <td class="mono small"><a href="https://link.amazon/B00hJ57DV" target="_blank" rel="noopener">https://link.amazon/B00hJ57DV</a></td>
           <td class="mono">B00hJ57DV<span class="sub">9 chars · ASIN = 10 · <span class="badge bad">invalid</span></span></td>
           <td><a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">amazon.com/dp/B00hJ57DV</a><span class="sub">Amazon error page: “Sorry! We couldn't find that page”</span></td>
-          <td>Missing-page fallback (<code>plpRedirect=mhFallback</code>) → random listing <code>/dp/B08DKYBTPH</code><span class="sub">shuffle redirect — not a product mapping</span></td>
+          <td>Fallback-parameter URL (<code>plpRedirect=mhFallback</code>) → existing product page <code>/dp/B08DKYBTPH</code><span class="sub">mapping from the supplied token unconfirmed (H-08)</span></td>
           <td><span class="badge warn">unverified</span></td>
           <td><span class="badge warn">unverified</span></td>
           <td><span class="badge warn">unverified</span></td>
@@ -103,27 +103,25 @@
         </tr>
         <tr>
           <td>Standard ASIN length</td>
-          <td><strong>10 characters</strong> — “unique blocks of 10 letters and/or numbers”</td>
-          <td><a href="https://www.barcode.graphics/amazon-product-id/" target="_blank" rel="noopener">Barcode.graphics — Amazon Product Identification Numbers</a> ·
-          <a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere — “the 10-character code after /dp/”</a> ·
-          <a href="https://manuals.plus/asin/" target="_blank" rel="noopener">manuals.plus — “enter a 10-character ASIN”</a></td>
+          <td><strong>10 characters</strong> — observed on Amazon’s own product URLs (H-05)</td>
+          <td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">amazon.com/dp/B0CDY277D3</a> ·
+          <a href="https://www.amazon.com/dp/B09B7SB46R" target="_blank" rel="noopener">amazon.com/dp/B09B7SB46R</a> ·
+          <a href="https://www.amazon.com/dp/B08DKYBTPH" target="_blank" rel="noopener">amazon.com/dp/B08DKYBTPH</a> (fetched 2026-11-14)</td>
         </tr>
         <tr>
           <td>Canonical product URL format</td>
           <td><code>https://www.amazon.com/dp/&lt;ASIN&gt;</code></td>
-          <td><a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">Keywords Everywhere</a> ·
-          <a href="https://aruljohn.com/blog/how-to-shorten-amazon-links/" target="_blank" rel="noopener">aruljohn — How to shorten Amazon links</a></td>
+          <td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">amazon.com/dp/B0CDY277D3 (observed 2026-11-14)</a></td>
         </tr>
         <tr>
-          <td>Amazon's own short domains</td>
-          <td><code>amzn.com</code> (redirect), <code>amzn.to</code> (consumer), <code>a.co</code> (associate-grade) — <strong>not</strong> <code>link.amazon</code></td>
-          <td><a href="https://aruljohn.com/blog/how-to-shorten-amazon-links/" target="_blank" rel="noopener">aruljohn</a> ·
-          <a href="https://u2l.ai/tools/amazon-link-shortener" target="_blank" rel="noopener">u2l.ai — amzn.to / a.co guide</a></td>
+          <td>Amazon short-link domains (third-party claim)</td>
+          <td>Not verified from an official Amazon source in this session. Third-party blogs list <code>amzn.to</code> and <code>a.co</code>; not relied on (H-02).</td>
+          <td><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">Operating Agreement §1 — “Special Links”</a></td>
         </tr>
         <tr>
           <td><code>link.amazon</code> domain</td>
-          <td>Not among Amazon's published product-link or short-link formats; behavioral evidence in §3 shows missing-page fallback instead of product redirects</td>
-          <td class="small">Absence across the sources above + the six fetch checks below</td>
+          <td>Not named in the Operating Agreement §1 “Special Links” definition (checked 2026-11-14). Provenance of the domain is unconfirmed (H-03). Behavioral evidence in §3 shows missing-page fallback instead of product redirects.</td>
+          <td class="small"><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">Operating Agreement §1</a> · evidence in §3</td>
         </tr>
       </tbody>
     </table></div>
@@ -137,14 +135,14 @@
         <tr><td>E-01</td><td><code>amazon.com/dp/B04G1MEwY</code> returns Amazon's page-not-found error page</td><td><a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">re-open check</a></td></tr>
         <tr><td>E-02</td><td><code>amazon.com/dp/B02NbDxp3</code> returns Amazon's page-not-found error page</td><td><a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">re-open check</a></td></tr>
         <tr><td>E-03</td><td><code>amazon.com/dp/B00hJ57DV</code> returns Amazon's page-not-found error page</td><td><a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">re-open check</a></td></tr>
-        <tr><td>E-04</td><td>Each supplied URL lands on a <em>different</em> random listing whose final URL carries Amazon's missing-page fallback markers <code>plpRedirect=mhFallback</code> and <code>lv=shuf</code> (shuffle). Genuine product redirects land on clean <code>/dp/&lt;ASIN&gt;</code> URLs.</td><td class="small">Fetched 2026-11-13; recorded in <a href="../reports/verification-log.md">verification log §1.2</a></td></tr>
-        <tr><td>E-05</td><td>Supplied codes are 9 characters; ASINs are 10 by definition (see §2)</td><td><a href="https://www.barcode.graphics/amazon-product-id/" target="_blank" rel="noopener">ASIN definition</a></td></tr>
-        <tr><td>E-06</td><td><code>link.amazon</code> is not an official Amazon link/short-link format (see §2)</td><td><a href="https://keywordseverywhere.com/tools/amazon-link-generator/" target="_blank" rel="noopener">official URL formats</a></td></tr>
+        <tr><td>E-04</td><td>Each supplied URL lands on a 10-character product page (<code>/dp/B0CDY277D3</code>, <code>/dp/B09B7SB46R</code>, <code>/dp/B08DKYBTPH</code>). The landing URL carries the markers <code>plpRedirect=mhFallback</code> and <code>lv=shuf</code>. A direct request for <code>/dp/B0CDY277D3</code> carries the same markers, so they do not show a missing product (H-08).</td><td class="small">Fetched 2026-11-13; recorded in <a href="../reports/verification-log.md">verification log §1.2</a></td></tr>
+        <tr><td>E-05</td><td>Supplied codes are 9 characters; the 10-character format is observed on Amazon’s own /dp/ URLs (see §2; H-05)</td><td><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">amazon.com/dp/B0CDY277D3</a></td></tr>
+        <tr><td>E-06</td><td><code>link.amazon</code> is not named in the Operating Agreement §1 “Special Links” definition (see §2; H-03)</td><td><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">Operating Agreement §1</a></td></tr>
       </tbody>
     </table></div>
     <div class="callout bad">
       <strong>Conclusion.</strong> The submitted links cannot be used for affiliate marketing and no product identity can be
-      confirmed from them. Sending visitors to these URLs would land them on random unrelated listings — so all CTAs are
+      confirmed from them. Sending visitors to these URLs would land them on unverified product pages — so all CTAs are
       quarantined in the <a href="links.html">Link Manager</a> until valid ASINs are provided.
     </div>
   </section>
@@ -161,7 +159,7 @@
           <td class="mono small">link.amazon/B04G1MEwY</td>
           <td class="mono"><a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">B0CDY277D3</a></td>
           <td>Page title of a Chefman 6-quart dual-basket air fryer oven (“Home &amp; Kitchen”)</td>
-          <td>Reached via <code>plpRedirect=mhFallback</code> shuffle; canonical check for B04G1MEwY 404s; code is 9 chars. The listing exists on Amazon but there is <strong>no evidence it is the intended product</strong>.</td>
+          <td>Reached via <code>plpRedirect=mhFallback</code> fallback-parameter URL; canonical check for B04G1MEwY 404s; code is 9 chars. The listing exists on Amazon but there is <strong>no evidence it is the intended product</strong>.</td>
         </tr>
         <tr>
           <td class="mono small">link.amazon/B02NbDxp3</td>
@@ -187,7 +185,7 @@
       <thead><tr><th>Field</th><th>Why it is blank</th><th>What would unblock it</th></tr></thead>
       <tbody>
         <tr><td>Product title / brand / category</td><td>No product page exists for the supplied IDs (E-01…E-03)</td><td>A valid 10-char ASIN or full amazon.com product URL</td></tr>
-        <tr><td>Price</td><td>No verified product page; price display is also restricted by Associates Program Policies s.2(b) (Amazon-served link or PA-API/Creators API)</td><td>Valid product + Associates account with PA-API/Creators API access</td></tr>
+        <tr><td>Price</td><td>No verified product page; price display is also restricted by Associates Program Policies s.2(b) (Amazon-served link or Creators API (PA-API 5 is deprecated — H-01))</td><td>Valid product + Associates account with Creators API (PA-API 5 is deprecated — H-01) access</td></tr>
         <tr><td>Rating / review count</td><td>Same — no verified product page</td><td>Valid product page or API access</td></tr>
         <tr><td>Commission rate</td><td>Product category is unverified, so no rate row can be matched to a product. (The rate table itself <em>is</em> verified — see <a href="commissions.html">Commissions</a>.)</td><td>Verified product category</td></tr>
         <tr><td>Competition / trend data</td><td>Requires a defined product category and tooling data (Best Sellers Rank, search results) tied to a real product</td><td>Valid product + data source access</td></tr>

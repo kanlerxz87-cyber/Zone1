@@ -44,9 +44,9 @@
       <thead><tr><th>Input</th><th>Weight</th><th>Source</th><th>Available now?</th></tr></thead>
       <tbody>
         <tr><td>Commission rate by category</td><td>High</td><td><a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">Official rate table</a></td><td><span class="badge ok">Yes — verified</span></td></tr>
-        <tr><td>Average order value (qualifying revenue)</td><td>High</td><td>Amazon product pages / PA-API</td><td><span class="badge warn">No — needs valid ASINs</span></td></tr>
+        <tr><td>Average order value (qualifying revenue)</td><td>High</td><td>Amazon product pages / Creators API</td><td><span class="badge warn">No — needs valid ASINs</span></td></tr>
         <tr><td>Search demand / trend slope</td><td>High</td><td>Keyword &amp; trend tooling</td><td><span class="badge warn">No — needs tooling access</span></td></tr>
-        <tr><td>Review volume &amp; rating distribution (conversion proxy)</td><td>Medium</td><td>Amazon product pages / PA-API</td><td><span class="badge warn">No — needs valid ASINs</span></td></tr>
+        <tr><td>Review volume &amp; rating distribution (conversion proxy)</td><td>Medium</td><td>Amazon product pages / Creators API</td><td><span class="badge warn">No — needs valid ASINs</span></td></tr>
         <tr><td>Competition density (SERP + listing count)</td><td>Medium</td><td>Amazon search + SEO tools</td><td><span class="badge warn">No — needs tooling access</span></td></tr>
         <tr><td>Seasonality</td><td>Medium</td><td>Trend tooling</td><td><span class="badge warn">No — needs tooling access</span></td></tr>
         <tr><td>Return-rate / compliance risk</td><td>Low</td><td>Category policy review</td><td><span class="badge info">Partial — policy table verified</span></td></tr>
@@ -95,7 +95,7 @@
   <section class="card">
     <h2>4 · Automation pipeline for niche discovery (runs once inputs exist)</h2>
     <ol class="clean">
-      <li><strong>Discover</strong> — pull category-level demand signals (search volume, trend slope) and top-converting listings via PA-API/Creators API and trend tooling.</li>
+      <li><strong>Discover</strong> — pull category-level demand signals (search volume, trend slope) and top-converting listings via Creators API (PA-API 5 is deprecated — H-01) and trend tooling.</li>
       <li><strong>Score</strong> — apply the weighted model above; exclude 0.00% categories and policy-risk categories.</li>
       <li><strong>Validate</strong> — confirm rate rows against the <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">official table</a> at each refresh (rates change).</li>
       <li><strong>Publish</strong> — generate the <a href="content.html">content</a> for winning niches; attach tagged <a href="links.html">links</a>.</li>
