@@ -2059,6 +2059,24 @@ def check_articles():
     return problems
 
 
+def check_article_pages(rendered):
+    """Every rendered article must carry the Associates sentence, say that nothing was tested, and
+    contain no Amazon price or star-rating pattern (Program Policies 2(b) and 6(t))."""
+    problems = []
+    for rel, text in rendered.items():
+        if not rel.startswith("articles/") or not rel.endswith(".html"):
+            continue
+        if DISCLOSURE not in text.split("</header>")[0]:
+            problems.append(f"{rel}: the Associates sentence is not in the page header")
+        low = text.lower()
+        if "tested" not in low and "hands-on" not in low:
+            problems.append(f"{rel}: no statement that nothing was tested")
+        for bad in ("out of 5 stars", "a-icon-alt", "Amazon price:"):
+            if bad in text:
+                problems.append(f"{rel}: prohibited Amazon price/rating pattern {bad!r}")
+    return problems
+
+
 def article_body(article, prefix="../"):
     parts = []
     for sec in article["sections"]:
@@ -2268,6 +2286,10 @@ def main():
     if article_problems:
         raise SystemExit("BUILD FAILED — article cites an unregistered source or states an "
                          "unpublished value:\n  " + "\n  ".join(article_problems))
+    article_page_problems = check_article_pages(pages)
+    if article_page_problems:
+        raise SystemExit("BUILD FAILED — article page violated a disclosure/claims rule:\n  "
+                         + "\n  ".join(article_page_problems))
     unsourced_rows = check_row_sources(pages)
     if unsourced_rows:
         raise SystemExit("BUILD FAILED — table rows with no official source link (cite a registered "
