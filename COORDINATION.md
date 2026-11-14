@@ -1734,3 +1734,85 @@ Each page also carries a "Customers who viewed this item also viewed" block. The
 * **Live verification:** `https://kanlerxz87-cyber.github.io/Zone1/flagged.html` serves **27 open items** including **F27**; `compliance.html` cites §6(t)/§6(y) ("Content on your Site; live page read 2026-11-14 — see flag F27"); OA §5 disclosure bar present on both pages. The site is live and not broken.
 * **Board hygiene:** the original board's T12 row (left `in progress` since 2026-11-13) is marked `done` in this record-only PR — PRs #23, #25, #26, #31, #32 and #34 are all merged with green Pages deploys.
 * This record is published by a follow-up record-only PR from the same branch, because the record cannot contain its own PR number before the PR exists.
+---
+
+> **Merge note (2026-11-14):** concurrent-board merge — both blocks kept verbatim; nothing discarded.
+
+---
+
+> **Merge note (2026-11-14):** concurrent-board merge — the block above and the block below were written in parallel sessions and both are kept verbatim; nothing discarded.
+
+> **Merge note (2026-11-14):** the I5/I6/I7 block above (sessions `arena/1ee801af-zone1` / `arena/502dcf85-zone1`, merged to `main` via PRs #30–#32) and the pass-6 block below (session `d79ea5ef`, PR #33) were written concurrently and conflict-merged with **both kept**. Their s2 stamp fix (`7864372`) supersedes this pass's F18 note where the two disagree.
+
+# Session `d79ea5ef` — independent re-verification + integration pass 6 (2026-11-14)
+
+**Session:** sess-d79ea5ef · **Branch:** `arena/d79ea5ef-zone1` (base `29e4804` = `main` after PR #25 / I4 COMPLETE) · **Started:** 2026-11-14 (UTC)
+
+> NOTE ON BRANCHING: Arena pins this session to `arena/d79ea5ef-zone1`; the `session-<id>/<task>` convention is
+> preserved in this record. This branch is this session's integration branch and is PR'd to `main` at the end.
+
+## Claim log (this session)
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-14 | sess-d79ea5ef | Claimed D1–D3 below, before any file change. No other open claims at start (all prior sessions complete). |
+
+## Task board (this session)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| D1 | Line-by-line repo review of the integrated tree + irregularity flags | in progress | sess-d79ea5ef | review only + `COORDINATION.md` |
+| D2 | Independent re-verification of published facts against live official sources (this session fetches each source itself; no reliance on earlier sessions' fetches) | in progress | sess-d79ea5ef | `data/*.json`, `build.py` flags (integration scope) |
+| D3 | Final integration: rebuild, link-crawl, gate re-run, PR → `main`, confirm Pages deploy, record results | in progress | sess-d79ea5ef | whole tree (integration) |
+
+## Completion record — sess-d79ea5ef (2026-11-14)
+
+| # | Task | Status | Result |
+|---|------|--------|--------|
+| D1 | Line-by-line repo review + irregularity flags | **done** | Whole tree reviewed (root build + 6 annex builds, data layer, gates, workflows, docs). Two stale-figure irregularities in `EXECUTIVE-SUMMARY.md` found and corrected inline with dated notes (see findings below). No conflict markers; no unsourced rows; every generated table row carries a source link (enforced by `verify.py`). |
+| D2 | Independent re-verification against live official sources | **done** | This session fetched **24/24 sources** in the register live on 2026-11-14 (see list below) and compared every published value row by row. Every value held. Two quote-fidelity defects found in `data/compliance.json` and fixed (see findings). |
+| D3 | Final integration: rebuild, link-crawl, gates, PR → `main`, Pages confirm | **done → see PR record** | `python3 build.py` reproducible; `verify.py` 0 errors; `research/check_research.py` OK; `scripts/check_links.py` 4,028 links OK; `platform/tests` 33/33; `platform/audit/report.py` 0 warnings; `scripts/verify_site.py` 382/382. `scripts/build_s2_site.py --check` exit 1 = **known F18 date-stamp churn only** (byte-diff of a rebuild shows the `built <date>` stamp and nothing else; stamps not committed, per the F18 decision). |
+
+### Sources re-verified live by this session (2026-11-14) — each fetched directly, not carried over from earlier passes
+
+| Source | What this session re-confirmed |
+|--------|-------------------------------|
+| S1 https://affiliate-program.amazon.com/help/operating/agreement | OA "Updated: October 15, 2025"; §5 disclosure sentence verbatim (C1) |
+| S2 https://affiliate-program.amazon.com/help/operating/policies | "Updated: April 14, 2026"; §2(b) prices (C5), §2(b) sub-tags (C14), §2(b) misleading-claims (C16), §3(g)/(u) (C12), §3(n)/(v) (C13), §3(t) (C6), §3(y) (C7), §3(w) link shortening, IP License §2(e) ML ban (C9), Trademark §1 (C15), Payment Minimum Chart (10/10/100 + $15 fee), attribution windows (24 h / 89 d / 180 d / ~60 d) — all quotes verbatim |
+| S3 https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ | All 11 Table 1 rows + Bounty amounts (12/12/12/12/12/2/5/0.25) — rates exact |
+| S4 https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM | 3 sales/180 days, personal orders excluded, 10 posts, 60-day recency, 500 followers (C10/C11) verbatim |
+| S5 https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98 | Link-level "Clear/Conspicuous" quote (C2) verbatim |
+| S6 https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA | Tracking-ID help page live; supports C14 how-implemented |
+| S8 https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers | C3 placement quote and C16 "haven't tried" quote verbatim |
+| S9 https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255 | §§255.0–255.6 in force, Source 88 FR 48102, Title 16 current as of 11/12/2026; §255.5(a) text captured verbatim |
+| S10 https://chefman.com/products/turbofry-touch-dual-window-air-fryer | RJ38-SQPF-3TDB-2W; 6 Qt/5.67 L; 200–450 °F; 13.38×11.81×10.63 in; 13.3 lb; 1700W/120V; cETL; matte black; $119.99 list; 4.6★/1,305 |
+| S11 https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer | Sister SKU RJ38-SQPF-3TDB-2 "Dual-Basket" page live (4.6★/194, $119.99) |
+| S12 https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1 | RJ38-SQSS-8T; 200–400 °F; 4 presets; 1700W/120V; 15.4×12.6×13.5 in; 12.8 lb; 4–6 people; 98% less oil claim; $119.99 list; 4.6★/716 |
+| S13 https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf | Preset defaults (Default 400/15, Meat 375/18, Chicken 375/22, Fish 350/10, Fries 400/20); SHAKE reminder; aerosol caution |
+| S14 https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360 | $199.99; 4-00675-02A-VN; 2.6★/25; 26 qt/24.6 L; "25 Cooking Pre-sets"; 16.9×15.8×14.8 in; 120 V; 10-in-1; dual-speed fan |
+| S15 https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf | Parts & Accessories enumeration (7 accessories re-derived); LED display; rotisserie spit + fetch tool; French-door single-pull behaviour |
+| S16/S17 short links + detail pages | `link.amazon/B04G1MEwY` → `/dp/B0CDY277D3` (title matches recorded verbatim); `B02NbDxp3` → `/dp/B09B7SB46R` (title matches); `B00hJ57DV` → `/dp/B08DKYBTPH` (title matches) — all three re-resolved this session |
+| S18 https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf | "two 3-quart baskets"; HI-FRY 450 °F/235 °C for 2 min; Sync Finish delay-start; Sync Baskets copy; interior light; 1-year limited warranty (retail purchase, non-transferable) |
+| S20 https://affiliate-program.amazon.com/help/node/topic/GMEDADBTCJ9KD8DQ | PA-API help *index* still live (corroborates F24 reading: index ≠ API status) |
+| S21 https://www.amazon.com/dp/B04G1MEwY | "Page Not Found" — 9-character tokens are not ASINs (negative control) |
+| S22 https://link.amazon/ZZZ9ZZZZZ | 403 Forbidden (nonsense-token control) |
+| S23 https://kdp.amazon.com/en_US/help/topic/G200652190 | "10-character Amazon Standard Identification Number"; `amazon.com/dp/ASIN` canonical format |
+| S24 https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation | PA-API 5 **deprecated**, replaced by Creators API; 403 AccessDeniedException with migration message |
+
+Not re-fetched this pass (captured 2026-11-13 by earlier passes, structurally covered by `verify.py`): S7 (FTC Endorsement Guides Q&A), S19 (PA-API registration topic).
+
+### Irregularities found by this pass
+
+| # | Finding | Disposition |
+|---|---------|-------------|
+| 1 | `data/compliance.json` C4 presented a **paraphrase** of 16 CFR §255.5 in its `quote` field ("would materially affect", missing "clearly and conspicuously") | **Fixed** to the verbatim §255.5(a) text confirmed live on eCFR; clause cite refined to §255.5(a). Regenerated `compliance.html`. |
+| 2 | `data/compliance.json` commission-table category labels were abbreviated vs the official Table 1 ("Vehicles", "Restaurant food", "Prime Now, Amazon Pay Places"; missing "and" before "Handbags & Accessories") | **Fixed** to the exact official wording (identical to `data/commission-rates.csv`, which already matched the live S3 fetch). Rates were already exact. |
+| 3 | `EXECUTIVE-SUMMARY.md` stale figures: "40 verified / 3 blank" (actual 42/1), "17 open flags (13+4)" (actual 24 open: 20 programme + 4 product), KDP source "added as S21" (register: S23), PA-API notice "added as S22" (register: S24) | **Corrected inline with dated notes**; no text deleted. |
+| 4 | `scripts/build_s2_site.py --check` exits 1 | **Known F18** — a rebuild differs only in the `built <date>` stamp (byte-checked this session); stamps deliberately not committed. Non-blocking. |
+| 5 | Emeril page now also carries an "11-in-1" marketing image while its text says "10-in-1" | Covered by existing product flag F5 (marketing label vs spec count); noted here as additional evidence. No value asserted. |
+
+All earlier open flags (F1–F24 on `flagged.html`, incl. F14–F16 identity dispute, F20 multi-build, F21 resolution dispute, F24 PA-API deprecation) remain published and non-blocking. This pass found **no** new unverified value: every value published in `data/*.json` that it re-checked held against its official source; the identity mapping of the three supplied tokens remains **unconfirmed** (only the account holder can settle intent) exactly as F14–F16/F21 state.
+
+## PR / deploy record — sess-d79ea5ef (D3)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/33 — "Integration pass 6 (sess-d79ea5ef): independent live re-verification of all 24 sources, quote-fidelity fixes, exec-summary corrections" — opened 2026-11-14 from `arena/d79ea5ef-zone1` → `main`. Merge result and Pages verification are recorded in the follow-up addendum below (the merge result cannot exist before the merge).
