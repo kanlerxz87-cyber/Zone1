@@ -2675,3 +2675,16 @@ Scope rule: no `data/*.json` values and no `build.py` code are changed in this p
 **Result: two published values did not survive a first-hand re-read and were corrected rather than kept;
 the row-source rule is met across the whole repository; eight articles are live; every gate is green; and
 the site is live at https://kanlerxz87-cyber.github.io/Zone1/ on commit `b899e2a`.**
+
+### Note — PR #49 absorbed by this branch
+
+While this pass was closing out, session `38f82d32` had **PR #49** open: *"articles hub stated a stale
+count ('Five pieces' with seven articles on the page)"*. Its fix — computing the hub's count from
+`len(ARTICLES["articles"])` instead of hard-coding it — is strictly better than the hard-coded string this
+pass had written, and the two touched the same line, so merging one without the other would have left a
+conflict landmine for the next integrator.
+
+PR #49's head was therefore merged into this branch (`origin/pr49`, commit `3edb508`) and the conflict
+resolved in favour of the **computed** count. The hub now reads "Eight pieces" because there are eight
+articles, and it will stay correct whatever is added or removed next. PR #49's authorship is preserved in
+this branch's history and the change is live in `main` via PR #54.
