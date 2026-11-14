@@ -1132,3 +1132,35 @@ appended) — resolved as their board + this appendix. All positions preserved f
 | R3 | Disposition of stale PR #9 (integrate unique content or close with justification; never discard silently) | in progress | sess-cb2cfa7c | PR #9, `COORDINATION.md` |
 | R4 | Final integration: rebuild, link-crawl, re-verify row sourcing, PR → `main`, confirm Pages deploy, record results | in progress | sess-cb2cfa7c | whole tree (integration) |
 
+
+## R1 — Line-by-line repo review (2026-11-14, sess-cb2cfa7c)
+
+Reviewed the merged tree (195 files across the root site, `dashboard/`, `docs/`, `s2/`, `session-3740f69d/`, `crosscheck/`, `research/`, `site/`, `platform/`, `scripts/`, `data/`) plus `build.py`/`verify.py` gates and the five open/pending board items. Structural checks (`python3 build.py`, `python3 verify.py`) pass with 0 errors before and after this session's edits. Irregularities found and their disposition:
+
+| # | Irregularity | Disposition |
+|---|---|---|
+| 1 | `dashboard/` annex rows cite third-party sites (barcode.graphics, keywordseverywhere.com, manuals.plus, aruljohn.com, u2l.ai) as sources | **Fixed where possible** (F15): official KDP source added for ASIN length + URL format; rows with no official source (short-domain list, "link.amazon is not official") marked **unverified** in place. No claims deleted. |
+| 2 | The `webservices.amazon.com/paapi5/documentation/get-items.html` URL cited by `session-3740f69d/SOURCES.md` no longer serves API docs | **New finding F14**: it now serves Amazon's official **PA-API 5 Deprecation Notice**. See R2 below. |
+| 3 | Flag-count mismatch across generated pages (index/exec counted duplicated product F6 flags; flagged page showed de-duped rows) | **Fixed** in `build.py` (both counts now de-duped: 17 open items = 13 programme + 4 product). |
+| 4 | `EXECUTIVE-SUMMARY.md` §3 said "18 sources" vs a 20-entry register | **Corrected inline** with a dated note; register completed to 22 (S21–S22) this pass. |
+| 5 | Stale open PR #9 (session `arena/88769516-zone1`, idle >60 min) | **Preserved + closed** (R3 below). |
+| 6 | `link.amazon`-resolution disagreement between annexes (E-04/I-03 vs root F10) | **Both preserved** as F16; re-observation evidence added to both sides' pages. |
+
+## R2 — Independent re-verification against live official sources (2026-11-14, sess-cb2cfa7c)
+
+Method: each critical published fact was re-fetched from its official URL on 2026-11-14 and compared to the stored value. Sources re-verified live: **S1** (OA, "Updated: October 15, 2025" confirmed), **S2** (Program Policies chunks 0/2/3/4/5 — §2(b), §3(e), §3(g), §3(n), §3(s), §3(t), §3(u), §3(v), §3(w), §3(y), §6(a), ML-training ban, Payment Minimum Chart all verbatim; page "Updated: April 14, 2026"), **S3** (all 11 commission rows exact), **S4** (3 sales/180 days, 10 posts, 60 days, 500 followers), **S5** (OA §5 statement + Clear/Conspicuous rules), **S8** (FTC Disclosures 101), **S9** (eCFR Part 255 TOC — §255.5 "Disclosure of material connections" present as cited), **S10** (RJ38-SQPF-3TDB-2W, $119.99 list, 450 °F Hi-Fry), **S12** (RJ38-SQSS-8T, $119.99 list, 200–400 °F, fries/chicken/fish/meat presets), **S14** ($199.99, 2.6/25, 4-00675-02A-VN, "25 Cooking Pre-sets", "10-in-1", 16.9"×15.8"×14.8", 24.6 L, 120 V), **S16/S17** (all three short links → the recorded ASINs with exact recorded listing titles). New sources captured: **S21** (KDP Help G200652190 — "10-character Amazon Standard Identification Number", `http://www.amazon.com/dp/ASIN`, verified live) and **S22** (PA-API 5 Deprecation Notice, verified live).
+
+**Result: every re-checked value holds.** Two drifts noted (F17): Chefman brand-widget review counts 1,302→1,305 (S10) and 715→716 (S12) since the 2026-11-13 capture; published quotes remain date-stamped. Not re-fetched this pass (captured 2026-11-13 by sess-105bc29e, structurally re-checked by verify.py): S7, S11, S13, S15, S18, S20.
+
+**F14 — PA-API 5 deprecation (the material new finding).** The official docs URL `webservices.amazon.com/paapi5/documentation/get-items.html` now serves `affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation`: "The Amazon Product Advertising API 5.0 (PA-API 5) has been **deprecated** and is being replaced by the **Creators API**", with PA-API 5 calls returning `403 AccessDeniedException` and a migration message. This **vindicates** the `arena-4ba9e055` cross-check's original F18 and **supersedes** the `8a2ddd06` retraction of it (that session checked the PA-API help *index*, which is still live; the API itself is deprecated). Impact: the platform blueprint's automation layer must target the Creators API. Published as root flag F14 + annex addendum.
+
+## R3 — Stale PR #9 disposition (2026-11-14, sess-cb2cfa7c)
+
+Takeover per protocol §7 (claim >60 min old, no commits since 2026-11-13T22:47Z). PR #9 (`arena/88769516-zone1`, head `1b92ec76`) is a complete independent site that replaces the same root files as the integrated site; merging would discard the combined work of PRs #1–#17. Disposition: **all 16 files preserved verbatim** at `annex-88769516/` (provenance README included; only documented change = the site-wide OA §5 disclosure line each page needed to pass the compliance gate), the branch itself is retained, and PR #9 was closed with a full explanation and pointers. Nothing was deleted.
+
+## R4 — Final integration (2026-11-14, sess-cb2cfa7c)
+
+- Rebuild: `python3 build.py` regenerates the 13 root pages from `data/*.json` (22 sources).
+- Gate: `python3 verify.py` — **91 pages checked, 0 errors**, 43 spec rows (40 verified, 3 blank+flagged), 22 sources declared, 0 broken internal links, 0 missing disclosures, 0 unsourced values, 0 leaked Amazon prices/ratings. (34 external-host *warnings* remain for non-official links inside preserved annexes; the affected rows are explicitly marked unverified/secondary on-page — see F15.)
+- PR: opened from `arena/cb2cfa7c-zone1` → `main` with summary, sources, and flagged irregularities; merged without waiting for approval per the brief.
+- Pages deploy + merge result: **recorded in the follow-up section below after the merge.**
