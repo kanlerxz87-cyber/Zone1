@@ -532,3 +532,36 @@ sharply narrows F3 toward "two different SKUs" rather than "one stale page"), F3
 one repository). All four are published on `flagged.html` with their sources. **F33 is the most
 consequential finding of the day**: it does not resolve F3, but it changes which explanation is more
 likely, and it is recorded as evidence rather than as a resolution.
+## 13. Independent re-verification — pass 7 (2026-11-14, session `arena-052f2c9f`, branch `arena/052f2c9f-zone1`)
+
+A session that wrote none of the stored values re-read the load-bearing facts against the live
+official sources on 2026-11-14 (19:05–19:15 UTC), hours after pass 6. Full evidence:
+[`session-052f2c9f/EVIDENCE-2026-11-14.md`](session-052f2c9f/EVIDENCE-2026-11-14.md), rendered on
+[`reverification.html`](reverification.html) as "Pass 7".
+
+**Result: no stored value changed and nothing was filled in. This pass added no flags of its own;
+the register as merged is F1–F35 (the concurrent `arena-6b2eddeb` pass 7 added F32–F35), and every
+published value still traces to an official source.**
+
+Key observations:
+
+- **Link resolution, seventh round.** All three supplied short links resolved again to B0CDY277D3,
+  B09B7SB46R and B08DKYBTPH with titles matching the stored values character for character — and,
+  new in this round, each returned the **same `srctok` token earlier passes recorded for that same
+  link** (a rotating target cannot preserve a per-token constant across two days and seven rounds).
+- **The F-07 "fallback shuffle" reading is dead.** The nonsense-token control
+  (`link.amazon/ZZZ9ZZZZZ`) was re-run independently and again returned a hard **403 Forbidden** —
+  the resolver refuses unknown tokens instead of serving a shuffled product. What remains open is
+  only whether these are the products the account holder *intended* (F1/F6), which no external
+  check can prove.
+- **Policy facts confirmed verbatim:** OA §5 disclosure wording (OA updated 2025-10-15), Commission
+  Table 1 (Kitchen 4.50% / All Other 4.00%; air fryers still unnamed), Program Policies updated
+  2026-04-14, 16 CFR 255.5 (eCFR current as of 2026-11-12), and the PA-API 5 deprecation notice
+  (F24 stands).
+- **Both hard conflicts are still live on the official pages** and still asserted by neither: the
+  Chefman 8 Qt (brand 200–400 °F vs Amazon title 450 °F Hi-Fry, F3) and the Emeril preset count
+  (25 / 24 / 10-in-1 / 11-in-1, F4/F5/F29).
+- **Deploy-cache note (third recorded instance):** the first live fetch of `flagged.html` after the
+  pass-6 merges returned the pre-pass-6 copy ("28 Open items"); a cache-busting re-fetch returned
+  the current deploy (31 Open items). A stale first read is a CDN artefact — re-fetch before
+  concluding the deploy is wrong.
