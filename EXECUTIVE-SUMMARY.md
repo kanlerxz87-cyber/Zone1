@@ -161,7 +161,7 @@ Session `arena/88769516-zone1` (PR #9, idle since 2026-11-13T22:47Z) built an in
 ### 10.6 State after this pass
 
 - **24 sources** (S1–S24), all official; **43 spec rows** (42 verified, 1 blank+flagged); **30 open flags** (26 programme + 4 product), all published on [`flagged.html`](flagged.html). *(Counts corrected 2026-11-14: pass 6 corrected the spec counts against `verify.py`; I7 added F25/F26 and corrected the flag counts from the generated page.)*
-- **Pass 6 (sess-54c66535, 2026-11-14) closed the last open verification gap.** The 61-row re-verification ledger had left 9 rows marked *not re-checked*. All nine were re-opened against their official source: **7 confirmed verbatim** and **2 not stated by the cited source at all** (Chefman 6 Qt preset count; Emeril interior light) — recorded as new flag **F29** rather than filled by inference. See §10.7.
+- **Pass 6 (sess-54c66535, 2026-11-14) closed the last open verification gap.** The 61-row re-verification ledger had left 9 rows marked *not re-checked*. All nine were re-opened against their official source: **7 confirmed verbatim** and **2 not stated by the cited source at all** (Chefman 6 Qt preset count; Emeril interior light) — recorded as new flag **F30** rather than filled by inference. See §10.7.
 - `build.py` + `verify.py` gates pass: 91 pages checked, **0 errors**, 0 broken internal links, 0 missing disclosures, 0 unsourced values, 0 leaked Amazon prices/ratings.
 
 ### 10.7 Pass 6 (sess-54c66535, 2026-11-14) — the nine rows nobody had re-checked
@@ -182,7 +182,7 @@ machine-readable: [`session-54c66535/pass6.json`](session-54c66535/pass6.json).
 | Chefman 8 Qt shake reminder | LED shake reminder | Brand page + manual ("the SHAKE light … will turn on") |
 | Chefman 8 Qt household size / oil claim | 4–6 people; "98% less oil" | Brand page verbatim |
 
-**Two not stated by their cited source — left blank, not guessed (flag F29)**
+**Two not stated by their cited source — left blank, not guessed (flag F30)**
 
 - *Chefman 6 Qt preset count.* The RJ38-SQPF-3TDB-2W guide was read end to end. It documents HI-FRY,
   +2 MIN, MUTE, SYNC BASKETS, SYNC FINISH, START/STOP, TIME/TEMP and SHAKE and refers to "a preset
@@ -194,13 +194,13 @@ machine-readable: [`session-54c66535/pass6.json`](session-54c66535/pass6.json).
 
 **Two new pieces of evidence on existing flags**
 
-- **F28 — the Emeril preset count is now stated five ways.** Amazon's listing title for B09B7SB46R
+- **F29 — the Emeril preset count is now stated five ways.** Amazon's listing title for B09B7SB46R
   says "**24 cooking functions**" and Emeril's own description says "Equipped with **24** one-touch
   cooking presets", while the same page's spec block says "25 Cooking Pre-sets", its heading says
   "10-In-1" and a carousel asset is named "11-in-1". Two independent official sources now agreeing
   on 24 is genuinely new — earlier passes had no tiebreaker. The conflict is **narrowed, not
   closed**, so no preset count is asserted anywhere on the site.
-- **F30 — the Chefman 6 Qt sister SKUs diverge sharply.** On the brand's own site the dual-basket
+- **F31 — the Chefman 6 Qt sister SKUs diverge sharply.** On the brand's own site the dual-basket
   page (RJ38-SQPF-3TDB-2) shows 4.6 ★ from **194** reviews while the dual-window page
   (RJ38-SQPF-3TDB-2W) shows 4.6 ★ from **1,305**, on an identical price ladder. A useful signal for
   the open ASIN→model question (F2), but a signal, not an identification.

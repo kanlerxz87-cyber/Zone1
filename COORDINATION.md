@@ -1885,7 +1885,7 @@ quotes in `session-54c66535/EVIDENCE-2026-11-14.md`, machine-readable in
 400 °F** row the earlier pass could not read) · LED shake reminder · "Designed for 4-6 people" ·
 "98% less oil".
 
-**2 not stated by the cited official source (new flag F29):**
+**2 not stated by the cited official source (new flag F30):**
 * *Chefman 6 Qt preset count* — the RJ38-SQPF-3TDB-2W guide was read end to end. It documents
   HI-FRY, +2 MIN, MUTE, SYNC BASKETS, SYNC FINISH, START/STOP, TIME/TEMP and SHAKE and refers to
   "a preset function", but has **no preset chart** and never names four food presets; its control
@@ -1899,14 +1899,14 @@ pass's call) and are flagged for a human decision. Neither was back-filled.
 
 | ID | Item | Source |
 |----|------|--------|
-| **F28** | The Emeril preset count is stated **five** ways across official sources: Amazon listing title "24 cooking functions", Emeril's own prose "24 one-touch cooking presets", the spec block "25 Cooking Pre-sets", the heading "10-In-1", and a carousel asset named `11-in-1`. Two independent official sources now agree on 24, which is new — earlier passes had no tiebreaker. **Narrowed, not closed**: no preset count is asserted anywhere on the site. | S14, S17, S16 |
-| **F29** | Two published specification values are not stated by the official source cited for them (see above). | S18, S14 |
-| **F30** | The two Chefman 6 Qt sister SKUs diverge sharply on the brand's own site: RJ38-SQPF-3TDB-2 is 4.6 ★ / **194** reviews, RJ38-SQPF-3TDB-2W is 4.6 ★ / **1,305**, on an identical price ladder. A signal for the open ASIN→model question (F2), not an identification. | S11, S10 |
+| **F29** | The Emeril preset count is stated **five** ways across official sources: Amazon listing title "24 cooking functions", Emeril's own prose "24 one-touch cooking presets", the spec block "25 Cooking Pre-sets", the heading "10-In-1", and a carousel asset named `11-in-1`. Two independent official sources now agree on 24, which is new — earlier passes had no tiebreaker. **Narrowed, not closed**: no preset count is asserted anywhere on the site. | S14, S17, S16 |
+| **F30** | Two published specification values are not stated by the official source cited for them (see above). | S18, S14 |
+| **F31** | The two Chefman 6 Qt sister SKUs diverge sharply on the brand's own site: RJ38-SQPF-3TDB-2 is 4.6 ★ / **194** reviews, RJ38-SQPF-3TDB-2W is 4.6 ★ / **1,305**, on an identical price ladder. A signal for the open ASIN→model question (F2), not an identification. | S11, S10 |
 
 **Flag-id collision, resolved.** F25/F26 were taken by `sess-502dcf85` (PR #31) and **F27** by
 `sess-6ecdb4e4` (PR #34) while this pass was running — the latter for an unrelated finding about
 Participation Requirements section numbering (§3(t) → §6(t)). Their F27 and all of PR #34's citation
-corrections are preserved unchanged; this pass's three flags are numbered **F28–F30**.
+corrections are preserved unchanged; this pass's three flags are numbered **F29–F31**.
 
 ### Verification performed
 

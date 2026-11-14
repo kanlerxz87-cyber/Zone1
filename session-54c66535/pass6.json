@@ -7,7 +7,7 @@
   "title": "Pass 6 — the nine rows earlier passes could not re-check",
   "lede": "The 2026-11-14 ledger published 61 rows and left 9 marked 'not re-checked'. This pass re-opened every one of those nine against the official page or manual the site cites for it. Six are now confirmed verbatim. Three could not be confirmed: for two of them the official source does not state the value at all, and for one the value is not present in the parts of the page readable as text. Nothing was inferred to fill them.",
   "method": "Each row's official URL was re-fetched on 2026-11-14 and the published value compared to what the source actually says, character by character where the value is a number or a quoted phrase. A row is only marked confirmed when the source states it outright. Where a source does not state the value, the row is marked 'source silent' and left as-is rather than being filled by inference.",
-  "scope_note": "Files touched by this pass: session-54c66535/** (new), build.py (a new additive section on this page and two new flags), and the regenerated root HTML. No file owned by another session was edited. Flag ids F28-F30 are used because F25 and F26 were taken by sess-502dcf85 (PR #31) and F27 by sess-6ecdb4e4 (PR #34) while this pass was running.",
+  "scope_note": "Files touched by this pass: session-54c66535/** (new), build.py (a new additive section on this page and two new flags), and the regenerated root HTML. No file owned by another session was edited. Flag ids F29-F31 are used because F25 and F26 were taken by sess-502dcf85 (PR #31) and F27 by sess-6ecdb4e4 (PR #34) while this pass was running.",
   "rows": [
     {
       "claim": "Number of presets (Chefman 6 Qt Dual Basket)",
@@ -87,7 +87,7 @@
       "id": "P6-E1",
       "title": "The Emeril preset count is now stated five different ways across official sources",
       "detail": "Re-read 2026-11-14. Amazon listing title (S16/S17 target B09B7SB46R): '24 cooking functions'. Emeril's own description paragraph: 'Equipped with 24 one-touch cooking presets'. Emeril's specification block: '25 Cooking Pre-sets'. The page's feature heading and hero: '10-in-1'. A carousel image asset on the same page: '11-in-1'. Two official sources now independently say 24, which is new: the earlier passes had recorded the conflict as 25 vs 10-in-1 vs 11-in-1 with no tiebreaker. The conflict is narrowed, not closed — the same page still says 25 in one block and 24 in another, so no single number is asserted anywhere on this site.",
-      "flag": "F28",
+      "flag": "F29",
       "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
       "source_label": "Emeril product page + Amazon listing title (2026-11-14)"
     },

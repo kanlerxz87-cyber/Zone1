@@ -925,13 +925,13 @@ PROGRAMME_FLAGS = [
      "Root-site content (corrected in this pass); site/ annex pages still carry the old labels",
      "Live reads of affiliate-program.amazon.com/help/operating/policies on 2026-11-14 (two independent renders; version dated April 14, 2026) place the customer-review/star-rating rule at Participation Requirements '6. Content on your Site' item (t), and items (g) incentives, (n) framing, (u) self-purchase, (v) cloaking, (w) link shortening and (y) price tracking in the same section. Repo content had cited these as \u00a73(t), \u00a73(g), \u00a73(n), \u00a73(u), \u00a73(v), \u00a72(w) and \u00a73(y). Every quoted rule text was verified verbatim against the live page, so no published behaviour changes \u2014 only the citation labels were aligned to the live structure in build.py, data/compliance.json, data/products.json, data/sources.json, data/platform.json, data/marketing.json, README.md, EXECUTIVE-SUMMARY.md and EXECUTIVE_SUMMARY.md. Spot-checked labels that were already correct: \u00a72(b) prices/availability, \u00a73(e) cookies, \u00a76(a) alteration, IP License \u00a72(e) aggregation/ML-training, Operating Agreement \u00a75 disclosure. The site/ annex (session 1874bb64) still renders \u00a73(t) from data/verified/; its owner session should align it (request logged in COORDINATION.md). Historical session records in COORDINATION.md were left as written.", ["S2"]),
 
-    ("F28", "The Emeril preset count is stated five different ways across official sources, and two of them now say 24.",
+    ("F29", "The Emeril preset count is stated five different ways across official sources, and two of them now say 24.",
      "Emeril 26 QT French Door",
      "Re-read 2026-11-14 by sess-54c66535. Amazon's listing title for ASIN B09B7SB46R says '24 cooking functions' and Emeril's own description paragraph says 'Equipped with 24 one-touch cooking presets', while the same page's specification block says '25 Cooking Pre-sets', its feature heading says '10-In-1' and one of its carousel assets is named '11-in-1'. Two independent official sources now agreeing on 24 is new evidence: earlier passes recorded only 25 vs 10-in-1 vs 11-in-1 with no tiebreaker. The conflict is narrowed, not closed - the same brand page still contradicts itself - so no preset count is asserted anywhere on this site. Decision needed: confirm the figure against the unit's own control panel before any copy states a number.", ["S14", "S17", "S16"]),
-    ("F29", "Two published specification values are not stated by the official source the site cites for them.",
+    ("F30", "Two published specification values are not stated by the official source the site cites for them.",
      "Chefman 6 Qt Dual Basket (preset count); Emeril 26 QT French Door (interior light)",
      "Re-read 2026-11-14 by sess-54c66535. The Chefman dual-window user guide RJ38-SQPF-3TDB-2W was read end to end and documents HI-FRY, +2 MIN, MUTE, SYNC BASKETS, SYNC FINISH, START/STOP, TIME/TEMP and SHAKE, but has no preset chart and never names the four food presets the site publishes; its control panel is artwork with no text layer. The Emeril brand page's specification block lists Timer, 26-Quart Capacity, Dual-Speed Fan, 25 Cooking Pre-sets, dimensions, 24.6 Liters, Temperature Control and 120 volts, with no interior-light row. Both values were left as published rather than deleted, because deleting another session's sourced row is not this pass's call, but neither is currently traceable to an official statement. Decision needed: re-source both to the brand product pages, or blank them and let them appear here as unverified.", ["S18", "S14"]),
-    ("F30", "The two Chefman 6 Qt sister SKUs carry very different review counts on the brand's own site.",
+    ("F31", "The two Chefman 6 Qt sister SKUs carry very different review counts on the brand's own site.",
      "Chefman 6 Qt Dual Basket",
      "Re-read 2026-11-14 by sess-54c66535. The dual-basket page RJ38-SQPF-3TDB-2 reports 4.6 stars from 194 reviews; the dual-window page RJ38-SQPF-3TDB-2W reports 4.6 stars from 1,305 reviews, on an identical list price and promo ladder. The 6.7x gap is a usable signal for deciding which SKU the supplied ASIN maps to, which is open flag F2. It is not an identification: Amazon does not publish the model number behind an ASIN, and a review count is not a product identifier. No SKU is asserted.", ["S11", "S10"]),
 ]
@@ -945,9 +945,9 @@ REPO_EVIDENCE = {
     "F25": ["scripts/check_links.py", "dashboard/", "research/", "site/", "s2/",
             "session-3740f69d/", "annex-88769516/"],
     "F26": ["data/platform.json"],
-    "F28": ["session-54c66535/EVIDENCE-2026-11-14.md", "data/products.json"],
-    "F29": ["session-54c66535/EVIDENCE-2026-11-14.md", "session-54c66535/pass6.json"],
-    "F30": ["session-54c66535/EVIDENCE-2026-11-14.md"],
+    "F29": ["session-54c66535/EVIDENCE-2026-11-14.md", "data/products.json"],
+    "F30": ["session-54c66535/EVIDENCE-2026-11-14.md", "session-54c66535/pass6.json"],
+    "F31": ["session-54c66535/EVIDENCE-2026-11-14.md"],
 }
 
 VERDICTS = {
