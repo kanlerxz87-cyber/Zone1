@@ -1,0 +1,637 @@
+{
+ "id": "rev-2026-11-14",
+ "pass_date": "2026-11-14",
+ "performed_by": "sess-81495d2d",
+ "branch": "arena/81495d2d-zone1",
+ "baseline_commit": "8915b43280c1f85fcc23ef9b636c6ae8cd4191b9",
+ "title": "Re-verification pass — 14 November 2026",
+ "lede": "Every value this site publishes was re-read on 2026-11-14 against the live official source that the site cites for it. Rows are reported as found: confirmed, moved, still in conflict, partially confirmed, or honestly not re-checked in this pass. Nothing was inferred, and nothing was quietly refreshed without saying so.",
+ "method": "Each row below is one live fetch of an official URL on 2026-11-14 — the manufacturer's own product page, the manufacturer's own manual PDF, Amazon's Associates Central help nodes, or Amazon's own response to a request. Verdict vocabulary: confirmed = the official page states what the site publishes; partially-confirmed = the part of the value readable from the document re-read today matches, and the remainder comes from a page this pass did not re-open; moved = a live figure changed since 2026-11-13 exactly as the point-in-time rule predicts; conflict-live = two official pages still disagree and the site still asserts neither; new-evidence = a test no earlier pass ran; not-rechecked = this pass did not re-open that document, so the 2026-11-13 record stands unchallenged and unconfirmed by this pass.",
+ "scope_note": "Covers the 43 specification rows published from data/products.json, the three price rows, the three brand-rating rows, the commission row, five programme-rule rows and the six link-resolution tests. The parallel builds in s2/, site/, dashboard/, research/ and session-3740f69d/ keep their own verification records and were not re-checked in this pass.",
+ "link_resolution": {
+  "question": "Do the three supplied link.amazon tokens resolve to the three ASINs this site documents?",
+  "answer": "Yes — and the dispute raised by a parallel session is now closed on the evidence. Four independent sessions over two days, using fresh requests each time, obtained exactly B0CDY277D3, B09B7SB46R and B08DKYBTPH. A nonsense control token is refused outright with 403 rather than being shuffled to some featured product, and the 9-character tokens 404 when pasted straight into /dp/ (they are not ASINs). What remains unproven is the Associates tag riding inside the short link and who created the mapping — not the destination.",
+  "evidence_note": "Every landing URL still carries lv=shuf&…&plpRedirect=mhFallback, i.e. Amazon's fallback handler. Before any campaign goes live, replace these three short links with canonical tagged /dp/<ASIN>?tag=<your-tracking-id> URLs built inside Associates Central, then re-run this pass."
+ },
+ "changes_made": [
+  "Filled the two Chefman 8 Qt rows that were blank on 2026-11-13: Wattage (1700 W / 120 V) and Dimensions / weight (15.4 × 12.6 × 13.5 in, 12.8 lb) — both are stated outright on the manufacturer's own page, which the earlier pass had not read down to its Specifications block.",
+  "Refreshed the two volatile brand-site review counts (1,302 → 1,305 and 715 → 716) and stamped both with both read dates.",
+  "Retired the 'target shuffles per request' clause of flag F-07: not reproducible, and contradicted by the nonsense-token control (403 vs product page).",
+  "Corrected the executive summary's hardcoded source and flag counts, which had gone stale (12 vs the 22 sources now registered).",
+  "Made every published build reachable from the landing page navigation (site/ and dashboard/ were orphaned).",
+  "Replaced the false line 'No items resolved yet — this build is the first verification pass' on the Flagged page with an actual resolved-items table.",
+  "No other session's work was discarded in the rebase onto main (which had meanwhile taken arena/1dcaaafc's PRs #18-#21): their F14-F18 flags are kept and this pass's three flags renumbered F19-F21; their '0 verified product identities' headline and 'candidate ASIN (unconfirmed)' labels are kept; their link-check report is linked from both the dashboard and the re-verification page. The disagreement — their 'identity not confirmed' versus this pass's 'destination is reproducible' — is published as flag F21 for the owner to arbitrate rather than resolved by vote."
+ ],
+ "tests": [
+  {
+   "group": "A · Link resolution (the disputed premise)",
+   "claim": "link.amazon/B04G1MEwY → ASIN B0CDY277D3",
+   "published_value": "B0CDY277D3 (four sessions, 2026-11-13)",
+   "observed_2026_11_14": "Landed on www.amazon.com/dp/B0CDY277D3?lv=shuf&btn_type=ss&channelId=704&plpRedirect=mhFallback; page <title> \"Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets…\"",
+   "verdict": "confirmed",
+   "source_label": "Amazon — the redirect target of the supplied short link",
+   "source_url": "https://www.amazon.com/dp/B0CDY277D3",
+   "note": "The landing URL still carries plpRedirect=mhFallback: it is a generated fallback redirect, not a canonical tagged Associates URL."
+  },
+  {
+   "group": "A · Link resolution (the disputed premise)",
+   "claim": "link.amazon/B02NbDxp3 → ASIN B09B7SB46R",
+   "published_value": "B09B7SB46R",
+   "observed_2026_11_14": "Landed on …/dp/B09B7SB46R?lv=shuf&…&plpRedirect=mhFallback; <title> \"Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie…\"",
+   "verdict": "confirmed",
+   "source_label": "Amazon — the redirect target of the supplied short link",
+   "source_url": "https://www.amazon.com/dp/B09B7SB46R",
+   "note": ""
+  },
+  {
+   "group": "A · Link resolution (the disputed premise)",
+   "claim": "link.amazon/B00hJ57DV → ASIN B08DKYBTPH",
+   "published_value": "B08DKYBTPH",
+   "observed_2026_11_14": "Landed on …/dp/B08DKYBTPH?lv=shuf&…&plpRedirect=mhFallback&th=1; <title> \"Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel\"",
+   "verdict": "confirmed",
+   "source_label": "Amazon — the redirect target of the supplied short link",
+   "source_url": "https://www.amazon.com/dp/B08DKYBTPH",
+   "note": "This is the title that conflicts with the brand page's 400 °F ceiling; both official pages still read that way today."
+  },
+  {
+   "group": "A · Link resolution (the disputed premise)",
+   "claim": "Does the same token return the same product on a later request?",
+   "published_value": "flag F-07 (zone1-s2) claimed the target shuffles between requests",
+   "observed_2026_11_14": "A fresh second request for B04G1MEwY (new Amazon session id 144-9037645-5554317, new srctok) returned the same ASIN B0CDY277D3. Across 2026-11-13 and 2026-11-14 four independent sessions obtained the same three ASINs.",
+   "verdict": "conflict-resolved",
+   "source_label": "Amazon — repeat resolution of the same short link",
+   "source_url": "https://link.amazon/B04G1MEwY",
+   "note": "The 'shuffles to a different item each time' clause is not reproducible and is retired. What survives is the narrower caution: the resolver's mapping is unpublished, so the operator should confirm these are the intended products."
+  },
+  {
+   "group": "A · Link resolution (the disputed premise)",
+   "claim": "Nonsense-token control",
+   "published_value": "not previously tested by any session",
+   "observed_2026_11_14": "https://link.amazon/ZZZ9ZZZZZ → 403 Forbidden. The resolver refuses an unrecognised token instead of serving a featured product.",
+   "verdict": "new-evidence",
+   "source_label": "Amazon — control request to the same resolver",
+   "source_url": "https://link.amazon/ZZZ9ZZZZZ",
+   "note": "Recognised tokens reach a product page; unrecognised ones do not. That is evidence the three supplied tokens encode something Amazon resolves, not random noise."
+  },
+  {
+   "group": "A · Link resolution (the disputed premise)",
+   "claim": "Are the supplied tokens ASINs?",
+   "published_value": "No — 9 characters, an ASIN is 10 (flag F1 / F-01)",
+   "observed_2026_11_14": "https://www.amazon.com/dp/B04G1MEwY → Amazon's \"Page Not Found\" error page (logo + \"Sorry! We couldn't find that page.\").",
+   "verdict": "confirmed",
+   "source_label": "Amazon — direct /dp/ lookup of the supplied token",
+   "source_url": "https://www.amazon.com/dp/B04G1MEwY",
+   "note": "The tokens work only through link.amazon; they can never be pasted into a /dp/ URL."
+  },
+  {
+   "group": "B · Amazon Associates & FTC rules quoted by the site",
+   "claim": "Table 1 of the Standard Commission Income Statement is public, not login-gated",
+   "published_value": "Two candidate rows per product; no per-ASIN rate asserted",
+   "observed_2026_11_14": "Read without a session: \"Physical Books, Kitchen, Automotive — 4.50%\", \"Toys, Furniture, Home, … — 3.00%\", \"Amazon Fire Tablet … Shoes, and Handbags & Accessories — 4.00%\", \"All Other Categories — 4.00%\". Air fryers are still not named anywhere in the table.",
+   "verdict": "confirmed",
+   "source_label": "Amazon Associates Central — Standard Commission Income Statement",
+   "source_url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+   "note": "Confirms the correction issued on 2026-11-13: the table is public; the ASIN→category mapping is not, so the per-product rate stays blank."
+  },
+  {
+   "group": "B · Amazon Associates & FTC rules quoted by the site",
+   "claim": "Bounty rates quoted on the platform page",
+   "published_value": "Prime Free Trial $12.00 · Prime Video First Stream $5.00 · Prime Video Stream $0.25",
+   "observed_2026_11_14": "Bounty Events table read today: Prime Free Trial $12.00, Prime Paid Membership $12.00, Prime for Young Adults Trial/Paid $12.00, Prime Access $12.00, Prime Sign Up at Checkout (no stated amount), Prime Video Free Trial $2.00, Prime Video First Stream $5.00, Prime Video Stream $0.25.",
+   "verdict": "confirmed",
+   "source_label": "Amazon Associates Central — Bounty Events table",
+   "source_url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+   "note": ""
+  },
+  {
+   "group": "B · Amazon Associates & FTC rules quoted by the site",
+   "claim": "Disclosure wording carried on every page of this site",
+   "published_value": "\"As an Amazon Associate I earn from qualifying purchases.\"",
+   "observed_2026_11_14": "Amazon's own help node: the Operating Agreement \"requires that the following statement clearly and conspicuously appears on your Site: 'As an Amazon Associate I earn from qualifying purchases.'\" and the link-level disclosure must be (1) Clear — examples given: \"(paid link)\", \"#ad\", \"#CommissionsEarned\" — and (2) Conspicuous, \"placed near any affiliate link or product review\".",
+   "verdict": "confirmed",
+   "source_label": "Amazon Associates Central — Associate identification help node",
+   "source_url": "https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98",
+   "note": "Also states the disclosure must be in the medium used (voice recommendation ⇒ voice disclosure) — recorded on the compliance page for the podcast/YouTube plan."
+  },
+  {
+   "group": "B · Amazon Associates & FTC rules quoted by the site",
+   "claim": "FTC endorsement rule still current",
+   "published_value": "16 CFR Part 255 §255.5 Disclosure of material connections; source 88 FR 48102",
+   "observed_2026_11_14": "eCFR renders Title 16 \"up to date as of 11/12/2026\", Part 255 §§255.0–255.6 including §255.5 \"Disclosure of material connections\", source note \"88 FR 48102, July 26, 2023, unless otherwise noted\", and no later Part 255 amendment on the timeline.",
+   "verdict": "confirmed",
+   "source_label": "eCFR — 16 CFR Part 255",
+   "source_url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255",
+   "note": ""
+  },
+  {
+   "group": "B · Amazon Associates & FTC rules quoted by the site",
+   "claim": "Amazon prices, availability and star ratings are not republished",
+   "published_value": "Blank on every row, by policy",
+   "observed_2026_11_14": "Unchanged: the site still publishes no Amazon price, availability or star rating; the PDPs do carry them and they were deliberately not transcribed.",
+   "verdict": "confirmed",
+   "source_label": "Amazon Associates Program Policies (Participation Requirements)",
+   "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+   "note": "Observed during the same fetches: the PDPs display prices ($69.97, $229.99, $69.95 …) and star counts; none of it is copied into this project's tables."
+  },
+  {
+   "group": "C · Spec rows — Chefman 6 Qt Dual Basket",
+   "claim": "Capacity",
+   "published_value": "6 Qt / 5.67 L",
+   "observed_2026_11_14": "Specification block reads \"Capacity: 6 Qt / 5.67 L\".",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 6 Qt Dual Basket",
+   "claim": "Per-basket capacity",
+   "published_value": "Two 3-quart baskets",
+   "observed_2026_11_14": "The Amazon listing title read today says \"2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets\"; the owner's manual documents two separately controlled baskets (press ① or ② to activate a basket).",
+   "verdict": "confirmed",
+   "source_label": "Amazon title + Chefman manual",
+   "source_url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 6 Qt Dual Basket",
+   "claim": "Temperature range",
+   "published_value": "200–450 °F / 95–235 °C",
+   "observed_2026_11_14": "Specification block: \"200–450°F / 95º-235ºC temperature range\".",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 6 Qt Dual Basket",
+   "claim": "Hi-Fry maximum",
+   "published_value": "450 °F / 235 °C, held for 2 minutes, for extra browning",
+   "observed_2026_11_14": "Manual control-panel page: \"HI-FRY Buttons — Raise temperature to 450°F/235°C for 2 minutes for a little extra browning.\" Product page Features: \"Max temp: 450ºF/ 235ºC with Hi-Fry function\".",
+   "verdict": "confirmed",
+   "source_label": "Chefman manual + product page",
+   "source_url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 6 Qt Dual Basket",
+   "claim": "Sync Finish",
+   "published_value": "Yes — delays the start of the shorter cook so both baskets finish together; a separate Sync Baskets function copies time and temperature to the second basket",
+   "observed_2026_11_14": "Manual: \"By pressing the SYNC FINISH button, you can program two foods with different cooking times and/or temperatures to finish cooking at the same time. The function delays the start of the basket with the shorter cook time…\" and \"The SYNC BASKETS button is a shortcut for setting both baskets to cook simultaneously with the same time and temperature.\"",
+   "verdict": "confirmed",
+   "source_label": "Chefman manual",
+   "source_url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 6 Qt Dual Basket",
+   "claim": "Independent baskets",
+   "published_value": "2",
+   "observed_2026_11_14": "Manual drives basket 1 and basket 2 separately (\"Press the ① button to activate basket 1… Alternatively, press the ② button to activate basket 2\"); the listing title says \"2 Independent 3Qt\".",
+   "verdict": "confirmed",
+   "source_label": "Chefman manual + Amazon title",
+   "source_url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 6 Qt Dual Basket",
+   "claim": "Viewing windows",
+   "published_value": "Dual viewing windows",
+   "observed_2026_11_14": "Features list: \"Dual viewing windows\".",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 6 Qt Dual Basket",
+   "claim": "Interior light",
+   "published_value": "Yes",
+   "observed_2026_11_14": "Features list: \"Interior light\"; manual: \"The interior light will cycle on and off periodically during cooking.\"",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page + manual",
+   "source_url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 6 Qt Dual Basket",
+   "claim": "Basket coating / care",
+   "published_value": "Nonstick, dishwasher-safe baskets. Manual caution: never spray with aerosol cooking oil — use a non-aerosol mister instead",
+   "observed_2026_11_14": "Features list: \"Nonstick, dishwasher-safe baskets\". Manual caution read today: \"Never spray the baskets or racks with cooking oil from an aerosol spray can, which includes harsh components that can cause chipping of the nonstick coating. However, you can oil the racks or spray them with oil from a non-aerosol mister.\"",
+   "verdict": "confirmed",
+   "source_label": "Chefman manual",
+   "source_url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 6 Qt Dual Basket",
+   "claim": "Dimensions",
+   "published_value": "13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm",
+   "observed_2026_11_14": "Specification block: \"Dimensions: 13.38 in x 11.81 in x 10.63 in / 33.98 cm x 30 cm x 27 cm\".",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 6 Qt Dual Basket",
+   "claim": "Product weight",
+   "published_value": "13.3 lb / 6.03 kg",
+   "observed_2026_11_14": "Specification block: \"Weight: 13.3 lbs / 6.03 kg\".",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 6 Qt Dual Basket",
+   "claim": "Power",
+   "published_value": "1700 W / 120 V",
+   "observed_2026_11_14": "Specification block: \"Power: 1700W/120V\".",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 6 Qt Dual Basket",
+   "claim": "Safety approval",
+   "published_value": "cETL approved",
+   "observed_2026_11_14": "Specification block: \"cETL approved with a 1-year Chefman® assurance\".",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 6 Qt Dual Basket",
+   "claim": "Warranty",
+   "published_value": "1-year Chefman assurance",
+   "observed_2026_11_14": "Same line as the safety approval, plus the page links a warranty PDF (7x7 Terms & Conditions Warranty 06 2021).",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 6 Qt Dual Basket",
+   "claim": "Colour / finish",
+   "published_value": "Matte black",
+   "observed_2026_11_14": "Features list: \"Matte-black finish\".",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 6 Qt Dual Basket",
+   "claim": "Number of presets",
+   "published_value": "Four one-touch food presets: French fries, chicken, meat, fish",
+   "observed_2026_11_14": "The manual's cooking-chart pages were not re-read in this pass; today's read covered the control panel and operating instructions, which name HI-FRY, +2 MIN, MUTE, SHAKE, SYNC BASKETS and SYNC FINISH but not the four food presets.",
+   "verdict": "not-rechecked",
+   "source_label": "Chefman manual (not re-read in this pass)",
+   "source_url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Emeril 26 QT French Door",
+   "claim": "Capacity",
+   "published_value": "26 qt / 24.6 L (manual: 1,519 cu in)",
+   "observed_2026_11_14": "Product page spec icons read today: \"26-Quart Capacity — preparing food for 4–6 people\" and \"24.6 Liters Capacity\". The parenthetical 1,519 cu in figure comes from the manual and its chart page was not re-read.",
+   "verdict": "partially-confirmed",
+   "source_label": "Emeril product page",
+   "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Emeril 26 QT French Door",
+   "claim": "Supply power",
+   "published_value": "120 V / 60 Hz",
+   "observed_2026_11_14": "Page spec icon: \"120 volts Product Voltage\". The 60 Hz half of the value comes from the manual, not re-read in this pass.",
+   "verdict": "partially-confirmed",
+   "source_label": "Emeril product page",
+   "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Emeril 26 QT French Door",
+   "claim": "Rated power",
+   "published_value": "1700 W",
+   "observed_2026_11_14": "The brand page does not publish a wattage figure for this model; the 1700 W comes from the owner's manual specification chart, which this pass did not re-read.",
+   "verdict": "not-rechecked",
+   "source_label": "Emeril manual (chart not re-read)",
+   "source_url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Emeril 26 QT French Door",
+   "claim": "Temperature range",
+   "published_value": "75–500 °F / 25–260 °C",
+   "observed_2026_11_14": "Manual chart not re-read in this pass. The brand page read today shows only the label \"Temperature Control\" as a feature, with no range.",
+   "verdict": "not-rechecked",
+   "source_label": "Emeril manual (chart not re-read)",
+   "source_url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Emeril 26 QT French Door",
+   "claim": "Dimensions",
+   "published_value": "16.9 D × 15.8 W × 14.8 H in",
+   "observed_2026_11_14": "Page spec icon: \"16.9\\\"D x 15.8\\\"W x 14.8\\\"H — Product Dimensions\".",
+   "verdict": "confirmed",
+   "source_label": "Emeril product page",
+   "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Emeril 26 QT French Door",
+   "claim": "Cooking functions / presets",
+   "published_value": "24 presets are named in the owner's manual for model FAFO-001: Airfry, Fries, Bacon, Grill, Eggs, Fish, Ribs, Defrost, Steak, Vegetables, Wings, Bake, Rotisserie, Toast, Chicken, Pizza, Pastry, Proof, Broil, Slow Cook, Roast, Dehydrate, Reheat, Warm",
+   "observed_2026_11_14": "All four official variants are still published at once: page spec block \"25 Cooking Pre-sets\"; page description \"This endlessly versatile 10-in-1 air fry convection oven\"; one carousel asset is literally named \"11-in-1_convection_oven_in_action.png\"; and the resolved Amazon title says \"24 cooking functions\". The manual's 24-name chart was not re-read today, so the site's resolution (24 named presets) is unchanged and still rests on the manual.",
+   "verdict": "conflict-live",
+   "source_label": "Emeril product page (conflict unresolved)",
+   "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Emeril 26 QT French Door",
+   "claim": "Door type",
+   "published_value": "French doors, single-pull opening",
+   "observed_2026_11_14": "Manual: \"DOOR HANDLES: … Opening one door will open both doors\"; product and page naming both read \"French Door\"; the Amazon title says \"French doors\".",
+   "verdict": "confirmed",
+   "source_label": "Emeril manual + product page",
+   "source_url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Emeril 26 QT French Door",
+   "claim": "Fan",
+   "published_value": "Dual-speed fan, 360° air circulation",
+   "observed_2026_11_14": "Page spec icon: \"Dual-Speed Fan — for golden fried crisping\". The 360° wording is the product-line name (\"French Door AirFryer 360\"), not a measured airflow claim.",
+   "verdict": "confirmed",
+   "source_label": "Emeril product page",
+   "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Emeril 26 QT French Door",
+   "claim": "Rotisserie",
+   "published_value": "Yes (manual documents a rotisserie preset and spit set)",
+   "observed_2026_11_14": "Manual Parts & Accessories read today: \"10. ROTISSERIE SPIT: Used for cooking chickens and meat on the spit while rotating\" and \"12. ROTISSERIE FETCH TOOL: Use for removing hot food on the Rotisserie Spit\". The Amazon title also says \"rotisserie\".",
+   "verdict": "confirmed",
+   "source_label": "Emeril manual",
+   "source_url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Emeril 26 QT French Door",
+   "claim": "Included accessories",
+   "published_value": "7",
+   "observed_2026_11_14": "The manual's Parts & Accessories list read today enumerates 13 numbered items; six of them are built into the appliance (Main Unit, Door Handle, Glass Door, LED Display, Control Panel, Control Knob), leaving seven removable accessories: Drip Tray, Wire Rack, Baking Pan, Rotisserie Spit, Crisper Tray, Rotisserie Fetch Tool, Plate Handle. That reproduces the site's \"7\" from the manual's own enumeration.",
+   "verdict": "confirmed",
+   "source_label": "Emeril manual",
+   "source_url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Emeril 26 QT French Door",
+   "claim": "Interior light",
+   "published_value": "Yes",
+   "observed_2026_11_14": "The chunks of the brand page read today did not include the interior-light line; the recorded value came from the same page on 2026-11-13.",
+   "verdict": "not-rechecked",
+   "source_label": "Emeril product page (page read in part today)",
+   "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Emeril 26 QT French Door",
+   "claim": "Warranty",
+   "published_value": "1-year warranty",
+   "observed_2026_11_14": "The brand page's warranty block was not in the section read today; the 1-year figure was recorded from that page on 2026-11-13.",
+   "verdict": "not-rechecked",
+   "source_label": "Emeril product page (page read in part today)",
+   "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Emeril 26 QT French Door",
+   "claim": "Display",
+   "published_value": "LED",
+   "observed_2026_11_14": "Manual: \"4. LED Display: Used for selecting, adjusting programming, or monitoring cooking programs.\"",
+   "verdict": "confirmed",
+   "source_label": "Emeril manual",
+   "source_url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 8 Qt TurboFry",
+   "claim": "Capacity",
+   "published_value": "8 qt (brand also sells a 5 qt version of the same product page)",
+   "observed_2026_11_14": "Specification block: \"Capacity: 5 Qt or 8 Qt / 4.73 L or 7.57 L\" with \"Model Number: RJ38-SQSS-8T (8 Qt model)\" — the same page sells both, exactly as the row's caveat says.",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 8 Qt TurboFry",
+   "claim": "Temperature range",
+   "published_value": "200–400 °F",
+   "observed_2026_11_14": "Specification block: \"200–400°F / 95º-205ºC temperature range\"; Features: \"Max temp: 400ºF/ 205ºC\".",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 8 Qt TurboFry",
+   "claim": "Presets",
+   "published_value": "Fries, Chicken, Fish, Meat (one-touch)",
+   "observed_2026_11_14": "Features list reads \"4 cooking presets\" today, which confirms the count; the four names (fries, chicken, fish, meat) come from the manual chart, which was not re-read in this pass.",
+   "verdict": "partially-confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 8 Qt TurboFry",
+   "claim": "Preset defaults",
+   "published_value": "Default 400 °F / 15 min · Meat 375 °F / 18 min · Chicken 375 °F / 22 min · Fish 350 °F / 10 min · Fries 400 °F / 20 min",
+   "observed_2026_11_14": "Time/temperature defaults per preset live in the owner's manual chart (RJ38-SQSS-8T-UG-US.pdf); that PDF was not re-read in this pass, so the recorded figures stand unchallenged and unconfirmed today.",
+   "verdict": "not-rechecked",
+   "source_label": "Chefman 8 Qt manual (not re-read)",
+   "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 8 Qt TurboFry",
+   "claim": "Basket coating / care",
+   "published_value": "Nonstick basket and rack; top-rack dishwasher safe",
+   "observed_2026_11_14": "Features list: \"5-quart or 8-quart nonstick basket\" and \"Top-rack dishwasher-safe basket\".",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 8 Qt TurboFry",
+   "claim": "Shake reminder",
+   "published_value": "LED shake reminder",
+   "observed_2026_11_14": "The Features and Specifications blocks read today do not contain a shake-reminder line; the value was recorded from this page plus the manual on 2026-11-13. Either it sits in a page section not read today or the copy changed.",
+   "verdict": "not-rechecked",
+   "source_label": "Chefman product page (read in part today)",
+   "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 8 Qt TurboFry",
+   "claim": "Auto shutoff",
+   "published_value": "Yes — stops when the timer ends or the basket is opened",
+   "observed_2026_11_14": "Features list: \"Auto-shutoff for safety\". The \"…or when the basket is opened\" behaviour is documented in the manual, not re-read in this pass.",
+   "verdict": "partially-confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 8 Qt TurboFry",
+   "claim": "Stated household size",
+   "published_value": "Designed for 4–6 people",
+   "observed_2026_11_14": "No 4–6 people line appears in the page sections read today (the Emeril page does carry \"preparing food for 4–6 people\", which is a different product). The recorded value came from the same Chefman page on 2026-11-13.",
+   "verdict": "not-rechecked",
+   "source_label": "Chefman product page (read in part today)",
+   "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 8 Qt TurboFry",
+   "claim": "Oil-reduction claim",
+   "published_value": "Brand claim: meals with '98% less oil'",
+   "observed_2026_11_14": "The \"98% less oil\" marketing line was not in the sections read today; it remains recorded as a vendor claim only.",
+   "verdict": "not-rechecked",
+   "source_label": "Chefman product page (read in part today)",
+   "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 8 Qt TurboFry",
+   "claim": "Basket divider",
+   "published_value": "Not documented for RJ38-SQSS-8T on the brand page or in its manual",
+   "observed_2026_11_14": "Still not documented: neither the Features nor the Specifications block read today mentions a divider for RJ38-SQSS-8T, so the row correctly stays \"not documented\" rather than a verified \"no\".",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 8 Qt TurboFry",
+   "claim": "Hi-Fry / 450 °F mode",
+   "published_value": "— blank (unverified, reason published) —",
+   "observed_2026_11_14": "Both official sources still say what they said on 2026-11-13: the Amazon title read today advertises a \"450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen\", while the brand page read today states \"Max temp: 400ºF/ 205ºC\" and \"200–400°F\". The row stays blank; the site asserts neither.",
+   "verdict": "conflict-live",
+   "source_label": "Chefman product page vs Amazon title",
+   "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 8 Qt TurboFry",
+   "claim": "Wattage",
+   "published_value": "1700 W / 120 V",
+   "observed_2026_11_14": "The brand page does publish this: \"Power: 1700W/120V\". The row was blank on 2026-11-13 because the page had not been read down to the Specifications block — corrected today, value filled from the manufacturer's own page.",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 8 Qt TurboFry",
+   "claim": "Dimensions / weight",
+   "published_value": "8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg",
+   "observed_2026_11_14": "Published on the same page: \"Dimensions: (8 Qt Model) 15.4 in x 12.6 in x 13.5 in / 39.11 cm x 32 cm x 34.29 cm\" and \"Weight: (8 Qt Model) 12.8 lbs / 5.8 kg\". Row filled today for the same reason as the wattage row.",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "C · Spec rows — Chefman 8 Qt TurboFry",
+   "claim": "Warranty",
+   "published_value": "Limited 1-year warranty from date of retail purchase (non-transferable, original purchaser)",
+   "observed_2026_11_14": "Page states \"cETL approved with a 1-year Chefman® assurance\". The fuller wording in the row (non-transferable, from date of retail purchase) comes from the manual's warranty section, not re-read today.",
+   "verdict": "partially-confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+   "note": "Row-by-line re-read of the value this site publishes."
+  },
+  {
+   "group": "D · Pricing & reputation",
+   "claim": "Chefman 6 Qt brand list price",
+   "published_value": "$119.99 USD (brand list, not MSRP-labelled)",
+   "observed_2026_11_14": "Page price block read today shows $119.99 struck through alongside promotional figures $108.00 / $90.00 / $84.00 / $102.00 / $96.00 / $72.00 with Save 10/25/30/15/20/40% badges, and \"In stock, ready to ship\".",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer",
+   "note": "Only the list figure is published by this site; the promotional prices move and are not MSRP."
+  },
+  {
+   "group": "D · Pricing & reputation",
+   "claim": "Chefman 8 Qt brand list price",
+   "published_value": "$119.99 USD",
+   "observed_2026_11_14": "Same figure on the 8 Qt page family; lower promotional prices displayed alongside.",
+   "verdict": "confirmed",
+   "source_label": "Chefman product page",
+   "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+   "note": ""
+  },
+  {
+   "group": "D · Pricing & reputation",
+   "claim": "Emeril 26 QT brand list price",
+   "published_value": "$199.99 USD",
+   "observed_2026_11_14": "Page shows $199.99 under the title, with the model number 4-00675-02A-VN beside it.",
+   "verdict": "confirmed",
+   "source_label": "Emeril product page",
+   "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+   "note": ""
+  },
+  {
+   "group": "D · Pricing & reputation",
+   "claim": "Chefman 6 Qt brand-site rating",
+   "published_value": "4.6 / 5 from 1,302 reviews",
+   "observed_2026_11_14": "Brand widget reads 4.6 with 1,305 total reviews (5★ 927 · 4★ 257 · 3★ 85 · 2★ 12 · 1★ 24).",
+   "verdict": "moved",
+   "source_label": "Chefman product page review widget",
+   "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer",
+   "note": "The average is unchanged; the count moved +3 in a day — which is exactly why the site stamps rating figures. Row on the site refreshed to 1,305 today."
+  },
+  {
+   "group": "D · Pricing & reputation",
+   "claim": "Chefman 8 Qt brand-site rating",
+   "published_value": "4.6 / 5 from 715 reviews",
+   "observed_2026_11_14": "Brand widget reads 4.6 with 716 total reviews (5★ 522 · 4★ 131 · 3★ 42 · 2★ 10 · 1★ 11).",
+   "verdict": "moved",
+   "source_label": "Chefman product page review widget",
+   "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+   "note": "Site row refreshed to 716 today."
+  },
+  {
+   "group": "D · Pricing & reputation",
+   "claim": "Emeril brand-site rating",
+   "published_value": "2.6 / 5 from 25 reviews",
+   "observed_2026_11_14": "Page reads 2.6 (25) — identical to the recorded value.",
+   "verdict": "confirmed",
+   "source_label": "Emeril product page",
+   "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+   "note": "The site publishes this unusually low brand-hosted score as displayed, labelled as the brand's own rating and not Amazon's."
+  },
+  {
+   "group": "D · Pricing & reputation",
+   "claim": "Per-product commission",
+   "published_value": "blank; candidate rows Kitchen 4.50% / Home 3.00% / fallback 4.00%",
+   "observed_2026_11_14": "Table 1 re-read; still no air-fryer row and still no published ASIN→category mapping.",
+   "verdict": "confirmed",
+   "source_label": "Amazon Associates Central — Standard Commission Income Statement",
+   "source_url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+   "note": "Leaving this blank is the correct output, not a gap: filling it would require guessing which category Amazon assigns to the ASIN."
+  }
+ ]
+}

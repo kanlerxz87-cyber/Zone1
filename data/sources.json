@@ -1,6 +1,6 @@
 {
   "accessed": "2026-11-13",
-  "note": "Every entry below was fetched live on the access date. 'official' means the page is published by the party that owns the fact (Amazon, the FTC, the brand). No secondary blogs, retailer resellers or review aggregators are used anywhere in this project.",
+  "note": "Every entry below was fetched live on the access date. 'official' means the page is published by the party that owns the fact (Amazon, the FTC, the brand). No secondary blogs, retailer resellers or review aggregators are used anywhere in this project. Re-verification pass 2026-11-14 (sess-81495d2d) re-read S3, S5, S9, S10, S12, S14, S15, S16, S17 and S18 and added the two control lookups S21 and S22; see the Re-verification page.",
   "sources": [
     {
       "id": "S1",
@@ -30,7 +30,7 @@
       "covers": "Published fixed commission rates by product category; bounty amounts",
       "kind": "Rate card",
       "directness": "Primary — the only official rate table",
-      "page_version": "Live page, 2026-11-13"
+      "page_version": "Standard Commission Income Statement, re-read live 2026-11-14 (first read 2026-11-13) — Table 1 and Bounty Events read without a login"
     },
     {
       "id": "S4",
@@ -50,7 +50,7 @@
       "covers": "Required Associate statement; clear + conspicuous link-level disclosure",
       "kind": "Help article",
       "directness": "Primary — Amazon's own compliance guidance",
-      "page_version": "Live page, 2026-11-13"
+      "page_version": "Associate identification / disclosure help node, re-read live 2026-11-14 (first read 2026-11-13)"
     },
     {
       "id": "S6",
@@ -90,7 +90,7 @@
       "covers": "Binding rule text, including §255.5 Disclosure of material connections",
       "kind": "Regulation",
       "directness": "Primary — codified rule",
-      "page_version": "Up to date as of 2026-11-10; last amended 2026-10-30"
+      "page_version": "eCFR Title 16 shown as \"up to date as of 11/12/2026\"; Title 16 last amended 10/30/2026; Part 255 source note 88 FR 48102 (Jul 26 2023), no later amendment on its timeline — re-read 2026-11-14"
     },
     {
       "id": "S10",
@@ -100,7 +100,7 @@
       "covers": "Model RJ38-SQPF-3TDB-2W capacity, temperature range, dimensions, weight, power, approvals, list price, brand-site rating",
       "kind": "Manufacturer product page",
       "directness": "Primary — brand owning the specification",
-      "page_version": "Live page, 2026-11-13"
+      "page_version": "Chefman 6 Qt Dual-Window product page, re-read live 2026-11-14 (first read 2026-11-13) — spec block, price and review widget all re-read"
     },
     {
       "id": "S11",
@@ -120,7 +120,7 @@
       "covers": "Model RJ38-SQSS-8T: sizes, preset set, 200–400 °F range, dishwasher-safe parts, auto shutoff, list price, brand-site rating",
       "kind": "Manufacturer product page",
       "directness": "Primary",
-      "page_version": "Live page, 2026-11-13"
+      "page_version": "Chefman 8 Qt TurboFry product page, re-read live 2026-11-14 (first read 2026-11-13) — Features and Specifications blocks re-read (the block that fills the former Wattage and Dimensions blanks)"
     },
     {
       "id": "S13",
@@ -140,7 +140,7 @@
       "covers": "Capacity, dimensions, voltage, price, accessory count, warranty, preset-count claims, brand-site rating",
       "kind": "Manufacturer product page",
       "directness": "Primary",
-      "page_version": "Live page, 2026-11-13"
+      "page_version": "Emeril 26QT French Door product page, re-read live 2026-11-14 (first read 2026-11-13) — price, spec icons, model number and 2.6/25 review widget re-read"
     },
     {
       "id": "S15",
@@ -150,7 +150,7 @@
       "covers": "Rated power 1700 W, 120 V/60 Hz, 26 qt (1519 cu in), temperature range 75–500 °F / 25–260 °C",
       "kind": "Manufacturer owner's manual",
       "directness": "Primary",
-      "page_version": "Document live, 2026-11-13"
+      "page_version": "Emeril FAFO-001 owner's manual (PDF) — safety, Parts & Accessories and control-panel pages re-read 2026-11-14; the temperature/preset chart was not re-read in this pass"
     },
     {
       "id": "S16",
@@ -160,7 +160,7 @@
       "covers": "Listing titles only — used solely to prove which ASIN each short link resolves to. Amazon prices, star ratings and availability are deliberately not reproduced on this site (see S2 §2(b) and §3(t)).",
       "kind": "Retail listing",
       "directness": "Primary for 'what does this short link point to'; not used for specification claims",
-      "page_version": "Live page, 2026-11-13"
+      "page_version": "Amazon listing detail page B0CDY277D3 — re-resolved through the supplied short link 2026-11-14; <title> unchanged"
     },
     {
       "id": "S17",
@@ -170,7 +170,7 @@
       "covers": "The three redirect links themselves and their resolved destinations",
       "kind": "Short link",
       "directness": "Primary for the redirect target; the Associates tag inside is not observable",
-      "page_version": "Resolved 2026-11-13"
+      "page_version": "Supplied link.amazon short link — re-resolved 2026-11-14, same target ASIN, still served with lv=shuf&plpRedirect=mhFallback"
     },
     {
       "id": "S18",
@@ -180,7 +180,7 @@
       "covers": "Owner's manual: explicit statement of 'two 3-quart baskets', HI-FRY definition (450 °F/235 °C for 2 minutes), Sync Finish, Sync Baskets, aerosol-spray caution",
       "kind": "Manufacturer owner's manual",
       "directness": "Primary",
-      "page_version": "Document live, 2026-11-13"
+      "page_version": "Chefman RJ38-SQPF-3TDB-2W owner's manual (PDF) — control panel and operating instructions re-read 2026-11-14; the cooking chart was not re-read in this pass"
     },
     {
       "id": "S19",
@@ -201,6 +201,27 @@
       "kind": "Help article",
       "directness": "Primary",
       "page_version": "Live page, 2026-11-13"
+    },
+    {
+      "id": "S21",
+      "org": "Amazon.com",
+      "title": "Product-detail lookup for the supplied 9-character token (negative control)",
+      "url": "https://www.amazon.com/dp/B04G1MEwY",
+      "covers": "Returned Amazon's \"Page Not Found\" error page on 2026-11-13 and again on 2026-11-14, i.e. the supplied token is not itself an ASIN and cannot be opened as one",
+      "kind": "Negative finding",
+      "directness": "Primary — Amazon's own response to the request",
+      "page_version": "Fetched 2026-11-14"
+    },
+    {
+      "id": "S22",
+      "org": "Amazon.com",
+      "title": "link.amazon resolver, nonsense-token control request",
+      "url": "https://link.amazon/ZZZ9ZZZZZ",
+      "covers": "A made-up 9-character token returns 403 Forbidden rather than a shuffled featured product, which is how the resolver distinguishes a recognised token from an unrecognised one",
+      "kind": "Negative finding",
+      "directness": "Primary — Amazon's own response to the request",
+      "page_version": "Fetched 2026-11-14"
     }
-  ]
+  ],
+  "reverified": "2026-11-14"
 }

@@ -176,11 +176,11 @@
         "amazon_review_count": null,
         "amazon_reason": "Not displayed by policy (S2 §3(t); S2 §2(b)).",
         "brand_site_rating": {
-          "v": "4.6 / 5 from 1,302 reviews",
+          "v": "4.6 / 5 from 1,305 reviews",
           "s": [
             "S10"
           ],
-          "note": "Ratings collected by Chefman's own on-site review widget. This is a brand-hosted number, not Amazon's, and is shown only as vendor-published social proof."
+          "note": "Ratings collected by Chefman's own on-site review widget (4.6 average; 5★ 927 · 4★ 257 · 3★ 85 · 2★ 12 · 1★ 24). Read 1,302 reviews on 2026-11-13 and 1,305 on 2026-11-14 — the count moves daily, so it is stamped. Brand-hosted figure, not Amazon's."
         }
       },
       "commission": {
@@ -566,21 +566,19 @@
         },
         {
           "label": "Wattage",
-          "value": null,
-          "unverified": "Not stated on the brand product page or in the RJ38-SQSS-8T manual. Retailer listings quote 1700 W but are not official sources, so nothing is recorded.",
+          "value": "1700 W / 120 V",
           "source": [
-            "S12",
-            "S13"
-          ]
+            "S12"
+          ],
+          "note": "Filled on 2026-11-14 after re-reading the brand page: its Specifications block states 'Power: 1700W/120V' outright. This row was blank on 2026-11-13 because the page had not been read down to the Specifications block — the value is the manufacturer's own, not a retailer's."
         },
         {
           "label": "Dimensions / weight",
-          "value": null,
-          "unverified": "Not stated on the brand product page or in the manual.",
+          "value": "8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg",
           "source": [
-            "S12",
-            "S13"
-          ]
+            "S12"
+          ],
+          "note": "Filled on 2026-11-14 from the same Specifications block, which separates the 5 Qt and 8 Qt figures: 'Dimensions: (8 Qt Model) 15.4 in x 12.6 in x 13.5 in' and 'Weight: (8 Qt Model) 12.8 lbs / 5.8 kg'. The 8 Qt column applies to RJ38-SQSS-8T, the model on this product page."
         },
         {
           "label": "Warranty",
@@ -608,11 +606,11 @@
         "amazon_review_count": null,
         "amazon_reason": "Not displayed by policy.",
         "brand_site_rating": {
-          "v": "4.6 / 5 from 715 reviews",
+          "v": "4.6 / 5 from 716 reviews",
           "s": [
             "S12"
           ],
-          "note": "Brand-hosted rating for the RJ38-SQSS-8T product page."
+          "note": "Brand-hosted rating for the RJ38-SQSS-8T product page (5★ 522 · 4★ 131 · 3★ 42 · 2★ 10 · 1★ 11). Read 715 reviews on 2026-11-13 and 716 on 2026-11-14. Not Amazon's rating."
         }
       },
       "commission": {
@@ -663,5 +661,7 @@
         }
       ]
     }
-  ]
+  ],
+  "reverified": "2026-11-14",
+  "reverified_by": "sess-81495d2d"
 }
