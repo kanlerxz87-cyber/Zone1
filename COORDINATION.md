@@ -2402,3 +2402,38 @@ rebase, and no session's claim or completion record was overwritten.
 | T23 | Integration pass 8: independent re-verification of the three `link.amazon` short links, 16 CFR 255.5 and 16 CFR 465 on eCFR, the live GitHub Pages deployment, and a full local gate run; PR → merge → confirm Pages | **done** | arena-2300f756 | `COORDINATION.md` (log entries only), `session-2300f756/**` (new evidence dir). No `data/*.json` or `build.py` changes unless a gate fails. |
 
 Scope rule: no `data/*.json` values and no `build.py` code are changed in this pass. Any value that cannot be re-confirmed against an official source is flagged, not edited.
+
+### Completion record — arena-2300f756 (T23, pass 8, 2026-11-14 UTC)
+
+* **Evidence:** `session-2300f756/VERIFICATION-2026-11-14.md` — gate results, round-7 link reads
+  with served titles quoted verbatim, eCFR reads, live-Pages audit, and the advisory-observations list.
+* **Gates (all green, run by this session):** `build.py` reproducible (21 pages, byte-identical) ·
+  `verify.py` 0 errors (99 pages; advisory s2 allow-list WARNs only) · platform tests 33/33 OK ·
+  audit 0 warnings · `build_s2_site.py --check` current (16 files) · `check_research.py` OK ·
+  `check_links.py` 4,477 links, ok · annex 382/382, byte-identical · repo-wide conflict-marker scan clean.
+* **Round 7 — short links (fetched live by this session):** all three land on the stored ASINs and the
+  served titles match the stored values verbatim (`B04G1MEwY`→`B0CDY277D3` Chefman 6 Qt dual basket,
+  `B02NbDxp3`→`B09B7SB46R` Emeril 26QT, `B00hJ57DV`→`B08DKYBTPH` Chefman 8 Qt). Fallback markers
+  (`lv=shuf`, `plpRedirect=mhFallback`) still present on every landing; no `tag=` observable (F6/F21).
+  The 450 °F / 4-in-1 wording is still live on Amazon (F3/F33 open); the Emeril title still says
+  "24 cooking functions" (F29 evidence). No count asserted, nothing changed.
+* **eCFR:** 16 CFR 255.5 re-read live — current as of 11/12/2026, source 88 FR 48102 (2023-07-26),
+  matches the site's registered citation. **16 CFR Part 465 re-read live for the first time by a
+  recent pass** — sections 465.1–465.9 confirmed (incl. §465.2 fake reviews, §465.4 buying reviews,
+  §465.7 suppression), source 89 FR 68077 (2024-08-22); confirms the `research/` register's citation.
+* **Live Pages audit:** `pages/builds/latest` = commit `99b6fb5` (origin/main tip at check time),
+  `status: built`, `error: null`; all four workflows green on main at that commit; live
+  `flagged.html` serves 35 Open items + the OA §5 disclosure bar; live `articles/index.html` serves
+  the 5-article layer with sourced editorial rules.
+* **No stored value was found wrong; no new flag required; no data file changed.** Advisory
+  observations (pre-existing s2 WARN class, check_links advisory rows) are recorded in the evidence
+  file and are not gate failures.
+* **Conflict log (protocol §6):** `main` advanced twice while this claim was open (PRs #44 and #45
+  from other sessions) and the session-history rewrite on `main` (squash to `f45374b`) made a
+  straightforward `pull --rebase` inapplicable; the branch was aligned to `origin/main` by resetting
+  to it (this session had no unique commits to lose, verified by an empty `git diff` base→main
+  before resetting) and the claim re-applied on top. The second rebase before the PR was resolved as
+  a union in `COORDINATION.md` only — no other session's record was edited or discarded. One
+  `--force-with-lease` push of this branch superseded only this session's own claim commit
+  (`7a9ef26` → `6cba075`), checked via `git ls-remote` before pushing.
+* **Scope kept:** `COORDINATION.md` and `session-2300f756/**` only.
