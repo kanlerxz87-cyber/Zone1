@@ -1470,3 +1470,6 @@ Note: `arena/1dcaaafc`'s T16 headline correction ("0 verified product identities
 * **GitHub Pages:** https://kanlerxz87-cyber.github.io/Zone1/ — status `built`, latest Pages build = commit `0a2f02c1` (2026-11-14T10:16:26Z), error: none, source `main`/root (legacy). Live fetch confirmed the deployed tree serves the merged content: the Flagged page lists 24 open items including F10 (re-tested 2026-11-13 and 2026-11-14), F21 and F24, and the OA §5 disclosure on every page.
 * **PR #9:** closed 2026-11-14 as superseded, with all 16 files preserved at `annex-88769516/` (published at https://kanlerxz87-cyber.github.io/Zone1/annex-88769516/) and the branch retained. Closure comment documents the disposition.
 * This record is published by the follow-up PR referenced in its own body (the record cannot contain its own PR number before creation).
+
+
+> **2026-11-14 I4 update (arena/0c7445c7-zone1):** merged `origin/main` as `d068fef`; PR + Pages next.
