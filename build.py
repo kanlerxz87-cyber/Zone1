@@ -1334,6 +1334,27 @@ PROGRAMME_FLAGS = [
      "suggestions.html and questions.html (PR #58, X-633b115f)",
      "Recorded 2026-11-15 by arena-b1e7b4bc. (a) The Suggestions lede says 'None of them has been implemented', but for SG-03, SG-04, SG-05 and SG-11 option A is the current, already-implemented state ('Keep...', 'Keep blank and link to the live Amazon page (current, compliant)'), so those rows read more accurately as 'confirm the current state' than as pending work. (b) Q-01's 'How to find out' says to check the owner's Associates account for which tag the short links carry - the tag is not observable from the account's tracking-ID page either (flag F6); only whoever created the short links knows the mapping. Decision needed: reword the lede and the Q-01 cell, or accept the current phrasing. Both rows' facts and sources check out; this flag is about wording only.",
      []),
+
+    # ------------------------------------------------------------------ #
+    # Verification pass 9 - session 42ca97ad, 2026-11-15.
+    # Raw evidence: session-42ca97ad/EVIDENCE-2026-11-15.md
+    # ------------------------------------------------------------------ #
+    ("F44", "The Amazon department category is now read directly on all three listings; the rate itself still needs the Earnings report.",
+     "All three products \u2014 commission rate",
+     "Recorded 2026-11-15 by session 42ca97ad. The annex register\u2019s row F-06 recorded that the browse-node path \u2018Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers\u2019 had been read directly on B09B7SB46R only, and named reading the other two listings as the confirmation step. This session fetched all three supplied link.amazon short links and read the identical breadcrumb on B0CDY277D3 and B08DKYBTPH as well, so the evidence is now three for three rather than one for three. It still does not establish the category Amazon applies when a commission is settled: only the Associates Earnings report names the category on a shipped line, so the two candidate rows (Kitchen 4.50%, All Other 4.00%) remain the honest presentation until a sale exists. Decision needed: publish Kitchen 4.50% as the working rate with the breadcrumb cited (SG-10 path A), or keep both rows until the first Earnings report lands.",
+     ["S3", "S16", "S28", "S29"]),
+    ("F45", "Ten article sentences spliced a published display label into a mid-sentence position. Found, fixed and guarded.",
+     "articles/ prose, and the build\u2019s article gate",
+     "Recorded 2026-11-15 by session 42ca97ad. The article prose in data/articles.json interpolates published values into sentences. Ten of those interpolations put a display label \u2014 \u2018Two 3-quart baskets\u2019, \u2018Designed for 4-6 people\u2019, \u2018Fries, Chicken, Fish, Meat (one-touch)\u2019, \u2018Limited 1-year warranty \u2026\u2019 \u2014 into a position where its capital is wrong, so the sentences read as machine output: \u2018The dual-basket unit is 6 Qt / 5.67 L as Two 3-quart baskets\u2019, \u2018splits a 6 Qt / 5.67 L cavity into Two 3-quart baskets\u2019. The defect was invisible to every earlier verification pass, because each value is genuinely published and correct in a table; it only appears when the page is read as prose, which is what a shopper does. Fixed by adding a {{value::prose form}} syntax whose prose form may differ from the published value in letter case and nothing else, enforced by check_articles(), and by adding check_article_splices(), which fails the build when a capitalised value is spliced into a mid-sentence position. Both guards were proven to fire: the build failed on exactly these ten defects before the fix and passes after it. No published value changed and no source changed.",
+     ["S1"]),
+    ("F46", "The Application Review Process page was not re-read this pass; its figures are carried forward from an earlier fetch.",
+     "S4 \u2014 the Associates application criteria",
+     "Recorded 2026-11-15 by session 42ca97ad. This pass re-fetched the Program Policies, the Standard Commission Income Statement, both Chefman product pages, the Emeril product page, all three owner\u2019s manuals, all three supplied short links, 16 CFR Part 255 and 16 CFR Part 465. It did not load the Application Review Process page (S4). The figures the repository carries for it \u2014 three qualifying sales within 180 days, roughly ten posts, content recent within about sixty days, a social follower floor of about five hundred \u2014 are carried forward from earlier logged fetches and are NOT re-confirmed by this pass. The sixty-day recency requirement is load-bearing for any content-refresh schedule the owner adopts, so it must be re-read before it is used as a scheduling rule rather than quoted from this repository. What was and was not fetched is listed item by item in session-42ca97ad/EVIDENCE-2026-11-15.md section 6.",
+     ["S4"]),
+    ("F47", "Three files under data/ are read by no build, and one of them is a stale copy of a register that is published.",
+     "data/flagged.json, data/commission-rates.csv, data/products.csv",
+     "Recorded 2026-11-15 by session 42ca97ad. A reference scan of every loader in the repository shows that scripts/build_site.py and scripts/verify_site.py read data/verified/, not data/. The root-level data/flagged.json is therefore an orphan: it holds a 13-row register whose live counterpart is data/verified/flagged.json (17 rows), and the two disagree across 85 lines \u2014 including the browse-node observation this pass has just updated, which would otherwise leave two registers saying different things about the same fact. data/commission-rates.csv and data/products.csv are read by nothing in the repository; the first is a CSV transcription of the Standard Commission Income Statement, the second the 2026-11-13 link-check ledger that records the bare-token 404 and the fallback redirect, and both are evidence worth keeping if they are labelled as evidence. Nothing published depends on any of the three, so this is a maintenance risk rather than a correctness bug, but a reader who opens data/flagged.json sees a register that no longer matches the site. Decision needed: delete the three orphans, or keep them explicitly as dated evidence with a header that says so.",
+     ["S1"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -2454,7 +2475,7 @@ def page_suggestions():
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Suggestions</p>
 <h1>Suggestions, and a place to choose between them</h1>
-<p class="lede">Sixteen things this pass believes would materially improve this site, in priority order.
+<p class="lede">{len(items)} things this project believes would materially improve this site, in priority order.
 Nothing on this page has been implemented. Each entry names the problem it fixes, the official
 document or repository evidence behind it, two or three paths you could take, and the path this
 pass would pick if it were your call. Read the one you care about, choose a path, and the work is
@@ -2488,7 +2509,7 @@ a short story rather than an open-ended project.</p>
 </div>
 """
     return layout("marketing-directions.html", "Suggestions", body, active="marketing-directions.html",
-                  description="Sixteen reviewed, evidence-backed suggestions for the site, each with alternative paths and a recommendation, for the owner to choose before anything is implemented.")
+                  description="Reviewed, evidence-backed suggestions for the site, each with alternative paths and a recommendation, for the owner to choose before anything is implemented.")
 
 
 def page_questions():
@@ -2523,6 +2544,18 @@ def page_questions():
         block_html = " ".join(
             f'<a class="src" href="suggestions.html#{e(x.lower())}">{e(x)}</a>' for x in blocks
         ) or '<span class="tiny muted">Does not block anything on its own.</span>'
+        # A question that can be answered carries its answer. This is the column
+        # the brief asked for: not only what is missing, but what the answer is
+        # where an official source already settles it.
+        answer = item.get("answer")
+        answer_html = (
+            f'<div class="callout ok"><strong>Answer.</strong> {e(answer)}</div>'
+            if answer else
+            '<div class="callout warn"><strong>Answer.</strong> '
+            'No answer is published here. The official sources listed below were read '
+            'and do not settle it, or it cannot be settled from outside the account. '
+            'The "How to find it out" line names the step that would.</div>'
+        )
         return f"""
 <article class="qcard" id="{e(item['id'].lower())}">
   <div class="sug-head">
@@ -2533,6 +2566,7 @@ def page_questions():
     <span class="pill {cls}">{e(label)}</span>
   </div>
   <p><strong>Why it matters.</strong> {e(item['why_it_matters'])}</p>
+  {answer_html}
   <div class="twocol">
     <div><p class="label">What we know, and can prove</p><ul class="tight">{known}</ul></div>
     <div>

@@ -1,6 +1,6 @@
 {
-  "version": "1.0",
-  "pass": "Integration pass 8 (arena/3ddfa50e-zone1)",
+  "version": "1.1",
+  "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8",
   "compiled": "2026-11-15",
   "how_to_read": [
     "Nothing on this page has been implemented. It is a decision queue for the site owner.",
@@ -832,6 +832,196 @@
       "blocked_by": [
         "Q-07"
       ]
+    },
+    {
+      "id": "SG-17",
+      "title": "Decide what the AI agent in the brief is allowed to read, before the pipeline is written",
+      "area": "Platform and compliance",
+      "problem": "The brief asks for an AI platform that \"automates product research, identifies trending and high-converting products, analyses pricing, reviews, competition, and commission potential\". Read against Amazon's IP License, most of the automatic half of that is contractually closed. Section 1 states that Amazon \"will not allow any third party to use Program Content to, directly or indirectly, develop or improve large language or multimodal models, machine learning models or related technology\". Section 2(e) forbids accessing Creators API, PA API or Data Feeds \"for the purpose of aggregating, analyzing, extracting, or repurposing any Product Advertising Content ... or in the direct training or fine-tuning of a machine learning and/or foundational model\" without Amazon's express prior written approval. An Amazon listing's title, price, rating and review count are Program Content. An agent that reads Amazon listings to learn what sells is therefore the exact use the licence names; an agent that reads manufacturers' own product pages and owner's manuals is not. This is a constraint on design, and it is cheapest to honour before the pipeline is written.",
+      "evidence": [
+        {
+          "label": "Associates Program IP License, section 1 - Program Content and large language models",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Associates Program IP License, section 2(e) - aggregating, analysing, repurposing, and model training",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Build the platform on manufacturer and first-party data only",
+          "what": "Research the manufacturers' own product pages and owner's manuals, keep the verified dataset as the single source of truth, and let the generator write only what that dataset contains. This repository already implements the pattern: build.py refuses to publish an article whose numbers are not in data/products.json, and every value on the site carries the official page it came from. Trend and niche signals then come from your own click and earnings data rather than from Amazon's listings.",
+          "effort": "L",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Apply for Creators API or PA API and operate inside the API licence",
+          "what": "The APIs are the sanctioned route to Amazon data, and their output may be displayed under sections 2(b) and 6(t) with the required display rules. Credentials are tied to the primary account holder and request volume scales with account sales, so this path depends on Q-05 and Q-03 being answered first.",
+          "effort": "L",
+          "risk": "medium",
+          "reversible": false
+        },
+        {
+          "label": "C. Ask Amazon for prior written approval to use listing content",
+          "what": "Section 2(e) allows the use with Amazon's express prior written approval. Until that approval exists in writing, any version of option A that reads listing text is the prohibited use.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A, treating B as the later upgrade rather than the starting point.",
+      "why": "The headline capability in the brief is the part the licence most clearly constrains, and knowing that before the research pipeline is designed costs nothing, while discovering it afterwards costs the pipeline. Option A is not a reduced version of the brief: it is the version of it that is lawful, and this repository already demonstrates that it can be built - the whole site is a working example of manufacturer-sourced, machine-written, claim-checked content.",
+      "impact": 5,
+      "confidence": 5,
+      "effort": "L",
+      "risk_of_not_doing": "High. A pipeline built on scraped listing content that later turns out to be the prohibited use means discarding the pipeline, and potentially the account, at the point where the most has been spent.",
+      "blocks": [],
+      "blocked_by": []
+    },
+    {
+      "id": "SG-18",
+      "title": "Give every published value a refresh date, and let the build report what has gone stale",
+      "area": "Content operations",
+      "problem": "Every published figure on this site carries the date it was read, but nothing tells the owner when it should be read again. The dataset already contains a measured case of drift: Chefman's own review counter moved from 1,302 to 1,305 within twenty-four hours while the average held at 4.6. The Associates application-review criteria recorded in this repository also include a requirement that site content be recent - a requirement that was not re-read on 2026-11-15 (flag F46), so the exact window must be confirmed before it is used as a schedule. A page that is silently three months stale still looks authoritative, and the site has no mechanism to say so.",
+      "evidence": [
+        {
+          "label": "Chefman 6 Qt brand page - 1,305 brand-hosted reviews at the 2026-11-15 read",
+          "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+        },
+        {
+          "label": "Application Review Process - site content recency criterion (not re-read 2026-11-15; see flag F46)",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Publish a stale-value report driven by the read dates the dataset already carries",
+          "what": "A dated read already exists for most rows. Add one build report that lists every value whose read date is older than a per-class interval you set - 30 days for ratings and review counts, 180 days for physical specifications - and link it from the flag page so staleness is visible rather than silent.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Automate the re-fetch",
+          "what": "Schedule the same fetches this pass made and rewrite the dataset. It works, but a script that writes into the verified dataset can silently overwrite a human correction, so it needs the same no-inference guard the article gate uses.",
+          "effort": "L",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Freeze the values as a dated snapshot",
+          "what": "Leave the dataset as it is and treat it as a snapshot. Simplest and safest, but a stale specification is a wrong specification the moment a manufacturer changes it.",
+          "effort": "none",
+          "risk": "medium",
+          "reversible": false
+        }
+      ],
+      "recommendation": "A now, and B only once the corrections log in SG-13 exists, so an automated re-fetch can never silently overwrite a human decision.",
+      "why": "The site's credibility rests on values being right on the day they were read, and it already says so on every page. What it does not yet do is warn when they stop being right. A stale-value report turns a slow, invisible risk into a visible one, and it reuses the read-date discipline the dataset already carries rather than adding a new process.",
+      "impact": 4,
+      "confidence": 4,
+      "effort": "M",
+      "risk_of_not_doing": "Medium. The failure is slow and invisible: a manufacturer revises a specification, the site keeps publishing the old one, and the first person to notice is a reader.",
+      "blocks": [],
+      "blocked_by": []
+    },
+    {
+      "id": "SG-19",
+      "title": "Decide the product set before the next content push",
+      "area": "Catalogue",
+      "problem": "The site covers three air fryers, two of them from the same brand and two of them in the same form factor, so the comparison a reader can make here today is narrow. The category is much wider than that: the Amazon listing pages the site's own links open carry Amazon's own related-listing carousels, and those name the competing French-door ovens and dual-basket fryers a shopper in this niche is actually choosing between - each with a manufacturer's product page and manual that this project already knows how to verify to the standard the site holds. Adding the direct competitors is the largest single lever on both organic traffic and commission, and also the largest block of new verification work.",
+      "evidence": [
+        {
+          "label": "Amazon listing for B09B7SB46R - related-listing carousel naming competing French-door ovens",
+          "url": "https://link.amazon/B02NbDxp3"
+        },
+        {
+          "label": "Amazon listing for B0CDY277D3 - related-listing carousel naming competing dual-basket fryers",
+          "url": "https://link.amazon/B04G1MEwY"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Add the competing listings the site's own Amazon pages already name",
+          "what": "Take each carousel entry that is a genuine competitor for the same buyer - not a sponsored slot - and bring it to the same standard as the three current products: manufacturer page, owner's manual, verified dataset rows, and a sourced line in the comparison matrix.",
+          "effort": "L",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Keep three products and widen by format instead",
+          "what": "Add one product per form factor the site already explains, so the comparison is about air fryer types rather than about these three particular units.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "C. Stay at three products",
+          "what": "The narrowest option and the cheapest to keep verified. It caps traffic at whatever a few exact-match queries can bring.",
+          "effort": "none",
+          "risk": "medium",
+          "reversible": false
+        }
+      ],
+      "recommendation": "A, but only after SG-01 settles which model each supplied link points to. Adding products to a catalogue whose existing entries are mis-identified multiplies the error instead of fixing it.",
+      "why": "Organic traffic in this niche is won by covering the comparison a buyer is making, not by covering one product deeply. Two of the three current products share a brand and a form factor, so the set cannot answer the two questions its own articles say are most common: air fryer or oven, and which dual basket.",
+      "impact": 5,
+      "confidence": 4,
+      "effort": "L",
+      "risk_of_not_doing": "High. Every week spent deepening three pages is a week not spent on the pages a comparison search lands on.",
+      "blocks": [],
+      "blocked_by": [
+        "Q-01"
+      ]
+    },
+    {
+      "id": "SG-20",
+      "title": "Put the \"we could not confirm this\" markers on the money pages, not only on the register",
+      "area": "Trust and conversion",
+      "problem": "The most distinctive thing this site does - refusing to guess, and publishing what it could not confirm - lives on a separate Flagged page that a reader has to go and find. On the buying guide that reads as thoroughness. On a product page, next to the price and the buy button, it would read as rigour, and it would answer the question a sceptical buyer actually has: why does this page not show the price, and why does it say the model is unconfirmed? The site's decision to show no price, no rating and no review count is correct under Program Policies sections 2(b) and 6(t), and it is also the thing most likely to look like an omission to a reader who never sees the reason.",
+      "evidence": [
+        {
+          "label": "16 CFR 465.6 - a company-controlled site must not misrepresent its reviews as independent",
+          "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-465/section-465.6"
+        },
+        {
+          "label": "Program Policies 2(b) - when prices and availability may be shown",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Put an inline marker next to each unconfirmed value on the product pages",
+          "what": "Where a specification row is blank or in conflict, show a short marker in place - \"not confirmed by the manufacturer\" - that links to the register row and its source. The value stays blank; the reason becomes visible exactly where the reader is looking.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Add a short trust strip under each buy button",
+          "what": "One line plus a link: what this page is based on, what was not tested, and where the open items are. Cheaper than A and it does the same job for most readers.",
+          "effort": "S",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "C. Leave the register where it is",
+          "what": "Keeps the buying pages clean. The cost is that the site's best differentiator is invisible to exactly the reader who needs it most.",
+          "effort": "none",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "B first, then A on the product pages once the wording is settled.",
+      "why": "The reason a document-based site converts at all is that it is visibly different from a site that invents a star rating. Right now the evidence of that difference sits three clicks away. This is the cheapest conversion improvement available, and it needs no new facts - only the reasons already published on the flag page, moved next to the values they qualify.",
+      "impact": 4,
+      "confidence": 4,
+      "effort": "S",
+      "risk_of_not_doing": "Medium. Nothing breaks and no rule is breached; the site simply fails to get credit for the thing it does better than a typical affiliate page.",
+      "blocks": [],
+      "blocked_by": []
     }
   ]
 }

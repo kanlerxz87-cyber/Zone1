@@ -144,16 +144,16 @@ because Amazon's own policies restrict displaying them. Everything else is small
   <div class="flag-head">
     <span class="flag-id mono">F-06</span>
     <span class="sev sev-low">low</span>
-    <h2>Amazon browse-node category confirmed directly for one ASIN only</h2>
+    <h2>Amazon browse-node category now read directly on all three ASINs</h2>
   </div>
   <div class="flag-body">
     <dl>
       <div><dt>What was expected</dt><dd>A directly-read breadcrumb per ASIN.</dd></div>
-      <div><dt>What was observed</dt><dd>The breadcrumb Home &amp; Kitchen › Kitchen &amp; Dining › Small Appliances › Fryers › Air Fryers was read directly on B09B7SB46R. The other two listings&#x27; breadcrumbs did not render to this client, so their category alignment is inferred from title and brand page.</dd></div>
-      <div><dt>Why it matters</dt><dd>Category drives the commission rate. All three are air fryers, so 4.50% (Kitchen) is almost certainly right, but only one was read directly.</dd></div>
-      <div><dt>What would settle it</dt><dd>Reading the breadcrumb on B0CDY277D3 and B08DKYBTPH, or the Associates category report per ASIN.</dd></div>
+      <div><dt>What was observed</dt><dd>Re-read 2026-11-15 by session 42ca97ad: the browse-node path &#x27;Home &amp; Kitchen &gt; Kitchen &amp; Dining &gt; Small Appliances &gt; Fryers &gt; Air Fryers&#x27; was read directly on B0CDY277D3 and B08DKYBTPH as well, by following the three supplied link.amazon short links. All three listings now carry the identical path, so the category evidence is three for three rather than one for three. The path still does not establish the category Amazon applies when a commission is settled - only the Associates Earnings report names the category on a shipped line.</dd></div>
+      <div><dt>Why it matters</dt><dd>Category drives the commission rate. All three are air fryers and all three listings now render the Kitchen &amp; Dining browse-node path, so 4.50% (Kitchen) is the well-evidenced working rate - but the settlement-time category is still not confirmed from inside the account.</dd></div>
+      <div><dt>What would settle it</dt><dd>The Associates Earnings report per ASIN, once a qualifying sale exists. Until then the breadcrumb is the best available evidence and is recorded as evidence, not as confirmation.</dd></div>
     </dl>
-    <p class="srcmini"><strong>Evidence:</strong> <a href="https://www.amazon.com/dp/B09B7SB46R" rel="noopener nofollow" target="_blank">Amazon B09B7SB46R (breadcrumb source) &#8599;</a></p>
+    <p class="srcmini"><strong>Evidence:</strong> <a href="https://www.amazon.com/dp/B09B7SB46R" rel="noopener nofollow" target="_blank">Amazon B09B7SB46R (breadcrumb source) &#8599;</a> <a href="https://www.amazon.com/dp/B0CDY277D3" rel="noopener nofollow" target="_blank">Amazon B0CDY277D3 (breadcrumb source) &#8599;</a> <a href="https://www.amazon.com/dp/B08DKYBTPH" rel="noopener nofollow" target="_blank">Amazon B08DKYBTPH (breadcrumb source) &#8599;</a></p>
   </div>
 </article><article class="flag flag-low" id="F-07">
   <div class="flag-head">

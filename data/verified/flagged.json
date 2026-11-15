@@ -124,11 +124,11 @@
     {
       "id": "F-06",
       "severity": "low",
-      "item": "Amazon browse-node category confirmed directly for one ASIN only",
+      "item": "Amazon browse-node category now read directly on all three ASINs",
       "what_was_expected": "A directly-read breadcrumb per ASIN.",
-      "what_was_observed": "The breadcrumb Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers was read directly on B09B7SB46R. The other two listings' breadcrumbs did not render to this client, so their category alignment is inferred from title and brand page.",
-      "why_it_matters": "Category drives the commission rate. All three are air fryers, so 4.50% (Kitchen) is almost certainly right, but only one was read directly.",
-      "what_would_confirm_it": "Reading the breadcrumb on B0CDY277D3 and B08DKYBTPH, or the Associates category report per ASIN.",
+      "what_was_observed": "Re-read 2026-11-15 by session 42ca97ad: the browse-node path 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' was read directly on B0CDY277D3 and B08DKYBTPH as well, by following the three supplied link.amazon short links. All three listings now carry the identical path, so the category evidence is three for three rather than one for three. The path still does not establish the category Amazon applies when a commission is settled - only the Associates Earnings report names the category on a shipped line.",
+      "why_it_matters": "Category drives the commission rate. All three are air fryers and all three listings now render the Kitchen & Dining browse-node path, so 4.50% (Kitchen) is the well-evidenced working rate - but the settlement-time category is still not confirmed from inside the account.",
+      "what_would_confirm_it": "The Associates Earnings report per ASIN, once a qualifying sale exists. Until then the breadcrumb is the best available evidence and is recorded as evidence, not as confirmation.",
       "source_ids": [
         "S-AMZ-P1",
         "S-AMZ-P2",
@@ -138,6 +138,14 @@
         {
           "label": "Amazon B09B7SB46R (breadcrumb source)",
           "url": "https://www.amazon.com/dp/B09B7SB46R"
+        },
+        {
+          "label": "Amazon B0CDY277D3 (breadcrumb source)",
+          "url": "https://www.amazon.com/dp/B0CDY277D3"
+        },
+        {
+          "label": "Amazon B08DKYBTPH (breadcrumb source)",
+          "url": "https://www.amazon.com/dp/B08DKYBTPH"
         }
       ]
     },
