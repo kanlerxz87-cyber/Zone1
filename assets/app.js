@@ -1,7 +1,11 @@
 
 document.addEventListener('click', function (ev) {
   var t = ev.target.closest('.navtoggle');
-  if (t) { document.querySelector('.sidebar').classList.toggle('open'); }
+  if (!t) return;
+  var nav = document.getElementById(t.getAttribute('aria-controls'));
+  if (!nav) return;
+  var open = nav.classList.toggle('open');
+  t.setAttribute('aria-expanded', open ? 'true' : 'false');
 });
 
 // revenue scenario calculator — arithmetic on two published inputs only
