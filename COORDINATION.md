@@ -2986,3 +2986,39 @@ Every other source cited on the two pages was already registered in `data/source
 * **Post-merge on `a5ec654`:** `CI` ✓ · `Verify verification annex (site/)` ✓ · `Build, verify and deploy to GitHub Pages` ✓ · `pages build and deployment` ✓. `gh api …/pages/builds/latest` → `status: built`, `error: null`.
 * **Live (fetched from the deployed URLs):** https://kanlerxz87-cyber.github.io/Zone1/suggestions.html and https://kanlerxz87-cyber.github.io/Zone1/questions.html both serve the new content, including the disclosure bar.
 * **Flagged for review (non-blocking):** the open items listed in the X-633b115f record above, now published on the Suggestions and Questions pages.
+
+### Completion record — arena/3ddfa50e (pass 8, 2026-11-15 UTC)
+
+| # | Task | Status | Result |
+|---|------|--------|--------|
+| W1 | Independent verification round 8 | **done** | Fetched by this session 2026-11-15: all three `link.amazon` links, the bare-ASIN control, the Standard Commission Income Statement (Table 1 read in full, Kitchen 4.50% / All Other 4.00%), the Program Policies page (**Updated April 14, 2026**; §2(b), §3(e), §6(t), §6(v), §6(w), **§6(y)**, §5, §3(c) read verbatim), 16 CFR 255.5, 16 CFR Part 465 (§465.6), chefman.com RJ38-SQPF-3TDB-2W, emerileveryday.com French Door 360. Two fetches did **not** return content and are recorded as such, not restated: the application-review page (§ Q-13) and the bare-ASIN check. Evidence: `session-3ddfa50e/EVIDENCE-2026-11-15.md`. |
+| W2 | Line-by-line repo review | **done** | Six defects found. Three are published as flags and fixed: **F38** stale Emeril listing title; **F39** S16 registered as one ASIN URL but cited for all three listing titles; **F40** two rows both numbered F36. Three are tooling and fixed without a flag: sidebar was index-addressed and rendered the wrong groups once nav entries were added; `scripts/build_s2_site.py --check` returned exit 1 the day after any commit because the header stamp was `date.today()`; the Articles nav label said "Five" against eight articles. |
+| W3 | Suggestions section | **done** | `suggestions.html` + `data/suggestions.json`: 16 suggestions, each with problem, official evidence, 2–3 paths, effort, risk, reversibility, a recommendation and a stated reason. Nothing implemented. Priority = impact × confidence, labelled as judgement. |
+| W4 | Open questions register | **done** | `questions.html` + `data/questions.json`: 14 questions in four states (known+sourced / missing but discoverable / the official source does not state it / requires account access), each with what is known, what is missing, how to discover it, and what it blocks. Cross-references are build-checked in both directions. |
+| W5 | Editorial pass / anti-"AI slop" | **done** | Landing page rebuilt buyer-first: the decision, a three-column spec table where every row carries its own source badges, and a plain-English statement of what the site is and how it earns. The verification layer is intact below, reachable from the sidebar under **Evidence**. The old H1 ("product identity not yet confirmed") was an internal status report and is gone. |
+| W6 | Final integration | **done** | See the PR record below. |
+
+**New build guards, each proven to fire on an injected violation**
+
+| Guard | What it enforces | Proof |
+|---|---|---|
+| `check_flag_ids_unique` | a flag number means exactly one row | injected a colliding `F37` → `BUILD FAILED — flag register integrity` |
+| `check_no_price_tracking` | Program Policies **§6(y)**: no price tracking / price alerting | injected `<div id="price-history">` → caught |
+| `check_question_block_refs` | no suggestion points at a missing question and no question at a missing suggestion | runs on every build |
+
+The §6(y) guard is scoped to code-shaped identifiers inside `<script>` bodies and to `id`/`class`/`data-*` attribute values. Prose is deliberately never scanned, because the site must stay free to *explain* the rule — `articles/no-amazon-prices.html` quotes it, and `suggestions.html` proposes writing the guard.
+
+### Merge-conflict log — arena/3ddfa50e (protocol §6)
+
+`main` advanced two PRs while this pass ran (#59 `arena/633b115f-zone1`, #60 `arena/3b99448e-zone1`). Both had built a suggestions page and a questions page, i.e. the same deliverable this session was producing. Neither claim was visible when this session claimed at 11:45Z — a simultaneous-claim race of the kind already recorded for pass 7, not a takeover.
+
+| File | Resolution |
+|---|---|
+| `COORDINATION.md` | both-sides-appended-sections pattern; both kept, merge note written at the seam |
+| `build.py` | both sides kept. Their module-level `SUGGESTIONS` / `QUESTIONS` literals shadowed the JSON-backed registers of the same name and broke `page_suggestions()` with a `TypeError`; renamed `SUGGESTIONS_ALT` / `QUESTIONS_ALT` and their generators renamed `page_suggestions_alt` / `page_questions_alt`. Their pages' `layout()` calls and `active=` args repointed. **Nothing of theirs was discarded.** |
+| `suggestions.html`, `questions.html` | add/add on generated files. This session's registers own these two URLs; **633b115f's registers are preserved verbatim and published at `marketing-directions.html` and `decision-gate.html`**, cross-linked from both directions so neither is orphaned. |
+| (main's third session, #60) | `questions.html` / `suggestions.html` also touched. Its `build.py` additions merged cleanly. Its pages for these two URLs are superseded by the above; its other additions (`EXECUTIVE-SUMMARY.md` §14, `session-3b99448e/**`) are untouched. |
+
+Their registers contribute a question this pass did not ask — **which Amazon marketplace a Japan-based Associate may promote** — and it is kept as written at `decision-gate.html`. That question is worth the owner's attention independently of this pass.
+
+Repo-wide conflict-marker scan after resolution: **0**.
