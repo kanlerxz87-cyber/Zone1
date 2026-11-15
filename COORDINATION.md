@@ -3744,3 +3744,99 @@ their answer on the row …"* appeared twice.
   four and names the not-stated state.
 * **This is the same class of defect as F55**, one layer up: a value or a sentence that is correct
   in isolation and wrong in the place a reader sees it. Both are now build-guarded.
+
+> **Merge-conflict resolution (arena-a526b009, 2026-11-15).** This claim commit conflicted
+> four times while landing — PRs #67 (94a562a1, T20), #69 (22f43836, W7), #72 (792c279e)
+> and #73/#74 (88bb2db6) each moved `main` mid-flight. Every time the both-sides-appended
+> pattern on this file; both sides kept verbatim, theirs first, marker lines removed.
+> No work discarded.
+---
+
+## Claim — session a526b009 (branch `arena/a526b009-zone1`, base `cacdb85`, 2026-11-15)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| X1 | Independent verification round 9: live re-fetch of the official sources this site relies on (3 `link.amazon` short links, Standard Commission Income Statement, Operating Agreement, Program Policies, FTC Disclosures 101 / 16 CFR 255.5, both manufacturer pages) — evidence recorded | in progress | arena-a526b009 | `session-a526b009/**` (new) |
+| X2 | Line-by-line gap review of the published tree against the brief (executive summary, suggestions section, questions/decision gate, articles, per-row source links, Flagged page, landing + category subpages) — log irregularities | in progress | arena-a526b009 | `session-a526b009/**` |
+| X3 | Fix any defect X1/X2 find, without changing a verified value or another session's register rows unless the defect is mechanical | in progress | arena-a526b009 | `build.py` / generated root HTML only if a defect is found |
+| X4 | Final integration: re-run every gate, PR → merge to `main`, confirm GitHub Pages deploy, record result here | in progress | arena-a526b009 | this section + whole tree at integration |
+
+**Claim log**
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15 | arena-a526b009 | Read the whole board first: every prior row is `done`/`needs review`; no open PRs; Pages `built` on `cacdb85`. Claimed X1–X4 and pushed the claim before any other edit, per protocol §1. Arena pins this session to `arena/a526b009-zone1`. |
+### Completion record — arena-a526b009 (X1–X4, 2026-11-15 UTC)
+
+**Evidence:** `session-a526b009/VERIFICATION-2026-11-15.md` — every URL fetched live by this session on 2026-11-15, with the stored value it was compared against.
+
+| # | Task | Status | Result |
+|---|------|--------|--------|
+| X1 | Independent verification round 9 | **done** | 11 official sources re-read: all 3 `link.amazon` short links (round 9 — destinations + titles match stored values character-for-character, fallback markers + fresh `srctok`); Commission Table 1 (**11/11 rows verbatim**, Kitchen 4.50%, bounties $12/$5/$2/$0.25); Operating Agreement ("Updated: October 15, 2025", §1 Special Links); Program Policies ("Updated: April 14, 2026"; §2(b), §3(e), §6(g)(t)(u)(v)(w)(y) verbatim); FTC Disclosures 101 ("hard to miss", untried-product rule); eCFR §255.5(a) (quote matches `data/compliance.json` C4 verbatim, current as of 11/12/2026); and **every stored spec row** of all three products against the live manufacturer spec tables (Chefman 6 Qt incl. 450 °F Hi-Fry line + 1,305 reviews; Chefman 8 Qt incl. 400 °F max so the blank Hi-Fry row stays correct + 716 reviews; Emeril incl. $199.99, 4-00675-02A-VN, 25-vs-24-vs-10-vs-11 preset conflict still live, 7 accessories, 1-yr warranty). **No stored value found wrong; no data file changed.** |
+| X2 | Line-by-line gap review vs the brief | **done** | 28 root-build pages: disclosure present on **28/28**, internal links + fragments **0 broken**, **0 orphans**, counts agree everywhere (**45/45/45** open items; 41+2=43 spec rows; 31 sources), flag IDs F1–F45 unique, sitemap 27 URLs all present, robots.txt correct, **0 conflict markers**, build reproducible (clean `git diff`). Brief-coverage table in the evidence file: landing, category subpages, dashboard tables, 8 articles, suggestions (SG-01…SG-17), questions (Q-01…Q-14), executive summary, flagged page — all present and live. A first audit run produced 28 false "broken link" hits from `data:image/svg+xml` logo URIs; the checker was corrected, the site was not at fault. |
+| X3 | Fix defects found | **done — none found** | Nothing X1 re-read contradicted the site and nothing X2 measured was broken, so no file outside this record was edited. Every observation maps to an existing published flag (F1–F45). Nothing inferred, nothing back-filled. |
+| X4 | Final integration: gates → PR → merge → Pages → record | **done** | See the PR/deploy record below. |
+
+**Gates on the rebased branch (base `73f8d79`, includes PR #69), all green:** `python3 build.py` 28 pages byte-reproducible · `verify.py` 0 errors · `scripts/ci-check.sh` OK (33 tests, audit clean, S2 current, 5,384 links / 0 broken) · `research/check_research.py` OK · `scripts/verify_site.py` 382 assertions passed · `scripts/build_s2_site.py --check` current · `scripts/source_rows.py --check` 0 unsourced · conflict-marker scan 0.
+
+**Overlap note (logged, not a conflict):** session `22f43836` (W7, PR #69) ran its own round-9 verification today (short links, commission table, Program Policies, Google link policies) and fixed canonical URLs + `rel="sponsored"`. This session's independent round agrees with all of its results and adds the full manufacturer spec-table sweep, OA/FTC/eCFR reads and the structural audit. Both records kept; no duplicated edits — this pass changed no shared file except this record.
+
+**Merge-conflict log (protocol §6):** this claim commit conflicted twice on `COORDINATION.md` while being pushed — first with PR #67 (session 94a562a1, T20), then with PR #69 (session 22f43836, W7). Both times the both-sides-appended pattern; both sides kept verbatim (theirs first), marker lines removed, seam notes written at each join. No other session's work discarded. One `--force-with-lease` push per rebase, each preceded by confirming the remote branch held only this session's own superseded claim commit.
+
+<!-- keep-both: the block below was appended by the session being rebased on top; nothing from either side is discarded -->
+
+#### U4 — result: **done — PRs #74 and #77 merged, GitHub Pages deployment confirmed**
+
+| Step | Detail |
+|---|---|
+| PR #74 | `Final integration: live re-verification (pass 9), full SEO/structured-data layer, 10 build defects fixed`. Merged with `gh pr merge 74 --merge` at 2026-11-15T13:23:27Z. Merge commit `e7b60e481f061008039d92bfb87ff6fc8d848dcc`. |
+| PR #77 | `Correct the accessories row's evidence: cite the two documents that state 7, add a build guard against citing a contradicting source`. Merged with `gh pr merge 77 --merge` at 2026-11-15T13:27:00Z. Merge commit `eccb3c07cd86f11dd33a6711ebea7b0180c297e7`. |
+| CI on both PRs | `Rebuild site/ from data/verified and assert every guarantee` — **pass**. `verify` — **pass**. |
+| Pages build | `gh api repos/…/pages/builds/latest` → `status: built`, `error: null`, commit `eccb3c07cd86f11dd33a6711ebea7b0180c297e7`. |
+| Pages deploy run | `43719058155` → `completed/success`. Jobs: `build: success`, `deploy: success`. |
+| Live verification | `https://kanlerxz87-cyber.github.io/Zone1/` serves the merged content (3 products, 12 sourced articles, 31 official sources, 49 open flags). The pass-9 ledger renders on `reverification.html`. The corrected "Included accessories" row serves S14 + S15. |
+| Warnings | GitHub Actions emitted only non-blocking Node.js 20 deprecation / runner-image notices. No workflow or deployment failure. |
+
+**One correction was needed after the first merge.** PR #74 shipped an error this session had introduced: it set the Emeril
+"Included accessories" row's sources to `["S14", "S28"]`, where `S28` is the Amazon listing title that says *"Six Cooking
+Accessories Included"* — a document that **contradicts** the row's value of 7. A row's source list is read as the evidence
+for its value, so citing a contradicting document there asserts something false about where the value came from.
+
+Re-reading the manual on 2026-11-15 showed why this matters and how to fix it: the owner's manual's *Parts & Accessories*
+section enumerates **13 numbered items**, of which **6 are built into the appliance** (main unit, door handle, glass door,
+LED display, control panel, control knob), leaving **7 removable accessories** (drip tray, wire rack, baking pan, rotisserie
+spit, crisper tray, rotisserie fetch tool, plate handle). The published value therefore has **two** supporting documents, and
+the row now cites those two. The listing title stays in the flag register (F48, F50), where a contradicting document belongs.
+The published value of 7 did not change; only its evidence did.
+
+**New build guard — `check_spec_source_conflicts()`.** `data/products.json` gains a `source_conflicts` register naming rows
+where an official document is known to contradict the published value. The build now **fails** if such a source id appears in
+that row's source list. The register is explicit rather than inferred, deliberately: no build can tell that an arbitrary
+document contradicts a value, so a reviewer who has read both documents records the conflict once, and from then on it can
+live in the flag register but never in a row's evidence. Proven to fire on the exact mistake:
+
+```
+BUILD FAILED — a row cites a document that contradicts its own value:
+  emeril-26qt-french-door / "Included accessories": cites S28, which contradicts the
+  published value '7'. The contradicting document belongs in the flag register, not in
+  the row's source list.
+```
+
+#### Final gate state on `main` @ `eccb3c0`
+
+| Gate | Result |
+|---|---|
+| `build.py` | 34 pages + `robots.txt` + `sitemap.xml` (34 URLs) |
+| `verify.py` | 113 pages, 43 spec rows (41 verified, 2 blank+flagged), 31 sources, **0 external warnings, 0 errors** |
+| `platform/tests` | 33/33 |
+| `platform/audit/report.py` | 0 errors, 0 warnings |
+| `scripts/check_links.py` | 5,964 links, **0 broken** |
+| `scripts/verify_site.py` | 382 assertions, all passed |
+| `research/check_research.py` | 834 checks, all passed |
+| `scripts/build_s2_site.py --check` | current |
+| `node --check assets/app.js` | OK |
+| reproducibility | clean rebuild leaves `git diff` empty |
+
+**Total guards added or tightened in this session:** nested-anchor checks in both `verify.py` (repo-wide) and
+`scripts/verify_site.py` (V13); `check_spec_source_conflicts()`; and the `check_seo_metadata()` guard from
+`arena/792c279e` extended to the three pages that session added. All are proven to fire on an injected violation.
