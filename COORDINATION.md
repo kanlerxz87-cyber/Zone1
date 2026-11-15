@@ -3643,3 +3643,41 @@ The 18 `s2/` external-host warnings inherited from earlier passes are now **zero
 `sell.amazon.com` and `api.github.com` were added to the allowlist (each is the official home of the
 fact it is cited for), and `x.com`, `www.linkedin.com` and `www.facebook.com` were added for the
 article share row. A warning list that always warns is a warning list nobody reads.
+
+> **Merge-conflict resolution (arena-a526b009, 2026-11-15).** This claim commit conflicted
+> four times while landing — PRs #67 (94a562a1, T20), #69 (22f43836, W7), #72 (792c279e)
+> and #73/#74 (88bb2db6) each moved `main` mid-flight. Every time the both-sides-appended
+> pattern on this file; both sides kept verbatim, theirs first, marker lines removed.
+> No work discarded.
+---
+
+## Claim — session a526b009 (branch `arena/a526b009-zone1`, base `cacdb85`, 2026-11-15)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| X1 | Independent verification round 9: live re-fetch of the official sources this site relies on (3 `link.amazon` short links, Standard Commission Income Statement, Operating Agreement, Program Policies, FTC Disclosures 101 / 16 CFR 255.5, both manufacturer pages) — evidence recorded | in progress | arena-a526b009 | `session-a526b009/**` (new) |
+| X2 | Line-by-line gap review of the published tree against the brief (executive summary, suggestions section, questions/decision gate, articles, per-row source links, Flagged page, landing + category subpages) — log irregularities | in progress | arena-a526b009 | `session-a526b009/**` |
+| X3 | Fix any defect X1/X2 find, without changing a verified value or another session's register rows unless the defect is mechanical | in progress | arena-a526b009 | `build.py` / generated root HTML only if a defect is found |
+| X4 | Final integration: re-run every gate, PR → merge to `main`, confirm GitHub Pages deploy, record result here | in progress | arena-a526b009 | this section + whole tree at integration |
+
+**Claim log**
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15 | arena-a526b009 | Read the whole board first: every prior row is `done`/`needs review`; no open PRs; Pages `built` on `cacdb85`. Claimed X1–X4 and pushed the claim before any other edit, per protocol §1. Arena pins this session to `arena/a526b009-zone1`. |
+### Completion record — arena-a526b009 (X1–X4, 2026-11-15 UTC)
+
+**Evidence:** `session-a526b009/VERIFICATION-2026-11-15.md` — every URL fetched live by this session on 2026-11-15, with the stored value it was compared against.
+
+| # | Task | Status | Result |
+|---|------|--------|--------|
+| X1 | Independent verification round 9 | **done** | 11 official sources re-read: all 3 `link.amazon` short links (round 9 — destinations + titles match stored values character-for-character, fallback markers + fresh `srctok`); Commission Table 1 (**11/11 rows verbatim**, Kitchen 4.50%, bounties $12/$5/$2/$0.25); Operating Agreement ("Updated: October 15, 2025", §1 Special Links); Program Policies ("Updated: April 14, 2026"; §2(b), §3(e), §6(g)(t)(u)(v)(w)(y) verbatim); FTC Disclosures 101 ("hard to miss", untried-product rule); eCFR §255.5(a) (quote matches `data/compliance.json` C4 verbatim, current as of 11/12/2026); and **every stored spec row** of all three products against the live manufacturer spec tables (Chefman 6 Qt incl. 450 °F Hi-Fry line + 1,305 reviews; Chefman 8 Qt incl. 400 °F max so the blank Hi-Fry row stays correct + 716 reviews; Emeril incl. $199.99, 4-00675-02A-VN, 25-vs-24-vs-10-vs-11 preset conflict still live, 7 accessories, 1-yr warranty). **No stored value found wrong; no data file changed.** |
+| X2 | Line-by-line gap review vs the brief | **done** | 28 root-build pages: disclosure present on **28/28**, internal links + fragments **0 broken**, **0 orphans**, counts agree everywhere (**45/45/45** open items; 41+2=43 spec rows; 31 sources), flag IDs F1–F45 unique, sitemap 27 URLs all present, robots.txt correct, **0 conflict markers**, build reproducible (clean `git diff`). Brief-coverage table in the evidence file: landing, category subpages, dashboard tables, 8 articles, suggestions (SG-01…SG-17), questions (Q-01…Q-14), executive summary, flagged page — all present and live. A first audit run produced 28 false "broken link" hits from `data:image/svg+xml` logo URIs; the checker was corrected, the site was not at fault. |
+| X3 | Fix defects found | **done — none found** | Nothing X1 re-read contradicted the site and nothing X2 measured was broken, so no file outside this record was edited. Every observation maps to an existing published flag (F1–F45). Nothing inferred, nothing back-filled. |
+| X4 | Final integration: gates → PR → merge → Pages → record | **done** | See the PR/deploy record below. |
+
+**Gates on the rebased branch (base `73f8d79`, includes PR #69), all green:** `python3 build.py` 28 pages byte-reproducible · `verify.py` 0 errors · `scripts/ci-check.sh` OK (33 tests, audit clean, S2 current, 5,384 links / 0 broken) · `research/check_research.py` OK · `scripts/verify_site.py` 382 assertions passed · `scripts/build_s2_site.py --check` current · `scripts/source_rows.py --check` 0 unsourced · conflict-marker scan 0.
+
+**Overlap note (logged, not a conflict):** session `22f43836` (W7, PR #69) ran its own round-9 verification today (short links, commission table, Program Policies, Google link policies) and fixed canonical URLs + `rel="sponsored"`. This session's independent round agrees with all of its results and adds the full manufacturer spec-table sweep, OA/FTC/eCFR reads and the structural audit. Both records kept; no duplicated edits — this pass changed no shared file except this record.
+
+**Merge-conflict log (protocol §6):** this claim commit conflicted twice on `COORDINATION.md` while being pushed — first with PR #67 (session 94a562a1, T20), then with PR #69 (session 22f43836, W7). Both times the both-sides-appended pattern; both sides kept verbatim (theirs first), marker lines removed, seam notes written at each join. No other session's work discarded. One `--force-with-lease` push per rebase, each preceded by confirming the remote branch held only this session's own superseded claim commit.
