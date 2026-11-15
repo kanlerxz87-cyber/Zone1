@@ -3214,3 +3214,31 @@ record from F22: run the marker scan before every `git add`; this pass now does.
 * **Warnings:** GitHub Actions emitted non-blocking Node.js 20 deprecation and runner-image migration notices; workflow/deployment outcomes are successful. Browser-based visual review was unavailable in this environment; the HTML parser and build audits above passed.
 
 **T19 result: done — implementation, checks, PR, merge, and Pages deployment confirmed.**
+
+---
+
+## Task board — arena/42ca97ad-zone1 (2026-11-15 UTC)
+
+Session ID: `42ca97ad`. Branch: `arena/42ca97ad-zone1` (base `cacdb85` = `main` at PR #66 merge).
+No other session holds an active claim: `git branch -r` shows only `origin/main`, `gh pr list --state open`
+returns none, and a scan of this board shows every prior task in `done` / `needs review` state.
+
+This is **verification pass 9**. It does not repeat the earlier passes' outputs; it re-reads the official
+sources live, audits the copy for quality, and refreshes the three decision artefacts
+(suggestions / questions / executive summary) so the owner has one current place to decide from.
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|----------------|------------|
+| W1 | Independent live re-verification of every published spec row and policy claim | in progress | 42ca97ad | `session-42ca97ad/EVIDENCE-2026-11-15.md`, `data/verified/` (read-only) |
+| W2 | Line-by-line repo review, new flags for anything unverified or irregular | unclaimed | 42ca97ad | `data/flagged.json`, `session-42ca97ad/REPO-REVIEW.md` |
+| W3 | Editorial quality audit — read every published page as a shopper and fix copy that reads like generated filler | unclaimed | 42ca97ad | `build.py` (copy only), `assets/style.css`, `data/marketing.json` |
+| W4 | Suggestions register refresh — add this pass's suggestions, keep the decision queue current | unclaimed | 42ca97ad | `data/suggestions.json` |
+| W5 | Questions register refresh — add information gaps discovered this pass | unclaimed | 42ca97ad | `data/questions.json` |
+| W6 | Executive summary refresh | unclaimed | 42ca97ad | `data/platform.json`, `build.py` exec page |
+| W7 | Integration: re-verify combined data, PR, merge, Pages confirm | unclaimed | 42ca97ad | `COORDINATION.md` |
+
+### Claim log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15 UTC | 42ca97ad | Claimed W1–W7 on `arena/42ca97ad-zone1` (base `cacdb85`). Read the board and the full repo first: `build.py` (3299 lines, stdlib-only generator), `verify.py` (147 lines, build gate), 106 pages, `data/*.json` (43 spec rows, 29 sources), 8 prior passes recorded in this file. Verified the working tree builds clean before claiming: `python3 build.py` → 27 URLs, `python3 verify.py` → 106 pages, 0 errors, 41 verified / 2 blank+flagged spec rows. No other session's work is in scope; shared files are touched only at the W7 integration step, after W1–W6 are done. |
