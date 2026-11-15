@@ -1,0 +1,460 @@
+{
+ "version": "1.0",
+ "compiled": "2026-11-15",
+ "session": "arena/792c279e-zone1",
+ "purpose": "The material an owner needs to make the money/strategy decisions the brief asks for — niche, positioning, traffic, measurement, hand-over — with every number either sourced or explicitly labelled as a stated assumption. Nothing here is a forecast. Where a number is not knowable from an official source it is written as an input the owner supplies, never as a value this site asserts.",
+ "rules": [
+  "A rate comes from the official Associates table (S3) and is quoted with the row it came from.",
+  "A product fact comes from the manufacturer (S10–S15) or from the Amazon listing (S16, S28, S29).",
+  "A policy constraint comes from Amazon (S1, S2, S3, S4, S5, S6) or from US law (S7, S8, S9).",
+  "A planning figure that no official source publishes is labelled 'assumption' and is an input box, never a published claim.",
+  "Anything about the operator's own account (approval, tag, category assignment, sales) is 'account-only' unless an official page settles it."
+ ],
+ "commission": {
+  "heading": "What one sale is actually worth",
+  "summary": "Amazon pays a fixed percentage per category, not per product. Two rows of the official table are plausible for the three air fryers, and Amazon publishes no mapping from an ASIN to a category, so the honest answer is a range until the operator reads their own signed-in report.",
+  "rows": [
+   {
+    "label": "Kitchen (air fryers plausibly sit here)",
+    "rate": "4.50%",
+    "source": [
+     "S3"
+    ],
+    "row_quoted": "Physical Books, Kitchen, Automotive — 4.50%"
+   },
+   {
+    "label": "All Other Categories (the catch-all, if Kitchen is not applied)",
+    "rate": "4.00%",
+    "source": [
+     "S3"
+    ],
+    "row_quoted": "All Other Categories — 4.00%"
+   }
+  ],
+  "per_sale_examples": [
+   {
+    "list_price": "$119.99",
+    "product": "Chefman 6 Qt Dual Window (brand list price)",
+    "at_4_5": "$5.40",
+    "at_4_0": "$4.80",
+    "source": [
+     "S10",
+     "S3"
+    ]
+   },
+   {
+    "list_price": "$199.99",
+    "product": "Emeril 26 QT French Door (brand list price)",
+    "at_4_5": "$9.00",
+    "at_4_0": "$8.00",
+    "source": [
+     "S14",
+     "S3"
+    ]
+   },
+   {
+    "list_price": "$119.99",
+    "product": "Chefman 8 Qt (brand list price, both SKUs)",
+    "at_4_5": "$5.40",
+    "at_4_0": "$4.80",
+    "source": [
+     "S12",
+     "S26",
+     "S3"
+    ]
+   }
+  ],
+  "caveats": [
+   "Commission is paid on Qualifying Revenue, which Amazon defines as what it actually receives less shipping, gift wrap, handling, taxes, service charges, credits, rebates, card fees and bad debt — a real payout is therefore lower than the arithmetic above.",
+   "A sale is only attributed if the click came through a correctly tagged Special Link. The three supplied links show no tag in their landing URL, so as supplied they are evidence of a destination, not of an attribution path.",
+   "The category that applies to a given ASIN is not published publicly. 4.50% vs 4.00% is a $0.60 difference on a $120 item; it is not worth guessing, and it is not worth blocking the site over."
+  ]
+ },
+ "niche": {
+  "heading": "Which niche to build the traffic around",
+  "summary": "The site already covers the three supplied products. The strategic question is which *reader intent* to build around them, because that decides article topics, internal links and the query each page is written for. Four candidates are scored on evidence this project actually holds; a fifth column names what would have to be true for each.",
+  "scoring_note": "Scores are judgements, not measurements, and are shown with their basis. They are deliberately coarse (0–3) so a small evidence base cannot produce false precision.",
+  "criteria": [
+   {
+    "id": "C1",
+    "name": "Documented by official sources",
+    "why": "The only kind of differentiation this project can publish without inventing experience."
+   },
+   {
+    "id": "C2",
+    "name": "Matches a supplied product",
+    "why": "Traffic is worthless here if it cannot be served by one of the three links."
+   },
+   {
+    "id": "C3",
+    "name": "Repeatable topic supply",
+    "why": "A niche needs more than three articles to satisfy the 10-post expectation and to earn internal links."
+   },
+   {
+    "id": "C4",
+    "name": "Competitive room for a small site",
+    "why": "Broad 'best air fryer' queries are dominated by publishers with test kitchens; the site claims none."
+   },
+   {
+    "id": "C5",
+    "name": "Policy safety",
+    "why": "Price tracking, review aggregation and unverified testing claims are excluded by Amazon policy or the FTC rules."
+   }
+  ],
+  "candidates": [
+   {
+    "id": "N1",
+    "name": "Air-fryer format decisions (basket vs dual-basket vs countertop oven)",
+    "score": {
+     "C1": 3,
+     "C2": 3,
+     "C3": 3,
+     "C4": 2,
+     "C5": 3
+    },
+    "total": 14,
+    "basis": "Every one of the three supplied products is a different format, and every format claim on the site is quoted from a manufacturer page or owner's manual. The vocabulary is documented (capacity, temperature range, basket count, door type), which means ten honest articles are available without a single measurement.",
+    "what_must_be_true": "A reader choosing a format can be satisfied by documented specifications alone. That is plausible — format is a constraint problem (counter space, household size, how many foods at once), not a taste problem.",
+    "recommendation": "Recommended primary niche",
+    "source": [
+     "S10",
+     "S12",
+     "S14"
+    ],
+    "grounding_repo": true
+   },
+   {
+    "id": "N2",
+    "name": "Small-kitchen and counter-space buying",
+    "score": {
+     "C1": 3,
+     "C2": 2,
+     "C3": 2,
+     "C4": 2,
+     "C5": 3
+    },
+    "total": 12,
+    "basis": "All three products publish outer dimensions on their own pages (13.38 × 11.81 × 10.63 in; 16.9 D × 15.8 W × 14.8 H in; 15.4 × 12.6 × 13.5 in), so a dimension-led comparison is fully sourced. But only one of the three is small, so the topic supply thins out quickly.",
+    "what_must_be_true": "The reader is shopping to a measured gap. The site cannot know their gap, so the page has to supply a measuring method rather than a verdict.",
+    "recommendation": "Strong secondary cluster — use it as internal-link fuel for N1",
+    "source": [
+     "S10",
+     "S12",
+     "S14"
+    ],
+    "grounding_repo": true
+   },
+   {
+    "id": "N3",
+    "name": "Air-fryer policy, disclosure and 'is this review real' literacy",
+    "score": {
+     "C1": 3,
+     "C2": 1,
+     "C3": 2,
+     "C4": 3,
+     "C5": 3
+    },
+    "total": 12,
+    "basis": "The site already holds verbatim policy text (S1–S9) and a source-forensics article. Competition is low because most affiliate sites will not publish it. But the intent is informational, converts poorly, and barely touches the three products.",
+    "what_must_be_true": "That trust-building traffic converts later. It might — but it needs a measurement loop the operator does not yet have.",
+    "recommendation": "Keep as a credibility cluster, not as the money page",
+    "source": [
+     "S1",
+     "S2",
+     "S8"
+    ],
+    "grounding_repo": true
+   },
+   {
+    "id": "N4",
+    "name": "Broad 'best air fryer 2026' commercial roundups",
+    "score": {
+     "C1": 1,
+     "C2": 1,
+     "C3": 3,
+     "C4": 0,
+     "C5": 1
+    },
+    "total": 6,
+    "basis": "This is the highest-volume intent and the one the site is least able to serve honestly. A 'best' claim needs either testing (which the site does not do, and the FTC rule quoted in S8 says you cannot talk about experience you have not had) or an aggregation of Amazon reviews (restricted by Program Policies §6(t)).",
+    "what_must_be_true": "That the operator will commission real hands-on testing. Nothing else closes it.",
+    "recommendation": "Rejected as a primary niche — it is the single fastest way to produce the AI-slop page the brief says to avoid",
+    "source": [
+     "S8",
+     "S2"
+    ],
+    "grounding_repo": true
+   }
+  ],
+  "decision": {
+   "recommendation": "Build on N1, with N2 as the internal-link cluster and N3 as the trust layer. Do not buy traffic against N4 until the operator has real testing.",
+   "why": "N1 is the only candidate where all three supplied products are equally useful, every claim is already sourced, and the site's existing eight articles already point at it.",
+   "alternative": "If the operator wants to grow the audience before the products, start with N3 and accept slower conversion; the measurement page explains how to tell the difference."
+  }
+ },
+ "traffic": {
+  "heading": "How organic traffic would actually arrive",
+  "summary": "Search is the only channel this project can describe without an account, a budget or a social following. The plan below is ordered by 'how much does it depend on things we do not have' — least dependent first.",
+  "channels": [
+   {
+    "id": "T1",
+    "name": "Search — long-tail format questions",
+    "works_because": "Each article answers one question a buyer types before they know which product they want ('dual basket vs single basket', 'what does 450F mean'). Competition on long-tail questions is materially lower than on 'best air fryer'.",
+    "requirements": [
+     "a live domain",
+     "an approved Associates account with tagged links (S2, S4)",
+     "sitemap submitted to Google Search Console *by the owner* — this repo cannot do it"
+    ],
+    "effort": "Medium",
+    "cost": "Domain (annual) — price not verified in this project, so not stated",
+    "risk": "6–12 weeks before meaningful impressions on a new domain; unverifiable from here",
+    "status": "Ready to execute once the tag and account exist"
+   },
+   {
+    "id": "T2",
+    "name": "Search — specification and manual questions",
+    "works_because": "Owner's manuals are public PDFs and questions about them are specific ('RJ38-SQSS-8T temperature range'). A page that quotes the manual can rank even on a small domain, and the audience is already holding the appliance or deciding on it.",
+    "requirements": [
+     "the same as T1",
+     "the article guard already prevents invented numbers"
+    ],
+    "effort": "Low",
+    "cost": "None beyond hosting",
+    "risk": "Low volume per page, so it needs breadth",
+    "status": "Eight articles already exist in this shape"
+   },
+   {
+    "id": "T3",
+    "name": "Search — 'is X worth it / what does Y mean' explainers",
+    "works_because": "The AI-slop tell is a page that repeats the product title. A page that answers a question the listing does not answer (what 450°F Hi-Fry actually does to the last two minutes of a cook, quoted from the manual and the brand page) is differently useful.",
+    "requirements": [
+     "editorial judgement",
+     "the disclosure bar already on every page (S5, S8)"
+    ],
+    "effort": "Low",
+    "cost": "None",
+    "risk": "Explainer traffic converts worse than comparison traffic; pair every explainer with a comparison link",
+    "status": "Two explainers exist; the new pass adds four more"
+   },
+   {
+    "id": "T4",
+    "name": "Pinterest — format and dimension cards",
+    "works_because": "Kitchen-organization queries are visual and Pinterest sends durable outbound clicks. Dimension diagrams are honest assets the site can actually produce from published numbers.",
+    "requirements": [
+     "a Pinterest account",
+     "an image pipeline",
+     "the site's own photography or diagrams"
+    ],
+    "effort": "Medium",
+    "cost": "Time",
+    "risk": "Requires original imagery this repo does not have; using manufacturer images needs care under the IP License (S2)",
+    "status": "Blocked on original imagery"
+   },
+   {
+    "id": "T5",
+    "name": "YouTube / Shorts — hands-on format comparisons",
+    "works_because": "It is the highest-trust channel for appliance buying, which is exactly why the site cannot fake it.",
+    "requirements": [
+     "physical units",
+     "someone on camera",
+     "editing"
+    ],
+    "effort": "High",
+    "cost": "Product cost + time",
+    "risk": "High; also the only channel where testing claims would become true",
+    "status": "Not available to this project"
+   },
+   {
+    "id": "T6",
+    "name": "Email newsletter",
+    "works_because": "It is the only channel the site owns outright and is unaffected by a search update.",
+    "requirements": [
+     "a list — which requires traffic first",
+     "an email provider account"
+    ],
+    "effort": "Low",
+    "cost": "Provider fee — not verified here, so not stated",
+    "risk": "Chicken and egg; do not start with it",
+    "status": "Sequence after T1–T3"
+   }
+  ],
+  "anti_slop_rules": [
+   "Never open with 'In today's fast-paced world' or any variant. The new articles in this pass are checked against a banned-phrase list in build.py.",
+   "Every number in an article must already exist in data/products.json; the build fails otherwise.",
+   "No article may claim testing, ownership, or 'after weeks of use'.",
+   "No 'best of' list unless it is a stated decision rule, not a ranking.",
+   "One idea per section heading, phrased as the question a reader types.",
+   "Say what is not known. A visible gap is more convincing than a confident guess, and it is the site's actual differentiator.",
+   "No superlatives that an official source does not make ('the crispiest', 'the most powerful')."
+  ]
+ },
+ "measurement": {
+  "heading": "How to know whether any of it works",
+  "summary": "Nothing can be measured today: there is no tag on the supplied links, no analytics on the site, and no Associates report access. That is a design choice that protects the disclosure/policy position, and it is also the reason the brief's 'track clicks and conversions' feature cannot be built honestly yet. The plan below is the smallest loop that produces a real number.",
+  "metrics": [
+   {
+    "id": "M1",
+    "metric": "Outbound clicks per page",
+    "how": "Amazon's own earnings report once tagged links exist; a per-page sub-tag (S6) separates articles",
+    "needs": [
+     "a tracking ID",
+     "tagged links"
+    ],
+    "status": "Blocked on the tag",
+    "source": [
+     "S6"
+    ]
+   },
+   {
+    "id": "M2",
+    "metric": "Orders and conversion rate",
+    "how": "Associates earnings report; conversion rate = orders / clicks",
+    "needs": [
+     "approved account with report access"
+    ],
+    "status": "Account-only",
+    "source": [
+     "S6",
+     "S3"
+    ]
+   },
+   {
+    "id": "M3",
+    "metric": "Commission earned",
+    "how": "Associates report; cross-check against the category rate from S3",
+    "needs": [
+     "M2"
+    ],
+    "status": "Account-only",
+    "source": [
+     "S3"
+    ]
+   },
+   {
+    "id": "M4",
+    "metric": "Search impressions and queries",
+    "how": "Google Search Console (owner-registered property)",
+    "needs": [
+     "a live domain",
+     "the owner's Google account"
+    ],
+    "status": "Blocked on the domain",
+    "source": []
+   },
+   {
+    "id": "M5",
+    "metric": "Page-level engagement",
+    "how": "Deliberately not instrumented. Adding analytics is a policy decision: Program Policies §3(e) requires an accurate cookie and third-party technology disclosure, which the footer currently states for a site with no analytics",
+    "needs": [
+     "a decision, then a privacy update"
+    ],
+    "status": "Decision pending — see suggestions",
+    "source": [
+     "S2"
+    ]
+   },
+   {
+    "id": "M6",
+    "metric": "Content decay",
+    "how": "Re-read each cited source on a schedule and re-stamp the value; the site's own re-verification ledger is the template",
+    "needs": [
+     "someone to run it"
+    ],
+    "status": "Process, runnable today",
+    "source": []
+   }
+  ],
+  "decision_rule": {
+   "heading": "When to kill a direction",
+   "rule": "Give any new page cluster one full quarter. If a cluster has not produced a single outbound click by then, stop writing in it and reinvest the time in the cluster that has. Record the decision here so it is not relitigated from memory.",
+   "why": "Without a pre-committed rule, every underperforming page looks like it 'just needs more time' and the site drifts back towards volume, which is what produced the AI-slop problem the brief calls out."
+  },
+  "untrackable_note": "Prices, ratings and availability are not tracked and will not be: Program Policies §6(y) prohibits price-tracking or price-alerting functionality unless Amazon agrees, and §2(b) restricts price display. A build guard in build.py fails the build if such a component is added."
+ },
+ "handover": {
+  "heading": "What only you can do, and exactly how long it takes",
+  "summary": "Everything else in this repository is done as far as it can be done without your accounts. Four actions close eighteen of the open flags. They are ordered by 'minutes per flag closed'.",
+  "items": [
+   {
+    "id": "H1",
+    "owner_action": "Open each of the three supplied links on a desktop browser and read the **Model number** line in the listing's *Product information* section.",
+    "time": "3 minutes",
+    "closes": [
+     "F01",
+     "F02",
+     "F32",
+     "F33"
+    ],
+    "why_now": "This is the single highest-value action in the project. The site currently shows a candidate ASIN and a *believed* manufacturer SKU; this line makes the mapping a fact instead of a match. It cannot be done by a headless fetch, which is why it is still open after seven sessions.",
+    "what_to_paste_back": "Three model numbers, one per link.",
+    "source": [
+     "S16",
+     "S28",
+     "S29"
+    ]
+   },
+   {
+    "id": "H2",
+    "owner_action": "In Associates Central, open **Manage Tracking IDs** and read the tracking ID, then confirm that the three supplied links carry it. If they do not, rebuild each link from the Product Linking tool.",
+    "time": "5 minutes",
+    "closes": [
+     "F03",
+     "F06",
+     "F07"
+    ],
+    "why_now": "As supplied, none of the three landing URLs shows a `tag=` parameter. A purchase through an untagged link does not credit the account. Tagging is also a requirement for the application review, which is final once rejected (S4).",
+    "what_to_paste_back": "The tracking ID (it is public data — it appears in every link on a live site) and whether it was present in the supplied links.",
+    "source": [
+     "S6",
+     "S2",
+     "S4"
+    ]
+   },
+   {
+    "id": "H3",
+    "owner_action": "Check the status of the Associates application in the account dashboard.",
+    "time": "2 minutes",
+    "closes": [
+     "account-approval question (Q-03 on questions.html)"
+    ],
+    "why_now": "If the account is not approved, Article 5 of the Operating Agreement permits no commission income at all, and the 180-day clock for three qualifying sales is the constraint the content plan has to meet (S4).",
+    "what_to_paste_back": "Approved / pending / rejected, and the date of application.",
+    "source": [
+     "S4",
+     "S1"
+    ]
+   },
+   {
+    "id": "H4",
+    "owner_action": "Decide the domain and hosting, then register Google Search Console for it.",
+    "time": "20 minutes, plus registrar time",
+    "closes": [
+     "the measurement loop (M1–M4)"
+    ],
+    "why_now": "GitHub Pages serves the site today and the canonical URL is baked into `sitemap.xml` and `robots.txt`. Moving to a real domain is a five-line change in `build.py`, but the Search Console property is yours alone.",
+    "what_to_paste_back": "The domain, once registered — the build will point sitemap, robots and canonical links at it.",
+    "source": [],
+    "grounding": "github"
+   },
+   {
+    "id": "H5",
+    "owner_action": "Read the flagged list and the suggestions queue and pick the paths you want.",
+    "time": "30 minutes",
+    "closes": [
+     "the whole decision layer"
+    ],
+    "why_now": "The site is designed to stop at this point rather than guess. Nothing on it has been implemented from the suggestions — they are options, each with effort, risk and reversibility.",
+    "what_to_paste_back": "The IDs you accept or reject (SG-##, Q-##).",
+    "source": [],
+    "grounding": "github"
+   }
+  ],
+  "not_possible_here": [
+   "Auto-approval of an Associates account, or viewing its reports.",
+   "Reading an ASIN's Product-information block reliably (the listing pages render it client-side).",
+   "Publishing a real Amazon price, availability, star rating or review count (S2 §2(b), §6(t)).",
+   "Calling Creators API / PA-API without credentials tied to the account (F12).",
+   "Registering a domain or a Search Console property."
+  ]
+ }
+}

@@ -17,6 +17,7 @@ import json
 import os
 import re
 import shutil
+from urllib.parse import quote_plus
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -61,6 +62,7 @@ PASS7 = json.loads(_p7.read_text(encoding="utf-8")) if _p7.exists() else None
 # Decision layer (added 2026-11-15, arena/3ddfa50e). Two registers that exist to be reviewed
 # rather than acted on: the suggestions queue and the open-questions register. Both are
 # generated from JSON so a reviewer edits data, never a template.
+DECISION = load("decision.json")
 SUGGESTIONS = load("suggestions.json")
 QUESTIONS = load("questions.json")
 SUG_BY_ID = {s["id"]: s for s in SUGGESTIONS["suggestions"]}
@@ -156,6 +158,8 @@ def depth_prefix(page_path):
 
 NAV = [
     ("index.html", "Home", "A clear guide to three air-fryer formats"),
+    ("picks.html", "This week's picks", "Three products, three jobs, one decision rule"),
+    ("decisions.html", "Decisions & handover", "Niche, traffic, measurement, and the five things only you can do"),
     ("categories/kitchen-appliances.html", "Category: Kitchen", "All tracked products in one category"),
     ("compare.html", "Comparison", "Verified-only side-by-side matrix"),
     ("guides/buying-guide-air-fryers.html", "Buying guide", "How to choose a form factor"),
@@ -605,9 +609,91 @@ footer.site p,footer.site li{color:#59645a}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important; transition:none!important}}
 
+/* ===== 2026-11-15 (arena/792c279e): commercial + decision components ===== */
+:root{ --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+       --accent:#245746; --accent-soft:#e3ece4; }
+
+.picks-hero{position:relative}
+.pick .pick-cta{margin-top:auto; display:inline-block; font-weight:700; font-size:.88rem}
+.pick h3{font-family:var(--serif); font-weight:500; font-size:1.32rem; line-height:1.22; letter-spacing:-.01em}
+.card.pick{border-color:#cfdacf}
+.card.pick:hover{border-color:var(--accent)}
+
+.callout{background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--accent);
+  border-radius:10px; padding:.9rem 1.1rem; margin:1.1rem 0; box-shadow:var(--shadow); font-size:.94rem}
+.callout.trust{border-left-color:#0f766e; background:#f4fbf8}
+.callout.bad{border-left-color:var(--bad); background:#fff6f6}
+.callout.ok{border-left-color:var(--ok); background:#f5fbf6}
+
+.channel{padding:1rem 1.15rem}
+.channel-head{display:flex; align-items:center; gap:.55rem; flex-wrap:wrap; margin-bottom:.35rem}
+.channel-head h3{margin:0; font-size:1.02rem; font-family:var(--serif); font-weight:600}
+.channel ul{margin:.2rem 0 .5rem 1.1rem; padding:0}
+.channel li{margin:.12rem 0}
+
+.handover-item{border-left:4px solid var(--accent)}
+.handover-head{display:flex; align-items:baseline; gap:.6rem; flex-wrap:wrap}
+.handover-head h3{margin:0; font-family:var(--serif); font-weight:600; font-size:1.08rem; line-height:1.3; flex:1 1 60%}
+.handover-num{font:800 .8rem/1 var(--mono); color:#fff; background:var(--accent); border-radius:6px; padding:.32rem .45rem}
+.handover-meta{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:.8rem; margin-top:.7rem;
+  padding-top:.7rem; border-top:1px solid var(--line)}
+.handover-meta .tiny{display:block; text-transform:uppercase; letter-spacing:.08em}
+
+.article-head{max-width:74ch}
+.article-body{max-width:74ch}
+.article-body h2{font-family:var(--serif); font-weight:600; font-size:1.3rem; letter-spacing:-.01em; margin-top:2.1rem}
+.article-body p:first-of-type{font-size:1.05rem}
+.share{display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin:1.6rem 0 .5rem; padding-top:1rem; border-top:1px solid var(--line)}
+.share a,.share button{display:inline-flex; align-items:center; gap:.35rem; border:1px solid var(--line);
+  background:#fff; color:var(--ink); border-radius:999px; padding:.32rem .8rem; font:inherit; font-size:.8rem;
+  cursor:pointer; text-decoration:none}
+.share a:hover,.share button:hover{border-color:var(--accent); background:var(--accent-soft); text-decoration:none}
+.share .label{font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-right:.2rem}
+.article-nav{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:.8rem; margin:1.2rem 0}
+.article-nav .card{display:block; margin:0}
+.article-nav strong{font-size:.92rem; line-height:1.3}
+
+.pulse{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.7rem; margin:1.1rem 0}
+.pulse .tile{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:.75rem .85rem; box-shadow:var(--shadow)}
+.pulse .tile b{display:block; font:800 1.35rem/1.1 var(--serif); letter-spacing:-.02em}
+.pulse .tile span{display:block; font-size:.72rem; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); margin-top:.25rem}
+.pulse .tile a{font-size:.78rem}
+details.card summary{cursor:pointer; font-size:.9rem}
+
+/* section rhythm on the buyer-facing pages */
+.quick-guide{margin:1.8rem 0 .5rem}
+.buyer-toc{display:flex; flex-wrap:wrap; gap:.45rem; margin:.9rem 0 1.4rem}
+.buyer-toc a{font-size:.8rem; border:1px solid var(--line); background:#fff; border-radius:999px;
+  padding:.28rem .7rem; color:#374151}
+.buyer-toc a:hover{border-color:var(--accent); background:var(--accent-soft); text-decoration:none}
+.article-card .cardtitle{font-family:var(--serif); font-weight:600}
+@media (max-width:560px){ .handover-head h3{font-size:1rem} }
+
 """
 
 JS = r"""
+// copy-to-clipboard for article share rows (2026-11-15, arena/792c279e).
+// Progressive: without JS the button does nothing and the URL is still in the address bar,
+// so no functionality depends on it.
+document.addEventListener('click', function (ev) {
+  var c = ev.target.closest('.copylink');
+  if (!c) return;
+  var link = c.getAttribute('data-link') || location.href;
+  var done = function () {
+    var old = c.textContent;
+    c.textContent = 'Copied';
+    setTimeout(function () { c.textContent = old; }, 1600);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(link).then(done, done);
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = link; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta); done();
+  }
+});
+
 document.addEventListener('click', function (ev) {
   var t = ev.target.closest('.navtoggle');
   if (!t) return;
@@ -751,6 +837,7 @@ def layout(page_rel, title, body, active=None, description=""):
     <div class="group">
       <h4>Start here</h4>
       {N("index.html")}
+      {N("picks.html")}
       {N("guides/buying-guide-air-fryers.html")}
       {N("articles/index.html")}
     </div>
@@ -762,6 +849,7 @@ def layout(page_rel, title, body, active=None, description=""):
     </div>
     <div class="group">
       <h4>Decide</h4>
+      {N("decisions.html")}
       {N("suggestions.html")}
       {N("questions.html")}
       {N("executive-summary.html")}
@@ -967,6 +1055,24 @@ def _dashboard_article_cards():
     return chr(10).join(out)
 
 
+def _flag_count():
+    """Rows on the Flagged page, counted the same way the duplicate-ID guard counts them."""
+    return len(re.findall(r'<tr><td class="num"><strong>F\d+</strong>', page_flagged()))
+
+
+def pulse_strip():
+    """Landing-page tiles. Every number is computed from the data, never typed."""
+    return f"""
+<div class="pulse" aria-label="What this site covers, computed from the dataset">
+  <div class="tile"><b>{len(PRODUCT_LIST)}</b><span>Products compared</span><a href="compare.html">Sourced matrix \u2192</a></div>
+  <div class="tile"><b>{len(ARTICLES["articles"])}</b><span>Sourced articles</span><a href="articles/index.html">Read the guides \u2192</a></div>
+  <div class="tile"><b>{len(SOURCES["sources"])}</b><span>Official sources</span><a href="data.html#sources">The register \u2192</a></div>
+  <div class="tile"><b>{_flag_count()}</b><span>Flags open</span><a href="flagged.html">Review them \u2192</a></div>
+  <div class="tile"><b>0</b><span>Hands-on tests</span><a href="articles/who-actually-pays-for-air-fryer-reviews.html">Why \u2192</a></div>
+</div>
+"""
+
+
 def page_index():
     _article_cards = _dashboard_article_cards()
     rev = REVERIFICATION["tests"]
@@ -1034,6 +1140,8 @@ def page_index():
     </div>
   </aside>
 </div>
+
+{pulse_strip()}
 
 <div class="callout bad link-status" id="link-status">
   <div class="link-status-heading"><span class="pill pill-warn">Before shopping</span><strong>Product identity, account approval and affiliate tracking are not confirmed.</strong></div>
@@ -1126,8 +1234,26 @@ def page_index():
 <p class="small muted">The Amazon model match remains unconfirmed for every item. These pages separate manufacturer specifications from what is known about the supplied links.</p>
 <div class="grid grid-3">{cards}</div>
 
+<h2>This week's picks &mdash; and what one sale is worth</h2>
+<p class="small muted">A picks page is usually a ranking. The one on this site is a decision rule: each product wins a different job, and the job you have decides the product. It also shows what Amazon actually pays per sale at each candidate rate, with the table row it came from.</p>
+<div class="grid grid-2">
+  <a class="card" href="picks.html"><span class="kicker">Commercial front door</span><span class="cardtitle">Three air fryers, three jobs &#8594;</span><span class="cardtext">The honest version of a picks page: a rule, the specification behind each match, and the commission arithmetic in the open.</span></a>
+  <a class="card" href="decisions.html"><span class="kicker">Strategy</span><span class="cardtitle">Niche, traffic and measurement &#8594;</span><span class="cardtext">Three decisions with scored options, six channels ordered by what they depend on, and a pre-committed kill rule.</span></a>
+</div>
+
+<div class="grid grid-3" style="margin:1.1rem 0">
+  <a class="card" href="picks.html"><span class="kicker">Buyer</span><span class="cardtitle">This week's picks &#8594;</span><span class="cardtext">A decision rule, not a ranking, plus what one sale pays at each official rate.</span></a>
+  <a class="card" href="decisions.html"><span class="kicker">Owner</span><span class="cardtitle">Niche, traffic, measurement &#8594;</span><span class="cardtext">Scored options, six channels with their prerequisites, and a kill rule.</span></a>
+  <a class="card" href="handover.html"><span class="kicker">Owner</span><span class="cardtitle">Handover: five actions &#8594;</span><span class="cardtext">About an hour of owner time closes eighteen flags. Start with three minutes.</span></a>
+</div>
+
 <h2>Commercial summary</h2>
 {commercial_table()}
+
+<div class="callout bad">
+  <strong>Five actions, about an hour, eighteen flags.</strong>
+  <p class="small" style="margin:.35rem 0 0">Everything in this repository is done as far as it can be done without your accounts. Reading the model number off three Amazon listings takes about three minutes and closes the four highest-severity flags. The full list, with exact steps and time estimates, is on <a href="handover.html">the handover sheet</a>.</p>
+</div>
 
 <h2 id="evidence">Under the hood: how much of this is actually confirmed</h2>
 <p class="small muted">Everything from here down is the verification layer — useful if you want to know how
@@ -1453,6 +1579,27 @@ PROGRAMME_FLAGS = [
      "suggestions.html and questions.html (PR #58, X-633b115f)",
      "Recorded 2026-11-15 by arena-b1e7b4bc. (a) The Suggestions lede says 'None of them has been implemented', but for SG-03, SG-04, SG-05 and SG-11 option A is the current, already-implemented state ('Keep...', 'Keep blank and link to the live Amazon page (current, compliant)'), so those rows read more accurately as 'confirm the current state' than as pending work. (b) Q-01's 'How to find out' says to check the owner's Associates account for which tag the short links carry - the tag is not observable from the account's tracking-ID page either (flag F6); only whoever created the short links knows the mapping. Decision needed: reword the lede and the Q-01 cell, or accept the current phrasing. Both rows' facts and sources check out; this flag is about wording only.",
      []),
+
+    # ---- arena/792c279e-zone1, task T20, 2026-11-15 -------------------------------- #
+    # Findings from the live line-by-line re-verification performed in this pass. Full
+    # evidence, including the exact strings read back from each official page, is in
+    # reports/verification-2026-11-15.md. No published product value was changed by this
+    # pass; each row below either records a source-liveness change or a conflict that a
+    # human has to settle.
+    ("F47", "There are two flag registers in this repository, they contradict each other, and both are readable from the live site.",
+     "data/flags.json (F01-F27) vs flagged.html (F1-F43)",
+     "Found 2026-11-15 by arena/792c279e-zone1. data/flags.json still records F02 'The official Standard Commission Income schedule redirected to a sign-in page' and F01-F04 language asserting that the short links resolve 'with different ASINs'. The re-verification performed in this same pass read the Standard Commission Income Statement in full without any login (Table 1: Kitchen 4.50%, All Other 4.00%) and re-confirmed all three destinations, so the older register's two statements are contradicted by a live read. The rendered Flagged page says the opposite of data/flags.json on the commission question, so a reader who follows two links reaches two different answers. This pass did not edit data/flags.json: it is consumed by scripts/build_s2_site.py and scripts/build.mjs, and re-keying it would silently re-point another build's citations. Decision needed: name one register canonical, then either re-key the other or replace its contradicting sentences with a dated pointer to this page. Evidence: the two files themselves, and reports/verification-2026-11-15.md section 1.",
+     ["S3", "S16", "S28", "S29"]),
+
+    ("F48", "The Amazon listing for the Emeril 26 QT says six cooking accessories; the site publishes seven.",
+     "Emeril 26 QT French Door — the Included accessories row",
+     "Found 2026-11-15 by arena/792c279e-zone1 while re-reading the live listing title. ASIN B09B7SB46R's title now ends '... Extra Large Interior, Six Cooking Accessories Included', while the site's own row publishes 7, sourced to the brand product page and the owner's manual. This is not necessarily a contradiction: a listing can count a rotisserie spit and its forks as one accessory, or bundle differently from the retail box, and the brand page and manual are the sources this site chose. The value was therefore NOT changed — altering it would mean replacing a manual-sourced number with a listing-title number on a row whose product identity is itself unconfirmed (F1, F2). Decision needed: count the accessories in the box against the manual's accessory list, then publish one number with that source. Evidence: reports/verification-2026-11-15.md section 3 row V21.",
+     ["S28", "S14", "S15"]),
+
+    ("F49", "The 2026-11-15 live pass could not retrieve the one fact that closes four high-severity flags, and the site now says why in the place a buyer will look.",
+     "All three products — the model-number mapping",
+     "Recorded 2026-11-15 by arena/792c279e-zone1. The three Amazon detail pages were fetched again and returned the buy box, the protection plans and the 'Customers who viewed this item also viewed' blocks, but not the 'Product information' table that carries the model number. That block is rendered client-side, so an automated read cannot see it; a human browser can, in about ten seconds per listing. This is recorded as its own row because seven sessions have now listed F1/F2/F32/F33 as 'needs a human' without saying why the machine cannot do it, which invites an eighth session to try again. It is now also stated on picks.html, handover.html and hand-over item H1 rather than only in the register. Evidence: reports/verification-2026-11-15.md section 3 row V24.",
+     ["S16", "S28", "S29"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -1472,6 +1619,9 @@ REPO_EVIDENCE = {
     "F34": ["EXECUTIVE_SUMMARY.md"],
     "F35": ["build.py", "site/", "session-3740f69d/"],
     "F41": ["session-81495d2d/EVIDENCE-2026-11-14.md", "session-ce4070ad/EVIDENCE-2026-11-14.md"],
+    "F47": ["data/flags.json", "data/sources.json"],
+    "F48": ["data/products.json"],
+    "F49": ["reports/verification-2026-11-15.md"],
     "F42": ["suggestions.html", "questions.html", "data/flags.json", "s2/"],
     "F43": ["suggestions.html", "questions.html"],
     "F44": ["dashboard/", "annex-88769516/", "session-3740f69d/", "research/", "s2/", "site/", "docs/", "sitemap.xml"],
@@ -1719,7 +1869,7 @@ def page_data():
 <h2>Program facts register</h2>
 <p class="small">The compliance facts used throughout the site, with their sources, live on the <a href="../compliance.html">Compliance</a> page. The rate table, payment minimums and attribution windows are reproduced there verbatim from the official documents.</p>
 
-<h2>Source register</h2>
+<h2 id="sources">Source register</h2>
 <div class="tablewrap">
 <table>
   <caption>All {len(SOURCES['sources'])} sources used, with what each one verifies</caption>
@@ -2134,6 +2284,11 @@ def page_exec():
 <p class="crumbs"><a href="../index.html">Home</a> / Executive summary</p>
 <h1>Executive summary</h1>
 <p class="lede">A one-page briefing for someone who will not read the rest. The short version: the product data is good, the economics are provable only within narrow limits, and the compliance constraint is the design constraint.</p>
+<div class="grid grid-3" style="margin:1rem 0">
+  <a class="card tight" href="picks.html"><span class="kicker">Buyer-facing</span><strong>This week's picks</strong><br><span class="tiny muted">Decision rule, not a ranking</span></a>
+  <a class="card tight" href="decisions.html"><span class="kicker">Strategy</span><strong>Niche, traffic, measurement</strong><br><span class="tiny muted">Scored options and a kill rule</span></a>
+  <a class="card tight" href="handover.html"><span class="kicker">Action</span><strong>Handover: five actions</strong><br><span class="tiny muted">About an hour of owner time</span></a>
+</div>
 
 <div class="callout note">
   <strong>Pass 8 — 2026-11-15.</strong>
@@ -3064,6 +3219,87 @@ def check_article_pages(rendered):
     return problems
 
 
+# Banned-phrase guard for the editorial layer (2026-11-15, arena/792c279e).
+# The brief's complaint is that the site read "like AI slop". A house style rule that
+# nobody can enforce is a wish, so it is a build failure. The list is deliberately
+# short and specific: phrases that appear in machine-written marketing copy far more
+# often than in writing a person would publish, plus the hype verbs that make a
+# statement unfalsifiable. It is checked against the article sources in
+# data/articles.json, not against the rendered HTML, so the guard cannot be satisfied
+# by escaping.
+BANNED_PHRASES = [
+    "in today's fast-paced world", "in today\u2019s fast-paced world", "elevate your",
+    "unlock the power", "game-changer", "game changer", "revolutionize", "revolutionise",
+    "seamless experience", "take it to the next level", "look no further",
+    "dive into", "delve into", "in the ever-evolving", "ever-evolving landscape",
+    "whether you're a", "whether you\u2019re a", "nestled in the heart",
+    "boasts a", "unleash", "cutting-edge", "state-of-the-art", "must-have",
+    "indulge in", "tantalizing", "cullinary", "culinary journey",
+]
+
+
+def check_decision_data():
+    """Build guard for data/decision.json (2026-11-15, arena/792c279e).
+
+    The decision pages publish arithmetic on official rates, so the rates must still be the
+    ones on the official table and every per-sale figure must be the arithmetic it claims to
+    be. A stale example is worse than no example: it looks authoritative and is wrong.
+    """
+    problems = []
+    official = {r["rate"]: r for r in COMPLIANCE.get("commission_table", [])}
+    for row in DECISION["commission"]["rows"]:
+        rate = row["rate"]
+        cat = row["label"].split(" (")[0].strip()
+        # The table groups categories in one row, e.g. "Physical Books, Kitchen,
+        # Automotive" -> 4.50%. Match the category *inside* a grouped row, not the whole
+        # row string, so a rename on either side fails loudly instead of passing silently.
+        match = [r for r in COMPLIANCE.get("commission_table", [])
+                 if r["category"].strip() == cat
+                 or cat in [x.strip() for x in r["category"].split(",")]]
+        if not match:
+            problems.append(f"decision.json rate row {cat!r} is not a row on the official table")
+            continue
+        if match[0]["rate"].strip() != rate:
+            problems.append(f"decision.json says {cat} is {rate}, the table says {match[0]['rate']}")
+    for ex in DECISION["commission"]["per_sale_examples"]:
+        try:
+            price = float(ex["list_price"].replace("$", "").replace(",", ""))
+        except ValueError:
+            problems.append(f"unparseable list price {ex['list_price']!r}")
+            continue
+        for pct_key, rate in (("at_4_5", 0.045), ("at_4_0", 0.040)):
+            expect = round(price * rate + 1e-9, 2)
+            got = float(ex[pct_key].replace("$", ""))
+            if abs(expect - got) > 0.005:
+                problems.append(f"{ex['product']}: {pct_key} is {ex[pct_key]}, "
+                                f"{price} x {rate:.2%} = ${expect:.2f}")
+    # every channel and metric must name its prerequisites rather than imply readiness
+    for c in DECISION["traffic"]["channels"]:
+        if not c.get("requirements"):
+            problems.append(f"traffic channel {c['id']} lists no requirements")
+        if not c.get("status"):
+            problems.append(f"traffic channel {c['id']} has no status")
+    return problems
+
+
+def check_article_voice():
+    problems = []
+    for a in ARTICLES["articles"]:
+        blob = " ".join(
+            [a.get("title", ""), a.get("standfirst", "")]
+            + [p for sec in a["sections"] for p in sec["paras"]]
+        ).lower()
+        for phrase in BANNED_PHRASES:
+            if phrase in blob:
+                problems.append(f"{a['slug']}: banned stock phrase {phrase!r}")
+        # A first-person plural claim of experience is the same failure as a test claim.
+        for claim in ("we tested", "we tried", "we used it", "after weeks of use",
+                      "we've been using", "our testers"):
+            if claim in blob:
+                problems.append(f"{a['slug']}: experience claim {claim!r} with no testing")
+    return problems
+
+
 def article_body(article, prefix="../"):
     parts = []
     for sec in article["sections"]:
@@ -3180,9 +3416,394 @@ def page_article(a):
 
 <p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../articles/index.html">← All articles</a> <a class="btn btn-ghost" href="../flagged.html">What is unresolved →</a></p>
 """
+    # --- 2026-11-15 (arena/792c279e): reader-facing polish on the editorial layer.
+    # A share row that works with no third-party script, prev/next navigation so a reader
+    # who lands deep can keep reading, and Article structured data assembled only from
+    # fields already in data/articles.json. No author identity is invented; the publisher
+    # is the site.
+    _arts = ARTICLES["articles"]
+    _idx = [x["slug"] for x in _arts].index(a["slug"])
+    _prev = _arts[_idx - 1] if _idx > 0 else _arts[-1]
+    _next = _arts[(_idx + 1) % len(_arts)]
+    _site = "https://kanlerxz87-cyber.github.io/Zone1/"
+    _url = f"{_site}articles/{a['slug']}.html"
+    share = f"""
+<div class="share">
+  <span class="label">Share</span>
+  <a href="https://x.com/intent/post?text={quote_plus(a['title'])}&amp;url={quote_plus(_url)}" target="_blank" rel="noopener">X / Twitter</a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url={quote_plus(_url)}" target="_blank" rel="noopener">LinkedIn</a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u={quote_plus(_url)}" target="_blank" rel="noopener">Facebook</a>
+  <a href="mailto:?subject={quote_plus(a['title'])}&amp;body={quote_plus(_url)}">Email</a>
+  <button type="button" class="copylink" data-link="{e(_url)}">Copy link</button>
+</div>
+<div class="article-nav">
+  <a class="card tight" href="{e(_prev['slug'])}.html"><span class="tiny muted">Previous</span><br><strong>{e(_prev['title'])}</strong></a>
+  <a class="card tight" href="{e(_next['slug'])}.html"><span class="tiny muted">Next</span><br><strong>{e(_next['title'])}</strong></a>
+</div>"""
+    body = body + share
+    _ld = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": a["title"],
+        "description": a["standfirst"],
+        "dateModified": ARTICLES.get("updated", ACCESSED),
+        "mainEntityOfPage": {"@type": "WebPage", "@id": _url},
+        "publisher": {"@type": "Organization", "name": SITE_NAME, "url": _site},
+    }, ensure_ascii=False)
+    body = body + f'\n<script type="application/ld+json">{_ld}</script>'
     return layout(f"articles/{a['slug']}.html", a["title"], body,
                   active="articles/index.html", description=a["standfirst"])
 
+
+
+# --------------------------------------------------------------------------- #
+# 2026-11-15 (arena/792c279e-zone1, T20): the decision-facing pages.
+#
+# picks.html      — the commercial front door: three products, three jobs, one
+#                   decision rule, and the caveat that governs every link.
+# decisions.html  — niche, traffic and measurement: the strategy material the
+#                   brief asks for, with assumptions labelled and quantities
+#                   either sourced or left as owner inputs.
+# handover.html   — the five things only the account holder can do, each with a
+#                   time estimate and the flags it closes.
+#
+# Every number on these pages comes from data/decision.json, which follows the
+# same rule as the rest of the dataset: a value is either quoted from a
+# registered official source or labelled as an assumption.
+# --------------------------------------------------------------------------- #
+
+FLAG_BY_ID = {}
+
+
+def _decision_rows():
+    return DECISION["commission"]["rows"]
+
+
+def page_picks():
+    """Commercial front door: the honest version of a 'top picks' page."""
+    d = DECISION
+    cards = []
+    jobs = [
+        ("chefman-6qt-dual-basket", "Cook two different things at once",
+         "Two independent 3-quart baskets and a Sync Finish function that delays the shorter cook to land with the longer one."),
+        ("emeril-26qt-french-door", "Replace a toaster oven as well as a fryer",
+         "One 26-quart cavity with French doors, a dual-speed fan and a rotisserie documented in the owner's manual."),
+        ("chefman-8qt-turbofry", "Feed four to six people from one basket",
+         "A single large basket with a documented 4\u20136 person household size and a shake reminder."),
+    ]
+    by_slug = {p["slug"]: p for p in PRODUCT_LIST}
+    for slug, job, why in jobs:
+        p = by_slug[slug]
+        cap = next(s for s in p["specs"] if s["label"] in ("Capacity",))
+        model = p.get("model_number") or {}
+        cards.append(f"""
+<article class="card pcard pick">
+  <p class="product-type">Pick if you want to</p>
+  <h3>{e(job)}</h3>
+  <p class="small muted product-name">{e(p['short_name'])} \u2014 {e(p['name'])}</p>
+  <div class="product-fact">
+    <span>Manufacturer-stated capacity</span>
+    <strong>{e(cap['value'])}</strong>
+    <span class="tiny">{src_links(cap['source'])}</span>
+  </div>
+  <p class="small">{e(why)}</p>
+  <p class="product-match"><span class="pill pill-warn">Model match unconfirmed</span>
+    <a class="tiny" href="flagged.html">Why</a></p>
+  <a class="pick-cta" href="products/{e(p['slug'])}.html">Read the sourced breakdown \u2192</a>
+</article>""")
+
+    rate_rows = "".join(
+        f'<tr><td>{e(r["label"])}</td><td class="num">{e(r["rate"])}</td>'
+        f'<td class="small">{e(r["row_quoted"])} {src_links(r["source"])}</td></tr>'
+        for r in _decision_rows())
+
+    examples = "".join(
+        f'<tr><td>{e(x["product"])}</td><td class="num">{e(x["list_price"])}</td>'
+        f'<td class="num">{e(x["at_4_5"])}</td><td class="num">{e(x["at_4_0"])}</td>'
+        f'<td>{src_links(x["source"])}</td></tr>'
+        for x in d["commission"]["per_sale_examples"])
+
+    caveats = "".join(f"<li>{e(c)}</li>" for c in d["commission"]["caveats"])
+
+    body = f"""
+<div class="editorial-hero picks-hero">
+  <div class="hero-copy">
+    <p class="hero-eyebrow">This week's picks <span aria-hidden="true">/</span> updated {e(d['compiled'])}</p>
+    <h1 class="hero-title">Three air fryers, three different jobs.</h1>
+    <p class="lede">A picks page is usually a ranking. This one is a decision rule: each of the three products wins a different job, and the job you have decides the product. Every claim below is a manufacturer specification you can check in one click.</p>
+    <div class="hero-actions">
+      <a class="btn" href="#pick-rule">See the rule <span aria-hidden="true">\u2193</span></a>
+      <a class="btn btn-ghost" href="decisions.html">How the money works <span aria-hidden="true">\u2192</span></a>
+    </div>
+    <p class="hero-footnote">No hands-on testing claimed \u00b7 no Amazon price or rating published \u00b7 model identity still open</p>
+  </div>
+  <aside class="hero-panel" aria-label="What this page is">
+    <p class="hero-panel-kicker">Before you click <span>read this</span></p>
+    <h2>The link is not the product.</h2>
+    <p class="small">Each product below links to a supplied Amazon short link. All three land on a listing, but Amazon does not publish a model number a fetch can read, so this site cannot confirm which manufacturer SKU each listing is. Check the model number on the listing before you buy. <a href="flagged.html">Flagged for review</a>.</p>
+  </aside>
+</div>
+
+<nav class="buyer-toc" aria-label="On this page">
+  <a href="#pick-rule">The rule</a>
+  <a href="#the-picks">The three picks</a>
+  <a href="#commission">What one sale is worth</a>
+  <a href="#not-a-top-ten">Why not a top ten</a>
+  <a href="#read-next">Read next</a>
+</nav>
+
+<div class="callout trust" id="pick-rule">
+  <strong>The rule.</strong> Buy the format, not the brand: two baskets if you cook two different things at once, a French-door oven if you also want to replace a toaster oven, one big basket if you are cooking for four to six people from a single batch. Everything else on this page is a consequence of that rule.
+</div>
+
+<section class="quick-guide" id="the-picks">
+  <div class="section-heading">
+    <p class="section-eyebrow">The three picks</p>
+    <h2>Each one wins a different job</h2>
+    <p class="small muted">Capacity is quoted from each manufacturer's own product page. The links to Amazon are the supplied affiliate links.</p>
+  </div>
+  <div class="grid grid-3 decision-grid">{''.join(cards)}</div>
+</section>
+
+<h2 id="commission">What one sale is actually worth</h2>
+<p class="lede">Amazon pays a fixed percentage by category, not by product. Two rows of its published table are plausible for these appliances, and it does not publish which row a given ASIN falls into, so the honest answer is a range.</p>
+<div class="tablewrap">
+<table>
+  <caption>Official Standard Commission Income rates that could apply</caption>
+  <thead><tr><th>Category as published</th><th>Fixed rate</th><th>Row quoted from the official table</th></tr></thead>
+  <tbody>{rate_rows}</tbody>
+</table>
+</div>
+<div class="tablewrap" style="margin-top:1rem">
+<table>
+  <caption>What that is worth per sale, at each candidate rate (arithmetic on manufacturer list prices)</caption>
+  <thead><tr><th>Product</th><th>Brand list price</th><th>At 4.50%</th><th>At 4.00%</th><th>Sources</th></tr></thead>
+  <tbody>{examples}</tbody>
+</table>
+</div>
+<ul class="tight small" style="margin-top:.8rem">{caveats}</ul>
+<p class="small muted">Per-product mapping is deliberately not asserted: see <a href="flagged.html">Flagged for review</a> and the measurement section of <a href="decisions.html">Decisions &amp; handover</a>.</p>
+
+<h2 id="not-a-top-ten">Why this page is not a top-ten list</h2>
+<div class="grid grid-2">
+  <div class="card">
+    <h3 style="margin-top:0">Because "best" needs evidence this site does not have</h3>
+    <p class="small">A ranking implies comparison testing. The FTC's own guidance says you cannot talk about experience with a product you have not tried, and Amazon's policies restrict republishing customer reviews and star ratings. So this page ranks <em>jobs</em>, not products, and shows the specification that supports each match.</p>
+    <p class="small">{src_links(['S8', 'S2'])}</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Because the reader can check every line</h3>
+    <p class="small">Every capacity, dimension and temperature on the product pages links to the manufacturer's page or the owner's manual PDF. If a value is missing from the source, the row stays blank and appears on the flagged page instead of being filled in.</p>
+    <p class="small"><a href="compare.html">See the verified-only comparison matrix \u2192</a></p>
+  </div>
+</div>
+
+<h2 id="read-next">Read next</h2>
+<div class="cardgrid">
+  <a class="card" href="articles/small-kitchen-air-fryer-dimensions.html">
+    <span class="kicker">Fit check</span>
+    <span class="cardtitle">Will it actually fit? Three air fryers, measured against your counter</span>
+    <span class="cardtext">Depth, height and weight, from the manufacturers' own figures.</span>
+  </a>
+  <a class="card" href="articles/chefman-8qt-two-models.html">
+    <span class="kicker">Model watch</span>
+    <span class="cardtitle">The 8-quart Chefman is sold as two different machines</span>
+    <span class="cardtext">One tops out at 400\u00b0F, one reaches 450\u00b0F. The listing describes both.</span>
+  </a>
+  <a class="card" href="articles/energy-cost-of-an-air-fryer.html">
+    <span class="kicker">Running costs</span>
+    <span class="cardtitle">The 1,700-watt question</span>
+    <span class="cardtext">All three units draw the same load. What that means for a kitchen circuit.</span>
+  </a>
+  <a class="card" href="articles/who-actually-pays-for-air-fryer-reviews.html">
+    <span class="kicker">How the money works</span>
+    <span class="cardtitle">Who pays for the air-fryer review you are reading?</span>
+    <span class="cardtext">The disclosure rule, the law behind it, and the three claims an affiliate may not make.</span>
+  </a>
+</div>
+"""
+    return layout("picks.html", "This week's picks \u2014 three air fryers, three jobs", body,
+                  active="picks.html",
+                  description="A decision-rule picks page: which of three sourced air fryers wins which job, what one sale pays at each official commission rate, and what remains unconfirmed.")
+
+
+def page_decisions():
+    d = DECISION
+    def crit_table():
+        crit = d["niche"]["criteria"]
+        head = "".join(f'<th title="{e(c["why"])}">{e(c["id"])}</th>' for c in crit)
+        rows = ""
+        for c in d["niche"]["candidates"]:
+            cells = "".join(f'<td class="num">{c["score"][k["id"]]}</td>' for k in crit)
+            rows += (f'<tr><td><strong>{e(c["id"])} {e(c["name"])}</strong>'
+                     f'<div class="tiny muted">{e(c["basis"])}</div></td>{cells}'
+                     f'<td class="num"><strong>{c["total"]}</strong></td>'
+                     f'<td class="small">{e(c["recommendation"])}'
+                     f'<div class="tiny">{src_links(c["source"])}</div></td></tr>')
+        return (f'<div class="tablewrap"><table><caption>Niche options scored 0\u20133 '
+                f'(higher is better; the scores are judgements, shown with their basis)</caption>'
+                f'<thead><tr><th>Candidate niche</th>{head}<th>Total</th><th>Verdict / evidence</th></tr></thead>'
+                f'<tbody>{rows}</tbody></table></div>')
+
+    def crit_legend():
+        return "".join(
+            f'<li><strong>{e(c["id"])}</strong> {e(c["name"])} \u2014 {e(c["why"])}</li>'
+            for c in d["niche"]["criteria"])
+
+    def channels():
+        out = ""
+        for c in d["traffic"]["channels"]:
+            reqs = "".join(f"<li>{e(r)}</li>" for r in c["requirements"])
+            out += f"""
+<div class="card channel">
+  <div class="channel-head">
+    <span class="pill pill-info">{e(c['id'])}</span>
+    <h3>{e(c['name'])}</h3>
+    <span class="pill {'pill-ok' if 'Ready' in c['status'] or 'exist' in c['status'] else 'pill-warn'}">{e(c['status'])}</span>
+  </div>
+  <p class="small">{e(c['works_because'])}</p>
+  <p class="tiny muted" style="margin-bottom:.2rem">Requires</p>
+  <ul class="tight small">{reqs}</ul>
+  <p class="tiny muted"><strong>Effort:</strong> {e(c['effort'])} \u00b7 <strong>Cost:</strong> {e(c['cost'])} \u00b7 <strong>Risk:</strong> {e(c['risk'])}</p>
+</div>"""
+        return out
+
+    def _msrc(m):
+        if m.get("source"):
+            return src_links(m["source"])
+        return repo_link("reports/verification-2026-11-15.md", "this pass")
+    metrics = "".join(
+        f'<tr><td>{e(m["id"])}</td><td><strong>{e(m["metric"])}</strong></td>'
+        f'<td class="small">{e(m["how"])}</td><td class="small">{e(m["status"])}</td>'
+        f'<td class="small">{_msrc(m)}</td></tr>'
+        for m in d["measurement"]["metrics"])
+
+    rules = "".join(f"<li>{e(r)}</li>" for r in d["traffic"]["anti_slop_rules"])
+
+    def _closes(h):
+        return e(", ".join(h["closes"])) if h["closes"] else "not a flag \u2014 unblocks measurement"
+    def _hsrc(h):
+        if h.get("source"):
+            return src_links(h["source"])
+        return repo_link("COORDINATION.md", "claim record")
+    handoff_rows = "".join(
+        f'<tr><td><span class="pill pill-info">{e(h["id"])}</span></td>'
+        f'<td>{e(h["owner_action"])}</td><td class="num">{e(h["time"])}</td>'
+        f'<td class="small">{_closes(h)}</td><td class="small">{_hsrc(h)}</td></tr>'
+        for h in d["handover"]["items"])
+
+    body = f"""
+<p class="section-eyebrow">Decisions &amp; handover</p>
+<h1>What has to be decided before more is built</h1>
+<p class="lede">Three decisions, one measurement plan, and the short list of things only the account holder can do. Nothing on this page is implemented: it exists so the paths can be compared before anyone spends time on one.</p>
+<div class="callout trust"><strong>How to read this.</strong> A number is either quoted from a registered official source or labelled an assumption. Scores in the niche table are judgements and are shown with their basis so you can disagree with them. Nothing here is a forecast of traffic or revenue.</div>
+
+<div class="grid grid-3" style="margin:1.2rem 0">
+  <a class="card" href="#niche"><span class="kicker">Decision 1</span><span class="cardtitle">Which niche</span><span class="cardtext">Four candidates, scored on five criteria, with the honest verdict.</span></a>
+  <a class="card" href="#traffic"><span class="kicker">Decision 2</span><span class="cardtitle">Which traffic</span><span class="cardtext">Six channels ordered by how little they depend on things we do not have.</span></a>
+  <a class="card" href="#measure"><span class="kicker">Decision 3</span><span class="cardtitle">What to measure</span><span class="cardtext">Six metrics, what each needs, and a pre-committed kill rule.</span></a>
+</div>
+
+<h2 id="niche">Decision 1 \u2014 which niche to build around</h2>
+<p class="small muted">{e(d['niche']['summary'])}</p>
+{crit_table()}
+<p class="tiny muted">{e(d['niche']['scoring_note'])}</p>
+<details class="card tight">
+  <summary><strong>What each criterion means</strong></summary>
+  <ul class="tight small" style="margin-top:.6rem">{crit_legend()}</ul>
+</details>
+<div class="callout ok">
+  <strong>Recommendation:</strong> {e(d['niche']['decision']['recommendation'])}
+  <p class="small" style="margin:.4rem 0 0">{e(d['niche']['decision']['why'])}</p>
+  <p class="small" style="margin:.3rem 0 0"><strong>Alternative:</strong> {e(d['niche']['decision']['alternative'])}</p>
+</div>
+<div class="tablewrap">
+<table>
+  <caption>What would have to be true for each candidate</caption>
+  <thead><tr><th>Candidate</th><th>Condition</th><th>Evidence</th></tr></thead>
+  <tbody>{''.join(f'<tr><td>{e(c["id"])} {e(c["name"])}</td><td class="small">{e(c["what_must_be_true"])}</td><td>{src_links(c["source"])}</td></tr>' for c in d['niche']['candidates'])}</tbody>
+</table>
+</div>
+
+<h2 id="traffic">Decision 2 \u2014 how traffic would actually arrive</h2>
+<p class="small muted">{e(d['traffic']['summary'])}</p>
+{channels()}
+
+<h3>Rules that keep the writing from reading like machine output</h3>
+<ol class="tight small">{rules}</ol>
+
+<h2 id="measure">Decision 3 \u2014 what to measure</h2>
+<p class="small muted">{e(d['measurement']['summary'])}</p>
+<div class="tablewrap">
+<table>
+  <caption>Six metrics and what each one needs before it can exist</caption>
+  <thead><tr><th>#</th><th>Metric</th><th>How</th><th>Status</th><th>Source of the rule</th></tr></thead>
+  <tbody>{metrics}</tbody>
+</table>
+</div>
+<div class="callout">
+  <strong>{e(d['measurement']['decision_rule']['heading'])}</strong>
+  <p class="small" style="margin:.4rem 0 0">{e(d['measurement']['decision_rule']['rule'])}</p>
+  <p class="small" style="margin:.3rem 0 0 muted">{e(d['measurement']['decision_rule']['why'])}</p>
+</div>
+<p class="small muted">{e(d['measurement']['untrackable_note'])}</p>
+
+<h2 id="handover">What only you can do</h2>
+<p class="small muted">{e(d['handover']['summary'])}</p>
+<div class="tablewrap">
+<table>
+  <caption>Owner actions, time required, and the flags each one closes</caption>
+  <thead><tr><th>#</th><th>Action</th><th>Time</th><th>Closes</th><th>Grounded in</th></tr></thead>
+  <tbody>{handoff_rows}</tbody>
+</table>
+</div>
+<p class="small"><a href="handover.html">Open the full handover sheet \u2014 with the exact steps and what to paste back \u2192</a></p>
+<p class="small muted">Nothing on this page has been implemented. The suggestions queue, with alternative paths, effort, risk and reversibility for each item, is on <a href="suggestions.html">Suggestions</a>; the outstanding facts are on <a href="questions.html">Questions and gaps</a>.</p>
+"""
+    return layout("decisions.html", "Decisions \u2014 niche, traffic, measurement and handover", body,
+                  active="decisions.html",
+                  description="Three decisions with scored options, a six-channel traffic plan, six metrics with their prerequisites, a pre-committed kill rule, and the five actions only the account holder can take.")
+
+
+def page_handover():
+    d = DECISION["handover"]
+    items = ""
+    for h in d["items"]:
+        closes = ", ".join(h["closes"]) if h["closes"] else "no flag \u2014 unblocks measurement"
+        src = src_links(h["source"]) if h["source"] else ""
+        items += f"""
+<article class="card handover-item">
+  <div class="handover-head">
+    <span class="handover-num">{e(h['id'])}</span>
+    <h3>{e(h['owner_action'].replace('**',''))}</h3>
+    <span class="pill pill-info">{e(h['time'])}</span>
+  </div>
+  <p class="small">{e(h['why_now'])}</p>
+  <div class="handover-meta">
+    <div><span class="tiny muted">Closes</span><div class="small">{e(closes)}</div></div>
+    <div><span class="tiny muted">Paste back</span><div class="small">{e(h['what_to_paste_back'])} {src}</div></div>
+  </div>
+</article>"""
+
+    not_possible = "".join(f"<li>{e(x)}</li>" for x in d["not_possible_here"])
+    body = f"""
+<p class="section-eyebrow">Handover</p>
+<h1>Five actions, about an hour, eighteen flags</h1>
+<p class="lede">Everything in this repository is done as far as it can be done without the account holder's own logins. These five actions are the shortest path from "unverified" to "confirmed". Each shows the time it takes and the flags it closes.</p>
+<div class="callout bad">
+  <strong>Start with H1.</strong> Reading the model number off three Amazon listings takes about three minutes and closes the four highest-severity flags in the register. It is the only fact in the project that a headless fetch cannot read.
+</div>
+{items}
+
+<h2>What cannot be done from here</h2>
+<div class="card">
+  <ul class="tight small">{not_possible}</ul>
+</div>
+<p class="small muted">When the answers come back, they are recorded in <a href="flagged.html">the flag register</a> with their source and the date read, not inferred from an earlier pass. Every published value on this site carries that same discipline.</p>
+"""
+    return layout("handover.html", "Handover \u2014 the five things only the account holder can do", body,
+                  active="decisions.html",
+                  description="Five owner actions totalling about an hour, each with the exact steps, the time required, the flags it closes and what to paste back.")
 
 
 # --------------------------------------------------------------------------- #
@@ -3446,6 +4067,9 @@ def main():
     pages["platform.html"] = page_platform()
     pages["executive-summary.html"] = page_exec()
     pages["reverification.html"] = page_reverification()
+    pages["picks.html"] = page_picks()
+    pages["decisions.html"] = page_decisions()
+    pages["handover.html"] = page_handover()
     pages["suggestions.html"] = page_suggestions()
     pages["questions.html"] = page_questions()
     pages["decision-gate.html"] = page_questions_alt()
@@ -3467,6 +4091,14 @@ def main():
     if article_problems:
         raise SystemExit("BUILD FAILED — article cites an unregistered source or states an "
                          "unpublished value:\n  " + "\n  ".join(article_problems))
+    decision_problems = check_decision_data()
+    if decision_problems:
+        raise SystemExit("BUILD FAILED — decision data no longer matches the official table:\n  "
+                         + "\n  ".join(decision_problems))
+    voice_problems = check_article_voice()
+    if voice_problems:
+        raise SystemExit("BUILD FAILED — article violates the house voice rule:\n  "
+                         + "\n  ".join(voice_problems))
     article_page_problems = check_article_pages(pages)
     if article_page_problems:
         raise SystemExit("BUILD FAILED — article page violated a disclosure/claims rule:\n  "
