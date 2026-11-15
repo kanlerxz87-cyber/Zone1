@@ -25,6 +25,11 @@ SITE_NAME = "Zone1 Kitchen"
 SITE_TAGLINE = "Air-fryer decisions, backed by sources"
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
 
+# Public origin of the canonical site (GitHub Pages, branch main, root). The sitemap and
+# robots.txt generators below already hard-code this; it is named here so canonical URLs,
+# Open Graph URLs and structured-data ids cannot drift from the sitemap.
+SITE_BASE = "https://kanlerxz87-cyber.github.io/Zone1/"
+
 # --------------------------------------------------------------------------- #
 # data loading
 # --------------------------------------------------------------------------- #
@@ -177,6 +182,69 @@ NAV = [
     ("docs/index.html", "Legacy docs build", "Retired build kept for its evidence (docs/)"),
     ("annex-88769516/index.html", "Annex 88769516", "Independent annex build (annex-88769516/)"),
 ]
+
+def json_ld(page_rel, title, description):
+    """Structured data for a generated page — and a deliberate omission.
+
+    Emitted: WebSite + publisher on the home page, Article on article pages, and a
+    BreadcrumbList tying every subpage to the home page. That is metadata this build can
+    state truthfully from data it already holds.
+
+    NOT emitted: schema.org Product / Offer / AggregateRating. Amazon prices, availability
+    and star ratings are deliberately absent from this site (Program Policies §2(b) and
+    §6(t), see data/products.json → amazon_price_policy). Structured data is read by search
+    engines and rich-result systems as a factual assertion, so a Product block without a
+    price, or with an invented one, would either be useless or would assert a number this
+    project has explicitly refused to publish. Manufacturer list prices are real but are not
+    Amazon offers, so they are not marked up as offers either.
+    """
+    canonical = SITE_BASE + ("" if page_rel == "index.html" else page_rel)
+    graph = []
+    if page_rel == "index.html":
+        graph.append({
+            "@type": "WebSite",
+            "@id": SITE_BASE + "#website",
+            "url": SITE_BASE,
+            "name": SITE_NAME,
+            "description": description or SITE_TAGLINE,
+            "inLanguage": "en-US",
+            "publisher": {"@id": SITE_BASE + "#publisher"},
+        })
+    graph.append({
+        "@id": canonical + "#publisher",
+        "@type": "Organization",
+        "name": SITE_NAME,
+        "url": SITE_BASE,
+        "description": ("Independent Amazon Associates publisher. Documentation-based "
+                        "product comparison; no hands-on testing is claimed."),
+        "disambiguatingDescription": (
+            "Not owned by, endorsed by or sponsored by Amazon.com, Inc. or any brand named "
+            "on the site. " + DISCLOSURE),
+    })
+    crumbs = [{"@type": "ListItem", "position": 1, "name": "Home",
+               "item": SITE_BASE}]
+    parts = page_rel.split("/")[:-1]
+    for i, part in enumerate(parts, start=2):
+        crumbs.append({"@type": "ListItem", "position": i,
+                       "name": part.replace("-", " ").title(),
+                       "item": SITE_BASE + "/".join(parts[:i - 1]) + "/"})
+    if len(crumbs) > 1:
+        graph.append({"@type": "BreadcrumbList", "itemListElement": crumbs})
+    if page_rel.startswith("articles/"):
+        graph.append({
+            "@type": "Article",
+            "headline": title,
+            "description": description or "",
+            "mainEntityOfPage": {"@id": canonical},
+            "isPartOf": {"@id": SITE_BASE + "#website"},
+            "publisher": {"@id": canonical + "#publisher"},
+            "inLanguage": "en-US",
+        })
+    payload = {"@context": "https://schema.org", "@graph": graph}
+    return ('<script type="application/ld+json">'
+            + json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
+            + "</script>\n")
+
 
 # --------------------------------------------------------------------------- #
 # layout
@@ -615,6 +683,39 @@ def layout(page_rel, title, body, active=None, description=""):
         if parallel else ""
     )
     desc = f'<meta name="description" content="{e(description)}">' if description else ""
+
+    # ---- SEO / sharing metadata (pass 9, session 22f43836) -------------------
+    # Before this pass the root build shipped a <title> and a description and nothing
+    # else: no canonical URL, no Open Graph or Twitter card, no structured data. Two
+    # consequences, both measured rather than assumed:
+    #   * the same 14-page site is published nine times from this one repository, so
+    #     without a canonical URL a search engine that finds an annex copy (dashboard/,
+    #     annex-88769516/, session-3740f69d/, research/, s2/, site/) has nothing telling
+    #     it which copy is the maintained one — see flags F44 and F45;
+    #   * a shared link rendered as a bare URL with no title, description or image.
+    # Canonical is emitted only for pages generated here. The annex builds are other
+    # sessions' published output and are not modified by this build.
+    canonical = SITE_BASE + ("" if page_rel == "index.html" else page_rel)
+    if page_rel == "404.html":
+        # A 404 page must not be indexed or advertised as canonical.
+        seo_head = ('<meta name="robots" content="noindex">\n'
+                    f'<meta property="og:type" content="website">\n'
+                    f'<meta property="og:site_name" content="{e(SITE_NAME)}">\n'
+                    f'<meta property="og:title" content="{e(title)} · {e(SITE_NAME)}">\n')
+    else:
+        seo_head = (
+            f'<link rel="canonical" href="{e(canonical)}">\n'
+            f'<meta property="og:type" content="website">\n'
+            f'<meta property="og:site_name" content="{e(SITE_NAME)}">\n'
+            f'<meta property="og:locale" content="en_US">\n'
+            f'<meta property="og:url" content="{e(canonical)}">\n'
+            f'<meta property="og:title" content="{e(title)} · {e(SITE_NAME)}">\n'
+            + (f'<meta property="og:description" content="{e(description)}">\n' if description else "")
+            + f'<meta name="twitter:card" content="summary">\n'
+            f'<meta name="twitter:title" content="{e(title)} · {e(SITE_NAME)}">\n'
+            + (f'<meta name="twitter:description" content="{e(description)}">\n' if description else "")
+            + json_ld(page_rel, title, description)
+        )
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -622,7 +723,7 @@ def layout(page_rel, title, body, active=None, description=""):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(title)} · {e(SITE_NAME)}</title>
 {desc}
-<link rel="stylesheet" href="{prefix}assets/style.css">
+{seo_head}<link rel="stylesheet" href="{prefix}assets/style.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23245746'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='%23fff' text-anchor='middle'%3EZ1%3C/text%3E%3C/svg%3E">
 </head>
 <body>
@@ -3191,6 +3292,115 @@ def check_row_sources(pages):
     return problems
 
 
+# --------------------------------------------------------------------------- #
+# pass 9 guards (session 22f43836)
+# --------------------------------------------------------------------------- #
+
+def qualify_affiliate_links(html_text):
+    """Add rel="sponsored" to every clickable affiliate anchor in a rendered page.
+
+    One post-render pass rather than fifteen template edits, so a future page that prints a
+    supplied link cannot reintroduce the defect the guard now blocks. Rules match the guard:
+    anchors on the affiliate host, excluding citation badges (class="src") and the
+    nonsense-token control request (S22). Existing rel values are preserved and de-duplicated
+    so rel="nofollow sponsored noopener" never becomes contradictory or repeated.
+    """
+    def fix(match):
+        tag = match.group(0)
+        if 'class="src"' in tag or "ZZZ9ZZZZZ" in tag:
+            return tag
+        rel_attr = re.search(r'rel="([^"]*)"', tag, re.I)
+        if rel_attr:
+            values = [v for v in rel_attr.group(1).split() if v]
+        else:
+            values = []
+        if "sponsored" not in values:
+            # sponsored must lead: it is the value that states the commercial relationship.
+            values = ["sponsored"] + values
+        new_tag = re.sub(r'\srel="[^"]*"', "", tag, count=1, flags=re.I)
+        return new_tag[:-1].rstrip() + f' rel="{" ".join(values)}">'
+    return re.sub(r'<a\b[^>]*' + AFFILIATE_HOST + r'[^>]*>', fix, html_text, flags=re.I)
+
+
+AFFILIATE_HOST = "link.amazon"
+
+
+def check_affiliate_link_qualification(pages):
+    """Build guard: every clickable affiliate link must be qualified.
+
+    Read verbatim 2026-11-15 from Google Search Central, "Spam policies for Google web
+    search" (S30): "It's not a violation of our policies to have such links as long as
+    they are qualified with a rel="nofollow" or rel="sponsored" attribute value to the
+    <a> tag", and from "Qualify your outbound links to Google" (S31): "Mark links that are
+    advertisements or paid placements (commonly called paid links) with the sponsored
+    value."
+
+    Scope: only anchors a reader can actually click through to Amazon, i.e. hrefs on the
+    affiliate short-link host. Excluded on purpose:
+      * citation badges (class="src") — these evidence a fact, they are not calls to action;
+      * the nonsense-token control request (data/sources.json S22), which exists to prove
+        the resolver refuses unknown tokens and must stay clickable for a human to re-test.
+    Every product CTA already carried rel="nofollow sponsored"; the anchors this guard was
+    written to catch are the raw supplied links printed in the evidence tables, which had
+    rel="noopener" only. Refusing to qualify a link that is the site's entire commercial
+    purpose is a silent revenue and compliance defect, so it is a build failure now.
+    """
+    anchor = re.compile(r'<a\b[^>]*' + AFFILIATE_HOST + r'[^>]*>', re.I)
+    problems = []
+    for rel, html_text in pages.items():
+        for tag in anchor.findall(html_text):
+            if 'class="src"' in tag:
+                continue
+            if "ZZZ9ZZZZZ" in tag:
+                continue
+            rel_attr = re.search(r'rel="([^"]*)"', tag, re.I)
+            values = (rel_attr.group(1) if rel_attr else "").split()
+            if "sponsored" not in values:
+                href = re.search(r'href="([^"]+)"', tag)
+                problems.append(
+                    f'{rel}: affiliate link without rel="sponsored": '
+                    f'{(href.group(1) if href else tag)[:90]}')
+    return problems
+
+
+def check_seo_metadata(pages):
+    """Build guard: the SEO/sharing metadata must exist on every generated page.
+
+    Written because the defect it prevents was live: before pass 9 no generated page had a
+    canonical URL, an Open Graph title or structured data, measured as 0/27 pages on
+    2026-11-15. A metadata block that is added by hand once and then dropped by the next
+    template edit is not a fix, so the requirement is executable.
+    """
+    problems = []
+    for rel, html_text in pages.items():
+        if not rel.endswith(".html"):
+            continue
+        if rel == "404.html":
+            if not re.search(r'<meta name="robots" content="noindex"', html_text):
+                problems.append(f"{rel}: 404 page must carry a noindex robots meta")
+            if 'rel="canonical"' in html_text:
+                problems.append(f"{rel}: 404 page must not declare a canonical URL")
+            continue
+        for needle, what in (
+            ('rel="canonical"', "canonical URL"),
+            ('property="og:title"', "Open Graph title"),
+            ('name="twitter:card"', "Twitter card"),
+            ('application/ld+json', "structured data"),
+        ):
+            if needle not in html_text:
+                problems.append(f"{rel}: missing {what}")
+        m = re.search(r'<script type="application/ld\+json">(.*?)</script>',
+                      html_text, re.S)
+        if m:
+            try:
+                json.loads(m.group(1))
+            except Exception as exc:  # noqa: BLE001 - any parse failure is a build failure
+                problems.append(f"{rel}: structured data is not valid JSON ({exc})")
+        if 'name="description"' not in html_text:
+            problems.append(f"{rel}: missing meta description")
+    return problems
+
+
 def main():
     assets = ROOT / "assets"
     assets.mkdir(exist_ok=True)
@@ -3223,6 +3433,9 @@ def main():
     pages["previous-passes.html"] = page_previous_passes()
     pages["404.html"] = page_404()
 
+    # Qualify affiliate anchors before the guards see them, and before anything is written.
+    pages = {rel: qualify_affiliate_links(text) for rel, text in pages.items()}
+
     # build guards
     problems = check_rows_have_sources()
     if problems:
@@ -3248,6 +3461,13 @@ def main():
     if price_problems:
         raise SystemExit("BUILD FAILED — Prohibited feature (Program Policies 6(y)):\n  "
                          + "\n  ".join(price_problems))
+    seo_problems = check_seo_metadata(pages)
+    if seo_problems:
+        raise SystemExit("BUILD FAILED - SEO/sharing metadata:\n  " + "\n  ".join(seo_problems))
+    affiliate_problems = check_affiliate_link_qualification(pages)
+    if affiliate_problems:
+        raise SystemExit("BUILD FAILED - unqualified affiliate links (Google spam policies, "
+                         "S30/S31):\n  " + "\n  ".join(affiliate_problems))
     unsourced_rows = check_row_sources(pages)
     if unsourced_rows:
         raise SystemExit("BUILD FAILED — table rows with no official source link (cite a registered "
