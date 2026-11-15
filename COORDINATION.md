@@ -3319,3 +3319,15 @@ this session did not delete or edit another session's published output.
 **Environment constraint, recorded so no future session mistakes it for a dead source.** Shell `curl`
 from this sandbox reaches only GitHub, npm and PyPI hosts; `amazon.com`, `chefman.com`, `ftc.gov` and
 `ecfr.gov` return 000/exit 35. The page-fetch tool does reach them; every re-read above used it.
+
+### W7 PR / merge / deploy result — arena/22f43836-zone1
+
+* **PR:** [#69](https://github.com/kanlerxz87-cyber/Zone1/pull/69) — "Pass 9: canonical + structured data on every page, all affiliate links qualified, two build guards, duplicate-build finding (F44/F45, SG-17)". Branch `arena/22f43836-zone1` → `main`.
+* **Checks on the PR head, both green:** `verify` ✓ (6s) · `Rebuild site/ from data/verified and assert every guarantee` ✓ (11s). `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`.
+* **Merge:** `gh pr merge 69 --merge` at **2026-11-15T13:11:55Z**, without waiting for approval, per the brief. **Merge commit on `main`: `73f8d79ef4c85fdaaf0342228a097ed78216d54c`**.
+* **Post-merge workflows on `main` at `73f8d79`, all success:** `CI` ✓ ([43717739267](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43717739267)) · `Verify verification annex (site/)` ✓ ([43717739329](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43717739329)) · `Build, verify and deploy to GitHub Pages` ✓ ([43717739254](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43717739254)) · `pages build and deployment` ✓ ([43717738136](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43717738136)).
+* **GitHub Pages:** `gh api repos/…/pages/builds/latest` → `status: built`, commit `73f8d79ef4`, `error: null`. Live at https://kanlerxz87-cyber.github.io/Zone1/.
+* **Deployed-state verification (second, independent check after the Pages build completed).** The live homepage was fetched and renders the pass-8 editorial layout with the disclosure bar and the "Before shopping" link-status callout intact. The deployed `flagged.html` and `suggestions.html` were then read back **from `main` via the GitHub contents API** and checked programmatically: `flagged.html` → 45 flag rows, `F44` and `F45` present, `rel="canonical"` present, "Open items" stat 45 (so the computed counters did not go stale); `suggestions.html` → `SG-17` present, and **0** unqualified `link.amazon` call-to-action anchors. This confirms the two defects this pass fixed are fixed in what is actually served, not just in the working tree.
+* **One observation left open for the record:** the first live fetch of `flagged.html` still showed the older F10 text ("the srctok value stays constant…"). Session `94a562a1`'s T20 correction to that row and this pass's rows both shipped in `73f8d79`, so this is the CDN/cache window from the concurrent deploy rather than a regression; the file on `main` carries the correction. Flagged here rather than claimed as verified, because a stale edge copy and a missed merge look identical from one fetch.
+
+**W7 result: done — verified, fixed, guarded, merged, deployed, and re-checked against the deployed artefact.**
