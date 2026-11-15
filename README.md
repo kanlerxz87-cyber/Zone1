@@ -6,15 +6,22 @@ blank and published on the **Flagged for review** page. The site opens with the 
 decision and keeps the verification layer one click behind it.
 
 **Live site:** https://kanlerxz87-cyber.github.io/Zone1/
+**Start here as a buyer:** [`picks.html`](https://kanlerxz87-cyber.github.io/Zone1/picks.html) — three products, three jobs, one decision rule, and what one sale actually pays
+**Start here as the owner:** [`handover.html`](https://kanlerxz87-cyber.github.io/Zone1/handover.html) — five actions, about an hour, eighteen flags closed
+**Strategy:** [`decisions.html`](https://kanlerxz87-cyber.github.io/Zone1/decisions.html) — niche scorecard, traffic plan, measurement plan, kill rule
 **Decision queue:** [`suggestions.html`](https://kanlerxz87-cyber.github.io/Zone1/suggestions.html) — review and choose before anything is built
 **Open questions:** [`questions.html`](https://kanlerxz87-cyber.github.io/Zone1/questions.html) — what must be answered first
-**Briefing:** [`EXECUTIVE-SUMMARY-PASS9.md`](EXECUTIVE-SUMMARY-PASS9.md) — pass 8 is [`EXECUTIVE-SUMMARY-PASS8.md`](EXECUTIVE-SUMMARY-PASS8.md)
+**Briefing:** [`EXECUTIVE-SUMMARY-PASS8.md`](EXECUTIVE-SUMMARY-PASS8.md) (pass 9 addendum at the end) · [`EXECUTIVE-SUMMARY-PASS9.md`](EXECUTIVE-SUMMARY-PASS9.md) (search plumbing and duplicate builds) · [`EXECUTIVE-SUMMARY-PASS9-42CA97AD.md`](EXECUTIVE-SUMMARY-PASS9-42CA97AD.md) (verification pass 9, this session)
+**Today's live re-verification:** [`reports/verification-2026-11-15.md`](reports/verification-2026-11-15.md)
 
 ## What is in here
 
 | Path | What it is |
 |---|---|
-| `index.html` | **Buying guide landing page** — the decision, a sourced three-column spec table, and the verification layer below the fold |
+| `index.html` | **Buying guide landing page** — the decision, a sourced three-column spec table, computed coverage tiles, and the verification layer below the fold |
+| `picks.html` | **This week's picks** — a decision rule instead of a ranking, with the commission arithmetic and the table rows it came from |
+| `decisions.html` | **Decisions** — four niches scored on five criteria, six traffic channels with their prerequisites, six metrics, and a pre-committed kill rule |
+| `handover.html` | **Handover** — the five things only the account holder can do, each with the time it takes and the flags it closes |
 | `articles/` | **Eight sourced articles** — comparisons, explainers, a source-forensics piece and a policy explainer. Every number in them must appear verbatim in `data/products.json` or the build fails. |
 | `categories/` | Category pages (currently: kitchen appliances / air fryers) |
 | `products/` | One documentation-based review per product |
@@ -25,7 +32,7 @@ decision and keeps the verification layer one click behind it.
 | `platform.html` | Automation blueprint, guardrails, KPIs, launch sequence |
 | `compliance.html` | 16 program/legal requirements, quoted, each with a source link |
 | `flagged.html` | Every unverified value, source conflict and irregularity |
-| `suggestions.html` | **Decision queue** — 20 evidence-backed suggestions, each with alternative paths, effort, risk and a recommendation. Nothing on it is implemented. |
+| `suggestions.html` | **Decision queue** — 21 evidence-backed suggestions, each with alternative paths, effort, risk and a recommendation. Nothing on it is implemented. |
 | `questions.html` | **Open questions** — 20 questions split into known / discoverable / not-stated / account-only. The four that an official source already settles carry their **answer** on the row; the rest say so plainly and name the step that would produce one. |
 | `executive-summary.html` | One-page briefing |
 | `reverification.html` | Line-by-line re-read of every published value (2026-11-14 pass), each row with its verdict and source link |
@@ -76,7 +83,11 @@ python3 build.py     # regenerate every page from data/*.json
 python3 verify.py    # exit 0 = no broken links, no unsourced values, disclosure on every page
 ```
 
-`build.py` refuses to emit a page if a specification row has a value but no official source,
+`build.py` refuses to emit a page if a specification row has a value but no official source, if a
+fourth guard fires — the **banned-phrase** check that fails the build when editorial copy drifts
+back to stock marketing language ("in today's fast-paced world", "elevate your", "game-changer")
+or claims first-hand experience—, or if the commission arithmetic in `data/decision.json` no longer
+matches the official rate table. It also refuses
 if any page is missing the required Amazon Associates disclosure statement, or if an article states
 a number that is not a value published in `data/products.json`, or cites a source id that is not in
 `data/sources.json`. The article guard rejected 18 paraphrased values while the article set was being

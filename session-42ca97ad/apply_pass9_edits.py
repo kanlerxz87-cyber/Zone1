@@ -42,7 +42,7 @@ LIST_8QT = "https://link.amazon/B00hJ57DV"
 
 NEW_SUGGESTIONS = [
     {
-        "id": "SG-17",
+        "id": "SG-18",
         "title": "Decide what the AI agent in the brief is allowed to read, before the pipeline is written",
         "area": "Platform and compliance",
         "problem": (
@@ -115,7 +115,7 @@ NEW_SUGGESTIONS = [
         "blocks": [], "blocked_by": [],
     },
     {
-        "id": "SG-18",
+        "id": "SG-19",
         "title": "Give every published value a refresh date, and let the build report what has gone stale",
         "area": "Content operations",
         "problem": (
@@ -180,7 +180,7 @@ NEW_SUGGESTIONS = [
         "blocks": [], "blocked_by": [],
     },
     {
-        "id": "SG-19",
+        "id": "SG-20",
         "title": "Decide the product set before the next content push",
         "area": "Catalogue",
         "problem": (
@@ -244,7 +244,7 @@ NEW_SUGGESTIONS = [
         "blocks": [], "blocked_by": ["Q-01"],
     },
     {
-        "id": "SG-20",
+        "id": "SG-21",
         "title": "Put the \"we could not confirm this\" markers on the money pages, not only on the register",
         "area": "Trust and conversion",
         "problem": (
@@ -467,7 +467,7 @@ NEW_QUESTIONS = [
             "Only Amazon can grant it. Until approval exists in writing, the constraint stands and the platform "
             "must run on manufacturer and first-party data."
         ),
-        "blocks": ["SG-17"],
+        "blocks": ["SG-18"],
         "sources": [
             {"label": "Associates Program IP License, sections 1 and 2(e)", "url": POLICIES},
         ],
@@ -497,7 +497,7 @@ NEW_QUESTIONS = [
             "Re-read the Application Review Process page and record the exact wording with its date. Then set an "
             "interval per value class and let the build report anything past it - which is SG-18."
         ),
-        "blocks": ["SG-18"],
+        "blocks": ["SG-19"],
         "sources": [
             {"label": "Application Review Process - content recency criterion (not re-read 2026-11-15; see flag F46)",
              "url": APP_REVIEW},

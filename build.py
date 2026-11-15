@@ -17,6 +17,7 @@ import json
 import os
 import re
 import shutil
+from urllib.parse import quote_plus
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -24,6 +25,11 @@ DATA = ROOT / "data"
 SITE_NAME = "Zone1 Kitchen"
 SITE_TAGLINE = "Air-fryer decisions, backed by sources"
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
+
+# Public origin of the canonical site (GitHub Pages, branch main, root). The sitemap and
+# robots.txt generators below already hard-code this; it is named here so canonical URLs,
+# Open Graph URLs and structured-data ids cannot drift from the sitemap.
+SITE_BASE = "https://kanlerxz87-cyber.github.io/Zone1/"
 
 # --------------------------------------------------------------------------- #
 # data loading
@@ -56,6 +62,7 @@ PASS7 = json.loads(_p7.read_text(encoding="utf-8")) if _p7.exists() else None
 # Decision layer (added 2026-11-15, arena/3ddfa50e). Two registers that exist to be reviewed
 # rather than acted on: the suggestions queue and the open-questions register. Both are
 # generated from JSON so a reviewer edits data, never a template.
+DECISION = load("decision.json")
 SUGGESTIONS = load("suggestions.json")
 QUESTIONS = load("questions.json")
 SUG_BY_ID = {s["id"]: s for s in SUGGESTIONS["suggestions"]}
@@ -151,6 +158,8 @@ def depth_prefix(page_path):
 
 NAV = [
     ("index.html", "Home", "A clear guide to three air-fryer formats"),
+    ("picks.html", "This week's picks", "Three products, three jobs, one decision rule"),
+    ("decisions.html", "Decisions & handover", "Niche, traffic, measurement, and the five things only you can do"),
     ("categories/kitchen-appliances.html", "Category: Kitchen", "All tracked products in one category"),
     ("compare.html", "Comparison", "Verified-only side-by-side matrix"),
     ("guides/buying-guide-air-fryers.html", "Buying guide", "How to choose a form factor"),
@@ -177,6 +186,69 @@ NAV = [
     ("docs/index.html", "Legacy docs build", "Retired build kept for its evidence (docs/)"),
     ("annex-88769516/index.html", "Annex 88769516", "Independent annex build (annex-88769516/)"),
 ]
+
+def json_ld(page_rel, title, description):
+    """Structured data for a generated page — and a deliberate omission.
+
+    Emitted: WebSite + publisher on the home page, Article on article pages, and a
+    BreadcrumbList tying every subpage to the home page. That is metadata this build can
+    state truthfully from data it already holds.
+
+    NOT emitted: schema.org Product / Offer / AggregateRating. Amazon prices, availability
+    and star ratings are deliberately absent from this site (Program Policies §2(b) and
+    §6(t), see data/products.json → amazon_price_policy). Structured data is read by search
+    engines and rich-result systems as a factual assertion, so a Product block without a
+    price, or with an invented one, would either be useless or would assert a number this
+    project has explicitly refused to publish. Manufacturer list prices are real but are not
+    Amazon offers, so they are not marked up as offers either.
+    """
+    canonical = SITE_BASE + ("" if page_rel == "index.html" else page_rel)
+    graph = []
+    if page_rel == "index.html":
+        graph.append({
+            "@type": "WebSite",
+            "@id": SITE_BASE + "#website",
+            "url": SITE_BASE,
+            "name": SITE_NAME,
+            "description": description or SITE_TAGLINE,
+            "inLanguage": "en-US",
+            "publisher": {"@id": SITE_BASE + "#publisher"},
+        })
+    graph.append({
+        "@id": canonical + "#publisher",
+        "@type": "Organization",
+        "name": SITE_NAME,
+        "url": SITE_BASE,
+        "description": ("Independent Amazon Associates publisher. Documentation-based "
+                        "product comparison; no hands-on testing is claimed."),
+        "disambiguatingDescription": (
+            "Not owned by, endorsed by or sponsored by Amazon.com, Inc. or any brand named "
+            "on the site. " + DISCLOSURE),
+    })
+    crumbs = [{"@type": "ListItem", "position": 1, "name": "Home",
+               "item": SITE_BASE}]
+    parts = page_rel.split("/")[:-1]
+    for i, part in enumerate(parts, start=2):
+        crumbs.append({"@type": "ListItem", "position": i,
+                       "name": part.replace("-", " ").title(),
+                       "item": SITE_BASE + "/".join(parts[:i - 1]) + "/"})
+    if len(crumbs) > 1:
+        graph.append({"@type": "BreadcrumbList", "itemListElement": crumbs})
+    if page_rel.startswith("articles/"):
+        graph.append({
+            "@type": "Article",
+            "headline": title,
+            "description": description or "",
+            "mainEntityOfPage": {"@id": canonical},
+            "isPartOf": {"@id": SITE_BASE + "#website"},
+            "publisher": {"@id": canonical + "#publisher"},
+            "inLanguage": "en-US",
+        })
+    payload = {"@context": "https://schema.org", "@graph": graph}
+    return ('<script type="application/ld+json">'
+            + json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
+            + "</script>\n")
+
 
 # --------------------------------------------------------------------------- #
 # layout
@@ -537,9 +609,91 @@ footer.site p,footer.site li{color:#59645a}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important; transition:none!important}}
 
+/* ===== 2026-11-15 (arena/792c279e): commercial + decision components ===== */
+:root{ --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+       --accent:#245746; --accent-soft:#e3ece4; }
+
+.picks-hero{position:relative}
+.pick .pick-cta{margin-top:auto; display:inline-block; font-weight:700; font-size:.88rem}
+.pick h3{font-family:var(--serif); font-weight:500; font-size:1.32rem; line-height:1.22; letter-spacing:-.01em}
+.card.pick{border-color:#cfdacf}
+.card.pick:hover{border-color:var(--accent)}
+
+.callout{background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--accent);
+  border-radius:10px; padding:.9rem 1.1rem; margin:1.1rem 0; box-shadow:var(--shadow); font-size:.94rem}
+.callout.trust{border-left-color:#0f766e; background:#f4fbf8}
+.callout.bad{border-left-color:var(--bad); background:#fff6f6}
+.callout.ok{border-left-color:var(--ok); background:#f5fbf6}
+
+.channel{padding:1rem 1.15rem}
+.channel-head{display:flex; align-items:center; gap:.55rem; flex-wrap:wrap; margin-bottom:.35rem}
+.channel-head h3{margin:0; font-size:1.02rem; font-family:var(--serif); font-weight:600}
+.channel ul{margin:.2rem 0 .5rem 1.1rem; padding:0}
+.channel li{margin:.12rem 0}
+
+.handover-item{border-left:4px solid var(--accent)}
+.handover-head{display:flex; align-items:baseline; gap:.6rem; flex-wrap:wrap}
+.handover-head h3{margin:0; font-family:var(--serif); font-weight:600; font-size:1.08rem; line-height:1.3; flex:1 1 60%}
+.handover-num{font:800 .8rem/1 var(--mono); color:#fff; background:var(--accent); border-radius:6px; padding:.32rem .45rem}
+.handover-meta{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:.8rem; margin-top:.7rem;
+  padding-top:.7rem; border-top:1px solid var(--line)}
+.handover-meta .tiny{display:block; text-transform:uppercase; letter-spacing:.08em}
+
+.article-head{max-width:74ch}
+.article-body{max-width:74ch}
+.article-body h2{font-family:var(--serif); font-weight:600; font-size:1.3rem; letter-spacing:-.01em; margin-top:2.1rem}
+.article-body p:first-of-type{font-size:1.05rem}
+.share{display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin:1.6rem 0 .5rem; padding-top:1rem; border-top:1px solid var(--line)}
+.share a,.share button{display:inline-flex; align-items:center; gap:.35rem; border:1px solid var(--line);
+  background:#fff; color:var(--ink); border-radius:999px; padding:.32rem .8rem; font:inherit; font-size:.8rem;
+  cursor:pointer; text-decoration:none}
+.share a:hover,.share button:hover{border-color:var(--accent); background:var(--accent-soft); text-decoration:none}
+.share .label{font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-right:.2rem}
+.article-nav{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:.8rem; margin:1.2rem 0}
+.article-nav .card{display:block; margin:0}
+.article-nav strong{font-size:.92rem; line-height:1.3}
+
+.pulse{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.7rem; margin:1.1rem 0}
+.pulse .tile{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:.75rem .85rem; box-shadow:var(--shadow)}
+.pulse .tile b{display:block; font:800 1.35rem/1.1 var(--serif); letter-spacing:-.02em}
+.pulse .tile span{display:block; font-size:.72rem; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); margin-top:.25rem}
+.pulse .tile a{font-size:.78rem}
+details.card summary{cursor:pointer; font-size:.9rem}
+
+/* section rhythm on the buyer-facing pages */
+.quick-guide{margin:1.8rem 0 .5rem}
+.buyer-toc{display:flex; flex-wrap:wrap; gap:.45rem; margin:.9rem 0 1.4rem}
+.buyer-toc a{font-size:.8rem; border:1px solid var(--line); background:#fff; border-radius:999px;
+  padding:.28rem .7rem; color:#374151}
+.buyer-toc a:hover{border-color:var(--accent); background:var(--accent-soft); text-decoration:none}
+.article-card .cardtitle{font-family:var(--serif); font-weight:600}
+@media (max-width:560px){ .handover-head h3{font-size:1rem} }
+
 """
 
 JS = r"""
+// copy-to-clipboard for article share rows (2026-11-15, arena/792c279e).
+// Progressive: without JS the button does nothing and the URL is still in the address bar,
+// so no functionality depends on it.
+document.addEventListener('click', function (ev) {
+  var c = ev.target.closest('.copylink');
+  if (!c) return;
+  var link = c.getAttribute('data-link') || location.href;
+  var done = function () {
+    var old = c.textContent;
+    c.textContent = 'Copied';
+    setTimeout(function () { c.textContent = old; }, 1600);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(link).then(done, done);
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = link; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta); done();
+  }
+});
+
 document.addEventListener('click', function (ev) {
   var t = ev.target.closest('.navtoggle');
   if (!t) return;
@@ -608,13 +762,51 @@ def layout(page_rel, title, body, active=None, description=""):
     )
     # Sidebar gets ONE entry. Every parallel build is catalogued, with its disagreements
     # named, on previous-passes.html.
+    # The count used to be len(parallel), i.e. every NAV entry containing a "/" that was not
+    # a product/category/guide/asset path. That set includes this site's own articles/index.html
+    # hub, so the sidebar advertised "8 parallel builds" while the catalogue below it listed 7.
+    # Caught 2026-11-15 (pass 9) by comparing the string with PARALLEL_BUILDS. Both numbers now
+    # come from the catalogue, which is the thing the reader is being sent to read.
     more_nav = (
         '<div class="group"><h4>Archive</h4>'
         f'<a href="{prefix}previous-passes.html">Previous passes<span class="sub">'
-        f'{len(parallel)} parallel builds kept in this repo, catalogued</span></a></div>'
+        f'{len(PARALLEL_BUILDS)} parallel builds kept in this repo, catalogued</span></a></div>'
         if parallel else ""
     )
     desc = f'<meta name="description" content="{e(description)}">' if description else ""
+
+    # ---- SEO / sharing metadata (pass 9, session 22f43836) -------------------
+    # Before this pass the root build shipped a <title> and a description and nothing
+    # else: no canonical URL, no Open Graph or Twitter card, no structured data. Two
+    # consequences, both measured rather than assumed:
+    #   * the same 14-page site is published nine times from this one repository, so
+    #     without a canonical URL a search engine that finds an annex copy (dashboard/,
+    #     annex-88769516/, session-3740f69d/, research/, s2/, site/) has nothing telling
+    #     it which copy is the maintained one — see flags F44 and F45;
+    #   * a shared link rendered as a bare URL with no title, description or image.
+    # Canonical is emitted only for pages generated here. The annex builds are other
+    # sessions' published output and are not modified by this build.
+    canonical = SITE_BASE + ("" if page_rel == "index.html" else page_rel)
+    if page_rel == "404.html":
+        # A 404 page must not be indexed or advertised as canonical.
+        seo_head = ('<meta name="robots" content="noindex">\n'
+                    f'<meta property="og:type" content="website">\n'
+                    f'<meta property="og:site_name" content="{e(SITE_NAME)}">\n'
+                    f'<meta property="og:title" content="{e(title)} · {e(SITE_NAME)}">\n')
+    else:
+        seo_head = (
+            f'<link rel="canonical" href="{e(canonical)}">\n'
+            f'<meta property="og:type" content="website">\n'
+            f'<meta property="og:site_name" content="{e(SITE_NAME)}">\n'
+            f'<meta property="og:locale" content="en_US">\n'
+            f'<meta property="og:url" content="{e(canonical)}">\n'
+            f'<meta property="og:title" content="{e(title)} · {e(SITE_NAME)}">\n'
+            + (f'<meta property="og:description" content="{e(description)}">\n' if description else "")
+            + f'<meta name="twitter:card" content="summary">\n'
+            f'<meta name="twitter:title" content="{e(title)} · {e(SITE_NAME)}">\n'
+            + (f'<meta name="twitter:description" content="{e(description)}">\n' if description else "")
+            + json_ld(page_rel, title, description)
+        )
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -622,7 +814,7 @@ def layout(page_rel, title, body, active=None, description=""):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(title)} · {e(SITE_NAME)}</title>
 {desc}
-<link rel="stylesheet" href="{prefix}assets/style.css">
+{seo_head}<link rel="stylesheet" href="{prefix}assets/style.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23245746'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='%23fff' text-anchor='middle'%3EZ1%3C/text%3E%3C/svg%3E">
 </head>
 <body>
@@ -645,6 +837,7 @@ def layout(page_rel, title, body, active=None, description=""):
     <div class="group">
       <h4>Start here</h4>
       {N("index.html")}
+      {N("picks.html")}
       {N("guides/buying-guide-air-fryers.html")}
       {N("articles/index.html")}
     </div>
@@ -656,6 +849,7 @@ def layout(page_rel, title, body, active=None, description=""):
     </div>
     <div class="group">
       <h4>Decide</h4>
+      {N("decisions.html")}
       {N("suggestions.html")}
       {N("questions.html")}
       {N("executive-summary.html")}
@@ -861,6 +1055,24 @@ def _dashboard_article_cards():
     return chr(10).join(out)
 
 
+def _flag_count():
+    """Rows on the Flagged page, counted the same way the duplicate-ID guard counts them."""
+    return len(re.findall(r'<tr><td class="num"><strong>F\d+</strong>', page_flagged()))
+
+
+def pulse_strip():
+    """Landing-page tiles. Every number is computed from the data, never typed."""
+    return f"""
+<div class="pulse" aria-label="What this site covers, computed from the dataset">
+  <div class="tile"><b>{len(PRODUCT_LIST)}</b><span>Products compared</span><a href="compare.html">Sourced matrix \u2192</a></div>
+  <div class="tile"><b>{len(ARTICLES["articles"])}</b><span>Sourced articles</span><a href="articles/index.html">Read the guides \u2192</a></div>
+  <div class="tile"><b>{len(SOURCES["sources"])}</b><span>Official sources</span><a href="data.html#sources">The register \u2192</a></div>
+  <div class="tile"><b>{_flag_count()}</b><span>Flags open</span><a href="flagged.html">Review them \u2192</a></div>
+  <div class="tile"><b>0</b><span>Hands-on tests</span><a href="articles/who-actually-pays-for-air-fryer-reviews.html">Why \u2192</a></div>
+</div>
+"""
+
+
 def page_index():
     _article_cards = _dashboard_article_cards()
     rev = REVERIFICATION["tests"]
@@ -928,6 +1140,8 @@ def page_index():
     </div>
   </aside>
 </div>
+
+{pulse_strip()}
 
 <div class="callout bad link-status" id="link-status">
   <div class="link-status-heading"><span class="pill pill-warn">Before shopping</span><strong>Product identity, account approval and affiliate tracking are not confirmed.</strong></div>
@@ -1020,8 +1234,26 @@ def page_index():
 <p class="small muted">The Amazon model match remains unconfirmed for every item. These pages separate manufacturer specifications from what is known about the supplied links.</p>
 <div class="grid grid-3">{cards}</div>
 
+<h2>This week's picks &mdash; and what one sale is worth</h2>
+<p class="small muted">A picks page is usually a ranking. The one on this site is a decision rule: each product wins a different job, and the job you have decides the product. It also shows what Amazon actually pays per sale at each candidate rate, with the table row it came from.</p>
+<div class="grid grid-2">
+  <a class="card" href="picks.html"><span class="kicker">Commercial front door</span><span class="cardtitle">Three air fryers, three jobs &#8594;</span><span class="cardtext">The honest version of a picks page: a rule, the specification behind each match, and the commission arithmetic in the open.</span></a>
+  <a class="card" href="decisions.html"><span class="kicker">Strategy</span><span class="cardtitle">Niche, traffic and measurement &#8594;</span><span class="cardtext">Three decisions with scored options, six channels ordered by what they depend on, and a pre-committed kill rule.</span></a>
+</div>
+
+<div class="grid grid-3" style="margin:1.1rem 0">
+  <a class="card" href="picks.html"><span class="kicker">Buyer</span><span class="cardtitle">This week's picks &#8594;</span><span class="cardtext">A decision rule, not a ranking, plus what one sale pays at each official rate.</span></a>
+  <a class="card" href="decisions.html"><span class="kicker">Owner</span><span class="cardtitle">Niche, traffic, measurement &#8594;</span><span class="cardtext">Scored options, six channels with their prerequisites, and a kill rule.</span></a>
+  <a class="card" href="handover.html"><span class="kicker">Owner</span><span class="cardtitle">Handover: five actions &#8594;</span><span class="cardtext">About an hour of owner time closes eighteen flags. Start with three minutes.</span></a>
+</div>
+
 <h2>Commercial summary</h2>
 {commercial_table()}
+
+<div class="callout bad">
+  <strong>Five actions, about an hour, eighteen flags.</strong>
+  <p class="small" style="margin:.35rem 0 0">Everything in this repository is done as far as it can be done without your accounts. Reading the model number off three Amazon listings takes about three minutes and closes the four highest-severity flags. The full list, with exact steps and time estimates, is on <a href="handover.html">the handover sheet</a>.</p>
+</div>
 
 <h2 id="evidence">Under the hood: how much of this is actually confirmed</h2>
 <p class="small muted">Everything from here down is the verification layer — useful if you want to know how
@@ -1225,7 +1457,7 @@ PROGRAMME_FLAGS = [
     ("F9", "No Amazon price, star rating or review count is available to this build.",
      "All three", "Left blank everywhere by policy rather than by omission. Becomes fillable only if the operator secures Creators/PA API credentials.", ["S2", "S19"]),
     ("F10", "The short links are generated redirects with fallback parameters, not plain product links.",
-     "All three links", "Each resolves with lv=shuf and plpRedirect=mhFallback in the landing URL, and the srctok value stays constant across repeat requests (re-tested 2026-11-13 and 2026-11-14). That pattern is Amazon's server-side redirect, not a guarantee of a stable destination. Open each link yourself before publishing and confirm the product is the one intended. See also F21 for the two readings of these markers.", ["S17", "S16"]),
+     "All three links", "Logged redirect observations carried lv=shuf and plpRedirect=mhFallback. The candidate ASIN/title destinations were consistent across the recorded checks, but the btn_ref/srctok value changed between repeat or cache-busted requests (see F41 and the linked session evidence). These are observations of redirect responses, not confirmation that the candidate ASINs are the products intended by the account holder or that the links carry an Associates tag. Confirm both before publishing.", ["S17", "S16"]),
     ("F11", "The site does not disclose cookies, pixels and third-party technologies as Participation Requirements §3(e) requires.",
      "Whole site", "The site itself sets no cookies and runs no analytics, but §3(e) requires an accurate disclosure of cookie and third-party technology use, including that third parties may place or recognise cookies. Only a minimal notice is in the footer; a proper privacy/cookie statement is needed before launch. Legal review recommended.", ["S2"]),
     ("F12", "The automated platform functions in the brief are not running — by design, not by omission.",
@@ -1293,9 +1525,9 @@ PROGRAMME_FLAGS = [
     # while a product-level row in data/products.json was also published as F36. Two rows, one number. The
     # product row is re-sourced from S16 to S28 by this pass and keeps F36 because three session evidence
     # files cite it by that number; this programme-level row moves to F41. Flag F40 records the collision.
-    ("F41", "Published flag F10 says the short links' srctok marker \u201cstays constant across repeat requests\u201d; the repository's own published evidence shows the marker changes and only the destination is stable.",
-     "All three links",
-     "Recorded 2026-11-14 by sess-ce4070ad (observation round 6). Stable across every reading, including today's two independent fetches: each link.amazon token resolves to the same ASIN with the same listing title \u2014 B04G1MEwY \u2192 B0CDY277D3, B02NbDxp3 \u2192 B09B7SB46R, B00hJ57DV \u2192 B08DKYBTPH, now re-confirmed by six sessions over two days. Not stable: the btn_ref/srctok marker in the landing URL \u2014 srctok-2cef40d2904c29d8 on 2026-11-13; srctok-1e229870efde5acf changing to srctok-397b5ba66db39bbf on a cache-busted repeat minutes later (sess-81495d2d's published evidence, row 4); srctok-704dc575b940a94c (sess-54c66535); srctok-0740a2e990c9bbb3, the same value in two independent fetches by sess-840a25d3 and sess-ce4070ad later the same day. F10's constancy wording therefore overstates what the evidence supports: it is the ASIN + title destination that is constant, not the marker. Decision needed: reword F10 to claim destination stability only. F10 is another session's register row and is left verbatim.", ["S17", "S16"]),
+    ("F41", "F10's earlier wording incorrectly said the short links' srctok marker stays constant across repeat requests.",
+     "All three links — historical wording correction",
+     "Closed 2026-11-15 by arena/94a562a1-zone1: F10 now states that the recorded candidate ASIN/title destinations were consistent while btn_ref/srctok values changed across some repeat or cache-busted requests. The underlying records include srctok-2cef40d2904c29d8 on 2026-11-13; srctok-1e229870efde5acf changing to srctok-397b5ba66db39bbf on a cache-busted repeat (session-81495d2d evidence, row 4); srctok-704dc575b940a94c (session-54c66535); and srctok-0740a2e990c9bbb3 in two observations later that day. This closes only the wording mismatch. It does not prove that any candidate listing is the product intended by the account holder or confirm affiliate attribution; see F1, F6, F14-F16 and F21.", ["S17", "S16"]),
 
     ("F37", "A published value was cited to a source that does not state it.",
      "Emeril 26 QT French Door — the \"Interior light: Yes\" row",
@@ -1330,30 +1562,67 @@ PROGRAMME_FLAGS = [
      "questions.html (Q-06) and suggestions.html (SG-10) vs the s2/ annex register (its F08)",
      "Recorded 2026-11-15 by arena-b1e7b4bc. The 2026-11-15 pages say the owner is in Osaka, Japan; the s2 annex register (data/flags.json, row F08) records a Norway residence. Both were written from agent-session environment context, not from anything the owner supplied in the repository and not from any official page, so neither can be verified from here and at most one can be right. The Japan wording matters because Q-06 and SG-10 build a store-targeting decision on it. Decision needed: the owner states their actual country once, one register row cites it, and the other wording is corrected to match; until then no eligibility conclusion (Q-06, SG-10, or the s2 register's F08) should be treated as settled.",
      []),
+    # ---- pass 9, session 22f43836, 2026-11-15 ------------------------------- #
+    # Both rows are about the repository as a published web property, not about a product
+    # fact. Neither changes a published value. Each was measured, not assumed.
+    ("F44", "The same site is published nine times from one repository, and eight of those copies are reachable at public URLs.",
+     "Whole repository \u2014 GitHub Pages deployment",
+     "Measured 2026-11-15 by this pass: 106 HTML files are published from the repository root. The maintained site is the 27 sitemap URLs generated by build.py; the remaining pages are seven earlier or parallel builds (dashboard/, annex-88769516/, session-3740f69d/, research/, s2/, site/, docs/), each with its own homepage, its own near-duplicate comparison of the same three products, and in two cases a visible Amazon price. Amazon's Program Policies \u00a72(b) permit price display only when Amazon serves the link or the data comes from Creators/PA API, so a published copy that shows a price is a compliance exposure this project has otherwise been careful to avoid. Google's own guidance (S30) states that the presumption is that individual pages match the overall quality of the domain, that a site reputation review weighs whether 'the same identical or near-identical content appears on multiple other sites', and that scaled content generated without added value for users should be excluded from search. Decision needed, and it is the owner's: keep the older builds published for auditability and accept the duplicate-content and compliance risk, or remove the duplicate pages and keep only their evidence files. This pass did not delete or edit another session's published output \u2014 that is not a unilateral decision to take. Full option set: SG-17 on the Suggestions page.",
+     ["S30", "S2"]),
+
+    ("F45", "The site's search-engine plumbing was incomplete: no page declared a canonical URL, and no page carried Open Graph or structured data.",
+     "Whole root site \u2014 every generated page",
+     "Found and fixed 2026-11-15 by this pass, and measured before the fix: 0 of 27 generated pages had rel=canonical, 0 had og:* tags, 0 had a Twitter card, 0 had JSON-LD (a repository-wide count that also included the annex builds was 33 canonicals of 106 pages, from other sessions' templates). Two consequences: with nine copies of the same content on one origin, nothing told a search engine which copy is maintained; and a shared link rendered as a bare URL. Fixed in build.py's layout() so every generated page now carries canonical, og:*, twitter:card and schema.org WebSite/Organization/BreadcrumbList/Article markup, and 404.html carries noindex and no canonical. Enforced by a new build guard (check_seo_metadata) so a later template edit cannot drop it. schema.org Product/Offer/AggregateRating is deliberately NOT emitted: the site publishes no Amazon price or star rating (\u00a72(b), \u00a76(t)), so product markup would either be empty or would assert a number this project refuses to publish.",
+     ["S30", "S31", "S2"]),
+
     ("F43", "Two wording advisories on the Suggestions and Questions pages (reader-facing precision, no data value affected).",
      "suggestions.html and questions.html (PR #58, X-633b115f)",
      "Recorded 2026-11-15 by arena-b1e7b4bc. (a) The Suggestions lede says 'None of them has been implemented', but for SG-03, SG-04, SG-05 and SG-11 option A is the current, already-implemented state ('Keep...', 'Keep blank and link to the live Amazon page (current, compliant)'), so those rows read more accurately as 'confirm the current state' than as pending work. (b) Q-01's 'How to find out' says to check the owner's Associates account for which tag the short links carry - the tag is not observable from the account's tracking-ID page either (flag F6); only whoever created the short links knows the mapping. Decision needed: reword the lede and the Q-01 cell, or accept the current phrasing. Both rows' facts and sources check out; this flag is about wording only.",
      []),
 
+    # ---- arena/792c279e-zone1, task T20, 2026-11-15 -------------------------------- #
+    # Findings from the live line-by-line re-verification performed in this pass. Full
+    # evidence, including the exact strings read back from each official page, is in
+    # reports/verification-2026-11-15.md. No published product value was changed by this
+    # pass; each row below either records a source-liveness change or a conflict that a
+    # human has to settle.
+    ("F47", "There are two flag registers in this repository, they contradict each other, and both are readable from the live site.",
+     "data/flags.json (F01-F27) vs flagged.html (F1-F43)",
+     "Found 2026-11-15 by arena/792c279e-zone1. data/flags.json still records F02 'The official Standard Commission Income schedule redirected to a sign-in page' and F01-F04 language asserting that the short links resolve 'with different ASINs'. The re-verification performed in this same pass read the Standard Commission Income Statement in full without any login (Table 1: Kitchen 4.50%, All Other 4.00%) and re-confirmed all three destinations, so the older register's two statements are contradicted by a live read. The rendered Flagged page says the opposite of data/flags.json on the commission question, so a reader who follows two links reaches two different answers. This pass did not edit data/flags.json: it is consumed by scripts/build_s2_site.py and scripts/build.mjs, and re-keying it would silently re-point another build's citations. Decision needed: name one register canonical, then either re-key the other or replace its contradicting sentences with a dated pointer to this page. Evidence: the two files themselves, and reports/verification-2026-11-15.md section 1.",
+     ["S3", "S16", "S28", "S29"]),
+
+    ("F48", "The Amazon listing for the Emeril 26 QT says six cooking accessories; the site publishes seven.",
+     "Emeril 26 QT French Door — the Included accessories row",
+     "Found 2026-11-15 by arena/792c279e-zone1 while re-reading the live listing title. ASIN B09B7SB46R's title now ends '... Extra Large Interior, Six Cooking Accessories Included', while the site's own row publishes 7, sourced to the brand product page and the owner's manual. This is not necessarily a contradiction: a listing can count a rotisserie spit and its forks as one accessory, or bundle differently from the retail box, and the brand page and manual are the sources this site chose. The value was therefore NOT changed — altering it would mean replacing a manual-sourced number with a listing-title number on a row whose product identity is itself unconfirmed (F1, F2). Decision needed: count the accessories in the box against the manual's accessory list, then publish one number with that source. Evidence: reports/verification-2026-11-15.md section 3 row V21.",
+     ["S28", "S14", "S15"]),
+
+    ("F49", "The 2026-11-15 live pass could not retrieve the one fact that closes four high-severity flags, and the site now says why in the place a buyer will look.",
+     "All three products — the model-number mapping",
+     "Recorded 2026-11-15 by arena/792c279e-zone1. The three Amazon detail pages were fetched again and returned the buy box, the protection plans and the 'Customers who viewed this item also viewed' blocks, but not the 'Product information' table that carries the model number. That block is rendered client-side, so an automated read cannot see it; a human browser can, in about ten seconds per listing. This is recorded as its own row because seven sessions have now listed F1/F2/F32/F33 as 'needs a human' without saying why the machine cannot do it, which invites an eighth session to try again. It is now also stated on picks.html, handover.html and hand-over item H1 rather than only in the register. Evidence: reports/verification-2026-11-15.md section 3 row V24.",
+     ["S16", "S28", "S29"]),
+
     # ------------------------------------------------------------------ #
     # Verification pass 9 - session 42ca97ad, 2026-11-15.
     # Raw evidence: session-42ca97ad/EVIDENCE-2026-11-15.md
+    # Renumbered at the merge seam: F44/F45/F47 were taken by PR #69/#70/#71
+    # (duplicate builds, canonical/structured data, two flag registers), so
+    # these four rows start at F50.
     # ------------------------------------------------------------------ #
-    ("F44", "The Amazon department category is now read directly on all three listings; the rate itself still needs the Earnings report.",
+    ("F50", "The Amazon department category is now read directly on all three listings; the rate itself still needs the Earnings report.",
      "All three products \u2014 commission rate",
-     "Recorded 2026-11-15 by session 42ca97ad. The annex register\u2019s row F-06 recorded that the browse-node path \u2018Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers\u2019 had been read directly on B09B7SB46R only, and named reading the other two listings as the confirmation step. This session fetched all three supplied link.amazon short links and read the identical breadcrumb on B0CDY277D3 and B08DKYBTPH as well, so the evidence is now three for three rather than one for three. It still does not establish the category Amazon applies when a commission is settled: only the Associates Earnings report names the category on a shipped line, so the two candidate rows (Kitchen 4.50%, All Other 4.00%) remain the honest presentation until a sale exists. Decision needed: publish Kitchen 4.50% as the working rate with the breadcrumb cited (SG-10 path A), or keep both rows until the first Earnings report lands.",
+     "Recorded 2026-11-15 by session 42ca97ad. The annex register\u2019s row F-06 recorded that the browse-node path \u2018Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers\u2019 had been read directly on B09B7SB46R only, and named reading the other two listings as the confirmation step. This session fetched all three supplied link.amazon short links and read the identical path on B0CDY277D3 and B08DKYBTPH as well, so the evidence is now three for three rather than one for three. It still does not establish the category Amazon applies when a commission is settled: only the Associates Earnings report names the category on a shipped line, so the two candidate rows (Kitchen 4.50%, All Other 4.00%) remain the honest presentation until a sale exists. Decision needed: publish Kitchen 4.50% as the working rate with the breadcrumb cited (SG-10 path A), or keep both rows until the first Earnings report lands.",
      ["S3", "S16", "S28", "S29"]),
-    ("F45", "Ten article sentences spliced a published display label into a mid-sentence position. Found, fixed and guarded.",
+    ("F51", "Eleven article sentences spliced a published display label into a mid-sentence position. Found, fixed and guarded.",
      "articles/ prose, and the build\u2019s article gate",
-     "Recorded 2026-11-15 by session 42ca97ad. The article prose in data/articles.json interpolates published values into sentences. Ten of those interpolations put a display label \u2014 \u2018Two 3-quart baskets\u2019, \u2018Designed for 4-6 people\u2019, \u2018Fries, Chicken, Fish, Meat (one-touch)\u2019, \u2018Limited 1-year warranty \u2026\u2019 \u2014 into a position where its capital is wrong, so the sentences read as machine output: \u2018The dual-basket unit is 6 Qt / 5.67 L as Two 3-quart baskets\u2019, \u2018splits a 6 Qt / 5.67 L cavity into Two 3-quart baskets\u2019. The defect was invisible to every earlier verification pass, because each value is genuinely published and correct in a table; it only appears when the page is read as prose, which is what a shopper does. Fixed by adding a {{value::prose form}} syntax whose prose form may differ from the published value in letter case and nothing else, enforced by check_articles(), and by adding check_article_splices(), which fails the build when a capitalised value is spliced into a mid-sentence position. Both guards were proven to fire: the build failed on exactly these ten defects before the fix and passes after it. No published value changed and no source changed.",
+     "Recorded 2026-11-15 by session 42ca97ad. The article prose in data/articles.json interpolates published values into sentences. Eleven of those interpolations put a display label \u2014 \u2018Two 3-quart baskets\u2019, \u2018Designed for 4-6 people\u2019, \u2018Fries, Chicken, Fish, Meat (one-touch)\u2019, \u2018Limited 1-year warranty \u2026\u2019 \u2014 into a position where its capital is wrong, so the sentences read as machine output: \u2018The dual-basket unit is 6 Qt / 5.67 L as Two 3-quart baskets\u2019, \u2018splits a 6 Qt / 5.67 L cavity into Two 3-quart baskets\u2019. The defect was invisible to every earlier verification pass, because each value is genuinely published and correct in a table; it only appears when the page is read as prose, which is what a shopper does. It survived PR #71\u2019s full rewrite of data/articles.json, which re-introduced the same ten sentences and added an eleventh in a new article. Fixed by adding a {{value::prose form}} syntax whose prose form may differ from the published value in letter case and nothing else, enforced by check_articles(), and by adding check_article_splices(), which fails the build when a capitalised value is spliced into a mid-sentence position. Both guards were proven to fire: the build failed on exactly these defects before the fix and passes after it. No published value changed and no source changed.",
      ["S1"]),
-    ("F46", "The Application Review Process page was not re-read this pass; its figures are carried forward from an earlier fetch.",
+    ("F52", "The Application Review Process page was not re-read this pass; its figures are carried forward from an earlier fetch.",
      "S4 \u2014 the Associates application criteria",
-     "Recorded 2026-11-15 by session 42ca97ad. This pass re-fetched the Program Policies, the Standard Commission Income Statement, both Chefman product pages, the Emeril product page, all three owner\u2019s manuals, all three supplied short links, 16 CFR Part 255 and 16 CFR Part 465. It did not load the Application Review Process page (S4). The figures the repository carries for it \u2014 three qualifying sales within 180 days, roughly ten posts, content recent within about sixty days, a social follower floor of about five hundred \u2014 are carried forward from earlier logged fetches and are NOT re-confirmed by this pass. The sixty-day recency requirement is load-bearing for any content-refresh schedule the owner adopts, so it must be re-read before it is used as a scheduling rule rather than quoted from this repository. What was and was not fetched is listed item by item in session-42ca97ad/EVIDENCE-2026-11-15.md section 6.",
+     "Recorded 2026-11-15 by session 42ca97ad. This pass re-fetched the Program Policies, the Standard Commission Income Statement, both Chefman product pages, the Emeril product page, all three owner\u2019s manuals, all three supplied short links, 16 CFR Part 255 and 16 CFR Part 465. It did not load the Application Review Process page (S4). The figures the repository carries for it \u2014 three qualifying sales within 180 days, roughly ten posts, content recent within about sixty days, a social follower floor of about five hundred \u2014 are carried forward from earlier logged fetches and are NOT re-confirmed by this pass. The sixty-day recency requirement is load-bearing for any content-refresh schedule the owner adopts, so it must be re-read before it is used as a scheduling rule rather than quoted from this repository. Note that a sibling pass on the same day did re-read this page and reported the same four figures, which corroborates them but does not change what this session itself fetched. What was and was not fetched is listed item by item in session-42ca97ad/EVIDENCE-2026-11-15.md section 6.",
      ["S4"]),
-    ("F47", "Three files under data/ are read by no build, and one of them is a stale copy of a register that is published.",
+    ("F53", "Three files under data/ are read by no build, and one of them is a stale copy of a register that is published.",
      "data/flagged.json, data/commission-rates.csv, data/products.csv",
-     "Recorded 2026-11-15 by session 42ca97ad. A reference scan of every loader in the repository shows that scripts/build_site.py and scripts/verify_site.py read data/verified/, not data/. The root-level data/flagged.json is therefore an orphan: it holds a 13-row register whose live counterpart is data/verified/flagged.json (17 rows), and the two disagree across 85 lines \u2014 including the browse-node observation this pass has just updated, which would otherwise leave two registers saying different things about the same fact. data/commission-rates.csv and data/products.csv are read by nothing in the repository; the first is a CSV transcription of the Standard Commission Income Statement, the second the 2026-11-13 link-check ledger that records the bare-token 404 and the fallback redirect, and both are evidence worth keeping if they are labelled as evidence. Nothing published depends on any of the three, so this is a maintenance risk rather than a correctness bug, but a reader who opens data/flagged.json sees a register that no longer matches the site. Decision needed: delete the three orphans, or keep them explicitly as dated evidence with a header that says so.",
+     "Recorded 2026-11-15 by session 42ca97ad. A reference scan of every loader in the repository shows that scripts/build_site.py and scripts/verify_site.py read data/verified/, not data/. The root-level data/flagged.json is therefore an orphan: it holds a 13-row register whose live counterpart is data/verified/flagged.json (17 rows), and the two disagree across 85 lines \u2014 including the browse-node observation this pass has just updated, which would otherwise leave two registers saying different things about the same fact. data/commission-rates.csv and data/products.csv are read by nothing in the repository; the first is a CSV transcription of the Standard Commission Income Statement, the second the 2026-11-13 link-check ledger that records the bare-token 404 and the fallback redirect, and both are evidence worth keeping if they are labelled as evidence. Nothing published depends on any of the three, so this is a maintenance risk rather than a correctness bug, but a reader who opens data/flagged.json sees a register that no longer matches the site. This row is narrower than F47, which covers the same class of problem for data/flags.json; the two are kept separate because the files and the contradictions are different. Decision needed: delete the three orphans, or keep them explicitly as dated evidence with a header that says so.",
      ["S1"]),
 ]
 
@@ -1374,8 +1643,13 @@ REPO_EVIDENCE = {
     "F34": ["EXECUTIVE_SUMMARY.md"],
     "F35": ["build.py", "site/", "session-3740f69d/"],
     "F41": ["session-81495d2d/EVIDENCE-2026-11-14.md", "session-ce4070ad/EVIDENCE-2026-11-14.md"],
+    "F47": ["data/flags.json", "data/sources.json"],
+    "F48": ["data/products.json"],
+    "F49": ["reports/verification-2026-11-15.md"],
     "F42": ["suggestions.html", "questions.html", "data/flags.json", "s2/"],
     "F43": ["suggestions.html", "questions.html"],
+    "F44": ["dashboard/", "annex-88769516/", "session-3740f69d/", "research/", "s2/", "site/", "docs/", "sitemap.xml"],
+    "F45": ["build.py", "sitemap.xml"],
 }
 
 VERDICTS = {
@@ -1619,7 +1893,7 @@ def page_data():
 <h2>Program facts register</h2>
 <p class="small">The compliance facts used throughout the site, with their sources, live on the <a href="../compliance.html">Compliance</a> page. The rate table, payment minimums and attribution windows are reproduced there verbatim from the official documents.</p>
 
-<h2>Source register</h2>
+<h2 id="sources">Source register</h2>
 <div class="tablewrap">
 <table>
   <caption>All {len(SOURCES['sources'])} sources used, with what each one verifies</caption>
@@ -2019,14 +2293,13 @@ def page_exec():
         ("Verification standard", "Official sources only; blank plus flagged wherever unconfirmed; no inference.", ["S1", "S2"]),
         ("Verified spec values", "Published on the dashboard and in the full dataset, each with a source link.", ["S10", "S12", "S14"]),
         ("Re-verification (2026-11-14)", "Every published value was re-read against the official source it cites. The ledger — 61 rows, each with the value as published, what the source said on the day, a verdict and a link — is on the Re-verification page. Two blank rows were filled from the manufacturer's own spec block, and the disputed question of whether the short links shuffle between requests was closed by a repeat fetch plus a nonsense-token control.", ["S16", "S21", "S22"]),
-        ("Re-verification (2026-11-15)", "A ninth pass re-fetched every source itself rather than trusting the recorded ones: the Program Policies, the Commission Income Statement, both Chefman product pages, the Emeril product page, all three owner's manuals, all three supplied short links, 16 CFR Part 255 and 16 CFR Part 465. All 43 specification rows were checked against the page each one cites; none was found wrong and no published value changed. The raw evidence, including the sources deliberately not fetched, is in the repository.", ["S2", "S3", "S10", "S12", "S14", "S18"]),
         ("Hard source conflicts", "One serious (Chefman 8 Qt 450 °F claim vs its own manual), plus preset-count and SKU ambiguity issues. All of them were re-checked on 2026-11-14 and are still live on the official pages.", ["S12", "S13", "S14"]),
-        ("Commission rate", "Still blank per product, but on firmer ground. Amazon publishes rates by category and not by ASIN. All three listings were re-read on 2026-11-15 and all three render the browse-node path Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers, so Kitchen at 4.50% is the well-evidenced working rate. The settlement-time category still has to come from the Associates Earnings report, so both candidate rows are shown.", ["S3", "S16", "S28", "S29"]),
+("Commission rate", "Still blank per product, but on firmer ground. Amazon publishes rates by category and not by ASIN. All three listings were re-read on 2026-11-15 and all three render the browse-node path Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers, so Kitchen at 4.50% is the well-evidenced working rate. The settlement-time category still has to come from the Associates Earnings report, so both candidate rows are shown.", ["S3", "S16", "S28", "S29"]),
         ("Amazon price / rating", "Not displayed anywhere, by policy, not by omission.", ["S2"]),
         ("Disclosure", "Required statement on every page plus a link-level badge on every outbound link.", ["S1", "S5"]),
         ("Biggest constraint", "Program Content may not be aggregated, analysed or trained on — which rules out the obvious version of an AI research engine.", ["S2"]),
         ("API status (re-verified 2026-11-14)", "PA-API 5 is officially deprecated; Amazon's docs direct integrations to migrate to the Creators API. The automation blueprint must target the Creators API.", ["S24"]),
-        ("Editorial defect found and fixed", "Ten article sentences spliced a published display label into a mid-sentence position, so the prose read as machine output — 'splits a cavity into Two 3-quart baskets'. Every value was genuinely published and correct in a table, which is why eight earlier verification passes missed it. Fixed, and the build now fails if it recurs. This is the clearest evidence on the site that reading the page as a reader, not as a database, is a separate job from verifying it.", ["S1"]),
+("Editorial defect found and fixed", "Eleven article sentences spliced a published display label into a mid-sentence position, so the prose read as machine output — 'splits a cavity into Two 3-quart baskets'. Every value was genuinely published and correct in a table, which is why nine earlier verification passes missed it. Fixed, and the build now fails if it recurs. This is the clearest evidence on the site that reading the page as a reader, not as a database, is a separate job from verifying it.", ["S1"]),
         ("Next decision", "Resolve the remaining flagged items, then publish, then apply. The decision queue is on the Suggestions page; the information gaps are on the Questions page.", ["S4"]),
     ]
     rows = "".join(
@@ -2036,20 +2309,25 @@ def page_exec():
 <p class="crumbs"><a href="../index.html">Home</a> / Executive summary</p>
 <h1>Executive summary</h1>
 <p class="lede">A one-page briefing for someone who will not read the rest. The short version: the product data is good, the economics are provable only within narrow limits, and the compliance constraint is the design constraint.</p>
+<div class="grid grid-3" style="margin:1rem 0">
+  <a class="card tight" href="picks.html"><span class="kicker">Buyer-facing</span><strong>This week's picks</strong><br><span class="tiny muted">Decision rule, not a ranking</span></a>
+  <a class="card tight" href="decisions.html"><span class="kicker">Strategy</span><strong>Niche, traffic, measurement</strong><br><span class="tiny muted">Scored options and a kill rule</span></a>
+  <a class="card tight" href="handover.html"><span class="kicker">Action</span><strong>Handover: five actions</strong><br><span class="tiny muted">About an hour of owner time</span></a>
+</div>
 
 <div class="callout note">
-  <strong>Pass 9 — 2026-11-15 (most recent).</strong>
+  <strong>Pass 9 — 2026-11-15 (verification, session 42ca97ad).</strong>
   <p class="small">This pass re-fetched every official source itself instead of trusting the recorded ones,
   and checked all 43 specification rows against the page each one cites. Nothing was found wrong and no
-  published value changed. Three things did change. First, the Amazon browse-node path
+  published value changed. Four things did change. First, the Amazon browse-node path
   <em>Home &amp; Kitchen &gt; Kitchen &amp; Dining &gt; Small Appliances &gt; Fryers &gt; Air Fryers</em> was read
   directly on all three listings, where an earlier pass had read it on one; the commission evidence is now
-  three-for-three (<a href="flagged.html">F44</a>). Second, ten article sentences were found to splice a
+  three-for-three (<a href="flagged.html">F50</a>). Second, eleven article sentences were found to splice a
   published label into mid-sentence position, so the prose read as machine output; they are fixed and the build
-  now fails if it recurs (<a href="flagged.html">F45</a>). Third, the questions register gained four rows that
+  now fails if it recurs (<a href="flagged.html">F51</a>). Third, the questions register gained four rows that
   are <em>known and sourced</em> and therefore carry an explicit answer, and four new suggestions were added.
-  One source, the Application Review Process page, was <em>not</em> re-read this pass and is flagged as
-  carried-forward rather than confirmed (<a href="flagged.html">F46</a>). Raw evidence:
+  Fourth, the Application Review Process page was <em>not</em> re-read this pass and is flagged as
+  carried-forward rather than confirmed (<a href="flagged.html">F52</a>). Raw evidence:
   <code>session-42ca97ad/EVIDENCE-2026-11-15.md</code>.</p>
 </div>
 
@@ -2102,8 +2380,8 @@ def page_exec():
 </div>
 <div class="callout">
   <strong>5 · Verifying the data and reading the page are different jobs, and only one of them was automated</strong>
-  <p class="small">Eight earlier passes checked every value against its source and found nothing wrong — correctly.
-  But a value that is right in a table can still be wrong in a sentence, and ten of them were: a published
+  <p class="small">Nine earlier passes checked every value against its source and found nothing wrong — correctly.
+  But a value that is right in a table can still be wrong in a sentence, and eleven of them were: a published
   display label such as "Two 3-quart baskets" had been spliced into mid-sentence position, so the articles read
   as machine output ("splits a cavity into Two 3-quart baskets"). No verifier catches that, because the value is
   genuinely published. It took reading the rendered pages as a shopper would. The defect is fixed and the build
@@ -2127,11 +2405,11 @@ def page_exec():
   <li><strong>Fix attribution before driving traffic</strong> — confirm the Associates tag and create sub-tags; F6 and F7.</li>
   <li><strong>Then apply, and work the 180-day window deliberately</strong> {src_links(['S4'])}.</li>
   <li><strong>Only pursue price and rating display if API access is granted.</strong> Until then, absence is the compliant state.</li>
-  <li><strong>Decide what the AI agent is allowed to read before writing the research pipeline.</strong> The IP License forbids using Amazon's Program Content to build or improve models, and forbids aggregating or analysing it without written approval {src_links(['S2'])}. The version of the brief that is lawful runs on manufacturers' own pages — which is the version this repository already implements. See <a href="suggestions.html#sg-17">SG-17</a>.</li>
-  <li><strong>Decide the product set before the next content push.</strong> Two of the three products share a brand and a form factor, which caps what the comparison can answer. See <a href="suggestions.html#sg-19">SG-19</a>.</li>
+  <li><strong>Decide what the AI agent is allowed to read before writing the research pipeline.</strong> The IP License forbids using Amazon's Program Content to build or improve models, and forbids aggregating or analysing it without written approval {src_links(['S2'])}. The version of the brief that is lawful runs on manufacturers' own pages — which is the version this repository already implements. See <a href="suggestions.html#sg-18">SG-18</a>.</li>
+  <li><strong>Decide the product set before the next content push.</strong> Two of the three products share a brand and a form factor, which caps what the comparison can answer. See <a href="suggestions.html#sg-20">SG-20</a>.</li>
 </ol>
 
-<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../EXECUTIVE-SUMMARY-PASS9.md">Download this pass's markdown briefing</a> <a class="btn btn-ghost" href="../EXECUTIVE-SUMMARY.md">Earlier briefing</a> <a class="btn btn-ghost" href="../flagged.html">See every open flag</a></p>
+<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../EXECUTIVE-SUMMARY-PASS9-42CA97AD.md">Download this pass's markdown briefing</a> <a class="btn btn-ghost" href="../EXECUTIVE-SUMMARY-PASS9.md">Earlier pass-9 briefing</a> <a class="btn btn-ghost" href="../flagged.html">See every open flag</a></p>
 """
     return layout("executive-summary.html", "Executive summary", body, active="executive-summary.html",
                   description="One-page executive summary: findings, source conflicts, economics and the recommended next decision.")
@@ -2512,7 +2790,7 @@ def page_suggestions():
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Suggestions</p>
 <h1>Suggestions, and a place to choose between them</h1>
-<p class="lede">{len(items)} things this project believes would materially improve this site, in priority order.
+<p class="lede">Sixteen things this pass believes would materially improve this site, in priority order.
 Nothing on this page has been implemented. Each entry names the problem it fixes, the official
 document or repository evidence behind it, two or three paths you could take, and the path this
 pass would pick if it were your call. Read the one you care about, choose a path, and the work is
@@ -2547,7 +2825,7 @@ a short story rather than an open-ended project.</p>
 </div>
 """
     return layout("marketing-directions.html", "Suggestions", body, active="marketing-directions.html",
-                  description="Reviewed, evidence-backed suggestions for the site, each with alternative paths and a recommendation, for the owner to choose before anything is implemented.")
+                  description="Sixteen reviewed, evidence-backed suggestions for the site, each with alternative paths and a recommendation, for the owner to choose before anything is implemented.")
 
 
 def page_questions():
@@ -3033,36 +3311,31 @@ def _is_identifier(value):
 def check_article_splices(article):
     """Reject a published value spliced into a sentence where its capital is wrong.
 
-    This is the guard behind flag F45. A display label such as "Two 3-quart
+    This is the guard behind flag F51. A display label such as "Two 3-quart
     baskets" is a correct answer to "what is the capacity?" and a broken
     sentence inside "divided into Two 3-quart baskets". The defect is not
-    visible in a data table, which is why it survived eight earlier passes:
+    visible in a data table, which is why it survived nine earlier passes:
     it only shows up when the page is read as prose.
     """
     problems = []
     for sec in article["sections"]:
         for para in sec["paras"]:
-            pos = 0
             for m in PLACEHOLDER_RE.finditer(para):
                 before = para[:m.start()]
                 raw = m.group(1)
                 pub, prose = _split_placeholder(raw)
                 shown = prose if prose is not None else pub
                 if not shown[:1].isupper():
-                    pos = m.end()
                     continue
                 if _is_identifier(shown):
-                    pos = m.end()
                     continue
                 # First non-space token of the paragraph: a capital is correct.
                 if before.strip() == "":
-                    pos = m.end()
                     continue
                 # A colon, quote, bracket or dash introduces the value, so a
                 # capital is correct there too.
                 stripped = before.rstrip()
                 if stripped and stripped[-1] in _CAP_OK_BEFORE:
-                    pos = m.end()
                     continue
                 problems.append(
                     f"{article['slug']} §'{sec['h']}': the value {pub!r} is spliced into "
@@ -3070,7 +3343,6 @@ def check_article_splices(article):
                     f"(rendered as {shown!r}). Use a prose form "
                     f"({{{{{pub}::lower-case}}}}) or rewrite the sentence."
                 )
-                pos = m.end()
     return problems
 
 
@@ -3114,6 +3386,87 @@ def check_article_pages(rendered):
         for bad in ("out of 5 stars", "a-icon-alt", "Amazon price:"):
             if bad in text:
                 problems.append(f"{rel}: prohibited Amazon price/rating pattern {bad!r}")
+    return problems
+
+
+# Banned-phrase guard for the editorial layer (2026-11-15, arena/792c279e).
+# The brief's complaint is that the site read "like AI slop". A house style rule that
+# nobody can enforce is a wish, so it is a build failure. The list is deliberately
+# short and specific: phrases that appear in machine-written marketing copy far more
+# often than in writing a person would publish, plus the hype verbs that make a
+# statement unfalsifiable. It is checked against the article sources in
+# data/articles.json, not against the rendered HTML, so the guard cannot be satisfied
+# by escaping.
+BANNED_PHRASES = [
+    "in today's fast-paced world", "in today\u2019s fast-paced world", "elevate your",
+    "unlock the power", "game-changer", "game changer", "revolutionize", "revolutionise",
+    "seamless experience", "take it to the next level", "look no further",
+    "dive into", "delve into", "in the ever-evolving", "ever-evolving landscape",
+    "whether you're a", "whether you\u2019re a", "nestled in the heart",
+    "boasts a", "unleash", "cutting-edge", "state-of-the-art", "must-have",
+    "indulge in", "tantalizing", "cullinary", "culinary journey",
+]
+
+
+def check_decision_data():
+    """Build guard for data/decision.json (2026-11-15, arena/792c279e).
+
+    The decision pages publish arithmetic on official rates, so the rates must still be the
+    ones on the official table and every per-sale figure must be the arithmetic it claims to
+    be. A stale example is worse than no example: it looks authoritative and is wrong.
+    """
+    problems = []
+    official = {r["rate"]: r for r in COMPLIANCE.get("commission_table", [])}
+    for row in DECISION["commission"]["rows"]:
+        rate = row["rate"]
+        cat = row["label"].split(" (")[0].strip()
+        # The table groups categories in one row, e.g. "Physical Books, Kitchen,
+        # Automotive" -> 4.50%. Match the category *inside* a grouped row, not the whole
+        # row string, so a rename on either side fails loudly instead of passing silently.
+        match = [r for r in COMPLIANCE.get("commission_table", [])
+                 if r["category"].strip() == cat
+                 or cat in [x.strip() for x in r["category"].split(",")]]
+        if not match:
+            problems.append(f"decision.json rate row {cat!r} is not a row on the official table")
+            continue
+        if match[0]["rate"].strip() != rate:
+            problems.append(f"decision.json says {cat} is {rate}, the table says {match[0]['rate']}")
+    for ex in DECISION["commission"]["per_sale_examples"]:
+        try:
+            price = float(ex["list_price"].replace("$", "").replace(",", ""))
+        except ValueError:
+            problems.append(f"unparseable list price {ex['list_price']!r}")
+            continue
+        for pct_key, rate in (("at_4_5", 0.045), ("at_4_0", 0.040)):
+            expect = round(price * rate + 1e-9, 2)
+            got = float(ex[pct_key].replace("$", ""))
+            if abs(expect - got) > 0.005:
+                problems.append(f"{ex['product']}: {pct_key} is {ex[pct_key]}, "
+                                f"{price} x {rate:.2%} = ${expect:.2f}")
+    # every channel and metric must name its prerequisites rather than imply readiness
+    for c in DECISION["traffic"]["channels"]:
+        if not c.get("requirements"):
+            problems.append(f"traffic channel {c['id']} lists no requirements")
+        if not c.get("status"):
+            problems.append(f"traffic channel {c['id']} has no status")
+    return problems
+
+
+def check_article_voice():
+    problems = []
+    for a in ARTICLES["articles"]:
+        blob = " ".join(
+            [a.get("title", ""), a.get("standfirst", "")]
+            + [p for sec in a["sections"] for p in sec["paras"]]
+        ).lower()
+        for phrase in BANNED_PHRASES:
+            if phrase in blob:
+                problems.append(f"{a['slug']}: banned stock phrase {phrase!r}")
+        # A first-person plural claim of experience is the same failure as a test claim.
+        for claim in ("we tested", "we tried", "we used it", "after weeks of use",
+                      "we've been using", "our testers"):
+            if claim in blob:
+                problems.append(f"{a['slug']}: experience claim {claim!r} with no testing")
     return problems
 
 
@@ -3233,9 +3586,394 @@ def page_article(a):
 
 <p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../articles/index.html">← All articles</a> <a class="btn btn-ghost" href="../flagged.html">What is unresolved →</a></p>
 """
+    # --- 2026-11-15 (arena/792c279e): reader-facing polish on the editorial layer.
+    # A share row that works with no third-party script, prev/next navigation so a reader
+    # who lands deep can keep reading, and Article structured data assembled only from
+    # fields already in data/articles.json. No author identity is invented; the publisher
+    # is the site.
+    _arts = ARTICLES["articles"]
+    _idx = [x["slug"] for x in _arts].index(a["slug"])
+    _prev = _arts[_idx - 1] if _idx > 0 else _arts[-1]
+    _next = _arts[(_idx + 1) % len(_arts)]
+    _site = "https://kanlerxz87-cyber.github.io/Zone1/"
+    _url = f"{_site}articles/{a['slug']}.html"
+    share = f"""
+<div class="share">
+  <span class="label">Share</span>
+  <a href="https://x.com/intent/post?text={quote_plus(a['title'])}&amp;url={quote_plus(_url)}" target="_blank" rel="noopener">X / Twitter</a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url={quote_plus(_url)}" target="_blank" rel="noopener">LinkedIn</a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u={quote_plus(_url)}" target="_blank" rel="noopener">Facebook</a>
+  <a href="mailto:?subject={quote_plus(a['title'])}&amp;body={quote_plus(_url)}">Email</a>
+  <button type="button" class="copylink" data-link="{e(_url)}">Copy link</button>
+</div>
+<div class="article-nav">
+  <a class="card tight" href="{e(_prev['slug'])}.html"><span class="tiny muted">Previous</span><br><strong>{e(_prev['title'])}</strong></a>
+  <a class="card tight" href="{e(_next['slug'])}.html"><span class="tiny muted">Next</span><br><strong>{e(_next['title'])}</strong></a>
+</div>"""
+    body = body + share
+    _ld = json.dumps({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": a["title"],
+        "description": a["standfirst"],
+        "dateModified": ARTICLES.get("updated", ACCESSED),
+        "mainEntityOfPage": {"@type": "WebPage", "@id": _url},
+        "publisher": {"@type": "Organization", "name": SITE_NAME, "url": _site},
+    }, ensure_ascii=False)
+    body = body + f'\n<script type="application/ld+json">{_ld}</script>'
     return layout(f"articles/{a['slug']}.html", a["title"], body,
                   active="articles/index.html", description=a["standfirst"])
 
+
+
+# --------------------------------------------------------------------------- #
+# 2026-11-15 (arena/792c279e-zone1, T20): the decision-facing pages.
+#
+# picks.html      — the commercial front door: three products, three jobs, one
+#                   decision rule, and the caveat that governs every link.
+# decisions.html  — niche, traffic and measurement: the strategy material the
+#                   brief asks for, with assumptions labelled and quantities
+#                   either sourced or left as owner inputs.
+# handover.html   — the five things only the account holder can do, each with a
+#                   time estimate and the flags it closes.
+#
+# Every number on these pages comes from data/decision.json, which follows the
+# same rule as the rest of the dataset: a value is either quoted from a
+# registered official source or labelled as an assumption.
+# --------------------------------------------------------------------------- #
+
+FLAG_BY_ID = {}
+
+
+def _decision_rows():
+    return DECISION["commission"]["rows"]
+
+
+def page_picks():
+    """Commercial front door: the honest version of a 'top picks' page."""
+    d = DECISION
+    cards = []
+    jobs = [
+        ("chefman-6qt-dual-basket", "Cook two different things at once",
+         "Two independent 3-quart baskets and a Sync Finish function that delays the shorter cook to land with the longer one."),
+        ("emeril-26qt-french-door", "Replace a toaster oven as well as a fryer",
+         "One 26-quart cavity with French doors, a dual-speed fan and a rotisserie documented in the owner's manual."),
+        ("chefman-8qt-turbofry", "Feed four to six people from one basket",
+         "A single large basket with a documented 4\u20136 person household size and a shake reminder."),
+    ]
+    by_slug = {p["slug"]: p for p in PRODUCT_LIST}
+    for slug, job, why in jobs:
+        p = by_slug[slug]
+        cap = next(s for s in p["specs"] if s["label"] in ("Capacity",))
+        model = p.get("model_number") or {}
+        cards.append(f"""
+<article class="card pcard pick">
+  <p class="product-type">Pick if you want to</p>
+  <h3>{e(job)}</h3>
+  <p class="small muted product-name">{e(p['short_name'])} \u2014 {e(p['name'])}</p>
+  <div class="product-fact">
+    <span>Manufacturer-stated capacity</span>
+    <strong>{e(cap['value'])}</strong>
+    <span class="tiny">{src_links(cap['source'])}</span>
+  </div>
+  <p class="small">{e(why)}</p>
+  <p class="product-match"><span class="pill pill-warn">Model match unconfirmed</span>
+    <a class="tiny" href="flagged.html">Why</a></p>
+  <a class="pick-cta" href="products/{e(p['slug'])}.html">Read the sourced breakdown \u2192</a>
+</article>""")
+
+    rate_rows = "".join(
+        f'<tr><td>{e(r["label"])}</td><td class="num">{e(r["rate"])}</td>'
+        f'<td class="small">{e(r["row_quoted"])} {src_links(r["source"])}</td></tr>'
+        for r in _decision_rows())
+
+    examples = "".join(
+        f'<tr><td>{e(x["product"])}</td><td class="num">{e(x["list_price"])}</td>'
+        f'<td class="num">{e(x["at_4_5"])}</td><td class="num">{e(x["at_4_0"])}</td>'
+        f'<td>{src_links(x["source"])}</td></tr>'
+        for x in d["commission"]["per_sale_examples"])
+
+    caveats = "".join(f"<li>{e(c)}</li>" for c in d["commission"]["caveats"])
+
+    body = f"""
+<div class="editorial-hero picks-hero">
+  <div class="hero-copy">
+    <p class="hero-eyebrow">This week's picks <span aria-hidden="true">/</span> updated {e(d['compiled'])}</p>
+    <h1 class="hero-title">Three air fryers, three different jobs.</h1>
+    <p class="lede">A picks page is usually a ranking. This one is a decision rule: each of the three products wins a different job, and the job you have decides the product. Every claim below is a manufacturer specification you can check in one click.</p>
+    <div class="hero-actions">
+      <a class="btn" href="#pick-rule">See the rule <span aria-hidden="true">\u2193</span></a>
+      <a class="btn btn-ghost" href="decisions.html">How the money works <span aria-hidden="true">\u2192</span></a>
+    </div>
+    <p class="hero-footnote">No hands-on testing claimed \u00b7 no Amazon price or rating published \u00b7 model identity still open</p>
+  </div>
+  <aside class="hero-panel" aria-label="What this page is">
+    <p class="hero-panel-kicker">Before you click <span>read this</span></p>
+    <h2>The link is not the product.</h2>
+    <p class="small">Each product below links to a supplied Amazon short link. All three land on a listing, but Amazon does not publish a model number a fetch can read, so this site cannot confirm which manufacturer SKU each listing is. Check the model number on the listing before you buy. <a href="flagged.html">Flagged for review</a>.</p>
+  </aside>
+</div>
+
+<nav class="buyer-toc" aria-label="On this page">
+  <a href="#pick-rule">The rule</a>
+  <a href="#the-picks">The three picks</a>
+  <a href="#commission">What one sale is worth</a>
+  <a href="#not-a-top-ten">Why not a top ten</a>
+  <a href="#read-next">Read next</a>
+</nav>
+
+<div class="callout trust" id="pick-rule">
+  <strong>The rule.</strong> Buy the format, not the brand: two baskets if you cook two different things at once, a French-door oven if you also want to replace a toaster oven, one big basket if you are cooking for four to six people from a single batch. Everything else on this page is a consequence of that rule.
+</div>
+
+<section class="quick-guide" id="the-picks">
+  <div class="section-heading">
+    <p class="section-eyebrow">The three picks</p>
+    <h2>Each one wins a different job</h2>
+    <p class="small muted">Capacity is quoted from each manufacturer's own product page. The links to Amazon are the supplied affiliate links.</p>
+  </div>
+  <div class="grid grid-3 decision-grid">{''.join(cards)}</div>
+</section>
+
+<h2 id="commission">What one sale is actually worth</h2>
+<p class="lede">Amazon pays a fixed percentage by category, not by product. Two rows of its published table are plausible for these appliances, and it does not publish which row a given ASIN falls into, so the honest answer is a range.</p>
+<div class="tablewrap">
+<table>
+  <caption>Official Standard Commission Income rates that could apply</caption>
+  <thead><tr><th>Category as published</th><th>Fixed rate</th><th>Row quoted from the official table</th></tr></thead>
+  <tbody>{rate_rows}</tbody>
+</table>
+</div>
+<div class="tablewrap" style="margin-top:1rem">
+<table>
+  <caption>What that is worth per sale, at each candidate rate (arithmetic on manufacturer list prices)</caption>
+  <thead><tr><th>Product</th><th>Brand list price</th><th>At 4.50%</th><th>At 4.00%</th><th>Sources</th></tr></thead>
+  <tbody>{examples}</tbody>
+</table>
+</div>
+<ul class="tight small" style="margin-top:.8rem">{caveats}</ul>
+<p class="small muted">Per-product mapping is deliberately not asserted: see <a href="flagged.html">Flagged for review</a> and the measurement section of <a href="decisions.html">Decisions &amp; handover</a>.</p>
+
+<h2 id="not-a-top-ten">Why this page is not a top-ten list</h2>
+<div class="grid grid-2">
+  <div class="card">
+    <h3 style="margin-top:0">Because "best" needs evidence this site does not have</h3>
+    <p class="small">A ranking implies comparison testing. The FTC's own guidance says you cannot talk about experience with a product you have not tried, and Amazon's policies restrict republishing customer reviews and star ratings. So this page ranks <em>jobs</em>, not products, and shows the specification that supports each match.</p>
+    <p class="small">{src_links(['S8', 'S2'])}</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Because the reader can check every line</h3>
+    <p class="small">Every capacity, dimension and temperature on the product pages links to the manufacturer's page or the owner's manual PDF. If a value is missing from the source, the row stays blank and appears on the flagged page instead of being filled in.</p>
+    <p class="small"><a href="compare.html">See the verified-only comparison matrix \u2192</a></p>
+  </div>
+</div>
+
+<h2 id="read-next">Read next</h2>
+<div class="cardgrid">
+  <a class="card" href="articles/small-kitchen-air-fryer-dimensions.html">
+    <span class="kicker">Fit check</span>
+    <span class="cardtitle">Will it actually fit? Three air fryers, measured against your counter</span>
+    <span class="cardtext">Depth, height and weight, from the manufacturers' own figures.</span>
+  </a>
+  <a class="card" href="articles/chefman-8qt-two-models.html">
+    <span class="kicker">Model watch</span>
+    <span class="cardtitle">The 8-quart Chefman is sold as two different machines</span>
+    <span class="cardtext">One tops out at 400\u00b0F, one reaches 450\u00b0F. The listing describes both.</span>
+  </a>
+  <a class="card" href="articles/energy-cost-of-an-air-fryer.html">
+    <span class="kicker">Running costs</span>
+    <span class="cardtitle">The 1,700-watt question</span>
+    <span class="cardtext">All three units draw the same load. What that means for a kitchen circuit.</span>
+  </a>
+  <a class="card" href="articles/who-actually-pays-for-air-fryer-reviews.html">
+    <span class="kicker">How the money works</span>
+    <span class="cardtitle">Who pays for the air-fryer review you are reading?</span>
+    <span class="cardtext">The disclosure rule, the law behind it, and the three claims an affiliate may not make.</span>
+  </a>
+</div>
+"""
+    return layout("picks.html", "This week's picks \u2014 three air fryers, three jobs", body,
+                  active="picks.html",
+                  description="A decision-rule picks page: which of three sourced air fryers wins which job, what one sale pays at each official commission rate, and what remains unconfirmed.")
+
+
+def page_decisions():
+    d = DECISION
+    def crit_table():
+        crit = d["niche"]["criteria"]
+        head = "".join(f'<th title="{e(c["why"])}">{e(c["id"])}</th>' for c in crit)
+        rows = ""
+        for c in d["niche"]["candidates"]:
+            cells = "".join(f'<td class="num">{c["score"][k["id"]]}</td>' for k in crit)
+            rows += (f'<tr><td><strong>{e(c["id"])} {e(c["name"])}</strong>'
+                     f'<div class="tiny muted">{e(c["basis"])}</div></td>{cells}'
+                     f'<td class="num"><strong>{c["total"]}</strong></td>'
+                     f'<td class="small">{e(c["recommendation"])}'
+                     f'<div class="tiny">{src_links(c["source"])}</div></td></tr>')
+        return (f'<div class="tablewrap"><table><caption>Niche options scored 0\u20133 '
+                f'(higher is better; the scores are judgements, shown with their basis)</caption>'
+                f'<thead><tr><th>Candidate niche</th>{head}<th>Total</th><th>Verdict / evidence</th></tr></thead>'
+                f'<tbody>{rows}</tbody></table></div>')
+
+    def crit_legend():
+        return "".join(
+            f'<li><strong>{e(c["id"])}</strong> {e(c["name"])} \u2014 {e(c["why"])}</li>'
+            for c in d["niche"]["criteria"])
+
+    def channels():
+        out = ""
+        for c in d["traffic"]["channels"]:
+            reqs = "".join(f"<li>{e(r)}</li>" for r in c["requirements"])
+            out += f"""
+<div class="card channel">
+  <div class="channel-head">
+    <span class="pill pill-info">{e(c['id'])}</span>
+    <h3>{e(c['name'])}</h3>
+    <span class="pill {'pill-ok' if 'Ready' in c['status'] or 'exist' in c['status'] else 'pill-warn'}">{e(c['status'])}</span>
+  </div>
+  <p class="small">{e(c['works_because'])}</p>
+  <p class="tiny muted" style="margin-bottom:.2rem">Requires</p>
+  <ul class="tight small">{reqs}</ul>
+  <p class="tiny muted"><strong>Effort:</strong> {e(c['effort'])} \u00b7 <strong>Cost:</strong> {e(c['cost'])} \u00b7 <strong>Risk:</strong> {e(c['risk'])}</p>
+</div>"""
+        return out
+
+    def _msrc(m):
+        if m.get("source"):
+            return src_links(m["source"])
+        return repo_link("reports/verification-2026-11-15.md", "this pass")
+    metrics = "".join(
+        f'<tr><td>{e(m["id"])}</td><td><strong>{e(m["metric"])}</strong></td>'
+        f'<td class="small">{e(m["how"])}</td><td class="small">{e(m["status"])}</td>'
+        f'<td class="small">{_msrc(m)}</td></tr>'
+        for m in d["measurement"]["metrics"])
+
+    rules = "".join(f"<li>{e(r)}</li>" for r in d["traffic"]["anti_slop_rules"])
+
+    def _closes(h):
+        return e(", ".join(h["closes"])) if h["closes"] else "not a flag \u2014 unblocks measurement"
+    def _hsrc(h):
+        if h.get("source"):
+            return src_links(h["source"])
+        return repo_link("COORDINATION.md", "claim record")
+    handoff_rows = "".join(
+        f'<tr><td><span class="pill pill-info">{e(h["id"])}</span></td>'
+        f'<td>{e(h["owner_action"])}</td><td class="num">{e(h["time"])}</td>'
+        f'<td class="small">{_closes(h)}</td><td class="small">{_hsrc(h)}</td></tr>'
+        for h in d["handover"]["items"])
+
+    body = f"""
+<p class="section-eyebrow">Decisions &amp; handover</p>
+<h1>What has to be decided before more is built</h1>
+<p class="lede">Three decisions, one measurement plan, and the short list of things only the account holder can do. Nothing on this page is implemented: it exists so the paths can be compared before anyone spends time on one.</p>
+<div class="callout trust"><strong>How to read this.</strong> A number is either quoted from a registered official source or labelled an assumption. Scores in the niche table are judgements and are shown with their basis so you can disagree with them. Nothing here is a forecast of traffic or revenue.</div>
+
+<div class="grid grid-3" style="margin:1.2rem 0">
+  <a class="card" href="#niche"><span class="kicker">Decision 1</span><span class="cardtitle">Which niche</span><span class="cardtext">Four candidates, scored on five criteria, with the honest verdict.</span></a>
+  <a class="card" href="#traffic"><span class="kicker">Decision 2</span><span class="cardtitle">Which traffic</span><span class="cardtext">Six channels ordered by how little they depend on things we do not have.</span></a>
+  <a class="card" href="#measure"><span class="kicker">Decision 3</span><span class="cardtitle">What to measure</span><span class="cardtext">Six metrics, what each needs, and a pre-committed kill rule.</span></a>
+</div>
+
+<h2 id="niche">Decision 1 \u2014 which niche to build around</h2>
+<p class="small muted">{e(d['niche']['summary'])}</p>
+{crit_table()}
+<p class="tiny muted">{e(d['niche']['scoring_note'])}</p>
+<details class="card tight">
+  <summary><strong>What each criterion means</strong></summary>
+  <ul class="tight small" style="margin-top:.6rem">{crit_legend()}</ul>
+</details>
+<div class="callout ok">
+  <strong>Recommendation:</strong> {e(d['niche']['decision']['recommendation'])}
+  <p class="small" style="margin:.4rem 0 0">{e(d['niche']['decision']['why'])}</p>
+  <p class="small" style="margin:.3rem 0 0"><strong>Alternative:</strong> {e(d['niche']['decision']['alternative'])}</p>
+</div>
+<div class="tablewrap">
+<table>
+  <caption>What would have to be true for each candidate</caption>
+  <thead><tr><th>Candidate</th><th>Condition</th><th>Evidence</th></tr></thead>
+  <tbody>{''.join(f'<tr><td>{e(c["id"])} {e(c["name"])}</td><td class="small">{e(c["what_must_be_true"])}</td><td>{src_links(c["source"])}</td></tr>' for c in d['niche']['candidates'])}</tbody>
+</table>
+</div>
+
+<h2 id="traffic">Decision 2 \u2014 how traffic would actually arrive</h2>
+<p class="small muted">{e(d['traffic']['summary'])}</p>
+{channels()}
+
+<h3>Rules that keep the writing from reading like machine output</h3>
+<ol class="tight small">{rules}</ol>
+
+<h2 id="measure">Decision 3 \u2014 what to measure</h2>
+<p class="small muted">{e(d['measurement']['summary'])}</p>
+<div class="tablewrap">
+<table>
+  <caption>Six metrics and what each one needs before it can exist</caption>
+  <thead><tr><th>#</th><th>Metric</th><th>How</th><th>Status</th><th>Source of the rule</th></tr></thead>
+  <tbody>{metrics}</tbody>
+</table>
+</div>
+<div class="callout">
+  <strong>{e(d['measurement']['decision_rule']['heading'])}</strong>
+  <p class="small" style="margin:.4rem 0 0">{e(d['measurement']['decision_rule']['rule'])}</p>
+  <p class="small" style="margin:.3rem 0 0 muted">{e(d['measurement']['decision_rule']['why'])}</p>
+</div>
+<p class="small muted">{e(d['measurement']['untrackable_note'])}</p>
+
+<h2 id="handover">What only you can do</h2>
+<p class="small muted">{e(d['handover']['summary'])}</p>
+<div class="tablewrap">
+<table>
+  <caption>Owner actions, time required, and the flags each one closes</caption>
+  <thead><tr><th>#</th><th>Action</th><th>Time</th><th>Closes</th><th>Grounded in</th></tr></thead>
+  <tbody>{handoff_rows}</tbody>
+</table>
+</div>
+<p class="small"><a href="handover.html">Open the full handover sheet \u2014 with the exact steps and what to paste back \u2192</a></p>
+<p class="small muted">Nothing on this page has been implemented. The suggestions queue, with alternative paths, effort, risk and reversibility for each item, is on <a href="suggestions.html">Suggestions</a>; the outstanding facts are on <a href="questions.html">Questions and gaps</a>.</p>
+"""
+    return layout("decisions.html", "Decisions \u2014 niche, traffic, measurement and handover", body,
+                  active="decisions.html",
+                  description="Three decisions with scored options, a six-channel traffic plan, six metrics with their prerequisites, a pre-committed kill rule, and the five actions only the account holder can take.")
+
+
+def page_handover():
+    d = DECISION["handover"]
+    items = ""
+    for h in d["items"]:
+        closes = ", ".join(h["closes"]) if h["closes"] else "no flag \u2014 unblocks measurement"
+        src = src_links(h["source"]) if h["source"] else ""
+        items += f"""
+<article class="card handover-item">
+  <div class="handover-head">
+    <span class="handover-num">{e(h['id'])}</span>
+    <h3>{e(h['owner_action'].replace('**',''))}</h3>
+    <span class="pill pill-info">{e(h['time'])}</span>
+  </div>
+  <p class="small">{e(h['why_now'])}</p>
+  <div class="handover-meta">
+    <div><span class="tiny muted">Closes</span><div class="small">{e(closes)}</div></div>
+    <div><span class="tiny muted">Paste back</span><div class="small">{e(h['what_to_paste_back'])} {src}</div></div>
+  </div>
+</article>"""
+
+    not_possible = "".join(f"<li>{e(x)}</li>" for x in d["not_possible_here"])
+    body = f"""
+<p class="section-eyebrow">Handover</p>
+<h1>Five actions, about an hour, eighteen flags</h1>
+<p class="lede">Everything in this repository is done as far as it can be done without the account holder's own logins. These five actions are the shortest path from "unverified" to "confirmed". Each shows the time it takes and the flags it closes.</p>
+<div class="callout bad">
+  <strong>Start with H1.</strong> Reading the model number off three Amazon listings takes about three minutes and closes the four highest-severity flags in the register. It is the only fact in the project that a headless fetch cannot read.
+</div>
+{items}
+
+<h2>What cannot be done from here</h2>
+<div class="card">
+  <ul class="tight small">{not_possible}</ul>
+</div>
+<p class="small muted">When the answers come back, they are recorded in <a href="flagged.html">the flag register</a> with their source and the date read, not inferred from an earlier pass. Every published value on this site carries that same discipline.</p>
+"""
+    return layout("handover.html", "Handover \u2014 the five things only the account holder can do", body,
+                  active="decisions.html",
+                  description="Five owner actions totalling about an hour, each with the exact steps, the time required, the flags it closes and what to paste back.")
 
 
 # --------------------------------------------------------------------------- #
@@ -3365,6 +4103,115 @@ def check_row_sources(pages):
     return problems
 
 
+# --------------------------------------------------------------------------- #
+# pass 9 guards (session 22f43836)
+# --------------------------------------------------------------------------- #
+
+def qualify_affiliate_links(html_text):
+    """Add rel="sponsored" to every clickable affiliate anchor in a rendered page.
+
+    One post-render pass rather than fifteen template edits, so a future page that prints a
+    supplied link cannot reintroduce the defect the guard now blocks. Rules match the guard:
+    anchors on the affiliate host, excluding citation badges (class="src") and the
+    nonsense-token control request (S22). Existing rel values are preserved and de-duplicated
+    so rel="nofollow sponsored noopener" never becomes contradictory or repeated.
+    """
+    def fix(match):
+        tag = match.group(0)
+        if 'class="src"' in tag or "ZZZ9ZZZZZ" in tag:
+            return tag
+        rel_attr = re.search(r'rel="([^"]*)"', tag, re.I)
+        if rel_attr:
+            values = [v for v in rel_attr.group(1).split() if v]
+        else:
+            values = []
+        if "sponsored" not in values:
+            # sponsored must lead: it is the value that states the commercial relationship.
+            values = ["sponsored"] + values
+        new_tag = re.sub(r'\srel="[^"]*"', "", tag, count=1, flags=re.I)
+        return new_tag[:-1].rstrip() + f' rel="{" ".join(values)}">'
+    return re.sub(r'<a\b[^>]*' + AFFILIATE_HOST + r'[^>]*>', fix, html_text, flags=re.I)
+
+
+AFFILIATE_HOST = "link.amazon"
+
+
+def check_affiliate_link_qualification(pages):
+    """Build guard: every clickable affiliate link must be qualified.
+
+    Read verbatim 2026-11-15 from Google Search Central, "Spam policies for Google web
+    search" (S30): "It's not a violation of our policies to have such links as long as
+    they are qualified with a rel="nofollow" or rel="sponsored" attribute value to the
+    <a> tag", and from "Qualify your outbound links to Google" (S31): "Mark links that are
+    advertisements or paid placements (commonly called paid links) with the sponsored
+    value."
+
+    Scope: only anchors a reader can actually click through to Amazon, i.e. hrefs on the
+    affiliate short-link host. Excluded on purpose:
+      * citation badges (class="src") — these evidence a fact, they are not calls to action;
+      * the nonsense-token control request (data/sources.json S22), which exists to prove
+        the resolver refuses unknown tokens and must stay clickable for a human to re-test.
+    Every product CTA already carried rel="nofollow sponsored"; the anchors this guard was
+    written to catch are the raw supplied links printed in the evidence tables, which had
+    rel="noopener" only. Refusing to qualify a link that is the site's entire commercial
+    purpose is a silent revenue and compliance defect, so it is a build failure now.
+    """
+    anchor = re.compile(r'<a\b[^>]*' + AFFILIATE_HOST + r'[^>]*>', re.I)
+    problems = []
+    for rel, html_text in pages.items():
+        for tag in anchor.findall(html_text):
+            if 'class="src"' in tag:
+                continue
+            if "ZZZ9ZZZZZ" in tag:
+                continue
+            rel_attr = re.search(r'rel="([^"]*)"', tag, re.I)
+            values = (rel_attr.group(1) if rel_attr else "").split()
+            if "sponsored" not in values:
+                href = re.search(r'href="([^"]+)"', tag)
+                problems.append(
+                    f'{rel}: affiliate link without rel="sponsored": '
+                    f'{(href.group(1) if href else tag)[:90]}')
+    return problems
+
+
+def check_seo_metadata(pages):
+    """Build guard: the SEO/sharing metadata must exist on every generated page.
+
+    Written because the defect it prevents was live: before pass 9 no generated page had a
+    canonical URL, an Open Graph title or structured data, measured as 0/27 pages on
+    2026-11-15. A metadata block that is added by hand once and then dropped by the next
+    template edit is not a fix, so the requirement is executable.
+    """
+    problems = []
+    for rel, html_text in pages.items():
+        if not rel.endswith(".html"):
+            continue
+        if rel == "404.html":
+            if not re.search(r'<meta name="robots" content="noindex"', html_text):
+                problems.append(f"{rel}: 404 page must carry a noindex robots meta")
+            if 'rel="canonical"' in html_text:
+                problems.append(f"{rel}: 404 page must not declare a canonical URL")
+            continue
+        for needle, what in (
+            ('rel="canonical"', "canonical URL"),
+            ('property="og:title"', "Open Graph title"),
+            ('name="twitter:card"', "Twitter card"),
+            ('application/ld+json', "structured data"),
+        ):
+            if needle not in html_text:
+                problems.append(f"{rel}: missing {what}")
+        m = re.search(r'<script type="application/ld\+json">(.*?)</script>',
+                      html_text, re.S)
+        if m:
+            try:
+                json.loads(m.group(1))
+            except Exception as exc:  # noqa: BLE001 - any parse failure is a build failure
+                problems.append(f"{rel}: structured data is not valid JSON ({exc})")
+        if 'name="description"' not in html_text:
+            problems.append(f"{rel}: missing meta description")
+    return problems
+
+
 def main():
     assets = ROOT / "assets"
     assets.mkdir(exist_ok=True)
@@ -3390,12 +4237,18 @@ def main():
     pages["platform.html"] = page_platform()
     pages["executive-summary.html"] = page_exec()
     pages["reverification.html"] = page_reverification()
+    pages["picks.html"] = page_picks()
+    pages["decisions.html"] = page_decisions()
+    pages["handover.html"] = page_handover()
     pages["suggestions.html"] = page_suggestions()
     pages["questions.html"] = page_questions()
     pages["decision-gate.html"] = page_questions_alt()
     pages["marketing-directions.html"] = page_suggestions_alt()
     pages["previous-passes.html"] = page_previous_passes()
     pages["404.html"] = page_404()
+
+    # Qualify affiliate anchors before the guards see them, and before anything is written.
+    pages = {rel: qualify_affiliate_links(text) for rel, text in pages.items()}
 
     # build guards
     problems = check_rows_have_sources()
@@ -3408,6 +4261,14 @@ def main():
     if article_problems:
         raise SystemExit("BUILD FAILED — article cites an unregistered source or states an "
                          "unpublished value:\n  " + "\n  ".join(article_problems))
+    decision_problems = check_decision_data()
+    if decision_problems:
+        raise SystemExit("BUILD FAILED — decision data no longer matches the official table:\n  "
+                         + "\n  ".join(decision_problems))
+    voice_problems = check_article_voice()
+    if voice_problems:
+        raise SystemExit("BUILD FAILED — article violates the house voice rule:\n  "
+                         + "\n  ".join(voice_problems))
     article_page_problems = check_article_pages(pages)
     if article_page_problems:
         raise SystemExit("BUILD FAILED — article page violated a disclosure/claims rule:\n  "
@@ -3422,6 +4283,13 @@ def main():
     if price_problems:
         raise SystemExit("BUILD FAILED — Prohibited feature (Program Policies 6(y)):\n  "
                          + "\n  ".join(price_problems))
+    seo_problems = check_seo_metadata(pages)
+    if seo_problems:
+        raise SystemExit("BUILD FAILED - SEO/sharing metadata:\n  " + "\n  ".join(seo_problems))
+    affiliate_problems = check_affiliate_link_qualification(pages)
+    if affiliate_problems:
+        raise SystemExit("BUILD FAILED - unqualified affiliate links (Google spam policies, "
+                         "S30/S31):\n  " + "\n  ".join(affiliate_problems))
     unsourced_rows = check_row_sources(pages)
     if unsourced_rows:
         raise SystemExit("BUILD FAILED — table rows with no official source link (cite a registered "

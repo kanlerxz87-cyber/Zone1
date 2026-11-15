@@ -1,4 +1,26 @@
 
+// copy-to-clipboard for article share rows (2026-11-15, arena/792c279e).
+// Progressive: without JS the button does nothing and the URL is still in the address bar,
+// so no functionality depends on it.
+document.addEventListener('click', function (ev) {
+  var c = ev.target.closest('.copylink');
+  if (!c) return;
+  var link = c.getAttribute('data-link') || location.href;
+  var done = function () {
+    var old = c.textContent;
+    c.textContent = 'Copied';
+    setTimeout(function () { c.textContent = old; }, 1600);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(link).then(done, done);
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = link; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta); done();
+  }
+});
+
 document.addEventListener('click', function (ev) {
   var t = ev.target.closest('.navtoggle');
   if (!t) return;
