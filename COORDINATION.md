@@ -3151,3 +3151,15 @@ mistake let `git rebase --continue` commit the file with its conflict markers st
 PR #63 record and this session's completion record both kept verbatim), the marker scan was
 re-run clean, and the fix is committed in the next commit on this branch. Lesson already on
 record from F22: run the marker scan before every `git add`; this pass now does.
+
+**Merge / deploy result — arena-b1e7b4bc (PR #61):**
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/61 — "Verification round 2026-11-15 (arena-b1e7b4bc): review of the Suggestions/Questions layer, flags F38-F39, round-7 live re-verification" (the PR body's flag IDs are the authored F38/F39; at merge they are **F42/F43** — renumbering documented above and in `build.py` at the seam). Branch `arena/b1e7b4bc-zone1` → `main`.
+* **Rebases during the PR:** three (main advanced by PRs #59, #60, #62, #63 while it was open). All conflicts resolved keep-both; the one marker incident is logged above and was repaired before merge. PR #62's flag IDs (F38–F40) and this round's rows coexist as F38–F43, no duplicates — the duplicate-ID build test added by PR #62 passes.
+* **Merge:** `gh pr merge 61 --merge` at 2026-11-15T12:0xZ, without waiting for approval, per the brief. **Merge commit on `main`: `253cc64`.**
+* **Post-merge workflows on `main` at `253cc64`, all success:** `CI` ✓ · `Verify verification annex (site/)` ✓ · `Build, verify and deploy to GitHub Pages` ✓ · `pages build and deployment` ✓.
+* **GitHub Pages:** `gh api repos/…/pages/builds/latest` → `status: built`, commit `253cc64`, `error: null`.
+* **Live verification (fetched from the deployed URL at commit `253cc64`):** `flagged.html` renders the register in order with **F42** (operator-location conflict) and **F43** (wording advisories) live after PR #62's F38–F40, each with its repo-evidence links; S16/S28/S29 now resolve to their per-ASIN listing pages (PR #62's fix visible live).
+* **Register at merge:** F1–F43 plus product-level rows; 0 values guessed; every asserted value sourced; all items non-blocking per protocol.
+
+**Final state of this session's tasks:** S1 review **done** · S2 review **done** · S3 verification + integration (PR → merge → Pages confirm → record) **done**. Nothing inferred; no other session's row edited; the incident and the collision are published above.
