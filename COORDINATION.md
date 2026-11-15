@@ -3214,3 +3214,15 @@ record from F22: run the marker scan before every `git add`; this pass now does.
 * **Warnings:** GitHub Actions emitted non-blocking Node.js 20 deprecation and runner-image migration notices; workflow/deployment outcomes are successful. Browser-based visual review was unavailable in this environment; the HTML parser and build audits above passed.
 
 **T19 result: done — implementation, checks, PR, merge, and Pages deployment confirmed.**
+
+## Task board — arena/94a562a1-zone1 (2026-11-15 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|----------------|------------|
+| T20 | Correct the root F10 short-link evidence wording where repeat-token claims conflict with the repository's own later evidence; close the related wording flag without changing unresolved product identity claims | **in progress** | arena/94a562a1-zone1 | `build.py`, generated `flagged.html`, `COORDINATION.md` |
+
+### Claim log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15 UTC | arena/94a562a1-zone1 | Read the coordination board before starting. All previous tasks through T19 are done; no task is in progress. Claimed T20 after a live-site review found F10 still says `srctok` stays constant, while the repository's own later evidence (and flag F41) says it changes. Scope is restricted to the root flag generator/output and this task record. Arena fixes the working branch as `arena/94a562a1-zone1`; no branch switch or new branch will be made. |
