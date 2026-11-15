@@ -3688,7 +3688,7 @@ def page_decisions():
         return repo_link("COORDINATION.md", "claim record")
     handoff_rows = "".join(
         f'<tr><td><span class="pill pill-info">{e(h["id"])}</span></td>'
-        f'<td>{e(h["owner_action"])}</td><td class="num">{e(h["time"])}</td>'
+        f'<td>{_md(h["owner_action"])}</td><td class="num">{e(h["time"])}</td>'
         f'<td class="small">{_closes(h)}</td><td class="small">{_hsrc(h)}</td></tr>'
         for h in d["handover"]["items"])
 
@@ -3765,6 +3765,20 @@ def page_decisions():
                   description="Three decisions with scored options, a six-channel traffic plan, six metrics with their prerequisites, a pre-committed kill rule, and the five actions only the account holder can take.")
 
 
+def _md(text):
+    """Escape, then honour **bold** and `code` from the JSON prose.
+
+    data/decision.json stores prose with light markdown so it stays readable as data. This is
+    the only place that turns it into HTML, so a stray asterisk or backtick cannot reach a
+    page. Added 2026-11-15 after handover.html was published showing literal ``**`` around
+    two words of an action title.
+    """
+    out = e(text)
+    out = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", out)
+    out = re.sub(r"`(.+?)`", r"<code>\1</code>", out)
+    return out
+
+
 def page_handover():
     d = DECISION["handover"]
     items = ""
@@ -3775,13 +3789,13 @@ def page_handover():
 <article class="card handover-item">
   <div class="handover-head">
     <span class="handover-num">{e(h['id'])}</span>
-    <h3>{e(h['owner_action'].replace('**',''))}</h3>
+    <h3>{_md(h['owner_action'])}</h3>
     <span class="pill pill-info">{e(h['time'])}</span>
   </div>
-  <p class="small">{e(h['why_now'])}</p>
+  <p class="small">{_md(h['why_now'])}</p>
   <div class="handover-meta">
     <div><span class="tiny muted">Closes</span><div class="small">{e(closes)}</div></div>
-    <div><span class="tiny muted">Paste back</span><div class="small">{e(h['what_to_paste_back'])} {src}</div></div>
+    <div><span class="tiny muted">Paste back</span><div class="small">{_md(h['what_to_paste_back'])} {src}</div></div>
   </div>
 </article>"""
 

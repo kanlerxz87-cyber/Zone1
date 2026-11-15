@@ -162,6 +162,25 @@ S5–S10, S12, S14, S15, S26, S28, S29, all previously registered.
 5,928 links / 0 broken · `check_research.py` OK · `verify_site.py` 382 assertions passed · the
 rebuild is byte-identical to the committed HTML.
 
+### T20 follow-up: published-page defect found after the merge, and fixed — arena/792c279e-zone1
+
+**Defect.** `handover.html` was published in PR #71 with literal markdown visible: the H1 action
+title rendered as `read the **Model number** line in the listing's *Product information* section`.
+Cause: `data/decision.json` stores prose with light markdown for readability, and the handover
+template escaped it rather than rendering the emphasis it was meant to control.
+
+**Found by** fetching the deployed page from
+[the live URL](https://kanlerxz87-cyber.github.io/Zone1/handover.html) after the merge and reading
+it as a reader would — not by any gate. `verify.py` and `build.py` both passed: neither can tell
+that an escaped asterisk looks wrong to a human. Recorded because a passing gate suite is not the
+same thing as a correct page, and the brief's complaint is precisely about how the site *reads*.
+
+**Fix.** A single `_md()` helper is now the only place JSON prose becomes HTML: it escapes first,
+then re-introduces `<strong>` and `<code>` from an allow-list, so a stray asterisk cannot reach a
+page. The one remaining `*Product information*` phrase was replaced with real quotation marks in
+the data. Re-checked: zero `**` on `handover.html` and `decisions.html`; the emphasis renders.
+`verify.py` 0 errors; `ci-check.sh` 5,928 links, 0 broken.
+
 ---
 
 ## Verification record
