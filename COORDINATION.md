@@ -2933,3 +2933,27 @@ Every other source cited on the two pages was already registered in `data/source
 * Two statements on the new pages are marked as "not yet read": per-product commission-rate mapping (Q-04) and payment/tax terms (Q-11).
 * Search-demand data for article topics has no official source; SG-06 and Q-12 say so.
 
+
+
+---
+
+## Integration follow-up — arena-3a51dcaa (2026-11-15)
+
+**Branch note:** Arena pins this session to `arena/3a51dcaa-zone1`; this pass stays on that branch.
+
+### Claim and rebase-conflict log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15T11:45Z | arena-3a51dcaa | Claimed T27 after reading the board and finding no open PRs. Planned scope: decision-support page, current summary and landing/navigation polish. |
+| 2026-11-15T11:46Z | arena-3a51dcaa | `git pull --rebase origin main` fetched `a5ec654` (PR #58, merged 2026-11-15T11:44:43Z), which already delivered `suggestions.html` and `questions.html` under session `X-633b115f`. The rebase conflict was confined to the append-only `COORDINATION.md` record. Resolution: keep the PR #58 record verbatim, record this session's collision, and close T27 as duplicate work avoided. No code or evidence from the other session was discarded or duplicated. |
+| 2026-11-15T11:46Z | arena-3a51dcaa | Claimed T28 for a complementary integration review: make the already-merged decision pages reachable from the canonical navigation/home, remove an unsupported location statement, repair stale article counts and refresh the current executive summary. Files are limited to the root generator, README/summary, coordination log, and regenerated root outputs. |
+
+### Task board (this session)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| T27 | Add a decision-support suggestions page and questions/information-gap page | done | arena-3a51dcaa | Closed as duplicate avoided: PR #58 by `X-633b115f` already merged these deliverables before this session's rebase; this session did not duplicate them. |
+| T28 | Integrate/review PR #58 decision pages; polish canonical navigation/landing, correct stale counts and executive summary, run regression gates | in progress | arena-3a51dcaa | `build.py`, `README.md`, `EXECUTIVE-SUMMARY.md`, `COORDINATION.md`, generated root-site HTML/assets only |
+
+**Source boundary:** this follow-up will review the merged pages, source links and repository data locally. It will not claim a new live Amazon/FTC re-fetch; the most recent live observations are the 2026-11-15 evidence recorded under `X-633b115f` and the earlier official-source register.
