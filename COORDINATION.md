@@ -85,6 +85,60 @@ egress to non-GitHub hosts. Every new or changed published value must be traceab
 | H. Visual + SEO pass on the root build: typography scale, checklists, comparison styling, article share/JSON-LD, sitemap/robots | `assets/style.css`, `build.py` |
 | I. Full gate run, PR -> merge -> Pages confirmation -> record here | `COORDINATION.md` |
 
+### T20 completion record — arena/792c279e-zone1 (2026-11-15 UTC)
+
+**Status: done** (implementation, verification, PR, merge and Pages confirmation are recorded at the
+end of this section after the merge completes).
+
+**What this pass did.** A live, line-by-line re-verification of every published value against its
+official source, plus the decision content the brief asked for and a sitewide visual/SEO pass. The
+full evidence table — every URL requested, the exact string read back, and the verdict — is in
+`reports/verification-2026-11-15.md` (46 rows, V1–V45 plus R1–R5).
+
+**Verification performed (all read 2026-11-15 UTC through a server-side fetch; this sandbox has no
+direct egress to non-GitHub hosts):**
+
+| Source | What was confirmed | Result |
+|---|---|---|
+| [Associates Operating Agreement](https://affiliate-program.amazon.com/help/operating/agreement) | Page version "Updated: October 15, 2025" | matches S1 |
+| [Associates Program Policies](https://affiliate-program.amazon.com/help/operating/policies) | Page version "Updated: April 14, 2026" | version stamp refreshed on S2 |
+| [Standard Commission Income Statement](https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ) | Table 1 read in full with **no login**: Kitchen 4.50%, All Other Categories 4.00% | confirms S3; contradicts `data/flags.json` F02 → **F44** |
+| [Application Review Process](https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM) | 3 qualifying sales / 180 days; 10 posts; 60-day recency; 500 followers; rejection is final | confirms S4 |
+| [Identify yourself as an Associate](https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98) | Required sentence quoted verbatim; link-level disclosure must be clear and conspicuous | confirms S5 and the site's own disclosure |
+| [Tracking IDs](https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA) | Tracking IDs / sub-tags exist per account | confirms S6 |
+| [FTC Disclosures 101](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers) | Disclose financial relationships; place where hard to miss; "You can't talk about your experience with a product you haven't tried" | confirms S8 |
+| [16 CFR Part 255](https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255) | "up to date as of 11/12/2026"; §255.0–§255.6 present incl. §255.5 | confirms S9 |
+| [link.amazon/B04G1MEwY](https://link.amazon/B04G1MEwY) | → `amazon.com/dp/B0CDY277D3` (fallback params); CHEFMAN 6 Quart Dual Basket title | destination stable, identity unconfirmed |
+| [link.amazon/B02NbDxp3](https://link.amazon/B02NbDxp3) | → `/dp/B09B7SB46R`; title says "24 One-Touch Preset Options" and "**Six Cooking Accessories Included**" | destination stable; **F45** (site publishes 7 accessories) |
+| [link.amazon/B00hJ57DV](https://link.amazon/B00hJ57DV) | → `/dp/B08DKYBTPH`; title "450°F Hi-Fry … Bake, Dehydrate, Frozen … Stainless Steel" | destination stable; F33 unchanged |
+| [Chefman 6 Qt Dual-Window](https://chefman.com/products/turbofry-touch-dual-window-air-fryer) | Model RJ38-SQPF-3TDB-2W; 6 Qt / 5.67 L; 200–450 °F / 95–235 °C; 13.38 × 11.81 × 10.63 in; 13.3 lb / 6.03 kg; 1700W/120V; cETL; 1-year assurance; 1,305 reviews | every published 6 Qt row still matches |
+| [Chefman 8 Qt TurboFry Touch](https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1) | RJ38-SQSS-8T; 5 or 8 Qt; 200–400 °F; 8 Qt dims 15.4 × 12.6 × 13.5 in; 12.8 lb; 1700W/120V; 716 reviews | every published 8 Qt row still matches |
+| [Chefman 8 Qt w/ High Fry](https://chefman.com/collections/air-fryers-1/products/turbofry-8-qt-air-fryer-w-high-fry) | RJ38-8T-BLACK; Hi-Fry 450 °F / 232 °C; 4 functions air fry/bake/dehydrate/frozen | confirms F33's second SKU; no value changed |
+| [Emeril French Door AirFryer 360](https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360) | 26 Qt / 24.6 L; 16.9 D × 15.8 W × 14.8 H in; 120 V; "25 Cooking Pre-sets" vs "10-in-1" vs an `11-in-1_…` asset vs the listing's "24"; 2.6 (25) brand widget; **no interior-light row, no warranty row, no weight row** | capacity/dimensions/voltage confirmed; preset conflict and F30 re-confirmed |
+| Amazon `/dp/` pages ×3 | The **Product information** block with the model number was **not** returned by any of the three fetches | **F46** — why four flags cannot be closed by a machine |
+
+**Cannot be verified from here, and left exactly as published:** the ASIN→model mapping (F01/F02 — actually F1/F2/F32/F33 as rendered; see F46), the Associates tag inside the supplied links (F3/F6), the account's approval status, and every Amazon price/rating/availability by policy.
+
+**New flags raised (published on `flagged.html`, non-blocking per protocol):**
+
+* **F44** — two flag registers in the repo contradict each other (`data/flags.json` vs `flagged.html`); not edited, because another generator consumes it.
+* **F45** — the Emeril listing says six accessories, the site publishes seven from the brand page/manual; value retained and flagged rather than swapped for a listing-title number.
+* **F46** — why the model-number fact is (still) not machine-readable, now stated on `picks.html`, `handover.html` and the register.
+
+**Built in this pass (no other session's files touched):**
+
+* `data/decision.json` (new) → three new pages: `picks.html`, `decisions.html`, `handover.html`.
+* `data/articles.json` +4 articles (rows of the article guard satisfied): `small-kitchen-air-fryer-dimensions`, `energy-cost-of-an-air-fryer`, `who-actually-pays-for-air-fryer-reviews`, `chefman-8qt-two-models` → 12 articles total.
+* `build.py` — 3 new page generators, 3 new build guards (**decision-data arithmetic vs the official table**, **banned-phrase / no-experience-claim voice guard**, plus the existing row-source gate exercised by the new tables), article share row + copy-to-clipboard, prev/next, `Article` JSON-LD, computed landing "pulse" tiles, new CSS components, `#sources` anchor fixed.
+* `assets/style.css`, `assets/app.js` — editorial serif scale, callouts, channel/handover cards, share pills, copy-link handler.
+* `EXECUTIVE-SUMMARY-PASS8.md` — pass-9 addendum appended (pass 8 text untouched).
+* `README.md` — new entry points and the two new guards documented.
+* `reports/verification-2026-11-15.md` (new) — the full evidence table.
+
+**Guards proven to fail on injected violations, then reverted:** wrong commission arithmetic → build fails naming the row and the correct product; banned phrase → fails on both phrases; invented article number → fails on the placeholder. All three restored, build green.
+
+**Gate results:** `build.py` 38 pages + `robots.txt`/`sitemap.xml` (34 URLs, was 27) · `verify.py` 0 errors, 18 inherited s2/ warnings (untouched) · `scripts/ci-check.sh` 33 tests, data audit clean, 5,865 links / 0 broken · `research/check_research.py` OK · `scripts/verify_site.py` 382 assertions passed · `platform/audit/report.py` clean · rebuild is byte-identical (deterministic).
+
 ---
 
 ## Verification record
