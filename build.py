@@ -2889,6 +2889,40 @@ def _published_values():
     return vals
 
 
+PLACEHOLDER_RE = re.compile(r"\{\{(.+?)\}\}")
+
+
+def _split_placeholder(raw):
+    """Split a placeholder into (published value, prose form or None).
+
+    Two forms are accepted:
+
+        {{Two 3-quart baskets}}            the published value, verbatim
+        {{Two 3-quart baskets::two 3-quart baskets}}
+                                            the published value with a prose form
+
+    The prose form exists because the published values are display labels
+    ("Two 3-quart baskets"), and a display label spliced into the middle of a
+    sentence reads like machine output: "splits a cavity into Two 3-quart
+    baskets". The prose form may differ from the published value ONLY in
+    letter case - check_articles() enforces that, so a prose form can never
+    introduce a number, a unit or a fact that the dataset does not publish.
+    """
+    if "::" in raw:
+        pub, prose = raw.split("::", 1)
+        return pub.strip(), prose.strip()
+    return raw.strip(), None
+
+
+def _render_placeholder(raw):
+    pub, prose = _split_placeholder(raw)
+    if prose is None:
+        return f'<code class="specval">{pub}</code>'
+    # The prose form is what the reader sees; the published value stays
+    # recoverable on hover, so nothing is lost by rendering the lower-case form.
+    return f'<code class="specval" title="Published value: {pub}">{prose}</code>'
+
+
 def _article_text(paras):
     """Render {{value}} placeholders as <code>, escaping everything else."""
     out = []
@@ -2896,7 +2930,7 @@ def _article_text(paras):
         # **bold** -> <strong>
         chunk = e(para)
         chunk = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", chunk)
-        chunk = re.sub(r"\{\{(.+?)\}\}", r'<code class="specval">\1</code>', chunk)
+        chunk = PLACEHOLDER_RE.sub(lambda m: _render_placeholder(m.group(1)), chunk)
         out.append(f"<p>{chunk}</p>")
     return "\n".join(out)
 
@@ -2905,8 +2939,67 @@ def _article_placeholders(article):
     found = []
     for sec in article["sections"]:
         for para in sec["paras"]:
-            found.extend(re.findall(r"\{\{(.+?)\}\}", para))
+            found.extend(PLACEHOLDER_RE.findall(para))
     return found
+
+
+# A value that opens with a capital letter is correct in some positions and
+# wrong in others. "Sync Finish" is right at the start of a sentence and wrong
+# after "as". A published value may therefore be written in mid-sentence only
+# when it is an identifier (a model number or an ASIN) or when it carries an
+# explicit prose form. These are the positions where a capital is right.
+_CAP_OK_BEFORE = set(':"\'(—–')
+_IDENTIFIER_RE = re.compile(r"^[A-Z0-9][A-Z0-9\-/]*(\s|$)")
+
+
+def _is_identifier(value):
+    """True for model numbers and ASINs: the first token has no lower-case letter."""
+    first = value.split()[0] if value.split() else value
+    return not any(ch.islower() for ch in first)
+
+
+def check_article_splices(article):
+    """Reject a published value spliced into a sentence where its capital is wrong.
+
+    This is the guard behind flag F45. A display label such as "Two 3-quart
+    baskets" is a correct answer to "what is the capacity?" and a broken
+    sentence inside "divided into Two 3-quart baskets". The defect is not
+    visible in a data table, which is why it survived eight earlier passes:
+    it only shows up when the page is read as prose.
+    """
+    problems = []
+    for sec in article["sections"]:
+        for para in sec["paras"]:
+            pos = 0
+            for m in PLACEHOLDER_RE.finditer(para):
+                before = para[:m.start()]
+                raw = m.group(1)
+                pub, prose = _split_placeholder(raw)
+                shown = prose if prose is not None else pub
+                if not shown[:1].isupper():
+                    pos = m.end()
+                    continue
+                if _is_identifier(shown):
+                    pos = m.end()
+                    continue
+                # First non-space token of the paragraph: a capital is correct.
+                if before.strip() == "":
+                    pos = m.end()
+                    continue
+                # A colon, quote, bracket or dash introduces the value, so a
+                # capital is correct there too.
+                stripped = before.rstrip()
+                if stripped and stripped[-1] in _CAP_OK_BEFORE:
+                    pos = m.end()
+                    continue
+                problems.append(
+                    f"{article['slug']} §'{sec['h']}': the value {pub!r} is spliced into "
+                    f"mid-sentence in a position where its capital is wrong "
+                    f"(rendered as {shown!r}). Use a prose form "
+                    f"({{{{{pub}::lower-case}}}}) or rewrite the sentence."
+                )
+                pos = m.end()
+    return problems
 
 
 def check_articles():
@@ -2919,9 +3012,18 @@ def check_articles():
                 if sid not in SRC_BY_ID:
                     problems.append(f"{a['slug']} §'{sec['h']}' cites unregistered source {sid}")
         for ph in _article_placeholders(a):
-            if ph not in values:
+            pub, prose = _split_placeholder(ph)
+            if pub not in values:
                 problems.append(
-                    f"{a['slug']} states '{ph}' which is not a value published in data/products.json")
+                    f"{a['slug']} states '{pub}' which is not a value published in data/products.json")
+            if prose is None:
+                continue
+            if prose.lower() != pub.lower():
+                problems.append(
+                    f"{a['slug']} prose form '{prose}' differs from the published value '{pub}' "
+                    f"by more than letter case. A prose form may only re-case the published value; "
+                    f"it may not add or change a number, a unit or a fact.")
+        problems.extend(check_article_splices(a))
     return problems
 
 

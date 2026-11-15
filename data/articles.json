@@ -20,7 +20,7 @@
         {
           "h": "The two machines are not competing for the same job",
           "paras": [
-            "A dual-basket air fryer is one appliance pretending to be two. The Chefman 6 Qt splits a {{6 Qt / 5.67 L}} cavity into {{Two 3-quart baskets}} and gives each its own time and temperature, then adds Sync Finish so the shorter cook is delayed to land with the longer one.",
+            "A dual-basket air fryer is one appliance pretending to be two. The Chefman 6 Qt splits a {{6 Qt / 5.67 L}} cavity into {{Two 3-quart baskets::two 3-quart baskets}} and gives each its own time and temperature, then adds Sync Finish so the shorter cook is delayed to land with the longer one.",
             "A countertop oven is a different shape of compromise: one big cavity, many modes. The Emeril 26 QT is documented at {{26 qt / 24.6 L (manual: 1,519 cu in)}} with a dual-speed fan, a rotisserie, and French doors."
           ],
           "cite": [
@@ -57,7 +57,7 @@
           "h": "The honest summary",
           "paras": [
             "Buy the dual-basket if you cook two things at two temperatures and want them to finish together. Buy the oven if you want one cavity that can also toast, proof and rotisserie, and you have measured the space.",
-            "If you want a single large basket instead, the third product in this set is documented as {{8 qt (brand also sells a 5 qt version of the same product page)}} and {{Designed for 4–6 people}} — but read that product's own page before you buy, because its Amazon listing and its brand page disagree about the temperature ceiling."
+            "If you want a single large basket instead, the third product in this set is documented as {{8 qt (brand also sells a 5 qt version of the same product page)}} and {{Designed for 4–6 people::designed for 4–6 people}} — but read that product's own page before you buy, because its Amazon listing and its brand page disagree about the temperature ceiling."
           ],
           "cite": [
             "S10",
@@ -262,7 +262,7 @@
         {
           "h": "The arithmetic, from the manufacturer's own pages",
           "paras": [
-            "The dual-basket unit is {{6 Qt / 5.67 L}} as {{Two 3-quart baskets}}. The single-basket unit is {{8 qt (brand also sells a 5 qt version of the same product page)}}, documented as {{Designed for 4–6 people}}.",
+            "The dual-basket unit is {{6 Qt / 5.67 L}} as {{Two 3-quart baskets::two 3-quart baskets}}. The single-basket unit is {{8 qt (brand also sells a 5 qt version of the same product page)}}, documented as {{Designed for 4–6 people::designed for 4–6 people}}.",
             "So the single basket holds more at once — a third more — and the two drawers hold less per drawer but can run independently. That is the whole trade, and everything else is detail."
           ],
           "cite": [
@@ -285,7 +285,7 @@
           "h": "Where the single basket wins",
           "paras": [
             "One big batch of one thing. A whole chicken, a full tray of fries, a pile of wings for a crowd. Splitting 8 quarts into two 3-quart drawers means every basket-shaped item has to fit a 3-quart drawer.",
-            "The documented one-touch presets on the single-basket unit are {{Fries, Chicken, Fish, Meat (one-touch)}}, and the manual publishes a default for each: {{Default 400 °F / 15 min · Meat 375 °F / 18 min · Chicken 375 °F / 22 min · Fish 350 °F / 10 min · Fries 400 °F / 20 min}}."
+            "The documented one-touch presets on the single-basket unit are {{Fries, Chicken, Fish, Meat (one-touch)::fries, chicken, fish, meat (one-touch)}}, and the manual publishes a default for each: {{Default 400 °F / 15 min · Meat 375 °F / 18 min · Chicken 375 °F / 22 min · Fish 350 °F / 10 min · Fries 400 °F / 20 min}}."
           ],
           "cite": [
             "S12",
@@ -331,7 +331,7 @@
         {
           "h": "The one-sentence version",
           "paras": [
-            "A {{6 Qt / 5.67 L}} air fryer built as {{Two 3-quart baskets}}, with a Sync Finish feature that times the two cooks to land together, a documented ceiling of {{200–450 °F / 95–235 °C}}, and a footprint of {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}}.",
+            "A {{6 Qt / 5.67 L}} air fryer built as {{Two 3-quart baskets::two 3-quart baskets}}, with a Sync Finish feature that times the two cooks to land together, a documented ceiling of {{200–450 °F / 95–235 °C}}, and a footprint of {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}}.",
             "That is the whole machine in one sentence, and it is enough to decide whether it suits your kitchen — which is the point of building the site this way."
           ],
           "cite": [
@@ -442,7 +442,7 @@
         {
           "h": "2. Capacity — and whether it is two compartments",
           "paras": [
-            "Capacity is the most-abused number on the box because it measures cavity volume, not food. The useful question is not \"how many quarts\" but \"how many independent compartments, and what is each one's volume\". The Chefman dual-basket answers both: {{6 Qt / 5.67 L}} total, {{Two 3-quart baskets}}. The Emeril answers with one number: {{26 qt / 24.6 L (manual: 1,519 cu in)}}.",
+            "Capacity is the most-abused number on the box because it measures cavity volume, not food. The useful question is not \"how many quarts\" but \"how many independent compartments, and what is each one's volume\". The Chefman dual-basket answers both: {{6 Qt / 5.67 L}} total, {{Two 3-quart baskets::two 3-quart baskets}}. The Emeril answers with one number: {{26 qt / 24.6 L (manual: 1,519 cu in)}}.",
             "Two smaller drawers and one large drawer can hold similar total volume and cook very differently. The single-basket 8-quart model publishes just the total and no per-basket figure, because there is no second basket."
           ],
           "cite": [
@@ -504,7 +504,7 @@
         {
           "h": "7. Presets — count them only if the manufacturer does",
           "paras": [
-            "Preset counts are where spec sheets go to die. The Chefman 8-quart page lists {{Fries, Chicken, Fish, Meat (one-touch)}} and its manual gives the default time and temperature for each. The Emeril brand page, by contrast, states its count several different ways on the same page, and the Amazon listing states it again differently. That is why no preset count is asserted for the Emeril anywhere on this site; the manual's individually named presets are the only countable set.",
+            "Preset counts are where spec sheets go to die. The Chefman 8-quart page lists {{Fries, Chicken, Fish, Meat (one-touch)::fries, chicken, fish, meat (one-touch)}} and its manual gives the default time and temperature for each. The Emeril brand page, by contrast, states its count several different ways on the same page, and the Amazon listing states it again differently. That is why no preset count is asserted for the Emeril anywhere on this site; the manual's individually named presets are the only countable set.",
             "There is a whole article on that single discrepancy, because it is the clearest example on this site of why \"the official page says so\" is not the same as \"the official page is consistent\"."
           ],
           "cite": [
@@ -517,7 +517,7 @@
         {
           "h": "8. Warranty, and what it excludes",
           "paras": [
-            "Chefman publishes a {{Limited 1-year warranty from date of retail purchase (non-transferable, original purchaser)}} in the 8-quart manual and {{1-year Chefman assurance}} on both basket product pages. The Emeril page publishes {{1-year warranty}}.",
+            "Chefman publishes a {{Limited 1-year warranty from date of retail purchase (non-transferable, original purchaser)::limited 1-year warranty from date of retail purchase (non-transferable, original purchaser)}} in the 8-quart manual and {{1-year Chefman assurance}} on both basket product pages. The Emeril page publishes {{1-year warranty}}.",
             "Read the terms document, not the badge — a warranty that excludes the coating is not covering the part that fails."
           ],
           "cite": [
@@ -584,7 +584,7 @@
         {
           "h": "The only household-size claim in this set — and why it is the only one",
           "paras": [
-            "Exactly one official page in this product set maps a capacity to a number of people: the single-basket fryer is {{Designed for 4–6 people}}. No other unit here makes that mapping, and the oven's page, which does describe the cavity as spacious, stops short of assigning it to a family size.",
+            "Exactly one official page in this product set maps a capacity to a number of people: the single-basket fryer is {{Designed for 4–6 people::designed for 4–6 people}}. No other unit here makes that mapping, and the oven's page, which does describe the cavity as spacious, stops short of assigning it to a family size.",
             "That single claim is worth more than a page of folk maths, because it is a manufacturer telling you how it expects the product to be used. Everything else — the “feeds 6-8”, “perfect for a family of four” lines that fill comparison blogs — is somebody's estimate built on a quart figure that was never a food volume to begin with.",
             "One caution on that page: it covers two products, the 5 qt and the 8 qt, and the capacity, dimensions and weight rows are given for both. Check which model you are reading before you measure your shelf."
           ],
