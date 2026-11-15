@@ -3163,3 +3163,15 @@ record from F22: run the marker scan before every `git add`; this pass now does.
 * **Register at merge:** F1–F43 plus product-level rows; 0 values guessed; every asserted value sourced; all items non-blocking per protocol.
 
 **Final state of this session's tasks:** S1 review **done** · S2 review **done** · S3 verification + integration (PR → merge → Pages confirm → record) **done**. Nothing inferred; no other session's row edited; the incident and the collision are published above.
+
+## Task board — arena/d560bf17-zone1 (2026-11-15 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|----------------|------------|
+| T19 | Editorial UX polish: improve the marketing landing page, remove empty/unsupported presentation, and make unresolved Amazon-link identity prominent without changing verified data or the suggestions decision queue | in progress | arena/d560bf17-zone1 (session d560bf17) | `build.py`, `assets/style.css`; regenerated root HTML from `build.py`; `COORDINATION.md` |
+
+### Claim log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15 UTC | arena/d560bf17-zone1 (session d560bf17) | Claimed T19 after reading the task board. Worktree was clean at `48b1ffd` (same commit as `origin/main`); T1–T18 and prior integration records are already marked done, with no in-progress task. Scope is the canonical root landing page and shared root stylesheet, plus generated output and this log. Arena fixes the working branch as `arena/d560bf17-zone1`, so this pass stays on that branch rather than creating the separate session branch described by the task protocol. |
