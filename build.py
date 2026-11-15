@@ -1794,6 +1794,27 @@ PROGRAMME_FLAGS = [
      "questions.html \u2014 the preamble above the register",
      "Found 2026-11-15 by session 42ca97ad, after PR #78 merged: the sentence \u2018Questions in the \u2018known and sourced\u2019 state carry their answer on the row \u2026\u2019 appeared twice in the preamble above the questions register. The cause was the one-shot editor that adds the register rows (session-42ca97ad/apply_pass9_edits.py): it appended the sentence to the preamble unconditionally, so running it a second time appended it again. The build did not catch it, because the duplicate-ID guard sees IDs, the published-value guard sees numbers, and a repeated sentence is neither. Fixed by making the editor idempotent, by removing the duplicate from data/questions.json, and by adding check_register_preambles(), which fails the build if any register preamble repeats a sentence. The guard was proven to fire on an injected duplicate. The same edit also corrected the preamble's own claim that the page \u2018separates three things\u2019 - it has always described four states, which is what the legend on the page lists.",
      ["S1"]),
+
+---
+
+    # ---- arena/63a2c638, integration pass 9, 2026-11-15 ----------------------------- #
+    # Three findings from re-reading the official sources rather than trusting recorded
+    # reads. F51 and F52 were found by reading a source the site had never used; F53 is a
+    # scope limit on a value this pass added, published so it cannot be misread.
+    ("F51", "The brand's own store reports a different product weight than the brand's own specification block, and this site publishes the specification-block figure.",
+     "Chefman 6 Qt Dual-Window (RJ38-SQPF-3TDB-2W) and Chefman 8 Qt TurboFry (RJ38-SQSS-8T)",
+     "Recorded 2026-11-15 by arena/63a2c638, round 9. The Chefman product pages print a Specifications block: the 6 Qt page says 'Weight: 13.3 lbs / 6.03 kg' and the 8 Qt page says 'Weight: (8 Qt Model) 12.8 lbs / 5.8 kg'. Those are the figures this site publishes, cited to S10 and S12. The same brand's own commerce endpoint, read the same day, reports the variant weight as 14.51 lb / 6,582 g for RJ38-SQPF-3TDB-2W (S30) and 13.4 lb / 6,078 g for RJ38-SQSS-8T (S31). The endpoint figure is the weight Shopify carries for shipping, so the most likely reading is product weight versus packaged weight - but neither page says so, and the site must not choose between them by inference. No published value was changed: the specification block remains the cited source because that is the document the published row points at. Decision needed: state in each weight row whether the figure is the product or the packaged weight, or publish both.",
+     ["S10", "S12", "S32", "S33"]),
+
+    ("F52", "The open-questions register states that dimensions, weight and warranty are missing for all three products; the product dataset already publishes eight of those nine values from official sources.",
+     "questions.html row Q-06 vs data/products.json",
+     "Recorded 2026-11-15 by arena/63a2c638, round 9. Q-06 asks 'What are the exterior dimensions, weight and warranty terms for each of the three products?' and is filed as 'not_stated'. Checking the nine cells against the dataset this pass: exterior dimensions are published for all three (6 Qt from S10, Emeril from S14, 8 Qt from S12); warranty is published for all three (S10, S14, S13); weight is published for both Chefman models (S10, S12). One cell - the Emeril 26 QT product weight - is genuinely absent, because neither the brand page nor the owner's manual states one. So the register overstates the gap by eight cells. This matters in both directions: a reader using Q-06 to decide what to research would redo work already done, and a reader trusting the product pages would think the register is stale. Q-06 was narrowed this pass to the single cell that is actually open, and is cross-linked to this row. No data value moved.",
+     ["S10", "S12", "S13", "S14"]),
+
+    ("F53", "The Amazon browse-node breadcrumb is now published for two ASINs, and it does not settle which commission rate applies.",
+     "All three products - the 'Amazon browse node' row and open question Q-11",
+     "Recorded 2026-11-15 by arena/63a2c638, round 9, at the same time as the value itself was added, so the limit travels with the value. Both Chefman listings render the breadcrumb 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S16, S29). It is tempting to read 'Kitchen' there and apply the 4.50% Kitchen rate from the Commission Income Statement (S3). That would be an inference, not a source: S3's categories are commission categories defined by the Associates programme, Amazon's browse nodes are a shopper-navigation taxonomy, and Amazon publishes no mapping between the two. The same breadcrumb begins 'Home & Kitchen', and S3 also carries 'Home' at 3.00%, so the breadcrumb alone cannot even tell you which of the two it resembles. The site therefore continues to show the commission rate as unconfirmed (Q-11) and now shows the browse node as a separate, sourced fact. The Emeril browse node is blank: three fetches of that ASIN on 2026-11-15 returned Amazon's automated 'Continue shopping' checkpoint instead of the listing page, and a value that was never rendered cannot be recorded.",
+     ["S3", "S16", "S29", "S28"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a

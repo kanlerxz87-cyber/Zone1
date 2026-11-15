@@ -20,7 +20,7 @@
    "covers": "Link rules, price and review display limits, Prohibited Paid Search Placement, sub-tag limits, API restrictions, session/attribution windows",
    "kind": "Policy",
    "directness": "Primary — the policy corpus incorporated into the Agreement",
-   "page_version": "Updated: April 14, 2026"
+   "page_version": "Updated: April 14, 2026 | Re-read round 9, 2026-11-15 (arena/63a2c638)."
   },
   {
    "id": "S3",
@@ -30,7 +30,7 @@
    "covers": "Published fixed commission rates by product category; bounty amounts",
    "kind": "Rate card",
    "directness": "Primary — the only official rate table",
-   "page_version": "Standard Commission Income Statement, re-read live 2026-11-14 (first read 2026-11-13) — Table 1 and Bounty Events read without a login"
+   "page_version": "Standard Commission Income Statement, re-read live 2026-11-14 (first read 2026-11-13) — Table 1 and Bounty Events read without a login | Re-read round 9, 2026-11-15 (arena/63a2c638)."
   },
   {
    "id": "S4",
@@ -100,7 +100,7 @@
    "covers": "Model RJ38-SQPF-3TDB-2W capacity, temperature range, dimensions, weight, power, approvals, list price, brand-site rating",
    "kind": "Manufacturer product page",
    "directness": "Primary — brand owning the specification",
-   "page_version": "Chefman 6 Qt Dual-Window product page, re-read live 2026-11-14 (first read 2026-11-13) — spec block, price and review widget all re-read"
+   "page_version": "Chefman 6 Qt Dual-Window product page, re-read live 2026-11-14 (first read 2026-11-13) — spec block, price and review widget all re-read | Re-read round 9, 2026-11-15 (arena/63a2c638)."
   },
   {
    "id": "S11",
@@ -120,7 +120,7 @@
    "covers": "Model RJ38-SQSS-8T: sizes, preset set, 200–400 °F range, dishwasher-safe parts, auto shutoff, list price, brand-site rating",
    "kind": "Manufacturer product page",
    "directness": "Primary",
-   "page_version": "Chefman 8 Qt TurboFry product page, re-read live 2026-11-14 (first read 2026-11-13) — Features and Specifications blocks re-read (the block that fills the former Wattage and Dimensions blanks)"
+   "page_version": "Chefman 8 Qt TurboFry product page, re-read live 2026-11-14 (first read 2026-11-13) — Features and Specifications blocks re-read (the block that fills the former Wattage and Dimensions blanks) | Re-read round 9, 2026-11-15 (arena/63a2c638)."
   },
   {
    "id": "S13",
@@ -140,7 +140,7 @@
    "covers": "Capacity, dimensions, voltage, price, accessory count, warranty, preset-count claims, brand-site rating",
    "kind": "Manufacturer product page",
    "directness": "Primary",
-   "page_version": "Emeril 26QT French Door product page, re-read live 2026-11-14 (first read 2026-11-13) — price, spec icons, model number and 2.6/25 review widget re-read"
+   "page_version": "Emeril 26QT French Door product page, re-read live 2026-11-14 (first read 2026-11-13) — price, spec icons, model number and 2.6/25 review widget re-read | Re-read round 9, 2026-11-15 (arena/63a2c638)."
   },
   {
    "id": "S15",
@@ -160,7 +160,7 @@
    "covers": "Listing title for ASIN B0CDY277D3 only. Registered as a single-ASIN URL because a source link must point at the page that states the value it supports: S16 was previously cited for all three listing titles while resolving to this one ASIN. The other two ASINs now have S28 and S29, and every citation of S16 outside this product was repointed on 2026-11-15 (flag F39). Amazon prices, star ratings and availability are deliberately not reproduced on this site (see S2 §2(b) and §6(t)).",
    "kind": "Retail listing",
    "directness": "Primary for 'what does this short link point to'; not used for specification claims",
-   "page_version": "Amazon listing detail page B0CDY277D3 — fetched 2026-11-15 from the supplied short link https://link.amazon/B04G1MEwY; <title> matched the stored value character for character"
+   "page_version": "Amazon listing detail page B0CDY277D3 — fetched 2026-11-15 from the supplied short link https://link.amazon/B04G1MEwY; <title> matched the stored value character for character | Round 9 (2026-11-15, arena/63a2c638): re-fetched standalone. <title> matched the stored value character for character. The page also rendered its browse-node breadcrumb: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. That breadcrumb is recorded as a published value; it is a browse path, NOT an Amazon commission category (see flag F46)."
   },
   {
    "id": "S17",
@@ -280,7 +280,7 @@
    "covers": "Listing title for ASIN B09B7SB46R only.",
    "kind": "Retail listing",
    "directness": "Primary for 'what does this short link point to'; not used for specification claims",
-   "page_version": "Amazon listing detail page B09B7SB46R — fetched 2026-11-15 from the supplied short link https://link.amazon/B02NbDxp3. <title> read: 'Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen'"
+   "page_version": "Amazon listing detail page B09B7SB46R — fetched 2026-11-15 from the supplied short link https://link.amazon/B02NbDxp3. <title> read: 'Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen' | Round 9 (2026-11-15, arena/63a2c638): NOT re-fetched successfully. Three attempts (https://www.amazon.com/dp/B09B7SB46R and the same URL with plpRedirect=mhFallback) were each answered with Amazon's automated 'To continue, please click the Continue shopping button' checkpoint rather than the product page. The stored title is therefore carried forward unverified for this date and the Emeril browse node is recorded as unknown rather than guessed. The two Chefman ASINs fetched cleanly in the same window, so this is a per-ASIN block, not a site-wide one."
   },
   {
    "id": "S29",
@@ -290,7 +290,7 @@
    "covers": "Listing title for ASIN B08DKYBTPH only.",
    "kind": "Retail listing",
    "directness": "Primary for 'what does this short link point to'; not used for specification claims",
-   "page_version": "Amazon listing detail page B08DKYBTPH — fetched 2026-11-15 from the supplied short link https://link.amazon/B00hJ57DV; <title> matched the stored value character for character"
+   "page_version": "Amazon listing detail page B08DKYBTPH — fetched 2026-11-15 from the supplied short link https://link.amazon/B00hJ57DV; <title> matched the stored value character for character | Round 9 (2026-11-15, arena/63a2c638): re-fetched standalone. <title> matched the stored value character for character. Browse-node breadcrumb rendered identically to S16: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. Recorded as a value; it is a browse path, not a commission category (flag F46)."
   },
   {
    "id": "S30",
@@ -311,6 +311,36 @@
    "kind": "Guidance",
    "directness": "Primary — the search engine's own documentation",
    "page_version": "Live page, 2026-11-15"
+  },
+  {
+   "id": "S32",
+   "org": "Chefman (brand)",
+   "title": "Chefman product endpoint for RJ38-SQPF-3TDB-2W (6 Qt Dual-Window) — machine-readable record served by chefman.com",
+   "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer.json",
+   "covers": "Confirms the list price ($119.99) and compare-at price ($119.99) for SKU RJ38-SQPF-3TDB-2W, and records a shipping weight of 14.51 lb / 6,582 g that differs from the 13.3 lb printed in the page's own Specifications block (flag F44).",
+   "kind": "Manufacturer commerce endpoint",
+   "directness": "Primary — served by the brand's own storefront",
+   "page_version": "Read live 2026-11-15 (arena/63a2c638). variant price 119.99, compare_at_price 119.99, sku RJ38-SQPF-3TDB-2W, grams 6582, weight 14.51 lb."
+  },
+  {
+   "id": "S33",
+   "org": "Chefman (brand)",
+   "title": "Chefman product endpoint for RJ38-SQSS-8T / RJ38-SQSS-5T (8 Qt and 5 Qt TurboFry Touch)",
+   "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1.json",
+   "covers": "Confirms the 8 Quart list price ($119.99, compare-at $119.99) for SKU RJ38-SQSS-8T, separates the 5 Quart variant ($79.99, compare-at $99.99), and records a shipping weight of 13.4 lb / 6,078 g against the 12.8 lb printed in the Specifications block (flag F44).",
+   "kind": "Manufacturer commerce endpoint",
+   "directness": "Primary — served by the brand's own storefront",
+   "page_version": "Read live 2026-11-15 (arena/63a2c638). 8 Quart: price 119.99, compare_at_price 119.99, sku RJ38-SQSS-8T, grams 6078, weight 13.4 lb. 5 Quart: price 79.99, compare_at_price 99.99, sku RJ38-SQSS-5T."
+  },
+  {
+   "id": "S34",
+   "org": "Chefman (brand)",
+   "title": "Chefman product endpoint for RJ38-SQPF-3TDB-2 (6 Qt Dual-Basket, the sister SKU)",
+   "url": "https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer.json",
+   "covers": "Confirms the sister SKU's list price ($119.99, compare-at $119.99) for RJ38-SQPF-3TDB-2 — evidence that the two-SKU ambiguity recorded in flag F2 cannot be resolved by price, since both carry the identical list price.",
+   "kind": "Manufacturer commerce endpoint",
+   "directness": "Primary — served by the brand's own storefront",
+   "page_version": "Read live 2026-11-15 (arena/63a2c638). variant price 119.99, compare_at_price 119.99, sku RJ38-SQPF-3TDB-2, grams 6509, weight 14.35 lb."
   }
  ],
  "reverified": "2026-11-15"
