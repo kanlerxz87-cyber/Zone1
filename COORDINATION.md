@@ -3608,6 +3608,9 @@ ones, and checked all 43 specification rows against the page each one cites. No 
 found wrong and no value changed. Raw evidence, including the sources deliberately *not* fetched, is
 in `session-42ca97ad/EVIDENCE-2026-11-15.md`.
 
+**Five findings, published as flags F54–F58.** (F58 was found *after* PR #78 merged, by reading the
+deployed page rather than the working tree — see the record below.)
+
 **Four findings, published as flags F54–F57:**
 
 * **F54** — the Amazon browse-node path `Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers` was read directly on **all three** listings by following the three supplied short links. The annex register's F-06 had it on one. This is the confirmation step F-06 named. It still does not establish the settlement-time category, which only the Associates Earnings report carries.
@@ -3718,3 +3721,26 @@ The 18 `s2/` external-host warnings inherited from earlier passes are now **zero
 `sell.amazon.com` and `api.github.com` were added to the allowlist (each is the official home of the
 fact it is cited for), and `x.com`, `www.linkedin.com` and `www.facebook.com` were added for the
 article share row. A warning list that always warns is a warning list nobody reads.
+
+
+---
+
+### Post-merge read-back finding — F58, session 42ca97ad
+
+After PR #78 merged and deployed, the live `questions.html` was read back and the preamble above
+the register was found to **repeat a sentence**: *"Questions in the 'known and sourced' state carry
+their answer on the row …"* appeared twice.
+
+* **Cause.** The one-shot editor that adds the register rows (`session-42ca97ad/apply_pass9_edits.py`)
+  appended the sentence to the preamble unconditionally, so running it a second time appended it
+  again. The editor was idempotent for the register rows themselves and not for the preamble.
+* **Why no gate caught it.** The duplicate-ID guard sees IDs, the published-value guard sees
+  numbers, and a repeated sentence is neither. It was visible only by reading the rendered page.
+* **Fix.** The editor is now idempotent for the preamble; the duplicate is removed from
+  `data/questions.json`; and `check_register_preambles()` fails the build if any register preamble
+  repeats a sentence. The guard was **proven to fire** on an injected duplicate.
+* **Also corrected.** The preamble claimed the page *"separates three things"* — it has always
+  described **four** states, which is what the legend on the same page lists. The sentence now says
+  four and names the not-stated state.
+* **This is the same class of defect as F55**, one layer up: a value or a sentence that is correct
+  in isolation and wrong in the place a reader sees it. Both are now build-guarded.
