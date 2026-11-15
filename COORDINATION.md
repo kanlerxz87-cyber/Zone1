@@ -39,6 +39,7 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 | T16 | Executive summary refresh (decision-ready briefing) | done | 3b99448e | `EXECUTIVE-SUMMARY.md` §14 appended |
 | T17 | Site: polished landing page + category subpages, dashboard tables, per-row official source links | done | 3b99448e | root build: landing `index.html`, `categories/kitchen-appliances.html`, product/compare tables with per-row sources; nothing to add — all present and regenerated |
 | T18 | Final integration: re-verify combined data, build with no broken links, PR → merge → Pages verify → record | done | 3b99448e | whole tree (integration, last) |
+| U1 | **Final integration pass (arena/88bb2db6-zone1)** — line-by-line repo review and defect repair; live re-verification of every official source in the root registry; editorial polish pass against the "must not read like AI slop" brief; rebuild with no broken links; PR → merge → confirm Pages deploy → record | in progress | arena/88bb2db6 (session 88bb2db6) | `COORDINATION.md`; `build.py` + `assets/style.css` + regenerated root HTML; `data/reverification.json`; `scripts/build_site.py` + regenerated `site/`; `scripts/verify.py` allowlist; whole tree at integration |
 
 ---
 | X-633b115f | Add two decision pages to the root build: **Suggestions** (site/design/conversion improvements with options, for the owner to choose before any change) and **Questions & information gaps** (what is known, what is missing, how to discover it, each row linked to an official source). Live re-check of the 3 `link.amazon` tokens and key official sources on 2026-11-15. | done | arena/633b115f (session 633b115f) | `build.py` (new `page_suggestions`, `page_questions`, NAV + pages dict), regenerated root HTML `suggestions.html`, `questions.html`, `robots.txt`, `sitemap.xml`, `COORDINATION.md` (this row + log) |
@@ -3214,3 +3215,35 @@ record from F22: run the marker scan before every `git add`; this pass now does.
 * **Warnings:** GitHub Actions emitted non-blocking Node.js 20 deprecation and runner-image migration notices; workflow/deployment outcomes are successful. Browser-based visual review was unavailable in this environment; the HTML parser and build audits above passed.
 
 **T19 result: done — implementation, checks, PR, merge, and Pages deployment confirmed.**
+
+---
+
+## Final integration pass — arena/88bb2db6-zone1 (2026-11-15 UTC)
+
+**Session ID:** `arena/88bb2db6` · **Branch:** `arena/88bb2db6-zone1` (base `cacdb85`).
+
+**Pre-work state:** the task board above shows T1–T19 and every prior session row `done`.
+`main` @ `cacdb85` (= `origin/main`) is green: `build.py` → 28 pages, `verify.py` → 106 pages /
+0 errors / 43 spec rows (41 verified, 2 blank+flagged) / 29 sources, `platform/tests` 33/33,
+`platform/audit/report.py` clean, `scripts/check_links.py` 5,328 links / 0 broken,
+`scripts/verify_site.py` 382 assertions, `research/check_research.py` 834 checks,
+`scripts/build_s2_site.py --check` current.
+
+**This session therefore does not rebuild delivered work.** It re-verifies it line by line
+against the live official sources, repairs the defects that pass finds, and finishes the
+integration that the brief requires (PR → merge → Pages confirmed).
+
+### Task board — arena/88bb2db6-zone1
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| U1 | Line-by-line repo review; defect repair (nested anchor in `site/index.html`; `s2/` external-host allowlist warnings) | in progress | arena/88bb2db6 | `scripts/build_site.py` + regenerated `site/`; `verify.py`; `COORDINATION.md` |
+| U2 | Live re-verification of the three `link.amazon` tokens and every official source in the root registry; record in `data/reverification.json` | in progress | arena/88bb2db6 | `data/reverification.json`; `build.py` (reverification page) |
+| U3 | Editorial polish pass on the buyer-facing surface against the "must not read like AI slop" brief | in progress | arena/88bb2db6 | `build.py`, `assets/style.css`, regenerated root HTML |
+| U4 | Final integration: rebuild, no broken links, PR → merge → confirm Pages deploy → record | pending | arena/88bb2db6 | whole tree (integration, last) |
+
+### Claim log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15 | arena/88bb2db6 | Claimed U1–U4 on branch `arena/88bb2db6-zone1` (base `cacdb85`). Read the whole board first: no task was `unclaimed` or `in progress` at claim time, so no other session's scope is touched. Re-verified the three supplied short links live before claiming (see U2 record). |
