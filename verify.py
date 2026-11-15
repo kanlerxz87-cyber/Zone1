@@ -9,6 +9,7 @@ Checks:
   4. every external link is a bare URL that an official domain owns
   5. no page references an undefined source id
   6. no Amazon price / star-rating pattern leaked into the HTML
+  7. no page nests an <a> inside another <a> (invalid HTML)
 
 Exit code is non-zero if anything fails, so this can gate the deploy.
 """
@@ -16,6 +17,7 @@ Exit code is non-zero if anything fails, so this can gate the deploy.
 import json
 import re
 import sys
+from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -30,6 +32,21 @@ OFFICIAL_HOSTS = {
     # official Amazon developer / publishing documentation (ASIN definition sources)
     "webservices.amazon.com",
     "kdp.amazon.com",
+    # official Amazon programme pages cited by the s2/ annex. Added 2026-11-15
+    # (arena/88bb2db6): all three are Amazon- or GitHub-owned domains, and each is
+    # the official home of the fact it is cited for. Before this change verify.py
+    # printed 18 warnings for them, which made the warning list noise.
+    "advertising.amazon.com",
+    "sell.amazon.com",
+    # the GitHub REST API, cited for the repository's own Pages configuration
+    "api.github.com",
+    # Social-share endpoints, added 2026-11-15 (arena/88bb2db6). The share row on
+    # each article posts the article's own URL to a platform's official share
+    # endpoint. These are the platforms' own domains and they carry no claim about
+    # this site's content, so they are trusted hosts for the purpose of this check.
+    "x.com",
+    "www.linkedin.com",
+    "www.facebook.com",
     "chefman.com",
     "cdn.shopify.com",
     "www.emerileveryday.com",
@@ -53,6 +70,25 @@ OFFICIAL_HOSTS = {
 
 errors = []
 warnings = []
+
+
+class _NestedAnchorParser(HTMLParser):
+    """Records any <a> opened while another <a> is still open."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.depth = 0
+        self.nested = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "a":
+            if self.depth:
+                self.nested.append(dict(attrs).get("href", ""))
+            self.depth += 1
+
+    def handle_endtag(self, tag):
+        if tag == "a" and self.depth:
+            self.depth -= 1
 
 
 def pages():
@@ -106,6 +142,12 @@ for page in pages():
         pass
     if "unknown source" in text:
         errors.append(f"{rel(page)}: references an undefined source id")
+
+    # 7. no nested anchors (invalid HTML). Found in site/index.html on 2026-11-15.
+    _parser = _NestedAnchorParser()
+    _parser.feed(text)
+    for _href in _parser.nested:
+        errors.append(f"{rel(page)}: <a> nested inside another <a> (href={_href!r})")
 
     # 6. no Amazon price / star-rating leakage
     if re.search(r"\$\d+\.\d{2}\s*<", text):

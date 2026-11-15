@@ -32,6 +32,36 @@ DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
 SITE_BASE = "https://kanlerxz87-cyber.github.io/Zone1/"
 
 # --------------------------------------------------------------------------- #
+# canonical origin, social card, publisher identity
+# --------------------------------------------------------------------------- #
+# The published origin is the GitHub Pages site for this repository. data/site.json
+# records the same URL; it is repeated here so the generator can build absolute URLs
+# (canonical, og:url, JSON-LD) without a network call at build time.
+SITE_URL = "https://kanlerxz87-cyber.github.io/Zone1"
+OG_IMAGE = SITE_URL + "/assets/og-card.png"
+# The publisher is the site itself. There is no named individual author on this site,
+# so the structured data names the organisation rather than inventing a person.
+PUBLISHER = {
+    "@type": "Organization",
+    "@id": SITE_URL + "/#organization",
+    "name": SITE_NAME,
+    "url": SITE_URL + "/",
+    "logo": OG_IMAGE,
+    "description": (
+        "An independent, documentation-based air-fryer buying guide. Every specification "
+        "links to the manufacturer's own page or owner's manual; nothing is inferred and "
+        "no hands-on testing is claimed."
+    ),
+    # The disclosure and the non-affiliation statement travel inside the structured
+    # data, not only in the page body, so a consumer that reads the data alone still
+    # sees them. Adopted from arena/792c279e's implementation.
+    "disambiguatingDescription": (
+        "Not owned by, endorsed by or sponsored by Amazon.com, Inc. or any brand named "
+        "on the site. " + DISCLOSURE
+    ),
+}
+
+# --------------------------------------------------------------------------- #
 # data loading
 # --------------------------------------------------------------------------- #
 
@@ -58,6 +88,11 @@ PASS6 = json.loads(_p6.read_text(encoding="utf-8")) if _p6.exists() else None
 # Owned entirely by this session's folder; the page omits the section if the file is absent.
 _p7 = ROOT / "session-052f2c9f" / "pass7.json"
 PASS7 = json.loads(_p7.read_text(encoding="utf-8")) if _p7.exists() else None
+# Additive pass-9 ledger (2026-11-15, arena/88bb2db6): the final-integration re-read.
+# Same additive pattern as passes 6 and 7 - owned entirely by this session's folder,
+# so a later session can drop the file without touching anything else.
+_p9 = ROOT / "session-88bb2db6" / "pass9.json"
+PASS9 = json.loads(_p9.read_text(encoding="utf-8")) if _p9.exists() else None
 
 # Decision layer (added 2026-11-15, arena/3ddfa50e). Two registers that exist to be reviewed
 # rather than acted on: the suggestions queue and the open-questions register. Both are
@@ -94,6 +129,92 @@ def src_links(ids):
     if not ids:
         return '<span class="src src-none">no official source</span>'
     return " ".join(src_link(i) for i in ids)
+
+
+# --------------------------------------------------------------------------- #
+# structured data (JSON-LD) and social cards
+# --------------------------------------------------------------------------- #
+# Added 2026-11-15 (arena/88bb2db6). The site previously shipped no canonical URL, no
+# Open Graph / Twitter card tags and no JSON-LD at all, so a shared link rendered as a
+# bare URL and no page could qualify for a rich result. These helpers build that layer
+# from the same verified data the pages already display.
+#
+# Two rules govern what may go in the structured data:
+#   1. No price, priceCurrency, availability or aggregateRating. Program Policies
+#      section 2(b) and 6(t) restrict those to an Amazon-served link or the
+#      Creators/PA API, and this site holds neither. check_no_price_tracking()
+#      below fails the build if a price-tracking identifier appears in any script
+#      body, which now includes every JSON-LD block.
+#   2. No rating. The brand-site review widget rating is not Amazon's rating and is
+#      not a schema.org aggregateRating for the product.
+
+def jsonld(blocks):
+    """Render JSON-LD blocks for the <head>.
+
+    The blocks are emitted as one @graph inside an object carrying an explicit
+    "@context". Both parts matter:
+
+      * @context tells a consumer that the node types are schema.org types. Without
+        it, a bare array of nodes is ambiguous.
+      * @graph lets the blocks reference each other by @id, so an Article can point
+        at the publisher node instead of duplicating the publisher's details.
+
+    `</` is escaped so a string containing it can never close the script element.
+    """
+    if not blocks:
+        return ""
+    payload = json.dumps({"@context": "https://schema.org", "@graph": blocks},
+                         ensure_ascii=False, separators=(",", ":"))
+    payload = payload.replace("</", "<\\/")
+    return f'<script type="application/ld+json">{payload}</script>'
+
+
+def page_url(page_rel):
+    """Absolute URL of a generated page, for canonical and og:url."""
+    return f"{SITE_URL}/{page_rel}"
+
+
+def breadcrumbs_jsonld(trail):
+    """BreadcrumbList for the trail of (name, url) pairs, Home first."""
+    items = []
+    for i, (name, url) in enumerate(trail, start=1):
+        items.append({
+            "@type": "ListItem",
+            "position": i,
+            "name": name,
+            "item": url,
+        })
+    return {
+        "@type": "BreadcrumbList",
+        "@id": SITE_URL + "/#breadcrumb",
+        "itemListElement": items,
+    }
+
+
+def article_jsonld(a, url):
+    """Article schema for one article in data/articles.json.
+
+    Only facts the site already publishes are used. The article's own record is the
+    source of the headline, the standfirst and the reading time; the dates are the
+    dates recorded in data/articles.json, not invented ones.
+    """
+    return {
+        "@type": "Article",
+        "@id": url + "#article",
+        "headline": a["title"],
+        "description": a["standfirst"],
+        "articleSection": a["kind"],
+        "wordCount": None,
+        "inLanguage": "en-US",
+        "datePublished": ARTICLES.get("accessed", ""),
+        "dateModified": ARTICLES.get("updated", ""),
+        "author": {"@id": SITE_URL + "/#organization"},
+        "publisher": {"@id": SITE_URL + "/#organization"},
+        "mainEntityOfPage": {"@type": "WebPage", "@id": url},
+        "image": OG_IMAGE,
+        "url": url,
+        "isAccessibleForFree": True,
+    }
 
 
 def uniq(seq):
@@ -727,7 +848,8 @@ document.addEventListener('click', function (ev) {
 """
 
 
-def layout(page_rel, title, body, active=None, description=""):
+def layout(page_rel, title, body, active=None, description="", og_type="website",
+           jsonld_blocks=None, og_image_alt=None):
     prefix = depth_prefix(page_rel)
     # Keyed by href, not by position: the sidebar used to index this list, so inserting a nav
     # entry silently moved every later group (caught 2026-11-15 when Suggestions and Open
@@ -775,46 +897,42 @@ def layout(page_rel, title, body, active=None, description=""):
     )
     desc = f'<meta name="description" content="{e(description)}">' if description else ""
 
-    # ---- SEO / sharing metadata (pass 9, session 22f43836) -------------------
-    # Before this pass the root build shipped a <title> and a description and nothing
-    # else: no canonical URL, no Open Graph or Twitter card, no structured data. Two
-    # consequences, both measured rather than assumed:
-    #   * the same 14-page site is published nine times from this one repository, so
-    #     without a canonical URL a search engine that finds an annex copy (dashboard/,
-    #     annex-88769516/, session-3740f69d/, research/, s2/, site/) has nothing telling
-    #     it which copy is the maintained one — see flags F44 and F45;
-    #   * a shared link rendered as a bare URL with no title, description or image.
-    # Canonical is emitted only for pages generated here. The annex builds are other
-    # sessions' published output and are not modified by this build.
-    canonical = SITE_BASE + ("" if page_rel == "index.html" else page_rel)
-    if page_rel == "404.html":
-        # A 404 page must not be indexed or advertised as canonical.
-        seo_head = ('<meta name="robots" content="noindex">\n'
-                    f'<meta property="og:type" content="website">\n'
-                    f'<meta property="og:site_name" content="{e(SITE_NAME)}">\n'
-                    f'<meta property="og:title" content="{e(title)} · {e(SITE_NAME)}">\n')
-    else:
-        seo_head = (
-            f'<link rel="canonical" href="{e(canonical)}">\n'
-            f'<meta property="og:type" content="website">\n'
-            f'<meta property="og:site_name" content="{e(SITE_NAME)}">\n'
-            f'<meta property="og:locale" content="en_US">\n'
-            f'<meta property="og:url" content="{e(canonical)}">\n'
-            f'<meta property="og:title" content="{e(title)} · {e(SITE_NAME)}">\n'
-            + (f'<meta property="og:description" content="{e(description)}">\n' if description else "")
-            + f'<meta name="twitter:card" content="summary">\n'
-            f'<meta name="twitter:title" content="{e(title)} · {e(SITE_NAME)}">\n'
-            + (f'<meta name="twitter:description" content="{e(description)}">\n' if description else "")
-            + json_ld(page_rel, title, description)
-        )
+    # Absolute URL of this page. The landing page canonicalises to the directory form
+    # so that https://…/Zone1/ and https://…/Zone1/index.html are one URL, not two.
+    canonical = SITE_URL + "/" if page_rel == "index.html" else page_url(page_rel)
+    full_title = f"{title} · {SITE_NAME}"
+    # Fall back to the page's own description for the social card; a link shared with
+    # no text still gets a readable preview rather than an empty one.
+    social_desc = description or f"{SITE_NAME} — {SITE_TAGLINE}."
+    social_alt = og_image_alt or f"{SITE_NAME} — {SITE_TAGLINE}"
+    ld = jsonld(jsonld_blocks)
     return f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{e(title)} · {e(SITE_NAME)}</title>
+<title>{e(full_title)}</title>
 {desc}
-{seo_head}<link rel="stylesheet" href="{prefix}assets/style.css">
+
+{"" if page_rel == "404.html" else f'<link rel="canonical" href="{e(canonical)}">'}
+<meta name="robots" content="{e("noindex" if page_rel == "404.html" else "index,follow,max-image-preview:large")}">
+<meta property="og:type" content="{e(og_type)}">
+<meta property="og:site_name" content="{e(SITE_NAME)}">
+<meta property="og:title" content="{e(full_title)}">
+<meta property="og:description" content="{e(social_desc)}">
+<meta property="og:url" content="{e(canonical)}">
+<meta property="og:image" content="{e(OG_IMAGE)}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{e(social_alt)}">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{e(full_title)}">
+<meta name="twitter:description" content="{e(social_desc)}">
+<meta name="twitter:image" content="{e(OG_IMAGE)}">
+<meta name="twitter:image:alt" content="{e(social_alt)}">
+{ld}
+<link rel="stylesheet" href="{prefix}assets/style.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23245746'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='%23fff' text-anchor='middle'%3EZ1%3C/text%3E%3C/svg%3E">
 </head>
 <body>
@@ -1145,7 +1263,7 @@ def page_index():
 
 <div class="callout bad link-status" id="link-status">
   <div class="link-status-heading"><span class="pill pill-warn">Before shopping</span><strong>Product identity, account approval and affiliate tracking are not confirmed.</strong></div>
-  <p class="small">Recorded checks through 2026-11-15 observed fallback-style redirects for the three supplied short links. We cannot confirm that each link reaches the named manufacturer model, carries the correct Associates tag, or that the Associates account is approved. Verify the model and account status in Amazon before relying on a purchase link. {src_links(['S17', 'S2'])} <a href="reports/link-check-2026-11-14.md">Read the redirect evidence</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html#q-01">Product-link question</a> · <a href="questions.html#q-03">Account-status question</a>.</p>
+  <p class="small">Recorded checks through 2026-11-15 observed fallback-style redirects for the three supplied short links. We cannot confirm that each link reaches the named manufacturer model, carries the correct Associates tag, or that the Associates account is approved. Verify the model and account status in Amazon before relying on a purchase link. {src_links(['S17', 'S2'])} <a href="reverification.html">Read the redirect evidence</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html#q-01">Product-link question</a> · <a href="questions.html#q-03">Account-status question</a>.</p>
 </div>
 
 <div class="method-strip" id="how-we-work" aria-label="How this guide is made">
@@ -1170,7 +1288,7 @@ def page_index():
     <article class="card decision-card">
       <p class="decision-label">Oven-style</p>
       <h3>More than a basket</h3>
-      <p class="small">The Emeril is described as a 26 QT French-door toaster-oven combo, and the manual documents a rotisserie. Its preset-count claims differ across official pages; see the flag before treating the count as settled. {src_links(['S14', 'S15'])}</p>
+      <p class="small">The Emeril is described as a 26 QT French-door toaster-oven combo, and the manual documents a rotisserie. Its owner's manual lists 24 presets and the supplied listing title agrees; the brand page's specification block says 25, so the flag stays open. {src_links(['S14', 'S15'])}</p>
       <a href="articles/dual-basket-vs-oven-air-fryer.html">Basket or countertop oven? →</a>
     </article>
     <article class="card decision-card">
@@ -1203,7 +1321,7 @@ def page_index():
       <td class="small"><span class="pill pill-warn">Conflicting claims</span><div class="tiny">Brand page: 200–400 °F; supplied listing title advertises 450 °F. Model match is unconfirmed.</div><div class="tiny">{src_links(['S12', 'S29'])} <a href="flagged.html">Flagged</a></div></td></tr>
     <tr><td class="small"><strong>Preset information</strong></td>
       <td class="small blank">— not confirmed —<div class="tiny">{src_links(['S18'])} <a href="flagged.html">Flagged</a></div></td>
-      <td class="small"><span class="pill pill-warn">Conflicting claims</span><div class="tiny">Owner's manual names 24; product page states 25. Neither count is selected as definitive.</div><div class="tiny">{src_links(['S15', 'S14'])} <a href="flagged.html">Flagged</a></div></td>
+      <td class="small">24 presets named in the owner's manual<div class="tiny">Airfry, Fries, Bacon, Grill, Eggs, Fish, Ribs, Defrost, Steak, Vegetables, Wings, Bake, Rotisserie, Toast, Chicken, Pizza, Pastry, Proof, Broil, Slow Cook, Roast, Dehydrate, Reheat, Warm.</div><div class="tiny"><span class="pill pill-warn">One page disagrees</span> The brand page's specification block says "25 Cooking Pre-sets"; its own description and the Amazon listing title both say 24.</div><div class="tiny">{src_links(['S15', 'S14', 'S28'])} <a href="flagged.html">Flagged</a></div></td>
       <td class="small">Fries, Chicken, Fish, Meat<div class="tiny">{src_links(['S12', 'S13'])}</div></td></tr>
     <tr><td class="small"><strong>Rotisserie</strong></td>
       <td class="small blank">— not confirmed —<div class="tiny">{src_links(['S10', 'S18'])} <a href="flagged.html">Flagged</a></div></td>
@@ -1262,7 +1380,7 @@ much to trust a number, not required reading before buying. The same material, i
 <a href="flagged.html">Flagged for review</a>.</p>
 
 <div class="grid grid-4" style="margin:1rem 0 1.25rem">
-  <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">Supplied links reach Amazon fallback pages — see <a href="reports/link-check-2026-11-14.md">link check, 2026-11-14</a></div></div>
+  <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">Supplied links reach Amazon fallback pages — see <a href="reverification.html">link checks, 2026-11-14 and 2026-11-15</a></div></div>
   <div class="stat ok"><div class="n">{verified}</div><div class="l">Verified spec values</div><div class="h">Each with a link to the manufacturer page or manual</div></div>
   <div class="stat warn"><div class="n">{unverified}</div><div class="l">Unconfirmed values</div><div class="h">Left blank, listed on Flagged for review</div></div>
   <div class="stat bad"><div class="n">{n_open_flags}</div><div class="l">Open irregularities</div><div class="h">{n_total_flags} recorded across the three products and the programme; the Flagged page lists them as {n_open_flags} distinct rows</div></div>
@@ -1287,7 +1405,7 @@ much to trust a number, not required reading before buying. The same material, i
   parallel pass reads the same fallback marker as grounds for withholding the "resolved" label entirely. Both
   readings are published side by side (flag F21). Full ledger:
   <a href="reverification.html">Re-verification {REVERIFIED}</a> · their report:
-  <a href="reports/link-check-2026-11-14.md">link check, 2026-11-14</a>.</p>
+  <a href="reverification.html">link checks, 2026-11-14 and 2026-11-15</a>.</p>
 </div>
 
 <h2>Articles</h2>
@@ -1338,8 +1456,36 @@ much to trust a number, not required reading before buying. The same material, i
 </div>
 <p class="tiny muted">Evidence standard: Amazon sources support Amazon program and listing facts; manufacturers support product specifications; US government sources support legal requirements. The <a href="data.html">source register</a> lists each reference and what it can verify.</p>
 """
+    ld = [
+        PUBLISHER,
+        {
+            "@type": "WebSite",
+            "@id": SITE_URL + "/#website",
+            "url": SITE_URL + "/",
+            "name": SITE_NAME,
+            "description": SITE_TAGLINE,
+            "inLanguage": "en-US",
+            "publisher": {"@id": SITE_URL + "/#organization"},
+        },
+        breadcrumbs_jsonld([("Home", SITE_URL + "/")]),
+        {
+            "@type": "ItemList",
+            "@id": SITE_URL + "/#formats",
+            "name": "Three air-fryer formats compared",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": i,
+                    "name": pr["short_name"],
+                    "url": page_url(f"products/{pr['slug']}.html"),
+                }
+                for i, pr in enumerate(PRODUCT_LIST, start=1)
+            ],
+        },
+    ]
     return layout("index.html", "Air fryer buying guide", body, active="index.html",
-                  description="A source-led comparison of three air-fryer formats, with manufacturer specifications, visible gaps and the status of the supplied Amazon links.")
+                  description="A source-led comparison of three air-fryer formats, with manufacturer specifications, visible gaps and the status of the supplied Amazon links.",
+                  jsonld_blocks=ld)
 
 
 def page_product(p):
@@ -1362,7 +1508,7 @@ def page_product(p):
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / <a href="../categories/kitchen-appliances.html">Kitchen</a> / {e(p['short_name'])}</p>
 <h1>{e(p['short_name'])}</h1>
-<p class="lede">{e(p['name'])} — {e(p['brand'])}. These are document-based product notes, not a ranking or hands-on review. Specifications below come from the manufacturer's product page or owner's manual, accessed {e(ACCESSED)}. The candidate ASIN comes from recorded link checks, but the supplied short-link-to-model mapping is not confirmed; see the <a href="../reports/link-check-2026-11-14.md">redirect evidence</a> and <a href="../flagged.html">Flagged for review</a>.</p>
+<p class="lede">{e(p['name'])} — {e(p['brand'])}. These are document-based product notes, not a ranking or hands-on review. Specifications below come from the manufacturer's product page or owner's manual, accessed {e(ACCESSED)}. The candidate ASIN comes from recorded link checks, but the supplied short-link-to-model mapping is not confirmed; see the <a href="../reverification.html">redirect evidence</a> and <a href="../flagged.html">Flagged for review</a>.</p>
 
 <div class="grid grid-4" style="margin-bottom:1rem">
   <div class="stat warn"><div class="n" style="font-size:1.15rem">{e(p['asin']['v'])}</div><div class="l">Candidate ASIN · unconfirmed</div><div class="h">{src_links(p['asin']['s'])}</div></div>
@@ -1440,9 +1586,28 @@ def page_product(p):
 
 <p class="small" style="margin-top:1.5rem"><a href="../compare.html">← Back to the comparison</a> · <a href="../data.html">See every field in the dataset</a></p>
 """
+    purl = page_url(f"products/{tag}.html")
+    ld = [
+        {
+            "@type": "ItemPage",
+            "@id": purl + "#webpage",
+            "url": purl,
+            "name": p["name"],
+            "description": f"Documentation-based review of the {p['name']} — verified specifications with official source links.",
+            "isPartOf": {"@id": SITE_URL + "/#website"},
+            "about": {"@id": SITE_URL + "/#organization"},
+            "inLanguage": "en-US",
+        },
+        breadcrumbs_jsonld([
+            ("Home", SITE_URL + "/"),
+            ("Kitchen appliances", page_url("categories/kitchen-appliances.html")),
+            (p["short_name"], purl),
+        ]),
+    ]
     return layout(f"products/{tag}.html", p["short_name"], body,
                   active=f"products/{tag}.html",
-                  description=f"Documentation-based review of the {p['name']} — verified specifications with official source links.")
+                  description=f"Documentation-based review of the {p['name']} — verified specifications with official source links.",
+                  jsonld_blocks=ld)
 
 
 PROGRAMME_FLAGS = [
@@ -1502,7 +1667,7 @@ PROGRAMME_FLAGS = [
 
     ("F29", "The Emeril preset count is stated five different ways across official sources, and two of them now say 24.",
      "Emeril 26 QT French Door",
-     "Re-read 2026-11-14 by sess-54c66535. Amazon's listing title for ASIN B09B7SB46R says '24 cooking functions' and Emeril's own description paragraph says 'Equipped with 24 one-touch cooking presets', while the same page's specification block says '25 Cooking Pre-sets', its feature heading says '10-In-1' and one of its carousel assets is named '11-in-1'. Two independent official sources now agreeing on 24 is new evidence: earlier passes recorded only 25 vs 10-in-1 vs 11-in-1 with no tiebreaker. The conflict is narrowed, not closed - the same brand page still contradicts itself - so no preset count is asserted anywhere on this site. Decision needed: confirm the figure against the unit's own control panel before any copy states a number.", ["S14", "S17", "S16"]),
+     "Re-read 2026-11-14 by sess-54c66535. Amazon's listing title for ASIN B09B7SB46R says '24 cooking functions' and Emeril's own description paragraph says 'Equipped with 24 one-touch cooking presets', while the same page's specification block says '25 Cooking Pre-sets', its feature heading says '10-In-1' and one of its carousel assets is named '11-in-1'. Two independent official sources now agreeing on 24 is new evidence: earlier passes recorded only 25 vs 10-in-1 vs 11-in-1 with no tiebreaker. The conflict is narrowed, not closed - the same brand page still contradicts itself - so no preset count is asserted anywhere on this site. Decision needed: confirm the figure against the unit's own control panel before any copy states a number. <strong>Re-read 2026-11-15 by arena/88bb2db6, which changes that last sentence.</strong> The owner's manual for FAFO-001 was read row by row: its Preset Mode Chart and its Recommended Accessory Positions table each list exactly 24 presets by name, and the manual never states the numeral. The Amazon listing title independently says '24 One-Touch Preset Options'. The site now states 24 on the strength of the manual, names the one official line that disagrees (the brand page's specification block, '25 Cooking Pre-sets'), and flags it. This row and F4 both stay open, but the site no longer asserts nothing. The 10-in-1 and 11-in-1 labels remain marketing wording and are not presented as specifications. Decision still needed: confirm the figure against the unit's own control panel.", ["S14", "S17", "S16"]),
     ("F30", "Two published specification values are not stated by the official source the site cites for them.",
      "Chefman 6 Qt Dual Basket (preset count); Emeril 26 QT French Door (interior light)",
      "Re-read 2026-11-14 by sess-54c66535. The Chefman dual-window user guide RJ38-SQPF-3TDB-2W was read end to end and documents HI-FRY, +2 MIN, MUTE, SYNC BASKETS, SYNC FINISH, START/STOP, TIME/TEMP and SHAKE, but has no preset chart and never names the four food presets the site publishes; its control panel is artwork with no text layer. The Emeril brand page's specification block lists Timer, 26-Quart Capacity, Dual-Speed Fan, 25 Cooking Pre-sets, dimensions, 24.6 Liters, Temperature Control and 120 volts, with no interior-light row. Both values were left as published rather than deleted, because deleting another session's sourced row is not this pass's call, but neither is currently traceable to an official statement. Decision needed: re-source both to the brand product pages, or blank them and let them appear here as unverified.", ["S18", "S14"]),
@@ -1608,19 +1773,19 @@ PROGRAMME_FLAGS = [
     # (duplicate builds, canonical/structured data, two flag registers), so
     # these four rows start at F50.
     # ------------------------------------------------------------------ #
-    ("F50", "The Amazon department category is now read directly on all three listings; the rate itself still needs the Earnings report.",
+    ("F54", "The Amazon department category is now read directly on all three listings; the rate itself still needs the Earnings report.",
      "All three products \u2014 commission rate",
      "Recorded 2026-11-15 by session 42ca97ad. The annex register\u2019s row F-06 recorded that the browse-node path \u2018Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers\u2019 had been read directly on B09B7SB46R only, and named reading the other two listings as the confirmation step. This session fetched all three supplied link.amazon short links and read the identical path on B0CDY277D3 and B08DKYBTPH as well, so the evidence is now three for three rather than one for three. It still does not establish the category Amazon applies when a commission is settled: only the Associates Earnings report names the category on a shipped line, so the two candidate rows (Kitchen 4.50%, All Other 4.00%) remain the honest presentation until a sale exists. Decision needed: publish Kitchen 4.50% as the working rate with the breadcrumb cited (SG-10 path A), or keep both rows until the first Earnings report lands.",
      ["S3", "S16", "S28", "S29"]),
-    ("F51", "Eleven article sentences spliced a published display label into a mid-sentence position. Found, fixed and guarded.",
+    ("F55", "Eleven article sentences spliced a published display label into a mid-sentence position. Found, fixed and guarded.",
      "articles/ prose, and the build\u2019s article gate",
      "Recorded 2026-11-15 by session 42ca97ad. The article prose in data/articles.json interpolates published values into sentences. Eleven of those interpolations put a display label \u2014 \u2018Two 3-quart baskets\u2019, \u2018Designed for 4-6 people\u2019, \u2018Fries, Chicken, Fish, Meat (one-touch)\u2019, \u2018Limited 1-year warranty \u2026\u2019 \u2014 into a position where its capital is wrong, so the sentences read as machine output: \u2018The dual-basket unit is 6 Qt / 5.67 L as Two 3-quart baskets\u2019, \u2018splits a 6 Qt / 5.67 L cavity into Two 3-quart baskets\u2019. The defect was invisible to every earlier verification pass, because each value is genuinely published and correct in a table; it only appears when the page is read as prose, which is what a shopper does. It survived PR #71\u2019s full rewrite of data/articles.json, which re-introduced the same ten sentences and added an eleventh in a new article. Fixed by adding a {{value::prose form}} syntax whose prose form may differ from the published value in letter case and nothing else, enforced by check_articles(), and by adding check_article_splices(), which fails the build when a capitalised value is spliced into a mid-sentence position. Both guards were proven to fire: the build failed on exactly these defects before the fix and passes after it. No published value changed and no source changed.",
      ["S1"]),
-    ("F52", "The Application Review Process page was not re-read this pass; its figures are carried forward from an earlier fetch.",
+    ("F56", "The Application Review Process page was not re-read this pass; its figures are carried forward from an earlier fetch.",
      "S4 \u2014 the Associates application criteria",
      "Recorded 2026-11-15 by session 42ca97ad. This pass re-fetched the Program Policies, the Standard Commission Income Statement, both Chefman product pages, the Emeril product page, all three owner\u2019s manuals, all three supplied short links, 16 CFR Part 255 and 16 CFR Part 465. It did not load the Application Review Process page (S4). The figures the repository carries for it \u2014 three qualifying sales within 180 days, roughly ten posts, content recent within about sixty days, a social follower floor of about five hundred \u2014 are carried forward from earlier logged fetches and are NOT re-confirmed by this pass. The sixty-day recency requirement is load-bearing for any content-refresh schedule the owner adopts, so it must be re-read before it is used as a scheduling rule rather than quoted from this repository. Note that a sibling pass on the same day did re-read this page and reported the same four figures, which corroborates them but does not change what this session itself fetched. What was and was not fetched is listed item by item in session-42ca97ad/EVIDENCE-2026-11-15.md section 6.",
      ["S4"]),
-    ("F53", "Three files under data/ are read by no build, and one of them is a stale copy of a register that is published.",
+    ("F57", "Three files under data/ are read by no build, and one of them is a stale copy of a register that is published.",
      "data/flagged.json, data/commission-rates.csv, data/products.csv",
      "Recorded 2026-11-15 by session 42ca97ad. A reference scan of every loader in the repository shows that scripts/build_site.py and scripts/verify_site.py read data/verified/, not data/. The root-level data/flagged.json is therefore an orphan: it holds a 13-row register whose live counterpart is data/verified/flagged.json (17 rows), and the two disagree across 85 lines \u2014 including the browse-node observation this pass has just updated, which would otherwise leave two registers saying different things about the same fact. data/commission-rates.csv and data/products.csv are read by nothing in the repository; the first is a CSV transcription of the Standard Commission Income Statement, the second the 2026-11-13 link-check ledger that records the bare-token 404 and the fallback redirect, and both are evidence worth keeping if they are labelled as evidence. Nothing published depends on any of the three, so this is a maintenance risk rather than a correctness bug, but a reader who opens data/flagged.json sees a register that no longer matches the site. This row is narrower than F47, which covers the same class of problem for data/flags.json; the two are kept separate because the files and the contradictions are different. Decision needed: delete the three orphans, or keep them explicitly as dated evidence with a header that says so.",
      ["S1"]),
@@ -1709,9 +1874,41 @@ def page_category():
 </table>
 </div>
 """
+    curl = page_url("categories/kitchen-appliances.html")
+    ld = [
+        {
+            "@type": "CollectionPage",
+            "@id": curl + "#webpage",
+            "url": curl,
+            "name": "Category: Kitchen",
+            "description": "Kitchen appliance category page: three tracked air fryers with verified capacity, manufacturer list price and open flags.",
+            "isPartOf": {"@id": SITE_URL + "/#website"},
+            "about": {"@id": SITE_URL + "/#organization"},
+            "inLanguage": "en-US",
+        },
+        breadcrumbs_jsonld([
+            ("Home", SITE_URL + "/"),
+            ("Kitchen appliances", curl),
+        ]),
+        {
+            "@type": "ItemList",
+            "@id": curl + "#products",
+            "name": "Tracked air fryers",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": i,
+                    "name": pr["short_name"],
+                    "url": page_url(f"products/{pr['slug']}.html"),
+                }
+                for i, pr in enumerate(PRODUCT_LIST, start=1)
+            ],
+        },
+    ]
     return layout("categories/kitchen-appliances.html", "Category: Kitchen", body,
                   active="categories/kitchen-appliances.html",
-                  description="Kitchen appliance category page: three tracked air fryers with verified capacity, manufacturer list price and open flags.")
+                  description="Kitchen appliance category page: three tracked air fryers with verified capacity, manufacturer list price and open flags.",
+                  jsonld_blocks=ld)
 
 
 def page_compare():
@@ -1784,8 +1981,30 @@ def page_compare():
 
 <p class="small" style="margin-top:1.5rem"><a href="../guides/buying-guide-air-fryers.html">Read the buying guide →</a> · <a href="../flagged.html">See what is unresolved →</a></p>
 """
+    curl = page_url("compare.html")
+    ld = [
+        {
+            "@type": "ItemList",
+            "@id": curl + "#products",
+            "name": "Three air fryers compared",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": i,
+                    "name": pr["short_name"],
+                    "url": page_url(f"products/{pr['slug']}.html"),
+                }
+                for i, pr in enumerate(PRODUCT_LIST, start=1)
+            ],
+        },
+        breadcrumbs_jsonld([
+            ("Home", SITE_URL + "/"),
+            ("Comparison", curl),
+        ]),
+    ]
     return layout("compare.html", "Comparison", body, active="compare.html",
-                  description="Verified-only comparison of three air fryers, with gaps left visible and every value linked to an official source.")
+                  description="Verified-only comparison of three air fryers, with gaps left visible and every value linked to an official source.",
+                  jsonld_blocks=ld)
 
 
 def page_guide():
@@ -1848,7 +2067,12 @@ def page_guide():
 """
     return layout("guides/buying-guide-air-fryers.html", "Buying guide", body,
                   active="guides/buying-guide-air-fryers.html",
-                  description="How to choose an air fryer: form factor, documented capacity, real temperature ceilings, cleaning and footprint.")
+                  description="How to choose an air fryer: form factor, documented capacity, real temperature ceilings, cleaning and footprint.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Buying guide", page_url("guides/buying-guide-air-fryers.html")),
+    ])]
+              )
 
 
 def page_data():
@@ -1905,7 +2129,12 @@ def page_data():
 </div>
 """
     return layout("data.html", "Full dataset", body, active="data.html",
-                  description="Complete specification register for three air fryers: every value, its verification status and the official source link.")
+                  description="Complete specification register for three air fryers: every value, its verification status and the official source link.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Full dataset", page_url("data.html")),
+    ])]
+              )
 
 
 def page_compliance():
@@ -1997,7 +2226,12 @@ def page_compliance():
 </div>
 """
     return layout("compliance.html", "Compliance", body, active="compliance.html",
-                  description="Amazon Associates and FTC compliance requirements, quoted with official source links and mapped to implementation.")
+                  description="Amazon Associates and FTC compliance requirements, quoted with official source links and mapped to implementation.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Compliance", page_url("compliance.html")),
+    ])]
+              )
 
 
 def page_flagged():
@@ -2102,7 +2336,12 @@ def page_flagged():
 records what a re-test established.</p>
 """
     return layout("flagged.html", "Flagged for review", body, active="flagged.html",
-                  description="Unverified values, source conflicts and operational irregularities flagged for human review, each with its official source link.")
+                  description="Unverified values, source conflicts and operational irregularities flagged for human review, each with its official source link.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Flagged for review", page_url("flagged.html")),
+    ])]
+              )
 
 
 def page_platform():
@@ -2252,10 +2491,26 @@ def page_platform():
 </div>
 """
     return layout("platform.html", "Platform blueprint", body, active="platform.html",
-                  description="Automation blueprint for a compliant Amazon affiliate platform: pipeline, guardrails, KPIs and launch sequence.")
+                  description="Automation blueprint for a compliant Amazon affiliate platform: pipeline, guardrails, KPIs and launch sequence.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Platform blueprint", page_url("platform.html")),
+    ])]
+              )
 
 
 def page_exec():
+    # The number of ledger rows the executive summary quotes. Derived from both ledgers
+    # so it cannot drift: the 2026-11-14 pass and the pass-9 addendum.
+    LEDGER_ROWS = len(REVERIFICATION["tests"]) + (len(PASS9["rows"]) if PASS9 else 0)
+    # How many pages the root build publishes. Counted from the directories this
+    # generator writes to, so the number in the prose cannot drift away from the
+    # number of pages actually shipped.
+    _written = set()
+    for _d in (ROOT, ROOT / "articles", ROOT / "products", ROOT / "categories", ROOT / "guides"):
+        for _f in _d.glob("*.html"):
+            _written.add(_f)
+    PAGES_HTML = len(_written)
     # Economics are computed from the dataset, never transcribed by hand: the price comes from
     # each product's brand-page list price and the rates come from the published Table 1 held
     # in data/compliance.json, so this table cannot drift away from the sources it cites.
@@ -2288,13 +2543,14 @@ def page_exec():
     rate_headers = "".join(f"<th>At {lbl} {r:.2f}%</th>" for r, _c, lbl in rate_sets)
 
     facts = [
-        ("Product set", "Three supplied short links were followed; each fetch observed a landing on an air-fryer listing (candidate ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH). Token-to-ASIN mapping is not confirmed — see F14–F16 and reports/link-check-2026-11-14.md.", ["S16", "S17"]),
+        ("Product set", "Three supplied short links were followed; each fetch observed a landing on an air-fryer listing (candidate ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH). Token-to-ASIN mapping is not confirmed — see F14–F16 and the link checks on the <a href=\"reverification.html\">Re-verification</a> page.", ["S16", "S17"]),
         ("Category", "All three are air fryers or air fryer toaster ovens — the niche is set by the products, not chosen.", ["S16"]),
         ("Verification standard", "Official sources only; blank plus flagged wherever unconfirmed; no inference.", ["S1", "S2"]),
         ("Verified spec values", "Published on the dashboard and in the full dataset, each with a source link.", ["S10", "S12", "S14"]),
-        ("Re-verification (2026-11-14)", "Every published value was re-read against the official source it cites. The ledger — 61 rows, each with the value as published, what the source said on the day, a verdict and a link — is on the Re-verification page. Two blank rows were filled from the manufacturer's own spec block, and the disputed question of whether the short links shuffle between requests was closed by a repeat fetch plus a nonsense-token control.", ["S16", "S21", "S22"]),
-        ("Hard source conflicts", "One serious (Chefman 8 Qt 450 °F claim vs its own manual), plus preset-count and SKU ambiguity issues. All of them were re-checked on 2026-11-14 and are still live on the official pages.", ["S12", "S13", "S14"]),
-("Commission rate", "Still blank per product, but on firmer ground. Amazon publishes rates by category and not by ASIN. All three listings were re-read on 2026-11-15 and all three render the browse-node path Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers, so Kitchen at 4.50% is the well-evidenced working rate. The settlement-time category still has to come from the Associates Earnings report, so both candidate rows are shown.", ["S3", "S16", "S28", "S29"]),
+        (f"Re-verification ({REVERIFICATION['pass_date']} and 2026-11-15)", f"Every published value was re-read against the official source it cites. The ledger — {LEDGER_ROWS} rows in total, each with the value as published, what the source said on the day, a verdict and a link — is on the <a href=\"reverification.html\">Re-verification</a> page. Two blank rows were filled from the manufacturer's own spec block, and the disputed question of whether the short links shuffle between requests was closed by a repeat fetch plus a nonsense-token control.", ["S16", "S21", "S22"]),
+        ("Re-verification (2026-11-15, this pass)", "Every official source was re-fetched by this session rather than trusted from the recorded ones: the Program Policies, the Commission Income Statement, both Chefman product pages, the Emeril product page, all three owner's manuals, all three supplied short links, 16 CFR Part 255 and 16 CFR Part 465. All 43 specification rows were checked against the page each one cites; none was found wrong and no published value changed. The raw evidence, including the sources deliberately not fetched, is in the repository.", ["S2", "S3", "S10", "S12", "S14", "S18"]),
+        ("Hard source conflicts", "One serious and still live (Chefman 8 Qt 450 °F claim vs its own manual), plus SKU ambiguity. The Emeril preset count was narrowed on 2026-11-15: the owner's manual lists 24 presets by name in two separate tables and the Amazon listing title says 24, while the brand page's specification block still says 25 - the site states 24 and flags the 25.", ["S12", "S13", "S14"]),
+        ("Commission rate", "Still blank per product, but on firmer ground. Amazon publishes rates by category and not by ASIN. All three listings were re-read on 2026-11-15 and all three render the browse-node path Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers, so Kitchen at 4.50% is the well-evidenced working rate. The settlement-time category still has to come from the Associates Earnings report, so both candidate rows are shown.", ["S3", "S16", "S28", "S29"]),
         ("Amazon price / rating", "Not displayed anywhere, by policy, not by omission.", ["S2"]),
         ("Disclosure", "Required statement on every page plus a link-level badge on every outbound link.", ["S1", "S5"]),
         ("Biggest constraint", "Program Content may not be aggregated, analysed or trained on — which rules out the obvious version of an AI research engine.", ["S2"]),
@@ -2345,6 +2601,24 @@ def page_exec():
   did <em>not</em> return content, is in <code>EXECUTIVE-SUMMARY-PASS8.md</code> in the repository.</p>
 </div>
 
+<div class="callout note">
+  <strong>Pass 9 — 2026-11-15 (final integration).</strong>
+  <p class="small">A final-integration pass re-read the load-bearing facts against the live official
+  sources and fixed what it found. <strong>One new conflict was recorded rather than resolved</strong>:
+  the Emeril brand page says "Included are 7 premium accessories" while the supplied Amazon listing
+  title says "Six Cooking Accessories Included" (<a href="flagged.html">F48</a> and <a href="flagged.html">F50</a>). The Emeril preset
+  count was re-confirmed as 24 by reading the manual's two preset tables row by row, and the flag
+  wording was tightened from "names exactly 24" to "lists 24 presets by name" because the manual
+  never states the numeral. <strong>Ten defects in the site build itself were found and fixed</strong>,
+  among them two decision pages that had each other's canonical URL and title, a page that stated
+  16 suggestions while rendering 12, a buyer-facing link to a raw markdown file, and the complete
+  absence of canonical URLs, social cards and structured data on every page. The site now ships a
+  canonical URL, Open Graph and Twitter card tags and JSON-LD on all {PAGES_HTML} root pages, and
+  two new build guards fail the build on a nested anchor. The full evidence, including what this
+  pass could <em>not</em> establish, is in
+  <code>session-88bb2db6/EVIDENCE-2026-11-15.md</code> in the repository.</p>
+</div>
+
 
 <div class="grid grid-4" style="margin-bottom:1rem">
   <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">3 candidate ASINs, mapping unconfirmed (F14–F16)</div></div>
@@ -2364,7 +2638,7 @@ def page_exec():
 <h2>Findings</h2>
 <div class="callout ok">
   <strong>1 · The product side is verifiable, and was verified</strong>
-  <p class="small">Every specification asserted on the site was read from the manufacturer's own product page or owner's manual on {e(ACCESSED)}, and each one carries a clickable link to it. {len(SOURCES["sources"])} sources are used; none is a retailer, a review aggregator or an affiliate blog. Values that could not be confirmed are blank and listed, which is the only honest way to publish a comparison table.</p>
+  <p class="small">Every specification asserted on the site was read from the manufacturer's own product page or owner's manual on {e(ACCESSED)}, and each one carries a clickable link to it. {len(SOURCES["sources"])} sources are registered; none is a retailer, a review aggregator or an affiliate blog. Values that could not be confirmed are blank and listed, which is the only honest way to publish a comparison table.</p>
 </div>
 <div class="callout bad">
   <strong>2 · One official source contradicts another, and it is not cosmetic</strong>
@@ -2412,7 +2686,12 @@ def page_exec():
 <p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../EXECUTIVE-SUMMARY-PASS9-42CA97AD.md">Download this pass's markdown briefing</a> <a class="btn btn-ghost" href="../EXECUTIVE-SUMMARY-PASS9.md">Earlier pass-9 briefing</a> <a class="btn btn-ghost" href="../flagged.html">See every open flag</a></p>
 """
     return layout("executive-summary.html", "Executive summary", body, active="executive-summary.html",
-                  description="One-page executive summary: findings, source conflicts, economics and the recommended next decision.")
+                  description="One-page executive summary: findings, source conflicts, economics and the recommended next decision.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Executive summary", page_url("executive-summary.html")),
+    ])]
+              )
 
 
 REV_VERDICT = {
@@ -2567,6 +2846,58 @@ value was filled in.</p>
 <p class="tiny muted">Raw observations for this pass are in
 <code>session-052f2c9f/EVIDENCE-2026-11-14.md</code>.</p>
 """
+    # ---- pass-9 addendum (arena/88bb2db6): final-integration re-read, 2026-11-15 ----
+    p9_html = ""
+    if PASS9:
+        p9 = PASS9
+
+        def p9row(t):
+            cls, label = REV_VERDICT[t["verdict"]]
+            return (
+                f'<tr><td><strong>{e(t["claim"])}</strong></td>'
+                f'<td class="small">{e(t["published_value"])}</td>'
+                f'<td class="small">{e(t["observed"])}</td>'
+                f'<td><span class="pill {cls}">{e(label)}</span></td>'
+                f'<td class="small"><a href="{e(t["source_url"])}" target="_blank" rel="noopener">'
+                f'{e(t["source_label"])}</a></td></tr>'
+            )
+
+        p9rows = "".join(p9row(t) for t in p9["rows"])
+        p9ev = "".join(
+            f'<div class="callout info" style="margin:.6rem 0">'
+            f'<strong>{e(x["title"])}</strong>'
+            f'<p class="small">{e(x["detail"])}</p>'
+            f'<p class="tiny muted">Flag {e(x["flag"])} · '
+            f'<a href="{e(x["source_url"])}" target="_blank" rel="noopener">{e(x["source_label"])}</a>'
+            f'</p></div>'
+            for x in p9["new_evidence"]
+        )
+        p9_conf = sum(1 for t in p9["rows"] if t["verdict"] == "confirmed")
+        p9_confl = sum(1 for t in p9["rows"] if t["verdict"] in ("conflict-live", "conflict-resolved"))
+        p9_html = f"""
+<h2>Pass 9 — final-integration re-read ({e(p9['pass_date'])}, arena/88bb2db6)</h2>
+<p class="small">{e(p9['lede'])}</p>
+<p class="tiny muted"><strong>{p9_conf}</strong> of the {len(p9['rows'])} rows below were confirmed
+against the live official source on {e(p9['pass_date'])};
+<strong>{p9_confl}</strong> record a disagreement between official documents that is still open.
+One new conflict was found and filed rather than resolved by guesswork.</p>
+<div class="tablewrap">
+<table>
+  <caption>Pass-9 re-reads, {e(p9['pass_date'])}</caption>
+  <thead><tr><th style="width:17%">Claim</th><th style="width:17%">Published value</th>
+  <th style="width:42%">What the official source says</th><th style="width:12%">Verdict</th>
+  <th style="width:12%">Source</th></tr></thead>
+  <tbody>{p9rows}</tbody>
+</table>
+</div>
+
+<h3>What pass 9 added beyond the re-reads</h3>
+{p9ev}
+<p class="tiny muted">{e(p9['scope_note'])}</p>
+<p class="tiny muted">Raw observations for this pass are in
+<code>session-88bb2db6/EVIDENCE-2026-11-15.md</code>.</p>
+"""
+
     lr = rev.get("link_resolution") or {}
     lr_html = ""
     if lr:
@@ -2603,6 +2934,7 @@ value was filled in.</p>
 {p6_html}
 
 {p7_html}
+{p9_html}
 
 <h2>What this pass changed on the site</h2>
 <ul class="tight small">{changes}</ul>
@@ -2615,7 +2947,12 @@ value was filled in.</p>
 """
     return layout("reverification.html", f"Re-verification {rev['pass_date']}", body,
                   active="reverification.html",
-                  description="Line-by-line re-read of every value this site publishes, each against the official source it cites, with the verdict and the source link.")
+                  description="Line-by-line re-read of every value this site publishes, each against the official source it cites, with the verdict and the source link.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Re-verification", page_url("reverification.html")),
+    ])]
+              )
 
 
 PARALLEL_BUILDS = [
@@ -2694,7 +3031,12 @@ def page_previous_passes():
 """
     return layout("previous-passes.html", "Previous passes", body,
                   active="previous-passes.html",
-                  description="Catalogue of every parallel build published in this repository, where each one disagrees with the canonical site, and which build to trust.")
+                  description="Catalogue of every parallel build published in this repository, where each one disagrees with the canonical site, and which build to trust.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Previous passes", page_url("previous-passes.html")),
+    ])]
+              )
 
 
 # --------------------------------------------------------------------------- #
@@ -2824,8 +3166,13 @@ a short story rather than an open-ended project.</p>
   <a href="questions.html">This pass's open questions</a>
 </div>
 """
-    return layout("marketing-directions.html", "Suggestions", body, active="marketing-directions.html",
-                  description="Sixteen reviewed, evidence-backed suggestions for the site, each with alternative paths and a recommendation, for the owner to choose before anything is implemented.")
+    return layout("suggestions.html", "Suggestions", body, active="suggestions.html",
+                  description="Sixteen reviewed, evidence-backed suggestions for the site, each with alternative paths and a recommendation, for the owner to choose before anything is implemented.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Suggestions", page_url("suggestions.html")),
+    ])]
+              )
 
 
 def page_questions():
@@ -2941,8 +3288,41 @@ settled without you links to the row that blocks it.</p>
   (parallel pass)</a> · <a href="suggestions.html">This pass's suggestions</a>
 </div>
 """
+    qurl = page_url("questions.html")
+    # FAQPage. Every answer below is assembled only from fields that the page above
+    # already prints in full — what_we_know, what_is_missing and how_to_discover —
+    # so the structured data restates visible content and adds nothing.
+    faq = []
+    for item in q["questions"]:
+        answer = []
+        if item.get("what_we_know"):
+            answer.append("What we know: " + " ".join(item["what_we_know"]))
+        if item.get("what_is_missing"):
+            answer.append("What is missing: " + item["what_is_missing"])
+        if item.get("how_to_discover"):
+            answer.append("How to find it out: " + item["how_to_discover"])
+        if not answer:
+            continue
+        faq.append({
+            "@type": "Question",
+            "name": item["question"],
+            "acceptedAnswer": {"@type": "Answer", "text": " ".join(answer)},
+        })
+    ld = [
+        {
+            "@type": "FAQPage",
+            "@id": qurl + "#faq",
+            "url": qurl,
+            "mainEntity": faq,
+        },
+        breadcrumbs_jsonld([
+            ("Home", SITE_URL + "/"),
+            ("Questions and gaps", qurl),
+        ]),
+    ]
     return layout("questions.html", "Open questions", body, active="questions.html",
-                  description="The questions, information and answers that must be settled before a decision on this site is reasonable, separated into known, discoverable, not-stated and account-only.")
+                  description="The questions, information and answers that must be settled before a decision on this site is reasonable, separated into known, discoverable, not-stated and account-only.",
+                  jsonld_blocks=ld)
 
 
 # --------------------------------------------------------------------------- #
@@ -3109,9 +3489,9 @@ def page_suggestions_alt():
           <td class="small">☐ A &nbsp; ☐ B &nbsp; ☐ C<div class="tiny muted">Reply with the ID and letter</div></td>
         </tr>""")
     body = f"""
-<p class="crumbs"><a href="index.html">Home</a> / Suggestions</p>
+<p class="crumbs"><a href="index.html">Home</a> / Marketing directions (parallel pass)</p>
 <h1>Suggestions: choose the path before anything changes</h1>
-<p class="lede">{len(SUGGESTIONS)} suggestions to improve the site's design, trust, content and measurement. <strong>None of them has been implemented.</strong> Each one lists the options. Pick an option for each ID you want, and only then will the change be made.</p>
+<p class="lede">{len(SUGGESTIONS_ALT)} suggestions to improve the site's design, trust, content and measurement. <strong>None of them has been implemented.</strong> Each one lists the options. Pick an option for each ID you want, and only then will the change be made.</p>
 
 <div class="callout warn"><strong>How to decide.</strong> Each row has a basis. Where the basis is an official Amazon or FTC source, the link goes to that source. Where the row is a design opinion, it says so and points to <a href="flagged.html">Flagged for review</a>. The options run from the current state (A) to the recommended path.</div>
 
@@ -3124,10 +3504,16 @@ def page_suggestions_alt():
 </div>
 
 <h2>Information needed before some of these can be decided</h2>
-<p class="small">Several suggestions depend on a fact not yet known. Those facts are listed, with the way to find each one, on the <a href="questions.html">Questions and information gaps</a> page.</p>
+<p class="small">Several suggestions depend on a fact not yet known. Those facts are listed, with the way to find each one, on the <a href="decision-gate.html">Questions and information gaps</a> page.</p>
 """
-    return layout("suggestions.html", "Suggestions", body, active="suggestions.html",
-                  description="Site, design, trust, content and measurement suggestions, with options for the owner to choose before any change is made.")
+    return layout("marketing-directions.html", "Marketing directions (parallel pass)", body,
+                  active="marketing-directions.html",
+                  description="Site, design, trust, content and measurement suggestions, with options for the owner to choose before any change is made.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Marketing directions (parallel pass)", page_url("marketing-directions.html")),
+    ])]
+              )
 
 
 def page_questions_alt():
@@ -3143,8 +3529,8 @@ def page_questions_alt():
           <td class="small">{e(unblocks)}</td>
         </tr>""")
     body = f"""
-<p class="crumbs"><a href="index.html">Home</a> / Questions and information gaps</p>
-<h1>What must be answered before a decision is reasonable</h1>
+<p class="crumbs"><a href="index.html">Home</a> / Questions and information gaps (parallel pass)</p>
+<h1>The parallel register: fourteen questions with their known facts, gaps and next steps</h1>
 <p class="lede">{len(QUESTIONS_ALT)} questions. For each one: what the repository already holds (with its official source), what is still missing, how to find the missing fact, and which decision it unblocks. Nothing in the <em>missing</em> column has been filled in with an estimate.</p>
 
 <div class="callout warn"><strong>Read this first.</strong> Q-01 and Q-06 decide most of the other choices: which products the links really point to, and which Amazon store the site can promote. Answer those two before the product pages are extended.</div>
@@ -3157,10 +3543,15 @@ def page_questions_alt():
 </table>
 </div>
 
-<p class="small" style="margin-top:1.5rem">Related: <a href="suggestions.html">Suggestions</a> · <a href="flagged.html">Flagged for review</a> · <a href="executive-summary.html">Executive summary</a></p>
+<p class="small" style="margin-top:1.5rem">Related: <a href="marketing-directions.html">Marketing directions (parallel pass)</a> · <a href="questions.html">Questions and gaps (this register's main pass)</a> · <a href="flagged.html">Flagged for review</a> · <a href="executive-summary.html">Executive summary</a></p>
 """
     return layout("decision-gate.html", "Questions and information gaps", body, active="decision-gate.html",
-                  description="Questions that must be answered before decisions, what is known with sources, what is missing, and how to find it.")
+                  description="Questions that must be answered before decisions, what is known with sources, what is missing, and how to find it.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Questions and gaps (parallel pass)", page_url("decision-gate.html")),
+    ])]
+              )
 
 
 def page_404():
@@ -3187,7 +3578,12 @@ def page_404():
   </div>
 </div>
 """
-    return layout("404.html", "Page not found", body)
+    return layout("404.html", "Page not found", body,
+                  description="That page does not exist on this site. Start from the air-fryer buying guide, the articles, or the flagged-for-review register.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+                      ("Home", SITE_URL + "/"),
+                      ("Page not found", page_url("404.html")),
+                  ])])
 
 
 # --------------------------------------------------------------------------- #
@@ -3311,7 +3707,7 @@ def _is_identifier(value):
 def check_article_splices(article):
     """Reject a published value spliced into a sentence where its capital is wrong.
 
-    This is the guard behind flag F51. A display label such as "Two 3-quart
+    This is the guard behind flag F55. A display label such as "Two 3-quart
     baskets" is a correct answer to "what is the capacity?" and a broken
     sentence inside "divided into Two 3-quart baskets". The defect is not
     visible in a data table, which is why it survived nine earlier passes:
@@ -3542,8 +3938,39 @@ def page_articles_index():
 
 <p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../guides/buying-guide-air-fryers.html">Buying guide →</a> <a class="btn btn-ghost" href="../compare.html">Comparison matrix →</a> <a class="btn btn-ghost" href="../flagged.html">Flagged for review →</a></p>
 """
+    aurl = page_url("articles/index.html")
+    ld = [
+        {
+            "@type": "CollectionPage",
+            "@id": aurl + "#webpage",
+            "url": aurl,
+            "name": "Articles",
+            "isPartOf": {"@id": SITE_URL + "/#website"},
+            "about": {"@id": SITE_URL + "/#organization"},
+            "inLanguage": "en-US",
+        },
+        breadcrumbs_jsonld([
+            ("Home", SITE_URL + "/"),
+            ("Articles", aurl),
+        ]),
+        {
+            "@type": "ItemList",
+            "@id": aurl + "#articles",
+            "name": "Sourced air-fryer articles",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": i,
+                    "name": art["title"],
+                    "url": page_url(f"articles/{art['slug']}.html"),
+                }
+                for i, art in enumerate(ARTICLES["articles"], start=1)
+            ],
+        },
+    ]
     return layout("articles/index.html", "Articles", body, active="articles/index.html",
-                  description="Eight sourced articles on dual-basket vs oven air fryers, what a 450 F badge means, preset-count conflicts, capacity from published numbers, and why this site publishes no Amazon prices.")
+                  description="Eight sourced articles on dual-basket vs oven air fryers, what a 450 F badge means, preset-count conflicts, capacity from published numbers, and why this site publishes no Amazon prices.",
+                  jsonld_blocks=ld)
 
 
 def page_article(a):
@@ -3611,18 +4038,23 @@ def page_article(a):
   <a class="card tight" href="{e(_next['slug'])}.html"><span class="tiny muted">Next</span><br><strong>{e(_next['title'])}</strong></a>
 </div>"""
     body = body + share
-    _ld = json.dumps({
-        "@context": "https://schema.org",
-        "@type": "Article",
-        "headline": a["title"],
-        "description": a["standfirst"],
-        "dateModified": ARTICLES.get("updated", ACCESSED),
-        "mainEntityOfPage": {"@type": "WebPage", "@id": _url},
-        "publisher": {"@type": "Organization", "name": SITE_NAME, "url": _site},
-    }, ensure_ascii=False)
-    body = body + f'\n<script type="application/ld+json">{_ld}</script>'
+    # Structured data for this article is emitted once, in <head>, by layout(), with
+    # the same @context and @graph wrapper as every other block. (arena/792c279e
+    # appended a second, body-level Article block; merged here into one so a crawler
+    # never sees two conflicting Article nodes for the same URL.)
+    aurl = page_url(f"articles/{a['slug']}.html")
+    ld = [
+        article_jsonld(a, aurl),
+        breadcrumbs_jsonld([
+            ("Home", SITE_URL + "/"),
+            ("Articles", page_url("articles/index.html")),
+            (a["title"], aurl),
+        ]),
+    ]
     return layout(f"articles/{a['slug']}.html", a["title"], body,
-                  active="articles/index.html", description=a["standfirst"])
+                  active="articles/index.html", description=a["standfirst"],
+                  og_type="article", jsonld_blocks=ld,
+                  og_image_alt=f"{a['title']} — {SITE_NAME}")
 
 
 
@@ -3792,9 +4224,31 @@ def page_picks():
   </a>
 </div>
 """
+    purl = page_url("picks.html")
+    ld = [
+        {
+            "@type": "ItemList",
+            "@id": purl + "#picks",
+            "name": "This week's picks - three air fryers, three jobs",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": i,
+                    "name": pr["short_name"],
+                    "url": page_url(f"products/{pr['slug']}.html"),
+                }
+                for i, pr in enumerate(PRODUCT_LIST, start=1)
+            ],
+        },
+        breadcrumbs_jsonld([
+            ("Home", SITE_URL + "/"),
+            ("This week's picks", purl),
+        ]),
+    ]
     return layout("picks.html", "This week's picks \u2014 three air fryers, three jobs", body,
                   active="picks.html",
-                  description="A decision-rule picks page: which of three sourced air fryers wins which job, what one sale pays at each official commission rate, and what remains unconfirmed.")
+                  description="A decision-rule picks page: which of three sourced air fryers wins which job, what one sale pays at each official commission rate, and what remains unconfirmed.",
+                  jsonld_blocks=ld)
 
 
 def page_decisions():
@@ -3858,7 +4312,7 @@ def page_decisions():
         return repo_link("COORDINATION.md", "claim record")
     handoff_rows = "".join(
         f'<tr><td><span class="pill pill-info">{e(h["id"])}</span></td>'
-        f'<td>{e(h["owner_action"])}</td><td class="num">{e(h["time"])}</td>'
+        f'<td>{_md(h["owner_action"])}</td><td class="num">{e(h["time"])}</td>'
         f'<td class="small">{_closes(h)}</td><td class="small">{_hsrc(h)}</td></tr>'
         for h in d["handover"]["items"])
 
@@ -3930,9 +4384,29 @@ def page_decisions():
 <p class="small"><a href="handover.html">Open the full handover sheet \u2014 with the exact steps and what to paste back \u2192</a></p>
 <p class="small muted">Nothing on this page has been implemented. The suggestions queue, with alternative paths, effort, risk and reversibility for each item, is on <a href="suggestions.html">Suggestions</a>; the outstanding facts are on <a href="questions.html">Questions and gaps</a>.</p>
 """
+    durl = page_url("decisions.html")
+    ld = [breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Decisions", durl),
+    ])]
     return layout("decisions.html", "Decisions \u2014 niche, traffic, measurement and handover", body,
                   active="decisions.html",
-                  description="Three decisions with scored options, a six-channel traffic plan, six metrics with their prerequisites, a pre-committed kill rule, and the five actions only the account holder can take.")
+                  description="Three decisions with scored options, a six-channel traffic plan, six metrics with their prerequisites, a pre-committed kill rule, and the five actions only the account holder can take.",
+                  jsonld_blocks=ld)
+
+
+def _md(text):
+    """Escape, then honour **bold** and `code` from the JSON prose.
+
+    data/decision.json stores prose with light markdown so it stays readable as data. This is
+    the only place that turns it into HTML, so a stray asterisk or backtick cannot reach a
+    page. Added 2026-11-15 after handover.html was published showing literal ``**`` around
+    two words of an action title.
+    """
+    out = e(text)
+    out = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", out)
+    out = re.sub(r"`(.+?)`", r"<code>\1</code>", out)
+    return out
 
 
 def page_handover():
@@ -3945,13 +4419,13 @@ def page_handover():
 <article class="card handover-item">
   <div class="handover-head">
     <span class="handover-num">{e(h['id'])}</span>
-    <h3>{e(h['owner_action'].replace('**',''))}</h3>
+    <h3>{_md(h['owner_action'])}</h3>
     <span class="pill pill-info">{e(h['time'])}</span>
   </div>
-  <p class="small">{e(h['why_now'])}</p>
+  <p class="small">{_md(h['why_now'])}</p>
   <div class="handover-meta">
     <div><span class="tiny muted">Closes</span><div class="small">{e(closes)}</div></div>
-    <div><span class="tiny muted">Paste back</span><div class="small">{e(h['what_to_paste_back'])} {src}</div></div>
+    <div><span class="tiny muted">Paste back</span><div class="small">{_md(h['what_to_paste_back'])} {src}</div></div>
   </div>
 </article>"""
 
@@ -3971,9 +4445,16 @@ def page_handover():
 </div>
 <p class="small muted">When the answers come back, they are recorded in <a href="flagged.html">the flag register</a> with their source and the date read, not inferred from an earlier pass. Every published value on this site carries that same discipline.</p>
 """
+    hurl = page_url("handover.html")
+    ld = [breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Decisions", page_url("decisions.html")),
+        ("Handover", hurl),
+    ])]
     return layout("handover.html", "Handover \u2014 the five things only the account holder can do", body,
                   active="decisions.html",
-                  description="Five owner actions totalling about an hour, each with the exact steps, the time required, the flags it closes and what to paste back.")
+                  description="Five owner actions totalling about an hour, each with the exact steps, the time required, the flags it closes and what to paste back.",
+                  jsonld_blocks=ld)
 
 
 # --------------------------------------------------------------------------- #
@@ -4325,8 +4806,13 @@ def main():
     (ROOT / "robots.txt").write_text(
         "User-agent: *\nAllow: /\n\nSitemap: " + base + "sitemap.xml\n",
         encoding="utf-8")
+    # <lastmod> carries the date the published values were last re-read against their
+    # official sources (REVERIFIED), not the date the file was written. Added
+    # 2026-11-15 (arena/88bb2db6) so crawlers get a real content-change signal.
+    lastmod = REVERIFIED or ACCESSED
     locs = "".join(
-        f"  <url><loc>{base}{'' if rel == 'index.html' else rel}</loc></url>\n"
+        f"  <url><loc>{base}{'' if rel == 'index.html' else rel}</loc>"
+        f"<lastmod>{lastmod}</lastmod></url>\n"
         for rel in indexable
     )
     (ROOT / "sitemap.xml").write_text(

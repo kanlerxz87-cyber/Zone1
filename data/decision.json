@@ -377,7 +377,7 @@
   "items": [
    {
     "id": "H1",
-    "owner_action": "Open each of the three supplied links on a desktop browser and read the **Model number** line in the listing's *Product information* section.",
+    "owner_action": "Open each of the three supplied links on a desktop browser and read the **Model number** line in the listing's “Product information” section.",
     "time": "3 minutes",
     "closes": [
      "F01",

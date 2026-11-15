@@ -57,7 +57,7 @@ the page each one cites.
 
 ## 3. Two findings the earlier passes did not have
 
-### 3.1 The browse-node path is now read on all three listings (F50)
+### 3.1 The browse-node path is now read on all three listings (F54)
 
 The annex register's row F-06 said the path
 `Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers`
@@ -73,7 +73,7 @@ the per-product rate stays blank and both candidate rows stay on the page — bu
 "working rate" is no longer a guess. Answer to **Q-15**, and the evidence behind **SG-10
 path A**.
 
-### 3.2 The prose read as machine output, and no verifier could see it (F51)
+### 3.2 The prose read as machine output, and no verifier could see it (F55)
 
 Eleven sentences in the articles spliced a published display label into a mid-sentence
 position where its capital is wrong:
@@ -97,7 +97,7 @@ to fire: the build failed on exactly these defects before the fix and passes aft
 
 | Register | Before | After | What changed |
 |---|---|---|---|
-| Flags (root) | F1–F43 | **F1–F53** | F50 breadcrumb evidence · F51 the prose defect · F52 S4 not re-read this pass · F53 three orphaned files under `data/` |
+| Flags (root) | F1–F43 | **F1–F57** | F54 breadcrumb evidence · F55 the prose defect · F56 S4 not re-read this pass · F57 three orphaned files under `data/` |
 | Flags (annex `data/verified/`) | 17 rows | 17 rows | F-06 rewritten with the 2026-11-15 read; `site/` regenerated; 382 assertions pass |
 | Suggestions | 16 | **21** | SG-18 what the AI agent may read · SG-19 value freshness · SG-20 the product set · SG-21 moving the unconfirmed markers onto the money pages |
 | Questions | 14 | **20** | Q-15 to Q-18 are **known and sourced and now carry an explicit answer**; Q-19 and Q-20 are new gaps |
@@ -175,10 +175,10 @@ Recorded in full on the [Flagged for review page](https://kanlerxz87-cyber.githu
 
 | ID | What it is | Severity |
 |---|---|---|
-| **F50** | The commission category is evidenced three-for-three now, but the settlement-time category is still only knowable from the Earnings report. | Medium |
-| **F51** | The prose defect — found, fixed, and guarded. | Low (fixed) |
-| **F52** | The Application Review Process page was **not** re-read this pass. Its criteria are carried forward from earlier logged fetches and must not be restated as current fact. | Medium |
-| **F53** | `data/flagged.json`, `data/commission-rates.csv` and `data/products.csv` are read by no build. The first is a stale copy of a register that *is* published. | Low |
+| **F54** | The commission category is evidenced three-for-three now, but the settlement-time category is still only knowable from the Earnings report. | Medium |
+| **F55** | The prose defect — found, fixed, and guarded. | Low (fixed) |
+| **F56** | The Application Review Process page was **not** re-read this pass. Its criteria are carried forward from earlier logged fetches and must not be restated as current fact. | Medium |
+| **F57** | `data/flagged.json`, `data/commission-rates.csv` and `data/products.csv` are read by no build. The first is a stale copy of a register that *is* published. | Low |
 | **F42** | Carried forward: the operator's location is stated two different ways on this domain, and neither statement came from the owner. | Medium |
 
 **What this pass did not fetch**, listed item by item in
