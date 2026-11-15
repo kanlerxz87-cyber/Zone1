@@ -72,7 +72,7 @@
  },
  "niche": {
   "heading": "Which niche to build the traffic around",
-  "summary": "The site already covers the three supplied products. The strategic question is which *reader intent* to build around them, because that decides article topics, internal links and the query each page is written for. Four candidates are scored on evidence this project actually holds; a fifth column names what would have to be true for each.",
+  "summary": "The site already covers the three supplied products. The strategic question is which reader intent to build around them, because that decides article topics, internal links and the query each page is written for. Four candidates are scored on evidence this project actually holds; a fifth column names what would have to be true for each.",
   "scoring_note": "Scores are judgements, not measurements, and are shown with their basis. They are deliberately coarse (0–3) so a small evidence base cannot produce false precision.",
   "criteria": [
    {
@@ -203,7 +203,7 @@
     "requirements": [
      "a live domain",
      "an approved Associates account with tagged links (S2, S4)",
-     "sitemap submitted to Google Search Console *by the owner* — this repo cannot do it"
+     "sitemap submitted to Google Search Console by the owner — this repo cannot do it"
     ],
     "effort": "Medium",
     "cost": "Domain (annual) — price not verified in this project, so not stated",
@@ -385,7 +385,7 @@
      "F32",
      "F33"
     ],
-    "why_now": "This is the single highest-value action in the project. The site currently shows a candidate ASIN and a *believed* manufacturer SKU; this line makes the mapping a fact instead of a match. It cannot be done by a headless fetch, which is why it is still open after seven sessions.",
+    "why_now": "This is the single highest-value action in the project. The site currently shows a candidate ASIN and a “believed” manufacturer SKU; this line makes the mapping a fact instead of a match. It cannot be done by a headless fetch, which is why it is still open after seven sessions.",
     "what_to_paste_back": "Three model numbers, one per link.",
     "source": [
      "S16",
