@@ -1816,6 +1816,21 @@ def page_exec():
 <h1>Executive summary</h1>
 <p class="lede">A one-page briefing for someone who will not read the rest. The short version: the product data is good, the economics are provable only within narrow limits, and the compliance constraint is the design constraint.</p>
 
+<div class="callout note">
+  <strong>Pass 8 — 2026-11-15.</strong>
+  <p class="small">This pass re-fetched the three supplied links, the Standard Commission Income
+  Statement, the Program Policies page, 16 CFR 255.5, 16 CFR Part 465 and both manufacturers' pages.
+  Three defects were found by re-reading and are fixed: a stale listing title (<a href="flagged.html">F38</a>),
+  a source record cited for a value it does not support (F39), and two rows published under the same
+  flag number (F40). Two new registers were added: a <a href="suggestions.html">decision queue</a> of
+  16 evidence-backed improvements with alternative paths, and a register of
+  <a href="questions.html">14 open questions</a> separating what is known, what is discoverable, what
+  the official source does not state, and what can only be answered from inside the account.
+  Nothing on either register has been implemented. The full briefing, including the fetches that
+  did <em>not</em> return content, is in <code>EXECUTIVE-SUMMARY-PASS8.md</code> in the repository.</p>
+</div>
+
+
 <div class="grid grid-4" style="margin-bottom:1rem">
   <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">3 candidate ASINs, mapping unconfirmed (F14–F16)</div></div>
   <div class="stat ok"><div class="n">{len(SOURCES["sources"])}</div><div class="l">Sources</div><div class="h">All official, all linked</div></div>
