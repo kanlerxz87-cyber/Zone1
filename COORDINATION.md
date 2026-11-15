@@ -33,16 +33,25 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 | T10 | Executive summary | done | sess-105bc29e | `EXECUTIVE-SUMMARY.md`, `executive-summary.html` |
 | T11 | Final integration: rebuild, crawl for broken internal links, re‑verify every row has an official source | done | sess-105bc29e | whole tree (integration) |
 | T12 | Open PR → merge to `main` → confirm GitHub Pages deploy | done | sess-105bc29e (closed by I8, arena-6ecdb4e4) | `.github/workflows/` |
+| T13 | Re-review the three `link.amazon` short links against official Amazon sources | done | 3b99448e | `session-3b99448e/link-review.md` |
+| T14 | Suggestions: polished marketing design, trendy article topics, organic traffic plan, anti-AI-slop rules | done | 3b99448e | `session-3b99448e/suggestions.md` (root `suggestions.html` SG-01…SG-12 by concurrent session `633b115f`, PR #58) |
+| T15 | Decision gate: open questions, information needed, answers before decisions + missing-info discovery plan | done | 3b99448e | `session-3b99448e/decisions.md` (root `questions.html` Q-01…Q-14 by concurrent session `633b115f`, PR #58) |
+| T16 | Executive summary refresh (decision-ready briefing) | done | 3b99448e | `EXECUTIVE-SUMMARY.md` §14 appended |
+| T17 | Site: polished landing page + category subpages, dashboard tables, per-row official source links | done | 3b99448e | root build: landing `index.html`, `categories/kitchen-appliances.html`, product/compare tables with per-row sources; nothing to add — all present and regenerated |
+| T18 | Final integration: re-verify combined data, build with no broken links, PR → merge → Pages verify → record | in progress | 3b99448e | whole tree (integration, last) |
 
 ---
+| X-633b115f | Add two decision pages to the root build: **Suggestions** (site/design/conversion improvements with options, for the owner to choose before any change) and **Questions & information gaps** (what is known, what is missing, how to discover it, each row linked to an official source). Live re-check of the 3 `link.amazon` tokens and key official sources on 2026-11-15. | done | arena/633b115f (session 633b115f) | `build.py` (new `page_suggestions`, `page_questions`, NAV + pages dict), regenerated root HTML `suggestions.html`, `questions.html`, `robots.txt`, `sitemap.xml`, `COORDINATION.md` (this row + log) |
 
 ## Claim log
 
 | UTC time | Session | Action |
 |----------|---------|--------|
+| 2026-11-15T00:00Z | arena/633b115f (session 633b115f) | Claimed X-633b115f. Repo state checked: `build.py` + `verify.py` green on `main` @ 8716134; no existing Suggestions or Questions page. |
 | 2026-11-13T22:35Z | sess-105bc29e | Claimed T1–T11 (research, data, site, integration). No other claims present; repo was empty apart from `README.md`. |
 | 2026-11-13T22:35Z | sess-105bc29e | Claimed T12 (PR + merge + Pages verification). |
 | 2026-11-14T18:29Z | arena-6ecdb4e4 | **I8 claim (initially logged as "I6"; renumbered — see the I8 record):** independent line-by-line repo review + re-verification pass on branch `arena/6ecdb4e4-zone1` (base `5ed73c1`). File scope: `COORDINATION.md` (log entry), plus fixes to any gate/dataset/site file only if a gate fails. Runs all local gates, re-checks key facts against official sources, re-checks live Pages, then PR → merge → Pages confirm. |
+| 2026-11-15 | 3b99448e | Claimed T13–T18. T13 link re-review done (`session-3b99448e/link-review.md`): tokens are 9 chars ≠ 10-char ASINs (S23), `/dp/<token>` returns 404 (S21), short links resolve via `plpRedirect=mhFallback` to candidate ASINs but product identity is unconfirmed (S17/S16). T14 suggestions done (`session-3b99448e/suggestions.md`: design D-1…D-10, article topics A-1…A-10, traffic T-1…T-8, anti-slop rules, decision register R-1…R-6). T15 decision gate done (`session-3b99448e/decisions.md`: Q-1…Q-10 with known/missing/suggested-answer/discovery steps M-1…M-8). T16 done: EXECUTIVE-SUMMARY.md §14 appended. T17 done: root build already has landing page, category subpage, dashboard tables with per-row official sources; `build.py` regenerates `suggestions.html` (SG-01…SG-12) and `questions.html` (Q-01…Q-14) from PR #58, both in NAV and `sitemap.xml`. `python3 build.py` → 23 pages + robots.txt/sitemap.xml, exit 0. `python3 verify.py` → 104 pages checked, 0 errors; 43 spec rows (41 verified, 2 blank+flagged); 27 sources; 18 warnings all in `s2/` annex owned by another session. |
 
 ---
 
@@ -2932,3 +2941,48 @@ stored value was changed by this session.**
 integration role the brief reserves for a final integration session. Every change is
 additive except where a recorded value was found wrong against a live official source;
 each such change is written up in the completion record below.
+
+
+> **Merge note — 2026-11-15, `arena/3ddfa50e-zone1` merging `arena/633b115f-zone1`.**
+> Two sessions claimed overlapping work on the same day and neither claim was visible to the
+> other when it was written: both built a "suggestions" page and a "questions" page on the same
+> root site. Nothing was discarded. The integration session (3ddfa50e) owns
+> `suggestions.html` and `questions.html`; the 633b115f registers are preserved verbatim and
+> published at `marketing-directions.html` and `decision-gate.html`, and each page links to the
+> other. Their module-level `SUGGESTIONS`/`QUESTIONS` literals collided with the JSON-backed
+> names of the same name, so they were renamed `SUGGESTIONS_ALT`/`QUESTIONS_ALT`; their
+> generator functions were renamed `page_suggestions_alt`/`page_questions_alt`. Their work
+> contributes a question this pass did not ask — which Amazon marketplace a Japan-based
+> Associate may promote — and that row is kept as written.
+
+## Record — X-633b115f (arena/633b115f-zone1, 2026-11-15 UTC)
+
+**Delivered:** `suggestions.html` (12 suggestions SG-01…SG-12, each with options and a "Your choice" column; none implemented) and `questions.html` (14 questions Q-01…Q-14: known facts with sources, missing facts, how to find each, and the decision each unblocks). Both are in the root NAV, the pages dict, and `sitemap.xml`.
+
+**Sources fetched live on 2026-11-15 by this session:**
+* https://link.amazon/B04G1MEwY → https://www.amazon.com/dp/B0CDY277D3 (title re-read: CHEFMAN 6 Quart Dual Basket Air Fryer)
+* https://link.amazon/B02NbDxp3 → https://www.amazon.com/dp/B09B7SB46R (title re-read: Emeril Lagasse 26QT French Door)
+* https://link.amazon/B00hJ57DV → https://www.amazon.com/dp/B08DKYBTPH (title re-read: Chefman 8 Qt TurboFry 4-in-1)
+* https://affiliate-program.amazon.com/help/operating/agreement (Operating Agreement, updated October 15, 2025; §1 tagged links, §1 Program Content, Schedule 1 reference, country selector lists Japan)
+* https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers (Disclosures 101, November 2019: placement, "hard to miss", no claims about a product not tried)
+
+Every other source cited on the two pages was already registered in `data/sources.json` (S2, S3, S4, S5, S6, S7, S8, S10, S12, S13, S14, S15, S16, S17, S19, S24, S26). Those were **not** re-read today; the page text says which facts are only known from the earlier passes.
+
+**Verification performed:** `build.py` (0 errors; every table row sourced or linked to Flagged), `verify.py` (0 errors), `scripts/check_links.py` (5,088 links, 0 broken), `platform/tests` (33/33), `platform/audit/report.py` (0 warnings), `scripts/build_site.py` + `scripts/verify_site.py` (all checks passed), `research/check_research.py` (OK). The generator reproduces the committed HTML (`git diff` clean after rebuild).
+
+**Irregularities and flags:**
+* The short-link re-read matches the stored ASINs. The open question is ownership and intent (Q-01), not whether the links resolve. F2 remains open.
+* The Chefman 8 Qt model name conflicts across sources (RJ38-SQSS-8T vs RJ38-8T-BLACK) — Q-09.
+* Amazon price and rating display is restricted by Program Policies; the new pages show no price or rating (Q-05).
+* Two statements on the new pages are marked as "not yet read": per-product commission-rate mapping (Q-04) and payment/tax terms (Q-11).
+* Search-demand data for article topics has no official source; SG-06 and Q-12 say so.
+
+
+### X-633b115f — PR, merge and Pages record (2026-11-15 UTC)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/58 — "Suggestions and Questions/information-gap pages (X-633b115f)", `arena/633b115f-zone1` → `main`.
+* **Checks on the PR head:** `verify` ✓ · `Rebuild site/ from data/verified and assert every guarantee` ✓.
+* **Merge:** `gh pr merge 58 --merge` at 2026-11-15T11:44:43Z, without waiting for approval, per the brief. **Merge commit on `main`: `a5ec6549e58b73b3cabae26dd9a1d857f57361c6`.**
+* **Post-merge on `a5ec654`:** `CI` ✓ · `Verify verification annex (site/)` ✓ · `Build, verify and deploy to GitHub Pages` ✓ · `pages build and deployment` ✓. `gh api …/pages/builds/latest` → `status: built`, `error: null`.
+* **Live (fetched from the deployed URLs):** https://kanlerxz87-cyber.github.io/Zone1/suggestions.html and https://kanlerxz87-cyber.github.io/Zone1/questions.html both serve the new content, including the disclosure bar.
+* **Flagged for review (non-blocking):** the open items listed in the X-633b115f record above, now published on the Suggestions and Questions pages.

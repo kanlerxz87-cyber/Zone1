@@ -164,6 +164,8 @@ NAV = [
     ("executive-summary.html", "Executive summary", "Decision-ready briefing"),
     # Added by the 2026-11-14 integration pass: the line-by-line re-read ledger.
     ("reverification.html", "Re-verification 2026-11-14", "Every published value re-read against its official source"),
+    ("suggestions.html", "Suggestions", "Improvements to choose from, none applied yet"),
+    ("questions.html", "Questions and gaps", "What must be answered before a decision"),
     # All parallel-session builds are now reached through one page rather than six sidebar
     # entries (2026-11-14, arena/6b2eddeb). Six entries in the main nav made a reader choose
     # between six answers to the same question; flag F35 records why that was a problem.
@@ -2278,8 +2280,18 @@ a short story rather than an open-ended project.</p>
 
 <h2>The queue</h2>
 {cards}
+
+<div class="callout note" style="margin-top:1.5rem">
+  <strong>Related registers.</strong>
+  A second, independently written set of questions and directions was produced by a parallel
+  session on the same day and is published rather than merged away, because it asks things this
+  register does not — including which Amazon marketplace a Japan-based Associate may promote.
+  <a href="decision-gate.html">Questions and information gaps (parallel pass)</a> ·
+  <a href="marketing-directions.html">Marketing directions (parallel pass)</a> ·
+  <a href="questions.html">This pass's open questions</a>
+</div>
 """
-    return layout("suggestions.html", "Suggestions", body, active="suggestions.html",
+    return layout("marketing-directions.html", "Suggestions", body, active="marketing-directions.html",
                   description="Sixteen reviewed, evidence-backed suggestions for the site, each with alternative paths and a recommendation, for the owner to choose before anything is implemented.")
 
 
@@ -2374,9 +2386,235 @@ settled without you links to the row that blocks it.</p>
 
 <h2>The questions in full</h2>
 {''.join(sections)}
+
+<div class="callout note" style="margin-top:1.5rem">
+  <strong>Related registers.</strong>
+  A parallel session published its own question set the same day; it is kept alongside this one
+  because it covers ground this register does not. <a href="decision-gate.html">Questions and
+  information gaps (parallel pass)</a> · <a href="marketing-directions.html">Marketing directions
+  (parallel pass)</a> · <a href="suggestions.html">This pass's suggestions</a>
+</div>
 """
     return layout("questions.html", "Open questions", body, active="questions.html",
                   description="The questions, information and answers that must be settled before a decision on this site is reasonable, separated into known, discoverable, not-stated and account-only.")
+
+
+# --------------------------------------------------------------------------- #
+# 2026-11-15 (arena/633b115f, X-633b115f): decision pages.
+# Suggestions are NOT implemented. Each one is a choice for the owner to make
+# before any change is made. Questions are the facts still missing before a
+# decision can be made reasonably. Opinions carry no official source; they are
+# labelled as opinions and point to the Flagged page instead of inventing one.
+# --------------------------------------------------------------------------- #
+
+# Literal registers belonging to the arena/633b115f decision pages below. Renamed on merge
+# (2026-11-15) because they collided with the JSON-backed SUGGESTIONS/QUESTIONS above.
+SUGGESTIONS_ALT = [
+    # id, area, suggestion, basis text, basis source ids, options, effort
+    ("SG-01", "Design",
+     "Make the home page a product finder: one question at the top (\"Which air fryer fits how you cook?\") and the three products as rows of comparable facts, not three identical cards.",
+     "Opinion, not a fact. The current dashboard repeats the same card for each product. Flagged so you can decide.",
+     [], "A) Keep the dashboard. B) Finder-first home page (recommended for a buyer audience). C) Editorial home page led by one article.",
+     "Medium"),
+    ("SG-02", "Design",
+     "Use photographs the owner takes, or licensed images, instead of generic stock or generated imagery. Generic imagery is the main reason a site reads as machine-made.",
+     "Amazon provides Program Content (images, text, linking tools) to Associates. Image rights for anything else are not covered. Confirm before use.",
+     ["S1"], "A) Owner photos (recommended). B) Amazon Program Content images, used as the Agreement allows. C) Text-only pages.",
+     "Low to medium"),
+    ("SG-03", "Trust and disclosure",
+     "Keep the disclosure next to every Amazon link as well as in the top bar. Confirm every product card, table row and article has it.",
+     "The Operating Agreement requires an identification of the Associate relationship, and FTC guidance says disclosures must be hard to miss and placed with the endorsement itself.",
+     ["S1", "S5", "S8"], "A) Top bar plus link-level text (recommended). B) Top bar only (not recommended).",
+     "Low"),
+    ("SG-04", "Pricing and reviews",
+     "Do not display Amazon prices, availability, star ratings or review counts until they come through an approved Amazon API. Keep those cells blank and flagged.",
+     "Program Policies restrict price and review display (§2(b) and §6(t) as quoted in data/products.json). PA-API eligibility is described in Amazon's Associates help.",
+     ["S2", "S19", "S24"], "A) Keep blank and link to the live Amazon page (current, compliant). B) Apply for API access once eligible (requires the Question Q-05 answer first).",
+     "Low now, medium later"),
+    ("SG-05", "Content",
+     "Write only from facts you can source, and state any first-hand experience only if the owner actually uses the product. Do not write reviews for products that have not been tried.",
+     "FTC Disclosures 101: you cannot talk about your experience with a product you have not tried; a paid recommendation cannot say a product is great if you thought it was terrible.",
+     ["S8", "S7"], "A) Spec-and-policy articles only (current, compliant). B) Add first-hand reviews after the owner tests each product, with the test recorded.",
+     "Medium"),
+    ("SG-06", "Content and SEO",
+     "Pick article topics from real search demand, not from guesses. Candidate clusters: air fryer capacity for household size, air fryer vs toaster oven, and how to read a manufacturer's temperature range.",
+     "No official source publishes search demand for these topics. Demand data must come from a tool the owner chooses and must be saved to the repository before any topic is treated as trending.",
+     [], "A) Choose a keyword tool and export its data first (recommended). B) Publish the current topics without demand data (not recommended).",
+     "Medium"),
+    ("SG-07", "Tracking",
+     "Measure clicks with Associates tracking IDs (sub-tags), one per page or article, so the owner can see which content drives sales.",
+     "Amazon defines tracking IDs and sub-tags in the Associates help topic. Click and order reporting is available only after the account is live.",
+     ["S6", "S3"], "A) One tracking ID per page (recommended). B) One ID for the whole site (simpler, less detail).",
+     "Low"),
+    ("SG-08", "Links",
+     "Use the full canonical product link format for outbound Amazon links, with the Associates tag, instead of the three short links, once the owner confirms which product each short link should send people to.",
+     "Each short link resolves today to a product page (S17, S16). Who owns the short links is not confirmed (flag F2). The Operating Agreement requires the tagged link formats Amazon provides (§1).",
+     ["S17", "S16", "S1"], "A) Keep the short links until the owner confirms them. B) Switch to tagged product-page links after Q-01 and Q-02 are answered (recommended).",
+     "Low"),
+    ("SG-09", "Eligibility",
+     "Confirm the Associates account passes the Application Review before publishing money pages, or publish content without outbound links until it does.",
+     "Amazon's Application Review topic lists qualifying-sales and content requirements. The owner must check their own account status.",
+     ["S4"], "A) Check status now, publish after approval (recommended). B) Publish content with no purchase links until approved. C) Use a different affiliate program for now (new research required).",
+     "Low"),
+    ("SG-10", "Market",
+     "Decide which Amazon store the site targets. The three supplied links point to amazon.com (US). The owner is in Osaka, Japan.",
+     "The Operating Agreement names the Amazon sites in Schedule 1, and Japan appears in the Associates country list. Whether a Japan-based Associate may promote US listings is not confirmed.",
+     ["S1"], "A) Stay on amazon.com and confirm eligibility (current links). B) Research amazon.co.jp products and build a separate Japan site.",
+     "High (changes the product set)"),
+    ("SG-11", "Automation",
+     "Require the build gate to pass before any article or page is published. A failed gate blocks publication.",
+     "The repository's verify.py gate checks broken links, unsourced values and missing disclosures, and the Pages workflow runs it on every push.",
+     [], "A) Keep the gate blocking (recommended). B) Warn only (not recommended; allows unsourced values to ship).",
+     "Low"),
+    ("SG-12", "Freshness",
+     "Set a re-verification interval for every price-free fact on the site (specs, policy quotes, links), and show the date on each page.",
+     "Official pages change. The site already records the verification date. The interval itself is a choice; no official source sets it.",
+     [], "A) Every 30 days. B) Every 90 days (recommended for spec data). C) Only when the owner asks.",
+     "Low"),
+]
+
+QUESTIONS_ALT = [
+    # id, question, known (sourced), missing, how to find out, unblocks, source ids
+    ("Q-01", "Who owns the three link.amazon short links, and are these the products the owner intends to promote?",
+     "Re-read on 2026-11-15: each short link resolves to a product page. B04G1MEwY → B0CDY277D3 (CHEFMAN 6 Qt Dual Basket); B02NbDxp3 → B09B7SB46R (Emeril Lagasse 26QT); B00hJ57DV → B08DKYBTPH (CHEFMAN 8 Qt TurboFry).",
+     "Who created the short links, and whether they were meant for these products. The short-link owner is not published.",
+     "Open the owner's Associates account and check which tag the short links carry. Amazon's tracking-ID help explains the tag format.",
+     "SG-08, every product page", ["S17", "S16", "S6"]),
+    ("Q-02", "Which Associates account and tracking ID will the site use?",
+     "Amazon defines tracking IDs and sub-tags in its help topic.",
+     "The account name, tracking ID and sub-tag plan are not in the repository.",
+     "Associates Central → tracking IDs (see the help topic). Record the chosen ID in data/config.json.",
+     "SG-07, SG-08", ["S6"]),
+    ("Q-03", "Is the Associates account approved and active, and does it meet the Application Review requirements?",
+     "Application Review lists qualifying-sales and content requirements, including a time window for the sales.",
+     "Account status and sales history are not known to this repository.",
+     "Read the Application Review topic and the account's status page. Record the result.",
+     "SG-09", ["S4"]),
+    ("Q-04", "Which commission rate applies to each of the three products?",
+     "The Standard Commission Income Statement publishes a rate table. Rows have not yet been matched to these three products' categories by a verified read on 2026-11-15.",
+     "The category-to-rate mapping for each product is not confirmed.",
+     "Read the rate table on the Commission Income Statement page and match each product's category. Do not estimate.",
+     "Commission-potential figures on every product page", ["S3"]),
+    ("Q-05", "What are the current price, availability, star rating and review count for each product?",
+     "Program Policies restrict displaying Amazon prices and reviews unless they come from an approved Amazon API. The site does not hold that access.",
+     "No price, availability, rating or review count is published by this site, by design.",
+     "Check API eligibility on the PA-API pages, and read Amazon's PA-API 5 deprecation notice for the dates before choosing an API.",
+     "SG-04", ["S2", "S19", "S24"]),
+    ("Q-06", "Which Amazon store should the site target, given the owner is in Osaka, Japan?",
+     "The Operating Agreement defines the Amazon sites in Schedule 1. The country selector on the Operating Agreement page lists Japan.",
+     "Whether a Japan-based Associate may promote amazon.com listings is not confirmed.",
+     "Read Schedule 1 and the Japan Associates pages. Ask Associates support if the answer is unclear.",
+     "SG-10", ["S1"]),
+    ("Q-07", "Is RJ38-SQPF-3TDB-2W the exact model sold under ASIN B0CDY277D3?",
+     "The owner's manual matches the listing wording (dual baskets, easy-view windows, Hi-Fry, Sync Finish). Amazon does not publish the model number on the product page.",
+     "A model number printed on the product, or on the listing's product-information block, is not confirmed.",
+     "Read the model plate on a unit, or the 'Product information' block on the listing page. Record what you find with the source.",
+     "Product page spec rows", ["S10", "S16"]),
+    ("Q-08", "Which model is sold under ASIN B09B7SB46R (Emeril Lagasse 26QT)?",
+     "The owner's manual FAFO-001 and the brand product page describe the Emeril 26QT French Door air fryer.",
+     "The model number printed on the Amazon listing is not confirmed.",
+     "Read the 'Product information' block on the listing page and compare it with the manual's model number.",
+     "Product page spec rows", ["S15", "S14", "S16"]),
+    ("Q-09", "Which Chefman 8 Qt model is sold under ASIN B08DKYBTPH: RJ38-SQSS-8T or RJ38-8T-BLACK?",
+     "The brand's owner's manual names RJ38-SQSS-8T. A different brand page lists RJ38-8T-BLACK. The two model names conflict in the sources.",
+     "The model behind the ASIN is not confirmed.",
+     "Read the 'Product information' block on the listing and compare the model number with each brand page.",
+     "Product page spec rows", ["S13", "S26", "S12"]),
+    ("Q-10", "What warranty and return terms apply to each product on Amazon?",
+     "Brand pages may describe warranty for units the brand sells; the Amazon listing's seller terms may differ.",
+     "The terms for the Amazon listing are not confirmed by this repository.",
+     "Read the 'Returns and warranty' section on each listing page, and record the seller shown.",
+     "Product pages, buying guide", ["S16", "S14"]),
+    ("Q-11", "What tax and payment information must the payee provide, and what is the minimum payment threshold?",
+     "The Operating Agreement is the governing document. Payment and tax terms are not in the pages this repository has read.",
+     "This repository has not read the payment or tax pages on 2026-11-15, so no tax or threshold figure is published here.",
+     "Read the payment and tax help pages in Associates Central. Record the figures with their source and date before publishing any of them.",
+     "Any earnings or payout statement on the site", ["S1"]),
+    ("Q-12", "What is the search demand for the air-fryer topics the site wants to cover?",
+     "No official source publishes search demand. The site's article topics are a proposal.",
+     "Search volume, trend and competition data for each topic are not held in the repository.",
+     "Choose a keyword tool, export the data for the candidate topics, and save the export under data/ with the date.",
+     "SG-06", []),
+    ("Q-13", "Which product experiences has the owner personally tested?",
+     "FTC guidance: you cannot talk about your experience with a product you have not tried.",
+     "No first-hand test is recorded for any of the three products.",
+     "Test the products, or do not describe them as tested. Record each test (date, what was tested) in the repository.",
+     "SG-05", ["S8"]),
+    ("Q-14", "Is the owner's use of brand names and logos in headlines allowed under Amazon's Trademark Guidelines?",
+     "Program Policies incorporate the Associates Trademark Guidelines by reference (Operating Agreement preamble).",
+     "The site has not checked its headlines and images against the Trademark Guidelines.",
+     "Read the Trademark Guidelines linked from the Program Policies, then review each headline and image.",
+     "SG-02, article headlines", ["S2", "S1"]),
+]
+
+
+def page_suggestions_alt():
+    rows = []
+    for sid, area, text, basis, basis_src, options, effort in SUGGESTIONS_ALT:
+        basis_html = (src_links(basis_src) + " " if basis_src else "") + (
+            "" if basis_src else '<a href="flagged.html">Flagged for review</a> ')
+        rows.append(
+            f"""<tr>
+          <td><strong>{e(sid)}</strong><div class="tiny muted">{e(area)}</div></td>
+          <td>{e(text)}</td>
+          <td class="small">{e(basis)}<div class="tiny">{basis_html}</div></td>
+          <td class="small">{e(options)}</td>
+          <td class="small">{e(effort)}</td>
+          <td class="small">☐ A &nbsp; ☐ B &nbsp; ☐ C<div class="tiny muted">Reply with the ID and letter</div></td>
+        </tr>""")
+    body = f"""
+<p class="crumbs"><a href="index.html">Dashboard</a> / Suggestions</p>
+<h1>Suggestions: choose the path before anything changes</h1>
+<p class="lede">{len(SUGGESTIONS)} suggestions to improve the site's design, trust, content and measurement. <strong>None of them has been implemented.</strong> Each one lists the options. Pick an option for each ID you want, and only then will the change be made.</p>
+
+<div class="callout warn"><strong>How to decide.</strong> Each row has a basis. Where the basis is an official Amazon or FTC source, the link goes to that source. Where the row is a design opinion, it says so and points to <a href="flagged.html">Flagged for review</a>. The options run from the current state (A) to the recommended path.</div>
+
+<div class="tablewrap">
+<table>
+  <caption>Suggestions and the options for each</caption>
+  <thead><tr><th>ID</th><th>Suggestion</th><th>Basis and source</th><th>Options</th><th>Effort</th><th>Your choice</th></tr></thead>
+  <tbody>{"".join(rows)}</tbody>
+</table>
+</div>
+
+<h2>Information needed before some of these can be decided</h2>
+<p class="small">Several suggestions depend on a fact not yet known. Those facts are listed, with the way to find each one, on the <a href="questions.html">Questions and information gaps</a> page.</p>
+"""
+    return layout("suggestions.html", "Suggestions", body, active="suggestions.html",
+                  description="Site, design, trust, content and measurement suggestions, with options for the owner to choose before any change is made.")
+
+
+def page_questions_alt():
+    rows = []
+    for qid, q, known, missing, how, unblocks, srcs in QUESTIONS_ALT:
+        rows.append(
+            f"""<tr>
+          <td><strong>{e(qid)}</strong></td>
+          <td>{e(q)}</td>
+          <td class="small">{e(known)}<div class="tiny">{src_links(srcs) if srcs else '<a href="flagged.html">Flagged for review</a>'}</div></td>
+          <td class="small">{e(missing)}</td>
+          <td class="small">{e(how)}</td>
+          <td class="small">{e(unblocks)}</td>
+        </tr>""")
+    body = f"""
+<p class="crumbs"><a href="index.html">Dashboard</a> / Questions and information gaps</p>
+<h1>What must be answered before a decision is reasonable</h1>
+<p class="lede">{len(QUESTIONS_ALT)} questions. For each one: what the repository already holds (with its official source), what is still missing, how to find the missing fact, and which decision it unblocks. Nothing in the <em>missing</em> column has been filled in with an estimate.</p>
+
+<div class="callout warn"><strong>Read this first.</strong> Q-01 and Q-06 decide most of the other choices: which products the links really point to, and which Amazon store the site can promote. Answer those two before the product pages are extended.</div>
+
+<div class="tablewrap">
+<table>
+  <caption>Questions, known facts, gaps and how to close each gap</caption>
+  <thead><tr><th>ID</th><th>Question</th><th>Known (sourced)</th><th>Missing</th><th>How to find out</th><th>Unblocks</th></tr></thead>
+  <tbody>{"".join(rows)}</tbody>
+</table>
+</div>
+
+<p class="small" style="margin-top:1.5rem">Related: <a href="suggestions.html">Suggestions</a> · <a href="flagged.html">Flagged for review</a> · <a href="executive-summary.html">Executive summary</a></p>
+"""
+    return layout("decision-gate.html", "Questions and information gaps", body, active="decision-gate.html",
+                  description="Questions that must be answered before decisions, what is known with sources, what is missing, and how to find it.")
 
 
 def page_404():
@@ -2782,9 +3020,11 @@ def main():
     pages["platform.html"] = page_platform()
     pages["executive-summary.html"] = page_exec()
     pages["reverification.html"] = page_reverification()
-    pages["previous-passes.html"] = page_previous_passes()
     pages["suggestions.html"] = page_suggestions()
     pages["questions.html"] = page_questions()
+    pages["decision-gate.html"] = page_questions_alt()
+    pages["marketing-directions.html"] = page_suggestions_alt()
+    pages["previous-passes.html"] = page_previous_passes()
     pages["404.html"] = page_404()
 
     # build guards
