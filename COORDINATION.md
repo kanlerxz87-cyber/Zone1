@@ -3840,3 +3840,26 @@ BUILD FAILED — a row cites a document that contradicts its own value:
 **Total guards added or tightened in this session:** nested-anchor checks in both `verify.py` (repo-wide) and
 `scripts/verify_site.py` (V13); `check_spec_source_conflicts()`; and the `check_seo_metadata()` guard from
 `arena/792c279e` extended to the three pages that session added. All are proven to fire on an injected violation.
+
+---
+
+### W7 PR / merge / deploy result — arena/42ca97ad-zone1
+
+* **PR #78** — "Verification pass 9: 43 rows re-read against source, machine-spliced prose found and guarded, decision layer now answers what can be answered". Branch `arena/42ca97ad-zone1` → `main`. CI green on the PR head (`verify` ✓, `Rebuild site/ from data/verified` ✓), `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`. **Merged** `gh pr merge 78 --merge` at **2026-11-15T13:27:53Z**, without waiting for approval. **Merge commit on `main`: `b788a6ff7fe116b24550b317faa4bf7e4a98a41e`.**
+* **PR #80** — "Fix a register preamble that repeated a sentence on the deployed page, and guard it". Opened after the read-back finding (F58). CI green, `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`. **Merged** `gh pr merge 80 --merge` at **2026-11-15T13:31:26Z**. **Merge commit on `main`: `a70a367e303da75a3b238cdf593ca64a26dd1d73`.**
+* **Post-merge workflows on `main` at `a70a367e`, all success:**
+  * `CI` ✓ — run [43719438580](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43719438580) (12s)
+  * `Verify verification annex (site/)` ✓ — run [43719438535](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43719438535) (12s)
+  * `Build, verify and deploy to GitHub Pages` ✓ — run [43719438543](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43719438543) (28s)
+  * `pages build and deployment` ✓ — run [43719438052](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43719438052) (35s)
+* **GitHub Pages:** `gh api repos/…/pages/builds/latest` → `status: built`, commit `a70a367e303d`, `error: null`. Live at https://kanlerxz87-cyber.github.io/Zone1/.
+* **Deployed-state verification (read back from the live site, not from the working tree).**
+  * `questions.html` — the register shows **4 known and sourced / 8 missing but discoverable / 1 not stated / 7 needing account access / 20 total**; Q-15 to Q-20 are present with their states; the preamble sentence appears **once** and says *"separates four states"*; all four `known and sourced` rows carry a green **Answer.** block.
+  * `articles/dual-basket-vs-single-basket.html` — the F55 fix is live in the served page: *"The dual-basket unit is `6 Qt / 5.67 L` as `two 3-quart baskets`"* and *"documented as `designed for 4–6 people`"*.
+  * `flagged.html` — **54 distinct flag ids, no duplicates**, including **F54, F55, F56, F57, F58** and the product-level **F50**.
+  * `executive-summary.html` — the Pass 9 callout, finding 5 and the SG-18 / SG-20 recommendation links are all live.
+  * `suggestions.html` — SG-18 to SG-21 present; the **Your call** column is live.
+  * **A stale CDN copy was caught and not mistaken for a regression.** The first read-back of `questions.html` still showed the duplicated preamble. `main` was confirmed to carry the fix, and a cache-busted read of the same URL returned the corrected page. This is recorded rather than glossed: a stale edge copy and a missed merge look identical from one fetch, and the second, cache-busted read is what distinguishes them.
+* **Gates on the final branch head:** `python3 build.py` → 34 sitemap URLs, exit 0 · `python3 verify.py` → 113 pages, 43 spec rows (41 verified / 2 blank+flagged), 31 sources, 0 errors · `bash scripts/ci-check.sh` → 33 unit tests, data audit clean, 6,034 links / 0 broken · `python3 research/check_research.py` → OK · `python3 scripts/verify_site.py` → 382 assertions passed · `python3 platform/audit/report.py` → clean · rebuild byte-identical · conflict-marker scan across the whole repository → no matches · 0 malformed article splices across 13 articles.
+
+**W7 result: done — verified line by line, four defects found and fixed, one found on the deployed site and fixed, five flags published, both PRs merged, Pages deployed, and every claim re-checked against the artefact that is actually being served.**
