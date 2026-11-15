@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Suggestions · Zone1 Kitchen</title>
-<meta name="description" content="Site, design, trust, content and measurement suggestions, with options for the owner to choose before any change is made.">
+<meta name="description" content="Sixteen reviewed, evidence-backed suggestions for the site, each with alternative paths and a recommendation, for the owner to choose before anything is implemented.">
 <link rel="stylesheet" href="assets/style.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230f766e'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='%23fff' text-anchor='middle'%3EZ1%3C/text%3E%3C/svg%3E">
 </head>
@@ -19,14 +19,16 @@
     <span>Zone1 Kitchen<small>Verified Amazon affiliate product intelligence</small></span>
   </a>
   <span class="spacer"></span>
-  <span class="meta">data verified 2026-11-13 · re-verified 2026-11-14</span>
+  <span class="meta">data verified 2026-11-13 · re-verified 2026-11-15</span>
   <button class="navtoggle" type="button" aria-label="Toggle navigation">Menu</button>
 </header>
 <div class="shell">
   <aside class="sidebar">
     <div class="group">
-      <h4>Dashboard</h4>
+      <h4>Start here</h4>
       <a href="index.html">Dashboard<span class="sub">Overview of the product set and the data</span></a>
+      <a href="guides/buying-guide-air-fryers.html">Buying guide<span class="sub">How to choose a form factor</span></a>
+      <a href="articles/index.html">Articles<span class="sub">Sourced reads — comparisons, explainers, policy</span></a>
     </div>
     <div class="group">
       <h4>Products</h4>
@@ -35,122 +37,364 @@
       <a href="compare.html">Comparison<span class="sub">Verified-only side-by-side matrix</span></a>
     </div>
     <div class="group">
-      <h4>Research &amp; data</h4>
-      <a href="guides/buying-guide-air-fryers.html">Buying guide<span class="sub">How to choose a form factor</span></a>
-      <a href="articles/index.html">Articles<span class="sub">Five sourced reads — comparisons, explainers, policy</span></a>
-      <a href="data.html">Full dataset<span class="sub">Every field, value, source and gap</span></a>
-      <a href="platform.html">Platform blueprint<span class="sub">The automation and compliance design</span></a>
+      <h4>Decide</h4>
+      <a href="suggestions.html">Suggestions<span class="sub">Improvements to choose from, none applied yet</span></a>
+      <a href="questions.html">Questions and gaps<span class="sub">What must be answered before a decision</span></a>
+      <a href="executive-summary.html">Executive summary<span class="sub">Decision-ready briefing</span></a>
     </div>
     <div class="group">
-      <h4>Report</h4>
+      <h4>Evidence</h4>
+      <a href="data.html">Full dataset<span class="sub">Every field, value, source and gap</span></a>
+      <a href="reverification.html">Re-verification 2026-11-14<span class="sub">Every published value re-read against its official source</span></a>
       <a href="compliance.html">Compliance<span class="sub">Program rules, quoted, with sources</span></a>
       <a href="flagged.html">Flagged for review<span class="sub">Unverified values and irregularities</span></a>
-      <a href="executive-summary.html">Executive summary<span class="sub">Decision-ready briefing</span></a>
+    </div>
+    <div class="group">
+      <h4>Platform</h4>
+      <a href="platform.html">Platform blueprint<span class="sub">The automation and compliance design</span></a>
     </div>
     <div class="group"><h4>Archive</h4><a href="previous-passes.html">Previous passes<span class="sub">8 parallel builds kept in this repo, catalogued</span></a></div>
   </aside>
   <main>
     
 <p class="crumbs"><a href="index.html">Dashboard</a> / Suggestions</p>
-<h1>Suggestions: choose the path before anything changes</h1>
-<p class="lede">12 suggestions to improve the site's design, trust, content and measurement. <strong>None of them has been implemented.</strong> Each one lists the options. Pick an option for each ID you want, and only then will the change be made.</p>
+<h1>Suggestions, and a place to choose between them</h1>
+<p class="lede">Sixteen things this pass believes would materially improve this site, in priority order.
+Nothing on this page has been implemented. Each entry names the problem it fixes, the official
+document or repository evidence behind it, two or three paths you could take, and the path this
+pass would pick if it were your call. Read the one you care about, choose a path, and the work is
+a short story rather than an open-ended project.</p>
 
-<div class="callout warn"><strong>How to decide.</strong> Each row has a basis. Where the basis is an official Amazon or FTC source, the link goes to that source. Where the row is a design opinion, it says so and points to <a href="flagged.html">Flagged for review</a>. The options run from the current state (A) to the recommended path.</div>
-
-<div class="tablewrap">
-<table>
-  <caption>Suggestions and the options for each</caption>
-  <thead><tr><th>ID</th><th>Suggestion</th><th>Basis and source</th><th>Options</th><th>Effort</th><th>Your choice</th></tr></thead>
-  <tbody><tr>
-          <td><strong>SG-01</strong><div class="tiny muted">Design</div></td>
-          <td>Make the home page a product finder: one question at the top (&quot;Which air fryer fits how you cook?&quot;) and the three products as rows of comparable facts, not three identical cards.</td>
-          <td class="small">Opinion, not a fact. The current dashboard repeats the same card for each product. Flagged so you can decide.<div class="tiny"><a href="flagged.html">Flagged for review</a> </div></td>
-          <td class="small">A) Keep the dashboard. B) Finder-first home page (recommended for a buyer audience). C) Editorial home page led by one article.</td>
-          <td class="small">Medium</td>
-          <td class="small">☐ A &nbsp; ☐ B &nbsp; ☐ C<div class="tiny muted">Reply with the ID and letter</div></td>
-        </tr><tr>
-          <td><strong>SG-02</strong><div class="tiny muted">Design</div></td>
-          <td>Use photographs the owner takes, or licensed images, instead of generic stock or generated imagery. Generic imagery is the main reason a site reads as machine-made.</td>
-          <td class="small">Amazon provides Program Content (images, text, linking tools) to Associates. Image rights for anything else are not covered. Confirm before use.<div class="tiny"><a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" title="Amazon.com Associates Central — Associates Program Operating Agreement" rel="noopener" target="_blank">S1</a> </div></td>
-          <td class="small">A) Owner photos (recommended). B) Amazon Program Content images, used as the Agreement allows. C) Text-only pages.</td>
-          <td class="small">Low to medium</td>
-          <td class="small">☐ A &nbsp; ☐ B &nbsp; ☐ C<div class="tiny muted">Reply with the ID and letter</div></td>
-        </tr><tr>
-          <td><strong>SG-03</strong><div class="tiny muted">Trust and disclosure</div></td>
-          <td>Keep the disclosure next to every Amazon link as well as in the top bar. Confirm every product card, table row and article has it.</td>
-          <td class="small">The Operating Agreement requires an identification of the Associate relationship, and FTC guidance says disclosures must be hard to miss and placed with the endorsement itself.<div class="tiny"><a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" title="Amazon.com Associates Central — Associates Program Operating Agreement" rel="noopener" target="_blank">S1</a> <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98" title="Amazon.com Associates Central — Why do I have to identify myself as an Associate? How should I do this on social media?" rel="noopener" target="_blank">S5</a> <a class="src" href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" title="U.S. Federal Trade Commission — Disclosures 101 for Social Media Influencers" rel="noopener" target="_blank">S8</a> </div></td>
-          <td class="small">A) Top bar plus link-level text (recommended). B) Top bar only (not recommended).</td>
-          <td class="small">Low</td>
-          <td class="small">☐ A &nbsp; ☐ B &nbsp; ☐ C<div class="tiny muted">Reply with the ID and letter</div></td>
-        </tr><tr>
-          <td><strong>SG-04</strong><div class="tiny muted">Pricing and reviews</div></td>
-          <td>Do not display Amazon prices, availability, star ratings or review counts until they come through an approved Amazon API. Keep those cells blank and flagged.</td>
-          <td class="small">Program Policies restrict price and review display (§2(b) and §6(t) as quoted in data/products.json). PA-API eligibility is described in Amazon&#x27;s Associates help.<div class="tiny"><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a> <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GBRCD467W33NMWLD" title="Amazon.com Associates Central — New Product Advertising API (PA API) Registration" rel="noopener" target="_blank">S19</a> <a class="src" href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation" title="Amazon.com Associates Central — Creators API documentation — PA-API 5 Deprecation Notice" rel="noopener" target="_blank">S24</a> </div></td>
-          <td class="small">A) Keep blank and link to the live Amazon page (current, compliant). B) Apply for API access once eligible (requires the Question Q-05 answer first).</td>
-          <td class="small">Low now, medium later</td>
-          <td class="small">☐ A &nbsp; ☐ B &nbsp; ☐ C<div class="tiny muted">Reply with the ID and letter</div></td>
-        </tr><tr>
-          <td><strong>SG-05</strong><div class="tiny muted">Content</div></td>
-          <td>Write only from facts you can source, and state any first-hand experience only if the owner actually uses the product. Do not write reviews for products that have not been tried.</td>
-          <td class="small">FTC Disclosures 101: you cannot talk about your experience with a product you have not tried; a paid recommendation cannot say a product is great if you thought it was terrible.<div class="tiny"><a class="src" href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" title="U.S. Federal Trade Commission — Disclosures 101 for Social Media Influencers" rel="noopener" target="_blank">S8</a> <a class="src" href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" title="U.S. Federal Trade Commission — FTC&#x27;s Endorsement Guides: What People Are Asking" rel="noopener" target="_blank">S7</a> </div></td>
-          <td class="small">A) Spec-and-policy articles only (current, compliant). B) Add first-hand reviews after the owner tests each product, with the test recorded.</td>
-          <td class="small">Medium</td>
-          <td class="small">☐ A &nbsp; ☐ B &nbsp; ☐ C<div class="tiny muted">Reply with the ID and letter</div></td>
-        </tr><tr>
-          <td><strong>SG-06</strong><div class="tiny muted">Content and SEO</div></td>
-          <td>Pick article topics from real search demand, not from guesses. Candidate clusters: air fryer capacity for household size, air fryer vs toaster oven, and how to read a manufacturer&#x27;s temperature range.</td>
-          <td class="small">No official source publishes search demand for these topics. Demand data must come from a tool the owner chooses and must be saved to the repository before any topic is treated as trending.<div class="tiny"><a href="flagged.html">Flagged for review</a> </div></td>
-          <td class="small">A) Choose a keyword tool and export its data first (recommended). B) Publish the current topics without demand data (not recommended).</td>
-          <td class="small">Medium</td>
-          <td class="small">☐ A &nbsp; ☐ B &nbsp; ☐ C<div class="tiny muted">Reply with the ID and letter</div></td>
-        </tr><tr>
-          <td><strong>SG-07</strong><div class="tiny muted">Tracking</div></td>
-          <td>Measure clicks with Associates tracking IDs (sub-tags), one per page or article, so the owner can see which content drives sales.</td>
-          <td class="small">Amazon defines tracking IDs and sub-tags in the Associates help topic. Click and order reporting is available only after the account is live.<div class="tiny"><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA" title="Amazon.com Associates Central — What are tracking IDs, and how does the new site help Associates use them?" rel="noopener" target="_blank">S6</a> <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" title="Amazon.com Associates Central — Associates Program Standard Commission Income Statement (Table 1 &amp; Bounty Events)" rel="noopener" target="_blank">S3</a> </div></td>
-          <td class="small">A) One tracking ID per page (recommended). B) One ID for the whole site (simpler, less detail).</td>
-          <td class="small">Low</td>
-          <td class="small">☐ A &nbsp; ☐ B &nbsp; ☐ C<div class="tiny muted">Reply with the ID and letter</div></td>
-        </tr><tr>
-          <td><strong>SG-08</strong><div class="tiny muted">Links</div></td>
-          <td>Use the full canonical product link format for outbound Amazon links, with the Associates tag, instead of the three short links, once the owner confirms which product each short link should send people to.</td>
-          <td class="small">Each short link resolves today to a product page (S17, S16). Who owns the short links is not confirmed (flag F2). The Operating Agreement requires the tagged link formats Amazon provides (§1).<div class="tiny"><a class="src" href="https://link.amazon/B04G1MEwY" title="Amazon.com — link.amazon short links supplied by the account holder (B04G1MEwY, B02NbDxp3, B00hJ57DV)" rel="noopener" target="_blank">S17</a> <a class="src" href="https://www.amazon.com/dp/B0CDY277D3" title="Amazon.com (product listings) — Amazon detail pages for ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH" rel="noopener" target="_blank">S16</a> <a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" title="Amazon.com Associates Central — Associates Program Operating Agreement" rel="noopener" target="_blank">S1</a> </div></td>
-          <td class="small">A) Keep the short links until the owner confirms them. B) Switch to tagged product-page links after Q-01 and Q-02 are answered (recommended).</td>
-          <td class="small">Low</td>
-          <td class="small">☐ A &nbsp; ☐ B &nbsp; ☐ C<div class="tiny muted">Reply with the ID and letter</div></td>
-        </tr><tr>
-          <td><strong>SG-09</strong><div class="tiny muted">Eligibility</div></td>
-          <td>Confirm the Associates account passes the Application Review before publishing money pages, or publish content without outbound links until it does.</td>
-          <td class="small">Amazon&#x27;s Application Review topic lists qualifying-sales and content requirements. The owner must check their own account status.<div class="tiny"><a class="src" href="https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM" title="Amazon.com Associates Central — Application Review Process" rel="noopener" target="_blank">S4</a> </div></td>
-          <td class="small">A) Check status now, publish after approval (recommended). B) Publish content with no purchase links until approved. C) Use a different affiliate program for now (new research required).</td>
-          <td class="small">Low</td>
-          <td class="small">☐ A &nbsp; ☐ B &nbsp; ☐ C<div class="tiny muted">Reply with the ID and letter</div></td>
-        </tr><tr>
-          <td><strong>SG-10</strong><div class="tiny muted">Market</div></td>
-          <td>Decide which Amazon store the site targets. The three supplied links point to amazon.com (US). The owner is in Osaka, Japan.</td>
-          <td class="small">The Operating Agreement names the Amazon sites in Schedule 1, and Japan appears in the Associates country list. Whether a Japan-based Associate may promote US listings is not confirmed.<div class="tiny"><a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" title="Amazon.com Associates Central — Associates Program Operating Agreement" rel="noopener" target="_blank">S1</a> </div></td>
-          <td class="small">A) Stay on amazon.com and confirm eligibility (current links). B) Research amazon.co.jp products and build a separate Japan site.</td>
-          <td class="small">High (changes the product set)</td>
-          <td class="small">☐ A &nbsp; ☐ B &nbsp; ☐ C<div class="tiny muted">Reply with the ID and letter</div></td>
-        </tr><tr>
-          <td><strong>SG-11</strong><div class="tiny muted">Automation</div></td>
-          <td>Require the build gate to pass before any article or page is published. A failed gate blocks publication.</td>
-          <td class="small">The repository&#x27;s verify.py gate checks broken links, unsourced values and missing disclosures, and the Pages workflow runs it on every push.<div class="tiny"><a href="flagged.html">Flagged for review</a> </div></td>
-          <td class="small">A) Keep the gate blocking (recommended). B) Warn only (not recommended; allows unsourced values to ship).</td>
-          <td class="small">Low</td>
-          <td class="small">☐ A &nbsp; ☐ B &nbsp; ☐ C<div class="tiny muted">Reply with the ID and letter</div></td>
-        </tr><tr>
-          <td><strong>SG-12</strong><div class="tiny muted">Freshness</div></td>
-          <td>Set a re-verification interval for every price-free fact on the site (specs, policy quotes, links), and show the date on each page.</td>
-          <td class="small">Official pages change. The site already records the verification date. The interval itself is a choice; no official source sets it.<div class="tiny"><a href="flagged.html">Flagged for review</a> </div></td>
-          <td class="small">A) Every 30 days. B) Every 90 days (recommended for spec data). C) Only when the owner asks.</td>
-          <td class="small">Low</td>
-          <td class="small">☐ A &nbsp; ☐ B &nbsp; ☐ C<div class="tiny muted">Reply with the ID and letter</div></td>
-        </tr></tbody>
-</table>
+<div class="callout note">
+  <strong>How to use this page.</strong> Nothing on this page has been implemented. It is a decision queue for the site owner.
+  The score is <em>priority = impact (1-5) x confidence that the evidence supports it (1-5). Both are this pass&#x27;s judgement. The evidence links are the facts; the score is the opinion.</em>
+  Suggestions blocked by something only you can supply link to the exact row on the
+  <a href="questions.html">Open questions</a> page.
 </div>
 
-<h2>Information needed before some of these can be decided</h2>
-<p class="small">Several suggestions depend on a fact not yet known. Those facts are listed, with the way to find each one, on the <a href="questions.html">Questions and information gaps</a> page.</p>
+<h2>At a glance</h2>
+<table>
+  <thead><tr><th>#</th><th>Suggestion</th><th>Area</th><th>Priority</th><th>Effort · cost of waiting</th><th>Evidence</th></tr></thead>
+  <tbody><tr><td class="num"><a href="#sg-01">SG-01</a></td><td>Settle which exact model each supplied link points to, before any more content ships</td><td class="small">Product identity</td><td class="num">25</td><td class="small"><span class="chip">S</span> High</td><td class="small"><a href="https://chefman.com/products/turbofry-touch-dual-window-air-fryer" target="_blank" rel="noopener">Chefman 6 Qt dual-window product page  ↗</a> <a href="https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer" target="_blank" rel="noopener">Chefman 6 Qt dual-basket product page  ↗</a> <a href="https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1" target="_blank" rel="noopener">Chefman 8 Qt product page ↗</a> <a href="https://kanlerxz87-cyber.github.io/Zone1/flagged.html" target="_blank" rel="noopener">Root flag register, rows F2, F3, F32,  ↗</a></td></tr><tr><td class="num"><a href="#sg-07">SG-07</a></td><td>Do not build price tracking or price alerts, whatever the brief asks for</td><td class="small">Compliance guardrail</td><td class="num">25</td><td class="small"><span class="chip">S</span> High</td><td class="small"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies, section 6(y) ↗</a> <a href="https://kanlerxz87-cyber.github.io/Zone1/platform.html" target="_blank" rel="noopener">Platform blueprint page, guardrails se ↗</a></td></tr><tr><td class="num"><a href="#sg-02">SG-02</a></td><td>Confirm the Associates tag is actually inside the three supplied links</td><td class="small">Attribution and revenue</td><td class="num">20</td><td class="small"><span class="chip">S</span> Critical</td><td class="small"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies, section 2(a): Specia ↗</a> <a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies, section 2(b): the ta ↗</a> <a href="https://kanlerxz87-cyber.github.io/Zone1/flagged.html" target="_blank" rel="noopener">Flag F6, root register ↗</a></td></tr><tr><td class="num"><a href="#sg-03">SG-03</a></td><td>Say who wrote each page and how it was made - and stop calling the site &#x27;independent&#x27;</td><td class="small">Trust and compliance</td><td class="num">20</td><td class="small"><span class="chip">S</span> Medium-high</td><td class="small"><a href="https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-465" target="_blank" rel="noopener">16 CFR 465.6 ↗</a> <a href="https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.5" target="_blank" rel="noopener">16 CFR 255.5 ↗</a> <a href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" target="_blank" rel="noopener">FTC Endorsement Guides Q&amp;A ↗</a></td></tr><tr><td class="num"><a href="#sg-04">SG-04</a></td><td>Rebuild the landing page around a buyer&#x27;s question, not a project audit</td><td class="small">Editorial and conversion</td><td class="num">20</td><td class="small"><span class="chip">M</span> High for traffic and revenue</td><td class="small"><a href="https://kanlerxz87-cyber.github.io/Zone1/" target="_blank" rel="noopener">Current landing page ↗</a> <a href="https://kanlerxz87-cyber.github.io/Zone1/research/" target="_blank" rel="noopener">The same content done as editorial, in ↗</a> <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py" target="_blank" rel="noopener">build.py ↗</a></td></tr><tr><td class="num"><a href="#sg-06">SG-06</a></td><td>Publish no Amazon price or rating unless you hold Creators API access - and know which one you are choosing</td><td class="small">Catalogue data</td><td class="num">16</td><td class="small"><span class="chip">M</span> Medium for conversion</td><td class="small"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies, section 2(b) (price  ↗</a> <a href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation" target="_blank" rel="noopener">Creators API / PA-API 5 deprecation no ↗</a> <a href="https://kanlerxz87-cyber.github.io/Zone1/articles/no-amazon-prices.html" target="_blank" rel="noopener">Article explaining the policy to reade ↗</a></td></tr><tr><td class="num"><a href="#sg-08">SG-08</a></td><td>Add click and conversion measurement that does not breach the privacy disclosure</td><td class="small">Measurement</td><td class="num">16</td><td class="small"><span class="chip">S</span> Medium</td><td class="small"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies, section 3(e) ↗</a> <a href="https://kanlerxz87-cyber.github.io/Zone1/" target="_blank" rel="noopener">Current footer, which asserts no analy ↗</a></td></tr><tr><td class="num"><a href="#sg-14">SG-14</a></td><td>Keep automated drafting, but make the claim-check gate the thing you trust</td><td class="small">Automation</td><td class="num">16</td><td class="small"><span class="chip">M</span> Medium-high</td><td class="small"><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies, IP License and secti ↗</a> <a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies, section 3(c) ↗</a> <a href="https://kanlerxz87-cyber.github.io/Zone1/flagged.html" target="_blank" rel="noopener">Flag F11 ↗</a></td></tr><tr><td class="num"><a href="#sg-12">SG-12</a></td><td>Fix the flag register so a row number means one thing</td><td class="small">Repository integrity</td><td class="num">15</td><td class="small"><span class="chip">S</span> Low commercially, high for credibility - the page promises exact citations</td><td class="small"><a href="https://kanlerxz87-cyber.github.io/Zone1/flagged.html" target="_blank" rel="noopener">Root flag register, showing F36 twice ↗</a> <a href="https://kanlerxz87-cyber.github.io/Zone1/flagged.html" target="_blank" rel="noopener">Flag F28 ↗</a></td></tr><tr><td class="num"><a href="#sg-13">SG-13</a></td><td>Give the site a corrections log, and correct in public</td><td class="small">Trust</td><td class="num">15</td><td class="small"><span class="chip">S</span> Low</td><td class="small"><a href="https://kanlerxz87-cyber.github.io/Zone1/reverification.html" target="_blank" rel="noopener">Re-verification ledger ↗</a> <a href="https://kanlerxz87-cyber.github.io/Zone1/flagged.html" target="_blank" rel="noopener">Flag F14 ↗</a> <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/reverification.json" target="_blank" rel="noopener">data/reverification.json ↗</a></td></tr><tr><td class="num"><a href="#sg-15">SG-15</a></td><td>Add the two facts a buyer actually needs and the site does not have</td><td class="small">Product content</td><td class="num">15</td><td class="small"><span class="chip">S</span> Low</td><td class="small"><a href="https://chefman.com/products/turbofry-touch-dual-window-air-fryer" target="_blank" rel="noopener">Chefman 6 Qt page ↗</a> <a href="https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360" target="_blank" rel="noopener">Emeril French Door 360 page ↗</a> <a href="https://kanlerxz87-cyber.github.io/Zone1/data.html" target="_blank" rel="noopener">Full specification register ↗</a></td></tr><tr><td class="num"><a href="#sg-05">SG-05</a></td><td>Decide what happens to the eight parallel builds before Google decides for you</td><td class="small">SEO architecture</td><td class="num">12</td><td class="small"><span class="chip">M</span> Medium</td><td class="small"><a href="https://github.com/kanlerxz87-cyber/Zone1" target="_blank" rel="noopener">Repository, top level ↗</a> <a href="https://kanlerxz87-cyber.github.io/Zone1/previous-passes.html" target="_blank" rel="noopener">Previous passes page cataloguing the d ↗</a> <a href="https://kanlerxz87-cyber.github.io/Zone1/flagged.html" target="_blank" rel="noopener">Flag F35 ↗</a></td></tr><tr><td class="num"><a href="#sg-09">SG-09</a></td><td>Turn the eight source-linked articles into a cluster with one job each</td><td class="small">Content strategy</td><td class="num">12</td><td class="small"><span class="chip">S</span> Low-medium</td><td class="small"><a href="https://kanlerxz87-cyber.github.io/Zone1/articles/" target="_blank" rel="noopener">Article index ↗</a> <a href="https://kanlerxz87-cyber.github.io/Zone1/platform.html" target="_blank" rel="noopener">Platform blueprint, content engine sec ↗</a> <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/articles.json" target="_blank" rel="noopener">data/articles.json ↗</a></td></tr><tr><td class="num"><a href="#sg-10">SG-10</a></td><td>Stop presenting the commission rate as unknown where the category is knowable</td><td class="small">Economics</td><td class="num">12</td><td class="small"><span class="chip">S</span> Low directly, medium for planning</td><td class="small"><a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">Standard Commission Income Statement,  ↗</a> <a href="https://link.amazon/B04G1MEwY" target="_blank" rel="noopener">Chefman 6 Qt listing breadcrumb: Home  ↗</a></td></tr><tr><td class="num"><a href="#sg-11">SG-11</a></td><td>Check the account against the 180-day qualifying-sale threshold before investing in content</td><td class="small">Programme viability</td><td class="num">12</td><td class="small"><span class="chip">S</span> High if the account is unapproved and the window is running</td><td class="small"><a href="https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM" target="_blank" rel="noopener">Associates Central ↗</a> <a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">Operating Agreement, term and terminat ↗</a></td></tr><tr><td class="num"><a href="#sg-16">SG-16</a></td><td>Decide the domain question before investing in SEO</td><td class="small">SEO foundation</td><td class="num">9</td><td class="small"><span class="chip">S</span> Medium, and it compounds in the wrong direction</td><td class="small"><a href="https://kanlerxz87-cyber.github.io/Zone1/" target="_blank" rel="noopener">Current deployment URL ↗</a> <a href="https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site" target="_blank" rel="noopener">GitHub Pages custom domain documentati ↗</a> <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py" target="_blank" rel="noopener">robots.txt and sitemap.xml generated b ↗</a></td></tr></tbody>
+</table>
+<p class="tiny muted">Priority is impact x confidence, both scored by this pass out of 5. It is judgement. The evidence column is the fact.</p>
+
+<h2>The queue</h2>
+
+<article class="sug" id="sg-01">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">SG-01 · Product identity</div>
+      <h3>Settle which exact model each supplied link points to, before any more content ships</h3>
+    </div>
+    <div class="score" title="impact 5 x confidence 5 - this pass's judgement, not a measurement">
+      <strong>25</strong><span>priority</span>
+    </div>
+  </div>
+  <p><strong>The problem.</strong> The site markets three products but cannot state which manufacturer model each Amazon listing is. Chefman publishes three 6-quart dual-basket models (RJ38-3DBW-V2, RJ38-SQPF-3TDB-2, RJ38-SQPF-3TDB-2W) and the 8-quart ASIN carries a 450 F Hi-Fry claim that the RJ38-SQSS-8T manual does not support. A buyer who lands on the wrong spec table is the one failure mode that costs both trust and money.</p>
+  <div class="evidence"><strong>Evidence.</strong> <a class="src-link" href="https://chefman.com/products/turbofry-touch-dual-window-air-fryer" target="_blank" rel="noopener">Chefman 6 Qt dual-window product page (model RJ38-SQPF-3TDB-2W) ↗</a> <a class="src-link" href="https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer" target="_blank" rel="noopener">Chefman 6 Qt dual-basket product page (sister SKU) ↗</a> <a class="src-link" href="https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1" target="_blank" rel="noopener">Chefman 8 Qt product page ↗</a> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/flagged.html" target="_blank" rel="noopener">Root flag register, rows F2, F3, F32, F33 ↗</a></div>
+  <p class="label">Paths you could take</p>
+  <ol class="paths"><li><strong>A. Read the model number off each live listing (5 minutes, no code)</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort S · risk none · reversible</div><div class="small">Open each of the three Amazon links, scroll to the Product information table, and read the &#x27;Model Number&#x27; row. Paste the three strings into a reply. That single act closes F2, F3, F32 and F33 at once.</div></li><li><strong>B. Stop publishing per-model spec tables until A is done</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort M · risk medium · reversible</div><div class="small">Demote the three product pages to a comparison of confirmed features only, with the model line blank and flagged. Costs the site its differentiation but removes every wrong-model risk.</div></li><li><strong>C. Ask the manufacturer</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort M · risk low · reversible</div><div class="small">Chefman and Emeril Everyday support can confirm which SKU an ASIN maps to. Slower than A and usually less authoritative than the listing itself.</div></li></ol>
+  <p class="rec"><strong>This pass would pick:</strong> A, then keep publishing.</p>
+  <p class="small"><strong>Why.</strong> Amazon does not publish ASIN-to-model mappings anywhere machine-readable, and the brand sites publish model numbers independently of the listing. The two only meet inside the listing&#x27;s own Product information block, which is visible to you in a browser and to nobody without one. Every other route is inference, and inference is exactly what this project refuses to publish.</p>
+  <p class="small"><strong>Cost of not doing it.</strong> High. A wrong spec table is a factual misstatement about a product you are paid to recommend, and it is the kind of error that attracts both refunds and FTC attention.</p>
+  <p class="small"><strong>Blocked by:</strong> <a href="questions.html#q-01" class="src">Q-01</a> <a href="questions.html#q-02" class="src">Q-02</a></p>
+</article>
+<article class="sug" id="sg-07">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">SG-07 · Compliance guardrail</div>
+      <h3>Do not build price tracking or price alerts, whatever the brief asks for</h3>
+    </div>
+    <div class="score" title="impact 5 x confidence 5 - this pass's judgement, not a measurement">
+      <strong>25</strong><span>priority</span>
+    </div>
+  </div>
+  <p><strong>The problem.</strong> The brief asks for a platform that &#x27;analyzes pricing&#x27; and &#x27;continuously optimizes campaigns&#x27;. Program Policies section 6(y) states that, unless otherwise agreed by Amazon, your Site must not have price tracking and/or price alerting functionality. A price-history chart or a &#x27;notify me when it drops&#x27; feature is the most natural thing to build next and it is expressly prohibited.</p>
+  <div class="evidence"><strong>Evidence.</strong> <a class="src-link" href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies, section 6(y) ↗</a> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/platform.html" target="_blank" rel="noopener">Platform blueprint page, guardrails section ↗</a></div>
+  <p class="label">Paths you could take</p>
+  <ol class="paths"><li><strong>A. Write the prohibition into the build as a failing test</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort S · risk none · reversible</div><div class="small">A CI check that fails if a price-history, price-alert or chart component ever appears in a generated page or a data file. The rule then cannot be broken by accident in a later pass.</div></li><li><strong>B. Document it and rely on reviewers</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort none · risk medium · reversible</div><div class="small">A note in the platform page. Costs nothing and fails the first time an enthusiastic session does not read it.</div></li><li><strong>C. Request Amazon&#x27;s written agreement</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort L · risk low · reversible</div><div class="small">Section 6(y) says &#x27;unless otherwise agreed by Amazon&#x27;, so a written exception is theoretically available. Realistically not granted to a new account.</div></li></ol>
+  <p class="rec"><strong>This pass would pick:</strong> A. Make the policy executable.</p>
+  <p class="small"><strong>Why.</strong> This repository already proves the technique works: build.py refuses to publish a spec row that has a value but no source. The same mechanism should refuse to publish a price-history feature. A policy that lives only in prose gets broken by the next well-meaning pass.</p>
+  <p class="small"><strong>Cost of not doing it.</strong> High. Price tracking is the most commonly requested affiliate feature and the most clearly prohibited one here.</p>
+  <p class="small"><strong>Blocked by:</strong> <span class="tiny muted">Nothing blocks this.</span></p>
+</article>
+<article class="sug" id="sg-02">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">SG-02 · Attribution and revenue</div>
+      <h3>Confirm the Associates tag is actually inside the three supplied links</h3>
+    </div>
+    <div class="score" title="impact 5 x confidence 4 - this pass's judgement, not a measurement">
+      <strong>20</strong><span>priority</span>
+    </div>
+  </div>
+  <p><strong>The problem.</strong> The three links are link.amazon short links. The Associates tag (the &#x27;tag=xxxxx-20&#x27; parameter) is inside the redirect and cannot be observed from outside. If the tag is missing, wrong, or belongs to a different account, every click on this site earns nothing, and nothing on the site would reveal it.</p>
+  <div class="evidence"><strong>Evidence.</strong> <a class="src-link" href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies, section 2(a): Special Links must use the Associates ID assigned to you ↗</a> <a class="src-link" href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies, section 2(b): the tag must appear as a parameter in each link to an Amazon Site ↗</a> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/flagged.html" target="_blank" rel="noopener">Flag F6, root register ↗</a></div>
+  <p class="label">Paths you could take</p>
+  <ol class="paths"><li><strong>A. Open each link while signed in to Associates Central and watch the click register</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort S · risk none · reversible</div><div class="small">Associates Central reports clicks per tag in near-real time. One click on each link, then check Reports &gt; Link Type. Confirms tag presence and ownership together.</div></li><li><strong>B. Replace the short links with full amazon.com URLs carrying your tag explicitly</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort S · risk low · reversible</div><div class="small">Rebuild each link as https://www.amazon.com/dp/ASIN?tag=YOURTAG-20 and read the tag back on the page. Makes the tag visible in the HTML, which is auditable and satisfies section 2(b) on its face.</div></li><li><strong>C. Keep the short links and hope</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort none · risk high · reversible</div><div class="small">No action. The revenue risk is unquantifiable and unmonitored.</div></li></ol>
+  <p class="rec"><strong>This pass would pick:</strong> B, with A as the confirmation step. Replacing the short links also removes the link-shortening question in section 6(w) entirely.</p>
+  <p class="small"><strong>Why.</strong> Section 6(w) forbids link shortening &#x27;in a manner that makes it unclear that you are linking to an Amazon Site&#x27;, and link.amazon keeps the Amazon name so it is probably compliant - but &#x27;probably&#x27; is doing the work. A full amazon.com URL with a visible tag is unambiguous on both section 2(b) and 6(w), and it makes the single most commercially important fact on the site verifiable from the page source.</p>
+  <p class="small"><strong>Cost of not doing it.</strong> Critical. Every other improvement on this page is worthless if the clicks do not credit your account.</p>
+  <p class="small"><strong>Blocked by:</strong> <a href="questions.html#q-03" class="src">Q-03</a> <a href="questions.html#q-04" class="src">Q-04</a></p>
+</article>
+<article class="sug" id="sg-03">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">SG-03 · Trust and compliance</div>
+      <h3>Say who wrote each page and how it was made - and stop calling the site &#x27;independent&#x27;</h3>
+    </div>
+    <div class="score" title="impact 4 x confidence 5 - this pass's judgement, not a measurement">
+      <strong>20</strong><span>priority</span>
+    </div>
+  </div>
+  <p><strong>The problem.</strong> The site presents itself as &#x27;an independent affiliate publisher&#x27; while monetising every product page. 16 CFR 465.6 makes it deceptive for a business to materially misrepresent that a website it controls provides independent reviews or opinions. Separately, the pages do not say that the analysis is documentation-based and machine-assisted, which a reader will assume is hands-on testing unless told otherwise.</p>
+  <div class="evidence"><strong>Evidence.</strong> <a class="src-link" href="https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-465" target="_blank" rel="noopener">16 CFR 465.6 - company-controlled review websites ↗</a> <a class="src-link" href="https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.5" target="_blank" rel="noopener">16 CFR 255.5 - disclosure of material connections ↗</a> <a class="src-link" href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" target="_blank" rel="noopener">FTC Endorsement Guides Q&amp;A ↗</a></div>
+  <p class="label">Paths you could take</p>
+  <ol class="paths"><li><strong>A. Replace &#x27;independent&#x27; with a precise, verifiable claim</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort S · risk none · reversible</div><div class="small">&#x27;Every specification on this page is quoted from the manufacturer or the US Code of Federal Regulations. We do not do hands-on testing and we say so on every product page.&#x27; Same pride, no misrepresentation.</div></li><li><strong>B. Add an About page naming the method and the author</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort S · risk none · reversible</div><div class="small">One page: who runs the site, how products are chosen, that AI assists with drafting, how corrections are handled, and how the site earns money. Link it from the footer of every page.</div></li><li><strong>C. Leave the framing and rely on the disclosure bar</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort none · risk high · reversible</div><div class="small">The Amazon disclosure sentence stays in the bar. The &#x27;independent&#x27; claim and the missing method statement stay too.</div></li></ol>
+  <p class="rec"><strong>This pass would pick:</strong> A and B together. This is the cheapest trust gain available on the site.</p>
+  <p class="small"><strong>Why.</strong> The current copy is already honest about not testing - it just buries that in the footer instead of carrying it as the site&#x27;s actual selling point. &#x27;We quote the manual, page and section&#x27; is a stronger differentiator than &#x27;independent&#x27;, which is a word every affiliate site uses and which now carries regulatory weight under 16 CFR 465.6.</p>
+  <p class="small"><strong>Cost of not doing it.</strong> Medium-high. The word &#x27;independent&#x27; next to affiliate links is the specific fact pattern 465.6 was written for.</p>
+  <p class="small"><strong>Blocked by:</strong> <a href="questions.html#q-09" class="src">Q-09</a></p>
+</article>
+<article class="sug" id="sg-04">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">SG-04 · Editorial and conversion</div>
+      <h3>Rebuild the landing page around a buyer&#x27;s question, not a project audit</h3>
+    </div>
+    <div class="score" title="impact 5 x confidence 4 - this pass's judgement, not a measurement">
+      <strong>20</strong><span>priority</span>
+    </div>
+  </div>
+  <p><strong>The problem.</strong> The current landing page opens with &#x27;Three supplied Amazon links: product identity not yet confirmed&#x27;. That is an accurate internal status report and a terrible first impression: a reader arriving from a search engine wants to know which air fryer to buy, not which flag is open. The audit layer is genuinely valuable but it is being served on the wrong page.</p>
+  <div class="evidence"><strong>Evidence.</strong> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/" target="_blank" rel="noopener">Current landing page ↗</a> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/research/" target="_blank" rel="noopener">The same content done as editorial, in the annex build ↗</a> <a class="src-link" href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py" target="_blank" rel="noopener">build.py - page_index(), the function that generates the landing page ↗</a></div>
+  <p class="label">Paths you could take</p>
+  <ol class="paths"><li><strong>A. Two doors, one site: &#x27;Buying guide&#x27; in front, &#x27;Evidence&#x27; behind</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort L · risk low · reversible</div><div class="small">Landing page answers the buyer question with a recommendation and a comparison table, each row sourced. A single prominent link - &#x27;How we verified every number&#x27; - takes the auditor to the existing pages, which stay as they are.</div></li><li><strong>B. Keep one page and move the evidence below the fold</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort M · risk low · reversible</div><div class="small">Cheaper: reorder the existing landing page so the recommendation, the comparison and the buy buttons come first, and the verification story follows.</div></li><li><strong>C. Leave it as an audit dashboard</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort none · risk medium · reversible</div><div class="small">Appropriate if the site&#x27;s only reader is you. It will not earn organic traffic or affiliate revenue.</div></li></ol>
+  <p class="rec"><strong>This pass would pick:</strong> A, delivered in B&#x27;s order if time is short.</p>
+  <p class="small"><strong>Why.</strong> The evidence layer is the site&#x27;s moat and should be reachable in one click, but it is not the product. A page that opens with &#x27;not yet confirmed&#x27; cannot convert a visitor who has no idea what F21 is. This is also the exact complaint that prompted this pass.</p>
+  <p class="small"><strong>Cost of not doing it.</strong> High for traffic and revenue. The content already exists - it is a layout problem, not a writing problem.</p>
+  <p class="small"><strong>Blocked by:</strong> <a href="questions.html#q-01" class="src">Q-01</a></p>
+</article>
+<article class="sug" id="sg-06">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">SG-06 · Catalogue data</div>
+      <h3>Publish no Amazon price or rating unless you hold Creators API access - and know which one you are choosing</h3>
+    </div>
+    <div class="score" title="impact 4 x confidence 4 - this pass's judgement, not a measurement">
+      <strong>16</strong><span>priority</span>
+    </div>
+  </div>
+  <p><strong>The problem.</strong> The site displays no Amazon price, availability, star rating or review count. That is deliberately correct: Program Policies section 2(b) permits price and availability only when Amazon serves the link or when the data comes from Creators API or PA API, and section 6(t) restricts customer reviews and star ratings to API-served content. But it leaves a comparison table with a &#x27;not displayed&#x27; column, which is a weaker buying aid than readers expect.</p>
+  <div class="evidence"><strong>Evidence.</strong> <a class="src-link" href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies, section 2(b) (price and availability) and 6(t) (reviews and star ratings) ↗</a> <a class="src-link" href="https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation" target="_blank" rel="noopener">Creators API / PA-API 5 deprecation notice ↗</a> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/articles/no-amazon-prices.html" target="_blank" rel="noopener">Article explaining the policy to readers ↗</a></div>
+  <p class="label">Paths you could take</p>
+  <ol class="paths"><li><strong>A. Ship compliant price via the Amazon-served link, and nothing else</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort M · risk low · reversible</div><div class="small">Use Amazon&#x27;s own link widgets, which are served by Amazon and therefore permitted under 2(b). No API keys needed. The price is rendered by Amazon, not scraped by you.</div></li><li><strong>B. Apply for Creators API and render price and rating from it</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort L · risk medium · reversible</div><div class="small">Unlocks section 2(b) and 6(t) properly, including star ratings. Requires an approved Associates account, API credentials, and a small server - the site is currently static.</div></li><li><strong>C. Keep the current &#x27;not displayed&#x27; column</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort none · risk low · reversible</div><div class="small">Fully compliant and honest, but the comparison table stays materially less useful than a competitor&#x27;s.</div></li></ol>
+  <p class="rec"><strong>This pass would pick:</strong> A now, B only if the account is approved and you want ratings.</p>
+  <p class="small"><strong>Why.</strong> Option A gets a live price on the page without touching a policy line, because Amazon serves the data. Option B is the real prize - ratings are what most buyers scan - but it needs credentials this session does not have and a host that can keep a secret, which a static GitHub Pages site cannot.</p>
+  <p class="small"><strong>Cost of not doing it.</strong> Medium for conversion. Do not fix it by scraping - that breaches section 2(b) and the IP License at once.</p>
+  <p class="small"><strong>Blocked by:</strong> <a href="questions.html#q-05" class="src">Q-05</a> <a href="questions.html#q-06" class="src">Q-06</a></p>
+</article>
+<article class="sug" id="sg-08">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">SG-08 · Measurement</div>
+      <h3>Add click and conversion measurement that does not breach the privacy disclosure</h3>
+    </div>
+    <div class="score" title="impact 4 x confidence 4 - this pass's judgement, not a measurement">
+      <strong>16</strong><span>priority</span>
+    </div>
+  </div>
+  <p><strong>The problem.</strong> The site currently has no analytics at all - the footer states it sets no cookies and runs no analytics, which is honest and satisfies Program Policies section 3(e) as written. The consequence is that no claim about which page converts can be tested. Any analytics added must be accompanied by an updated section 3(e) disclosure on the same commit.</p>
+  <div class="evidence"><strong>Evidence.</strong> <a class="src-link" href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies, section 3(e) - cookie and third-party technology disclosure ↗</a> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/" target="_blank" rel="noopener">Current footer, which asserts no analytics are used ↗</a></div>
+  <p class="label">Paths you could take</p>
+  <ol class="paths"><li><strong>A. Associates Central reporting only</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort S · risk none · reversible</div><div class="small">Amazon already reports clicks and orders per tracking ID. Use sub-tags (section 2(b) permits additional sub-tag IDs) to separate traffic sources. No third-party script, no cookie, no disclosure change needed.</div></li><li><strong>B. Add a cookieless, privacy-first analytics script</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort M · risk medium · reversible</div><div class="small">Server-side or cookieless page-view counts, no cross-site tracking, DNT respected. Requires a cookie/privacy disclosure update and a GDPR/PECR review for EU visitors.</div></li><li><strong>C. Add full GA4 with goal events</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort M · risk medium · reversible</div><div class="small">Richest data. Also the largest disclosure burden, sets cookies, and triggers consent-banner requirements in the EU and UK.</div></li></ol>
+  <p class="rec"><strong>This pass would pick:</strong> A first - it is free, requires no disclosure change, and answers &#x27;which page gets clicks&#x27; for the only metric that pays. Move to B only if you need on-site behaviour.</p>
+  <p class="small"><strong>Why.</strong> Option A uses a mechanism Amazon already provides and explicitly permits. It also keeps the site&#x27;s strongest trust claim - no tracking at all - true for longer, and that claim is worth more on a page whose whole pitch is that it does not mess with you.</p>
+  <p class="small"><strong>Cost of not doing it.</strong> Medium. Without measurement, every content decision stays a guess.</p>
+  <p class="small"><strong>Blocked by:</strong> <a href="questions.html#q-08" class="src">Q-08</a></p>
+</article>
+<article class="sug" id="sg-14">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">SG-14 · Automation</div>
+      <h3>Keep automated drafting, but make the claim-check gate the thing you trust</h3>
+    </div>
+    <div class="score" title="impact 4 x confidence 4 - this pass's judgement, not a measurement">
+      <strong>16</strong><span>priority</span>
+    </div>
+  </div>
+  <p><strong>The problem.</strong> The brief asks for content generation at scale. That is achievable here - build.py already refuses to publish an article whose numbers do not appear verbatim in the verified dataset. The risk is the gate being treated as a formality rather than the product, and the IP License forbidding Program Content from being used to train or fine-tune models without approval.</p>
+  <div class="evidence"><strong>Evidence.</strong> <a class="src-link" href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies, IP License and section 5 - no ML training on Program Content without approval ↗</a> <a class="src-link" href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Program Policies, section 3(c) - you are responsible for the accuracy of all material on your site ↗</a> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/flagged.html" target="_blank" rel="noopener">Flag F11 - the platform features that need credentials ↗</a></div>
+  <p class="label">Paths you could take</p>
+  <ol class="paths"><li><strong>A. Generate drafts from manufacturer documents only, and gate every number</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort M · risk low · reversible</div><div class="small">The model may restructure sentences; it may not introduce a value. Every figure must match data/products.json. Program Content never enters the drafting context, which keeps section 5 and the IP License satisfied.</div></li><li><strong>B. Generate from the Amazon listings too</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort M · risk high · reversible</div><div class="small">Richer input, but listing text is Program Content. Using it to build or fine-tune a model needs Amazon&#x27;s prior written approval under section 5.</div></li><li><strong>C. Write everything by hand</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort L · risk low · reversible</div><div class="small">Best quality per page, does not scale, and abandons the brief&#x27;s automation goal.</div></li></ol>
+  <p class="rec"><strong>This pass would pick:</strong> A, with the gate extended to reject any article sentence containing a number that no registered source supports.</p>
+  <p class="small"><strong>Why.</strong> This is already 80 percent built and it is genuinely rare - the guard rejected 18 paraphrased values while the article set was being written. The remaining work is making the gate harder to bypass, not writing more prose.</p>
+  <p class="small"><strong>Cost of not doing it.</strong> Medium-high. Scaled content without a numeric gate produces exactly the AI-slop outcome the brief objects to.</p>
+  <p class="small"><strong>Blocked by:</strong> <a href="questions.html#q-09" class="src">Q-09</a></p>
+</article>
+<article class="sug" id="sg-12">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">SG-12 · Repository integrity</div>
+      <h3>Fix the flag register so a row number means one thing</h3>
+    </div>
+    <div class="score" title="impact 3 x confidence 5 - this pass's judgement, not a measurement">
+      <strong>15</strong><span>priority</span>
+    </div>
+  </div>
+  <p><strong>The problem.</strong> Two different rows are both numbered F36. One says the short links&#x27; srctok marker is not constant; the other says a preset count was attributed to a source that does not state it. A register whose IDs collide cannot be cited reliably, and this repository cites flag IDs from at least six places.</p>
+  <div class="evidence"><strong>Evidence.</strong> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/flagged.html" target="_blank" rel="noopener">Root flag register, showing F36 twice ↗</a> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/flagged.html" target="_blank" rel="noopener">Flag F28 - an earlier collision of the same kind ↗</a></div>
+  <p class="label">Paths you could take</p>
+  <ol class="paths"><li><strong>A. Renumber the later row and add a build test that rejects duplicate IDs</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort S · risk none · reversible</div><div class="small">Move the programme-level srctok row to the next free ID, keep its text and sources, and make build.py fail if any two rows share an ID.</div></li><li><strong>B. Merge the two rows</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort S · risk medium · reversible</div><div class="small">Lossy - they are about different things and one is a product row, the other a programme row.</div></li><li><strong>C. Leave it</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort none · risk medium · reversible</div><div class="small">The collision is visible to any reader who scrolls, which undermines the page&#x27;s entire premise.</div></li></ol>
+  <p class="rec"><strong>This pass would pick:</strong> A. This is the one defect on this page that this session fixed outright, because a colliding ID is a correctness bug rather than a judgement call.</p>
+  <p class="small"><strong>Why.</strong> F28 records the same class of failure being found and fixed in an earlier pass. Recurrence means the rule was not executable. A duplicate-ID test makes the third occurrence impossible rather than merely discouraged.</p>
+  <p class="small"><strong>Cost of not doing it.</strong> Low commercially, high for credibility - the page promises exact citations.</p>
+  <p class="small"><strong>Blocked by:</strong> <span class="tiny muted">Nothing blocks this.</span></p>
+</article>
+<article class="sug" id="sg-13">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">SG-13 · Trust</div>
+      <h3>Give the site a corrections log, and correct in public</h3>
+    </div>
+    <div class="score" title="impact 3 x confidence 5 - this pass's judgement, not a measurement">
+      <strong>15</strong><span>priority</span>
+    </div>
+  </div>
+  <p><strong>The problem.</strong> This project&#x27;s most distinctive behaviour is refusing to guess and publishing what it cannot confirm. It has no mechanism for publishing a correction when a previously published value turns out to be wrong - the re-verification page records re-reads, but a reader cannot see &#x27;this number changed on this date and here is why&#x27;.</p>
+  <div class="evidence"><strong>Evidence.</strong> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/reverification.html" target="_blank" rel="noopener">Re-verification ledger - the raw material for a corrections log ↗</a> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/flagged.html" target="_blank" rel="noopener">Flag F14 - brand-hosted review counts that moved between days ↗</a> <a class="src-link" href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/reverification.json" target="_blank" rel="noopener">data/reverification.json - the ledger a corrections log would be generated from ↗</a></div>
+  <p class="label">Paths you could take</p>
+  <ol class="paths"><li><strong>A. Add a dated corrections table, fed from the re-verification data</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort S · risk none · reversible</div><div class="small">One row per corrected value: what it said, what it says now, the source, the date, and the reason. Generated from data/reverification.json so it cannot drift from the ledger.</div></li><li><strong>B. Note corrections only in commit messages</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort none · risk low · reversible</div><div class="small">Auditable by a developer, invisible to a reader.</div></li></ol>
+  <p class="rec"><strong>This pass would pick:</strong> A. It costs one table and it is the single most credible thing an affiliate site can publish.</p>
+  <p class="small"><strong>Why.</strong> Volatile facts on this site include brand-hosted review counts that changed within 24 hours. A visible corrections log converts the site&#x27;s biggest weakness - it is not first-hand - into its most defensible claim: you can check everything, including our mistakes.</p>
+  <p class="small"><strong>Cost of not doing it.</strong> Low. Opportunity cost.</p>
+  <p class="small"><strong>Blocked by:</strong> <span class="tiny muted">Nothing blocks this.</span></p>
+</article>
+<article class="sug" id="sg-15">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">SG-15 · Product content</div>
+      <h3>Add the two facts a buyer actually needs and the site does not have</h3>
+    </div>
+    <div class="score" title="impact 3 x confidence 5 - this pass's judgement, not a measurement">
+      <strong>15</strong><span>priority</span>
+    </div>
+  </div>
+  <p><strong>The problem.</strong> Across the three products the verified dataset is strong on capacity, temperature range and preset counts, and silent on the things that decide a purchase in a small kitchen: exterior dimensions and weight for the 6 Qt, noise level, and what the warranty actually covers. Some of these are published; some are not, and the site currently leaves the gaps invisible rather than explained.</p>
+  <div class="evidence"><strong>Evidence.</strong> <a class="src-link" href="https://chefman.com/products/turbofry-touch-dual-window-air-fryer" target="_blank" rel="noopener">Chefman 6 Qt page - specification block ↗</a> <a class="src-link" href="https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360" target="_blank" rel="noopener">Emeril French Door 360 page - specification block ↗</a> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/data.html" target="_blank" rel="noopener">Full specification register ↗</a></div>
+  <p class="label">Paths you could take</p>
+  <ol class="paths"><li><strong>A. Add a &#x27;what the manufacturer does not publish&#x27; row to each product page</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort S · risk none · reversible</div><div class="small">State plainly which buyer-relevant facts are absent from the official documentation, and that asking support is the only route. Turns a gap into a trust signal at near-zero cost.</div></li><li><strong>B. Ask the manufacturer for the missing figures</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort M · risk low · reversible</div><div class="small">Chefman and Emeril support can supply dimensions and warranty terms. Authoritative once answered, and answerable in the same email as SG-01 option C.</div></li><li><strong>C. Buy and measure one unit</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort L · risk medium · reversible</div><div class="small">The only way to publish noise and real-world preheat time. Also the only option here that creates first-hand testing, which would change what the site may honestly claim.</div></li></ol>
+  <p class="rec"><strong>This pass would pick:</strong> A now; B if you want the dimensions without buying; C only if you intend to switch the site&#x27;s positioning to hands-on testing.</p>
+  <p class="small"><strong>Why.</strong> A reader who cannot find the exterior width will leave for a site that has it. Saying &#x27;Chefman does not publish the exterior dimensions for this model&#x27; is more useful than a blank cell and more honest than an estimate - and it costs one row.</p>
+  <p class="small"><strong>Cost of not doing it.</strong> Low. Pure content quality.</p>
+  <p class="small"><strong>Blocked by:</strong> <a href="questions.html#q-06" class="src">Q-06</a></p>
+</article>
+<article class="sug" id="sg-05">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">SG-05 · SEO architecture</div>
+      <h3>Decide what happens to the eight parallel builds before Google decides for you</h3>
+    </div>
+    <div class="score" title="impact 4 x confidence 3 - this pass's judgement, not a measurement">
+      <strong>12</strong><span>priority</span>
+    </div>
+  </div>
+  <p><strong>The problem.</strong> Nine separate HTML sites for the same three products are published on one domain (root plus research/, s2/, site/, dashboard/, docs/, annex-88769516/, session-3740f69d/, articles/). They disagree on facts a reader would take as settled - the Chefman 6 Qt model differs between builds. Every one is indexable, so search engines can crawl nine versions of the same product review on one host.</p>
+  <div class="evidence"><strong>Evidence.</strong> <a class="src-link" href="https://github.com/kanlerxz87-cyber/Zone1" target="_blank" rel="noopener">Repository, top level - every directory with an index.html ↗</a> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/previous-passes.html" target="_blank" rel="noopener">Previous passes page cataloguing the disagreements ↗</a> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/flagged.html" target="_blank" rel="noopener">Flag F35 ↗</a></div>
+  <p class="label">Paths you could take</p>
+  <ol class="paths"><li><strong>A. Keep them in the repo, remove them from the public web</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort M · risk low · reversible</div><div class="small">Move the eight annexes out of the published tree (or serve them with a noindex meta tag and drop them from the sitemap). The repository keeps every session&#x27;s evidence; visitors and crawlers see one site.</div></li><li><strong>B. Keep them public, cross-link them, label which is canonical</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort M · risk medium · reversible</div><div class="small">Every annex carries a fixed banner naming the canonical build. Preserves the &#x27;nothing was discarded&#x27; principle visibly.</div></li><li><strong>C. Delete the annexes</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort S · risk high</div><div class="small">Loses eight sessions of evidence and the record of how the facts converged.</div></li></ol>
+  <p class="rec"><strong>This pass would pick:</strong> A. The evidence survives in git history and in the repository; the duplicate-content risk to the one site that matters does not survive at all.</p>
+  <p class="small"><strong>Why.</strong> Search engines do not care that nine builds were produced by nine agents in good faith. They care that nine pages make the same or contradictory claims on one host. Option A keeps the audit trail that makes this project unusual while giving the public site a single, unambiguous identity.</p>
+  <p class="small"><strong>Cost of not doing it.</strong> Medium. Diluted crawl budget and a real chance the wrong build ranks.</p>
+  <p class="small"><strong>Blocked by:</strong> <a href="questions.html#q-07" class="src">Q-07</a></p>
+</article>
+<article class="sug" id="sg-09">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">SG-09 · Content strategy</div>
+      <h3>Turn the eight source-linked articles into a cluster with one job each</h3>
+    </div>
+    <div class="score" title="impact 3 x confidence 4 - this pass's judgement, not a measurement">
+      <strong>12</strong><span>priority</span>
+    </div>
+  </div>
+  <p><strong>The problem.</strong> There are eight articles and they are good - genuinely specific, sourced, and free of the filler that makes affiliate content worthless. But they overlap: two compare dual-basket against other form factors, and none is written for a high-intent query like &#x27;chefman 6 quart dual basket air fryer review&#x27;. Without a deliberate map, the next eight articles will overlap the same way.</p>
+  <div class="evidence"><strong>Evidence.</strong> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/articles/" target="_blank" rel="noopener">Article index ↗</a> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/platform.html" target="_blank" rel="noopener">Platform blueprint, content engine section ↗</a> <a class="src-link" href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/articles.json" target="_blank" rel="noopener">data/articles.json - the eight articles and their sources ↗</a></div>
+  <p class="label">Paths you could take</p>
+  <ol class="paths"><li><strong>A. One intent map, one primary query per article, and a rule against duplicates</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort S · risk none · reversible</div><div class="small">Assign each existing article exactly one search intent (informational, comparison, or transactional). Publish the map. New articles may only target an unclaimed intent. Two articles on one query is a build failure.</div></li><li><strong>B. Let the articles grow organically</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort none · risk medium · reversible</div><div class="small">Publish whatever seems interesting and let search sort it out.</div></li><li><strong>C. Collapse to three long guides</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort M · risk medium · reversible</div><div class="small">One buying guide, one comparison, one product page per SKU. Fewer, deeper pages.</div></li></ol>
+  <p class="rec"><strong>This pass would pick:</strong> A, keeping all eight articles. They are too good to delete and too overlapping to keep growing unchecked.</p>
+  <p class="small"><strong>Why.</strong> The existing title of one article - &#x27;What 450F actually means&#x27; - is exactly the kind of specific, answerable question that earns a link and a ranking. The fix is not more articles, it is a rule that stops the ninth from duplicating the fifth.</p>
+  <p class="small"><strong>Cost of not doing it.</strong> Low-medium. Costs compounding, not immediate damage.</p>
+  <p class="small"><strong>Blocked by:</strong> <a href="questions.html#q-10" class="src">Q-10</a></p>
+</article>
+<article class="sug" id="sg-10">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">SG-10 · Economics</div>
+      <h3>Stop presenting the commission rate as unknown where the category is knowable</h3>
+    </div>
+    <div class="score" title="impact 3 x confidence 4 - this pass's judgement, not a measurement">
+      <strong>12</strong><span>priority</span>
+    </div>
+  </div>
+  <p><strong>The problem.</strong> All three products show commission as &#x27;- not confirmed -&#x27; with two candidate rows, Kitchen 4.50% and All Other Categories 4.00%. That is scrupulously honest, because Amazon publishes rates by category but not which category an ASIN sits in. It is also more cautious than the evidence requires for an air fryer, which Amazon files under Kitchen &amp; Dining - a fact visible in the listing breadcrumb on every one of the three links.</p>
+  <div class="evidence"><strong>Evidence.</strong> <a class="src-link" href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">Standard Commission Income Statement, Table 1 - Kitchen 4.50%, All Other Categories 4.00% ↗</a> <a class="src-link" href="https://link.amazon/B04G1MEwY" target="_blank" rel="noopener">Chefman 6 Qt listing breadcrumb: Home &amp; Kitchen &gt; Kitchen &amp; Dining &gt; Small Appliances &gt; Fryers &gt; Air Fryers ↗</a></div>
+  <p class="label">Paths you could take</p>
+  <ol class="paths"><li><strong>A. Record the breadcrumb as evidence and show Kitchen 4.50% as the working rate</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort S · risk low · reversible</div><div class="small">Capture the category path Amazon itself displays on each listing, cite it, and show 4.50% as the rate with the breadcrumb as the source. Keep the fallback row visible in a footnote.</div></li><li><strong>B. Keep both candidate rows until Associates Central confirms the category</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort S · risk none · reversible</div><div class="small">Consulting Reports &gt; Orders, or the Earnings report line item, shows the category Amazon actually applied. Definitive; needs account access.</div></li><li><strong>C. Leave it as &#x27;not confirmed&#x27;</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort none · risk low · reversible</div><div class="small">Defensible, and it costs the reader nothing - but it makes the economics section unusable for deciding whether to invest in this niche.</div></li></ol>
+  <p class="rec"><strong>This pass would pick:</strong> B, falling back to A if the account has no earnings history yet.</p>
+  <p class="small"><strong>Why.</strong> A rate at 4.50% versus 4.00% moves the break-even traffic estimate by about 12 percent, which is material to whether the niche is worth the effort. The category is not actually unknowable - Amazon shows it in the breadcrumb and applies it in Reports. Recording &#x27;unknown&#x27; when a source exists is a different failure from refusing to guess, and the brief asks for decision-grade information.</p>
+  <p class="small"><strong>Cost of not doing it.</strong> Low directly, medium for planning. You cannot size a niche whose unit economics you refuse to compute.</p>
+  <p class="small"><strong>Blocked by:</strong> <a href="questions.html#q-11" class="src">Q-11</a></p>
+</article>
+<article class="sug" id="sg-11">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">SG-11 · Programme viability</div>
+      <h3>Check the account against the 180-day qualifying-sale threshold before investing in content</h3>
+    </div>
+    <div class="score" title="impact 4 x confidence 3 - this pass's judgement, not a measurement">
+      <strong>12</strong><span>priority</span>
+    </div>
+  </div>
+  <p><strong>The problem.</strong> Amazon&#x27;s application review requires qualifying sales within a set window, and an unapproved account earns nothing. The site is currently built as if the account is live. Whether it is, and how much of the window has elapsed, changes the entire plan: an account near the deadline needs conversion work, not more articles.</p>
+  <div class="evidence"><strong>Evidence.</strong> <a class="src-link" href="https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM" target="_blank" rel="noopener">Associates Central - application review process ↗</a> <a class="src-link" href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">Operating Agreement, term and termination ↗</a></div>
+  <p class="label">Paths you could take</p>
+  <ol class="paths"><li><strong>A. Read the status in Associates Central and record it here</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort S · risk none · reversible</div><div class="small">One line: approved, in review, or closed; and the date the current window started. Everything downstream can then be sequenced against a real deadline.</div></li><li><strong>B. Assume approved and optimise for revenue</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort none · risk medium · reversible</div><div class="small">Proceed as if clicks pay today.</div></li><li><strong>C. Assume unapproved and optimise for the sale count</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort M · risk low · reversible</div><div class="small">Prioritise the pages most likely to produce a first sale - the highest-intent product review - over broad informational articles.</div></li></ol>
+  <p class="rec"><strong>This pass would pick:</strong> A, then C if the answer is &#x27;in review&#x27;.</p>
+  <p class="small"><strong>Why.</strong> These two worlds need opposite content. If the account is approved, breadth earns; if it is in review, one high-intent page that produces three sales is worth more than twenty explainers. This session could not read the threshold page&#x27;s current wording, so the exact figures are flagged unverified rather than restated from memory.</p>
+  <p class="small"><strong>Cost of not doing it.</strong> High if the account is unapproved and the window is running.</p>
+  <p class="small"><strong>Blocked by:</strong> <a href="questions.html#q-03" class="src">Q-03</a></p>
+</article>
+<article class="sug" id="sg-16">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">SG-16 · SEO foundation</div>
+      <h3>Decide the domain question before investing in SEO</h3>
+    </div>
+    <div class="score" title="impact 3 x confidence 3 - this pass's judgement, not a measurement">
+      <strong>9</strong><span>priority</span>
+    </div>
+  </div>
+  <p><strong>The problem.</strong> The site is served from kanlerxz87-cyber.github.io/Zone1/. That is a subdirectory of a shared github.io origin, which means its authority is partly shared with every other project on that account and its URLs are ugly to cite. Every inbound link earned today points at a URL you cannot easily migrate later.</p>
+  <div class="evidence"><strong>Evidence.</strong> <a class="src-link" href="https://kanlerxz87-cyber.github.io/Zone1/" target="_blank" rel="noopener">Current deployment URL ↗</a> <a class="src-link" href="https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site" target="_blank" rel="noopener">GitHub Pages custom domain documentation ↗</a> <a class="src-link" href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py" target="_blank" rel="noopener">robots.txt and sitemap.xml generated by build.py, both scoped to the github.io URL ↗</a></div>
+  <p class="label">Paths you could take</p>
+  <ol class="paths"><li><strong>A. Register a domain and serve Pages from it</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort S · risk low · reversible</div><div class="small">CNAME to GitHub Pages, HTTPS enforced. Roughly the price of a coffee a month. Do it before the first backlink, not after.</div></li><li><strong>B. Keep github.io</strong><div class="tiny" style="margin:.15rem 0 .35rem">Effort none · risk medium · reversible</div><div class="small">Free, zero maintenance, and permanent - but weak for search and impossible to move without losing accumulated links.</div></li></ol>
+  <p class="rec"><strong>This pass would pick:</strong> A, and do it early enough that the migration is trivial.</p>
+  <p class="small"><strong>Why.</strong> The cost of moving is proportional to the links already pointing at the old address. That number is currently close to zero. Choosing to stay is a decision to be permanently second-class in search; choosing to move later is a decision to lose whatever was earned in the meantime.</p>
+  <p class="small"><strong>Cost of not doing it.</strong> Medium, and it compounds in the wrong direction.</p>
+  <p class="small"><strong>Blocked by:</strong> <a href="questions.html#q-07" class="src">Q-07</a></p>
+</article>
+
+<div class="callout note" style="margin-top:1.5rem">
+  <strong>Related registers.</strong>
+  A second, independently written set of questions and directions was produced by a parallel
+  session on the same day and is published rather than merged away, because it asks things this
+  register does not — including which Amazon marketplace a Japan-based Associate may promote.
+  <a href="decision-gate.html">Questions and information gaps (parallel pass)</a> ·
+  <a href="marketing-directions.html">Marketing directions (parallel pass)</a> ·
+  <a href="questions.html">This pass's open questions</a>
+</div>
 
   </main>
 </div>
@@ -158,7 +402,7 @@
   <div class="inner">
     <div>
       <h5>Parallel passes on this domain</h5>
-      <a href="articles/index.html">Articles<span class="sub">Five sourced reads — comparisons, explainers, policy</span></a><a href="research/index.html">Deep-dive research<span class="sub">Independent 25-source verification pass (research/)</span></a><a href="session-3740f69d/index.html">Session 3740f69d build<span class="sub">Independent dashboard build (session-3740f69d/)</span></a><a href="s2/index.html">Verified platform pass<span class="sub">Compliance matrix and verification log (s2/)</span></a><a href="site/index.html">Verification annex<span class="sub">382-assertion verifier over data/verified/ (site/)</span></a><a href="dashboard/index.html">Campaign dashboard<span class="sub">Niches, commissions, links and tracking views (dashboard/)</span></a><a href="docs/index.html">Legacy docs build<span class="sub">Retired build kept for its evidence (docs/)</span></a><a href="annex-88769516/index.html">Annex 88769516<span class="sub">Independent annex build (annex-88769516/)</span></a>
+      <a href="articles/index.html">Articles<span class="sub">Sourced reads — comparisons, explainers, policy</span></a><a href="research/index.html">Deep-dive research<span class="sub">Independent 25-source verification pass (research/)</span></a><a href="session-3740f69d/index.html">Session 3740f69d build<span class="sub">Independent dashboard build (session-3740f69d/)</span></a><a href="s2/index.html">Verified platform pass<span class="sub">Compliance matrix and verification log (s2/)</span></a><a href="site/index.html">Verification annex<span class="sub">382-assertion verifier over data/verified/ (site/)</span></a><a href="dashboard/index.html">Campaign dashboard<span class="sub">Niches, commissions, links and tracking views (dashboard/)</span></a><a href="docs/index.html">Legacy docs build<span class="sub">Retired build kept for its evidence (docs/)</span></a><a href="annex-88769516/index.html">Annex 88769516<span class="sub">Independent annex build (annex-88769516/)</span></a>
       <p class="tiny">Independently verified builds merged into <code>main</code> by other sessions. Nothing here was overwritten by them and nothing of theirs was overwritten here.</p>
     </div>
     <div>

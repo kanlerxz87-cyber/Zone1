@@ -253,16 +253,18 @@
       "asin": {
         "v": "B09B7SB46R",
         "s": [
-          "S17",
-          "S16"
+          "S28"
         ]
       },
       "asin_evidence": "Following the supplied short link returned the Amazon detail page whose <title> reads: \"Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.\"",
       "amazon_listing_title": {
-        "v": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.",
+        "v": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
         "s": [
-          "S16"
-        ]
+          "S28"
+        ],
+        "v_observed": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
+        "v_previous": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.",
+        "note": "Read 2026-11-15 from https://link.amazon/B02NbDxp3. The title has changed since the 2026-11-14 read: the earlier value ended '| 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.' and the current title ends '| Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included'. Both say 24; the wording differs. The date of this read is part of the value (flag F38)."
       },
       "model_number": {
         "v": "FAFO-001 (manual); brand page lists 4-00675-02A-VN",
@@ -434,7 +436,7 @@
           "sources": [
             "S14",
             "S15",
-            "S16"
+            "S28"
           ]
         },
         {
@@ -468,15 +470,14 @@
       "asin": {
         "v": "B08DKYBTPH",
         "s": [
-          "S17",
-          "S16"
+          "S29"
         ]
       },
       "asin_evidence": "Following the supplied short link returned the Amazon detail page whose <title> reads: \"Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel\"",
       "amazon_listing_title": {
         "v": "Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
         "s": [
-          "S16"
+          "S29"
         ]
       },
       "model_number": {
@@ -571,9 +572,9 @@
           "value": null,
           "unverified": "The Amazon listing title advertises a '450 °F Hi-Fry option' and Bake/Dehydrate/Frozen functions, but the brand product page and the RJ38-SQSS-8T owner's manual document only 200–400 °F with fries/chicken/fish/meat presets. Either the ASIN is a different SKU or one official source is stale. Not asserted.",
           "source": [
-            "S12",
-            "S13",
-            "S16"
+            "S29",
+            "S29",
+            "S29"
           ]
         },
         {
@@ -659,7 +660,7 @@
           "sources": [
             "S12",
             "S13",
-            "S16"
+            "S29"
           ]
         },
         {

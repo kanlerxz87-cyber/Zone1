@@ -1,17 +1,21 @@
 # Zone1 — verified Amazon affiliate product intelligence
 
-A static site and data layer for an Amazon Associates content operation, built around three
-supplied affiliate links. Every factual value is traced to an official source; anything that
-could not be confirmed is left blank and published on the **Flagged for review** page.
+A working affiliate site and data layer for three Amazon air fryer listings. Every
+factual value is traced to an official source; anything that could not be confirmed is left
+blank and published on the **Flagged for review** page. The site opens with the buying
+decision and keeps the verification layer one click behind it.
 
 **Live site:** https://kanlerxz87-cyber.github.io/Zone1/
+**Decision queue:** [`suggestions.html`](https://kanlerxz87-cyber.github.io/Zone1/suggestions.html) — review and choose before anything is built
+**Open questions:** [`questions.html`](https://kanlerxz87-cyber.github.io/Zone1/questions.html) — what must be answered first
+**Briefing:** [`EXECUTIVE-SUMMARY-PASS8.md`](EXECUTIVE-SUMMARY-PASS8.md)
 
 ## What is in here
 
 | Path | What it is |
 |---|---|
-| `index.html` | Dashboard — the three products, verification counts, commercial summary, article cards |
-| `articles/` | **Five sourced articles** — comparisons, an explainer, a source-forensics piece and a policy explainer. Every number in them must appear verbatim in `data/products.json` or the build fails. |
+| `index.html` | **Buying guide landing page** — the decision, a sourced three-column spec table, and the verification layer below the fold |
+| `articles/` | **Eight sourced articles** — comparisons, explainers, a source-forensics piece and a policy explainer. Every number in them must appear verbatim in `data/products.json` or the build fails. |
 | `categories/` | Category pages (currently: kitchen appliances / air fryers) |
 | `products/` | One documentation-based review per product |
 | `compare.html` | Verified-only comparison matrix, gaps left visible |
@@ -21,6 +25,8 @@ could not be confirmed is left blank and published on the **Flagged for review**
 | `platform.html` | Automation blueprint, guardrails, KPIs, launch sequence |
 | `compliance.html` | 16 program/legal requirements, quoted, each with a source link |
 | `flagged.html` | Every unverified value, source conflict and irregularity |
+| `suggestions.html` | **Decision queue** — 16 evidence-backed suggestions, each with alternative paths, effort, risk and a recommendation. Nothing on it is implemented. |
+| `questions.html` | **Open questions** — 14 questions split into known / discoverable / not-stated / account-only, each with how to find the answer and what it blocks. |
 | `executive-summary.html` | One-page briefing |
 | `reverification.html` | Line-by-line re-read of every published value (2026-11-14 pass), each row with its verdict and source link |
 | `session-81495d2d/EVIDENCE-2026-11-14.md` | Raw evidence behind that ledger: exact requests, exact responses, and what was not re-read |
