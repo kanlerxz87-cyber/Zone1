@@ -3236,3 +3236,13 @@ record from F22: run the marker scan before every `git add`; this pass now does.
 * **Remaining irregularities:** `verify.py` continues to print 18 non-blocking external-host allowlist warnings for inherited `s2/` links, plus its caution-status note for the Chefman 8 Qt basket-divider row. These were outside T20 and unchanged. Local `platform/audit/report.py` emits `ResourceWarning`s for unclosed reads while still reporting a clean audit; also outside scope. The independently published `reverification.html` preserves older dated observations as historical pass records; F10 and F41 now state the reconciled current wording on the Flagged page.
 
 **T20 result: done — no product values changed; no open question was marked answered.**
+
+### T20 PR, merge, and deployment record
+
+* **PR #67:** https://github.com/kanlerxz87-cyber/Zone1/pull/67 — `arena/94a562a1-zone1` → `main`; title: "Correct Amazon short-link evidence wording".
+* **Merge:** merged with `gh pr merge 67 --merge` at 2026-11-15T13:05:32Z. Merge commit: `517d0658f275ad90e976020ec216142c40580076`.
+* **Post-merge workflows:** CI `43717177566` ✓; verification annex `43717177578` ✓; build/verify/Pages deploy `43717177575` ✓; Pages build/deployment `43717177185` ✓. The Pages build API reports `status: built`, `error: null`, commit `517d0658f275ad90e976020ec216142c40580076`.
+* **Live check:** cache-busted fetch of `https://kanlerxz87-cyber.github.io/Zone1/flagged.html?deploy=517d0658` confirms the deployed F10 wording distinguishes the candidate destination observations from changing `btn_ref/srctok` values and continues to say intended identity and Associates attribution are unconfirmed.
+* **CI notices:** Actions reports Node.js 20 deprecation and the scheduled `ubuntu-latest` → Ubuntu 26 migration. These are non-blocking notices; all checks and deployment succeeded.
+
+**PR #67 result: merged and deployed successfully.**
