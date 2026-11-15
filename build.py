@@ -1140,6 +1140,21 @@ PROGRAMME_FLAGS = [
      "Register integrity \u2014 F36",
      "Found and fixed 2026-11-15 by arena/3ddfa50e. The programme-level row recording the srctok-marker finding (added by sess-ce4070ad, itself renumbered from F32) was published as F36, and a product-level row in data/products.json recording the Chefman 6 Qt preset-count mis-citation was also published as F36. Both rendered on the Flagged page, so the register showed 38 rows with 37 distinct numbers and any citation of 'F36' was ambiguous. F28 records an earlier ID collision of the same kind, which means the rule was not enforceable. The programme-level row is renumbered F41; the product row keeps F36 because three session evidence files cite it by that number. A duplicate-ID build test now fails the build if this recurs.",
      ["S1"]),
+
+    # arena-b1e7b4bc, verification round 2026-11-15 (additive): findings from the
+    # line-by-line review of the new suggestions.html / questions.html layer (PR #58).
+    # RENUMBERED at the merge seam 2026-11-15: authored as F38/F39, but PR #62
+    # (arena/3ddfa50e) had already taken F38-F40 on main, so this session's rows
+    # become F42/F43. Same precedent as the F32 -> F36 renumber; nothing else
+    # about the rows changed.
+    ("F42", "The operator's location is stated two different ways on the same domain, and neither statement comes from an official source.",
+     "questions.html (Q-06) and suggestions.html (SG-10) vs the s2/ annex register (its F08)",
+     "Recorded 2026-11-15 by arena-b1e7b4bc. The 2026-11-15 pages say the owner is in Osaka, Japan; the s2 annex register (data/flags.json, row F08) records a Norway residence. Both were written from agent-session environment context, not from anything the owner supplied in the repository and not from any official page, so neither can be verified from here and at most one can be right. The Japan wording matters because Q-06 and SG-10 build a store-targeting decision on it. Decision needed: the owner states their actual country once, one register row cites it, and the other wording is corrected to match; until then no eligibility conclusion (Q-06, SG-10, or the s2 register's F08) should be treated as settled.",
+     []),
+    ("F43", "Two wording advisories on the Suggestions and Questions pages (reader-facing precision, no data value affected).",
+     "suggestions.html and questions.html (PR #58, X-633b115f)",
+     "Recorded 2026-11-15 by arena-b1e7b4bc. (a) The Suggestions lede says 'None of them has been implemented', but for SG-03, SG-04, SG-05 and SG-11 option A is the current, already-implemented state ('Keep...', 'Keep blank and link to the live Amazon page (current, compliant)'), so those rows read more accurately as 'confirm the current state' than as pending work. (b) Q-01's 'How to find out' says to check the owner's Associates account for which tag the short links carry - the tag is not observable from the account's tracking-ID page either (flag F6); only whoever created the short links knows the mapping. Decision needed: reword the lede and the Q-01 cell, or accept the current phrasing. Both rows' facts and sources check out; this flag is about wording only.",
+     []),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -1159,6 +1174,8 @@ REPO_EVIDENCE = {
     "F34": ["EXECUTIVE_SUMMARY.md"],
     "F35": ["build.py", "site/", "session-3740f69d/"],
     "F41": ["session-81495d2d/EVIDENCE-2026-11-14.md", "session-ce4070ad/EVIDENCE-2026-11-14.md"],
+    "F42": ["suggestions.html", "questions.html", "data/flags.json", "s2/"],
+    "F43": ["suggestions.html", "questions.html"],
 }
 
 VERDICTS = {
