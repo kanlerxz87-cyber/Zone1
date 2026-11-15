@@ -291,6 +291,10 @@ NAV = [
     ("flagged.html", "Flagged for review", "Unverified values and irregularities"),
     ("suggestions.html", "Suggestions", "Review site improvements before implementation"),
     ("questions.html", "Questions and gaps", "Known facts, missing answers and discovery steps"),
+    # Added 2026-11-15 by arena/63a2c638: the editorial and traffic plan. It sits with the
+    # decision pages because nothing on it has been written yet - it is a proposal queue,
+    # the same way suggestions.html is an implementation queue.
+    ("topics.html", "Content and traffic plan", "Article topics and the channels allowed to promote them"),
     ("executive-summary.html", "Executive summary", "Decision-ready briefing"),
     # Added by the 2026-11-14 integration pass: the line-by-line re-read ledger.
     ("reverification.html", "Re-verification", "Published values re-read against their official sources"),
@@ -970,6 +974,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
       {N("decisions.html")}
       {N("suggestions.html")}
       {N("questions.html")}
+      {N("topics.html")}
       {N("executive-summary.html")}
     </div>
     <div class="group">
@@ -3650,6 +3655,155 @@ def page_questions_alt():
               )
 
 
+# --------------------------------------------------------------------------- #
+# Content and traffic plan (added 2026-11-15, arena/63a2c638)
+#
+# The brief asks for the article and traffic thinking that would make this a real
+# marketing site. This page is where that lives, and the discipline applied to the
+# data is applied to the plan: a proposal is labelled as a proposal, no search volume
+# is invented, and every row names the official source the finished article must cite.
+# The two channels that Amazon's policies forbid are listed next to the real ones so
+# the plan cannot be read as if they had not been considered.
+# --------------------------------------------------------------------------- #
+
+TOPICS = load("topics.json")
+
+_TOPIC_STATUS = {
+    "published": ("ok", "Published"),
+    "proposed": ("warn", "Proposed — not written"),
+}
+
+
+def page_topics():
+    t = TOPICS
+    items = t["topics"]
+    prod_by_slug = {p["slug"]: p for p in PRODUCT_LIST}
+
+    # Guard: a topic may not cite a product that does not exist, and may not point at a
+    # question that is not in the register. A plan with a dangling reference is a plan
+    # nobody can execute.
+    _qids = {q["id"] for q in QUESTIONS["questions"]}
+    for it in items:
+        for slug in it.get("serves") or []:
+            if slug not in prod_by_slug:
+                raise SystemExit(f"BUILD FAILED — topic {it['id']} serves unknown product {slug}")
+        for qid in it.get("blocked_by") or []:
+            if qid not in _qids:
+                raise SystemExit(f"BUILD FAILED — topic {it['id']} blocked by unknown question {qid}")
+
+    rows = []
+    for it in items:
+        cls, label = _TOPIC_STATUS.get(it["status"], ("warn", it["status"]))
+        serves = ", ".join(prod_by_slug[s]["short_name"] for s in (it.get("serves") or [])) \
+            or '<span class="muted">Site-level — serves no single product</span>'
+        cites = " ".join(
+            f'<a href="{e(c["url"])}" target="_blank" rel="noopener">{e(c["label"][:40])} ↗</a>'
+            for c in it["must_cite"][:2]
+        )
+        title_html = e(it["title"])
+        if it["status"] == "published" and it.get("published_as"):
+            title_html = f'<a href="../{e(it["published_as"])}">{title_html}</a>'
+        rows.append(
+            f'<tr><td class="num"><a href="#{e(it["id"].lower())}">{e(it["id"])}</a></td>'
+            f'<td><strong>{title_html}</strong>'
+            f'<div class="small muted">{e(it["hook"])}</div></td>'
+            f'<td class="small">{e(it["intent"])}</td>'
+            f'<td class="small">{serves}</td>'
+            f'<td><span class="pill {cls}">{e(label)}</span></td>'
+            f'<td class="small">{cites}</td></tr>'
+        )
+
+    # Detail cards only for what is not written yet; published topics are one click away.
+    cards = []
+    for it in items:
+        if it["status"] == "published":
+            continue
+        cites = " ".join(
+            f'<a class="src-link" href="{e(c["url"])}" target="_blank" rel="noopener">{e(c["label"])} ↗</a>'
+            for c in it["must_cite"]
+        )
+        blocked = it.get("blocked_by") or []
+        blocked_html = " ".join(
+            f'<a class="src" href="questions.html#{e(q.lower())}">{e(q)}</a>' for q in blocked
+        ) or '<span class="tiny muted">Nothing blocks this one.</span>'
+        caveat = (f'<p class="small"><strong>Caution.</strong> {e(it["caveat"])}</p>'
+                  if it.get("caveat") else "")
+        cards.append(f"""
+<article class="sug" id="{e(it['id'].lower())}">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">{e(it['id'])} · {e(it['intent'])} · not yet written</div>
+      <h3>{e(it['title'])}</h3>
+    </div>
+  </div>
+  <p><strong>The angle.</strong> {e(it['angle'])}</p>
+  <p class="small"><strong>Why it could earn traffic.</strong> {e(it['why_it_could_earn_traffic'])}</p>
+  {caveat}
+  <div class="evidence"><strong>Must cite.</strong> {cites}</div>
+  <p class="small"><strong>Blocked by:</strong> {blocked_html}</p>
+</article>""")
+
+    ch_rows = []
+    for ch in t["channels"]:
+        forbidden = ch["id"] in ("CH-2", "CH-5")
+        verdict_cls = "bad" if forbidden else "ok"
+        ch_rows.append(
+            f'<tr><td class="num">{e(ch["id"])}</td>'
+            f'<td><strong>{e(ch["channel"])}</strong></td>'
+            f'<td><span class="pill {verdict_cls}">{e("Forbidden by policy" if forbidden else "Available")}</span></td>'
+            f'<td class="small">{e(ch["verdict"])}</td>'
+            f'<td class="small">{e(ch["constraint"])}</td>'
+            f'<td class="small"><a href="{e(ch["source"]["url"])}" target="_blank" rel="noopener">'
+            f'{e(ch["source"]["label"])} ↗</a></td></tr>'
+        )
+
+    disclaimer = "".join(f"<li>{e(x)}</li>" for x in t["disclaimer"])
+    n_new = sum(1 for x in items if x["status"] == "proposed")
+    n_pub = sum(1 for x in items if x["status"] == "published")
+
+    body = f"""
+<p class="crumbs"><a href="../index.html">Home</a> / Content and traffic plan</p>
+<h1>What to write next, and how it is allowed to be promoted</h1>
+<p class="lede">Fourteen topics for this product set — {n_pub} already published and {n_new} not yet
+written — and five distribution channels, two of which Amazon's policies close off entirely. The
+topics are chosen for one reason: each one is answerable from an official manufacturer page or an
+owner's manual, so none of them requires a claim this site cannot support.</p>
+
+<div class="callout note">
+  <strong>Read this before treating anything below as a fact.</strong>
+  <ul class="tight">{disclaimer}</ul>
+</div>
+
+<h2>The plan</h2>
+<table>
+  <thead><tr><th>#</th><th>Topic</th><th>Intent</th><th>Serves</th><th>State</th><th>Must cite</th></tr></thead>
+  <tbody>{''.join(rows)}</tbody>
+</table>
+<p class="tiny muted">{e(t['demand_note'])}</p>
+
+<h2>Not written yet</h2>
+<p class="small">{''.join(cards) if cards else '<span class="muted">Nothing is outstanding.</span>'}</p>
+
+<h2>How any of it may be promoted</h2>
+<table>
+  <thead><tr><th>#</th><th>Channel</th><th>Status</th><th>Verdict</th><th>The constraint</th><th>Source</th></tr></thead>
+  <tbody>{''.join(ch_rows)}</tbody>
+</table>
+<p class="tiny muted">{e(t['channels_note'])}</p>
+
+<div class="callout note" style="margin-top:1.5rem">
+  <strong>Where this fits.</strong>
+  The topics above are the editorial half of <a href="suggestions.html#SG-09">SG-09</a> and
+  <a href="suggestions.html#SG-04">SG-04</a>; the channel constraints are the same clauses recorded on the
+  <a href="compliance.html">Compliance</a> page. Choosing a path through the work starts on the
+  <a href="suggestions.html">Suggestions</a> page, under <em>Choose a path</em>.
+</div>
+"""
+    return layout("topics.html", "Content and traffic plan", body, active="topics.html",
+                  description="Article topics for three air fryers, each tied to an official source, and the "
+                              "distribution channels Amazon's policies permit or forbid.")
+
+
 def page_404():
     body = """
 <p class="crumbs">Not found</p>
@@ -4882,6 +5036,7 @@ def main():
     pages["handover.html"] = page_handover()
     pages["suggestions.html"] = page_suggestions()
     pages["questions.html"] = page_questions()
+    pages["topics.html"] = page_topics()
     pages["decision-gate.html"] = page_questions_alt()
     pages["marketing-directions.html"] = page_suggestions_alt()
     pages["previous-passes.html"] = page_previous_passes()
