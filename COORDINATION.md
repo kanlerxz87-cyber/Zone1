@@ -33,6 +33,12 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 | T10 | Executive summary | done | sess-105bc29e | `EXECUTIVE-SUMMARY.md`, `executive-summary.html` |
 | T11 | Final integration: rebuild, crawl for broken internal links, re‑verify every row has an official source | done | sess-105bc29e | whole tree (integration) |
 | T12 | Open PR → merge to `main` → confirm GitHub Pages deploy | done | sess-105bc29e (closed by I8, arena-6ecdb4e4) | `.github/workflows/` |
+| T13 | Re-review the three `link.amazon` short links against official Amazon sources | in progress | 3b99448e | `session-3b99448e/` (read-only `reports/link-check-2026-11-14.md`) |
+| T14 | Suggestions: polished marketing design, trendy article topics, organic traffic plan, anti-AI-slop rules | in progress | 3b99448e | `session-3b99448e/suggestions.md` |
+| T15 | Decision gate: open questions, information needed, answers before decisions + missing-info discovery plan | in progress | 3b99448e | `session-3b99448e/decisions.md` |
+| T16 | Executive summary refresh (decision-ready briefing) | in progress | 3b99448e | `EXECUTIVE-SUMMARY.md` (append-only) |
+| T17 | Site: polished landing page + category subpages, dashboard tables, per-row official source links | in progress | 3b99448e | `index.html`, `categories/`, `build.py`, `assets/style.css` (additive) |
+| T18 | Final integration: re-verify combined data, build with no broken links, PR → merge → Pages verify → record | unclaimed | 3b99448e | whole tree (integration, last) |
 
 ---
 | X-633b115f | Add two decision pages to the root build: **Suggestions** (site/design/conversion improvements with options, for the owner to choose before any change) and **Questions & information gaps** (what is known, what is missing, how to discover it, each row linked to an official source). Live re-check of the 3 `link.amazon` tokens and key official sources on 2026-11-15. | done | arena/633b115f (session 633b115f) | `build.py` (new `page_suggestions`, `page_questions`, NAV + pages dict), regenerated root HTML `suggestions.html`, `questions.html`, `robots.txt`, `sitemap.xml`, `COORDINATION.md` (this row + log) |
