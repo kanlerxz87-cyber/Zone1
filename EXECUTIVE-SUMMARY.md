@@ -587,3 +587,61 @@ Key observations:
   pass-6 merges returned the pre-pass-6 copy ("28 Open items"); a cache-busting re-fetch returned
   the current deploy (31 Open items). A stale first read is a CDN artefact — re-fetch before
   concluding the deploy is wrong.
+
+## 14. Session `3b99448e` — suggestions, decision gate and link re-review (2026-11-15)
+
+Branch `arena/3b99448e-zone1`, claims T13–T18 logged in COORDINATION.md. All files added by this
+session live under `session-3b99448e/` so they cannot overwrite another session's work.
+
+### 14.1 T13 — link re-review (`session-3b99448e/link-review.md`)
+
+Re-reviewed the three supplied `link.amazon` short links against the official evidence already
+recorded in this repo (no live Amazon fetch was possible from this session):
+
+- The tokens are 9 characters; an ASIN is 10 characters (S23 — Amazon KDP Help).
+- `amazon.com/dp/<token>` returns "Page Not Found" (S21); an unrecognised short-link token returns
+  403 (S22).
+- The short links resolve through Amazon's `plpRedirect=mhFallback` handler to air-fryer listings
+  (candidate ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH — S17/S16), but destination is not identity:
+  **product identity remains unconfirmed**.
+
+### 14.2 T14 — suggestions (`session-3b99448e/suggestions.md`)
+
+- **Design (D-1…D-10):** dashboard layout kept; hero value proposition above the fold; disclosure
+  bar on every page (already built); verified-specs-only cards with blank cells left blank and
+  flagged; no Amazon photos hotlinked; comparison matrix without prices; category subpages under
+  Kitchen → Air fryers; JSON-LD + meta tags; mobile-first; WCAG AA contrast audit quarterly.
+- **Content (A-1…A-10):** ten article working titles in the air-fryer niche dictated by the product
+  set — e.g. "What '450 °F Hi-Fry' actually means", "6 Qt vs 8 Qt vs 26 QT: how much capacity?",
+  "Why this site doesn't show Amazon prices". Anti-AI-slop rules: no unverified superlatives, one
+  topic per page with dates, human voice, vendor claims labelled, no invented testing, disclosure
+  on every page.
+- **Traffic (T-1…T-8):** long-tail keywords from verified data; programmatic category/comparison
+  pages; sitemap.xml + robots.txt already ship; compete on transparency ("shows its gaps"); Pinterest/
+  TikTok/YouTube Shorts for visuals; double-opt-in email; quarterly re-verification against official
+  sources.
+- **Compliance:** disclosure wording per OA §5 (S1) and FTC (S7/S8/S9); replace `link.amazon/` short
+  links with canonical tagged `/dp/<ASIN>` URLs only after Q-1/Q-2 are answered; PA-API 5 is
+  deprecated — Creators API only (S24); IP License §2(e) bars training models on Program Content.
+
+### 14.3 T15 — decision gate (`session-3b99448e/decisions.md`)
+
+Ten questions (Q-1…Q-10), each with: what is known with its official source, what is missing, a
+suggested pending answer, and how to discover the missing fact (M-1…M-8). Blocking questions:
+Q-1 Associates tag (currently blank), Q-2 product identity of the three links, Q-3 commission
+category per product, Q-4 account approval status, Q-6 Japan-store eligibility for the owner in
+Osaka. Nothing missing is estimated.
+
+### 14.4 What is already live
+
+The concurrent session `633b115f` (PR #58, merged) added `suggestions.html` (SG-01…SG-12, each with
+options A/B/C and an unfilled "Your choice" column) and `questions.html` (Q-01…Q-14, known/missing/
+how-to-find/unblocks), both rendered by `build.py` and listed in NAV and `sitemap.xml`. **Nothing on
+those pages has been implemented yet.** This session's deeper docs remain under `session-3b99448e/`.
+
+### 14.5 Next decision step
+
+The owner reviews SG-01…SG-12 and Q-01…Q-14, records a choice (Approved / Rejected / Needs more
+info) plus a date, and implementation proceeds only for Approved rows. The `verify.py` gate stays
+blocking: no unsourced value, missing disclosure or broken link may ship.
+
