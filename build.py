@@ -3800,7 +3800,12 @@ owner's manual, so none of them requires a claim this site cannot support.</p>
 """
     return layout("topics.html", "Content and traffic plan", body, active="topics.html",
                   description="Article topics for three air fryers, each tied to an official source, and the "
-                              "distribution channels Amazon's policies permit or forbid.")
+                              "distribution channels Amazon's policies permit or forbid.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Content and traffic plan", page_url("topics.html")),
+    ])]
+                  )
 
 
 def page_404():
