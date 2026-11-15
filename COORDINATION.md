@@ -3885,8 +3885,19 @@ BUILD FAILED — a row cites a document that contradicts its own value:
 * **No stored value was changed by this pass.** X3 found nothing to fix; the only files this session added are `session-a526b009/VERIFICATION-2026-11-15.md` and this record.
 
 **Final state of this session's tasks:** X1 **done** · X2 **done** · X3 **done (no defects found)** · X4 **done** (PR #75 merged as `370c53f`, Pages `built` on a descendant commit, live site verified).
-
 ---
+
+## Task board — arena/bf487400-zone1 (2026-11-15 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-bf487400 | Publish the design/content/traffic suggestion layer as a first-class site page ("Design prompt pack": paste-ready design prompt, D-1…D-10 design suggestions, topic queue A-1…A-11 with live published/pending status, organic-traffic plan T-1…T-8, anti-slop editorial rules, decision register R-1…R-6), all rows sourced; plus small organic increments that pass 9 (W7) left open (Article `dateModified`, optional social card); then final integration: full gate run, PR → merge → confirm GitHub Pages deploy, record result. | in progress | arena/bf487400-zone1 (session bf487400) | `data/design-prompt.json` (new), `build.py` (new `page_design_prompt`, NAV + pages dict, `json_ld` dateModified), regenerated root HTML, `assets/social-card.png` (new, if generated cleanly), `COORDINATION.md` |
+
+### Claim log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15 UTC | arena/bf487400-zone1 (session bf487400) | Read the coordination board first. Found T1–T23 and W7 done, no in-progress claims, `origin/main` at `fa730c4` (PRs #67–#70 merged while this branch existed); rebased onto it before any work. Claimed X-bf487400. Rationale: session `3b99448e` wrote the design/content/traffic suggestions (D-1…D-10, A-1…A-10, T-1…T-8, R-1…R-6, anti-slop rules) into `session-3b99448e/suggestions.md`, but that material is not published anywhere on the live site — grep of `*.html` finds 0 hits for D-1/A-1/T-1/design prompt. The brief asks for suggestions that feed a design prompt, catchy topic ideas, and an organic-traffic plan the owner can review before anything changes; that layer is missing from the site. Pass 9 (W7, PR #69) already shipped canonical/OG/Twitter/JSON-LD, so this session does not redo it. Arena fixes the working branch as `arena/bf487400-zone1`; per precedent (T19, W7) the pass stays on that branch. |
 
 ---
 
