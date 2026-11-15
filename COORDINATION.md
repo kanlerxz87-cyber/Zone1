@@ -3756,3 +3756,61 @@ article share row. A warning list that always warns is a warning list nobody rea
 **Overlap note (logged, not a conflict):** session `22f43836` (W7, PR #69) ran its own round-9 verification today (short links, commission table, Program Policies, Google link policies) and fixed canonical URLs + `rel="sponsored"`. This session's independent round agrees with all of its results and adds the full manufacturer spec-table sweep, OA/FTC/eCFR reads and the structural audit. Both records kept; no duplicated edits — this pass changed no shared file except this record.
 
 **Merge-conflict log (protocol §6):** this claim commit conflicted twice on `COORDINATION.md` while being pushed — first with PR #67 (session 94a562a1, T20), then with PR #69 (session 22f43836, W7). Both times the both-sides-appended pattern; both sides kept verbatim (theirs first), marker lines removed, seam notes written at each join. No other session's work discarded. One `--force-with-lease` push per rebase, each preceded by confirming the remote branch held only this session's own superseded claim commit.
+
+<!-- keep-both: the block below was appended by the session being rebased on top; nothing from either side is discarded -->
+
+#### U4 — result: **done — PRs #74 and #77 merged, GitHub Pages deployment confirmed**
+
+| Step | Detail |
+|---|---|
+| PR #74 | `Final integration: live re-verification (pass 9), full SEO/structured-data layer, 10 build defects fixed`. Merged with `gh pr merge 74 --merge` at 2026-11-15T13:23:27Z. Merge commit `e7b60e481f061008039d92bfb87ff6fc8d848dcc`. |
+| PR #77 | `Correct the accessories row's evidence: cite the two documents that state 7, add a build guard against citing a contradicting source`. Merged with `gh pr merge 77 --merge` at 2026-11-15T13:27:00Z. Merge commit `eccb3c07cd86f11dd33a6711ebea7b0180c297e7`. |
+| CI on both PRs | `Rebuild site/ from data/verified and assert every guarantee` — **pass**. `verify` — **pass**. |
+| Pages build | `gh api repos/…/pages/builds/latest` → `status: built`, `error: null`, commit `eccb3c07cd86f11dd33a6711ebea7b0180c297e7`. |
+| Pages deploy run | `43719058155` → `completed/success`. Jobs: `build: success`, `deploy: success`. |
+| Live verification | `https://kanlerxz87-cyber.github.io/Zone1/` serves the merged content (3 products, 12 sourced articles, 31 official sources, 49 open flags). The pass-9 ledger renders on `reverification.html`. The corrected "Included accessories" row serves S14 + S15. |
+| Warnings | GitHub Actions emitted only non-blocking Node.js 20 deprecation / runner-image notices. No workflow or deployment failure. |
+
+**One correction was needed after the first merge.** PR #74 shipped an error this session had introduced: it set the Emeril
+"Included accessories" row's sources to `["S14", "S28"]`, where `S28` is the Amazon listing title that says *"Six Cooking
+Accessories Included"* — a document that **contradicts** the row's value of 7. A row's source list is read as the evidence
+for its value, so citing a contradicting document there asserts something false about where the value came from.
+
+Re-reading the manual on 2026-11-15 showed why this matters and how to fix it: the owner's manual's *Parts & Accessories*
+section enumerates **13 numbered items**, of which **6 are built into the appliance** (main unit, door handle, glass door,
+LED display, control panel, control knob), leaving **7 removable accessories** (drip tray, wire rack, baking pan, rotisserie
+spit, crisper tray, rotisserie fetch tool, plate handle). The published value therefore has **two** supporting documents, and
+the row now cites those two. The listing title stays in the flag register (F48, F50), where a contradicting document belongs.
+The published value of 7 did not change; only its evidence did.
+
+**New build guard — `check_spec_source_conflicts()`.** `data/products.json` gains a `source_conflicts` register naming rows
+where an official document is known to contradict the published value. The build now **fails** if such a source id appears in
+that row's source list. The register is explicit rather than inferred, deliberately: no build can tell that an arbitrary
+document contradicts a value, so a reviewer who has read both documents records the conflict once, and from then on it can
+live in the flag register but never in a row's evidence. Proven to fire on the exact mistake:
+
+```
+BUILD FAILED — a row cites a document that contradicts its own value:
+  emeril-26qt-french-door / "Included accessories": cites S28, which contradicts the
+  published value '7'. The contradicting document belongs in the flag register, not in
+  the row's source list.
+```
+
+#### Final gate state on `main` @ `eccb3c0`
+
+| Gate | Result |
+|---|---|
+| `build.py` | 34 pages + `robots.txt` + `sitemap.xml` (34 URLs) |
+| `verify.py` | 113 pages, 43 spec rows (41 verified, 2 blank+flagged), 31 sources, **0 external warnings, 0 errors** |
+| `platform/tests` | 33/33 |
+| `platform/audit/report.py` | 0 errors, 0 warnings |
+| `scripts/check_links.py` | 5,964 links, **0 broken** |
+| `scripts/verify_site.py` | 382 assertions, all passed |
+| `research/check_research.py` | 834 checks, all passed |
+| `scripts/build_s2_site.py --check` | current |
+| `node --check assets/app.js` | OK |
+| reproducibility | clean rebuild leaves `git diff` empty |
+
+**Total guards added or tightened in this session:** nested-anchor checks in both `verify.py` (repo-wide) and
+`scripts/verify_site.py` (V13); `check_spec_source_conflicts()`; and the `check_seo_metadata()` guard from
+`arena/792c279e` extended to the three pages that session added. All are proven to fire on an injected violation.
