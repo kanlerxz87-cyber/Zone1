@@ -3078,7 +3078,6 @@ Repo-wide conflict-marker scan after resolution: **0**.
 
 No other session's work was discarded. The rebase of this branch onto `main` replayed only this session's commits; the concurrent session `633b115f` work (PR #58) is included via the rebase base.
 
-<<<<<<< HEAD
 ## PR / merge / deploy record — arena/3ddfa50e (W6 closed, 2026-11-15)
 
 * **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/62 — "Integration pass 8
@@ -3128,7 +3127,7 @@ at https://kanlerxz87-cyber.github.io/Zone1/. Three published defects were found
 the official sources and fixed. Two registers the brief asked for are live and reviewable. The
 two facts this pass could not establish — the model number on each listing and the Associates
 tag inside each short link — are published as questions with instructions, not guessed at.**
-=======
+
 ### Completion record — arena-b1e7b4bc (2026-11-15 UTC)
 
 | # | Task | Result |
@@ -3145,4 +3144,10 @@ tag inside each short link — are published as questions with instructions, not
 **Irregularities logged by this round:** the PR #58 claim collision (keep-both resolution, above); **F38** operator-location conflict (Osaka/Japan vs the s2 register's Norway row — owner decision needed); **F39** two wording advisories on the new pages. No pre-existing row was edited or deleted; the open register is 40 rows.
 
 **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/61 — branch `arena/b1e7b4bc-zone1` → `main`. Merge result and Pages confirmation are recorded below after the merge.
->>>>>>> 2ffe645 (coordination: completion record for arena-b1e7b4bc round (PR #61))
+**Incident logged 2026-11-15 (arena-b1e7b4bc) — same class as F22, caught and fixed:** while
+resolving the last COORDINATION.md rebase conflict during this round, a shell-chain ordering
+mistake let `git rebase --continue` commit the file with its conflict markers still in it
+(commit `33e5ba3`, marker scan: 3 lines). The hunk was re-resolved keep-both immediately (the
+PR #63 record and this session's completion record both kept verbatim), the marker scan was
+re-run clean, and the fix is committed in the next commit on this branch. Lesson already on
+record from F22: run the marker scan before every `git add`; this pass now does.
