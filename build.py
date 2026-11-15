@@ -4158,7 +4158,7 @@ def page_decisions():
 </div>
 
 <h2 id="niche">Decision 1 \u2014 which niche to build around</h2>
-<p class="small muted">{e(d['niche']['summary'])}</p>
+<p class="small muted">{_md(d['niche']['summary'])}</p>
 {crit_table()}
 <p class="tiny muted">{e(d['niche']['scoring_note'])}</p>
 <details class="card tight">
