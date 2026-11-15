@@ -3163,3 +3163,47 @@ record from F22: run the marker scan before every `git add`; this pass now does.
 * **Register at merge:** F1–F43 plus product-level rows; 0 values guessed; every asserted value sourced; all items non-blocking per protocol.
 
 **Final state of this session's tasks:** S1 review **done** · S2 review **done** · S3 verification + integration (PR → merge → Pages confirm → record) **done**. Nothing inferred; no other session's row edited; the incident and the collision are published above.
+
+## Task board — arena/d560bf17-zone1 (2026-11-15 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|----------------|------------|
+| T19 | Editorial UX polish: improve the marketing landing page, remove empty/unsupported presentation, and make unresolved Amazon-link identity prominent without changing verified data or the suggestions decision queue | in progress | arena/d560bf17-zone1 (session d560bf17) | `build.py`, `assets/style.css`; regenerated root HTML from `build.py`; `COORDINATION.md` |
+
+### Claim log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15 UTC | arena/d560bf17-zone1 (session d560bf17) | Claimed T19 after reading the task board. Worktree was clean at `48b1ffd` (same commit as `origin/main`); T1–T18 and prior integration records are already marked done, with no in-progress task. Scope is the canonical root landing page and shared root stylesheet, plus generated output and this log. Arena fixes the working branch as `arena/d560bf17-zone1`, so this pass stays on that branch rather than creating the separate session branch described by the task protocol. |
+
+### T19 implementation record — arena/d560bf17-zone1 (2026-11-15 UTC)
+
+**Implemented on the canonical root build; integration/PR/deploy record pending.** This was an editorial and HTML-structure pass, not a new research pass: no new product facts or product data were added. Existing source entries and earlier verification records were inspected; this session did not make fresh network requests to Amazon, the manufacturers, FTC, or eCFR.
+
+* Reworked the root landing page into an editorial buyer guide with a warm responsive palette, clearer hierarchy, a format finder, sourced article cards, and a compact archive path instead of listing agent builds on the buyer page.
+* Removed the empty “Pick one” heading, the unsupported “Rank 1/2/3” presentation, and copy that called the unconfirmed short-link destinations recommended Amazon listings. The landing page now states above the comparison that product identity, Associates-account approval, and link tracking remain unconfirmed. Product CTAs tell readers to verify the model; link-level disclosure remains explicit and conditional on Amazon attribution.
+* Rebuilt the homepage comparison cells so each product value has its own official source badge. Unconfirmed preset/rotisserie values remain blank and point to Flagged for review; the Emeril preset-count and Chefman 8 Qt temperature conflicts display both source claims without selecting a winner.
+* Fixed nested anchors in the root article hub (product links no longer sit inside an article-card link), retained all eight article cards, removed duplicate navigation destinations, and added a duplicate-nav build guard, skip link, semantic navigation landmark, and expanded-state handling for the mobile menu.
+
+**Existing official source entries reused by the landing comparison (not newly fetched in T19):**
+
+| Source ID | Official source |
+|---|---|
+| S2 | [Amazon Associates Program Policies](https://affiliate-program.amazon.com/help/operating/policies) |
+| S8 | [FTC Disclosures 101 for Social Media Influencers](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers) |
+| S10 | [Chefman TurboFry Touch 6 Qt Dual-Window product page](https://chefman.com/products/turbofry-touch-dual-window-air-fryer) |
+| S12 | [Chefman 8 Qt TurboFry product page](https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1) |
+| S13 | [Chefman RJ38-SQSS-8T owner's manual (PDF)](https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf) |
+| S14 | [Emeril Lagasse French Door AirFryer 360 product page](https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360) |
+| S15 | [Emeril FAFO-001 owner's manual (PDF)](https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf) |
+| S17 | [Amazon short-link evidence register entry](https://link.amazon/B04G1MEwY) |
+| S18 | [Chefman RJ38-SQPF-3TDB-2W owner's manual (PDF)](https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf) |
+| S29 | [Amazon listing record for candidate ASIN B08DKYBTPH](https://www.amazon.com/dp/B08DKYBTPH) |
+
+**Verification performed:** `python3 build.py` (28 generated pages, 27 sitemap URLs); `python3 verify.py` (106 pages, 43 spec rows: 41 verified / 2 blank+flagged, 29 sources, 0 errors); `bash scripts/ci-check.sh` (33 tests, data audit clean, S2 build current, 5,328 links / 0 broken); `python3 research/check_research.py` (834 checks, OK); `python3 scripts/verify_site.py` (382 assertions, all passed); `node --check assets/app.js`; custom parse of the 15 root buyer/product/article pages (no nested or unmatched anchors), all 8 article cards present, all 9 landing comparison rows with source/Flagged links in each product cell, and 21 unique NAV hrefs; `git diff --check` clean.
+
+**Non-blocking inherited warnings:** `verify.py` reports 18 external-host allowlist warnings in `s2/` pages for official `advertising.amazon.com`, `api.github.com`, and `sell.amazon.com` links (0 errors; no `s2/` file changed). A whole-repository HTML parse also found a nested anchor in `site/index.html` (the annex card around lines 60–64 wraps an inner `F-16` link). This file is generated by the independent `site/` build and is outside T19's scope; it was not edited. Cross-scope fix request: change that card to non-nested links and add a nested-anchor check to the annex verifier. The annex's existing 382 checks pass but do not detect this markup issue.
+
+### T19 pull-request checkpoint — arena/d560bf17-zone1
+
+**PR:** [#65 — Editorial refresh: source-led Amazon affiliate guide](https://github.com/kanlerxz87-cyber/Zone1/pull/65), branch `arena/d560bf17-zone1` → `main`, head `c56f083e28e8faadedf3642b0775a0d6f9e722f3`. The PR is mergeable and both required checks passed: `verify` and `Rebuild site/ from data/verified and assert every guarantee`. Merge and GitHub Pages deployment confirmation are pending.

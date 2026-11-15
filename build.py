@@ -22,7 +22,7 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 DATA = ROOT / "data"
 SITE_NAME = "Zone1 Kitchen"
-SITE_TAGLINE = "Verified Amazon affiliate product intelligence"
+SITE_TAGLINE = "Air-fryer decisions, backed by sources"
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
 
 # --------------------------------------------------------------------------- #
@@ -150,7 +150,7 @@ def depth_prefix(page_path):
 # --------------------------------------------------------------------------- #
 
 NAV = [
-    ("index.html", "Dashboard", "Overview of the product set and the data"),
+    ("index.html", "Home", "A clear guide to three air-fryer formats"),
     ("categories/kitchen-appliances.html", "Category: Kitchen", "All tracked products in one category"),
     ("compare.html", "Comparison", "Verified-only side-by-side matrix"),
     ("guides/buying-guide-air-fryers.html", "Buying guide", "How to choose a form factor"),
@@ -159,13 +159,11 @@ NAV = [
     ("platform.html", "Platform blueprint", "The automation and compliance design"),
     ("compliance.html", "Compliance", "Program rules, quoted, with sources"),
     ("flagged.html", "Flagged for review", "Unverified values and irregularities"),
-    ("suggestions.html", "Suggestions", "16 improvements, each with paths to choose between"),
-    ("questions.html", "Open questions", "What must be answered before a decision is reasonable"),
+    ("suggestions.html", "Suggestions", "Review site improvements before implementation"),
+    ("questions.html", "Questions and gaps", "Known facts, missing answers and discovery steps"),
     ("executive-summary.html", "Executive summary", "Decision-ready briefing"),
     # Added by the 2026-11-14 integration pass: the line-by-line re-read ledger.
-    ("reverification.html", "Re-verification 2026-11-14", "Every published value re-read against its official source"),
-    ("suggestions.html", "Suggestions", "Improvements to choose from, none applied yet"),
-    ("questions.html", "Questions and gaps", "What must be answered before a decision"),
+    ("reverification.html", "Re-verification", "Published values re-read against their official sources"),
     # All parallel-session builds are now reached through one page rather than six sidebar
     # entries (2026-11-14, arena/6b2eddeb). Six entries in the main nav made a reader choose
     # between six answers to the same question; flag F35 records why that was a problem.
@@ -403,12 +401,152 @@ ul.tight{margin:.2rem 0 .6rem; padding-left:1.15rem}
 ul.tight li{margin:.25rem 0; font-size:.86rem}
 @media (max-width:820px){.twocol{grid-template-columns:1fr}}
 
+/* Editorial refresh: warm, quiet typography instead of a generic admin dashboard. */
+:root{
+  --bg:#f4f2eb; --panel:#fffefa; --ink:#202820; --muted:#626b62; --line:#deded2;
+  --brand:#245746; --brand-soft:#e5eee6; --warn:#92531e; --warn-soft:#fff1d8;
+  --bad:#9c4437; --bad-soft:#f8e8e3; --ok:#2f6745; --ok-soft:#e4f0e6;
+  --shadow:0 7px 24px rgba(32,40,32,.055); --radius:15px;
+  --accent:#b75d3c; --serif:Georgia,"Times New Roman",serif;
+}
+body{background:var(--bg); color:var(--ink); line-height:1.65}
+.skip-link{position:absolute; z-index:100; top:-5rem; left:1rem; padding:.55rem .85rem; background:#fffefa; color:#173f32; border:2px solid #245746; border-radius:8px; font-weight:700}
+.skip-link:focus{top:1rem}
+a{color:var(--brand); text-underline-offset:.18em}
+a:hover{color:#173f32}
+:focus-visible{outline:3px solid #ca784d; outline-offset:3px; border-radius:4px}
+.disclosure-bar{background:#173f34; color:#f2f4ec; padding:.58rem 1.25rem; font-size:.8rem}
+.topbar{background:#fffefa; border-bottom-color:#deded2; box-shadow:none; padding:.8rem 1.4rem}
+.brand .mark{background:#245746; border-radius:50%; width:34px; height:34px}
+.brand small{font-size:.68rem; letter-spacing:.045em; text-transform:uppercase; color:#677168}
+.shell{max-width:1500px; grid-template-columns:230px minmax(0,1fr); gap:1.65rem; padding:1.5rem}
+.sidebar .group h4{color:#8a8d82; letter-spacing:.12em}
+.sidebar a{color:#39453b; padding:.48rem .7rem}
+.sidebar a.active{background:#e4eee5; border-color:#c9d9ca; color:#1d4a39}
+main{padding-bottom:4rem}
+h1,h2,h3{font-family:var(--serif)}
+h1{font-size:clamp(2rem,3.3vw,2.7rem); font-weight:500; letter-spacing:-.035em; line-height:1.08}
+h2{font-size:clamp(1.4rem,2.25vw,1.9rem); font-weight:500; letter-spacing:-.025em; margin-top:2.35rem}
+h3{font-size:1.12rem; font-weight:600}
+.lede{font-size:1.08rem; color:#465348}
+.card,.stat,.sug,.qcard{background:var(--panel); border-color:var(--line); box-shadow:var(--shadow); border-radius:var(--radius)}
+.card{padding:1.25rem 1.35rem}
+.tablewrap{box-shadow:none; border-color:#d8d9ce; border-radius:13px}
+table{font-size:.86rem}
+thead th{background:#e9ece4; color:#435044}
+tbody tr:nth-child(even){background:#faf9f4}
+tbody tr:hover{background:#f1f4ed}
+.btn{background:#245746; border-color:#194635; border-radius:999px; padding:.7rem 1.2rem; font-weight:700}
+.btn:hover{background:#173f32}
+.btn-ghost{background:transparent; color:#245746; border-color:#aab8aa}
+.btn-ghost:hover{background:#e8eee7; color:#173f32}
+.paid-tag{border-radius:999px; letter-spacing:.035em}
+.callout{border-radius:0 12px 12px 0}
+.callout.info{background:#e8efe7}
+.cta-note{max-width:78ch}
+
+.editorial-hero{
+  position:relative; isolation:isolate; overflow:hidden; display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(310px,.85fr); gap:clamp(1.5rem,3.5vw,3rem);
+  align-items:stretch; margin:.1rem 0 1.25rem; padding:clamp(1.5rem,4vw,3.5rem);
+  border:1px solid #d8ddcf; border-radius:26px; background:#eceee2;
+}
+.editorial-hero:before{content:""; position:absolute; z-index:-1; width:28rem; height:28rem; right:20%; top:-22rem; border:1px solid rgba(36,87,70,.14); border-radius:50%; box-shadow:0 0 0 35px rgba(36,87,70,.035),0 0 0 70px rgba(36,87,70,.025)}
+.hero-copy{align-self:center; max-width:650px}
+.hero-eyebrow,.section-eyebrow{margin:0 0 .75rem; color:var(--accent); font-size:.7rem; font-weight:800; letter-spacing:.15em; text-transform:uppercase}
+.hero-eyebrow span{color:#929487; padding:0 .35rem}
+.hero-title{max-width:11ch; margin:.2rem 0 1rem; color:#1d3025; font:500 clamp(3rem,5.7vw,5.25rem)/.96 var(--serif); letter-spacing:-.065em}
+.hero-copy .lede{max-width:58ch; margin:0; font-size:1.08rem}
+.hero-actions{display:flex; flex-wrap:wrap; gap:.7rem; margin:1.5rem 0 .5rem}
+.hero-footnote{margin:.65rem 0 0; color:#606b5f; font-size:.75rem; letter-spacing:.035em}
+.hero-panel{display:flex; flex-direction:column; justify-content:center; min-width:0; padding:1.35rem 1.45rem; color:#f6f4eb; background:#214a3c; border-radius:19px; box-shadow:0 12px 30px rgba(27,61,49,.12)}
+.hero-panel-kicker{display:flex; justify-content:space-between; gap:1rem; margin:0; color:#e5b580; font-size:.68rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase}
+.hero-panel-kicker span{color:#d0dace; letter-spacing:.08em}
+.hero-panel h2{margin:.45rem 0 .9rem; color:#fffdf6; font-size:1.8rem; line-height:1.1}
+.hero-choice{display:grid; grid-template-columns:30px minmax(0,1fr) 18px; gap:.55rem; align-items:center; padding:.85rem 0; color:#f6f4eb; border-top:1px solid rgba(239,244,231,.19)}
+.hero-choice:hover{border-color:rgba(239,244,231,.55)}
+.hero-index{color:#e5b580; font-family:var(--mono); font-size:.76rem}
+.hero-choice-copy{display:flex; flex-direction:column; min-width:0}
+.hero-choice-copy>a{color:#fffdf6; text-decoration:none}
+.hero-choice-copy>a:hover{text-decoration:underline; text-underline-offset:.2em}
+.hero-choice-copy strong{color:#fffdf6; font-size:.91rem; line-height:1.3}
+.hero-choice-copy small{margin-top:.18rem; color:#d4dfd3; font-size:.72rem}
+.hero-panel .src{margin:.05rem .1rem; background:#e4efe5; border-color:#d0e3d2; color:#204a39}
+.hero-arrow{color:#e5b580; text-align:right}
+.link-status{margin:1.15rem 0 1.5rem; background:#fff2dd; border-left-color:#c87539; border-color:#efd6b2; border-left-width:5px; padding:1rem 1.15rem}
+.link-status-heading{display:flex; align-items:center; flex-wrap:wrap; gap:.65rem; margin:0 0 .3rem}
+.link-status-heading strong{display:inline; margin:0; color:#48331f}
+.link-status p{margin:.35rem 0 0}
+.method-strip{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; padding:1.15rem 0; border-top:1px solid #deded2; border-bottom:1px solid #deded2}
+.method-strip>div{display:grid; grid-template-columns:30px 1fr; column-gap:.55rem; align-items:start}
+.method-number{grid-row:span 2; color:var(--accent); font:700 .75rem/1.6 var(--mono)}
+.method-strip strong{font-size:.86rem; line-height:1.35}
+.method-strip p{margin:.2rem 0 0; color:var(--muted); font-size:.78rem; line-height:1.45}
+.section-heading{max-width:700px; margin:2.4rem 0 1rem}
+.section-heading .section-eyebrow{margin-bottom:.25rem}
+.section-heading h2{margin:.1rem 0 .4rem}
+.section-heading p:last-child{margin:.2rem 0}
+.decision-grid{align-items:stretch}
+.decision-card{display:flex; flex-direction:column; min-height:235px; padding:1.25rem 1.35rem}
+.decision-label,.product-type{margin:0; color:var(--accent); font-size:.68rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase}
+.decision-card h3{margin:.25rem 0 .45rem; font-size:1.23rem; line-height:1.2}
+.decision-card p.small{margin:.1rem 0 .85rem; color:#515c52}
+.decision-card>a{margin-top:auto; font-size:.87rem; font-weight:700}
+.pcard{gap:.55rem; min-height:270px}
+.pcard h3{margin:.05rem 0; font-size:1.3rem; line-height:1.2}
+.pcard .product-name{margin:0; line-height:1.45}
+.product-fact{display:grid; gap:.1rem; padding:.7rem 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+.product-fact>span:first-child{color:var(--muted); font-size:.7rem; letter-spacing:.06em; text-transform:uppercase}
+.product-fact>strong{font-family:var(--serif); font-size:1.22rem; font-weight:500}
+.product-match{display:flex; align-items:center; flex-wrap:wrap; gap:.4rem; margin:.1rem 0}
+.product-match .pill{white-space:normal}
+.archive-panel{margin-top:1.5rem; padding:1.2rem 1.4rem; background:#ebece2; border:1px solid #d8ddcf; border-radius:16px}
+.archive-panel .section-eyebrow{margin:0 0 .2rem}
+.archive-panel h3{margin:.15rem 0 .35rem; font-size:1.35rem}
+.archive-panel p{margin:.3rem 0}
+.comparison-table td .tiny{margin-top:.3rem; line-height:1.4}
+.comparison-table .src{margin:.05rem .1rem .05rem 0}
+footer.site{background:#ebece5; border-top-color:#d8d9ce; margin-top:2.5rem}
+footer.site .inner{max-width:1500px}
+footer.site h5{color:#405548}
+footer.site p,footer.site li{color:#59645a}
+.legal{border-top-color:#d4d7cc}
+
+@media (max-width:960px){
+  .shell{grid-template-columns:1fr; padding:1rem}
+  .sidebar{background:#fffefa; border:1px solid var(--line); border-radius:14px; padding:.6rem}
+  .editorial-hero{grid-template-columns:minmax(0,1fr) minmax(290px,.8fr); padding:1.5rem}
+  .hero-title{font-size:clamp(2.8rem,6vw,4rem)}
+}
+@media (max-width:760px){
+  .editorial-hero{grid-template-columns:1fr; gap:1.25rem; border-radius:20px}
+  .hero-title{max-width:12ch; font-size:clamp(3rem,12vw,4.4rem)}
+  .hero-panel{padding:1.1rem 1.2rem}
+  .method-strip{grid-template-columns:1fr; gap:.8rem}
+}
+@media (max-width:560px){
+  .topbar{padding:.65rem .85rem}
+  .brand small{max-width:180px; font-size:.62rem}
+  .shell{padding:.75rem}
+  .editorial-hero{padding:1.2rem}
+  .hero-actions{align-items:stretch}
+  .hero-actions .btn{justify-content:center; flex:1 1 100%}
+  .link-status-heading{align-items:flex-start; flex-direction:column}
+  .decision-card{min-height:0}
+  table{font-size:.8rem}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important; transition:none!important}}
+
 """
 
 JS = r"""
 document.addEventListener('click', function (ev) {
   var t = ev.target.closest('.navtoggle');
-  if (t) { document.querySelector('.sidebar').classList.toggle('open'); }
+  if (!t) return;
+  var nav = document.getElementById(t.getAttribute('aria-controls'));
+  if (!nav) return;
+  var open = nav.classList.toggle('open');
+  t.setAttribute('aria-expanded', open ? 'true' : 'false');
 });
 
 // revenue scenario calculator — arithmetic on two published inputs only
@@ -440,6 +578,9 @@ def layout(page_rel, title, body, active=None, description=""):
     # Keyed by href, not by position: the sidebar used to index this list, so inserting a nav
     # entry silently moved every later group (caught 2026-11-15 when Suggestions and Open
     # questions were added and the Products group began rendering the Buying guide).
+    nav_hrefs = [href for href, _label, _sub in NAV]
+    if len(nav_hrefs) != len(set(nav_hrefs)):
+        raise SystemExit("BUILD FAILED — duplicate navigation href")
     nav_html = {}
     for href, label, sub in NAV:
         cls = ' class="active"' if href == active else ""
@@ -458,7 +599,6 @@ def layout(page_rel, title, body, active=None, description=""):
         (href, label, sub) for (href, label, sub) in NAV
         if "/" in href and not href.startswith(("products/", "categories/", "guides/", "assets/"))
     ]
-    extra_nav = "".join(nav_html[href] for (href, _l, _s) in parallel)
 
     # product links under the category entry
     prod_nav = "".join(
@@ -483,12 +623,13 @@ def layout(page_rel, title, body, active=None, description=""):
 <title>{e(title)} · {e(SITE_NAME)}</title>
 {desc}
 <link rel="stylesheet" href="{prefix}assets/style.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230f766e'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='%23fff' text-anchor='middle'%3EZ1%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23245746'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='%23fff' text-anchor='middle'%3EZ1%3C/text%3E%3C/svg%3E">
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 <div class="disclosure-bar">
   <strong>Affiliate disclosure:</strong> {e(DISCLOSURE)}
-  <a href="{prefix}compliance.html" style="color:#9ff3ec">How this site stays compliant →</a>
+  <a href="{prefix}compliance.html" style="color:#d8e7d5">How this site stays compliant →</a>
 </div>
 <header class="topbar">
   <a class="brand" href="{prefix}index.html" style="color:inherit">
@@ -497,10 +638,10 @@ def layout(page_rel, title, body, active=None, description=""):
   </a>
   <span class="spacer"></span>
   <span class="meta">data verified {e(ACCESSED)}{(" · re-verified " + e(REVERIFIED)) if REVERIFIED else ""}</span>
-  <button class="navtoggle" type="button" aria-label="Toggle navigation">Menu</button>
+  <button class="navtoggle" type="button" aria-controls="site-nav" aria-expanded="false">Menu</button>
 </header>
 <div class="shell">
-  <aside class="sidebar">
+  <nav id="site-nav" class="sidebar" aria-label="Primary navigation">
     <div class="group">
       <h4>Start here</h4>
       {N("index.html")}
@@ -531,22 +672,22 @@ def layout(page_rel, title, body, active=None, description=""):
       {N("platform.html")}
     </div>
     {more_nav}
-  </aside>
-  <main>
+  </nav>
+  <main id="main-content">
     {body}
   </main>
 </div>
 <footer class="site">
   <div class="inner">
     <div>
-      <h5>Parallel passes on this domain</h5>
-      {extra_nav}
-      <p class="tiny">Independently verified builds merged into <code>main</code> by other sessions. Nothing here was overwritten by them and nothing of theirs was overwritten here.</p>
+      <h5>Research archive</h5>
+      <p>Older verification builds and supporting reports are kept separate from the main buying guide.</p>
+      <p><a href="{prefix}previous-passes.html">Browse prior passes and annexes →</a></p>
     </div>
     <div>
       <h5>Disclosure</h5>
       <p><strong>{e(DISCLOSURE)}</strong></p>
-      <p>Links marked <span class="paid-tag">Paid link</span> are Amazon Associates links. If you buy through one, this site may earn a commission at no extra cost to you. Amazon prices and availability are never published here — check the live price on Amazon.</p>
+      <p>We may earn a commission from a qualifying purchase made through an eligible link. The three supplied Amazon short links have not been confirmed to match the named models or carry this site's Associates tracking ID. Amazon prices, availability and ratings are not published here.</p>
     </div>
     <div>
       <h5>Verification</h5>
@@ -585,11 +726,10 @@ def layout(page_rel, title, body, active=None, description=""):
 def product_cta(p, prefix=""):
     return f"""
 <div class="cta-row">
-  <a class="btn" href="{e(p['link'])}" target="_blank" rel="nofollow sponsored noopener">Check price on Amazon <span aria-hidden="true">↗</span></a>
-  <span class="paid-tag">Paid link</span>
-  <span class="small muted">No Amazon price is shown here — the live price lives on the listing.</span>
+  <a class="btn" href="{e(p['link'])}" target="_blank" rel="nofollow sponsored noopener">Open supplied Amazon link — verify model <span aria-hidden="true">↗</span></a>
+  <span class="paid-tag">Affiliate link · tracking unconfirmed</span>
 </div>
-<p class="cta-note">Link-level disclosure: this is an affiliate link and we may earn a commission if you buy, at no extra cost to you. Candidate ASIN <code>{e(p['asin']['v'])}</code> — <strong>not confirmed</strong>: the supplied link reaches an Amazon fallback page (<a href="../reports/link-check-2026-11-14.md">link check, 2026-11-14</a>). {src_links(['S17'])}</p>
+<p class="cta-note">Affiliate disclosure: we may earn a commission if Amazon credits a qualifying purchase to this site, but this short link's Associates tag has not been verified. The model identity is also unconfirmed; check the product title and model number on Amazon before buying. See <a href="{prefix}flagged.html">Flagged for review</a> and <a href="{prefix}questions.html#q-01">the open questions</a>. {src_links(['S17', 'S2'])}</p>
 """
 
 
@@ -625,10 +765,11 @@ def commercial_table():
     rows = []
     for p in PRODUCT_LIST:
         rate = p["commission"]["rate_confirmed"]
-        rate_cell = (
-            f'{e(rate)}' if rate else
-            '<span class="blank">— not confirmed —</span>' + ' ' + flag_pill("unverified")
+        rate_value = (
+            e(rate) if rate else
+            '<span class="blank">— not confirmed —</span> ' + flag_pill("unverified")
         )
+        rate_cell = f'{rate_value} {src_link("S3")}'
         rows.append(
             f'<tr>'
             f'<td><a href="products/{p["slug"]}.html">{e(p["short_name"])}</a></td>'
@@ -652,7 +793,7 @@ def commercial_table():
   <tbody>{''.join(rows)}</tbody>
 </table>
 </div>
-<p class="tiny muted">Commission rate is blank on every row on purpose: Amazon publishes rates by <em>category</em> (S3) but not the category assigned to a given ASIN, so any number here would be a guess. Amazon price is blank because Program Policies §2(b) only permits displaying it when Amazon serves the link or via the official API {src_links(['S2'])}. "Brand-site rating" is the manufacturer's own on-site review widget, not Amazon's.</p>
+<p class="tiny muted">Commission rate is blank on every row on purpose: Amazon publishes rates by <em>category</em> (S3) but not the category assigned to a given ASIN, so any number here would be a guess. Amazon price is blank because Program Policies §2(b) only permits displaying it when Amazon serves the link or via the official API {src_links(['S2'])}. Brand-site ratings are dated snapshots from each manufacturer's own review widget, not Amazon ratings; see the product-page notes for the recorded counts and access dates.</p>
 """
 
 
@@ -739,98 +880,144 @@ def page_index():
         1 for p in PRODUCT_LIST for f in p["flags"] if f["id"] not in ("F1", "F6"))
     verified = sum(1 for p in PRODUCT_LIST for s in p["specs"] if s["value"] is not None)
     unverified = sum(1 for p in PRODUCT_LIST for s in p["specs"] if s["value"] is None)
+    format_labels = {
+        "chefman-6qt-dual-basket": "Two-basket air fryer",
+        "emeril-26qt-french-door": "French-door countertop oven",
+        "chefman-8qt-turbofry": "Single-basket air fryer",
+    }
     cards = "".join(
         f"""
-<div class="card pcard">
-  <div class="rank">Rank {p['rank']} · {e(p['category'])}</div>
+<article class="card pcard">
+  <p class="product-type">{e(format_labels.get(p['slug'], 'Air fryer'))}</p>
   <h3><a href="products/{p['slug']}.html">{e(p['short_name'])}</a></h3>
-  <p class="small muted" style="margin:.2rem 0">{e(p['name'])}</p>
-  <div class="facts">
-    <span class="chip">candidate ASIN {e(p['asin']['v'])} (unconfirmed)</span>
-    <span class="chip">{e(p['pricing']['brand_list_price']['v'])} brand list</span>
-    <span class="chip">{len(p['flags'])} flag(s)</span>
+  <p class="small muted product-name">{e(p['name'])}</p>
+  <div class="product-fact">
+    <span>Manufacturer-stated capacity</span>
+    <strong>{e(next((s['value'] for s in p['specs'] if s['label'] == 'Capacity' and s['value']), '— not confirmed —'))}</strong>
+    <span class="tiny">{src_links(next((s['source'] for s in p['specs'] if s['label'] == 'Capacity'), []))}</span>
   </div>
-  {product_cta(p)}
-  <p class="small" style="margin:0"><a href="products/{p['slug']}.html">Read the verified breakdown →</a></p>
-</div>"""
+  <p class="product-match"><span class="pill pill-warn">Amazon model match unconfirmed</span>
+    <a class="tiny" href="flagged.html">Review link status</a></p>
+  <p class="small" style="margin:.2rem 0 0"><a href="products/{p['slug']}.html">Read the sourced product notes →</a></p>
+</article>"""
         for p in PRODUCT_LIST
     )
     body = f"""
-<p class="crumbs">Buying guide</p>
-<h1>Three air fryers, read the way a careful shopper would read them</h1>
-<p class="lede">Two dual-basket air fryers and one French-door oven. We did not test any of them — we read
-every manufacturer document we could find, quoted what it says, and marked the places where the
-official record contradicts itself instead of smoothing them over. If a number is on this site, the
-page that states it is one click away. <a href="#how-we-work">How we work</a>.</p>
-
-<div class="callout note" id="how-we-work">
-  <strong>What this site is, in one paragraph.</strong>
-  <p class="small">We recommend three Amazon listings and we earn a commission if you buy through our
-  links, at no extra cost to you. We have not used these machines. What we have done is read Chefman's
-  and Emeril's own product pages and owner's manuals, line by line, and publish only what they
-  actually state — including the contradictions, which are on <a href="flagged.html">Flagged for
-  review</a> rather than quietly removed. Amazon prices and star ratings are deliberately absent:
-  Amazon's Associates Program Policies §2(b) and §6(t) do not permit us to publish them unless Amazon
-  serves the data itself {src_links(['S2'])}. The links below take you to the live price.</p>
+<div class="editorial-hero">
+  <div class="hero-copy">
+    <p class="hero-eyebrow">Zone1 Kitchen <span aria-hidden="true">/</span> Air-fryer field guide</p>
+    <h1 class="hero-title">Choose the shape before the model.</h1>
+    <p class="lede">Two baskets, one 8 Qt basket, or a countertop oven? Compare three formats using manufacturer pages and owner's manuals—without pretending we tested them.</p>
+    <div class="hero-actions">
+      <a class="btn" href="#quick-guide">Find your fit <span aria-hidden="true">↓</span></a>
+      <a class="btn btn-ghost" href="articles/index.html">Read the guides <span aria-hidden="true">→</span></a>
+    </div>
+    <p class="hero-footnote">Sourced specifications · visible gaps · no hands-on testing claimed</p>
+  </div>
+  <aside class="hero-panel" aria-label="Three air-fryer formats">
+    <p class="hero-panel-kicker">The format guide <span>03 products</span></p>
+    <h2>Start with how you cook.</h2>
+    <div class="hero-choice">
+      <span class="hero-index">01</span><span class="hero-choice-copy"><a href="products/chefman-6qt-dual-basket.html"><strong>Two independent baskets</strong></a><small>Chefman · 6 Qt {src_link('S10')} {src_link('S18')}</small></span><span class="hero-arrow" aria-hidden="true">↗</span>
+    </div>
+    <div class="hero-choice">
+      <span class="hero-index">02</span><span class="hero-choice-copy"><a href="products/emeril-26qt-french-door.html"><strong>French-door countertop oven</strong></a><small>Emeril · 26 QT {src_link('S14')}</small></span><span class="hero-arrow" aria-hidden="true">↗</span>
+    </div>
+    <div class="hero-choice">
+      <span class="hero-index">03</span><span class="hero-choice-copy"><a href="products/chefman-8qt-turbofry.html"><strong>One large basket</strong></a><small>Chefman · 8 Qt {src_link('S12')}</small></span><span class="hero-arrow" aria-hidden="true">↗</span>
+    </div>
+  </aside>
 </div>
 
-<h2>Start with the decision, not the products</h2>
-<div class="grid grid-3" style="margin:.6rem 0 1.25rem">
-  <div class="card">
-    <div class="rank">If you cook two different things at once</div>
-    <h3 style="margin:.15rem 0 .3rem; font-size:1rem">The dual-basket case</h3>
-    <p class="small" style="margin:0">Two independent 3-quart baskets, each on its own temperature and
-    timer, with a Sync Finish function that holds the quicker basket so both land together. This is the
-    form factor that solves the one real complaint about air fryers: you cannot cook chips and chicken
-    at 200 °C and 180 °C in one drawer at the same time.</p>
-    <p class="small" style="margin:.5rem 0 0"><a href="articles/dual-basket-vs-single-basket.html">Which form factor actually fits your cooking →</a></p>
-  </div>
-  <div class="card">
-    <div class="rank">If you want an oven, not a drawer</div>
-    <h3 style="margin:.15rem 0 .3rem; font-size:1rem">The French-door case</h3>
-    <p class="small" style="margin:0">A 26-quart cavity that opens from the front, with a rotisserie and
-    24 named presets in the manual. It bakes, toasts and air-fries where a basket only air-fries — and
-    it takes up the counter space of a small microwave rather than fitting in a cupboard.</p>
-    <p class="small" style="margin:.5rem 0 0"><a href="articles/dual-basket-vs-oven-air-fryer.html">Basket versus oven, side by side →</a></p>
-  </div>
-  <div class="card">
-    <div class="rank">If a number decided it for you</div>
-    <h3 style="margin:.15rem 0 .3rem; font-size:1rem">The spec-sheet case</h3>
-    <p class="small" style="margin:0">Capacity in quarts is not capacity in litres, and "450 °F" can mean
-    the maximum setting or a two-minute finishing burst. The single most useful thing you can do before
-    buying any air fryer is learn which of its numbers are comparable.</p>
-    <p class="small" style="margin:.5rem 0 0"><a href="articles/how-to-read-an-air-fryer-spec-sheet.html">How to read an air fryer spec sheet →</a></p>
-  </div>
+<div class="callout bad link-status" id="link-status">
+  <div class="link-status-heading"><span class="pill pill-warn">Before shopping</span><strong>Product identity, account approval and affiliate tracking are not confirmed.</strong></div>
+  <p class="small">Recorded checks through 2026-11-15 observed fallback-style redirects for the three supplied short links. We cannot confirm that each link reaches the named manufacturer model, carries the correct Associates tag, or that the Associates account is approved. Verify the model and account status in Amazon before relying on a purchase link. {src_links(['S17', 'S2'])} <a href="reports/link-check-2026-11-14.md">Read the redirect evidence</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html#q-01">Product-link question</a> · <a href="questions.html#q-03">Account-status question</a>.</p>
 </div>
 
-<h2>The three, in one table</h2>
-<p class="small muted">Every value below is quoted from the manufacturer's own page or owner's manual, and the
-source badge next to it opens that page. Blank means the manufacturer does not publish it — not that it is
-unfavourable.</p>
+<div class="method-strip" id="how-we-work" aria-label="How this guide is made">
+  <div><span class="method-number">01</span><strong>Manufacturer sources</strong><p>Specs link to brand product pages or owner's manuals.</p></div>
+  <div><span class="method-number">02</span><strong>Unknowns stay visible</strong><p>Unconfirmed values are left blank and sent to the review register.</p></div>
+  <div><span class="method-number">03</span><strong>No test claims</strong><p>This is a document-based comparison, not a hands-on review. {src_links(['S8'])}</p></div>
+</div>
+
+<section id="quick-guide" class="quick-guide">
+  <div class="section-heading">
+    <p class="section-eyebrow">A practical starting point</p>
+    <h2>Start with the shape that suits your kitchen.</h2>
+    <p class="small muted">These are product formats—not a ranked top-three list. Follow a link for the full sourced breakdown.</p>
+  </div>
+  <div class="grid grid-3 decision-grid">
+    <article class="card decision-card">
+      <p class="decision-label">Two baskets</p>
+      <h3>Two foods, separate settings</h3>
+      <p class="small">The 6 Qt Chefman manual documents two 3-quart baskets and a Sync Finish function. That is the documented difference; we have not tested the cooking result. {src_links(['S18'])}</p>
+      <a href="articles/dual-basket-vs-single-basket.html">Two baskets or one? →</a>
+    </article>
+    <article class="card decision-card">
+      <p class="decision-label">Oven-style</p>
+      <h3>More than a basket</h3>
+      <p class="small">The Emeril is described as a 26 QT French-door toaster-oven combo, and the manual documents a rotisserie. Its preset-count claims differ across official pages; see the flag before treating the count as settled. {src_links(['S14', 'S15'])}</p>
+      <a href="articles/dual-basket-vs-oven-air-fryer.html">Basket or countertop oven? →</a>
+    </article>
+    <article class="card decision-card">
+      <p class="decision-label">Single basket</p>
+      <h3>One 8 Qt cooking space</h3>
+      <p class="small">Chefman's product page lists an 8 Qt basket and four named presets. The supplied listing title and the manufacturer's specification set contain a temperature discrepancy, so the exact model mapping remains open. {src_links(['S12', 'S13', 'S29'])}</p>
+      <a href="articles/what-450f-actually-means.html">What the temperature label means →</a>
+    </article>
+  </div>
+</section>
+
+<h2>The three, side by side</h2>
+<p class="small muted">Every populated fact has its own official source link. A dash means we could not confirm it; conflicts are shown as conflicts rather than resolved by guesswork.</p>
+<div class="tablewrap comparison-table">
 <table>
-  <thead><tr><th>&nbsp;</th><th>Chefman 6 Qt Dual Basket</th><th>Emeril 26 QT French Door</th><th>Chefman 8 Qt TurboFry</th></tr></thead>
+  <caption>Quick comparison — manufacturer-backed specifications and open gaps</caption>
+  <thead><tr><th>What to compare</th><th>Chefman 6 Qt Dual Basket</th><th>Emeril 26 QT French Door</th><th>Chefman 8 Qt TurboFry</th></tr></thead>
   <tbody>
-    <tr><td class="small"><strong>What it is</strong> {src_links(['S10','S14','S12'])}</td><td class="small">Two-drawer basket air fryer</td><td class="small">French-door countertop oven</td><td class="small">Single-drawer basket air fryer</td></tr>
-    <tr><td class="small"><strong>Capacity</strong> {src_links(['S10','S14','S12'])}</td><td class="small">6 Qt / 5.67 L (two 3-qt baskets)</td><td class="small">26 qt / 24.6 L</td><td class="small">8 qt</td></tr>
-    <tr><td class="small"><strong>Temperature range</strong> {src_links(['S10','S14','S12'])}</td><td class="small">200–450 °F, Hi-Fry 450 °F for 2 min</td><td class="small">75–500 °F</td><td class="small">200–400 °F</td></tr>
-    <tr><td class="small"><strong>Presets</strong> {src_links(['S15','S13'])}</td><td class="small">Not stated by the manufacturer</td><td class="small">24, named in the manual</td><td class="small">Fries, Chicken, Fish, Meat</td></tr>
-    <tr><td class="small"><strong>Rotisserie</strong> {src_links(['S15'])}</td><td class="small">No</td><td class="small">Yes</td><td class="small">No</td></tr>
-    <tr><td class="small"><strong>Outer dimensions</strong> {src_links(['S10','S14','S12'])}</td><td class="small">13.38 × 11.81 × 10.63 in</td><td class="small">16.9 D × 15.8 W × 14.8 H in</td><td class="small">15.4 × 12.6 × 13.5 in</td></tr>
-    <tr><td class="small"><strong>Power</strong> {src_links(['S10','S15','S12'])}</td><td class="small">1700 W / 120 V</td><td class="small">1700 W / 120 V</td><td class="small">1700 W / 120 V</td></tr>
-    <tr><td class="small"><strong>Warranty</strong> {src_links(['S10','S14','S13'])}</td><td class="small">1 year</td><td class="small">1 year</td><td class="small">Limited 1 year</td></tr>
-    <tr><td class="small"><strong>Full verified table</strong></td>
-      <td class="small"><a href="products/chefman-6qt-dual-basket.html">All fields, each sourced →</a> {src_links(['S10','S18'])}</td>
-      <td class="small"><a href="products/emeril-26qt-french-door.html">All fields, each sourced →</a> {src_links(['S14','S15'])}</td>
-      <td class="small"><a href="products/chefman-8qt-turbofry.html">All fields, each sourced →</a> {src_links(['S12','S13'])}</td></tr>
+    <tr><td class="small"><strong>Format</strong></td>
+      <td class="small">Dual-basket air fryer<div class="tiny">{src_links(['S10'])}</div></td>
+      <td class="small">French-door countertop oven<div class="tiny">{src_links(['S14'])}</div></td>
+      <td class="small">Single-basket air fryer<div class="tiny">{src_links(['S12'])}</div></td></tr>
+    <tr><td class="small"><strong>Capacity</strong></td>
+      <td class="small">6 Qt / 5.67 L; two 3-qt baskets<div class="tiny">{src_links(['S10', 'S18'])}</div></td>
+      <td class="small">26 qt / 24.6 L<div class="tiny">{src_links(['S14', 'S15'])}</div></td>
+      <td class="small">8 qt<div class="tiny">{src_links(['S12', 'S13'])}</div></td></tr>
+    <tr><td class="small"><strong>Temperature</strong></td>
+      <td class="small">200–450 °F; Hi-Fry holds 450 °F for 2 minutes<div class="tiny">{src_links(['S10', 'S18'])}</div></td>
+      <td class="small">75–500 °F<div class="tiny">{src_links(['S15'])}</div></td>
+      <td class="small"><span class="pill pill-warn">Conflicting claims</span><div class="tiny">Brand page: 200–400 °F; supplied listing title advertises 450 °F. Model match is unconfirmed.</div><div class="tiny">{src_links(['S12', 'S29'])} <a href="flagged.html">Flagged</a></div></td></tr>
+    <tr><td class="small"><strong>Preset information</strong></td>
+      <td class="small blank">— not confirmed —<div class="tiny">{src_links(['S18'])} <a href="flagged.html">Flagged</a></div></td>
+      <td class="small"><span class="pill pill-warn">Conflicting claims</span><div class="tiny">Owner's manual names 24; product page states 25. Neither count is selected as definitive.</div><div class="tiny">{src_links(['S15', 'S14'])} <a href="flagged.html">Flagged</a></div></td>
+      <td class="small">Fries, Chicken, Fish, Meat<div class="tiny">{src_links(['S12', 'S13'])}</div></td></tr>
+    <tr><td class="small"><strong>Rotisserie</strong></td>
+      <td class="small blank">— not confirmed —<div class="tiny">{src_links(['S10', 'S18'])} <a href="flagged.html">Flagged</a></div></td>
+      <td class="small">Yes<div class="tiny">{src_links(['S14', 'S15'])}</div></td>
+      <td class="small blank">— not confirmed —<div class="tiny">{src_links(['S12', 'S13'])} <a href="flagged.html">Flagged</a></div></td></tr>
+    <tr><td class="small"><strong>Outer dimensions</strong></td>
+      <td class="small">13.38 × 11.81 × 10.63 in<div class="tiny">{src_links(['S10'])}</div></td>
+      <td class="small">16.9 D × 15.8 W × 14.8 H in<div class="tiny">{src_links(['S14'])}</div></td>
+      <td class="small">15.4 × 12.6 × 13.5 in<div class="tiny">{src_links(['S12'])}</div></td></tr>
+    <tr><td class="small"><strong>Rated power</strong></td>
+      <td class="small">1700 W / 120 V<div class="tiny">{src_links(['S10'])}</div></td>
+      <td class="small">1700 W / 120 V<div class="tiny">{src_links(['S15'])}</div></td>
+      <td class="small">1700 W / 120 V<div class="tiny">{src_links(['S12'])}</div></td></tr>
+    <tr><td class="small"><strong>Warranty</strong></td>
+      <td class="small">1 year<div class="tiny">{src_links(['S10'])}</div></td>
+      <td class="small">1 year<div class="tiny">{src_links(['S14'])}</div></td>
+      <td class="small">Limited 1 year<div class="tiny">{src_links(['S13'])}</div></td></tr>
+    <tr><td class="small"><strong>Full product record</strong></td>
+      <td class="small"><a href="products/chefman-6qt-dual-basket.html">Read the sourced product notes →</a> {src_links(['S10', 'S18'])}</td>
+      <td class="small"><a href="products/emeril-26qt-french-door.html">Read the sourced product notes →</a> {src_links(['S14', 'S15'])}</td>
+      <td class="small"><a href="products/chefman-8qt-turbofry.html">Read the sourced product notes →</a> {src_links(['S12', 'S13'])}</td></tr>
   </tbody>
 </table>
-<p class="small muted">Dimensions decide whether a machine fits under your cabinets, so they are here.
-Noise level and real-world preheat time are not published by either manufacturer and are not estimated on
-this site. <a href="questions.html#q-06">What the manufacturers do not publish →</a></p>
+</div>
+<p class="small muted">Measure your counter and cabinet clearance against the dimensions above. Noise level and real-world preheat time are not confirmed in the cited manufacturer materials. <a href="questions.html#q-06">See the open information gaps →</a></p>
 
-<h2>Pick one</h2>
-
-<h2>The product set</h2>
+<h2>Product notes, not rankings</h2>
+<p class="small muted">The Amazon model match remains unconfirmed for every item. These pages separate manufacturer specifications from what is known about the supplied links.</p>
 <div class="grid grid-3">{cards}</div>
 
 <h2>Commercial summary</h2>
@@ -911,24 +1098,16 @@ much to trust a number, not required reading before buying. The same material, i
   </tbody>
 </table>
 </div>
-<div class="panel" style="margin-top:20px">
-  <h3>Independent builds in this repository</h3>
-  <p class="muted small">Several agent sessions worked this repository concurrently; each build is preserved and served alongside this one.</p>
-  <table class="rows">
-    <caption>Session builds and annexes</caption>
-    <thead><tr><th>Build</th><th>What it adds</th></tr></thead>
-    <tbody>
-      <tr><td><a href="research/index.html">Deep-dive research ↗</a></td><td>Independent 25-source verification pass (session 8a2ddd06).<div class="tiny">{repo_link('research/', 'Source: research/ in this repository')}</div></td></tr>
-      <tr><td><a href="site/index.html">Verification annex ↗</a></td><td>Independent dataset and generator, 53 spec fields, Kitchen 4.50% rate row (session 1874bb64).<div class="tiny">{repo_link('site/', 'Source: site/ in this repository')}</div></td></tr>
-      <tr><td><a href="session-3740f69d/index.html">Session 3740f69d build ↗</a></td><td>Dashboard build: link-resolution evidence, affiliate-link policy mapping, tracking design, AI Agent-Terms compliance (session arena-3740f69d).<div class="tiny">{repo_link('session-3740f69d/', 'Source: session-3740f69d/ in this repository')}</div></td></tr>
-      <tr><td><a href="crosscheck/arena-4ba9e055/README.md">Cross-check reports ↗</a></td><td>Independent cross-check notes (session arena-4ba9e055).<div class="tiny">{repo_link('crosscheck/arena-4ba9e055/README.md', 'Source: crosscheck/arena-4ba9e055/README.md')}</div></td></tr>
-    </tbody>
-  </table>
+<div class="archive-panel">
+  <p class="section-eyebrow">For the detail-minded</p>
+  <h3>Want the full evidence trail?</h3>
+  <p class="small">The complete dataset, source register, open flags and previous research builds are available for review.</p>
+  <p class="small"><a href="data.html">Full dataset →</a> · <a href="flagged.html">Flagged for review →</a> · <a href="previous-passes.html">Research archive →</a></p>
 </div>
-<p class="tiny muted">"Official" in this project means: Amazon.com for Amazon program facts and for which ASIN a link resolves to; a US government source for US law; the manufacturer for product specifications. Retailer listings, reseller marketplaces, review aggregators and affiliate blogs are not treated as sources — several of them contradicted each other and the official rate table on the day of verification.</p>
+<p class="tiny muted">Evidence standard: Amazon sources support Amazon program and listing facts; manufacturers support product specifications; US government sources support legal requirements. The <a href="data.html">source register</a> lists each reference and what it can verify.</p>
 """
     return layout("index.html", "Air fryer buying guide", body, active="index.html",
-                  description="Verified Amazon affiliate product dashboard: three air fryers, every value sourced to an official page, every gap disclosed.")
+                  description="A source-led comparison of three air-fryer formats, with manufacturer specifications, visible gaps and the status of the supplied Amazon links.")
 
 
 def page_product(p):
@@ -949,25 +1128,25 @@ def page_product(p):
         for c in p["commission"]["candidate_rows"]
     )
     body = f"""
-<p class="crumbs"><a href="../index.html">Dashboard</a> / <a href="../categories/kitchen-appliances.html">Kitchen</a> / {e(p['short_name'])}</p>
+<p class="crumbs"><a href="../index.html">Home</a> / <a href="../categories/kitchen-appliances.html">Kitchen</a> / {e(p['short_name'])}</p>
 <h1>{e(p['short_name'])}</h1>
-<p class="lede">{e(p['name'])} — {e(p['brand'])}. Rank {p['rank']} of 3 in this set. Everything below was read from the manufacturer's own page or owner's manual on {e(ACCESSED)}. The ASIN shown is a <strong>candidate</strong> observed on a 2026-11-14 fetch of the short link; the mapping from the supplied token to that ASIN is not confirmed — see the <a href="../reports/link-check-2026-11-14.md">link check</a> and <a href="../flagged.html">F14–F16</a>.</p>
+<p class="lede">{e(p['name'])} — {e(p['brand'])}. These are document-based product notes, not a ranking or hands-on review. Specifications below come from the manufacturer's product page or owner's manual, accessed {e(ACCESSED)}. The candidate ASIN comes from recorded link checks, but the supplied short-link-to-model mapping is not confirmed; see the <a href="../reports/link-check-2026-11-14.md">redirect evidence</a> and <a href="../flagged.html">Flagged for review</a>.</p>
 
 <div class="grid grid-4" style="margin-bottom:1rem">
-  <div class="stat warn"><div class="n" style="font-size:1.15rem">{e(p['asin']['v'])}</div><div class="l">Candidate ASIN (unconfirmed)</div></div>
-  <div class="stat"><div class="n" style="font-size:1.15rem">{e(p['pricing']['brand_list_price']['v'])}</div><div class="l">Brand list price</div></div>
-  <div class="stat"><div class="n" style="font-size:1.15rem">{e(p['reviews']['brand_site_rating']['v'].split(' from')[0])}</div><div class="l">Brand-site rating</div></div>
-  <div class="stat warn"><div class="n" style="font-size:1.15rem">{len(p['flags'])}</div><div class="l">Open flags</div></div>
+  <div class="stat warn"><div class="n" style="font-size:1.15rem">{e(p['asin']['v'])}</div><div class="l">Candidate ASIN · unconfirmed</div><div class="h">{src_links(p['asin']['s'])}</div></div>
+  <div class="stat"><div class="n" style="font-size:1.15rem">{e(p['pricing']['brand_list_price']['v'])}</div><div class="l">Brand list price</div><div class="h">{src_links(p['pricing']['brand_list_price']['s'])}</div></div>
+  <div class="stat"><div class="n" style="font-size:1.15rem">{e(p['reviews']['brand_site_rating']['v'].split(' from')[0])}</div><div class="l">Brand-site rating · not Amazon</div><div class="h">{src_links(p['reviews']['brand_site_rating']['s'])}</div></div>
+  <div class="stat warn"><div class="n" style="font-size:1.15rem">{len(p['flags'])}</div><div class="l">Open flags</div><div class="h"><a href="../flagged.html">Review all flags →</a></div></div>
 </div>
 
-{product_cta(p)}
+{product_cta(p, prefix="../")}
 
 <div class="callout ok">
   <strong>How this review was produced</strong>
   <p class="small">This is a documentation-based review. No unit was tested, owned or handled. That matters legally as well as ethically: the FTC's disclosure guidance says an endorser cannot describe an experience with a product they have not tried {src_links(['S8'])}, so this page describes published specifications and what they imply — nothing else.</p>
 </div>
 
-<h2>What the link observed on 2026-11-14</h2>
+<h2>What recorded link checks observed</h2>
 <div class="card tight">
   <p class="small" style="margin:0"><strong>Supplied short link:</strong> <code>{e(p['link'])}</code> {src_links(['S17'])}<br>
   <strong>Observed landing URL (identity not confirmed):</strong> <code>https://www.amazon.com/dp/{e(p['asin']['v'])}</code> {src_links(['S16'])}</p>
@@ -1203,7 +1382,7 @@ def page_category():
         for p in PRODUCT_LIST
     )
     body = f"""
-<p class="crumbs"><a href="../index.html">Dashboard</a> / Kitchen appliances</p>
+<p class="crumbs"><a href="../index.html">Home</a> / Kitchen appliances</p>
 <h1>Category: kitchen appliances — air fryers</h1>
 <p class="lede">The three supplied links were observed landing on air fryer or air fryer-oven listings on 2026-11-13/14; product identity from the tokens is still unconfirmed (F14–F16), so this category label is provisional. The table below lists every tracked product with its verified capacity, the manufacturer's list price and its open flags. Amazon price is blank on every row by policy, not by oversight.</p>
 
@@ -1269,7 +1448,7 @@ def page_compare():
         rows.append(f'<tr><td><strong>{e(label)}</strong></td>{"".join(cells)}</tr>')
 
     body = f"""
-<p class="crumbs"><a href="../index.html">Dashboard</a> / Comparison</p>
+<p class="crumbs"><a href="../index.html">Home</a> / Comparison</p>
 <h1>Side-by-side, blanks included</h1>
 <p class="lede">Most comparison tables hide gaps by quietly dropping the row. This one keeps every row and marks the gaps, because "we don't know" is a different statement from "it doesn't have it". Every filled cell links to the official page it came from.</p>
 
@@ -1316,7 +1495,7 @@ def page_compare():
 
 def page_guide():
     body = f"""
-<p class="crumbs"><a href="../index.html">Dashboard</a> / Buying guide</p>
+<p class="crumbs"><a href="../index.html">Home</a> / Buying guide</p>
 <h1>How to choose an air fryer without being sold to</h1>
 <p class="lede">A form-factor decision dressed up as a shopping decision. Work down these five questions in order and most of the market falls away before you look at a single price.</p>
 
@@ -1399,7 +1578,7 @@ def page_data():
             )
     total = len(rows)
     body = f"""
-<p class="crumbs"><a href="../index.html">Dashboard</a> / Full dataset</p>
+<p class="crumbs"><a href="../index.html">Home</a> / Full dataset</p>
 <h1>Full dataset — every field, every source, every gap</h1>
 <p class="lede">This is the machine-readable table the site is generated from, rendered for humans. {total} specification rows across three products. Each row shows the value, whether it is verified, and a clickable link to the official page it came from. Rows with no official source are blank on purpose.</p>
 
@@ -1461,7 +1640,7 @@ def page_compliance():
         for b in COMPLIANCE["bounty_examples"]
     )
     body = f"""
-<p class="crumbs"><a href="../index.html">Dashboard</a> / Compliance</p>
+<p class="crumbs"><a href="../index.html">Home</a> / Compliance</p>
 <h1>Compliance, quoted rather than summarised</h1>
 <p class="lede">{len(COMPLIANCE['requirements'])} requirements that govern this site, each with the source text, a link to the official document, and a plain statement of how the build satisfies it. Where a rule is inconvenient, the rule wins and the feature is dropped.</p>
 
@@ -1500,7 +1679,7 @@ def page_compliance():
 <h2>Standard commission income rates</h2>
 {rate_table()}
 
-<h2>Bounty events (US) — published, not recommended for this launch</h2>
+<h2>Bounty events (US) — published programme amounts</h2>
 <div class="tablewrap">
 <table>
   <caption>Special Commission Income: bounty programmes and amounts</caption>
@@ -1514,7 +1693,7 @@ def page_compliance():
 <div class="grid grid-2">
   <div class="card">
     <h3 style="margin-top:0">If you are the buyer</h3>
-    <p class="small" style="margin-bottom:0">The disclosure bar at the top of every page is the one Amazon requires word for word. The "Paid link" tag next to every outbound button is the FTC-style link-level disclosure. Neither can be switched off by a content update, because both are generated into the page layout.</p>
+    <p class="small" style="margin-bottom:0">The exact Amazon Associate disclosure appears at the top of every page. Product buttons also state that the supplied link's model identity and tracking tag are unconfirmed, followed by a link-level explanation. The disclosure is generated into the layout and cannot be removed by a content update.</p>
   </div>
   <div class="card">
     <h3 style="margin-top:0">If you are the operator</h3>
@@ -1563,7 +1742,7 @@ def page_flagged():
     )
 
     body = f"""
-<p class="crumbs"><a href="../index.html">Dashboard</a> / Flagged for review</p>
+<p class="crumbs"><a href="../index.html">Home</a> / Flagged for review</p>
 <h1>Flagged for review</h1>
 <p class="lede">Everything this project could not confirm, could not reconcile, or found contradicted between official sources. These items are published rather than hidden, they do not block the site, and each one names the decision a human needs to make.</p>
 
@@ -1698,7 +1877,7 @@ def page_platform():
     )
     oos = "".join(f'<li>{e(x)}</li>' for x in PLATFORM["explicitly_out_of_scope"])
     body = f"""
-<p class="crumbs"><a href="../index.html">Dashboard</a> / Platform blueprint</p>
+<p class="crumbs"><a href="../index.html">Home</a> / Platform blueprint</p>
 <h1>An automated affiliate engine that survives an audit</h1>
 <p class="lede">The brief asks for automation, scale, data-driven optimisation and Amazon policy compliance. Those four pull in different directions, and the design below resolves the tension in one place: <strong>automate everything except the claims</strong>. Machines move data, check links, compute and report. A human signs off on what gets asserted about a product.</p>
 
@@ -1831,7 +2010,7 @@ def page_exec():
         f'<tr><td><strong>{e(k)}</strong></td><td>{e(v)}</td><td>{src_links(s)}</td></tr>' for k, v, s in facts
     )
     body = f"""
-<p class="crumbs"><a href="../index.html">Dashboard</a> / Executive summary</p>
+<p class="crumbs"><a href="../index.html">Home</a> / Executive summary</p>
 <h1>Executive summary</h1>
 <p class="lede">A one-page briefing for someone who will not read the rest. The short version: the product data is good, the economics are provable only within narrow limits, and the compliance constraint is the design constraint.</p>
 
@@ -2079,7 +2258,7 @@ value was filled in.</p>
         for cls, n, lbl in stats
     )
     body = f"""
-<p class="crumbs"><a href="../index.html">Dashboard</a> / Re-verification {e(rev["pass_date"])}</p>
+<p class="crumbs"><a href="../index.html">Home</a> / Re-verification {e(rev["pass_date"])}</p>
 <h1>{e(rev["title"])}</h1>
 <p class="lede">{e(rev["lede"])}</p>
 
@@ -2145,7 +2324,7 @@ def page_previous_passes():
             f'<td class="small">{e(what)}</td>'
             f'<td class="small">{conflict.replace("**", "")}</td></tr>')
     body = f"""
-<p class="crumbs"><a href="index.html">Dashboard</a> / Previous passes</p>
+<p class="crumbs"><a href="index.html">Home</a> / Previous passes</p>
 <h1>Every parallel build in this repository, and which one is canonical</h1>
 <p class="lede">Several agent sessions worked this repository at the same time. Nothing was thrown away, so {len(PARALLEL_BUILDS)} older builds are still published next to this one. That is a record of the work, but it is a bad thing to hand a reader cold: two of them answer the same question differently. This page says so, names the differences, and tells you which build to trust.</p>
 
@@ -2273,7 +2452,7 @@ def page_suggestions():
         )
 
     body = f"""
-<p class="crumbs"><a href="../index.html">Dashboard</a> / Suggestions</p>
+<p class="crumbs"><a href="../index.html">Home</a> / Suggestions</p>
 <h1>Suggestions, and a place to choose between them</h1>
 <p class="lede">Sixteen things this pass believes would materially improve this site, in priority order.
 Nothing on this page has been implemented. Each entry names the problem it fixes, the official
@@ -2375,7 +2554,7 @@ def page_questions():
     counts = {k: sum(1 for x in q["questions"] if x["state"] == k) for k in _STATE_LABEL}
 
     body = f"""
-<p class="crumbs"><a href="../index.html">Dashboard</a> / Open questions</p>
+<p class="crumbs"><a href="../index.html">Home</a> / Open questions</p>
 <h1>What must be answered before a decision is reasonable</h1>
 <p class="lede">A decision is only as good as the information behind it. This page separates what we
 know and can prove from what we do not know but could look up, and from what cannot be established
@@ -2580,7 +2759,7 @@ def page_suggestions_alt():
           <td class="small">☐ A &nbsp; ☐ B &nbsp; ☐ C<div class="tiny muted">Reply with the ID and letter</div></td>
         </tr>""")
     body = f"""
-<p class="crumbs"><a href="index.html">Dashboard</a> / Suggestions</p>
+<p class="crumbs"><a href="index.html">Home</a> / Suggestions</p>
 <h1>Suggestions: choose the path before anything changes</h1>
 <p class="lede">{len(SUGGESTIONS)} suggestions to improve the site's design, trust, content and measurement. <strong>None of them has been implemented.</strong> Each one lists the options. Pick an option for each ID you want, and only then will the change be made.</p>
 
@@ -2614,7 +2793,7 @@ def page_questions_alt():
           <td class="small">{e(unblocks)}</td>
         </tr>""")
     body = f"""
-<p class="crumbs"><a href="index.html">Dashboard</a> / Questions and information gaps</p>
+<p class="crumbs"><a href="index.html">Home</a> / Questions and information gaps</p>
 <h1>What must be answered before a decision is reasonable</h1>
 <p class="lede">{len(QUESTIONS_ALT)} questions. For each one: what the repository already holds (with its official source), what is still missing, how to find the missing fact, and which decision it unblocks. Nothing in the <em>missing</em> column has been filled in with an estimate.</p>
 
@@ -2798,15 +2977,15 @@ def page_articles_index():
             if links:
                 prods = ('<p class="tiny muted" style="margin:.4rem 0 0">About: '
                          + " · ".join(links) + "</p>")
-        cards.append(f"""<a class="card" href="../articles/{a['slug']}.html">
+        cards.append(f"""<article class="card article-card">
   <span class="kicker">{e(a['kicker'])}</span>
-  <span class="cardtitle">{e(a['title'])}</span>
+  <a class="cardtitle" href="../articles/{a['slug']}.html">{e(a['title'])}</a>
   <span class="cardtext">{e(a['standfirst'])}</span>
   <span class="tiny muted">{e(a['kind'])} · {a['reading_minutes']} min read</span>
   {prods}
-</a>""")
+</article>""")
     body = f"""
-<p class="crumbs"><a href="../index.html">Dashboard</a> / Articles</p>
+<p class="crumbs"><a href="../index.html">Home</a> / Articles</p>
 <h1>Articles</h1>
 <p class="lede">{_n_words(len(ARTICLES["articles"]))} written for this product set. Each one states what the manufacturer's own pages and manuals establish, links to the page it came from, and names the places where the official record contradicts itself rather than tidying them away.</p>
 
@@ -2858,7 +3037,7 @@ def page_article(a):
         f'<li><a href="../articles/{x["slug"]}.html">{e(x["title"])}</a> '
         f'<span class="tiny muted">— {e(x["kind"])}</span></li>' for x in related)
     body = f"""
-<p class="crumbs"><a href="../index.html">Dashboard</a> / <a href="../articles/index.html">Articles</a> / {e(a['kind'])}</p>
+<p class="crumbs"><a href="../index.html">Home</a> / <a href="../articles/index.html">Articles</a> / {e(a['kind'])}</p>
 <p class="kicker">{e(a['kicker'])}</p>
 <h1>{e(a['title'])}</h1>
 <p class="lede">{e(a['standfirst'])}</p>
