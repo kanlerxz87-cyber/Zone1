@@ -3227,7 +3227,7 @@ record from F22: run the marker scan before every `git add`; this pass now does.
 
 | # | Task | Status | Owner (session) | File scope |
 |---|------|--------|-----------------|------------|
-| W7 | Pass 9: independent line-by-line re-verification of the three supplied short links + the site's own published counts, against official sources; fix any defect found at its source in `build.py`; record findings in the flag register. No new product facts invented. | **in progress** | arena/22f43836-zone1 (session 22f43836) | `build.py`, regenerated root HTML, `COORDINATION.md` |
+| W7 | Pass 9: independent line-by-line re-verification of the three supplied short links + the site's own published counts, against official sources; fix any defect found at its source in `build.py`; record findings in the flag register. No new product facts invented. | **done** | arena/22f43836-zone1 (session 22f43836) | `build.py`, regenerated root HTML, `COORDINATION.md` |
 
 ### Claim log
 
@@ -3260,3 +3260,62 @@ record from F22: run the marker scan before every `git add`; this pass now does.
 ### Environment note — network access in this sandbox (affects what "verified" can mean)
 
 Direct outbound HTTP from the shell (`curl`) is restricted to `github.com`, `codeload.github.com`, `api.github.com`, `registry.npmjs.org`, `pypi.org`, `files.pythonhosted.org`. `amazon.com`, `chefman.com`, `emerileveryday.com`, `ftc.gov` and `ecfr.gov` all fail from the shell (exit 35 / 000). The page-fetch tool in this session **does** reach them, so official-source re-reads below were done through that tool, not by trusting the recorded values. Anything that could not be re-read that way is marked as not re-checked rather than asserted.
+
+### W7 implementation and verification record — arena/22f43836-zone1 (2026-11-15 UTC)
+
+**Rebase note (protocol item 6).** While this pass ran, `origin/main` advanced by PRs #67 and #68
+(session `arena/94a562a1-zone1`, T20 — a correction to the F10/F41 short-link wording). The branch was
+rebased onto `2c1804a`. Two conflicts, both resolved keep-both and nothing of theirs discarded:
+`COORDINATION.md` (both task boards kept verbatim, side by side) and `flagged.html` (a generated file —
+resolved by regenerating from the merged `build.py`, which is the only correct resolution for build
+output). Their F10/F41 correction is compatible with this pass's own observations: my three fetches
+today returned `btn_ref=srctok-6c31d96765b8adfb`, `srctok-4796bf563b804868` and
+`srctok-33a7001c2f183379` while the ASIN and listing title stayed constant — i.e. exactly the
+"destination stable, marker not" reading their correction adopts. No merge conflict markers remain
+(verified by regex scan of `COORDINATION.md`, `build.py` and `flagged.html`: 0).
+
+**What was re-read live from official sources this pass (2026-11-15).**
+
+| Source | What was read | Result |
+|---|---|---|
+| `link.amazon/B04G1MEwY` | landing URL `amazon.com/dp/B0CDY277D3`, `<title>` "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry…" | matched the recorded value exactly |
+| `link.amazon/B02NbDxp3` | landing URL `amazon.com/dp/B09B7SB46R`, `<title>` "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven…" | matched exactly |
+| `link.amazon/B00hJ57DV` | landing URL `amazon.com/dp/B08DKYBTPH`, `<title>` "Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option…" | matched exactly |
+| S3 Standard Commission Income Statement | whole of Table 1 (11 rows) | "Physical Books, Kitchen, Automotive | 4.50%" and "All Other Categories | 4.00%" verbatim; all 11 rows match `data/commission-rates.csv` |
+| S2 Program Policies | §3(e) cookie/pixel disclosure text; "Updated: April 14, 2026" | confirmed verbatim |
+| S30 Google spam policies (new) | scaled content abuse; thin affiliation; link qualification | confirmed verbatim; added to `data/sources.json` |
+| S31 Google qualify-outbound-links (new) | `rel="sponsored"` for advertisements and paid placements | confirmed verbatim; added to `data/sources.json` |
+
+**Not re-read, and recorded as such rather than asserted:** the manufacturer specification pages
+(S10–S18, S25–S27) were not re-fetched this pass; no product value moved. The ASIN → manufacturer model
+mapping (F1, F32, F33, SG-01) and the Associates tag inside each short link (F6) remain **unconfirmed** —
+the product-information block on the Amazon listing is served client-side and is absent from the fetched
+text, so this pass could not close them and did not guess.
+
+**Defects found and fixed (both measured before and after).**
+
+| Defect | Measured | Fix | Guard |
+|---|---|---|---|
+| 0 of 27 generated pages declared a canonical URL, Open Graph tags, a Twitter card or JSON-LD | 0/27 before, 27/27 after | `layout()` emits canonical + `og:*` + `twitter:card` + schema.org `WebSite`/`Organization`/`BreadcrumbList`/`Article`; `404.html` gets `noindex` and no canonical | `check_seo_metadata()` fails the build |
+| 11 clickable `link.amazon` anchors had no `rel="sponsored"` (all on evidence pages: `data.html`, `flagged.html`, `reverification.html` ×5, `suggestions.html` ×2, `questions.html`) | 11 before, 0 after | `qualify_affiliate_links()` post-render pass; citation badges and the S22 control token excluded | `check_affiliate_link_qualification()` — it failed the build on all 11 first |
+| Sidebar read "8 parallel builds" while `previous-passes.html` lists 7 | 1 string on every page | count now reads `len(PARALLEL_BUILDS)`, the catalogue it links to | — |
+
+**Deliberate non-implementation.** schema.org `Product`/`Offer`/`AggregateRating` was *not* added. The
+site publishes no Amazon price, availability or star rating (Program Policies §2(b), §6(t)), so product
+markup would either be empty or would assert a value this project has refused for nine passes.
+
+**New register rows.** `F44` (nine near-identical copies of this site are published from one repository;
+duplicate-content and price-display exposure) and `F45` (the SEO metadata gap, now fixed). Both are
+non-blocking and published on `flagged.html` with source links. A decision entry, **SG-17**, puts the
+question of what to do with the eight superseded builds in front of the owner with three costed options;
+this session did not delete or edit another session's published output.
+
+**Gates run after the rebase, all green:** `python3 build.py` → 28 pages, 27 sitemap URLs, exit 0 ·
+`python3 verify.py` → 106 pages, 0 errors, 43 spec rows (41 verified / 2 blank+flagged), 31 sources ·
+`bash scripts/ci-check.sh` → 33 unit tests, data audit clean, S2 build current, 5,384 links / 0 broken ·
+`python3 research/check_research.py` → OK · `python3 scripts/verify_site.py` → 382 assertions passed ·
+`git status --short` → empty, so the Pages workflow's reproducibility check will pass.
+
+**Environment constraint, recorded so no future session mistakes it for a dead source.** Shell `curl`
+from this sandbox reaches only GitHub, npm and PyPI hosts; `amazon.com`, `chefman.com`, `ftc.gov` and
+`ecfr.gov` return 000/exit 35. The page-fetch tool does reach them; every re-read above used it.
