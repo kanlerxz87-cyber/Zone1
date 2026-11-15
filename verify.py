@@ -40,6 +40,13 @@ OFFICIAL_HOSTS = {
     "sell.amazon.com",
     # the GitHub REST API, cited for the repository's own Pages configuration
     "api.github.com",
+    # Social-share endpoints, added 2026-11-15 (arena/88bb2db6). The share row on
+    # each article posts the article's own URL to a platform's official share
+    # endpoint. These are the platforms' own domains and they carry no claim about
+    # this site's content, so they are trusted hosts for the purpose of this check.
+    "x.com",
+    "www.linkedin.com",
+    "www.facebook.com",
     "chefman.com",
     "cdn.shopify.com",
     "www.emerileveryday.com",
@@ -51,6 +58,14 @@ OFFICIAL_HOSTS = {
     "kanlerxz87-cyber.github.io",
     # California Prop 65 warning host, cited by the site/ annex data
     "www.p65warnings.ca.gov",
+    # Google Search Central — the search engine's own published policy and documentation.
+    # Added 2026-11-15 (pass 9) to source S30 (spam policies: scaled content abuse, thin
+    # affiliation, link qualification) and S31 (qualify outbound links). Official for
+    # search-engine policy only: it verifies nothing about the products or about Amazon's
+    # Associates program, and no product fact may cite it.
+    "developers.google.com",
+    # Support documentation referenced by S30 (a policy cross-link, not a data source).
+    "support.google.com",
 }
 
 errors = []

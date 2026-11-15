@@ -23,7 +23,8 @@
         "v": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
         "s": [
           "S16"
-        ]
+        ],
+        "read": "2026-11-15"
       },
       "model_number": {
         "v": "RJ38-SQPF-3TDB-2W",
@@ -264,7 +265,8 @@
         ],
         "v_observed": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
         "v_previous": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.",
-        "note": "Read 2026-11-15 from https://link.amazon/B02NbDxp3. The title has changed since the 2026-11-14 read: the earlier value ended '| 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.' and the current title ends '| Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included'. Both say 24; the wording differs. The date of this read is part of the value (flag F38)."
+        "note": "Read 2026-11-15 from https://link.amazon/B02NbDxp3. The title has changed since the 2026-11-14 read: the earlier value ended '| 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.' and the current title ends '| Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included'. Both say 24; the wording differs. The date of this read is part of the value (flag F38).",
+        "read": "2026-11-15"
       },
       "model_number": {
         "v": "FAFO-001 (manual); brand page lists 4-00675-02A-VN",
@@ -343,7 +345,7 @@
         },
         {
           "label": "Included accessories",
-          "value": "7 (manufacturer's own count)",
+          "value": "7",
           "source": [
             "S14",
             "S28"
@@ -460,9 +462,9 @@
           ]
         },
         {
-          "id": "F44",
-          "issue": "The number of included accessories differs between the two official documents: the Emeril brand page says \"Included are 7 premium accessories to maximize versatility\", while the Amazon listing title for the supplied link says \"Six Cooking Accessories Included\". Found on 2026-11-15; no earlier pass had recorded it.",
-          "action": "The site publishes the manufacturer's own figure (7) because that is what the brand page states, and it is labelled as a manufacturer statement. The listing's \"Six\" is not repeated as fact and is not silently dropped either. Which number is right depends on what is physically in the box, so the account holder should open the delivered product's packing list before this row is relied on. The owner's manual adds only that \"some accessories may not be included with purchase\".",
+          "id": "F50",
+          "issue": "The number of included accessories differs between the two official documents: the Emeril brand page says \"Included are 7 premium accessories to maximize versatility\", while the Amazon listing title for the supplied link says \"Six Cooking Accessories Included\". Found independently on 2026-11-15 by arena/88bb2db6; the programme-level row F48 records the same conflict from arena/792c279e's pass. Both are kept.",
+          "action": "The site publishes the manufacturer's own figure (7) because that is what the brand page states, and the specification row links both documents and says what each one says. The listing's \"Six\" is not repeated as fact and is not silently dropped either. Which number is right depends on what is physically in the box, so the account holder should open the delivered product's packing list before this row is relied on. The owner's manual adds only that \"Some accessories may not be included with purchase\".",
           "sources": [
             "S14",
             "S15",
@@ -490,7 +492,8 @@
         "v": "Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
         "s": [
           "S29"
-        ]
+        ],
+        "read": "2026-11-15"
       },
       "model_number": {
         "v": "RJ38-SQSS-8T (brand page + owner's manual)",
@@ -687,6 +690,6 @@
       ]
     }
   ],
-  "reverified": "2026-11-14",
-  "reverified_by": "sess-81495d2d"
+  "reverified": "2026-11-15",
+  "reverified_by": "arena/792c279e-zone1 (T20 line-by-line pass; see reports/verification-2026-11-15.md)"
 }

@@ -172,7 +172,7 @@
     {
       "title": "The number of included accessories differs between two official documents",
       "detail": "The Emeril brand page says 'Included are 7 premium accessories'. The Amazon listing title for the supplied link says 'Six Cooking Accessories Included'. The site published the manufacturer's own count of 7 because that is what the brand page states, but the two numbers do not agree and no earlier pass had recorded the discrepancy. The value now carries both documents and a note; the discrepancy is filed as a flag rather than resolved, because which number is right depends on what is actually in the box. The owner's manual adds only that 'Some accessories may not be included with purchase'.",
-      "flag": "F44",
+      "flag": "F50 (this session) / F48 (programme-level, same conflict)",
       "source_label": "Amazon — listing title for ASIN B09B7SB46R",
       "source_url": "https://www.amazon.com/dp/B09B7SB46R"
     },

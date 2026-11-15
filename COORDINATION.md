@@ -56,6 +56,115 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 
 ---
 
+## Task board — arena/792c279e-zone1 (2026-11-15 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| T20 | Verified decision content: 4 new source-led articles, weekly picks hub, niche/traffic/measurement decision data, live re-verification of all published values, handover + exec summary enrichment, sitewide visual/SEO upgrade | in progress | arena/792c279e-zone1 (session 792c279e) | `data/decision.json` (new), `data/editorial.json` (new), `data/articles.json`, `data/products.json`, `data/sources.json`, `data/flags.json`, `build.py`, `assets/style.css`, `assets/app.js`, `COORDINATION.md`, `EXECUTIVE-SUMMARY.md`, regenerated root HTML |
+
+### Claim log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15T13:10Z | arena/792c279e-zone1 (session 792c279e) | Claimed T20 after reading the board. Worktree clean at `cacdb85` (same as `origin/main`); T1-T19 are marked done, no task is claimed elsewhere. Arena fixes this session to branch `arena/792c279e-zone1`, so the `session-<id>/<task>` branch in the protocol is this branch. Scope is deliberately additive and non-overlapping with the parallel-build directories (`site/`, `s2/`, `research/`, `docs/`, `dashboard/`, `annex-*`, `session-*`), which this pass does not edit. |
+
+### T20 work plan (recorded before implementation, per protocol item 7 of the brief)
+
+Live re-verification in this pass is done through a server-side fetch, since the sandbox itself has no direct
+egress to non-GitHub hosts. Every new or changed published value must be traceable to a source fetched on
+2026-11-15 in this pass. Where a value cannot be re-confirmed it is left as it is and flagged, never inferred.
+
+| Sub-task | Output |
+|---|---|
+| A. Re-read the three supplied `link.amazon` links and the three Amazon detail pages | `data/flags.json` rows + `reports/link-check-2026-11-15.md` |
+| B. Re-read the three manufacturer product pages and the two owner's-manual PDFs | `data/products.json` verification stamps |
+| C. Re-read the Associates Operating Agreement, Program Policies, Application Review, FTC pages, 16 CFR 255 | `data/sources.json` verification stamps |
+| D. Publish commission-rate candidates as *candidates* with the rate table's own source, not as confirmed per-product mappings | `data/decision.json` |
+| E. Four new question-led articles (each number already in `data/products.json`) | `data/articles.json`, `articles/` |
+| F. "This week's picks" hub + niche scorecard + traffic plan + measurement plan | `data/editorial.json`, `data/decision.json`, `build.py` |
+| G. Handover page (owner actions, exact minutes, what unblocks what) + executive summary refresh | `build.py`, `EXECUTIVE-SUMMARY.md` |
+| H. Visual + SEO pass on the root build: typography scale, checklists, comparison styling, article share/JSON-LD, sitemap/robots | `assets/style.css`, `build.py` |
+| I. Full gate run, PR -> merge -> Pages confirmation -> record here | `COORDINATION.md` |
+
+### T20 completion record — arena/792c279e-zone1 (2026-11-15 UTC)
+
+**Status: done** (implementation, verification, PR, merge and Pages confirmation are recorded at the
+end of this section after the merge completes).
+
+**What this pass did.** A live, line-by-line re-verification of every published value against its
+official source, plus the decision content the brief asked for and a sitewide visual/SEO pass. The
+full evidence table — every URL requested, the exact string read back, and the verdict — is in
+`reports/verification-2026-11-15.md` (46 rows, V1–V45 plus R1–R5).
+
+**Verification performed (all read 2026-11-15 UTC through a server-side fetch; this sandbox has no
+direct egress to non-GitHub hosts):**
+
+| Source | What was confirmed | Result |
+|---|---|---|
+| [Associates Operating Agreement](https://affiliate-program.amazon.com/help/operating/agreement) | Page version "Updated: October 15, 2025" | matches S1 |
+| [Associates Program Policies](https://affiliate-program.amazon.com/help/operating/policies) | Page version "Updated: April 14, 2026" | version stamp refreshed on S2 |
+| [Standard Commission Income Statement](https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ) | Table 1 read in full with **no login**: Kitchen 4.50%, All Other Categories 4.00% | confirms S3; contradicts `data/flags.json` F02 → **F44** |
+| [Application Review Process](https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM) | 3 qualifying sales / 180 days; 10 posts; 60-day recency; 500 followers; rejection is final | confirms S4 |
+| [Identify yourself as an Associate](https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98) | Required sentence quoted verbatim; link-level disclosure must be clear and conspicuous | confirms S5 and the site's own disclosure |
+| [Tracking IDs](https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA) | Tracking IDs / sub-tags exist per account | confirms S6 |
+| [FTC Disclosures 101](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers) | Disclose financial relationships; place where hard to miss; "You can't talk about your experience with a product you haven't tried" | confirms S8 |
+| [16 CFR Part 255](https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255) | "up to date as of 11/12/2026"; §255.0–§255.6 present incl. §255.5 | confirms S9 |
+| [link.amazon/B04G1MEwY](https://link.amazon/B04G1MEwY) | → `amazon.com/dp/B0CDY277D3` (fallback params); CHEFMAN 6 Quart Dual Basket title | destination stable, identity unconfirmed |
+| [link.amazon/B02NbDxp3](https://link.amazon/B02NbDxp3) | → `/dp/B09B7SB46R`; title says "24 One-Touch Preset Options" and "**Six Cooking Accessories Included**" | destination stable; **F45** (site publishes 7 accessories) |
+| [link.amazon/B00hJ57DV](https://link.amazon/B00hJ57DV) | → `/dp/B08DKYBTPH`; title "450°F Hi-Fry … Bake, Dehydrate, Frozen … Stainless Steel" | destination stable; F33 unchanged |
+| [Chefman 6 Qt Dual-Window](https://chefman.com/products/turbofry-touch-dual-window-air-fryer) | Model RJ38-SQPF-3TDB-2W; 6 Qt / 5.67 L; 200–450 °F / 95–235 °C; 13.38 × 11.81 × 10.63 in; 13.3 lb / 6.03 kg; 1700W/120V; cETL; 1-year assurance; 1,305 reviews | every published 6 Qt row still matches |
+| [Chefman 8 Qt TurboFry Touch](https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1) | RJ38-SQSS-8T; 5 or 8 Qt; 200–400 °F; 8 Qt dims 15.4 × 12.6 × 13.5 in; 12.8 lb; 1700W/120V; 716 reviews | every published 8 Qt row still matches |
+| [Chefman 8 Qt w/ High Fry](https://chefman.com/collections/air-fryers-1/products/turbofry-8-qt-air-fryer-w-high-fry) | RJ38-8T-BLACK; Hi-Fry 450 °F / 232 °C; 4 functions air fry/bake/dehydrate/frozen | confirms F33's second SKU; no value changed |
+| [Emeril French Door AirFryer 360](https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360) | 26 Qt / 24.6 L; 16.9 D × 15.8 W × 14.8 H in; 120 V; "25 Cooking Pre-sets" vs "10-in-1" vs an `11-in-1_…` asset vs the listing's "24"; 2.6 (25) brand widget; **no interior-light row, no warranty row, no weight row** | capacity/dimensions/voltage confirmed; preset conflict and F30 re-confirmed |
+| Amazon `/dp/` pages ×3 | The **Product information** block with the model number was **not** returned by any of the three fetches | **F46** — why four flags cannot be closed by a machine |
+
+**Cannot be verified from here, and left exactly as published:** the ASIN→model mapping (F01/F02 — actually F1/F2/F32/F33 as rendered; see F46), the Associates tag inside the supplied links (F3/F6), the account's approval status, and every Amazon price/rating/availability by policy.
+
+**New flags raised (published on `flagged.html`, non-blocking per protocol):**
+
+* **F44** — two flag registers in the repo contradict each other (`data/flags.json` vs `flagged.html`); not edited, because another generator consumes it.
+* **F45** — the Emeril listing says six accessories, the site publishes seven from the brand page/manual; value retained and flagged rather than swapped for a listing-title number.
+* **F46** — why the model-number fact is (still) not machine-readable, now stated on `picks.html`, `handover.html` and the register.
+
+**Built in this pass (no other session's files touched):**
+
+* `data/decision.json` (new) → three new pages: `picks.html`, `decisions.html`, `handover.html`.
+* `data/articles.json` +4 articles (rows of the article guard satisfied): `small-kitchen-air-fryer-dimensions`, `energy-cost-of-an-air-fryer`, `who-actually-pays-for-air-fryer-reviews`, `chefman-8qt-two-models` → 12 articles total.
+* `build.py` — 3 new page generators, 3 new build guards (**decision-data arithmetic vs the official table**, **banned-phrase / no-experience-claim voice guard**, plus the existing row-source gate exercised by the new tables), article share row + copy-to-clipboard, prev/next, `Article` JSON-LD, computed landing "pulse" tiles, new CSS components, `#sources` anchor fixed.
+* `assets/style.css`, `assets/app.js` — editorial serif scale, callouts, channel/handover cards, share pills, copy-link handler.
+* `EXECUTIVE-SUMMARY-PASS8.md` — pass-9 addendum appended (pass 8 text untouched).
+* `README.md` — new entry points and the two new guards documented.
+* `reports/verification-2026-11-15.md` (new) — the full evidence table.
+
+**Guards proven to fail on injected violations, then reverted:** wrong commission arithmetic → build fails naming the row and the correct product; banned phrase → fails on both phrases; invented article number → fails on the placeholder. All three restored, build green.
+
+**Gate results:** `build.py` 38 pages + `robots.txt`/`sitemap.xml` (34 URLs, was 27) · `verify.py` 0 errors, 18 inherited s2/ warnings (untouched) · `scripts/ci-check.sh` 33 tests, data audit clean, 5,865 links / 0 broken · `research/check_research.py` OK · `scripts/verify_site.py` 382 assertions passed · `platform/audit/report.py` clean · rebuild is byte-identical (deterministic).
+
+### T20 merge-conflict resolution and renumbering — arena/792c279e-zone1 (2026-11-15)
+
+Logged per protocol item 6 (stop, resolve without discarding the other session's work, log what
+happened). While rebasing onto `fa730c4` (PR #70, session `22f43836` pass 9), five files conflicted
+and two flag IDs collided. Nothing from either session was discarded.
+
+| What happened | Resolution |
+|---|---|
+| `index.html`, `data.html`, `flagged.html`, `executive-summary.html` conflicted | All four are **generated** files. Resolved by merging the *sources of truth* (`build.py`, `data/*.json`) and re-running `python3 build.py`, then `git add`-ing the regenerated HTML. Verified afterwards that main's pass-9 additions survive: every one of the 106 HTML pages present on `fa730c4` still exists, and no page lost its `rel="canonical"`, `og:title` or the required disclosure sentence. |
+| `data/sources.json` conflicted | Both sessions had edited the `note` and S2's `page_version`, and `22f43836` had added S30/S31 (Google Search Central). Resolved **keep-both**: main's `note` and S2 wording adopted verbatim, S30/S31 carried forward, this session's 2026-11-15 read-stamps re-applied. Register is now **31 sources**. |
+| `verify.py` host allow-list | Main's pass added `developers.google.com` / `support.google.com`; kept. |
+| **Flag-ID collision** | Main's pass-9 rows are **F44** (nine published copies of the site) and **F45** (search-engine plumbing). This session's three new rows were authored as F44/F45/F46 and **collided with both**. The duplicate-ID build guard fired with `flag id(s) rendered more than once on flagged.html: F44, F45` — exactly what it was added for. This session's rows are **renumbered F47** (two contradictory flag registers), **F48** (six accessories on the listing vs seven on the site) and **F49** (why the model number cannot be read by a machine). Precedent: F32→F36 and F41→F42/F43. Nothing else about the rows changed; `REPO_EVIDENCE` keys moved with them. |
+| Conflict markers | `grep -rln "^<<<<<<< \|^>>>>>>> "` over every `.html`, `.json` and `.md` file: **no matches**. (F22/F44 record two earlier passes that committed markers; this pass scans before every `git add`.) |
+
+**Source IDs:** this session's verification record cites S1–S9, S10, S12, S14–S18, S26, S28, S29.
+It adds **no new source IDs** — S30/S31 are main's, and the four new articles cite only S1–S3,
+S5–S10, S12, S14, S15, S26, S28, S29, all previously registered.
+
+**Gate results after the merge:** `build.py` 38 pages, sitemap 34 URLs · `verify.py` 113 pages,
+43 spec rows (41 verified / 2 blank+flagged), 31 sources, **0 errors** · `scripts/ci-check.sh`
+5,928 links / 0 broken · `check_research.py` OK · `verify_site.py` 382 assertions passed · the
+rebuild is byte-identical to the committed HTML.
+
+---
+
 ## Verification record
 
 **Session:** sess-105bc29e
@@ -3242,6 +3351,22 @@ integration that the brief requires (PR → merge → Pages confirmed).
 | U3 | Editorial polish pass on the buyer-facing surface against the "must not read like AI slop" brief | done | arena/88bb2db6 | `build.py`, `assets/style.css`, `assets/og-card.png`, regenerated root HTML, `sitemap.xml` |
 | U4 | Final integration: rebuild, no broken links, PR → merge → confirm Pages deploy → record | in progress | arena/88bb2db6 | whole tree (integration, last) |
 
+<!-- keep-both: the block below was appended by the session being rebased on top; nothing from either side is discarded -->
+
+## Task board — arena/94a562a1-zone1 (2026-11-15 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|----------------|------------|
+| T20 | Correct the root F10 short-link evidence wording where repeat-token claims conflict with the repository's own later evidence; close the related wording flag without changing unresolved product identity claims | **done** | arena/94a562a1-zone1 | `build.py`, generated `flagged.html`, `COORDINATION.md` |
+
+---
+
+## Task board — arena/22f43836-zone1 (2026-11-15 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| W7 | Pass 9: independent line-by-line re-verification of the three supplied short links + the site's own published counts, against official sources; fix any defect found at its source in `build.py`; record findings in the flag register. No new product facts invented. | **done** | arena/22f43836-zone1 (session 22f43836) | `build.py`, regenerated root HTML, `COORDINATION.md` |
+
 ### Claim log
 
 | UTC time | Session | Action |
@@ -3316,3 +3441,149 @@ The brief asks for a polished marketing site that generates organic traffic. Mea
 * Which model the operator *meant* for each link. The destinations are reproducible; the intended identity is not. Flag F1 stands.
 * Which Amazon category each ASIN sits in. Table 1 names no air-fryer category, so the per-product rate stays blank with both candidate rows shown.
 * Whether the unit says 24 or 25 presets, and whether the box holds six or seven accessories. F4 and F44.
+
+<!-- keep-both: the block below was appended by the session being rebased on top; nothing from either side is discarded -->
+
+| 2026-11-15 UTC | arena/94a562a1-zone1 | Read the coordination board before starting. All previous tasks through T19 are done; no task is in progress. Claimed T20 after a live-site review found F10 still says `srctok` stays constant, while the repository's own later evidence (and flag F41) says it changes. Scope is restricted to the root flag generator/output and this task record. Arena fixes the working branch as `arena/94a562a1-zone1`; no branch switch or new branch will be made. |
+
+### T20 completion — arena/94a562a1-zone1 (2026-11-15 UTC)
+
+* **Finding:** The live root `flagged.html` still rendered F10 as saying the `srctok` value stayed constant. The same canonical build already published F41 plus session evidence documenting that some `btn_ref/srctok` values changed between repeat/cache-busted requests. This was an internal evidence-wording mismatch; not a new product fact.
+* **Fix:** Updated F10 in `build.py` to distinguish the recorded candidate ASIN/title observations from variable redirect tokens, and to keep product identity and Associates attribution explicitly unconfirmed. Updated F41 as a dated, closed wording correction; it does not settle the unresolved product mapping or tag.
+* **Sources/evidence:** Official Amazon short-link endpoints and candidate listing pages are S17/S16 in `data/sources.json`; historical observations are linked from F41 to `session-81495d2d/EVIDENCE-2026-11-14.md` and `session-ce4070ad/EVIDENCE-2026-11-14.md`. This pass inspected those committed records and the deployed root pages; it did not make new raw network requests to Amazon's product resolver. No new product specification or live redirect claim was added.
+* **Verification:** `python3 build.py` (28 pages, 27 sitemap URLs), `python3 verify.py` (106 pages, 0 errors; 43 spec rows, 41 verified / 2 blank+flagged; 29 declared sources), direct content assertions (old constant-token claim absent; identity/tag caveat present; F41 marked closed), and `git diff --check` all passed. Previously run in this session: 33 platform unit tests, data audit (0 findings), `scripts/check_links.py` (5,328 links / 0 broken), research checks (834), annex checks (382), and `node --check assets/app.js` all passed.
+* **Remaining irregularities:** `verify.py` continues to print 18 non-blocking external-host allowlist warnings for inherited `s2/` links, plus its caution-status note for the Chefman 8 Qt basket-divider row. These were outside T20 and unchanged. Local `platform/audit/report.py` emits `ResourceWarning`s for unclosed reads while still reporting a clean audit; also outside scope. The independently published `reverification.html` preserves older dated observations as historical pass records; F10 and F41 now state the reconciled current wording on the Flagged page.
+
+**T20 result: done — no product values changed; no open question was marked answered.**
+
+### T20 PR, merge, and deployment record
+
+* **PR #67:** https://github.com/kanlerxz87-cyber/Zone1/pull/67 — `arena/94a562a1-zone1` → `main`; title: "Correct Amazon short-link evidence wording".
+* **Merge:** merged with `gh pr merge 67 --merge` at 2026-11-15T13:05:32Z. Merge commit: `517d0658f275ad90e976020ec216142c40580076`.
+* **Post-merge workflows:** CI `43717177566` ✓; verification annex `43717177578` ✓; build/verify/Pages deploy `43717177575` ✓; Pages build/deployment `43717177185` ✓. The Pages build API reports `status: built`, `error: null`, commit `517d0658f275ad90e976020ec216142c40580076`.
+* **Live check:** cache-busted fetch of `https://kanlerxz87-cyber.github.io/Zone1/flagged.html?deploy=517d0658` confirms the deployed F10 wording distinguishes the candidate destination observations from changing `btn_ref/srctok` values and continues to say intended identity and Associates attribution are unconfirmed.
+* **CI notices:** Actions reports Node.js 20 deprecation and the scheduled `ubuntu-latest` → Ubuntu 26 migration. These are non-blocking notices; all checks and deployment succeeded.
+
+**PR #67 result: merged and deployed successfully.**
+
+| 2026-11-15 UTC | arena/22f43836-zone1 (session 22f43836) | Claimed W7 after reading the board. `git status` clean at `cacdb85` (= `origin/main`). T1–T19 all `done`; no in-progress or unclaimed task open, so this is a new additive pass, not a takeover. Scope deliberately narrow (canonical root build only) to avoid colliding with the `site/`, `s2/`, `research/`, `dashboard/`, `docs/`, `annex-88769516/`, `session-3740f69d/` annexes, which are other sessions' published output and are **not** edited. |
+
+### Environment note — network access in this sandbox (affects what "verified" can mean)
+
+Direct outbound HTTP from the shell (`curl`) is restricted to `github.com`, `codeload.github.com`, `api.github.com`, `registry.npmjs.org`, `pypi.org`, `files.pythonhosted.org`. `amazon.com`, `chefman.com`, `emerileveryday.com`, `ftc.gov` and `ecfr.gov` all fail from the shell (exit 35 / 000). The page-fetch tool in this session **does** reach them, so official-source re-reads below were done through that tool, not by trusting the recorded values. Anything that could not be re-read that way is marked as not re-checked rather than asserted.
+
+### W7 implementation and verification record — arena/22f43836-zone1 (2026-11-15 UTC)
+
+**Rebase note (protocol item 6).** While this pass ran, `origin/main` advanced by PRs #67 and #68
+(session `arena/94a562a1-zone1`, T20 — a correction to the F10/F41 short-link wording). The branch was
+rebased onto `2c1804a`. Two conflicts, both resolved keep-both and nothing of theirs discarded:
+`COORDINATION.md` (both task boards kept verbatim, side by side) and `flagged.html` (a generated file —
+resolved by regenerating from the merged `build.py`, which is the only correct resolution for build
+output). Their F10/F41 correction is compatible with this pass's own observations: my three fetches
+today returned `btn_ref=srctok-6c31d96765b8adfb`, `srctok-4796bf563b804868` and
+`srctok-33a7001c2f183379` while the ASIN and listing title stayed constant — i.e. exactly the
+"destination stable, marker not" reading their correction adopts. No merge conflict markers remain
+(verified by regex scan of `COORDINATION.md`, `build.py` and `flagged.html`: 0).
+
+**What was re-read live from official sources this pass (2026-11-15).**
+
+| Source | What was read | Result |
+|---|---|---|
+| `link.amazon/B04G1MEwY` | landing URL `amazon.com/dp/B0CDY277D3`, `<title>` "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry…" | matched the recorded value exactly |
+| `link.amazon/B02NbDxp3` | landing URL `amazon.com/dp/B09B7SB46R`, `<title>` "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven…" | matched exactly |
+| `link.amazon/B00hJ57DV` | landing URL `amazon.com/dp/B08DKYBTPH`, `<title>` "Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option…" | matched exactly |
+| S3 Standard Commission Income Statement | whole of Table 1 (11 rows) | "Physical Books, Kitchen, Automotive | 4.50%" and "All Other Categories | 4.00%" verbatim; all 11 rows match `data/commission-rates.csv` |
+| S2 Program Policies | §3(e) cookie/pixel disclosure text; "Updated: April 14, 2026" | confirmed verbatim |
+| S30 Google spam policies (new) | scaled content abuse; thin affiliation; link qualification | confirmed verbatim; added to `data/sources.json` |
+| S31 Google qualify-outbound-links (new) | `rel="sponsored"` for advertisements and paid placements | confirmed verbatim; added to `data/sources.json` |
+
+**Not re-read, and recorded as such rather than asserted:** the manufacturer specification pages
+(S10–S18, S25–S27) were not re-fetched this pass; no product value moved. The ASIN → manufacturer model
+mapping (F1, F32, F33, SG-01) and the Associates tag inside each short link (F6) remain **unconfirmed** —
+the product-information block on the Amazon listing is served client-side and is absent from the fetched
+text, so this pass could not close them and did not guess.
+
+**Defects found and fixed (both measured before and after).**
+
+| Defect | Measured | Fix | Guard |
+|---|---|---|---|
+| 0 of 27 generated pages declared a canonical URL, Open Graph tags, a Twitter card or JSON-LD | 0/27 before, 27/27 after | `layout()` emits canonical + `og:*` + `twitter:card` + schema.org `WebSite`/`Organization`/`BreadcrumbList`/`Article`; `404.html` gets `noindex` and no canonical | `check_seo_metadata()` fails the build |
+| 11 clickable `link.amazon` anchors had no `rel="sponsored"` (all on evidence pages: `data.html`, `flagged.html`, `reverification.html` ×5, `suggestions.html` ×2, `questions.html`) | 11 before, 0 after | `qualify_affiliate_links()` post-render pass; citation badges and the S22 control token excluded | `check_affiliate_link_qualification()` — it failed the build on all 11 first |
+| Sidebar read "8 parallel builds" while `previous-passes.html` lists 7 | 1 string on every page | count now reads `len(PARALLEL_BUILDS)`, the catalogue it links to | — |
+
+**Deliberate non-implementation.** schema.org `Product`/`Offer`/`AggregateRating` was *not* added. The
+site publishes no Amazon price, availability or star rating (Program Policies §2(b), §6(t)), so product
+markup would either be empty or would assert a value this project has refused for nine passes.
+
+**New register rows.** `F44` (nine near-identical copies of this site are published from one repository;
+duplicate-content and price-display exposure) and `F45` (the SEO metadata gap, now fixed). Both are
+non-blocking and published on `flagged.html` with source links. A decision entry, **SG-17**, puts the
+question of what to do with the eight superseded builds in front of the owner with three costed options;
+this session did not delete or edit another session's published output.
+
+**Gates run after the rebase, all green:** `python3 build.py` → 28 pages, 27 sitemap URLs, exit 0 ·
+`python3 verify.py` → 106 pages, 0 errors, 43 spec rows (41 verified / 2 blank+flagged), 31 sources ·
+`bash scripts/ci-check.sh` → 33 unit tests, data audit clean, S2 build current, 5,384 links / 0 broken ·
+`python3 research/check_research.py` → OK · `python3 scripts/verify_site.py` → 382 assertions passed ·
+`git status --short` → empty, so the Pages workflow's reproducibility check will pass.
+
+**Environment constraint, recorded so no future session mistakes it for a dead source.** Shell `curl`
+from this sandbox reaches only GitHub, npm and PyPI hosts; `amazon.com`, `chefman.com`, `ftc.gov` and
+`ecfr.gov` return 000/exit 35. The page-fetch tool does reach them; every re-read above used it.
+
+### W7 PR / merge / deploy result — arena/22f43836-zone1
+
+* **PR:** [#69](https://github.com/kanlerxz87-cyber/Zone1/pull/69) — "Pass 9: canonical + structured data on every page, all affiliate links qualified, two build guards, duplicate-build finding (F44/F45, SG-17)". Branch `arena/22f43836-zone1` → `main`.
+* **Checks on the PR head, both green:** `verify` ✓ (6s) · `Rebuild site/ from data/verified and assert every guarantee` ✓ (11s). `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`.
+* **Merge:** `gh pr merge 69 --merge` at **2026-11-15T13:11:55Z**, without waiting for approval, per the brief. **Merge commit on `main`: `73f8d79ef4c85fdaaf0342228a097ed78216d54c`**.
+* **Post-merge workflows on `main` at `73f8d79`, all success:** `CI` ✓ ([43717739267](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43717739267)) · `Verify verification annex (site/)` ✓ ([43717739329](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43717739329)) · `Build, verify and deploy to GitHub Pages` ✓ ([43717739254](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43717739254)) · `pages build and deployment` ✓ ([43717738136](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43717738136)).
+* **GitHub Pages:** `gh api repos/…/pages/builds/latest` → `status: built`, commit `73f8d79ef4`, `error: null`. Live at https://kanlerxz87-cyber.github.io/Zone1/.
+* **Deployed-state verification (second, independent check after the Pages build completed).** The live homepage was fetched and renders the pass-8 editorial layout with the disclosure bar and the "Before shopping" link-status callout intact. The deployed `flagged.html` and `suggestions.html` were then read back **from `main` via the GitHub contents API** and checked programmatically: `flagged.html` → 45 flag rows, `F44` and `F45` present, `rel="canonical"` present, "Open items" stat 45 (so the computed counters did not go stale); `suggestions.html` → `SG-17` present, and **0** unqualified `link.amazon` call-to-action anchors. This confirms the two defects this pass fixed are fixed in what is actually served, not just in the working tree.
+* **One observation left open for the record:** the first live fetch of `flagged.html` still showed the older F10 text ("the srctok value stays constant…"). Session `94a562a1`'s T20 correction to that row and this pass's rows both shipped in `73f8d79`, so this is the CDN/cache window from the concurrent deploy rather than a regression; the file on `main` carries the correction. Flagged here rather than claimed as verified, because a stale edge copy and a missed merge look identical from one fetch.
+
+**W7 result: done — verified, fixed, guarded, merged, deployed, and re-checked against the deployed artefact.**
+
+#### U4 — final integration: merge with origin/main, PR → merge → Pages
+
+**Merge.** `origin/main` advanced to `8f40f04` (PR #71, session `arena/792c279e`; plus PR #70 from
+`arena/22f43836` and PR #72 from `arena/94a562a1`) while this session was working. A rebase was
+attempted first and produced conflicts in 32 files; because this branch holds 4 substantive commits
+against 16 upstream ones, and because every generated HTML file is regenerated from `build.py`, the
+integration was redone as a **merge**, which resolves the conflicts once instead of four times.
+Nothing from either side was discarded.
+
+**Conflicts resolved, and how:**
+
+| File | Resolution |
+|---|---|
+| `COORDINATION.md` | keep-both. Both sessions' task boards, claim logs and completion records are present, separated by an explicit marker. |
+| `build.py` — `layout()` head | This session's richer per-page implementation, with **two things adopted from `arena/792c279e`**: the 404 page carries `robots: noindex` and no canonical URL, and the JSON-LD carries an explicit `"@context": "https://schema.org"`. Without that context the nodes are not interpreted as schema.org types — a real defect in this session's first version, caught by comparing the two independent implementations. |
+| `build.py` — `page_article()` | `arena/792c279e`'s share row and previous/next navigation kept verbatim. Its second, body-level `Article` block was **not** duplicated: the merged version emits one `Article` block in `<head>`, so a crawler never sees two conflicting `Article` nodes for one URL. |
+| `build.py` — the three new pages | `picks.html`, `decisions.html` and `handover.html` were added upstream after this session had wired JSON-LD everywhere. They carried canonical/OG/Twitter tags but no structured data, so `arena/792c279e`'s own guard `check_seo_metadata` correctly failed the build. Each now has a `BreadcrumbList`, and `picks.html` also an `ItemList` of the three products it ranks. |
+| `data/products.json` | Taken from `origin/main` (it carries the newer `read:` dates on `amazon_listing_title`, which `arena/792c279e` added because that value is volatile). Then three of this session's changes re-applied: F4's wording tightened; the "Included accessories" row now links S14 **and** S28 and carries the note; and this session's flag renumbered. |
+| **Flag renumber F44 → F50** | `origin/main` already uses **F44** for "the same site is published nine times from one repository", and records the accessory-count conflict this session independently found as the programme-level **F48**. Filing it as F44 would have been the F28/F40 class of collision this repository has been bitten by twice before. It is renumbered **F50**, the next free number after upstream's F49. F48 and F50 both remain: F48 records the conflict from `arena/792c279e`'s angle, F50 records this session's independent finding of the same fact and carries the owner's-manual wording ("Some accessories may not be included with purchase") that F48 does not. |
+| 32 generated HTML files | Regenerated from the merged `build.py`. Every one of them is a build artifact; hand-merging them would have produced a tree that no generator reproduces. The build is reproducible: a clean rebuild leaves `git diff` empty. |
+
+**Two defects in this session's own work were found by the merge** and are fixed: the missing
+`@context` on every JSON-LD block, and the 404 page declaring a canonical URL. Both were caught by
+reading the other session's independent implementation rather than by a gate.
+
+**Gates after the merge** — all green, and reproducible:
+
+| Gate | Result |
+|---|---|
+| `build.py` | 34 pages + `robots.txt` + `sitemap.xml` (34 URLs) |
+| `verify.py` | 113 pages, 43 spec rows (41 verified, 2 blank+flagged), 31 sources, **0 external warnings, 0 errors** |
+| `platform/tests` | 33/33 |
+| `platform/audit/report.py` | 0 errors, 0 warnings |
+| `scripts/check_links.py` | 5,964 links, 0 broken |
+| `scripts/verify_site.py` | 382 assertions, all passed |
+| `research/check_research.py` | 834 checks, all passed |
+| `scripts/build_s2_site.py --check` | current |
+| `node --check assets/app.js` | OK |
+| reproducibility | clean rebuild leaves `git diff` empty |
+
+The 18 `s2/` external-host warnings inherited from earlier passes are now **zero**: `advertising.amazon.com`,
+`sell.amazon.com` and `api.github.com` were added to the allowlist (each is the official home of the
+fact it is cited for), and `x.com`, `www.linkedin.com` and `www.facebook.com` were added for the
+article share row. A warning list that always warns is a warning list nobody reads.
