@@ -8,7 +8,7 @@ decision and keeps the verification layer one click behind it.
 **Live site:** https://kanlerxz87-cyber.github.io/Zone1/
 **Decision queue:** [`suggestions.html`](https://kanlerxz87-cyber.github.io/Zone1/suggestions.html) — review and choose before anything is built
 **Open questions:** [`questions.html`](https://kanlerxz87-cyber.github.io/Zone1/questions.html) — what must be answered first
-**Briefing:** [`EXECUTIVE-SUMMARY-PASS8.md`](EXECUTIVE-SUMMARY-PASS8.md)
+**Briefing:** [`EXECUTIVE-SUMMARY-PASS9.md`](EXECUTIVE-SUMMARY-PASS9.md) — pass 8 is [`EXECUTIVE-SUMMARY-PASS8.md`](EXECUTIVE-SUMMARY-PASS8.md)
 
 ## What is in here
 
@@ -25,8 +25,8 @@ decision and keeps the verification layer one click behind it.
 | `platform.html` | Automation blueprint, guardrails, KPIs, launch sequence |
 | `compliance.html` | 16 program/legal requirements, quoted, each with a source link |
 | `flagged.html` | Every unverified value, source conflict and irregularity |
-| `suggestions.html` | **Decision queue** — 16 evidence-backed suggestions, each with alternative paths, effort, risk and a recommendation. Nothing on it is implemented. |
-| `questions.html` | **Open questions** — 14 questions split into known / discoverable / not-stated / account-only, each with how to find the answer and what it blocks. |
+| `suggestions.html` | **Decision queue** — 20 evidence-backed suggestions, each with alternative paths, effort, risk and a recommendation. Nothing on it is implemented. |
+| `questions.html` | **Open questions** — 20 questions split into known / discoverable / not-stated / account-only. The four that an official source already settles carry their **answer** on the row; the rest say so plainly and name the step that would produce one. |
 | `executive-summary.html` | One-page briefing |
 | `reverification.html` | Line-by-line re-read of every published value (2026-11-14 pass), each row with its verdict and source link |
 | `session-81495d2d/EVIDENCE-2026-11-14.md` | Raw evidence behind that ledger: exact requests, exact responses, and what was not re-read |

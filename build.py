@@ -2019,13 +2019,15 @@ def page_exec():
         ("Verification standard", "Official sources only; blank plus flagged wherever unconfirmed; no inference.", ["S1", "S2"]),
         ("Verified spec values", "Published on the dashboard and in the full dataset, each with a source link.", ["S10", "S12", "S14"]),
         ("Re-verification (2026-11-14)", "Every published value was re-read against the official source it cites. The ledger — 61 rows, each with the value as published, what the source said on the day, a verdict and a link — is on the Re-verification page. Two blank rows were filled from the manufacturer's own spec block, and the disputed question of whether the short links shuffle between requests was closed by a repeat fetch plus a nonsense-token control.", ["S16", "S21", "S22"]),
+        ("Re-verification (2026-11-15)", "A ninth pass re-fetched every source itself rather than trusting the recorded ones: the Program Policies, the Commission Income Statement, both Chefman product pages, the Emeril product page, all three owner's manuals, all three supplied short links, 16 CFR Part 255 and 16 CFR Part 465. All 43 specification rows were checked against the page each one cites; none was found wrong and no published value changed. The raw evidence, including the sources deliberately not fetched, is in the repository.", ["S2", "S3", "S10", "S12", "S14", "S18"]),
         ("Hard source conflicts", "One serious (Chefman 8 Qt 450 °F claim vs its own manual), plus preset-count and SKU ambiguity issues. All of them were re-checked on 2026-11-14 and are still live on the official pages.", ["S12", "S13", "S14"]),
-        ("Commission rate", "Deliberately blank per product. Amazon publishes rates by category and not by ASIN.", ["S3"]),
+        ("Commission rate", "Still blank per product, but on firmer ground. Amazon publishes rates by category and not by ASIN. All three listings were re-read on 2026-11-15 and all three render the browse-node path Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers, so Kitchen at 4.50% is the well-evidenced working rate. The settlement-time category still has to come from the Associates Earnings report, so both candidate rows are shown.", ["S3", "S16", "S28", "S29"]),
         ("Amazon price / rating", "Not displayed anywhere, by policy, not by omission.", ["S2"]),
         ("Disclosure", "Required statement on every page plus a link-level badge on every outbound link.", ["S1", "S5"]),
         ("Biggest constraint", "Program Content may not be aggregated, analysed or trained on — which rules out the obvious version of an AI research engine.", ["S2"]),
         ("API status (re-verified 2026-11-14)", "PA-API 5 is officially deprecated; Amazon's docs direct integrations to migrate to the Creators API. The automation blueprint must target the Creators API.", ["S24"]),
-        ("Next decision", "Resolve the remaining flagged items, then publish, then apply.", ["S4"]),
+        ("Editorial defect found and fixed", "Ten article sentences spliced a published display label into a mid-sentence position, so the prose read as machine output — 'splits a cavity into Two 3-quart baskets'. Every value was genuinely published and correct in a table, which is why eight earlier verification passes missed it. Fixed, and the build now fails if it recurs. This is the clearest evidence on the site that reading the page as a reader, not as a database, is a separate job from verifying it.", ["S1"]),
+        ("Next decision", "Resolve the remaining flagged items, then publish, then apply. The decision queue is on the Suggestions page; the information gaps are on the Questions page.", ["S4"]),
     ]
     rows = "".join(
         f'<tr><td><strong>{e(k)}</strong></td><td>{e(v)}</td><td>{src_links(s)}</td></tr>' for k, v, s in facts
@@ -2034,6 +2036,22 @@ def page_exec():
 <p class="crumbs"><a href="../index.html">Home</a> / Executive summary</p>
 <h1>Executive summary</h1>
 <p class="lede">A one-page briefing for someone who will not read the rest. The short version: the product data is good, the economics are provable only within narrow limits, and the compliance constraint is the design constraint.</p>
+
+<div class="callout note">
+  <strong>Pass 9 — 2026-11-15 (most recent).</strong>
+  <p class="small">This pass re-fetched every official source itself instead of trusting the recorded ones,
+  and checked all 43 specification rows against the page each one cites. Nothing was found wrong and no
+  published value changed. Three things did change. First, the Amazon browse-node path
+  <em>Home &amp; Kitchen &gt; Kitchen &amp; Dining &gt; Small Appliances &gt; Fryers &gt; Air Fryers</em> was read
+  directly on all three listings, where an earlier pass had read it on one; the commission evidence is now
+  three-for-three (<a href="flagged.html">F44</a>). Second, ten article sentences were found to splice a
+  published label into mid-sentence position, so the prose read as machine output; they are fixed and the build
+  now fails if it recurs (<a href="flagged.html">F45</a>). Third, the questions register gained four rows that
+  are <em>known and sourced</em> and therefore carry an explicit answer, and four new suggestions were added.
+  One source, the Application Review Process page, was <em>not</em> re-read this pass and is flagged as
+  carried-forward rather than confirmed (<a href="flagged.html">F46</a>). Raw evidence:
+  <code>session-42ca97ad/EVIDENCE-2026-11-15.md</code>.</p>
+</div>
 
 <div class="callout note">
   <strong>Pass 8 — 2026-11-15.</strong>
@@ -2068,7 +2086,7 @@ def page_exec():
 <h2>Findings</h2>
 <div class="callout ok">
   <strong>1 · The product side is verifiable, and was verified</strong>
-  <p class="small">Every specification asserted on the site was read from the manufacturer's own product page or owner's manual on {e(ACCESSED)}, and each one carries a clickable link to it. Twelve sources are used; none is a retailer, a review aggregator or an affiliate blog. Values that could not be confirmed are blank and listed, which is the only honest way to publish a comparison table.</p>
+  <p class="small">Every specification asserted on the site was read from the manufacturer's own product page or owner's manual on {e(ACCESSED)}, and each one carries a clickable link to it. {len(SOURCES["sources"])} sources are used; none is a retailer, a review aggregator or an affiliate blog. Values that could not be confirmed are blank and listed, which is the only honest way to publish a comparison table.</p>
 </div>
 <div class="callout bad">
   <strong>2 · One official source contradicts another, and it is not cosmetic</strong>
@@ -2076,11 +2094,20 @@ def page_exec():
 </div>
 <div class="callout">
   <strong>3 · The commission numbers cannot be stated per product, and pretending otherwise would be fabrication</strong>
-  <p class="small">Amazon's published rate table lists Kitchen at 4.50%, Home at 3.00% and a 4.00% fallback {src_links(['S3'])}. Amazon does not publish which category a given ASIN sits in, and air fryers are not named in the table. Every "commission rate" figure on a competitor site therefore rests on a guess. This site shows the candidate rows and leaves the rate blank.</p>
+  <p class="small">Amazon's published rate table lists Kitchen at 4.50%, Home at 3.00% and a 4.00% fallback {src_links(['S3'])}. Amazon does not publish which category a given ASIN sits in, and air fryers are not named in the table. Every "commission rate" figure on a competitor site therefore rests on a guess. What this site adds is evidence rather than a guess: on 2026-11-15 all three listings were re-read and all three render the Kitchen &amp; Dining browse-node path, which makes 4.50% the well-evidenced working rate. The settlement-time category still comes only from the Earnings report, so both candidate rows stay on the page and the rate stays blank per product.</p>
 </div>
 <div class="callout info">
   <strong>4 · The policy constraint is the architecture</strong>
   <p class="small">The brief asks for automated product research, trend detection and optimisation. The IP License forbids aggregating, analysing, extracting or repurposing Program Content and forbids training models on it {src_links(['S2'])}. So the automated research layer must run on manufacturer documentation and the operator's own click and conversion data. That is a harder, slower build — and the only one that survives review.</p>
+</div>
+<div class="callout">
+  <strong>5 · Verifying the data and reading the page are different jobs, and only one of them was automated</strong>
+  <p class="small">Eight earlier passes checked every value against its source and found nothing wrong — correctly.
+  But a value that is right in a table can still be wrong in a sentence, and ten of them were: a published
+  display label such as "Two 3-quart baskets" had been spliced into mid-sentence position, so the articles read
+  as machine output ("splits a cavity into Two 3-quart baskets"). No verifier catches that, because the value is
+  genuinely published. It took reading the rendered pages as a shopper would. The defect is fixed and the build
+  now fails if a capitalised value is spliced into a mid-sentence position again {src_links(['S1'])}.</p>
 </div>
 
 <h2>Economics, stated with the precision the data allows</h2>
@@ -2100,9 +2127,11 @@ def page_exec():
   <li><strong>Fix attribution before driving traffic</strong> — confirm the Associates tag and create sub-tags; F6 and F7.</li>
   <li><strong>Then apply, and work the 180-day window deliberately</strong> {src_links(['S4'])}.</li>
   <li><strong>Only pursue price and rating display if API access is granted.</strong> Until then, absence is the compliant state.</li>
+  <li><strong>Decide what the AI agent is allowed to read before writing the research pipeline.</strong> The IP License forbids using Amazon's Program Content to build or improve models, and forbids aggregating or analysing it without written approval {src_links(['S2'])}. The version of the brief that is lawful runs on manufacturers' own pages — which is the version this repository already implements. See <a href="suggestions.html#sg-17">SG-17</a>.</li>
+  <li><strong>Decide the product set before the next content push.</strong> Two of the three products share a brand and a form factor, which caps what the comparison can answer. See <a href="suggestions.html#sg-19">SG-19</a>.</li>
 </ol>
 
-<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../EXECUTIVE-SUMMARY.md">Download the markdown version</a> <a class="btn btn-ghost" href="../flagged.html">See every open flag</a></p>
+<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../EXECUTIVE-SUMMARY-PASS9.md">Download this pass's markdown briefing</a> <a class="btn btn-ghost" href="../EXECUTIVE-SUMMARY.md">Earlier briefing</a> <a class="btn btn-ghost" href="../flagged.html">See every open flag</a></p>
 """
     return layout("executive-summary.html", "Executive summary", body, active="executive-summary.html",
                   description="One-page executive summary: findings, source conflicts, economics and the recommended next decision.")
