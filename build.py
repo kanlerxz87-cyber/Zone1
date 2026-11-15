@@ -26,6 +26,29 @@ SITE_TAGLINE = "Air-fryer decisions, backed by sources"
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
 
 # --------------------------------------------------------------------------- #
+# canonical origin, social card, publisher identity
+# --------------------------------------------------------------------------- #
+# The published origin is the GitHub Pages site for this repository. data/site.json
+# records the same URL; it is repeated here so the generator can build absolute URLs
+# (canonical, og:url, JSON-LD) without a network call at build time.
+SITE_URL = "https://kanlerxz87-cyber.github.io/Zone1"
+OG_IMAGE = SITE_URL + "/assets/og-card.png"
+# The publisher is the site itself. There is no named individual author on this site,
+# so the structured data names the organisation rather than inventing a person.
+PUBLISHER = {
+    "@type": "Organization",
+    "@id": SITE_URL + "/#organization",
+    "name": SITE_NAME,
+    "url": SITE_URL + "/",
+    "logo": OG_IMAGE,
+    "description": (
+        "An independent, documentation-based air-fryer buying guide. Every specification "
+        "links to the manufacturer's own page or owner's manual; nothing is inferred and "
+        "no hands-on testing is claimed."
+    ),
+}
+
+# --------------------------------------------------------------------------- #
 # data loading
 # --------------------------------------------------------------------------- #
 
@@ -87,6 +110,84 @@ def src_links(ids):
     if not ids:
         return '<span class="src src-none">no official source</span>'
     return " ".join(src_link(i) for i in ids)
+
+
+# --------------------------------------------------------------------------- #
+# structured data (JSON-LD) and social cards
+# --------------------------------------------------------------------------- #
+# Added 2026-11-15 (arena/88bb2db6). The site previously shipped no canonical URL, no
+# Open Graph / Twitter card tags and no JSON-LD at all, so a shared link rendered as a
+# bare URL and no page could qualify for a rich result. These helpers build that layer
+# from the same verified data the pages already display.
+#
+# Two rules govern what may go in the structured data:
+#   1. No price, priceCurrency, availability or aggregateRating. Program Policies
+#      section 2(b) and 6(t) restrict those to an Amazon-served link or the
+#      Creators/PA API, and this site holds neither. check_no_price_tracking()
+#      below fails the build if a price-tracking identifier appears in any script
+#      body, which now includes every JSON-LD block.
+#   2. No rating. The brand-site review widget rating is not Amazon's rating and is
+#      not a schema.org aggregateRating for the product.
+
+def jsonld(blocks):
+    """Render one or more JSON-LD blocks for the <head>.
+
+    A list is emitted as one @graph so the blocks can reference each other by @id.
+    `</` is escaped so a string containing it can never close the script element.
+    """
+    if not blocks:
+        return ""
+    payload = json.dumps(blocks, ensure_ascii=False, separators=(",", ":"))
+    payload = payload.replace("</", "<\\/")
+    return f'<script type="application/ld+json">{payload}</script>'
+
+
+def page_url(page_rel):
+    """Absolute URL of a generated page, for canonical and og:url."""
+    return f"{SITE_URL}/{page_rel}"
+
+
+def breadcrumbs_jsonld(trail):
+    """BreadcrumbList for the trail of (name, url) pairs, Home first."""
+    items = []
+    for i, (name, url) in enumerate(trail, start=1):
+        items.append({
+            "@type": "ListItem",
+            "position": i,
+            "name": name,
+            "item": url,
+        })
+    return {
+        "@type": "BreadcrumbList",
+        "@id": SITE_URL + "/#breadcrumb",
+        "itemListElement": items,
+    }
+
+
+def article_jsonld(a, url):
+    """Article schema for one article in data/articles.json.
+
+    Only facts the site already publishes are used. The article's own record is the
+    source of the headline, the standfirst and the reading time; the dates are the
+    dates recorded in data/articles.json, not invented ones.
+    """
+    return {
+        "@type": "Article",
+        "@id": url + "#article",
+        "headline": a["title"],
+        "description": a["standfirst"],
+        "articleSection": a["kind"],
+        "wordCount": None,
+        "inLanguage": "en-US",
+        "datePublished": ARTICLES.get("accessed", ""),
+        "dateModified": ARTICLES.get("updated", ""),
+        "author": {"@id": SITE_URL + "/#organization"},
+        "publisher": {"@id": SITE_URL + "/#organization"},
+        "mainEntityOfPage": {"@type": "WebPage", "@id": url},
+        "image": OG_IMAGE,
+        "url": url,
+        "isAccessibleForFree": True,
+    }
 
 
 def uniq(seq):
@@ -573,7 +674,8 @@ document.addEventListener('click', function (ev) {
 """
 
 
-def layout(page_rel, title, body, active=None, description=""):
+def layout(page_rel, title, body, active=None, description="", og_type="website",
+           jsonld_blocks=None, og_image_alt=None):
     prefix = depth_prefix(page_rel)
     # Keyed by href, not by position: the sidebar used to index this list, so inserting a nav
     # entry silently moved every later group (caught 2026-11-15 when Suggestions and Open
@@ -615,13 +717,40 @@ def layout(page_rel, title, body, active=None, description=""):
         if parallel else ""
     )
     desc = f'<meta name="description" content="{e(description)}">' if description else ""
+    # Absolute URL of this page. The landing page canonicalises to the directory form
+    # so that https://…/Zone1/ and https://…/Zone1/index.html are one URL, not two.
+    canonical = SITE_URL + "/" if page_rel == "index.html" else page_url(page_rel)
+    full_title = f"{title} · {SITE_NAME}"
+    # Fall back to the page's own description for the social card; a link shared with
+    # no text still gets a readable preview rather than an empty one.
+    social_desc = description or f"{SITE_NAME} — {SITE_TAGLINE}."
+    social_alt = og_image_alt or f"{SITE_NAME} — {SITE_TAGLINE}"
+    ld = jsonld(jsonld_blocks)
     return f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{e(title)} · {e(SITE_NAME)}</title>
+<title>{e(full_title)}</title>
 {desc}
+<link rel="canonical" href="{e(canonical)}">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="{e(og_type)}">
+<meta property="og:site_name" content="{e(SITE_NAME)}">
+<meta property="og:title" content="{e(full_title)}">
+<meta property="og:description" content="{e(social_desc)}">
+<meta property="og:url" content="{e(canonical)}">
+<meta property="og:image" content="{e(OG_IMAGE)}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{e(social_alt)}">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{e(full_title)}">
+<meta name="twitter:description" content="{e(social_desc)}">
+<meta name="twitter:image" content="{e(OG_IMAGE)}">
+<meta name="twitter:image:alt" content="{e(social_alt)}">
+{ld}
 <link rel="stylesheet" href="{prefix}assets/style.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23245746'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='%23fff' text-anchor='middle'%3EZ1%3C/text%3E%3C/svg%3E">
 </head>
@@ -931,7 +1060,7 @@ def page_index():
 
 <div class="callout bad link-status" id="link-status">
   <div class="link-status-heading"><span class="pill pill-warn">Before shopping</span><strong>Product identity, account approval and affiliate tracking are not confirmed.</strong></div>
-  <p class="small">Recorded checks through 2026-11-15 observed fallback-style redirects for the three supplied short links. We cannot confirm that each link reaches the named manufacturer model, carries the correct Associates tag, or that the Associates account is approved. Verify the model and account status in Amazon before relying on a purchase link. {src_links(['S17', 'S2'])} <a href="reports/link-check-2026-11-14.md">Read the redirect evidence</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html#q-01">Product-link question</a> · <a href="questions.html#q-03">Account-status question</a>.</p>
+  <p class="small">Recorded checks through 2026-11-15 observed fallback-style redirects for the three supplied short links. We cannot confirm that each link reaches the named manufacturer model, carries the correct Associates tag, or that the Associates account is approved. Verify the model and account status in Amazon before relying on a purchase link. {src_links(['S17', 'S2'])} <a href="reverification.html">Read the redirect evidence</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html#q-01">Product-link question</a> · <a href="questions.html#q-03">Account-status question</a>.</p>
 </div>
 
 <div class="method-strip" id="how-we-work" aria-label="How this guide is made">
@@ -989,7 +1118,7 @@ def page_index():
       <td class="small"><span class="pill pill-warn">Conflicting claims</span><div class="tiny">Brand page: 200–400 °F; supplied listing title advertises 450 °F. Model match is unconfirmed.</div><div class="tiny">{src_links(['S12', 'S29'])} <a href="flagged.html">Flagged</a></div></td></tr>
     <tr><td class="small"><strong>Preset information</strong></td>
       <td class="small blank">— not confirmed —<div class="tiny">{src_links(['S18'])} <a href="flagged.html">Flagged</a></div></td>
-      <td class="small"><span class="pill pill-warn">Conflicting claims</span><div class="tiny">Owner's manual names 24; product page states 25. Neither count is selected as definitive.</div><div class="tiny">{src_links(['S15', 'S14'])} <a href="flagged.html">Flagged</a></div></td>
+      <td class="small">24 presets named in the owner's manual<div class="tiny">Airfry, Fries, Bacon, Grill, Eggs, Fish, Ribs, Defrost, Steak, Vegetables, Wings, Bake, Rotisserie, Toast, Chicken, Pizza, Pastry, Proof, Broil, Slow Cook, Roast, Dehydrate, Reheat, Warm.</div><div class="tiny"><span class="pill pill-warn">One page disagrees</span> The brand page's specification block says "25 Cooking Pre-sets"; its own description and the Amazon listing title both say 24.</div><div class="tiny">{src_links(['S15', 'S14', 'S28'])} <a href="flagged.html">Flagged</a></div></td>
       <td class="small">Fries, Chicken, Fish, Meat<div class="tiny">{src_links(['S12', 'S13'])}</div></td></tr>
     <tr><td class="small"><strong>Rotisserie</strong></td>
       <td class="small blank">— not confirmed —<div class="tiny">{src_links(['S10', 'S18'])} <a href="flagged.html">Flagged</a></div></td>
@@ -1030,7 +1159,7 @@ much to trust a number, not required reading before buying. The same material, i
 <a href="flagged.html">Flagged for review</a>.</p>
 
 <div class="grid grid-4" style="margin:1rem 0 1.25rem">
-  <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">Supplied links reach Amazon fallback pages — see <a href="reports/link-check-2026-11-14.md">link check, 2026-11-14</a></div></div>
+  <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">Supplied links reach Amazon fallback pages — see <a href="reverification.html">link checks, 2026-11-14 and 2026-11-15</a></div></div>
   <div class="stat ok"><div class="n">{verified}</div><div class="l">Verified spec values</div><div class="h">Each with a link to the manufacturer page or manual</div></div>
   <div class="stat warn"><div class="n">{unverified}</div><div class="l">Unconfirmed values</div><div class="h">Left blank, listed on Flagged for review</div></div>
   <div class="stat bad"><div class="n">{n_open_flags}</div><div class="l">Open irregularities</div><div class="h">{n_total_flags} recorded across the three products and the programme; the Flagged page lists them as {n_open_flags} distinct rows</div></div>
@@ -1055,7 +1184,7 @@ much to trust a number, not required reading before buying. The same material, i
   parallel pass reads the same fallback marker as grounds for withholding the "resolved" label entirely. Both
   readings are published side by side (flag F21). Full ledger:
   <a href="reverification.html">Re-verification {REVERIFIED}</a> · their report:
-  <a href="reports/link-check-2026-11-14.md">link check, 2026-11-14</a>.</p>
+  <a href="reverification.html">link checks, 2026-11-14 and 2026-11-15</a>.</p>
 </div>
 
 <h2>Articles</h2>
@@ -1106,8 +1235,36 @@ much to trust a number, not required reading before buying. The same material, i
 </div>
 <p class="tiny muted">Evidence standard: Amazon sources support Amazon program and listing facts; manufacturers support product specifications; US government sources support legal requirements. The <a href="data.html">source register</a> lists each reference and what it can verify.</p>
 """
+    ld = [
+        PUBLISHER,
+        {
+            "@type": "WebSite",
+            "@id": SITE_URL + "/#website",
+            "url": SITE_URL + "/",
+            "name": SITE_NAME,
+            "description": SITE_TAGLINE,
+            "inLanguage": "en-US",
+            "publisher": {"@id": SITE_URL + "/#organization"},
+        },
+        breadcrumbs_jsonld([("Home", SITE_URL + "/")]),
+        {
+            "@type": "ItemList",
+            "@id": SITE_URL + "/#formats",
+            "name": "Three air-fryer formats compared",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": i,
+                    "name": pr["short_name"],
+                    "url": page_url(f"products/{pr['slug']}.html"),
+                }
+                for i, pr in enumerate(PRODUCT_LIST, start=1)
+            ],
+        },
+    ]
     return layout("index.html", "Air fryer buying guide", body, active="index.html",
-                  description="A source-led comparison of three air-fryer formats, with manufacturer specifications, visible gaps and the status of the supplied Amazon links.")
+                  description="A source-led comparison of three air-fryer formats, with manufacturer specifications, visible gaps and the status of the supplied Amazon links.",
+                  jsonld_blocks=ld)
 
 
 def page_product(p):
@@ -1130,7 +1287,7 @@ def page_product(p):
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / <a href="../categories/kitchen-appliances.html">Kitchen</a> / {e(p['short_name'])}</p>
 <h1>{e(p['short_name'])}</h1>
-<p class="lede">{e(p['name'])} — {e(p['brand'])}. These are document-based product notes, not a ranking or hands-on review. Specifications below come from the manufacturer's product page or owner's manual, accessed {e(ACCESSED)}. The candidate ASIN comes from recorded link checks, but the supplied short-link-to-model mapping is not confirmed; see the <a href="../reports/link-check-2026-11-14.md">redirect evidence</a> and <a href="../flagged.html">Flagged for review</a>.</p>
+<p class="lede">{e(p['name'])} — {e(p['brand'])}. These are document-based product notes, not a ranking or hands-on review. Specifications below come from the manufacturer's product page or owner's manual, accessed {e(ACCESSED)}. The candidate ASIN comes from recorded link checks, but the supplied short-link-to-model mapping is not confirmed; see the <a href="../reverification.html">redirect evidence</a> and <a href="../flagged.html">Flagged for review</a>.</p>
 
 <div class="grid grid-4" style="margin-bottom:1rem">
   <div class="stat warn"><div class="n" style="font-size:1.15rem">{e(p['asin']['v'])}</div><div class="l">Candidate ASIN · unconfirmed</div><div class="h">{src_links(p['asin']['s'])}</div></div>
@@ -1208,9 +1365,28 @@ def page_product(p):
 
 <p class="small" style="margin-top:1.5rem"><a href="../compare.html">← Back to the comparison</a> · <a href="../data.html">See every field in the dataset</a></p>
 """
+    purl = page_url(f"products/{tag}.html")
+    ld = [
+        {
+            "@type": "ItemPage",
+            "@id": purl + "#webpage",
+            "url": purl,
+            "name": p["name"],
+            "description": f"Documentation-based review of the {p['name']} — verified specifications with official source links.",
+            "isPartOf": {"@id": SITE_URL + "/#website"},
+            "about": {"@id": SITE_URL + "/#organization"},
+            "inLanguage": "en-US",
+        },
+        breadcrumbs_jsonld([
+            ("Home", SITE_URL + "/"),
+            ("Kitchen appliances", page_url("categories/kitchen-appliances.html")),
+            (p["short_name"], purl),
+        ]),
+    ]
     return layout(f"products/{tag}.html", p["short_name"], body,
                   active=f"products/{tag}.html",
-                  description=f"Documentation-based review of the {p['name']} — verified specifications with official source links.")
+                  description=f"Documentation-based review of the {p['name']} — verified specifications with official source links.",
+                  jsonld_blocks=ld)
 
 
 PROGRAMME_FLAGS = [
@@ -1414,9 +1590,41 @@ def page_category():
 </table>
 </div>
 """
+    curl = page_url("categories/kitchen-appliances.html")
+    ld = [
+        {
+            "@type": "CollectionPage",
+            "@id": curl + "#webpage",
+            "url": curl,
+            "name": "Category: Kitchen",
+            "description": "Kitchen appliance category page: three tracked air fryers with verified capacity, manufacturer list price and open flags.",
+            "isPartOf": {"@id": SITE_URL + "/#website"},
+            "about": {"@id": SITE_URL + "/#organization"},
+            "inLanguage": "en-US",
+        },
+        breadcrumbs_jsonld([
+            ("Home", SITE_URL + "/"),
+            ("Kitchen appliances", curl),
+        ]),
+        {
+            "@type": "ItemList",
+            "@id": curl + "#products",
+            "name": "Tracked air fryers",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": i,
+                    "name": pr["short_name"],
+                    "url": page_url(f"products/{pr['slug']}.html"),
+                }
+                for i, pr in enumerate(PRODUCT_LIST, start=1)
+            ],
+        },
+    ]
     return layout("categories/kitchen-appliances.html", "Category: Kitchen", body,
                   active="categories/kitchen-appliances.html",
-                  description="Kitchen appliance category page: three tracked air fryers with verified capacity, manufacturer list price and open flags.")
+                  description="Kitchen appliance category page: three tracked air fryers with verified capacity, manufacturer list price and open flags.",
+                  jsonld_blocks=ld)
 
 
 def page_compare():
@@ -1489,8 +1697,30 @@ def page_compare():
 
 <p class="small" style="margin-top:1.5rem"><a href="../guides/buying-guide-air-fryers.html">Read the buying guide →</a> · <a href="../flagged.html">See what is unresolved →</a></p>
 """
+    curl = page_url("compare.html")
+    ld = [
+        {
+            "@type": "ItemList",
+            "@id": curl + "#products",
+            "name": "Three air fryers compared",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": i,
+                    "name": pr["short_name"],
+                    "url": page_url(f"products/{pr['slug']}.html"),
+                }
+                for i, pr in enumerate(PRODUCT_LIST, start=1)
+            ],
+        },
+        breadcrumbs_jsonld([
+            ("Home", SITE_URL + "/"),
+            ("Comparison", curl),
+        ]),
+    ]
     return layout("compare.html", "Comparison", body, active="compare.html",
-                  description="Verified-only comparison of three air fryers, with gaps left visible and every value linked to an official source.")
+                  description="Verified-only comparison of three air fryers, with gaps left visible and every value linked to an official source.",
+                  jsonld_blocks=ld)
 
 
 def page_guide():
@@ -1553,7 +1783,12 @@ def page_guide():
 """
     return layout("guides/buying-guide-air-fryers.html", "Buying guide", body,
                   active="guides/buying-guide-air-fryers.html",
-                  description="How to choose an air fryer: form factor, documented capacity, real temperature ceilings, cleaning and footprint.")
+                  description="How to choose an air fryer: form factor, documented capacity, real temperature ceilings, cleaning and footprint.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Buying guide", page_url("guides/buying-guide-air-fryers.html")),
+    ])]
+              )
 
 
 def page_data():
@@ -1610,7 +1845,12 @@ def page_data():
 </div>
 """
     return layout("data.html", "Full dataset", body, active="data.html",
-                  description="Complete specification register for three air fryers: every value, its verification status and the official source link.")
+                  description="Complete specification register for three air fryers: every value, its verification status and the official source link.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Full dataset", page_url("data.html")),
+    ])]
+              )
 
 
 def page_compliance():
@@ -1702,7 +1942,12 @@ def page_compliance():
 </div>
 """
     return layout("compliance.html", "Compliance", body, active="compliance.html",
-                  description="Amazon Associates and FTC compliance requirements, quoted with official source links and mapped to implementation.")
+                  description="Amazon Associates and FTC compliance requirements, quoted with official source links and mapped to implementation.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Compliance", page_url("compliance.html")),
+    ])]
+              )
 
 
 def page_flagged():
@@ -1807,7 +2052,12 @@ def page_flagged():
 records what a re-test established.</p>
 """
     return layout("flagged.html", "Flagged for review", body, active="flagged.html",
-                  description="Unverified values, source conflicts and operational irregularities flagged for human review, each with its official source link.")
+                  description="Unverified values, source conflicts and operational irregularities flagged for human review, each with its official source link.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Flagged for review", page_url("flagged.html")),
+    ])]
+              )
 
 
 def page_platform():
@@ -1957,7 +2207,12 @@ def page_platform():
 </div>
 """
     return layout("platform.html", "Platform blueprint", body, active="platform.html",
-                  description="Automation blueprint for a compliant Amazon affiliate platform: pipeline, guardrails, KPIs and launch sequence.")
+                  description="Automation blueprint for a compliant Amazon affiliate platform: pipeline, guardrails, KPIs and launch sequence.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Platform blueprint", page_url("platform.html")),
+    ])]
+              )
 
 
 def page_exec():
@@ -2084,7 +2339,12 @@ def page_exec():
 <p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../EXECUTIVE-SUMMARY.md">Download the markdown version</a> <a class="btn btn-ghost" href="../flagged.html">See every open flag</a></p>
 """
     return layout("executive-summary.html", "Executive summary", body, active="executive-summary.html",
-                  description="One-page executive summary: findings, source conflicts, economics and the recommended next decision.")
+                  description="One-page executive summary: findings, source conflicts, economics and the recommended next decision.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Executive summary", page_url("executive-summary.html")),
+    ])]
+              )
 
 
 REV_VERDICT = {
@@ -2287,7 +2547,12 @@ value was filled in.</p>
 """
     return layout("reverification.html", f"Re-verification {rev['pass_date']}", body,
                   active="reverification.html",
-                  description="Line-by-line re-read of every value this site publishes, each against the official source it cites, with the verdict and the source link.")
+                  description="Line-by-line re-read of every value this site publishes, each against the official source it cites, with the verdict and the source link.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Re-verification", page_url("reverification.html")),
+    ])]
+              )
 
 
 PARALLEL_BUILDS = [
@@ -2366,7 +2631,12 @@ def page_previous_passes():
 """
     return layout("previous-passes.html", "Previous passes", body,
                   active="previous-passes.html",
-                  description="Catalogue of every parallel build published in this repository, where each one disagrees with the canonical site, and which build to trust.")
+                  description="Catalogue of every parallel build published in this repository, where each one disagrees with the canonical site, and which build to trust.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Previous passes", page_url("previous-passes.html")),
+    ])]
+              )
 
 
 # --------------------------------------------------------------------------- #
@@ -2487,8 +2757,13 @@ a short story rather than an open-ended project.</p>
   <a href="questions.html">This pass's open questions</a>
 </div>
 """
-    return layout("marketing-directions.html", "Suggestions", body, active="marketing-directions.html",
-                  description="Sixteen reviewed, evidence-backed suggestions for the site, each with alternative paths and a recommendation, for the owner to choose before anything is implemented.")
+    return layout("suggestions.html", "Suggestions", body, active="suggestions.html",
+                  description="Sixteen reviewed, evidence-backed suggestions for the site, each with alternative paths and a recommendation, for the owner to choose before anything is implemented.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Suggestions", page_url("suggestions.html")),
+    ])]
+              )
 
 
 def page_questions():
@@ -2591,8 +2866,41 @@ settled without you links to the row that blocks it.</p>
   (parallel pass)</a> · <a href="suggestions.html">This pass's suggestions</a>
 </div>
 """
+    qurl = page_url("questions.html")
+    # FAQPage. Every answer below is assembled only from fields that the page above
+    # already prints in full — what_we_know, what_is_missing and how_to_discover —
+    # so the structured data restates visible content and adds nothing.
+    faq = []
+    for item in q["questions"]:
+        answer = []
+        if item.get("what_we_know"):
+            answer.append("What we know: " + " ".join(item["what_we_know"]))
+        if item.get("what_is_missing"):
+            answer.append("What is missing: " + item["what_is_missing"])
+        if item.get("how_to_discover"):
+            answer.append("How to find it out: " + item["how_to_discover"])
+        if not answer:
+            continue
+        faq.append({
+            "@type": "Question",
+            "name": item["question"],
+            "acceptedAnswer": {"@type": "Answer", "text": " ".join(answer)},
+        })
+    ld = [
+        {
+            "@type": "FAQPage",
+            "@id": qurl + "#faq",
+            "url": qurl,
+            "mainEntity": faq,
+        },
+        breadcrumbs_jsonld([
+            ("Home", SITE_URL + "/"),
+            ("Questions and gaps", qurl),
+        ]),
+    ]
     return layout("questions.html", "Open questions", body, active="questions.html",
-                  description="The questions, information and answers that must be settled before a decision on this site is reasonable, separated into known, discoverable, not-stated and account-only.")
+                  description="The questions, information and answers that must be settled before a decision on this site is reasonable, separated into known, discoverable, not-stated and account-only.",
+                  jsonld_blocks=ld)
 
 
 # --------------------------------------------------------------------------- #
@@ -2759,9 +3067,9 @@ def page_suggestions_alt():
           <td class="small">☐ A &nbsp; ☐ B &nbsp; ☐ C<div class="tiny muted">Reply with the ID and letter</div></td>
         </tr>""")
     body = f"""
-<p class="crumbs"><a href="index.html">Home</a> / Suggestions</p>
+<p class="crumbs"><a href="index.html">Home</a> / Marketing directions (parallel pass)</p>
 <h1>Suggestions: choose the path before anything changes</h1>
-<p class="lede">{len(SUGGESTIONS)} suggestions to improve the site's design, trust, content and measurement. <strong>None of them has been implemented.</strong> Each one lists the options. Pick an option for each ID you want, and only then will the change be made.</p>
+<p class="lede">{len(SUGGESTIONS_ALT)} suggestions to improve the site's design, trust, content and measurement. <strong>None of them has been implemented.</strong> Each one lists the options. Pick an option for each ID you want, and only then will the change be made.</p>
 
 <div class="callout warn"><strong>How to decide.</strong> Each row has a basis. Where the basis is an official Amazon or FTC source, the link goes to that source. Where the row is a design opinion, it says so and points to <a href="flagged.html">Flagged for review</a>. The options run from the current state (A) to the recommended path.</div>
 
@@ -2774,10 +3082,16 @@ def page_suggestions_alt():
 </div>
 
 <h2>Information needed before some of these can be decided</h2>
-<p class="small">Several suggestions depend on a fact not yet known. Those facts are listed, with the way to find each one, on the <a href="questions.html">Questions and information gaps</a> page.</p>
+<p class="small">Several suggestions depend on a fact not yet known. Those facts are listed, with the way to find each one, on the <a href="decision-gate.html">Questions and information gaps</a> page.</p>
 """
-    return layout("suggestions.html", "Suggestions", body, active="suggestions.html",
-                  description="Site, design, trust, content and measurement suggestions, with options for the owner to choose before any change is made.")
+    return layout("marketing-directions.html", "Marketing directions (parallel pass)", body,
+                  active="marketing-directions.html",
+                  description="Site, design, trust, content and measurement suggestions, with options for the owner to choose before any change is made.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Marketing directions (parallel pass)", page_url("marketing-directions.html")),
+    ])]
+              )
 
 
 def page_questions_alt():
@@ -2793,8 +3107,8 @@ def page_questions_alt():
           <td class="small">{e(unblocks)}</td>
         </tr>""")
     body = f"""
-<p class="crumbs"><a href="index.html">Home</a> / Questions and information gaps</p>
-<h1>What must be answered before a decision is reasonable</h1>
+<p class="crumbs"><a href="index.html">Home</a> / Questions and information gaps (parallel pass)</p>
+<h1>The parallel register: fourteen questions with their known facts, gaps and next steps</h1>
 <p class="lede">{len(QUESTIONS_ALT)} questions. For each one: what the repository already holds (with its official source), what is still missing, how to find the missing fact, and which decision it unblocks. Nothing in the <em>missing</em> column has been filled in with an estimate.</p>
 
 <div class="callout warn"><strong>Read this first.</strong> Q-01 and Q-06 decide most of the other choices: which products the links really point to, and which Amazon store the site can promote. Answer those two before the product pages are extended.</div>
@@ -2807,10 +3121,15 @@ def page_questions_alt():
 </table>
 </div>
 
-<p class="small" style="margin-top:1.5rem">Related: <a href="suggestions.html">Suggestions</a> · <a href="flagged.html">Flagged for review</a> · <a href="executive-summary.html">Executive summary</a></p>
+<p class="small" style="margin-top:1.5rem">Related: <a href="marketing-directions.html">Marketing directions (parallel pass)</a> · <a href="questions.html">Questions and gaps (this register's main pass)</a> · <a href="flagged.html">Flagged for review</a> · <a href="executive-summary.html">Executive summary</a></p>
 """
     return layout("decision-gate.html", "Questions and information gaps", body, active="decision-gate.html",
-                  description="Questions that must be answered before decisions, what is known with sources, what is missing, and how to find it.")
+                  description="Questions that must be answered before decisions, what is known with sources, what is missing, and how to find it.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Questions and gaps (parallel pass)", page_url("decision-gate.html")),
+    ])]
+              )
 
 
 def page_404():
@@ -2837,7 +3156,12 @@ def page_404():
   </div>
 </div>
 """
-    return layout("404.html", "Page not found", body)
+    return layout("404.html", "Page not found", body,
+                  description="That page does not exist on this site. Start from the air-fryer buying guide, the articles, or the flagged-for-review register.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+                      ("Home", SITE_URL + "/"),
+                      ("Page not found", page_url("404.html")),
+                  ])])
 
 
 # --------------------------------------------------------------------------- #
@@ -3015,8 +3339,39 @@ def page_articles_index():
 
 <p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../guides/buying-guide-air-fryers.html">Buying guide →</a> <a class="btn btn-ghost" href="../compare.html">Comparison matrix →</a> <a class="btn btn-ghost" href="../flagged.html">Flagged for review →</a></p>
 """
+    aurl = page_url("articles/index.html")
+    ld = [
+        {
+            "@type": "CollectionPage",
+            "@id": aurl + "#webpage",
+            "url": aurl,
+            "name": "Articles",
+            "isPartOf": {"@id": SITE_URL + "/#website"},
+            "about": {"@id": SITE_URL + "/#organization"},
+            "inLanguage": "en-US",
+        },
+        breadcrumbs_jsonld([
+            ("Home", SITE_URL + "/"),
+            ("Articles", aurl),
+        ]),
+        {
+            "@type": "ItemList",
+            "@id": aurl + "#articles",
+            "name": "Sourced air-fryer articles",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": i,
+                    "name": art["title"],
+                    "url": page_url(f"articles/{art['slug']}.html"),
+                }
+                for i, art in enumerate(ARTICLES["articles"], start=1)
+            ],
+        },
+    ]
     return layout("articles/index.html", "Articles", body, active="articles/index.html",
-                  description="Eight sourced articles on dual-basket vs oven air fryers, what a 450 F badge means, preset-count conflicts, capacity from published numbers, and why this site publishes no Amazon prices.")
+                  description="Eight sourced articles on dual-basket vs oven air fryers, what a 450 F badge means, preset-count conflicts, capacity from published numbers, and why this site publishes no Amazon prices.",
+                  jsonld_blocks=ld)
 
 
 def page_article(a):
@@ -3059,8 +3414,19 @@ def page_article(a):
 
 <p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../articles/index.html">← All articles</a> <a class="btn btn-ghost" href="../flagged.html">What is unresolved →</a></p>
 """
+    aurl = page_url(f"articles/{a['slug']}.html")
+    ld = [
+        article_jsonld(a, aurl),
+        breadcrumbs_jsonld([
+            ("Home", SITE_URL + "/"),
+            ("Articles", page_url("articles/index.html")),
+            (a["title"], aurl),
+        ]),
+    ]
     return layout(f"articles/{a['slug']}.html", a["title"], body,
-                  active="articles/index.html", description=a["standfirst"])
+                  active="articles/index.html", description=a["standfirst"],
+                  og_type="article", jsonld_blocks=ld,
+                  og_image_alt=f"{a['title']} — {SITE_NAME}")
 
 
 
