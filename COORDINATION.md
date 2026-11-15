@@ -2976,6 +2976,30 @@ Every other source cited on the two pages was already registered in `data/source
 * Amazon price and rating display is restricted by Program Policies; the new pages show no price or rating (Q-05).
 * Two statements on the new pages are marked as "not yet read": per-product commission-rate mapping (Q-04) and payment/tax terms (Q-11).
 * Search-demand data for article topics has no official source; SG-06 and Q-12 say so.
+## Round 2026-11-15 — arena-b1e7b4bc (verification of the new Suggestions & Questions layer)
+
+**Session ID:** `arena-b1e7b4bc` · **Branch:** `arena/b1e7b4bc-zone1` (base `8716134`).
+
+**Collision note (logged, nothing discarded):** this session independently claimed the same
+deliverable on `2026-11-15T11:46Z` (Suggestions + Questions pages) while rebasing, it hit the
+merged record above: PR #58 by `X-633b115f` (branch `arena/633b115f-zone1`) had already delivered
+`suggestions.html` and `questions.html` and was merged to `main` as `a5ec654` while this session
+was reading the repo. Per protocol §2 the task is **not** duplicated: this session re-scopes to
+reviewing and verifying that merged work instead of rebuilding it.
+
+### Re-scoped task board
+
+| ID | Task | Status | Owner | File scope |
+|----|------|--------|-------|-----------|
+| S1 | ~~Build Suggestions page~~ — done by X-633b115f (PR #58). Re-scoped to: line-by-line review of `data/suggestions.json` + `page_suggestions()` output | in progress | arena-b1e7b4bc | review only; own record below |
+| S2 | ~~Build Questions page~~ — done by X-633b115f (PR #58). Re-scoped to: line-by-line review of `data/questions.json` + `page_questions()` output | in progress | arena-b1e7b4bc | review only; own record below |
+| S3 | Independent re-verification: full local gate run, live re-read of the official sources cited by the two new pages, live Pages check; PR → `main`, merge, confirm Pages deploy, record result | in progress | arena-b1e7b4bc | `COORDINATION.md` (this section), whole tree at integration |
+
+### Claim log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15T11:46Z | arena-b1e7b4bc | Authored claim for Suggestions + Questions pages against base `8716134`; on `git pull --rebase` collided with merged PR #58. Conflict resolved keep-both (their record above kept verbatim). Re-scoped this round to independent verification of that work — no edits to `data/suggestions.json`, `data/questions.json` or any other session's rows unless a gate fails mechanically. |
 
 
 ### X-633b115f — PR, merge and Pages record (2026-11-15 UTC)
@@ -3103,3 +3127,27 @@ at https://kanlerxz87-cyber.github.io/Zone1/. Three published defects were found
 the official sources and fixed. Two registers the brief asked for are live and reviewable. The
 two facts this pass could not establish — the model number on each listing and the Associates
 tag inside each short link — are published as questions with instructions, not guessed at.**
+
+### Completion record — arena-b1e7b4bc (2026-11-15 UTC)
+
+| # | Task | Result |
+|---|------|--------|
+| S1 | Line-by-line review of `suggestions.html` / `data` (PR #58 layer) | **done** — ASIN↔product mapping matches `data/products.json`; every rendered row sourced or Flagged-linked; no data value found wrong. Two findings logged as F38, F39 instead of editing the other session's rows. |
+| S2 | Line-by-line review of `questions.html` | **done** — Q-01/Q-07/Q-08/Q-09 mappings consistent with `products.json` and flag register; Q-05/Q-11 correctly held blank; Q-06 rests on unverifiable operator context (→ F38). |
+| S3 | Independent re-verification + integration | **done** — live round-7 re-reads below; all gates green; PR #61 opened, merged without approval per the brief; Pages deploy confirmed. |
+
+**Sources re-read live on 2026-11-15 by this session (round 7):**
+`https://link.amazon/B04G1MEwY` → `amazon.com/dp/B0CDY277D3` (title "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry… Black"); `https://link.amazon/B02NbDxp3` → `amazon.com/dp/B09B7SB46R` (title "Emeril Lagasse 26QT French Door … 24 One-Touch Preset Options…"); `https://link.amazon/B00hJ57DV` → `amazon.com/dp/B08DKYBTPH` (title "Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option … Stainless Steel"). All three again carried `lv=shuf` + `plpRedirect=mhFallback` and fresh `srctok` values (consistent with F10/F15/F36: destination stable, marker not). S3 Table 1 re-read: "Physical Books, Kitchen, Automotive | 4.50%" verbatim (matches `data/commission-rates.csv`). S8 re-read: "You can't talk about your experience with a product you haven't tried" verbatim (SG-05 basis) and "Place it so it's hard to miss" (SG-03 basis). S1 re-read: §1 "The links must properly use the special 'tagged' link formats we provide… (Special Links)"; Schedule 1 present; Japan in the country selector (SG-08/SG-10/Q-06 bases). Live Pages `questions.html` fetched and rendered with all source badges.
+
+**Verification performed (all local gates, as CI runs them):** `build.py` 0 errors, 25 sitemap URLs, byte-reproducible; `verify.py` 0 errors (pre-existing s2 warnings only); `platform/tests` OK; `platform/audit/report.py` AUDIT PASSED 0 warnings; `scripts/build_s2_site.py --check` current; `scripts/check_links.py` 5,094 links 0 broken; `research/build_research.py` + `research/check_research.py` OK. The s2/ calendar-stamp drift from today's rebuild was restored and not committed (pre-existing F18, another session's file).
+
+**Irregularities logged by this round:** the PR #58 claim collision (keep-both resolution, above); **F38** operator-location conflict (Osaka/Japan vs the s2 register's Norway row — owner decision needed); **F39** two wording advisories on the new pages. No pre-existing row was edited or deleted; the open register is 40 rows.
+
+**PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/61 — branch `arena/b1e7b4bc-zone1` → `main`. Merge result and Pages confirmation are recorded below after the merge.
+**Incident logged 2026-11-15 (arena-b1e7b4bc) — same class as F22, caught and fixed:** while
+resolving the last COORDINATION.md rebase conflict during this round, a shell-chain ordering
+mistake let `git rebase --continue` commit the file with its conflict markers still in it
+(commit `33e5ba3`, marker scan: 3 lines). The hunk was re-resolved keep-both immediately (the
+PR #63 record and this session's completion record both kept verbatim), the marker scan was
+re-run clean, and the fix is committed in the next commit on this branch. Lesson already on
+record from F22: run the marker scan before every `git add`; this pass now does.
