@@ -3139,7 +3139,7 @@ def page_suggestions():
     cards = "".join(card(x) for x in items)
 
     # ---- Choose a path (added 2026-11-15, arena/63a2c638) -------------------------- #
-    # Sixteen independent rows is a backlog, not a decision. The paths group them into
+    # A long decision queue is a backlog, not a decision. The paths group the rows into
     # ordered pieces of work with an explicit entry condition, so the owner can pick one
     # and finish it. Built from data/suggestions.json -> "paths"; a path's member ids are
     # validated against the suggestion register so a stale id fails the build rather than
@@ -3232,7 +3232,7 @@ def page_suggestions():
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Suggestions</p>
 <h1>Suggestions, and a place to choose between them</h1>
-<p class="lede">Sixteen things this pass believes would materially improve this site, in priority order.
+<p class="lede">{len(items)} reviewed, evidence-backed suggestions, in priority order. Each one would materially change something on this site.
 Nothing on this page has been implemented. Each entry names the problem it fixes, the official
 document or repository evidence behind it, two or three paths you could take, and the path this
 pass would pick if it were your call. Read the one you care about, choose a path, and the work is
@@ -3268,13 +3268,12 @@ a short story rather than an open-ended project.</p>
 </div>
 """
     return layout("suggestions.html", "Suggestions", body, active="suggestions.html",
-                  description="Sixteen reviewed, evidence-backed suggestions for the site, each with alternative paths and a recommendation, for the owner to choose before anything is implemented.",
+                  description="Reviewed, evidence-backed suggestions for the site, each with alternative paths and a recommendation, for the owner to choose before anything is implemented.",
                   jsonld_blocks=[breadcrumbs_jsonld([
         ("Home", SITE_URL + "/"),
         ("Suggestions", page_url("suggestions.html")),
     ])]
               )
-
 
 def page_questions():
     q = QUESTIONS
