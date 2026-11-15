@@ -2976,6 +2976,30 @@ Every other source cited on the two pages was already registered in `data/source
 * Amazon price and rating display is restricted by Program Policies; the new pages show no price or rating (Q-05).
 * Two statements on the new pages are marked as "not yet read": per-product commission-rate mapping (Q-04) and payment/tax terms (Q-11).
 * Search-demand data for article topics has no official source; SG-06 and Q-12 say so.
+## Round 2026-11-15 — arena-b1e7b4bc (verification of the new Suggestions & Questions layer)
+
+**Session ID:** `arena-b1e7b4bc` · **Branch:** `arena/b1e7b4bc-zone1` (base `8716134`).
+
+**Collision note (logged, nothing discarded):** this session independently claimed the same
+deliverable on `2026-11-15T11:46Z` (Suggestions + Questions pages) while rebasing, it hit the
+merged record above: PR #58 by `X-633b115f` (branch `arena/633b115f-zone1`) had already delivered
+`suggestions.html` and `questions.html` and was merged to `main` as `a5ec654` while this session
+was reading the repo. Per protocol §2 the task is **not** duplicated: this session re-scopes to
+reviewing and verifying that merged work instead of rebuilding it.
+
+### Re-scoped task board
+
+| ID | Task | Status | Owner | File scope |
+|----|------|--------|-------|-----------|
+| S1 | ~~Build Suggestions page~~ — done by X-633b115f (PR #58). Re-scoped to: line-by-line review of `data/suggestions.json` + `page_suggestions()` output | in progress | arena-b1e7b4bc | review only; own record below |
+| S2 | ~~Build Questions page~~ — done by X-633b115f (PR #58). Re-scoped to: line-by-line review of `data/questions.json` + `page_questions()` output | in progress | arena-b1e7b4bc | review only; own record below |
+| S3 | Independent re-verification: full local gate run, live re-read of the official sources cited by the two new pages, live Pages check; PR → `main`, merge, confirm Pages deploy, record result | in progress | arena-b1e7b4bc | `COORDINATION.md` (this section), whole tree at integration |
+
+### Claim log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15T11:46Z | arena-b1e7b4bc | Authored claim for Suggestions + Questions pages against base `8716134`; on `git pull --rebase` collided with merged PR #58. Conflict resolved keep-both (their record above kept verbatim). Re-scoped this round to independent verification of that work — no edits to `data/suggestions.json`, `data/questions.json` or any other session's rows unless a gate fails mechanically. |
 
 
 ### X-633b115f — PR, merge and Pages record (2026-11-15 UTC)
