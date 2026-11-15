@@ -645,3 +645,70 @@ The owner reviews SG-01…SG-12 and Q-01…Q-14, records a choice (Approved / Re
 info) plus a date, and implementation proceeds only for Approved rows. The `verify.py` gate stays
 blocking: no unsourced value, missing disclosure or broken link may ship.
 
+
+---
+
+## 15. Pass 9 — final integration, live re-verification and the SEO layer (2026-11-15, session `arena/88bb2db6`, branch `arena/88bb2db6-zone1`)
+
+### 15.1 What this pass was
+
+Every task on the shared board was already marked `done` when this session started, on `main` @ `cacdb85`, with all local gates green. So this pass did not rebuild delivered work. It did three things: it **re-read the load-bearing facts against the live official sources**, it **read the generator line by line for defects**, and it **finished the integration the brief asks for** (PR → merge → confirm the Pages deploy).
+
+The full evidence, with verbatim quotations and the URL of every fetch, is in `session-88bb2db6/EVIDENCE-2026-11-15.md`. The machine-readable ledger is `session-88bb2db6/pass9.json` (20 rows) and it renders as its own section on `reverification.html`.
+
+### 15.2 What was re-read and confirmed (2026-11-15)
+
+| Fact | Source | Result |
+|---|---|---|
+| `link.amazon/B04G1MEwY` → B0CDY277D3 | amazon.com | confirmed; the served `<title>` matches the published title word for word |
+| `link.amazon/B02NbDxp3` → B09B7SB46R | amazon.com | confirmed, same |
+| `link.amazon/B00hJ57DV` → B08DKYBTPH | amazon.com | confirmed, same |
+| Table 1 rate table | Standard Commission Income Statement | confirmed: `Physical Books, Kitchen, Automotive — 4.50%`; `All Other Categories — 4.00%`; "air fryer" is **not** a named category, so the per-product rate stays unverified |
+| Application review | Application Review Process | confirmed: 3 qualifying sales / 180 days, 10 posts, 60-day recency, 500 followers, personal orders do not qualify |
+| Program Policies version | Program Policies | confirmed: page header reads `Updated: April 14, 2026` |
+| Chefman 6 Qt — all 15 spec rows | chefman.com + the `-2W` manual | confirmed word for word, including `HI-FRY Buttons — Raise temperature to 450°F/235°C for 2 minutes` |
+| Chefman 8 Qt — all spec rows | chefman.com | confirmed; the 450 °F / 4-in-1 conflict with the Amazon listing is **still live** |
+| Emeril 26 QT — capacity, power, temperature | the `FAFO-001` manual + emerileveryday.com | confirmed: `26 quarts (1519 cubic inches)`, `120 V/1700 W/60 Hz`, `75° F - 500° F` |
+
+### 15.3 One new conflict, recorded rather than resolved
+
+**F44 — how many accessories are in the box.** The Emeril brand page says *"Included are 7 premium accessories"*. The Amazon listing title for the supplied link says *"Six Cooking Accessories Included"*. The manual adds only *"Some accessories may not be included with purchase."* No earlier pass had recorded this. The site now publishes the manufacturer's own count with **both** documents linked, and files the discrepancy for the account holder to settle from the delivered box.
+
+### 15.4 Two flags tightened to match their documents exactly
+
+* **F4 (Emeril preset count).** The manual does not state the numeral 24 anywhere — it **lists** 24 presets by name, and it lists them twice: the *Preset Mode Chart* and the *Recommended Accessory Positions* table each carry the same 24 rows. The wording changed from "names exactly 24 presets" to "lists 24 presets by name". The verdict is unchanged: 24. This pass also confirmed that the Amazon listing title is a **third** document on this count, and that it says 24.
+* **F3 (Chefman 8 Qt 450 °F)** re-read and still live; no value asserted.
+
+### 15.5 Ten defects found in the site build itself, and fixed
+
+None of these changed a sourced value. All ten are fixed on this branch.
+
+1. `page_suggestions()` declared the **wrong file name** to the layout function, so the Suggestions page carried the parallel page's canonical URL, `og:url` and breadcrumb, and highlighted **no** navigation item.
+2. `page_suggestions_alt()` had the mirror image: it claimed the canonical Suggestions URL and lit up the wrong nav entry.
+3. The two pages therefore shared one `<title>`.
+4. `questions.html` and `decision-gate.html` shared one `<h1>`.
+5. `marketing-directions.html` stated **16** suggestions while rendering the parallel register's **12** — a wrong count on a published page.
+6. `site/index.html` nested an `<a>` inside another `<a>` — invalid HTML.
+7. The landing page and all three product pages linked "redirect evidence" to a **raw markdown file** whose conclusion had been superseded, instead of to the rendered in-site page.
+8. The landing comparison table published the Emeril preset row as an open conflict while the product page resolved it — the same fact told two ways.
+9. `verify.py` allow-listed neither `advertising.amazon.com`, `sell.amazon.com` nor `api.github.com`, producing **18 warnings** for links to official Amazon and GitHub pages. Noise that trains a reader to ignore the list.
+10. The root build shipped **no canonical URL, no Open Graph or Twitter card tags and no JSON-LD** on any page. A shared link rendered as a bare URL, and no page could qualify for a rich result — the organic-traffic goal the brief sets out had no technical entry point.
+
+### 15.6 What was added
+
+* **Canonical URL, Open Graph and Twitter card tags on all 28 root pages**, and JSON-LD: `WebSite` and `Organization` on the landing page, `Article` + `BreadcrumbList` on the eight articles, `ItemList` on the comparison and category pages, `CollectionPage` on the hubs, `ItemPage` on the three product pages, and `FAQPage` on the questions register — 20 rows built only from text the page already prints.
+* **A social card** at `assets/og-card.png` (1200×630), drawn from the site's own palette and copy by `session-88bb2db6/make_og_card.py`. It states only what the site states.
+* **`<lastmod>` in `sitemap.xml`**, carrying the date the published values were last re-read.
+* **Two new build guards**, each proven to fire on an injected violation: a repository-wide nested-anchor check in `verify.py` (exit 1 on injection, exit 0 clean) and the same check for the annex in `scripts/verify_site.py` (now 393 assertions).
+* **A derived-count fix in this document's site page.** The executive summary had hard-typed "Twelve sources are used" and "61 rows" — both stale (the register holds 29 sources and 81 ledger rows). Both are now computed from the data files, so they cannot drift again.
+
+### 15.7 What this pass did **not** establish
+
+* The Associates tracking tag inside the three short links — unobservable from outside Associates Central. Flag F6 stands.
+* Which model the operator *meant* for each link — the destinations are reproducible; the intended identity is not. Flag F1 stands.
+* Which Amazon category each ASIN sits in — Table 1 names no air-fryer category, so the per-product rate stays blank with both candidate rows shown.
+* Whether the unit or the box says 24 or 25 presets, and six or seven accessories — F4 and F44.
+
+### 15.8 The recommendation is unchanged
+
+Verify the three model numbers and the Associates tag in a logged-in browser, then replace the three `link.amazon` short links with canonical tagged `/dp/<ASIN>?tag=<tracking-id>` URLs built inside Associates Central, then re-run the re-verification pass. Until then the site publishes candidate mappings, leaves every unconfirmed value blank, and flags the rest. Nothing was invented to fill a gap.

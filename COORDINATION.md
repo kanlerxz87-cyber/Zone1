@@ -39,7 +39,7 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 | T16 | Executive summary refresh (decision-ready briefing) | done | 3b99448e | `EXECUTIVE-SUMMARY.md` §14 appended |
 | T17 | Site: polished landing page + category subpages, dashboard tables, per-row official source links | done | 3b99448e | root build: landing `index.html`, `categories/kitchen-appliances.html`, product/compare tables with per-row sources; nothing to add — all present and regenerated |
 | T18 | Final integration: re-verify combined data, build with no broken links, PR → merge → Pages verify → record | done | 3b99448e | whole tree (integration, last) |
-| U1 | **Final integration pass (arena/88bb2db6-zone1)** — line-by-line repo review and defect repair; live re-verification of every official source in the root registry; editorial polish pass against the "must not read like AI slop" brief; rebuild with no broken links; PR → merge → confirm Pages deploy → record | in progress | arena/88bb2db6 (session 88bb2db6) | `COORDINATION.md`; `build.py` + `assets/style.css` + regenerated root HTML; `data/reverification.json`; `scripts/build_site.py` + regenerated `site/`; `scripts/verify.py` allowlist; whole tree at integration |
+| U1 | **Final integration pass (arena/88bb2db6-zone1)** — line-by-line repo review and defect repair; live re-verification of every official source in the root registry; editorial polish pass against the "must not read like AI slop" brief; rebuild with no broken links; PR → merge → confirm Pages deploy → record | done | arena/88bb2db6 (session 88bb2db6) | `COORDINATION.md`; `build.py` + `assets/style.css` + regenerated root HTML; `data/products.json`; `session-88bb2db6/pass9.json`; `scripts/build_site.py` + regenerated `site/`; `scripts/verify_site.py`; `verify.py`; `EXECUTIVE-SUMMARY.md`; whole tree at integration |
 
 ---
 | X-633b115f | Add two decision pages to the root build: **Suggestions** (site/design/conversion improvements with options, for the owner to choose before any change) and **Questions & information gaps** (what is known, what is missing, how to discover it, each row linked to an official source). Live re-check of the 3 `link.amazon` tokens and key official sources on 2026-11-15. | done | arena/633b115f (session 633b115f) | `build.py` (new `page_suggestions`, `page_questions`, NAV + pages dict), regenerated root HTML `suggestions.html`, `questions.html`, `robots.txt`, `sitemap.xml`, `COORDINATION.md` (this row + log) |
@@ -3237,13 +3237,82 @@ integration that the brief requires (PR → merge → Pages confirmed).
 
 | # | Task | Status | Owner (session) | File scope |
 |---|------|--------|-----------------|------------|
-| U1 | Line-by-line repo review; defect repair (nested anchor in `site/index.html`; `s2/` external-host allowlist warnings) | in progress | arena/88bb2db6 | `scripts/build_site.py` + regenerated `site/`; `verify.py`; `COORDINATION.md` |
-| U2 | Live re-verification of the three `link.amazon` tokens and every official source in the root registry; record in `data/reverification.json` | in progress | arena/88bb2db6 | `data/reverification.json`; `build.py` (reverification page) |
-| U3 | Editorial polish pass on the buyer-facing surface against the "must not read like AI slop" brief | in progress | arena/88bb2db6 | `build.py`, `assets/style.css`, regenerated root HTML |
-| U4 | Final integration: rebuild, no broken links, PR → merge → confirm Pages deploy → record | pending | arena/88bb2db6 | whole tree (integration, last) |
+| U1 | Line-by-line repo review; defect repair (nested anchor in `site/index.html`; `s2/` external-host allowlist warnings) | done | arena/88bb2db6 | `scripts/build_site.py` + regenerated `site/`; `scripts/verify_site.py`; `verify.py`; `build.py`; `COORDINATION.md` |
+| U2 | Live re-verification of the three `link.amazon` tokens and every official source in the root registry; record in the pass-9 ledger | done | arena/88bb2db6 | `session-88bb2db6/pass9.json`; `session-88bb2db6/EVIDENCE-2026-11-15.md`; `build.py` (reverification page) |
+| U3 | Editorial polish pass on the buyer-facing surface against the "must not read like AI slop" brief | done | arena/88bb2db6 | `build.py`, `assets/style.css`, `assets/og-card.png`, regenerated root HTML, `sitemap.xml` |
+| U4 | Final integration: rebuild, no broken links, PR → merge → confirm Pages deploy → record | in progress | arena/88bb2db6 | whole tree (integration, last) |
 
 ### Claim log
 
 | UTC time | Session | Action |
 |----------|---------|--------|
 | 2026-11-15 | arena/88bb2db6 | Claimed U1–U4 on branch `arena/88bb2db6-zone1` (base `cacdb85`). Read the whole board first: no task was `unclaimed` or `in progress` at claim time, so no other session's scope is touched. Re-verified the three supplied short links live before claiming (see U2 record). |
+
+### Completion record — arena/88bb2db6 (final integration, 2026-11-15 UTC)
+
+**Session:** `arena/88bb2db6` · **Branch:** `arena/88bb2db6-zone1` (base `cacdb85`).
+**Scope:** U1–U4 as scoped at claim time. No other session's file, row or claim was edited.
+
+#### U1 — line-by-line repo review and defect repair: **done**
+
+Ten defects found in the site build itself and fixed. None changed a sourced value.
+
+| # | Defect | Effect before the fix | Fix |
+|---|---|---|---|
+| D1 | `page_suggestions()` passed `page_rel="marketing-directions.html"` while the build wrote it to `suggestions.html` | the Suggestions page carried the parallel page's canonical URL, `og:url` and breadcrumb, and highlighted **no** nav item | `page_rel` / `active` corrected |
+| D2 | `page_suggestions_alt()` had the mirror image | the parallel page claimed the canonical Suggestions URL and lit up the wrong nav entry | corrected to `marketing-directions.html` |
+| D3 | both pages shared the title `Suggestions · Zone1 Kitchen` | duplicate `<title>` on two indexable pages | parallel page retitled `Marketing directions (parallel pass)` |
+| D4 | `questions.html` and `decision-gate.html` shared an `<h1>` | duplicate `<h1>` on two indexable pages | parallel page's H1 made specific |
+| D5 | `marketing-directions.html` stated "16 suggestions" while rendering the parallel register's 12 | a **wrong count** on a published page | now counts `SUGGESTIONS_ALT` (12) |
+| D6 | `site/index.html` nested an `<a>` inside another `<a>` | invalid HTML; the inner link is ambiguous | F-16 citation moved out of the card; whole-card target kept |
+| D7 | landing + 3 product pages linked "redirect evidence" to `reports/link-check-2026-11-14.md`, a raw markdown file whose conclusion was superseded | a buyer-facing link into a raw internal report | now points at the rendered `reverification.html`; the document is still cited by name in the evidence register |
+| D8 | the landing comparison table published the Emeril preset row as an open conflict while the product page and F4 resolved it to 24 | two pages told the reader two different things about one fact | landing cell now states the 24 named presets, names the page that disagrees, keeps the flag link |
+| D9 | `verify.py` allow-listed neither `advertising.amazon.com`, `sell.amazon.com` nor `api.github.com` | 18 warnings for links to official Amazon and GitHub pages | the three hosts added with the reason recorded |
+| D10 | the root build shipped **no** canonical URL, **no** Open Graph / Twitter card tags and **no** JSON-LD | a shared link rendered as a bare URL; no page could qualify for a rich result | see U3 |
+
+**Guards added, each proven to fire on an injected violation:**
+
+| Guard | Enforces | Proof |
+|---|---|---|
+| nested-anchor check in `verify.py` (repo-wide, 106 pages) | no `<a>` inside another `<a>` anywhere | injected into `index.html` → `FAIL index.html: <a> nested inside another <a> (href='flagged.html')`, exit 1; clean → exit 0 |
+| `check_no_nested_anchors()` in `scripts/verify_site.py` (V13) | the same, for the annex | injected into `site/index.html` → `[V13] index.html: <a> nested inside another <a> (href='flagged.html#F-16')`, exit 1; clean → exit 0 |
+
+#### U2 — live re-verification: **done**
+
+20 rows, one live fetch each, all on 2026-11-15. Ledger: `session-88bb2db6/pass9.json`, rendered as its own section on `reverification.html`. Raw evidence with verbatim quotations: `session-88bb2db6/EVIDENCE-2026-11-15.md`.
+
+* The three `link.amazon` tokens resolve to **B0CDY277D3, B09B7SB46R, B08DKYBTPH**, and each served `<title>` matches the published listing title **word for word** — including the Emeril's "24 One-Touch Preset Options" and "Six Cooking Accessories Included", and the Chefman 8 Qt's "450°F Hi-Fry Option".
+* Standard Commission Income Statement Table 1 re-read in full: `Physical Books, Kitchen, Automotive — 4.50%`, `All Other Categories — 4.00%`. **"Air fryer" is not a named category**, so the per-product rate stays unverified and both candidate rows are still shown.
+* Application Review Process re-read: 3 sales / 180 days, 10 posts, 60-day recency, 500 followers, personal orders do not qualify.
+* Program Policies header re-read: `Updated: April 14, 2026`.
+* All Chefman 6 Qt rows confirmed word for word from `chefman.com` **and** the `-2W` manual — including `HI-FRY Buttons — Raise temperature to 450°F/235°C for 2 minutes`, a detail the brand page does not carry.
+* Chefman 8 Qt rows confirmed; the 450 °F / 4-in-1 conflict with the listing is **still live** (F3 unchanged).
+* Emeril rows confirmed from the `FAFO-001` manual and the brand page.
+
+**One new conflict found and recorded, not resolved — flag F44.** The Emeril brand page says *"Included are 7 premium accessories"*; the Amazon listing title for the supplied link says *"Six Cooking Accessories Included"*. The spec row now publishes the manufacturer's own count with **both** documents linked; the discrepancy is filed for the account holder to settle from the delivered box.
+
+**Two flags tightened to match their documents exactly.** F4 now reads "lists 24 presets by name" rather than "names exactly 24 presets" — the manual never states the numeral; it lists 24 rows in the Preset Mode Chart and the same 24 in the Recommended Accessory Positions table. The Amazon listing title is recorded as a third document on that count, and it says 24. The "Included accessories" row now carries S14 **and** S28 so both sides of the new conflict are linked from the row itself.
+
+#### U3 — editorial and SEO polish: **done**
+
+The brief asks for a polished marketing site that generates organic traffic. Measured against that, the root build was missing the entire technical layer: **no canonical URL, no Open Graph or Twitter card tags and no JSON-LD on any of the 28 root pages**, so a shared link rendered as a bare URL and no page could qualify for a rich result.
+
+* Canonical URL, Open Graph (type, site name, title, description, url, image, dimensions, alt, locale) and Twitter card tags on **all 28 root pages**. The landing page canonicalises to the directory form so `/Zone1/` and `/Zone1/index.html` are one URL.
+* JSON-LD on all 28 root pages: `WebSite` + `Organization` on the landing page, `Article` + `BreadcrumbList` on the eight articles, `ItemList` on the comparison and category pages, `CollectionPage` on the hubs, `ItemPage` on the three product pages, `FAQPage` (20 questions, 14 rows) on the questions register. Every JSON-LD block was checked to contain no `price`, `offers`, `aggregateRating`, `ratingValue`, `review` or `priceCurrency` key, because Program Policies §2(b)/§6(t) restrict those and the site holds neither an Amazon-served link nor the Creators/PA API. The `FAQPage` answers are assembled only from `what_we_know`, `what_is_missing` and `how_to_discover` — all of which the page already prints in full.
+* A social card at `assets/og-card.png` (1200×630), generated deterministically from the site's own palette and copy by `session-88bb2db6/make_og_card.py`. It states only what the site states and shows no price or rating.
+* `<lastmod>` added to `sitemap.xml`, carrying the date the published values were last re-read.
+* The executive summary's hand-typed counts were **stale again** — "Twelve sources are used" against a 29-source register, and "61 rows" against an 81-row ledger. Both are now computed from the data files so they cannot drift a second time. A pass-9 briefing callout was added to `executive-summary.html`, and §15 was added to `EXECUTIVE-SUMMARY.md`.
+* Post-fix audit of the buyer-facing prose against a 45-phrase "AI slop" marker list (in today's fast-paced, game-changer, unlock the, in conclusion, let's dive, …): **3 hits in the whole 106-page repository, all inside quotations of Amazon's own policy text.** The root buyer-facing site had 2, both legitimate. No rewrite was needed on the grounds of slop; the problems the brief described were the *missing technical layer* and the *internal contradictions*, and those are what this pass fixed.
+
+**Titles, descriptions, canonicals, `og:url`s and `<h1>`s audited after the fix: 28 pages, 28 distinct values in every column, 0 duplicates, 0 missing.**
+
+#### U4 — final integration: PR → merge → Pages
+
+*(recorded after the merge, below)*
+
+#### What this pass could not establish, and did not guess
+
+* The Associates tracking tag inside the three short links — every redirect carried `lv=shuf` and `plpRedirect=mhFallback` and no visible `tag=` parameter. `link.amazon` is Amazon's own shortener. Flag F6 stands.
+* Which model the operator *meant* for each link. The destinations are reproducible; the intended identity is not. Flag F1 stands.
+* Which Amazon category each ASIN sits in. Table 1 names no air-fryer category, so the per-product rate stays blank with both candidate rows shown.
+* Whether the unit says 24 or 25 presets, and whether the box holds six or seven accessories. F4 and F44.
