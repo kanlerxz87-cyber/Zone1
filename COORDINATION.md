@@ -38,7 +38,7 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 | T15 | Decision gate: open questions, information needed, answers before decisions + missing-info discovery plan | done | 3b99448e | `session-3b99448e/decisions.md` (root `questions.html` Q-01…Q-14 by concurrent session `633b115f`, PR #58) |
 | T16 | Executive summary refresh (decision-ready briefing) | done | 3b99448e | `EXECUTIVE-SUMMARY.md` §14 appended |
 | T17 | Site: polished landing page + category subpages, dashboard tables, per-row official source links | done | 3b99448e | root build: landing `index.html`, `categories/kitchen-appliances.html`, product/compare tables with per-row sources; nothing to add — all present and regenerated |
-| T18 | Final integration: re-verify combined data, build with no broken links, PR → merge → Pages verify → record | in progress | 3b99448e | whole tree (integration, last) |
+| T18 | Final integration: re-verify combined data, build with no broken links, PR → merge → Pages verify → record | done | 3b99448e | whole tree (integration, last) |
 
 ---
 | X-633b115f | Add two decision pages to the root build: **Suggestions** (site/design/conversion improvements with options, for the owner to choose before any change) and **Questions & information gaps** (what is known, what is missing, how to discover it, each row linked to an official source). Live re-check of the 3 `link.amazon` tokens and key official sources on 2026-11-15. | done | arena/633b115f (session 633b115f) | `build.py` (new `page_suggestions`, `page_questions`, NAV + pages dict), regenerated root HTML `suggestions.html`, `questions.html`, `robots.txt`, `sitemap.xml`, `COORDINATION.md` (this row + log) |
@@ -3022,3 +3022,34 @@ The §6(y) guard is scoped to code-shaped identifiers inside `<script>` bodies a
 Their registers contribute a question this pass did not ask — **which Amazon marketplace a Japan-based Associate may promote** — and it is kept as written at `decision-gate.html`. That question is worth the owner's attention independently of this pass.
 
 Repo-wide conflict-marker scan after resolution: **0**.
+
+---
+
+## Claim log — session 3b99448e (final)
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15 | 3b99448e | Claimed T13–T18 on `arena/3b99448e-zone1` (base `8716134`, rebased onto `main` d5d9669 which carries PR #58). T13–T17 done (see files under `session-3b99448e/` and root `suggestions.html`/`questions.html`). `build.py` exit 0 (23 pages + sitemap 25 URLs); `verify.py` 0 errors, 104 pages, 43 spec rows (41 verified, 2 blank+flagged), 27 sources. |
+| 2026-11-15T11:50:20Z | 3b99448e | PR #60 merged to `main` via `gh pr merge 60 --merge`, without waiting for approval, per the brief. **Merge commit on `main`: `70074dd`.** Branch `arena/3b99448e-zone1` → `main`. |
+
+## PR / merge / deploy record — session 3b99448e (PR #60)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/60 — "Integration: session 3b99448e — suggestions, decision gate, link re-review, executive summary", `arena/3b99448e-zone1` → `main`. Body carries the summary of changes, the sources used (S1–S9, S23, brand pages S10–S18/S25–S27 in `data/sources.json`) and the flagged irregularities, per the brief.
+* **Checks on the branch head (3c08788):** `python3 build.py` → 23 pages, robots.txt + sitemap.xml, exit 0 · `python3 verify.py` → 104 pages checked, 0 errors; 43 spec rows (41 verified, 2 blank + flagged); 27 official sources; no value inferred or back-filled.
+* **Merge:** `gh pr merge 60 --merge` at 2026-11-15T11:50:20Z, without waiting for approval, per the brief. **Merge commit on `main`: `70074dd`.**
+* **Post-merge on `70074dd`:** GitHub Pages `gh api repos/kanlerxz87-cyber/Zone1/pages/builds/latest` → `status: built`, commit `70074ddd6c65eccb6f2317309a76d0d121b436b4`, `error: null`. Pages source: `main` / root, legacy. Site URL: https://kanlerxz87-cyber.github.io/Zone1/
+* **What is live:** landing dashboard (`index.html`), category page `categories/kitchen-appliances.html`, product pages, `compare.html` verified-only matrix, `guides/`, eight articles, `suggestions.html` (SG-01…SG-12 with owner-choice checkboxes — nothing applied yet), `questions.html` (Q-01…Q-14 information gaps), `flagged.html` (open irregularities), `executive-summary.html` (incl. §14 from this session), `data.html` (full source register).
+* **Flagged for review (non-blocking, do not block the merge):** product identity of the three `link.amazon` short links unconfirmed (destination ≠ identity); Associates tag blank/unobservable; per-product commission category unpublished by Amazon; Amazon prices/ratings not displayed by policy; `link.amazon` shortening flagged under §2(w); model-number mapping a documented match only; Chefman/Emeril spec conflicts. All published on `flagged.html` with source links; nothing inferred.
+
+## Final state of this session's tasks
+
+| # | Task | Status |
+|---|------|--------|
+| T13 | Link re-review | done |
+| T14 | Suggestions | done |
+| T15 | Decision gate | done |
+| T16 | Executive summary | done (§14) |
+| T17 | Site pages | done (already live on main; regenerated clean) |
+| T18 | Integration, PR, merge, Pages | done (PR #60 merged as 70074dd; Pages built) |
+
+No other session's work was discarded. The rebase of this branch onto `main` replayed only this session's commits; the concurrent session `633b115f` work (PR #58) is included via the rebase base.
