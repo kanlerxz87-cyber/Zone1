@@ -4370,6 +4370,43 @@ def check_rows_have_sources():
     return problems
 
 
+def check_spec_source_conflicts():
+    """Build guard: a row must not cite a document that contradicts its own value.
+
+    Written 2026-11-15 (arena/88bb2db6) after this session cited the Amazon listing
+    title on the Emeril "Included accessories" row. That listing says "Six Cooking
+    Accessories Included" while the row's value is 7, so listing it as a source
+    asserted something false about where the value came from.
+
+    The check is driven by an explicit register in data/products.json
+    (source_conflicts.entries), not by inference: there is no way for a build to
+    tell that an arbitrary document contradicts a value. A reviewer who has read
+    both documents records the conflict once, and from then on the contradiction
+    can live in the flag register but never in the row's evidence.
+    """
+    problems = []
+    register = (PRODUCTS.get("source_conflicts") or {}).get("entries") or []
+    for entry in register:
+        slug = entry.get("slug")
+        label = entry.get("label")
+        bad = entry.get("conflicting_source")
+        product = next((p for p in PRODUCT_LIST if p["slug"] == slug), None)
+        if product is None:
+            problems.append(f"source_conflicts: unknown product slug {slug!r}")
+            continue
+        row = next((s for s in product["specs"] if s["label"] == label), None)
+        if row is None:
+            problems.append(f"source_conflicts: {slug} has no row labelled {label!r}")
+            continue
+        if bad in (row.get("source") or []):
+            problems.append(
+                f'{slug} / "{label}": cites {bad}, which contradicts the published value '
+                f'{row.get("value")!r}. The contradicting document belongs in the flag '
+                f'register, not in the row\'s source list.'
+            )
+    return problems
+
+
 def check_disclosure(pages):
     missing = [p for p, html_text in pages if DISCLOSURE not in html_text]
     return missing
@@ -4565,6 +4602,10 @@ def main():
     problems = check_rows_have_sources()
     if problems:
         raise SystemExit("BUILD FAILED — rows with values but no official source:\n  " + "\n  ".join(problems))
+    conflict_problems = check_spec_source_conflicts()
+    if conflict_problems:
+        raise SystemExit("BUILD FAILED — a row cites a document that contradicts its own value:\n  "
+                         + "\n  ".join(conflict_problems))
     missing = check_disclosure(list(pages.items()))
     if missing:
         raise SystemExit("BUILD FAILED — pages missing the required disclosure: " + ", ".join(missing))
