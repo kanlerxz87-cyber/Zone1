@@ -1,6 +1,6 @@
 {
   "accessed": "2026-11-13",
-  "note": "Every entry below was fetched live on the access date. 'official' means the page is published by the party that owns the fact (Amazon, the FTC, the brand). No secondary blogs, retailer resellers or review aggregators are used anywhere in this project. Re-verification pass 2026-11-14 (sess-81495d2d) re-read S3, S5, S9, S10, S12, S14, S15, S16, S17 and S18 and added the two control lookups S21 and S22; see the Re-verification page. The same day's sess-cb2cfa7c pass additionally re-read S1–S5, S8–S10, S12, S14, S16, S17, S19 and added S23 (official ASIN definition) and S24 (PA-API 5 deprecation notice). Re-verification pass 2026-11-14 (session arena/6b2eddeb) added S25–S27: three further Chefman SKUs found live on the brand's own store while re-checking the model mapping for products 1 and 3. They are recorded because their existence changes what flags F3 and F2 can claim, not because any published value changed.",
+  "note": "Every entry below was fetched live on the access date. 'official' means the page is published by the party that owns the fact (Amazon, the FTC, the brand). No secondary blogs, retailer resellers or review aggregators are used anywhere in this project. Re-verification pass 2026-11-14 (sess-81495d2d) re-read S3, S5, S9, S10, S12, S14, S15, S16, S17 and S18 and added the two control lookups S21 and S22; see the Re-verification page. The same day's sess-cb2cfa7c pass additionally re-read S1–S5, S8–S10, S12, S14, S16, S17, S19 and added S23 (official ASIN definition) and S24 (PA-API 5 deprecation notice). Re-verification pass 2026-11-14 (session arena/6b2eddeb) added S25–S27: three further Chefman SKUs found live on the brand's own store while re-checking the model mapping for products 1 and 3. They are recorded because their existence changes what flags F3 and F2 can claim, not because any published value changed. Added 2026-11-15 by session 22f43836 (pass 9): S30 and S31 are Google Search Central's own published policy and guidance pages, added because the brief asks for organic traffic and link qualification is the search engine's stated requirement for affiliate links. They verify search-engine policy only; they verify nothing about the products or about Amazon's program.",
   "sources": [
     {
       "id": "S1",
@@ -291,6 +291,26 @@
       "kind": "Retail listing",
       "directness": "Primary for 'what does this short link point to'; not used for specification claims",
       "page_version": "Amazon listing detail page B08DKYBTPH — fetched 2026-11-15 from the supplied short link https://link.amazon/B00hJ57DV; <title> matched the stored value character for character"
+    },
+    {
+      "id": "S30",
+      "org": "Google Search Central",
+      "title": "Spam policies for Google web search",
+      "url": "https://developers.google.com/search/docs/essentials/spam-policies",
+      "covers": "Scaled content abuse; thin affiliation; the qualification rule for affiliate links (rel=sponsored / rel=nofollow); site reputation policy. Used to assess whether this repository's parallel published builds and its affiliate link markup meet the search engine's published requirements for affiliate pages",
+      "kind": "Policy",
+      "directness": "Primary — the search engine's own published policy text",
+      "page_version": "Live page, re-read 2026-11-15"
+    },
+    {
+      "id": "S31",
+      "org": "Google Search Central",
+      "title": "Qualify your outbound links to Google",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+      "covers": "Which rel values apply to which outbound links — rel=sponsored for advertising, affiliate and other paid placements; rel=nofollow as the general fallback; rel=ugc for user-generated content",
+      "kind": "Guidance",
+      "directness": "Primary — the search engine's own documentation",
+      "page_version": "Live page, 2026-11-15"
     }
   ],
   "reverified": "2026-11-15"
