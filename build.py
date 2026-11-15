@@ -2493,11 +2493,19 @@ def page_suggestions():
             f'<a href="{e(y["url"])}" target="_blank" rel="noopener">{e(y["label"].split(" - ")[0][:38])} ↗</a>'
             for y in x["evidence"]
         )
+        # The choice set, at a glance, so a reviewer can decide from this table alone
+        # and record it. The row already carries its evidence links, which is what the
+        # row-source gate requires of every table row on the site.
+        choice = " ".join(
+            f'<span class="tiny muted">{e(o["label"].split(".")[0])}</span>'
+            for o in x["options"]
+        )
         rows.append(
             f'<tr><td class="num"><a href="#{e(x["id"].lower())}">{e(x["id"])}</a></td>'
             f'<td>{e(x["title"])}</td><td class="small">{e(x["area"])}</td>'
             f'<td class="num">{x["impact"]*x["confidence"]}</td>'
             f'<td class="small">{_effort_chip(x["effort"])} {e(x["risk_of_not_doing"].split(".")[0])}</td>'
+            f'<td class="small">{choice}</td>'
             f'<td class="small">{ev_links}</td></tr>'
         )
 
@@ -2518,8 +2526,9 @@ a short story rather than an open-ended project.</p>
 </div>
 
 <h2>At a glance</h2>
+<p class="small muted">Read the table, then take one row and read the full entry for it. The <em>Your call</em> column lists the paths that are on the table for that suggestion &mdash; write the letter you choose next to it, with the date. Nothing on this page has been implemented, and implementing anything starts by choosing a path here.</p>
 <table>
-  <thead><tr><th>#</th><th>Suggestion</th><th>Area</th><th>Priority</th><th>Effort · cost of waiting</th><th>Evidence</th></tr></thead>
+  <thead><tr><th>#</th><th>Suggestion</th><th>Area</th><th>Priority</th><th>Effort · cost of waiting</th><th>Your call</th><th>Evidence</th></tr></thead>
   <tbody>{''.join(rows)}</tbody>
 </table>
 <p class="tiny muted">Priority is impact x confidence, both scored by this pass out of 5. It is judgement. The evidence column is the fact.</p>
