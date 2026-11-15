@@ -3863,3 +3863,25 @@ BUILD FAILED — a row cites a document that contradicts its own value:
 * **Gates on the final branch head:** `python3 build.py` → 34 sitemap URLs, exit 0 · `python3 verify.py` → 113 pages, 43 spec rows (41 verified / 2 blank+flagged), 31 sources, 0 errors · `bash scripts/ci-check.sh` → 33 unit tests, data audit clean, 6,034 links / 0 broken · `python3 research/check_research.py` → OK · `python3 scripts/verify_site.py` → 382 assertions passed · `python3 platform/audit/report.py` → clean · rebuild byte-identical · conflict-marker scan across the whole repository → no matches · 0 malformed article splices across 13 articles.
 
 **W7 result: done — verified line by line, four defects found and fixed, one found on the deployed site and fixed, five flags published, both PRs merged, Pages deployed, and every claim re-checked against the artefact that is actually being served.**
+
+> **Merge-conflict resolution (arena-a526b009, 2026-11-15).** The record-only follow-up
+> conflicted with PR #80 (42ca97ad) on this file — both-sides-appended as usual. Both
+> sides kept verbatim, theirs first, markers removed. No work discarded.
+#### PR / merge / deploy record — arena-a526b009 (X4 closed)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/75 — "Verification round 9 (arena-a526b009): independent live re-reads, structural gap review, completion record". Branch `arena/a526b009-zone1` → `main`.
+* **Checks on the head commit, both green:** `verify` ✓ · `Rebuild site/ from data/verified and assert every guarantee` ✓. PR state `MERGEABLE` / `CLEAN` at merge time (after the final rebase onto `e7b60e4`, the merge of PR #74).
+* **Merge:** `gh pr merge 75 --merge` without waiting for approval, per the brief. **Merge commit on `main`: `370c53f`.** State MERGED.
+* **Rebases during the PR:** four total — `main` advanced with PRs #67, #69, #72 and #73/#74 while the claim and record were landing. Every conflict was the both-sides-appended pattern on `COORDINATION.md`; both sides kept verbatim (theirs first), seam notes written at each join, marker scan 0 after each. Two `--force-with-lease` pushes, each preceded by confirming the remote branch held only this session's own superseded claim commits (`295d861`, `48412a0`). Nothing from any session was discarded.
+* **Post-merge CI:** the descendants of this merge on `main` (`b788a6f`, `cc9c827`) ran all four workflows green — `CI` ✓ · `Verify verification annex (site/)` ✓ · `Build, verify and deploy to GitHub Pages` ✓ · `pages build and deployment` ✓. PR #75's own required checks both passed on the head commit (`b2042c1`).
+* **GitHub Pages:** `gh api …/pages/builds/latest` → `status: built`, `error: {message: null}`, commit `cc9c827` — verified to be a **descendant of this merge** (`git merge-base --is-ancestor 370c53f cc9c827` → true), so the live site includes this pass. Source `main` / root, build type legacy. Site URL: https://kanlerxz87-cyber.github.io/Zone1/
+* **Live verification (cache-busted fetches of the deployed URLs, 2026-11-15):**
+  * `index.html` — editorial landing live ("Choose the shape before the model."), disclosure bar, identity caveat, KPI counters (3 products · 12 articles · 31 sources · 53 flags · 0 hands-on tests), three-column comparison with per-row source badges.
+  * `flagged.html` — **53 Open items**, 3 hard source conflicts, 0 values guessed, 100% asserted values sourced; every row carries official source links (the register grew from 45 to 53 through PRs #73/#74/#77/#78 that merged after this pass; landing and Flagged counts agree at 53).
+  * `suggestions.html` — decision queue live: priority table, "Your call" column, official evidence links per row, nothing implemented.
+  * `executive-summary.html` — decision-ready briefing live with current counts (0 identities · 31 sources · 53 open flag rows · 0 numbers invented) and links to picks/decisions/handover.
+  * Disclosure sentence present on every page fetched; `robots.txt` and `sitemap.xml` (34 URLs) served.
+* **Environment note (reconfirmed):** shell `curl` from this sandbox returns 000 for `github.io`, `amazon.com`, `chefman.com`, `ftc.gov`, `ecfr.gov` — only the page-fetch tool reaches them; all live checks above used it, consistent with session 22f43836's recorded constraint.
+* **No stored value was changed by this pass.** X3 found nothing to fix; the only files this session added are `session-a526b009/VERIFICATION-2026-11-15.md` and this record.
+
+**Final state of this session's tasks:** X1 **done** · X2 **done** · X3 **done (no defects found)** · X4 **done** (PR #75 merged as `370c53f`, Pages `built` on a descendant commit, live site verified).
