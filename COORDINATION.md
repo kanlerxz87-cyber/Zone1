@@ -3221,6 +3221,14 @@ record from F22: run the marker scan before every `git add`; this pass now does.
 |---|------|--------|----------------|------------|
 | T20 | Correct the root F10 short-link evidence wording where repeat-token claims conflict with the repository's own later evidence; close the related wording flag without changing unresolved product identity claims | **done** | arena/94a562a1-zone1 | `build.py`, generated `flagged.html`, `COORDINATION.md` |
 
+---
+
+## Task board — arena/22f43836-zone1 (2026-11-15 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| W7 | Pass 9: independent line-by-line re-verification of the three supplied short links + the site's own published counts, against official sources; fix any defect found at its source in `build.py`; record findings in the flag register. No new product facts invented. | **in progress** | arena/22f43836-zone1 (session 22f43836) | `build.py`, regenerated root HTML, `COORDINATION.md` |
+
 ### Claim log
 
 | UTC time | Session | Action |
@@ -3246,3 +3254,9 @@ record from F22: run the marker scan before every `git add`; this pass now does.
 * **CI notices:** Actions reports Node.js 20 deprecation and the scheduled `ubuntu-latest` → Ubuntu 26 migration. These are non-blocking notices; all checks and deployment succeeded.
 
 **PR #67 result: merged and deployed successfully.**
+
+| 2026-11-15 UTC | arena/22f43836-zone1 (session 22f43836) | Claimed W7 after reading the board. `git status` clean at `cacdb85` (= `origin/main`). T1–T19 all `done`; no in-progress or unclaimed task open, so this is a new additive pass, not a takeover. Scope deliberately narrow (canonical root build only) to avoid colliding with the `site/`, `s2/`, `research/`, `dashboard/`, `docs/`, `annex-88769516/`, `session-3740f69d/` annexes, which are other sessions' published output and are **not** edited. |
+
+### Environment note — network access in this sandbox (affects what "verified" can mean)
+
+Direct outbound HTTP from the shell (`curl`) is restricted to `github.com`, `codeload.github.com`, `api.github.com`, `registry.npmjs.org`, `pypi.org`, `files.pythonhosted.org`. `amazon.com`, `chefman.com`, `emerileveryday.com`, `ftc.gov` and `ecfr.gov` all fail from the shell (exit 35 / 000). The page-fetch tool in this session **does** reach them, so official-source re-reads below were done through that tool, not by trusting the recorded values. Anything that could not be re-read that way is marked as not re-checked rather than asserted.
