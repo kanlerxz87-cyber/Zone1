@@ -101,6 +101,10 @@ DECISION = load("decision.json")
 SUGGESTIONS = load("suggestions.json")
 QUESTIONS = load("questions.json")
 SUG_BY_ID = {s["id"]: s for s in SUGGESTIONS["suggestions"]}
+# Design/content/traffic suggestion layer (added 2026-11-15, arena/bf487400-zone1).
+# The paste-ready design prompt plus the D/A/T/V/R registers, generated from JSON so the
+# owner reviews data, never a template. Statuses describe the repository as built.
+DESIGN_PROMPT = load("design-prompt.json")
 
 SRC_BY_ID = {s["id"]: s for s in SOURCES["sources"]}
 ACCESSED = SOURCES["accessed"]
@@ -290,6 +294,7 @@ NAV = [
     ("compliance.html", "Compliance", "Program rules, quoted, with sources"),
     ("flagged.html", "Flagged for review", "Unverified values and irregularities"),
     ("suggestions.html", "Suggestions", "Review site improvements before implementation"),
+    ("design-prompt.html", "Design prompt pack", "Design, topics and tactics — review before changes"),
     ("questions.html", "Questions and gaps", "Known facts, missing answers and discovery steps"),
     ("executive-summary.html", "Executive summary", "Decision-ready briefing"),
     # Added by the 2026-11-14 integration pass: the line-by-line re-read ledger.
@@ -582,6 +587,13 @@ footer.site li{margin:.2rem 0}
 .evidence{background:#f9fafb; border:1px dashed var(--line); border-radius:9px;
   padding:.5rem .65rem; margin:.6rem 0; font-size:.82rem}
 .src-link{display:inline-block; margin:.12rem .55rem .12rem 0; color:var(--brand); font-size:.82rem}
+/* paste-ready design prompt block (design-prompt.html) */
+.prompt-block{
+  display:block; white-space:pre-wrap; word-break:break-word; overflow-wrap:anywhere;
+  background:#0b3b36; color:#e7f7f2; padding:1.15rem 1.3rem; margin:0 0 .8rem;
+  border-radius:12px; box-shadow:var(--shadow);
+  font:0.79rem/1.6 var(--mono); tab-size:2;
+}
 .label{margin:.7rem 0 .3rem; font-size:.7rem; text-transform:uppercase; letter-spacing:.08em;
   color:#9ca3af; font-weight:700}
 .paths{margin:.2rem 0 .6rem; padding-left:1.3rem}
@@ -969,6 +981,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
       <h4>Decide</h4>
       {N("decisions.html")}
       {N("suggestions.html")}
+      {N("design-prompt.html")}
       {N("questions.html")}
       {N("executive-summary.html")}
     </div>
@@ -3067,6 +3080,182 @@ def _effort_chip(effort):
     return f'<span class="chip">{e(effort)}</span>'
 
 
+def page_design_prompt():
+    """Design/content/traffic suggestion layer — the paste-ready design prompt plus the
+    D/A/T/V/R registers (arena/bf487400-zone1, compiled 2026-11-15).
+
+    Published rather than left in session-3b99448e/suggestions.md because the brief asks
+    for suggestions that feed a design prompt, a catchy-topic queue and an organic-traffic
+    plan the owner can review before anything is implemented. Statuses describe the
+    repository as built, not a plan; every row carries a source or repository link so the
+    row-source guard covers these tables like any other.
+    """
+    d = DESIGN_PROMPT
+
+    def chip(status):
+        return {
+            "implemented": '<span class="pill pill-ok">Implemented</span>',
+            "partial": '<span class="pill pill-warn">Partial</span>',
+            "pending": '<span class="pill pill-info">Pending</span>',
+            "published": '<span class="pill pill-ok">Published</span>',
+            "not-written": '<span class="pill pill-warn">Not written</span>',
+        }.get(status, f'<span class="pill pill-info">{e(status)}</span>')
+
+    def ev(item):
+        """Evidence cell: registered source badges plus any repository links.
+
+        Topic rows name their citations `cites`; every other register uses `sources`.
+        """
+        bits = []
+        cites = item.get("sources") or item.get("cites")
+        if cites:
+            bits.append(src_links(cites))
+        for ln in item.get("links") or []:
+            url = ln["url"]
+            if url.startswith("http"):
+                bits.append(f'<a class="src-link" href="{e(url)}" target="_blank" '
+                            f'rel="noopener">{e(ln["label"])} ↗</a>')
+            else:
+                bits.append(f'<a class="src-link" href="{e(url)}">{e(ln["label"])}</a>')
+        return " ".join(bits) if bits else '<span class="tiny muted">see row note</span>'
+
+    design_rows = "".join(
+        f'<tr id="{e(x["id"].lower())}">'
+        f'<td class="num">{e(x["id"])}</td>'
+        f'<td><strong>{e(x["suggestion"])}</strong>'
+        f'<div class="tiny muted">{e(x["why"])}</div>'
+        f'<div class="tiny">Path: {e(x["path"])}</div>'
+        f'<div class="tiny muted">{e(x["status_note"])}</div></td>'
+        f'<td>{chip(x["status"])}</td>'
+        f'<td class="small">{ev(x)}</td></tr>'
+        for x in d["design"])
+
+    topic_rows = []
+    for x in d["topics"]:
+        pub = (
+            f'<div class="tiny">Published as <a href="{e(x["published_as"])}">'
+            f'{e(x["published_as"].rsplit("/", 1)[-1])}</a></div>'
+        ) if x.get("published_as") else ""
+        topic_rows.append(
+            f'<tr id="{e(x["id"].lower())}">'
+            f'<td class="num">{e(x["id"])}</td>'
+            f'<td><strong>{e(x["title"])}</strong>'
+            f'<div class="tiny muted">{e(x["format"])} — {e(x["hook"])}</div>{pub}'
+            f'<div class="tiny muted">{e(x["status_note"])}</div></td>'
+            f'<td>{chip(x["status"])}</td>'
+            f'<td class="small">{ev(x)}</td></tr>')
+
+    tactic_rows = "".join(
+        f'<tr id="{e(x["id"].lower())}">'
+        f'<td class="num">{e(x["id"])}</td>'
+        f'<td><strong>{e(x["tactic"])}</strong>'
+        f'<div class="tiny muted">{e(x["how"])}</div>'
+        f'<div class="tiny muted">{e(x["status_note"])}</div></td>'
+        f'<td>{chip(x["status"])}</td>'
+        f'<td class="small">{ev(x)}</td></tr>'
+        for x in d["tactics"])
+
+    voice_rows = "".join(
+        f'<tr id="{e(x["id"].lower())}">'
+        f'<td class="num">{e(x["id"])}</td>'
+        f'<td>{e(x["rule"])}</td>'
+        f'<td class="small">{e(x["why"])}</td>'
+        f'<td class="small">{ev(x)}</td></tr>'
+        for x in d["voice_rules"])
+
+    decision_rows = "".join(
+        f'<tr id="{e(x["id"].lower())}">'
+        f'<td class="num">{e(x["id"])}</td>'
+        f'<td>{e(x["suggestion"])}</td>'
+        f'<td class="small">{e(x["options"])}</td>'
+        f'<td class="small">{e(x["recommended"])}</td>'
+        f'<td>{chip(x["status"])}<div class="tiny muted">{e(x["status_note"])}</div></td>'
+        f'<td class="small">{ev(x)}</td>'
+        f'<td class="small"><span class="blank">— your decision —</span></td></tr>'
+        for x in d["decisions"])
+
+    body = f"""
+<p class="crumbs"><a href="index.html">Home</a> / Design prompt pack</p>
+<h1>Design prompt pack: review before anything changes</h1>
+<p class="lede">The design and content-production suggestion layer: a paste-ready design prompt, ten design suggestions with live status, the article topic queue, organic-traffic tactics, editorial voice rules and a decision register. Every row is a suggestion for you to approve, reject or modify — the status column records which of them the repository already satisfies today.</p>
+
+<div class="callout info">
+  <strong>How this page fits the other registers.</strong>
+  <p class="small"><a href="suggestions.html">Suggestions</a> is the governance queue (SG-01…): what to decide and what it costs. <a href="questions.html">Questions</a> is what is not known yet (Q-01…). <a href="decisions.html">Decisions &amp; handover</a> settles strategy — which niche, which channels, what to measure. <strong>This page</strong> is the design and content-production layer: how the site should look and read, which articles to write next, and the tactics that turn the strategy into published pages. Product facts are not here — they live in <a href="data.html">the full dataset</a>, each with its official source.</p>
+</div>
+
+<h2 id="the-prompt">The design prompt</h2>
+<p class="small">Paste the block below into any designer or AI assistant used to restyle the site. It describes the site exactly as it is today, names the components and rules that must survive a redesign, and ends with the acceptance criteria every change has to pass. Nothing in it asks for a claim the site cannot source.</p>
+<pre class="prompt-block">{e(d["design_prompt"])}</pre>
+<p class="tiny muted">Compiled {e(d["compiled"])} by {e(d["session"])}. If a request built from this prompt contradicts the verification rules inside it — a filled blank cell, a price, a rating, a testing claim — the prompt is wrong and the rules win.</p>
+
+<h2>Design suggestions</h2>
+<p class="small muted">{e(d["how_to_read"])}</p>
+<div class="tablewrap">
+<table>
+  <caption>Design suggestions D-1…D-10 with the status of each in the repository today</caption>
+  <thead><tr><th>#</th><th>Suggestion · why · path</th><th>Status</th><th>Evidence</th></tr></thead>
+  <tbody>{design_rows}</tbody>
+</table>
+</div>
+
+<h2>Article topic queue</h2>
+<p class="small">Catchy, reader-shaped topics for this product set, in the order they were proposed. Titles are working titles; each one names the format and the hook it leads with. Published rows link to the article they became. Nothing here may claim hands-on testing or state an Amazon price — those rules are inside the prompt above.</p>
+<div class="tablewrap">
+<table>
+  <caption>Topic queue A-1…A-11 — published versus not written</caption>
+  <thead><tr><th>#</th><th>Working title · format · hook</th><th>Status</th><th>Sources it would cite</th></tr></thead>
+  <tbody>{''.join(topic_rows)}</tbody>
+</table>
+</div>
+
+<h2>Organic-traffic tactics</h2>
+<p class="small">Channel strategy — which niche to build, which channels to run, what to measure — is decided on <a href="decisions.html">decisions.html</a>. This table is the operational checklist behind it: what has already shipped, what is half-done and what has not started.</p>
+<div class="tablewrap">
+<table>
+  <caption>Organic-traffic tactics T-1…T-8 with implementation status</caption>
+  <thead><tr><th>#</th><th>Tactic · how · status note</th><th>Status</th><th>Evidence</th></tr></thead>
+  <tbody>{tactic_rows}</tbody>
+</table>
+</div>
+
+<h2>Editorial voice rules</h2>
+<p class="small">The voice half of the anti-slop rules. The enforcement half — the banned openers, the arithmetic guard, the claim checks — lives on <a href="decisions.html">decisions.html</a> and in <code>build.py</code>, where the build fails if a rule is broken.</p>
+<div class="tablewrap">
+<table>
+  <caption>Voice rules V-1…V-4</caption>
+  <thead><tr><th>#</th><th>Rule</th><th>Why</th><th>Evidence</th></tr></thead>
+  <tbody>{voice_rows}</tbody>
+</table>
+</div>
+
+<h2>Decision register</h2>
+<p class="small">How to use this register: for each row choose <strong>Approved</strong>, <strong>Rejected</strong> or <strong>Needs more info</strong>, write the choice and the date in the last column, then implement only approved rows. Rejected rows stay on the register so they are not proposed again. Rows that are blocked name the question that unblocks them.</p>
+<div class="tablewrap">
+<table>
+  <caption>Decision register R-1…R-6 — the choice column is deliberately empty</caption>
+  <thead><tr><th>#</th><th>Suggestion</th><th>Options considered</th><th>Recommended path</th><th>Status today</th><th>Evidence</th><th>Decision</th></tr></thead>
+  <tbody>{decision_rows}</tbody>
+</table>
+</div>
+
+<div class="callout note" style="margin-top:1.5rem">
+  <strong>Related registers.</strong>
+  <a href="suggestions.html">Governance suggestions (SG-01…)</a> ·
+  <a href="questions.html">Open questions (Q-01…)</a> ·
+  <a href="decisions.html">Niche, traffic and measurement decisions</a> ·
+  <a href="flagged.html">Flagged for review</a>
+</div>
+"""
+    return layout("design-prompt.html", "Design prompt pack", body,
+                  active="design-prompt.html",
+                  description="Design, content and traffic suggestions for this site: a paste-ready design prompt, ten design suggestions with live status, the article topic queue, organic-traffic tactics, voice rules and a decision register to review before anything changes.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Design prompt pack", page_url("design-prompt.html")),
+    ])])
+
+
 def page_suggestions():
     s = SUGGESTIONS
     items = sorted(s["suggestions"], key=lambda x: -(x["impact"] * x["confidence"]))
@@ -3169,7 +3358,8 @@ a short story rather than an open-ended project.</p>
   register does not — including which Amazon marketplace a Japan-based Associate may promote.
   <a href="decision-gate.html">Questions and information gaps (parallel pass)</a> ·
   <a href="marketing-directions.html">Marketing directions (parallel pass)</a> ·
-  <a href="questions.html">This pass's open questions</a>
+  <a href="questions.html">This pass's open questions</a> ·
+  <a href="design-prompt.html">Design prompt pack — design, topics and tactics</a>
 </div>
 """
     return layout("suggestions.html", "Suggestions", body, active="suggestions.html",
@@ -4791,6 +4981,7 @@ def main():
     pages["decisions.html"] = page_decisions()
     pages["handover.html"] = page_handover()
     pages["suggestions.html"] = page_suggestions()
+    pages["design-prompt.html"] = page_design_prompt()
     pages["questions.html"] = page_questions()
     pages["decision-gate.html"] = page_questions_alt()
     pages["marketing-directions.html"] = page_suggestions_alt()
