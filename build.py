@@ -3133,6 +3133,74 @@ def page_suggestions():
 
     cards = "".join(card(x) for x in items)
 
+    # ---- Choose a path (added 2026-11-15, arena/63a2c638) -------------------------- #
+    # Sixteen independent rows is a backlog, not a decision. The paths group them into
+    # ordered pieces of work with an explicit entry condition, so the owner can pick one
+    # and finish it. Built from data/suggestions.json -> "paths"; a path's member ids are
+    # validated against the suggestion register so a stale id fails the build rather than
+    # silently dropping a row.
+    known_sg = {x["id"]: x for x in s["suggestions"]}
+    path_rows = []
+    path_articles = []
+    for path in (s.get("paths") or []):
+        unknown = [m for m in path["contains"] if m not in known_sg]
+        if unknown:
+            raise SystemExit(
+                "BUILD FAILED — path %s references unknown suggestion(s): %s"
+                % (path["id"], ", ".join(unknown)))
+        # Evidence links for the row-source gate: the official sources behind the members.
+        seen_urls = []
+        for m in path["contains"]:
+            for ev in known_sg[m]["evidence"]:
+                if ev["url"] not in seen_urls:
+                    seen_urls.append(ev["url"])
+        ev_links = " ".join(
+            f'<a href="{e(u)}" target="_blank" rel="noopener">{e(u.split("//")[-1][:34])} ↗</a>'
+            for u in seen_urls[:4]
+        )
+        # Flagged page is always a valid target, and every path links to it for its caveats.
+        ev_links += ' <a href="flagged.html">Flagged ↗</a>'
+        chips = " ".join(
+            f'<a class="src" href="#{e(m.lower())}">{e(m)}</a>' for m in path["contains"]
+        )
+        path_rows.append(
+            f'<tr><td class="num"><a href="#{e(path["id"].lower())}">{e(path["id"])}</a></td>'
+            f'<td><strong>{e(path["name"])}</strong><div class="small muted">{e(path["promise"])}</div></td>'
+            f'<td class="small">{chips}</td>'
+            f'<td class="small">{e(path["effort"])}</td>'
+            f'<td class="small">{ev_links}</td></tr>'
+        )
+        path_articles.append(f"""
+<article class="sug" id="{e(path['id'].lower())}">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">{e(path['id'])} · a path through the queue</div>
+      <h3>{e(path['name'])}</h3>
+    </div>
+  </div>
+  <p>{e(path['promise'])}</p>
+  <p class="small"><strong>Contains.</strong> {chips}</p>
+  <p class="small"><strong>Effort.</strong> {e(path['effort'])}</p>
+  <p class="small"><strong>Must be true first.</strong> {e(path['must_be_true_first'])}</p>
+  <p class="small"><strong>What you get.</strong> {e(path['delivers'])}</p>
+  <p class="small"><strong>What it does not fix.</strong> {e(path['does_not_fix'])}</p>
+  <p class="small"><strong>Why it sits here in the order.</strong> {e(path['why_first'])}</p>
+  <p class="rec"><strong>Pick this if.</strong> {e(path['pick_this_if'])}</p>
+</article>""")
+
+    paths_html = ""
+    if path_rows:
+        paths_html = f"""
+<h2>Choose a path before you choose a suggestion</h2>
+<p class="lede">{e(s.get('paths_intro',''))}</p>
+<table>
+  <thead><tr><th>#</th><th>Path</th><th>Suggestions it contains</th><th>Effort</th><th>Evidence behind its rows</th></tr></thead>
+  <tbody>{''.join(path_rows)}</tbody>
+</table>
+<p class="tiny muted">{e(s.get('paths_note',''))}</p>
+{''.join(path_articles)}
+"""
+
     # summary table - every row links to its own evidence so the row-source gate is satisfied
     rows = []
     for x in items:
@@ -3172,6 +3240,7 @@ a short story rather than an open-ended project.</p>
   <a href="questions.html">Open questions</a> page.
 </div>
 
+{paths_html}
 <h2>At a glance</h2>
 <p class="small muted">Read the table, then take one row and read the full entry for it. The <em>Your call</em> column lists the paths that are on the table for that suggestion &mdash; write the letter you choose next to it, with the date. Nothing on this page has been implemented, and implementing anything starts by choosing a path here.</p>
 <table>
