@@ -3103,3 +3103,18 @@ at https://kanlerxz87-cyber.github.io/Zone1/. Three published defects were found
 the official sources and fixed. Two registers the brief asked for are live and reviewable. The
 two facts this pass could not establish — the model number on each listing and the Associates
 tag inside each short link — are published as questions with instructions, not guessed at.**
+
+### Deploy record addendum — PR #63 (2026-11-15T11:56:39Z)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/63 — landing page title fix + this record.
+* **Checks:** `verify` ✓ · `Rebuild site/ from data/verified…` ✓ · `mergeable: MERGEABLE`, `CLEAN`.
+* **Merge commit on `main`: `85a657d`.**
+* **Post-merge workflows on `main` at `85a657d`, all success:** `CI` ✓ ·
+  `Verify verification annex (site/)` ✓ · `Build, verify and deploy to GitHub Pages` ✓ ·
+  `pages build and deployment` ✓.
+* **GitHub Pages:** `gh api repos/…/pages/builds/latest` → `status: built`, commit `85a657d`,
+  `error: None`.
+* **Live confirmation (cache-busted):** `https://kanlerxz87-cyber.github.io/Zone1/` returns
+  `<title>Air fryer buying guide · Zone1 Kitchen</title>`, the disclosure bar, the new H1, the
+  three decision cards and the eight-row spec table with live source badges. All four new
+  pages confirmed deployed.
