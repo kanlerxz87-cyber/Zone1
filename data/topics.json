@@ -1,0 +1,280 @@
+{
+ "version": "1",
+ "compiled": "2026-11-15",
+ "compiled_by": "arena/63a2c638 (integration pass 9)",
+ "status_of_this_document": "proposal",
+ "disclaimer": [
+  "Everything on this page is a proposal or a judgement unless it is explicitly marked as sourced. No topic here has been written, and none of them is a claim about a product.",
+  "There is no keyword-volume data anywhere in this repository, and none was invented for this page. Any statement about what people search for is labelled as judgement and is an argument from the product's own documentation, not a measurement. Publishing estimated search volumes without a measurement tool would be the exact failure this project exists to avoid.",
+  "Every article proposed here is buildable from official manufacturer pages and owner's manuals only. None of them requires a hands-on test, and none may claim one: the FTC warns that you cannot talk about your experience with a product you have not tried (S8).",
+  "Each row names the official source the finished article would have to cite. If a row's sources cannot support its headline, the headline has to change - not the citation."
+ ],
+ "demand_note": "Demand is argued, not measured. This page has no access to a keyword tool, an Associates reports feed or any analytics. The 'why it could earn traffic' column is reasoning about what a documented product difference answers, and it is labelled as judgement everywhere it appears.",
+ "topics": [
+  {
+   "id": "TP-01",
+   "title": "Two 3-quart drawers or one 8-quart basket: the only question that matters",
+   "hook": "Nearly the same total volume. Completely different dinners.",
+   "intent": "Comparison",
+   "serves": ["chefman-6qt-dual-basket", "chefman-8qt-turbofry"],
+   "angle": "Two independent 3-quart baskets (documented in the owner's manual) against one 8-quart space (documented on the product page). The decision is what you do when the first batch finishes, which is a cooking question the spec sheet never asks.",
+   "why_it_could_earn_traffic": "Judgement: this is the decision the two Chefman products force on the same shopper, so it matches the query a person types once they have narrowed to basket air fryers. The 6 Qt and 8 Qt figures collide in the same search, which usually means the choice is live.",
+   "must_cite": [
+    {"label": "Chefman RJ38-SQPF-3TDB-2W owner's manual — two 3-quart baskets", "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf"},
+    {"label": "Chefman 8 Qt product page — 8-quart basket, 200-400F", "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"}
+   ],
+   "status": "published",
+   "published_as": "articles/dual-basket-vs-single-basket.html",
+   "blocked_by": ["Q-01"]
+  },
+  {
+   "id": "TP-02",
+   "title": "What '450F Hi-Fry' actually means - and why the same badge means two different things",
+   "hook": "On one model it is a two-minute finishing blast. On another it is a setting the manual never mentions.",
+   "intent": "Explainer",
+   "serves": ["chefman-8qt-turbofry", "chefman-6qt-dual-basket"],
+   "angle": "One Hi-Fry is documented as 450F held for two minutes for extra browning; the other appears only in a listing title while the brand's own page and manual say 200-400F. Same badge, different feature.",
+   "why_it_could_earn_traffic": "Judgement: a temperature number is the single most-quoted spec in air-fryer marketing, and this site can show the number meaning two different things on two pages of the same brand. That is a specific, defensible angle rather than a reworded listicle.",
+   "must_cite": [
+    {"label": "Chefman 8 Qt product page — Max temp 400F", "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"},
+    {"label": "Chefman 6 Qt product page — 200-450F, Hi-Fry", "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"},
+    {"label": "Amazon listing B08DKYBTPH — the 450F claim in the title", "url": "https://www.amazon.com/dp/B08DKYBTPH"}
+   ],
+   "status": "published",
+   "published_as": "articles/what-450f-actually-means.html",
+   "blocked_by": ["Q-02"]
+  },
+  {
+   "id": "TP-03",
+   "title": "How much food actually fits in 6, 8 and 26 quarts",
+   "hook": "Quarts are a volume. Dinners are not.",
+   "intent": "Informational",
+   "serves": ["chefman-6qt-dual-basket", "chefman-8qt-turbofry", "emeril-26qt-french-door"],
+   "angle": "Three capacities from three official sources, with the brand's own serving-size claim (4-6 people) set against them, and an honest note on where the manufacturer stops specifying.",
+   "why_it_could_earn_traffic": "Judgement: capacity is the first filter a buyer applies and the one most listings state vaguely. A page that pins three real numbers to three real documents answers it in one screen.",
+   "must_cite": [
+    {"label": "Chefman 6 Qt product page — 6 Qt / 5.67 L", "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"},
+    {"label": "Emeril product page — 26-quart, 24.6 litres", "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"},
+    {"label": "Emeril owner's manual — 26 qt / 1,519 cu in", "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"}
+   ],
+   "status": "published",
+   "published_as": "articles/air-fryer-capacity-guide.html",
+   "blocked_by": []
+  },
+  {
+   "id": "TP-04",
+   "title": "The counter-space test: measure before you buy",
+   "hook": "Three tape measurements decide this before any feature does.",
+   "intent": "Transactional",
+   "serves": ["chefman-6qt-dual-basket", "chefman-8qt-turbofry", "emeril-26qt-french-door"],
+   "angle": "All three exterior dimensions are published from official sources, and they are wildly different shapes: a 13.4 x 11.8 x 10.6 in dual-basket box, a 15.4 x 12.6 x 13.5 in single basket, and a 16.9 x 15.8 x 14.8 in oven. Height under a cabinet is the one that actually fails.",
+   "why_it_could_earn_traffic": "Judgement: 'will it fit under my cabinet' is a pre-purchase question with high intent and almost no good answers, and this site already holds three sourced dimension sets. It is the cheapest article here to write well.",
+   "must_cite": [
+    {"label": "Chefman 6 Qt product page — dimensions", "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"},
+    {"label": "Chefman 8 Qt product page — 8 Qt dimensions", "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"},
+    {"label": "Emeril product page — 16.9D x 15.8W x 14.8H", "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"}
+   ],
+   "status": "proposed",
+   "blocked_by": []
+  },
+  {
+   "id": "TP-05",
+   "title": "Air fryer or countertop oven? What a 26-quart French-door oven does that a basket cannot",
+   "hook": "One of these can roast a chicken on a spit. The other fits in a cupboard.",
+   "intent": "Comparison",
+   "serves": ["emeril-26qt-french-door", "chefman-6qt-dual-basket"],
+   "angle": "A 26-quart cavity with French doors, dual-speed fan and a documented rotisserie, against two 3-quart drawers. The trade is capacity and cooking range against counter footprint.",
+   "why_it_could_earn_traffic": "Judgement: 'air fryer vs air fryer oven' is a format decision, and format decisions convert better than model decisions because the reader has not picked a brand yet.",
+   "must_cite": [
+    {"label": "Emeril product page — French doors, dual-speed fan, rotisserie", "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"},
+    {"label": "Emeril owner's manual — rotisserie preset and spit set", "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"}
+   ],
+   "status": "published",
+   "published_as": "articles/dual-basket-vs-oven-air-fryer.html",
+   "blocked_by": []
+  },
+  {
+   "id": "TP-06",
+   "title": "'25 presets', '24 presets', '10-in-1': reading the numbers on the box",
+   "hook": "One official product page contradicts itself three ways. That is not a scandal - that is what an unmaintained page looks like.",
+   "intent": "Investigation",
+   "serves": ["emeril-26qt-french-door"],
+   "angle": "The brand page says 25 pre-sets in its spec strip, 24 one-touch presets in its description and 10-in-1 in its headline; the manual names 24. Show the receipts and teach the reader the trick.",
+   "why_it_could_earn_traffic": "Judgement: it is specific, it is verifiable, and no affiliate site writes it because affiliates rarely read the manual. This is the article most likely to be linked to by someone else.",
+   "must_cite": [
+    {"label": "Emeril product page — '25 Cooking Pre-sets' vs '10-in-1'", "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"},
+    {"label": "Emeril owner's manual — the 24 named presets", "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"}
+   ],
+   "status": "published",
+   "published_as": "articles/25-or-24-presets.html",
+   "blocked_by": []
+  },
+  {
+   "id": "TP-07",
+   "title": "What arrives in the box: the accessory count, checked against the manual",
+   "hook": "The page says seven. The listing says six. The manual lists them one by one.",
+   "intent": "Informational",
+   "serves": ["emeril-26qt-french-door"],
+   "angle": "A straight reconciliation of included accessories across the brand page, the listing title and the manual's parts section, presented as the count a buyer should expect at unboxing.",
+   "why_it_could_earn_traffic": "Judgement: 'what comes with it' is a high-intent pre-purchase query and the three official sources genuinely disagree, which makes the answer citable rather than paraphrased.",
+   "must_cite": [
+    {"label": "Emeril product page — accessory count", "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"},
+    {"label": "Emeril owner's manual — Parts and Accessories", "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"}
+   ],
+   "status": "proposed",
+   "blocked_by": ["Q-01"]
+  },
+  {
+   "id": "TP-08",
+   "title": "Rotisserie at home: what the manual actually documents",
+   "hook": "A spit, a preset, and a 26-quart cavity. Whether that adds up to a roast chicken is not in the paperwork.",
+   "intent": "Informational",
+   "serves": ["emeril-26qt-french-door"],
+   "angle": "What the rotisserie feature consists of per the manual's parts list and control panel, and - honestly - what the documents do not say about results, capacity limits or cleaning.",
+   "why_it_could_earn_traffic": "Judgement: rotisserie is the Emeril's most differentiating documented feature and the one no competitor page in this set can match, so it is the cheapest way to own a niche query.",
+   "must_cite": [
+    {"label": "Emeril owner's manual — rotisserie preset, spit set", "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"},
+    {"label": "Emeril product page — rotisserie among the functions", "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"}
+   ],
+   "status": "proposed",
+   "blocked_by": []
+  },
+  {
+   "id": "TP-09",
+   "title": "Sync Finish, and whether two baskets really finish together",
+   "hook": "The manual describes two separate functions with almost the same name.",
+   "intent": "Explainer",
+   "serves": ["chefman-6qt-dual-basket"],
+   "angle": "Sync Finish delays the shorter cook so both baskets land at once; Sync Baskets copies time and temperature across. Both are documented in the manual. Neither is a claim about how evenly they cook.",
+   "why_it_could_earn_traffic": "Judgement: dual-basket is the format the site can speak about most specifically, and this is the feature that justifies buying two baskets instead of one big one.",
+   "must_cite": [
+    {"label": "Chefman RJ38-SQPF-3TDB-2W owner's manual — Sync functions", "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf"},
+    {"label": "Chefman 6 Qt product page — Sync Finish", "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"}
+   ],
+   "status": "proposed",
+   "blocked_by": ["Q-01"]
+  },
+  {
+   "id": "TP-10",
+   "title": "The aerosol-oil warning nobody reads: what the manuals say about nonstick care",
+   "hook": "One manual tells you never to spray the basket. Most owners spray it anyway.",
+   "intent": "Informational",
+   "serves": ["chefman-6qt-dual-basket", "chefman-8qt-turbofry"],
+   "angle": "The care instruction printed in the manual - use a non-aerosol mister, never an aerosol spray - plus the dishwasher guidance, which differs between the two models (dishwasher-safe baskets vs top-rack only).",
+   "why_it_could_earn_traffic": "Judgement: care and cleaning queries are evergreen, low-competition and arrive after purchase, which makes them good for return visits rather than first conversions.",
+   "must_cite": [
+    {"label": "Chefman RJ38-SQPF-3TDB-2W owner's manual — care instruction", "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf"},
+    {"label": "Chefman RJ38-SQSS-8T owner's manual — top-rack dishwasher safe", "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf"}
+   ],
+   "status": "proposed",
+   "blocked_by": []
+  },
+  {
+   "id": "TP-11",
+   "title": "All three run at 1700 watts: what that means on a kitchen circuit",
+   "hook": "The number is identical across a 6-quart basket, an 8-quart basket and a 26-quart oven.",
+   "intent": "Informational",
+   "serves": ["chefman-6qt-dual-basket", "chefman-8qt-turbofry", "emeril-26qt-french-door"],
+   "angle": "1700 W / 120 V appears in all three official sources - two product pages and one manual. The article would explain what that draw means in plain terms.",
+   "why_it_could_earn_traffic": "Judgement: plausible but the weakest case here - the hook is thin and the topic is crowded. Written only if a sourced electrical reference is added first.",
+   "must_cite": [
+    {"label": "Chefman 6 Qt product page — 1700W/120V", "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"},
+    {"label": "Emeril owner's manual — rated power 1700 W", "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"}
+   ],
+   "status": "proposed",
+   "caveat": "CAUTION: the 1700 W figures are sourced, but any statement about household circuits, breakers or shared loads needs a non-manufacturer electrical reference that this repository does not hold. Do not write the electrical half without one.",
+   "blocked_by": []
+  },
+  {
+   "id": "TP-12",
+   "title": "How to read an air fryer spec sheet: the eight lines that actually decide it",
+   "hook": "Listings are long on adjectives and short on the eight lines that determine whether a machine fits your kitchen.",
+   "intent": "Informational",
+   "serves": ["chefman-6qt-dual-basket", "chefman-8qt-turbofry", "emeril-26qt-french-door"],
+   "angle": "A walk-through of the spec lines that eliminate most of the market before price enters the conversation, using all three products as worked examples.",
+   "why_it_could_earn_traffic": "Judgement: this is the hub page of the cluster. It does not convert directly; it is the page the others link to and the one most likely to earn links from outside.",
+   "must_cite": [
+    {"label": "Chefman 6 Qt product page — worked example", "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"},
+    {"label": "Emeril product page — worked example", "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"}
+   ],
+   "status": "published",
+   "published_as": "articles/how-to-read-an-air-fryer-spec-sheet.html",
+   "blocked_by": []
+  },
+  {
+   "id": "TP-13",
+   "title": "Why this affiliate site shows no Amazon prices, ratings or review counts",
+   "hook": "It is not an oversight and it is not humility. Amazon's policies permit those numbers under two conditions, and this site meets neither.",
+   "intent": "Policy explainer",
+   "serves": [],
+   "angle": "The price-and-review display limits quoted from the Program Policies, and what a site has to hold before it can publish them.",
+   "why_it_could_earn_traffic": "Judgement: a trust page, not a traffic page. It earns very little search traffic. It exists so that the absence of prices reads as a decision rather than a defect - and it is the page to point at when a reader asks.",
+   "must_cite": [
+    {"label": "Associates Program Policies", "url": "https://affiliate-program.amazon.com/help/operating/policies"},
+    {"label": "FTC Disclosures 101 for Social Media Influencers", "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"}
+   ],
+   "status": "published",
+   "published_as": "articles/no-amazon-prices.html",
+   "blocked_by": []
+  },
+  {
+   "id": "TP-14",
+   "title": "Chefman 6 Qt Dual Basket: a review of the documents, not the machine",
+   "hook": "No unit was bought, unboxed or cooked in. What follows is what the paperwork promises, and the one number it withholds.",
+   "intent": "Product review",
+   "serves": ["chefman-6qt-dual-basket"],
+   "angle": "The full model read: everything the brand page and manual state, everything they do not, and the preset count the manual never gives.",
+   "why_it_could_earn_traffic": "Judgement: model-level queries convert best of anything here, and this page can be honest about being document-based while still being the most complete thing on the internet about this specific SKU.",
+   "must_cite": [
+    {"label": "Chefman 6 Qt product page", "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"},
+    {"label": "Chefman RJ38-SQPF-3TDB-2W owner's manual", "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf"}
+   ],
+   "status": "published",
+   "published_as": "articles/chefman-6qt-documented-review.html",
+   "blocked_by": ["Q-01"]
+  }
+ ],
+ "channels": [
+  {
+   "id": "CH-1",
+   "channel": "Organic search",
+   "verdict": "The only channel this model gets for free, and the only one worth building first.",
+   "what_it_requires": "One canonical site. This repository currently publishes eight parallel builds on one domain (flag F20, suggestion SG-05), which is the single largest reason a search engine would treat it as low quality. Fix that before writing anything new.",
+   "constraint": "None from Amazon's policies on organic placement.",
+   "source": {"label": "Flag register — F20, the eight parallel builds", "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"}
+  },
+  {
+   "id": "CH-2",
+   "channel": "Paid search",
+   "verdict": "Do not run it. Not 'be careful' - do not run it.",
+   "what_it_requires": "Nothing, because the answer is no.",
+   "constraint": "The Commission Income Statement disqualifies purchases referred through any advertisement you bought, including bidding on keywords containing 'amazon', 'kindle' or any other Amazon Mark. Buying ads on the obvious air-fryer keywords therefore risks the commission on exactly the sales you paid for.",
+   "source": {"label": "Associates Program Policies — Commission Income Statement, disqualified purchases", "url": "https://affiliate-program.amazon.com/help/operating/policies"}
+  },
+  {
+   "id": "CH-3",
+   "channel": "Topic cluster and internal linking",
+   "verdict": "Cheapest real gain available, and it is entirely within this repository.",
+   "what_it_requires": "Each article given one job and one primary query, then linked from the hub (TP-12) and from the product it serves. Suggestion SG-09 says the same thing.",
+   "constraint": "None. This is editorial work.",
+   "source": {"label": "Suggestions register — SG-09, the article cluster", "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/suggestions.json"}
+  },
+  {
+   "id": "CH-4",
+   "channel": "Email and social distribution",
+   "verdict": "Permitted, but only with the disclosure carried into the channel.",
+   "what_it_requires": "The affiliate disclosure must travel with the link, not sit on the site the link points to. The FTC's own guidance is that the disclosure has to be placed so it is hard to miss and cannot be separated from the claim.",
+   "constraint": "A disclosure that only appears on the destination page is not a disclosure for someone who saw the link in a feed.",
+   "source": {"label": "FTC Disclosures 101 for Social Media Influencers", "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"}
+  },
+  {
+   "id": "CH-5",
+   "channel": "Price comparison, price alerts and price tracking",
+   "verdict": "Forbidden. Listed here because the brief asked for 'pricing analysis' and that phrase hides a prohibited feature.",
+   "what_it_requires": "Nothing. This is a hard stop, not a design choice.",
+   "constraint": "Program Policies 6(y) prohibits price tracking and/or price alerting functionality on an Associate site unless Amazon agrees otherwise. The repository ships a build-time guard that fails the build if such a component appears (suggestion SG-07).",
+   "source": {"label": "Associates Program Policies — 6(y)", "url": "https://affiliate-program.amazon.com/help/operating/policies"}
+  }
+ ],
+ "channels_note": "CH-2 and CH-5 are not recommendations to weigh; they are clauses in a contract this site has to operate inside. They are listed alongside the real channels because a traffic plan that omits them reads as if they were never considered."
+}
