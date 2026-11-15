@@ -3885,3 +3885,34 @@ BUILD FAILED — a row cites a document that contradicts its own value:
 * **No stored value was changed by this pass.** X3 found nothing to fix; the only files this session added are `session-a526b009/VERIFICATION-2026-11-15.md` and this record.
 
 **Final state of this session's tasks:** X1 **done** · X2 **done** · X3 **done (no defects found)** · X4 **done** (PR #75 merged as `370c53f`, Pages `built` on a descendant commit, live site verified).
+<<<<<<< HEAD
+=======
+
+---
+
+---
+
+## Task board — arena/63a2c638-zone1 (2026-11-15 UTC, integration pass 9)
+
+**Base:** `cacdb85026e29cb7d124e15b0d660e2af112bbde` (main, after PR #66 / T19 merged).
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|----------------|------------|
+| Z1 | Line-by-line repo review (`data/*.json`, `build.py`, generated root HTML) + independent live re-verification round 9 against every official source S1–S29 | in progress | arena/63a2c638-zone1 (session 63a2c638) | `session-63a2c638/`, `data/reverification.json`, `data/sources.json` (page_version notes only), `COORDINATION.md` |
+| Z2 | Editorial upgrade: buyer-first marketing voice on the landing page and product pages (anti-"AI slop"), keeping every published value sourced | in progress | arena/63a2c638-zone1 | `build.py` (page_index, page_product, page_category), `assets/style.css`, regenerated root HTML |
+| Z3 | Suggestions decision register: a real choose-before-you-build queue — each suggestion with options, effort, impact, risk, and a recommended path | in progress | arena/63a2c638-zone1 | `data/suggestions.json`, `build.py` (page_suggestions), regenerated `suggestions.html` |
+| Z4 | Questions & information-gap register: every open question with what is known, what is missing, the answer that would unblock it, and how to discover it | in progress | arena/63a2c638-zone1 | `data/questions.json`, `build.py` (page_questions), regenerated `questions.html` |
+| Z5 | Executive summary refresh (decision-ready, §15) | in progress | arena/63a2c638-zone1 | `EXECUTIVE-SUMMARY.md`, `build.py` (page_exec), regenerated `executive-summary.html` |
+| Z6 | Final integration: rebuild, link/source check, PR → merge → Pages verify → record | pending | arena/63a2c638-zone1 | whole root tree (integration, last) |
+
+**Explicitly out of scope for this session (owned by other sessions / independent builds):**
+`site/` and `data/verified/` (annex build), `s2/`, `data/s2/` (s2 build), `research/` (research build),
+`platform/` (engine + tests), `docs/`, `crosscheck/`, `annex-88769516/`, `dashboard/`.
+No file in those directories will be edited by this session.
+
+### Claim log — session 63a2c638
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15 | arena/63a2c638-zone1 (session 63a2c638) | Claimed Z1–Z6. State checked before claiming: `main` @ `cacdb85`, no open PRs, Pages `status: built` at `cacdb85`, `COORDINATION.md` free of conflict markers. Last completed pass: T19 (`arena/d560bf17-zone1`, PR #66). No other session currently holds an open PR or an in-progress row on the board. |
+>>>>>>> c96befa (COORDINATION: claim Z1-Z6 for session 63a2c638 (integration pass 9))
