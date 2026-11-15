@@ -139,6 +139,29 @@ direct egress to non-GitHub hosts):**
 
 **Gate results:** `build.py` 38 pages + `robots.txt`/`sitemap.xml` (34 URLs, was 27) · `verify.py` 0 errors, 18 inherited s2/ warnings (untouched) · `scripts/ci-check.sh` 33 tests, data audit clean, 5,865 links / 0 broken · `research/check_research.py` OK · `scripts/verify_site.py` 382 assertions passed · `platform/audit/report.py` clean · rebuild is byte-identical (deterministic).
 
+### T20 merge-conflict resolution and renumbering — arena/792c279e-zone1 (2026-11-15)
+
+Logged per protocol item 6 (stop, resolve without discarding the other session's work, log what
+happened). While rebasing onto `fa730c4` (PR #70, session `22f43836` pass 9), five files conflicted
+and two flag IDs collided. Nothing from either session was discarded.
+
+| What happened | Resolution |
+|---|---|
+| `index.html`, `data.html`, `flagged.html`, `executive-summary.html` conflicted | All four are **generated** files. Resolved by merging the *sources of truth* (`build.py`, `data/*.json`) and re-running `python3 build.py`, then `git add`-ing the regenerated HTML. Verified afterwards that main's pass-9 additions survive: every one of the 106 HTML pages present on `fa730c4` still exists, and no page lost its `rel="canonical"`, `og:title` or the required disclosure sentence. |
+| `data/sources.json` conflicted | Both sessions had edited the `note` and S2's `page_version`, and `22f43836` had added S30/S31 (Google Search Central). Resolved **keep-both**: main's `note` and S2 wording adopted verbatim, S30/S31 carried forward, this session's 2026-11-15 read-stamps re-applied. Register is now **31 sources**. |
+| `verify.py` host allow-list | Main's pass added `developers.google.com` / `support.google.com`; kept. |
+| **Flag-ID collision** | Main's pass-9 rows are **F44** (nine published copies of the site) and **F45** (search-engine plumbing). This session's three new rows were authored as F44/F45/F46 and **collided with both**. The duplicate-ID build guard fired with `flag id(s) rendered more than once on flagged.html: F44, F45` — exactly what it was added for. This session's rows are **renumbered F47** (two contradictory flag registers), **F48** (six accessories on the listing vs seven on the site) and **F49** (why the model number cannot be read by a machine). Precedent: F32→F36 and F41→F42/F43. Nothing else about the rows changed; `REPO_EVIDENCE` keys moved with them. |
+| Conflict markers | `grep -rln "^<<<<<<< \|^>>>>>>> "` over every `.html`, `.json` and `.md` file: **no matches**. (F22/F44 record two earlier passes that committed markers; this pass scans before every `git add`.) |
+
+**Source IDs:** this session's verification record cites S1–S9, S10, S12, S14–S18, S26, S28, S29.
+It adds **no new source IDs** — S30/S31 are main's, and the four new articles cite only S1–S3,
+S5–S10, S12, S14, S15, S26, S28, S29, all previously registered.
+
+**Gate results after the merge:** `build.py` 38 pages, sitemap 34 URLs · `verify.py` 113 pages,
+43 spec rows (41 verified / 2 blank+flagged), 31 sources, **0 errors** · `scripts/ci-check.sh`
+5,928 links / 0 broken · `check_research.py` OK · `verify_site.py` 382 assertions passed · the
+rebuild is byte-identical to the committed HTML.
+
 ---
 
 ## Verification record
