@@ -1,0 +1,837 @@
+{
+  "version": "1.0",
+  "pass": "Integration pass 8 (arena/3ddfa50e-zone1)",
+  "compiled": "2026-11-15",
+  "how_to_read": [
+    "Nothing on this page has been implemented. It is a decision queue for the site owner.",
+    "Each suggestion names the problem it fixes, the official document or repository evidence behind it, two or more paths you could take, and which path this pass would pick and why.",
+    "Priority is an editorial judgement by this pass, not a verified fact. It is shown as a score and labelled as judgement so it is never mistaken for measured data.",
+    "Every suggestion that cannot be settled without information only you hold links to the exact question that blocks it in the Open questions register.",
+    "Effort is estimated in agent-hours of work, not your time: S = under 1 hour, M = 1-4 hours, L = a day or more."
+  ],
+  "scoring_note": "priority = impact (1-5) x confidence that the evidence supports it (1-5). Both are this pass's judgement. The evidence links are the facts; the score is the opinion.",
+  "suggestions": [
+    {
+      "id": "SG-01",
+      "title": "Settle which exact model each supplied link points to, before any more content ships",
+      "area": "Product identity",
+      "problem": "The site markets three products but cannot state which manufacturer model each Amazon listing is. Chefman publishes three 6-quart dual-basket models (RJ38-3DBW-V2, RJ38-SQPF-3TDB-2, RJ38-SQPF-3TDB-2W) and the 8-quart ASIN carries a 450 F Hi-Fry claim that the RJ38-SQSS-8T manual does not support. A buyer who lands on the wrong spec table is the one failure mode that costs both trust and money.",
+      "evidence": [
+        {
+          "label": "Chefman 6 Qt dual-window product page (model RJ38-SQPF-3TDB-2W)",
+          "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+        },
+        {
+          "label": "Chefman 6 Qt dual-basket product page (sister SKU)",
+          "url": "https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer"
+        },
+        {
+          "label": "Chefman 8 Qt product page",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        },
+        {
+          "label": "Root flag register, rows F2, F3, F32, F33",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Read the model number off each live listing (5 minutes, no code)",
+          "what": "Open each of the three Amazon links, scroll to the Product information table, and read the 'Model Number' row. Paste the three strings into a reply. That single act closes F2, F3, F32 and F33 at once.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "B. Stop publishing per-model spec tables until A is done",
+          "what": "Demote the three product pages to a comparison of confirmed features only, with the model line blank and flagged. Costs the site its differentiation but removes every wrong-model risk.",
+          "effort": "M",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Ask the manufacturer",
+          "what": "Chefman and Emeril Everyday support can confirm which SKU an ASIN maps to. Slower than A and usually less authoritative than the listing itself.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A, then keep publishing.",
+      "why": "Amazon does not publish ASIN-to-model mappings anywhere machine-readable, and the brand sites publish model numbers independently of the listing. The two only meet inside the listing's own Product information block, which is visible to you in a browser and to nobody without one. Every other route is inference, and inference is exactly what this project refuses to publish.",
+      "impact": 5,
+      "confidence": 5,
+      "effort": "S",
+      "risk_of_not_doing": "High. A wrong spec table is a factual misstatement about a product you are paid to recommend, and it is the kind of error that attracts both refunds and FTC attention.",
+      "blocks": [
+        "SG-06",
+        "SG-10"
+      ],
+      "blocked_by": [
+        "Q-01",
+        "Q-02"
+      ]
+    },
+    {
+      "id": "SG-02",
+      "title": "Confirm the Associates tag is actually inside the three supplied links",
+      "area": "Attribution and revenue",
+      "problem": "The three links are link.amazon short links. The Associates tag (the 'tag=xxxxx-20' parameter) is inside the redirect and cannot be observed from outside. If the tag is missing, wrong, or belongs to a different account, every click on this site earns nothing, and nothing on the site would reveal it.",
+      "evidence": [
+        {
+          "label": "Program Policies, section 2(a): Special Links must use the Associates ID assigned to you",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Program Policies, section 2(b): the tag must appear as a parameter in each link to an Amazon Site",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Flag F6, root register",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Open each link while signed in to Associates Central and watch the click register",
+          "what": "Associates Central reports clicks per tag in near-real time. One click on each link, then check Reports > Link Type. Confirms tag presence and ownership together.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "B. Replace the short links with full amazon.com URLs carrying your tag explicitly",
+          "what": "Rebuild each link as https://www.amazon.com/dp/ASIN?tag=YOURTAG-20 and read the tag back on the page. Makes the tag visible in the HTML, which is auditable and satisfies section 2(b) on its face.",
+          "effort": "S",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "C. Keep the short links and hope",
+          "what": "No action. The revenue risk is unquantifiable and unmonitored.",
+          "effort": "none",
+          "risk": "high",
+          "reversible": true
+        }
+      ],
+      "recommendation": "B, with A as the confirmation step. Replacing the short links also removes the link-shortening question in section 6(w) entirely.",
+      "why": "Section 6(w) forbids link shortening 'in a manner that makes it unclear that you are linking to an Amazon Site', and link.amazon keeps the Amazon name so it is probably compliant - but 'probably' is doing the work. A full amazon.com URL with a visible tag is unambiguous on both section 2(b) and 6(w), and it makes the single most commercially important fact on the site verifiable from the page source.",
+      "impact": 5,
+      "confidence": 4,
+      "effort": "S",
+      "risk_of_not_doing": "Critical. Every other improvement on this page is worthless if the clicks do not credit your account.",
+      "blocks": [
+        "SG-08"
+      ],
+      "blocked_by": [
+        "Q-03",
+        "Q-04"
+      ]
+    },
+    {
+      "id": "SG-03",
+      "title": "Say who wrote each page and how it was made - and stop calling the site 'independent'",
+      "area": "Trust and compliance",
+      "problem": "The site presents itself as 'an independent affiliate publisher' while monetising every product page. 16 CFR 465.6 makes it deceptive for a business to materially misrepresent that a website it controls provides independent reviews or opinions. Separately, the pages do not say that the analysis is documentation-based and machine-assisted, which a reader will assume is hands-on testing unless told otherwise.",
+      "evidence": [
+        {
+          "label": "16 CFR 465.6 - company-controlled review websites",
+          "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-465"
+        },
+        {
+          "label": "16 CFR 255.5 - disclosure of material connections",
+          "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.5"
+        },
+        {
+          "label": "FTC Endorsement Guides Q&A",
+          "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Replace 'independent' with a precise, verifiable claim",
+          "what": "'Every specification on this page is quoted from the manufacturer or the US Code of Federal Regulations. We do not do hands-on testing and we say so on every product page.' Same pride, no misrepresentation.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "B. Add an About page naming the method and the author",
+          "what": "One page: who runs the site, how products are chosen, that AI assists with drafting, how corrections are handled, and how the site earns money. Link it from the footer of every page.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "C. Leave the framing and rely on the disclosure bar",
+          "what": "The Amazon disclosure sentence stays in the bar. The 'independent' claim and the missing method statement stay too.",
+          "effort": "none",
+          "risk": "high",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A and B together. This is the cheapest trust gain available on the site.",
+      "why": "The current copy is already honest about not testing - it just buries that in the footer instead of carrying it as the site's actual selling point. 'We quote the manual, page and section' is a stronger differentiator than 'independent', which is a word every affiliate site uses and which now carries regulatory weight under 16 CFR 465.6.",
+      "impact": 4,
+      "confidence": 5,
+      "effort": "S",
+      "risk_of_not_doing": "Medium-high. The word 'independent' next to affiliate links is the specific fact pattern 465.6 was written for.",
+      "blocks": [],
+      "blocked_by": [
+        "Q-09"
+      ]
+    },
+    {
+      "id": "SG-04",
+      "title": "Rebuild the landing page around a buyer's question, not a project audit",
+      "area": "Editorial and conversion",
+      "problem": "The current landing page opens with 'Three supplied Amazon links: product identity not yet confirmed'. That is an accurate internal status report and a terrible first impression: a reader arriving from a search engine wants to know which air fryer to buy, not which flag is open. The audit layer is genuinely valuable but it is being served on the wrong page.",
+      "evidence": [
+        {
+          "label": "Current landing page",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/"
+        },
+        {
+          "label": "The same content done as editorial, in the annex build",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/research/"
+        },
+        {
+          "label": "build.py - page_index(), the function that generates the landing page",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Two doors, one site: 'Buying guide' in front, 'Evidence' behind",
+          "what": "Landing page answers the buyer question with a recommendation and a comparison table, each row sourced. A single prominent link - 'How we verified every number' - takes the auditor to the existing pages, which stay as they are.",
+          "effort": "L",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Keep one page and move the evidence below the fold",
+          "what": "Cheaper: reorder the existing landing page so the recommendation, the comparison and the buy buttons come first, and the verification story follows.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "C. Leave it as an audit dashboard",
+          "what": "Appropriate if the site's only reader is you. It will not earn organic traffic or affiliate revenue.",
+          "effort": "none",
+          "risk": "medium",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A, delivered in B's order if time is short.",
+      "why": "The evidence layer is the site's moat and should be reachable in one click, but it is not the product. A page that opens with 'not yet confirmed' cannot convert a visitor who has no idea what F21 is. This is also the exact complaint that prompted this pass.",
+      "impact": 5,
+      "confidence": 4,
+      "effort": "M",
+      "risk_of_not_doing": "High for traffic and revenue. The content already exists - it is a layout problem, not a writing problem.",
+      "blocks": [],
+      "blocked_by": [
+        "Q-01"
+      ]
+    },
+    {
+      "id": "SG-05",
+      "title": "Decide what happens to the eight parallel builds before Google decides for you",
+      "area": "SEO architecture",
+      "problem": "Nine separate HTML sites for the same three products are published on one domain (root plus research/, s2/, site/, dashboard/, docs/, annex-88769516/, session-3740f69d/, articles/). They disagree on facts a reader would take as settled - the Chefman 6 Qt model differs between builds. Every one is indexable, so search engines can crawl nine versions of the same product review on one host.",
+      "evidence": [
+        {
+          "label": "Repository, top level - every directory with an index.html",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1"
+        },
+        {
+          "label": "Previous passes page cataloguing the disagreements",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/previous-passes.html"
+        },
+        {
+          "label": "Flag F35",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Keep them in the repo, remove them from the public web",
+          "what": "Move the eight annexes out of the published tree (or serve them with a noindex meta tag and drop them from the sitemap). The repository keeps every session's evidence; visitors and crawlers see one site.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Keep them public, cross-link them, label which is canonical",
+          "what": "Every annex carries a fixed banner naming the canonical build. Preserves the 'nothing was discarded' principle visibly.",
+          "effort": "M",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Delete the annexes",
+          "what": "Loses eight sessions of evidence and the record of how the facts converged.",
+          "effort": "S",
+          "risk": "high",
+          "reversible": false
+        }
+      ],
+      "recommendation": "A. The evidence survives in git history and in the repository; the duplicate-content risk to the one site that matters does not survive at all.",
+      "why": "Search engines do not care that nine builds were produced by nine agents in good faith. They care that nine pages make the same or contradictory claims on one host. Option A keeps the audit trail that makes this project unusual while giving the public site a single, unambiguous identity.",
+      "impact": 4,
+      "confidence": 3,
+      "effort": "M",
+      "risk_of_not_doing": "Medium. Diluted crawl budget and a real chance the wrong build ranks.",
+      "blocks": [],
+      "blocked_by": [
+        "Q-07"
+      ]
+    },
+    {
+      "id": "SG-06",
+      "title": "Publish no Amazon price or rating unless you hold Creators API access - and know which one you are choosing",
+      "area": "Catalogue data",
+      "problem": "The site displays no Amazon price, availability, star rating or review count. That is deliberately correct: Program Policies section 2(b) permits price and availability only when Amazon serves the link or when the data comes from Creators API or PA API, and section 6(t) restricts customer reviews and star ratings to API-served content. But it leaves a comparison table with a 'not displayed' column, which is a weaker buying aid than readers expect.",
+      "evidence": [
+        {
+          "label": "Program Policies, section 2(b) (price and availability) and 6(t) (reviews and star ratings)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Creators API / PA-API 5 deprecation notice",
+          "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation"
+        },
+        {
+          "label": "Article explaining the policy to readers",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/articles/no-amazon-prices.html"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Ship compliant price via the Amazon-served link, and nothing else",
+          "what": "Use Amazon's own link widgets, which are served by Amazon and therefore permitted under 2(b). No API keys needed. The price is rendered by Amazon, not scraped by you.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Apply for Creators API and render price and rating from it",
+          "what": "Unlocks section 2(b) and 6(t) properly, including star ratings. Requires an approved Associates account, API credentials, and a small server - the site is currently static.",
+          "effort": "L",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Keep the current 'not displayed' column",
+          "what": "Fully compliant and honest, but the comparison table stays materially less useful than a competitor's.",
+          "effort": "none",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A now, B only if the account is approved and you want ratings.",
+      "why": "Option A gets a live price on the page without touching a policy line, because Amazon serves the data. Option B is the real prize - ratings are what most buyers scan - but it needs credentials this session does not have and a host that can keep a secret, which a static GitHub Pages site cannot.",
+      "impact": 4,
+      "confidence": 4,
+      "effort": "M",
+      "risk_of_not_doing": "Medium for conversion. Do not fix it by scraping - that breaches section 2(b) and the IP License at once.",
+      "blocks": [],
+      "blocked_by": [
+        "Q-05",
+        "Q-06"
+      ]
+    },
+    {
+      "id": "SG-07",
+      "title": "Do not build price tracking or price alerts, whatever the brief asks for",
+      "area": "Compliance guardrail",
+      "problem": "The brief asks for a platform that 'analyzes pricing' and 'continuously optimizes campaigns'. Program Policies section 6(y) states that, unless otherwise agreed by Amazon, your Site must not have price tracking and/or price alerting functionality. A price-history chart or a 'notify me when it drops' feature is the most natural thing to build next and it is expressly prohibited.",
+      "evidence": [
+        {
+          "label": "Program Policies, section 6(y)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Platform blueprint page, guardrails section",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/platform.html"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Write the prohibition into the build as a failing test",
+          "what": "A CI check that fails if a price-history, price-alert or chart component ever appears in a generated page or a data file. The rule then cannot be broken by accident in a later pass.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "B. Document it and rely on reviewers",
+          "what": "A note in the platform page. Costs nothing and fails the first time an enthusiastic session does not read it.",
+          "effort": "none",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Request Amazon's written agreement",
+          "what": "Section 6(y) says 'unless otherwise agreed by Amazon', so a written exception is theoretically available. Realistically not granted to a new account.",
+          "effort": "L",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A. Make the policy executable.",
+      "why": "This repository already proves the technique works: build.py refuses to publish a spec row that has a value but no source. The same mechanism should refuse to publish a price-history feature. A policy that lives only in prose gets broken by the next well-meaning pass.",
+      "impact": 5,
+      "confidence": 5,
+      "effort": "S",
+      "risk_of_not_doing": "High. Price tracking is the most commonly requested affiliate feature and the most clearly prohibited one here.",
+      "blocks": [],
+      "blocked_by": []
+    },
+    {
+      "id": "SG-08",
+      "title": "Add click and conversion measurement that does not breach the privacy disclosure",
+      "area": "Measurement",
+      "problem": "The site currently has no analytics at all - the footer states it sets no cookies and runs no analytics, which is honest and satisfies Program Policies section 3(e) as written. The consequence is that no claim about which page converts can be tested. Any analytics added must be accompanied by an updated section 3(e) disclosure on the same commit.",
+      "evidence": [
+        {
+          "label": "Program Policies, section 3(e) - cookie and third-party technology disclosure",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Current footer, which asserts no analytics are used",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Associates Central reporting only",
+          "what": "Amazon already reports clicks and orders per tracking ID. Use sub-tags (section 2(b) permits additional sub-tag IDs) to separate traffic sources. No third-party script, no cookie, no disclosure change needed.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "B. Add a cookieless, privacy-first analytics script",
+          "what": "Server-side or cookieless page-view counts, no cross-site tracking, DNT respected. Requires a cookie/privacy disclosure update and a GDPR/PECR review for EU visitors.",
+          "effort": "M",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Add full GA4 with goal events",
+          "what": "Richest data. Also the largest disclosure burden, sets cookies, and triggers consent-banner requirements in the EU and UK.",
+          "effort": "M",
+          "risk": "medium",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A first - it is free, requires no disclosure change, and answers 'which page gets clicks' for the only metric that pays. Move to B only if you need on-site behaviour.",
+      "why": "Option A uses a mechanism Amazon already provides and explicitly permits. It also keeps the site's strongest trust claim - no tracking at all - true for longer, and that claim is worth more on a page whose whole pitch is that it does not mess with you.",
+      "impact": 4,
+      "confidence": 4,
+      "effort": "S",
+      "risk_of_not_doing": "Medium. Without measurement, every content decision stays a guess.",
+      "blocks": [],
+      "blocked_by": [
+        "Q-08"
+      ]
+    },
+    {
+      "id": "SG-09",
+      "title": "Turn the eight source-linked articles into a cluster with one job each",
+      "area": "Content strategy",
+      "problem": "There are eight articles and they are good - genuinely specific, sourced, and free of the filler that makes affiliate content worthless. But they overlap: two compare dual-basket against other form factors, and none is written for a high-intent query like 'chefman 6 quart dual basket air fryer review'. Without a deliberate map, the next eight articles will overlap the same way.",
+      "evidence": [
+        {
+          "label": "Article index",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/articles/"
+        },
+        {
+          "label": "Platform blueprint, content engine section",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/platform.html"
+        },
+        {
+          "label": "data/articles.json - the eight articles and their sources",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/articles.json"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. One intent map, one primary query per article, and a rule against duplicates",
+          "what": "Assign each existing article exactly one search intent (informational, comparison, or transactional). Publish the map. New articles may only target an unclaimed intent. Two articles on one query is a build failure.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "B. Let the articles grow organically",
+          "what": "Publish whatever seems interesting and let search sort it out.",
+          "effort": "none",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Collapse to three long guides",
+          "what": "One buying guide, one comparison, one product page per SKU. Fewer, deeper pages.",
+          "effort": "M",
+          "risk": "medium",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A, keeping all eight articles. They are too good to delete and too overlapping to keep growing unchecked.",
+      "why": "The existing title of one article - 'What 450F actually means' - is exactly the kind of specific, answerable question that earns a link and a ranking. The fix is not more articles, it is a rule that stops the ninth from duplicating the fifth.",
+      "impact": 3,
+      "confidence": 4,
+      "effort": "S",
+      "risk_of_not_doing": "Low-medium. Costs compounding, not immediate damage.",
+      "blocks": [],
+      "blocked_by": [
+        "Q-10"
+      ]
+    },
+    {
+      "id": "SG-10",
+      "title": "Stop presenting the commission rate as unknown where the category is knowable",
+      "area": "Economics",
+      "problem": "All three products show commission as '- not confirmed -' with two candidate rows, Kitchen 4.50% and All Other Categories 4.00%. That is scrupulously honest, because Amazon publishes rates by category but not which category an ASIN sits in. It is also more cautious than the evidence requires for an air fryer, which Amazon files under Kitchen & Dining - a fact visible in the listing breadcrumb on every one of the three links.",
+      "evidence": [
+        {
+          "label": "Standard Commission Income Statement, Table 1 - Kitchen 4.50%, All Other Categories 4.00%",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+        },
+        {
+          "label": "Chefman 6 Qt listing breadcrumb: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+          "url": "https://link.amazon/B04G1MEwY"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Record the breadcrumb as evidence and show Kitchen 4.50% as the working rate",
+          "what": "Capture the category path Amazon itself displays on each listing, cite it, and show 4.50% as the rate with the breadcrumb as the source. Keep the fallback row visible in a footnote.",
+          "effort": "S",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Keep both candidate rows until Associates Central confirms the category",
+          "what": "Consulting Reports > Orders, or the Earnings report line item, shows the category Amazon actually applied. Definitive; needs account access.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "C. Leave it as 'not confirmed'",
+          "what": "Defensible, and it costs the reader nothing - but it makes the economics section unusable for deciding whether to invest in this niche.",
+          "effort": "none",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "B, falling back to A if the account has no earnings history yet.",
+      "why": "A rate at 4.50% versus 4.00% moves the break-even traffic estimate by about 12 percent, which is material to whether the niche is worth the effort. The category is not actually unknowable - Amazon shows it in the breadcrumb and applies it in Reports. Recording 'unknown' when a source exists is a different failure from refusing to guess, and the brief asks for decision-grade information.",
+      "impact": 3,
+      "confidence": 4,
+      "effort": "S",
+      "risk_of_not_doing": "Low directly, medium for planning. You cannot size a niche whose unit economics you refuse to compute.",
+      "blocks": [],
+      "blocked_by": [
+        "Q-11"
+      ]
+    },
+    {
+      "id": "SG-11",
+      "title": "Check the account against the 180-day qualifying-sale threshold before investing in content",
+      "area": "Programme viability",
+      "problem": "Amazon's application review requires qualifying sales within a set window, and an unapproved account earns nothing. The site is currently built as if the account is live. Whether it is, and how much of the window has elapsed, changes the entire plan: an account near the deadline needs conversion work, not more articles.",
+      "evidence": [
+        {
+          "label": "Associates Central - application review process",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
+        },
+        {
+          "label": "Operating Agreement, term and termination",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Read the status in Associates Central and record it here",
+          "what": "One line: approved, in review, or closed; and the date the current window started. Everything downstream can then be sequenced against a real deadline.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "B. Assume approved and optimise for revenue",
+          "what": "Proceed as if clicks pay today.",
+          "effort": "none",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Assume unapproved and optimise for the sale count",
+          "what": "Prioritise the pages most likely to produce a first sale - the highest-intent product review - over broad informational articles.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A, then C if the answer is 'in review'.",
+      "why": "These two worlds need opposite content. If the account is approved, breadth earns; if it is in review, one high-intent page that produces three sales is worth more than twenty explainers. This session could not read the threshold page's current wording, so the exact figures are flagged unverified rather than restated from memory.",
+      "impact": 4,
+      "confidence": 3,
+      "effort": "S",
+      "risk_of_not_doing": "High if the account is unapproved and the window is running.",
+      "blocks": [
+        "SG-09"
+      ],
+      "blocked_by": [
+        "Q-03"
+      ]
+    },
+    {
+      "id": "SG-12",
+      "title": "Fix the flag register so a row number means one thing",
+      "area": "Repository integrity",
+      "problem": "Two different rows are both numbered F36. One says the short links' srctok marker is not constant; the other says a preset count was attributed to a source that does not state it. A register whose IDs collide cannot be cited reliably, and this repository cites flag IDs from at least six places.",
+      "evidence": [
+        {
+          "label": "Root flag register, showing F36 twice",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+        },
+        {
+          "label": "Flag F28 - an earlier collision of the same kind",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Renumber the later row and add a build test that rejects duplicate IDs",
+          "what": "Move the programme-level srctok row to the next free ID, keep its text and sources, and make build.py fail if any two rows share an ID.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "B. Merge the two rows",
+          "what": "Lossy - they are about different things and one is a product row, the other a programme row.",
+          "effort": "S",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Leave it",
+          "what": "The collision is visible to any reader who scrolls, which undermines the page's entire premise.",
+          "effort": "none",
+          "risk": "medium",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A. This is the one defect on this page that this session fixed outright, because a colliding ID is a correctness bug rather than a judgement call.",
+      "why": "F28 records the same class of failure being found and fixed in an earlier pass. Recurrence means the rule was not executable. A duplicate-ID test makes the third occurrence impossible rather than merely discouraged.",
+      "impact": 3,
+      "confidence": 5,
+      "effort": "S",
+      "risk_of_not_doing": "Low commercially, high for credibility - the page promises exact citations.",
+      "blocks": [],
+      "blocked_by": []
+    },
+    {
+      "id": "SG-13",
+      "title": "Give the site a corrections log, and correct in public",
+      "area": "Trust",
+      "problem": "This project's most distinctive behaviour is refusing to guess and publishing what it cannot confirm. It has no mechanism for publishing a correction when a previously published value turns out to be wrong - the re-verification page records re-reads, but a reader cannot see 'this number changed on this date and here is why'.",
+      "evidence": [
+        {
+          "label": "Re-verification ledger - the raw material for a corrections log",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/reverification.html"
+        },
+        {
+          "label": "Flag F14 - brand-hosted review counts that moved between days",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+        },
+        {
+          "label": "data/reverification.json - the ledger a corrections log would be generated from",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/reverification.json"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Add a dated corrections table, fed from the re-verification data",
+          "what": "One row per corrected value: what it said, what it says now, the source, the date, and the reason. Generated from data/reverification.json so it cannot drift from the ledger.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "B. Note corrections only in commit messages",
+          "what": "Auditable by a developer, invisible to a reader.",
+          "effort": "none",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A. It costs one table and it is the single most credible thing an affiliate site can publish.",
+      "why": "Volatile facts on this site include brand-hosted review counts that changed within 24 hours. A visible corrections log converts the site's biggest weakness - it is not first-hand - into its most defensible claim: you can check everything, including our mistakes.",
+      "impact": 3,
+      "confidence": 5,
+      "effort": "S",
+      "risk_of_not_doing": "Low. Opportunity cost.",
+      "blocks": [],
+      "blocked_by": []
+    },
+    {
+      "id": "SG-14",
+      "title": "Keep automated drafting, but make the claim-check gate the thing you trust",
+      "area": "Automation",
+      "problem": "The brief asks for content generation at scale. That is achievable here - build.py already refuses to publish an article whose numbers do not appear verbatim in the verified dataset. The risk is the gate being treated as a formality rather than the product, and the IP License forbidding Program Content from being used to train or fine-tune models without approval.",
+      "evidence": [
+        {
+          "label": "Program Policies, IP License and section 5 - no ML training on Program Content without approval",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Program Policies, section 3(c) - you are responsible for the accuracy of all material on your site",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Flag F11 - the platform features that need credentials",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Generate drafts from manufacturer documents only, and gate every number",
+          "what": "The model may restructure sentences; it may not introduce a value. Every figure must match data/products.json. Program Content never enters the drafting context, which keeps section 5 and the IP License satisfied.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Generate from the Amazon listings too",
+          "what": "Richer input, but listing text is Program Content. Using it to build or fine-tune a model needs Amazon's prior written approval under section 5.",
+          "effort": "M",
+          "risk": "high",
+          "reversible": true
+        },
+        {
+          "label": "C. Write everything by hand",
+          "what": "Best quality per page, does not scale, and abandons the brief's automation goal.",
+          "effort": "L",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A, with the gate extended to reject any article sentence containing a number that no registered source supports.",
+      "why": "This is already 80 percent built and it is genuinely rare - the guard rejected 18 paraphrased values while the article set was being written. The remaining work is making the gate harder to bypass, not writing more prose.",
+      "impact": 4,
+      "confidence": 4,
+      "effort": "M",
+      "risk_of_not_doing": "Medium-high. Scaled content without a numeric gate produces exactly the AI-slop outcome the brief objects to.",
+      "blocks": [],
+      "blocked_by": [
+        "Q-09"
+      ]
+    },
+    {
+      "id": "SG-15",
+      "title": "Add the two facts a buyer actually needs and the site does not have",
+      "area": "Product content",
+      "problem": "Across the three products the verified dataset is strong on capacity, temperature range and preset counts, and silent on the things that decide a purchase in a small kitchen: exterior dimensions and weight for the 6 Qt, noise level, and what the warranty actually covers. Some of these are published; some are not, and the site currently leaves the gaps invisible rather than explained.",
+      "evidence": [
+        {
+          "label": "Chefman 6 Qt page - specification block",
+          "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+        },
+        {
+          "label": "Emeril French Door 360 page - specification block",
+          "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+        },
+        {
+          "label": "Full specification register",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/data.html"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Add a 'what the manufacturer does not publish' row to each product page",
+          "what": "State plainly which buyer-relevant facts are absent from the official documentation, and that asking support is the only route. Turns a gap into a trust signal at near-zero cost.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "B. Ask the manufacturer for the missing figures",
+          "what": "Chefman and Emeril support can supply dimensions and warranty terms. Authoritative once answered, and answerable in the same email as SG-01 option C.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "C. Buy and measure one unit",
+          "what": "The only way to publish noise and real-world preheat time. Also the only option here that creates first-hand testing, which would change what the site may honestly claim.",
+          "effort": "L",
+          "risk": "medium",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A now; B if you want the dimensions without buying; C only if you intend to switch the site's positioning to hands-on testing.",
+      "why": "A reader who cannot find the exterior width will leave for a site that has it. Saying 'Chefman does not publish the exterior dimensions for this model' is more useful than a blank cell and more honest than an estimate - and it costs one row.",
+      "impact": 3,
+      "confidence": 5,
+      "effort": "S",
+      "risk_of_not_doing": "Low. Pure content quality.",
+      "blocks": [],
+      "blocked_by": [
+        "Q-06"
+      ]
+    },
+    {
+      "id": "SG-16",
+      "title": "Decide the domain question before investing in SEO",
+      "area": "SEO foundation",
+      "problem": "The site is served from kanlerxz87-cyber.github.io/Zone1/. That is a subdirectory of a shared github.io origin, which means its authority is partly shared with every other project on that account and its URLs are ugly to cite. Every inbound link earned today points at a URL you cannot easily migrate later.",
+      "evidence": [
+        {
+          "label": "Current deployment URL",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/"
+        },
+        {
+          "label": "GitHub Pages custom domain documentation",
+          "url": "https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site"
+        },
+        {
+          "label": "robots.txt and sitemap.xml generated by build.py, both scoped to the github.io URL",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Register a domain and serve Pages from it",
+          "what": "CNAME to GitHub Pages, HTTPS enforced. Roughly the price of a coffee a month. Do it before the first backlink, not after.",
+          "effort": "S",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Keep github.io",
+          "what": "Free, zero maintenance, and permanent - but weak for search and impossible to move without losing accumulated links.",
+          "effort": "none",
+          "risk": "medium",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A, and do it early enough that the migration is trivial.",
+      "why": "The cost of moving is proportional to the links already pointing at the old address. That number is currently close to zero. Choosing to stay is a decision to be permanently second-class in search; choosing to move later is a decision to lose whatever was earned in the meantime.",
+      "impact": 3,
+      "confidence": 3,
+      "effort": "S",
+      "risk_of_not_doing": "Medium, and it compounds in the wrong direction.",
+      "blocks": [],
+      "blocked_by": [
+        "Q-07"
+      ]
+    }
+  ]
+}

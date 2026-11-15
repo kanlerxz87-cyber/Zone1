@@ -1,0 +1,407 @@
+{
+  "version": "1.0",
+  "compiled": "2026-11-15",
+  "preamble": "A decision is only as good as the information behind it. This page separates three things that are usually mixed together: what we know and can prove, what we do not know but could look up, and what we cannot know at all without information that only the account holder possesses. Every suggestion on the Suggestions page points at the rows below that block it. Nothing here is a guess about what the answer probably is.",
+  "legend": {
+    "known": "Verified against an official source this pass fetched itself, or recorded by an earlier pass whose fetch is logged in this repository. The source link is on the row.",
+    "missing": "Not established anywhere in this repository. It is discoverable - someone with browser or account access can settle it - but it has not been settled.",
+    "unknowable": "Cannot be established from outside the account. No amount of public research answers it. It must come from the account holder or from Associates Central.",
+    "not_stated": "The official source exists and was read, and it simply does not state the fact. This is different from missing: we looked, and it is not published."
+  },
+  "questions": [
+    {
+      "id": "Q-01",
+      "group": "Product identity",
+      "question": "Which exact manufacturer model number does each of the three supplied Amazon links point to?",
+      "state": "missing",
+      "why_it_matters": "Three separate Chefman 6-quart dual-basket models exist with different documented temperature ranges and functions. If the wrong model is on a product page, every specification below it is a misstatement about a product the site is paid to recommend.",
+      "what_we_know": [
+        "All three link.amazon short links resolve to the same three ASINs on every recorded fetch: B0CDY277D3, B09B7SB46R and B08DKYBTPH (7 observation rounds, 2026-11-13 to 2026-11-15).",
+        "The three destination pages carry the listing titles recorded in data/products.json, except the Emeril title, which changed between 2026-11-14 and 2026-11-15 (flag F38).",
+        "The bare 9-character codes in the short links (B04G1MEwY, B02NbDxp3, B00hJ57DV) are not ASINs and return 'Page Not Found' when used as /dp/ identifiers. Re-tested 2026-11-15."
+      ],
+      "what_is_missing": "The 'Model Number' row inside each listing's Product information table. Amazon publishes it on the page but not through any open interface, so it can only be read in a browser.",
+      "how_to_discover": "Open each of the three links, scroll to Product information, read the Model Number row. Five minutes total. Record all three strings.",
+      "blocks": [
+        "SG-01",
+        "SG-04",
+        "SG-10"
+      ],
+      "sources": [
+        {
+          "label": "Chefman 6 Qt dual-window model page (RJ38-SQPF-3TDB-2W)",
+          "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+        },
+        {
+          "label": "Chefman 8 Qt model page",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        },
+        {
+          "label": "Flag register rows F2, F3, F32, F33",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+        }
+      ]
+    },
+    {
+      "id": "Q-02",
+      "group": "Product identity",
+      "question": "Is the Chefman 8 Qt listing the RJ38-SQSS-8T the site maps it to, or the RJ38-8T-BLACK that documents the 450 F Hi-Fry?",
+      "state": "missing",
+      "why_it_matters": "The listing title advertises '450 F Hi-Fry ... Bake, Dehydrate, Frozen'. The RJ38-SQSS-8T brand page and manual document 200-400 F and four food presets, with no Hi-Fry. One of the two is simply a different machine. This is the sharpest unresolved conflict in the dataset.",
+      "what_we_know": [
+        "The Amazon listing title contains '450 F Hi-Fry Option' and 'Bake, Dehydrate, Frozen'.",
+        "The chefman.com page for RJ38-SQSS-8T states a maximum temperature of 400 F.",
+        "Chefman publishes a separate RJ38-8T-BLACK that documents 450 F Hi-Fry and exactly those four functions (flag F33)."
+      ],
+      "what_is_missing": "The model number printed on the listing itself, which settles the question in one line.",
+      "how_to_discover": "Same act as Q-01. Read the Model Number row on the B08DKYBTPH listing.",
+      "blocks": [
+        "SG-01"
+      ],
+      "sources": [
+        {
+          "label": "Chefman 8 Qt page - 400 F maximum",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        },
+        {
+          "label": "RJ38-SQSS-8T owner's manual",
+          "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf"
+        }
+      ]
+    },
+    {
+      "id": "Q-03",
+      "group": "Programme status",
+      "question": "Is the Amazon Associates account approved, in review, or closed - and when did the current review window start?",
+      "state": "unknowable",
+      "why_it_matters": "An unapproved account earns nothing and is subject to a qualifying-sales requirement. The correct content plan for an account in review is the opposite of the correct plan for an approved one: conversion first versus breadth first.",
+      "what_we_know": [
+        "The Standard Commission Income Statement can be read without signing in, so the rate table is public.",
+        "The site is built as though the account is live, but nothing in the repository records its status."
+      ],
+      "what_is_missing": "The account status and the date the window began. Both are inside Associates Central.",
+      "how_to_discover": "Associates Central home page shows status directly. Record the status and, if in review, the date the application was submitted.",
+      "blocks": [
+        "SG-11",
+        "SG-02"
+      ],
+      "sources": [
+        {
+          "label": "Associates Central - application review process",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
+        },
+        {
+          "label": "Associates Program Operating Agreement",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        }
+      ]
+    },
+    {
+      "id": "Q-04",
+      "group": "Attribution",
+      "question": "Which Associates tag is inside the three supplied short links, and does it belong to this account?",
+      "state": "unknowable",
+      "why_it_matters": "This is the only question on the page whose answer determines whether the site earns any money at all. Program Policies section 2(a) requires Special Links to use the Associates ID assigned to you; section 2(b) requires the tag to appear as a parameter in each link.",
+      "what_we_know": [
+        "The links are link.amazon short links, so the redirect target is observable but the embedded tag is not.",
+        "The redirect target carries Amazon's own parameters (lv=shuf, btn_ref=srctok-..., plpRedirect=mhFallback) but no tag= parameter is visible in the landing URL."
+      ],
+      "what_is_missing": "The full tagged URL. It is inside the short link and is only visible from the account that created it, or by reading the click report.",
+      "how_to_discover": "Option 1: open each link while signed in to Associates Central and confirm the click appears against your tracking ID. Option 2: rebuild each link as a full amazon.com URL with your tag and use that instead.",
+      "blocks": [
+        "SG-02",
+        "SG-08"
+      ],
+      "sources": [
+        {
+          "label": "Program Policies, section 2(a) and 2(b)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Tracking IDs and sub-tags",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA"
+        }
+      ]
+    },
+    {
+      "id": "Q-05",
+      "group": "Data access",
+      "question": "Do you have, or can you get, Creators API access?",
+      "state": "unknowable",
+      "why_it_matters": "Program Policies section 2(b) permits displaying Amazon price and availability only when Amazon serves the link or when the data comes from Creators API or PA API. Section 6(t) restricts customer reviews and star ratings to API-served content. Without it, the comparison table cannot carry a price or a rating, by law rather than by choice.",
+      "what_we_know": [
+        "The rate table and all program documents are readable without signing in.",
+        "The site currently displays no Amazon price, rating or review count on any page, and that is correct rather than an omission."
+      ],
+      "what_is_missing": "Whether the account qualifies for Creators API, and whether any credentials exist.",
+      "how_to_discover": "Associates Central > Tools > Creators API (or PA API). Access requires qualifying sales. Record approved / not approved.",
+      "blocks": [
+        "SG-06"
+      ],
+      "sources": [
+        {
+          "label": "Program Policies, section 2(b) and 6(t)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "PA-API 5 deprecation notice",
+          "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation"
+        }
+      ]
+    },
+    {
+      "id": "Q-06",
+      "group": "Catalogue data",
+      "question": "What are the exterior dimensions, weight and warranty terms for each of the three products?",
+      "state": "not_stated",
+      "why_it_matters": "Whether a 6-quart dual-basket unit fits under an existing cabinet decides the purchase for most small-kitchen buyers, and it is the single most common question left unanswered on affiliate air fryer pages.",
+      "what_we_know": [
+        "Chefman states exterior dimensions and weight for the 8 Qt model in its Specifications block (15.4 x 12.6 x 13.5 in, 12.8 lbs).",
+        "The Emeril brand page states 16.9\"D x 15.8\"W x 14.8\"H and 24.6 liters.",
+        "The Chefman 6 Qt page was read on 2026-11-15 and its Features block does not state exterior dimensions."
+      ],
+      "what_is_missing": "Chefman 6 Qt dimensions and weight, noise level for all three, and warranty terms stated on an official page.",
+      "how_to_discover": "Manufacturer support can supply all of it in one request. Buying one unit and measuring is the only route to noise and real preheat time, and it changes what the site may honestly claim.",
+      "blocks": [
+        "SG-15"
+      ],
+      "sources": [
+        {
+          "label": "Chefman 6 Qt page",
+          "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+        },
+        {
+          "label": "Chefman 8 Qt page - Specifications block",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        },
+        {
+          "label": "Emeril French Door 360 page",
+          "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+        }
+      ]
+    },
+    {
+      "id": "Q-07",
+      "group": "Site ownership",
+      "question": "Should this be one public site, and should it live on a domain you own?",
+      "state": "unknowable",
+      "why_it_matters": "Nine HTML sites for the same three products are currently published on one github.io origin, and they disagree with each other. Separately, links earned on a github.io subdirectory cannot be moved later without losing them.",
+      "what_we_know": [
+        "GitHub Pages is configured to build from main at the repository root, legacy build type, HTTPS enforced.",
+        "Eight additional directories carry their own index.html and are served under the same origin.",
+        "The repository already generates robots.txt and a sitemap.xml for the root build only (23 URLs)."
+      ],
+      "what_is_missing": "Whether the annexes are meant to be public, and whether a custom domain is acceptable.",
+      "how_to_discover": "A decision, not a lookup: keep the annexes public as an audit trail, or publish only the root and keep the rest in the repository. Record the answer here.",
+      "blocks": [
+        "SG-05",
+        "SG-16"
+      ],
+      "sources": [
+        {
+          "label": "GitHub Pages custom domain documentation",
+          "url": "https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site"
+        },
+        {
+          "label": "Previous passes page",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/previous-passes.html"
+        },
+        {
+          "label": "Repository top level - every directory with an index.html",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/"
+        }
+      ]
+    },
+    {
+      "id": "Q-08",
+      "group": "Measurement",
+      "question": "What may this site measure, and whose consent does that require?",
+      "state": "missing",
+      "why_it_matters": "The footer currently states the site sets no cookies and runs no analytics, which satisfies Program Policies section 3(e) as written. Adding any analytics makes that statement false immediately and triggers a privacy-notice update plus, for EU and UK visitors, consent requirements.",
+      "what_we_know": [
+        "The site is fully static and runs no client-side tracking of any kind.",
+        "Amazon reports clicks and orders per tracking ID without any on-site script.",
+        "Section 2(b) permits additional sub-tag IDs to separate traffic sources."
+      ],
+      "what_is_missing": "Whether third-party analytics are wanted at all, and if so which lawful basis applies for EU visitors.",
+      "how_to_discover": "Decide between Associates sub-tags alone (no disclosure change) and a cookieless analytics script (small disclosure update). The choice is in the Suggestions page, SG-08.",
+      "blocks": [
+        "SG-08"
+      ],
+      "sources": [
+        {
+          "label": "Program Policies, section 3(e)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Tracking IDs and sub-tags",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA"
+        }
+      ]
+    },
+    {
+      "id": "Q-09",
+      "group": "Authorship",
+      "question": "Who is the named author, and what may the site honestly claim about how content is produced?",
+      "state": "unknowable",
+      "why_it_matters": "16 CFR 465.6 makes it deceptive for a business to misrepresent that a site it controls provides independent reviews. The site currently describes itself as 'an independent affiliate publisher' while every product page carries affiliate links, and it does not disclose that analysis is documentation-based and machine-assisted.",
+      "what_we_know": [
+        "No page on the site names an author or describes the production method.",
+        "The footer states no hands-on testing is claimed anywhere on the site.",
+        "16 CFR 255.5 requires disclosure of material connections that a significant minority of the audience would not expect."
+      ],
+      "what_is_missing": "The name to publish, whether an editorial human reviews each page before publication, and whether AI assistance will be disclosed.",
+      "how_to_discover": "A decision. If nothing else, publishing the method is enough: 'every number is quoted from a manufacturer document or the CFR, drafted with AI assistance and checked against the source'. That sentence is true today and is not currently on the site.",
+      "blocks": [
+        "SG-03",
+        "SG-14"
+      ],
+      "sources": [
+        {
+          "label": "16 CFR 465.6",
+          "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-465"
+        },
+        {
+          "label": "16 CFR 255.5",
+          "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.5"
+        },
+        {
+          "label": "FTC Endorsement Guides Q&A",
+          "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking"
+        }
+      ]
+    },
+    {
+      "id": "Q-10",
+      "group": "Content strategy",
+      "question": "Which search intent does each existing article own, and who is allowed to write the next one?",
+      "state": "missing",
+      "why_it_matters": "Eight articles already exist and two compete for the same comparison intent. Without an intent map, the ninth will duplicate the fifth, and two pages on one query on one domain split each other's authority.",
+      "what_we_know": [
+        "Eight articles are published, all source-linked, none claiming hands-on testing.",
+        "One earlier pass already deleted three orphaned drafts for exactly this reason and preserved their text in session-7111e2b6/articles-superseded.json."
+      ],
+      "what_is_missing": "A written assignment of one primary intent per article, and a rule that a new article may not target an intent already claimed.",
+      "how_to_discover": "Thirty minutes with the article index. Assign each one intent, publish the map, and make a duplicate a build failure.",
+      "blocks": [
+        "SG-09"
+      ],
+      "sources": [
+        {
+          "label": "Article index",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/articles/"
+        },
+        {
+          "label": "Superseded drafts and the reason each was removed",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/session-7111e2b6/articles-superseded.json"
+        },
+        {
+          "label": "data/articles.json",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/articles.json"
+        }
+      ]
+    },
+    {
+      "id": "Q-11",
+      "group": "Economics",
+      "question": "Which category has Amazon actually assigned to each ASIN, and therefore which commission rate applies?",
+      "state": "missing",
+      "why_it_matters": "Kitchen pays 4.50% and the fallback row pays 4.00%. A 0.50-point difference moves the break-even traffic estimate by about 12 percent, which decides whether this niche is worth the content investment.",
+      "what_we_know": [
+        "The published Table 1 lists Physical Books, Kitchen and Automotive at 4.50%, and All Other Categories at 4.00%.",
+        "Amazon does not publish an ASIN-to-category mapping, which is why the site shows both candidate rows.",
+        "All three listings display the same breadcrumb: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers."
+      ],
+      "what_is_missing": "Confirmation of the category Amazon applies at commission time. The breadcrumb is strong evidence; the Earnings report is proof.",
+      "how_to_discover": "Associates Central > Reports > Earnings shows the category applied to each shipped item. Before any sale exists, the breadcrumb is the best available evidence and should be recorded as such rather than treated as unknown.",
+      "blocks": [
+        "SG-10"
+      ],
+      "sources": [
+        {
+          "label": "Standard Commission Income Statement, Table 1",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+        },
+        {
+          "label": "Chefman 6 Qt listing - visible breadcrumb",
+          "url": "https://link.amazon/B04G1MEwY"
+        }
+      ]
+    },
+    {
+      "id": "Q-12",
+      "group": "Repository integrity",
+      "question": "Is there any published statement on this site that a live official source contradicts today?",
+      "state": "missing",
+      "why_it_matters": "A site whose entire premise is that every value is sourced cannot carry a stale value next to a source link that no longer says it. That is worse than an unsourced value, because the citation lends it false authority.",
+      "what_we_know": [
+        "This pass fetched all three supplied links, the Commission Income Statement, the Program Policies page, 16 CFR 255.5, 16 CFR Part 465 and both manufacturers' product pages on 2026-11-15.",
+        "One published value was found stale and is corrected in this pass: the Emeril listing title, which now reads '24 One-Touch Preset Options' where the stored value read '24 cooking functions' (flag F38).",
+        "One citation defect was found and corrected: the source record S16 is registered as the B0CDY277D3 URL but was cited for all three listing titles, so two of the three citations pointed at a different product's page (flag F39).",
+        "One register-integrity defect was found and corrected: two different rows were both numbered F36 (flag F40)."
+      ],
+      "what_is_missing": "A standing re-read schedule. Review counts and listing titles change without notice, and no page on the site currently records when a value was last read except the re-verification ledger.",
+      "how_to_discover": "Re-read every value on a fixed cadence and publish the date next to each volatile figure. The re-verification ledger is the right home for this; it needs a schedule rather than a one-off pass.",
+      "blocks": [],
+      "sources": [
+        {
+          "label": "Program Policies - current version, Updated April 14, 2026",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Re-verification ledger",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/reverification.html"
+        }
+      ]
+    },
+    {
+      "id": "Q-13",
+      "group": "Programme viability",
+      "question": "What exactly does the current application-review process require, in its own words?",
+      "state": "unknowable",
+      "why_it_matters": "The repository records '3 qualifying sales / 180 days, 10 posts, 60-day recency, 500 followers' as the review criteria. This pass could not load that page to re-read it, so the figures are carried forward from an earlier logged fetch rather than confirmed today. They should not be restated as current fact until re-read.",
+      "what_we_know": [
+        "The page existed at the recorded URL and was quoted by an earlier pass with a logged fetch.",
+        "This pass attempted the page and did not get content back, so it is flagged rather than repeated as verified."
+      ],
+      "what_is_missing": "A current read of the review-process page, which requires loading it in a browser.",
+      "how_to_discover": "Open the source link and read the qualifying-criteria section. Record what it says today, with the date.",
+      "blocks": [],
+      "sources": [
+        {
+          "label": "Associates Central - application review process",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
+        }
+      ]
+    },
+    {
+      "id": "Q-14",
+      "group": "Economics",
+      "question": "What is the actual conversion rate for these three products, and what would one sale be worth?",
+      "state": "unknowable",
+      "why_it_matters": "Every revenue projection on this site is arithmetic on an assumed conversion rate. Until one real sale exists, the honest number of sales attributable to this site is zero and any revenue figure is a scenario, not a forecast.",
+      "what_we_know": [
+        "Manufacturer list prices are $119.99, $199.99 and $119.99 USD, each sourced to the brand page.",
+        "At the Kitchen rate of 4.50%, a sale at list price is worth roughly $5.40, $9.00 and $5.40 respectively before returns.",
+        "No sales data exists in this repository."
+      ],
+      "what_is_missing": "Real click and order counts. These live in Associates Central and cannot be obtained by research.",
+      "how_to_discover": "Associates Central > Reports. Until there is history, label any projection as a scenario with its assumed conversion rate stated.",
+      "blocks": [],
+      "sources": [
+        {
+          "label": "Standard Commission Income Statement",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+        },
+        {
+          "label": "Chefman 6 Qt brand list price",
+          "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+        },
+        {
+          "label": "Emeril brand list price",
+          "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+        }
+      ]
+    }
+  ]
+}

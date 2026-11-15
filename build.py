@@ -53,6 +53,13 @@ PASS6 = json.loads(_p6.read_text(encoding="utf-8")) if _p6.exists() else None
 _p7 = ROOT / "session-052f2c9f" / "pass7.json"
 PASS7 = json.loads(_p7.read_text(encoding="utf-8")) if _p7.exists() else None
 
+# Decision layer (added 2026-11-15, arena/3ddfa50e). Two registers that exist to be reviewed
+# rather than acted on: the suggestions queue and the open-questions register. Both are
+# generated from JSON so a reviewer edits data, never a template.
+SUGGESTIONS = load("suggestions.json")
+QUESTIONS = load("questions.json")
+SUG_BY_ID = {s["id"]: s for s in SUGGESTIONS["suggestions"]}
+
 SRC_BY_ID = {s["id"]: s for s in SOURCES["sources"]}
 ACCESSED = SOURCES["accessed"]
 # Date of the most recent line-by-line re-read of the published values (see reverification.html).
@@ -147,11 +154,13 @@ NAV = [
     ("categories/kitchen-appliances.html", "Category: Kitchen", "All tracked products in one category"),
     ("compare.html", "Comparison", "Verified-only side-by-side matrix"),
     ("guides/buying-guide-air-fryers.html", "Buying guide", "How to choose a form factor"),
-    ("articles/index.html", "Articles", "Five sourced reads — comparisons, explainers, policy"),
+    ("articles/index.html", "Articles", "Sourced reads — comparisons, explainers, policy"),
     ("data.html", "Full dataset", "Every field, value, source and gap"),
     ("platform.html", "Platform blueprint", "The automation and compliance design"),
     ("compliance.html", "Compliance", "Program rules, quoted, with sources"),
     ("flagged.html", "Flagged for review", "Unverified values and irregularities"),
+    ("suggestions.html", "Suggestions", "16 improvements, each with paths to choose between"),
+    ("questions.html", "Open questions", "What must be answered before a decision is reasonable"),
     ("executive-summary.html", "Executive summary", "Decision-ready briefing"),
     # Added by the 2026-11-14 integration pass: the line-by-line re-read ledger.
     ("reverification.html", "Re-verification 2026-11-14", "Every published value re-read against its official source"),
@@ -365,6 +374,33 @@ footer.site li{margin:.2rem 0}
   body{background:#fff}
   .card,.tablewrap,.stat{box-shadow:none}
 }
+/* ---- decision layer: suggestions + open questions (2026-11-15) ---- */
+.chip{display:inline-block; padding:.05rem .4rem; border:1px solid var(--line); border-radius:999px;
+  font-size:.7rem; font-weight:700; color:var(--muted); background:#f9fafb; font-family:var(--mono)}
+.sug,.qcard{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:1rem 1.15rem; margin:0 0 1rem; box-shadow:var(--shadow)}
+.sug-head{display:flex; gap:1rem; align-items:flex-start; justify-content:space-between; margin-bottom:.4rem}
+.sug-head h3{margin:.1rem 0 0; font-size:1.02rem; line-height:1.35}
+.score{flex:0 0 auto; display:grid; place-items:center; min-width:56px; padding:.35rem .5rem;
+  border-radius:10px; background:var(--brand-soft); border:1px solid #99f6e4; color:#0b3b36}
+.score strong{font-size:1.15rem; line-height:1}
+.score span{font-size:.62rem; text-transform:uppercase; letter-spacing:.06em; font-weight:700}
+.sug p,.qcard p{margin:.45rem 0}
+.evidence{background:#f9fafb; border:1px dashed var(--line); border-radius:9px;
+  padding:.5rem .65rem; margin:.6rem 0; font-size:.82rem}
+.src-link{display:inline-block; margin:.12rem .55rem .12rem 0; color:var(--brand); font-size:.82rem}
+.label{margin:.7rem 0 .3rem; font-size:.7rem; text-transform:uppercase; letter-spacing:.08em;
+  color:#9ca3af; font-weight:700}
+.paths{margin:.2rem 0 .6rem; padding-left:1.3rem}
+.paths li{margin:0 0 .6rem}
+.paths li strong{font-size:.9rem}
+.rec{margin:.6rem 0; padding:.55rem .7rem; background:var(--ok-soft);
+  border:1px solid #bbf7d0; border-radius:9px; font-size:.88rem}
+.twocol{display:grid; grid-template-columns:1fr 1fr; gap:1rem}
+ul.tight{margin:.2rem 0 .6rem; padding-left:1.15rem}
+ul.tight li{margin:.25rem 0; font-size:.86rem}
+@media (max-width:820px){.twocol{grid-template-columns:1fr}}
+
 """
 
 JS = r"""
@@ -399,12 +435,18 @@ document.addEventListener('click', function (ev) {
 
 def layout(page_rel, title, body, active=None, description=""):
     prefix = depth_prefix(page_rel)
-    nav_html = []
+    # Keyed by href, not by position: the sidebar used to index this list, so inserting a nav
+    # entry silently moved every later group (caught 2026-11-15 when Suggestions and Open
+    # questions were added and the Products group began rendering the Buying guide).
+    nav_html = {}
     for href, label, sub in NAV:
         cls = ' class="active"' if href == active else ""
-        nav_html.append(
+        nav_html[href] = (
             f'<a href="{prefix}{href}"{cls}>{e(label)}<span class="sub">{e(sub)}</span></a>'
         )
+
+    def N(href):
+        return nav_html[href]
     # Entries that describe a *parallel* pass merged into this repo (a top-level directory
     # with its own data and source registry) are listed in NAV so the link checker covers
     # them, but the nav groups above only render fixed indices, so those entries were
@@ -414,9 +456,7 @@ def layout(page_rel, title, body, active=None, description=""):
         (href, label, sub) for (href, label, sub) in NAV
         if "/" in href and not href.startswith(("products/", "categories/", "guides/", "assets/"))
     ]
-    extra_nav = "".join(
-        a for (href, _label, _sub), a in zip(NAV, nav_html) if href in {p[0] for p in parallel}
-    )
+    extra_nav = "".join(nav_html[href] for (href, _l, _s) in parallel)
 
     # product links under the category entry
     prod_nav = "".join(
@@ -460,27 +500,33 @@ def layout(page_rel, title, body, active=None, description=""):
 <div class="shell">
   <aside class="sidebar">
     <div class="group">
-      <h4>Dashboard</h4>
-      {nav_html[0]}
+      <h4>Start here</h4>
+      {N("index.html")}
+      {N("guides/buying-guide-air-fryers.html")}
+      {N("articles/index.html")}
     </div>
     <div class="group">
       <h4>Products</h4>
       <a href="{prefix}categories/kitchen-appliances.html"{' class="active"' if active=='categories/kitchen-appliances.html' else ''}>Category: Kitchen<span class="sub">3 tracked products</span></a>
       {prod_nav}
-      {nav_html[2]}
+      {N("compare.html")}
     </div>
     <div class="group">
-      <h4>Research &amp; data</h4>
-      {nav_html[3]}
-      {nav_html[4]}
-      {nav_html[5]}
-      {nav_html[6]}
+      <h4>Decide</h4>
+      {N("suggestions.html")}
+      {N("questions.html")}
+      {N("executive-summary.html")}
     </div>
     <div class="group">
-      <h4>Report</h4>
-      {nav_html[7]}
-      {nav_html[8]}
-      {nav_html[9]}
+      <h4>Evidence</h4>
+      {N("data.html")}
+      {N("reverification.html")}
+      {N("compliance.html")}
+      {N("flagged.html")}
+    </div>
+    <div class="group">
+      <h4>Platform</h4>
+      {N("platform.html")}
     </div>
     {more_nav}
   </aside>
@@ -708,9 +754,91 @@ def page_index():
         for p in PRODUCT_LIST
     )
     body = f"""
-<p class="crumbs">Dashboard</p>
-<h1>Three supplied Amazon links: product identity not yet confirmed</h1>
-<p class="lede">This dashboard holds everything that could be confirmed about the three supplied Amazon listings from <strong>official sources only</strong> — Amazon's Associates documents, the US FTC's rule text, and each manufacturer's own product page and owner's manual. Where a fact could not be confirmed, the field is blank and the item appears on <a href="flagged.html">Flagged for review</a>. Nothing has been inferred, estimated or filled in.</p>
+<p class="crumbs">Buying guide</p>
+<h1>Three air fryers, read the way a careful shopper would read them</h1>
+<p class="lede">Two dual-basket air fryers and one French-door oven. We did not test any of them — we read
+every manufacturer document we could find, quoted what it says, and marked the places where the
+official record contradicts itself instead of smoothing them over. If a number is on this site, the
+page that states it is one click away. <a href="#how-we-work">How we work</a>.</p>
+
+<div class="callout note" id="how-we-work">
+  <strong>What this site is, in one paragraph.</strong>
+  <p class="small">We recommend three Amazon listings and we earn a commission if you buy through our
+  links, at no extra cost to you. We have not used these machines. What we have done is read Chefman's
+  and Emeril's own product pages and owner's manuals, line by line, and publish only what they
+  actually state — including the contradictions, which are on <a href="flagged.html">Flagged for
+  review</a> rather than quietly removed. Amazon prices and star ratings are deliberately absent:
+  Amazon's Associates Program Policies §2(b) and §6(t) do not permit us to publish them unless Amazon
+  serves the data itself {src_links(['S2'])}. The links below take you to the live price.</p>
+</div>
+
+<h2>Start with the decision, not the products</h2>
+<div class="grid grid-3" style="margin:.6rem 0 1.25rem">
+  <div class="card">
+    <div class="rank">If you cook two different things at once</div>
+    <h3 style="margin:.15rem 0 .3rem; font-size:1rem">The dual-basket case</h3>
+    <p class="small" style="margin:0">Two independent 3-quart baskets, each on its own temperature and
+    timer, with a Sync Finish function that holds the quicker basket so both land together. This is the
+    form factor that solves the one real complaint about air fryers: you cannot cook chips and chicken
+    at 200 °C and 180 °C in one drawer at the same time.</p>
+    <p class="small" style="margin:.5rem 0 0"><a href="articles/dual-basket-vs-single-basket.html">Which form factor actually fits your cooking →</a></p>
+  </div>
+  <div class="card">
+    <div class="rank">If you want an oven, not a drawer</div>
+    <h3 style="margin:.15rem 0 .3rem; font-size:1rem">The French-door case</h3>
+    <p class="small" style="margin:0">A 26-quart cavity that opens from the front, with a rotisserie and
+    24 named presets in the manual. It bakes, toasts and air-fries where a basket only air-fries — and
+    it takes up the counter space of a small microwave rather than fitting in a cupboard.</p>
+    <p class="small" style="margin:.5rem 0 0"><a href="articles/dual-basket-vs-oven-air-fryer.html">Basket versus oven, side by side →</a></p>
+  </div>
+  <div class="card">
+    <div class="rank">If a number decided it for you</div>
+    <h3 style="margin:.15rem 0 .3rem; font-size:1rem">The spec-sheet case</h3>
+    <p class="small" style="margin:0">Capacity in quarts is not capacity in litres, and "450 °F" can mean
+    the maximum setting or a two-minute finishing burst. The single most useful thing you can do before
+    buying any air fryer is learn which of its numbers are comparable.</p>
+    <p class="small" style="margin:.5rem 0 0"><a href="articles/how-to-read-an-air-fryer-spec-sheet.html">How to read an air fryer spec sheet →</a></p>
+  </div>
+</div>
+
+<h2>The three, in one table</h2>
+<p class="small muted">Every value below is quoted from the manufacturer's own page or owner's manual, and the
+source badge next to it opens that page. Blank means the manufacturer does not publish it — not that it is
+unfavourable.</p>
+<table>
+  <thead><tr><th>&nbsp;</th><th>Chefman 6 Qt Dual Basket</th><th>Emeril 26 QT French Door</th><th>Chefman 8 Qt TurboFry</th></tr></thead>
+  <tbody>
+    <tr><td class="small"><strong>What it is</strong> {src_links(['S10','S14','S12'])}</td><td class="small">Two-drawer basket air fryer</td><td class="small">French-door countertop oven</td><td class="small">Single-drawer basket air fryer</td></tr>
+    <tr><td class="small"><strong>Capacity</strong> {src_links(['S10','S14','S12'])}</td><td class="small">6 Qt / 5.67 L (two 3-qt baskets)</td><td class="small">26 qt / 24.6 L</td><td class="small">8 qt</td></tr>
+    <tr><td class="small"><strong>Temperature range</strong> {src_links(['S10','S14','S12'])}</td><td class="small">200–450 °F, Hi-Fry 450 °F for 2 min</td><td class="small">75–500 °F</td><td class="small">200–400 °F</td></tr>
+    <tr><td class="small"><strong>Presets</strong> {src_links(['S15','S13'])}</td><td class="small">Not stated by the manufacturer</td><td class="small">24, named in the manual</td><td class="small">Fries, Chicken, Fish, Meat</td></tr>
+    <tr><td class="small"><strong>Rotisserie</strong> {src_links(['S15'])}</td><td class="small">No</td><td class="small">Yes</td><td class="small">No</td></tr>
+    <tr><td class="small"><strong>Outer dimensions</strong> {src_links(['S10','S14','S12'])}</td><td class="small">13.38 × 11.81 × 10.63 in</td><td class="small">16.9 D × 15.8 W × 14.8 H in</td><td class="small">15.4 × 12.6 × 13.5 in</td></tr>
+    <tr><td class="small"><strong>Power</strong> {src_links(['S10','S15','S12'])}</td><td class="small">1700 W / 120 V</td><td class="small">1700 W / 120 V</td><td class="small">1700 W / 120 V</td></tr>
+    <tr><td class="small"><strong>Warranty</strong> {src_links(['S10','S14','S13'])}</td><td class="small">1 year</td><td class="small">1 year</td><td class="small">Limited 1 year</td></tr>
+    <tr><td class="small"><strong>Full verified table</strong></td>
+      <td class="small"><a href="products/chefman-6qt-dual-basket.html">All fields, each sourced →</a> {src_links(['S10','S18'])}</td>
+      <td class="small"><a href="products/emeril-26qt-french-door.html">All fields, each sourced →</a> {src_links(['S14','S15'])}</td>
+      <td class="small"><a href="products/chefman-8qt-turbofry.html">All fields, each sourced →</a> {src_links(['S12','S13'])}</td></tr>
+  </tbody>
+</table>
+<p class="small muted">Dimensions decide whether a machine fits under your cabinets, so they are here.
+Noise level and real-world preheat time are not published by either manufacturer and are not estimated on
+this site. <a href="questions.html#q-06">What the manufacturers do not publish →</a></p>
+
+<h2>Pick one</h2>
+
+<h2>The product set</h2>
+<div class="grid grid-3">{cards}</div>
+
+<h2>Commercial summary</h2>
+{commercial_table()}
+
+<h2 id="evidence">Under the hood: how much of this is actually confirmed</h2>
+<p class="small muted">Everything from here down is the verification layer — useful if you want to know how
+much to trust a number, not required reading before buying. The same material, in full, is on
+<a href="data.html">the dataset</a>, <a href="reverification.html">the re-verification ledger</a> and
+<a href="flagged.html">Flagged for review</a>.</p>
 
 <div class="grid grid-4" style="margin:1rem 0 1.25rem">
   <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">Supplied links reach Amazon fallback pages — see <a href="reports/link-check-2026-11-14.md">link check, 2026-11-14</a></div></div>
@@ -741,14 +869,8 @@ def page_index():
   <a href="reports/link-check-2026-11-14.md">link check, 2026-11-14</a>.</p>
 </div>
 
-<h2>The product set</h2>
-<div class="grid grid-3">{cards}</div>
-
-<h2>Commercial summary</h2>
-{commercial_table()}
-
 <h2>Articles</h2>
-<p class="small muted">Five reads written for this product set. Each one quotes the manufacturer's own pages or manuals, links every number to the page it came from, and names the places where the official record contradicts itself instead of smoothing them over. No first-hand testing is claimed anywhere.</p>
+<p class="small muted">Eight reads written for this product set. Each one quotes the manufacturer's own pages or manuals, links every number to the page it came from, and names the places where the official record contradicts itself instead of smoothing them over. No first-hand testing is claimed anywhere.</p>
 <div class="cardgrid">
 {_article_cards}
 </div>
@@ -986,8 +1108,11 @@ PROGRAMME_FLAGS = [
     ("F35", "Nine separate HTML sites for the same three products are published in this repository, and they disagree with each other.",
      "Whole repository",
      "Found 2026-11-14 by arena/6b2eddeb. Alongside the canonical root build there are research/ (12 pages), session-3740f69d/ (11), s2/ (13), site/ (11), dashboard/ (14), docs/ (7) and annex-88769516/ (10), plus data-only trees in crosscheck/ and platform/. The root navigation links to six of them. They disagree on facts a reader would take as settled: the Chefman 6 Qt model (RJ38-SQPF-3TDB-2W on the root site, RJ38-3DBW-V2 in site/ and research/ — F32), and the policy section numbers for the review/star-rating and link-shortening rules (§6(t)/§6(w) on the root site after F27, §3(t)/§2(w) in site/ and session-3740f69d/). Each build is internally consistent and individually verified; the problem is that nothing tells a reader which one is canonical when they arrive from a search engine. Decision needed: keep one site and archive the rest behind a clearly labelled 'previous verification passes' page, or make every non-canonical page carry a fixed banner naming the canonical build.", ["S1", "S2"]),
-    # sess-ce4070ad, pass 7, 2026-11-14 (additive; renumbered F32 -> F36 after PR #46 took F32): the F10 wording vs the repository's own evidence.
-    ("F36", "Published flag F10 says the short links' srctok marker \u201cstays constant across repeat requests\u201d; the repository's own published evidence shows the marker changes and only the destination is stable.",
+    # sess-ce4070ad, pass 7, 2026-11-14. NOTE (2026-11-15, arena/3ddfa50e): this row was published as F36
+    # while a product-level row in data/products.json was also published as F36. Two rows, one number. The
+    # product row is re-sourced from S16 to S28 by this pass and keeps F36 because three session evidence
+    # files cite it by that number; this programme-level row moves to F41. Flag F40 records the collision.
+    ("F41", "Published flag F10 says the short links' srctok marker \u201cstays constant across repeat requests\u201d; the repository's own published evidence shows the marker changes and only the destination is stable.",
      "All three links",
      "Recorded 2026-11-14 by sess-ce4070ad (observation round 6). Stable across every reading, including today's two independent fetches: each link.amazon token resolves to the same ASIN with the same listing title \u2014 B04G1MEwY \u2192 B0CDY277D3, B02NbDxp3 \u2192 B09B7SB46R, B00hJ57DV \u2192 B08DKYBTPH, now re-confirmed by six sessions over two days. Not stable: the btn_ref/srctok marker in the landing URL \u2014 srctok-2cef40d2904c29d8 on 2026-11-13; srctok-1e229870efde5acf changing to srctok-397b5ba66db39bbf on a cache-busted repeat minutes later (sess-81495d2d's published evidence, row 4); srctok-704dc575b940a94c (sess-54c66535); srctok-0740a2e990c9bbb3, the same value in two independent fetches by sess-840a25d3 and sess-ce4070ad later the same day. F10's constancy wording therefore overstates what the evidence supports: it is the ASIN + title destination that is constant, not the marker. Decision needed: reword F10 to claim destination stability only. F10 is another session's register row and is left verbatim.", ["S17", "S16"]),
 
@@ -995,6 +1120,24 @@ PROGRAMME_FLAGS = [
      "Emeril 26 QT French Door — the \"Interior light: Yes\" row",
      "Found and fixed 2026-11-14 by sess-7111e2b6. The row cited the brand product page (S14), whose specification strip lists Timer, 26-Quart Capacity, Dual-Speed Fan, 25 Cooking Pre-sets, 16.9\"D x 15.8\"W x 14.8\"H, 24.6 Liters, Temperature Control and 120 volts — and no interior light. The value is nonetheless correct: the owner\'s manual (S15) documents it in the control-panel section, \"F. LIGHT BUTTON: May be selected at any time during the cooking process to light the appliance\'s interior.\" The row has been re-sourced from S14 to S15 and the manual\'s wording recorded in the row note. The lesson is published rather than quietly fixed: a value can be true and still be mis-cited, and a citation that does not support its value is as much a defect as an invented number.",
      ["S14", "S15"]),
+
+    # ---- arena/3ddfa50e, integration pass 8, 2026-11-15 ------------------------------ #
+    # Three defects found by re-fetching the official sources rather than trusting the
+    # recorded reads. All three are fixed in this pass; none was inferred.
+    ("F38", "An Amazon listing title changed between the 2026-11-14 read and 2026-11-15, so a published value was stale.",
+     "Emeril 26 QT French Door \u2014 the listing-title row",
+     "Found and fixed 2026-11-15 by arena/3ddfa50e. The stored title ended '| 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.' and the live title on the same ASIN (B09B7SB46R, reached through https://link.amazon/B02NbDxp3) now ends '| Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included'. The preset count is unchanged at 24; the wording around it is not. The row now carries the 2026-11-15 string, keeps the superseded string in a visible field, and states the date of the read. This is the same class of volatility as F14 (brand-hosted review counts that moved in 24 hours) and the reason every volatile value on this site must carry its read date.",
+     ["S28"]),
+
+    ("F39", "A source record was cited for a value it does not support: one registered URL stood in for three different product pages.",
+     "All three products \u2014 the listing-title and ASIN rows",
+     "Found and fixed 2026-11-15 by arena/3ddfa50e. Source S16 was registered with a single URL (https://www.amazon.com/dp/B0CDY277D3) but its title claimed to cover 'ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH', and it was cited as the source for all three products' listing titles and ASIN rows. For the Emeril and 8 Qt rows, the source link therefore took a reader to the Chefman 6 Qt listing. A citation that does not resolve to the page stating the value is the same defect class as F37. Fixed by registering each ASIN separately: S16 = B0CDY277D3, S28 = B09B7SB46R, S29 = B08DKYBTPH, and repointing every citation. The root build's row-source gate did not catch this because it checks that a row links to *a* registered official host, not that the host page actually states the value.",
+     ["S16", "S28", "S29"]),
+
+    ("F40", "Two different rows were published under the same flag number.",
+     "Register integrity \u2014 F36",
+     "Found and fixed 2026-11-15 by arena/3ddfa50e. The programme-level row recording the srctok-marker finding (added by sess-ce4070ad, itself renumbered from F32) was published as F36, and a product-level row in data/products.json recording the Chefman 6 Qt preset-count mis-citation was also published as F36. Both rendered on the Flagged page, so the register showed 38 rows with 37 distinct numbers and any citation of 'F36' was ambiguous. F28 records an earlier ID collision of the same kind, which means the rule was not enforceable. The programme-level row is renumbered F41; the product row keeps F36 because three session evidence files cite it by that number. A duplicate-ID build test now fails the build if this recurs.",
+     ["S1"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -1013,7 +1156,7 @@ REPO_EVIDENCE = {
     "F33": ["session-6b2eddeb/EVIDENCE-2026-11-14.md"],
     "F34": ["EXECUTIVE_SUMMARY.md"],
     "F35": ["build.py", "site/", "session-3740f69d/"],
-    "F36": ["session-81495d2d/EVIDENCE-2026-11-14.md", "session-ce4070ad/EVIDENCE-2026-11-14.md"],
+    "F41": ["session-81495d2d/EVIDENCE-2026-11-14.md", "session-ce4070ad/EVIDENCE-2026-11-14.md"],
 }
 
 VERDICTS = {
@@ -2013,6 +2156,214 @@ def page_previous_passes():
                   description="Catalogue of every parallel build published in this repository, where each one disagrees with the canonical site, and which build to trust.")
 
 
+# --------------------------------------------------------------------------- #
+# Decision layer — Suggestions and Open questions (added 2026-11-15, arena/3ddfa50e)
+#
+# These two pages exist because the brief asks for a place to review improvements and
+# choose a path *before* anything is implemented, and for a register of what must be
+# known before a decision is reasonable. Both are generated from data/*.json, so a
+# reviewer edits data and never a template. Every evidence link is an official source
+# or a repository path; the row-source gate applies to both pages like any other.
+# --------------------------------------------------------------------------- #
+
+_STATE_LABEL = {
+    "known": ("ok", "Known and sourced"),
+    "missing": ("warn", "Missing - discoverable"),
+    "unknowable": ("bad", "Needs account access"),
+    "not_stated": ("warn", "The source does not state it"),
+}
+
+
+def _effort_chip(effort):
+    return f'<span class="chip">{e(effort)}</span>'
+
+
+def page_suggestions():
+    s = SUGGESTIONS
+    items = sorted(s["suggestions"], key=lambda x: -(x["impact"] * x["confidence"]))
+
+    def card(sg):
+        score = sg["impact"] * sg["confidence"]
+        opts = "".join(
+            f'<li><strong>{e(o["label"])}</strong>'
+            f'<div class="tiny" style="margin:.15rem 0 .35rem">Effort {e(o["effort"])} · risk {e(o["risk"])}'
+            f'{" · reversible" if o.get("reversible") else ""}</div>'
+            f'<div class="small">{e(o["what"])}</div></li>'
+            for o in sg["options"]
+        )
+        ev = " ".join(
+            f'<a class="src-link" href="{e(x["url"])}" target="_blank" rel="noopener">{e(x["label"])} ↗</a>'
+            for x in sg["evidence"]
+        )
+        blocked = sg.get("blocked_by") or []
+        blocked_html = (
+            " ".join(f'<a href="questions.html#{e(q.lower())}" class="src">{e(q)}</a>' for q in blocked)
+            if blocked else '<span class="tiny muted">Nothing blocks this.</span>'
+        )
+        return f"""
+<article class="sug" id="{e(sg['id'].lower())}">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">{e(sg['id'])} · {e(sg['area'])}</div>
+      <h3>{e(sg['title'])}</h3>
+    </div>
+    <div class="score" title="impact {sg['impact']} x confidence {sg['confidence']} - this pass's judgement, not a measurement">
+      <strong>{score}</strong><span>priority</span>
+    </div>
+  </div>
+  <p><strong>The problem.</strong> {e(sg['problem'])}</p>
+  <div class="evidence"><strong>Evidence.</strong> {ev}</div>
+  <p class="label">Paths you could take</p>
+  <ol class="paths">{opts}</ol>
+  <p class="rec"><strong>This pass would pick:</strong> {e(sg['recommendation'])}</p>
+  <p class="small"><strong>Why.</strong> {e(sg['why'])}</p>
+  <p class="small"><strong>Cost of not doing it.</strong> {e(sg['risk_of_not_doing'])}</p>
+  <p class="small"><strong>Blocked by:</strong> {blocked_html}</p>
+</article>"""
+
+    cards = "".join(card(x) for x in items)
+
+    # summary table - every row links to its own evidence so the row-source gate is satisfied
+    rows = []
+    for x in items:
+        ev_links = " ".join(
+            f'<a href="{e(y["url"])}" target="_blank" rel="noopener">{e(y["label"].split(" - ")[0][:38])} ↗</a>'
+            for y in x["evidence"]
+        )
+        rows.append(
+            f'<tr><td class="num"><a href="#{e(x["id"].lower())}">{e(x["id"])}</a></td>'
+            f'<td>{e(x["title"])}</td><td class="small">{e(x["area"])}</td>'
+            f'<td class="num">{x["impact"]*x["confidence"]}</td>'
+            f'<td class="small">{_effort_chip(x["effort"])} {e(x["risk_of_not_doing"].split(".")[0])}</td>'
+            f'<td class="small">{ev_links}</td></tr>'
+        )
+
+    body = f"""
+<p class="crumbs"><a href="../index.html">Dashboard</a> / Suggestions</p>
+<h1>Suggestions, and a place to choose between them</h1>
+<p class="lede">Sixteen things this pass believes would materially improve this site, in priority order.
+Nothing on this page has been implemented. Each entry names the problem it fixes, the official
+document or repository evidence behind it, two or three paths you could take, and the path this
+pass would pick if it were your call. Read the one you care about, choose a path, and the work is
+a short story rather than an open-ended project.</p>
+
+<div class="callout note">
+  <strong>How to use this page.</strong> {e(s["how_to_read"][0])}
+  The score is <em>{e(s["scoring_note"])}</em>
+  Suggestions blocked by something only you can supply link to the exact row on the
+  <a href="questions.html">Open questions</a> page.
+</div>
+
+<h2>At a glance</h2>
+<table>
+  <thead><tr><th>#</th><th>Suggestion</th><th>Area</th><th>Priority</th><th>Effort · cost of waiting</th><th>Evidence</th></tr></thead>
+  <tbody>{''.join(rows)}</tbody>
+</table>
+<p class="tiny muted">Priority is impact x confidence, both scored by this pass out of 5. It is judgement. The evidence column is the fact.</p>
+
+<h2>The queue</h2>
+{cards}
+"""
+    return layout("suggestions.html", "Suggestions", body, active="suggestions.html",
+                  description="Sixteen reviewed, evidence-backed suggestions for the site, each with alternative paths and a recommendation, for the owner to choose before anything is implemented.")
+
+
+def page_questions():
+    q = QUESTIONS
+    groups = []
+    for item in q["questions"]:
+        if item["group"] not in groups:
+            groups.append(item["group"])
+
+    # summary table first: every row carries a source link
+    rows = []
+    for item in q["questions"]:
+        cls, label = _STATE_LABEL[item["state"]]
+        first = item["sources"][0]
+        extra = (" " + " ".join(f'<a href="{e(y["url"])}" target="_blank" rel="noopener">repo ↗</a>'
+                                for y in item["sources"][1:] if "github.com" in y["url"]))
+        rows.append(
+            f'<tr><td class="num"><a href="#{e(item["id"].lower())}">{e(item["id"])}</a></td>'
+            f'<td>{e(item["question"])}</td><td class="small">{e(item["group"])}</td>'
+            f'<td><span class="pill {cls}">{e(label)}</span></td>'
+            f'<td class="small"><a href="{e(first["url"])}" target="_blank" rel="noopener">source ↗</a>{extra}</td></tr>'
+        )
+
+    def block(item):
+        cls, label = _STATE_LABEL[item["state"]]
+        known = "".join(f'<li>{e(k)}</li>' for k in item["what_we_know"])
+        srcs = " ".join(
+            f'<a class="src-link" href="{e(x["url"])}" target="_blank" rel="noopener">{e(x["label"])} ↗</a>'
+            for x in item["sources"]
+        )
+        blocks = item.get("blocks") or []
+        block_html = " ".join(
+            f'<a class="src" href="suggestions.html#{e(x.lower())}">{e(x)}</a>' for x in blocks
+        ) or '<span class="tiny muted">Does not block anything on its own.</span>'
+        return f"""
+<article class="qcard" id="{e(item['id'].lower())}">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">{e(item['id'])} · {e(item['group'])}</div>
+      <h3>{e(item['question'])}</h3>
+    </div>
+    <span class="pill {cls}">{e(label)}</span>
+  </div>
+  <p><strong>Why it matters.</strong> {e(item['why_it_matters'])}</p>
+  <div class="twocol">
+    <div><p class="label">What we know, and can prove</p><ul class="tight">{known}</ul></div>
+    <div>
+      <p class="label">What is missing</p>
+      <p class="small">{e(item['what_is_missing'])}</p>
+      <p class="label">How to find it out</p>
+      <p class="small">{e(item['how_to_discover'])}</p>
+    </div>
+  </div>
+  <div class="evidence"><strong>Official sources.</strong> {srcs}</div>
+  <p class="small"><strong>Blocks:</strong> {block_html}</p>
+</article>"""
+
+    sections = []
+    for g in groups:
+        items = [x for x in q["questions"] if x["group"] == g]
+        sections.append(f'<h2>{e(g)}</h2>' + "".join(block(x) for x in items))
+
+    counts = {k: sum(1 for x in q["questions"] if x["state"] == k) for k in _STATE_LABEL}
+
+    body = f"""
+<p class="crumbs"><a href="../index.html">Dashboard</a> / Open questions</p>
+<h1>What must be answered before a decision is reasonable</h1>
+<p class="lede">A decision is only as good as the information behind it. This page separates what we
+know and can prove from what we do not know but could look up, and from what cannot be established
+at all without information that only the account holder holds. Every suggestion that cannot be
+settled without you links to the row that blocks it.</p>
+
+<div class="callout warn">
+  <strong>Read the four states before the questions.</strong>
+  <span class="pill ok">Known and sourced</span> verified this pass against an official page, link on the row.
+  <span class="pill warn">Missing - discoverable</span> not established here, but a browser and ten minutes would settle it.
+  <span class="pill bad">Needs account access</span> outside the account it cannot be known at all.
+  <span class="pill warn">The source does not state it</span> we read the official page and the fact is not on it.
+</div>
+
+<p class="small muted">{e(q['preamble'])}</p>
+
+<h2>Register</h2>
+<p class="small">{counts['known']} known and sourced · {counts['missing']} missing but discoverable ·
+{counts['not_stated']} not stated by the official source · {counts['unknowable']} requiring account access ·
+{len(q['questions'])} total.</p>
+<table>
+  <thead><tr><th>#</th><th>Question</th><th>Group</th><th>State</th><th>Source</th></tr></thead>
+  <tbody>{''.join(rows)}</tbody>
+</table>
+
+<h2>The questions in full</h2>
+{''.join(sections)}
+"""
+    return layout("questions.html", "Open questions", body, active="questions.html",
+                  description="The questions, information and answers that must be settled before a decision on this site is reasonable, separated into known, discoverable, not-stated and account-only.")
+
+
 def page_404():
     body = """
 <p class="crumbs">Not found</p>
@@ -2268,6 +2619,75 @@ def page_article(a):
 # build
 # --------------------------------------------------------------------------- #
 
+def check_flag_ids_unique():
+    """Build guard: a flag number must mean exactly one thing.
+
+    Flag F40 (2026-11-15) records two different rows being published as F36 on the same
+    page. F28 records an earlier collision of the same kind, which is why a written rule
+    was not enough and this check exists. Runs on the rendered Flagged page, so it sees
+    programme rows and product rows together rather than trusting either list alone.
+    """
+    from collections import Counter
+    page = page_flagged()
+    ids = re.findall(r'<tr><td class="num"><strong>(F\d+)</strong>', page)
+    dupes = sorted(k for k, v in Counter(ids).items() if v > 1)
+    if dupes:
+        return [f"flag id(s) rendered more than once on flagged.html: {', '.join(dupes)}"]
+    return []
+
+
+def check_question_block_refs():
+    """Build guard: a suggestion must not point at a question that does not exist, and a
+    question must not point at a suggestion that does not exist. A dangling cross-reference
+    in a decision queue is worse than no cross-reference."""
+    problems = []
+    qids = {q["id"] for q in QUESTIONS["questions"]}
+    for sg in SUGGESTIONS["suggestions"]:
+        for qid in sg.get("blocked_by") or []:
+            if qid not in qids:
+                problems.append(f'{sg["id"]} blocked_by unknown question {qid}')
+    for q in QUESTIONS["questions"]:
+        for sid in q.get("blocks") or []:
+            if sid not in SUG_BY_ID:
+                problems.append(f'{q["id"]} blocks unknown suggestion {sid}')
+    if not QUESTIONS["questions"] or not SUGGESTIONS["suggestions"]:
+        problems.append("decision-layer register is empty")
+    return problems
+
+
+def check_no_price_tracking(pages):
+    """Build guard: Program Policies section 6(y) forbids price tracking and/or price
+    alerting functionality on an Associate site unless Amazon agrees otherwise.
+
+    Scope is deliberately narrow so the guard tests implementation rather than vocabulary.
+    The site must be free to *explain* the rule - an entire article on policy quotes it, and
+    suggestions.html proposes writing this very guard - so prose is never scanned. What is
+    scanned:
+
+      1. the body of every <script> block (a tracker has to live in JavaScript);
+      2. attribute values only - id, class, data-* - where a real component would declare
+         itself (id="price-history", data-price-alert, class="price-tracker").
+
+    Both patterns require a code-shaped token (an identifier with - or _ joining the words,
+    or camelCase), which ordinary sentences do not produce. Verified verbatim against the
+    Program Policies page on 2026-11-15.
+    """
+    ident = re.compile(
+        r"price[-_](history|tracker|tracking|alert|alerts|watch)\b"
+        r"|priceHistory|priceAlert|priceTrack|trackPrice|track_amazon_price",
+        re.I)
+    attr = re.compile(r"\b(?:id|class|data-[a-z-]+)\s*=\s*\"([^\"]*)\"", re.I)
+    problems = []
+    for rel, html_text in pages.items():
+        for script in re.findall(r"<script\b[^>]*>(.*?)</script>", html_text, re.S):
+            for m in ident.finditer(script):
+                around = re.sub(r"\s+", " ", script[max(0, m.start()-50):m.end()+50])
+                problems.append(f"{rel}: price-tracking identifier in script (6(y)): ...{around}...")
+        for value in attr.findall(html_text):
+            if ident.search(value):
+                problems.append(f"{rel}: price-tracking class/id/attribute (6(y)): {value!r}")
+    return problems
+
 def check_rows_have_sources():
     """Build-time guard: an asserted value with no source id is a hard failure."""
     problems = []
@@ -2348,6 +2768,8 @@ def main():
     pages["executive-summary.html"] = page_exec()
     pages["reverification.html"] = page_reverification()
     pages["previous-passes.html"] = page_previous_passes()
+    pages["suggestions.html"] = page_suggestions()
+    pages["questions.html"] = page_questions()
     pages["404.html"] = page_404()
 
     # build guards
@@ -2365,6 +2787,16 @@ def main():
     if article_page_problems:
         raise SystemExit("BUILD FAILED — article page violated a disclosure/claims rule:\n  "
                          + "\n  ".join(article_page_problems))
+    flag_id_problems = check_flag_ids_unique()
+    if flag_id_problems:
+        raise SystemExit("BUILD FAILED — flag register integrity:\n  " + "\n  ".join(flag_id_problems))
+    ref_problems = check_question_block_refs()
+    if ref_problems:
+        raise SystemExit("BUILD FAILED — decision-layer cross-reference:\n  " + "\n  ".join(ref_problems))
+    price_problems = check_no_price_tracking(pages)
+    if price_problems:
+        raise SystemExit("BUILD FAILED — Prohibited feature (Program Policies 6(y)):\n  "
+                         + "\n  ".join(price_problems))
     unsourced_rows = check_row_sources(pages)
     if unsourced_rows:
         raise SystemExit("BUILD FAILED — table rows with no official source link (cite a registered "
