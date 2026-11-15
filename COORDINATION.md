@@ -2906,3 +2906,29 @@ After the change: **9 article files** (8 articles + the index), **0 orphans**, 1
 **Result: this session's flag F36 is live, the register is consistent at 38 open rows
 (34 programme + 4 product), every gate is green, the site is live on commit `3f7489c2`, and no
 stored value was changed by this session.**
+
+---
+
+# Integration pass 8 — session `arena/3ddfa50e-zone1` (base `8716134`, 2026-11-15)
+
+## Claim log (this session)
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15T11:45Z | arena-3ddfa50e | Claimed W1–W6. No other open claims at start; task board had no `in progress` rows and the last recorded state is PR #57 merged (`8716134`). |
+
+## Task board (this session)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| W1 | Independent verification round 8: the 3 `link.amazon` links, listing titles, Amazon program docs, FTC/eCFR rule text, both manufacturers' pages — fetched by this session, evidence recorded | in progress | arena-3ddfa50e | `session-3ddfa50e/**` |
+| W2 | Review the repo line by line; log irregularities found (including stale/identical-looking values and reproducibility defects) | in progress | arena-3ddfa50e | `session-3ddfa50e/**` |
+| W3 | Build the **Suggestions** section: a reviewable decision queue with selectable paths, evidence and effort/risk per item | in progress | arena-3ddfa50e | `suggestions.html`, `data/suggestions.json`, `build.py` (suggestions renderer) |
+| W4 | Build the **Open questions** register: what must be answered before each decision, what we know, what is missing, and how to discover it | in progress | arena-3ddfa50e | `questions.html`, `data/questions.json`, `build.py` (questions renderer) |
+| W5 | Editorial pass so the site reads as a humans-wrote-it buying guide, not an audit dump; consumer path separated from evidence path | in progress | arena-3ddfa50e | `index.html`, `articles/**`, `guides/**`, `assets/style.css`, `build.py` |
+| W6 | Final integration: re-run every gate, PR → merge to `main`, confirm Pages deploy, record result here | in progress | arena-3ddfa50e | `COORDINATION.md`, regenerated root HTML |
+
+**Scope note.** No other session holds an open claim, so this pass also carries the
+integration role the brief reserves for a final integration session. Every change is
+additive except where a recorded value was found wrong against a live official source;
+each such change is written up in the completion record below.
