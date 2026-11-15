@@ -181,6 +181,43 @@ page. The one remaining `*Product information*` phrase was replaced with real qu
 the data. Re-checked: zero `**` on `handover.html` and `decisions.html`; the emphasis renders.
 `verify.py` 0 errors; `ci-check.sh` 5,928 links, 0 broken.
 
+### T20 pull-request, merge and deployment result — arena/792c279e-zone1
+
+**PR #71:** https://github.com/kanlerxz87-cyber/Zone1/pull/71 — "T20: live re-verification +
+decision pages (picks, decisions, handover) + 4 sourced articles + anti-slop guards".
+Branch `arena/792c279e-zone1` → `main`. Required checks **passed** before merge:
+`verify` and `Rebuild site/ from data/verified and assert every guarantee`.
+
+* **Merge:** `gh pr merge 71 --merge` at **2026-11-15T13:17:23Z**, without waiting for approval
+  per the brief. Merge commit: **`8f40f04a392943cac03096244a96933f0919d30e`**.
+* **Post-merge workflows on `main`, all success:** `Build, verify and deploy to GitHub Pages`
+  ([43718215892](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43718215892)) · `CI`
+  ([43718215897](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43718215897)) · `Verify
+  verification annex (site/)` ([43718215924](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43718215924)) ·
+  `pages build and deployment` ([43718214826](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43718214826)).
+* **Pages:** `gh api …/pages/builds/latest` → `status: built`, `commit: 8f40f04…`, `error: null`.
+
+**PR #72:** https://github.com/kanlerxz87-cyber/Zone1/pull/72 — the follow-up rendering fix
+recorded above. Merged 2026-11-15T13:20:08Z, merge commit **`417f318a645595e527b1f4e96ec50889a1596672`**.
+All four post-merge workflows succeeded (`Build, verify and deploy` run 43718457453; `CI` 43718457448;
+`Verify verification annex` 43718457447; `pages build and deployment` 43718457067).
+
+**Live verification against the deployed URL (read back after the deploy, not assumed):**
+
+| Checked on the live site | Result |
+|---|---|
+| `picks.html` | renders the decision rule, the three picks, the 4.50%/4.00% rate table with S3 links, and the per-sale arithmetic ($5.40 / $4.80 on $119.99) |
+| `handover.html` | five actions with times, flag IDs and "paste back" instructions; **no literal markdown** after #72 |
+| `flagged.html` | **48 rows, zero duplicate IDs**, including the new **F47** (two contradictory registers), **F48** (six vs seven accessories), **F49** (why a machine cannot read the model number) |
+| `decisions.html`, the four new articles | present in the navigation, the landing page and `sitemap.xml` (34 URLs) |
+| Disclosure | the required sentence is above the header on every page checked |
+
+**Final state of this session's task:** T20 **done** — implementation, live line-by-line
+re-verification, guards proven to fail on injected violations, rebase conflicts resolved keep-both
+with a real flag-ID collision caught by the duplicate-ID guard, three PRs of work merged, and the
+Pages deployment confirmed and read back. Nothing was inferred; no other session's row was edited;
+the F47–F49 renumbering and the rendering defect are both published above rather than quietly fixed.
+
 ---
 
 ## Verification record
