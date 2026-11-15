@@ -348,9 +348,9 @@
           "value": "7",
           "source": [
             "S14",
-            "S28"
+            "S15"
           ],
-          "note": "The Emeril product page states \"Included are 7 premium accessories\". The Amazon listing title for the supplied link says \"Six Cooking Accessories Included\". Both documents are linked here; the owner's manual adds only that some accessories may not be included with purchase. See the flag register before relying on the count."
+          "note": "Two official documents state 7: the Emeril product page says \"Included are 7 premium accessories\", and the owner's manual enumerates 13 numbered parts, of which 6 are built into the appliance (main unit, door handle, glass door, LED display, control panel, control knob), leaving 7 removable accessories (drip tray, wire rack, baking pan, rotisserie spit, crisper tray, rotisserie fetch tool, plate handle). The Amazon listing title for the supplied link instead says \"Six Cooking Accessories Included\"; that conflicting document is in the flag register, not here, because a row's source list is read as the evidence for the value and that title does not support 7. The manual adds that \"Some accessories may not be included with purchase\", so count the box before relying on this."
         },
         {
           "label": "Interior light",
@@ -464,7 +464,7 @@
         {
           "id": "F50",
           "issue": "The number of included accessories differs between the two official documents: the Emeril brand page says \"Included are 7 premium accessories to maximize versatility\", while the Amazon listing title for the supplied link says \"Six Cooking Accessories Included\". Found independently on 2026-11-15 by arena/88bb2db6; the programme-level row F48 records the same conflict from arena/792c279e's pass. Both are kept.",
-          "action": "The site publishes the manufacturer's own figure (7) because that is what the brand page states, and the specification row links both documents and says what each one says. The listing's \"Six\" is not repeated as fact and is not silently dropped either. Which number is right depends on what is physically in the box, so the account holder should open the delivered product's packing list before this row is relied on. The owner's manual adds only that \"Some accessories may not be included with purchase\".",
+          "action": "The site publishes 7, which two official documents support: the Emeril product page (\"Included are 7 premium accessories\") and the owner's manual, whose Parts & Accessories section enumerates 13 numbered items of which 6 are built into the appliance, leaving 7 removable accessories. The listing's \"Six\" is not repeated as fact and is not silently dropped either - it is recorded here as the conflicting document, because a specification row's source list is read as the evidence for its value and the listing title does not support 7. Which count matches the delivered box still has to be checked physically, because the manual says \"Some accessories may not be included with purchase\", marks the wire rack \"Quantity may vary\" and marks the plate handle \"May be sold separately\".",
           "sources": [
             "S14",
             "S15",
@@ -691,5 +691,17 @@
     }
   ],
   "reverified": "2026-11-15",
-  "reverified_by": "arena/792c279e-zone1 (T20 line-by-line pass; see reports/verification-2026-11-15.md)"
+  "reverified_by": "arena/792c279e-zone1 (T20 line-by-line pass; see reports/verification-2026-11-15.md)",
+  "source_conflicts": {
+    "note": "Official documents that contradict a published specification value. Each entry names a row and the source id that contradicts it. The build fails if that source id appears in the row's source list, because a row's source list is read as the evidence for its value. The contradicting document belongs in the flag register, where it is the evidence of the conflict. Added 2026-11-15 by arena/88bb2db6.",
+    "entries": [
+      {
+        "slug": "emeril-26qt-french-door",
+        "label": "Included accessories",
+        "value": "7",
+        "conflicting_source": "S28",
+        "reason": "The Amazon listing title for the supplied link ends 'Six Cooking Accessories Included'. It contradicts the published 7. The brand page (S14) and the owner's manual (S15) both support 7 - the manual by enumerating 13 numbered parts of which 6 are built into the appliance, leaving 7 removable accessories - so the row cites those two and the listing is recorded in the flag register instead (F48, F50)."
+      }
+    ]
+  }
 }

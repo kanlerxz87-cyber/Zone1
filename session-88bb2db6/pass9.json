@@ -154,10 +154,10 @@
     {
       "claim": "Emeril 26 QT — dimensions, warranty, included accessories",
       "published_value": "16.9 D x 15.8 W x 14.8 H in; 1-year warranty; 7 included accessories",
-      "observed": "Re-read the brand page on 2026-11-15: '16.9\"D x 15.8\"W x 14.8\"H', a '1-Years Warranty' seal, and 'Included are 7 premium accessories to maximize versatility — air fry basket, rotisserie spit, bake pan, and more'. All three published values are stated outright.",
+      "observed": "Re-read the brand page on 2026-11-15: '16.9\"D x 15.8\"W x 14.8\"H', a '1-Years Warranty' seal, and 'Included are 7 premium accessories to maximize versatility — air fry basket, rotisserie spit, bake pan, and more'. All three published values are stated outright. The owner's manual was also re-read: its Parts & Accessories section enumerates 13 numbered items, of which 6 are built into the appliance (main unit, door handle, glass door, LED display, control panel, control knob), leaving 7 removable accessories (drip tray, wire rack, baking pan, rotisserie spit, crisper tray, rotisserie fetch tool, plate handle). That is a second official document reproducing the count of 7 by its own enumeration, so the value has two documents behind it. The Amazon listing title for the supplied link says 'Six Cooking Accessories Included' - that document contradicts 7 and is recorded in the flag register (F48, F50) rather than cited as a source for the value.",
       "verdict": "confirmed",
-      "source_label": "Emeril Everyday (brand) — French Door AirFryer 360 product page",
-      "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+      "source_label": "Emeril Everyday (brand) — French Door AirFryer 360 product page and FAFO-001 Owner's Manual (PDF)",
+      "source_url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"
     },
     {
       "claim": "Emeril 26 QT — the manual model number against the product-page model number",
@@ -171,7 +171,7 @@
   "new_evidence": [
     {
       "title": "The number of included accessories differs between two official documents",
-      "detail": "The Emeril brand page says 'Included are 7 premium accessories'. The Amazon listing title for the supplied link says 'Six Cooking Accessories Included'. The site published the manufacturer's own count of 7 because that is what the brand page states, but the two numbers do not agree and no earlier pass had recorded the discrepancy. The value now carries both documents and a note; the discrepancy is filed as a flag rather than resolved, because which number is right depends on what is actually in the box. The owner's manual adds only that 'Some accessories may not be included with purchase'.",
+      "detail": "The Emeril brand page says 'Included are 7 premium accessories'. The Amazon listing title for the supplied link says 'Six Cooking Accessories Included'. The owner's manual adds only that 'Some accessories may not be included with purchase', and its Parts & Accessories section enumerates 13 numbered items of which 6 are built into the appliance, leaving 7 removable accessories. The site's specification row therefore cites the two documents that support 7 and records the listing's 'Six' in the flag register, where a contradicting document belongs - a row's source list is read as the evidence for its value. The discrepancy is filed rather than resolved, because which number matches the delivered box has to be checked physically.",
       "flag": "F50 (this session) / F48 (programme-level, same conflict)",
       "source_label": "Amazon — listing title for ASIN B09B7SB46R",
       "source_url": "https://www.amazon.com/dp/B09B7SB46R"
