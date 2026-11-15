@@ -263,8 +263,41 @@ FAVICON = (
 )
 
 
+def _build_stamp() -> str:
+    """The 'built' date shown in the header.
+
+    This used to be dt.date.today(), which made `--check` fail on the day after every
+    commit: the committed HTML carried the commit date and a rebuild carried today's, so
+    CI's "prove the committed HTML is current" step returned exit 1 by the calendar alone
+    (found 2026-11-15 by arena/3ddfa50e). A reproducible build cannot embed the wall clock.
+
+    Two ways to pin it, in order:
+      1. SOURCE_DATE_EPOCH, the reproducible-builds standard, if the caller sets it;
+      2. otherwise the date of the last commit that touched data/s2/, which is what the
+         stamp actually means ("this data was published on ...").
+    Falls back to today only when the file is not in a git checkout.
+    """
+    epoch = os.environ.get("SOURCE_DATE_EPOCH")
+    if epoch and epoch.isdigit():
+        return dt.date.fromtimestamp(int(epoch)).isoformat()
+    try:
+        import subprocess
+        out = subprocess.run(
+            ["git", "log", "-1", "--format=%cs", "--", os.path.join(DATA, "products.reviewed.json")],
+            cwd=ROOT, capture_output=True, text=True, timeout=10,
+        )
+        if out.returncode == 0 and out.stdout.strip():
+            return out.stdout.strip()
+    except Exception:
+        pass
+    return dt.date.today().isoformat()
+
+
+BUILD_STAMP = _build_stamp()
+
+
 def page(title: str, rel: str, current: str, body: str, *, sub: str = "") -> str:
-    today = dt.date.today().isoformat()
+    today = BUILD_STAMP
     html = f"""<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
