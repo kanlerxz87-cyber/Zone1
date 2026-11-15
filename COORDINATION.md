@@ -55,6 +55,38 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 
 ---
 
+## Task board — arena/792c279e-zone1 (2026-11-15 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| T20 | Verified decision content: 4 new source-led articles, weekly picks hub, niche/traffic/measurement decision data, live re-verification of all published values, handover + exec summary enrichment, sitewide visual/SEO upgrade | in progress | arena/792c279e-zone1 (session 792c279e) | `data/decision.json` (new), `data/editorial.json` (new), `data/articles.json`, `data/products.json`, `data/sources.json`, `data/flags.json`, `build.py`, `assets/style.css`, `assets/app.js`, `COORDINATION.md`, `EXECUTIVE-SUMMARY.md`, regenerated root HTML |
+
+### Claim log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15T13:10Z | arena/792c279e-zone1 (session 792c279e) | Claimed T20 after reading the board. Worktree clean at `cacdb85` (same as `origin/main`); T1-T19 are marked done, no task is claimed elsewhere. Arena fixes this session to branch `arena/792c279e-zone1`, so the `session-<id>/<task>` branch in the protocol is this branch. Scope is deliberately additive and non-overlapping with the parallel-build directories (`site/`, `s2/`, `research/`, `docs/`, `dashboard/`, `annex-*`, `session-*`), which this pass does not edit. |
+
+### T20 work plan (recorded before implementation, per protocol item 7 of the brief)
+
+Live re-verification in this pass is done through a server-side fetch, since the sandbox itself has no direct
+egress to non-GitHub hosts. Every new or changed published value must be traceable to a source fetched on
+2026-11-15 in this pass. Where a value cannot be re-confirmed it is left as it is and flagged, never inferred.
+
+| Sub-task | Output |
+|---|---|
+| A. Re-read the three supplied `link.amazon` links and the three Amazon detail pages | `data/flags.json` rows + `reports/link-check-2026-11-15.md` |
+| B. Re-read the three manufacturer product pages and the two owner's-manual PDFs | `data/products.json` verification stamps |
+| C. Re-read the Associates Operating Agreement, Program Policies, Application Review, FTC pages, 16 CFR 255 | `data/sources.json` verification stamps |
+| D. Publish commission-rate candidates as *candidates* with the rate table's own source, not as confirmed per-product mappings | `data/decision.json` |
+| E. Four new question-led articles (each number already in `data/products.json`) | `data/articles.json`, `articles/` |
+| F. "This week's picks" hub + niche scorecard + traffic plan + measurement plan | `data/editorial.json`, `data/decision.json`, `build.py` |
+| G. Handover page (owner actions, exact minutes, what unblocks what) + executive summary refresh | `build.py`, `EXECUTIVE-SUMMARY.md` |
+| H. Visual + SEO pass on the root build: typography scale, checklists, comparison styling, article share/JSON-LD, sitemap/robots | `assets/style.css`, `build.py` |
+| I. Full gate run, PR -> merge -> Pages confirmation -> record here | `COORDINATION.md` |
+
+---
+
 ## Verification record
 
 **Session:** sess-105bc29e
