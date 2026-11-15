@@ -567,13 +567,13 @@ def main():
         print(f"{row['id']}: added")
     q["version"] = "1.1"
     q["compiled"] = "2026-11-15"
-    q["preamble"] = (
-        q["preamble"]
-        + " Questions in the 'known and sourced' state carry their answer on the row: an "
-          "official source already settles them, and the answer is what the source says. "
-          "Every other row states plainly that no answer is published, and names the step "
-          "that would produce one."
-    )
+    # Idempotent: append the note only if it is not already there.
+    _ADD = ("Questions in the 'known and sourced' state carry their answer on the row: an "
+            "official source already settles them, and the answer is what the source says. "
+            "Every other row states plainly that no answer is published, and names the step "
+            "that would produce one.")
+    if _ADD not in q["preamble"]:
+        q["preamble"] = q["preamble"] + " " + _ADD
     save(Q, q)
 
 

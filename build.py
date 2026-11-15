@@ -1789,6 +1789,11 @@ PROGRAMME_FLAGS = [
      "data/flagged.json, data/commission-rates.csv, data/products.csv",
      "Recorded 2026-11-15 by session 42ca97ad. A reference scan of every loader in the repository shows that scripts/build_site.py and scripts/verify_site.py read data/verified/, not data/. The root-level data/flagged.json is therefore an orphan: it holds a 13-row register whose live counterpart is data/verified/flagged.json (17 rows), and the two disagree across 85 lines \u2014 including the browse-node observation this pass has just updated, which would otherwise leave two registers saying different things about the same fact. data/commission-rates.csv and data/products.csv are read by nothing in the repository; the first is a CSV transcription of the Standard Commission Income Statement, the second the 2026-11-13 link-check ledger that records the bare-token 404 and the fallback redirect, and both are evidence worth keeping if they are labelled as evidence. Nothing published depends on any of the three, so this is a maintenance risk rather than a correctness bug, but a reader who opens data/flagged.json sees a register that no longer matches the site. This row is narrower than F47, which covers the same class of problem for data/flags.json; the two are kept separate because the files and the contradictions are different. Decision needed: delete the three orphans, or keep them explicitly as dated evidence with a header that says so.",
      ["S1"]),
+
+    ("F58", "A register preamble repeated a sentence on the published page. Found on the deployed site, fixed, and guarded.",
+     "questions.html \u2014 the preamble above the register",
+     "Found 2026-11-15 by session 42ca97ad, after PR #78 merged: the sentence \u2018Questions in the \u2018known and sourced\u2019 state carry their answer on the row \u2026\u2019 appeared twice in the preamble above the questions register. The cause was the one-shot editor that adds the register rows (session-42ca97ad/apply_pass9_edits.py): it appended the sentence to the preamble unconditionally, so running it a second time appended it again. The build did not catch it, because the duplicate-ID guard sees IDs, the published-value guard sees numbers, and a repeated sentence is neither. Fixed by making the editor idempotent, by removing the duplicate from data/questions.json, and by adding check_register_preambles(), which fails the build if any register preamble repeats a sentence. The guard was proven to fire on an injected duplicate. The same edit also corrected the preamble's own claim that the page \u2018separates three things\u2019 - it has always described four states, which is what the legend on the page lists.",
+     ["S1"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -4479,6 +4484,32 @@ def check_flag_ids_unique():
     return []
 
 
+def check_register_preambles():
+    """Build guard: a register preamble must not repeat itself.
+
+    A sentence appended to a register's preamble by a one-shot editor will be
+    appended a second time if the editor is run twice. The result reads as a
+    copy-paste slip on a published page, and nothing else catches it: the
+    duplicate-ID guard sees IDs, the value guard sees numbers, and a repeated
+    sentence is neither. This is the guard behind flag F58.
+    """
+    import collections as _c
+    problems = []
+    for name, raw in (("questions.json", QUESTIONS.get("preamble", "")),
+                      ("suggestions.json", SUGGESTIONS.get("how_to_read", "")),
+                      ("suggestions.json (scoring_note)", SUGGESTIONS.get("scoring_note", ""))):
+        if isinstance(raw, list):
+            text = " ".join(str(x) for x in raw)
+        else:
+            text = str(raw or "")
+        sentences = [s.strip() for s in re.split(r"(?<=\.)\s+", text) if len(s.strip()) > 40]
+        for sentence, n in _c.Counter(sentences).items():
+            if n > 1:
+                problems.append(
+                    f"{name}: the sentence {sentence[:70]!r} appears {n} times in the preamble")
+    return problems
+
+
 def check_question_block_refs():
     """Build guard: a suggestion must not point at a question that does not exist, and a
     question must not point at a suggestion that does not exist. A dangling cross-reference
@@ -4802,6 +4833,9 @@ def main():
     ref_problems = check_question_block_refs()
     if ref_problems:
         raise SystemExit("BUILD FAILED — decision-layer cross-reference:\n  " + "\n  ".join(ref_problems))
+    preamble_problems = check_register_preambles()
+    if preamble_problems:
+        raise SystemExit("BUILD FAILED — register preamble repeats itself:\n  " + "\n  ".join(preamble_problems))
     price_problems = check_no_price_tracking(pages)
     if price_problems:
         raise SystemExit("BUILD FAILED — Prohibited feature (Program Policies 6(y)):\n  "
