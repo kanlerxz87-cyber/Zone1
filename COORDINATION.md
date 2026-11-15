@@ -2933,3 +2933,12 @@ Every other source cited on the two pages was already registered in `data/source
 * Two statements on the new pages are marked as "not yet read": per-product commission-rate mapping (Q-04) and payment/tax terms (Q-11).
 * Search-demand data for article topics has no official source; SG-06 and Q-12 say so.
 
+
+### X-633b115f — PR, merge and Pages record (2026-11-15 UTC)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/58 — "Suggestions and Questions/information-gap pages (X-633b115f)", `arena/633b115f-zone1` → `main`.
+* **Checks on the PR head:** `verify` ✓ · `Rebuild site/ from data/verified and assert every guarantee` ✓.
+* **Merge:** `gh pr merge 58 --merge` at 2026-11-15T11:44:43Z, without waiting for approval, per the brief. **Merge commit on `main`: `a5ec6549e58b73b3cabae26dd9a1d857f57361c6`.**
+* **Post-merge on `a5ec654`:** `CI` ✓ · `Verify verification annex (site/)` ✓ · `Build, verify and deploy to GitHub Pages` ✓ · `pages build and deployment` ✓. `gh api …/pages/builds/latest` → `status: built`, `error: null`.
+* **Live (fetched from the deployed URLs):** https://kanlerxz87-cyber.github.io/Zone1/suggestions.html and https://kanlerxz87-cyber.github.io/Zone1/questions.html both serve the new content, including the disclosure bar.
+* **Flagged for review (non-blocking):** the open items listed in the X-633b115f record above, now published on the Suggestions and Questions pages.
