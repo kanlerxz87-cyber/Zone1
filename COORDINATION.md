@@ -3214,3 +3214,15 @@ record from F22: run the marker scan before every `git add`; this pass now does.
 * **Warnings:** GitHub Actions emitted non-blocking Node.js 20 deprecation and runner-image migration notices; workflow/deployment outcomes are successful. Browser-based visual review was unavailable in this environment; the HTML parser and build audits above passed.
 
 **T19 result: done — implementation, checks, PR, merge, and Pages deployment confirmed.**
+
+## Task board — arena/9ab8b773-zone1 (2026-11-15 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|----------------|------------|
+| T20 | Independent final audit of the canonical site, verified data, build gates, internal links and current GitHub Pages deployment; fix only verified defects and record sources, findings, PR and deployment result | **in progress** | arena/9ab8b773-zone1 (session 9ab8b773) | whole tree (final integration; all prior T1–T19 tasks are recorded done); `COORDINATION.md` |
+
+### Claim log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15T13:10Z | arena/9ab8b773-zone1 (session 9ab8b773) | Claimed T20 after reading the board. Starting point is clean `cacdb85` (the current `main`/`origin/main` tip); T1–T19 and prior PR/Pages records are marked done. Arena fixes this session's branch as `arena/9ab8b773-zone1`, so work will remain on that branch rather than creating the separate session branch described by the board protocol. Scope is final integration/audit; no work is being started on another session's active task. |
