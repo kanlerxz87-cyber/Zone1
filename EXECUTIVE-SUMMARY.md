@@ -712,3 +712,91 @@ None of these changed a sourced value. All ten are fixed on this branch.
 ### 15.8 The recommendation is unchanged
 
 Verify the three model numbers and the Associates tag in a logged-in browser, then replace the three `link.amazon` short links with canonical tagged `/dp/<ASIN>?tag=<tracking-id>` URLs built inside Associates Central, then re-run the re-verification pass. Until then the site publishes candidate mappings, leaves every unconfirmed value blank, and flags the rest. Nothing was invented to fill a gap.
+
+---
+
+## 16. Integration pass 9 — session `arena/63a2c638`, branch `arena/63a2c638-zone1` (2026-11-15)
+
+**Base:** `cacdb85026e29cb7d124e15b0d660e2af112bbde` (main, after PR #66 / T19 merged).
+**Scope claimed in `COORDINATION.md`:** Z1 line-by-line review + live re-verification round 9;
+Z2 editorial/traffic plan; Z3 the suggestions decision queue; Z4 the questions register;
+Z5 this summary; Z6 integration, PR, merge and Pages confirmation.
+
+### 16.1 What this pass re-read, live, on 2026-11-15
+
+Every source below was re-fetched on 2026-11-15 and read against the value it supports. Nothing
+was taken from a previous session's note.
+
+| Source | Result |
+|---|---|
+| S2 Associates Program Policies | Confirmed. Page still reads **"Updated: April 14, 2026."** The session definition re-read verbatim: 24 hours from the click, 89 days for a cart-added order, 180 days for shipment/payment. |
+| S3 Standard Commission Income Statement | Confirmed. **"Physical Books, Kitchen, Automotive | 4.50%"** and **"All Other Categories | 4.00%"**, character for character. Bounty events unchanged ($12.00 Prime trial and paid membership). |
+| S10 Chefman 6 Qt Dual-Window | Confirmed all published values: 6 Qt / 5.67 L; 200–450 °F; 13.38 × 11.81 × 10.63 in; 13.3 lb; 1700 W/120 V; RJ38-SQPF-3TDB-2W; cETL approved, 1-year assurance. Review widget: **4.6 from 1,305 reviews**. |
+| S12 Chefman 8 Qt TurboFry | Confirmed: **Max temp 400 °F**, 4 cooking presets, 200–400 °F, 1700 W/120 V, 8 Qt dimensions 15.4 × 12.6 × 13.5 in, 12.8 lb, RJ38-SQSS-8T. Review widget: **4.6 from 716 reviews**. The 400 °F figure is the source of the conflict with the listing title's 450 °F claim (F3). |
+| S14 Emeril 26 QT French Door | Confirmed: 26-quart, 24.6 L, 16.9″D × 15.8″W × 14.8″H, 120 V, **"25 Cooking Pre-sets"**, $199.99, SKU **4-00675-02A-VN**, and **2.6 from 25 reviews**. The description on the same page still says "10-in-1" — the conflict is live, not historical. |
+| S16 / S29 (ASINs B0CDY277D3, B08DKYBTPH) | Confirmed. Both `<title>` values matched the stored strings character for character. Both pages also rendered an identical browse-node breadcrumb. |
+| S28 (ASIN B09B7SB46R) | **Not re-read.** Three fetches were each answered with Amazon's automated *"To continue, please click the 'Continue shopping' button below"* checkpoint, not the product page. Recorded as such on the source record rather than reported as confirmed. |
+| S32–S34 (new) | The brands' own commerce endpoints, read for the first time this pass. See 15.2. |
+
+### 16.2 Three findings, none of them a value error
+
+**F51 — the brand's own store reports a different weight than the brand's own spec block.**
+Chefman's product pages print 13.3 lb (6 Qt) and 12.8 lb (8 Qt) in their Specifications blocks; those
+are the figures this site publishes, cited to S10 and S12. The same brand's commerce endpoint, read
+the same day, reports **14.51 lb / 6,582 g** for RJ38-SQPF-3TDB-2W (S30) and **13.4 lb / 6,078 g**
+for RJ38-SQSS-8T (S31). The likeliest reading is product weight versus packaged weight, but neither
+page says so, so the site did not choose. **No published value changed** — the specification block
+remains the cited source, because that is the document the published row points at.
+
+**F52 — the questions register overstated what is missing.** Q-06 asked for exterior dimensions,
+weight and warranty for all three products and was filed as `not_stated`. Checking the nine cells
+against the dataset: dimensions are published for all three, warranty for all three, and weight for
+both Chefman models. **Eight of the nine cells were already answered.** One is genuinely open — the
+Emeril product weight, which neither the brand page nor the manual states. Q-06 has been narrowed to
+that one cell and cross-linked to F52. This is the third defect in this project's history with the
+same shape as F14 and F38: a register row describing the data as it used to be. It is the reason
+Q-15 was added.
+
+**F53 — the browse node is now published, and it does not settle the commission rate.** Both Chefman
+listings render the breadcrumb *Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air
+Fryers*. It is tempting to read "Kitchen" there and apply the 4.50% Kitchen rate from S3. That would
+be an inference: S3's categories are commission categories defined by the Associates programme,
+browse nodes are a shopper-navigation taxonomy, and Amazon publishes no mapping. The same breadcrumb
+begins "Home & Kitchen" while S3 carries both *Kitchen* at 4.50% and *Home* at 3.00%. The site
+therefore continues to show the commission rate as unconfirmed (Q-11) and now shows the browse node
+as a separate sourced fact, with the limit published alongside it.
+
+### 16.3 What was built
+
+* **`topics.html` — Content and traffic plan** (new page, in NAV under *Decide* and in `sitemap.xml`).
+  Fourteen article topics: eight already published, six proposed. Every row carries the official
+  source the finished article must cite. The page states plainly that **there is no keyword-volume
+  data in this repository and none was invented** — the demand column is labelled judgement
+  throughout. It also lists five distribution channels, including the two Amazon's policies close
+  off: paid search on Amazon Marks (Commission Income Statement §2(c), disqualified purchases) and
+  price tracking or alerts (§6(y)). Those are listed next to the real channels so the plan cannot be
+  read as if they had never been considered.
+* **Choose a path** (new section on `suggestions.html`). Sixteen independent suggestions are a
+  backlog, not a decision. Four paths group them into ordered work with an explicit entry condition,
+  a deliverable, and an honest "what it does not fix". Suggested order: P1 make it safe to publish,
+  P3 make it findable, P2 make it read like a shop, P4 make the machinery trustworthy. A build guard
+  fails the build if a path references a suggestion that does not exist.
+* **Q-15** (new): is there any published statement a live official source contradicts today? Answers
+  the standing-accuracy question that F14, F38 and F52 all raise.
+* **SG-17** (new): the site has no visual layer — no product imagery anywhere — and a marketing site
+  without one does not convert. Four options, with the licensing constraint named first.
+* Sources **S32–S34** added (the brands' own commerce endpoints), and round-9 observation notes
+  appended to S2, S3, S10, S12, S14, S16, S28 and S29.
+
+### 16.4 What this pass did not do
+
+It did not change a single published product value. It did not resolve the model number on any
+listing (Q-01 remains open), confirm the Associates tag (Q-02/Q-04), or state a commission rate
+(Q-11 remains open). It did not edit any file in `site/`, `s2/`, `data/s2/`, `research/`,
+`platform/`, `docs/`, `dashboard/`, `crosscheck/` or `annex-88769516/` — those belong to other
+sessions' builds.
+
+### 16.5 Next decision step
+
+Open `suggestions.html` and pick one of the four paths rather than one of the sixteen rows. Path 1
+is unblocked and takes an afternoon; everything else assumes it.

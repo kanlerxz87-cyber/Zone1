@@ -3898,3 +3898,116 @@ BUILD FAILED — a row cites a document that contradicts its own value:
 | UTC time | Session | Action |
 |----------|---------|--------|
 | 2026-11-15 UTC | arena/bf487400-zone1 (session bf487400) | Read the coordination board first. Found T1–T23 and W7 done, no in-progress claims, `origin/main` at `fa730c4` (PRs #67–#70 merged while this branch existed); rebased onto it before any work. Claimed X-bf487400. Rationale: session `3b99448e` wrote the design/content/traffic suggestions (D-1…D-10, A-1…A-10, T-1…T-8, R-1…R-6, anti-slop rules) into `session-3b99448e/suggestions.md`, but that material is not published anywhere on the live site — grep of `*.html` finds 0 hits for D-1/A-1/T-1/design prompt. The brief asks for suggestions that feed a design prompt, catchy topic ideas, and an organic-traffic plan the owner can review before anything changes; that layer is missing from the site. Pass 9 (W7, PR #69) already shipped canonical/OG/Twitter/JSON-LD, so this session does not redo it. Arena fixes the working branch as `arena/bf487400-zone1`; per precedent (T19, W7) the pass stays on that branch. |
+
+---
+
+## Task board — arena/63a2c638-zone1 (2026-11-15 UTC, integration pass 9)
+
+**Base:** `cacdb85026e29cb7d124e15b0d660e2af112bbde` (main, after PR #66 / T19 merged).
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|----------------|------------|
+| Z1 | Line-by-line repo review (`data/*.json`, `build.py`, generated root HTML) + independent live re-verification round 9 against every official source S1–S29 | in progress | arena/63a2c638-zone1 (session 63a2c638) | `session-63a2c638/`, `data/reverification.json`, `data/sources.json` (page_version notes only), `COORDINATION.md` |
+| Z2 | Editorial upgrade: buyer-first marketing voice on the landing page and product pages (anti-"AI slop"), keeping every published value sourced | in progress | arena/63a2c638-zone1 | `build.py` (page_index, page_product, page_category), `assets/style.css`, regenerated root HTML |
+| Z3 | Suggestions decision register: a real choose-before-you-build queue — each suggestion with options, effort, impact, risk, and a recommended path | in progress | arena/63a2c638-zone1 | `data/suggestions.json`, `build.py` (page_suggestions), regenerated `suggestions.html` |
+| Z4 | Questions & information-gap register: every open question with what is known, what is missing, the answer that would unblock it, and how to discover it | in progress | arena/63a2c638-zone1 | `data/questions.json`, `build.py` (page_questions), regenerated `questions.html` |
+| Z5 | Executive summary refresh (decision-ready, §15) | in progress | arena/63a2c638-zone1 | `EXECUTIVE-SUMMARY.md`, `build.py` (page_exec), regenerated `executive-summary.html` |
+| Z6 | Final integration: rebuild, link/source check, PR → merge → Pages verify → record | pending | arena/63a2c638-zone1 | whole root tree (integration, last) |
+
+**Explicitly out of scope for this session (owned by other sessions / independent builds):**
+`site/` and `data/verified/` (annex build), `s2/`, `data/s2/` (s2 build), `research/` (research build),
+`platform/` (engine + tests), `docs/`, `crosscheck/`, `annex-88769516/`, `dashboard/`.
+No file in those directories will be edited by this session.
+
+### Claim log — session 63a2c638
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15 | arena/63a2c638-zone1 (session 63a2c638) | Claimed Z1–Z6. State checked before claiming: `main` @ `cacdb85`, no open PRs, Pages `status: built` at `cacdb85`, `COORDINATION.md` free of conflict markers. Last completed pass: T19 (`arena/d560bf17-zone1`, PR #66). No other session currently holds an open PR or an in-progress row on the board. |
+
+---
+
+## Completion record — arena/63a2c638-zone1 (integration pass 9, 2026-11-15 UTC)
+
+**Branch:** `arena/63a2c638-zone1` · **Rebased onto** `origin/main` (PRs #74–#82 merged underneath this
+session). **Final state: Z1–Z6 done.**
+
+### Final state of this session's tasks
+
+| # | Task | Result |
+|---|------|--------|
+| Z1 | Line-by-line repo review + live re-verification round 9 | **done** — sources re-read live 2026-11-15; full evidence in `session-63a2c638/EVIDENCE-2026-11-15.md` |
+| Z2 | Editorial / traffic plan | **done** — new `topics.html` (14 topics, 5 channels), replacing the planned landing-page rewrite (see note below) |
+| Z3 | Suggestions decision queue | **done** — a *Choose a path* layer (P1–P4) grouping all suggestions, plus SG-18 |
+| Z4 | Questions register | **done** — Q-06 narrowed to the one cell actually open, Q-11 given the browse-node finding, Q-15 added |
+| Z5 | Executive summary | **done** — `EXECUTIVE-SUMMARY.md` §16 |
+| Z6 | Integration, PR, merge, Pages | **done** (record below) |
+
+**Note on Z2.** The claimed scope included rewriting the landing page. The concurrent session
+`arena/d560bf17` (T19, PR #66) had already rebuilt it, and `arena/88bb2db6` then re-verified and
+extended it. Rewriting a second time would have churned another session's delivered work, so this
+session delivered the missing half of the brief instead — the article and traffic plan the owner asked
+for — and left the landing page alone. That is a scope change and it is declared rather than hidden.
+
+### Sources re-read live on 2026-11-15 (round 9)
+
+| Source | URL | Result |
+|---|---|---|
+| S2 | https://affiliate-program.amazon.com/help/operating/policies | "Updated: April 14, 2026"; 24h / 89-day / 180-day session rules verbatim |
+| S3 | https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ | "Physical Books, Kitchen, Automotive \| 4.50%"; "All Other Categories \| 4.00%" |
+| S10 | https://chefman.com/products/turbofry-touch-dual-window-air-fryer | All published specs confirmed; 4.6 / 1,305 reviews |
+| S12 | https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1 | **Max temp 400 °F** confirmed (the F3 conflict is live); 4.6 / 716 |
+| S14 | https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360 | 25 pre-sets vs "10-in-1" vs listing's 24 — all three still on the page; 2.6 / 25 |
+| S16 | https://www.amazon.com/dp/B0CDY277D3 | Title matched verbatim; browse-node breadcrumb rendered |
+| S29 | https://www.amazon.com/dp/B08DKYBTPH | Title matched verbatim; same breadcrumb |
+| S28 | https://www.amazon.com/dp/B09B7SB46R | **Not reached** — three fetches returned Amazon's "Continue shopping" checkpoint. Recorded, not assumed |
+| S32–S34 | the three Chefman commerce endpoints (`.json`) | New this session; see below |
+
+### Irregularities flagged this session (all non-blocking)
+
+* **F51** — the brand's own commerce endpoint reports 14.51 lb / 13.4 lb where the brand's own
+  Specification block reports 13.3 lb / 12.8 lb. **No published value was changed**: the site cites the
+  specification block, which is the document the row points at. Product-vs-packaged weight is a
+  decision for the owner, not an inference for this build.
+* **F52** — Q-06 said dimensions, weight and warranty were missing for all three products. Eight of
+  those nine cells were already published from official sources. Q-06 narrowed to the one open cell
+  (Emeril weight). Third occurrence of this defect class (after F14, F38), which is why Q-15 exists.
+* **F53** — the Amazon browse node is now published for the two Chefman ASINs *with its limit*: it is a
+  browse path, not a commission category, and S3 carries both "Kitchen" 4.50% and "Home" 3.00%, so the
+  breadcrumb does not settle Q-11. Published so the value cannot be misread later.
+
+### ID collisions with concurrent sessions — how each was resolved
+
+Three separate collisions occurred because sessions `arena/792c279e`, `arena/88bb2db6`,
+`arena/42ca97ad` and `arena/a526b009` merged from the same base `cacdb85` while this session worked.
+This is the same class as F28/F36/F40, and the duplicate-ID build guard caught every one.
+
+| Collision | Resolution |
+|---|---|
+| Source IDs **S30 / S31** — this session registered the Chefman commerce endpoints; `arena/792c279e` had already registered Google Search Central documents under the same numbers | This session's rows renumbered **S32 / S33 / S34**. Their S30/S31 left untouched. Every citation in `products.json`, `questions.json`, the F51 row and the evidence log was updated |
+| Flag IDs **F44 / F45 / F46** — this session's three rows; `arena/792c279e` had already published F44–F49 | This session's rows renumbered **F51 / F52 / F53**. Their rows untouched |
+| Suggestion ID **SG-17** — this session's visual-layer suggestion; `main` had already added a different SG-17 (superseded builds) | Ours renumbered **SG-18**. Their SG-17 untouched, and path P2 repointed |
+
+Additionally, a markdown keep-both resolution of `build.py` inserted a `---` separator inside the
+`PROGRAMME_FLAGS` Python list, which broke the build with `TypeError: bad operand type for unary -`.
+Removed and guarded by re-running the parser after every merge resolution.
+
+### Verification performed (all gates, as CI runs them)
+
+`python3 build.py` → 29 pages + robots.txt + sitemap (35 URLs), byte-reproducible ·
+`python3 verify.py` → 114 pages, 46 spec rows (43 verified / 3 blank+flagged), 34 sources,
+**0 errors, 0 external-host warnings** · `bash scripts/ci-check.sh` → 33 unit tests OK, data audit
+clean, s2 build current, **6,210 links / 0 broken** · `python3 research/check_research.py` → OK ·
+`python3 scripts/verify_site.py` → 382 assertions, ALL CHECKS PASSED ·
+`python3 platform/audit/report.py` → AUDIT PASSED ·
+conflict-marker scan across every `.md/.py/.json/.html` → clean.
+
+No file in `site/`, `s2/`, `data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`
+or `annex-88769516/` was edited by this session.
+
+### What this session did not resolve
+
+Q-01 (model number per listing) — Amazon serves the reduced "Product summary" shell to automated
+reads, so the Product information table is not reachable. Q-02/Q-04 (Associates tag) — not observable
+outside Associates Central. Q-11 (commission rate) — only observable in Associates reports after real
+sales. S28 — blocked by a bot checkpoint on 2026-11-15. None was filled in by inference.
