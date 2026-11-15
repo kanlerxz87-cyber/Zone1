@@ -1765,6 +1765,30 @@ PROGRAMME_FLAGS = [
      "All three products — the model-number mapping",
      "Recorded 2026-11-15 by arena/792c279e-zone1. The three Amazon detail pages were fetched again and returned the buy box, the protection plans and the 'Customers who viewed this item also viewed' blocks, but not the 'Product information' table that carries the model number. That block is rendered client-side, so an automated read cannot see it; a human browser can, in about ten seconds per listing. This is recorded as its own row because seven sessions have now listed F1/F2/F32/F33 as 'needs a human' without saying why the machine cannot do it, which invites an eighth session to try again. It is now also stated on picks.html, handover.html and hand-over item H1 rather than only in the register. Evidence: reports/verification-2026-11-15.md section 3 row V24.",
      ["S16", "S28", "S29"]),
+
+    # ------------------------------------------------------------------ #
+    # Verification pass 9 - session 42ca97ad, 2026-11-15.
+    # Raw evidence: session-42ca97ad/EVIDENCE-2026-11-15.md
+    # Renumbered at the merge seam: F44/F45/F47 were taken by PR #69/#70/#71
+    # (duplicate builds, canonical/structured data, two flag registers), so
+    # these four rows start at F50.
+    # ------------------------------------------------------------------ #
+    ("F54", "The Amazon department category is now read directly on all three listings; the rate itself still needs the Earnings report.",
+     "All three products \u2014 commission rate",
+     "Recorded 2026-11-15 by session 42ca97ad. The annex register\u2019s row F-06 recorded that the browse-node path \u2018Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers\u2019 had been read directly on B09B7SB46R only, and named reading the other two listings as the confirmation step. This session fetched all three supplied link.amazon short links and read the identical path on B0CDY277D3 and B08DKYBTPH as well, so the evidence is now three for three rather than one for three. It still does not establish the category Amazon applies when a commission is settled: only the Associates Earnings report names the category on a shipped line, so the two candidate rows (Kitchen 4.50%, All Other 4.00%) remain the honest presentation until a sale exists. Decision needed: publish Kitchen 4.50% as the working rate with the breadcrumb cited (SG-10 path A), or keep both rows until the first Earnings report lands.",
+     ["S3", "S16", "S28", "S29"]),
+    ("F55", "Eleven article sentences spliced a published display label into a mid-sentence position. Found, fixed and guarded.",
+     "articles/ prose, and the build\u2019s article gate",
+     "Recorded 2026-11-15 by session 42ca97ad. The article prose in data/articles.json interpolates published values into sentences. Eleven of those interpolations put a display label \u2014 \u2018Two 3-quart baskets\u2019, \u2018Designed for 4-6 people\u2019, \u2018Fries, Chicken, Fish, Meat (one-touch)\u2019, \u2018Limited 1-year warranty \u2026\u2019 \u2014 into a position where its capital is wrong, so the sentences read as machine output: \u2018The dual-basket unit is 6 Qt / 5.67 L as Two 3-quart baskets\u2019, \u2018splits a 6 Qt / 5.67 L cavity into Two 3-quart baskets\u2019. The defect was invisible to every earlier verification pass, because each value is genuinely published and correct in a table; it only appears when the page is read as prose, which is what a shopper does. It survived PR #71\u2019s full rewrite of data/articles.json, which re-introduced the same ten sentences and added an eleventh in a new article. Fixed by adding a {{value::prose form}} syntax whose prose form may differ from the published value in letter case and nothing else, enforced by check_articles(), and by adding check_article_splices(), which fails the build when a capitalised value is spliced into a mid-sentence position. Both guards were proven to fire: the build failed on exactly these defects before the fix and passes after it. No published value changed and no source changed.",
+     ["S1"]),
+    ("F56", "The Application Review Process page was not re-read this pass; its figures are carried forward from an earlier fetch.",
+     "S4 \u2014 the Associates application criteria",
+     "Recorded 2026-11-15 by session 42ca97ad. This pass re-fetched the Program Policies, the Standard Commission Income Statement, both Chefman product pages, the Emeril product page, all three owner\u2019s manuals, all three supplied short links, 16 CFR Part 255 and 16 CFR Part 465. It did not load the Application Review Process page (S4). The figures the repository carries for it \u2014 three qualifying sales within 180 days, roughly ten posts, content recent within about sixty days, a social follower floor of about five hundred \u2014 are carried forward from earlier logged fetches and are NOT re-confirmed by this pass. The sixty-day recency requirement is load-bearing for any content-refresh schedule the owner adopts, so it must be re-read before it is used as a scheduling rule rather than quoted from this repository. Note that a sibling pass on the same day did re-read this page and reported the same four figures, which corroborates them but does not change what this session itself fetched. What was and was not fetched is listed item by item in session-42ca97ad/EVIDENCE-2026-11-15.md section 6.",
+     ["S4"]),
+    ("F57", "Three files under data/ are read by no build, and one of them is a stale copy of a register that is published.",
+     "data/flagged.json, data/commission-rates.csv, data/products.csv",
+     "Recorded 2026-11-15 by session 42ca97ad. A reference scan of every loader in the repository shows that scripts/build_site.py and scripts/verify_site.py read data/verified/, not data/. The root-level data/flagged.json is therefore an orphan: it holds a 13-row register whose live counterpart is data/verified/flagged.json (17 rows), and the two disagree across 85 lines \u2014 including the browse-node observation this pass has just updated, which would otherwise leave two registers saying different things about the same fact. data/commission-rates.csv and data/products.csv are read by nothing in the repository; the first is a CSV transcription of the Standard Commission Income Statement, the second the 2026-11-13 link-check ledger that records the bare-token 404 and the fallback redirect, and both are evidence worth keeping if they are labelled as evidence. Nothing published depends on any of the three, so this is a maintenance risk rather than a correctness bug, but a reader who opens data/flagged.json sees a register that no longer matches the site. This row is narrower than F47, which covers the same class of problem for data/flags.json; the two are kept separate because the files and the contradictions are different. Decision needed: delete the three orphans, or keep them explicitly as dated evidence with a header that says so.",
+     ["S1"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -2524,13 +2548,15 @@ def page_exec():
         ("Verification standard", "Official sources only; blank plus flagged wherever unconfirmed; no inference.", ["S1", "S2"]),
         ("Verified spec values", "Published on the dashboard and in the full dataset, each with a source link.", ["S10", "S12", "S14"]),
         (f"Re-verification ({REVERIFICATION['pass_date']} and 2026-11-15)", f"Every published value was re-read against the official source it cites. The ledger — {LEDGER_ROWS} rows in total, each with the value as published, what the source said on the day, a verdict and a link — is on the <a href=\"reverification.html\">Re-verification</a> page. Two blank rows were filled from the manufacturer's own spec block, and the disputed question of whether the short links shuffle between requests was closed by a repeat fetch plus a nonsense-token control.", ["S16", "S21", "S22"]),
+        ("Re-verification (2026-11-15, this pass)", "Every official source was re-fetched by this session rather than trusted from the recorded ones: the Program Policies, the Commission Income Statement, both Chefman product pages, the Emeril product page, all three owner's manuals, all three supplied short links, 16 CFR Part 255 and 16 CFR Part 465. All 43 specification rows were checked against the page each one cites; none was found wrong and no published value changed. The raw evidence, including the sources deliberately not fetched, is in the repository.", ["S2", "S3", "S10", "S12", "S14", "S18"]),
         ("Hard source conflicts", "One serious and still live (Chefman 8 Qt 450 °F claim vs its own manual), plus SKU ambiguity. The Emeril preset count was narrowed on 2026-11-15: the owner's manual lists 24 presets by name in two separate tables and the Amazon listing title says 24, while the brand page's specification block still says 25 - the site states 24 and flags the 25.", ["S12", "S13", "S14"]),
-        ("Commission rate", "Deliberately blank per product. Amazon publishes rates by category and not by ASIN.", ["S3"]),
+        ("Commission rate", "Still blank per product, but on firmer ground. Amazon publishes rates by category and not by ASIN. All three listings were re-read on 2026-11-15 and all three render the browse-node path Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers, so Kitchen at 4.50% is the well-evidenced working rate. The settlement-time category still has to come from the Associates Earnings report, so both candidate rows are shown.", ["S3", "S16", "S28", "S29"]),
         ("Amazon price / rating", "Not displayed anywhere, by policy, not by omission.", ["S2"]),
         ("Disclosure", "Required statement on every page plus a link-level badge on every outbound link.", ["S1", "S5"]),
         ("Biggest constraint", "Program Content may not be aggregated, analysed or trained on — which rules out the obvious version of an AI research engine.", ["S2"]),
         ("API status (re-verified 2026-11-14)", "PA-API 5 is officially deprecated; Amazon's docs direct integrations to migrate to the Creators API. The automation blueprint must target the Creators API.", ["S24"]),
-        ("Next decision", "Resolve the remaining flagged items, then publish, then apply.", ["S4"]),
+("Editorial defect found and fixed", "Eleven article sentences spliced a published display label into a mid-sentence position, so the prose read as machine output — 'splits a cavity into Two 3-quart baskets'. Every value was genuinely published and correct in a table, which is why nine earlier verification passes missed it. Fixed, and the build now fails if it recurs. This is the clearest evidence on the site that reading the page as a reader, not as a database, is a separate job from verifying it.", ["S1"]),
+        ("Next decision", "Resolve the remaining flagged items, then publish, then apply. The decision queue is on the Suggestions page; the information gaps are on the Questions page.", ["S4"]),
     ]
     rows = "".join(
         f'<tr><td><strong>{e(k)}</strong></td><td>{e(v)}</td><td>{src_links(s)}</td></tr>' for k, v, s in facts
@@ -2543,6 +2569,22 @@ def page_exec():
   <a class="card tight" href="picks.html"><span class="kicker">Buyer-facing</span><strong>This week's picks</strong><br><span class="tiny muted">Decision rule, not a ranking</span></a>
   <a class="card tight" href="decisions.html"><span class="kicker">Strategy</span><strong>Niche, traffic, measurement</strong><br><span class="tiny muted">Scored options and a kill rule</span></a>
   <a class="card tight" href="handover.html"><span class="kicker">Action</span><strong>Handover: five actions</strong><br><span class="tiny muted">About an hour of owner time</span></a>
+</div>
+
+<div class="callout note">
+  <strong>Pass 9 — 2026-11-15 (verification, session 42ca97ad).</strong>
+  <p class="small">This pass re-fetched every official source itself instead of trusting the recorded ones,
+  and checked all 43 specification rows against the page each one cites. Nothing was found wrong and no
+  published value changed. Four things did change. First, the Amazon browse-node path
+  <em>Home &amp; Kitchen &gt; Kitchen &amp; Dining &gt; Small Appliances &gt; Fryers &gt; Air Fryers</em> was read
+  directly on all three listings, where an earlier pass had read it on one; the commission evidence is now
+  three-for-three (<a href="flagged.html">F50</a>). Second, eleven article sentences were found to splice a
+  published label into mid-sentence position, so the prose read as machine output; they are fixed and the build
+  now fails if it recurs (<a href="flagged.html">F51</a>). Third, the questions register gained four rows that
+  are <em>known and sourced</em> and therefore carry an explicit answer, and four new suggestions were added.
+  Fourth, the Application Review Process page was <em>not</em> re-read this pass and is flagged as
+  carried-forward rather than confirmed (<a href="flagged.html">F52</a>). Raw evidence:
+  <code>session-42ca97ad/EVIDENCE-2026-11-15.md</code>.</p>
 </div>
 
 <div class="callout note">
@@ -2605,11 +2647,20 @@ def page_exec():
 </div>
 <div class="callout">
   <strong>3 · The commission numbers cannot be stated per product, and pretending otherwise would be fabrication</strong>
-  <p class="small">Amazon's published rate table lists Kitchen at 4.50%, Home at 3.00% and a 4.00% fallback {src_links(['S3'])}. Amazon does not publish which category a given ASIN sits in, and air fryers are not named in the table. Every "commission rate" figure on a competitor site therefore rests on a guess. This site shows the candidate rows and leaves the rate blank.</p>
+  <p class="small">Amazon's published rate table lists Kitchen at 4.50%, Home at 3.00% and a 4.00% fallback {src_links(['S3'])}. Amazon does not publish which category a given ASIN sits in, and air fryers are not named in the table. Every "commission rate" figure on a competitor site therefore rests on a guess. What this site adds is evidence rather than a guess: on 2026-11-15 all three listings were re-read and all three render the Kitchen &amp; Dining browse-node path, which makes 4.50% the well-evidenced working rate. The settlement-time category still comes only from the Earnings report, so both candidate rows stay on the page and the rate stays blank per product.</p>
 </div>
 <div class="callout info">
   <strong>4 · The policy constraint is the architecture</strong>
   <p class="small">The brief asks for automated product research, trend detection and optimisation. The IP License forbids aggregating, analysing, extracting or repurposing Program Content and forbids training models on it {src_links(['S2'])}. So the automated research layer must run on manufacturer documentation and the operator's own click and conversion data. That is a harder, slower build — and the only one that survives review.</p>
+</div>
+<div class="callout">
+  <strong>5 · Verifying the data and reading the page are different jobs, and only one of them was automated</strong>
+  <p class="small">Nine earlier passes checked every value against its source and found nothing wrong — correctly.
+  But a value that is right in a table can still be wrong in a sentence, and eleven of them were: a published
+  display label such as "Two 3-quart baskets" had been spliced into mid-sentence position, so the articles read
+  as machine output ("splits a cavity into Two 3-quart baskets"). No verifier catches that, because the value is
+  genuinely published. It took reading the rendered pages as a shopper would. The defect is fixed and the build
+  now fails if a capitalised value is spliced into a mid-sentence position again {src_links(['S1'])}.</p>
 </div>
 
 <h2>Economics, stated with the precision the data allows</h2>
@@ -2629,9 +2680,11 @@ def page_exec():
   <li><strong>Fix attribution before driving traffic</strong> — confirm the Associates tag and create sub-tags; F6 and F7.</li>
   <li><strong>Then apply, and work the 180-day window deliberately</strong> {src_links(['S4'])}.</li>
   <li><strong>Only pursue price and rating display if API access is granted.</strong> Until then, absence is the compliant state.</li>
+  <li><strong>Decide what the AI agent is allowed to read before writing the research pipeline.</strong> The IP License forbids using Amazon's Program Content to build or improve models, and forbids aggregating or analysing it without written approval {src_links(['S2'])}. The version of the brief that is lawful runs on manufacturers' own pages — which is the version this repository already implements. See <a href="suggestions.html#sg-18">SG-18</a>.</li>
+  <li><strong>Decide the product set before the next content push.</strong> Two of the three products share a brand and a form factor, which caps what the comparison can answer. See <a href="suggestions.html#sg-20">SG-20</a>.</li>
 </ol>
 
-<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../EXECUTIVE-SUMMARY.md">Download the markdown version</a> <a class="btn btn-ghost" href="../flagged.html">See every open flag</a></p>
+<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../EXECUTIVE-SUMMARY-PASS9-42CA97AD.md">Download this pass's markdown briefing</a> <a class="btn btn-ghost" href="../EXECUTIVE-SUMMARY-PASS9.md">Earlier pass-9 briefing</a> <a class="btn btn-ghost" href="../flagged.html">See every open flag</a></p>
 """
     return layout("executive-summary.html", "Executive summary", body, active="executive-summary.html",
                   description="One-page executive summary: findings, source conflicts, economics and the recommended next decision.",
@@ -3061,11 +3114,19 @@ def page_suggestions():
             f'<a href="{e(y["url"])}" target="_blank" rel="noopener">{e(y["label"].split(" - ")[0][:38])} ↗</a>'
             for y in x["evidence"]
         )
+        # The choice set, at a glance, so a reviewer can decide from this table alone
+        # and record it. The row already carries its evidence links, which is what the
+        # row-source gate requires of every table row on the site.
+        choice = " ".join(
+            f'<span class="tiny muted">{e(o["label"].split(".")[0])}</span>'
+            for o in x["options"]
+        )
         rows.append(
             f'<tr><td class="num"><a href="#{e(x["id"].lower())}">{e(x["id"])}</a></td>'
             f'<td>{e(x["title"])}</td><td class="small">{e(x["area"])}</td>'
             f'<td class="num">{x["impact"]*x["confidence"]}</td>'
             f'<td class="small">{_effort_chip(x["effort"])} {e(x["risk_of_not_doing"].split(".")[0])}</td>'
+            f'<td class="small">{choice}</td>'
             f'<td class="small">{ev_links}</td></tr>'
         )
 
@@ -3086,8 +3147,9 @@ a short story rather than an open-ended project.</p>
 </div>
 
 <h2>At a glance</h2>
+<p class="small muted">Read the table, then take one row and read the full entry for it. The <em>Your call</em> column lists the paths that are on the table for that suggestion &mdash; write the letter you choose next to it, with the date. Nothing on this page has been implemented, and implementing anything starts by choosing a path here.</p>
 <table>
-  <thead><tr><th>#</th><th>Suggestion</th><th>Area</th><th>Priority</th><th>Effort · cost of waiting</th><th>Evidence</th></tr></thead>
+  <thead><tr><th>#</th><th>Suggestion</th><th>Area</th><th>Priority</th><th>Effort · cost of waiting</th><th>Your call</th><th>Evidence</th></tr></thead>
   <tbody>{''.join(rows)}</tbody>
 </table>
 <p class="tiny muted">Priority is impact x confidence, both scored by this pass out of 5. It is judgement. The evidence column is the fact.</p>
@@ -3146,6 +3208,18 @@ def page_questions():
         block_html = " ".join(
             f'<a class="src" href="suggestions.html#{e(x.lower())}">{e(x)}</a>' for x in blocks
         ) or '<span class="tiny muted">Does not block anything on its own.</span>'
+        # A question that can be answered carries its answer. This is the column
+        # the brief asked for: not only what is missing, but what the answer is
+        # where an official source already settles it.
+        answer = item.get("answer")
+        answer_html = (
+            f'<div class="callout ok"><strong>Answer.</strong> {e(answer)}</div>'
+            if answer else
+            '<div class="callout warn"><strong>Answer.</strong> '
+            'No answer is published here. The official sources listed below were read '
+            'and do not settle it, or it cannot be settled from outside the account. '
+            'The "How to find it out" line names the step that would.</div>'
+        )
         return f"""
 <article class="qcard" id="{e(item['id'].lower())}">
   <div class="sug-head">
@@ -3156,6 +3230,7 @@ def page_questions():
     <span class="pill {cls}">{e(label)}</span>
   </div>
   <p><strong>Why it matters.</strong> {e(item['why_it_matters'])}</p>
+  {answer_html}
   <div class="twocol">
     <div><p class="label">What we know, and can prove</p><ul class="tight">{known}</ul></div>
     <div>
@@ -3561,6 +3636,40 @@ def _published_values():
     return vals
 
 
+PLACEHOLDER_RE = re.compile(r"\{\{(.+?)\}\}")
+
+
+def _split_placeholder(raw):
+    """Split a placeholder into (published value, prose form or None).
+
+    Two forms are accepted:
+
+        {{Two 3-quart baskets}}            the published value, verbatim
+        {{Two 3-quart baskets::two 3-quart baskets}}
+                                            the published value with a prose form
+
+    The prose form exists because the published values are display labels
+    ("Two 3-quart baskets"), and a display label spliced into the middle of a
+    sentence reads like machine output: "splits a cavity into Two 3-quart
+    baskets". The prose form may differ from the published value ONLY in
+    letter case - check_articles() enforces that, so a prose form can never
+    introduce a number, a unit or a fact that the dataset does not publish.
+    """
+    if "::" in raw:
+        pub, prose = raw.split("::", 1)
+        return pub.strip(), prose.strip()
+    return raw.strip(), None
+
+
+def _render_placeholder(raw):
+    pub, prose = _split_placeholder(raw)
+    if prose is None:
+        return f'<code class="specval">{pub}</code>'
+    # The prose form is what the reader sees; the published value stays
+    # recoverable on hover, so nothing is lost by rendering the lower-case form.
+    return f'<code class="specval" title="Published value: {pub}">{prose}</code>'
+
+
 def _article_text(paras):
     """Render {{value}} placeholders as <code>, escaping everything else."""
     out = []
@@ -3568,7 +3677,7 @@ def _article_text(paras):
         # **bold** -> <strong>
         chunk = e(para)
         chunk = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", chunk)
-        chunk = re.sub(r"\{\{(.+?)\}\}", r'<code class="specval">\1</code>', chunk)
+        chunk = PLACEHOLDER_RE.sub(lambda m: _render_placeholder(m.group(1)), chunk)
         out.append(f"<p>{chunk}</p>")
     return "\n".join(out)
 
@@ -3577,8 +3686,61 @@ def _article_placeholders(article):
     found = []
     for sec in article["sections"]:
         for para in sec["paras"]:
-            found.extend(re.findall(r"\{\{(.+?)\}\}", para))
+            found.extend(PLACEHOLDER_RE.findall(para))
     return found
+
+
+# A value that opens with a capital letter is correct in some positions and
+# wrong in others. "Sync Finish" is right at the start of a sentence and wrong
+# after "as". A published value may therefore be written in mid-sentence only
+# when it is an identifier (a model number or an ASIN) or when it carries an
+# explicit prose form. These are the positions where a capital is right.
+_CAP_OK_BEFORE = set(':"\'(—–')
+_IDENTIFIER_RE = re.compile(r"^[A-Z0-9][A-Z0-9\-/]*(\s|$)")
+
+
+def _is_identifier(value):
+    """True for model numbers and ASINs: the first token has no lower-case letter."""
+    first = value.split()[0] if value.split() else value
+    return not any(ch.islower() for ch in first)
+
+
+def check_article_splices(article):
+    """Reject a published value spliced into a sentence where its capital is wrong.
+
+    This is the guard behind flag F55. A display label such as "Two 3-quart
+    baskets" is a correct answer to "what is the capacity?" and a broken
+    sentence inside "divided into Two 3-quart baskets". The defect is not
+    visible in a data table, which is why it survived nine earlier passes:
+    it only shows up when the page is read as prose.
+    """
+    problems = []
+    for sec in article["sections"]:
+        for para in sec["paras"]:
+            for m in PLACEHOLDER_RE.finditer(para):
+                before = para[:m.start()]
+                raw = m.group(1)
+                pub, prose = _split_placeholder(raw)
+                shown = prose if prose is not None else pub
+                if not shown[:1].isupper():
+                    continue
+                if _is_identifier(shown):
+                    continue
+                # First non-space token of the paragraph: a capital is correct.
+                if before.strip() == "":
+                    continue
+                # A colon, quote, bracket or dash introduces the value, so a
+                # capital is correct there too.
+                stripped = before.rstrip()
+                if stripped and stripped[-1] in _CAP_OK_BEFORE:
+                    continue
+                problems.append(
+                    f"{article['slug']} §'{sec['h']}': the value {pub!r} is spliced into "
+                    f"mid-sentence in a position where its capital is wrong "
+                    f"(rendered as {shown!r}). Use a prose form "
+                    f"({{{{{pub}::lower-case}}}}) or rewrite the sentence."
+                )
+    return problems
 
 
 def check_articles():
@@ -3591,9 +3753,18 @@ def check_articles():
                 if sid not in SRC_BY_ID:
                     problems.append(f"{a['slug']} §'{sec['h']}' cites unregistered source {sid}")
         for ph in _article_placeholders(a):
-            if ph not in values:
+            pub, prose = _split_placeholder(ph)
+            if pub not in values:
                 problems.append(
-                    f"{a['slug']} states '{ph}' which is not a value published in data/products.json")
+                    f"{a['slug']} states '{pub}' which is not a value published in data/products.json")
+            if prose is None:
+                continue
+            if prose.lower() != pub.lower():
+                problems.append(
+                    f"{a['slug']} prose form '{prose}' differs from the published value '{pub}' "
+                    f"by more than letter case. A prose form may only re-case the published value; "
+                    f"it may not add or change a number, a unit or a fact.")
+        problems.extend(check_article_splices(a))
     return problems
 
 

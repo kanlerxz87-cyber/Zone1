@@ -3599,6 +3599,81 @@ from this sandbox reaches only GitHub, npm and PyPI hosts; `amazon.com`, `chefma
 
 **W7 result: done — verified, fixed, guarded, merged, deployed, and re-checked against the deployed artefact.**
 
+---
+
+### W1–W7 merge record — arena/42ca97ad-zone1 (verification pass 9)
+
+**What this session did.** Re-fetched every official source itself rather than trusting the recorded
+ones, and checked all 43 specification rows against the page each one cites. No published value was
+found wrong and no value changed. Raw evidence, including the sources deliberately *not* fetched, is
+in `session-42ca97ad/EVIDENCE-2026-11-15.md`.
+
+**Four findings, published as flags F54–F57:**
+
+* **F54** — the Amazon browse-node path `Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers` was read directly on **all three** listings by following the three supplied short links. The annex register's F-06 had it on one. This is the confirmation step F-06 named. It still does not establish the settlement-time category, which only the Associates Earnings report carries.
+* **F55** — **eleven** article sentences spliced a published display label into a mid-sentence position where its capital is wrong ("splits a cavity into Two 3-quart baskets"). Every value involved is genuinely published and correct in a table, which is why nine earlier verification passes missed it. It survives verification because it only exists in the *sentence*. Fixed with a `{{value::prose form}}` syntax whose prose form may differ from the published value in letter case and nothing else, plus a build guard (`check_article_splices()`) that fails the build if it recurs. Both guards were proven to fire.
+* **F56** — the Application Review Process page (S4) was **not** re-read this pass; its criteria are carried forward from earlier logged fetches and are not restated as current fact.
+* **F57** — `data/flagged.json`, `data/commission-rates.csv` and `data/products.csv` are read by no build. The first is a stale copy of a register that *is* published.
+
+**Decision-register additions.** `data/questions.json` gained Q-15 to Q-20; **four of them are now
+`known and sourced` and carry an explicit answer** on the row — the commission rate, the price/rating
+rule, what the product coverage rests on, and the IP-Licence constraint on the brief's AI platform.
+The question renderer now prints the answer where one exists and says so plainly where one does not.
+`data/suggestions.json` gained four rows: what the AI agent in the brief may read under the IP
+License, value freshness and a stale-value report, the product set, and moving the "we could not
+confirm this" markers onto the money pages.
+
+**Second merge, with `origin/main` at `e7b60e4` (PR #74, `arena/88bb2db6-zone1`).** This merge
+conflicted in `COORDINATION.md`, `build.py` and three generated HTML files. Two things had to be
+re-resolved: this session's flags were renumbered a **second** time, **F50–F53 → F54–F57**, because
+PR #74 added a *product-level* flag with the id `F50` (the Emeril accessory-count conflict), and the
+duplicate-flag-ID build guard failed the build on exactly that collision before it could ship. The
+guard then caught a second problem: this session's Q-16 answer quotes the name of a price-tracking
+build guard, which main's new JSON-LD generator places inside a `<script>` block, where the
+Program Policies 6(y) guard correctly refuses to let a price-tracking identifier appear. The answer
+was reworded rather than the guard weakened. `data/articles.json` merged cleanly this time, so the
+prose-form fix survived without being re-applied.
+
+**Merge with `origin/main` — resolved keep-both, nothing discarded.**
+
+`main` advanced to `8f40f04` (PR #71, `arena/792c279e-zone1`) while this pass was running. The merge
+conflicted in `COORDINATION.md`, `README.md`, `build.py`, `data/articles.json`, `data/suggestions.json`
+and six generated HTML files. Resolution, in order:
+
+1. **`build.py` — took main's version as the base and re-applied this session's work on top**, rather
+   than the reverse. Main's file carried four additions this pass did not have (canonical/OG/structured
+   data in `layout()`, `rel="sponsored"` qualification, the banned-phrase voice guard, the
+   `data/decision.json` arithmetic guard) plus three new pages (`picks.html`, `decisions.html`,
+   `handover.html`). All of those are preserved.
+2. **Flag renumbering.** Main had already taken F44, F45, F47, F48 and F49. This session's four rows
+   were renumbered **F44–F47 → F50–F53** and then **F50–F53 → F54–F57** at the second merge, and the
+   duplicate-ID guard confirms every row on the page carries a distinct ID.
+3. **Suggestion renumbering.** Main had already taken **SG-17**. This session's four rows were
+   renumbered **SG-17–SG-20 → SG-18–SG-21**. The cross-reference guard (`check_question_block_refs`)
+   caught the collision during the merge and forced the fix; Q-18 was re-pointed at SG-18 and Q-19 at
+   SG-19.
+4. **`data/articles.json`.** Main rewrote the file wholesale, which re-introduced the ten defective
+   sentences from F55 **and added an eleventh** in the new `small-kitchen-air-fryer-dimensions`
+   article. The prose-form fix was re-applied to all eleven after the merge, and the guard was
+   re-proven by the build failing before the fix.
+5. **`data/questions.json` merged cleanly** — Q-01 to Q-14 are byte-identical to main's, and Q-15 to
+   Q-20 are additive.
+6. **Two pass-9 briefings, both kept.** Main's `EXECUTIVE-SUMMARY-PASS9.md` (session `22f43836`) and
+   this session's `EXECUTIVE-SUMMARY-PASS9-42CA97AD.md` are separate files, cross-linked from the
+   README and from each other. Neither supersedes the other.
+7. **Generated HTML** was regenerated from the merged sources rather than hand-merged. Conflict-marker
+   scan across all `.html`/`.json`/`.md`: no matches.
+
+**Reused, not re-authored:** main's `build.py` guards (`check_decision_data`, `check_article_voice`,
+`check_seo_metadata`, `check_affiliate_link_qualification`, the duplicate-flag-ID guard) and its
+`data/decision.json` were left exactly as merged. This session added one guard of its own
+(`check_article_splices`) and changed no existing guard's behaviour.
+
+**No other session's scope was edited.** The only files this session changed outside its own scope are
+the four shared source-of-truth files (`build.py`, `data/articles.json`, `data/suggestions.json`,
+`data/questions.json`) plus the registers that feed the published decision pages — each changed by
+additive merge, never by deletion.
+
 #### U4 — final integration: merge with origin/main, PR → merge → Pages
 
 **Merge.** `origin/main` advanced to `8f40f04` (PR #71, session `arena/792c279e`; plus PR #70 from
@@ -3617,7 +3692,7 @@ Nothing from either side was discarded.
 | `build.py` — `page_article()` | `arena/792c279e`'s share row and previous/next navigation kept verbatim. Its second, body-level `Article` block was **not** duplicated: the merged version emits one `Article` block in `<head>`, so a crawler never sees two conflicting `Article` nodes for one URL. |
 | `build.py` — the three new pages | `picks.html`, `decisions.html` and `handover.html` were added upstream after this session had wired JSON-LD everywhere. They carried canonical/OG/Twitter tags but no structured data, so `arena/792c279e`'s own guard `check_seo_metadata` correctly failed the build. Each now has a `BreadcrumbList`, and `picks.html` also an `ItemList` of the three products it ranks. |
 | `data/products.json` | Taken from `origin/main` (it carries the newer `read:` dates on `amazon_listing_title`, which `arena/792c279e` added because that value is volatile). Then three of this session's changes re-applied: F4's wording tightened; the "Included accessories" row now links S14 **and** S28 and carries the note; and this session's flag renumbered. |
-| **Flag renumber F44 → F50** | `origin/main` already uses **F44** for "the same site is published nine times from one repository", and records the accessory-count conflict this session independently found as the programme-level **F48**. Filing it as F44 would have been the F28/F40 class of collision this repository has been bitten by twice before. It is renumbered **F50**, the next free number after upstream's F49. F48 and F50 both remain: F48 records the conflict from `arena/792c279e`'s angle, F50 records this session's independent finding of the same fact and carries the owner's-manual wording ("Some accessories may not be included with purchase") that F48 does not. |
+| **Flag renumber F44 → F54** | `origin/main` already uses **F44** for "the same site is published nine times from one repository", and records the accessory-count conflict this session independently found as the programme-level **F48**. Filing it as F44 would have been the F28/F40 class of collision this repository has been bitten by twice before. It is renumbered **F54**, the next free number after upstream's F49. F48 and F54 both remain: F48 records the conflict from `arena/792c279e`'s angle, F54 records this session's independent finding of the same fact and carries the owner's-manual wording ("Some accessories may not be included with purchase") that F48 does not. |
 | 32 generated HTML files | Regenerated from the merged `build.py`. Every one of them is a build artifact; hand-merging them would have produced a tree that no generator reproduces. The build is reproducible: a clean rebuild leaves `git diff` empty. |
 
 **Two defects in this session's own work were found by the merge** and are fixed: the missing
