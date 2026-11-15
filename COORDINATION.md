@@ -3891,7 +3891,7 @@ BUILD FAILED — a row cites a document that contradicts its own value:
 
 | # | Task | Status | Owner (session) | File scope |
 |---|------|--------|-----------------|------------|
-| X-bf487400 | Publish the design/content/traffic suggestion layer as a first-class site page ("Design prompt pack": paste-ready design prompt, D-1…D-10 design suggestions, topic queue A-1…A-11 with live published/pending status, organic-traffic plan T-1…T-8, anti-slop editorial rules, decision register R-1…R-6), all rows sourced; plus small organic increments that pass 9 (W7) left open (Article `dateModified`, optional social card); then final integration: full gate run, PR → merge → confirm GitHub Pages deploy, record result. | in progress | arena/bf487400-zone1 (session bf487400) | `data/design-prompt.json` (new), `build.py` (new `page_design_prompt`, NAV + pages dict, `json_ld` dateModified), regenerated root HTML, `assets/social-card.png` (new, if generated cleanly), `COORDINATION.md` |
+| X-bf487400 | Publish the design/content/traffic suggestion layer as a first-class site page ("Design prompt pack": paste-ready design prompt, D-1…D-10 design suggestions, topic queue A-1…A-11 with live published/pending status, organic-traffic plan T-1…T-8, anti-slop editorial rules, decision register R-1…R-6), all rows sourced; plus small organic increments that pass 9 (W7) left open (Article `dateModified`, optional social card); then final integration: full gate run, PR → merge → confirm GitHub Pages deploy, record result. | **done** | arena/bf487400-zone1 (session bf487400) | `data/design-prompt.json` (new), `build.py` (new `page_design_prompt`, NAV + pages dict, `json_ld` dateModified), regenerated root HTML, `assets/social-card.png` (new, if generated cleanly), `COORDINATION.md` |
 
 ### Claim log
 
@@ -4011,3 +4011,54 @@ Q-01 (model number per listing) — Amazon serves the reduced "Product summary" 
 reads, so the Product information table is not reachable. Q-02/Q-04 (Associates tag) — not observable
 outside Associates Central. Q-11 (commission rate) — only observable in Associates reports after real
 sales. S28 — blocked by a bot checkpoint on 2026-11-15. None was filled in by inference.
+
+### X-bf487400 completion record — arena/bf487400-zone1 (2026-11-15 UTC)
+
+**Task:** X-bf487400 · **Status:** done · **Branch:** `arena/bf487400-zone1` (base `cacdb85`, rebased onto `main` three times during the session as PRs #67–#83 landed).
+
+**What shipped.** One new page, `design-prompt.html` (NAV → Decide group, sitemap, cross-linked from `suggestions.html`), generated from a new `data/design-prompt.json`:
+
+| Section | Rows | What it is |
+|---|---|---|
+| The design prompt | 4,320-char block | Paste-ready prompt for any designer/AI assistant: site-as-it-is facts, design direction, palette/typography, components that must survive a redesign, anti-slop voice rules, the existing SEO layer, and the build-gate acceptance criteria |
+| Design suggestions D-1…D-10 | 10 | From `session-3b99448e/suggestions.md`, each with status verified against the repository today (8 Implemented, 2 Partial — D-7 only covers the one category that exists, D-10 has no scheduled WCAG audit) |
+| Topic queue A-1…A-11 | 11 | The original working titles with published/pending status; 7 published rows link the article they became, A-8…A-10 remain unwritten, A-11 is a new dimensions-topic suggestion backed by S10/S12/S14 rows already in `data/products.json` |
+| Traffic tactics T-1…T-8 | 8 | Operational status (sitemap+GSC, internal-link hub, social, email, refresh cadence), including the T-7 finding that an email form would contradict the current footer privacy statement until it is updated |
+| Voice rules V-1…V-4 | 4 | Complementary to the seven banned-phrase/claim guards already published on `decisions.html` (cross-linked, not duplicated) |
+| Decision register R-1…R-6 | 6 | Options + recommended path per row; Decision column deliberately blank (`— your decision —`) |
+
+**Overlap handling (no other session's work discarded).** PR #83 (`arena/63a2c638`, `topics.html` proposal queue + channels) merged between my PR opening and its merge. Resolved keep-both: `COORDINATION.md` markers removed with both boards retained; `build.py` auto-merged cleanly (`page_design_prompt` + `page_topics`, both NAV entries, both sidebar entries, both pages-dict entries); all root HTML regenerated from the merged generator rather than trusting the textual auto-merge. The two topic registers are explicitly positioned on-page: `topics.html` = proposal view (intent/angle/citations), `design-prompt.html` = status view (shipped or not), cross-linked from the intro callout, both section leads and the related-registers footer.
+
+**Sources.** No new source IDs. Every row cites registered sources from `data/sources.json` (S1, S2, S3, S7, S8, S10, S12, S14, S17, S18, S30) or links this repository on GitHub; statuses about the site itself were checked against the generated files (zero `<img>` tags for D-5, media-query breakpoints for D-9, `sitemap.xml`/`robots.txt` existence for T-3, dimensions rows present for A-11). The SEO layer this pass deliberately did **not** redo was shipped by W7/PR #69 and session `88bb2db6`/PR #74 (canonical/OG/Twitter/JSON-LD, `assets/og-card.png`, Article `dateModified`, `check_seo_metadata`).
+
+**Verification (after the final merge, all green):**
+
+| Gate | Result |
+|---|---|
+| `python3 build.py` | 37 pages, 36 sitemap URLs, exit 0 (row-source, disclosure, SEO metadata, affiliate-link qualification, price/rating leakage, unique flag IDs all enforced) |
+| `python3 verify.py` | 115 pages, 43 spec rows (41 verified / 2 blank+flagged), 31 sources, **0 errors** |
+| `bash scripts/ci-check.sh` | OK — 33 unit tests, data audit clean, S2 build current, **6,372 links / 0 broken** |
+| `python3 research/check_research.py` | OK |
+| `python3 scripts/verify_site.py` | all assertions passed |
+| `node --check assets/app.js` | OK |
+| JSON-LD parse on `design-prompt.html` | valid; canonical = `…/design-prompt.html` |
+| Row counts on the rendered page | D=10, A=11, T=8, V=4, R=6; prompt block present (4,320 chars) |
+| Conflict-marker scan + `git diff --check` | clean before every `git add` |
+
+**PR / merge / deploy:**
+
+* **PR:** [#84](https://github.com/kanlerxz87-cyber/Zone1/pull/84) — "Design prompt pack: paste-ready design prompt, D/A/T/V/R suggestion registers with live status". Branch `arena/bf487400-zone1` → `main`. Checks on the PR head: `verify` ✓ · `Rebuild site/ from data/verified and assert every guarantee` ✓ · `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`.
+* **Merge:** `gh pr merge 84 --merge` at **2026-11-15T13:53:32Z**, without waiting for approval, per the brief. **Merge commit on `main`: `cdf5968159578997d5bc35dcaa14e9869d7a3422`.**
+* **Post-merge workflows on `main` at `cdf5968`, all success:** `Verify verification annex (site/)` ✓ ([43721370063](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43721370063)) · `CI` ✓ ([43721370159](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43721370159)) · `Build, verify and deploy to GitHub Pages` ✓ ([43721370104](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43721370104)) · `pages build and deployment` ✓ ([43721369247](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43721369247)).
+* **GitHub Pages:** `gh api repos/…/pages/builds/latest` → `status: built`, commit `cdf5968159578997d5bc35dcaa14e9869d7a3422`, `error: null`.
+* **Live read-back:** `https://kanlerxz87-cyber.github.io/Zone1/design-prompt.html` fetched from the deployed URL — disclosure bar, breadcrumbs, H1, the register-relationship callout (with the `topics.html` cross-link), the full paste-ready prompt block and the D-table with status chips and evidence links all render. `index.html` on `main` carries the new sidebar entry; `sitemap.xml` on `main` carries 36 `<loc>` entries including `design-prompt.html`.
+
+**Irregularities and observations (non-blocking, published rather than quietly fixed):**
+
+1. **Live `sitemap.xml` served 35 URLs (no `design-prompt.html`) ~2 minutes after the deploy**, while the file on `main` and the built artifact have 36 and `design-prompt.html` itself was already live. Same class as session `22f43836`'s stale-`flagged.html` observation: an edge-cache window is indistinguishable from a missed file in one fetch. Recorded, not claimed as verified; re-check after the cache TTL.
+2. **Stale board row:** the main board's `T20` row (session `792c279e`, line ~63) still reads `in progress` although that session's completion record and merged PRs #71/#73 show it done. Another session's row — not edited; flagged here for its owner.
+3. **Row-source guard caught this pass's own defect:** the first build failed `check_row_sources` because topic rows key their citations `cites` while every other register uses `sources`. Fixed in the helper at the source; the guard behaved as designed and no row shipped unsourced.
+4. **Superseded deliverable:** this session originally planned its own social card (`assets/social-card.png`, generated, on-palette, text-free). Upstream PR #74 had in the meantime shipped a stronger branded card (`assets/og-card.png`, 1200×630, generated deterministically by `session-88bb2db6/make_og_card.py`) already wired to `OG_IMAGE`. The draft was deleted before ever being committed; no duplicate asset exists in the repository.
+5. **Concurrency mechanics:** two rebases of the session branch plus one keep-both `COORDINATION.md` merge conflict during `git pull --rebase`, and one `--force-with-lease` push of my own session branch (the claim commit's hash was rewritten by rebasing; no other session works on this branch). Every conflict resolution kept both sides; no other session's row or content was discarded.
+
+**X-bf487400 result: done — page published, all gates green, PR #84 merged as `cdf5968`, GitHub Pages built and the live page read back.**
