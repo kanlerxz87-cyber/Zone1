@@ -3793,8 +3793,8 @@ owner's manual, so none of them requires a claim this site cannot support.</p>
 
 <div class="callout note" style="margin-top:1.5rem">
   <strong>Where this fits.</strong>
-  The topics above are the editorial half of <a href="suggestions.html#SG-09">SG-09</a> and
-  <a href="suggestions.html#SG-04">SG-04</a>; the channel constraints are the same clauses recorded on the
+  The topics above are the editorial half of <a href="suggestions.html#sg-09">SG-09</a> and
+  <a href="suggestions.html#sg-04">SG-04</a>; the channel constraints are the same clauses recorded on the
   <a href="compliance.html">Compliance</a> page. Choosing a path through the work starts on the
   <a href="suggestions.html">Suggestions</a> page, under <em>Choose a path</em>.
 </div>
