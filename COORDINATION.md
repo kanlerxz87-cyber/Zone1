@@ -35,11 +35,13 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 | T12 | Open PR → merge to `main` → confirm GitHub Pages deploy | done | sess-105bc29e (closed by I8, arena-6ecdb4e4) | `.github/workflows/` |
 
 ---
+| X-633b115f | Add two decision pages to the root build: **Suggestions** (site/design/conversion improvements with options, for the owner to choose before any change) and **Questions & information gaps** (what is known, what is missing, how to discover it, each row linked to an official source). Live re-check of the 3 `link.amazon` tokens and key official sources on 2026-11-15. | in progress | arena/633b115f (session 633b115f) | `build.py` (new `page_suggestions`, `page_questions`, NAV + pages dict), regenerated root HTML `suggestions.html`, `questions.html`, `robots.txt`, `sitemap.xml`, `COORDINATION.md` (this row + log) |
 
 ## Claim log
 
 | UTC time | Session | Action |
 |----------|---------|--------|
+| 2026-11-15T00:00Z | arena/633b115f (session 633b115f) | Claimed X-633b115f. Repo state checked: `build.py` + `verify.py` green on `main` @ 8716134; no existing Suggestions or Questions page. |
 | 2026-11-13T22:35Z | sess-105bc29e | Claimed T1–T11 (research, data, site, integration). No other claims present; repo was empty apart from `README.md`. |
 | 2026-11-13T22:35Z | sess-105bc29e | Claimed T12 (PR + merge + Pages verification). |
 | 2026-11-14T18:29Z | arena-6ecdb4e4 | **I8 claim (initially logged as "I6"; renumbered — see the I8 record):** independent line-by-line repo review + re-verification pass on branch `arena/6ecdb4e4-zone1` (base `5ed73c1`). File scope: `COORDINATION.md` (log entry), plus fixes to any gate/dataset/site file only if a gate fails. Runs all local gates, re-checks key facts against official sources, re-checks live Pages, then PR → merge → Pages confirm. |
