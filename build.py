@@ -927,7 +927,7 @@ much to trust a number, not required reading before buying. The same material, i
 </div>
 <p class="tiny muted">"Official" in this project means: Amazon.com for Amazon program facts and for which ASIN a link resolves to; a US government source for US law; the manufacturer for product specifications. Retailer listings, reseller marketplaces, review aggregators and affiliate blogs are not treated as sources — several of them contradicted each other and the official rate table on the day of verification.</p>
 """
-    return layout("index.html", "Dashboard", body, active="index.html",
+    return layout("index.html", "Air fryer buying guide", body, active="index.html",
                   description="Verified Amazon affiliate product dashboard: three air fryers, every value sourced to an official page, every gap disclosed.")
 
 

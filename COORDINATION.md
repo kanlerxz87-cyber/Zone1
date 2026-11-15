@@ -3053,3 +3053,53 @@ Repo-wide conflict-marker scan after resolution: **0**.
 | T18 | Integration, PR, merge, Pages | done (PR #60 merged as 70074dd; Pages built) |
 
 No other session's work was discarded. The rebase of this branch onto `main` replayed only this session's commits; the concurrent session `633b115f` work (PR #58) is included via the rebase base.
+
+## PR / merge / deploy record — arena/3ddfa50e (W6 closed, 2026-11-15)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/62 — "Integration pass 8
+  (arena/3ddfa50e): decision layer, buyer-first landing page, three verified fixes,
+  executable policy guards". Branch `arena/3ddfa50e-zone1` → `main`.
+* **Checks on the head commit, both green:** `verify` ✓ · `Rebuild site/ from data/verified
+  and assert every guarantee` ✓. `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`.
+* **Merge:** `gh pr merge 62 --merge` at **2026-11-15T11:54:55Z**, without waiting for
+  approval, per the brief. **Merge commit on `main`: `594fcb3ef1ab8ca4aa298ccf62ca08bb5a6823d7`**.
+* **Post-merge workflows on `main` at `594fcb3`:** `CI` ✓ · `Verify verification annex (site/)`
+  ✓ · `Build, verify and deploy to GitHub Pages` ✓ · `pages build and deployment` ✓.
+* **GitHub Pages:** `gh api repos/…/pages/builds/latest` → `status: built`, commit
+  `594fcb3ef1ab8ca4aa298ccf62ca08bb5a6823d7`, `error: {message: null}`.
+* **Live verification (cache-busted fetches against https://kanlerxz87-cyber.github.io/Zone1/):**
+  * `suggestions.html` → live. 16 suggestions in the priority table, each with working
+    evidence links to chefman.com, emerileveryday.com, the Program Policies page, 16 CFR 465
+    and the repository. Disclosure bar present.
+  * `index.html` → live, and the old H1 is gone. The page now opens "Three air fryers, read
+    the way a careful shopper would read them", then the three decision cards, then the
+    three-column spec table with each row carrying S10/S12/S13/S14/S15 source badges that
+    resolve to the manufacturer pages and PDFs.
+  * `questions.html`, `decision-gate.html`, `marketing-directions.html` → all deployed and
+    reachable from the Decide group in the sidebar.
+* **Register at merge:** 41 rows (F1–F41, no duplicate IDs), of which F38, F39 and F40 are
+  new this pass and already fixed. All non-blocking per protocol.
+
+**Final state of this session's tasks**
+
+| # | Task | Status |
+|---|------|--------|
+| W1 | Independent verification round 8 | **done** |
+| W2 | Line-by-line repo review | **done** |
+| W3 | Suggestions section | **done** |
+| W4 | Open questions register | **done** |
+| W5 | Editorial pass / anti-"AI slop" | **done** |
+| W6 | PR → merge → Pages verify → record | **done** (this record) |
+
+### Post-merge correction — index.html page title
+
+The live fetch of the newly deployed landing page showed `<title>Dashboard · Zone1 Kitchen</title>`
+while the page itself is now a buying guide. Corrected in `layout()`'s call for `index.html`
+(`"Dashboard"` → `"Air fryer buying guide"`), rebuilt, and verified with `verify.py` (106 pages,
+0 errors). This is a title-tag change only; no published value moved.
+
+**Result: PR #62 merged as `594fcb3`, all four workflows green, GitHub Pages live and verified
+at https://kanlerxz87-cyber.github.io/Zone1/. Three published defects were found by re-reading
+the official sources and fixed. Two registers the brief asked for are live and reviewable. The
+two facts this pass could not establish — the model number on each listing and the Associates
+tag inside each short link — are published as questions with instructions, not guessed at.**
