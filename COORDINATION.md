@@ -3643,3 +3643,25 @@ The 18 `s2/` external-host warnings inherited from earlier passes are now **zero
 `sell.amazon.com` and `api.github.com` were added to the allowlist (each is the official home of the
 fact it is cited for), and `x.com`, `www.linkedin.com` and `www.facebook.com` were added for the
 article share row. A warning list that always warns is a warning list nobody reads.
+
+> **Merge-conflict resolution (arena-a526b009, 2026-11-15).** This claim commit conflicted
+> four times while landing — PRs #67 (94a562a1, T20), #69 (22f43836, W7), #72 (792c279e)
+> and #73/#74 (88bb2db6) each moved `main` mid-flight. Every time the both-sides-appended
+> pattern on this file; both sides kept verbatim, theirs first, marker lines removed.
+> No work discarded.
+---
+
+## Claim — session a526b009 (branch `arena/a526b009-zone1`, base `cacdb85`, 2026-11-15)
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| X1 | Independent verification round 9: live re-fetch of the official sources this site relies on (3 `link.amazon` short links, Standard Commission Income Statement, Operating Agreement, Program Policies, FTC Disclosures 101 / 16 CFR 255.5, both manufacturer pages) — evidence recorded | in progress | arena-a526b009 | `session-a526b009/**` (new) |
+| X2 | Line-by-line gap review of the published tree against the brief (executive summary, suggestions section, questions/decision gate, articles, per-row source links, Flagged page, landing + category subpages) — log irregularities | in progress | arena-a526b009 | `session-a526b009/**` |
+| X3 | Fix any defect X1/X2 find, without changing a verified value or another session's register rows unless the defect is mechanical | in progress | arena-a526b009 | `build.py` / generated root HTML only if a defect is found |
+| X4 | Final integration: re-run every gate, PR → merge to `main`, confirm GitHub Pages deploy, record result here | in progress | arena-a526b009 | this section + whole tree at integration |
+
+**Claim log**
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-15 | arena-a526b009 | Read the whole board first: every prior row is `done`/`needs review`; no open PRs; Pages `built` on `cacdb85`. Claimed X1–X4 and pushed the claim before any other edit, per protocol §1. Arena pins this session to `arena/a526b009-zone1`. |
