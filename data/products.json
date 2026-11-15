@@ -343,10 +343,12 @@
         },
         {
           "label": "Included accessories",
-          "value": "7",
+          "value": "7 (manufacturer's own count)",
           "source": [
-            "S14"
-          ]
+            "S14",
+            "S28"
+          ],
+          "note": "The Emeril product page states \"Included are 7 premium accessories\". The Amazon listing title for the supplied link says \"Six Cooking Accessories Included\". Both documents are linked here; the owner's manual adds only that some accessories may not be included with purchase. See the flag register before relying on the count."
         },
         {
           "label": "Interior light",
@@ -431,8 +433,8 @@
       "flags": [
         {
           "id": "F4",
-          "issue": "The brand page states \"25 Cooking Pre-sets\" in its specification block but \"24 one-touch cooking presets\" in the description text on the same page; the Amazon title says 24.",
-          "action": "Resolved in favour of the owner's manual, which names exactly 24 presets. The page's \"25\" is treated as a marketing error and is not repeated as fact.",
+          "issue": "The brand page states \"25 Cooking Pre-sets\" in its specification block but \"24 one-touch cooking presets\" in the description text on the same page; the Amazon title says 24. Re-read 2026-11-15: the brand page still states 25, so the conflict is live.",
+          "action": "Resolved in favour of the owner's manual, which lists 24 presets by name - the Preset Mode Chart and the Recommended Accessory Positions table each carry the same 24 rows (Airfry, Fries, Bacon, Grill, Eggs, Fish, Ribs, Defrost, Steak, Vegetables, Wings, Bake, Rotisserie, Toast, Chicken, Pizza, Pastry, Proof, Broil, Slow Cook, Roast, Dehydrate, Reheat, Warm). The manual does not state the numeral 24 itself. The page's \"25\" is treated as a marketing error and is not repeated as fact. Re-read 2026-11-15.",
           "sources": [
             "S14",
             "S15",
@@ -455,6 +457,16 @@
           "sources": [
             "S2",
             "S17"
+          ]
+        },
+        {
+          "id": "F44",
+          "issue": "The number of included accessories differs between the two official documents: the Emeril brand page says \"Included are 7 premium accessories to maximize versatility\", while the Amazon listing title for the supplied link says \"Six Cooking Accessories Included\". Found on 2026-11-15; no earlier pass had recorded it.",
+          "action": "The site publishes the manufacturer's own figure (7) because that is what the brand page states, and it is labelled as a manufacturer statement. The listing's \"Six\" is not repeated as fact and is not silently dropped either. Which number is right depends on what is physically in the box, so the account holder should open the delivered product's packing list before this row is relied on. The owner's manual adds only that \"some accessories may not be included with purchase\".",
+          "sources": [
+            "S14",
+            "S15",
+            "S28"
           ]
         }
       ]

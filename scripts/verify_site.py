@@ -15,6 +15,8 @@ Failure conditions (each one fails the build):
   V10 no Amazon price / rating value is published anywhere (C-07, C-09)
   V11 no third-party script, cookie setter or analytics snippet is present (C-19)
   V12 no page contains a bare 'affiliate link' used as its only disclosure (C-02)
+  V13 no page nests an <a> inside another <a> (invalid HTML; found in site/index.html
+      on 2026-11-15 and fixed in the same pass)
 
 Exit code 0 = all checks passed.
 """
@@ -24,6 +26,7 @@ from __future__ import annotations
 import json
 import re
 import sys
+from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -396,6 +399,46 @@ def check_data_integrity() -> None:
             warn("V0", f"source {s['id']} is registered but never cited by any row")
 
 
+# ------------------------------------------------------------- V13 markup
+class _NestedAnchorParser(HTMLParser):
+    """Records any <a> that is opened while another <a> is still open."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.depth = 0
+        self.nested: list[str] = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "a":
+            if self.depth:
+                href = dict(attrs).get("href", "")
+                self.nested.append(href)
+            self.depth += 1
+
+    def handle_endtag(self, tag):
+        if tag == "a" and self.depth:
+            self.depth -= 1
+
+
+def check_no_nested_anchors() -> None:
+    """V13 - an <a> inside an <a> is invalid HTML.
+
+    Added 2026-11-15 (arena/88bb2db6) after the repository-wide review found one in
+    site/index.html. The annex verifier passed 382 assertions while that defect was
+    present in the rendered page, because no check looked for it. A nested anchor
+    makes the inner link ambiguous to assistive technology and to crawlers, which
+    may resolve it to the outer link instead.
+    """
+    global checks_run
+    for name in PAGES:
+        path = OUT / name
+        parser = _NestedAnchorParser()
+        parser.feed(path.read_text(encoding="utf-8"))
+        checks_run += 1
+        for href in parser.nested:
+            fail("V13", f"{name}: <a> nested inside another <a> (href={href!r})")
+
+
 def main() -> int:
     check_expected_pages()
     check_internal_links()
@@ -408,6 +451,7 @@ def main() -> int:
     check_no_tracking()
     check_disclosure_wording()
     check_data_integrity()
+    check_no_nested_anchors()
 
     total_fields = sum(len(p["specs"]) for p in PRODUCTS["products"])
     print(f"Pages checked:        {len(PAGES)}")
