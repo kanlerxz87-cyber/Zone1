@@ -1194,14 +1194,14 @@
    "id": "P4",
    "name": "Make the machinery trustworthy",
    "promise": "Automate the parts that can be automated, and put a gate in front of the parts that cannot.",
-  "contains": [
-   "SG-14",
-   "SG-08",
-   "SG-12",
-   "SG-13",
-   "SG-06",
-   "SG-22"
-  ],
+   "contains": [
+    "SG-14",
+    "SG-08",
+    "SG-12",
+    "SG-13",
+    "SG-06",
+    "SG-22"
+   ],
    "effort": "M (mostly engineering, some policy)",
    "must_be_true_first": "Path 1 for SG-06 (it depends on whether Creators API access exists - Q-05), and Q-08 for SG-08.",
    "delivers": "Automated drafting kept, with a claim-check gate as the thing you trust rather than the draft; click and conversion measurement that does not breach the privacy disclosure; a flag register where a row number means one thing; a public corrections log; and a settled position on which catalogue data the site may show.",
