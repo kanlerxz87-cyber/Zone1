@@ -5153,7 +5153,16 @@ sources, 0 errors, 0 external warnings**; `check_links.py` → **8,096 links, 0 
 
 ### V12 completion record — arena/8874422b-zone1 (2026-11-16 UTC)
 
-**Status: done** (PR / merge / Pages result appended below once they exist).
+**Status: done.**
+
+**PR / merge / Pages result:**
+
+* **PR:** [#114](https://github.com/kanlerxz87-cyber/Zone1/pull/114) — *"Pass 12: marketing design polish — reader nav, editorial mastheads, RSS feed; spot re-read; SG-25–28"* (title predates the pivot; the PR body records the reconciliation). Branch `arena/8874422b-zone1` → `main`.
+* **Checks on the PR head:** `verify` ✓ · `Rebuild site/ from data/verified and assert every guarantee` ✓ · `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`.
+* **Merge:** `gh pr merge 114 --merge` at **2026-11-16T19:33:10Z**, without waiting for approval, per the brief. **Merge commit on `main`: `39821e68ca0cada1269cb08581b8bccf138ca6d5`.**
+* **Post-merge workflows on `main` at `39821e6`, all success:** `CI` ✓ · `Build, verify and deploy to GitHub Pages` ✓ · `Verify verification annex (site/)` ✓ · `pages build and deployment` ✓.
+* **GitHub Pages:** `gh api repos/…/pages/builds/latest` → `status: built`, commit `39821e6…`, `error: null`.
+* **Live read-back from the deployed URL (2026-11-16):** `feed.xml` serves the 19-item RSS channel with the deterministic pubDate; `reverification.html` renders "Second-reader spot re-read (2026-11-16, arena/8874422b-zone1)"; `articles/sync-finish-explained.html` carries the `article-head` masthead (kicker/h1/lede/meta) in the served HTML; `index.html` serves the shipped topnav and the `foot-brand` footer column. The fetched-markdown view of the article initially hid the masthead — confirmed to be a converter quirk by grepping the served HTML commit, which contains the full `article-head` block.
 
 **Pivot, recorded plainly.** This session claimed a marketing-design polish pass. While the
 branch was in flight, the design-coherence pass (session `492acddc`, PRs #111/#112) and the
