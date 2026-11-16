@@ -1248,8 +1248,11 @@ corrected to the reason that is actually true here.
 
 `suggestions.html` held a growing reviewed queue (23 rows at the time of writing, 26 after the merge with the seasonal pass) and no way to finish one. `decision-log.html` is new:
 one picker per suggestion, the register's own recommended path, and a computed *adopt-after-silence*
-default — reversible, risk none-or-low, and no `unknowable` blocking question. **14 of 22 carry a
-default a later pass may implement without asking; 8 wait for a person.** The rule is computed from
+default — reversible, risk none-or-low, and no `unknowable` blocking question. **The split is computed on the
+page, not typed here: today 16 rows carry a default a later pass may implement without asking, 8 wait for a
+person, and 2 are recorded done.** The rule is read from
+`data/suggestions.json` and `data/questions.json` at build time, so the page cannot promise a default
+its own data does not support, and the same computation prints the ordered queue for the next pass.
 `data/suggestions.json` and `data/questions.json` at build time, so the page cannot promise a default
 its own data does not support, and the queue it prints is the same computation in priority order.
 Silence never authorises spending, account actions, credential changes, a price or rating, a
