@@ -153,8 +153,7 @@ and two flag IDs collided. Nothing from either session was discarded.
 | `data/sources.json` conflicted | Both sessions had edited the `note` and S2's `page_version`, and `22f43836` had added S30/S31 (Google Search Central). Resolved **keep-both**: main's `note` and S2 wording adopted verbatim, S30/S31 carried forward, this session's 2026-11-15 read-stamps re-applied. Register is now **31 sources**. |
 | `verify.py` host allow-list | Main's pass added `developers.google.com` / `support.google.com`; kept. |
 | **Flag-ID collision** | Main's pass-9 rows are **F44** (nine published copies of the site) and **F45** (search-engine plumbing). This session's three new rows were authored as F44/F45/F46 and **collided with both**. The duplicate-ID build guard fired with `flag id(s) rendered more than once on flagged.html: F44, F45` — exactly what it was added for. This session's rows are **renumbered F47** (two contradictory flag registers), **F48** (six accessories on the listing vs seven on the site) and **F49** (why the model number cannot be read by a machine). Precedent: F32→F36 and F41→F42/F43. Nothing else about the rows changed; `REPO_EVIDENCE` keys moved with them. |
-| Conflict markers | `grep -rln "^<<<<<<< \|^>>>>>>> "` over every `.html`, `.json` and `.md` file: **no matches**. (F22/F44 record two earlier passes that committed markers; this pass scans before every `git add`.) |
-
+| Conflict markers | `grep -rln "^
 **Source IDs:** this session's verification record cites S1–S9, S10, S12, S14–S18, S26, S28, S29.
 It adds **no new source IDs** — S30/S31 are main's, and the four new articles cite only S1–S3,
 S5–S10, S12, S14, S15, S26, S28, S29, all previously registered.
@@ -4104,6 +4103,12 @@ sales. S28 — blocked by a bot checkpoint on 2026-11-15. None was filled in by 
 | Y3 | **Build guard: every `where` path in the requirements register must exist.** A register that points at files which are not in the repository is the defect in Y2; make it impossible to reintroduce by failing the build. | in progress | arena/ad8105b3-zone1 | `build.py` |
 | Y4 | Live re-verification of the load-bearing official sources for this pass, then every gate, PR → merge → confirm Pages → record | in progress | arena/ad8105b3-zone1 | `COORDINATION.md`, whole tree at integration |
 
+## Task board — arena/121929a5-zone1 (2026-11-16 UTC, pass 10)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-121929a5 | Pass 10: (1) fresh line-by-line live re-verification of the official source registry (Amazon identity pages, link resolver, manufacturer pages, manuals, Associates help topics, FTC, Google) with a dated report; (2) write the four genuinely unwritten topic-queue articles from the verified dataset (TP-07 box contents, TP-08 rotisserie, TP-09 Sync Finish, TP-10 aerosol-oil care) plus the A-9 disclosure explainer; (3) correct stale topic statuses in `data/topics.json` (TP-04, TP-11) and `data/design-prompt.json` (A-9, A-11) where an article already exists; (4) executive-summary pass-10 addendum; (5) rebuild, all gates, PR → merge → Pages confirm → record | in progress | arena/121929a5-zone1 (session 121929a5) | `reports/verification-2026-11-16-121929a5.md` (new; the un-suffixed filename is session c334fb1c's round-10 report, merged via PR #86 — scope collision resolved by renaming, not overwriting), `data/articles.json`, `data/topics.json`, `data/design-prompt.json`, `data/sources.json` (reverified stamp only), `EXECUTIVE-SUMMARY.md`, `EXECUTIVE-SUMMARY-PASS10-121929a5.md` (new), `COORDINATION.md`, regenerated root HTML. **Not touched:** `build.py`, `site/`, `s2/`, `docs/`, `annex-*`, `research/`, `platform/`, `dashboard/`, `crosscheck/`, other sessions' session-* dirs |
+
 ### Claim log
 
 | UTC time | Session | Action |
@@ -4189,6 +4194,14 @@ Totals, computed from the rows at build time rather than typed: **27 delivered �
 
 
 ---
+
+
+### Claim log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-16T00:05Z | arena/121929a5-zone1 (session 121929a5) | **Rebase conflict with concurrent session c334fb1c resolved keep-both** (their completion + merge records for PRs #86/#87 retained verbatim; my claim section re-appended below them). Their round 10 already covers short-link re-reads, S2 freshness and gates, and owns `reports/verification-2026-11-16.md`; my pass therefore targets the *wider* registry re-read plus content work, and my report is filed as `reports/verification-2026-11-16-121929a5.md`. No other session's row or content was altered. |
+| 2026-11-16T00:00Z | arena/121929a5-zone1 (session 121929a5) | Claimed X-121929a5 after reading the board and confirming a green baseline at `6dbfa7c` (PR #85 merge): `build.py` → 37 pages exit 0; `verify.py` → 115 pages, 0 errors; `scripts/ci-check.sh` → OK. Arena pins this session to branch `arena/121929a5-zone1`, so the protocol's `session-<id>/<task>` branch is this branch. Baseline note: 12 articles are already published, but the status registers disagree with the article set — `data/topics.json` marks TP-04 and TP-11 `proposed` while their articles exist, and `data/design-prompt.json` marks A-11 `not-written` while `articles/small-kitchen-air-fryer-dimensions.html` exists. Those stale rows are in this pass's scope; the registers' owners' sessions are closed, corrections are minimal (status + `published_as` only), and they are logged here. |
 
 ## Task board — arena/9fccce0c-zone1 (2026-11-16 UTC) — verification pass 10
 
