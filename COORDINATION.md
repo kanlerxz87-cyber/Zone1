@@ -5307,3 +5307,13 @@ aborted in favour of a fast-reset; (2) rebase side semantics (`--ours` = upstrea
 mis-read once, caught immediately, and the rebase was aborted and redone correctly; (3) the
 "pass 12" label is used by two sessions (`492acddc`'s design-coherence row and this session's V12)
 — records are disambiguated by session id, and neither register id depends on the label.
+
+### X-19d92a81 PR / merge / Pages record (2026-11-16 UTC)
+
+* **PR:** [#120](https://github.com/kanlerxz87-cyber/Zone1/pull/120) — *"X-19d92a81: marketing & decision-support pass — seasonal source-led articles, decision queue P5, design-prompt addendum, verification round 12, F74"*. Branch `arena/19d92a81-zone1` → `main`. PR checks: `verify` ✓, "Rebuild site/ from data/verified and assert every guarantee" ✓ (runs 43942533910 / 43942533920), `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`.
+* **Merge:** `gh pr merge 120 --merge`, without waiting for approval, per the brief. Merge commit on `main`: `4e0170294dba4cf5335cc183761c33b726224c75`.
+* **Post-merge workflows on `main`, all success:** `CI` (43942716299) ✓ · "Build, verify and deploy to GitHub Pages" (43942716368) ✓ · "Verify verification annex (site/)" (43942716318) ✓ · `pages build and deployment` (43942715112) ✓.
+* **GitHub Pages:** `gh api repos/…/pages/builds/latest` → `status: built`, commit `4e017029…`, `error: null`.
+* **Live read-back from the deployed origin:** `articles/black-friday-model-number-switch.html` renders the disclosure bar, breadcrumbs, the four sourced sections with per-section source chips, the judgement labels and the read-next row; `suggestions.html` renders 34 suggestions and all five decision paths with P5 carrying SG-23..SG-30 + SG-32..SG-35; `feed.xml` serves 21 items. Flag **F74** and the renumbered rows are on the deployed pages (CI link check on the merged tree: 8,568 links, 0 broken).
+
+**X-19d92a81 result: done — content published, decision queue live, all gates green, PR #120 merged as `4e01702`, GitHub Pages built and read back.**
