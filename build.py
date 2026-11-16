@@ -38,6 +38,8 @@ SITE_BASE = "https://kanlerxz87-cyber.github.io/Zone1/"
 # records the same URL; it is repeated here so the generator can build absolute URLs
 # (canonical, og:url, JSON-LD) without a network call at build time.
 SITE_URL = "https://kanlerxz87-cyber.github.io/Zone1"
+# Repository blob root: the evidence link that proves a cited path exists in the tree.
+REPO_BLOB = "https://github.com/kanlerxz87-cyber/Zone1/blob/main/"
 OG_IMAGE = SITE_URL + "/assets/og-card.png"
 # The publisher is the site itself. There is no named individual author on this site,
 # so the structured data names the organisation rather than inventing a person.
@@ -301,6 +303,7 @@ NAV = [
     ("suggestions.html", "Suggestions", "Review site improvements before implementation"),
     ("design-prompt.html", "Design prompt pack", "Design, topics and tactics — review before changes"),
     ("questions.html", "Questions and gaps", "Known facts, missing answers and discovery steps"),
+    ("requirements.html", "Requirements and status", "Every requirement in the brief, and whether this repo meets it"),
     # Added 2026-11-15 by arena/63a2c638: the editorial and traffic plan. It sits with the
     # decision pages because nothing on it has been written yet - it is a proposal queue,
     # the same way suggestions.html is an implementation queue.
@@ -992,6 +995,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
       {N("suggestions.html")}
       {N("design-prompt.html")}
       {N("questions.html")}
+      {N("requirements.html")}
       {N("topics.html")}
       {N("executive-summary.html")}
     </div>
@@ -1818,6 +1822,19 @@ PROGRAMME_FLAGS = [
      ["S1"]),
 
 
+    # ---- arena/ad8105b3, 2026-11-16 ------------------------------------------------- #
+    # Both found by reading the repository's own registers rather than the live sources.
+    # Neither changes a published value; both are records a reader can act on.
+    ("F59", "The repository serves six separate executive summaries, five of them stale and none labelled stale.",
+     "EXECUTIVE-SUMMARY.md, EXECUTIVE_SUMMARY.md, EXECUTIVE-SUMMARY-PASS8.md, EXECUTIVE-SUMMARY-PASS9.md, EXECUTIVE-SUMMARY-PASS9-42CA97AD.md, executive-summary.html",
+     "Recorded 2026-11-16 by arena/ad8105b3. A read of the repository root finds six files whose names all claim to be the executive summary: the generated executive-summary.html (current, built from data), EXECUTIVE-SUMMARY.md, and four earlier or parallel-session Markdown files (EXECUTIVE_SUMMARY.md, EXECUTIVE-SUMMARY-PASS8.md, EXECUTIVE-SUMMARY-PASS9.md, EXECUTIVE-SUMMARY-PASS9-42CA97AD.md). GitHub Pages publishes the repository root, so all six are reachable by URL. At least one, EXECUTIVE_SUMMARY.md, is already recorded in this register (F28) as asserting 'Identity verified. All three short links resolve to Amazon.com product pages with different ASINs', which this site's reconciled position contradicts. This pass did not delete or rewrite any of them: they are other sessions' committed records, and deleting another session's evidence is not a repair. The live site links only executive-summary.html. Decision needed: keep one Markdown briefing and move the rest under an archive directory with a one-line header saying what superseded them, or add a banner to each. Evidence: the six files themselves, and the root README.",
+     ["S1"]),
+
+    ("F60", "The s2 annex's requirements register cites two paths that do not exist, and its commission row rests on a premise the annex itself has since corrected.",
+     "data/s2/requirements.json rows R-01 and R-08",
+     "Recorded 2026-11-16 by arena/ad8105b3 while building the root requirements register (requirements.html). Two defects in the annex register. (1) R-01 'Collect and organise a full list of requirements' gives its implementation path as 'data/requirements.json rendered on Requirements page'. There is no data/requirements.json: the file is data/s2/requirements.json, and it renders at s2/pages/requirements.html. So the repository's only requirements register pointed the reader at a different, non-existent file. This is the third occurrence of the same defect class (after F14 and F38 in this register), which is why the new root register has check_requirement_paths() failing the build on any cited path that does not exist, and that guard was proven to fire on an injected bad path. (2) R-08 'Analyse commission potential' is marked blocked with the reason 'login-gated rate card (F-04)'. data/s2/flags.json row F-04 is itself titled 'CORRECTED — a public commission table does exist' and records that the Standard Commission Income Statement is readable without a login, which this pass re-confirmed live on 2026-11-16: Table 1 renders 'Physical Books, Kitchen, Automotive 4.50%'. The genuine remaining gap is narrower — Table 1 is keyed to categories, not ASINs — and the root register states it that way. Neither row was edited in the annex: data/s2/requirements.json is another session's published output. Decision needed: re-point R-01 at the real path, and restate R-08's blocking reason as the ASIN-to-category mapping rather than a login. Evidence: the two annex files and the commission page.",
+     ["S3"]),
+
     # ---- arena/63a2c638, integration pass 9, 2026-11-15 ----------------------------- #
     # Three findings from re-reading the official sources rather than trusting recorded
     # reads. F51 and F52 were found by reading a source the site had never used; F53 is a
@@ -2294,7 +2311,8 @@ def page_flagged():
     def row(fid, issue, scope, action, srcs):
         parts = ([src_links(srcs)] if srcs else []) + [repo_link(p) for p in REPO_EVIDENCE.get(fid, [])]
         src_html = " ".join(parts) if parts else '<a href="data.html">dataset</a>'
-        return (f'<tr><td class="num"><strong>{e(fid)}</strong></td><td>{e(issue)}<div class="tiny muted">Scope: {e(scope)}</div></td>'
+        return (f'<tr id="{(fid or "").lower()}"><td class="num"><strong>{e(fid)}</strong></td>'
+                f'<td>{e(issue)}<div class="tiny muted">Scope: {e(scope)}</div></td>'
                 f'<td class="small">{e(action)}</td><td>{src_html}</td></tr>')
 
     # Resolved items are generated from the re-verification ledger so a future pass updates the
@@ -3893,6 +3911,9 @@ def page_questions_alt():
 # --------------------------------------------------------------------------- #
 
 TOPICS = load("topics.json")
+# Added 2026-11-16 by arena/ad8105b3: the brief's first requirement was the only one
+# with no first-class page. The 19-row register existed only inside the s2/ annex.
+REQUIREMENTS = load("requirements.json")
 
 _TOPIC_STATUS = {
     "published": ("ok", "Published"),
@@ -4033,6 +4054,195 @@ owner's manual, so none of them requires a claim this site cannot support.</p>
         ("Content and traffic plan", page_url("topics.html")),
     ])]
                   )
+
+
+
+# --------------------------------------------------------------------------- #
+# requirements register (arena/ad8105b3, 2026-11-16)
+# --------------------------------------------------------------------------- #
+
+REQ_STATUS = {
+    "delivered":     ("ok",   "Delivered"),
+    "partial":       ("warn", "Partial"),
+    "blocked":       ("bad",  "Blocked"),
+    "not_delivered": ("warn", "Not built"),
+}
+
+REQ_GROUPS = [
+    ("A", "What the brief asked for"),
+    ("B", "The site, its design and its traffic"),
+    ("C", "Product research and analysis"),
+    ("D", "Content generation and editorial voice"),
+    ("E", "Publishing, affiliate links and measurement"),
+    ("F", "Compliance and disclosure"),
+    ("G", "The automation platform"),
+]
+
+
+def check_requirement_paths(generated=()):
+    """Build guard: every path a requirement row claims must exist in this repository.
+
+    This guard exists because the defect it prevents was live. The s2 annex's own
+    register row R-01 cited `data/requirements.json` and a "Requirements page"; neither
+    existed at those locations, and no gate noticed because a register is prose. A
+    status table that points at files which are not there is worse than no table: it
+    reads as verification and is none. Failing the build makes the claim checkable.
+    """
+    generated = set(generated)
+
+    def exists(rel):
+        # A path is real if it is on disk, or if this same build is generating it.
+        return rel in generated or (ROOT / rel).exists()
+
+    problems = []
+    for req in REQUIREMENTS["requirements"]:
+        for path in req.get("where") or []:
+            if path.endswith("/"):
+                if not exists(path) and not (ROOT / path).is_dir():
+                    problems.append(f"{req['id']}: directory does not exist: {path}")
+            elif not exists(path):
+                problems.append(f"{req['id']}: file does not exist: {path}")
+        for ev in req.get("evidence") or []:
+            url = ev["url"]
+            if url.startswith("http") or url.startswith("#"):
+                continue
+            if not exists(url):
+                problems.append(f"{req['id']}: evidence link does not exist: {url}")
+        for sid in req.get("sources") or []:
+            if sid not in SRC_BY_ID:
+                problems.append(f"{req['id']}: cites unregistered source {sid}")
+        if not (req.get("where") or req.get("evidence") or req.get("sources")) and not req.get("why"):
+            problems.append(f"{req['id']}: no implementation path, no evidence and no stated gap")
+    return problems
+
+
+def page_requirements():
+    reqs = REQUIREMENTS["requirements"]
+    legend = REQUIREMENTS["status_legend"]
+    counts = {}
+    for r in reqs:
+        counts[r["status"]] = counts.get(r["status"], 0) + 1
+
+    stat_html = "".join(
+        f'<div class="stat {"ok" if REQ_STATUS[k][0]=="ok" else ("bad" if REQ_STATUS[k][0]=="bad" else "warn")}">'
+        f'<div class="n">{counts.get(k,0)}</div>'
+        f'<div class="l">{e(REQ_STATUS[k][1])}</div></div>'
+        for k in ("delivered", "partial", "blocked", "not_delivered")
+    )
+
+    def row(r):
+        cls, label = REQ_STATUS[r["status"]]
+        where = "<br>".join(
+            f'<a class="src-link" href="{e(pth)}" target="_blank" rel="noopener">'
+            f'<code>{e(pth)}</code> ↗</a>'
+            f'<a class="src" href="{REPO_BLOB}{e(pth)}" target="_blank" rel="noopener" '
+            f'title="repository file — this is the evidence that the path exists">repo</a>'
+            for pth in (r.get("where") or [])
+        ) or '<span class="muted">—</span>'
+        ev = " ".join(
+            f'<a class="src-link" href="{e(x["url"])}" target="_blank" rel="noopener">'
+            f'{e(x["label"])} ↗</a>'
+            for x in (r.get("evidence") or [])
+        )
+        srcs = src_links(r.get("sources") or []) if (r.get("sources") or []) else ""
+        evidence_cell = (ev + ((" " + srcs) if srcs else "")) or '<span class="muted">—</span>'
+        if not (r.get("where") or []):
+            # No implementation path: cite the register row itself, which is where the
+            # gap is recorded, so the row still carries a checkable link.
+            evidence_cell = (evidence_cell + " " if ev or srcs else "") + (
+                f'<a class="src" href="{REPO_BLOB}data/requirements.json" target="_blank" '
+                f'rel="noopener" title="the register row that records this gap">repo</a>')
+        return (
+            f'<tr id="{e(r["id"].lower())}"><td class="num">' 
+            f'<a href="#{e(r["id"].lower())}">{e(r["id"])}</a></td>'
+            f'<td class="small"><strong>{e(r["requirement"])}</strong>'
+            f'<div class="tiny muted" style="margin-top:.35rem">{e(r["clause"])}</div></td>'
+            f'<td><span class="pill {cls}">{e(label)}</span></td>'
+            f'<td class="small">{e(r["why"])}</td>'
+            f'<td class="small">{where}</td>'
+            f'<td class="small">{evidence_cell}</td></tr>'
+        )
+
+    sections = []
+    for gid, gname in REQ_GROUPS:
+        rows = [r for r in reqs if r["id"].startswith(gid + "-")]
+        if not rows:
+            continue
+        sub = {}
+        for r in rows:
+            sub[r["status"]] = sub.get(r["status"], 0) + 1
+        summary = " · ".join(f"{REQ_STATUS[k][1]} {sub.get(k,0)}" for k in
+                             ("delivered", "partial", "blocked", "not_delivered") if sub.get(k))
+        sections.append(
+            f'<h2 id="group-{gid.lower()}">{gid}. {e(gname)}</h2>'
+            f'<p class="tiny muted">{len(rows)} requirements · {e(summary)}</p>'
+            '<table><thead><tr><th>#</th><th>Requirement</th><th>Status</th>'
+            '<th>What that status means here</th><th>Where it lives</th><th>Evidence</th>'
+            f'</tr></thead><tbody>{"".join(row(r) for r in rows)}</tbody></table>'
+        )
+
+    legend_html = "".join(
+        f'<li><span class="pill {REQ_STATUS[k][0]}">{e(REQ_STATUS[k][1])}</span> {e(legend[k])}</li>'
+        for k in ("delivered", "partial", "blocked", "not_delivered")
+    )
+
+    body = f"""
+<p class="crumbs"><a href="index.html">Home</a> / Requirements and status</p>
+<h1>Every requirement in the brief, and what this repository actually does about it</h1>
+<p class="lede">{e(REQUIREMENTS['purpose'])}</p>
+
+<div class="grid grid-4" style="margin:1.25rem 0 1.75rem">{stat_html}</div>
+
+<div class="callout note">
+  <strong>How to read a status.</strong>
+  <ul class="tight">{legend_html}</ul>
+  <p class="tiny" style="margin-bottom:0">{e(REQUIREMENTS['rule'])}</p>
+</div>
+
+<div class="callout warn">
+  <strong>The three counts that matter, and why they are not zero.</strong>
+  <p><strong>Blocked</strong> rows are not unfinished work. Each one depends on a fact that exists only
+  inside Amazon's own systems — the Associate tag, the approval status of the account, per-ASIN commission
+  categories, customer reviews, conversion reports. No amount of work in this repository closes them, and
+  the alternative to leaving them open is inventing a number, which is the one thing the brief forbids
+  more plainly than any other.</p>
+  <p style="margin-bottom:0"><strong>Not built</strong> rows are the opposite: buildable today, not built
+  yet. There are {counts.get('not_delivered',0)} of them, and the largest is organic traffic — see
+  <a href="topics.html">the content and traffic plan</a> for the channels Amazon's policies leave open.</p>
+</div>
+
+{''.join(sections)}
+
+<h2>What this register does not claim</h2>
+<p class="small">A status here is a statement about this repository, not about the affiliate business.
+This site has three products, one category, no traffic and no confirmed affiliate tag, so no row on this
+page should be read as evidence of revenue potential. The rows that would answer that —
+<a href="requirements.html#c-07">C-07</a>, <a href="requirements.html#c-08">C-08</a>,
+<a href="requirements.html#e-04">E-04</a> — are exactly the ones blocked.</p>
+<p class="small">Where a requirement could not be met, the row names the missing input and the clause that
+makes it missing rather than softening the status. Unverified values and unresolved conflicts are collected
+on <a href="flagged.html">Flagged for review</a>, and the questions that a decision would have to answer
+first are on <a href="questions.html">Questions and gaps</a>.</p>
+
+<div class="callout note">
+  <strong>Where this fits.</strong>
+  This page is the coverage view. <a href="suggestions.html">Suggestions</a> is the queue of changes with
+  options and a recommended path; <a href="design-prompt.html">Design prompt pack</a> is the status view of
+  what has already shipped; <a href="questions.html">Questions and gaps</a> is what must be answered before
+  a decision. The s2 annex carries its own, earlier, 19-row register at
+  <a href="s2/pages/requirements.html">s2/pages/requirements.html</a> — it is not edited by this page, and
+  the two disagreements between them are recorded as flags <a href="flagged.html#f59">F59</a> and
+  <a href="flagged.html#f60">F60</a>.
+</div>
+"""
+    return layout("requirements.html", "Requirements and status", body, active="requirements.html",
+                  description="Every requirement in the brief, one row each, with the status judged against what "
+                              "this repository and this site actually do, the path that implements it and the "
+                              "official source that settles it.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+                      ("Home", SITE_URL + "/"),
+                      ("Requirements and status", page_url("requirements.html")),
+                  ])])
 
 
 def page_404():
@@ -5268,6 +5478,7 @@ def main():
     pages["suggestions.html"] = page_suggestions()
     pages["design-prompt.html"] = page_design_prompt()
     pages["questions.html"] = page_questions()
+    pages["requirements.html"] = page_requirements()
     pages["topics.html"] = page_topics()
     pages["decision-gate.html"] = page_questions_alt()
     pages["marketing-directions.html"] = page_suggestions_alt()
@@ -5324,6 +5535,10 @@ def main():
     if affiliate_problems:
         raise SystemExit("BUILD FAILED - unqualified affiliate links (Google spam policies, "
                          "S30/S31):\n  " + "\n  ".join(affiliate_problems))
+    req_path_problems = check_requirement_paths(generated=pages.keys())
+    if req_path_problems:
+        raise SystemExit("BUILD FAILED - requirements register cites paths that do not exist:\n  "
+                         + "\n  ".join(req_path_problems))
     unsourced_rows = check_row_sources(pages)
     if unsourced_rows:
         raise SystemExit("BUILD FAILED — table rows with no official source link (cite a registered "
