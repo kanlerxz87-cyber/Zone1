@@ -37,7 +37,7 @@ identity mapping.
 > **Refreshed 2026-11-16 by session `arena/ba29c641-zone1`** (this file's own numbering calls it pass 11;
 > note a second session used the same pass label the same day, so trust the session id), because the numbers below
 > had become the file's oldest claims: `data/products.json` now holds **77 specification rows — 75
-> verified, 2 blank and flagged**, over **34** official sources. The 31 added rows are all values
+> verified, 2 blank and flagged**, over **35** official sources. The 31 added rows are all values
 > read from the three listings' own Product information blocks on 2026-11-16, each labelled
 > "as listed by Amazon" so a listing claim never reads as a manufacturer specification; one blank
 > row (the Emeril browse node) was filled from that same read. The bullets under this note are the
@@ -1074,6 +1074,121 @@ flagged and linked on `flagged.html`. Merged-tree gates on 2026-11-16: `build.py
 `verify.py` 126 pages / 46 spec rows (44 verified, 2 blank+flagged) / 34 sources / 0 errors ·
 `ci-check.sh` 7,587 links / 0 broken · research, site and platform audits clean.
 
+---
+
+<!-- appended by arena/b23f12f0, 2026-11-16 -->
+
+## 21. Verification round 11 — session `arena/b23f12f0`, branch `arena/b23f12f0-zone1` (2026-11-16)
+
+### 21.1 Why there is an eleventh round, and what it covered
+
+Round 10 ran earlier the same day (session `c334fb1c`) and re-read the three short links, the
+Program Policies date and the live landing page. It recorded the rest as *not re-read*: the FTC
+pages, 16 CFR 255, the brand pages, the manuals and the commission table. This round re-read exactly
+that set — **S1, S3, S4, S8, S9, S10, S12, S14, S16, S17, S28, S29, S32, S33** — and added **S35**.
+It does not repeat round 10's reads, except that the three short links were re-resolved because the
+Emeril destination is load-bearing for the value this round added.
+
+Every value re-read matched its stored record. **No published product value changed.**
+
+### 21.2 The one blank cell that closed
+
+The Emeril "Amazon browse node" row had been blank since 2026-11-15, because three fetches of ASIN
+`B09B7SB46R` that day were each answered by Amazon's automated "Continue shopping" checkpoint. Today
+the same ASIN loaded on the first attempt and rendered its breadcrumb:
+**Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers** — identical to both
+Chefman paths. The cell is now filled and cited to S28 and S17, and the stale 'unverified' text that a
+parallel fill had left behind - still reading 'Not read ... left blank' on a row that then
+carried a value - was removed. Verified specification rows went from 43 to **44**. Session
+`121929a5` (pass 10) filled the same cell independently on the same day by the same route and
+reached the identical string, so the value now rests on two independent reads rather than one.
+
+**This also corrected a recorded conclusion.** Round 9 had written that the block was "per-ASIN, not
+site-wide", because the two Chefman ASINs loaded in the same window. Today the reverse happened:
+`B0CDY277D3` — which loaded cleanly yesterday — was served the checkpoint on its first attempt and
+returned the listing only on a retry, while the Emeril loaded immediately. The checkpoint is
+**intermittent per request**, not a property of the ASIN. That matters beyond the one cell: a failed
+fetch is not evidence about a listing, and no future pass should record "blocked" as a fact about an
+ASIN. Published as **F65**.
+
+### 21.3 Three defects found by reading the data, not the sources
+
+The brief asks that the site not read like machine-generated filler. Line by line, three places were
+publishing the same content more than once:
+
+| Where | What was wrong | Effect on the published page |
+|---|---|---|
+| `questions.html`, row Q-11 | three "what we know" entries repeated seven times each — 18 entries collapsing to 6 | the sentence *"The same breadcrumb does NOT settle this question"* appeared **14 times** on one page |
+| `data/articles.json`, the note field | the opening paragraph repeated verbatim, pipe-joined | the editorial discipline statement printed twice |
+| Chefman 8 Qt, "Hi-Fry / 450 °F" row | source S29 cited three times in a row | one claim rendered three identical source badges |
+
+None was a wrong fact — each was the same fact printed repeatedly, which is precisely what makes a
+page read as machine-generated. All three were repaired with an order-preserving de-duplication that
+changed no wording, and a build guard (`check_register_duplicates()`) now fails the build if any
+register list repeats an entry or any register string repeats a sentence. The guard was proven to
+fire on an injected duplicate before it was committed (exit 1 injected, exit 0 clean). Published as
+**F64**.
+
+### 21.4 New evidence on two conflicts that stay open
+
+The Emeril brand page's own product description, updated **2026-11-16**, now states *"24 one-touch
+cooking presets"* and *"Included are 7 premium accessories"* — while the specification block on the
+same page still states *"25 Cooking Pre-sets"*, and the Amazon listing title for the same ASIN says
+*"Six Cooking Accessories Included"*. So the brand now contradicts itself within one page, and
+disagrees with its own listing on accessories.
+
+The site continues to publish 24 presets and 7 accessories on the strength of the manual and the
+description text, and **publishes both conflicts rather than reconciling them** — the brand has not
+withdrawn the 25, and averaging two official numbers is not verification. Published as **F66**.
+
+### 21.5 What this round refused to publish
+
+The Emeril storefront endpoint reports a variant weight of **27.04 lb / 12,265 g**. It is recorded
+as a *candidate* on Q-06 with its source, **not** published as the product weight, because the
+endpoint does not say whether that field is the product or the packaged weight — and the same brand
+family already shows the two figures diverging for both Chefman models (F51). Q-06's own instruction
+is to leave a cell blank rather than convert a shipping weight.
+
+### 21.6 Concurrency record
+
+Two other sessions were active on this repository on the same day. `arena/9f0e6668` (R10) and
+`arena/ad8105b3` (Y1–Y4) both touched `build.py`, `data/products.json` and `data/sources.json`.
+
+* **Flag-number collision.** This session had reserved F59 and F60 for its findings; `ad8105b3` had
+  already published different rows under those numbers in PR #89. This pass renumbered its three
+  flags to **F64, F65, F66** and kept the other session's rows untouched. The duplicate-ID guard
+  confirms no flag number now means two things.
+* **Both sessions' source stamps were kept.** Each had stamped S10, S12 and S14 on 2026-11-16 with
+  different, non-contradictory observations (they read the on-page review counters; this pass read
+  the storefront endpoints). Both findings now sit on each source, theirs in `page_version` and
+  this pass's in `verified`.
+* **A fourth finding was withdrawn rather than duplicated.** This pass also found that
+  `check_flag_ids_unique()` had gone blind — it matched zero flag rows and therefore reported
+  success while two sessions published different rows under F61 and F62 on the same day. Before
+  this pass landed its repair, session `arena/2e346d24` located and fixed the same defect on
+  `main`, and added `check_flag_count_matches_page()` for the related fault where the front page
+  was advertising zero open flags beside a 61-row register. Their repair is kept; this pass's
+  identical fix was dropped, and the finding is recorded as **F67** with the credit stated.
+* **Generated HTML conflicts were resolved by regenerating**, not by textual merge — every root HTML
+  file is a deterministic product of `build.py`.
+
+### 21.7 Gates and state
+
+`python3 build.py` exit 0 · **46 sitemap URLs** · `python3 verify.py` **126 pages**, 46 specification
+rows (**44 verified**, 2 blank+flagged), **35 sources**, 0 errors, 0 external warnings ·
+`bash scripts/ci-check.sh` 33 unit tests OK, data audit clean, **7,699 links / 0 broken** ·
+`python3 scripts/verify_site.py` **393 assertions, all passed** · `python3 platform/audit/report.py`
+AUDIT PASSED, 0 warnings · `python3 research/check_research.py` OK · flag-ID uniqueness: **no
+duplicates** · conflict-marker scan across `*.md/*.py/*.json/*.html`: clean.
+
+
+### 21.8 What remains open
+
+Q-01 (model number per listing — Amazon serves the reduced "Product summary" shell to automated
+reads), Q-02/Q-04 (Associates tag — not observable outside Associates Central), Q-11 (commission
+rate — only observable in the Associates reports after real sales), and the Emeril product weight.
+None was filled by inference.
+
 ## 21. Pass 11 — the premise that cost ten passes, and a way to close the decision queue (2026-11-16, session `arena/ba29c641-zone1`)
 
 ### 21.1 The finding that matters
@@ -1088,7 +1203,7 @@ and each page's **Product information** block rendered, model rows included:
 | B08DKYBTPH | Part Number **RJ38-SQSS-8T**, Model Number row holding the marketing string "Large Air Fryer", 1700 W / 120 V, Max 400 °F · Min 94 °C, 12.75″ × 13.5″ × 10″, 12.8 lb, Warranty "1-Year Limited Warranty", UPC 816458024518 | Model from the brand page and the manual; the 450 °F row blank because two sites disagreed |
 | B09B7SB46R | Model Number and Part Number **4-00675-02X-VN**, Min 75 °F · Max 500 °F, 1700 W / 120 V, 16.9″ × 15.8″ × 14.8″, Configuration "…24 Functions and 7 Accessories", Included Components enumerating six named parts, UPC 752356835682 | Model FAFO-001 (manual) / 4-00675-02A-VN (brand page); browse node blank because three 2026-11-15 fetches hit a checkpoint page |
 
-Read in full: **F64** (`flagged.html#f64`). The correction is narrower than it looks and worth
+Read in full: **F68** (`flagged.html#f68`). The correction is narrower than it looks and worth
 stating twice. What closed is the ASIN-to-model step, for all three products. What did **not** close
 is the supplied-link-to-ASIN attribution: the three `link.amazon` tokens are still nine characters,
 still not ASINs, and still arrive through `plpRedirect=mhFallback` (F6, F7, F10 stand). No sentence
@@ -1097,15 +1212,15 @@ than deleted, so the wrong premise stays visible in the file that carried it.
 
 ### 21.2 Four conflicts this pass found, and did not resolve
 
-* **F65** — the 8 Qt's footprint: brand page 15.4 × 12.6 × 13.5 in, its own listing 12.75 × 13.5 × 10
+* **F69** — the 8 Qt's footprint: brand page 15.4 × 12.6 × 13.5 in, its own listing 12.75 × 13.5 × 10
   (S12 vs S29); and the 6 Qt's listing Capacity field reading "6 liters" where its title, its Size
   field and the brand page all read 6 quarts.
-* **F66** — three official model strings for the Emeril, the newest two one character apart
+* **F70** — three official model strings for the Emeril, the newest two one character apart
   (`02A-VN` on the brand page, `02X-VN` on the listing, `FAFO-001` in the manual).
-* **F67** — the Emeril listing contradicts itself about the box: "7 Accessories" in its Configuration
+* **F71** — the Emeril listing contradicts itself about the box: "7 Accessories" in its Configuration
   field, six parts enumerated in its Included Components row, "Six" in its title. The same fetch made
   the 24-presets side of F4 stronger, so one read moved two rows in opposite directions.
-* **F68** — °C floors that do not convert to the °F floors on two products (93 °C vs 95 °C; 94 °C vs
+* **F72** — °C floors that do not convert to the °F floors on two products (93 °C vs 95 °C; 94 °C vs
   200 °F): rounding across documents, published as each source states it, never merged.
 
 Prices, availability, star ratings, review counts and the Best Sellers Rank line were all visible in
@@ -1151,8 +1266,8 @@ board (#94, #95) own that ground, and a third copy of the same source ledger was
 repository needs. It did not delete the five stale root briefings; it put a pointer on each (F59's
 disposition). It did not fill the two remaining blanks, did not assert a commission rate per ASIN, and
 did not state what either contradicting document "really" means. `python3 verify.py` reports
-**127 pages, 77 spec rows (75 verified, 2 blank and flagged), 34 sources, 0 errors, 0 external warnings**;
-`scripts/check_links.py` reports **8,080 links, 0 broken**; `scripts/ci-check.sh`, `scripts/verify_site.py`
+**127 pages, 77 spec rows (75 verified, 2 blank and flagged), 35 sources, 0 errors, 0 external warnings**;
+`scripts/check_links.py` reports **8,096 links, 0 broken**; `scripts/ci-check.sh`, `scripts/verify_site.py`
 and `research/check_research.py` all pass; a clean rebuild leaves `git status` empty.
 
 ### 21.6 One more instance of the defect this repository keeps finding
@@ -1164,4 +1279,4 @@ suggestions, 20 questions, a 37-URL sitemap, 33 unit tests, 15 guards, 27 banned
 briefings. All eight had drifted or were one edit from drifting. They are now `{}`-tokens substituted by
 `req_interp()` from the same objects the pages render from, an unknown token raises, and
 `check_requirement_tokens()` fails the build if a token survives into a page (both directions tested).
-Recorded as **F69**.
+Recorded as **F73**.

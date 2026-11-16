@@ -4812,6 +4812,153 @@ EOF only. A new build guard (CSS-coverage check) fired during that reconciliatio
 callout variants missing from the rewrite; they were added (`X-492acddc post-rebase reconciliation`
 commit) and every gate was re-run green afterwards.
 
+---
+
+## X-b23f12f0 completion record — arena/b23f12f0-zone1 (2026-11-16 UTC)
+
+**Status: done.** Branch `arena/b23f12f0-zone1`, based on `origin/main` at `4ed5843` (PR #112),
+opened as **PR #113**. Session ID `b23f12f0`.
+
+**1. Verification round 11 — the sources round 10 did not open.** Session `c334fb1c` (round 10)
+recorded the FTC pages (S8), 16 CFR 255 (S9), the brand pages (S10, S12, S14), the manuals (S13, S15,
+S18) and the commission table (S3) as *not re-read*. This pass re-read exactly that set, plus S1, S4,
+the three `/dp/` pages and two storefront endpoints. Every value re-read matched its stored record.
+**No published product value changed.**
+
+| Source | Read today | Verdict |
+|---|---|---|
+| S1 Operating Agreement | "Updated: October 15, 2025" | confirmed |
+| S3 Commission Income Statement | Table 1 read with no login; Kitchen 4.50%, All Other 4.00% | confirmed |
+| S4 Application Review | 3 sales/180 days, 10 posts, 60 days, 500 followers, rejection final | confirmed |
+| S8 FTC Disclosures 101 | "hard to miss"; "can't talk about … you haven't tried"; Nov 2019 | confirmed |
+| S9 16 CFR 255 | "up to date as of 11/12/2026", last amended 10/30/2026; §255.5 present | confirmed |
+| S10/S32, S12/S33 | endpoint prices, SKUs, weights unchanged; the brand touched both records today | confirmed |
+| S14 Emeril | price 199.99, SKU 4-00675-02A-VN; **description now says 24 presets / 7 accessories** | confirmed + new evidence |
+| S16, S28, S29 | all three `<title>`s matched character for character | confirmed |
+
+**2. One blank cell closed (and a recorded conclusion corrected).** The Emeril "Amazon browse node" row
+was blank because three fetches of `B09B7SB46R` on 2026-11-15 were answered by Amazon's "Continue
+shopping" checkpoint. It loaded on the first attempt today. In the same session `B0CDY277D3` — which
+had loaded cleanly yesterday — was served the checkpoint first and returned the listing only on a
+retry. So the block is **intermittent per request, not per-ASIN**, which is what round 9 had written.
+A failed fetch is not evidence about an ASIN. Verified specification rows: **43 → 44**. Session
+`121929a5` filled the same cell independently the same day by the same route, reaching the identical
+string; both are now recorded on the row (S28, S17). This pass also removed a stale `unverified` field
+the parallel fill left behind, which still read "Not read … left blank" on a row that then carried a
+value. **F65**.
+
+**3. Three duplication defects repaired.** Q-11's `what_we_know` carried three entries seven times each
+— 18 entries collapsing to 6, and the sentence *"The same breadcrumb does NOT settle this question"*
+rendered **14 times** on one page (now 1 visible + 1 in JSON-LD); the articles note repeated its opening
+paragraph; one Chefman 8 Qt row cited S29 three times. Order-preserving de-duplication, no wording
+changed. New guard `check_register_duplicates()` added and proven to fire (injected → exit 1, clean →
+exit 0). **F64**.
+
+**4. A blind guard found, and credit where it is due.** While renumbering its own flags this pass found
+that `check_flag_ids_unique()` matched zero rows and so reported success — it could not have caught two
+sessions publishing different rows under F61 and F62 on the same day. Before this pass could land its
+repair, session `arena/2e346d24` located and fixed the same defect on `main`, and added
+`check_flag_count_matches_page()` for the related fault where the front page advertised zero open flags
+beside a 61-row register. **Their repair is kept; this pass's identical fix was withdrawn. F67.**
+
+**5. New evidence published without asserting it.** The Emeril brand page's own description now states
+24 presets and 7 premium accessories while its specification block still states 25, and the Amazon
+listing title says "Six Cooking Accessories Included". Both conflicts stay open; nothing was reconciled
+by inference. The Emeril endpoint weight (27.04 lb / 12,265 g) is recorded as a **candidate** on Q-06,
+not published as a product weight, because the endpoint does not say whether the field is the product or
+the packaged weight. **F66**. Registered **S35** and stamped 14 sources with the round-11 read.
+
+#### Flag-number collisions (two, both resolved in favour of the session that landed first)
+
+| Collision | Resolution |
+|---|---|
+| **F59/F60** — reserved by this pass, published by `ad8105b3` in PR #89 | This pass renumbered to F61/F62/F63. Their rows untouched. |
+| **F61/F62** — then published by `9fccce0c` in PR #93 | Renumbered again to **F64/F65/F66**. Their rows untouched. The second collision was invisible until the blind guard was fixed. |
+
+#### Concurrency
+
+Eight other sessions were active on this repository on 2026-11-16 (`c334fb1c`, `9f0e6668`, `ad8105b3`,
+`9fccce0c`, `121929a5`, `2e346d24`, `f0878842`, `492acddc`). `main` advanced from `6dbfa7c` to `4ed5843`
+(PRs #85–#112) while this pass ran. After five consecutive `COORDINATION.md` rebase conflicts the pass
+switched strategy: reset to `origin/main`, re-apply this pass's changes onto the current files via a
+repeatable script, rebuild, re-run every gate, one commit. **No other session's work was discarded.**
+
+**Scope note logged, not edited:** running `bash scripts/ci-check.sh` rebuilds the `s2/` annex as a side
+effect and rewrites the build-date stamp in every `s2/**.html` header (13 files, `built 2026-11-13` →
+`built 2026-11-15`). The stamp is not derived from the current date, so the churn is unrelated to what
+the verifying session did. This pass reverted the change and did not commit it, because `s2/` is another
+session's file scope; the note is recorded above for the annex owner.
+
+#### Verification (all gates, as CI runs them)
+
+| Gate | Result |
+|---|---|
+| `python3 build.py` | exit 0, 46 sitemap URLs |
+| `python3 verify.py` | 126 pages · 46 spec rows (**44 verified**, 2 blank+flagged) · 35 sources · **0 errors** |
+| `bash scripts/ci-check.sh` | 33 unit tests OK · data audit clean · **7,699 links / 0 broken** |
+| `python3 scripts/verify_site.py` | 393 assertions, all passed |
+| `python3 platform/audit/report.py` | AUDIT PASSED, 0 warnings |
+| `python3 research/check_research.py` | OK |
+| flag-ID uniqueness | no duplicates |
+| conflict-marker scan (`*.md/*.py/*.json/*.html`) | clean |
+| anti-slop scan (27 stock-phrase patterns) | 0 uses in prose — the only matches are the style-guide pages quoting the banned list |
+
+No file in `site/`, `s2/`, `data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`
+or `annex-88769516/` was edited by this pass.
+
+#### What this pass did not resolve
+
+Q-01 (model number per listing — Amazon serves the reduced "Product summary" shell to automated reads),
+Q-02/Q-04 (Associates tag — not observable outside Associates Central), Q-11 (commission rate — only
+observable in Associates reports after real sales), and the Emeril product weight. None was filled by
+inference.
+
+#### Files
+
+`reports/verification-2026-11-16-b23f12f0.md` (new, evidence table) · `EXECUTIVE-SUMMARY.md` §21 ·
+`data/sources.json` (S35 + 14 stamps) · `data/products.json` (Emeril browse node) · `data/questions.json`
+(Q-06 candidate, Q-11 resolution, de-duplication) · `data/articles.json` (note de-duplication) ·
+`build.py` (F64–F67, `check_register_duplicates()`) · `COORDINATION.md` · regenerated root HTML.
+
+### X-a746a9f2 — PR, merge and deploy record (2026-11-16 UTC)
+
+* **PR:** [#101](https://github.com/kanlerxz87-cyber/Zone1/pull/101) — *Line-by-line review, live re-verification (2026-11-16), seasonal content cluster and decision-layer additions* — `arena/a746a9f2-zone1` → `main`.
+* **Merge:** `gh pr merge 101 --merge` **without waiting for approval**, state `MERGED` at `2026-11-16T19:12:20Z`, merge commit **`43da403de8ac856204a0f3cf5a41afdd31b53f94`**. PR CI run passed before merge. The merge landed cleanly through four recorded keep-both seams against concurrently moving `main` (PRs #86–#112); no other session's content was discarded at any seam.
+* **GitHub Pages:** the `pages build and deployment` workflow completed **`success`** on `main`; `pages/builds/latest` reports `status: built`, `error: null`, commit `4ed5843` (the descendant of `43da403` that also carries concurrent PR #112 — `43da403` is its ancestor, so the deployed site contains this pass's work). Live read-back confirmed `articles/air-fryer-gift-guide-2026.html` is deployed with its sourced specification splices, per-section official source links, the affiliate disclosure, and the "four things this gift guide cannot tell you" section — and `flagged.html`, `questions.html`, `suggestions.html` and `decisions.html` carry rows F63, Q-23, SG-24/25/26 and the count-proof fixes.
+* **Result: task X-a746a9f2 complete** — verification (14/14 live reads, evidence table `reports/verification-2026-11-16-a746a9f2.md`), marketing/seasonal layer (1 new article, TP-15–TP-17), decision layer (SG-24–SG-26, Q-23), executive summary §20, flags F63 + dated F53 update, integration merged and deployed, and this record.
+
+---
+
+### PR and deployment record — X-b23f12f0 (session `arena/b23f12f0`, 2026-11-16)
+
+| Item | Result |
+|---|---|
+| PR | **[#113](https://github.com/kanlerxz87-cyber/Zone1/pull/113)** — "Round 11: verification of unread sources, duplication repairs + guard, Emeril browse node (F64–F67)" |
+| Opened from | `arena/b23f12f0-zone1` → `main` |
+| Merge state at merge time | `CLEAN` / `MERGEABLE` (the branch was rebased onto `main` at `4ed5843`, PR #112, immediately before) |
+| Merged | Yes — without awaiting review, per the brief. Merge commit **`b4b6a3d`**, landed on `main` as **`26015ae`** |
+| Merge method | `gh pr merge 113 --merge` |
+| Pages build | `gh api …/pages` → `status: built`, source `main`, `https://kanlerxz87-cyber.github.io/Zone1/` |
+| Live read-back | Confirmed on the live site: **F64, F65, F66 and F67 all render** on `flagged.html` (page reports **67 open items**); the Emeril "Amazon browse node" row publishes the node with **both** sessions' corroboration and sources **S28 + S17**, with the stale `unverified` text gone |
+
+**Rebase history.** `main` advanced from `6dbfa7c` to `4ed5843` (PRs #85–#112) during this pass, so the
+branch was rebased five times. Five consecutive `COORDINATION.md` conflicts were resolved keep-both.
+After the fifth, the pass switched to a reset-and-re-apply strategy (reset to `origin/main`, re-apply
+this pass's changes from a repeatable script onto the current files, rebuild, re-run every gate, one
+commit), which ended the conflict cycle. **No other session's work was discarded at any point.**
+
+**One fix withdrawn in favour of another session.** This pass found that `check_flag_ids_unique()` had
+gone blind and wrote a fix. Before it could land, session `arena/2e346d24` located and fixed the same
+defect on `main`, and added `check_flag_count_matches_page()` for the related fault where the front page
+advertised zero open flags beside a 61-row register. **Their repair is kept; this pass's identical fix
+was dropped.** The finding is published as **F67** with the credit stated on the row itself.
+
+**Flagged items did not block the merge**, per the brief: F64, F65, F66 and F67 are published on
+[Flagged for review](https://kanlerxz87-cyber.github.io/Zone1/flagged.html) with source links.
+
+**The site is not broken:** build exit 0, 46 sitemap URLs, 7,699 links / 0 broken, 393 assertions passed,
+platform audit 0 warnings, research check OK.
+
 
 ---
 
@@ -4856,10 +5003,10 @@ on the model step, SG-01's "five minutes in a browser" was never the owner's job
 (`known`). F3/F33 are **not** closed: pass 11's live re-read of `RJ38-8T-BLACK` (S26) documents 450 °F, so the
 two-models reading stays live and both are published. 31 sourced rows added to `data/products.json` (46 → 77;
 75 verified, 2 blank and flagged), each labelled "as listed by Amazon"; the Emeril browse node's stale
-"not read" caveat removed; new flags **F64** (the false premise, and the Model-vs-Part-Number trap),
-**F65** (8 Qt footprint 15.4×12.6×13.5 vs 12.75×13.5×10; 6 Qt Capacity field says litres where its own page
-says quarts), **F66** (three Emeril model strings), **F67** (the listing says 7 accessories in Configuration,
-enumerates six, and says "Six" in the title — narrows F48, which had only seen the title), **F68** (°C floors
+"not read" caveat removed; new flags **F72** (the false premise, and the Model-vs-Part-Number trap),
+**F73** (8 Qt footprint 15.4×12.6×13.5 vs 12.75×13.5×10; 6 Qt Capacity field says litres where its own page
+says quarts), **F70** (three Emeril model strings), **F71** (the listing says 7 accessories in Configuration,
+enumerates six, and says "Six" in the title — narrows F48, which had only seen the title), **F72** (°C floors
 that do not convert to the °F floors beside them). Prices, ratings, review counts and rank positions were read
 and are not published. Evidence: `reports/asin-model-mapping-2026-11-16.md`.
 
@@ -4883,7 +5030,7 @@ this board already records. That reconciliation changed three of my own claims, 
 of kept: F53's "filled by this pass" (pass 10 filled it first, via the short link — now recorded as corroboration),
 the Q-02 answer's "the second-SKU explanation is no longer needed" (S26 says otherwise), and the F3 action text.
 Also fixed: `check_requirement_tokens` caught my own flag prose emitting braces, and the requirements register's
-typed counts became computed (**F69**). Gates on the final tree: `python3 build.py` 46 sitemap URLs exit 0 ·
+typed counts became computed (**F73**). Gates on the final tree: `python3 build.py` 46 sitemap URLs exit 0 ·
 `verify.py` 126 pages, 77 spec rows (75/2), 34 sources, 0 errors, 0 external warnings · `ci-check.sh` OK ·
 `check_links.py` 7,826 links, 0 broken · `verify_site.py` all assertions · `research/check_research.py` OK ·
 `node --check assets/app.js` OK · rebuild leaves `git status` clean.
@@ -4899,9 +5046,9 @@ grep -c '^<<<<<<<'` before opening the PR, not after.
 review + seasonal cluster + SG-24/25/26, X-492acddc's design-coherence pass, X-f0878842's acceptance audit), so a
 **second merge of `origin/main`** was taken. Consequences worth recording for the next session:
 
-* **Id collision avoided, not ignored.** This pass's flag rows were `F63`–`F68`; `arena/a746a9f2` had meanwhile
+* **Id collision avoided, not ignored.** This pass's flag rows were `F63`–`F72`; `arena/a746a9f2` had meanwhile
   registered `F63` (stale article counts, the same defect class as this pass's last row). Mine were renumbered to
-  **F64–F69** in a dedicated commit *before* the merge, so no two rows ever shared an id, and `F69` now cites
+  **F72–F73** in a dedicated commit *before* the merge, so no two rows ever shared an id, and `F73` now cites
   `F63` as the fourth occurrence of the class instead of restating it. The renumber was caught mid-flight by the
   site's own anchor guard (`index.html: href="flagged.html#f63" has no target`) — the lowercase anchors had to be
   renamed too, which is the value of the guard.
@@ -4930,4 +5077,32 @@ review + seasonal cluster + SG-24/25/26, X-492acddc's design-coherence pass, X-f
   `scripts/ci-check.sh` → 33 unit tests, data audit clean, annex build current · `scripts/verify_site.py` → all
   assertions · `research/check_research.py` → OK · `platform/audit/report.py` → 0 warnings · `node --check
   assets/app.js` → OK.
+
+### Third merge, second renumber — arena/ba29c641-zone1 (2026-11-16, just before the PR)
+
+`origin/main` advanced a third time while this pass reconciled: #113/#115/#116 landed (`arena/b23f12f0` round 11,
+`arena/a746a9f2` follow-up), and they had taken **F64–F67**. This pass's rows were therefore renumbered a second
+time — **F68–F73** — in a scoped pass over the files rather than a global replace, because a global one would
+have renumbered *their* F64–F67 references too (their `F65` is cited inside a note this session wrote, and their
+`F66`/`F67` are cited in `build.py` outside my rows). Cross-references were added in both directions where the
+findings touch: my `F68` now cites their `F65` (the checkpoint is intermittent per request, which is the mechanism
+their pass established and mine did not need to claim), my `F71` states how it differs from their `F66`, and
+`F73` records the collision history as the process lesson. `check_flag_ids_unique()` — the guard their `F67`
+repaired — is what would have failed the build had a duplicate survived.
+
+Two honest corrections about this session's own work, recorded because the register asks for them:
+
+* **A resolution that was never written.** My merge-resolution script for `data/products.json` validated the
+  merged JSON with `json.loads` and then *forgot to write the file*, so the markers were still in the working tree
+  and the index when the next step read it. Caught by the build failing to parse. Lesson: after resolving a
+  conflict, re-read the file from disk and re-validate, not the in-memory value.
+* **A syntax error introduced by an edit to a flag row.** Adding a cross-reference sentence containing literal
+  `"…"` inside a double-quoted Python string broke `build.py`; the fix was typographic quotes, matching the
+  register's existing style. `python3 -c "import ast; ast.parse(...)"` after every `build.py` edit is now the
+  step between editing and building.
+
+Sources rose to **35** (round 11 registered an Emeril storefront endpoint as `S35`), so the counts in this pass's
+own prose were refreshed again: `verify.py` → **127 pages, 77 spec rows (75 verified / 2 blank+flagged), 35
+sources, 0 errors, 0 external warnings**; `check_links.py` → **8,096 links, 0 broken**. `python3 build.py` exits
+0 and a second rebuild leaves `git status` empty.
 
