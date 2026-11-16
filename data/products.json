@@ -730,8 +730,8 @@
    }
   }
  ],
- "reverified": "2026-11-16 by arena/121929a5-zone1 (X-121929a5 pass 10: short-link resolutions, listing titles, browse nodes, brand pages S10/S12/S14, manual S18, and program/FTC/eCFR sources S1/S2/S3/S8/S9 re-read live; Emeril browse-node blank filled from S28; prior line-by-line passes 2026-11-15 by 792c279e and 2026-11-14 by 81495d2d; see reports/verification-2026-11-16-121929a5.md)",
- "reverified_by": "arena/792c279e-zone1 (T20 line-by-line pass; see reports/verification-2026-11-15.md)",
+ "reverified": "2026-11-16",
+ "reverified_by": "arena/a746a9f2-zone1 (X-a746a9f2 live re-verification pass; see reports/verification-2026-11-16-a746a9f2.md. One blank cell filled from a verbatim read: the Emeril Amazon browse node, previously unrendered behind a bot checkpoint.)",
  "source_conflicts": {
   "note": "Official documents that contradict a published specification value. Each entry names a row and the source id that contradicts it. The build fails if that source id appears in the row's source list, because a row's source list is read as the evidence for its value. The contradicting document belongs in the flag register, where it is the evidence of the conflict. Added 2026-11-15 by arena/88bb2db6.",
   "entries": [
