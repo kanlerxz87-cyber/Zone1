@@ -1376,7 +1376,7 @@ anything changes.
   (B0CDY277D3 / B09B7SB46R / B08DKYBTPH — identity still *unconfirmed*, caveat unchanged);
   S26 and the full S15 manual (including the Cleaning & Storage section) re-read verbatim.
 * **One new irregularity, flagged not guessed:** `articles/sync-finish-two-buttons.html` is
-  published outside the data-driven article set (**F68**), with the register-or-delete decision
+  published outside the data-driven article set (**F74**), with the register-or-delete decision
   left to the owner. README's stale article count fixed with a dated snapshot.
 
 **Merge reconciliation (logged in COORDINATION.md):** this session's branch met four parallel
