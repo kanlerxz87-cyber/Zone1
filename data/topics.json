@@ -1,6 +1,6 @@
 {
  "version": "1",
- "compiled": "2026-11-15",
+ "compiled": "2026-11-16",
  "compiled_by": "arena/63a2c638 (integration pass 9)",
  "status_of_this_document": "proposal",
  "disclaimer": [
@@ -382,6 +382,98 @@
    "blocked_by": [
     "Q-01"
    ]
+  },
+  {
+   "id": "TP-15",
+   "title": "Air fryer gift guide 2026: match the format to the person",
+   "hook": "The season's highest-intent air-fryer query, answered with documents instead of hands.",
+   "intent": "Commercial investigation",
+   "serves": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "angle": "Gift-guide season is the one window where 'which format?' outranks 'which model?' as the buyer's question. The three documented formats — two 3-quart baskets, one 8-quart basket, a 26 qt French-door oven — map to three kinds of kitchens, and every number the guide needs already sits in data/products.json with per-row sources. The guide names what it cannot answer (price, performance, exact SKU) instead of padding.",
+   "why_it_could_earn_traffic": "Judgement: 'air fryer gift guide' is a predictable November–December query with clear buying intent. A format-first guide that admits its limits is differentiated against roundup pages that rank units nobody on the page has opened.",
+   "must_cite": [
+    {
+     "label": "Chefman 6 Qt product page",
+     "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+    },
+    {
+     "label": "Chefman 8 Qt product page",
+     "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+    },
+    {
+     "label": "Emeril product page",
+     "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+    },
+    {
+     "label": "Emeril owner's manual (FAFO-001)",
+     "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282"
+    }
+   ],
+   "status": "published",
+   "blocked_by": [],
+   "published_as": "articles/air-fryer-gift-guide-2026.html"
+  },
+  {
+   "id": "TP-16",
+   "title": "Holiday hosting math: capacity, presets and counter space before the guests arrive",
+   "hook": "Hosting week is when capacity stops being a number and becomes a question.",
+   "intent": "Transactional",
+   "serves": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "angle": "Three sourced capacity figures (6 Qt split into two 3-quart baskets; 8 qt sized by the brand for 4–6 people; 26 qt / 24.6 L with a documented rotisserie) plus three sourced footprints decide the hosting question before any feature does. The counter-space angle from TP-04, applied to the week people actually run out of room.",
+   "why_it_could_earn_traffic": "Judgement: hosting-related searches peak through late November and December, and this site already holds every value the article needs with per-row sources — the cheapest seasonal article left in the queue.",
+   "must_cite": [
+    {
+     "label": "Chefman 6 Qt product page",
+     "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+    },
+    {
+     "label": "Chefman 8 Qt product page",
+     "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+    },
+    {
+     "label": "Emeril product page",
+     "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+    }
+   ],
+   "status": "proposed",
+   "blocked_by": []
+  },
+  {
+   "id": "TP-17",
+   "title": "Black Friday air fryer deals: what a site that publishes no prices can still tell you",
+   "hook": "Deals expire at midnight. The difference between two near-identical models does not.",
+   "intent": "Commercial investigation",
+   "serves": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "angle": "During deal season buyers compare discount banners, then discover the unit they bought tops out at 400 °F when the listing said 450 °F. This site cannot show a single price (Program Policies 2(b)), and that constraint is the article: three checks — model number, temperature ceiling, basket layout — that survive the sale, each backed by the official pages already in the register.",
+   "why_it_could_earn_traffic": "Judgement: 'air fryer deal' queries spike in a short predictable window, the policy-honest angle is unusual enough to earn links, and every check in the article re-links an existing explainer.",
+   "must_cite": [
+    {
+     "label": "Associates Program Policies — price display rule 2(b)",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+     "label": "Chefman 6 Qt product page",
+     "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+    },
+    {
+     "label": "Chefman 8 Qt product page",
+     "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+    }
+   ],
+   "status": "proposed",
+   "blocked_by": []
   }
  ],
  "channels": [

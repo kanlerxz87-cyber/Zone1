@@ -1,7 +1,7 @@
 {
  "version": "1.1",
  "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8",
- "compiled": "2026-11-15",
+ "compiled": "2026-11-16",
  "how_to_read": [
   "Nothing on this page has been implemented. It is a decision queue for the site owner.",
   "Each suggestion names the problem it fixes, the official document or repository evidence behind it, two or more paths you could take, and which path this pass would pick and why.",
@@ -440,9 +440,9 @@
   },
   {
    "id": "SG-09",
-   "title": "Turn the eight source-linked articles into a cluster with one job each",
+   "title": "Turn the source-linked articles into a cluster with one job each",
    "area": "Content strategy",
-   "problem": "There are eight articles and they are good - genuinely specific, sourced, and free of the filler that makes affiliate content worthless. But they overlap: two compare dual-basket against other form factors, and none is written for a high-intent query like 'chefman 6 quart dual basket air fryer review'. Without a deliberate map, the next eight articles will overlap the same way.",
+   "problem": "There is a published article set (live count on the articles index) and it is good - genuinely specific, sourced, and free of the filler that makes affiliate content worthless. But they overlap: two compare dual-basket against other form factors, and none is written for a high-intent query like 'chefman 6 quart dual basket air fryer review'. Without a deliberate map, the articles that follow will overlap the same way.",
    "evidence": [
     {
      "label": "Article index",
@@ -453,7 +453,7 @@
      "url": "https://kanlerxz87-cyber.github.io/Zone1/platform.html"
     },
     {
-     "label": "data/articles.json - the eight articles and their sources",
+     "label": "data/articles.json - every article and its sources",
      "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/articles.json"
     }
    ],
@@ -480,7 +480,7 @@
      "reversible": true
     }
    ],
-   "recommendation": "A, keeping all eight articles. They are too good to delete and too overlapping to keep growing unchecked.",
+   "recommendation": "A, keeping every published article. They are too good to delete and too overlapping to keep growing unchecked.",
    "why": "The existing title of one article - 'What 450F actually means' - is exactly the kind of specific, answerable question that earns a link and a ranking. The fix is not more articles, it is a rule that stops the ninth from duplicating the fifth.",
    "impact": 3,
    "confidence": 4,
@@ -1183,6 +1183,156 @@
    "blocked_by": [
     "Q-22"
    ]
+  },
+  {
+   "id": "SG-24",
+   "title": "Ship the seasonal content while the season is live, and date-stamp it",
+   "area": "Content strategy",
+   "problem": "The brief asks for trendy topics and organic traffic, and organic traffic has windows: gift-guide and deal queries for this category peak in November and December and close at year's end. As of this pass the topic register had no seasonal rows at all, while every value a seasonal cluster needs is already published with per-row sources. The cost of the usual response - 'plan the seasonal content properly, ship it next quarter' - is that the window closes first. This pass publishes the first piece (TP-15) and queues two more (TP-16, TP-17); what is missing is the owner's decision on how many pieces the window deserves and who signs them off.",
+   "evidence": [
+    {
+     "label": "Standard Commission Income Statement — Kitchen 4.50%, All Other Categories 4.00% (read live 2026-11-16)",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+    },
+    {
+     "label": "FTC Disclosures 101 — no experience claims for products not tried (read live 2026-11-16)",
+     "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Publish the gift guide now and queue the two remaining seasonal pieces",
+     "what": "The format-first gift guide is written from published values and lands with this pass. TP-16 (hosting capacity) and TP-17 (deal-season checks) go into the editorial queue with December deadlines. Cost: approving two more articles in the existing voice.",
+     "effort": "S",
+     "risk": "low",
+     "reversible": true
+    },
+    {
+     "label": "B. Build a full seasonal hub before publishing anything",
+     "what": "Three pieces plus a landing module and an internal-link plan, published together. Better final structure; risk is that review cycles push the publish date past the query window.",
+     "effort": "M",
+     "risk": "medium — misses the window",
+     "reversible": true
+    },
+    {
+     "label": "C. Skip seasonal content and stay evergreen",
+     "what": "No calendar, no deadlines. The site keeps its explainer register and sits out the quarter when category search demand peaks.",
+     "effort": "none",
+     "risk": "medium",
+     "reversible": true
+    }
+   ],
+   "recommendation": "A. The first piece ships in this pass; two queued articles are the smallest decision that still captures the window.",
+   "why": "Seasonal demand is the cheapest organic traffic available to a three-product site: the queries arrive on schedule, the intent is commercial, and the material to answer them is already sourced. The anti-slop rules that forbid fake roundups do not forbid format guides, and a format guide is the honest version of a gift guide. The date-stamp half matters as much as the publish half: a 'gift guide 2026' page that quietly rolls over to 2027 is exactly the slop the brief warns about.",
+   "impact": 4,
+   "confidence": 3,
+   "effort": "S",
+   "risk_of_not_doing": "Medium. Nothing breaks and no rule is breached; the site simply sits out the quarter when air-fryer searches and Kitchen-category commission both peak, then restarts the calendar in January having published nothing for the audience that arrived in November.",
+   "blocks": [],
+   "blocked_by": [
+    "Q-23"
+   ]
+  },
+  {
+   "id": "SG-25",
+   "title": "One compliant call-to-action pattern on every money page — design it now, wire it when the tag exists",
+   "area": "Editorial and conversion",
+   "problem": "The site has exactly one call-to-action component and it lives on the three product pages only: a button reading 'Open supplied Amazon link - verify model' with rel=\"nofollow sponsored\". The comparison page, the buying guide, the picks page and the articles end without any next step for the reader, and the design prompt the owner will hand to a designer contains no CTA component spec at all. The complication is real: the supplied links carry no observable tag (Q-04) and are flagged as possible Redirecting Links, so the honest CTA today is not 'buy now' but 'check the listing yourself'. A designed pattern can say that in one line, appear on every page that discusses a product, and swap to tagged Special Links the day attribution exists.",
+   "evidence": [
+    {
+     "label": "Identify yourself as an Associate — link-level disclosure must be clear and conspicuous: '(paid link)', '#ad', '#CommissionsEarned' (read live 2026-11-16)",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98"
+    },
+    {
+     "label": "Program Policies 2(b) — prices/availability only when Amazon serves the link or via Creators/PA API (read live 2026-11-16)",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+     "label": "Qualify your outbound links to Google — affiliate links need rel=\"sponsored\"",
+     "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Design the pattern now, publish it on the money pages, swap the destination later",
+     "what": "One component, used everywhere a product is discussed: a text link or button reading 'Check this listing on Amazon (paid link)', rel=\"sponsored\", no price or availability text, linking the supplied short link today and a tagged Special Link once Q-04 is answered. The design prompt gains the component spec; the comparison, guide, picks and article pages gain the next step the product pages already have.",
+     "effort": "S",
+     "risk": "low — the disclosure and rel rules are already build-guarded",
+     "reversible": true
+    },
+    {
+     "label": "B. Hold every CTA until the Associates tag is confirmed",
+     "what": "No commercial element goes on the page until attribution works. Cleanest compliance story; the site converts zero of the readers who are ready to check a listing.",
+     "effort": "none",
+     "risk": "low",
+     "reversible": true
+    },
+    {
+     "label": "C. Let each page improvise its own CTA",
+     "what": "Fastest to ship per page, and the pattern that produced the current inconsistency. Listed to be rejected.",
+     "effort": "S",
+     "risk": "medium — inconsistent disclosure placement",
+     "reversible": true
+    }
+   ],
+   "recommendation": "A, with the destination explicitly provisional until Q-04 is answered.",
+   "why": "Conversion on an affiliate site is one component: the moment the reader is told where to go next, with the disclosure at that exact spot (S5: 'placed near any affiliate link… They shouldn't have to hunt for it'). Designing the component before the redesign is what stops a future redesign from inventing a prettier non-compliant one. And the pattern's honesty is itself the sell: a site that says 'check the listing yourself, here is why we show no price' is differentiated against every roundup that hides the same limits.",
+   "impact": 4,
+   "confidence": 4,
+   "effort": "S",
+   "risk_of_not_doing": "High for conversion, low for compliance. Without a designed CTA on the pages that discuss products, the reader's next step is the browser back button, and whatever component a redesign improvises will be decided by aesthetics rather than by S5 and 2(b).",
+   "blocks": [],
+   "blocked_by": [
+    "Q-04"
+   ]
+  },
+  {
+   "id": "SG-26",
+   "title": "Put a five-row 'decide this first' triage at the top of the decision queue",
+   "area": "Decision making",
+   "problem": "The decision layer holds more than forty rows across suggestions, open questions and several paths — a backlog, by the register's own admission. The brief asks for a section that improves decision making, and the register delivers evidence but not order: a reviewer must read every row before knowing which five actions unblock the rest. The ordering is already derivable from the register's own blocker graph (the product identity, tag, account-status and price-policy rows block nearly everything commercial), so the site can compute a short ranked list instead of asking a human to re-derive it every visit.",
+   "evidence": [
+    {
+     "label": "Application Review Process — 3 qualifying sales in 180 days, rejection is final (read live 2026-11-16)",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
+    },
+    {
+     "label": "Associates Program Operating Agreement (read live 2026-11-16)",
+     "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Compute the triage from the registers' own blocker fields",
+     "what": "A build-time view: the five rows (suggestion or question) with the most downstream blockers first, each with its evidence link and the exact decision being asked. Regenerates as the register changes; cannot go stale.",
+     "effort": "M",
+     "risk": "low",
+     "reversible": true
+    },
+    {
+     "label": "B. A hand-written 'top five' list, refreshed each pass",
+     "what": "Cheaper to build and reads better on day one; it goes stale the first time a session forgets to update it, which is the exact defect class F52 already documents elsewhere in the register.",
+     "effort": "S",
+     "risk": "medium — stale list",
+     "reversible": true
+    },
+    {
+     "label": "C. Leave the queue unranked",
+     "what": "No work now; the owner keeps reading every row to make five decisions.",
+     "effort": "none",
+     "risk": "low",
+     "reversible": true
+    }
+   ],
+   "recommendation": "A, with B as the stopgap if the build work slips.",
+   "why": "The 180-day application clock (S4) means the order of decisions is itself a decision: confirming the tag after the content push instead of before it wastes the push. A computed triage makes the register answer the first question every visitor actually has — 'what do I do first?' — and it is the one addition that improves the owner's decision making rather than adding more for them to read. Implemented 2026-11-16 by session arena/ba29c641 under path A: the triage is computed on decision-log.html from both registers' 'blocks' arrays (transitive downstream count), so it cannot go stale the way the hand-written list in option B would.",
+   "impact": 3,
+   "confidence": 4,
+   "effort": "done",
+   "risk_of_not_doing": "Low. The evidence all exists; the cost is the owner's time spent re-deriving priorities from a register that already contains them.",
+   "blocks": [],
+   "blocked_by": [],
+   "resolved_on": "2026-11-16"
   }
  ],
  "paths_intro": "A decision queue with this many rows is a backlog, not a decision. The paths below group the suggestions into four coherent pieces of work. Each path is ordered, names what has to be true before it can start, and says plainly what it will not fix. Pick one path, finish it, then pick the next. The grouping is this pass's judgement; the dependencies inside it are not - they are the blocked_by links already recorded on each row.",

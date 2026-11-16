@@ -932,9 +932,151 @@ Recorded the same-day S3 finding (schedule now public; Kitchen 4.50% matches the
 Full report: [`reports/verification-2026-11-16-121929a5.md`](reports/verification-2026-11-16-121929a5.md);
 one-page briefing: [`EXECUTIVE-SUMMARY-PASS10-121929a5.md`](EXECUTIVE-SUMMARY-PASS10-121929a5.md).
 
-## 19. Pass 11 — the premise that cost ten passes, and a way to close the decision queue (2026-11-16, session `arena/ba29c641-zone1`)
+## 19. Pass 12 — the design-coherence pass (2026-11-16, session `arena/492acddc-zone1`)
 
-### 19.1 The finding that matters
+The owner's standing complaint through ten passes was not the copy (the anti-slop rules
+have been enforced in the build since pass 9) but the **look**: the stylesheet was three
+stacked eras — an admin-dashboard base, an editorial override layer, and commercial
+components appended on top — and the sidebar put the owner's thirteen process pages at eye
+level for shoppers. Pass 12 rebuilt the presentation layer without touching a single
+verified value.
+
+### 19.1 What shipped
+
+| Change | Detail |
+|---|---|
+| One coherent design system | The 422-line stylesheet was rewritten end to end (one token palette anchored to the brand green `#245746` the favicon already used, warm paper background, serif display type from the Iowan/Palatino/Georgia stack, quiet superscript-style source chips, deep-green footer). Every one of the 116 classes the 29 canonical pages emit is covered. |
+| Information architecture | Sidebar regrouped into **Shop smart / Products / Trust & evidence / Owner workspace**; the topbar gained a compact primary nav (Picks · Buying guide · Articles · Compare) plus the verified-data stamp, so shoppers see destinations before process pages. |
+| Editorial artwork | Three hand-drawn stroke-only SVG glyphs (dual basket / french-door oven / single basket) on the landing page's format cards — the site's only imagery, drawn for this site so the no-hotlinked-photos rule (D-5) is untouched. |
+| Stale count fixed | The landing page said "Compliance — **16** requirements"; the register carries **18** (C17/C18 since pass 10). The count is now read from `data/compliance.json` at build time and cannot drift. |
+| Register sync | `data/design-prompt.json`: A-11 corrected `not-written → published` (the contradiction round 11 filed against that register); D-1/D-2 status notes record pass 12; D-10 → `implemented` on measured evidence; the paste-ready design prompt's palette/typography directives updated to the shipped tokens. |
+
+### 19.2 Verification performed
+
+Live reads on 2026-11-16 (evidence: `reports/verification-2026-11-16-492acddc.md`): the
+Associates Program Policies page ("Updated: April 14, 2026"; 24-hour session rule verbatim),
+the Standard Commission Income Statement ("Kitchen — 4.50%"), FTC Disclosures 101
+("November 2019"), and the three brand pages. Both Chefman review counters read **1,307**
+and **717** for the third consecutive day — unchanged, so nothing was rewritten. Both open
+conflicts (F3 450/400 °F; F4/F5 preset counts) re-confirmed and still open. A WCAG AA
+contrast audit measured all 23 foreground/background pairs in the new stylesheet; one
+failure (label grey at 2.88:1) was found and fixed during the audit; all pairs now ≥ 4.5:1.
+
+### 19.3 Gates
+
+`build.py` → 41 pages, 0 errors · `verify.py` → 119 pages, 46 spec rows (43 verified /
+3 blank+flagged), 34 sources, 0 errors, 0 external warnings · `ci-check.sh` → tests OK,
+audit clean, s2 current, 7,135 links / 0 broken · `verify_site.py` → 393 assertions passed ·
+`research/check_research.py` → OK · `platform/audit/report.py` → AUDIT PASSED ·
+`node --check assets/app.js` → OK · two consecutive builds byte-identical.
+
+### 19.4 What this pass did not do
+
+It did not write or rewrite any article, specification value, compliance row or flag; it did
+not touch `site/`, `s2/`, `data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`,
+`crosscheck/`, `annex-*` or `session-*`. The unresolved account-holder questions (product
+identity, Associates tag, account approval) are unchanged and still published as such.
+
+## 20. Line-by-line review, live re-verification and the seasonal content pass — 2026-11-16 (session `arena/a746a9f2`, branch `arena/a746a9f2-zone1`)
+
+Task **X-a746a9f2** on the coordination board. This pass answered the brief's three standing
+demands — verify everything against official sources with links, keep the site a polished
+marketing property rather than an audit report, and leave the owner with a decision layer
+instead of more reading — in one integrated sweep. It merged at the same seams as concurrent
+rounds 10–11 (sessions `c334fb1c`, `9f0e6668`, `ad8105b3`, `9fccce0c`, `dc3f8b5d`, `3dfe4b45`,
+`695f03b7`, `121929a5`, `f3ada6ba` and others); every collision is listed in §19.3.
+
+### 20.1 What was verified (14/14 sources read live on 2026-11-16)
+
+Full evidence table: `reports/verification-2026-11-16-a746a9f2.md` (rows V1–V14: the exact string
+read back per row, with the URL and the verdict). Summary:
+
+* **The three supplied short links** re-resolved to the same candidate ASINs (B0CDY277D3,
+  B09B7SB46R, B08DKYBTPH) with fallback-style parameters; all three listing titles matched the
+  stored values character for character. The 2026-11-15 bot checkpoint on the Emeril listing
+  **cleared**: S28 is now read twice over.
+* **Four manufacturer pages** (Chefman 6 Qt, Chefman 8 Qt Touch, Chefman 8 Qt High-Fry, Emeril 26 QT):
+  every published specification still matches. Every registered conflict is still **live** —
+  the 8 Qt model/temperature conflict (F3), the Emeril 24-vs-25 presets (F4) and 10-in-1/11-in-1
+  counting (F5), the six-vs-seven accessories (F50).
+* **Five Associates pages + FTC + eCFR**: agreement version stamps unchanged (Oct 15 2025 / Apr 14
+  2026); commission table read in full with no login (Kitchen 4.50%, All Other 4.00%); the required
+  disclosure sentence verbatim; 3-sales/180-days, 10 posts, 60-day recency; "You can't talk about
+  your experience with a product you haven't tried"; 16 CFR 255 current as of 11/12/2026.
+* **The Emeril "Amazon browse node" cell** — blank behind the checkpoint in this pass's early
+  reading — was filled from a live breadcrumb read in V2 of the report; concurrent session
+  `121929a5` independently filled the same cell from the same page in pass 10 (convergent, both
+  recorded). Spec rows stand at 46 total: 44 verified, 2 blank+flagged — and the two blanks are
+  genuine (no preset count is documented for the 6 Qt; the 8 Qt Hi-Fry row is the F3 conflict and
+  must stay blank).
+
+### 20.2 What shipped (the marketing and decision layers)
+
+* **One new article** — *Air fryer gift guide 2026: match the format to the person* — this pass's
+  seasonal piece, written for the Q4 query window that is open now. Format-first, every value a
+  `{{published value}}` splice with its source, and a closing section naming the four things a
+  gift guide cannot tell you (price, taste, exact SKU, box contents). Published as **TP-15**.
+* **Three new topic rows** (TP-15…TP-17): the gift guide (published), a holiday-hosting capacity
+  piece and a deal-season "what a price-free site can still tell you" piece (both proposed, each
+  with hooks, intent and must-cite lists). The topics lede count is now computed rather than
+  hardcoded.
+* **Three new suggestions** feeding the owner's decision queue and the design prompt:
+  **SG-24** ship the seasonal cluster while the season is live (options A/B/C, blocked by Q-23);
+  **SG-25** one policy-compliant CTA component designed now and wired when the tag exists (the
+  component spec the design prompt lacked; blocked by Q-04); **SG-26** a computed "decide this
+  first" triage at the top of the queue — the brief's request for decision-making support.
+* **Q-23**: who decides the publishing calendar and what the deadlines are — the one missing owner
+  statement the seasonal plan needs. "No seasonal content" is recorded as an acceptable answer.
+
+### 20.3 Defects found and fixed, and the merge-seam collisions
+
+* **Stale-count defect class, fourth occurrence** (after F14, F38, F52), published as **F63**:
+  three register surfaces asserted "eight articles" while the index had long since outgrown the
+  number — `data/questions.json` Q-10, `data/suggestions.json` SG-09, and `data/decision.json`'s
+  niche rows. Fixed per the F52 precedent; because the count moved twice at the merge seams
+  (concurrent passes published more articles while this one worked), the corrected wording is
+  deliberately **count-proof** — "live count on the articles index" — instead of a fresh snapshot
+  that would age the same way. The `decision.json` fix is a cross-scope integration edit with
+  before/after strings logged in `COORDINATION.md`. `data/design-prompt.json`'s "12 articles"
+  status note received the same treatment.
+* **F53's stale sentence** (Emeril browse node "cannot be recorded") received a dated update
+  recording the checkpoint clearance and the filled row.
+* **SG-25 corrected mid-pass after an accuracy check of my own draft**: the first wording claimed
+  no page states what a buyer should click; a grep of the rendered pages showed the product pages
+  already carry one CTA button ("Open supplied Amazon link — verify model"). The row now states
+  the true gap: one ad-hoc CTA on product pages only, none on comparison/guide/picks/article
+  pages, and no component spec in the design prompt.
+* **Merge-seam ID collisions with concurrent sessions** (kept their rows, renumbered mine — the
+  convention every earlier seam used; this pass's rows were renumbered **twice**, once per seam):
+
+  | This pass's draft ID | Final ID | Renumbered at |
+  |---|---|---|
+  | SG-22 (seasonal calendar) | **SG-24** | seam 1: main's SG-22 (agent terms) · seam 2: main's SG-23 (photography licensing) |
+  | SG-23 (CTA component) | **SG-25** | seam 1 (order) · seam 2 (SG-23 taken) |
+  | SG-24 (decision triage) | **SG-26** | seam 1 (order) · seam 2 (order) |
+  | Q-21 (publishing calendar) | **Q-23** | seam 1: main's Q-21 (agent scope) · seam 2: main's Q-22 (image rights) |
+  | flag F59 (stale counts) | **F63** | seam 1: main's F59–F62 |
+  | this summary section (§17) | **§19** | seam 1: main's §17 (pass 10) · seam 2: main's §18 (pass 10 content) |
+  | `reports/verification-2026-11-16.md` | **`reports/verification-2026-11-16-a746a9f2.md`** | seam 1: main's same-path file (session c334fb1c) |
+
+* Cleared without action: `decision-gate.html` ("14 questions") and `marketing-directions.html`
+  ("12 suggestions") are parallel registers whose ledes render their own frozen register length —
+  internally consistent; the "16 suggestions" strings in `reverification.html`/
+  `executive-summary.html` are historical recounts of already-fixed defects.
+
+### 20.4 What is still open (unchanged, non-blocking)
+
+Q-01/Q-02 (ASIN→model mapping — Amazon serves automated reads a reduced shell with no Product
+information block), Q-03/Q-04 (account status; the tag inside the supplied short links), Q-11
+(commission category per ASIN — only the Earnings report names it), the owner's country statement
+(F42), and the flag-register unification decision (F44/F47). Every one of these remains blank,
+flagged and linked on `flagged.html`. Merged-tree gates on 2026-11-16: `build.py` 46 URLs ·
+`verify.py` 126 pages / 46 spec rows (44 verified, 2 blank+flagged) / 34 sources / 0 errors ·
+`ci-check.sh` 7,587 links / 0 broken · research, site and platform audits clean.
+
+## 21. Pass 11 — the premise that cost ten passes, and a way to close the decision queue (2026-11-16, session `arena/ba29c641-zone1`)
+
+### 21.1 The finding that matters
 
 Pass 10 recorded at §17.6 that F1/F2 "are not answerable from outside the account holder's browser".
 They were. This pass fetched `https://www.amazon.com/dp/B0CDY277D3`, `B09B7SB46R` and `B08DKYBTPH`
@@ -953,7 +1095,7 @@ still not ASINs, and still arrive through `plpRedirect=mhFallback` (F6, F7, F10 
 on this site now says the listing hides its model number; the register's F1 was corrected rather
 than deleted, so the wrong premise stays visible in the file that carried it.
 
-### 19.2 Four conflicts this pass found, and did not resolve
+### 21.2 Four conflicts this pass found, and did not resolve
 
 * **F65** — the 8 Qt's footprint: brand page 15.4 × 12.6 × 13.5 in, its own listing 12.75 × 13.5 × 10
   (S12 vs S29); and the 6 Qt's listing Capacity field reading "6 liters" where its title, its Size
@@ -972,7 +1114,7 @@ these fetches and are **not** on the site: Program Policies §2(b) and §6(t) fo
 for rank data, which stays a decision not to publish rather than a claim that no such figure exists
 (that wording was corrected in the s2 register, R-03).
 
-### 19.3 Two gates repaired, one of which could not fail
+### 21.3 Two gates repaired, one of which could not fail
 
 `.github/workflows/ci.yml` and `scripts/ci-check.sh` both ran `build_s2_site.py` (which writes) and
 then `--check` (which compares a rebuild with the files the previous line had just produced). The
@@ -987,9 +1129,9 @@ paths that exist, R-08 restates the blocker as the ASIN-to-commission-category m
 public Commission Income Statement as its source, and R-03's "no public demand metric exists" was
 corrected to the reason that is actually true here.
 
-### 19.4 The decision queue now has a closing mechanism
+### 21.4 The decision queue now has a closing mechanism
 
-`suggestions.html` held 22 reviewed suggestions and no way to finish one. `decision-log.html` is new:
+`suggestions.html` held a growing reviewed queue (23 rows at the time of writing, 26 after the merge with the seasonal pass) and no way to finish one. `decision-log.html` is new:
 one picker per suggestion, the register's own recommended path, and a computed *adopt-after-silence*
 default — reversible, risk none-or-low, and no `unknowable` blocking question. **14 of 22 carry a
 default a later pass may implement without asking; 8 wait for a person.** The rule is computed from
@@ -1002,18 +1144,18 @@ that filled it would be inventing an instruction. Q-01 and Q-02 moved from `miss
 because this pass answered them from the listing read, and SG-01's "five minutes in a browser" is
 closed as unnecessary.
 
-### 19.5 What pass 11 did not do
+### 21.5 What pass 11 did not do
 
 It did not touch `articles/`, `data/articles.json` or `data/topics.json` — the two open PRs on the
 board (#94, #95) own that ground, and a third copy of the same source ledger was the last thing this
 repository needs. It did not delete the five stale root briefings; it put a pointer on each (F59's
 disposition). It did not fill the two remaining blanks, did not assert a commission rate per ASIN, and
 did not state what either contradicting document "really" means. `python3 verify.py` reports
-**126 pages, 77 spec rows (75 verified, 2 blank and flagged), 34 sources, 0 errors, 0 external warnings**;
-`scripts/check_links.py` reports **7,826 links, 0 broken**; `scripts/ci-check.sh`, `scripts/verify_site.py`
+**127 pages, 77 spec rows (75 verified, 2 blank and flagged), 34 sources, 0 errors, 0 external warnings**;
+`scripts/check_links.py` reports **8,080 links, 0 broken**; `scripts/ci-check.sh`, `scripts/verify_site.py`
 and `research/check_research.py` all pass; a clean rebuild leaves `git status` empty.
 
-### 19.6 One more instance of the defect this repository keeps finding
+### 21.6 One more instance of the defect this repository keeps finding
 
 While updating the requirements register for this pass, its own preamble was checked against its own rows:
 the file promises "counts are computed from the rows at build time rather than typed, so this page cannot
