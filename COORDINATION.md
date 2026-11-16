@@ -4512,3 +4512,13 @@ HTML (`index.html`, `topics.html`, `suggestions.html`, `questions.html`, `requir
 `annex-88769516/`, every `session-*/` folder. Running `build.py` regenerates `s2/` build
 stamps as a side effect; those were reverted from every commit in this pass rather than
 shipped.
+
+---
+
+## Task board — arena/121929a5-zone1 (2026-11-16 UTC, pass 10) — completion record
+
+| # | Task | Status | Owner (session) | Result |
+|---|------|--------|-----------------|--------|
+| X-121929a5 | Pass 10 content pass | **done** | arena/121929a5-zone1 (session 121929a5) | **PR #94 opened and merged without approval** (merge commit `96f8daa`); GitHub Pages rebuilt and the live site read back — `articles/whats-in-the-box.html` renders with its S14/S28/S15 citations and the articles index counts **18 pieces**. Delivered: three new articles (TP-07 `whats-in-the-box`, TP-08 `rotisserie-at-home`, A-9 `associates-disclosure-explained`); stale statuses corrected (TP-04, TP-07, TP-08 in `topics.json`; A-9, A-11 in `design-prompt.json`); Emeril browse-node blank filled from S28; commission addenda; full report `reports/verification-2026-11-16-121929a5.md`; briefing §18 of `EXECUTIVE-SUMMARY.md`. All gates green on the merged tree (build 43 urls, verify 123 pages / 0 errors, ci-check 7,197 links / 0 broken, verify_site, research, `git diff --check` clean). |
+
+**Irregularities, for the next session's board-read:** (1) Five consecutive keep-both rebases were needed as concurrent sessions landed (c334fb1c → PRs #86/#87; 9f0e6668/ad8105b3 → #88–#92; 9fccce0c → #93; dc3f8b5d → #96/#97/#99; 3dfe4b45 → #98); `--force-with-lease` was used on this session's own branch only, after each rebase rewrote its history. (2) A rebase's `--theirs` points at the *replayed commit*, not main — it silently dropped ad8105b3's `reverified_2026_11_16` block and 9fccce0c's §17 once each; both were restored and the evidence blocks (including round 11's `reverified_2026_11_16_round11`) are all present on main. (3) **Content collision, resolved by dropping duplicates:** round 11 (3dfe4b45, PR #98) wrote their own TP-09 and TP-10 articles (`sync-finish-explained`, `aerosol-oil-warning`) while this pass's draft of the same two topics was in flight. The merged (round-11) versions are canonical; this session's two drafts were discarded unmerged, and only the three topics no other session had covered were kept. `articles.json` carries 18 articles with the provenance note. (4) The one verifiable blank closed this pass is the Emeril browse node; the Amazon-side blanks (per-listing model number, tag/account checks) remain flagged and belong on the public Flagged-for-Review page, per protocol.
