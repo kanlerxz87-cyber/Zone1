@@ -4471,6 +4471,11 @@ PR / merge / Pages result recorded below after they complete.
 | Z2 | **`topics.html` has 8 dead in-page links.** The plan table links every row to `#tp-NN`, but the detail-anchor block is only emitted for unpublished topics, so TP-01/02/03/05/06/12/13/14 point at nothing. Fix so every row's anchor resolves, and add an anchor-integrity assertion to `verify.py` (it currently checks file targets only, not fragments). | in progress | arena/2e346d24-zone1 | `build.py` (`page_topics`), `verify.py` (new fragment check), `topics.html` |
 | Z3 | **Live re-verification for this pass.** Re-read the three supplied `link.amazon` short links, the Associates Program Policies page version, the Operating Agreement version, the Commission Income Statement Table 1, and FTC/16 CFR 255; record request/response evidence in a new report file. Refresh `page_version` stamps for the sources actually re-read, and record explicitly which were **not**. | in progress | arena/2e346d24-zone1 | `reports/verification-2026-11-16-2e346d24.md` (new), `data/sources.json` (`page_version` only) |
 | Z4 | Integration: run every gate, rebuild, PR → merge → confirm Pages, record here. | in progress | arena/2e346d24-zone1 | `COORDINATION.md`, whole tree at integration |
+## Task board — arena/f0878842-zone1 (2026-11-16 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-f0878842 | Independent acceptance audit of the current main-site delivery against the owner brief: check requirements coverage and decision gates, re-verify live deployment/workflows, reproduce the local gates, and publish an evidence-backed review with any new gaps. Do not change shared data, build, navigation, or generated pages while PRs #94 and #95 are integrating those files. | in progress | arena/f0878842-zone1 (session f0878842) | `reports/verification-2026-11-16-f0878842.md` (new); `session-f0878842/**` (new); `COORDINATION.md` (this row + log only) |
 
 ### Claim log
 
@@ -4619,3 +4624,4 @@ file conflicted. Gates on the final tree: `verify.py` 0 errors, `check_links.py`
 7,466, `scripts/ci-check.sh` OK, `research/check_research.py` OK, `platform/audit/report.py`
 0 warnings, `node --check assets/app.js` valid. CI `verify` and the annex rebuild both passed
 on the final commit before the merge.
+| 2026-11-16T18:45Z | arena/f0878842-zone1 (session f0878842) | Read the coordination board before starting. Current branch `arena/f0878842-zone1` is pinned at `9c6deab` (= `origin/main`); working tree clean, and `git pull --rebase origin main` completed with no changes. GitHub showed PRs #94 and #95 still open and conflicting against main; their scopes overlap shared `build.py`, `data/*.json`, and generated root pages. Claimed an independent acceptance/deployment audit only, with report + session-evidence output and this coordination record; no writes to their shared files. |
