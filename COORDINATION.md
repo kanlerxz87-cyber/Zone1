@@ -4187,7 +4187,6 @@ Totals, computed from the rows at build time rather than typed: **27 delivered �
 
 **One observation for the next pass, not repaired here:** the project publishes each register as an individual HTML file at the site root, and the repository root also carries the raw generator (`build.py`), the JSON data directory and six Markdown briefings. GitHub Pages serves the repository root, so every one of those is publicly fetchable — which is why the register's `where` column can link `data/requirements.json` directly. That is a deliberate trade this repository has made throughout (open data over a tidy build directory), but it means the site's public surface is much larger than its navigation. If the owner prefers a narrower surface, moving the generator and data to a build-time-only location would be a single, self-contained change; it is recorded here rather than done, because it would break the evidence links on every register built so far.
 
-
 ---
 
 ## Task board — arena/9fccce0c-zone1 (2026-11-16 UTC) — verification pass 10
@@ -4293,3 +4292,22 @@ extend it to ordinary pages. Published as Q-21 rather than inferred.
 **Deployment:** PR opened against `main` and merged; GitHub Pages rebuilt; the live site read
 back to confirm the new content is served. The PR number and the Pages build id are recorded
 in the merge row above, once they exist.
+---
+
+## Task board — arena/ba29c641-zone1 (2026-11-16 UTC, session ba29c641)
+
+**Claim log — this session reads the whole board before claiming.** At claim time `origin/main` = `9c6deab` (PR #93 merged); two PRs are OPEN from concurrent sessions: #94 (`arena/121929a5-zone1`: 5 articles, `data/products.json`, `data/sources.json`, `data/articles.json`, `data/topics.json`, `build.py`, regenerated root HTML) and #95 (`arena/695f03b7-zone1`: `data/pass10.json`, `page_pass10`, `assets/figures/*`, `data/suggestions.json`, `data/questions.json`, `data/flags.json`, `build.py`). Both were left untouched. **This session deliberately avoids** `articles/`, `data/articles.json`, `data/topics.json`, `data/pass10.json`, `assets/figures/`, `EXECUTIVE-SUMMARY.md`, and any re-run of the 34-source ledger that #94/#95 already publish — that is their scope, and duplicating it would produce a third copy of the same table.
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| Z1 | Repair **F60 at source**: re-point `data/s2/requirements.json` R-01 at the file that exists and restate R-08's blocker as the ASIN→category mapping (the request logged by `arena/ad8105b3`; the annex has no active owner, so this session takes it) | in progress | arena/ba29c641-zone1 (session ba29c641) | `data/s2/requirements.json`, `s2/**` register regeneration only if `scripts/build_s2_site.py --check` requires it |
+| Z2 | Live **Product-information-block read** of the three `/dp/` ASINs, to attempt closing F46 / SG-01 / F2 / F3 / F32 / F33 (ASIN→model mapping) with an official source rather than inference. Publish the outcome — including a negative result — as a new evidence report | in progress | arena/ba29c641-zone1 (session ba29c641) | `reports/asin-model-mapping-2026-11-16.md` (new) |
+| Z3 | Owner **decision record**: make the Suggestions queue actually closable — per-suggestion "chosen path" state, a decision register `data/decision-log.json` the next agent pass reads, and a copy/export affordance so an owner's choice survives a static host | in progress | arena/ba29c641-zone1 (session ba29c641) | `data/decision-log.json` (new), `build.py` (`page_suggestions`, `page_index`, NAV), `assets/app.js`, regenerated `suggestions.html` + `index.html` only |
+| Z4 | **F59 disposition**: the five superseded root Markdown briefings stay as evidence but stop reading as current — pointer header on each, plus the flagged-page row updated with the disposition | in progress | arena/ba29c641-zone1 (session ba29c641) | `EXECUTIVE_SUMMARY.md`, `EXECUTIVE-SUMMARY-PASS8.md`, `EXECUTIVE-SUMMARY-PASS9.md`, `EXECUTIVE-SUMMARY-PASS9-42CA97AD.md`, `annex-88769516/README.md` (no) — NOT `EXECUTIVE-SUMMARY.md` (owned by #94) |
+| Z5 | Final integration for this pass: rebase onto `main` after #94/#95 land, re-run every gate, confirm byte-reproducible build with no broken links, PR → merge → confirm Pages deploy → record | in progress | arena/ba29c641-zone1 (session ba29c641) | whole tree at integration |
+
+### Overlap notes
+
+* Z3 touches `build.py`, which #94 and #95 both touch. Resolution rule adopted from `arena/ad8105b3`: on conflict, keep their changes and **regenerate** the HTML from the merged generator rather than hand-merging artifacts.
+* Z1 touches `data/s2/**`, which neither open PR lists. `s2/` was the scope of `zone1-s2` (`arena/f28312ac`, PRs long merged); its board rows are `done`, so this is a repair of an already-published register, not a takeover of active work.
+* Z4 touches only files no open PR lists.
