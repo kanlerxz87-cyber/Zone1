@@ -1250,11 +1250,9 @@ corrected to the reason that is actually true here.
 one picker per suggestion, the register's own recommended path, and a computed *adopt-after-silence*
 default — reversible, risk none-or-low, and no `unknowable` blocking question. **The split is computed on the
 page, not typed here: today 16 rows carry a default a later pass may implement without asking, 8 wait for a
-person, and 2 are recorded done.** The rule is read from
-`data/suggestions.json` and `data/questions.json` at build time, so the page cannot promise a default
-its own data does not support, and the same computation prints the ordered queue for the next pass.
-`data/suggestions.json` and `data/questions.json` at build time, so the page cannot promise a default
-its own data does not support, and the queue it prints is the same computation in priority order.
+person, and 2 are recorded done.** The rule is read from `data/suggestions.json` and `data/questions.json` at
+build time, so the page cannot promise a default its own data does not support, and the same computation
+prints the ordered queue the next pass works through.
 Silence never authorises spending, account actions, credential changes, a price or rating, a
 compliance posture, or any flagged product fact — that limit is printed on the page. A choice is
 exported as the body of `data/decision-log.json`, whose `choices` array is empty by design: a session
