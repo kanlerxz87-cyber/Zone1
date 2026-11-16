@@ -38,6 +38,8 @@ SITE_BASE = "https://kanlerxz87-cyber.github.io/Zone1/"
 # records the same URL; it is repeated here so the generator can build absolute URLs
 # (canonical, og:url, JSON-LD) without a network call at build time.
 SITE_URL = "https://kanlerxz87-cyber.github.io/Zone1"
+# Repository blob root: the evidence link that proves a cited path exists in the tree.
+REPO_BLOB = "https://github.com/kanlerxz87-cyber/Zone1/blob/main/"
 OG_IMAGE = SITE_URL + "/assets/og-card.png"
 # The publisher is the site itself. There is no named individual author on this site,
 # so the structured data names the organisation rather than inventing a person.
@@ -93,6 +95,17 @@ PASS7 = json.loads(_p7.read_text(encoding="utf-8")) if _p7.exists() else None
 # so a later session can drop the file without touching anything else.
 _p9 = ROOT / "session-88bb2db6" / "pass9.json"
 PASS9 = json.loads(_p9.read_text(encoding="utf-8")) if _p9.exists() else None
+# Additive round-10 targeted live-source follow-up (2026-11-16, arena/9f0e6668).
+# This is deliberately scoped: it refreshes dated volatile brand counters and records
+# current link/policy observations without claiming a full re-read of every product row.
+_p10 = ROOT / "session-9f0e6668" / "pass10.json"
+PASS10 = json.loads(_p10.read_text(encoding="utf-8")) if _p10.exists() else None
+# Additive pass-10 ledger (2026-11-16, arena/9fccce0c-zone1): the tenth independent
+# re-read. Same additive pattern - the file is owned by this session's folder and the
+# page simply omits the section if the file is absent. Named _p10u2/PASS10_U2 because
+# arena/9f0e6668 already owns the round-10 follow-up ledger above.
+_p10u2 = ROOT / "session-9fccce0c" / "pass10.json"
+PASS10_U2 = json.loads(_p10u2.read_text(encoding="utf-8")) if _p10u2.exists() else None
 
 # Decision layer (added 2026-11-15, arena/3ddfa50e). Two registers that exist to be reviewed
 # rather than acted on: the suggestions queue and the open-questions register. Both are
@@ -296,6 +309,7 @@ NAV = [
     ("suggestions.html", "Suggestions", "Review site improvements before implementation"),
     ("design-prompt.html", "Design prompt pack", "Design, topics and tactics — review before changes"),
     ("questions.html", "Questions and gaps", "Known facts, missing answers and discovery steps"),
+    ("requirements.html", "Requirements and status", "Every requirement in the brief, and whether this repo meets it"),
     # Added 2026-11-15 by arena/63a2c638: the editorial and traffic plan. It sits with the
     # decision pages because nothing on it has been written yet - it is a proposal queue,
     # the same way suggestions.html is an implementation queue.
@@ -987,6 +1001,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
       {N("suggestions.html")}
       {N("design-prompt.html")}
       {N("questions.html")}
+      {N("requirements.html")}
       {N("topics.html")}
       {N("executive-summary.html")}
     </div>
@@ -1281,7 +1296,7 @@ def page_index():
 
 <div class="callout bad link-status" id="link-status">
   <div class="link-status-heading"><span class="pill pill-warn">Before shopping</span><strong>Product identity, account approval and affiliate tracking are not confirmed.</strong></div>
-  <p class="small">Recorded checks through 2026-11-15 observed fallback-style redirects for the three supplied short links. We cannot confirm that each link reaches the named manufacturer model, carries the correct Associates tag, or that the Associates account is approved. Verify the model and account status in Amazon before relying on a purchase link. {src_links(['S17', 'S2'])} <a href="reverification.html">Read the redirect evidence</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html#q-01">Product-link question</a> · <a href="questions.html#q-03">Account-status question</a>.</p>
+  <p class="small">A targeted live re-check on 2026-11-16 again observed fallback-style redirects for all three supplied short links. We cannot confirm that any link reaches the product the account holder intended, carries the correct Associates tag, or that the Associates account is approved. Verify the model and account status in Amazon before relying on a purchase link. {src_links(['S17', 'S2'])} <a href="reverification.html">Read the redirect evidence</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html#q-01">Product-link question</a> · <a href="questions.html#q-03">Account-status question</a>.</p>
 </div>
 
 <div class="method-strip" id="how-we-work" aria-label="How this guide is made">
@@ -1398,7 +1413,7 @@ much to trust a number, not required reading before buying. The same material, i
 <a href="flagged.html">Flagged for review</a>.</p>
 
 <div class="grid grid-4" style="margin:1rem 0 1.25rem">
-  <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">Supplied links reach Amazon fallback pages — see <a href="reverification.html">link checks, 2026-11-14 and 2026-11-15</a></div></div>
+  <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">Supplied links reach Amazon fallback pages — see <a href="reverification.html">link checks through 2026-11-16</a></div></div>
   <div class="stat ok"><div class="n">{verified}</div><div class="l">Verified spec values</div><div class="h">Each with a link to the manufacturer page or manual</div></div>
   <div class="stat warn"><div class="n">{unverified}</div><div class="l">Unconfirmed values</div><div class="h">Left blank, listed on Flagged for review</div></div>
   <div class="stat bad"><div class="n">{n_open_flags}</div><div class="l">Open irregularities</div><div class="h">{n_total_flags} recorded across the three products and the programme; the Flagged page lists them as {n_open_flags} distinct rows</div></div>
@@ -1422,8 +1437,7 @@ much to trust a number, not required reading before buying. The same material, i
   and which Associates tag rides on the link, still cannot be confirmed from outside Associates Central, and a
   parallel pass reads the same fallback marker as grounds for withholding the "resolved" label entirely. Both
   readings are published side by side (flag F21). Full ledger:
-  <a href="reverification.html">Re-verification {REVERIFIED}</a> · their report:
-  <a href="reverification.html">link checks, 2026-11-14 and 2026-11-15</a>.</p>
+  <a href="reverification.html">Full line-by-line re-read: {REVERIFIED}</a>. A targeted follow-up on 2026-11-16 rechecked all three link destinations and refreshed two dated manufacturer review counters; it was not a full re-read. See the <a href="reverification.html">combined verification ledger</a>.</p>
 </div>
 
 <h2>Articles</h2>
@@ -1658,7 +1672,7 @@ PROGRAMME_FLAGS = [
     ("F18", "Committed s2 build stamp changes with the calendar date.",
      "s2/ (session zone1-s2 build)", "scripts/build_s2_site.py writes today's date into the 'built' stamp. Re-running on 2026-11-14 changes 13 files by that stamp alone (committed stamp: 2026-11-13). The CI gate regenerates before it checks, so it passes, but the committed copy is not pinned. Not changed in this pass because another session owns the file.", ["S1"]),
     ("F19", "Brand-site review counts move between days, so every rating on this site is a dated observation.",
-     "All three", "Chefman's own widget read 1,302 reviews on 2026-11-13 and 1,305 on 2026-11-14; the 8 Qt page read 715 then 716. The averages did not move (4.6 both days), but a published figure without its read date would silently become false. Both counts now carry both dates in the dataset, and any copy generated from it must carry the date too.", ["S10", "S12"]),
+     "All three", "Chefman's own widget read 1,302 reviews on 2026-11-13 and 1,305 on 2026-11-14; the 8 Qt page read 715 then 716. A third read on 2026-11-16 moved them again — 1,307 and 717 — while both averages held at 4.6 for the third consecutive time. The averages did not move (4.6 on every read), but a published figure without its read date would silently become false. All three counts now carry all three dates in the dataset, and any copy generated from it must carry the date too.", ["S10", "S12"]),
     ("F20", "The repository carries six parallel builds, and two of them were unreachable from the landing page until the 2026-11-14 integration pass.",
      "Whole repo", "s2/, site/, dashboard/, research/, session-3740f69d/ and docs/ are independent session outputs with their own data, their own verifiers and their own verdicts; they disagree in places (for example on whether the commission rate can be stated, and on how to read the plpRedirect=mhFallback marker). The pass linked the two orphaned builds into the navigation and changed none of their content. The owner should decide which build is canonical before this points at a real domain — a live site with six home pages is a maintenance and trust problem, not a data problem.", []),
     ("F23", "One documented build command in the README no longer runs against the shared data — it is a pre-existing break, not a regression from this pass.",
@@ -1801,7 +1815,7 @@ PROGRAMME_FLAGS = [
      ["S1"]),
     ("F56", "The Application Review Process page was not re-read this pass; its figures are carried forward from an earlier fetch.",
      "S4 \u2014 the Associates application criteria",
-     "Recorded 2026-11-15 by session 42ca97ad. This pass re-fetched the Program Policies, the Standard Commission Income Statement, both Chefman product pages, the Emeril product page, all three owner\u2019s manuals, all three supplied short links, 16 CFR Part 255 and 16 CFR Part 465. It did not load the Application Review Process page (S4). The figures the repository carries for it \u2014 three qualifying sales within 180 days, roughly ten posts, content recent within about sixty days, a social follower floor of about five hundred \u2014 are carried forward from earlier logged fetches and are NOT re-confirmed by this pass. The sixty-day recency requirement is load-bearing for any content-refresh schedule the owner adopts, so it must be re-read before it is used as a scheduling rule rather than quoted from this repository. Note that a sibling pass on the same day did re-read this page and reported the same four figures, which corroborates them but does not change what this session itself fetched. What was and was not fetched is listed item by item in session-42ca97ad/EVIDENCE-2026-11-15.md section 6.",
+     "Recorded 2026-11-15 by session 42ca97ad. This pass re-fetched the Program Policies, the Standard Commission Income Statement, both Chefman product pages, the Emeril product page, all three owner\u2019s manuals, all three supplied short links, 16 CFR Part 255 and 16 CFR Part 465. It did not load the Application Review Process page (S4). The figures the repository carries for it \u2014 three qualifying sales within 180 days, roughly ten posts, content recent within about sixty days, a social follower floor of about five hundred \u2014 are carried forward from earlier logged fetches and are NOT re-confirmed by this pass. The sixty-day recency requirement is load-bearing for any content-refresh schedule the owner adopts, so it must be re-read before it is used as a scheduling rule rather than quoted from this repository. Note that a sibling pass on the same day did re-read this page and reported the same four figures, which corroborates them but does not change what this session itself fetched. What was and was not fetched is listed item by item in session-42ca97ad/EVIDENCE-2026-11-15.md section 6. **Re-read 2026-11-16 by arena/9fccce0c-zone1: all four figures are confirmed verbatim from the live page** \u2014 \u201cwe require at least three within the first 180 days\u201d, \u201ca good rule of thumb is at least 10 posts\u201d, \u201cContent on your website must be recent (generally within the last 60 days)\u201d and \u201cin most cases, at least 500\u201d organic followers/likes \u2014 so the carried-forward part of this row is closed, and question Q-19 moves from *missing* to *known and sourced* with its answer on the row. Evidence: reports/verification-2026-11-16-9fccce0c.md row V3.",
      ["S4"]),
     ("F57", "Three files under data/ are read by no build, and one of them is a stale copy of a register that is published.",
      "data/flagged.json, data/commission-rates.csv, data/products.csv",
@@ -1813,6 +1827,19 @@ PROGRAMME_FLAGS = [
      "Found 2026-11-15 by session 42ca97ad, after PR #78 merged: the sentence \u2018Questions in the \u2018known and sourced\u2019 state carry their answer on the row \u2026\u2019 appeared twice in the preamble above the questions register. The cause was the one-shot editor that adds the register rows (session-42ca97ad/apply_pass9_edits.py): it appended the sentence to the preamble unconditionally, so running it a second time appended it again. The build did not catch it, because the duplicate-ID guard sees IDs, the published-value guard sees numbers, and a repeated sentence is neither. Fixed by making the editor idempotent, by removing the duplicate from data/questions.json, and by adding check_register_preambles(), which fails the build if any register preamble repeats a sentence. The guard was proven to fire on an injected duplicate. The same edit also corrected the preamble's own claim that the page \u2018separates three things\u2019 - it has always described four states, which is what the legend on the page lists.",
      ["S1"]),
 
+
+    # ---- arena/ad8105b3, 2026-11-16 ------------------------------------------------- #
+    # Both found by reading the repository's own registers rather than the live sources.
+    # Neither changes a published value; both are records a reader can act on.
+    ("F59", "The repository serves six separate executive summaries, five of them stale and none labelled stale.",
+     "EXECUTIVE-SUMMARY.md, EXECUTIVE_SUMMARY.md, EXECUTIVE-SUMMARY-PASS8.md, EXECUTIVE-SUMMARY-PASS9.md, EXECUTIVE-SUMMARY-PASS9-42CA97AD.md, executive-summary.html",
+     "Recorded 2026-11-16 by arena/ad8105b3. A read of the repository root finds six files whose names all claim to be the executive summary: the generated executive-summary.html (current, built from data), EXECUTIVE-SUMMARY.md, and four earlier or parallel-session Markdown files (EXECUTIVE_SUMMARY.md, EXECUTIVE-SUMMARY-PASS8.md, EXECUTIVE-SUMMARY-PASS9.md, EXECUTIVE-SUMMARY-PASS9-42CA97AD.md). GitHub Pages publishes the repository root, so all six are reachable by URL. At least one, EXECUTIVE_SUMMARY.md, is already recorded in this register (F28) as asserting 'Identity verified. All three short links resolve to Amazon.com product pages with different ASINs', which this site's reconciled position contradicts. This pass did not delete or rewrite any of them: they are other sessions' committed records, and deleting another session's evidence is not a repair. The live site links only executive-summary.html. Decision needed: keep one Markdown briefing and move the rest under an archive directory with a one-line header saying what superseded them, or add a banner to each. Evidence: the six files themselves, and the root README.",
+     ["S1"]),
+
+    ("F60", "The s2 annex's requirements register cites two paths that do not exist, and its commission row rests on a premise the annex itself has since corrected.",
+     "data/s2/requirements.json rows R-01 and R-08",
+     "Recorded 2026-11-16 by arena/ad8105b3 while building the root requirements register (requirements.html). Two defects in the annex register. (1) R-01 'Collect and organise a full list of requirements' gives its implementation path as 'data/requirements.json rendered on Requirements page'. There is no data/requirements.json: the file is data/s2/requirements.json, and it renders at s2/pages/requirements.html. So the repository's only requirements register pointed the reader at a different, non-existent file. This is the third occurrence of the same defect class (after F14 and F38 in this register), which is why the new root register has check_requirement_paths() failing the build on any cited path that does not exist, and that guard was proven to fire on an injected bad path. (2) R-08 'Analyse commission potential' is marked blocked with the reason 'login-gated rate card (F-04)'. data/s2/flags.json row F-04 is itself titled 'CORRECTED — a public commission table does exist' and records that the Standard Commission Income Statement is readable without a login, which this pass re-confirmed live on 2026-11-16: Table 1 renders 'Physical Books, Kitchen, Automotive 4.50%'. The genuine remaining gap is narrower — Table 1 is keyed to categories, not ASINs — and the root register states it that way. Neither row was edited in the annex: data/s2/requirements.json is another session's published output. Decision needed: re-point R-01 at the real path, and restate R-08's blocking reason as the ASIN-to-category mapping rather than a login. Evidence: the two annex files and the commission page.",
+     ["S3"]),
 
     # ---- arena/63a2c638, integration pass 9, 2026-11-15 ----------------------------- #
     # Three findings from re-reading the official sources rather than trusting recorded
@@ -1828,22 +1855,48 @@ PROGRAMME_FLAGS = [
      "Recorded 2026-11-15 by arena/63a2c638, round 9. Q-06 asks 'What are the exterior dimensions, weight and warranty terms for each of the three products?' and is filed as 'not_stated'. Checking the nine cells against the dataset this pass: exterior dimensions are published for all three (6 Qt from S10, Emeril from S14, 8 Qt from S12); warranty is published for all three (S10, S14, S13); weight is published for both Chefman models (S10, S12). One cell - the Emeril 26 QT product weight - is genuinely absent, because neither the brand page nor the owner's manual states one. So the register overstates the gap by eight cells. This matters in both directions: a reader using Q-06 to decide what to research would redo work already done, and a reader trusting the product pages would think the register is stale. Q-06 was narrowed this pass to the single cell that is actually open, and is cross-linked to this row. No data value moved.",
      ["S10", "S12", "S13", "S14"]),
 
+    ("F61", "The canonical compliance register and platform blueprint had never carried the two clauses that govern an AI-agent affiliate platform, and three published pages pointed at a flag number that does not exist.",
+     "Whole site \u2014 compliance.html, platform.html, questions.html, suggestions.html, data.html",
+     "Found 2026-11-16 by arena/9fccce0c-zone1 during verification pass 10, and fixed in the same pass. Two independent defects. "
+     "(a) Missing clauses. The Associates Program Policies page (S2, \u201cUpdated: April 14, 2026\u201d) carries IP License \u00a74 "
+     "\u201cAgents\u201d (the Agent Terms) and Participation Requirements \u00a75, both read verbatim live on 2026-11-16. Neither appeared "
+     "anywhere in the canonical build: data/compliance.json held 0 occurrences of \u201cAgent Terms\u201d and data/platform.json held 0 occurrences of "
+     "\u201cAgent\u201d, although the brief this project answers is explicitly an AI-powered affiliate platform and the root site ships a "
+     "platform blueprint that proposes automated research. They are now requirements C17 and C18, with platform guardrail G11; the scope "
+     "question they raise is published as Q-21 and the design decision as SG-22, and neither is answered by inference. "
+     "(b) Dangling pointer. data/questions.json, data/suggestions.json and data/sources.json each told the reader to see the flag numbered 46 "
+     "for the Application Review Process recency criterion. No such flag exists in the canonical register, which runs F1\u2013F45 and F47\u2013F58, "
+     "and none exists in the legacy data/flags.json register either, which runs F01\u2013F27. The three pointers now name F56, the row that actually "
+     "covers it. A new build guard, check_register_cross_references(), fails the build if any generated page cites a flag id, source id, question id "
+     "or suggestion id that is not in the register it points at, so the class of defect cannot recur silently. Evidence: "
+     "reports/verification-2026-11-16-9fccce0c.md section E.",
+     ["S2", "S4"]),
+    ("F62", "IP License \u00a74 (the Agent Terms) was not read end to end, so the full list of agent-identification requirements is not yet on the record.",
+     "S2 \u2014 the IP License section of the Program Policies page",
+     "Recorded 2026-11-16 by arena/9fccce0c-zone1. The Associates Program Policies page renders its IP License as one long table, and the "
+     "markdown conversion used for that pass collapsed part of it. Everything quoted in requirement C17 was read directly in the response body, "
+     "but the section was not read to its end: sub-part (a) refers to \u201cthe requirements in section 3 of these Agent Terms\u201d, and the text of "
+     "that section was not visible in the render. The Agent Terms are therefore published as the rules this pass could read, with the limit stated "
+     "on the row, rather than as a complete checklist. Decision needed: read IP License \u00a74 in a browser, in full, and extend requirement C17 "
+     "if it adds anything \u2014 before the research agent is built (SG-22). Evidence: reports/verification-2026-11-16-9fccce0c.md, the limit stated under "
+     "section A.",
+     ["S2"]),
     ("F53", "The Amazon browse-node breadcrumb is now published for two ASINs, and it does not settle which commission rate applies.",
      "All three products - the 'Amazon browse node' row and open question Q-11",
      "Recorded 2026-11-15 by arena/63a2c638, round 9, at the same time as the value itself was added, so the limit travels with the value. Both Chefman listings render the breadcrumb 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S16, S29). It is tempting to read 'Kitchen' there and apply the 4.50% Kitchen rate from the Commission Income Statement (S3). That would be an inference, not a source: S3's categories are commission categories defined by the Associates programme, Amazon's browse nodes are a shopper-navigation taxonomy, and Amazon publishes no mapping between the two. The same breadcrumb begins 'Home & Kitchen', and S3 also carries 'Home' at 3.00%, so the breadcrumb alone cannot even tell you which of the two it resembles. The site therefore continues to show the commission rate as unconfirmed (Q-11) and now shows the browse node as a separate, sourced fact. The Emeril browse node is blank: three fetches of that ASIN on 2026-11-15 returned Amazon's automated 'Continue shopping' checkpoint instead of the listing page, and a value that was never rendered cannot be recorded. Update 2026-11-16 (arena/a746a9f2): the checkpoint cleared and the breadcrumb rendered on B09B7SB46R; the Emeril browse-node row is now populated from that read (S28). The limit stated above is unchanged \u2014 the browse path still does not settle which commission rate applies (Q-11).",
      ["S3", "S16", "S29", "S28"]),
 
     # ---- arena/a746a9f2, line-by-line review pass, 2026-11-16 ----------------------- #
-    ("F59", "Fourth occurrence of the stale-count defect class: three registers asserted 'eight articles' after the set grew to thirteen. Found and fixed.",
+    ("F63", "Fourth occurrence of the stale-count defect class: three registers asserted 'eight articles' after the set grew to thirteen. Found and fixed.",
      "data/questions.json Q-10, data/suggestions.json SG-09, data/decision.json niche rows",
-     "Recorded 2026-11-16 by arena/a746a9f2 (X-a746a9f2). The brief's line-by-line review grepped every generated page for register counts and found live assertions that had gone stale as the article set grew: questions.html (Q-10's 'what we know' cell and the page's JSON-LD) and suggestions.html (SG-09's title, problem, evidence label and recommendation) both said 'eight articles', and decisions.html carried 'the site's existing eight articles' plus a pill reading 'Eight articles already exist in this shape' - while the articles index publishes thirteen. This is the same defect class as F14, F38 and F52: a register cell written as a snapshot and read as a live fact. Fixed per the F52 precedent: the two rows inside this session's claimed scope were corrected in place, and the third (data/decision.json, created by a completed session) was corrected as an integration-scope wording fix, with before/after strings logged in COORDINATION.md. All three now carry a dated count (13, 2026-11-16) plus a pointer to the live articles index, so they read as dated snapshots rather than live claims. The same scan cleared the 'parallel register' pages (decision-gate.html's fourteen questions, marketing-directions.html's twelve suggestions) as internally consistent \u2014 their ledes render their own frozen register's length \u2014 and cleared the historical recounts in reverification.html and executive-summary.html, which describe already-fixed defects. No build guard can police free-prose counts without a whitelist of claim sentences; check_register_preambles covers repeated sentences only. Decision needed: adopt computed counts in register prose (SG-24 option A machinery) or accept dated snapshots as the house standard.",
+     "Recorded 2026-11-16 by arena/a746a9f2 (X-a746a9f2). The brief's line-by-line review grepped every generated page for register counts and found live assertions that had gone stale as the article set grew: questions.html (Q-10's 'what we know' cell and the page's JSON-LD) and suggestions.html (SG-09's title, problem, evidence label and recommendation) both said 'eight articles', and decisions.html carried 'the site's existing eight articles' plus a pill reading 'Eight articles already exist in this shape' - while the articles index publishes thirteen. This is the same defect class as F14, F38 and F52: a register cell written as a snapshot and read as a live fact. Fixed per the F52 precedent: the two rows inside this session's claimed scope were corrected in place, and the third (data/decision.json, created by a completed session) was corrected as an integration-scope wording fix, with before/after strings logged in COORDINATION.md. All three now carry a dated count (13, 2026-11-16) plus a pointer to the live articles index, so they read as dated snapshots rather than live claims. The same scan cleared the 'parallel register' pages (decision-gate.html's fourteen questions, marketing-directions.html's twelve suggestions) as internally consistent \u2014 their ledes render their own frozen register's length \u2014 and cleared the historical recounts in reverification.html and executive-summary.html, which describe already-fixed defects. No build guard can police free-prose counts without a whitelist of claim sentences; check_register_preambles covers repeated sentences only. Decision needed: adopt computed counts in register prose (SG-25 option A machinery) or accept dated snapshots as the house standard.",
      []),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
 # fact about this repository, so the repository itself (on GitHub) is the source.
 REPO_EVIDENCE = {
-    "F59": ["data/questions.json", "data/suggestions.json", "data/decision.json"],
+    "F63": ["data/questions.json", "data/suggestions.json", "data/decision.json"],
     "F20": ["s2/", "site/", "dashboard/", "research/", "session-3740f69d/", "docs/"],
     "F22": ["EXECUTIVE_SUMMARY.md"],
     "F23": ["scripts/build.mjs"],
@@ -2297,7 +2350,8 @@ def page_flagged():
     def row(fid, issue, scope, action, srcs):
         parts = ([src_links(srcs)] if srcs else []) + [repo_link(p) for p in REPO_EVIDENCE.get(fid, [])]
         src_html = " ".join(parts) if parts else '<a href="data.html">dataset</a>'
-        return (f'<tr><td class="num"><strong>{e(fid)}</strong></td><td>{e(issue)}<div class="tiny muted">Scope: {e(scope)}</div></td>'
+        return (f'<tr id="{(fid or "").lower()}"><td class="num"><strong>{e(fid)}</strong></td>'
+                f'<td>{e(issue)}<div class="tiny muted">Scope: {e(scope)}</div></td>'
                 f'<td class="small">{e(action)}</td><td>{src_html}</td></tr>')
 
     # Resolved items are generated from the re-verification ledger so a future pass updates the
@@ -2310,6 +2364,19 @@ def page_flagged():
         f'<td class="small"><a href="{e(t["source_url"])}" target="_blank" rel="noopener">{e(t["source_label"])}</a></td></tr>'
         for t in res
     )
+    # Pass 10 (2026-11-16) closed items too. They are rendered from the pass-10 ledger so
+    # the table keeps its own source of truth rather than a hand-maintained list.
+    if PASS10:
+        for _t in PASS10["rows"]:
+            if _t["verdict"] not in ("conflict-resolved", "new-evidence"):
+                continue
+            resolved_rows += (
+                f'<tr><td class="num"><strong>{e(PASS10["pass_date"])}</strong></td>'
+                f'<td>{e(_t["claim"])}</td>'
+                f'<td class="small">{e(_t["observed"])}</td>'
+                f'<td class="small"><a href="{e(_t["source_url"])}" target="_blank" rel="noopener">'
+                f'{e(_t["source_label"])}</a></td></tr>'
+            )
     resolved_rows += (
         '<tr><td class="num"><strong>2026-11-14</strong></td>'
         '<td>Chefman 8 Qt — blank Wattage and Dimensions rows</td>'
@@ -2549,10 +2616,24 @@ def page_platform():
               )
 
 
+def _req_counts_html():
+    """Live counts from the requirements register, so the briefing cannot disagree with it."""
+    counts = {}
+    for r in REQUIREMENTS["requirements"]:
+        counts[r["status"]] = counts.get(r["status"], 0) + 1
+    parts = " · ".join(
+        f"<strong>{counts.get(k, 0)}</strong> {REQ_STATUS[k][1].lower()}"
+        for k in ("delivered", "partial", "blocked", "not_delivered")
+    )
+    return parts + "."
+
+
 def page_exec():
-    # The number of ledger rows the executive summary quotes. Derived from both ledgers
-    # so it cannot drift: the 2026-11-14 pass and the pass-9 addendum.
-    LEDGER_ROWS = len(REVERIFICATION["tests"]) + (len(PASS9["rows"]) if PASS9 else 0)
+    # The number of re-verification rows the executive summary quotes. Derived from
+    # every rendered register so it cannot drift as a targeted addendum is added.
+    LEDGER_ROWS = (len(REVERIFICATION["tests"]) + (len(PASS9["rows"]) if PASS9 else 0)
+                   + (len(PASS10["rows"]) if PASS10 else 0)
+                   + (len(PASS10_U2["rows"]) if PASS10_U2 else 0))
     # How many pages the root build publishes. Counted from the directories this
     # generator writes to, so the number in the prose cannot drift away from the
     # number of pages actually shipped.
@@ -2597,8 +2678,9 @@ def page_exec():
         ("Category", "All three are air fryers or air fryer toaster ovens — the niche is set by the products, not chosen.", ["S16"]),
         ("Verification standard", "Official sources only; blank plus flagged wherever unconfirmed; no inference.", ["S1", "S2"]),
         ("Verified spec values", "Published on the dashboard and in the full dataset, each with a source link.", ["S10", "S12", "S14"]),
-        (f"Re-verification ({REVERIFICATION['pass_date']} and 2026-11-15)", f"Every published value was re-read against the official source it cites. The ledger — {LEDGER_ROWS} rows in total, each with the value as published, what the source said on the day, a verdict and a link — is on the <a href=\"reverification.html\">Re-verification</a> page. Two blank rows were filled from the manufacturer's own spec block, and the disputed question of whether the short links shuffle between requests was closed by a repeat fetch plus a nonsense-token control.", ["S16", "S21", "S22"]),
-        ("Re-verification (2026-11-15, this pass)", "Every official source was re-fetched by this session rather than trusted from the recorded ones: the Program Policies, the Commission Income Statement, both Chefman product pages, the Emeril product page, all three owner's manuals, all three supplied short links, 16 CFR Part 255 and 16 CFR Part 465. All 43 specification rows were checked against the page each one cites; none was found wrong and no published value changed. The raw evidence, including the sources deliberately not fetched, is in the repository.", ["S2", "S3", "S10", "S12", "S14", "S18"]),
+        (f"Re-verification ({REVERIFICATION['pass_date']}, 2026-11-15 and 2026-11-16)", f"Every published value was re-read against the official source it cites. The ledger — {LEDGER_ROWS} rows in total, each with the value as published, what the source said on the day, a verdict and a link — is on the <a href=\"reverification.html\">Re-verification</a> page. Two blank rows were filled from the manufacturer's own spec block, and the disputed question of whether the short links shuffle between requests was closed by a repeat fetch plus a nonsense-token control.", ["S16", "S21", "S22"]),
+        ("Re-verification (2026-11-15, pass 9)", "Every official source was re-fetched by that session rather than trusted from the recorded ones: the Program Policies, the Commission Income Statement, both Chefman product pages, the Emeril product page, all three owner's manuals, all three supplied short links, 16 CFR Part 255 and 16 CFR Part 465. All 43 specification rows were checked against the page each one cites; none was found wrong and no published value changed. The raw evidence, including the sources deliberately not fetched, is in the repository.", ["S2", "S3", "S10", "S12", "S14", "S18"]),
+        ("Re-verification (2026-11-16, pass 10)", "A tenth independent re-read fetched the load-bearing sources live and found three things. The Application Review criteria had been carried forward since 2026-11-13 and are now read from the source (which closes F56 and moves Q-19 from missing to answered). The two clauses that govern an AI-agent affiliate platform \u2014 IP License \u00a74 and Participation Requirements \u00a75 \u2014 were in neither the compliance register nor the platform blueprint, and are now C17, C18 and guardrail G11. And three pages pointed at a flag number that exists in no register, which is fixed and now fails the build. Two volatile review counters had moved again and were refreshed. No published value was found wrong.", ["S2", "S3", "S4", "S10", "S12", "S14"]),
         ("Hard source conflicts", "One serious and still live (Chefman 8 Qt 450 °F claim vs its own manual), plus SKU ambiguity. The Emeril preset count was narrowed on 2026-11-15: the owner's manual lists 24 presets by name in two separate tables and the Amazon listing title says 24, while the brand page's specification block still says 25 - the site states 24 and flags the 25.", ["S12", "S13", "S14"]),
         ("Commission rate", "Still blank per product, but on firmer ground. Amazon publishes rates by category and not by ASIN. All three listings were re-read on 2026-11-15 and all three render the browse-node path Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers, so Kitchen at 4.50% is the well-evidenced working rate. The settlement-time category still has to come from the Associates Earnings report, so both candidate rows are shown.", ["S3", "S16", "S28", "S29"]),
         ("Amazon price / rating", "Not displayed anywhere, by policy, not by omission.", ["S2"]),
@@ -2670,6 +2752,25 @@ def page_exec():
   <code>session-88bb2db6/EVIDENCE-2026-11-15.md</code> in the repository.</p>
 </div>
 
+<div class="callout note">
+  <strong>Pass 10 \u2014 2026-11-16 (verification, session 9fccce0c).</strong>
+  <p class="small">The tenth independent re-read of the same register, run because the register is made of
+  values that move. <strong>It found the clause the brief most needed and the register had never carried</strong>:
+  Amazon's Program Policies contain <strong>IP License \u00a74, the Agent Terms</strong>, and
+  <strong>Participation Requirements \u00a75</strong>, both written for exactly the case this project is
+  \u2014 an AI-powered affiliate platform that automates product research. They are now compliance requirements
+  <a href="compliance.html">C17 and C18</a> and platform guardrail G11, quoted verbatim. What they leave open is
+  published rather than guessed: whether an ordinary public listing page counts as Program Content, and what the
+  agent must call itself (<a href="questions.html">Q-21</a>, <a href="suggestions.html">SG-22</a>). It also found
+  that three published pages pointed readers at a flag number which exists in no register in this repository; that
+  is fixed and a new build guard now fails the build if any page cites an id that does not exist. The
+  Application Review criteria had been carried forward rather than read since 2026-11-13 and are now confirmed
+  verbatim from the live page, which closes <a href="flagged.html">F56</a> and gives
+  <a href="questions.html">Q-19</a> its answer. The full evidence is in
+  <code>reports/verification-2026-11-16-9fccce0c.md</code> in the repository, and on the
+  <a href="reverification.html">Re-verification</a> page.</p>
+</div>
+
 
 <div class="grid grid-4" style="margin-bottom:1rem">
   <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">3 candidate ASINs, mapping unconfirmed (F14–F16)</div></div>
@@ -2723,6 +2824,16 @@ def page_exec():
 </div>
 <p class="tiny muted">Brand list prices from {src_link('S10')}, {src_link('S12')} and {src_link('S14')}; rates from {src_link('S3')}. Amazon computes commission on Qualifying Revenue after shipping, tax, returns and bad debt, so real payouts are lower. The Amazon selling price — the number that would actually drive commission — is unknown to this project by policy.</p>
 
+<h2>Coverage against the brief</h2>
+<div class="callout note">
+  <strong>Every requirement in the brief, and what is actually done about it</strong>
+  <p class="small" style="margin-bottom:0">{_req_counts_html()} The <a href="requirements.html">Requirements and
+  status</a> page lists all {len(REQUIREMENTS['requirements'])} rows individually, each with the path that
+  implements it and the official source that settles it. A row is marked <em>blocked</em> only where the input
+  exists solely inside Amazon's own systems — the Associate tag, the account's approval status, per-ASIN
+  commission categories, customer reviews, conversion reports — and never to mean "not done yet".</p>
+</div>
+
 <h2>Recommendation</h2>
 <ol class="tight small">
   <li><strong>Publish this build.</strong> It satisfies the content substance a review looks for, and it is honest under inspection.</li>
@@ -2734,7 +2845,10 @@ def page_exec():
   <li><strong>Decide the product set before the next content push.</strong> Two of the three products share a brand and a form factor, which caps what the comparison can answer. See <a href="suggestions.html#sg-20">SG-20</a>.</li>
 </ol>
 
-<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../EXECUTIVE-SUMMARY-PASS9-42CA97AD.md">Download this pass's markdown briefing</a> <a class="btn btn-ghost" href="../EXECUTIVE-SUMMARY-PASS9.md">Earlier pass-9 briefing</a> <a class="btn btn-ghost" href="../flagged.html">See every open flag</a></p>
+<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="requirements.html">Requirement-by-requirement status</a> <a class="btn btn-ghost" href="flagged.html">See every open flag</a></p>
+<p class="tiny muted">The Markdown briefings this page used to link are undated records from earlier passes; five of
+them sit at the repository root and at least one contradicts the position published here. They are not endorsed by
+this page. See <a href="flagged.html#f59">F59</a>.</p>
 """
     return layout("executive-summary.html", "Executive summary", body, active="executive-summary.html",
                   description="One-page executive summary: findings, source conflicts, economics and the recommended next decision.",
@@ -2949,6 +3063,99 @@ One new conflict was found and filed rather than resolved by guesswork.</p>
 <code>session-88bb2db6/EVIDENCE-2026-11-15.md</code>.</p>
 """
 
+    p10_html = ""
+    if PASS10:
+        p10 = PASS10
+        def p10_source_links(t):
+            links = [{"label": t["source_label"], "url": t["source_url"]}]
+            links.extend(t.get("additional_sources", []))
+            return "<br>".join(
+                f'<a href="{e(source["url"])}" target="_blank" rel="noopener">{e(source["label"])}</a>'
+                for source in links
+            )
+
+        p10rows = "".join(
+            f'<tr><td><strong>{e(t["claim"])}</strong></td>'
+            f'<td class="small">{e(t["previous"])}</td>'
+            f'<td class="small">{e(t["observed"])}</td>'
+            f'<td class="small">{e(t["verdict"])}</td>'
+            f'<td class="small">{p10_source_links(t)}</td></tr>'
+            for t in p10["rows"]
+        )
+        p10flags = "".join(f"<li>{e(item)}</li>" for item in p10["irregularities"])
+        p10_html = f"""
+<h2>{e(p10['title'])}</h2>
+<p class="small">{e(p10['lede'])}</p>
+<div class="callout info"><strong>Scope and caution</strong><p class="small">{e(p10['scope_note'])}</p></div>
+<div class="tablewrap">
+<table>
+  <caption>Targeted official-source re-reads, {e(p10['pass_date'])}</caption>
+  <thead><tr><th style="width:18%">Claim</th><th style="width:17%">Previously recorded</th>
+  <th style="width:35%">Current observation</th><th style="width:17%">Verdict</th>
+  <th style="width:13%">Official source(s)</th></tr></thead>
+  <tbody>{p10rows}</tbody>
+</table>
+</div>
+<h3>Open irregularities — not resolved by this pass</h3>
+<ul class="tight small">{p10flags}</ul>
+<p class="tiny muted">Full evidence notes: <a href="session-9f0e6668/VERIFICATION-2026-11-16.md">round-10 verification record</a>.</p>
+"""
+
+    # ---- pass-10 addendum (arena/9fccce0c-zone1): independent re-read, 2026-11-16 ----
+    p10u2_html = ""
+    if PASS10_U2:
+        p10u2 = PASS10_U2
+
+        def p10u2row(t):
+            cls, label = REV_VERDICT[t["verdict"]]
+            return (
+                f'<tr><td><strong>{e(t["claim"])}</strong></td>'
+                f'<td class="small">{e(t["published_value"])}</td>'
+                f'<td class="small">{e(t["observed"])}</td>'
+                f'<td><span class="pill {cls}">{e(label)}</span></td>'
+                f'<td class="small"><a href="{e(t["source_url"])}" target="_blank" rel="noopener">'
+                f'{e(t["source_label"])}</a></td></tr>'
+            )
+
+        p10u2rows = "".join(p10u2row(t) for t in p10u2["rows"])
+        p10u2ev = "".join(
+            f'<div class="callout info" style="margin:.6rem 0">'
+            f'<strong>{e(x["title"])}</strong>'
+            f'<p class="small">{e(x["detail"])}</p>'
+            f'<p class="tiny muted">Flag {e(x["flag"])} \u00b7 '
+            f'<a href="{e(x["source_url"])}" target="_blank" rel="noopener">{e(x["source_label"])}</a>'
+            f'</p></div>'
+            for x in p10u2["new_evidence"]
+        )
+        p10u2_conf = sum(1 for t in p10u2["rows"] if t["verdict"] == "confirmed")
+        p10u2_moved = sum(1 for t in p10u2["rows"] if t["verdict"] == "moved")
+        p10u2_new = sum(1 for t in p10u2["rows"] if t["verdict"] == "new-evidence")
+        p10u2_html = f"""
+<h2>Pass 10 \u2014 independent re-read ({e(p10u2['pass_date'])}, arena/9fccce0c-zone1)</h2>
+<p class="small">{e(p10u2['lede'])}</p>
+<p class="tiny muted"><strong>{p10u2_conf}</strong> of the {len(p10u2['rows'])} rows below were confirmed
+against the live official source on {e(p10u2['pass_date'])};
+<strong>{p10u2_moved}</strong> record a value that had moved since the last read,
+<strong>{p10u2_new}</strong> record a clause that had never been read into this register before,
+and <strong>1</strong> records an official disagreement that is still open and still unasserted.
+No value was filled in that a source did not state.</p>
+<div class="tablewrap">
+<table>
+  <caption>Pass-10 re-reads, {e(p10u2['pass_date'])}</caption>
+  <thead><tr><th style="width:17%">Claim</th><th style="width:17%">Published value</th>
+  <th style="width:42%">What the official source says</th><th style="width:12%">Verdict</th>
+  <th style="width:12%">Source</th></tr></thead>
+  <tbody>{p10u2rows}</tbody>
+</table>
+</div>
+
+<h3>What pass 10 added beyond the re-reads</h3>
+{p10u2ev}
+<p class="tiny muted">{e(p10u2['scope_note'])}</p>
+<p class="tiny muted">The full evidence for this pass \u2014 every URL requested, the exact string read
+back, and the verdict \u2014 is in <code>reports/verification-2026-11-16-9fccce0c.md</code>.</p>
+"""
+
     lr = rev.get("link_resolution") or {}
     lr_html = ""
     if lr:
@@ -2986,6 +3193,8 @@ One new conflict was found and filed rather than resolved by guesswork.</p>
 
 {p7_html}
 {p9_html}
+{p10_html}
+{p10u2_html}
 
 <h2>What this pass changed on the site</h2>
 <ul class="tight small">{changes}</ul>
@@ -3863,6 +4072,9 @@ def page_questions_alt():
 # --------------------------------------------------------------------------- #
 
 TOPICS = load("topics.json")
+# Added 2026-11-16 by arena/ad8105b3: the brief's first requirement was the only one
+# with no first-class page. The 19-row register existed only inside the s2/ annex.
+REQUIREMENTS = load("requirements.json")
 
 _TOPIC_STATUS = {
     "published": ("ok", "Published"),
@@ -4002,6 +4214,195 @@ owner's manual, so none of them requires a claim this site cannot support.</p>
         ("Content and traffic plan", page_url("topics.html")),
     ])]
                   )
+
+
+
+# --------------------------------------------------------------------------- #
+# requirements register (arena/ad8105b3, 2026-11-16)
+# --------------------------------------------------------------------------- #
+
+REQ_STATUS = {
+    "delivered":     ("ok",   "Delivered"),
+    "partial":       ("warn", "Partial"),
+    "blocked":       ("bad",  "Blocked"),
+    "not_delivered": ("warn", "Not built"),
+}
+
+REQ_GROUPS = [
+    ("A", "What the brief asked for"),
+    ("B", "The site, its design and its traffic"),
+    ("C", "Product research and analysis"),
+    ("D", "Content generation and editorial voice"),
+    ("E", "Publishing, affiliate links and measurement"),
+    ("F", "Compliance and disclosure"),
+    ("G", "The automation platform"),
+]
+
+
+def check_requirement_paths(generated=()):
+    """Build guard: every path a requirement row claims must exist in this repository.
+
+    This guard exists because the defect it prevents was live. The s2 annex's own
+    register row R-01 cited `data/requirements.json` and a "Requirements page"; neither
+    existed at those locations, and no gate noticed because a register is prose. A
+    status table that points at files which are not there is worse than no table: it
+    reads as verification and is none. Failing the build makes the claim checkable.
+    """
+    generated = set(generated)
+
+    def exists(rel):
+        # A path is real if it is on disk, or if this same build is generating it.
+        return rel in generated or (ROOT / rel).exists()
+
+    problems = []
+    for req in REQUIREMENTS["requirements"]:
+        for path in req.get("where") or []:
+            if path.endswith("/"):
+                if not exists(path) and not (ROOT / path).is_dir():
+                    problems.append(f"{req['id']}: directory does not exist: {path}")
+            elif not exists(path):
+                problems.append(f"{req['id']}: file does not exist: {path}")
+        for ev in req.get("evidence") or []:
+            url = ev["url"]
+            if url.startswith("http") or url.startswith("#"):
+                continue
+            if not exists(url):
+                problems.append(f"{req['id']}: evidence link does not exist: {url}")
+        for sid in req.get("sources") or []:
+            if sid not in SRC_BY_ID:
+                problems.append(f"{req['id']}: cites unregistered source {sid}")
+        if not (req.get("where") or req.get("evidence") or req.get("sources")) and not req.get("why"):
+            problems.append(f"{req['id']}: no implementation path, no evidence and no stated gap")
+    return problems
+
+
+def page_requirements():
+    reqs = REQUIREMENTS["requirements"]
+    legend = REQUIREMENTS["status_legend"]
+    counts = {}
+    for r in reqs:
+        counts[r["status"]] = counts.get(r["status"], 0) + 1
+
+    stat_html = "".join(
+        f'<div class="stat {"ok" if REQ_STATUS[k][0]=="ok" else ("bad" if REQ_STATUS[k][0]=="bad" else "warn")}">'
+        f'<div class="n">{counts.get(k,0)}</div>'
+        f'<div class="l">{e(REQ_STATUS[k][1])}</div></div>'
+        for k in ("delivered", "partial", "blocked", "not_delivered")
+    )
+
+    def row(r):
+        cls, label = REQ_STATUS[r["status"]]
+        where = "<br>".join(
+            f'<a class="src-link" href="{e(pth)}" target="_blank" rel="noopener">'
+            f'<code>{e(pth)}</code> ↗</a>'
+            f'<a class="src" href="{REPO_BLOB}{e(pth)}" target="_blank" rel="noopener" '
+            f'title="repository file — this is the evidence that the path exists">repo</a>'
+            for pth in (r.get("where") or [])
+        ) or '<span class="muted">—</span>'
+        ev = " ".join(
+            f'<a class="src-link" href="{e(x["url"])}" target="_blank" rel="noopener">'
+            f'{e(x["label"])} ↗</a>'
+            for x in (r.get("evidence") or [])
+        )
+        srcs = src_links(r.get("sources") or []) if (r.get("sources") or []) else ""
+        evidence_cell = (ev + ((" " + srcs) if srcs else "")) or '<span class="muted">—</span>'
+        if not (r.get("where") or []):
+            # No implementation path: cite the register row itself, which is where the
+            # gap is recorded, so the row still carries a checkable link.
+            evidence_cell = (evidence_cell + " " if ev or srcs else "") + (
+                f'<a class="src" href="{REPO_BLOB}data/requirements.json" target="_blank" '
+                f'rel="noopener" title="the register row that records this gap">repo</a>')
+        return (
+            f'<tr id="{e(r["id"].lower())}"><td class="num">' 
+            f'<a href="#{e(r["id"].lower())}">{e(r["id"])}</a></td>'
+            f'<td class="small"><strong>{e(r["requirement"])}</strong>'
+            f'<div class="tiny muted" style="margin-top:.35rem">{e(r["clause"])}</div></td>'
+            f'<td><span class="pill {cls}">{e(label)}</span></td>'
+            f'<td class="small">{e(r["why"])}</td>'
+            f'<td class="small">{where}</td>'
+            f'<td class="small">{evidence_cell}</td></tr>'
+        )
+
+    sections = []
+    for gid, gname in REQ_GROUPS:
+        rows = [r for r in reqs if r["id"].startswith(gid + "-")]
+        if not rows:
+            continue
+        sub = {}
+        for r in rows:
+            sub[r["status"]] = sub.get(r["status"], 0) + 1
+        summary = " · ".join(f"{REQ_STATUS[k][1]} {sub.get(k,0)}" for k in
+                             ("delivered", "partial", "blocked", "not_delivered") if sub.get(k))
+        sections.append(
+            f'<h2 id="group-{gid.lower()}">{gid}. {e(gname)}</h2>'
+            f'<p class="tiny muted">{len(rows)} requirements · {e(summary)}</p>'
+            '<table><thead><tr><th>#</th><th>Requirement</th><th>Status</th>'
+            '<th>What that status means here</th><th>Where it lives</th><th>Evidence</th>'
+            f'</tr></thead><tbody>{"".join(row(r) for r in rows)}</tbody></table>'
+        )
+
+    legend_html = "".join(
+        f'<li><span class="pill {REQ_STATUS[k][0]}">{e(REQ_STATUS[k][1])}</span> {e(legend[k])}</li>'
+        for k in ("delivered", "partial", "blocked", "not_delivered")
+    )
+
+    body = f"""
+<p class="crumbs"><a href="index.html">Home</a> / Requirements and status</p>
+<h1>Every requirement in the brief, and what this repository actually does about it</h1>
+<p class="lede">{e(REQUIREMENTS['purpose'])}</p>
+
+<div class="grid grid-4" style="margin:1.25rem 0 1.75rem">{stat_html}</div>
+
+<div class="callout note">
+  <strong>How to read a status.</strong>
+  <ul class="tight">{legend_html}</ul>
+  <p class="tiny" style="margin-bottom:0">{e(REQUIREMENTS['rule'])}</p>
+</div>
+
+<div class="callout warn">
+  <strong>The three counts that matter, and why they are not zero.</strong>
+  <p><strong>Blocked</strong> rows are not unfinished work. Each one depends on a fact that exists only
+  inside Amazon's own systems — the Associate tag, the approval status of the account, per-ASIN commission
+  categories, customer reviews, conversion reports. No amount of work in this repository closes them, and
+  the alternative to leaving them open is inventing a number, which is the one thing the brief forbids
+  more plainly than any other.</p>
+  <p style="margin-bottom:0"><strong>Not built</strong> rows are the opposite: buildable today, not built
+  yet. There are {counts.get('not_delivered',0)} of them, and the largest is organic traffic — see
+  <a href="topics.html">the content and traffic plan</a> for the channels Amazon's policies leave open.</p>
+</div>
+
+{''.join(sections)}
+
+<h2>What this register does not claim</h2>
+<p class="small">A status here is a statement about this repository, not about the affiliate business.
+This site has three products, one category, no traffic and no confirmed affiliate tag, so no row on this
+page should be read as evidence of revenue potential. The rows that would answer that —
+<a href="requirements.html#c-07">C-07</a>, <a href="requirements.html#c-08">C-08</a>,
+<a href="requirements.html#e-04">E-04</a> — are exactly the ones blocked.</p>
+<p class="small">Where a requirement could not be met, the row names the missing input and the clause that
+makes it missing rather than softening the status. Unverified values and unresolved conflicts are collected
+on <a href="flagged.html">Flagged for review</a>, and the questions that a decision would have to answer
+first are on <a href="questions.html">Questions and gaps</a>.</p>
+
+<div class="callout note">
+  <strong>Where this fits.</strong>
+  This page is the coverage view. <a href="suggestions.html">Suggestions</a> is the queue of changes with
+  options and a recommended path; <a href="design-prompt.html">Design prompt pack</a> is the status view of
+  what has already shipped; <a href="questions.html">Questions and gaps</a> is what must be answered before
+  a decision. The s2 annex carries its own, earlier, 19-row register at
+  <a href="s2/pages/requirements.html">s2/pages/requirements.html</a> — it is not edited by this page, and
+  the two disagreements between them are recorded as flags <a href="flagged.html#f59">F59</a> and
+  <a href="flagged.html#f60">F60</a>.
+</div>
+"""
+    return layout("requirements.html", "Requirements and status", body, active="requirements.html",
+                  description="Every requirement in the brief, one row each, with the status judged against what "
+                              "this repository and this site actually do, the path that implements it and the "
+                              "official source that settles it.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+                      ("Home", SITE_URL + "/"),
+                      ("Requirements and status", page_url("requirements.html")),
+                  ])])
 
 
 def page_404():
@@ -4928,6 +5329,82 @@ def check_flag_ids_unique():
     return []
 
 
+def _canonical_flag_ids():
+    """Every flag id the Flagged page actually publishes."""
+    ids = {f[0] for f in PROGRAMME_FLAGS}
+    for p in PRODUCT_LIST:
+        for f in p.get("flags", []):
+            ids.add(f["id"])
+    return ids
+
+
+def _legacy_flag_ids():
+    """Ids of the second, older register (data/flags.json, F01-F27).
+
+    Flag F47 documents that two registers exist in this repository and disagree. Pages
+    that point at the older register name its ids explicitly, and those pointers are
+    correct - the rows are in that file. They are therefore accepted here, and only
+    ids that are in neither register are treated as dangling.
+    """
+    path = ROOT / "data" / "flags.json"
+    if not path.exists():
+        return set()
+    try:
+        legacy = json.loads(path.read_text(encoding="utf-8"))
+    except (ValueError, OSError):
+        return set()
+    return {f.get("id") for f in legacy.get("flags", []) if f.get("id")}
+
+
+def check_register_cross_references(pages):
+    """Build guard: every id a published page points at must exist in the register it
+    points at.
+
+    Written 2026-11-16 (arena/9fccce0c-zone1) after the live site was found to tell the
+    reader to see "flag F46" on three pages - a flag number that exists in no register
+    in this repository. The pointer was live on questions.html, suggestions.html and
+    data.html, and it was invisible to every earlier gate: the duplicate-id guard sees
+    ids that are rendered twice, not ids that are rendered and do not exist.
+
+    A reader who followed it landed on the Flagged page and found nothing, which is the
+    worst possible outcome for a page whose entire claim is that every number is
+    traceable. The check is therefore executable, not editorial.
+    """
+    problems = []
+    known_flags = _canonical_flag_ids() | _legacy_flag_ids()
+    known_sources = set(SRC_BY_ID)
+    known_questions = {q["id"] for q in QUESTIONS.get("questions", [])}
+    known_suggestions = set(SUG_BY_ID)
+
+    patterns = (
+        ("flag", re.compile(r"\bF(\d{1,2})\b"), "F"),
+        ("source", re.compile(r"\bS(\d{1,2})\b"), "S"),
+        ("question", re.compile(r"\bQ-(\d{2})\b"), "Q-"),
+        ("suggestion", re.compile(r"\bSG-(\d{2})\b"), "SG-"),
+    )
+    known_by_kind = {
+        "flag": known_flags,
+        "source": known_sources,
+        "question": known_questions,
+        "suggestion": known_suggestions,
+    }
+
+    for rel, html_text in pages.items():
+        for kind, pattern, prefix in patterns:
+            known = known_by_kind[kind]
+            for match in sorted(set(pattern.findall(html_text))):
+                value = prefix + match
+                if value not in known:
+                    plain = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", html_text))
+                    at = plain.find(value)
+                    context = plain[max(0, at - 70):at + 70] if at >= 0 else ""
+                    problems.append(
+                        f"{rel}: {kind} id {value} does not exist in any register"
+                        + (f" (near: ...{context.strip()}...)" if context else "")
+                    )
+    return problems
+
+
 def check_register_preambles():
     """Build guard: a register preamble must not repeat itself.
 
@@ -5237,6 +5714,7 @@ def main():
     pages["suggestions.html"] = page_suggestions()
     pages["design-prompt.html"] = page_design_prompt()
     pages["questions.html"] = page_questions()
+    pages["requirements.html"] = page_requirements()
     pages["topics.html"] = page_topics()
     pages["decision-gate.html"] = page_questions_alt()
     pages["marketing-directions.html"] = page_suggestions_alt()
@@ -5293,11 +5771,20 @@ def main():
     if affiliate_problems:
         raise SystemExit("BUILD FAILED - unqualified affiliate links (Google spam policies, "
                          "S30/S31):\n  " + "\n  ".join(affiliate_problems))
+    req_path_problems = check_requirement_paths(generated=pages.keys())
+    if req_path_problems:
+        raise SystemExit("BUILD FAILED - requirements register cites paths that do not exist:\n  "
+                         + "\n  ".join(req_path_problems))
     unsourced_rows = check_row_sources(pages)
     if unsourced_rows:
         raise SystemExit("BUILD FAILED — table rows with no official source link (cite a registered "
                          "source, this repo on GitHub, or the Flagged page):\n  "
                          + "\n  ".join(unsourced_rows))
+
+    dangling_ids = check_register_cross_references(pages)
+    if dangling_ids:
+        raise SystemExit("BUILD FAILED — a published page points at an id that does not exist in any "
+                         "register:\n  " + "\n  ".join(dangling_ids))
 
     for rel, text in pages.items():
         # Page bodies are authored with ../ prefixes so they can be reused at any

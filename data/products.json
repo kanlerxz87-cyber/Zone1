@@ -186,11 +186,11 @@
     "amazon_review_count": null,
     "amazon_reason": "Not displayed by policy (S2 §6(t); S2 §2(b)).",
     "brand_site_rating": {
-     "v": "4.6 / 5 from 1,305 reviews",
+     "v": "4.6 / 5 from 1,307 reviews",
      "s": [
       "S10"
      ],
-     "note": "Ratings collected by Chefman's own on-site review widget (4.6 average; 5★ 927 · 4★ 257 · 3★ 85 · 2★ 12 · 1★ 24). Read 1,302 reviews on 2026-11-13 and 1,305 on 2026-11-14 — the count moves daily, so it is stamped. Brand-hosted figure, not Amazon's."
+     "note": "Ratings collected by Chefman's own on-site review widget (4.6 average; 5★ 928 · 4★ 258 · 3★ 85 · 2★ 12 · 1★ 24). Read 1,302 reviews on 2026-11-13, 1,305 on 2026-11-14 and 1,307 on 2026-11-16 — the count moves daily, so it is stamped. Brand-hosted figure, not Amazon's. The 2026-11-16 read is the one published here; a second, independent session read the same page the same day and saw the same count, which corroborates it."
     }
    },
    "commission": {
@@ -395,7 +395,7 @@
      "source": [
       "S28"
      ],
-     "note": "Read from the listing's own breadcrumb trail on 2026-11-16, after the 2026-11-15 automated 'Continue shopping' checkpoint cleared (reports/verification-2026-11-16.md, V2). Identical to the two Chefman ASINs. Browse path only, not a commission category - see flag F53."
+     "note": "Read from the listing's own breadcrumb trail on 2026-11-16, after the 2026-11-15 automated 'Continue shopping' checkpoint cleared (reports/verification-2026-11-16-a746a9f2.md, V2). Identical to the two Chefman ASINs. Browse path only, not a commission category - see flag F53."
     }
    ],
    "pricing": {
@@ -665,11 +665,11 @@
     "amazon_review_count": null,
     "amazon_reason": "Not displayed by policy.",
     "brand_site_rating": {
-     "v": "4.6 / 5 from 716 reviews",
+     "v": "4.6 / 5 from 717 reviews",
      "s": [
       "S12"
      ],
-     "note": "Brand-hosted rating for the RJ38-SQSS-8T product page (5★ 522 · 4★ 131 · 3★ 42 · 2★ 10 · 1★ 11). Read 715 reviews on 2026-11-13 and 716 on 2026-11-14. Not Amazon's rating."
+     "note": "Brand-hosted rating for the RJ38-SQSS-8T product page (5★ 523 · 4★ 131 · 3★ 42 · 2★ 10 · 1★ 11). Read 715 reviews on 2026-11-13, 716 on 2026-11-14 and 717 on 2026-11-16. The average held at 4.6 on all three reads; only the count moves. Not Amazon's rating. A second, independent session read the same page the same day and saw the same count, which corroborates it."
     }
    },
    "commission": {
@@ -729,7 +729,7 @@
   }
  ],
  "reverified": "2026-11-16",
- "reverified_by": "arena/a746a9f2-zone1 (X-a746a9f2 live re-verification pass; see reports/verification-2026-11-16.md. One blank cell filled from a verbatim read: the Emeril Amazon browse node, previously unrendered behind a bot checkpoint.)",
+ "reverified_by": "arena/a746a9f2-zone1 (X-a746a9f2 live re-verification pass; see reports/verification-2026-11-16-a746a9f2.md. One blank cell filled from a verbatim read: the Emeril Amazon browse node, previously unrendered behind a bot checkpoint.)",
  "source_conflicts": {
   "note": "Official documents that contradict a published specification value. Each entry names a row and the source id that contradicts it. The build fails if that source id appears in the row's source list, because a row's source list is read as the evidence for its value. The contradicting document belongs in the flag register, where it is the evidence of the conflict. Added 2026-11-15 by arena/88bb2db6.",
   "entries": [

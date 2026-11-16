@@ -1,0 +1,91 @@
+{
+  "pass_date": "2026-11-16",
+  "title": "Targeted live-source follow-up — 16 November 2026",
+  "lede": "A targeted follow-up checked the three supplied Amazon short links, the two volatile manufacturer-hosted review counters, the current Emeril product-page conflict, and the official affiliate/disclosure sources most material to the site. This is not a full re-read of every published specification row.",
+  "scope_note": "Observed by fetching the official source pages on 2026-11-16. Amazon short-link results are recorded as observed redirect destinations only: each URL retained plpRedirect=mhFallback, so these observations do not prove that the account holder intended those products or that the links carry an Associates tag. Manufacturer review counts are volatile and are dated; they are not Amazon ratings.",
+  "rows": [
+    {
+      "claim": "Supplied link B04G1MEwY — observed destination",
+      "previous": "Candidate ASIN B0CDY277D3; identity and Associates tag not confirmed.",
+      "observed": "Amazon's page title identified the CHEFMAN 6 Quart Dual Basket Air Fryer; the redirect URL contained /dp/B0CDY277D3 and plpRedirect=mhFallback.",
+      "verdict": "Observed again; intended product and tag remain unconfirmed.",
+      "source_label": "Amazon short link supplied for product 1",
+      "source_url": "https://link.amazon/B04G1MEwY"
+    },
+    {
+      "claim": "Supplied link B02NbDxp3 — observed destination",
+      "previous": "Candidate ASIN B09B7SB46R; identity and Associates tag not confirmed.",
+      "observed": "Amazon's page title identified the Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven; the redirect URL contained /dp/B09B7SB46R and plpRedirect=mhFallback. The title says 24 one-touch preset options and six cooking accessories.",
+      "verdict": "Observed again; intended product and tag remain unconfirmed.",
+      "source_label": "Amazon short link supplied for product 2",
+      "source_url": "https://link.amazon/B02NbDxp3"
+    },
+    {
+      "claim": "Supplied link B00hJ57DV — observed destination",
+      "previous": "Candidate ASIN B08DKYBTPH; identity and Associates tag not confirmed.",
+      "observed": "Amazon's page title identified the Chefman 8 Qt TurboFry with a 450°F Hi-Fry option; the redirect URL contained /dp/B08DKYBTPH and plpRedirect=mhFallback.",
+      "verdict": "Observed again; intended product and tag remain unconfirmed.",
+      "source_label": "Amazon short link supplied for product 3",
+      "source_url": "https://link.amazon/B00hJ57DV"
+    },
+    {
+      "claim": "Chefman 6 Qt brand-page review counter",
+      "previous": "1,305 reviews recorded on 2026-11-15.",
+      "observed": "The manufacturer's live product page displayed 1,307 Reviews. Only the count is refreshed here; no current average was transcribed in this read.",
+      "verdict": "Moved; current dated count updated in the product data.",
+      "source_label": "Chefman — TurboFry Touch 6 Qt Dual-Window Air Fryer",
+      "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+    },
+    {
+      "claim": "Chefman 8 Qt brand-page review counter",
+      "previous": "716 reviews recorded on 2026-11-15.",
+      "observed": "The manufacturer's live product page displayed 717 Reviews. Only the count is refreshed here; no current average was transcribed in this read.",
+      "verdict": "Moved; current dated count updated in the product data.",
+      "source_label": "Chefman — TurboFry Touch Stainless-Steel Air Fryer",
+      "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+    },
+    {
+      "claim": "Emeril brand-page rating and preset-count conflict",
+      "previous": "Brand page previously recorded as 2.6 (25 reviews), with conflicting preset claims.",
+      "observed": "The page displayed 2.6 (25); its spec strip still says 25 Cooking Pre-sets, the description still says 10-in-1, and an image is described as an 11-in-1 convection oven. The Amazon title observed through the supplied link says 24 one-touch preset options.",
+      "verdict": "Rating unchanged; product-page and listing claims remain conflicted; no single preset count is inferred.",
+      "source_label": "Emeril Everyday product page",
+      "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+      "additional_sources": [
+        {
+          "label": "Amazon supplied short link — current listing title",
+          "url": "https://link.amazon/B02NbDxp3"
+        }
+      ]
+    },
+    {
+      "claim": "Amazon Associates commission table and policy version",
+      "previous": "Policies page dated April 14, 2026; Table 1 commission rates previously recorded.",
+      "observed": "The official policies page still states Updated: April 14, 2026. The official rate table still lists Physical Books, Kitchen, Automotive at 4.50%, Home in the 3.00% row, and All Other Categories at 4.00%; no per-ASIN category mapping was observed.",
+      "verdict": "Confirmed unchanged; per-product commission remains unverified.",
+      "source_label": "Amazon Associates Central — Program Policies",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+      "claim": "FTC disclosure guidance",
+      "previous": "FTC Disclosures 101 is cited for placement and experience claims.",
+      "observed": "The FTC guidance still says disclosures should be hard to miss and warns not to describe experience with a product that was not tried.",
+      "verdict": "Official source re-read; no compliance copy changed.",
+      "source_label": "FTC — Disclosures 101 for Social Media Influencers",
+      "source_url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+    },
+    {
+      "claim": "Current eCFR status for 16 CFR Part 255",
+      "previous": "16 CFR Part 255, including §255.5, is cited by the site.",
+      "observed": "The eCFR page reports Title 16 up to date as of 2026-11-12 and lists 16 CFR Part 255, including §255.5.",
+      "verdict": "Official source re-read; no compliance copy changed.",
+      "source_label": "eCFR — 16 CFR Part 255",
+      "source_url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255"
+    }
+  ],
+  "irregularities": [
+    "All three supplied Amazon links again displayed fallback-handler parameters. Do not describe the destination observation as confirmation of the owner's intended listing, the Associates tag, or attribution.",
+    "The Emeril page's current content includes 25 Cooking Pre-sets, 10-in-1 copy, and an image identified as 11-in-1, while the Amazon title says 24 one-touch preset options. The existing conflict remains open; the product comparison continues to avoid selecting one count.",
+    "The two Chefman manufacturer review counts increased between 2026-11-15 and 2026-11-16. These are brand-site counters, not Amazon ratings, and should not be treated as stable trend or conversion data."
+  ]
+}

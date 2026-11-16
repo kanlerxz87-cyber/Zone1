@@ -245,10 +245,11 @@
      "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
     }
    ],
-   "status": "proposed",
+   "status": "published",
    "blocked_by": [
     "Q-01"
-   ]
+   ],
+   "published_as": "articles/sync-finish-explained.html"
   },
   {
    "id": "TP-10",
@@ -271,8 +272,9 @@
      "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf"
     }
    ],
-   "status": "proposed",
-   "blocked_by": []
+   "status": "published",
+   "blocked_by": [],
+   "published_as": "articles/aerosol-oil-warning.html"
   },
   {
    "id": "TP-11",
@@ -296,9 +298,10 @@
      "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"
     }
    ],
-   "status": "proposed",
+   "status": "published",
    "caveat": "CAUTION: the 1700 W figures are sourced, but any statement about household circuits, breakers or shared loads needs a non-manufacturer electrical reference that this repository does not hold. Do not write the electrical half without one.",
-   "blocked_by": []
+   "blocked_by": [],
+   "published_as": "articles/extension-cord-rules-in-the-manuals.html"
   },
   {
    "id": "TP-12",

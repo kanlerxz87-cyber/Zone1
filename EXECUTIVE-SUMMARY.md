@@ -801,17 +801,126 @@ sessions' builds.
 Open `suggestions.html` and pick one of the four paths rather than one of the sixteen rows. Path 1
 is unblocked and takes an afternoon; everything else assumes it.
 
-## 17. Line-by-line review, live re-verification and the seasonal content pass — 2026-11-16 (session `arena/a746a9f2`, branch `arena/a746a9f2-zone1`)
+---
+
+## 17. Pass 10 — verification, and the two clauses the brief needed (2026-11-16, session `arena/9fccce0c-zone1`)
+
+**Branch:** `arena/9fccce0c-zone1` · **Baseline:** `6dbfa7cb` (= `origin/main` at claim time)
+**Full evidence:** [`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md) ·
+**Ledger on the site:** [`reverification.html`](https://kanlerxz87-cyber.github.io/Zone1/reverification.html)
+
+This is the tenth independent re-read of the same register. It was run because the register is made
+of values that move — a manufacturer's review counter, an Amazon listing title, a policy page's
+"Updated" line — and because the last several passes each found something. It found three things.
+
+### 17.1 The clause the brief most needed, and the register did not have
+
+The brief this project answers asks for **an AI-powered Amazon affiliate marketing platform**
+that automates product research, identifies trending products, and continuously optimises.
+Amazon's Program Policies page carries a section written for exactly that case, and it was in
+neither the canonical compliance register nor the platform blueprint:
+
+| Clause | What it says, read verbatim 2026-11-16 | Where it now lives |
+|---|---|---|
+| **IP License §4 — "Agents" (Agent Terms)** | "The terms in this section ("Agent Terms") apply if you use, allow, enable, or cause the deployment of an Agent to access, use, or interact with the Program Content. For the purposes of these Agent Terms, "Agent" means any software or service that takes autonomous or semi-autonomous action on behalf of, or at the instruction of, any person or entity." §4(c) requires every HTTP/HTTPS request to carry "Agent/[agent name]" in the User-Agent string, forbids concealing or obfuscating that an access is from an agent, forbids completing or circumventing CAPTCHAs, and requires the agent to "respond truthfully to any question or prompt seeking to determine if interactions are coming from a human or a computer." | Requirement **C17**, guardrail **G11** |
+| **Participation Requirements §5** | "You will not, without express prior written approval, use, or allow any third party to use, any Special Links or Program Content to develop machine learning models or related technology." | Requirement **C18** |
+
+Before this pass, `data/compliance.json` contained **0** occurrences of "Agent Terms" and
+`data/platform.json` contained **0** occurrences of "Agent". The clause was known to this
+repository — the parallel build in `session-3740f69d/` carries an Agent-Terms row — but it had
+never been carried into the canonical register that the live site publishes.
+
+**What it changes, and what it does not.** The published site consumes no Program Content, so no
+Agent Term is triggered by anything it renders today; the clauses matter for the *proposed*
+research agent, which is the part of the brief that does not exist yet. Two things the clause
+leaves open are published rather than guessed: whether an ordinary public listing page counts as
+"Program Content" (the IP License defines Program Content around Creators API, PA API and Data
+Feeds, and the policies page does not extend the definition to ordinary pages), and what the
+agent must call itself. Those are **question Q-21** and **suggestion SG-22**. A third point is
+only partly legible — §4(a) refers to "the requirements in section 3 of these Agent Terms", and
+that section was not visible in the render used for this pass, which is recorded as **flag F62**
+rather than papered over.
+
+### 17.2 Three published pages pointed at a flag that does not exist
+
+`data/questions.json`, `data/suggestions.json` and `data/sources.json` each told the reader to
+see the flag numbered 46 for the Application Review Process recency criterion. **No such flag
+exists** — the canonical register runs F1–F45 and F47–F58, and the legacy `data/flags.json`
+register runs F01–F27. A reader who followed the pointer landed on the Flagged page and found
+nothing, on a site whose entire claim is that every number is traceable.
+
+Fixed: the three pointers now name **F56**, the row that actually covers the point. A new build
+guard, `check_register_cross_references()`, now fails the build if any generated page cites a
+flag, source, question or suggestion id that is not in the register it points at. The guard was
+proven to fire: with a dangling `F46` injected into `data/questions.json` the build exits 1 and
+names the page and the id; with the data restored it exits 0.
+
+### 17.3 The carried-forward figures are now read from the source, and two counters had moved again
+
+**F56 closes.** The Application Review Process page had not been loaded since 2026-11-13; its
+four figures — three qualifying sales within 180 days, roughly ten posts, content recent within
+about sixty days, about 500 social followers — were carried forward. They were re-read live on
+2026-11-16 and confirmed verbatim, so the row's carried-forward part is closed and **question
+Q-19 moves from "missing" to "known and sourced" with the answer on the row**. Two further
+sentences were read at the same time and are new to the record: "personal orders do not qualify"
+and "we aren't able to reassess an application once it's been rejected".
+
+**Two volatile counters moved.** Chefman's own review widget read **1,307** on the 6 Qt page and
+**717** on the 8 Qt page on 2026-11-16, against the 1,305 and 716 published from the 2026-11-14
+read. Both averages held at 4.6 for the third consecutive read. The two rows were refreshed to
+the new reading and all three dates are kept in each row, which is what flag F19 requires.
+
+### 17.4 What else was re-read, and what it confirmed
+
+Every load-bearing source was fetched live on 2026-11-16 and compared against what the site
+publishes. Nothing published was found wrong.
+
+| Checked live on 2026-11-16 | Result |
+|---|---|
+| Standard Commission Income Statement (S3) | Table 1 read verbatim without a login: Kitchen 4.50%, All Other 4.00%, Home 3.00%, PC 2.50%. Still no air-fryer row and still no ASIN→category mapping, so the per-product rate stays blank. |
+| Program Policies (S2) | "Updated: April 14, 2026" confirmed; section order unchanged; §3(e), §6(s), §6(t), §6(w), §6(y), §5 and IP License §1, §2(e), §4 all re-read verbatim. |
+| 16 CFR Part 255 (S9) | "up to date as of 11/12/2026", "Title 16 was last amended 10/30/2026", source "88 FR 48102, July 26, 2023", §255.5 "Disclosure of material connections" — all confirmed. |
+| The three supplied `link.amazon` short links (S17) | All three resolved to the same three ASINs; all three `<title>` strings matched the stored values character for character, including the Emeril wording that changed on 2026-11-15; all three rendered the same browse-node path. |
+| Both Chefman product pages (S10, S12) | Every published specification row still stated in the manufacturer's own Specifications block, character for character. |
+| The Emeril product page (S14) | Price, model and rating unchanged; the four-way preset and in-1 disagreement between official pages is still live and still unasserted. |
+| The three Chefman store endpoints (S32–S34) | SKU, price, compare-at price, grams and weight all matched. |
+
+**Not re-read in this pass, and said so on the page:** the two FTC guidance pages, the Operating
+Agreement, the disclosure and tracking-ID help articles, Google's two policy pages, the PA-API
+deprecation notice and the owner's manuals. Their published values are unchanged and are cited
+from the passes that fetched them.
+
+### 17.5 Gates
+
+`build.py` → 36 pages, 0 errors · `verify.py` → 115 pages, 46 spec rows (43 verified, 3
+blank+flagged), 34 sources, **0 errors, 0 external warnings** · `platform/tests` → 33/33 ·
+`platform/audit/report.py` → clean · `scripts/check_links.py` → 6,413 links, 0 broken ·
+`scripts/verify_site.py` → 393 assertions, all passed · `research/check_research.py` → OK ·
+`scripts/build_s2_site.py --check` → current · `node --check assets/app.js` → OK · a clean
+rebuild leaves `git diff` empty outside the files this pass edited.
+
+### 17.6 What this pass did not do
+
+It did not resolve F1/F2 (which manufacturer model each ASIN ships), F6 (the Associates tag
+inside the short links), F3 (the 450 °F conflict) or F4/F5 (the Emeril preset count) — none of
+those is answerable from outside the account holder's browser. It did not read IP License §4 end
+to end, and said so (F62). It did not change any published value that a source did not
+contradict, and it did not touch a single file in `site/`, `s2/`, `data/s2/`, `research/`,
+`platform/`, `docs/`, `dashboard/`, `crosscheck/` or `annex-88769516/`.
+
+## 18. Line-by-line review, live re-verification and the seasonal content pass — 2026-11-16 (session `arena/a746a9f2`, branch `arena/a746a9f2-zone1`)
 
 Task **X-a746a9f2** on the coordination board. This pass answered the brief's three standing
 demands — verify everything against official sources with links, keep the site a polished
 marketing property rather than an audit report, and leave the owner with a decision layer
-instead of more reading — in one integrated sweep.
+instead of more reading — in one integrated sweep. It merged at the same seam as concurrent
+rounds 10–11 (sessions `c334fb1c`, `9f0e6668`, `ad8105b3`, `9fccce0c`, `dc3f8b5d`, `3dfe4b45`);
+every collision is listed in §18.3.
 
-### 17.1 What was verified (14/14 sources read live on 2026-11-16)
+### 18.1 What was verified (14/14 sources read live on 2026-11-16)
 
-Full evidence table: `reports/verification-2026-11-16.md` (rows V1–V14: exact string read back,
-verdict, per-row). Summary:
+Full evidence table: `reports/verification-2026-11-16-a746a9f2.md` (rows V1–V14: the exact string
+read back per row, with the URL and the verdict). Summary:
 
 * **The three supplied short links** re-resolved to the same candidate ASINs (B0CDY277D3,
   B09B7SB46R, B08DKYBTPH) with fallback-style parameters; all three listing titles matched the
@@ -825,13 +934,13 @@ verdict, per-row). Summary:
   2026); commission table read in full with no login (Kitchen 4.50%, All Other 4.00%); the required
   disclosure sentence verbatim; 3-sales/180-days, 10 posts, 60-day recency; "You can't talk about
   your experience with a product you haven't tried"; 16 CFR 255 current as of 11/12/2026.
-* **No published value changed** except one blank cell that a verbatim read now fills: the Emeril
+* **One blank cell filled from a verbatim read** (nothing inferred): the Emeril
   "Amazon browse node", previously unrendered behind the checkpoint, is populated from today's
   breadcrumb read (S28) and flagged with its limit exactly as F53 requires. Result: 44 of 46
   specification rows verified; the two remaining blanks are genuine (no preset count is documented
   for the 6 Qt; the 8 Qt Hi-Fry row is the F3 conflict and must stay blank).
 
-### 17.2 What shipped (the marketing and decision layers)
+### 18.2 What shipped (the marketing and decision layers)
 
 * **One new article** — *Air fryer gift guide 2026: match the format to the person* — the site's
   first seasonal piece, written for the Q4 query window that is open now. Format-first, every value
@@ -839,33 +948,58 @@ verdict, per-row). Summary:
   gift guide cannot tell you (price, taste, exact SKU, box contents). Published as **TP-15**.
 * **Three new topic rows** (TP-15…TP-17): the gift guide (published), a holiday-hosting capacity
   piece and a deal-season "what a price-free site can still tell you" piece (both proposed, each
-  with hooks, intent, and must-cite lists). The topics lede count is now computed.
+  with hooks, intent and must-cite lists). The topics lede count is now computed rather than
+  hardcoded.
 * **Three new suggestions** feeding the owner's decision queue and the design prompt:
-  **SG-22** ship the seasonal cluster while the season is live (options A/B/C, blocked by Q-21);
-  **SG-23** one policy-compliant CTA component designed now and wired when the tag exists (the
-  component spec the design prompt lacked; blocked by Q-04); **SG-24** a computed "decide this
+  **SG-23** ship the seasonal cluster while the season is live (options A/B/C, blocked by Q-22);
+  **SG-24** one policy-compliant CTA component designed now and wired when the tag exists (the
+  component spec the design prompt lacked; blocked by Q-04); **SG-25** a computed "decide this
   first" triage at the top of the queue — the brief's request for decision-making support.
-* **Q-21**: who decides the publishing calendar and what the deadlines are — the one missing owner
+* **Q-22**: who decides the publishing calendar and what the deadlines are — the one missing owner
   statement the seasonal plan needs. "No seasonal content" is recorded as an acceptable answer.
 
-### 17.3 Defects found and fixed (flag F59 on the register)
+### 18.3 Defects found and fixed, and the merge-seam collisions
 
-* **Fourth occurrence of the stale-count defect class** (after F14, F38, F52): three register
-  surfaces asserted "eight articles" while the index publishes thirteen — `data/questions.json`
-  Q-10, `data/suggestions.json` SG-09, and `data/decision.json` (the niche rows). All three
-  corrected per the F52 precedent to dated counts with a pointer at the live index; the
-  `decision.json` fix is a cross-scope integration edit with before/after strings logged in
-  `COORDINATION.md`. Related scan results cleared: the parallel-register pages are internally
-  consistent, and `data/design-prompt.json`'s "12 articles" note is now dated.
+* **Stale-count defect class, fourth occurrence** (after F14, F38, F52), published as **F63**:
+  three register surfaces asserted "eight articles" while the index had long since outgrown the
+  number — `data/questions.json` Q-10, `data/suggestions.json` SG-09, and `data/decision.json`'s
+  niche rows. Fixed per the F52 precedent; because the count moved again at the merge seam
+  (concurrent rounds published three more articles), the corrected wording is deliberately
+  count-proof — "live count on the articles index" — instead of a fresh snapshot that would age
+  the same way. The `decision.json` fix is a cross-scope integration edit with before/after
+  strings logged in `COORDINATION.md`. `data/design-prompt.json`'s "12 articles" status note
+  received the same treatment.
 * **F53's stale sentence** (Emeril browse node "cannot be recorded") received a dated update
   recording the checkpoint clearance and the filled row.
+* **SG-24 corrected mid-pass after an accuracy check of my own draft**: the first wording claimed
+  no page states what a buyer should click; a grep of the rendered pages showed the product pages
+  already carry one CTA button ("Open supplied Amazon link — verify model"). The row now states
+  the true gap: one ad-hoc CTA on product pages only, none on comparison/guide/picks/article
+  pages, and no component spec in the design prompt.
+* **Merge-seam ID collisions with concurrent sessions** (kept their rows, renumbered mine — the
+  convention every earlier seam used):
 
-### 17.4 What is still open (unchanged, non-blocking)
+  | This pass's draft ID | Merged ID | Collided with |
+  |---|---|---|
+  | SG-22 (seasonal calendar) | **SG-23** | main's SG-22 (research-agent terms, PR #99) |
+  | SG-23 (CTA component) | **SG-24** | — (renumbered to keep order) |
+  | SG-24 (decision triage) | **SG-25** | — |
+  | Q-21 (publishing calendar) | **Q-22** | main's Q-21 (agent scope question) |
+  | flag F59 (stale counts) | **F63** | main's F59–F62 (exec-summary register, s2 paths, compliance register, Agent Terms) |
+  | this summary section (§17) | **§18** | main's §17 (pass 10) |
+  | `reports/verification-2026-11-16.md` | **`reports/verification-2026-11-16-a746a9f2.md`** | main's same-path file (session c334fb1c, round 10) |
+
+* Cleared without action: `decision-gate.html` ("14 questions") and `marketing-directions.html`
+  ("12 suggestions") are parallel registers whose ledes render their own frozen register length —
+  internally consistent; the "16 suggestions" strings in `reverification.html`/
+  `executive-summary.html` are historical recounts of already-fixed defects.
+
+### 18.4 What is still open (unchanged, non-blocking)
 
 Q-01/Q-02 (ASIN→model mapping — Amazon serves automated reads a reduced shell with no Product
 information block), Q-03/Q-04 (account status; the tag inside the supplied short links), Q-11
 (commission category per ASIN — only the Earnings report names it), the owner's country statement
 (F42), and the flag-register unification decision (F44/F47). Every one of these remains blank,
-flagged and linked on `flagged.html`. The 2026-11-16 pass is recorded in `COORDINATION.md`;
-all gates green (build 37 URLs · verify 116 pages / 0 errors · ci-check 6,483 links / 0 broken ·
-research + site + platform audits clean).
+flagged and linked on `flagged.html`. Merged-tree gates on 2026-11-16: `build.py` 41 URLs ·
+`verify.py` 120 pages / 46 spec rows (44 verified, 2 blank+flagged) / 34 sources / 0 errors ·
+`ci-check.sh` 7,083 links / 0 broken · research, site and platform audits clean.

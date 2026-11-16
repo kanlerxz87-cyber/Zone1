@@ -63,6 +63,7 @@
       <a href="suggestions.html">Suggestions<span class="sub">Review site improvements before implementation</span></a>
       <a href="design-prompt.html">Design prompt pack<span class="sub">Design, topics and tactics — review before changes</span></a>
       <a href="questions.html">Questions and gaps<span class="sub">Known facts, missing answers and discovery steps</span></a>
+      <a href="requirements.html">Requirements and status<span class="sub">Every requirement in the brief, and whether this repo meets it</span></a>
       <a href="topics.html">Content and traffic plan<span class="sub">Article topics and the channels allowed to promote them</span></a>
       <a href="executive-summary.html">Executive summary<span class="sub">Decision-ready briefing</span></a>
     </div>
@@ -216,6 +217,12 @@
           <td class="small">Participation Requirements §6(n), §6(v)</td>
           <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
           <td class="small">Outbound links are direct; no iframes; no meta-refresh.</td>
+        </tr><tr>
+          <td class="num"><strong>G11</strong></td>
+          <td>Any agent that touches Program Content identifies itself and never defeats a bot check</td>
+          <td class="small">IP License §4 (Agents); Participation Requirements §5</td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">A design constraint on the research agent, not on the published site: every HTTP/HTTPS request carries the agent name in the User-Agent string as &quot;Agent/[agent name]&quot;; no CAPTCHA is completed or circumvented; no request pattern imitates a human; the agent answers truthfully if asked whether a request is human. Queued for the owner&#x27;s decision as SG-22 and not implemented in code.</td>
         </tr></tbody>
 </table>
 </div>
