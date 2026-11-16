@@ -4484,7 +4484,7 @@ PR / merge / Pages result recorded below after they complete.
 ## Task board — arena/492acddc-zone1 (2026-11-16 UTC)
 
 | # | Task | Status | Owner (session) | File scope |
-| X-492acddc | **Design coherence pass (pass 12)** — the owner's standing complaint is that the published site still *looks* like AI slop. Prior passes fixed the copy but the stylesheet is three stacked eras (dashboard → editorial override → commercial components) and the sidebar buries shopper pages under 13 owner/process pages. This pass: (1) rewrite the generated stylesheet in `build.py`'s `CSS` var as one coherent design system covering every class the 29 canonical pages emit (scoped inventory taken; 116 classes); (2) regroup the sidebar into shopper / trust-and-evidence / owner-workspace layers and add a compact primary nav to the topbar; (3) add hand-drawn inline-SVG format glyphs to the landing page's three format cards (original artwork, no external assets); (4) sync `data/design-prompt.json` design-directive statuses to what is now actually implemented and close the A-11 contradiction round 11 filed against that register; (5) light live re-verification of load-bearing official sources, evidence to `reports/`; (6) rebuild, run every gate, PR → merge → confirm Pages. No article, spec value or policy row is rewritten. | in progress | arena/492acddc-zone1 (session 492acddc) | `build.py` (CSS var, `layout()` sidebar groups + topnav, `page_index()` glyphs), `data/design-prompt.json`, `reports/verification-2026-11-16-492acddc.md` (new), `EXECUTIVE-SUMMARY.md` (append-only), `README.md`, `COORDINATION.md`, regenerated root HTML. Not touching: `site/`, `s2/`, `data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*`, `session-*/` |
+| X-492acddc | **Design coherence pass (pass 12)** — the owner's standing complaint is that the published site still *looks* like AI slop. Prior passes fixed the copy but the stylesheet is three stacked eras (dashboard → editorial override → commercial components) and the sidebar buries shopper pages under 13 owner/process pages. This pass: (1) rewrite the generated stylesheet in `build.py`'s `CSS` var as one coherent design system covering every class the 29 canonical pages emit (scoped inventory taken; 116 classes); (2) regroup the sidebar into shopper / trust-and-evidence / owner-workspace layers and add a compact primary nav to the topbar; (3) add hand-drawn inline-SVG format glyphs to the landing page's three format cards (original artwork, no external assets); (4) sync `data/design-prompt.json` design-directive statuses to what is now actually implemented and close the A-11 contradiction round 11 filed against that register; (5) light live re-verification of load-bearing official sources, evidence to `reports/`; (6) rebuild, run every gate, PR → merge → confirm Pages. No article, spec value or policy row is rewritten. | done — PR #111 merged, Pages deployed (see completion record) | arena/492acddc-zone1 (session 492acddc) | `build.py` (CSS var, `layout()` sidebar groups + topnav, `page_index()` glyphs), `data/design-prompt.json`, `reports/verification-2026-11-16-492acddc.md` (new), `EXECUTIVE-SUMMARY.md` (append-only), `README.md`, `COORDINATION.md`, regenerated root HTML. Not touching: `site/`, `s2/`, `data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*`, `session-*/` |
 
 ### Claim log
 
@@ -4794,3 +4794,21 @@ Convergent work: concurrent session `121929a5` filled the same Emeril "Amazon br
 **No file in `site/`, `s2/`, `data/s2/`, `data/verified/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-88769516/` or any other `session-*` directory was edited by this session.**
 
 **PR / merge / deploy:** recorded below after the merge completes.
+### X-492acddc PR / merge / Pages result (appended 2026-11-16 UTC)
+
+| Step | Result |
+|---|---|
+| Pull request | **PR #111** (`arena/492acddc-zone1` → `main`): "Pass 12 (X-492acddc): design coherence — one-era stylesheet, shopper-first IA, landing glyphs, register sync" — https://github.com/kanlerxz87-cyber/Zone1/pull/111 |
+| Merge | Merged with `gh pr merge 111 --merge` (merge commit), no approval wait, per the brief. |
+| PR-path CI | "Build, verify and deploy to GitHub Pages" **success** (run 43936513682) · "CI" **success** (run 43936513750) · "Verify verification annex (site/)" **success** (run 43936513803) · "pages build and deployment" **success** (run 43936512545) |
+| Live read-back | `assets/style.css` served from https://kanlerxz87-cyber.github.io/Zone1/ reads back as the pass-12 design system (header "design system (pass 12, 2026-11-16, session 492acddc)"; `--paper:#f5f1e8`, `--faint:#67705f`, `.topnav` present); the landing page serves the merged build (18 sourced articles, 61 flag rows, disclosure bar first). |
+
+Two rebase collisions were absorbed while this pass worked, both resolved keep-both per protocol
+item 6 and logged above: (1) onto `4ec77d8` (PR #107 era) — ported session 695f03b7's `.figure`
+panel styles and 121929a5's pass-10 ledger page nav entries into the new design system, kept both
+executive-summary sections (121929a5's §18, this pass's renumbered §19), took this pass's fuller
+`data/design-prompt.json` sync with attribution for 121929a5's independent A-11 correction, and
+regenerated all pages from the merged generator; (2) onto `37aceb1` (PR #110) — COORDINATION.md
+EOF only. A new build guard (CSS-coverage check) fired during that reconciliation and caught two
+callout variants missing from the rewrite; they were added (`X-492acddc post-rebase reconciliation`
+commit) and every gate was re-run green afterwards.
