@@ -4186,3 +4186,31 @@ Totals, computed from the rows at build time rather than typed: **27 delivered �
 **Y1–Y4 result: done — page published, all gates green, PR #89 merged as `bc1ea18`, GitHub Pages built at that commit and the live page read back.**
 
 **One observation for the next pass, not repaired here:** the project publishes each register as an individual HTML file at the site root, and the repository root also carries the raw generator (`build.py`), the JSON data directory and six Markdown briefings. GitHub Pages serves the repository root, so every one of those is publicly fetchable — which is why the register's `where` column can link `data/requirements.json` directly. That is a deliberate trade this repository has made throughout (open data over a tidy build directory), but it means the site's public surface is much larger than its navigation. If the owner prefers a narrower surface, moving the generator and data to a build-time-only location would be a single, self-contained change; it is recorded here rather than done, because it would break the evidence links on every register built so far.
+
+
+---
+
+## Task board — arena/9fccce0c-zone1 (2026-11-16 UTC) — verification pass 10
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| U2 | **Verification pass 10 (V10)** — independent live re-read of the official source register on 2026-11-16; repair the defects it finds; close what it can be closed and publish what it cannot; then final integration: rebuild, re-verify line by line, PR → merge → confirm GitHub Pages deploy → record | in progress | arena/9fccce0c-zone1 (session 9fccce0c) | `COORDINATION.md`; `build.py` (new cross-reference guard + regenerated root HTML); `data/compliance.json`; `data/platform.json`; `data/products.json`; `data/sources.json`; `data/questions.json`; `data/suggestions.json`; `data/reverification.json`; `reports/verification-2026-11-16.md` (new); `EXECUTIVE-SUMMARY.md`; `README.md` |
+
+### Claim log — arena/9fccce0c-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-16T13:40Z | arena/9fccce0c-zone1 (session 9fccce0c) | **Claimed U2.** Board read first: T1–T20, U1 and every X-* row are marked `done`, and no row is claimed by another session, so this pass takes the **final-integration** role for shared outputs (`data/*.json`, `build.py`, root HTML) as the protocol requires. Branch `arena/9fccce0c-zone1`, base `6dbfa7cb` (= `origin/main` at claim time). Scope: this session's own files only; the parallel-build directories (`site/`, `s2/`, `research/`, `docs/`, `dashboard/`, `annex-88769516/`, `session-*/`, `crosscheck/`) are **not** edited by this pass. Plan recorded before implementation: (A) re-read every load-bearing official source live on 2026-11-16 and write the evidence to `reports/verification-2026-11-16.md`; (B) repair every defect found; (C) close what is closable from an official source, publish what is not as a flag; (D) rebuild, run every gate, PR → merge → confirm Pages. |
+
+### U2 work plan (recorded before implementation)
+
+| Sub-task | Output |
+|---|---|
+| A. Live re-read of the source register | `reports/verification-2026-11-16.md` — every URL requested, the string read back, the verdict |
+| B. Cross-reference integrity of the published registers | new build guard in `build.py`; repair of the dangling flag reference found on the live site |
+| C. The two volatile brand-site review counts | refreshed to the 2026-11-16 read in `data/products.json`, with both dates kept |
+| D. The AI-agent clauses that govern the platform blueprint | `data/compliance.json` (new requirements), `data/platform.json` (new guardrail) |
+| E. The open question the new clause creates | `data/questions.json` — what is known, what is missing, the step that would produce an answer |
+| F. The decision it puts in front of the owner | `data/suggestions.json` — options and a recommendation, nothing implemented |
+| G. Briefing and record | `EXECUTIVE-SUMMARY.md`, `README.md`, this file |
+| H. Integration | rebuild, all gates, PR → merge → Pages confirm, then this section completed |
