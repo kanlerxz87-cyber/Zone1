@@ -4892,3 +4892,42 @@ typed counts became computed (**F69**). Gates on the final tree: `python3 build.
 rebase, because this repository's registers are large single files that both sides append to; and a
 `git add` of a conflicted Markdown file can commit the markers — check `git show HEAD:COORDINATION.md |
 grep -c '^<<<<<<<'` before opening the PR, not after.
+
+### Addendum to the completion record — arena/ba29c641-zone1 (after the second merge)
+
+`origin/main` advanced again while this session reconciled (PRs #101, #110–#112 landed: X-a746a9f2's line-by-line
+review + seasonal cluster + SG-24/25/26, X-492acddc's design-coherence pass, X-f0878842's acceptance audit), so a
+**second merge of `origin/main`** was taken. Consequences worth recording for the next session:
+
+* **Id collision avoided, not ignored.** This pass's flag rows were `F63`–`F68`; `arena/a746a9f2` had meanwhile
+  registered `F63` (stale article counts, the same defect class as this pass's last row). Mine were renumbered to
+  **F64–F69** in a dedicated commit *before* the merge, so no two rows ever shared an id, and `F69` now cites
+  `F63` as the fourth occurrence of the class instead of restating it. The renumber was caught mid-flight by the
+  site's own anchor guard (`index.html: href="flagged.html#f63" has no target`) — the lowercase anchors had to be
+  renamed too, which is the value of the guard.
+* **A third session had also re-read the Emeril listing.** `arena/a746a9f2` recorded the checkpoint clearing and
+  the browse node being populated, in the same F53 row this pass had appended to. The two addenda were merged into
+  one sentence crediting all three reads (pass 10 via the short link, a746a9f2 direct, ba29c641 direct) instead of
+  leaving two rows each implying it was the only one to reach the page.
+* **CSS conflict resolved in main's favour, not by hand.** The design-coherence pass restyled the shared stylesheet
+  wholesale; this pass's contribution was reduced to the `.decision-*` / `.dec-*` / `.tag-default` rules and
+  re-inserted after their new `.callout` block. A `.btn-ghost` class this pass invented turned out to already exist
+  in their theme, so the local copy was dropped rather than duplicated.
+* **`EXECUTIVE-SUMMARY.md` had two competing §19s.** Main added §19 (pass 12) and §20 (X-a746a9f2); this pass's
+  section is now **§21**, and a careless renumber on the way restored their §19.2–§19.4 headings after they had
+  been caught in a global replace — checked afterwards, so the published section list is sequential with no
+  duplicate numbers. If a later pass renumbers headings, it must do it by line range, not by global string.
+* **SG-26 was adopted under the rule this pass wrote, and the adoption is recorded.** Their recommended option A
+  (a computed "start here" triage) is reversible, low-risk and blocked only by `missing` questions, so the
+  adopt-after-silence rule permits it: the ranking is now computed on `decision-log.html` from the transitive
+  closure of both registers' `blocks` arrays, and the execution is recorded in
+  `data/decision-log.json → implemented[]`, with `SG-26` marked done in its own row. `choices[]` remains empty:
+  only an owner may write there. Answered rows are excluded from the triage with the exclusion counted on the page,
+  which is why `Q-01`/`Q-02` no longer head a list they used to top.
+* **Gates on the merged tree, all re-run after the merge:** `python3 build.py` → 47 sitemap URLs, exit 0, and a
+  rebuild afterwards leaves `git status` empty · `verify.py` → 127 pages, 77 spec rows (75 verified / 2
+  blank+flagged), 34 sources, 0 errors, 0 external warnings · `scripts/check_links.py` → 8,080 links, 0 broken ·
+  `scripts/ci-check.sh` → 33 unit tests, data audit clean, annex build current · `scripts/verify_site.py` → all
+  assertions · `research/check_research.py` → OK · `platform/audit/report.py` → 0 warnings · `node --check
+  assets/app.js` → OK.
+
