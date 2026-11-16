@@ -4346,9 +4346,9 @@ worth it, because a recorded choice outranks a default and says why.</p>
 
 <h2>For the next agent pass</h2>
 <p class="small muted">In this order, one commit per row, each with the evidence that justifies it.
-Fourteen defaults is a queue, not a big-bang release: a pass that lands twelve page changes at once
-cannot say which one broke a page, and this site&rsquo;s own rule is that a change has to be
-checkable on its own.</p>
+{n_auto} defaults is a queue, not a big-bang release: a pass that lands a dozen page changes in
+one commit cannot say which one broke a page, and this site&rsquo;s own rule is that a change has to
+be checkable on its own.</p>
 <ol class="small">{queue}</ol>
 <p class="small">Read <code>data/decision-log.json</code> first. A recorded choice outranks the
 default in this table, and a row with neither is still open. Implementing a default means the
