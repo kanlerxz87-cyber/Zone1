@@ -130,6 +130,23 @@ for page in pages():
         if not target.exists():
             errors.append(f"{rel(page)}: broken internal link -> {url}")
 
+    # 1b. internal fragment (#anchor) targets must exist on the page they name.
+    # Added 2026-11-16 (arena/2e346d24): check 1 resolved the file but never the
+    # fragment, so topics.html shipped 8 hrefs pointing at ids no template emitted.
+    for m in re.finditer(r'href="([^"]*)#([^"]+)"', text):
+        path, frag = m.group(1), m.group(2)
+        if path.startswith(("http://", "https://", "mailto:")):
+            continue
+        dest = page if path == "" else (page.parent / path).resolve()
+        if not dest.is_file():
+            continue  # already reported by check 1
+        try:
+            dest_text = dest.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError):
+            continue
+        if f'id="{frag}"' not in dest_text and f"id='{frag}'" not in dest_text:
+            errors.append(f"{rel(page)}: dead in-page link -> #{frag} (not present in {rel(dest)})")
+
     # 4. external links must be on an official host
     for m in re.finditer(r'href="(https?://[^"]+)"', text):
         url = m.group(1)

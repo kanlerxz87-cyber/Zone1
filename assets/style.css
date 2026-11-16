@@ -373,6 +373,15 @@ footer.site p,footer.site li{color:#59645a}
 .callout{background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--accent);
   border-radius:10px; padding:.9rem 1.1rem; margin:1.1rem 0; box-shadow:var(--shadow); font-size:.94rem}
 .callout.trust{border-left-color:#0f766e; background:#f4fbf8}
+/* Added 2026-11-16 (arena/2e346d24): `.note` (13 uses) and `.warn` (33 uses) had no rule at
+   all, so 46 callouts on the generated pages rendered as uncoloured boxes with no visual
+   difference between "for your information" and "this could be wrong". */
+.callout.note{border-left-color:var(--brand); background:var(--brand-soft)}
+.callout.warn{border-left-color:var(--warn); background:var(--warn-soft)}
+/* Same pass: the four register pages (topics, suggestions, questions, requirements) put wide
+   tables directly in the flow. `.tablewrap` scrolls horizontally; without it those tables
+   forced the whole page to scroll sideways at phone widths. */
+.tablewrap table{margin:0; border:0}
 .callout.bad{border-left-color:var(--bad); background:#fff6f6}
 .callout.ok{border-left-color:var(--ok); background:#f5fbf6}
 
