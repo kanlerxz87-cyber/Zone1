@@ -6,7 +6,7 @@
 `platform/` engine. The parallel published builds (`site/`, `s2/`, `research/`, `docs/`,
 `dashboard/`, `annex-88769516/`, `session-*/`, `crosscheck/`) are **not** edited by this pass.
 
-This is the ninth independent re-read of the same register. It was run because the register is
+This is the **tenth** independent re-read of the same register. It was run because the register is
 made of values that move — a manufacturer's review counter, an Amazon listing title, a policy
 page's "Updated" line — and because the last several passes each found something. It found
 three things.
@@ -119,7 +119,7 @@ resolved by inference.
 
 `data/questions.json`, `data/suggestions.json` and `data/sources.json` each told the reader to
 see **"flag F46"** for the Application Review Process recency criterion. No F46 exists in the
-register: the canonical register runs F1–F45 and F47–F58, and the legacy `data/flags.json`
+register: the canonical register runs F1–F45 and F47–F62, and the legacy `data/flags.json`
 register runs F01–F27. The reader following the pointer landed on the Flagged page and found
 nothing.
 
@@ -129,11 +129,17 @@ from an earlier fetch"). A new build guard, `check_register_cross_references()`,
 build if any generated page cites a flag id, source id, question id or suggestion id that is not
 in the register it is pointing at — so the class of defect cannot recur silently.
 
+The two defects are also recorded as two rows in the published register so a reader can see
+them rather than only the repair: **F61** states that the canonical compliance register and
+platform blueprint had never carried the two agent clauses and that three published pages
+pointed at a flag number that does not exist, and **F62** states that IP License §4 was not
+read end to end.
+
 ### E3 — The two volatile review counts moved again (fixed)
 
 See V18 and V20. The site published the 2026-11-14 reading of both Chefman review widgets; the
 live 2026-11-16 reading is 1,307 and 717. The rows were refreshed to the new reading and both
-dates are kept in the row note, exactly as flag F14 requires. The averages did not move.
+dates are kept in the row note, exactly as flag F19 requires. The averages did not move.
 
 ## F · What this pass did not do
 
@@ -149,14 +155,50 @@ dates are kept in the row note, exactly as flag F14 requires. The averages did n
   count). None of those is answerable from outside the account holder's browser.
 * It did not change any published value that a source did not contradict.
 
+## F2 · The new guard was proved to fire, not just to exist
+
+A guard that has never been seen to fail is a comment. `check_register_cross_references()` was
+tested by injecting a violation into the real data and running the real build:
+
+| Test | Injection | Build result |
+|---|---|---|
+| Positive | `F46` (a flag id that exists in no register), plus `SG-99` and `Q-99`, inserted into a question row in `data/questions.json` | **exit 1** — the build named the offending page, the register and the id, and did not write the site |
+| Negative | the data restored byte for byte | **exit 0** — the site rebuilt normally |
+
+The check is now part of the build pipeline, so a dangling pointer cannot reach the published
+site again through any of the four registers (flags, sources, questions, suggestions).
+
 ## G · Gates run after these changes
+
+Every gate below was run on the working tree that produced this commit, and all of them were
+run **after** the last edit, not before it.
 
 | Gate | Result |
 |---|---|
-| `python3 build.py` | see the session record in `COORDINATION.md` |
-| `python3 verify.py` | see the session record in `COORDINATION.md` |
-| `python3 -m unittest discover -s platform/tests -t platform` | see the session record |
-| `python3 platform/audit/report.py` | see the session record |
-| `python3 scripts/check_links.py` | see the session record |
-| `python3 scripts/verify_site.py` | see the session record |
-| `python3 research/check_research.py` | see the session record |
+| `python3 build.py` | **pass** — 36 pages written, `robots.txt` + `sitemap.xml` (36 URLs), 0 errors |
+| `python3 verify.py` | **pass** — 115 pages checked · 46 specification rows (43 verified, 3 blank+flagged) · 34 sources declared · **0 errors, 0 external warnings** |
+| `python3 -m unittest discover -s platform/tests -t platform` | **pass** — 33 tests, 0 failures |
+| `python3 platform/audit/report.py` | **pass** — `AUDIT PASSED (0 warning(s))`, 0 findings |
+| `python3 scripts/check_links.py` | **pass** — 6,425 links, 0 broken |
+| `python3 scripts/verify_site.py` | **pass** — 393 assertions, `ALL CHECKS PASSED` |
+| `python3 research/check_research.py` | **pass** — `OK — no broken links, no unsourced rows, disclosures present on every page.` |
+| `python3 scripts/build_s2_site.py --check` | **pass** — `build current: 16 files` |
+| `node --check assets/app.js` | **pass** |
+| reproducibility | a second `python3 build.py` leaves `git diff` empty — the generator is deterministic |
+
+The pass-10 ledger itself is `session-9fccce0c/pass10.json` (17 re-read rows, 4 new-evidence
+entries) and is rendered on the site's
+[`reverification.html`](https://kanlerxz87-cyber.github.io/Zone1/reverification.html) page
+under **"Pass 10 — independent re-read"**. The build loads it if the file is present and
+omits the section if it is not, so the generator never depends on a session folder existing.
+
+## H · Where the record of this pass lives
+
+| Artefact | Path |
+|---|---|
+| This report | `reports/verification-2026-11-16-9fccce0c.md` |
+| Pass-10 ledger (17 rows) | `session-9fccce0c/pass10.json` |
+| Briefing for the owner | `EXECUTIVE-SUMMARY.md` §17 |
+| Repository overview | `README.md` → *Pass 10 — 2026-11-16* |
+| Claim, plan and outcome | `COORDINATION.md` → *Task board — arena/9fccce0c-zone1* |
+| Live ledger | https://kanlerxz87-cyber.github.io/Zone1/reverification.html |
