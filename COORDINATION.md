@@ -5116,7 +5116,7 @@ sources, 0 errors, 0 external warnings**; `check_links.py` → **8,096 links, 0 
 
 | # | Task | Status | Owner (session) | File scope |
 |---|------|--------|-----------------|------------|
-| V12 | **Pass 12 — marketing design & conversion polish.** The owner's brief again names the site's look ("polished marketing affiliate website … should not read like AI slop"). No prior pass owns the visual layer end-to-end, so this pass redesigns the presentation layer of the canonical build only: typography scale (editorial serif display + clean sans), warmer kitchen-market palette, hero, product/article/picks cards, table styling and nav grouping in `build.py` and the CSS it emits; new suggestion rows SG-23+ recording every design decision for owner review; a light independent spot re-read of official sources (round 11 already re-read the register today) with evidence file and additive ledger; repair of the design-prompt register contradiction round 11 filed (A-11); rebuild, all gates, PR → merge → confirm GitHub Pages → record. No factual value changes. | done | arena/8874422b-zone1 (session 8874422b) | `COORDINATION.md`; `build.py` + regenerated root HTML + `assets/style.css` (emitted); `feed.xml` (new); `data/suggestions.json` (SG-23..26); `data/design-prompt.json` (A-11 row); `session-8874422b/pass12.json` (new); `reports/verification-2026-11-16-8874422b.md` (new); `EXECUTIVE-SUMMARY.md` (§18); `README.md` |
+| V12 | **Pass 12 — marketing design & conversion polish.** The owner's brief again names the site's look ("polished marketing affiliate website … should not read like AI slop"). No prior pass owns the visual layer end-to-end, so this pass redesigns the presentation layer of the canonical build only: typography scale (editorial serif display + clean sans), warmer kitchen-market palette, hero, product/article/picks cards, table styling and nav grouping in `build.py` and the CSS it emits; new suggestion rows recording every design decision (final ids SG-25–SG-28 — SG-23 had been merged by session `121929a5` as the photography-rights row and SG-24 is claimed by open PR #101) for owner review; a light independent spot re-read of official sources (round 11 already re-read the register today) with evidence file and additive ledger; repair of the design-prompt register contradiction round 11 filed (A-11); rebuild, all gates, PR → merge → confirm GitHub Pages → record. No factual value changes. | done | arena/8874422b-zone1 (session 8874422b) | `COORDINATION.md`; `build.py` + regenerated root HTML + `assets/style.css` (emitted); `feed.xml` (new); `data/suggestions.json` (SG-25..28); `data/design-prompt.json` (A-11 row); `session-8874422b/pass12.json` (new); `reports/verification-2026-11-16-8874422b.md` (new); `EXECUTIVE-SUMMARY.md` (§19); `README.md` |
 
 ### Claim log — arena/8874422b-zone1
 
@@ -5132,9 +5132,9 @@ sources, 0 errors, 0 external warnings**; `check_links.py` → **8,096 links, 0 
 
 | Item | Detail |
 |---|---|
-| Reader-first navigation strip | six links (Picks · Products · Compare · Buying guide · Articles · The data) on every page, re-using existing NAV hrefs; hidden on small screens where the menu toggle already works. Shipped as **SG-23**. |
+| Reader-first navigation strip | six links (Picks · Products · Compare · Buying guide · Articles · The data) on every page, re-using existing NAV hrefs; hidden on small screens where the menu toggle already works. Shipped as **SG-25**. |
 | Marketing visual layer | terracotta accent restored for eyebrows/cards/tiles over the deep-green brand; editorial serif display kept; article pages get a masthead with kind · reading-time · sources-read · "documentation-based — no hands-on testing" badge; footer gains a publisher-brand column; tables, buttons, tiles, hero gradient refined. |
-| RSS feed | `feed.xml` generated deterministically from `data/articles.json` (pubDate from the register's own accessed date, so CI's reproducibility gate holds); linked from every head, the articles index and the footer. Shipped as **SG-24**; owner-only Search Console submission published as **SG-25**; the no-capture-widget decision as **SG-26**. |
+| RSS feed | `feed.xml` generated deterministically from `data/articles.json` (pubDate from the register's own accessed date, so CI's reproducibility gate holds); linked from every head, the articles index and the footer. Shipped as **SG-26**; owner-only Search Console submission published as **SG-27**; the no-capture-widget decision as **SG-28**. (Renumbered during the rebase: main had gained SG-23 and open PR #101 claims SG-24.) |
 | Register repair | design-prompt row **A-11** `not-written` → `published` (published_as `articles/small-kitchen-air-fryer-dimensions.html`), closing the contradiction round 11 filed in its evidence report §4. |
 
 **Sources used (all re-read live on 2026-11-16 by this session; complementary to round 11's same-day full re-read):**
@@ -5154,15 +5154,30 @@ sources; both volatile counters unchanged from the values already published, so 
 family, F4/F5, F46) re-confirmed and left published as flags. Factual-value edits this
 pass: **none**.
 
-**Gates (all green after the final edit):** `python3 build.py` exit 0 — 40 sitemap URLs
-+ `feed.xml` (15 items) · `python3 verify.py` 119 pages, 46 spec rows (43 verified /
-3 blank+flagged), 34 sources, **0 errors, 0 external warnings** · `bash scripts/ci-check.sh`
-33 tests OK, data audit clean, s2 build current, **7,366 links / 0 broken** ·
-`python3 scripts/verify_site.py` **393 assertions, ALL PASSED** ·
-`python3 research/check_research.py` OK · `python3 platform/audit/report.py` AUDIT PASSED ·
-`node --check assets/app.js` OK · two consecutive `build.py` runs **byte-identical**.
+**Gates (all green after the final edit, on the rebased merged tree):** `python3 build.py`
+exit 0 — **46 pages**, 45 sitemap URLs + `feed.xml` (18 items) · `python3 verify.py`
+125 pages, 46 spec rows (44 verified / 2 blank+flagged), 34 sources, **0 errors,
+0 external warnings** · `bash scripts/ci-check.sh` 33 tests OK, data audit clean, s2 build
+current, **7,905 links / 0 broken** · `python3 scripts/verify_site.py` **393 assertions,
+ALL PASSED** · `python3 research/check_research.py` OK ·
+`python3 platform/audit/report.py` AUDIT PASSED · `node --check assets/app.js` OK ·
+two consecutive `build.py` runs **byte-identical**.
 `s2/` stamp drift produced by `ci-check.sh`'s own s2 rebuild was reverted before commit —
 s2/ is outside this pass's declared scope, and PR #98's CI proved `--check` tolerates the stamp.
+
+**Merge-conflict resolutions during the rebase onto `origin/main` (protocol item 6) —
+origin/main advanced from `4225b95` to `4ec77d8` (PRs #94–#109) while this pass worked:**
+
+| File | Resolution — nothing discarded |
+|---|---|
+| `COORDINATION.md` (×2) | keep-both: every other session's board rows, claim-log entries and completion records retained; this pass's board and record appended after them |
+| `build.py` | keep-both: session `695f03b7`'s `PASS10_FULL` ledger loader and figure-panel CSS kept alongside this pass's `PASS12` loader and pass-12 CSS layer |
+| `assets/style.css` (emitted) | same resolution at the CSS-string level; the emitted file is regenerated by `build.py`, not hand-merged |
+| `data/design-prompt.json` (A-11) | both sessions had corrected the same row independently (pass 10, session `121929a5`, and this pass); one combined `status_note` crediting both corrections kept, `published_as` retained |
+| `data/suggestions.json` | main had gained **SG-23** (photography-rights row, session `121929a5`), and open **PR #101 claims SG-24**; this pass's four rows were renumbered **SG-25–SG-28** and the stale in-prose references fixed (the cross-reference guard caught the first miss: `SG-24` inside SG-27's option A failed the build until corrected to SG-26) |
+| `EXECUTIVE-SUMMARY.md` | session `121929a5`'s §18 kept; this pass's section renumbered **§19** with subsections 19.1–19.3 |
+| `README.md` | both sessions edited the articles row; merged as one row (count corrected to the dataset's 18) plus this pass's RSS sentence |
+| generated HTML | never hand-merged — regenerated in full from the merged generator; two consecutive builds byte-identical |
 
 **Irregularities:** none introduced. Two process notes logged for transparency: (1) the
 sandbox clone is shallow, so `git pull --rebase origin main` initially replayed the

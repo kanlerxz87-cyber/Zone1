@@ -22,7 +22,7 @@ decision and keeps the verification layer one click behind it.
 | `picks.html` | **This week's picks** — a decision rule instead of a ranking, with the commission arithmetic and the table rows it came from |
 | `decisions.html` | **Decisions** — four niches scored on five criteria, six traffic channels with their prerequisites, six metrics, and a pre-committed kill rule |
 | `handover.html` | **Handover** — the five things only the account holder can do, each with the time it takes and the flags it closes |
-| `articles/` | **Seventeen sourced articles** — comparisons, explainers, feature and care walkthroughs, a source-forensics piece and two policy explainers. Every highlighted value in them must appear verbatim in `data/products.json` or the build fails. The set also ships as an RSS feed (`feed.xml`). |
+| `articles/` | **Eighteen sourced articles** — comparisons, explainers, feature and care walkthroughs, a source-forensics piece and two policy explainers. Every highlighted value in them must appear verbatim in `data/products.json` or the build fails. The set also ships as an RSS feed (`feed.xml`, 18 items). |
 | `categories/` | Category pages (currently: kitchen appliances / air fryers) |
 | `products/` | One documentation-based review per product |
 | `compare.html` | Verified-only comparison matrix, gaps left visible |
@@ -32,7 +32,7 @@ decision and keeps the verification layer one click behind it.
 | `platform.html` | Automation blueprint, guardrails, KPIs, launch sequence |
 | `compliance.html` | 18 program/legal requirements, quoted, each with a source link — including the two that govern an AI-agent platform (IP License §4 Agent Terms and Participation Requirements §5) |
 | `flagged.html` | Every unverified value, source conflict and irregularity |
-| `suggestions.html` | **Decision queue** — 26 evidence-backed suggestions, each with alternative paths, effort, risk and a recommendation. Rows SG-23–SG-26 (pass 12) record which design changes shipped so the owner can keep, rename or revert them. |
+| `suggestions.html` | **Decision queue** — 27 evidence-backed suggestions, each with alternative paths, effort, risk and a recommendation. Rows SG-25–SG-28 (pass 12) record which design changes shipped so the owner can keep, rename or revert them. |
 | `questions.html` | **Open questions** — 21 questions split into known / discoverable / not-stated / account-only. The five that an official source already settles carry their **answer** on the row; the rest say so plainly and name the step that would produce one. |
 | `requirements.html` | **Every requirement in the brief, and whether this repository meets it** — 51 rows, each with a live status, the path that implements it and a source link. Added 2026-11-16 by session `ad8105b3`. |
 | `executive-summary.html` | One-page briefing |
@@ -303,7 +303,7 @@ changes**:
 * **Reader-first navigation.** A six-link strip (Picks · Products · Compare · Buying
   guide · Articles · The data) now sits above every page, re-using existing NAV hrefs so
   the link checker and every guard keep covering them. The full sitemap sidebar is
-  unchanged underneath it. Shipped as **SG-23** for owner review.
+  unchanged underneath it. Shipped as **SG-25** for owner review.
 * **The warm two-tone identity.** Terracotta eyebrows, card and tile accents over the
   deep-green brand; the editorial serif display type is kept. Article pages gain an
   editorial masthead with a kind/reading-time/sources-read meta row and a visible
@@ -311,9 +311,10 @@ changes**:
 * **An RSS feed.** `feed.xml` is generated deterministically from `data/articles.json`
   (pubDate derives from the register's own accessed date, so the reproducibility gate
   holds) and linked from every page head, the articles index and the footer. Shipped as
-  **SG-24**; the owner-only next step — registering the origin in Search Console and
-  submitting the sitemap — is published as **SG-25**, and the decision to keep the
-  no-cookie posture before any capture widget is **SG-26**.
+  **SG-26**; the owner-only next step — registering the origin in Search Console and
+  submitting the sitemap — is published as **SG-27**, and the decision to keep the
+  no-cookie posture before any capture widget is **SG-28**. (Rows numbered SG-25–SG-28:
+  main had gained SG-23 and open PR #101 claims SG-24.)
 * **Register repair.** Design-prompt row **A-11** (a contradiction round 11 filed) is now
   `published` with its path: `articles/small-kitchen-air-fryer-dimensions.html`.
 
@@ -327,6 +328,7 @@ ledger rendered on the site at
 [`reverification.html`](https://kanlerxz87-cyber.github.io/Zone1/reverification.html).
 F1/F2/F3, F4/F5 and F46 stand exactly as published.
 
-Gates: `build.py` exit 0 (40 sitemap URLs + feed.xml, 15 items) · `verify.py` 0 errors ·
-`ci-check.sh` green (7,366 links / 0 broken) · `verify_site.py` 393 assertions PASSED ·
-research checks OK · platform audit PASSED · two consecutive builds byte-identical.
+Gates on the rebased tree: `build.py` exit 0 (46 pages, 45 sitemap URLs + feed.xml, 18 items) ·
+`verify.py` 125 pages, 0 errors · `ci-check.sh` green (7,905 links / 0 broken) ·
+`verify_site.py` 393 assertions PASSED · research checks OK · platform audit PASSED ·
+two consecutive builds byte-identical.
