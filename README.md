@@ -11,8 +11,8 @@ decision and keeps the verification layer one click behind it.
 **Strategy:** [`decisions.html`](https://kanlerxz87-cyber.github.io/Zone1/decisions.html) — niche scorecard, traffic plan, measurement plan, kill rule
 **Decision queue:** [`suggestions.html`](https://kanlerxz87-cyber.github.io/Zone1/suggestions.html) — review and choose before anything is built
 **Open questions:** [`questions.html`](https://kanlerxz87-cyber.github.io/Zone1/questions.html) — what must be answered first
-**Briefing:** [`EXECUTIVE-SUMMARY-PASS8.md`](EXECUTIVE-SUMMARY-PASS8.md) (pass 9 addendum at the end) · [`EXECUTIVE-SUMMARY-PASS9.md`](EXECUTIVE-SUMMARY-PASS9.md) (search plumbing and duplicate builds) · [`EXECUTIVE-SUMMARY-PASS9-42CA97AD.md`](EXECUTIVE-SUMMARY-PASS9-42CA97AD.md) (verification pass 9) · [`EXECUTIVE-SUMMARY.md`](EXECUTIVE-SUMMARY.md) §17 (verification pass 10, this session)
-**Today's live re-verification:** [`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md) (full pass 10, this session) · [`reports/verification-2026-11-16.md`](reports/verification-2026-11-16.md) (round 10, session c334fb1c) · [`reports/verification-2026-11-15.md`](reports/verification-2026-11-15.md) (pass 9)
+**Briefing:** [`EXECUTIVE-SUMMARY-PASS8.md`](EXECUTIVE-SUMMARY-PASS8.md) (pass 9 addendum at the end) · [`EXECUTIVE-SUMMARY-PASS9.md`](EXECUTIVE-SUMMARY-PASS9.md) (search plumbing and duplicate builds) · [`EXECUTIVE-SUMMARY-PASS9-42CA97AD.md`](EXECUTIVE-SUMMARY-PASS9-42CA97AD.md) (verification pass 9) · [`EXECUTIVE-SUMMARY.md`](EXECUTIVE-SUMMARY.md) §18 (design-coherence pass 12, latest; §17 = verification pass 10)
+**Today's live re-verification:** [`reports/verification-2026-11-16-492acddc.md`](reports/verification-2026-11-16-492acddc.md) (pass 12: policies, commission table, FTC, brand pages + WCAG audit) · [`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md) (full pass 10) · [`reports/verification-2026-11-16.md`](reports/verification-2026-11-16.md) (round 10, session c334fb1c) · [`reports/verification-round11-2026-11-16.md`](reports/verification-round11-2026-11-16.md) (round 11, session 3dfe4b45) · [`reports/verification-2026-11-15.md`](reports/verification-2026-11-15.md) (pass 9)
 
 ## What is in here
 
@@ -83,6 +83,15 @@ relationship between the two sites.
 python3 build.py     # regenerate every page from data/*.json
 python3 verify.py    # exit 0 = no broken links, no unsourced values, disclosure on every page
 ```
+
+The presentation layer (pass 12, 2026-11-16, session 492acddc) is one coherent stylesheet
+emitted from `build.py`'s `CSS` block: warm paper palette anchored to the brand green
+`#245746`, serif display type, superscript-style source chips, sidebar grouped into
+Shop smart / Products / Trust & evidence / Owner workspace, compact primary nav in the
+topbar, deep-green footer. All 23 foreground/background pairs measure ≥ 4.5:1 (WCAG AA);
+the only imagery is three hand-drawn inline SVG format glyphs. The design directives and
+their live statuses are kept in [`data/design-prompt.json`](data/design-prompt.json)
+(rendered on `design-prompt.html`).
 
 `build.py` refuses to emit a page if a specification row has a value but no official source, if a
 fourth guard fires — the **banned-phrase** check that fails the build when editorial copy drifts

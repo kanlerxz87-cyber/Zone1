@@ -923,3 +923,48 @@ article set, and filled the one verifiable blank (Emeril browse node) from a liv
 Recorded the same-day S3 finding (schedule now public; Kitchen 4.50% matches the candidate rows).
 Full report: [`reports/verification-2026-11-16-121929a5.md`](reports/verification-2026-11-16-121929a5.md);
 one-page briefing: [`EXECUTIVE-SUMMARY-PASS10-121929a5.md`](EXECUTIVE-SUMMARY-PASS10-121929a5.md).
+
+## 19. Pass 12 — the design-coherence pass (2026-11-16, session `arena/492acddc-zone1`)
+
+The owner's standing complaint through ten passes was not the copy (the anti-slop rules
+have been enforced in the build since pass 9) but the **look**: the stylesheet was three
+stacked eras — an admin-dashboard base, an editorial override layer, and commercial
+components appended on top — and the sidebar put the owner's thirteen process pages at eye
+level for shoppers. Pass 12 rebuilt the presentation layer without touching a single
+verified value.
+
+### 19.1 What shipped
+
+| Change | Detail |
+|---|---|
+| One coherent design system | The 422-line stylesheet was rewritten end to end (one token palette anchored to the brand green `#245746` the favicon already used, warm paper background, serif display type from the Iowan/Palatino/Georgia stack, quiet superscript-style source chips, deep-green footer). Every one of the 116 classes the 29 canonical pages emit is covered. |
+| Information architecture | Sidebar regrouped into **Shop smart / Products / Trust & evidence / Owner workspace**; the topbar gained a compact primary nav (Picks · Buying guide · Articles · Compare) plus the verified-data stamp, so shoppers see destinations before process pages. |
+| Editorial artwork | Three hand-drawn stroke-only SVG glyphs (dual basket / french-door oven / single basket) on the landing page's format cards — the site's only imagery, drawn for this site so the no-hotlinked-photos rule (D-5) is untouched. |
+| Stale count fixed | The landing page said "Compliance — **16** requirements"; the register carries **18** (C17/C18 since pass 10). The count is now read from `data/compliance.json` at build time and cannot drift. |
+| Register sync | `data/design-prompt.json`: A-11 corrected `not-written → published` (the contradiction round 11 filed against that register); D-1/D-2 status notes record pass 12; D-10 → `implemented` on measured evidence; the paste-ready design prompt's palette/typography directives updated to the shipped tokens. |
+
+### 19.2 Verification performed
+
+Live reads on 2026-11-16 (evidence: `reports/verification-2026-11-16-492acddc.md`): the
+Associates Program Policies page ("Updated: April 14, 2026"; 24-hour session rule verbatim),
+the Standard Commission Income Statement ("Kitchen — 4.50%"), FTC Disclosures 101
+("November 2019"), and the three brand pages. Both Chefman review counters read **1,307**
+and **717** for the third consecutive day — unchanged, so nothing was rewritten. Both open
+conflicts (F3 450/400 °F; F4/F5 preset counts) re-confirmed and still open. A WCAG AA
+contrast audit measured all 23 foreground/background pairs in the new stylesheet; one
+failure (label grey at 2.88:1) was found and fixed during the audit; all pairs now ≥ 4.5:1.
+
+### 19.3 Gates
+
+`build.py` → 41 pages, 0 errors · `verify.py` → 119 pages, 46 spec rows (43 verified /
+3 blank+flagged), 34 sources, 0 errors, 0 external warnings · `ci-check.sh` → tests OK,
+audit clean, s2 current, 7,135 links / 0 broken · `verify_site.py` → 393 assertions passed ·
+`research/check_research.py` → OK · `platform/audit/report.py` → AUDIT PASSED ·
+`node --check assets/app.js` → OK · two consecutive builds byte-identical.
+
+### 19.4 What this pass did not do
+
+It did not write or rewrite any article, specification value, compliance row or flag; it did
+not touch `site/`, `s2/`, `data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`,
+`crosscheck/`, `annex-*` or `session-*`. The unresolved account-holder questions (product
+identity, Associates tag, account approval) are unchanged and still published as such.

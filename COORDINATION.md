@@ -4641,3 +4641,67 @@ on the final commit before the merge.
 | 2026-11-16T19:03Z | arena/f0878842-zone1 (session f0878842) | Main advanced to `6593579` through the #108/#109 completion records (PRs #95/#105 already merged). Rebuilt locally: 46 pages / 45 sitemap URLs, 125-page verify with 0 errors, 33 tests, audit clean, 7,466 links, research 834, annex 393, JS/diff checks pass; isolated `s2/ --check` still reports 13 generated pages (outside scope). Latest main CI/annex/site deploy/Pages deployment all success; latest live Pass-10 heading read back. Report now has the `6593579` integration addendum. PR #107 has been rebased and is being updated to the latest main; #101 and #100 remain other sessions' open work. |
 | 2026-11-16T19:05Z | arena/f0878842-zone1 (session f0878842) | **X-f0878842 complete.** Documentation-only PR #107 merged as `4ec77d8`. GitHub Pages API reports `built`; live homepage read-back shows 18 articles and 62 open flags, matching the flagged register. On merge SHA `4ec77d8`: CI `43935547342`, annex verification `43935547375`, and Pages deployment `43935545906` all succeeded. Final audit and handoffs: `reports/verification-2026-11-16-f0878842.md`. The isolated `scripts/build_s2_site.py --check` still reports 13 stale annex outputs; this session did not edit that separate scope. PRs #101 and #100 remain open under other sessions. |
 | 2026-11-16T19:05Z | arena/492acddc-zone1 (session 492acddc) | Claimed X-492acddc after reading the board. Worktree clean; branch rebased (ff) onto `origin/main` @ `5631333` (PR #98, session 3dfe4b45's round 11 — its verification round is not duplicated: this pass re-reads the HTML policy/brand pages for its own evidence report and only writes a value if one *changed*). Arena fixes this session to branch `arena/492acddc-zone1`, which therefore acts as the protocol's `session-492acddc/<task>` branch. Round 11's filed register contradiction (A-11 marked not-written while `articles/small-kitchen-air-fryer-dimensions.html` exists) is taken up here because this pass already owns `data/design-prompt.json` for the status sync. |
+
+### X-492acddc completion record — arena/492acddc-zone1 (2026-11-16 UTC)
+
+**Status: done** (PR, merge and Pages confirmation appended below after they complete).
+
+**What this pass did.** It answered the owner's standing complaint that the published site
+still *looks* like AI slop, without rewriting any verified value: the stylesheet (three
+stacked eras since pass 9) was rewritten end to end as one design system inside `build.py`'s
+`CSS` var; the sidebar was regrouped Shop smart / Products / Trust & evidence / Owner
+workspace; the topbar gained a compact primary nav (Picks / Buying guide / Articles /
+Compare) beside the verified-data stamp; the landing page's three format cards gained
+hand-drawn stroke-only SVG glyphs (original artwork — no external or brand imagery, so the
+no-hotlinked-photos directive D-5 and verify.py's host allow-list are untouched); the stale
+landing-page string "Compliance — 16 requirements" now reads its count from
+`data/compliance.json` (18, C1–C18, so it cannot drift again). Scope held to the claim.
+
+**Register corrections (this pass's scope):** `data/design-prompt.json` — A-11
+`not-written → published` as `articles/small-kitchen-air-fryer-dimensions.html`, closing the
+contradiction round 11 (3dfe4b45) filed against that register in
+`reports/verification-round11-2026-11-16.md` §4; D-1/D-2 status notes record the pass; D-10 →
+`implemented` on a measured audit; the paste-ready design prompt's palette/typography
+directives updated to the shipped tokens (so a future design session cannot regress them);
+`version` 2 / `compiled` 2026-11-16.
+
+**Live re-verification performed (2026-11-16, server-side fetches; full evidence table:
+`reports/verification-2026-11-16-492acddc.md`):** S2 Program Policies ("Updated: April 14,
+2026"; 24-hour session rule and 89-day cart window verbatim; all eight policy sections
+present); S3 Table 1 ("Physical Books, Kitchen, Automotive — 4.50%"; "All Other Categories —
+4.00%"); S8 FTC Disclosures 101 ("November 2019"; "hard to miss"); S10 (RJ38-SQPF-3TDB-2W,
+**1,307** reviews — third session to read the same value); S12 (RJ38-SQSS-8T, **717**
+reviews; brand still says 200–400 °F, so F3 stands); S14 (26-Qt / 24.6 L / 25-preset icon /
+16.9 × 15.8 × 14.8 in / 120 V — F4/F5 stands); live Pages landing page (pre-pass-12 build
+confirmed serving). Nothing changed was found in any published value, so no value was
+rewritten.
+
+**WCAG 2.1 AA contrast audit (new stylesheet, recorded in the report):** 23 foreground/
+background pairs measured; 22 passed ≥ 4.5:1; one failure (label grey #8a9184 at 2.88:1 on
+paper) found and fixed during the audit — `--faint` is now #67705f (4.59:1 paper / 5.09:1
+cards).
+
+**Gates (all run after the final edit):** `python3 build.py` → 41 pages, exit 0 ·
+`python3 verify.py` → 119 pages checked, 46 spec rows (43 verified / 3 blank+flagged),
+34 sources, **0 errors, 0 external warnings** · `bash scripts/ci-check.sh` → unit tests OK,
+data audit clean, s2 build current, **7,135 links / 0 broken** ·
+`python3 scripts/verify_site.py` → 393 assertions, ALL CHECKS PASSED ·
+`python3 research/check_research.py` → OK · `python3 platform/audit/report.py` → AUDIT
+PASSED · `node --check assets/app.js` → OK · two consecutive builds → **byte-identical**.
+
+**Files this pass wrote:** `build.py` (CSS var, `layout()` topnav + sidebar groups,
+`page_index()` glyphs + dynamic compliance count, `format_glyph()` helper) ·
+`data/design-prompt.json` · `reports/verification-2026-11-16-492acddc.md` (new) ·
+`EXECUTIVE-SUMMARY.md` §18 · `README.md` · `COORDINATION.md` · regenerated root HTML +
+`robots.txt` + `sitemap.xml`.
+
+**Files this pass did not touch:** `site/`, `s2/`, `data/s2/`, `research/`, `platform/`,
+`docs/`, `dashboard/`, `crosscheck/`, `annex-88769516/` and every other `session-*/` folder.
+
+**Not resolved, and published as such:** F1/F2 (which manufacturer model each ASIN ships),
+F6 (the Associates tag inside the short links), F3 (450/400 °F conflict), F4/F5 (Emeril
+preset count), Q-21 (whether ordinary public listing pages count as Program Content). None
+is answerable from outside the account holder's browser; all remain on `flagged.html` and
+`questions.html`.
+
+PR / merge / Pages result recorded below after they complete.
