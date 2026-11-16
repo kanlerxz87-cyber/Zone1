@@ -5116,10 +5116,56 @@ sources, 0 errors, 0 external warnings**; `check_links.py` → **8,096 links, 0 
 
 | # | Task | Status | Owner (session) | File scope |
 |---|------|--------|-----------------|------------|
-| V12 | **Pass 12 — marketing design & conversion polish.** The owner's brief again names the site's look ("polished marketing affiliate website … should not read like AI slop"). No prior pass owns the visual layer end-to-end, so this pass redesigns the presentation layer of the canonical build only: typography scale (editorial serif display + clean sans), warmer kitchen-market palette, hero, product/article/picks cards, table styling and nav grouping in `build.py` and the CSS it emits; new suggestion rows SG-23+ recording every design decision for owner review; a light independent spot re-read of official sources (round 11 already re-read the register today) with evidence file and additive ledger; repair of the design-prompt register contradiction round 11 filed (A-11); rebuild, all gates, PR → merge → confirm GitHub Pages → record. No factual value changes. | in progress | arena/8874422b-zone1 (session 8874422b) | `COORDINATION.md`; `build.py` + regenerated root HTML + `assets/style.css` (emitted); `data/suggestions.json` (SG-23+ only); `data/design-prompt.json` (A-11 status row only); `session-8874422b/pass12.json` (new); `reports/verification-2026-11-16-8874422b.md` (new); `EXECUTIVE-SUMMARY.md` (append); `README.md` (if gates change) |
+| V12 | **Pass 12 — marketing design & conversion polish.** The owner's brief again names the site's look ("polished marketing affiliate website … should not read like AI slop"). No prior pass owns the visual layer end-to-end, so this pass redesigns the presentation layer of the canonical build only: typography scale (editorial serif display + clean sans), warmer kitchen-market palette, hero, product/article/picks cards, table styling and nav grouping in `build.py` and the CSS it emits; new suggestion rows SG-23+ recording every design decision for owner review; a light independent spot re-read of official sources (round 11 already re-read the register today) with evidence file and additive ledger; repair of the design-prompt register contradiction round 11 filed (A-11); rebuild, all gates, PR → merge → confirm GitHub Pages → record. No factual value changes. | done | arena/8874422b-zone1 (session 8874422b) | `COORDINATION.md`; `build.py` + regenerated root HTML + `assets/style.css` (emitted); `feed.xml` (new); `data/suggestions.json` (SG-23..26); `data/design-prompt.json` (A-11 row); `session-8874422b/pass12.json` (new); `reports/verification-2026-11-16-8874422b.md` (new); `EXECUTIVE-SUMMARY.md` (§18); `README.md` |
 
 ### Claim log — arena/8874422b-zone1
 
 | UTC time | Session | Action |
 |----------|---------|--------|
 | 2026-11-16T18:55Z | arena/8874422b-zone1 (session 8874422b) | **Claimed V12** after reading the board: T1–T20, U1–U2, every X-* row and round 11 (`3dfe4b45`, PR #98, merged `5631333`) are done; no row is claimed elsewhere, so this pass takes the final-integration role for the shared canonical build. Branch `arena/8874422b-zone1` (Arena-fixed name). Sandbox note, logged for transparency: this clone is shallow (1 visible commit), so `git pull --rebase origin main` tried to replay the already-merged PR #93 merge and aborted; the branch was fast-reset to `origin/main` @ `5631333` instead — no other session's commit was touched. Scope is the canonical root build only; `site/`, `s2/`, `data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*` and every other `session-*` folder are not edited by this pass. Round 11 re-read the official register today, so this pass performs a targeted independent spot re-read rather than a duplicate full re-read. *(Claim-commit conflict with PR #99's EOF append resolved 2026-11-16 by keeping both blocks — dc3f8b5d's PR #96 merge row first, then this pass's board; nothing discarded.)* |
+
+### V12 completion record — arena/8874422b-zone1 (2026-11-16 UTC)
+
+**Status: done** (PR / merge / Pages result appended below once they exist).
+
+**What shipped (presentation only — no published value, register row or wording changed):**
+
+| Item | Detail |
+|---|---|
+| Reader-first navigation strip | six links (Picks · Products · Compare · Buying guide · Articles · The data) on every page, re-using existing NAV hrefs; hidden on small screens where the menu toggle already works. Shipped as **SG-23**. |
+| Marketing visual layer | terracotta accent restored for eyebrows/cards/tiles over the deep-green brand; editorial serif display kept; article pages get a masthead with kind · reading-time · sources-read · "documentation-based — no hands-on testing" badge; footer gains a publisher-brand column; tables, buttons, tiles, hero gradient refined. |
+| RSS feed | `feed.xml` generated deterministically from `data/articles.json` (pubDate from the register's own accessed date, so CI's reproducibility gate holds); linked from every head, the articles index and the footer. Shipped as **SG-24**; owner-only Search Console submission published as **SG-25**; the no-capture-widget decision as **SG-26**. |
+| Register repair | design-prompt row **A-11** `not-written` → `published` (published_as `articles/small-kitchen-air-fryer-dimensions.html`), closing the contradiction round 11 filed in its evidence report §4. |
+
+**Sources used (all re-read live on 2026-11-16 by this session; complementary to round 11's same-day full re-read):**
+`link.amazon/B04G1MEwY` → `/dp/B0CDY277D3` (title confirms Chefman 6 Qt Dual Basket) ·
+`link.amazon/B02NbDxp3` → `/dp/B09B7SB46R` (title confirms Emeril 26 QT, 24 presets, six accessories) ·
+`link.amazon/B00hJ57DV` → `/dp/B08DKYBTPH` (title confirms Chefman 8 Qt TurboFry, 450 °F Hi-Fry) ·
+`chefman.com/products/turbofry-touch-dual-window-air-fryer` (model RJ38-SQPF-3TDB-2W, "1307 Reviews") ·
+`chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1` (model RJ38-SQSS-8T, "717 Reviews", "200–400°F") ·
+`emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360` ("25 Cooking Pre-sets", "10-in-1", 24.6 L, 16.9×15.8×14.8 in, 120 V, model 4-00675-02A-VN) ·
+`affiliate-program.amazon.com/help/operating/policies` ("Updated: April 14, 2026").
+URL-by-URL evidence with the exact strings read back: `reports/verification-2026-11-16-8874422b.md`;
+rendered ledger: `session-8874422b/pass12.json` on `reverification.html`.
+
+**Verification performed:** all seven spot rows confirmed against their live official
+sources; both volatile counters unchanged from the values already published, so no
+`data/products.json` edit was needed; the three standing irregularities (F1/F2/F3
+family, F4/F5, F46) re-confirmed and left published as flags. Factual-value edits this
+pass: **none**.
+
+**Gates (all green after the final edit):** `python3 build.py` exit 0 — 40 sitemap URLs
++ `feed.xml` (15 items) · `python3 verify.py` 119 pages, 46 spec rows (43 verified /
+3 blank+flagged), 34 sources, **0 errors, 0 external warnings** · `bash scripts/ci-check.sh`
+33 tests OK, data audit clean, s2 build current, **7,366 links / 0 broken** ·
+`python3 scripts/verify_site.py` **393 assertions, ALL PASSED** ·
+`python3 research/check_research.py` OK · `python3 platform/audit/report.py` AUDIT PASSED ·
+`node --check assets/app.js` OK · two consecutive `build.py` runs **byte-identical**.
+`s2/` stamp drift produced by `ci-check.sh`'s own s2 rebuild was reverted before commit —
+s2/ is outside this pass's declared scope, and PR #98's CI proved `--check` tolerates the stamp.
+
+**Irregularities:** none introduced. Two process notes logged for transparency: (1) the
+sandbox clone is shallow, so `git pull --rebase origin main` initially replayed the
+already-merged PR #93 merge and was aborted in favour of a fast-reset to `origin/main`;
+(2) the claim commit's EOF append conflicted with PR #99's append during rebase — resolved
+keep-both, nothing discarded (noted in the claim log row above).
