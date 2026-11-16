@@ -1,5 +1,7 @@
 # Executive summary — pass 8, 2026-11-15
 
+> **Superseded, and kept.** This is pass 8's briefing, committed 2026-11-15 by session `arena/88bb2db6`. It is left here as that session's record and is **not** the current briefing: [executive-summary.html](https://kanlerxz87-cyber.github.io/Zone1/executive-summary.html) is generated from `data/` and is the one the site links to. Its verification counts (43 spec rows, 41 verified, 29 sources) were the truth on 2026-11-15 and have since moved — the root site now reports 77 rows, 75 verified, 34 sources. One claim in the passes around this one — that a listing does not publish a model number, so only a browser can settle product identity — was tested on 2026-11-16 and found false; see flag **F63** at https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f63.
+
 **What this is.** A briefing for one reader: the person who owns the Amazon Associates
 account and the three supplied links. It says what has been built, what is verified, what
 is not, what this pass found wrong, and what to decide next. The full evidence is on the

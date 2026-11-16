@@ -34,6 +34,13 @@ identity mapping.
 
 ## 3. Verification result
 
+> **Refreshed 2026-11-16 by pass 11** (session `arena/ba29c641-zone1`), because the numbers below
+> had become the file's oldest claims: `data/products.json` now holds **77 specification rows — 75
+> verified, 2 blank and flagged**, over **34** official sources. The 31 added rows are all values
+> read from the three listings' own Product information blocks on 2026-11-16, each labelled
+> "as listed by Amazon" so a listing claim never reads as a manufacturer specification; one blank
+> row (the Emeril browse node) was filled from that same read. The bullets under this note are the
+> running record of how the count moved, kept with their dates rather than rewritten.
 - **43 specification rows** across the three products.
 - **41 verified** — each read on the manufacturer's own product page or owner's manual, each with a
   clickable source link. *(Count corrected 2026-11-14 by two independent passes to match `verify.py`; then
@@ -907,3 +914,82 @@ those is answerable from outside the account holder's browser. It did not read I
 to end, and said so (F62). It did not change any published value that a source did not
 contradict, and it did not touch a single file in `site/`, `s2/`, `data/s2/`, `research/`,
 `platform/`, `docs/`, `dashboard/`, `crosscheck/` or `annex-88769516/`.
+
+## 18. Pass 11 — the premise that cost ten passes, and a way to close the decision queue (2026-11-16, session `arena/ba29c641-zone1`)
+
+### 18.1 The finding that matters
+
+Pass 10 recorded at §17.6 that F1/F2 "are not answerable from outside the account holder's browser".
+They were. This pass fetched `https://www.amazon.com/dp/B0CDY277D3`, `B09B7SB46R` and `B08DKYBTPH`
+and each page's **Product information** block rendered, model rows included:
+
+| ASIN | What the listing states | What the site had held |
+|---|---|---|
+| B0CDY277D3 | Model Number **RJ38-SQPF-3TDB-2W**, Part Number same, Model Name "Turbo Fry® Touch", 1700 W / 120 V, Max 450 °F · Min 93 °C, 13.38″ × 11.81″ × 10.63″, 13.3 lb, Capacity field "6 liters", UPC 810087845025 | Model from the brand page and the manual only, with the caveat "Amazon does not publish the model number on the ASIN" |
+| B08DKYBTPH | Part Number **RJ38-SQSS-8T**, Model Number row holding the marketing string "Large Air Fryer", 1700 W / 120 V, Max 400 °F · Min 94 °C, 12.75″ × 13.5″ × 10″, 12.8 lb, Warranty "1-Year Limited Warranty", UPC 816458024518 | Model from the brand page and the manual; the 450 °F row blank because two sites disagreed |
+| B09B7SB46R | Model Number and Part Number **4-00675-02X-VN**, Min 75 °F · Max 500 °F, 1700 W / 120 V, 16.9″ × 15.8″ × 14.8″, Configuration "…24 Functions and 7 Accessories", Included Components enumerating six named parts, UPC 752356835682 | Model FAFO-001 (manual) / 4-00675-02A-VN (brand page); browse node blank because three 2026-11-15 fetches hit a checkpoint page |
+
+Read in full: **F63** (`flagged.html#f63`). The correction is narrower than it looks and worth
+stating twice. What closed is the ASIN-to-model step, for all three products. What did **not** close
+is the supplied-link-to-ASIN attribution: the three `link.amazon` tokens are still nine characters,
+still not ASINs, and still arrive through `plpRedirect=mhFallback` (F6, F7, F10 stand). No sentence
+on this site now says the listing hides its model number; the register's F1 was corrected rather
+than deleted, so the wrong premise stays visible in the file that carried it.
+
+### 18.2 Four conflicts this pass found, and did not resolve
+
+* **F64** — the 8 Qt's footprint: brand page 15.4 × 12.6 × 13.5 in, its own listing 12.75 × 13.5 × 10
+  (S12 vs S29); and the 6 Qt's listing Capacity field reading "6 liters" where its title, its Size
+  field and the brand page all read 6 quarts.
+* **F65** — three official model strings for the Emeril, the newest two one character apart
+  (`02A-VN` on the brand page, `02X-VN` on the listing, `FAFO-001` in the manual).
+* **F66** — the Emeril listing contradicts itself about the box: "7 Accessories" in its Configuration
+  field, six parts enumerated in its Included Components row, "Six" in its title. The same fetch made
+  the 24-presets side of F4 stronger, so one read moved two rows in opposite directions.
+* **F67** — °C floors that do not convert to the °F floors on two products (93 °C vs 95 °C; 94 °C vs
+  200 °F): rounding across documents, published as each source states it, never merged.
+
+Prices, availability, star ratings, review counts and the Best Sellers Rank line were all visible in
+these fetches and are **not** on the site: Program Policies §2(b) and §6(t) for the first three
+(`data/products.json` `amazon_price_policy`), and this repository's own reading of IP License §2(e)
+for rank data, which stays a decision not to publish rather than a claim that no such figure exists
+(that wording was corrected in the s2 register, R-03).
+
+### 18.3 Two gates repaired, one of which could not fail
+
+`.github/workflows/ci.yml` and `scripts/ci-check.sh` both ran `build_s2_site.py` (which writes) and
+then `--check` (which compares a rebuild with the files the previous line had just produced). The
+step titled *"Prove the committed HTML is current"* therefore could not report staleness. It now runs
+`--check` alone, tolerating only the header's build date, which is derived from git and unreadable
+from a shallow checkout; the stamp itself was also converted in UTC, because `git log --format=%cs`
+had been stamping one commit 2026-11-16 in UTC and 2026-11-17 in JST. Proof the repaired gate fires:
+one changed word in `s2/pages/sources.html` → `STALE BUILD`, exit 1.
+
+**F60 was repaired at source**: `data/s2/requirements.json` R-01 now names both registers and the
+paths that exist, R-08 restates the blocker as the ASIN-to-commission-category mapping with the
+public Commission Income Statement as its source, and R-03's "no public demand metric exists" was
+corrected to the reason that is actually true here.
+
+### 18.4 The decision queue now has a closing mechanism
+
+`suggestions.html` held 22 reviewed suggestions and no way to finish one. `decision-log.html` is new:
+one picker per suggestion, the register's own recommended path, and a computed *adopt-after-silence*
+default — reversible, risk none-or-low, and no `unknowable` blocking question. **14 of 22 carry a
+default a later pass may implement without asking; 8 wait for a person.** The rule is computed from
+`data/suggestions.json` and `data/questions.json` at build time, so the page cannot promise a default
+its own data does not support, and the queue it prints is the same computation in priority order.
+Silence never authorises spending, account actions, credential changes, a price or rating, a
+compliance posture, or any flagged product fact — that limit is printed on the page. A choice is
+exported as the body of `data/decision-log.json`, whose `choices` array is empty by design: a session
+that filled it would be inventing an instruction. Q-01 and Q-02 moved from `missing` to `known`
+because this pass answered them from the listing read, and SG-01's "five minutes in a browser" is
+closed as unnecessary.
+
+### 18.5 What pass 11 did not do
+
+It did not touch `articles/`, `data/articles.json` or `data/topics.json` — the two open PRs on the
+board (#94, #95) own that ground, and a third copy of the same source ledger was the last thing this
+repository needs. It did not delete the five stale root briefings; it put a pointer on each (F59's
+disposition). It did not fill the two remaining blanks, did not assert a commission rate per ASIN, and
+did not state what either contradicting document "really" means. `python3 verify.py` reports
+**117 pages, 0 errors, 0 external warnings**; `scripts/check_links.py` reports **0 broken links**
