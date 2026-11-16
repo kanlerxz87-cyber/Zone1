@@ -4444,3 +4444,71 @@ PR / merge / Pages result recorded below after they complete.
 2. A fragment check over all 38 root-build pages returns exactly 8 dead anchors, all on
    `topics.html` (`#tp-01`, `-02`, `-03`, `-05`, `-06`, `-12`, `-13`, `-14`), because
    `page_topics()` emits the `id="tp-NN"` detail block only when `status != "published"`.
+
+### Z1–Z4 completion record — arena/2e346d24-zone1 (2026-11-16 UTC, pass 11)
+
+**Status: done.** Branch `arena/2e346d24-zone1`, rebased onto `main` @ `4225b95` (four other
+sessions merged #96–#99 while this pass was working). Every conflict was resolved by keeping
+both sides; no other session's row, board or stamp was discarded.
+
+**What shipped.** Five defects in the delivered site, all reproducible from `9c6deab`, plus a
+live re-verification of 14 of the 34 registered sources.
+
+| # | Defect | Evidence before the fix | Fix | Guard |
+|---|---|---|---|---|
+| 1 | **The front page said "0 Flags open" beside a 61-row register.** `_flag_count()` matched `<tr><td class="num">`; `page_flagged()` has emitted `<tr id="fNN">` since pass 10 added per-row anchors. | `grep ... 'Flags open' index.html` → `<b>0</b>`; `build._flag_count()` → `0`; `grep -cE '<tr id="f[0-9]+"' flagged.html` → `61` | `_flag_count()` corrected | `check_flag_count_matches_page()` — fails the build if the tile and the rendered register disagree |
+| 2 | **`check_flag_ids_unique()` was passing vacuously** — the same stale regex matched zero rows, so the duplicate-ID guard had been checking nothing. | `re.findall(r'<tr><td class="num"><strong>(F\d+)</strong>', page_flagged())` → `[]` | same correction | same guard |
+| 3 | **8 dead in-page links on `topics.html`** (`#tp-01/02/03/05/06/12/13/14`). `page_topics()` emitted the `id="tp-NN"` block only for *unwritten* topics, but the plan table links all 14. No gate checked fragments — `verify.py` resolved the file, not the anchor. | a fragment sweep over all root pages returned exactly these 8 | every topic gets a card; published ones link the article | `check_internal_fragments()` in `build.py` **and** a fragment check in `verify.py` |
+| 4 | **46 callouts rendered with no colour at all.** `.callout.note` (13 uses) and `.callout.warn` (33 uses) had no CSS rule, so "for information" and "this could be wrong" looked identical to plain text — including the *read this before treating anything as fact* warnings. | `grep -c '\.callout\.note' assets/style.css` → `0` | both states defined | `check_callout_states_and_table_wraps()` |
+| 5 | **4 register tables were not inside `.tablewrap`**, so `topics`, `suggestions`, `questions` and `requirements` forced the whole page to scroll sideways at phone width. | 12 tables found outside `.tablewrap` before the wrap pass | 6 tables wrapped; now 0 outside | same guard |
+
+**Every new guard was proved to fire, not merely to exist.** Re-introducing the stale regex →
+`BUILD FAILED — landing-page flag count (0) disagrees with the rendered register (61 rows)`.
+Removing one topic anchor → `href="#tp-01" has no target in topics.html`. Deleting the
+`.callout.note` rule → `.callout.note is used but has no CSS rule`. Un-wrapping a table →
+`a <table> is not inside .tablewrap and will overflow`. Renaming an id in the rendered HTML →
+`verify.py` reports `FAIL topics.html: dead in-page link -> #tp-01`. All restored, exit 0.
+
+**Live re-verification (14 sources, 2026-11-16, server-side fetch — this sandbox has no direct
+egress; `curl` fails with `SSL_ERROR_SYSCALL` against every non-GitHub host):**
+S1 Operating Agreement (*Updated: October 15, 2025*) · S2 Program Policies (*Updated: April 14,
+2026*) · S3 Commission Income Statement, Table 1 read **without a login** (Kitchen 4.50%, Home
+3.00%, All Other 4.00%) · S4 Application Review (six clauses verbatim) · S5 Associate
+identification (required sentence verbatim) · S8 FTC Disclosures 101 · S9 16 CFR 255 (*up to
+date as of 11/12/2026*; §255.0–§255.6) · S10 Chefman 6 Qt (1,307 reviews, $119.99, 450 °F
+Hi-Fry) · S12 Chefman 8 Qt (717 reviews, **200–400 °F**) · S14 Emeril (2.6 from 25, **25
+Cooking Pre-sets**, body copy "10-in-1", asset named "11-in-1") · S18 RJ38-SQPF-3TDB-2W user
+guide (two 3-quart baskets; Sync Finish vs Sync Baskets in the manual's own words; **no preset
+chart**) · S17/S28/S29 the three supplied short links. Full evidence:
+`reports/verification-2026-11-16-2e346d24.md` (15 rows V1–V15).
+
+**What the re-read changed: nothing published, and one irregularity sharpened.**
+- **F3 (Chefman 8 Qt 450 °F) re-established live**: brand page still 200–400 °F, supplied listing
+  title still "450°F Hi-Fry Option". Still open, still not resolved by guesswork.
+- **F4/F5 (Emeril presets) shown to be four-way, not two-way**: 25 (spec block) vs 24 (manual and
+  listing title) vs "10-in-1" (body copy) vs a carousel file named `11-in-1_…`. Now five
+  identifiers for one appliance. Still open.
+- **New irregularity recorded, not inferred**: the Emeril brand page identifies the product as
+  **4-00675-02A-VN**, the owner's manual covers **FAFO-001**, and the Amazon listing states no
+  model number. Three different identifiers, no official document reconciling them. Recorded so
+  a future pass does not treat one as confirmation of another.
+- **S15 (Emeril manual) was NOT re-read**, so the 24-preset count is carried forward, not
+  re-asserted. `data/sources.json` now carries a `reverified_scope` field naming the 14 read and
+  the 20 not read, so silence cannot be mistaken for confirmation.
+
+**Gates, all green on the rebased tree:** `build.py` 40 pages / 40 sitemap URLs, exit 0 and
+byte-reproducible · `verify.py` 0 errors, 0 external warnings · `scripts/check_links.py` 7,017
+links / 0 broken · `scripts/verify_site.py` ALL CHECKS PASSED · `ci-check.sh` OK ·
+`build_s2_site.py --check` current · `research/check_research.py` OK · `platform/audit/report.py`
+AUDIT PASSED.
+
+**Files this pass wrote:** `build.py`, `verify.py`, `data/sources.json` (`page_version` +
+`reverified_scope` only), `reports/verification-2026-11-16-2e346d24.md` (new), regenerated root
+HTML (`index.html`, `topics.html`, `suggestions.html`, `questions.html`, `requirements.html`,
+`data.html`, `flagged.html`), `assets/style.css`, `COORDINATION.md`.
+
+**Files this pass did not write** (other sessions' scope, read only): `site/`, `s2/`,
+`data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`,
+`annex-88769516/`, every `session-*/` folder. Running `build.py` regenerates `s2/` build
+stamps as a side effect; those were reverted from every commit in this pass rather than
+shipped.
