@@ -125,8 +125,10 @@
      "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
     }
    ],
-   "status": "proposed",
-   "blocked_by": []
+   "status": "published",
+   "blocked_by": [],
+   "published_as": "articles/small-kitchen-air-fryer-dimensions.html",
+   "status_note": "Status corrected 2026-11-16 (pass 10, session 121929a5): already published as the counter-space guide; the register still said 'proposed'. No content change."
   },
   {
    "id": "TP-05",
@@ -197,10 +199,12 @@
      "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"
     }
    ],
-   "status": "proposed",
+   "status": "published",
    "blocked_by": [
     "Q-01"
-   ]
+   ],
+   "published_as": "articles/whats-in-the-box.html",
+   "status_note": "Written 2026-11-16 (pass 10, session 121929a5) from values already in data/products.json; every quote re-read live the same day."
   },
   {
    "id": "TP-08",
@@ -222,8 +226,10 @@
      "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
     }
    ],
-   "status": "proposed",
-   "blocked_by": []
+   "status": "published",
+   "blocked_by": [],
+   "published_as": "articles/rotisserie-at-home.html",
+   "status_note": "Written 2026-11-16 (pass 10, session 121929a5)."
   },
   {
    "id": "TP-09",

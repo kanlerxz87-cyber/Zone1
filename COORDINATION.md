@@ -4093,7 +4093,6 @@ sales. S28 — blocked by a bot checkpoint on 2026-11-15. None was filled in by 
 - **Irregularities left open, not guessed:** the Amazon redirects retain `plpRedirect=mhFallback`, so intended product identity, Associate tag and attribution are not confirmed; the per-product commission category is still account/report-only; brand review counts are volatile and are not Amazon data, testing, sales or conversion evidence.
 
 ---
-
 ## Task board — arena/ad8105b3-zone1 (2026-11-16 UTC)
 
 | # | Task | Status | Owner (session) | File scope |
@@ -4102,13 +4101,6 @@ sales. S28 — blocked by a bot checkpoint on 2026-11-15. None was filled in by 
 | Y2 | **Repair the dead references in the s2 register, without editing it.** `data/s2/requirements.json` row R-01 cites `data/requirements.json` and a "Requirements page"; neither path exists in this repository at that location. Record the defect as a flag row with evidence and fix it in the new root register by citing the real path. | in progress | arena/ad8105b3-zone1 | `build.py` (`PROGRAMME_FLAGS` row), `data/s2/requirements.json` NOT edited (other session's scope — request logged below) |
 | Y3 | **Build guard: every `where` path in the requirements register must exist.** A register that points at files which are not in the repository is the defect in Y2; make it impossible to reintroduce by failing the build. | in progress | arena/ad8105b3-zone1 | `build.py` |
 | Y4 | Live re-verification of the load-bearing official sources for this pass, then every gate, PR → merge → confirm Pages → record | in progress | arena/ad8105b3-zone1 | `COORDINATION.md`, whole tree at integration |
-
-## Task board — arena/121929a5-zone1 (2026-11-16 UTC, pass 10)
-
-| # | Task | Status | Owner (session) | File scope |
-|---|------|--------|-----------------|------------|
-| X-121929a5 | Pass 10: (1) fresh line-by-line live re-verification of the official source registry (Amazon identity pages, link resolver, manufacturer pages, manuals, Associates help topics, FTC, Google) with a dated report; (2) write the four genuinely unwritten topic-queue articles from the verified dataset (TP-07 box contents, TP-08 rotisserie, TP-09 Sync Finish, TP-10 aerosol-oil care) plus the A-9 disclosure explainer; (3) correct stale topic statuses in `data/topics.json` (TP-04, TP-11) and `data/design-prompt.json` (A-9, A-11) where an article already exists; (4) executive-summary pass-10 addendum; (5) rebuild, all gates, PR → merge → Pages confirm → record | in progress | arena/121929a5-zone1 (session 121929a5) | `reports/verification-2026-11-16-121929a5.md` (new; the un-suffixed filename is session c334fb1c's round-10 report, merged via PR #86 — scope collision resolved by renaming, not overwriting), `data/articles.json`, `data/topics.json`, `data/design-prompt.json`, `data/sources.json` (reverified stamp only), `EXECUTIVE-SUMMARY.md`, `EXECUTIVE-SUMMARY-PASS10-121929a5.md` (new), `COORDINATION.md`, regenerated root HTML. **Not touched:** `build.py`, `site/`, `s2/`, `docs/`, `annex-*`, `research/`, `platform/`, `dashboard/`, `crosscheck/`, other sessions' session-* dirs |
-
 ### Claim log
 
 | UTC time | Session | Action |

@@ -803,107 +803,20 @@ is unblocked and takes an afternoon; everything else assumes it.
 
 ---
 
-## 17. Pass 10 — verification, and the two clauses the brief needed (2026-11-16, session `arena/9fccce0c-zone1`)
+## 17. Pass 10 — session `arena/121929a5-zone1` (2026-11-16)
 
-**Branch:** `arena/9fccce0c-zone1` · **Baseline:** `6dbfa7cb` (= `origin/main` at claim time)
-**Full evidence:** [`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md) ·
-**Ledger on the site:** [`reverification.html`](https://kanlerxz87-cyber.github.io/Zone1/reverification.html)
-
-This is the tenth independent re-read of the same register. It was run because the register is made
-of values that move — a manufacturer's review counter, an Amazon listing title, a policy page's
-"Updated" line — and because the last several passes each found something. It found three things.
-
-### 17.1 The clause the brief most needed, and the register did not have
-
-The brief this project answers asks for **an AI-powered Amazon affiliate marketing platform**
-that automates product research, identifies trending products, and continuously optimises.
-Amazon's Program Policies page carries a section written for exactly that case, and it was in
-neither the canonical compliance register nor the platform blueprint:
-
-| Clause | What it says, read verbatim 2026-11-16 | Where it now lives |
-|---|---|---|
-| **IP License §4 — "Agents" (Agent Terms)** | "The terms in this section ("Agent Terms") apply if you use, allow, enable, or cause the deployment of an Agent to access, use, or interact with the Program Content. For the purposes of these Agent Terms, "Agent" means any software or service that takes autonomous or semi-autonomous action on behalf of, or at the instruction of, any person or entity." §4(c) requires every HTTP/HTTPS request to carry "Agent/[agent name]" in the User-Agent string, forbids concealing or obfuscating that an access is from an agent, forbids completing or circumventing CAPTCHAs, and requires the agent to "respond truthfully to any question or prompt seeking to determine if interactions are coming from a human or a computer." | Requirement **C17**, guardrail **G11** |
-| **Participation Requirements §5** | "You will not, without express prior written approval, use, or allow any third party to use, any Special Links or Program Content to develop machine learning models or related technology." | Requirement **C18** |
-
-Before this pass, `data/compliance.json` contained **0** occurrences of "Agent Terms" and
-`data/platform.json` contained **0** occurrences of "Agent". The clause was known to this
-repository — the parallel build in `session-3740f69d/` carries an Agent-Terms row — but it had
-never been carried into the canonical register that the live site publishes.
-
-**What it changes, and what it does not.** The published site consumes no Program Content, so no
-Agent Term is triggered by anything it renders today; the clauses matter for the *proposed*
-research agent, which is the part of the brief that does not exist yet. Two things the clause
-leaves open are published rather than guessed: whether an ordinary public listing page counts as
-"Program Content" (the IP License defines Program Content around Creators API, PA API and Data
-Feeds, and the policies page does not extend the definition to ordinary pages), and what the
-agent must call itself. Those are **question Q-21** and **suggestion SG-22**. A third point is
-only partly legible — §4(a) refers to "the requirements in section 3 of these Agent Terms", and
-that section was not visible in the render used for this pass, which is recorded as **flag F62**
-rather than papered over.
-
-### 17.2 Three published pages pointed at a flag that does not exist
-
-`data/questions.json`, `data/suggestions.json` and `data/sources.json` each told the reader to
-see the flag numbered 46 for the Application Review Process recency criterion. **No such flag
-exists** — the canonical register runs F1–F45 and F47–F58, and the legacy `data/flags.json`
-register runs F01–F27. A reader who followed the pointer landed on the Flagged page and found
-nothing, on a site whose entire claim is that every number is traceable.
-
-Fixed: the three pointers now name **F56**, the row that actually covers the point. A new build
-guard, `check_register_cross_references()`, now fails the build if any generated page cites a
-flag, source, question or suggestion id that is not in the register it points at. The guard was
-proven to fire: with a dangling `F46` injected into `data/questions.json` the build exits 1 and
-names the page and the id; with the data restored it exits 0.
-
-### 17.3 The carried-forward figures are now read from the source, and two counters had moved again
-
-**F56 closes.** The Application Review Process page had not been loaded since 2026-11-13; its
-four figures — three qualifying sales within 180 days, roughly ten posts, content recent within
-about sixty days, about 500 social followers — were carried forward. They were re-read live on
-2026-11-16 and confirmed verbatim, so the row's carried-forward part is closed and **question
-Q-19 moves from "missing" to "known and sourced" with the answer on the row**. Two further
-sentences were read at the same time and are new to the record: "personal orders do not qualify"
-and "we aren't able to reassess an application once it's been rejected".
-
-**Two volatile counters moved.** Chefman's own review widget read **1,307** on the 6 Qt page and
-**717** on the 8 Qt page on 2026-11-16, against the 1,305 and 716 published from the 2026-11-14
-read. Both averages held at 4.6 for the third consecutive read. The two rows were refreshed to
-the new reading and all three dates are kept in each row, which is what flag F19 requires.
-
-### 17.4 What else was re-read, and what it confirmed
-
-Every load-bearing source was fetched live on 2026-11-16 and compared against what the site
-publishes. Nothing published was found wrong.
-
-| Checked live on 2026-11-16 | Result |
-|---|---|
-| Standard Commission Income Statement (S3) | Table 1 read verbatim without a login: Kitchen 4.50%, All Other 4.00%, Home 3.00%, PC 2.50%. Still no air-fryer row and still no ASIN→category mapping, so the per-product rate stays blank. |
-| Program Policies (S2) | "Updated: April 14, 2026" confirmed; section order unchanged; §3(e), §6(s), §6(t), §6(w), §6(y), §5 and IP License §1, §2(e), §4 all re-read verbatim. |
-| 16 CFR Part 255 (S9) | "up to date as of 11/12/2026", "Title 16 was last amended 10/30/2026", source "88 FR 48102, July 26, 2023", §255.5 "Disclosure of material connections" — all confirmed. |
-| The three supplied `link.amazon` short links (S17) | All three resolved to the same three ASINs; all three `<title>` strings matched the stored values character for character, including the Emeril wording that changed on 2026-11-15; all three rendered the same browse-node path. |
-| Both Chefman product pages (S10, S12) | Every published specification row still stated in the manufacturer's own Specifications block, character for character. |
-| The Emeril product page (S14) | Price, model and rating unchanged; the four-way preset and in-1 disagreement between official pages is still live and still unasserted. |
-| The three Chefman store endpoints (S32–S34) | SKU, price, compare-at price, grams and weight all matched. |
-
-**Not re-read in this pass, and said so on the page:** the two FTC guidance pages, the Operating
-Agreement, the disclosure and tracking-ID help articles, Google's two policy pages, the PA-API
-deprecation notice and the owner's manuals. Their published values are unchanged and are cited
-from the passes that fetched them.
-
-### 17.5 Gates
-
-`build.py` → 36 pages, 0 errors · `verify.py` → 115 pages, 46 spec rows (43 verified, 3
-blank+flagged), 34 sources, **0 errors, 0 external warnings** · `platform/tests` → 33/33 ·
-`platform/audit/report.py` → clean · `scripts/check_links.py` → 6,413 links, 0 broken ·
-`scripts/verify_site.py` → 393 assertions, all passed · `research/check_research.py` → OK ·
-`scripts/build_s2_site.py --check` → current · `node --check assets/app.js` → OK · a clean
-rebuild leaves `git diff` empty outside the files this pass edited.
-
-### 17.6 What this pass did not do
-
-It did not resolve F1/F2 (which manufacturer model each ASIN ships), F6 (the Associates tag
-inside the short links), F3 (the 450 °F conflict) or F4/F5 (the Emeril preset count) — none of
-those is answerable from outside the account holder's browser. It did not read IP License §4 end
-to end, and said so (F62). It did not change any published value that a source did not
-contradict, and it did not touch a single file in `site/`, `s2/`, `data/s2/`, `research/`,
-`platform/`, `docs/`, `dashboard/`, `crosscheck/` or `annex-88769516/`.
+Verified live: all three short-link resolutions (titles match stored records character-for-character),
+two Amazon detail pages direct (third hit a bot checkpoint; identity carried via the resolver), all
+three manufacturer pages, the Chefman 6 Qt manual, OA §5, Program Policies (April 14, 2026), and the
+FTC/eCFR layer. **Change:** the Standard Commission Income Statement (S3) is now publicly readable —
+its Table 1 states Kitchen at 4.50% and the fallback at 4.00%, matching the site's candidate rows;
+the candidate framing stays (ASIN→category mapping remains account-side). Emeril's 24-vs-25 preset
+conflict is still live on the brand page. Written the five articles the topic queue had planned
+(TP-07 box contents, TP-08 rotisserie, TP-09 sync modes, TP-10 aerosol-oil care, A-9 disclosure
+explainer) — article set 12 → 17, sitemap 36 → 41. Corrected three stale status rows (TP-04, TP-11,
+A-11) that disagreed with the already-published article set, and filled the one verifiable blank
+(Emeril browse node) from a live official page. Spec rows: 44 verified / 2 blank+flagged. Full
+report: [`reports/verification-2026-11-16-121929a5.md`](reports/verification-2026-11-16-121929a5.md);
+one-page briefing: [`EXECUTIVE-SUMMARY-PASS10-121929a5.md`](EXECUTIVE-SUMMARY-PASS10-121929a5.md).
+Same-day independent round 10 by session `c334fb1c` (PR #86) re-read the short links and gates; the
+two passes cover complementary ground.
