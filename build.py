@@ -18,6 +18,7 @@ import os
 import posixpath
 import re
 import shutil
+from email.utils import format_datetime
 from urllib.parse import quote_plus
 from pathlib import Path
 
@@ -113,6 +114,14 @@ PASS10_U2 = json.loads(_p10u2.read_text(encoding="utf-8")) if _p10u2.exists() el
 # removed the page renders nothing rather than failing the build.
 _p10full = ROOT / "data" / "pass10.json"
 PASS10_FULL = json.loads(_p10full.read_text(encoding="utf-8")) if _p10full.exists() else None
+# Additive spot ledger (2026-11-16, arena/8874422b-zone1): a second independent reader's
+# targeted re-read of the load-bearing rows the same day — the three supplied short links,
+# the two volatile Chefman counters, the Emeril preset conflict and the Program Policies
+# stamp. Round 11 and pass 12 (492acddc) re-read the wider register earlier that day; this
+# file deliberately covers only the subset a second reader should confirm fresh. Owned by
+# this session's folder; the re-verification page omits the section if the file is absent.
+_p12 = ROOT / "session-8874422b" / "pass12.json"
+PASS12 = json.loads(_p12.read_text(encoding="utf-8")) if _p12.exists() else None
 
 # Decision layer (added 2026-11-15, arena/3ddfa50e). Two registers that exist to be reviewed
 # rather than acted on: the suggestions queue and the open-questions register. Both are
@@ -1013,6 +1022,15 @@ footer.site strong{color:#f4f1e2}
 .figure svg{max-width:100%;height:auto;display:block;background:#fffdf7}
 .fighead{font:700 1.1rem/1.3 var(--serif);color:var(--brand-ink);margin:0 0 .4rem}
 .figcap{font-size:.85rem;color:var(--muted);margin:.5rem 0 0;line-height:1.5}
+
+/* ===== additive: arena/8874422b-zone1 (2026-11-16) — article masthead + footer brand
+   column. Presentation only, in this stylesheet's own vocabulary; no values touched. */
+.article-head{max-width:74ch; padding-bottom:1.05rem; border-bottom:1px solid var(--line); margin-bottom:1.25rem}
+.article-head .lede{margin:.55rem 0 .8rem}
+.article-meta{display:flex; flex-wrap:wrap; align-items:center; gap:.45rem .7rem; font-size:.79rem; color:var(--muted)}
+.article-meta .pill{font-size:.68rem; white-space:nowrap}
+.foot-brand h5{font-family:var(--serif); font-size:.95rem; text-transform:none; letter-spacing:0; color:var(--brand-ink)}
+.foot-brand p:first-of-type{font-family:var(--serif); font-size:.94rem; line-height:1.55}
 """
 
 JS = r"""
@@ -1303,6 +1321,8 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
 {ld}
 <link rel="stylesheet" href="{prefix}assets/style.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23245746'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='%23fff' text-anchor='middle'%3EZ1%3C/text%3E%3C/svg%3E">
+<link rel="alternate" type="application/rss+xml" title="{e(SITE_NAME)} — sourced articles" href="{prefix}feed.xml">
+<meta name="theme-color" content="#245746">
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -1361,6 +1381,11 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
 </div>
 <footer class="site">
   <div class="inner">
+    <div class="foot-brand">
+      <h5>{e(SITE_NAME)}</h5>
+      <p>The documentation-based air-fryer guide: every specification quoted from a manufacturer page or owner's manual, and every gap published instead of papered over.</p>
+      <p class="tiny">New sourced articles also ship as an <a href="{prefix}feed.xml">RSS feed</a>.</p>
+    </div>
     <div>
       <h5>Research archive</h5>
       <p>Older verification builds and supporting reports are kept separate from the main buying guide.</p>
@@ -1388,6 +1413,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
         <li><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Associates Program Policies</a></li>
         <li><a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">Standard Commission Income Statement</a></li>
         <li><a href="https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255" target="_blank" rel="noopener">16 CFR Part 255 (FTC)</a></li>
+        <li><a href="{prefix}feed.xml">Zone1 Kitchen articles — RSS</a></li>
       </ul>
     </div>
   </div>
@@ -3058,7 +3084,8 @@ def page_exec():
     # every rendered register so it cannot drift as a targeted addendum is added.
     LEDGER_ROWS = (len(REVERIFICATION["tests"]) + (len(PASS9["rows"]) if PASS9 else 0)
                    + (len(PASS10["rows"]) if PASS10 else 0)
-                   + (len(PASS10_U2["rows"]) if PASS10_U2 else 0))
+                   + (len(PASS10_U2["rows"]) if PASS10_U2 else 0)
+                   + (len(PASS12["rows"]) if PASS12 else 0))
     # How many pages the root build publishes. Counted from the directories this
     # generator writes to, so the number in the prose cannot drift away from the
     # number of pages actually shipped.
@@ -3581,6 +3608,44 @@ No value was filled in that a source did not state.</p>
 back, and the verdict \u2014 is in <code>reports/verification-2026-11-16-9fccce0c.md</code>.</p>
 """
 
+    # ---- spot ledger (arena/8874422b-zone1): the second reader's cross-check, 2026-11-16 ----
+    p12_html = ""
+    if PASS12:
+        p12 = PASS12
+
+        def p12row(t):
+            cls, label = REV_VERDICT[t["verdict"]]
+            return (
+                f'<tr><td><strong>{e(t["claim"])}</strong></td>'
+                f'<td class="small">{e(t["published_value"])}</td>'
+                f'<td class="small">{e(t["observed"])}</td>'
+                f'<td><span class="pill {cls}">{e(label)}</span></td>'
+                f'<td class="small"><a href="{e(t["source_url"])}" target="_blank" rel="noopener">'
+                f'{e(t["source_label"])}</a></td></tr>'
+            )
+
+        p12rows = "".join(p12row(t) for t in p12["rows"])
+        p12_conf = sum(1 for t in p12["rows"] if t["verdict"] == "confirmed")
+        p12_moved = sum(1 for t in p12["rows"] if t["verdict"] == "moved")
+        p12_html = f"""
+<h2>Second-reader spot re-read ({e(p12['pass_date'])}, arena/8874422b-zone1)</h2>
+<p class="small">{e(p12['lede'])}</p>
+<div class="callout info"><strong>Scope</strong><p class="small">{e(p12['scope_note'])}</p></div>
+<div class="tablewrap">
+<table>
+  <caption>Spot re-reads by a second reader, {e(p12['pass_date'])}</caption>
+  <thead><tr><th style="width:19%">Claim</th><th style="width:17%">Published value</th>
+  <th style="width:38%">What the official source shows</th><th style="width:12%">Verdict</th>
+  <th style="width:14%">Source</th></tr></thead>
+  <tbody>{p12rows}</tbody>
+</table>
+</div>
+<p class="tiny muted"><strong>{p12_conf}</strong> of {len(p12['rows'])} rows confirmed against the
+live official source on {e(p12['pass_date'])}; <strong>{p12_moved}</strong> had moved (and were
+left as published or refreshed per the flag rules). The full URL-by-URL evidence, including the
+exact strings read back, is in <code>reports/verification-2026-11-16-8874422b.md</code>.</p>
+"""
+
     lr = rev.get("link_resolution") or {}
     lr_html = ""
     if lr:
@@ -3620,6 +3685,7 @@ back, and the verdict \u2014 is in <code>reports/verification-2026-11-16-9fccce0
 {p9_html}
 {p10_html}
 {p10u2_html}
+{p12_html}
 
 <h2>What this pass changed on the site</h2>
 <ul class="tight small">{changes}</ul>
@@ -5950,6 +6016,8 @@ def page_articles_index():
   <p class="small">A <code class="specval">highlighted number</code> is a value published in this site's verified dataset and is a quotation from a manufacturer page or owner's manual. An ordinary number in prose is a date or a page reference. Anything marked <em>judgement</em> or written as a decision rule is the site's opinion, not a sourced fact. <strong>No product in this set was tested by anyone here</strong>, so no article claims a cooking result, a measured time or a hands-on comparison.</p>
 </div>
 
+<p class="small" style="margin:0 0 1.2rem">New pieces land here as the manuals and the topic register produce them. Subscribe without an account: <a href="../feed.xml">RSS feed</a>.</p>
+
 <div class="cardgrid">
 {chr(10).join(cards)}
 </div>
@@ -6025,10 +6093,17 @@ def page_article(a):
         f'<span class="tiny muted">— {e(x["kind"])}</span></li>' for x in related)
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / <a href="../articles/index.html">Articles</a> / {e(a['kind'])}</p>
-<p class="kicker">{e(a['kicker'])}</p>
-<h1>{e(a['title'])}</h1>
-<p class="lede">{e(a['standfirst'])}</p>
-<p class="tiny muted">{e(a['kind'])} · {a['reading_minutes']} min read · sources read {ARTICLES['accessed']} · no first-hand testing</p>
+<header class="article-head">
+  <p class="kicker">{e(a['kicker'])}</p>
+  <h1>{e(a['title'])}</h1>
+  <p class="lede">{e(a['standfirst'])}</p>
+  <div class="article-meta">
+    <span>{e(a['kind'])}</span><span aria-hidden="true">·</span>
+    <span>{a['reading_minutes']} min read</span><span aria-hidden="true">·</span>
+    <span>sources read {ARTICLES['accessed']}</span><span aria-hidden="true">·</span>
+    <span class="pill pill-info">Documentation-based — no hands-on testing</span>
+  </div>
+</header>
 
 <div class="callout warn">
   <strong>No hands-on testing, and no Amazon numbers</strong>
@@ -7175,6 +7250,49 @@ def main():
         + locs + "</urlset>\n",
         encoding="utf-8")
     print(f"wrote robots.txt + sitemap.xml ({len(indexable)} urls)")
+
+    # ---- additive (arena/8874422b-zone1, 2026-11-16): RSS feed of the article set --
+    # The brief asks the site to earn organic traffic; a static site with a growing
+    # article set should give readers (and aggregators) a way to follow it without an
+    # account, a script or a cookie — the same no-data posture the footer declares under
+    # Program Policies §3(e). The feed is generated from data/articles.json, the same
+    # register that renders articles/index.html, so the two cannot drift. pubDate derives
+    # from ARTICLES["accessed"] — a fixed, already-published date — so the build stays
+    # byte-reproducible (the CI gate asserts that).
+    import datetime as _feed_dt
+    _feed_link = base + "articles/index.html"
+    _feed_accessed = ARTICLES.get("accessed") or ACCESSED
+    _y, _m, _d = (int(x) for x in _feed_accessed.split("-"))
+    _feed_date = format_datetime(
+        _feed_dt.datetime(_y, _m, _d, 9, 0, tzinfo=_feed_dt.timezone.utc))
+    _items = []
+    for _a in ARTICLES["articles"]:
+        _a_url = base + f"articles/{_a['slug']}.html"
+        _items.append(
+            "    <item>\n"
+            f"      <title>{e(_a['title'])}</title>\n"
+            f"      <link>{e(_a_url)}</link>\n"
+            f"      <guid isPermaLink=\"true\">{e(_a_url)}</guid>\n"
+            f"      <description>{e(_a['standfirst'])}</description>\n"
+            f"      <category>{e(_a['kind'])}</category>\n"
+            f"      <pubDate>{_feed_date}</pubDate>\n"
+            "    </item>\n")
+    (ROOT / "feed.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
+        "  <channel>\n"
+        f"    <title>{e(SITE_NAME)} — sourced air-fryer articles</title>\n"
+        f"    <link>{e(_feed_link)}</link>\n"
+        "    <description>Documentation-based air-fryer buying guides. Every factual "
+        "sentence cites the manufacturer page or owner's manual it came from; no "
+        "hands-on testing is claimed and no Amazon price or rating is published.</description>\n"
+        "    <language>en-us</language>\n"
+        f"    <lastBuildDate>{_feed_date}</lastBuildDate>\n"
+        f"    <atom:link href=\"{e(base)}feed.xml\" rel=\"self\" type=\"application/rss+xml\" />\n"
+        + "".join(_items)
+        + "  </channel>\n</rss>\n",
+        encoding="utf-8")
+    print(f"wrote feed.xml ({len(ARTICLES['articles'])} items)")
 
 
 if __name__ == "__main__":

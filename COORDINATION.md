@@ -5128,59 +5128,66 @@ sources, 0 errors, 0 external warnings**; `check_links.py` → **8,096 links, 0 
 
 **Status: done** (PR / merge / Pages result appended below once they exist).
 
-**What shipped (presentation only — no published value, register row or wording changed):**
+**Pivot, recorded plainly.** This session claimed a marketing-design polish pass. While the
+branch was in flight, the design-coherence pass (session `492acddc`, PRs #111/#112) and the
+seasonal content pass (session `a746a9f2`, PR #101) merged their own reader strip, single-era
+stylesheet, SVG format glyphs and nineteen-article set. Shipping two competing design systems
+would have made the site worse, so this branch **rebased onto their result twice, adopted the
+merged design wholesale as canonical, and re-scoped its contribution to the additive pieces the
+merged tree still lacked** — presentation-only throughout: **no published value, register row,
+flag or wording changed.**
+
+**What shipped (final state):**
 
 | Item | Detail |
 |---|---|
-| Reader-first navigation strip | six links (Picks · Products · Compare · Buying guide · Articles · The data) on every page, re-using existing NAV hrefs; hidden on small screens where the menu toggle already works. Shipped as **SG-25**. |
-| Marketing visual layer | terracotta accent restored for eyebrows/cards/tiles over the deep-green brand; editorial serif display kept; article pages get a masthead with kind · reading-time · sources-read · "documentation-based — no hands-on testing" badge; footer gains a publisher-brand column; tables, buttons, tiles, hero gradient refined. |
-| RSS feed | `feed.xml` generated deterministically from `data/articles.json` (pubDate from the register's own accessed date, so CI's reproducibility gate holds); linked from every head, the articles index and the footer. Shipped as **SG-26**; owner-only Search Console submission published as **SG-27**; the no-capture-widget decision as **SG-28**. (Renumbered during the rebase: main had gained SG-23 and open PR #101 claims SG-24.) |
-| Register repair | design-prompt row **A-11** `not-written` → `published` (published_as `articles/small-kitchen-air-fryer-dimensions.html`), closing the contradiction round 11 filed in its evidence report §4. |
+| RSS feed | `feed.xml` (19 items) generated deterministically from `data/articles.json` (pubDate from the register's own accessed date, so the reproducibility gate holds); linked from every page head (`rel="alternate"`), the articles index and the footer. Shipped as **SG-28**. |
+| Article masthead | kicker / headline / standfirst block plus a meta row (kind · reading time · sources-read date · "documentation-based — no hands-on testing" badge), styled with the shipped stylesheet's own variables; additive CSS block only. |
+| Footer brand column + theme-color | publisher column naming the site and the feed; RSS link in the sources column; `theme-color` matches the shipped brand green. |
+| Second-reader spot re-read | rendered on `reverification.html` from `session-8874422b/pass12.json`; wired into the executive summary's ledger-row count. |
+| Suggestion rows SG-27–SG-30 | nav-label review (SG-27 — reviews the shipped strip, changes nothing), RSS feed (SG-28), Search Console submission (SG-29, owner action), reader-capture posture (SG-30). Numbered after main's SG-23–26; a stale in-prose `SG-24` reference failed the cross-reference guard and was corrected — the guard earned its keep. |
 
-**Sources used (all re-read live on 2026-11-16 by this session; complementary to round 11's same-day full re-read):**
-`link.amazon/B04G1MEwY` → `/dp/B0CDY277D3` (title confirms Chefman 6 Qt Dual Basket) ·
-`link.amazon/B02NbDxp3` → `/dp/B09B7SB46R` (title confirms Emeril 26 QT, 24 presets, six accessories) ·
-`link.amazon/B00hJ57DV` → `/dp/B08DKYBTPH` (title confirms Chefman 8 Qt TurboFry, 450 °F Hi-Fry) ·
-`chefman.com/products/turbofry-touch-dual-window-air-fryer` (model RJ38-SQPF-3TDB-2W, "1307 Reviews") ·
-`chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1` (model RJ38-SQSS-8T, "717 Reviews", "200–400°F") ·
-`emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360` ("25 Cooking Pre-sets", "10-in-1", 24.6 L, 16.9×15.8×14.8 in, 120 V, model 4-00675-02A-VN) ·
-`affiliate-program.amazon.com/help/operating/policies` ("Updated: April 14, 2026").
-URL-by-URL evidence with the exact strings read back: `reports/verification-2026-11-16-8874422b.md`;
-rendered ledger: `session-8874422b/pass12.json` on `reverification.html`.
+**Sources used (re-read live on 2026-11-16 by this session; complementary to the same-day
+re-reads by `3dfe4b45` and `492acddc`):** `link.amazon/B04G1MEwY` → `/dp/B0CDY277D3` ·
+`link.amazon/B02NbDxp3` → `/dp/B09B7SB46R` · `link.amazon/B00hJ57DV` → `/dp/B08DKYBTPH` (all
+three via `plpRedirect=mhFallback` fallback pages; titles match the published records) ·
+`chefman.com` 6 Qt Dual-Window (model RJ38-SQPF-3TDB-2W, "1307 Reviews") · `chefman.com` 8 Qt
+Stainless-Steel (model RJ38-SQSS-8T, "717 Reviews", "200–400°F") · `emerileveryday.com` French
+Door AirFryer 360 ("25 Cooking Pre-sets" icon block vs "10-in-1" prose on one page; 24.6 L;
+16.9×15.8×14.8 in; 120 V; model 4-00675-02A-VN) · `affiliate-program.amazon.com/help/operating/policies`
+("Updated: April 14, 2026"). URL-by-URL evidence: `reports/verification-2026-11-16-8874422b.md`.
 
-**Verification performed:** all seven spot rows confirmed against their live official
-sources; both volatile counters unchanged from the values already published, so no
-`data/products.json` edit was needed; the three standing irregularities (F1/F2/F3
-family, F4/F5, F46) re-confirmed and left published as flags. Factual-value edits this
-pass: **none**.
+**Verification performed:** all seven spot rows confirmed against their live official sources;
+both volatile counters unchanged from the values already published (no `data/products.json` edit
+needed); the three standing irregularities (F1/F2/F3 family, F4/F5, F46) re-confirmed and left
+published as flags. Factual-value edits this pass: **none**.
 
-**Gates (all green after the final edit, on the rebased merged tree):** `python3 build.py`
-exit 0 — **46 pages**, 45 sitemap URLs + `feed.xml` (18 items) · `python3 verify.py`
-125 pages, 46 spec rows (44 verified / 2 blank+flagged), 34 sources, **0 errors,
-0 external warnings** · `bash scripts/ci-check.sh` 33 tests OK, data audit clean, s2 build
-current, **7,905 links / 0 broken** · `python3 scripts/verify_site.py` **393 assertions,
-ALL PASSED** · `python3 research/check_research.py` OK ·
-`python3 platform/audit/report.py` AUDIT PASSED · `node --check assets/app.js` OK ·
-two consecutive `build.py` runs **byte-identical**.
-`s2/` stamp drift produced by `ci-check.sh`'s own s2 rebuild was reverted before commit —
-s2/ is outside this pass's declared scope, and PR #98's CI proved `--check` tolerates the stamp.
+**Gates (all green after the final edit, on the final rebased tree):** `python3 build.py` exit 0 —
+**47 pages**, 46 sitemap URLs + `feed.xml` (19 items) · `python3 verify.py` 126 pages, 46 spec
+rows (44 verified / 2 blank+flagged), 34 sources, **0 errors, 0 external warnings** ·
+`bash scripts/ci-check.sh` 33 tests OK, data audit clean, s2 build current, **7,846 links /
+0 broken** · `python3 scripts/verify_site.py` **393 assertions, ALL PASSED** ·
+`python3 research/check_research.py` OK · `python3 platform/audit/report.py` AUDIT PASSED ·
+`node --check assets/app.js` OK · two consecutive `build.py` runs **byte-identical**.
+`s2/` stamp drift produced by `ci-check.sh`'s own s2 rebuild was reverted before commit — s2/ is
+outside this pass's declared scope, and prior PRs' CI proved `--check` tolerates the stamp.
 
-**Merge-conflict resolutions during the rebase onto `origin/main` (protocol item 6) —
-origin/main advanced from `4225b95` to `4ec77d8` (PRs #94–#109) while this pass worked:**
+**Merge-conflict resolutions during two rebase rounds (protocol item 6) — origin/main advanced
+from `4225b95` to `5631333` → `4ec77d8` → `4ed5843` (PRs #94–#112) while this pass worked:**
 
 | File | Resolution — nothing discarded |
 |---|---|
-| `COORDINATION.md` (×2) | keep-both: every other session's board rows, claim-log entries and completion records retained; this pass's board and record appended after them |
-| `build.py` | keep-both: session `695f03b7`'s `PASS10_FULL` ledger loader and figure-panel CSS kept alongside this pass's `PASS12` loader and pass-12 CSS layer |
-| `assets/style.css` (emitted) | same resolution at the CSS-string level; the emitted file is regenerated by `build.py`, not hand-merged |
-| `data/design-prompt.json` (A-11) | both sessions had corrected the same row independently (pass 10, session `121929a5`, and this pass); one combined `status_note` crediting both corrections kept, `published_as` retained |
-| `data/suggestions.json` | main had gained **SG-23** (photography-rights row, session `121929a5`), and open **PR #101 claims SG-24**; this pass's four rows were renumbered **SG-25–SG-28** and the stale in-prose references fixed (the cross-reference guard caught the first miss: `SG-24` inside SG-27's option A failed the build until corrected to SG-26) |
-| `EXECUTIVE-SUMMARY.md` | session `121929a5`'s §18 kept; this pass's section renumbered **§19** with subsections 19.1–19.3 |
-| `README.md` | both sessions edited the articles row; merged as one row (count corrected to the dataset's 18) plus this pass's RSS sentence |
+| `COORDINATION.md` (×3) | keep-both: every other session's board rows, claim-log entries and completion records retained; this pass's board and record appended after them |
+| `build.py` / `assets/style.css` (design-layer commit) | **upstream taken wholesale** — the design-coherence system is canonical; this pass's additive pieces (PASS12 loader + render block, LEDGER_ROWS term, feed, masthead, footer column, head links, additive CSS) re-applied on top as fresh edits |
+| `data/design-prompt.json` (A-11) | upstream kept — session `492acddc`'s correction had already landed; this session's independent correction of the same row is recorded here and in the evidence report |
+| `data/suggestions.json` | upstream (26 rows, SG-01–26) + this pass's four rows renumbered **SG-27–SG-30**, inserted with verified extraction; duplicate-id asserts enforced |
+| `EXECUTIVE-SUMMARY.md` | upstream's §19 (design-coherence) and §20 (seasonal) kept verbatim; this pass's section renumbered **§21** with subsections 21.1–21.3 |
+| `README.md` | upstream's briefing/report rows kept, this session's report inserted; articles row updated to the dataset's 19 with the feed note; this pass's closing section rewritten to the pivot narrative |
 | generated HTML | never hand-merged — regenerated in full from the merged generator; two consecutive builds byte-identical |
 
-**Irregularities:** none introduced. Two process notes logged for transparency: (1) the
-sandbox clone is shallow, so `git pull --rebase origin main` initially replayed the
-already-merged PR #93 merge and was aborted in favour of a fast-reset to `origin/main`;
-(2) the claim commit's EOF append conflicted with PR #99's append during rebase — resolved
-keep-both, nothing discarded (noted in the claim log row above).
+**Irregularities:** none introduced. Process notes logged for transparency: (1) the sandbox clone
+is shallow, so `git pull --rebase origin main` initially replayed an already-merged commit and was
+aborted in favour of a fast-reset; (2) rebase side semantics (`--ours` = upstream) were initially
+mis-read once, caught immediately, and the rebase was aborted and redone correctly; (3) the
+"pass 12" label is used by two sessions (`492acddc`'s design-coherence row and this session's V12)
+— records are disambiguated by session id, and neither register id depends on the label.

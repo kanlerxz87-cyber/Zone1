@@ -22,7 +22,7 @@ decision and keeps the verification layer one click behind it.
 | `picks.html` | **This week's picks** — a decision rule instead of a ranking, with the commission arithmetic and the table rows it came from |
 | `decisions.html` | **Decisions** — four niches scored on five criteria, six traffic channels with their prerequisites, six metrics, and a pre-committed kill rule |
 | `handover.html` | **Handover** — the five things only the account holder can do, each with the time it takes and the flags it closes |
-| `articles/` | **Eighteen sourced articles** — comparisons, explainers, feature and care walkthroughs, a source-forensics piece and two policy explainers. Every highlighted value in them must appear verbatim in `data/products.json` or the build fails. The set also ships as an RSS feed (`feed.xml`, 18 items). |
+| `articles/` | **Nineteen sourced articles** — comparisons, explainers, feature and care walkthroughs, a source-forensics piece and two policy explainers. Every highlighted value in them must appear verbatim in `data/products.json` or the build fails. The set also ships as an RSS feed (`feed.xml`, 19 items). |
 | `categories/` | Category pages (currently: kitchen appliances / air fryers) |
 | `products/` | One documentation-based review per product |
 | `compare.html` | Verified-only comparison matrix, gaps left visible |
@@ -32,7 +32,7 @@ decision and keeps the verification layer one click behind it.
 | `platform.html` | Automation blueprint, guardrails, KPIs, launch sequence |
 | `compliance.html` | 18 program/legal requirements, quoted, each with a source link — including the two that govern an AI-agent platform (IP License §4 Agent Terms and Participation Requirements §5) |
 | `flagged.html` | Every unverified value, source conflict and irregularity |
-| `suggestions.html` | **Decision queue** — 27 evidence-backed suggestions, each with alternative paths, effort, risk and a recommendation. Rows SG-25–SG-28 (pass 12) record which design changes shipped so the owner can keep, rename or revert them. |
+| `suggestions.html` | **Decision queue** — 30 evidence-backed suggestions, each with alternative paths, effort, risk and a recommendation. Rows SG-27–SG-30 (session `8874422b`) add the RSS feed decision, a nav-label review, the Search Console step and the reader-capture posture. |
 | `questions.html` | **Open questions** — 21 questions split into known / discoverable / not-stated / account-only. The five that an official source already settles carry their **answer** on the row; the rest say so plainly and name the step that would produce one. |
 | `requirements.html` | **Every requirement in the brief, and whether this repository meets it** — 51 rows, each with a live status, the path that implements it and a source link. Added 2026-11-16 by session `ad8105b3`. |
 | `executive-summary.html` | One-page briefing |
@@ -292,43 +292,34 @@ No published value was found wrong. Full evidence, row by row: **[`reports/verif
 the same ledger rendered on the site at
 [`reverification.html`](https://kanlerxz87-cyber.github.io/Zone1/reverification.html).
 
-## Pass 12 — the marketing layer gets a dedicated pass (2026-11-16, session `arena/8874422b-zone1`)
+## Pass 12 (session `arena/8874422b-zone1`) — RSS syndication, article masthead, second-reader re-read (2026-11-16)
 
-The owner's brief keeps naming the same gap: the site should look like a **polished
-marketing affiliate website** that earns organic traffic, not a compliance workbench.
-Passes 9–11 editorialised the words; pass 12 is the first pass dedicated to the
-presentation layer, under one rule — **no published value, register row or wording
-changes**:
+This session claimed the marketing-design polish pass; while it worked, the design-coherence pass
+(session `492acddc`, §19 of the executive summary) and the seasonal content pass (session
+`a746a9f2`, §20) merged their own reader strip, single-era stylesheet and nineteen-article set.
+Rather than ship two competing design systems, this branch **rebased onto their result, adopted it
+as the canonical design, and contributed the additive pieces the merged tree still lacked** — no
+published value, register row or wording changed anywhere:
 
-* **Reader-first navigation.** A six-link strip (Picks · Products · Compare · Buying
-  guide · Articles · The data) now sits above every page, re-using existing NAV hrefs so
-  the link checker and every guard keep covering them. The full sitemap sidebar is
-  unchanged underneath it. Shipped as **SG-25** for owner review.
-* **The warm two-tone identity.** Terracotta eyebrows, card and tile accents over the
-  deep-green brand; the editorial serif display type is kept. Article pages gain an
-  editorial masthead with a kind/reading-time/sources-read meta row and a visible
-  "documentation-based — no hands-on testing" badge.
-* **An RSS feed.** `feed.xml` is generated deterministically from `data/articles.json`
-  (pubDate derives from the register's own accessed date, so the reproducibility gate
-  holds) and linked from every page head, the articles index and the footer. Shipped as
-  **SG-26**; the owner-only next step — registering the origin in Search Console and
-  submitting the sitemap — is published as **SG-27**, and the decision to keep the
-  no-cookie posture before any capture widget is **SG-28**. (Rows numbered SG-25–SG-28:
-  main had gained SG-23 and open PR #101 claims SG-24.)
-* **Register repair.** Design-prompt row **A-11** (a contradiction round 11 filed) is now
-  `published` with its path: `articles/small-kitchen-air-fryer-dimensions.html`.
+* **RSS feed.** `feed.xml` (19 items) is generated deterministically from `data/articles.json`
+  (pubDate derives from the register's own accessed date, so the reproducibility gate holds) and
+  linked from every page head, the articles index and the footer. Shipped as **SG-28**; the
+  owner-only Search Console step is **SG-29**; the keep-the-no-cookie-posture decision is
+  **SG-30**; a review of the shipped shopper-strip labels is **SG-27**.
+* **Article masthead.** Articles open with a kicker/headline/standfirst block and a meta row
+  (kind · reading time · sources-read date · "documentation-based — no hands-on testing" badge),
+  styled in the shipped stylesheet's own vocabulary.
+* **Footer brand column** naming the publisher and the feed; `theme-color` meta.
+* **Second-reader spot re-read.** The three `link.amazon` short links (same three `/dp/`
+  destinations through the same fallback-style redirects), both Chefman counters (1,307 / 717 —
+  unchanged), the Emeril preset conflict (re-confirmed live on one page) and the Program Policies
+  stamp (April 14, 2026 — unchanged). Evidence:
+  **[`reports/verification-2026-11-16-8874422b.md`](reports/verification-2026-11-16-8874422b.md)**;
+  ledger rendered at
+  [`reverification.html`](https://kanlerxz87-cyber.github.io/Zone1/reverification.html).
+  F1/F2/F3, F4/F5 and F46 stand as published.
 
-Verification for the pass is a **spot re-read by a second independent reader**, not a
-third full re-read: the three short links (all confirmed to the same three `/dp/`
-destinations through the same fallback-style redirects), the two volatile Chefman
-counters (1,307 and 717 — unchanged), the Emeril preset conflict (re-confirmed live on
-one page) and the Program Policies stamp (April 14, 2026 — unchanged). Evidence:
-**[`reports/verification-2026-11-16-8874422b.md`](reports/verification-2026-11-16-8874422b.md)**;
-ledger rendered on the site at
-[`reverification.html`](https://kanlerxz87-cyber.github.io/Zone1/reverification.html).
-F1/F2/F3, F4/F5 and F46 stand exactly as published.
-
-Gates on the rebased tree: `build.py` exit 0 (46 pages, 45 sitemap URLs + feed.xml, 18 items) ·
-`verify.py` 125 pages, 0 errors · `ci-check.sh` green (7,905 links / 0 broken) ·
-`verify_site.py` 393 assertions PASSED · research checks OK · platform audit PASSED ·
-two consecutive builds byte-identical.
+Gates on the final rebased tree: `build.py` exit 0 (47 pages, 46 sitemap URLs + feed.xml, 19
+items) · `verify.py` 126 pages, 0 errors · `ci-check.sh` green (7,846 links / 0 broken) ·
+`verify_site.py` 393 assertions PASSED · research checks OK · platform audit PASSED · two
+consecutive builds byte-identical.
