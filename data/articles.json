@@ -1,6 +1,6 @@
 {
  "accessed": "2026-11-14",
- "note": "Editorial layer for the article set. Every factual statement in every article below is either (a) a value already published in data/products.json, which carries its own source id, or (b) a direct quote from an Amazon Associates, FTC or eCFR document already registered in data/sources.json. No claim of first-hand testing appears anywhere, no superlative is asserted as fact, and no Amazon price, star rating or review count is used. Articles that would need a hands-on measurement are deliberately not written. | Editorial layer for the article set. Every factual statement in every article below is either (a) a value already published in data/products.json, which carries its own source id, or (b) a direct quote from an Amazon Associates, FTC or eCFR document already registered in data/sources.json. No claim of first-hand testing appears anywhere, no superlative is asserted as fact, and no Amazon price, star rating or review count is used. Articles that would need a hands-on measurement are deliberately not written. | 2026-11-14 (sess-7111e2b6): a sixth article, the capacity guide, was added during the merge with the concurrently-merged article set. The four drafts this session wrote for queries those articles already cover are preserved verbatim in session-7111e2b6/articles-superseded.json. | 2026-11-15 (arena/792c279e-zone1): four articles added — dimensions, running costs, who pays for reviews, and the two-model 8 Qt explainer. Same discipline: every {{placeholder}} must already exist in data/products.json or the build fails; every section cites registered sources only; no numbers were re-typed from the articles themselves.",
+ "note": "Editorial layer for the article set. Every factual statement in every article below is either (a) a value already published in data/products.json, which carries its own source id, or (b) a direct quote from an Amazon Associates, FTC or eCFR document already registered in data/sources.json. No claim of first-hand testing appears anywhere, no superlative is asserted as fact, and no Amazon price, star rating or review count is used. Articles that would need a hands-on measurement are deliberately not written. | Editorial layer for the article set. Every factual statement in every article below is either (a) a value already published in data/products.json, which carries its own source id, or (b) a direct quote from an Amazon Associates, FTC or eCFR document already registered in data/sources.json. No claim of first-hand testing appears anywhere, no superlative is asserted as fact, and no Amazon price, star rating or review count is used. Articles that would need a hands-on measurement are deliberately not written. | 2026-11-14 (sess-7111e2b6): a sixth article, the capacity guide, was added during the merge with the concurrently-merged article set. The four drafts this session wrote for queries those articles already cover are preserved verbatim in session-7111e2b6/articles-superseded.json. | 2026-11-15 (arena/792c279e-zone1): four articles added — dimensions, running costs, who pays for reviews, and the two-model 8 Qt explainer. Same discipline: every {{placeholder}} must already exist in data/products.json or the build fails; every section cites registered sources only; no numbers were re-typed from the articles themselves. | 2026-11-16 (arena/3dfe4b45-zone1, round 11): three articles added — the Sync Finish explainer (TP-09), the aerosol-oil caution (TP-10), and the manuals' extension-cord rules (TP-11, written only inside the manuals' own cord and clearance instructions per the topic register's caveat). No new numbers: every placeholder is a value already published in data/products.json, whose manufacturer pages and manuals were re-read live on 2026-11-16 (see reports/verification-round11-2026-11-16.md).",
  "discipline": "A factual sentence must carry a citation to a registered source. A sentence that states a view, a decision rule or a judgement is marked as such by the rendering (the 'How to read this' box) and is never presented as a verified fact. Where an official source is silent, the article says it is silent instead of filling the gap.",
  "articles": [
   {
@@ -855,7 +855,181 @@
     }
    ],
    "closing_note": "No unit in this article was tested. Both model pages and the listing title were read on 2026-11-15 and are linked above."
+  },
+  {
+   "slug": "sync-finish-explained",
+   "kind": "Explainer",
+   "kicker": "Feature, documented",
+   "title": "Sync Finish, explained by the manual that ships with it",
+   "standfirst": "One button promises two baskets that end at the same time. The owner's manual spells out exactly how that works, exactly when it breaks, and what the other sync button does instead.",
+   "target_query": "air fryer sync finish explained",
+   "intent": "Informational",
+   "reading_minutes": 5,
+   "products": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry"
+   ],
+   "sections": [
+    {
+     "h": "What Sync Finish does, in the manual's own words",
+     "paras": [
+      "The TurboFry Touch dual-window model publishes the feature as: {{Yes — delays the start of the shorter cook so both baskets finish together; a separate Sync Baskets function copies time and temperature to the second basket}}. That is this site's condensed record; the owner's manual describes the same behaviour step by step.",
+      "To use it, both baskets are set to their own times and temperatures, the SYNC FINISH button is pressed, and the unit starts the side with the longer cook first. The manual states that it delays the start of the other side until the appropriate moment so that they finish together, and that the basket which is waiting displays HOLD on the panel until it begins.",
+      "Sync Baskets is the second button, and it does something different: it applies the time and temperature set on the first basket to the second, so both baskets cook identically rather than finish together. The manual calls it a shortcut for setting both baskets to cook simultaneously with the same time and temperature."
+     ],
+     "cite": [
+      "S18",
+      "S10"
+     ]
+    },
+    {
+     "h": "How each one behaves once cooking starts",
+     "paras": [
+      "Under Sync Baskets, an adjustment made to one basket while cooking is applied to the other automatically, so the two stay matched. Under Sync Finish, an adjustment made while one basket is still waiting keeps the finish synced, provided the shorter cook time is not raised above the longer one.",
+      "The pause behaviour is documented too: when either basket is pulled out during cooking, both sides pause until it is returned. The SHAKE light comes on as a reminder to shake or flip food, and goes off on its own after about a minute if the basket is not pulled out."
+     ],
+     "cite": [
+      "S18"
+     ]
+    },
+    {
+     "h": "What breaks the sync",
+     "paras": [
+      "Two documented actions break it. Pressing the HI-FRY button — the one that raises the cooking temperature to {{450 °F / 235 °C, held for 2 minutes, for extra browning}} — lifts one basket out of the shared schedule: in the sync modes, the manual says pressing it raises the temperature only on that basket and breaks the sync. The +2 MIN button does the same.",
+      "The manual adds a detail worth knowing before a second batch: while the unit cooks on one side, the other basket can still be started later, but the SYNC BASKETS and SYNC FINISH functions will not be available for that cook."
+     ],
+     "cite": [
+      "S18"
+     ]
+    },
+    {
+     "h": "What this feature is not",
+     "paras": [
+      "It is not a promise about doneness. Finishing at the same time is a scheduling behaviour documented by the manufacturer; whether each basket is cooked through is still a check the cook makes, and the manual's own advice is to check foods for doneness against current safety guidelines before serving.",
+      "It is also not a feature of every machine in this set. The manual for the 8 Qt TurboFry Touch — which this site also reads — lists one basket in its features section, so there is no second basket for two buttons to coordinate; the sync functions are documented only on the dual-window model's manual. That difference is recorded in the dataset as {{Not documented for RJ38-SQSS-8T on the brand page or in its manual::not documented for RJ38-SQSS-8T on the brand page or in its manual}}, on the row that asks whether a basket divider exists for the 8 Qt model."
+     ],
+     "cite": [
+      "S18",
+      "S13",
+      "S10"
+     ]
+    }
+   ],
+   "closing_note": "No unit in this article was tested. The sync behaviour is quoted from the owner's manual linked per section, and the feature row comes from the manufacturer's own product page."
+  },
+  {
+   "slug": "aerosol-oil-warning",
+   "kind": "Explainer",
+   "kicker": "Care, documented",
+   "title": "The aerosol-oil caution nobody reads, quoted instead of paraphrased",
+   "standfirst": "Chefman's dual-window manual carries one CAUTION about spray cans that decides whether a nonstick basket keeps its coating. The sentence is short enough to quote whole, so this page does.",
+   "target_query": "aerosol cooking oil air fryer nonstick coating",
+   "intent": "Informational",
+   "reading_minutes": 4,
+   "products": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry"
+   ],
+   "sections": [
+    {
+     "h": "The sentence, in the manual's own words",
+     "paras": [
+      "The dual-window model's manual puts the rule inside the operating instructions, between a CAUTION marker and the step about loading food: “Never spray the baskets or racks with cooking oil from an aerosol spray can, which includes harsh components that can cause chipping of the nonstick coating. However, you can oil the racks or spray them with oil from a non-aerosol mister.”",
+      "The dataset publishes the same rule in its condensed form: {{Nonstick, dishwasher-safe baskets. Manual caution: never spray with aerosol cooking oil — use a non-aerosol mister instead}}. Both point at the same page; the manual is the primary document and is linked under this section."
+     ],
+     "cite": [
+      "S18",
+      "S10"
+     ]
+    },
+    {
+     "h": "What the caution says, and what it leaves out",
+     "paras": [
+      "It names a cause and an effect — aerosol spray cans, harsh components, chipping of the nonstick coating — and it offers the substitute in the same breath: oil the racks, or spray them, from a non-aerosol mister. It does not set out a general oil rule; the manual handles that separately, telling the reader to toss food with a little oil in a separate bowl rather than filling the baskets.",
+      "The cleaning section carries the rest of the care story for the same model: the baskets and racks are top-rack dishwasher safe, the unit itself is wiped with a damp cloth and never submerged, and abrasive cleansers are off the list because they can damage the finishes."
+     ],
+     "cite": [
+      "S18"
+     ]
+    },
+    {
+     "h": "The other model's care row, stated exactly as recorded",
+     "paras": [
+      "For the 8 Qt TurboFry Touch, this site's dataset records a shorter care row: {{Nonstick basket and rack; top-rack dishwasher safe}}. No aerosol rule is recorded for that model in this dataset, and this article quotes the caution only where the dataset carries it. If the second manual ever needs the same warning quoted, the source document is linked and the row can be checked against it.",
+      "That restraint is deliberate. A care instruction softened in retelling — the caution becoming “be careful with sprays”, the rule becoming optional — stops doing its job. Quoting the manufacturer's sentence keeps the obligation exact, and it gives the reader a link to the document that wrote it."
+     ],
+     "cite": [
+      "S13",
+      "S12"
+     ]
+    }
+   ],
+   "closing_note": "No product in this article was tested. The quoted caution is from the manufacturer's owner's manual, and the care rows come from the dataset's verified entries for each product."
+  },
+  {
+   "slug": "extension-cord-rules-in-the-manuals",
+   "kind": "Explainer",
+   "kicker": "Power, documented",
+   "title": "1700 watts, three manuals, and one extension-cord rule that is not the same",
+   "standfirst": "All three appliances in this set carry the same wattage rating from their manufacturers. Their manuals do not agree on how to power them, and one of the three rules is absolute.",
+   "target_query": "air fryer 1700 watts extension cord manual",
+   "intent": "Informational",
+   "reading_minutes": 5,
+   "products": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "sections": [
+    {
+     "h": "The same rating, three times",
+     "paras": [
+      "The Chefman 6 Qt dual-window model documents {{1700 W / 120 V}} on its product page. The Chefman 8 Qt TurboFry Touch documents {{1700 W / 120 V}} on its page as well. The Emeril Lagasse French Door AirFryer 360 documents a rated power of {{1700 W}} on {{120 V / 60 Hz}}.",
+      "The Emeril's specification table in its owner's manual states the same figures for model FAFO-001, and its heating-element section attributes the turbo-fan mode to a top spiral heating element at that same wattage. Nothing in this paragraph is an estimate; each figure is a published dataset value with the manufacturer's page behind it."
+     ],
+     "cite": [
+      "S10",
+      "S12",
+      "S14",
+      "S15"
+     ]
+    },
+    {
+     "h": "The Chefman manuals: an extension cord is allowed, with one condition",
+     "paras": [
+      "Both Chefman manuals explain that the supplied cord is deliberately short, to reduce entanglement and tripping hazards. A longer detachable extension cord may be used if care is exercised, and both manuals attach the same condition: the marked electrical rating of the extension cord should be at least as great as the electrical rating of the appliance. The longer cord, they add, should be arranged so it will not drape over a countertop or tabletop where it can be pulled on or tripped over.",
+      "Before any of that, both manuals ask a question most buyers skip: check that the home power supply corresponds with the intended voltage of the appliance."
+     ],
+     "cite": [
+      "S18",
+      "S13"
+     ]
+    },
+    {
+     "h": "The Emeril manual: the rule is absolute",
+     "paras": [
+      "The French Door AirFryer 360's manual states it differently, in its safeguards: never use with an extension cord. That line is the manufacturer's, not this site's, and it is the sharpest single instruction in this comparison.",
+      "The same safeguards section defines where the appliance may sit: a flat, heat-resistant surface, countertop use only, not in an enclosed space or under hanging cabinets, with free space left on the top, back and sides and above the appliance, and never on a cooktop."
+     ],
+     "cite": [
+      "S15"
+     ]
+    },
+    {
+     "h": "What a buyer can take from three manuals",
+     "paras": [
+      "If one of these appliances is heading for a kitchen where the outlet is far from the counter, the manuals' difference matters before any feature does. Two manufacturers permit a rated extension cord with care; the third forbids the cord outright and instead defines the clearance around the unit.",
+      "None of this is this site's advice. It is each manufacturer's instruction, quoted from the manuals and linked per section, with the wattage rows taken from the dataset's published values."
+     ],
+     "cite": [
+      "S15",
+      "S18",
+      "S13"
+     ]
+    }
+   ],
+   "closing_note": "No appliance in this article was plugged in, measured or tested. The power rows are published dataset values sourced to the manufacturer pages, and the cord instructions are quoted from the owner's manuals."
   }
  ],
- "updated": "2026-11-15"
+ "updated": "2026-11-16"
 }
