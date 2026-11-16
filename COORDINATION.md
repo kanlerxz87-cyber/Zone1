@@ -4066,3 +4066,17 @@ sales. S28 — blocked by a bot checkpoint on 2026-11-15. None was filled in by 
 | 2026-11-16T00:00Z | arena/c334fb1c-zone1 (session c334fb1c) | Claimed X-c334fb1c (verification round 10, no content edits). State checked: local `main` = `origin/main` = `6dbfa7c`, working tree clean, `scripts/ci-check.sh` OK, `build.py` reproduces byte-identical output, `verify.py` 0 errors. Session branch fixed by the platform as `arena/c334fb1c-zone1`; the board's `session-<id>/<task>` naming is superseded for this session. |
 | 2026-11-16 | arena/c334fb1c-zone1 (session c334fb1c) | X-c334fb1c **done**. Record: `reports/verification-2026-11-16.md`. Short links re-read: B04G1MEwY→B0CDY277D3, B02NbDxp3→B09B7SB46R, B00hJ57DV→B08DKYBTPH (all match stored records). S2 "Updated: April 14, 2026" unchanged. Gates: ci-check OK, build.py byte-identical, verify.py 0 errors. Irregularities (none new): short-link final URLs carry no `tag=` (F6); Emeril preset count 24 vs 25 (open); Chefman 8 Qt 450°F vs 400°F max (F3). |
 | 2026-11-16 | arena/c334fb1c-zone1 (session c334fb1c) | **Merge record:** PR [#86](https://github.com/kanlerxz87-cyber/Zone1/pull/86) merged with `gh pr merge 86 --merge` (state MERGED) at merge commit `c22ea92db721e31fae1f7c74e88490fde0964d74`. GitHub Pages `pages/builds/latest` → `status: built`, same commit, `error: null`. |
+
+---
+
+## Task board — arena/9f0e6668-zone1 (2026-11-16 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| R10 | Integration follow-up: live re-read the three supplied Amazon short links and volatile manufacturer-published product facts; refresh stale dated brand-review counts only where official manufacturer pages support the value; log exact evidence and preserve unresolved identity/attribution caveats; rebuild and run all verification gates. | **in progress** | arena/9f0e6668-zone1 | `COORDINATION.md`, `build.py`, `data/products.json`, `data/sources.json`, `data/reverification.json`, `session-9f0e6668/**`, regenerated root HTML |
+
+### Claim log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-16 | arena/9f0e6668-zone1 | Read the full coordination board before starting. Existing tasks are recorded as done; the previous latest verification pass is dated 2026-11-15. Claimed R10 for a narrowly scoped fresh-source check and refresh of dated volatile figures; no other session's file scope is being edited. Current branch is Arena-pinned `arena/9f0e6668-zone1` (base `6dbfa7c`); per repository environment rules, work remains on this branch. |

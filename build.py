@@ -93,6 +93,11 @@ PASS7 = json.loads(_p7.read_text(encoding="utf-8")) if _p7.exists() else None
 # so a later session can drop the file without touching anything else.
 _p9 = ROOT / "session-88bb2db6" / "pass9.json"
 PASS9 = json.loads(_p9.read_text(encoding="utf-8")) if _p9.exists() else None
+# Additive round-10 targeted live-source follow-up (2026-11-16, arena/9f0e6668).
+# This is deliberately scoped: it refreshes dated volatile brand counters and records
+# current link/policy observations without claiming a full re-read of every product row.
+_p10 = ROOT / "session-9f0e6668" / "pass10.json"
+PASS10 = json.loads(_p10.read_text(encoding="utf-8")) if _p10.exists() else None
 
 # Decision layer (added 2026-11-15, arena/3ddfa50e). Two registers that exist to be reviewed
 # rather than acted on: the suggestions queue and the open-questions register. Both are
@@ -1281,7 +1286,7 @@ def page_index():
 
 <div class="callout bad link-status" id="link-status">
   <div class="link-status-heading"><span class="pill pill-warn">Before shopping</span><strong>Product identity, account approval and affiliate tracking are not confirmed.</strong></div>
-  <p class="small">Recorded checks through 2026-11-15 observed fallback-style redirects for the three supplied short links. We cannot confirm that each link reaches the named manufacturer model, carries the correct Associates tag, or that the Associates account is approved. Verify the model and account status in Amazon before relying on a purchase link. {src_links(['S17', 'S2'])} <a href="reverification.html">Read the redirect evidence</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html#q-01">Product-link question</a> · <a href="questions.html#q-03">Account-status question</a>.</p>
+  <p class="small">A targeted live re-check on 2026-11-16 again observed fallback-style redirects for all three supplied short links. We cannot confirm that any link reaches the product the account holder intended, carries the correct Associates tag, or that the Associates account is approved. Verify the model and account status in Amazon before relying on a purchase link. {src_links(['S17', 'S2'])} <a href="reverification.html">Read the redirect evidence</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html#q-01">Product-link question</a> · <a href="questions.html#q-03">Account-status question</a>.</p>
 </div>
 
 <div class="method-strip" id="how-we-work" aria-label="How this guide is made">
@@ -1398,7 +1403,7 @@ much to trust a number, not required reading before buying. The same material, i
 <a href="flagged.html">Flagged for review</a>.</p>
 
 <div class="grid grid-4" style="margin:1rem 0 1.25rem">
-  <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">Supplied links reach Amazon fallback pages — see <a href="reverification.html">link checks, 2026-11-14 and 2026-11-15</a></div></div>
+  <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">Supplied links reach Amazon fallback pages — see <a href="reverification.html">link checks through 2026-11-16</a></div></div>
   <div class="stat ok"><div class="n">{verified}</div><div class="l">Verified spec values</div><div class="h">Each with a link to the manufacturer page or manual</div></div>
   <div class="stat warn"><div class="n">{unverified}</div><div class="l">Unconfirmed values</div><div class="h">Left blank, listed on Flagged for review</div></div>
   <div class="stat bad"><div class="n">{n_open_flags}</div><div class="l">Open irregularities</div><div class="h">{n_total_flags} recorded across the three products and the programme; the Flagged page lists them as {n_open_flags} distinct rows</div></div>
@@ -1422,8 +1427,7 @@ much to trust a number, not required reading before buying. The same material, i
   and which Associates tag rides on the link, still cannot be confirmed from outside Associates Central, and a
   parallel pass reads the same fallback marker as grounds for withholding the "resolved" label entirely. Both
   readings are published side by side (flag F21). Full ledger:
-  <a href="reverification.html">Re-verification {REVERIFIED}</a> · their report:
-  <a href="reverification.html">link checks, 2026-11-14 and 2026-11-15</a>.</p>
+  <a href="reverification.html">Full line-by-line re-read: {REVERIFIED}</a>. A targeted follow-up on 2026-11-16 rechecked all three link destinations and refreshed two dated manufacturer review counters; it was not a full re-read. See the <a href="reverification.html">combined verification ledger</a>.</p>
 </div>
 
 <h2>Articles</h2>
@@ -2543,9 +2547,10 @@ def page_platform():
 
 
 def page_exec():
-    # The number of ledger rows the executive summary quotes. Derived from both ledgers
-    # so it cannot drift: the 2026-11-14 pass and the pass-9 addendum.
-    LEDGER_ROWS = len(REVERIFICATION["tests"]) + (len(PASS9["rows"]) if PASS9 else 0)
+    # The number of re-verification rows the executive summary quotes. Derived from
+    # every rendered register so it cannot drift as a targeted addendum is added.
+    LEDGER_ROWS = (len(REVERIFICATION["tests"]) + (len(PASS9["rows"]) if PASS9 else 0)
+                   + (len(PASS10["rows"]) if PASS10 else 0))
     # How many pages the root build publishes. Counted from the directories this
     # generator writes to, so the number in the prose cannot drift away from the
     # number of pages actually shipped.
@@ -2942,6 +2947,37 @@ One new conflict was found and filed rather than resolved by guesswork.</p>
 <code>session-88bb2db6/EVIDENCE-2026-11-15.md</code>.</p>
 """
 
+    p10_html = ""
+    if PASS10:
+        p10 = PASS10
+        p10rows = "".join(
+            f'<tr><td><strong>{e(t["claim"])}</strong></td>'
+            f'<td class="small">{e(t["previous"])}</td>'
+            f'<td class="small">{e(t["observed"])}</td>'
+            f'<td class="small">{e(t["verdict"])}</td>'
+            f'<td class="small"><a href="{e(t["source_url"])}" target="_blank" rel="noopener">'
+            f'{e(t["source_label"])}</a></td></tr>'
+            for t in p10["rows"]
+        )
+        p10flags = "".join(f"<li>{e(item)}</li>" for item in p10["irregularities"])
+        p10_html = f"""
+<h2>{e(p10['title'])}</h2>
+<p class="small">{e(p10['lede'])}</p>
+<div class="callout info"><strong>Scope and caution</strong><p class="small">{e(p10['scope_note'])}</p></div>
+<div class="tablewrap">
+<table>
+  <caption>Targeted official-source re-reads, {e(p10['pass_date'])}</caption>
+  <thead><tr><th style="width:18%">Claim</th><th style="width:17%">Previously recorded</th>
+  <th style="width:35%">Current observation</th><th style="width:17%">Verdict</th>
+  <th style="width:13%">Official source</th></tr></thead>
+  <tbody>{p10rows}</tbody>
+</table>
+</div>
+<h3>Open irregularities — not resolved by this pass</h3>
+<ul class="tight small">{p10flags}</ul>
+<p class="tiny muted">Full evidence notes: <a href="session-9f0e6668/VERIFICATION-2026-11-16.md">round-10 verification record</a>.</p>
+"""
+
     lr = rev.get("link_resolution") or {}
     lr_html = ""
     if lr:
@@ -2979,6 +3015,7 @@ One new conflict was found and filed rather than resolved by guesswork.</p>
 
 {p7_html}
 {p9_html}
+{p10_html}
 
 <h2>What this pass changed on the site</h2>
 <ul class="tight small">{changes}</ul>
