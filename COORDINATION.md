@@ -4259,6 +4259,17 @@ every conflict was resolved **by keeping both sides**:
 | `reports/verification-2026-11-16.md` | `arena/c334fb1c` wrote a round-10 record under this exact filename; this pass wrote a full pass-10 record under the same name | **Both records kept.** `arena/c334fb1c`'s stays at `reports/verification-2026-11-16.md`; this pass's moved to `reports/verification-2026-11-16-9fccce0c.md`. Neither was deleted or overwritten. |
 | `COORDINATION.md` | every session's board and claim log | Both sides kept, in order. No board, claim row or merge record was discarded. |
 
+**Concurrency mechanics.** `origin/main` moved twice while this pass worked: `6dbfa7cb` →
+`5befc7e` (PRs #86, #88, #89, #91) and then `5befc7e` → `8c28dac` (PR #92). The branch was
+rebased onto `main` twice, and every conflict was resolved by keeping both sides, as recorded
+above. `git pull --rebase origin arena/9fccce0c-zone1` was also attempted before the push,
+as the protocol requires — and it correctly refused to proceed, because the *remote* session
+branch still held the pre-rebase claim commit and rebasing onto it would have undone the
+rebase onto `main`. The rebase was aborted, the branch was rebased onto `origin/main` instead
+(the upstream the work actually integrates with), and the push used `--force-with-lease`,
+which is the same mechanics an earlier session in this repository recorded. No other session
+works on this branch, and no commit of another session was rewritten.
+
 **One id collision, resolved in favour of the earlier claim.** This pass's two new flag rows
 were originally numbered **F59** and **F60**; session `ad8105b3` had already merged **F59**
 and **F60** for different findings (six stale executive summaries; the s2 annex's two bad
