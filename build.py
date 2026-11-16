@@ -774,6 +774,15 @@ footer.site p,footer.site li{color:#59645a}
 .callout{background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--accent);
   border-radius:10px; padding:.9rem 1.1rem; margin:1.1rem 0; box-shadow:var(--shadow); font-size:.94rem}
 .callout.trust{border-left-color:#0f766e; background:#f4fbf8}
+/* Added 2026-11-16 (arena/2e346d24): `.note` (13 uses) and `.warn` (33 uses) had no rule at
+   all, so 46 callouts on the generated pages rendered as uncoloured boxes with no visual
+   difference between "for your information" and "this could be wrong". */
+.callout.note{border-left-color:var(--brand); background:var(--brand-soft)}
+.callout.warn{border-left-color:var(--warn); background:var(--warn-soft)}
+/* Same pass: the four register pages (topics, suggestions, questions, requirements) put wide
+   tables directly in the flow. `.tablewrap` scrolls horizontally; without it those tables
+   forced the whole page to scroll sideways at phone widths. */
+.tablewrap table{margin:0; border:0}
 .callout.bad{border-left-color:var(--bad); background:#fff6f6}
 .callout.ok{border-left-color:var(--ok); background:#f5fbf6}
 
@@ -3606,10 +3615,10 @@ def page_suggestions():
         paths_html = f"""
 <h2>Choose a path before you choose a suggestion</h2>
 <p class="lede">{e(s.get('paths_intro',''))}</p>
-<table>
+<div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Path</th><th>Suggestions it contains</th><th>Effort</th><th>Evidence behind its rows</th></tr></thead>
   <tbody>{''.join(path_rows)}</tbody>
-</table>
+</table></div>
 <p class="tiny muted">{e(s.get('paths_note',''))}</p>
 {''.join(path_articles)}
 """
@@ -3656,10 +3665,10 @@ a short story rather than an open-ended project.</p>
 {paths_html}
 <h2>At a glance</h2>
 <p class="small muted">Read the table, then take one row and read the full entry for it. The <em>Your call</em> column lists the paths that are on the table for that suggestion &mdash; write the letter you choose next to it, with the date. Nothing on this page has been implemented, and implementing anything starts by choosing a path here.</p>
-<table>
+<div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Suggestion</th><th>Area</th><th>Priority</th><th>Effort · cost of waiting</th><th>Your call</th><th>Evidence</th></tr></thead>
   <tbody>{''.join(rows)}</tbody>
-</table>
+</table></div>
 <p class="tiny muted">Priority is impact x confidence, both scored by this pass out of 5. It is judgement. The evidence column is the fact.</p>
 
 <h2>The queue</h2>
@@ -3781,10 +3790,10 @@ settled without you links to the row that blocks it.</p>
 <p class="small">{counts['known']} known and sourced · {counts['missing']} missing but discoverable ·
 {counts['not_stated']} not stated by the official source · {counts['unknowable']} requiring account access ·
 {len(q['questions'])} total.</p>
-<table>
+<div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Question</th><th>Group</th><th>State</th><th>Source</th></tr></thead>
   <tbody>{''.join(rows)}</tbody>
-</table>
+</table></div>
 
 <h2>The questions in full</h2>
 {''.join(sections)}
@@ -4205,10 +4214,10 @@ owner's manual, so none of them requires a claim this site cannot support.</p>
 </div>
 
 <h2>The plan</h2>
-<table>
+<div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Topic</th><th>Intent</th><th>Serves</th><th>State</th><th>Must cite</th></tr></thead>
   <tbody>{''.join(rows)}</tbody>
-</table>
+</table></div>
 <p class="tiny muted">{e(t['demand_note'])}</p>
 
 <h2>The brief behind each topic</h2>
@@ -4218,10 +4227,10 @@ version must cite, and what blocks it.</p>
 <p class="small">{''.join(cards) if cards else '<span class="muted">No topics are on the plan yet.</span>'}</p>
 
 <h2>How any of it may be promoted</h2>
-<table>
+<div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Channel</th><th>Status</th><th>Verdict</th><th>The constraint</th><th>Source</th></tr></thead>
   <tbody>{''.join(ch_rows)}</tbody>
-</table>
+</table></div>
 <p class="tiny muted">{e(t['channels_note'])}</p>
 
 <div class="callout note" style="margin-top:1.5rem">
@@ -4362,9 +4371,9 @@ def page_requirements():
         sections.append(
             f'<h2 id="group-{gid.lower()}">{gid}. {e(gname)}</h2>'
             f'<p class="tiny muted">{len(rows)} requirements · {e(summary)}</p>'
-            '<table><thead><tr><th>#</th><th>Requirement</th><th>Status</th>'
+            '<div class="tablewrap"><table><thead><tr><th>#</th><th>Requirement</th><th>Status</th>'
             '<th>What that status means here</th><th>Where it lives</th><th>Evidence</th>'
-            f'</tr></thead><tbody>{"".join(row(r) for r in rows)}</tbody></table>'
+            f'</tr></thead><tbody>{"".join(row(r) for r in rows)}</tbody></table></div>'
         )
 
     legend_html = "".join(
@@ -5387,6 +5396,33 @@ def check_flag_count_matches_page():
     return []
 
 
+def check_callout_states_and_table_wraps(pages):
+    """Build guard: every CSS state a page uses must be defined, and wide tables must scroll.
+
+    Two visual defects were live on main at 9c6deab and neither had a gate:
+    `.callout.note` (13 uses) and `.callout.warn` (33 uses) had no rule in the stylesheet, so
+    46 callouts rendered with no colour distinction between "for information" and "this could
+    be wrong"; and four register pages emitted `<table>` outside `.tablewrap`, so those
+    tables forced the whole page to scroll sideways at phone width. Both are cheap to check
+    and expensive to notice by eye on a page nobody proof-reads twice.
+    """
+    problems = []
+    defined = set(re.findall(r'\.callout\.([a-z]+)', CSS))
+    for rel, text in pages.items():
+        if not rel.endswith(".html"):
+            continue
+        used = set(re.findall(r'class="callout ([a-z]+)"', text))
+        for state in sorted(used - defined):
+            problems.append(f"{rel}: .callout.{state} is used but has no CSS rule")
+        for m in re.finditer(r"<table[ >]", text):
+            before = text[max(0, m.start() - 220):m.start()]
+            if "tablewrap" not in before:
+                problems.append(f"{rel}: a <table> is not inside .tablewrap and will "
+                                f"overflow the viewport on a narrow screen")
+                break
+    return problems
+
+
 def check_internal_fragments(pages):
     """Build guard: every href="#id" must resolve to an element on the page it names.
 
@@ -5841,6 +5877,10 @@ def main():
     if flag_count_problems:
         raise SystemExit("BUILD FAILED — landing-page total disagrees with the published "
                          "register:\n  " + "\n  ".join(flag_count_problems))
+    visual_problems = check_callout_states_and_table_wraps(pages)
+    if visual_problems:
+        raise SystemExit("BUILD FAILED — rendered page would not display as designed:\n  "
+                         + "\n  ".join(visual_problems))
     fragment_problems = check_internal_fragments(pages)
     if fragment_problems:
         raise SystemExit("BUILD FAILED — an in-page link points at an element that is not "
