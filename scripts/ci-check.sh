@@ -12,7 +12,8 @@ r=audit_data()
 print(r.to_dict()['findings'] or 'clean')
 sys.exit(0 if r.ok else 1)"
 echo "· build + compliance gate"
-python3 scripts/build_s2_site.py >/dev/null
+# --check only: writing first, then checking whether the write matches the write, is not a
+# check (same defect as the CI step, repaired together 2026-11-16 by arena/ba29c641).
 python3 scripts/build_s2_site.py --check
 echo "· link check"
 python3 scripts/check_links.py

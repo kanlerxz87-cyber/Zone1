@@ -13,15 +13,15 @@
    "id": "Q-01",
    "group": "Product identity",
    "question": "Which exact manufacturer model number does each of the three supplied Amazon links point to?",
-   "state": "missing",
+   "state": "known",
    "why_it_matters": "Three separate Chefman 6-quart dual-basket models exist with different documented temperature ranges and functions. If the wrong model is on a product page, every specification below it is a misstatement about a product the site is paid to recommend.",
    "what_we_know": [
     "All three link.amazon short links resolve to the same three ASINs on every recorded fetch: B0CDY277D3, B09B7SB46R and B08DKYBTPH (7 observation rounds, 2026-11-13 to 2026-11-15).",
     "The three destination pages carry the listing titles recorded in data/products.json, except the Emeril title, which changed between 2026-11-14 and 2026-11-15 (flag F38).",
     "The bare 9-character codes in the short links (B04G1MEwY, B02NbDxp3, B00hJ57DV) are not ASINs and return 'Page Not Found' when used as /dp/ identifiers. Re-tested 2026-11-15."
    ],
-   "what_is_missing": "The 'Model Number' row inside each listing's Product information table. Amazon publishes it on the page but not through any open interface, so it can only be read in a browser.",
-   "how_to_discover": "Open each of the three links, scroll to Product information, read the Model Number row. Five minutes total. Record all three strings.",
+   "what_is_missing": "Nothing for the model step. For the link attribution: a statement from the account holder, or the Associates Central link builder showing which ASIN each short link was created for. Neither is reachable from this repository.",
+   "how_to_discover": "Done 2026-11-16 by session ba29c641: the Product information block was read off all three listing pages and published on the product pages and in reports/asin-model-mapping-2026-11-16.md. The residual part - link-to-ASIN intent - can only be settled by whoever created the short links.",
    "blocks": [
     "SG-01",
     "SG-04",
@@ -40,21 +40,22 @@
      "label": "Flag register rows F2, F3, F32, F33",
      "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
     }
-   ]
+   ],
+   "answer": "Answered for the ASIN-to-model step on 2026-11-16, without a human in a browser - which is the part that matters, because F49 had recorded that no automated read could reach this table and SG-01 had assigned it to the owner as a five-minute browser job. Each listing's own Product information block carries the code: B0CDY277D3 publishes Model Number and Part Number RJ38-SQPF-3TDB-2W; B08DKYBTPH publishes Part Number RJ38-SQSS-8T (its Model Number row holds the string 'Large Air Fryer'); B09B7SB46R publishes Model Number and Part Number 4-00675-02X-VN, which is the brand page's 4-00675-02A-VN with one character changed. The first two agree with the manufacturer documents the site already held, so those two rows are now sourced twice. The third does not, and is published as a conflict (F66) rather than resolved. What this does NOT answer is which product the three supplied link.amazon tokens were meant to point at: the tokens are 9 characters, are not ASINs, and the observed destinations arrive through a fallback redirect (F7, F10). That half still belongs to the account holder."
   },
   {
    "id": "Q-02",
    "group": "Product identity",
    "question": "Is the Chefman 8 Qt listing the RJ38-SQSS-8T the site maps it to, or the RJ38-8T-BLACK that documents the 450 F Hi-Fry?",
-   "state": "missing",
+   "state": "known",
    "why_it_matters": "The listing title advertises '450 F Hi-Fry ... Bake, Dehydrate, Frozen'. The RJ38-SQSS-8T brand page and manual document 200-400 F and four food presets, with no Hi-Fry. One of the two is simply a different machine. This is the sharpest unresolved conflict in the dataset.",
    "what_we_know": [
     "The Amazon listing title contains '450 F Hi-Fry Option' and 'Bake, Dehydrate, Frozen'.",
     "The chefman.com page for RJ38-SQSS-8T states a maximum temperature of 400 F.",
     "Chefman publishes a separate RJ38-8T-BLACK that documents 450 F Hi-Fry and exactly those four functions (flag F33)."
    ],
-   "what_is_missing": "The model number printed on the listing itself, which settles the question in one line.",
-   "how_to_discover": "Same act as Q-01. Read the Model Number row on the B08DKYBTPH listing.",
+   "what_is_missing": "A statement from Chefman or the seller about which SKU sits behind ASIN B08DKYBTPH, or the model plate on a unit bought against it. The site will not pick between its own documents without one.",
+   "how_to_discover": "Done 2026-11-16 by session arena/ba29c641 (Part Number and Max Temperature rows read from the listing's Product information block; see reports/asin-model-mapping-2026-11-16.md). What a script cannot do: open the box.",
    "blocks": [
     "SG-01"
    ],
@@ -67,7 +68,8 @@
      "label": "RJ38-SQSS-8T owner's manual",
      "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf"
     }
-   ]
+   ],
+   "answer": "Read from the listing on 2026-11-16, and the answer is 'the listing says both'. Its Part Number row reads RJ38-SQSS-8T - the code the brand page and the manual publish for the 200-400 F stainless model - and its own Features & Specs table states a 400 F maximum, while its title advertises '450 F Hi-Fry Option' with Bake/Dehydrate/Frozen. Because Chefman separately publishes RJ38-8T-BLACK at 450 F Hi-Fry with exactly those four functions (S26, re-read live 2026-11-16), the two explanations F3 and F33 hold - a title carried over from another SKU, or a second model listed under the first one's part number - are both still open, and the listing's self-contradiction is now evidence in the case rather than a third site disagreeing. What the read does settle is the direction of the conflict, and what the site may not say: no copy here markets a 450 F capability for this product, and the temperature ceiling of the unit that ships is left unasserted."
   },
   {
    "id": "Q-03",
@@ -321,7 +323,8 @@
     "The same breadcrumb does NOT settle this question. The Commission Income Statement's categories (S3) are commission categories defined by the Associates programme; browse nodes are a shopper-navigation taxonomy; Amazon publishes no mapping between them. The breadcrumb begins 'Home & Kitchen' while S3 carries both 'Kitchen' at 4.50% and 'Home' at 3.00%, so it cannot even indicate which of the two it resembles. See flag F53.",
     "RESOLVED 2026-11-16 (arena/b23f12f0, round 11, flag F65): the Emeril browse node is no longer unknown. ASIN B09B7SB46R was fetched successfully on 2026-11-16 and rendered the breadcrumb 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S28) - identical to the two Chefman paths - and the same breadcrumb was reached independently through the supplied short link in the same session (S17). The 2026-11-15 reading that called the block 'per-ASIN' was wrong: on 2026-11-16 the same ASIN fetched cleanly on the first attempt while one of the two ASINs that had worked the previous day was served the checkpoint on its first attempt and returned the listing only on a retry. The checkpoint is intermittent per request, so a failed fetch is not evidence about the ASIN.",
     "NEW 2026-11-15 (arena/63a2c638): the two Chefman listings each render an Amazon browse-node breadcrumb reading 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S16 for B0CDY277D3, S29 for B08DKYBTPH). That breadcrumb is now published as a sourced fact on each product page.",
-    "UPDATED 2026-11-16 (arena/b23f12f0): all three listings now have a confirmed browse node, and all three are the same node. That closes the last blank cell in the commission question's evidence, but it does not close the question - see the entry above on why a browse path is not a commission category."
+    "UPDATED 2026-11-16 (arena/b23f12f0): all three listings now have a confirmed browse node, and all three are the same node. That closes the last blank cell in the commission question's evidence, but it does not close the question - see the entry above on why a browse path is not a commission category.",
+    "Re-read again the same day by arena/ba29c641 fetching the /dp/ URL directly: its Best Sellers Rank line reads '#214 in Kitchen & Dining' and '#6 in Air Fryers' (node 17659096011), agreeing with both earlier reads. Three independent routes, one classification — and still no commission category."
    ],
    "what_is_missing": "Confirmation of the category Amazon applies at commission time. The breadcrumb is strong evidence; the Earnings report is proof.",
    "how_to_discover": "The rate is not discoverable from any public page - it is only observable after the fact, in the Associates reports, where each qualifying purchase shows the rate actually applied. Read the category column on the first few real orders and the question answers itself. Publishing a rate before then means publishing a guess about how Amazon classified the product.",
@@ -420,7 +423,7 @@
    "question": "What commission rate does Amazon's published table give for kitchen appliances, and does that rate apply to these three listings?",
    "state": "known",
    "why_it_matters": "The rate is the single number that converts traffic into money, and it is the number an affiliate page most often asserts without checking. Kitchen pays 4.50% and the fallback row pays 4.00%, so the difference between the two is worth roughly a twelfth of the modelled revenue.",
-   "answer": "The published Table 1 row reads \"Physical Books, Kitchen, Automotive - 4.50%\". All three listings render the browse-node path \"Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers\", read directly on 2026-11-15 by following the three supplied short links, so 4.50% is the well-evidenced working rate. The one thing still missing is the category Amazon applies when it settles a commission: that name appears only on a shipped line in the Associates Earnings report. Until one exists, the site publishes both candidate rows and labels which is which.",
+   "answer": "The published Table 1 row reads \"Physical Books, Kitchen, Automotive - 4.50%\". Two of the three listings rendered that breadcrumb on 2026-11-15 (B0CDY277D3 and B08DKYBTPH). The third, B09B7SB46R, was fetched three times that day and returned Amazon's checkpoint page each time, so as of 2026-11-15 this sentence claimed more than the repository had evidence for - the correct position was recorded on flags F53 and Q-11. On 2026-11-16 session ba29c641 read that listing's own classification line (Kitchen & Dining; Air Fryers node 17659096011), so all three are now sourced, from two different read locations on two different days. 4.50% remains a working rate, not a confirmed one. The one thing still missing is the category Amazon applies when it settles a commission: that name appears only on a shipped line in the Associates Earnings report. Until one exists, the site publishes both candidate rows and labels which is which.",
    "what_we_know": [
     "The published Table 1 lists Physical Books, Kitchen and Automotive at 4.50%, and All Other Categories at 4.00%.",
     "Amazon does not publish an ASIN-to-category mapping, which is why the site shows both candidate rows.",

@@ -310,6 +310,22 @@ a.card:hover, .cardgrid a.card:hover{border-color:var(--brand-line);
 .callout.trust{border-left-color:var(--ok); background:#f4faf4}
 .callout.note{border-left-color:var(--brand); background:var(--brand-soft)}
 .callout.warn{border-left-color:var(--warn); background:var(--warn-soft)}
+
+/* Owner decision log (2026-11-16, arena/ba29c641). A picker on a static host has to look like a
+   form and behave like one, or it reads as decoration: real inputs, a visible default, and a
+   payload you can hand back. */
+.decision-picker fieldset{border:1px solid var(--line); border-radius:var(--radius); padding:.75rem .95rem .85rem; margin:.6rem 0; background:var(--panel)}
+.decision-picker legend{font-size:.9rem; font-weight:700; padding:0 .45rem}
+.decision-picker legend a{font-family:var(--mono); font-size:.8rem}
+.dec-opt{display:flex; flex-wrap:wrap; gap:.45rem; align-items:baseline; padding:.22rem 0; font-size:.9rem}
+.dec-opt input{margin:.25rem 0 0}
+.dec-opt em{flex-basis:100%; margin-left:1.2rem}
+.tag-default{font-size:.62rem; text-transform:uppercase; letter-spacing:.05em; background:var(--ok-soft); color:#14532d; padding:.12rem .4rem; border-radius:.3rem; font-style:normal}
+.hold-row{display:flex; gap:.45rem; align-items:baseline; font-size:.85rem; color:var(--muted); margin-top:.35rem}
+.decision-picker textarea{width:100%; font:inherit; font-size:.85rem; margin-top:.5rem; padding:.4rem .55rem; border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--ink)}
+.decision-actions{display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin:.7rem 0 .95rem}
+.decision-actions .btn{font-size:.82rem; padding:.4rem .8rem; border-radius:999px; cursor:pointer}
+.decision-out{background:#0f172a; color:#e2e8f0; padding:.85rem 1rem; border-radius:10px; font-family:var(--mono); font-size:.74rem; line-height:1.5; overflow:auto; max-height:22rem; white-space:pre-wrap}
 .callout p:last-child{margin-bottom:0}
 .callout strong{display:block; margin-bottom:.2rem}
 .link-status{margin:1.2rem 0 1.5rem; border-left-color:#c87539; background:#fdf5e8}

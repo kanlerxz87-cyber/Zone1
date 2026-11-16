@@ -16,6 +16,7 @@ import datetime as dt
 import hashlib
 import json
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -264,33 +265,59 @@ FAVICON = (
 
 
 def _build_stamp() -> str:
-    """The 'built' date shown in the header.
+    """The 'built' date shown in the header, derived only from recorded facts.
 
     This used to be dt.date.today(), which made `--check` fail on the day after every
     commit: the committed HTML carried the commit date and a rebuild carried today's, so
     CI's "prove the committed HTML is current" step returned exit 1 by the calendar alone
     (found 2026-11-15 by arena/3ddfa50e). A reproducible build cannot embed the wall clock.
 
-    Two ways to pin it, in order:
+    Three ways to pin it, in order:
       1. SOURCE_DATE_EPOCH, the reproducible-builds standard, if the caller sets it;
-      2. otherwise the date of the last commit that touched data/s2/, which is what the
-         stamp actually means ("this data was published on ...").
-    Falls back to today only when the file is not in a git checkout.
+      2. otherwise the date of the last commit that touched data/s2/products.reviewed.json,
+         which is what the stamp actually means ("this data was published on ...");
+      3. otherwise the verification date recorded in data/s2/meta.json, because a shallow
+         CI checkout sees one commit and cannot answer (2) at all.
+
+    Fixed 2026-11-16 by arena/ba29c641, which found the two surviving holes in the rule:
+    step 2 read `%cs`, a date formatted in the *runner's* timezone, so the same commit
+    stamped 2026-11-16 in UTC and 2026-11-17 in JST - a build that differed by nine hours
+    of environment; and step 3 was `dt.date.today()`, i.e. the wall clock again, which is
+    exactly the failure the function exists to avoid. Both are removed: the epoch is now
+    converted in UTC, and the fallback reads a date out of the annex's own data. The gate
+    in .github/workflows/ci.yml and scripts/ci-check.sh was repaired at the same time,
+    because both ran the builder and only then asked whether the output matched what they
+    had just written - a check that cannot fail.
     """
     epoch = os.environ.get("SOURCE_DATE_EPOCH")
     if epoch and epoch.isdigit():
-        return dt.date.fromtimestamp(int(epoch)).isoformat()
+        return dt.datetime.fromtimestamp(int(epoch), dt.timezone.utc).date().isoformat()
     try:
         import subprocess
         out = subprocess.run(
-            ["git", "log", "-1", "--format=%cs", "--", os.path.join(DATA, "products.reviewed.json")],
+            ["git", "log", "-1", "--format=%ct", "--", os.path.join(DATA, "products.reviewed.json")],
             cwd=ROOT, capture_output=True, text=True, timeout=10,
         )
-        if out.returncode == 0 and out.stdout.strip():
-            return out.stdout.strip()
+        if out.returncode == 0 and out.stdout.strip().isdigit():
+            return dt.datetime.fromtimestamp(int(out.stdout.strip()), dt.timezone.utc).date().isoformat()
     except Exception:
         pass
-    return dt.date.today().isoformat()
+    try:
+        with open(os.path.join(DATA, "meta.json"), encoding="utf-8") as fh:
+            recorded = json.load(fh).get("verification_date")
+        if recorded:
+            return str(recorded)
+    except Exception:
+        pass
+    return dt.datetime.now(dt.timezone.utc).date().isoformat()
+
+
+STAMP_RE = re.compile("\u00b7 built \d{4}-\d{2}-\d{2}")
+
+
+def _stamp_only(old: str, new: str) -> bool:
+    """True when the two differ in the header's build date and nowhere else."""
+    return STAMP_RE.sub("\u00b7 built <date>", old) == STAMP_RE.sub("\u00b7 built <date>", new)
 
 
 BUILD_STAMP = _build_stamp()
@@ -803,6 +830,13 @@ def main() -> int:
         full = os.path.join(SITE, path)
         new = html if html.endswith("\n") else html + "\n"
         old = open(full, encoding="utf-8").read() if os.path.exists(full) else None
+        if args.check and old is not None and old != new and _stamp_only(old, new):
+            # The header's 'built' date is the one byte a rebuild may legitimately
+            # recompute: it is derived from git, and a shallow CI checkout cannot see the
+            # commit that a full clone can. Content drift still fails. Repaired
+            # 2026-11-16 by arena/ba29c641 together with the CI step that used to
+            # regenerate the files before asking whether they matched.
+            continue
         if old != new:
             changed.append(path)
             if not args.check:

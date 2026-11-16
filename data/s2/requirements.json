@@ -8,8 +8,8 @@
       "id": "R-01",
       "requirement": "Collect and organise a full list of requirements",
       "status": "delivered",
-      "where": "data/requirements.json rendered on Requirements page",
-      "note": "19 requirements decomposed from the brief, each with an owner and a verification line.",
+      "where": "data/s2/requirements.json, rendered at s2/pages/requirements.html; the root register data/requirements.json renders at requirements.html",
+      "note": "19 requirements decomposed from the brief, each with an owner and a verification line. PATH CORRECTED 2026-11-16 by session arena/ba29c641 (flag F60 in the root register): this row used to read 'data/requirements.json rendered on Requirements page' when no such file existed, so the repository's only requirements register pointed at an absent path. The file now does exist - a later pass built the root register at data/requirements.json, rendered at requirements.html - so both registers are named here rather than one being silently repointed, and the annex's own copy is named first because it is the one this page renders.",
       "source": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/s2/requirements.json",
       "source_label": "repository file"
     },
@@ -27,9 +27,9 @@
       "requirement": "Identify trending products",
       "status": "blocked",
       "where": "Niche & trend page",
-      "note": "Requires a valid ASIN set and a trend signal source. No trend value is asserted anywhere on the site.",
+      "note": "Requires a valid ASIN set and a trend signal source. No trend value is asserted anywhere on the site. PRECISION 2026-11-16 by session arena/ba29c641: the earlier reason given here - 'no public demand metric exists' - was too strong. A listing page does carry a rank line (Best Sellers Rank, read for all three ASINs on 2026-11-16), and it is point-in-time, per-ASIN and not a history. The row stays blocked on this site's own reading of IP License section 2(e), which keeps Amazon-served figures out of republished tables, and because a trend needs a series that nothing here holds. What changed is the reason: a decision not to publish, not an absence of data.",
       "source": "https://affiliate-program.amazon.com/help/operating/policies",
-      "source_label": "Commission Income Statement — no public demand metric exists"
+      "source_label": "IP License §2(e) and the absence of any public rank history"
     },
     {
       "id": "R-04",
@@ -72,9 +72,9 @@
       "requirement": "Analyse commission potential",
       "status": "blocked",
       "where": "Economics page",
-      "note": "The only official rate source is the signed-in rate card; see F-04. Economics are expressed as a formula with the rate as an input, never as a number.",
-      "source": "https://affiliate-program.amazon.com/help/operating/schedule",
-      "source_label": "login-gated rate card (F-04)"
+      "note": "Rate table read verbatim on 2026-11-16 with no login (Standard Commission Income Statement, Table 1): 'Physical Books, Kitchen, Automotive - 4.50%', 'Home - 3.00%', 'All Other Categories - 4.00%'. The blocker is NOT a login-gated rate card - that wording, and the F-04 reference supporting it, were corrected in the annex's own flags register and this row had not caught up. The genuine gap is narrower: Table 1 is keyed to commission categories and Amazon publishes no ASIN-to-category mapping, so a per-product rate cannot be stated from any public document. Economics are therefore expressed as a formula with the rate as an input, both candidate rows are shown, and no rate is asserted for a specific ASIN.",
+      "source": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+      "source_label": "Standard Commission Income Statement, Table 1 (public; read 2026-11-16)"
     },
     {
       "id": "R-09",

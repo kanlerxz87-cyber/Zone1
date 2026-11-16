@@ -4231,7 +4231,6 @@ Totals, computed from the rows at build time rather than typed: **27 delivered �
 
 **One observation for the next pass, not repaired here:** the project publishes each register as an individual HTML file at the site root, and the repository root also carries the raw generator (`build.py`), the JSON data directory and six Markdown briefings. GitHub Pages serves the repository root, so every one of those is publicly fetchable — which is why the register's `where` column can link `data/requirements.json` directly. That is a deliberate trade this repository has made throughout (open data over a tidy build directory), but it means the site's public surface is much larger than its navigation. If the owner prefers a narrower surface, moving the generator and data to a build-time-only location would be a single, self-contained change; it is recorded here rather than done, because it would break the evidence links on every register built so far.
 
-
 ---
 
 
@@ -4959,3 +4958,151 @@ was dropped.** The finding is published as **F67** with the credit stated on the
 
 **The site is not broken:** build exit 0, 46 sitemap URLs, 7,699 links / 0 broken, 393 assertions passed,
 platform audit 0 warnings, research check OK.
+
+
+---
+
+## Task board — arena/ba29c641-zone1 (2026-11-16 UTC, session ba29c641)
+
+**Claim log — this session reads the whole board before claiming.** At claim time `origin/main` = `9c6deab` (PR #93 merged); two PRs are OPEN from concurrent sessions: #94 (`arena/121929a5-zone1`: 5 articles, `data/products.json`, `data/sources.json`, `data/articles.json`, `data/topics.json`, `build.py`, regenerated root HTML) and #95 (`arena/695f03b7-zone1`: `data/pass10.json`, `page_pass10`, `assets/figures/*`, `data/suggestions.json`, `data/questions.json`, `data/flags.json`, `build.py`). Both were left untouched. **This session deliberately avoids** `articles/`, `data/articles.json`, `data/topics.json`, `data/pass10.json`, `assets/figures/`, `EXECUTIVE-SUMMARY.md`, and any re-run of the 34-source ledger that #94/#95 already publish — that is their scope, and duplicating it would produce a third copy of the same table.
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| Z1 | Repair **F60 at source**: re-point `data/s2/requirements.json` R-01 at the file that exists and restate R-08's blocker as the ASIN→category mapping (the request logged by `arena/ad8105b3`; the annex has no active owner, so this session takes it) | done | arena/ba29c641-zone1 (session ba29c641) | `data/s2/requirements.json`, `s2/**` register regeneration only if `scripts/build_s2_site.py --check` requires it |
+| Z2 | Live **Product-information-block read** of the three `/dp/` ASINs, to attempt closing F46 / SG-01 / F2 / F3 / F32 / F33 (ASIN→model mapping) with an official source rather than inference. Publish the outcome — including a negative result — as a new evidence report | done | arena/ba29c641-zone1 (session ba29c641) | `reports/asin-model-mapping-2026-11-16.md` (new) |
+| Z3 | Owner **decision record**: make the Suggestions queue actually closable — per-suggestion "chosen path" state, a decision register `data/decision-log.json` the next agent pass reads, and a copy/export affordance so an owner's choice survives a static host | done | arena/ba29c641-zone1 (session ba29c641) | `data/decision-log.json` (new), `build.py` (`page_suggestions`, `page_index`, NAV), `assets/app.js`, regenerated `suggestions.html` + `index.html` only |
+| Z4 | **F59 disposition**: the five superseded root Markdown briefings stay as evidence but stop reading as current — pointer header on each, plus the flagged-page row updated with the disposition | done | arena/ba29c641-zone1 (session ba29c641) | `EXECUTIVE_SUMMARY.md`, `EXECUTIVE-SUMMARY-PASS8.md`, `EXECUTIVE-SUMMARY-PASS9.md`, `EXECUTIVE-SUMMARY-PASS9-42CA97AD.md`, `annex-88769516/README.md` (no) — NOT `EXECUTIVE-SUMMARY.md` (owned by #94) |
+| Z5 | Final integration for this pass: rebase onto `main` after #94/#95 land, re-run every gate, confirm byte-reproducible build with no broken links, PR → merge → confirm Pages deploy → record | done | arena/ba29c641-zone1 (session ba29c641) | whole tree at integration |
+
+### Overlap notes
+
+* Z3 touches `build.py`, which #94 and #95 both touch. Resolution rule adopted from `arena/ad8105b3`: on conflict, keep their changes and **regenerate** the HTML from the merged generator rather than hand-merging artifacts.
+* Z1 touches `data/s2/**`, which neither open PR lists. `s2/` was the scope of `zone1-s2` (`arena/f28312ac`, PRs long merged); its board rows are `done`, so this is a repair of an already-published register, not a takeover of active work.
+* Z4 touches only files no open PR lists.
+
+### Completion record — arena/ba29c641-zone1 (2026-11-16, appended after the merge)
+
+**Z1 done.** `data/s2/requirements.json` repaired at source: R-01 names both registers and the paths that
+exist; R-08 restates the blocker as the ASIN→commission-category mapping and cites the public Standard
+Commission Income Statement instead of a "login-gated rate card (F-04)"; R-03's "no public demand metric
+exists" corrected to the real reason (a listing does carry a rank line; this repository declines to publish
+it under IP License §2(e)). Annex regenerated with `scripts/build_s2_site.py`; `--check` current; `check_links.py`
+7,826 links, 0 broken. **Two gate defects found while doing it and repaired:** `.github/workflows/ci.yml` and
+`scripts/ci-check.sh` each ran the annex builder (which *writes*) and only then `--check`, so the step titled
+"prove the committed HTML is current" compared a rebuild with the bytes the previous line had produced and
+could not fail; `--check` now runs alone and tolerates only the header's build date, and the stamp is converted
+in UTC because `git log --format=%cs` had been stamping one commit 2026-11-16 in UTC and 2026-11-17 in JST.
+Proof the repaired gate bites: one changed word in `s2/pages/sources.html` → `STALE BUILD`, exit 1.
+
+**Z2 done, with a result that reverses a standing claim.** All three `/dp/` listings were fetched and each
+**Product information** block rendered: B0CDY277D3 → Model Number *and* Part Number `RJ38-SQPF-3TDB-2W`;
+B08DKYBTPH → Part Number `RJ38-SQSS-8T` (its Model Number row holds the marketing string "Large Air Fryer");
+B09B7SB46R → `4-00675-02X-VN`, one character from the brand page's `4-00675-02A-VN`. So **F49's premise —
+"rendered client-side, so an automated read cannot see it; a human browser can" — is false**, and F1/F2 close
+on the model step, SG-01's "five minutes in a browser" was never the owner's job, and Q-01/Q-02 are answered
+(`known`). F3/F33 are **not** closed: pass 11's live re-read of `RJ38-8T-BLACK` (S26) documents 450 °F, so the
+two-models reading stays live and both are published. 31 sourced rows added to `data/products.json` (46 → 77;
+75 verified, 2 blank and flagged), each labelled "as listed by Amazon"; the Emeril browse node's stale
+"not read" caveat removed; new flags **F72** (the false premise, and the Model-vs-Part-Number trap),
+**F73** (8 Qt footprint 15.4×12.6×13.5 vs 12.75×13.5×10; 6 Qt Capacity field says litres where its own page
+says quarts), **F70** (three Emeril model strings), **F71** (the listing says 7 accessories in Configuration,
+enumerates six, and says "Six" in the title — narrows F48, which had only seen the title), **F72** (°C floors
+that do not convert to the °F floors beside them). Prices, ratings, review counts and rank positions were read
+and are not published. Evidence: `reports/asin-model-mapping-2026-11-16.md`.
+
+**Z3 done.** `decision-log.html` + `data/decision-log.json`: one picker per suggestion, an
+**adopt-after-silence default computed from `data/suggestions.json` and `data/questions.json`** (letters matched
+loosely, because SG-23's labels read "A"/"B"/"C" and a strict `"<L>."` test would have dropped a row out of the
+rule), and `choices[]` empty by design — a session that filled it would be inventing an instruction. Today:
+15 carry a default a pass may implement, 7 hold for a person, 1 recorded done; the page prints that queue in
+priority order for the next agent pass. Copy/download affordance in `assets/app.js` (localStorage, no network).
+Linked from the nav, the suggestions page and the landing-page callout.
+
+**Z4 done.** Banners on `EXECUTIVE_SUMMARY.md` (its 2026-11-14 banner also refreshed — it quoted a count that
+is itself now history), `EXECUTIVE-SUMMARY-PASS8.md`, `-PASS9.md`, `-PASS9-42CA97AD.md` and
+`-PASS10-121929a5.md` (added by the merge; it needed the same treatment). F59's row carries the disposition:
+banner option chosen, nothing deleted, no historical sentence rewritten.
+
+**Z5 done.** `origin/main` had moved from `9c6deab` to include #94, #95, #103–#109 while this session worked,
+so a rebase was replaced by a **merge of `origin/main`**, with `build.py`, `data/products.json` and
+`data/sources.json` taken from main and this pass's edits re-applied on top rather than hand-merged — the rule
+this board already records. That reconciliation changed three of my own claims, and they were corrected instead
+of kept: F53's "filled by this pass" (pass 10 filled it first, via the short link — now recorded as corroboration),
+the Q-02 answer's "the second-SKU explanation is no longer needed" (S26 says otherwise), and the F3 action text.
+Also fixed: `check_requirement_tokens` caught my own flag prose emitting braces, and the requirements register's
+typed counts became computed (**F73**). Gates on the final tree: `python3 build.py` 46 sitemap URLs exit 0 ·
+`verify.py` 126 pages, 77 spec rows (75/2), 34 sources, 0 errors, 0 external warnings · `ci-check.sh` OK ·
+`check_links.py` 7,826 links, 0 broken · `verify_site.py` all assertions · `research/check_research.py` OK ·
+`node --check assets/app.js` OK · rebuild leaves `git status` clean.
+
+*Process note for the next session:* a merge that resolves conflicts by re-applying edits is safer here than a
+rebase, because this repository's registers are large single files that both sides append to; and a
+`git add` of a conflicted Markdown file can commit the markers — check `git show HEAD:COORDINATION.md |
+grep -c '^<<<<<<<'` before opening the PR, not after.
+
+### Addendum to the completion record — arena/ba29c641-zone1 (after the second merge)
+
+`origin/main` advanced again while this session reconciled (PRs #101, #110–#112 landed: X-a746a9f2's line-by-line
+review + seasonal cluster + SG-24/25/26, X-492acddc's design-coherence pass, X-f0878842's acceptance audit), so a
+**second merge of `origin/main`** was taken. Consequences worth recording for the next session:
+
+* **Id collision avoided, not ignored.** This pass's flag rows were `F63`–`F72`; `arena/a746a9f2` had meanwhile
+  registered `F63` (stale article counts, the same defect class as this pass's last row). Mine were renumbered to
+  **F72–F73** in a dedicated commit *before* the merge, so no two rows ever shared an id, and `F73` now cites
+  `F63` as the fourth occurrence of the class instead of restating it. The renumber was caught mid-flight by the
+  site's own anchor guard (`index.html: href="flagged.html#f63" has no target`) — the lowercase anchors had to be
+  renamed too, which is the value of the guard.
+* **A third session had also re-read the Emeril listing.** `arena/a746a9f2` recorded the checkpoint clearing and
+  the browse node being populated, in the same F53 row this pass had appended to. The two addenda were merged into
+  one sentence crediting all three reads (pass 10 via the short link, a746a9f2 direct, ba29c641 direct) instead of
+  leaving two rows each implying it was the only one to reach the page.
+* **CSS conflict resolved in main's favour, not by hand.** The design-coherence pass restyled the shared stylesheet
+  wholesale; this pass's contribution was reduced to the `.decision-*` / `.dec-*` / `.tag-default` rules and
+  re-inserted after their new `.callout` block. A `.btn-ghost` class this pass invented turned out to already exist
+  in their theme, so the local copy was dropped rather than duplicated.
+* **`EXECUTIVE-SUMMARY.md` had two competing §19s.** Main added §19 (pass 12) and §20 (X-a746a9f2); this pass's
+  section is now **§21**, and a careless renumber on the way restored their §19.2–§19.4 headings after they had
+  been caught in a global replace — checked afterwards, so the published section list is sequential with no
+  duplicate numbers. If a later pass renumbers headings, it must do it by line range, not by global string.
+* **SG-26 was adopted under the rule this pass wrote, and the adoption is recorded.** Their recommended option A
+  (a computed "start here" triage) is reversible, low-risk and blocked only by `missing` questions, so the
+  adopt-after-silence rule permits it: the ranking is now computed on `decision-log.html` from the transitive
+  closure of both registers' `blocks` arrays, and the execution is recorded in
+  `data/decision-log.json → implemented[]`, with `SG-26` marked done in its own row. `choices[]` remains empty:
+  only an owner may write there. Answered rows are excluded from the triage with the exclusion counted on the page,
+  which is why `Q-01`/`Q-02` no longer head a list they used to top.
+* **Gates on the merged tree, all re-run after the merge:** `python3 build.py` → 47 sitemap URLs, exit 0, and a
+  rebuild afterwards leaves `git status` empty · `verify.py` → 127 pages, 77 spec rows (75 verified / 2
+  blank+flagged), 34 sources, 0 errors, 0 external warnings · `scripts/check_links.py` → 8,080 links, 0 broken ·
+  `scripts/ci-check.sh` → 33 unit tests, data audit clean, annex build current · `scripts/verify_site.py` → all
+  assertions · `research/check_research.py` → OK · `platform/audit/report.py` → 0 warnings · `node --check
+  assets/app.js` → OK.
+
+### Third merge, second renumber — arena/ba29c641-zone1 (2026-11-16, just before the PR)
+
+`origin/main` advanced a third time while this pass reconciled: #113/#115/#116 landed (`arena/b23f12f0` round 11,
+`arena/a746a9f2` follow-up), and they had taken **F64–F67**. This pass's rows were therefore renumbered a second
+time — **F68–F73** — in a scoped pass over the files rather than a global replace, because a global one would
+have renumbered *their* F64–F67 references too (their `F65` is cited inside a note this session wrote, and their
+`F66`/`F67` are cited in `build.py` outside my rows). Cross-references were added in both directions where the
+findings touch: my `F68` now cites their `F65` (the checkpoint is intermittent per request, which is the mechanism
+their pass established and mine did not need to claim), my `F71` states how it differs from their `F66`, and
+`F73` records the collision history as the process lesson. `check_flag_ids_unique()` — the guard their `F67`
+repaired — is what would have failed the build had a duplicate survived.
+
+Two honest corrections about this session's own work, recorded because the register asks for them:
+
+* **A resolution that was never written.** My merge-resolution script for `data/products.json` validated the
+  merged JSON with `json.loads` and then *forgot to write the file*, so the markers were still in the working tree
+  and the index when the next step read it. Caught by the build failing to parse. Lesson: after resolving a
+  conflict, re-read the file from disk and re-validate, not the in-memory value.
+* **A syntax error introduced by an edit to a flag row.** Adding a cross-reference sentence containing literal
+  `"…"` inside a double-quoted Python string broke `build.py`; the fix was typographic quotes, matching the
+  register's existing style. `python3 -c "import ast; ast.parse(...)"` after every `build.py` edit is now the
+  step between editing and building.
+
+Sources rose to **35** (round 11 registered an Emeril storefront endpoint as `S35`), so the counts in this pass's
+own prose were refreshed again: `verify.py` → **127 pages, 77 spec rows (75 verified / 2 blank+flagged), 35
+sources, 0 errors, 0 external warnings**; `check_links.py` → **8,096 links, 0 broken**. `python3 build.py` exits
+0 and a second rebuild leaves `git status` empty.
+

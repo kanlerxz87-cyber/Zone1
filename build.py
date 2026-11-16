@@ -120,6 +120,10 @@ PASS10_FULL = json.loads(_p10full.read_text(encoding="utf-8")) if _p10full.exist
 DECISION = load("decision.json")
 SUGGESTIONS = load("suggestions.json")
 QUESTIONS = load("questions.json")
+# Owner decision record (added 2026-11-16, arena/ba29c641): the write-side of the suggestions
+# review. choices[] is empty until an owner actually decides something, and no session may fill
+# it on their behalf - a default is not an instruction.
+DECISION_LOG = load("decision-log.json")
 SUG_BY_ID = {s["id"]: s for s in SUGGESTIONS["suggestions"]}
 # Design/content/traffic suggestion layer (added 2026-11-15, arena/bf487400-zone1).
 # The paste-ready design prompt plus the D/A/T/V/R registers, generated from JSON so the
@@ -359,6 +363,8 @@ NAV = [
     ("compliance.html", "Compliance", "Program rules, quoted, with sources"),
     ("flagged.html", "Flagged for review", "Unverified values and irregularities"),
     ("suggestions.html", "Suggestions", "Review site improvements before implementation"),
+    # Added 2026-11-16 (arena/ba29c641): the queue had 21 rows and no way to close one.
+    ("decision-log.html", "Owner decision log", "Pick a path per suggestion, or let the stated default stand"),
     ("design-prompt.html", "Design prompt pack", "Design, topics and tactics — review before changes"),
     ("questions.html", "Questions and gaps", "Known facts, missing answers and discovery steps"),
     ("requirements.html", "Requirements and status", "Every requirement in the brief, and whether this repo meets it"),
@@ -768,6 +774,22 @@ a.card:hover, .cardgrid a.card:hover{border-color:var(--brand-line);
 .callout.trust{border-left-color:var(--ok); background:#f4faf4}
 .callout.note{border-left-color:var(--brand); background:var(--brand-soft)}
 .callout.warn{border-left-color:var(--warn); background:var(--warn-soft)}
+
+/* Owner decision log (2026-11-16, arena/ba29c641). A picker on a static host has to look like a
+   form and behave like one, or it reads as decoration: real inputs, a visible default, and a
+   payload you can hand back. */
+.decision-picker fieldset{border:1px solid var(--line); border-radius:var(--radius); padding:.75rem .95rem .85rem; margin:.6rem 0; background:var(--panel)}
+.decision-picker legend{font-size:.9rem; font-weight:700; padding:0 .45rem}
+.decision-picker legend a{font-family:var(--mono); font-size:.8rem}
+.dec-opt{display:flex; flex-wrap:wrap; gap:.45rem; align-items:baseline; padding:.22rem 0; font-size:.9rem}
+.dec-opt input{margin:.25rem 0 0}
+.dec-opt em{flex-basis:100%; margin-left:1.2rem}
+.tag-default{font-size:.62rem; text-transform:uppercase; letter-spacing:.05em; background:var(--ok-soft); color:#14532d; padding:.12rem .4rem; border-radius:.3rem; font-style:normal}
+.hold-row{display:flex; gap:.45rem; align-items:baseline; font-size:.85rem; color:var(--muted); margin-top:.35rem}
+.decision-picker textarea{width:100%; font:inherit; font-size:.85rem; margin-top:.5rem; padding:.4rem .55rem; border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--ink)}
+.decision-actions{display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin:.7rem 0 .95rem}
+.decision-actions .btn{font-size:.82rem; padding:.4rem .8rem; border-radius:999px; cursor:pointer}
+.decision-out{background:#0f172a; color:#e2e8f0; padding:.85rem 1rem; border-radius:10px; font-family:var(--mono); font-size:.74rem; line-height:1.5; overflow:auto; max-height:22rem; white-space:pre-wrap}
 .callout p:last-child{margin-bottom:0}
 .callout strong{display:block; margin-bottom:.2rem}
 .link-status{margin:1.2rem 0 1.5rem; border-left-color:#c87539; background:#fdf5e8}
@@ -1045,6 +1067,136 @@ document.addEventListener('click', function (ev) {
   form.addEventListener('input', run);
   form.addEventListener('submit', function (e) { e.preventDefault(); run(); });
   run();
+})();
+
+// Owner decision picker (2026-11-16, arena/ba29c641) — decision-log.html only.
+// A static host has nowhere to POST a choice, so the picker keeps it in this browser and exports
+// the exact JSON body of data/decision-log.json. Progressive: with JS off the page still reads end
+// to end, every default is printed in the register table, and only the picking needs the script.
+// No dependency, no network call, nothing leaves the page.
+(function () {
+  var root = document.getElementById('decision-picker');
+  if (!root) return;
+  var KEY = 'zone1-***';
+  var counter = document.getElementById('decision-counter');
+  var out = document.getElementById('decision-output');
+  var store = {};
+  try { store = JSON.parse(window.localStorage.getItem(KEY) || '{}') || {}; } catch (err) { store = {}; }
+
+  function panels() {
+    return Array.prototype.slice.call(root.querySelectorAll('fieldset[data-sg]'));
+  }
+  function chosen(fs) {
+    var i = fs.querySelector('input:checked');
+    return i ? i.value : '';
+  }
+  function note(fs) {
+    var t = fs.querySelector('textarea.dec-note');
+    return t ? t.value.trim() : '';
+  }
+  function collect() {
+    var today = new Date().toISOString().slice(0, 10);
+    var picked = [];
+    panels().forEach(function (fs) {
+      var path = chosen(fs), txt = note(fs);
+      if (!path && !txt) return;
+      picked.push({
+        id: fs.getAttribute('data-sg'),
+        suggestion: fs.getAttribute('data-title'),
+        chosen_path: path === 'HOLD' ? 'hold' : path,
+        default_if_silent: fs.getAttribute('data-default') || 'none',
+        overrode_default: !!(path && path !== 'HOLD' && fs.getAttribute('data-default') &&
+                            path !== fs.getAttribute('data-default')),
+        note: txt,
+        recorded_at: today
+      });
+    });
+    return picked;
+  }
+  function payload() {
+    return JSON.stringify({
+      version: '1.1',
+      exported: new Date().toISOString().slice(0, 10),
+      exported_from: 'decision-log.html',
+      choices: collect(),
+      note: 'Merge choices[] into data/decision-log.json. A recorded choice outranks the default; ' +
+            'a suggestion absent from this list keeps its default.'
+    }, null, 1);
+  }
+  function paint() {
+    if (!counter) return;
+    var n = collect().length;
+    counter.textContent = n + ' of ' + panels().length + ' picked in this browser' +
+      (n ? ' — copy or download to hand it back' : ' — nothing picked yet');
+  }
+  function persist() {
+    try { window.localStorage.setItem(KEY, JSON.stringify(store)); } catch (err) {}
+  }
+  function record(target) {
+    var fs = target.closest ? target.closest('fieldset[data-sg]') : null;
+    if (!fs) return;
+    store[fs.getAttribute('data-sg')] = { path: chosen(fs), note: note(fs) };
+    persist();
+    paint();
+  }
+  function flash(btn, msg) {
+    var old = btn.textContent;
+    btn.setAttribute('data-label', old);
+    btn.textContent = msg;
+    setTimeout(function () { btn.textContent = old; }, 1900);
+  }
+  root.addEventListener('change', function (ev) { record(ev.target); });
+  root.addEventListener('input', function (ev) {
+    if (ev.target && ev.target.tagName === 'TEXTAREA') record(ev.target);
+  });
+  document.addEventListener('click', function (ev) {
+    var btn = ev.target.closest ? ev.target.closest('[data-decision-action]') : null;
+    if (!btn) return;
+    var act = btn.getAttribute('data-decision-action');
+    if (act === 'clear') {
+      store = {};
+      try { window.localStorage.removeItem(KEY); } catch (err) {}
+      root.querySelectorAll('input').forEach(function (i) { i.checked = false; });
+      root.querySelectorAll('textarea').forEach(function (t) { t.value = ''; });
+      if (out) { out.hidden = true; out.textContent = ''; }
+      paint();
+      return;
+    }
+    var text = payload();
+    var n = collect().length;
+    if (act === 'download') {
+      if (!n) { flash(btn, 'nothing picked yet'); return; }
+      var blob = new Blob([text], { type: 'application/json' });
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'decision-log.json';
+      document.body.appendChild(link);
+      link.click();
+      setTimeout(function () { URL.revokeObjectURL(link.href); link.remove(); }, 0);
+      flash(btn, 'downloaded');
+      return;
+    }
+    if (out) { out.hidden = false; out.textContent = text; }
+    if (!n) { flash(btn, 'nothing picked yet'); return; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(
+        function () { flash(btn, 'copied — paste it into any session'); },
+        function () { flash(btn, 'shown below — select and copy'); });
+    } else {
+      flash(btn, 'shown below — select and copy');
+    }
+  });
+  panels().forEach(function (fs) {
+    var v = store[fs.getAttribute('data-sg')];
+    if (!v) return;
+    if (v.path) {
+      var i = fs.querySelector('input[value="' + v.path + '"]');
+      if (i) i.checked = true;
+    }
+    var t = fs.querySelector('textarea.dec-note');
+    if (t && v.note) t.value = v.note;
+  });
+  paint();
 })();
 """
 
@@ -1600,7 +1752,7 @@ def page_index():
 
 <div class="callout bad">
   <strong>Five actions, about an hour, eighteen flags.</strong>
-  <p class="small" style="margin:.35rem 0 0">Everything in this repository is done as far as it can be done without your accounts. Reading the model number off three Amazon listings takes about three minutes and closes the four highest-severity flags. The full list, with exact steps and time estimates, is on <a href="handover.html">the handover sheet</a>.</p>
+  <p class="small" style="margin:.35rem 0 0">Everything in this repository is done as far as it can be done without your accounts. One item on the old list is finished: the model numbers have been read off all three listings' own Product information blocks (<a href="flagged.html#f68">F68</a>), which closes the ASIN-to-model step for the two Chefman products and narrows the third. What still waits for you is the part no public page can answer — what the three short links were created to point at, your Associates tag, and your account. The full list, with exact steps and time estimates, is on <a href="handover.html">the handover sheet</a>; the queue of changes, with the default each one falls back to if nobody answers, is on the <a href="decision-log.html">owner decision log</a>.</p>
 </div>
 
 <h2 id="evidence">Under the hood: how much of this is actually confirmed</h2>
@@ -1840,8 +1992,8 @@ def page_product(p):
 
 
 PROGRAMME_FLAGS = [
-    ("F1", "ASIN → manufacturer model number is not published by Amazon.",
-     "All three", "Each product's model number is recorded as a match by capacity/finish/brand wording, with an explicit caveat. Flagged rather than asserted.", ["S16"]),
+    ("F1", "ASIN → manufacturer model number: recorded for ten passes as not published by Amazon. Closed on 2026-11-16 for two of three products — see F49 and F68.",
+     "All three", "HISTORY KEPT, BECAUSE THE PREMISE WAS THE DEFECT: this row said the model number could not be read from the listing, so each product's model was published as a documented match with a caveat, and F49 recorded that a machine could not read it at all. On 2026-11-16 session arena/ba29c641 fetched all three /dp/ pages and each Product information block rendered. B0CDY277D3 states Model Number and Part Number RJ38-SQPF-3TDB-2W — the brand page's and manual's string, so that mapping is now sourced twice. B08DKYBTPH states Part Number RJ38-SQSS-8T (its Model Number row holds the marketing string 'Large Air Fryer'). B09B7SB46R states 4-00675-02X-VN, one character away from the brand page's 4-00675-02A-VN, and that conflict stays open (F70). Still open, unchanged by this pass: whether the supplied short links point where the account holder intended (F6, F7, F10), which is why the caveat on the *link* half of the mapping is not removed.", ["S16", "S28", "S29"]),
     ("F6", "The Associates tag inside the three link.amazon short links is not observable.",
      "All three links", "The shortener hides the tag. Attribution cannot be verified from outside Associates Central, so 'associates_tag_confirmed' is false for all three links. Needs the account holder to open Manage Tracking IDs.", ["S2", "S17"]),
     ("F7", "Program Policies §6(w) (Content on your Site) prohibits link shortening that makes it unclear you are linking to an Amazon Site.",
@@ -1902,13 +2054,13 @@ PROGRAMME_FLAGS = [
      "Re-read 2026-11-14 by sess-54c66535. The Chefman dual-window user guide RJ38-SQPF-3TDB-2W was read end to end and documents HI-FRY, +2 MIN, MUTE, SYNC BASKETS, SYNC FINISH, START/STOP, TIME/TEMP and SHAKE, but has no preset chart and never names the four food presets the site publishes; its control panel is artwork with no text layer. The Emeril brand page's specification block lists Timer, 26-Quart Capacity, Dual-Speed Fan, 25 Cooking Pre-sets, dimensions, 24.6 Liters, Temperature Control and 120 volts, with no interior-light row. Both values were left as published rather than deleted, because deleting another session's sourced row is not this pass's call, but neither is currently traceable to an official statement. Decision needed: re-source both to the brand product pages, or blank them and let them appear here as unverified.", ["S18", "S14"]),
     ("F31", "The two Chefman 6 Qt sister SKUs carry very different review counts on the brand's own site.",
      "Chefman 6 Qt Dual Basket",
-     "Re-read 2026-11-14 by sess-54c66535. The dual-basket page RJ38-SQPF-3TDB-2 reports 4.6 stars from 194 reviews; the dual-window page RJ38-SQPF-3TDB-2W reports 4.6 stars from 1,305 reviews, on an identical list price and promo ladder. The 6.7x gap is a usable signal for deciding which SKU the supplied ASIN maps to, which is open flag F2. It is not an identification: Amazon does not publish the model number behind an ASIN, and a review count is not a product identifier. No SKU is asserted.", ["S11", "S10"]),
+     "Re-read 2026-11-14 by sess-54c66535. The dual-basket page RJ38-SQPF-3TDB-2 reports 4.6 stars from 194 reviews; the dual-window page RJ38-SQPF-3TDB-2W reports 4.6 stars from 1,305 reviews, on an identical list price and promo ladder. The 6.7x gap is a usable signal for deciding which SKU the supplied ASIN maps to, which is open flag F2. It is not an identification: a review count is not a product identifier. No SKU is asserted. Correction 2026-11-16 (session arena/ba29c641): this row also stated that 'Amazon does not publish the model number behind an ASIN', which is false — the listing's Product information block publishes it (F49, F68) — so a review-count comparison is no longer the nearest thing to a route: the model number itself has been read, and it matches the -2W page this site maps to.", ["S11", "S10", "S16"]),
     ("F32", "Chefman sells three different 6-quart dual-basket SKUs; the site names two of them.",
      "Chefman 6 Qt Dual Basket",
-     "Found live 2026-11-14 by arena/6b2eddeb. Chefman's own store currently publishes RJ38-3DBW-V2 ('TurboFry 6 Qt. Double Basket Air Fryer with Easy View Windows': 6 Qt / 5.68 L as two 3 Qt / 2.84 L baskets, 90–400 °F / 32–204 °C, 1700 W, five functions — air fry, bake, reheat, dehydrate, frozen — easy-view windows, interior lights, shake notifications, 4.5 stars from 30 reviews, $99.99 list), RJ38-SQPF-3TDB-2 (dual-basket, 4.6 from 194, no specification block published) and RJ38-SQPF-3TDB-2W (dual-window, 200–450 °F, Hi-Fry, 4.6 from 1,305). The site records the -2W mapping because the Amazon title says 'Hi-Fry' and 'Easy View Windows', and Hi-Fry is documented only on the -2W page — but Easy View windows appear on all three, so the title does not discriminate on its own. This is an identification risk, not an identification. Two other builds shipped in this repo (site/, research/) map the same ASIN to RJ38-3DBW-V2 with no caveat, so a reader can reach two different official-looking answers two clicks apart. Decision needed: open the listing, read the model plate or the 'Product information' model number, and settle it once.", ["S25", "S27", "S10"]),
+     "Found live 2026-11-14 by arena/6b2eddeb. Chefman's own store currently publishes RJ38-3DBW-V2 ('TurboFry 6 Qt. Double Basket Air Fryer with Easy View Windows': 6 Qt / 5.68 L as two 3 Qt / 2.84 L baskets, 90–400 °F / 32–204 °C, 1700 W, five functions — air fry, bake, reheat, dehydrate, frozen — easy-view windows, interior lights, shake notifications, 4.5 stars from 30 reviews, $99.99 list), RJ38-SQPF-3TDB-2 (dual-basket, 4.6 from 194, no specification block published) and RJ38-SQPF-3TDB-2W (dual-window, 200–450 °F, Hi-Fry, 4.6 from 1,305). The site records the -2W mapping because the Amazon title says 'Hi-Fry' and 'Easy View Windows', and Hi-Fry is documented only on the -2W page — but Easy View windows appear on all three, so the title does not discriminate on its own. This is an identification risk, not an identification. Two other builds shipped in this repo (site/, research/) map the same ASIN to RJ38-3DBW-V2 with no caveat, so a reader can reach two different official-looking answers two clicks apart. Decision needed: open the listing, read the model plate or the 'Product information' model number, and settle it once. **Addendum 2026-11-16 (session arena/ba29c641): the read was done, by fetch.** The listing's Product information block states Model Number and Part Number RJ38-SQPF-3TDB-2W — the root site's mapping, not the site/ and research/ mapping to RJ38-3DBW-V2. Those two builds now disagree with a document each of them can read; they are not edited here because those trees belong to other sessions, and the divergence is another reason to retire or re-key them (F44). See F68.", ["S25", "S27", "S10", "S16"]),
     ("F33", "The 'Hi-Fry / 450 °F: None' row for the 8 Qt product is only true of the stainless SKU, and a second official SKU matches the Amazon title exactly.",
      "Chefman 8 Qt TurboFry",
-     "Found live 2026-11-14 by arena/6b2eddeb — narrows F3, does not resolve it. Chefman sells RJ38-SQSS-8T (TurboFry Touch Stainless-Steel, max 400 °F / 205 °C, four food presets, stainless finish — the SKU the site currently maps) and RJ38-8T-BLACK (TurboFry 8 Qt Air Fryer w/ High Fry: Hi-Fry 450 °F / 232 °C for the final two minutes, and exactly four functions — air fry, bake, dehydrate, frozen — in a matte-black finish). The Amazon listing title for B08DKYBTPH reads '…4-in-1 with 450°F Hi-Fry Option… | Bake, Dehydrate, Frozen | … Stainless Steel'. The function list and the 450 °F Hi-Fry match RJ38-8T-BLACK word for word; the finish matches RJ38-SQSS-8T. So the title may describe a third variant, or may carry a finish that does not match the unit. The previous framing — 'one of the two official sources is stale' — is now the less likely explanation. No value is changed and neither model is asserted; a human should read the model number printed in the listing's Product information section.", ["S12", "S26", "S16"]),
+     "Found live 2026-11-14 by arena/6b2eddeb — narrows F3, does not resolve it. Chefman sells RJ38-SQSS-8T (TurboFry Touch Stainless-Steel, max 400 °F / 205 °C, four food presets, stainless finish — the SKU the site currently maps) and RJ38-8T-BLACK (TurboFry 8 Qt Air Fryer w/ High Fry: Hi-Fry 450 °F / 232 °C for the final two minutes, and exactly four functions — air fry, bake, dehydrate, frozen — in a matte-black finish). The Amazon listing title for B08DKYBTPH reads '…4-in-1 with 450°F Hi-Fry Option… | Bake, Dehydrate, Frozen | … Stainless Steel'. The function list and the 450 °F Hi-Fry match RJ38-8T-BLACK word for word; the finish matches RJ38-SQSS-8T. So the title may describe a third variant, or may carry a finish that does not match the unit. The previous framing — 'one of the two official sources is stale' — is now the less likely explanation. No value is changed and neither model is asserted; a human should read the model number printed in the listing's Product information section. **Read 2026-11-16 by session arena/ba29c641, by fetch:** the listing states Part Number RJ38-SQSS-8T *and* Max Temperature Setting 400 °F — its identifier field points at the 400 °F model while its title describes the -BLACK's Hi-Fry capability. That is a listing carrying a title from somewhere else, which is not the same as proof of which machine ships: because RJ38-8T-BLACK genuinely documents 450 °F (S26), the two-models explanation this row opened stays live and both readings are published.", ["S12", "S26", "S16", "S29"]),
     ("F34", "The second executive summary at the repo root still asserts two things that are now known to be wrong.",
      "EXECUTIVE_SUMMARY.md",
      "Found 2026-11-14 by arena/6b2eddeb. EXECUTIVE_SUMMARY.md (the older of the two root summaries) states in its Key findings: 'Identity verified. All three short links resolve to Amazon.com product pages with different ASINs' and 'the official commission schedule redirected to a sign-in page'. This session re-fetched both on 2026-11-14: the Associates Program Standard Commission Income Statement (Table 1 and Bounty Events) was read in full with no login, and product identity is explicitly NOT verified anywhere on this site (F14–F16, F21, F32, F33). A dated correction banner was placed above that document by an earlier pass, but the contradicting sentences remain in the body and the file is still served from the site root by direct link. Decision needed: retire the duplicate document, or rewrite the two sentences. This pass did not edit it — the sentence is another session's published work and rewriting it is a content decision, not a verification one.", ["S1", "S3"]),
@@ -1992,7 +2144,7 @@ PROGRAMME_FLAGS = [
 
     ("F49", "The 2026-11-15 live pass could not retrieve the one fact that closes four high-severity flags, and the site now says why in the place a buyer will look.",
      "All three products — the model-number mapping",
-     "Recorded 2026-11-15 by arena/792c279e-zone1. The three Amazon detail pages were fetched again and returned the buy box, the protection plans and the 'Customers who viewed this item also viewed' blocks, but not the 'Product information' table that carries the model number. That block is rendered client-side, so an automated read cannot see it; a human browser can, in about ten seconds per listing. This is recorded as its own row because seven sessions have now listed F1/F2/F32/F33 as 'needs a human' without saying why the machine cannot do it, which invites an eighth session to try again. It is now also stated on picks.html, handover.html and hand-over item H1 rather than only in the register. Evidence: reports/verification-2026-11-15.md section 3 row V24.",
+     "Recorded 2026-11-15 by arena/792c279e-zone1. The three Amazon detail pages were fetched again and returned the buy box, the protection plans and the 'Customers who viewed this item also viewed' blocks, but not the 'Product information' table that carries the model number. That block is rendered client-side, so an automated read cannot see it; a human browser can, in about ten seconds per listing. This is recorded as its own row because seven sessions have now listed F1/F2/F32/F33 as 'needs a human' without saying why the machine cannot do it, which invites an eighth session to try again. It is now also stated on picks.html, handover.html and hand-over item H1 rather than only in the register. Evidence: reports/verification-2026-11-15.md section 3 row V24. **TESTED AND FALSIFIED 2026-11-16 by session arena/ba29c641-zone1.** The same /dp/ URLs were fetched from the same kind of environment and the Product information block was present in the response body for all three ASINs, model rows included, so the block is not unreachable to an automated read; whether it renders depends on the render path, not on the existence of the data. The row is kept rather than deleted because the failure it documents is real and worth reading: a negative observation about a fetch was promoted to a rule ('only a human can do this'), that rule was copied forward by six later passes, and it then gated four flags, two questions and the top item of the decision queue. A 'needs a human' claim is a claim about what a tool can reach, and it should be re-tested on the same schedule as any other checkable value. See F68.",
      ["S16", "S28", "S29"]),
 
     # ------------------------------------------------------------------ #
@@ -2030,12 +2182,12 @@ PROGRAMME_FLAGS = [
     # Neither changes a published value; both are records a reader can act on.
     ("F59", "The repository serves six separate executive summaries, five of them stale and none labelled stale.",
      "EXECUTIVE-SUMMARY.md, EXECUTIVE_SUMMARY.md, EXECUTIVE-SUMMARY-PASS8.md, EXECUTIVE-SUMMARY-PASS9.md, EXECUTIVE-SUMMARY-PASS9-42CA97AD.md, executive-summary.html",
-     "Recorded 2026-11-16 by arena/ad8105b3. A read of the repository root finds six files whose names all claim to be the executive summary: the generated executive-summary.html (current, built from data), EXECUTIVE-SUMMARY.md, and four earlier or parallel-session Markdown files (EXECUTIVE_SUMMARY.md, EXECUTIVE-SUMMARY-PASS8.md, EXECUTIVE-SUMMARY-PASS9.md, EXECUTIVE-SUMMARY-PASS9-42CA97AD.md). GitHub Pages publishes the repository root, so all six are reachable by URL. At least one, EXECUTIVE_SUMMARY.md, is already recorded in this register (F28) as asserting 'Identity verified. All three short links resolve to Amazon.com product pages with different ASINs', which this site's reconciled position contradicts. This pass did not delete or rewrite any of them: they are other sessions' committed records, and deleting another session's evidence is not a repair. The live site links only executive-summary.html. Decision needed: keep one Markdown briefing and move the rest under an archive directory with a one-line header saying what superseded them, or add a banner to each. Evidence: the six files themselves, and the root README.",
+     "Recorded 2026-11-16 by arena/ad8105b3. A read of the repository root finds six files whose names all claim to be the executive summary: the generated executive-summary.html (current, built from data), EXECUTIVE-SUMMARY.md, and four earlier or parallel-session Markdown files (EXECUTIVE_SUMMARY.md, EXECUTIVE-SUMMARY-PASS8.md, EXECUTIVE-SUMMARY-PASS9.md, EXECUTIVE-SUMMARY-PASS9-42CA97AD.md). GitHub Pages publishes the repository root, so all six are reachable by URL. At least one, EXECUTIVE_SUMMARY.md, is already recorded in this register (F28) as asserting 'Identity verified. All three short links resolve to Amazon.com product pages with different ASINs', which this site's reconciled position contradicts. This pass did not delete or rewrite any of them: they are other sessions' committed records, and deleting another session's evidence is not a repair. The live site links only executive-summary.html. Decision needed: keep one Markdown briefing and move the rest under an archive directory with a one-line header saying what superseded them, or add a banner to each. Evidence: the six files themselves, and the root README. **Disposition recorded 2026-11-16 (session arena/ba29c641): the banner option was taken,** because deleting another session's committed evidence is not a repair. Each non-canonical briefing now opens with a 'Superseded, and kept' line naming its session and date, pointing at executive-summary.html, and stating the specific claim inside it that the repository has since reversed. Covered: EXECUTIVE_SUMMARY.md (whose 2026-11-14 banner also carried a stale count, refreshed here), EXECUTIVE-SUMMARY-PASS8.md, EXECUTIVE-SUMMARY-PASS9.md, EXECUTIVE-SUMMARY-PASS9-42CA97AD.md and EXECUTIVE-SUMMARY-PASS10-121929a5.md — six Markdown briefings beside the generated page. Nothing was deleted and no historical sentence was rewritten.",
      ["S1"]),
 
     ("F60", "The s2 annex's requirements register cites two paths that do not exist, and its commission row rests on a premise the annex itself has since corrected.",
      "data/s2/requirements.json rows R-01 and R-08",
-     "Recorded 2026-11-16 by arena/ad8105b3 while building the root requirements register (requirements.html). Two defects in the annex register. (1) R-01 'Collect and organise a full list of requirements' gives its implementation path as 'data/requirements.json rendered on Requirements page'. There is no data/requirements.json: the file is data/s2/requirements.json, and it renders at s2/pages/requirements.html. So the repository's only requirements register pointed the reader at a different, non-existent file. This is the third occurrence of the same defect class (after F14 and F38 in this register), which is why the new root register has check_requirement_paths() failing the build on any cited path that does not exist, and that guard was proven to fire on an injected bad path. (2) R-08 'Analyse commission potential' is marked blocked with the reason 'login-gated rate card (F-04)'. data/s2/flags.json row F-04 is itself titled 'CORRECTED — a public commission table does exist' and records that the Standard Commission Income Statement is readable without a login, which this pass re-confirmed live on 2026-11-16: Table 1 renders 'Physical Books, Kitchen, Automotive 4.50%'. The genuine remaining gap is narrower — Table 1 is keyed to categories, not ASINs — and the root register states it that way. Neither row was edited in the annex: data/s2/requirements.json is another session's published output. Decision needed: re-point R-01 at the real path, and restate R-08's blocking reason as the ASIN-to-category mapping rather than a login. Evidence: the two annex files and the commission page.",
+     "Recorded 2026-11-16 by arena/ad8105b3 while building the root requirements register (requirements.html). Two defects in the annex register. (1) R-01 'Collect and organise a full list of requirements' gives its implementation path as 'data/requirements.json rendered on Requirements page'. There is no data/requirements.json: the file is data/s2/requirements.json, and it renders at s2/pages/requirements.html. So the repository's only requirements register pointed the reader at a different, non-existent file. This is the third occurrence of the same defect class (after F14 and F38 in this register), which is why the new root register has check_requirement_paths() failing the build on any cited path that does not exist, and that guard was proven to fire on an injected bad path. (2) R-08 'Analyse commission potential' is marked blocked with the reason 'login-gated rate card (F-04)'. data/s2/flags.json row F-04 is itself titled 'CORRECTED — a public commission table does exist' and records that the Standard Commission Income Statement is readable without a login, which this pass re-confirmed live on 2026-11-16: Table 1 renders 'Physical Books, Kitchen, Automotive 4.50%'. The genuine remaining gap is narrower — Table 1 is keyed to categories, not ASINs — and the root register states it that way. Neither row was edited in the annex: data/s2/requirements.json is another session's published output. Decision needed: re-point R-01 at the real path, and restate R-08's blocking reason as the ASIN-to-category mapping rather than a login. Evidence: the two annex files and the commission page. **Repaired at source 2026-11-16 (session arena/ba29c641), with the correction shown as a dated line inside the annex row rather than applied silently:** R-01 names both registers and the paths that exist, R-08 states the ASIN-to-category mapping as the blocker and cites the public Standard Commission Income Statement, and R-03's 'no public demand metric exists' was corrected to what is actually true (a listing does carry a rank line; this repository declines to publish it under IP License §2(e), F8). The annex was regenerated with its own generator, the only supported way to change s2/**.",
      ["S3"]),
 
     # ---- arena/63a2c638, integration pass 9, 2026-11-15 ----------------------------- #
@@ -2080,7 +2232,7 @@ PROGRAMME_FLAGS = [
      ["S2"]),
     ("F53", "The Amazon browse-node breadcrumb is now published for two ASINs, and it does not settle which commission rate applies.",
      "All three products - the 'Amazon browse node' row and open question Q-11",
-     "Recorded 2026-11-15 by arena/63a2c638, round 9, at the same time as the value itself was added, so the limit travels with the value. Both Chefman listings render the breadcrumb 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S16, S29). It is tempting to read 'Kitchen' there and apply the 4.50% Kitchen rate from the Commission Income Statement (S3). That would be an inference, not a source: S3's categories are commission categories defined by the Associates programme, Amazon's browse nodes are a shopper-navigation taxonomy, and Amazon publishes no mapping between the two. The same breadcrumb begins 'Home & Kitchen', and S3 also carries 'Home' at 3.00%, so the breadcrumb alone cannot even tell you which of the two it resembles. The site therefore continues to show the commission rate as unconfirmed (Q-11) and now shows the browse node as a separate, sourced fact. The Emeril browse node is blank: three fetches of that ASIN on 2026-11-15 returned Amazon's automated 'Continue shopping' checkpoint instead of the listing page, and a value that was never rendered cannot be recorded. Update 2026-11-16 (arena/a746a9f2): the checkpoint cleared and the breadcrumb rendered on B09B7SB46R; the Emeril browse-node row is now populated from that read (S28). The limit stated above is unchanged \u2014 the browse path still does not settle which commission rate applies (Q-11).",
+     "Recorded 2026-11-15 by arena/63a2c638, round 9, at the same time as the value itself was added, so the limit travels with the value. Both Chefman listings render the breadcrumb 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S16, S29). It is tempting to read 'Kitchen' there and apply the 4.50% Kitchen rate from the Commission Income Statement (S3). That would be an inference, not a source: S3's categories are commission categories defined by the Associates programme, Amazon's browse nodes are a shopper-navigation taxonomy, and Amazon publishes no mapping between the two. The same breadcrumb begins 'Home & Kitchen', and S3 also carries 'Home' at 3.00%, so the breadcrumb alone cannot even tell you which of the two it resembles. The site therefore continues to show the commission rate as unconfirmed (Q-11) and now shows the browse node as a separate, sourced fact. The Emeril browse node is blank: three fetches of that ASIN on 2026-11-15 returned Amazon's automated 'Continue shopping' checkpoint instead of the listing page, and a value that was never rendered cannot be recorded. **Update 2026-11-16, from three reads on one day:** pass 10 (arena/121929a5) filled the Emeril row by reaching the listing through the supplied short link; arena/a746a9f2 re-read the breadcrumb directly and recorded that the checkpoint had cleared; session arena/ba29c641 fetched the /dp/ URL independently and found the same classification in the page's Best Sellers Rank line (Kitchen & Dining; Air Fryers node 17659096011). Three of three ASINs now carry a browse classification from three routes, and none of the three carries a commission category: the inference this row forbids is still forbidden, as arena/a746a9f2 put it.",
      ["S3", "S16", "S29", "S28"]),
     # ---- arena/695f03b7-zone1, task P3, 2026-11-16 -------------------------------- #
     # Product-photography rights gap: no row records which images the site publishes or
@@ -2124,6 +2276,36 @@ PROGRAMME_FLAGS = [
      "Found independently by two sessions on 2026-11-16 and repaired by the first of them. This pass (arena/b23f12f0, round 11) found the defect while renumbering its own flags and checking whether the guard would object; session arena/2e346d24 located and repaired it on main first, and additionally added check_flag_count_matches_page() for the related defect where the landing page was advertising zero open flags beside a 61-row register. The defect: check_flag_ids_unique() counted flag rows with a pattern that began with a bare opening table-row tag followed immediately by the number cell, while page_flagged() has emitted a row id attribute since the per-row anchors landed. The pattern therefore matched nothing, and a Counter over an empty list reports no duplicates - so the guard returned success on every run while two sessions published different rows under F61 and F62 on the same day. This repository has been bitten by flag-ID collisions at least three times before (F28, F40 and the preamble case F58), which is why the guard exists. It is recorded here rather than in the repairing session's own words because the finding belongs on the register even though the repair predates this pass landing. Nothing in this row is a claim by this pass to have made the fix.",
      ["S1"]),
 
+
+    ("F68", "The 'only a human in a browser can read this' rule was untested for ten passes, and testing it took one fetch. Also: on one ASIN the model code is not in the field named Model Number.",
+     "F1, F2, F32, F33, F49, SG-01, Q-01, Q-02, hand-over item H1, and every product page",
+     "Found 2026-11-16 by arena/ba29c641-zone1, as the consequence of F49. The register's own explanation for why four flags needed a human was that the Product information table is rendered client-side and cannot be retrieved by a fetch. Three /dp/ URLs were fetched on 2026-11-16 and the block was present in each response, model rows included. Two lessons, both kept on the record. (1) A negative claim about tooling is an empirical claim and decays: 'the fetch did not return it' became 'a fetch cannot return it' without anyone re-testing, and six later passes copied the sentence forward, one of them into a hand-over sheet and a 'three minutes of your time' callout on the landing page. (2) The method matters as much as the read: on B08DKYBTPH the field called Model Number holds the marketing string 'Large Air Fryer' and the code sits in Part Number, so any procedure that reads 'the Model Number row' — the exact procedure SG-01 told the owner to follow — returns a non-code for one of the three products. Both fields must be read, and the two are compared. What this pass did NOT do is convert a listing claim into a manufacturer specification: the 31 rows added to data/products.json are each labelled 'as listed by Amazon' and sourced to S16/S28/S29, and product identity from the link side stays open (F6, F7, F10). The mechanism behind the earlier failed read is recorded separately and correctly by arena/b23f12f0 as F65 — the \u201cContinue shopping\u201d checkpoint is intermittent per request, not a property of the ASIN — so the 2026-11-15 observation that the table was missing was a real observation about three particular responses, and the error was generalising from them to a rule about all fetches. Both rows stand on their own reads.",
+     ["S16", "S28", "S29", "S10", "S12", "S13", "S18", "S26"]),
+
+    ("F69", "Two official documents disagree on the 8 Qt's footprint, and one listing disagrees with itself about the 6 Qt's capacity units.",
+     "chefman-8qt-turbofry dimensions rows; chefman-6qt-dual-basket capacity rows",
+     "Found 2026-11-16 by arena/ba29c641-zone1, in the same read that closed F1. chefman.com publishes the 8 Qt (RJ38-SQSS-8T) as 15.4 in x 12.6 in x 13.5 in and separates the 5 Qt figures on the same page (S12); the listing for B08DKYBTPH publishes 12.75\"D x 13.5\"W x 10\"H (S29). Those are not two ways of writing one measurement: the depth differs by 2.65 in and the height by 3.5 in, so a buyer checking a cabinet clearance gets a different answer from each official source, and the weight agrees on both (12.8 lb) — which is what makes it a documentation problem rather than a transcription of a different product. Nothing was averaged: the brand figures stay the published row, the listing's figures sit on their own dated row. The same class on the 6 Qt: its listing's Capacity field reads '6 liters' while the same page's title, its Size field and the brand page all read 6 quarts (5.67 L) — a unit label that moved. Any copy that turns a capacity or a footprint into advice (the capacity guide, the small-kitchen article) must carry the caveat until Chefman states which figures are the appliance and which are the carton. Decision needed: ask Chefman which number is the appliance footprint, or drop cabinet-clearance advice.",
+     ["S12", "S29", "S10", "S16"]),
+
+    ("F70", "Three official documents give three different model strings for the Emeril 26 QT, and the two newest differ by one character.",
+     "emeril-26qt-french-door model_number and its listing rows",
+     "Found 2026-11-16 by arena/ba29c641-zone1. The owner's manual is headed FAFO-001 (S15), the brand product page lists 4-00675-02A-VN (S14), and the listing for B09B7SB46R states 4-00675-02X-VN in both its Model Number and Part Number rows (S28). An 'A' against an 'X' in the tenth position is the whole difference, and it is the kind of difference that means either a variant suffix or a transcription error in one of three documents — no document in this repository says which. This is the one product where the live read did not settle the mapping the way it did for the two Chefman listings, so all three strings are quoted and none is asserted. The commercial reason it matters: a comparison page that prints the wrong SKU string is a page that can be accused of reviewing a different machine, on a site whose entire claim is traceability. Decision needed: Emeril Everyday support can state the SKU behind the ASIN in one reply; until then the product page shows three strings and the character in dispute.",
+     ["S14", "S15", "S28"]),
+
+    ("F71", "The Emeril listing contradicts itself inside one table: 7 accessories in Configuration, six parts enumerated in Included Components, 'Six' in the title. F48 records the six-vs-seven question; this row is about the self-contradiction.",
+     "emeril-26qt-french-door 'Included accessories', 'Configuration' and 'Included components' rows",
+     "Found 2026-11-16 by arena/ba29c641-zone1, and it complicates F48 rather than repeating it. F48 was recorded 2026-11-15 from the listing *title* alone ('Six Cooking Accessories Included' against the site's manual-sourced 7), and left open with the sensible observation that a listing may count a spit and its forks as one item. Reading the whole Product information block shows the page does not agree with itself: its Configuration field says '…with 24 Functions and 7 Accessories', its Included Components row then enumerates six named parts (Rack, Bake Pan, Drip Tray, Crisper Basket, Rotisserie Spit, Fetch Tool), and its title says Six. So 'the listing says six' is not a single fact to weigh against the manual — the listing says both, on one screen. The site's published value stays 7 because the brand page and the manual state it (S14, S15); the Configuration field is a fourth document that agrees, and the enumeration is a second that does not. No averaging, no quiet correction. Decision needed: the packing list settles it. Note the same fetch also strengthened the other half of that row: '24 Functions' in the Configuration field is a third document agreeing with the manual's 24 named presets against the brand page's '25 Cooking Pre-sets' (F4). Distinct from F66, which records the brand page's own 24/25 split and the title-vs-manual accessory disagreement: this row is the narrower observation that the two counts sit next to each other in one table on the listing.",
+     ["S14", "S15", "S28"]),
+
+    ("F72", "Temperature floors published in degrees Celsius do not convert to the floors published in degrees Fahrenheit, on two of the three products.",
+     "chefman-6qt-dual-basket and chefman-8qt-turbofry temperature rows; any copy quoting a low end",
+     "Found 2026-11-16 by arena/ba29c641-zone1. The 6 Qt brand page gives 200-450 °F / 95-235 °C (S10); the same product's listing states 'Min Temperature Setting: 93 °C' (S16), and 93 °C is 199.4 °F, not 95 °C's 203 °F. The 8 Qt listing states 'Min 94 °C' (S29) against the brand page's 200 °F floor (S12), i.e. 201.2 °F. Two degrees, in both cases, in the same direction: 200 °F is 93.33 °C, so someone rounded the Celsius figure up in one document and left the Fahrenheit figure alone in the other. This is a rounding inconsistency, not a second specification, and it is recorded rather than repaired because the site does not get to rewrite a manufacturer's numbers. What it forbids is specific: an article that says 'the 6 Qt goes down to 95 °C' is quoting one page and contradicting another, so low-end claims must show both units with the source that uses them, or stay out of the copy.",
+     ["S10", "S16", "S12", "S29"]),
+
+    ("F73", "The requirements register promised computed counts in its own preamble and then typed eight of them into prose; four had already gone stale.",
+     "data/requirements.json (rows A-02, A-04, A-06, B-01, B-05, B-06, B-08, C-02, D-05, G-01)",
+     "Found 2026-11-16 by arena/ba29c641-zone1 while updating the register for this pass's rows. The file's `counts_note` says: 'Counts are computed from the rows at build time rather than typed, so this page cannot claim a total the register does not contain.' The status counts at the top of the page are indeed computed — every number inside the prose of individual rows was typed, and four had drifted within two days: 'Forty-six spec rows' and '43 of 46 carry a value' (the dataset had moved to 46 and then to 77 as passes added sourced rows), 'Twenty-one numbered suggestions (SG-01…SG-21)' against a register of 23, 'Twenty questions' against 22, and 'a generated sitemap of 37 URLs' against 46. None of these is a wrong fact about the world; each is a right fact about an older build, published as present tense, which is how a verification register quietly becomes a historical document. The fix is structural, not editorial: those rows now write named count tokens — n_spec_rows, n_verified_rows, n_blank_rows, n_suggestions, n_sg_last, n_questions, n_articles, n_topics, n_products, n_sources, n_banned, n_banned_distinct, n_tests, n_guards, n_stale_briefings — each wrapped in braces in the data and substituted by req_interp() from the same objects the pages render from. An unknown token raises at build time, and check_requirement_tokens() fails the build if a brace-delimited token survives into any generated page, so a row cannot ship half-interpolated. Both directions were proven: an injected bad token and an injected unresolved token each exited non-zero. The same class is why this register's sibling in the s2 annex carries F60, and why the sitemap row's number was removed rather than retyped: a count is only true at the moment it is written — including the counts typed into this register's own log lines, one of which this pass had to correct in its own commit message two minutes after writing it (7,815 links became 7,826 when the guard rows were added). Process note for the next session: this pass's rows were renumbered twice in one day to avoid same-day id collisions — first off F63 (arena/a746a9f2), then off F64-F67 (arena/b23f12f0, whose F67 is the duplicate-ID guard that has now caught both collisions). Renumbering is cheap while a PR is open and expensive after it merges.",
+     []),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -2155,6 +2337,12 @@ REPO_EVIDENCE = {
     "F65": ["data/sources.json", "data/products.json"],
     "F66": ["data/sources.json", "data/products.json"],
     "F67": ["build.py", "flagged.html"],
+    "F68": ["reports/asin-model-mapping-2026-11-16.md", "data/products.json", "build.py"],
+    "F69": ["data/products.json"],
+    "F70": ["data/products.json"],
+    "F71": ["data/products.json"],
+    "F72": ["data/products.json"],
+    "F73": ["data/requirements.json", "build.py"],
 }
 
 VERDICTS = {
@@ -2163,7 +2351,7 @@ VERDICTS = {
     "emeril-26qt-french-door":
         "The largest cavity in the set by a wide margin (26 qt against 6 qt and 8 qt) and the only unit that is an oven rather than a basket. The manufacturer documents the power draw (1700 W), the temperature range (75–500 °F) and the physical footprint, which is what actually decides whether it fits a kitchen. On preset count the manual is the controlling document: its chart names exactly 24 presets, which matches the description text and the Amazon title rather than the spec block's 25. The brand's own on-site rating is unusually low (2.6 from 25 reviews) and is reported here as displayed, not softened.",
     "chefman-8qt-turbofry":
-        "A conventional single-basket 8-quart air fryer with a documented 200–400 °F range, four food-type presets and dishwasher-safe nonstick parts. The unresolved problem is that the Amazon listing title advertises a 450 °F Hi-Fry mode and bake/dehydrate/frozen functions that the RJ38-SQSS-8T page and manual do not document. A 2026-11-14 read found that Chefman sells a second 8-quart SKU, RJ38-8T-BLACK, whose page states exactly that Hi-Fry mode and exactly those four functions — so the listing probably describes a different unit rather than a stale page (flag F33). Until someone opens the listing and reads the model number, the honest position is that the temperature ceiling of the unit shipping against this ASIN is unknown, and the buyer should read the manual that arrives with the unit.",
+        "A conventional single-basket 8-quart air fryer with a documented 200–400 °F range, four food-type presets and dishwasher-safe nonstick parts. The unresolved problem is that the Amazon listing title advertises a 450 °F Hi-Fry mode and bake/dehydrate/frozen functions that the RJ38-SQSS-8T page and manual do not document. A 2026-11-14 read found that Chefman sells a second 8-quart SKU, RJ38-8T-BLACK, whose page states exactly that Hi-Fry mode and exactly those four functions — so the listing probably describes a different unit rather than a stale page (flag F33). The listing has since been read: its own Part Number row identifies RJ38-SQSS-8T and its own spec table states a 400 °F maximum (S29, read 2026-11-16). So the 450 °F wording in the title is contradicted by the page that carries it — but because a second Chefman 8 Qt page documents exactly that 450 °F Hi-Fry (S26), the honest position is unchanged in kind: the temperature ceiling of the machine that ships against this ASIN is not something this site will assert, and a buyer should read the manual in the box. See F3, F33 and F68.",
 }
 
 
@@ -3844,7 +4032,7 @@ def page_previous_passes():
 <p class="small muted">Every disagreement above is published, with its source links, on <a href="flagged.html">Flagged for review</a>: the model-number question is <strong>F32</strong>, the policy-label question is <strong>F27</strong>, the number of parallel builds is <strong>F35</strong>.</p>
 
 <h2>Why the builds were not merged into one</h2>
-<p class="small">Merging them would mean picking a winner for each disagreement on evidence that does not exist yet. For the model number, only the account holder can settle it by reading the model plate on a unit or the listing's product-information block. For the policy labels, the live page settles it and the canonical build already matches the live page — but rewriting another session's published pages to match would destroy the record of what that pass actually verified against.</p>
+<p class="small">Merging them would mean picking a winner for each disagreement on evidence that does not exist yet. For the model number the listing's product-information block was read on 2026-11-16 and published (F68), which settled the ASIN-to-model step for the two Chefman listings; only the model plate on a physical unit can say what ships against an ASIN, and that is still the account holder's to check. For the policy labels, the live page settles it and the canonical build already matches the live page — but rewriting another session's published pages to match would destroy the record of what that pass actually verified against.</p>
 
 <h2>What "canonical" means here, precisely</h2>
 <div class="tablewrap">
@@ -4221,6 +4409,9 @@ a short story rather than an open-ended project.</p>
   The score is <em>{e(s["scoring_note"])}</em>
   Suggestions blocked by something only you can supply link to the exact row on the
   <a href="questions.html">Open questions</a> page.
+  <a href="decision-log.html">The owner decision log</a> is where a choice is recorded: one picker
+  per suggestion, the default that stands if nothing is picked, and an export that turns the picks
+  into the file the next agent pass reads.
 </div>
 
 {paths_html}
@@ -4511,14 +4702,14 @@ QUESTIONS_ALT = [
      "Read Schedule 1 and the Japan Associates pages. Ask Associates support if the answer is unclear.",
      "SG-10", ["S1"]),
     ("Q-07", "Is RJ38-SQPF-3TDB-2W the exact model sold under ASIN B0CDY277D3?",
-     "The owner's manual matches the listing wording (dual baskets, easy-view windows, Hi-Fry, Sync Finish). Amazon does not publish the model number on the product page.",
-     "A model number printed on the product, or on the listing's product-information block, is not confirmed.",
-     "Read the model plate on a unit, or the 'Product information' block on the listing page. Record what you find with the source.",
+     "The owner's manual matches the listing wording (dual baskets, easy-view windows, Hi-Fry, Sync Finish), and since 2026-11-16 the listing's own Product information block states Model Number and Part Number RJ38-SQPF-3TDB-2W (S16).",
+     "Nothing for the listing read. A model plate on a physical unit is still the only way to check what ships against the ASIN.",
+     "Done 2026-11-16 by session arena/ba29c641 — see F68 and reports/asin-model-mapping-2026-11-16.md. To go further: read the plate on an owned unit, or ask Chefman which SKU is behind the ASIN.",
      "Product page spec rows", ["S10", "S16"]),
     ("Q-08", "Which model is sold under ASIN B09B7SB46R (Emeril Lagasse 26QT)?",
-     "The owner's manual FAFO-001 and the brand product page describe the Emeril 26QT French Door air fryer.",
-     "The model number printed on the Amazon listing is not confirmed.",
-     "Read the 'Product information' block on the listing page and compare it with the manual's model number.",
+     "The owner's manual FAFO-001 and the brand product page (4-00675-02A-VN) describe the Emeril 26QT French Door air fryer, and the listing read on 2026-11-16 states 4-00675-02X-VN in both its Model Number and Part Number rows (S28) — one character from the brand page's string.",
+     "Which of the three strings is the model printed on the unit. The listing is now confirmed; the reconciliation is not.",
+     "Done: the block was read on 2026-11-16 (F68). Remaining step: ask Emeril Everyday support which SKU sits behind ASIN B09B7SB46R (F70).",
      "Product page spec rows", ["S15", "S14", "S16"]),
     ("Q-09", "Which Chefman 8 Qt model is sold under ASIN B08DKYBTPH: RJ38-SQSS-8T or RJ38-8T-BLACK?",
      "The brand's owner's manual names RJ38-SQSS-8T. A different brand page lists RJ38-8T-BLACK. The two model names conflict in the sources.",
@@ -4551,6 +4742,335 @@ QUESTIONS_ALT = [
      "Read the Trademark Guidelines linked from the Program Policies, then review each headline and image.",
      "SG-02, article headlines", ["S2", "S1"]),
 ]
+
+
+
+def page_decision_log():
+    """Owner decision log (2026-11-16, arena/ba29c641).
+
+    The brief asks for two things that pull against each other: a section where a human reviews
+    suggestions and chooses a path *before* anything changes, and no manual input required of the
+    owner to keep the project moving. They meet in one rule, computed here from the same registers
+    rather than asserted in prose: a suggestion whose recommended path is reversible, low-risk and
+    unblocked by an account-only fact carries that path as a default; everything else waits. A
+    picker records a real choice over any default, and the page exports the file a later pass reads.
+    """
+    s = SUGGESTIONS
+    log = DECISION_LOG
+    qinfo = {q["id"]: q for q in QUESTIONS["questions"]}
+    recorded = {c["id"]: c for c in (log.get("choices") or [])}
+    safe_risk = ("none", "low")
+
+    def letter_of(label):
+        """The path letter an option label names.
+
+        The register is not uniform: most labels read 'A. Rebuild the landing page', a row added by
+        another pass reads just 'A', and another would read 'B)'. Matching only on '<letter>.' would
+        have silently dropped a suggestion out of the default rule — and a suggestion that drops out
+        stops being reviewable, which is the failure mode this page exists to avoid. Any leading
+        letter, punctuated or not, is accepted. (2026-11-16, arena/ba29c641.)
+        """
+        m = re.match(r"\s*([A-Za-z])\s*[\.\):]?", label or "")
+        return m.group(1).upper() if m else ""
+
+    def default_for(sg):
+        """Return (letter, label, kind, reason) for one suggestion's stand-if-silent outcome."""
+        rec = (sg.get("recommendation") or "").strip()
+        letter = rec[:1].upper() if rec else ""
+        opts = sg.get("options") or []
+
+        chosen = next((o for o in opts if letter_of(o.get("label")) == letter), None) if len(letter) == 1 else None
+        if (sg.get("effort") or "").strip().lower() in ("done", "shipped", "complete", "complete."):
+            return (letter, (chosen or {}).get("label", ""), "done",
+                    "Recorded as done in the register: the outcome is on the row, so no path is waiting.")
+        if chosen is None:
+            return ("", "", "hold", "The recommendation does not name a lettered path this register "
+                    "can match, so there is nothing to default to.")
+        blocked = sg.get("blocked_by") or []
+        hard = [b for b in blocked if qinfo.get(b, {}).get("state") == "unknowable"]
+        if hard:
+            return (letter, chosen.get("label", ""), "hold",
+                    "It depends on a fact only the account holder can supply ("
+                    + ", ".join(hard) + "), so silence is not consent here.")
+        if chosen.get("reversible") is False:
+            return (letter, chosen.get("label", ""), "hold",
+                    "Marked not reversible: an irreversible change waits for a person.")
+        if (chosen.get("risk") or "").strip().lower() not in safe_risk:
+            return (letter, chosen.get("label", ""), "hold",
+                    "Risk is " + str(chosen.get("risk")) + ", above the low bar this register sets "
+                    "for acting without an answer.")
+        return (letter, chosen.get("label", ""), "auto",
+                "Reversible, risk " + str(chosen.get("risk")) + ", no account-only blocker, so the "
+                "default stands until a picker overrules it.")
+
+    order = sorted(s["suggestions"], key=lambda x: -(x["impact"] * x["confidence"]))
+    computed = {sg["id"]: default_for(sg) for sg in order}
+    # 'done' rows are neither auto nor hold: count them separately so the three stats add up.
+    n_auto = sum(1 for v in computed.values() if v[2] == "auto")
+    n_hold = sum(1 for v in computed.values() if v[2] == "hold")
+    n_done = sum(1 for v in computed.values() if v[2] == "done")
+    assert n_auto + n_hold + n_done == len(order), "decision-log: a suggestion fell out of the default rule"
+
+    rows = []
+    for sg in order:
+        letter, label, kind, reason = computed[sg["id"]]
+        blocked = sg.get("blocked_by") or []
+        blist = " ".join(
+            f'<a class="src" href="questions.html#{e(q.lower())}">{e(q)}</a>'
+            for q in blocked) or '<span class="tiny muted">nothing blocked</span>'
+        ev = [x["url"] for x in sg["evidence"] if x["url"].startswith("https://")]
+        ev_links = " ".join(
+            f'<a class="src-link" href="{e(u)}" target="_blank" rel="noopener">'
+            f'{e(u.split("//")[-1][:30])} ↗</a>' for u in ev[:2])
+        rec = recorded.get(sg["id"])
+        if rec:
+            state = (f'<span class="pill pill-ok">recorded</span>'
+                     f'<div class="tiny">{e(str(rec.get("chosen_path", "")))} · '
+                     f'{e(str(rec.get("recorded_at", "")))}</div>')
+        elif kind == "auto":
+            state = f'<span class="pill pill-ok">default {e(letter)}</span>'
+        elif kind == "done":
+            state = '<span class="pill pill-info">done</span>'
+        else:
+            state = '<span class="pill pill-warn">open</span>'
+        rows.append(
+            f'<tr id="{e(sg["id"].lower())}">'
+            f'<td class="num">{e(sg["id"])}</td>'
+            f'<td><a href="suggestions.html#{e(sg["id"].lower())}">{e(sg["title"])}</a>'
+            f'<div class="tiny muted">{e(sg["area"])} · priority {sg["impact"] * sg["confidence"]}</div></td>'
+            f'<td class="small">{e((label or sg.get("recommendation", "")).strip())}</td>'
+            f'<td class="small">{e(reason)}<div class="tiny muted">Blocked by: {blist}</div></td>'
+            f'<td>{state}</td>'
+            f'<td class="small">{ev_links} <a class="src" href="flagged.html">Flagged ↗</a></td>'
+            f'</tr>')
+
+    fields = []
+    for sg in order:
+        letter, label, kind, reason = computed[sg["id"]]
+        opts_html = "".join(
+            f'<label class="dec-opt"><input type="radio" name="dec-{e(sg["id"])}" '
+            f'value="{e((o.get("label") or "").strip()[0])}" data-sg="{e(sg["id"])}">'
+            f'<span>{e(o.get("label"))}</span>'
+            f'<em class="tiny muted">effort {e(str(o.get("effort")))} · risk {e(str(o.get("risk")))}</em>'
+            + ('<b class="tag-default">default</b>'
+               if kind == "auto" and letter_of(o.get("label")) == letter else "")
+            + '</label>'
+            for o in (sg.get("options") or []))
+        fields.append(
+            f'<fieldset class="dec-row" data-sg="{e(sg["id"])}" '
+            f'data-title="{e(sg["title"])}" data-default="{e(letter if kind == "auto" else "")}">'
+            f'<legend><a href="suggestions.html#{e(sg["id"].lower())}">{e(sg["id"])}</a> '
+            f'{e(sg["title"])} '
+            + (f'<span class="pill pill-ok">default {e(letter)}</span>' if kind == "auto"
+               else '<span class="pill pill-info">already recorded as done</span>' if kind == "done"
+               else '<span class="pill pill-warn">waits for you</span>')
+            + '</legend>'
+            f'<p class="tiny muted">{e(sg.get("problem", ""))[:220]}'
+            f'{"…" if len(sg.get("problem", "")) > 220 else ""}</p>'
+            f'{opts_html}'
+            f'<label class="hold-row"><input type="radio" name="dec-{e(sg["id"])}" value="HOLD" '
+            f'data-sg="{e(sg["id"])}"><span>Hold this one — change nothing</span></label>'
+            f'<textarea class="dec-note" rows="2" data-sg="{e(sg["id"])}" '
+            f'placeholder="Optional: a condition, a date, or why. This travels with your choice."></textarea>'
+            f'</fieldset>')
+
+    if recorded:
+        rec_tbl = ('<div class="tablewrap"><table><thead><tr><th>Suggestion</th><th>Chosen path</th>'
+                   '<th>Recorded</th><th>Note</th></tr></thead><tbody>' + "".join(
+                       f'<tr><td class="num"><a href="#{e(c["id"].lower())}">{e(c["id"])}</a></td>'
+                       f'<td>{e(str(c.get("chosen_path", "")))}</td>'
+                       f'<td>{e(str(c.get("recorded_at", "")))}</td>'
+                       f'<td class="small">{e(str(c.get("note", "") or "—"))} '
+                       f'<a class="src" href="flagged.html">context ↗</a></td></tr>'
+                       for c in (log.get("choices") or [])) + "</tbody></table></div>")
+    else:
+        rec_tbl = (
+          '<div class="callout note"><p class="small" style="margin:0">No owner decision is recorded '
+          'in the repository yet, so every row below stands on its default. That is the designed state, '
+          'not a gap: <code>choices</code> stays empty until a person chooses, because a session that '
+          'filled it would be inventing an instruction. ' + str(n_auto) + ' suggestions carry a default '
+          'a later pass may implement without asking; ' + str(n_hold) + ' hold for an answer'
+          + (f'; {n_done} are recorded as done.' if n_done else '.') + '</p></div>')
+
+    # ---- "start here" triage, computed (SG-26 path A, implemented 2026-11-16 by arena/ba29c641) ----
+    # The register already carries the order: every suggestion lists what it unblocks in `blocks`, and
+    # every question lists the suggestions it gates. Downstream size = transitive closure of those two
+    # arrays, so a row that frees four others outranks one that frees none, and the ranking regenerates
+    # when a row is edited instead of being retyped by the next pass (the class F63 and F73 document).
+    blocks_sg = {x["id"]: list(x.get("blocks") or []) for x in s["suggestions"]}
+    blocks_q = {q["id"]: list(q.get("blocks") or []) for q in QUESTIONS["questions"]}
+
+    def downstream(root, seen=None):
+        seen = seen or set()
+        total = set()
+        frontier = [root]
+        while frontier:
+            cur = frontier.pop()
+            for nxt in blocks_sg.get(cur, []) + blocks_q.get(cur, []):
+                if nxt not in total:
+                    total.add(nxt)
+                    if nxt not in seen and nxt != root:
+                        seen.add(nxt)
+                        frontier.append(nxt)
+        return total
+
+    # Rows already answered are excluded, with the exclusion counted on the page: a "start here"
+    # list that still shows a closed question is worse than no list, because it re-asks the owner
+    # for something the repository now holds (this pass answered Q-01 and Q-02 the same way).
+    answered_q = {k for k, v in qinfo.items() if v.get("state") in ("known", "answered")}
+    done_sg = {x["id"] for x in s["suggestions"]
+               if (x.get("effort") or "").strip().lower() in ("done", "shipped", "complete")}
+    set_aside = len(answered_q) + len(done_sg)
+    triage = []
+    for sid, lst in blocks_q.items():
+        if lst and sid not in answered_q:
+            free = downstream(sid)
+            qrow = qinfo.get(sid, {})
+            triage.append((len(free), sid, qrow.get("question", ""), "questions.html#" + sid.lower(),
+                           ", ".join(lst)))
+    for sg in order:
+        if blocks_sg.get(sg["id"]) and sg["id"] not in done_sg:
+            free = downstream(sg["id"])
+            triage.append((len(free), sg["id"], sg["title"], "suggestions.html#" + sg["id"].lower(),
+                           ", ".join(sorted(set(blocks_sg[sg["id"]]) - {sg["id"]}))))
+    triage.sort(key=lambda x: (-x[0], x[1]))
+    triage_rows = "".join(
+        f'<tr><td class="num"><a href="{href}">{e(nid)}</a></td>'
+        f'<td>{e(txt)}</td><td class="num">{n}</td>'
+        f'<td class="small">{e(frees)} <a class="src" href="{REPO_BLOB}data/suggestions.json" '
+        f'target="_blank" rel="noopener" title="the register carrying these blocker edges">data ↗</a> '
+        f'<a class="src" href="flagged.html">caveats ↗</a></td></tr>'
+        for n, nid, txt, href, frees in triage[:6])
+
+    implemented = log.get("implemented") or []
+    if implemented:
+        implemented_html = ('<div class="tablewrap"><table><caption>Executed under the standing rule — '
+            'not owner decisions</caption><thead><tr><th>Date</th><th>Row</th><th>Path</th>'
+            '<th>What was done</th><th>Why the rule allowed it</th></tr></thead><tbody>' + "".join(
+              f'<tr><td>{e(str(x.get("date", "")))}</td>'
+              f'<td class="num"><a href="suggestions.html#{e(str(x.get("id", "")).lower())}">{e(x.get("id", ""))}</a></td>'
+              f'<td class="num">{e(str(x.get("path", "")))}</td>'
+              f'<td class="small">{e(str(x.get("what", "")))} <a class="src" href="flagged.html">flags ↗</a></td>'
+              f'<td class="small">{e(str(x.get("why_allowed", "")))}</td></tr>'
+              for x in implemented) + '</tbody></table></div>'
+            + f'<p class="tiny muted">{e(str(log.get("implemented_note", "")).strip())}</p>')
+    else:
+        implemented_html = ('<p class="small muted">Nothing yet. A default that a pass executes must be '
+                            'recorded here on the same commit, or the rule is unverifiable.</p>')
+    steps = "".join(f"<li>{e(x)}</li>" for x in log.get("how_to_return_a_choice", []))
+    auto_in_order = [sg for sg in order if computed[sg["id"]][2] == "auto"]
+    queue = "".join(
+        f'<li><a href="suggestions.html#{e(sg["id"].lower())}">{e(sg["id"])}</a> — '
+        f'path {e(computed[sg["id"]][0])} · {e(sg["title"])}'
+        f'<div class="tiny muted">priority {sg["impact"] * sg["confidence"]} · effort '
+        f'{e(str(sg.get("effort", "")))} · touches: {e(sg.get("area", ""))}</div></li>'
+        for sg in auto_in_order)
+    policy = log.get("policy") or {}
+
+    body = f"""
+<p class="crumbs"><a href="index.html">Home</a> / Owner decision log</p>
+<h1>Owner decision log: pick a path, or let the stated default stand</h1>
+<p class="lede">The suggestion queue runs to {len(order)} entries, and a queue nobody closes is a
+backlog. This page is the closing mechanism: one picker per suggestion, the default that applies if
+nobody answers, and an export that turns picks into the file the next agent pass reads. The rule is
+computed from the same registers the suggestions live in, so the page cannot promise a default its
+own data does not support.</p>
+
+<div class="callout info">
+  <strong>The standing rule.</strong>
+  <p class="small">{e(policy.get("text", ""))}</p>
+  <p class="small"><strong>What silence never authorises.</strong> {e(policy.get("scope_limit", ""))}</p>
+  <p class="tiny muted" style="margin-bottom:0">{e(policy.get("rule_applied", ""))}</p>
+</div>
+
+<div class="grid grid-4">
+  <div class="stat"><div class="n">{len(order)}</div><div class="l">Suggestions on the queue</div><div class="h"><a href="suggestions.html">Read them →</a></div></div>
+  <div class="stat ok"><div class="n">{n_auto}</div><div class="l">Carry a default a pass may implement</div><div class="h">reversible · low risk · unblocked</div></div>
+  <div class="stat warn"><div class="n">{n_hold}</div><div class="l">Hold until someone picks</div><div class="h"><a href="questions.html">Open questions →</a></div></div>
+  <div class="stat brand"><div class="n">{len(recorded)}</div><div class="l">Owner decisions in the register</div><div class="h">data/decision-log.json</div></div>
+</div>
+
+<h2>Start here — computed from the registers&rsquo; own blocker fields</h2>
+<p class="small muted">Not a curated list: each row&rsquo;s score is the transitive size of the
+<code>blocks</code> arrays in <code>data/suggestions.json</code> and <code>data/questions.json</code>,
+so it moves when the registers move. This is SG-26 path A, implemented under the standing rule and
+recorded in <code>implemented</code> below.</p>
+<p class="tiny muted">{set_aside} row(s) are excluded because they are closed in the registers — a
+question already answered or a suggestion marked done. The answer, not just the removal, is on the
+linked page; if a row below disappears next pass it is because someone settled it, not because the
+list was retyped.</p>
+<div class="tablewrap">
+<table>
+  <caption>The rows that free the most other rows</caption>
+  <thead><tr><th>Row</th><th>What is being asked</th><th>Rows it frees</th><th>Directly unblocks</th></tr></thead>
+  <tbody>{triage_rows}</tbody>
+</table>
+</div>
+
+<h2>How a choice becomes work</h2>
+<ol class="small">{steps}</ol>
+
+<h2>The register</h2>
+<p class="small muted">Read the default column before the picker: it is what happens if you do
+nothing. Priority is the scoring this register carries — judgement, not measurement. The evidence
+column is the fact.</p>
+<div class="tablewrap">
+<table>
+  <caption>Every suggestion, its default, and what it waits on</caption>
+  <thead><tr><th>#</th><th>Suggestion</th><th>Path it recommends</th><th>If nobody answers</th>
+  <th>State</th><th>Evidence</th></tr></thead>
+  <tbody>{"".join(rows)}</tbody>
+</table>
+</div>
+
+<h2>Pick a path</h2>
+<p class="small muted">Choices are stored in this browser (localStorage) so the page remembers
+between visits, and nothing leaves the page until you press copy or download. The <em>default</em>
+tag marks the path this register would take if you said nothing — picking it explicitly still matters,
+because a recorded choice outranks a default and carries a reason.</p>
+<div class="decision-actions">
+  <span id="decision-counter" class="tiny muted">0 of {len(order)} picked in this browser</span>
+  <button type="button" class="btn" data-decision-action="download">Download decision-log.json</button>
+  <button type="button" class="btn btn-ghost" data-decision-action="copy">Copy decision record</button>
+  <button type="button" class="btn btn-ghost" data-decision-action="clear">Clear this browser&rsquo;s picks</button>
+</div>
+<div class="decision-picker" id="decision-picker">
+{"".join(fields)}
+</div>
+<pre class="decision-out" id="decision-output" hidden></pre>
+
+<h2>What is recorded in the repository</h2>
+{rec_tbl}
+<p class="tiny muted">{e((log.get("choices_note") or "").strip())}</p>
+<p class="tiny muted">{e(str(policy.get("recording", "")).strip())}</p>
+
+<h2>What a pass already implemented under this rule</h2>
+{implemented_html}
+
+<h2>For the next agent pass</h2>
+<p class="small muted">In this order, one commit per row, each with the evidence that justifies it.
+{n_auto} defaults is a queue, not a big-bang release: a pass that lands a dozen page changes in one
+commit cannot say which one broke a page, and this site&rsquo;s own rule is that a change has to be
+checkable on its own.</p>
+<ol class="small">{queue}</ol>
+<p class="small">Read <code>data/decision-log.json</code> first: a recorded choice outranks the
+default in this table, and a row with neither is still open. Implementing a default means the change
+and its evidence in one commit, then a row appended to <code>choices</code> naming the session, the
+path and the date, so the next reader sees that the default was executed rather than merely
+available. Nothing here authorises spending, credential changes, account actions, a price or star
+rating, a compliance posture, or any product fact the flag register holds open.</p>
+<p class="small"><a href="suggestions.html">Suggestions queue</a> ·
+<a href="questions.html">Open questions</a> ·
+<a href="requirements.html">Requirements and status</a> ·
+<a href="flagged.html">Flagged for review</a></p>
+"""
+    return layout("decision-log.html", "Owner decision log", body, active="decision-log.html",
+                  description="Every suggestion on the queue with the path it recommends, the default that stands if the owner says nothing, and a picker that records a chosen path as a file the next agent pass can implement.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Owner decision log", page_url("decision-log.html")),
+    ])]
+              )
 
 
 def page_suggestions_alt():
@@ -4834,6 +5354,22 @@ REQ_GROUPS = [
 ]
 
 
+def check_requirement_tokens(pages):
+    """Build guard: no count token may survive into a published page.
+
+    Companion to req_interp(): the register may type {n_spec_rows} instead of a number, and if a
+    token is misspelled or a row is rendered by a path that forgot to interpolate, the page would
+    otherwise ship with braces in the prose. Added 2026-11-16 (arena/ba29c641).
+    """
+    problems = []
+    for rel, html_text in pages.items():
+        if not rel.endswith(".html"):
+            continue
+        for m in re.finditer(r"\{(n_[a-z_]+|sg_[a-z_]+)\}", html_text):
+            problems.append(f"{rel}: unresolved count token {m.group(0)}")
+    return problems
+
+
 def check_requirement_paths(generated=()):
     """Build guard: every path a requirement row claims must exist in this repository.
 
@@ -4871,6 +5407,55 @@ def check_requirement_paths(generated=()):
     return problems
 
 
+def req_counts():
+    """Counts for the requirements register, computed from the data at build time.
+
+    Written 2026-11-16 (arena/ba29c641) because the register's own rule promises exactly this —
+    'counts are computed from the rows at build time rather than typed, so this page cannot claim
+    a total the register does not contain' — while eight of its rows typed their numbers into
+    prose. Four of those had already gone stale (46 spec rows, 21 suggestions, 20 questions, a
+    37-URL sitemap) in the two days between the register being written and this pass, which is the
+    drift the rule exists to prevent. A row may now write {n_spec_rows}; an unknown token fails the
+    build, and a token left unresolved fails it too (check_requirement_tokens).
+    """
+    tests = 0
+    tp = ROOT / "platform" / "tests" / "test_platform.py"
+    if tp.exists():
+        tests = len(re.findall(r"^\s+def test_", tp.read_text(encoding="utf-8"), re.M))
+    briefings = sorted(p.name for p in ROOT.glob("EXECUTIVE*SUMMARY*.md"))
+    stale = [n for n in briefings if n != "EXECUTIVE-SUMMARY.md"]
+    return {
+        "n_req_rows": len(REQUIREMENTS["requirements"]),
+        "n_spec_rows": sum(len(p["specs"]) for p in PRODUCT_LIST),
+        "n_verified_rows": sum(1 for p in PRODUCT_LIST for s in p["specs"] if s["value"] is not None),
+        "n_blank_rows": sum(1 for p in PRODUCT_LIST for s in p["specs"] if s["value"] is None),
+        "n_products": len(PRODUCT_LIST),
+        "n_sources": len(SOURCES["sources"]),
+        "n_suggestions": len(SUGGESTIONS["suggestions"]),
+        "n_sg_last": max(int(x["id"].split("-")[1]) for x in SUGGESTIONS["suggestions"]),
+        "n_questions": len(QUESTIONS["questions"]),
+        "n_articles": len(ARTICLES["articles"]),
+        "n_topics": len(TOPICS["topics"]),
+        "n_banned": len(BANNED_PHRASES),
+        "n_banned_distinct": len({p.lower() for p in BANNED_PHRASES}),
+        "n_guards": len(re.findall(r"^def check_", open(__file__).read(), re.M)),
+        "n_tests": tests,
+        "n_stale_briefings": len(stale),
+    }
+
+
+def req_interp(text):
+    """Substitute the computed counts into a register string; unknown tokens are a build failure."""
+    counts = req_counts()
+    for tok, val in counts.items():
+        if "{" + tok + "}" in text:
+            text = text.replace("{" + tok + "}", str(val))
+    left = re.findall(r"\{[a-z_]+\}", text)
+    if left:
+        raise SystemExit(f"BUILD FAILED — unknown count token(s) in the requirements register: {left}")
+    return text
+
+
 def page_requirements():
     reqs = REQUIREMENTS["requirements"]
     legend = REQUIREMENTS["status_legend"]
@@ -4896,7 +5481,7 @@ def page_requirements():
         ) or '<span class="muted">—</span>'
         ev = " ".join(
             f'<a class="src-link" href="{e(x["url"])}" target="_blank" rel="noopener">'
-            f'{e(x["label"])} ↗</a>'
+            f'{e(req_interp(x["label"]))} ↗</a>'
             for x in (r.get("evidence") or [])
         )
         srcs = src_links(r.get("sources") or []) if (r.get("sources") or []) else ""
@@ -4910,10 +5495,10 @@ def page_requirements():
         return (
             f'<tr id="{e(r["id"].lower())}"><td class="num">' 
             f'<a href="#{e(r["id"].lower())}">{e(r["id"])}</a></td>'
-            f'<td class="small"><strong>{e(r["requirement"])}</strong>'
-            f'<div class="tiny muted" style="margin-top:.35rem">{e(r["clause"])}</div></td>'
+            f'<td class="small"><strong>{e(req_interp(r["requirement"]))}</strong>'
+            f'<div class="tiny muted" style="margin-top:.35rem">{e(req_interp(r["clause"]))}</div></td>'
             f'<td><span class="pill {cls}">{e(label)}</span></td>'
-            f'<td class="small">{e(r["why"])}</td>'
+            f'<td class="small">{e(req_interp(r["why"]))}</td>'
             f'<td class="small">{where}</td>'
             f'<td class="small">{evidence_cell}</td></tr>'
         )
@@ -5883,7 +6468,7 @@ def page_handover():
 <h1>Five actions, about an hour, eighteen flags</h1>
 <p class="lede">Everything in this repository is done as far as it can be done without the account holder's own logins. These five actions are the shortest path from "unverified" to "confirmed". Each shows the time it takes and the flags it closes.</p>
 <div class="callout bad">
-  <strong>Start with H1.</strong> Reading the model number off three Amazon listings takes about three minutes and closes the four highest-severity flags in the register. It is the only fact in the project that a headless fetch cannot read.
+  <strong>H1 is done — by a fetch, not by hand.</strong> All three listings' Product information blocks were read on 2026-11-16 (<a href="flagged.html#f68">F68</a>, <a href="flagged.html#f49">F49</a>): B0CDY277D3 = RJ38-SQPF-3TDB-2W, B08DKYBTPH = RJ38-SQSS-8T (in its <em>Part Number</em> row), B09B7SB46R = 4-00675-02X-VN, which is one character from the brand page's string and is the remaining conflict (F70). What H1 was going to settle is settled for the model step; what it could never settle is the intent behind the three supplied short links, your Associates tag and your account data — those are still the top of the list here.
 </div>
 {items}
 
@@ -6451,6 +7036,7 @@ def main():
     pages["decisions.html"] = page_decisions()
     pages["handover.html"] = page_handover()
     pages["suggestions.html"] = page_suggestions()
+    pages["decision-log.html"] = page_decision_log()
     pages["design-prompt.html"] = page_design_prompt()
     pages["questions.html"] = page_questions()
     pages["requirements.html"] = page_requirements()
@@ -6530,6 +7116,10 @@ def main():
     if req_path_problems:
         raise SystemExit("BUILD FAILED - requirements register cites paths that do not exist:\n  "
                          + "\n  ".join(req_path_problems))
+    token_problems = check_requirement_tokens(pages)
+    if token_problems:
+        raise SystemExit("BUILD FAILED — an unresolved count token reached a published page:\n  "
+                         + "\n  ".join(token_problems))
     unsourced_rows = check_row_sources(pages)
     if unsourced_rows:
         raise SystemExit("BUILD FAILED — table rows with no official source link (cite a registered "
