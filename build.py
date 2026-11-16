@@ -113,6 +113,10 @@ PASS10_U2 = json.loads(_p10u2.read_text(encoding="utf-8")) if _p10u2.exists() el
 DECISION = load("decision.json")
 SUGGESTIONS = load("suggestions.json")
 QUESTIONS = load("questions.json")
+# Owner decision record (added 2026-11-16, arena/ba29c641): the write-side of the
+# suggestions review. choices[] is empty until an owner actually decides something, and no
+# session may fill it on their behalf.
+DECISION_LOG = load("decision-log.json")
 SUG_BY_ID = {s["id"]: s for s in SUGGESTIONS["suggestions"]}
 # Design/content/traffic suggestion layer (added 2026-11-15, arena/bf487400-zone1).
 # The paste-ready design prompt plus the D/A/T/V/R registers, generated from JSON so the
@@ -307,6 +311,8 @@ NAV = [
     ("compliance.html", "Compliance", "Program rules, quoted, with sources"),
     ("flagged.html", "Flagged for review", "Unverified values and irregularities"),
     ("suggestions.html", "Suggestions", "Review site improvements before implementation"),
+    # Added 2026-11-16 (arena/ba29c641): the queue had 21 rows and no way to close one.
+    ("decision-log.html", "Owner decision log", "Pick a path per suggestion, or let the stated default stand"),
     ("design-prompt.html", "Design prompt pack", "Design, topics and tactics — review before changes"),
     ("questions.html", "Questions and gaps", "Known facts, missing answers and discovery steps"),
     ("requirements.html", "Requirements and status", "Every requirement in the brief, and whether this repo meets it"),
@@ -513,6 +519,20 @@ td.num{font-variant-numeric:tabular-nums; white-space:nowrap}
 .pill-warn{background:var(--warn-soft); color:#78350f}
 .pill-bad{background:var(--bad-soft); color:#7f1d1d}
 .pill-info{background:#e0f2fe; color:#075985}
+/* Owner decision log (2026-11-16, arena/ba29c641): a picker on a static host has to look
+   like a form and behave like one, or it reads as decoration. */
+.decision-picker fieldset{border:1px solid var(--line); border-radius:var(--radius); padding:.75rem .95rem .85rem; margin:.6rem 0; background:var(--panel)}
+.decision-picker legend{font-size:.9rem; font-weight:700; padding:0 .45rem}
+.decision-picker legend a{font-family:var(--mono); font-size:.8rem}
+.dec-opt{display:flex; flex-wrap:wrap; gap:.45rem; align-items:baseline; padding:.22rem 0; font-size:.9rem}
+.dec-opt input{margin:.25rem 0 0}
+.dec-opt em{flex-basis:100%; margin-left:1.2rem}
+.tag-default{font-size:.62rem; text-transform:uppercase; letter-spacing:.05em; background:var(--ok-soft); color:#14532d; padding:.12rem .4rem; border-radius:.3rem; font-style:normal}
+.hold-row{display:flex; gap:.45rem; align-items:baseline; font-size:.85rem; color:var(--muted); margin-top:.35rem}
+.decision-picker textarea{width:100%; font:inherit; font-size:.85rem; margin-top:.5rem; padding:.4rem .55rem; border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--ink)}
+.decision-actions{display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin:.7rem 0 .95rem}
+.decision-actions .btn{font-size:.82rem; padding:.4rem .8rem; border-radius:999px; cursor:pointer}
+.decision-out{background:#0f172a; color:#e2e8f0; padding:.85rem 1rem; border-radius:10px; font-family:var(--mono); font-size:.74rem; line-height:1.5; overflow:auto; max-height:22rem; white-space:pre-wrap}
 .src{
   display:inline-block; font-family:var(--mono); font-size:.7rem; font-weight:700;
   background:#eef7f6; color:#0b5a54; border:1px solid #cbe8e5; border-radius:5px;
@@ -874,6 +894,134 @@ document.addEventListener('click', function (ev) {
   form.addEventListener('input', run);
   form.addEventListener('submit', function (e) { e.preventDefault(); run(); });
   run();
+})();
+
+// Owner decision picker (2026-11-16, arena/ba29c641) — decision-log.html only.
+// A static host has nowhere to POST a choice, so the picker keeps it in this browser and
+// exports the exact JSON body of data/decision-log.json. Progressive: with JS off the page
+// still reads end to end and every default is printed in the register table; only the
+// picking needs the script. No dependency, no network call, nothing leaves the page.
+(function () {
+  var root = document.getElementById('decision-picker');
+  if (!root) return;
+  var KEY = 'zone1-decision-log-v1';
+  var counter = document.getElementById('decision-counter');
+  var out = document.getElementById('decision-output');
+  var store = {};
+  try { store = JSON.parse(window.localStorage.getItem(KEY) || '{}') || {}; } catch (err) { store = {}; }
+
+  function panels() {
+    return Array.prototype.slice.call(root.querySelectorAll('fieldset[data-sg]'));
+  }
+  function chosen(fs) {
+    var i = fs.querySelector('input:checked');
+    return i ? i.value : '';
+  }
+  function note(fs) {
+    var t = fs.querySelector('textarea.dec-note');
+    return t ? t.value.trim() : '';
+  }
+  function collect() {
+    var today = new Date().toISOString().slice(0, 10);
+    var picked = [];
+    panels().forEach(function (fs) {
+      var path = chosen(fs), txt = note(fs);
+      if (!path && !txt) return;
+      picked.push({
+        id: fs.getAttribute('data-sg'),
+        suggestion: fs.getAttribute('data-title'),
+        chosen_path: path === 'HOLD' ? 'hold' : path,
+        default_if_silent: fs.getAttribute('data-default') || 'none',
+        overrode_default: !!(path && path !== 'HOLD' && fs.getAttribute('data-default') &&
+                            path !== fs.getAttribute('data-default')),
+        note: txt,
+        recorded_at: today
+      });
+    });
+    return picked;
+  }
+  function payload() {
+    return JSON.stringify({
+      version: '1.1',
+      exported: new Date().toISOString().slice(0, 10),
+      exported_from: 'decision-log.html',
+      choices: collect(),
+      note: 'Merge choices[] into data/decision-log.json. A recorded choice outranks the default; a suggestion absent from this list keeps its default.'
+    }, null, 1);
+  }
+  function paint() {
+    if (!counter) return;
+    var n = collect().length;
+    counter.textContent = n + ' of ' + panels().length + ' picked in this browser' +
+      (n ? ' — copy or download to hand it back' : ' — nothing picked yet');
+  }
+  function persist() {
+    try { window.localStorage.setItem(KEY, JSON.stringify(store)); } catch (err) {}
+  }
+  function record(target) {
+    var fs = target.closest ? target.closest('fieldset[data-sg]') : null;
+    if (!fs) return null;
+    var id = fs.getAttribute('data-sg');
+    store[id] = { path: chosen(fs), note: note(fs) };
+    persist();
+    paint();
+    return fs;
+  }
+  root.addEventListener('change', function (ev) { record(ev.target); });
+  root.addEventListener('input', function (ev) {
+    if (ev.target && ev.target.tagName === 'TEXTAREA') record(ev.target);
+  });
+  document.addEventListener('click', function (ev) {
+    var btn = ev.target.closest ? ev.target.closest('[data-decision-action]') : null;
+    if (!btn) return;
+    var act = btn.getAttribute('data-decision-action');
+    if (act === 'clear') {
+      store = {};
+      try { window.localStorage.removeItem(KEY); } catch (err) {}
+      root.querySelectorAll('input').forEach(function (i) { i.checked = false; });
+      root.querySelectorAll('textarea').forEach(function (t) { t.value = ''; });
+      if (out) { out.hidden = true; out.textContent = ''; }
+      paint();
+      return;
+    }
+    var text = payload();
+    if (act === 'download') {
+      if (!collect().length) { flash(btn, 'nothing picked yet'); return; }
+      var blob = new Blob([text], { type: 'application/json' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'decision-log.json';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+      flash(btn, 'downloaded');
+      return;
+    }
+    if (out) { out.hidden = false; out.textContent = text; }
+    if (!collect().length) { flash(btn, 'nothing picked yet'); return; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { flash(btn, 'copied — paste it into any session'); },
+                                                function () { flash(btn, 'shown below — select and copy'); });
+    } else {
+      flash(btn, 'shown below — select and copy');
+    }
+  });
+  function flash(btn, msg) {
+    var old = btn.textContent;
+    btn.textContent = msg;
+    setTimeout(function () { btn.textContent = old; }, 1800);
+  }
+  panels().forEach(function (fs) {
+    var v = store[fs.getAttribute('data-sg')];
+    if (!v) return;
+    if (v.path) {
+      var i = fs.querySelector('input[value="' + v.path + '"]');
+      if (i) i.checked = true;
+    }
+    var t = fs.querySelector('textarea.dec-note');
+    if (t && v.note) t.value = v.note;
+  });
+  paint();
 })();
 """
 
@@ -3665,6 +3813,9 @@ a short story rather than an open-ended project.</p>
   The score is <em>{e(s["scoring_note"])}</em>
   Suggestions blocked by something only you can supply link to the exact row on the
   <a href="questions.html">Open questions</a> page.
+  <a href="decision-log.html">The owner decision log</a> is where a choice is recorded: it holds one
+  picker per suggestion, the default that stands if nothing is picked, and an export that turns the
+  picks into the file the next agent pass reads.
 </div>
 
 {paths_html}
@@ -3995,6 +4146,228 @@ QUESTIONS_ALT = [
      "Read the Trademark Guidelines linked from the Program Policies, then review each headline and image.",
      "SG-02, article headlines", ["S2", "S1"]),
 ]
+
+
+
+def page_decision_log():
+    """Owner decision log (2026-11-16, arena/ba29c641).
+
+    The brief asks for two things that pull against each other: a section where a human
+    reviews suggestions and chooses a path *before* anything changes, and no manual input
+    required of the owner to keep the project moving. They meet in one rule, computed here
+    rather than asserted in prose: a suggestion with a recommended path that is reversible,
+    low-risk and unblocked by an account-only fact carries that path as a default, and
+    everything else waits. The picker records a real choice over any default, and the page
+    exports the file a later pass reads.
+    """
+    s = SUGGESTIONS
+    log = DECISION_LOG
+    qinfo = {q["id"]: q for q in QUESTIONS["questions"]}
+    recorded = {c["id"]: c for c in (log.get("choices") or [])}
+    safe_risk = ("none", "low")
+
+    def default_for(sg):
+        """Return (letter, label, kind, reason) for one suggestion's stand-if-silent outcome."""
+        rec = (sg.get("recommendation") or "").strip()
+        letter = rec[:1].upper() if rec else ""
+        opts = sg.get("options") or []
+        chosen = None
+        if len(letter) == 1 and letter.isalpha():
+            chosen = next((o for o in opts
+                           if (o.get("label") or "").strip().startswith(letter + ".")), None)
+        if chosen is None:
+            return ("", "", "hold", "The recommendation does not name a lettered path this "
+                    "register can match, so there is nothing to default to.")
+        blocked = sg.get("blocked_by") or []
+        hard = [b for b in blocked if qinfo.get(b, {}).get("state") == "unknowable"]
+        if hard:
+            return (letter, chosen.get("label", ""), "hold",
+                    "It depends on a fact only the account holder can supply ("
+                    + ", ".join(hard) + "), so silence is not consent here.")
+        if chosen.get("reversible") is False:
+            return (letter, chosen.get("label", ""), "hold",
+                    "Marked not reversible: an irreversible change waits for a person.")
+        if (chosen.get("risk") or "").strip().lower() not in safe_risk:
+            return (letter, chosen.get("label", ""), "hold",
+                    "Risk is " + str(chosen.get("risk")) + ", above the low bar this register "
+                    "sets for acting without an answer.")
+        return (letter, chosen.get("label", ""), "auto",
+                "Reversible, risk " + str(chosen.get("risk")) + ", no account-only blocker, so the "
+                "default stands until a picker overrules it.")
+
+    order = sorted(s["suggestions"], key=lambda x: -(x["impact"] * x["confidence"]))
+    computed = {sg["id"]: default_for(sg) for sg in order}
+    n_auto = sum(1 for v in computed.values() if v[2] == "auto")
+    n_hold = len(order) - n_auto
+
+    rows = []
+    for sg in order:
+        letter, label, kind, reason = computed[sg["id"]]
+        blocked = sg.get("blocked_by") or []
+        blist = " ".join(
+            f'<a class="src" href="questions.html#{e(q.lower())}">{e(q)}</a>'
+            for q in blocked) or '<span class="tiny muted">nothing blocked</span>'
+        ev = [x["url"] for x in sg["evidence"] if x["url"].startswith("https://")]
+        ev_links = " ".join(
+            f'<a class="src-link" href="{e(u)}" target="_blank" rel="noopener">'
+            f'{e(u.split("//")[-1][:30])} ↗</a>' for u in ev[:2])
+        rec = recorded.get(sg["id"])
+        if rec:
+            state = (f'<span class="pill pill-ok">recorded</span>'
+                     f'<div class="tiny">{e(str(rec.get("chosen_path", "")))} · '
+                     f'{e(str(rec.get("recorded_at", "")))}</div>')
+        elif kind == "auto":
+            state = f'<span class="pill pill-ok">default {e(letter)}</span>'
+        else:
+            state = '<span class="pill pill-warn">open</span>'
+        rows.append(
+            f'<tr id="{e(sg["id"].lower())}">'
+            f'<td class="num">{e(sg["id"])}</td>'
+            f'<td><a href="suggestions.html#{e(sg["id"].lower())}">{e(sg["title"])}</a>'
+            f'<div class="tiny muted">{e(sg["area"])} · priority {sg["impact"] * sg["confidence"]}</div></td>'
+            f'<td class="small">{e((label or sg.get("recommendation", "")).strip())}</td>'
+            f'<td class="small">{e(reason)}<div class="tiny muted">Blocked by: {blist}</div></td>'
+            f'<td>{state}</td>'
+            f'<td class="small">{ev_links} <a class="src" href="flagged.html">Flagged ↗</a></td>'
+            f'</tr>')
+
+    fields = []
+    for sg in order:
+        letter, label, kind, reason = computed[sg["id"]]
+        opts_html = "".join(
+            f'<label class="dec-opt"><input type="radio" name="dec-{e(sg["id"])}" '
+            f'value="{e((o.get("label") or "").strip()[0])}" data-sg="{e(sg["id"])}">'
+            f'<span>{e(o.get("label"))}</span>'
+            f'<em class="tiny muted">effort {e(str(o.get("effort")))} · risk {e(str(o.get("risk")))}</em>'
+            + ('<b class="tag-default">default</b>' if (o.get("label") or "").strip().startswith(letter + ".") and kind == "auto" else "")
+            + '</label>'
+            for o in (sg.get("options") or []))
+        fields.append(
+            f'<fieldset class="dec-row" data-sg="{e(sg["id"])}" '
+            f'data-title="{e(sg["title"])}" data-default="{e(letter if kind == "auto" else "")}">'
+            f'<legend><a href="suggestions.html#{e(sg["id"].lower())}">{e(sg["id"])}</a> '
+            f'{e(sg["title"])} '
+            + (f'<span class="pill pill-ok">default {e(letter)}</span>' if kind == "auto"
+               else '<span class="pill pill-warn">waits for you</span>')
+            + '</legend>'
+            f'<p class="tiny muted">{e(sg.get("problem", ""))[:220]}{"…" if len(sg.get("problem", "")) > 220 else ""}</p>'
+            f'{opts_html}'
+            f'<label class="hold-row"><input type="radio" name="dec-{e(sg["id"])}" value="HOLD" '
+            f'data-sg="{e(sg["id"])}"><span>Hold this one — change nothing</span></label>'
+            f'<textarea class="dec-note" rows="2" data-sg="{e(sg["id"])}" '
+            f'placeholder="Optional: a condition, a date, or why. This travels with your choice."></textarea>'
+            f'</fieldset>')
+
+    if recorded:
+        rec_tbl = ('<table><thead><tr><th>Suggestion</th><th>Chosen path</th><th>Recorded</th>'
+                   '<th>Note</th></tr></thead><tbody>' + "".join(
+                       f'<tr><td class="num">{e(c["id"])}</td><td>{e(str(c.get("chosen_path", "")))}</td>'
+                       f'<td>{e(str(c.get("recorded_at", "")))}</td>'
+                       f'<td class="small">{e(str(c.get("note", "") or "—"))} '
+                       f'<a class="src" href="flagged.html">context ↗</a></td></tr>'
+                       for c in (log.get("choices") or [])) + "</tbody></table>")
+        rec_note = ""
+    else:
+        rec_tbl = ('<div class="callout note"><p class="small" style="margin:0">No owner decision is '
+                   'recorded in the repository yet, so every row below stands on its default. That is '
+                   'the designed state, not a gap: <code>choices</code> stays empty until a person '
+                   'chooses, because a session that fills it would be inventing an instruction. '
+                   + str(n_auto) + ' suggestions carry a default that a later pass may implement '
+                   'without asking; ' + str(n_hold) + ' hold until someone picks.</p></div>')
+        rec_note = ""
+
+    steps = "".join(f"<li>{e(x)}</li>" for x in log.get("how_to_return_a_choice", []))
+
+    auto_in_order = [sg for sg in order if computed[sg["id"]][2] == "auto"]
+    queue = "".join(
+        f'<li><a href="suggestions.html#{e(sg["id"].lower())}">{e(sg["id"])}</a> — '
+        f'path {e(computed[sg["id"]][0])} · {e(sg["title"])}'
+        f'<div class="tiny muted">priority {sg["impact"] * sg["confidence"]} · effort '
+        f'{e(str(sg.get("effort", "")))} · touches: {e(sg.get("area", ""))}</div></li>'
+        for sg in auto_in_order)
+
+    body = f"""
+<p class="crumbs"><a href="index.html">Home</a> / Owner decision log</p>
+<h1>Owner decision log: pick a path, or let the stated default stand</h1>
+<p class="lede">The suggestion queue runs to {len(order)} entries, and a queue nobody closes is a
+backlog. This page is the closing mechanism: one picker per suggestion, the default that applies if
+nobody answers, and an export that turns picks into the file the next agent pass reads. The rule is
+computed from the same registers the suggestions live in, so the page cannot promise a default its
+own data does not support.</p>
+
+<div class="callout info">
+  <strong>The standing rule.</strong>
+  <p class="small">{e((log.get("policy") or {}).get("text", ""))}</p>
+  <p class="small"><strong>What silence never authorises.</strong> {e((log.get("policy") or {}).get("scope_limit", ""))}</p>
+  <p class="tiny muted" style="margin-bottom:0">{e((log.get("policy") or {}).get("rule_applied", ""))}</p>
+</div>
+
+<div class="grid grid-3">
+  <div class="stat"><div class="n">{len(order)}</div><div class="l">Suggestions on the queue</div><div class="h"><a href="suggestions.html">Read them →</a></div></div>
+  <div class="stat ok"><div class="n">{n_auto}</div><div class="l">Carry a default a pass may implement</div><div class="h">reversible · low risk · unblocked</div></div>
+  <div class="stat warn"><div class="n">{n_hold}</div><div class="l">Hold until someone picks</div><div class="h"><a href="questions.html">Open questions →</a></div></div>
+</div>
+
+<h2>How a choice becomes work</h2>
+<ol class="small">{steps}</ol>
+
+<h2>The register</h2>
+<p class="small muted">Read the default column before the picker: it is what happens if you do
+nothing. Priority is the scoring this register carries, judgement rather than measurement — the
+evidence links are the facts.</p>
+<div class="tablewrap">
+<table>
+  <caption>Every open suggestion, its default, and what it waits on</caption>
+  <thead><tr><th>#</th><th>Suggestion</th><th>Path it recommends</th><th>If nobody answers</th>
+  <th>State</th><th>Evidence</th></tr></thead>
+  <tbody>{"".join(rows)}</tbody>
+</table>
+</div>
+
+<h2>Pick a path</h2>
+<p class="small muted">Choices are stored in this browser (localStorage) so the page remembers
+between visits, and nothing leaves the page until you press copy or download. The <em>default</em>
+tag marks the path the register would take if you said nothing — picking it explicitly is still
+worth it, because a recorded choice outranks a default and says why.</p>
+<div class="decision-actions">
+  <span id="decision-counter" class="tiny muted">0 of {len(order)} picked in this browser</span>
+  <button type="button" class="btn btn-ghost" data-decision-action="copy">Copy decision record</button>
+  <button type="button" class="btn" data-decision-action="download">Download decision-log.json</button>
+  <button type="button" class="btn btn-ghost" data-decision-action="clear">Clear this browser&rsquo;s picks</button>
+</div>
+<div class="decision-picker" id="decision-picker">
+{"".join(fields)}
+</div>
+<pre class="decision-out" id="decision-output" hidden></pre>
+
+<h2>What is recorded in the repository</h2>
+{rec_tbl}
+<p class="tiny muted">{e((log.get("choices_note") or "").strip())}</p>
+
+<h2>For the next agent pass</h2>
+<p class="small muted">In this order, one commit per row, each with the evidence that justifies it.
+Fourteen defaults is a queue, not a big-bang release: a pass that lands twelve page changes at once
+cannot say which one broke a page, and this site&rsquo;s own rule is that a change has to be
+checkable on its own.</p>
+<ol class="small">{queue}</ol>
+<p class="small">Read <code>data/decision-log.json</code> first. A recorded choice outranks the
+default in this table, and a row with neither is still open. Implementing a default means the
+change and its evidence in one commit, then a row appended to <code>choices</code> naming this
+session, the path and the date, so the next reader sees that the default was executed rather than
+merely available. Nothing on this page authorises spending, credential changes, account actions, or
+a product fact the flag register holds open.</p>
+<p class="small"><a href="suggestions.html">Suggestions queue</a> ·
+<a href="questions.html">Open questions</a> ·
+<a href="requirements.html">Requirements and status</a> ·
+<a href="flagged.html">Flagged for review</a></p>
+"""
+    return layout("decision-log.html", "Owner decision log", body, active="decision-log.html",
+                  description="Every suggestion on the queue with the path it recommends, the default that stands if the owner says nothing, and a picker that records a chosen path as a file the next agent pass can implement.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Owner decision log", page_url("decision-log.html")),
+    ])]
+              )
 
 
 def page_suggestions_alt():
@@ -5730,6 +6103,7 @@ def main():
     pages["decisions.html"] = page_decisions()
     pages["handover.html"] = page_handover()
     pages["suggestions.html"] = page_suggestions()
+    pages["decision-log.html"] = page_decision_log()
     pages["design-prompt.html"] = page_design_prompt()
     pages["questions.html"] = page_questions()
     pages["requirements.html"] = page_requirements()

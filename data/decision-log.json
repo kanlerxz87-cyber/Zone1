@@ -1,0 +1,20 @@
+{
+ "version": "1.0",
+ "compiled": "2026-11-16",
+ "session": "arena/ba29c641-zone1",
+ "title": "Owner decision log",
+ "purpose": "The suggestion queue on suggestions.html is 21 entries long, and a queue nobody closes becomes a backlog. This register is the single place an owner's choice is recorded so that a later agent pass can implement the chosen path without re-asking. It is the write-side of the review step: every suggestion gets a path picked, or an explicit hold.",
+ "policy": {
+  "name": "adopt-after-silence",
+  "text": "A suggestion whose recommended path is reversible, low-risk, and does not depend on a fact only an Amazon account holder can supply is treated as pre-approved: the next agent pass implements it and records what it did on this page. Everything else holds until the owner picks. This exists because the brief says no manual input is required of the owner, while also requiring that a human reviews suggestions before changes - so the review has a default outcome rather than a veto that blocks the work.",
+  "scope_limit": "Silence never authorises: spending money, registering a domain, contacting Amazon or a brand on the owner's behalf, publishing an Amazon-served price or star rating, changing a compliance posture, deleting another session's committed evidence, or asserting any product fact the repository has flagged as unverified. Anything in that class waits, on this page, with its reason.",
+  "rule_applied": "auto-adopt requires: an option letter the suggestion recommends; that option marked reversible; that option's risk 'none' or 'low'; and no blocking question in state 'unknowable'. The four tests are computed from data/suggestions.json and data/questions.json at build time, so the table on the page cannot claim a default its own data does not support."
+ },
+ "how_to_return_a_choice": [
+  "Pick the path on decision-log.html. The page stores it in this browser so a second visit shows the same answer.",
+  "Press 'Copy decision record' (or 'Download decision-log.json') and send the text back in any session, or commit it over this file.",
+  "The next agent pass reads data/decision-log.json before it reads suggestions.html's defaults, records what it implemented, and marks the row. Anything you did not pick keeps the default this page shows today."
+ ],
+ "choices": [],
+ "choices_note": "Empty at publication, deliberately. An owner decision is a fact about a person's intent, and no agent session may record one on their behalf - that is the difference between a default and a fabricated instruction. Rows appear here only after a choice is actually made, and each one carries its date."
+}
