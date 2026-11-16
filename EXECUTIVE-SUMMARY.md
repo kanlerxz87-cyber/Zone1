@@ -924,7 +924,52 @@ Recorded the same-day S3 finding (schedule now public; Kitchen 4.50% matches the
 Full report: [`reports/verification-2026-11-16-121929a5.md`](reports/verification-2026-11-16-121929a5.md);
 one-page briefing: [`EXECUTIVE-SUMMARY-PASS10-121929a5.md`](EXECUTIVE-SUMMARY-PASS10-121929a5.md).
 
-## 19. Line-by-line review, live re-verification and the seasonal content pass — 2026-11-16 (session `arena/a746a9f2`, branch `arena/a746a9f2-zone1`)
+## 19. Pass 12 — the design-coherence pass (2026-11-16, session `arena/492acddc-zone1`)
+
+The owner's standing complaint through ten passes was not the copy (the anti-slop rules
+have been enforced in the build since pass 9) but the **look**: the stylesheet was three
+stacked eras — an admin-dashboard base, an editorial override layer, and commercial
+components appended on top — and the sidebar put the owner's thirteen process pages at eye
+level for shoppers. Pass 12 rebuilt the presentation layer without touching a single
+verified value.
+
+### 19.1 What shipped
+
+| Change | Detail |
+|---|---|
+| One coherent design system | The 422-line stylesheet was rewritten end to end (one token palette anchored to the brand green `#245746` the favicon already used, warm paper background, serif display type from the Iowan/Palatino/Georgia stack, quiet superscript-style source chips, deep-green footer). Every one of the 116 classes the 29 canonical pages emit is covered. |
+| Information architecture | Sidebar regrouped into **Shop smart / Products / Trust & evidence / Owner workspace**; the topbar gained a compact primary nav (Picks · Buying guide · Articles · Compare) plus the verified-data stamp, so shoppers see destinations before process pages. |
+| Editorial artwork | Three hand-drawn stroke-only SVG glyphs (dual basket / french-door oven / single basket) on the landing page's format cards — the site's only imagery, drawn for this site so the no-hotlinked-photos rule (D-5) is untouched. |
+| Stale count fixed | The landing page said "Compliance — **16** requirements"; the register carries **18** (C17/C18 since pass 10). The count is now read from `data/compliance.json` at build time and cannot drift. |
+| Register sync | `data/design-prompt.json`: A-11 corrected `not-written → published` (the contradiction round 11 filed against that register); D-1/D-2 status notes record pass 12; D-10 → `implemented` on measured evidence; the paste-ready design prompt's palette/typography directives updated to the shipped tokens. |
+
+### 19.2 Verification performed
+
+Live reads on 2026-11-16 (evidence: `reports/verification-2026-11-16-492acddc.md`): the
+Associates Program Policies page ("Updated: April 14, 2026"; 24-hour session rule verbatim),
+the Standard Commission Income Statement ("Kitchen — 4.50%"), FTC Disclosures 101
+("November 2019"), and the three brand pages. Both Chefman review counters read **1,307**
+and **717** for the third consecutive day — unchanged, so nothing was rewritten. Both open
+conflicts (F3 450/400 °F; F4/F5 preset counts) re-confirmed and still open. A WCAG AA
+contrast audit measured all 23 foreground/background pairs in the new stylesheet; one
+failure (label grey at 2.88:1) was found and fixed during the audit; all pairs now ≥ 4.5:1.
+
+### 19.3 Gates
+
+`build.py` → 41 pages, 0 errors · `verify.py` → 119 pages, 46 spec rows (43 verified /
+3 blank+flagged), 34 sources, 0 errors, 0 external warnings · `ci-check.sh` → tests OK,
+audit clean, s2 current, 7,135 links / 0 broken · `verify_site.py` → 393 assertions passed ·
+`research/check_research.py` → OK · `platform/audit/report.py` → AUDIT PASSED ·
+`node --check assets/app.js` → OK · two consecutive builds byte-identical.
+
+### 19.4 What this pass did not do
+
+It did not write or rewrite any article, specification value, compliance row or flag; it did
+not touch `site/`, `s2/`, `data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`,
+`crosscheck/`, `annex-*` or `session-*`. The unresolved account-holder questions (product
+identity, Associates tag, account approval) are unchanged and still published as such.
+
+## 20. Line-by-line review, live re-verification and the seasonal content pass — 2026-11-16 (session `arena/a746a9f2`, branch `arena/a746a9f2-zone1`)
 
 Task **X-a746a9f2** on the coordination board. This pass answered the brief's three standing
 demands — verify everything against official sources with links, keep the site a polished
@@ -933,7 +978,7 @@ instead of more reading — in one integrated sweep. It merged at the same seams
 rounds 10–11 (sessions `c334fb1c`, `9f0e6668`, `ad8105b3`, `9fccce0c`, `dc3f8b5d`, `3dfe4b45`,
 `695f03b7`, `121929a5`, `f3ada6ba` and others); every collision is listed in §19.3.
 
-### 19.1 What was verified (14/14 sources read live on 2026-11-16)
+### 20.1 What was verified (14/14 sources read live on 2026-11-16)
 
 Full evidence table: `reports/verification-2026-11-16-a746a9f2.md` (rows V1–V14: the exact string
 read back per row, with the URL and the verdict). Summary:
@@ -957,7 +1002,7 @@ read back per row, with the URL and the verdict). Summary:
   genuine (no preset count is documented for the 6 Qt; the 8 Qt Hi-Fry row is the F3 conflict and
   must stay blank).
 
-### 19.2 What shipped (the marketing and decision layers)
+### 20.2 What shipped (the marketing and decision layers)
 
 * **One new article** — *Air fryer gift guide 2026: match the format to the person* — this pass's
   seasonal piece, written for the Q4 query window that is open now. Format-first, every value a
@@ -975,7 +1020,7 @@ read back per row, with the URL and the verdict). Summary:
 * **Q-23**: who decides the publishing calendar and what the deadlines are — the one missing owner
   statement the seasonal plan needs. "No seasonal content" is recorded as an acceptable answer.
 
-### 19.3 Defects found and fixed, and the merge-seam collisions
+### 20.3 Defects found and fixed, and the merge-seam collisions
 
 * **Stale-count defect class, fourth occurrence** (after F14, F38, F52), published as **F63**:
   three register surfaces asserted "eight articles" while the index had long since outgrown the
@@ -1011,7 +1056,7 @@ read back per row, with the URL and the verdict). Summary:
   internally consistent; the "16 suggestions" strings in `reverification.html`/
   `executive-summary.html` are historical recounts of already-fixed defects.
 
-### 19.4 What is still open (unchanged, non-blocking)
+### 20.4 What is still open (unchanged, non-blocking)
 
 Q-01/Q-02 (ASIN→model mapping — Amazon serves automated reads a reduced shell with no Product
 information block), Q-03/Q-04 (account status; the tag inside the supplied short links), Q-11
