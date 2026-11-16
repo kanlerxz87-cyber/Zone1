@@ -186,11 +186,11 @@
     "amazon_review_count": null,
     "amazon_reason": "Not displayed by policy (S2 §6(t); S2 §2(b)).",
     "brand_site_rating": {
-     "v": "4.6 / 5 from 1,305 reviews (rating last recorded 2026-11-15); 1,307 reviews shown 2026-11-16",
+     "v": "4.6 / 5 from 1,307 reviews",
      "s": [
       "S10"
      ],
-     "note": "Brand-hosted review widget. On 2026-11-15 the site showed 4.6 / 5 from 1,305 reviews; the 2026-11-16 live page showed 1,307 Reviews. The current read confirms the count only, not the average, so the rating date is kept explicit. Not Amazon's rating."
+     "note": "Ratings collected by Chefman's own on-site review widget (4.6 average; 5★ 928 · 4★ 258 · 3★ 85 · 2★ 12 · 1★ 24). Read 1,302 reviews on 2026-11-13, 1,305 on 2026-11-14 and 1,307 on 2026-11-16 — the count moves daily, so it is stamped. Brand-hosted figure, not Amazon's. The 2026-11-16 read is the one published here; a second, independent session read the same page the same day and saw the same count, which corroborates it."
     }
    },
    "commission": {
@@ -666,11 +666,11 @@
     "amazon_review_count": null,
     "amazon_reason": "Not displayed by policy.",
     "brand_site_rating": {
-     "v": "4.6 / 5 from 716 reviews (rating last recorded 2026-11-15); 717 reviews shown 2026-11-16",
+     "v": "4.6 / 5 from 717 reviews",
      "s": [
       "S12"
      ],
-     "note": "Brand-hosted review widget for RJ38-SQSS-8T. On 2026-11-15 the site showed 4.6 / 5 from 716 reviews; the 2026-11-16 live page showed 717 Reviews. The current read confirms the count only, not the average, so the rating date is kept explicit. Not Amazon's rating."
+     "note": "Brand-hosted rating for the RJ38-SQSS-8T product page (5★ 523 · 4★ 131 · 3★ 42 · 2★ 10 · 1★ 11). Read 715 reviews on 2026-11-13, 716 on 2026-11-14 and 717 on 2026-11-16. The average held at 4.6 on all three reads; only the count moves. Not Amazon's rating. A second, independent session read the same page the same day and saw the same count, which corroborates it."
     }
    },
    "commission": {

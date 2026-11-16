@@ -944,14 +944,14 @@
    "id": "SG-19",
    "title": "Give every published value a refresh date, and let the build report what has gone stale",
    "area": "Content operations",
-   "problem": "Every published figure on this site carries the date it was read, but nothing tells the owner when it should be read again. The dataset already contains a measured case of drift: Chefman's own review counter moved from 1,302 to 1,305 within twenty-four hours while the average held at 4.6. The Associates application-review criteria recorded in this repository also include a requirement that site content be recent - a requirement that was not re-read on 2026-11-15 (flag F46), so the exact window must be confirmed before it is used as a schedule. A page that is silently three months stale still looks authoritative, and the site has no mechanism to say so.",
+   "problem": "Every published figure on this site carries the date it was read, but nothing tells the owner when it should be read again. The dataset already contains a measured case of drift: Chefman's own review counter moved from 1,302 to 1,305 to 1,307 over three days while the average held at 4.6. The Associates application-review criteria recorded in this repository also include a requirement that site content be recent - a requirement that was carried forward rather than re-read until 2026-11-16 (flag F56), and that has now been confirmed: the criterion is \"generally within the last 60 days\". What Amazon states is the review-side window, though; it does not state a refresh interval for individual published values, so that schedule is still the owner's to set. A page that is silently three months stale still looks authoritative, and the site has no mechanism to say so.",
    "evidence": [
     {
-     "label": "Chefman 6 Qt brand page - 1,305 brand-hosted reviews at the 2026-11-15 read",
+     "label": "Chefman 6 Qt brand page - 1,307 brand-hosted reviews at the 2026-11-16 read",
      "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
     },
     {
-     "label": "Application Review Process - site content recency criterion (not re-read 2026-11-15; see flag F46)",
+     "label": "Application Review Process - site content recency criterion, read live 2026-11-16 (closes flag F56)",
      "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
     }
    ],
@@ -1082,6 +1082,57 @@
    "risk_of_not_doing": "Medium. Nothing breaks and no rule is breached; the site simply fails to get credit for the thing it does better than a typical affiliate page.",
    "blocks": [],
    "blocked_by": []
+  },
+  {
+   "id": "SG-22",
+   "title": "Decide what the research agent is, and declare it in every request",
+   "area": "Platform compliance",
+   "problem": "The brief asks for an AI-powered platform that automates product research, and Amazon's Program Policies contain a section written for exactly that case: IP License §4, the Agent Terms. Read live on 2026-11-16, they require any agent that touches Program Content to identify itself in every HTTP/HTTPS request as \"Agent/[agent name]\", to avoid obfuscating that it is an agent, never to complete or circumvent a CAPTCHA, and to answer truthfully when asked whether an interaction is human. Amazon also reserves the right to limit agent access by technical measures. None of this was in the canonical compliance register or the platform blueprint before 2026-11-16, even though the site ships an automation blueprint that proposes automated research against manufacturer and Amazon pages. Two things are still unresolved: whether an ordinary public listing page counts as Program Content (the licence defines Program Content around Creators API, PA API and Data Feeds), and the agent's declared name.",
+   "evidence": [
+    {
+     "label": "Associates Program IP License §4 (Agents) - read live 2026-11-16",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+     "label": "Associates Program Participation Requirements §5 - no Special Links or Program Content used to develop machine-learning models without express prior written approval",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+     "label": "Associates Program IP License §1 - no third party may use Program Content to develop or improve large language or multimodal models",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Identify as an agent, and keep the research stage off Program Content",
+     "what": "Give the fetcher a fixed User-Agent of the form \"Agent/zone1-research\", never solve or evade a bot check, and scope the research stage to manufacturer pages and other non-Program-Content sources. This satisfies the Agent Terms whether or not a listing page turns out to be Program Content, and it is the design the site's own compliance posture already implies: it publishes no Program Content today.",
+     "effort": "S",
+     "risk": "low",
+     "reversible": true
+    },
+    {
+     "label": "B. Ask Amazon first, then build",
+     "what": "Send one written question to Associates Central support: does an automated fetch of a public amazon.com product page count as accessing Program Content under IP License §4, and is a given Agent/... User-Agent acceptable? Build nothing until the answer arrives. The safest order, and the one that costs the most calendar time.",
+     "effort": "S",
+     "risk": "low",
+     "reversible": true
+    },
+    {
+     "label": "C. Leave the research stage manual",
+     "what": "Keep automated fetching for manufacturer pages and the Amazon Associates help pages only - the sources this site actually reads - and do not automate anything against amazon.com listing pages. The Agent Terms then never bind, because no agent touches Program Content.",
+     "effort": "none",
+     "risk": "low",
+     "reversible": true
+    }
+   ],
+   "recommendation": "A, with B running alongside it, and C as the fallback if Amazon says no. The two questions in Q-21 - what counts as Program Content, and what the agent is called - are both cheap to ask and cheap to answer wrongly, so ask while the design is still cheap.",
+   "why": "This is the one place where the platform the brief describes meets a rule written for platforms exactly like it. Handling it deliberately costs a User-Agent string and a written question. Handling it by accident, after a research agent has been running for months against Amazon pages, costs the licence. The published site is unaffected either way, which is why this sits in the queue rather than on the compliance page as a live breach.",
+   "impact": 4,
+   "confidence": 4,
+   "effort": "S",
+   "risk_of_not_doing": "High, and rising. The site currently makes no automated request against an Amazon listing page in its build; the moment a research agent is switched on, the Agent Terms apply, and an agent that does not identify itself is outside the licence. The cost of doing this later is a rewrite of the fetcher rather than a header change.",
+   "blocks": [],
+   "blocked_by": []
   }
  ],
  "paths_intro": "A decision queue with this many rows is a backlog, not a decision. The paths below group the suggestions into four coherent pieces of work. Each path is ordered, names what has to be true before it can start, and says plainly what it will not fix. Pick one path, finish it, then pick the next. The grouping is this pass's judgement; the dependencies inside it are not - they are the blocked_by links already recorded on each row.",
@@ -1143,13 +1194,14 @@
    "id": "P4",
    "name": "Make the machinery trustworthy",
    "promise": "Automate the parts that can be automated, and put a gate in front of the parts that cannot.",
-   "contains": [
-    "SG-14",
-    "SG-08",
-    "SG-12",
-    "SG-13",
-    "SG-06"
-   ],
+  "contains": [
+   "SG-14",
+   "SG-08",
+   "SG-12",
+   "SG-13",
+   "SG-06",
+   "SG-22"
+  ],
    "effort": "M (mostly engineering, some policy)",
    "must_be_true_first": "Path 1 for SG-06 (it depends on whether Creators API access exists - Q-05), and Q-08 for SG-08.",
    "delivers": "Automated drafting kept, with a claim-check gate as the thing you trust rather than the draft; click and conversion measurement that does not breach the privacy disclosure; a flag register where a row number means one thing; a public corrections log; and a settled position on which catalogue data the site may show.",
