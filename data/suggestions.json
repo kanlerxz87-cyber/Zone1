@@ -15,7 +15,7 @@
    "id": "SG-01",
    "title": "Settle which exact model each supplied link points to, before any more content ships",
    "area": "Product identity",
-   "problem": "The site markets three products but cannot state which manufacturer model each Amazon listing is. Chefman publishes three 6-quart dual-basket models (RJ38-3DBW-V2, RJ38-SQPF-3TDB-2, RJ38-SQPF-3TDB-2W) and the 8-quart ASIN carries a 450 F Hi-Fry claim that the RJ38-SQSS-8T manual does not support. A buyer who lands on the wrong spec table is the one failure mode that costs both trust and money.",
+   "problem": "CLOSED on 2026-11-16 for the half this suggestion said only a human could close. The site's register held that Amazon does not publish a model number on the ASIN, which made 'read the Product information row in a browser' the only route. Session ba29c641 fetched all three listing pages and the Product information block rendered: B0CDY277D3 states Model Number and Part Number RJ38-SQPF-3TDB-2W, B08DKYBTPH states Part Number RJ38-SQSS-8T, and B09B7SB46R states 4-00675-02X-VN. The two Chefman codes match the manufacturer documents; the Emeril code differs from the brand page by one character and stays a published conflict. Open half: which product the three supplied 9-character short-link tokens were meant to point at.",
    "evidence": [
     {
      "label": "Chefman 6 Qt dual-window product page (model RJ38-SQPF-3TDB-2W)",
@@ -57,11 +57,11 @@
      "reversible": true
     }
    ],
-   "recommendation": "A, then keep publishing.",
-   "why": "Amazon does not publish ASIN-to-model mappings anywhere machine-readable, and the brand sites publish model numbers independently of the listing. The two only meet inside the listing's own Product information block, which is visible to you in a browser and to nobody without one. Every other route is inference, and inference is exactly what this project refuses to publish.",
+   "recommendation": "No longer needs an owner action for the model step - it is answered and published. The residual decision is only whether to replace the three link.amazon short links with tagged /dp/ URLs, which is SG-02's call.",
+   "why": "Recorded for the file's history: this was option A, and the fetcher reached the same page a browser would. The lesson is in flag F63 - a premise that 'this can only be done by hand' survived ten passes because no one re-tested it, and the option list here was written around the false premise.",
    "impact": 5,
    "confidence": 5,
-   "effort": "S",
+   "effort": "done",
    "risk_of_not_doing": "High. A wrong spec table is a factual misstatement about a product you are paid to recommend, and it is the kind of error that attracts both refunds and FTC attention.",
    "blocks": [
     "SG-06",
@@ -70,7 +70,8 @@
    "blocked_by": [
     "Q-01",
     "Q-02"
-   ]
+   ],
+   "resolved_on": "2026-11-16"
   },
   {
    "id": "SG-02",
