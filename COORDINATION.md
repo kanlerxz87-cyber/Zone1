@@ -4404,3 +4404,15 @@ same day and got the same numbers, plus both averages (4.6). Two independent rea
 `python3 platform/audit/report.py` → AUDIT PASSED.
 
 PR / merge / Pages result recorded below after they complete.
+
+### X-3dfe4b45 final record — PR, merge, Pages deploy, live read-back (2026-11-16 UTC)
+
+* **PR:** [#98](https://github.com/kanlerxz87-cyber/Zone1/pull/98) — "Round 11 (X-3dfe4b45): live re-read of the sources round 10 skipped; TP-09/TP-10/TP-11 written; stale T20 row closed". Branch `arena/3dfe4b45-zone1` → `main`.
+* **Checks on the PR head:** `verify` ✓ ([43932565679](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43932565679)) · `Rebuild site/ from data/verified and assert every guarantee` ✓ ([43932565423](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43932565423)) · `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`.
+* **Merge:** `gh pr merge 98 --merge`, state MERGED, without waiting for approval, per the brief. **Merge commit on `main`: `5631333b986de04de336cd3c33291dbe182b77bc`.**
+* **Post-merge workflows on `main` at `5631333`, all success:** `Build, verify and deploy to GitHub Pages` ✓ ([43932731978](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43932731978)) · `CI` ✓ ([43932732064](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43932732064)) · `Verify verification annex (site/)` ✓ ([43932732372](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43932732372)) · `pages build and deployment` ✓ ([43932730868](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/43932730868)).
+* **GitHub Pages:** `pages/builds/latest` → `status: built`, commit `5631333…`, `error: null`.
+* **Live read-back from the deployed URL:** `articles/aerosol-oil-warning.html` renders with the disclosure bar, the quoted manual sentence, per-section source links (S18/S13/S12/S10), the no-testing note and prev/next links to both other new articles; `topics.html` now reads **11 published / 3 not yet written** with TP-09/TP-10 linking their new articles.
+* **Concurrency mechanics:** five rebases against five concurrent merges (#88–#93, #96–#97); every conflict resolved keep-both; generated pages always regenerated from the merged generator; one `--force-with-lease` push of this session's own branch after a rebase rewrote the already-pushed claim commit's hash (no other session works on this branch). Nothing from any other session was discarded; the complementary nature of this round's reads against session ad8105b3's itemised record is documented in `data/sources.json` (`reverified_2026_11_16` vs `reverified_2026_11_16_round11`).
+
+**X-3dfe4b45 result: done — nine sources re-read live and matching, three articles published, all gates green, PR #98 merged as `5631333`, GitHub Pages built at that commit and the live pages read back.**
