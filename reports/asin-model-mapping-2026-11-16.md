@@ -61,10 +61,10 @@ three URLs (`data/sources.json`, stamped with this pass's read).
 | Special Features | `+ 2Min Button, Automatic Shut-Off, Dual Zone Features, Hi-Fry, Mute` | corroborates Hi-Fry and Auto Shutoff, which the title had claimed |
 | Recommended Uses | `Air Fry, Cook, Defrost, Reheat, Roast` | new |
 | Wattage / Voltage | `1700 watts` / `120 volts` | **agrees** with S10 |
-| Max / Min Temperature Setting | `450 °F` / `93 °C` | maximum agrees; the minimum conflicts with the brand page's 95 °C floor → **F67** |
+| Max / Min Temperature Setting | `450 °F` / `93 °C` | maximum agrees; the minimum conflicts with the brand page's 95 °C floor → **F68** |
 | Item Dimensions | `13.38"D x 11.81"W x 10.63"H` | **agrees** with S10 digit for digit |
 | Item Weight | `13.3 pounds` | **agrees** with S10 |
-| Capacity | `6 liters` | **conflicts** with the same page's title/Size and with 6 qt = 5.67 L → **F64** |
+| Capacity | `6 liters` | **conflicts** with the same page's title/Size and with 6 qt = 5.67 L → **F65** |
 | Software Update Supported to Date | `unknown` | recorded, not used |
 | Warranty & Support | "Manufacturer's warranty can be requested from customer service." | weaker than S10's stated 1-year assurance; the site keeps S10's row and notes the difference |
 | Preset count | **absent** — no preset row exists in this block | strengthens **F36**: the row stays blank because no official document states a count |
@@ -74,11 +74,11 @@ three URLs (`data/sources.json`, stamped with this pass's read).
 
 | Field on the page | Value | Against what the site held |
 |---|---|---|
-| Model Number | `4-00675-02X-VN` | brand page says `4-00675-02A-VN` (S14) — **one character apart**, manual says `FAFO-001` (S15) → **F65**, not reconciled |
+| Model Number | `4-00675-02X-VN` | brand page says `4-00675-02A-VN` (S14) — **one character apart**, manual says `FAFO-001` (S15) → **F66**, not reconciled |
 | Part Number | `4-00675-02X-VN` | same string in both rows |
 | Model Name | `Extra Large 26 QT French Door Air Fryer Oven` | new |
-| Configuration | `Air Fryer Toaster Oven Combo with 24 Functions and 7 Accessories` | third document for **24** functions (the manual lists 24 by name; the brand page's spec block says 25) → **F4** addendum. "7 Accessories" contradicts the same page's own enumeration → **F66** |
-| Included Components | `Rack, Bake Pan, Drip Tray, Crisper Basket, Rotisserie Spit, Fetch Tool` | six named parts; the title says "Six Cooking Accessories Included"; the site publishes 7 from S14 + S15 → **F66** |
+| Configuration | `Air Fryer Toaster Oven Combo with 24 Functions and 7 Accessories` | third document for **24** functions (the manual lists 24 by name; the brand page's spec block says 25) → **F4** addendum. "7 Accessories" contradicts the same page's own enumeration → **F67** |
+| Included Components | `Rack, Bake Pan, Drip Tray, Crisper Basket, Rotisserie Spit, Fetch Tool` | six named parts; the title says "Six Cooking Accessories Included"; the site publishes 7 from S14 + S15 → **F67** |
 | Item Highlight | `Countertop Convection Cooker, 24 One-Touch Preset Options, … Six Cooking Accessories Included` | new |
 | Wattage / Voltage | `1700 watts` / `120 volts` | agrees with S15 (1700 W) and S14 (120 V) |
 | Max / Min Temperature Setting | `500 °F` / `75 °F` | the brand page publishes **no** temperature range for this model; this is the repository's only official range, and it is a *listing* claim, labelled as such |
@@ -96,10 +96,10 @@ three URLs (`data/sources.json`, stamped with this pass's read).
 | Field on the page | Value | Against what the site held |
 |---|---|---|
 | Part Number | `RJ38-SQSS-8T` | **agrees** with S12 and S13 — the ASIN-to-model step is now sourced from the listing |
-| Model Number | `Large Air Fryer` | **not a model code.** The field a reader (or a scraper) would trust holds marketing copy, so a method that reads only `Model Number` returns garbage. Recorded in **F63** as a method warning |
+| Model Number | `Large Air Fryer` | **not a model code.** The field a reader (or a scraper) would trust holds marketing copy, so a method that reads only `Model Number` returns garbage. Recorded in **F64** as a method warning |
 | Model Name | `Square Air Fryer` | new |
-| Max / Min Temperature Setting | `400 °F` / `94 °C` | the maximum **contradicts this same page's title** ("450°F Hi-Fry Option"), which is the F3/F33 conflict now living inside one document; the minimum does not convert to the brand page's 200 °F floor → **F67** |
-| Item Dimensions | `12.75"D x 13.5"W x 10"H` | brand page gives `15.4 x 12.6 x 13.5 in` for the 8 Qt → **F64**; both published, neither corrected |
+| Max / Min Temperature Setting | `400 °F` / `94 °C` | the maximum **contradicts this same page's title** ("450°F Hi-Fry Option"), which is the F3/F33 conflict now living inside one document; the minimum does not convert to the brand page's 200 °F floor → **F68** |
+| Item Dimensions | `12.75"D x 13.5"W x 10"H` | brand page gives `15.4 x 12.6 x 13.5 in` for the 8 Qt → **F65**; both published, neither corrected |
 | Item Weight | `12.8 pounds` | **agrees** with S12 |
 | Capacity / Size | `8 quarts` / `8 quarts` | agrees |
 | Wattage / Voltage | `1700 watts` / `120 volts` | agrees with S12 |
@@ -176,10 +176,10 @@ These values were in the same responses and are **not** on the site:
 
 | Flag | One line |
 |---|---|
-| **F63** | The "listings do not publish a model number" premise was false; four flags and two questions were open on it. Also: on one ASIN the code is in `Part Number` while `Model Number` holds marketing copy. |
-| **F64** | 8 Qt footprint differs between the brand page and its own listing; 6 Qt Capacity field says litres where the page says quarts. |
-| **F65** | Three official model strings for the Emeril, the newest two one character apart. |
-| **F66** | The Emeril listing says 7 accessories in one field, enumerates six in the next, and says "Six" in its title. |
-| **F67** | °C temperature floors that do not convert to the °F floors published beside them. |
-| **F68** | The requirements register promised computed counts in its own preamble and typed eight of them, four of which had already drifted; now substituted at build time, with a guard on both ends. |
+| **F64** | The "listings do not publish a model number" premise was false; four flags and two questions were open on it. Also: on one ASIN the code is in `Part Number` while `Model Number` holds marketing copy. |
+| **F65** | 8 Qt footprint differs between the brand page and its own listing; 6 Qt Capacity field says litres where the page says quarts. |
+| **F66** | Three official model strings for the Emeril, the newest two one character apart. |
+| **F67** | The Emeril listing says 7 accessories in one field, enumerates six in the next, and says "Six" in its title. |
+| **F68** | °C temperature floors that do not convert to the °F floors published beside them. |
+| **F69** | The requirements register promised computed counts in its own preamble and typed eight of them, four of which had already drifted; now substituted at build time, with a guard on both ends. |
 | *(gate defect, fixed in the same pass)* | `.github/workflows/ci.yml` and `scripts/ci-check.sh` ran the annex builder (which writes) and then `--check`, so the "prove the committed HTML is current" step could not fail; the stamp was also timezone-dependent. Repaired and proven to fire. |

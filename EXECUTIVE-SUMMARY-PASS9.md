@@ -1,6 +1,6 @@
 # Executive summary — pass 9 (session `22f43836`, 2026-11-15)
 
-> **Superseded, and kept.** Pass 9's briefing, committed 2026-11-15 by session `arena/22f43836`. The current briefing is [executive-summary.html](https://kanlerxz87-cyber.github.io/Zone1/executive-summary.html), generated from `data/`; nothing here was rewritten, and anything dated in this file should be read as that day's record. Two things it treats as unknowable from a fetch have since been answered from one: the model numbers on the listings (**F63**, https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f63) and the Emeril listing's classification, which three checkpoint-blocked fetches had left blank (**F53**).
+> **Superseded, and kept.** Pass 9's briefing, committed 2026-11-15 by session `arena/22f43836`. The current briefing is [executive-summary.html](https://kanlerxz87-cyber.github.io/Zone1/executive-summary.html), generated from `data/`; nothing here was rewritten, and anything dated in this file should be read as that day's record. Two things it treats as unknowable from a fetch have since been answered from one: the model numbers on the listings (**F64**, https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f63) and the Emeril listing's classification, which three checkpoint-blocked fetches had left blank (**F53**).
 
 This is the decision-ready briefing for the work done in this session. It states only what
 was checked, and it names the constraint that limits what "checked" means here.

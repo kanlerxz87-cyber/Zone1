@@ -946,7 +946,7 @@ and each page's **Product information** block rendered, model rows included:
 | B08DKYBTPH | Part Number **RJ38-SQSS-8T**, Model Number row holding the marketing string "Large Air Fryer", 1700 W / 120 V, Max 400 °F · Min 94 °C, 12.75″ × 13.5″ × 10″, 12.8 lb, Warranty "1-Year Limited Warranty", UPC 816458024518 | Model from the brand page and the manual; the 450 °F row blank because two sites disagreed |
 | B09B7SB46R | Model Number and Part Number **4-00675-02X-VN**, Min 75 °F · Max 500 °F, 1700 W / 120 V, 16.9″ × 15.8″ × 14.8″, Configuration "…24 Functions and 7 Accessories", Included Components enumerating six named parts, UPC 752356835682 | Model FAFO-001 (manual) / 4-00675-02A-VN (brand page); browse node blank because three 2026-11-15 fetches hit a checkpoint page |
 
-Read in full: **F63** (`flagged.html#f63`). The correction is narrower than it looks and worth
+Read in full: **F64** (`flagged.html#f64`). The correction is narrower than it looks and worth
 stating twice. What closed is the ASIN-to-model step, for all three products. What did **not** close
 is the supplied-link-to-ASIN attribution: the three `link.amazon` tokens are still nine characters,
 still not ASINs, and still arrive through `plpRedirect=mhFallback` (F6, F7, F10 stand). No sentence
@@ -955,15 +955,15 @@ than deleted, so the wrong premise stays visible in the file that carried it.
 
 ### 19.2 Four conflicts this pass found, and did not resolve
 
-* **F64** — the 8 Qt's footprint: brand page 15.4 × 12.6 × 13.5 in, its own listing 12.75 × 13.5 × 10
+* **F65** — the 8 Qt's footprint: brand page 15.4 × 12.6 × 13.5 in, its own listing 12.75 × 13.5 × 10
   (S12 vs S29); and the 6 Qt's listing Capacity field reading "6 liters" where its title, its Size
   field and the brand page all read 6 quarts.
-* **F65** — three official model strings for the Emeril, the newest two one character apart
+* **F66** — three official model strings for the Emeril, the newest two one character apart
   (`02A-VN` on the brand page, `02X-VN` on the listing, `FAFO-001` in the manual).
-* **F66** — the Emeril listing contradicts itself about the box: "7 Accessories" in its Configuration
+* **F67** — the Emeril listing contradicts itself about the box: "7 Accessories" in its Configuration
   field, six parts enumerated in its Included Components row, "Six" in its title. The same fetch made
   the 24-presets side of F4 stronger, so one read moved two rows in opposite directions.
-* **F67** — °C floors that do not convert to the °F floors on two products (93 °C vs 95 °C; 94 °C vs
+* **F68** — °C floors that do not convert to the °F floors on two products (93 °C vs 95 °C; 94 °C vs
   200 °F): rounding across documents, published as each source states it, never merged.
 
 Prices, availability, star ratings, review counts and the Best Sellers Rank line were all visible in
@@ -1022,4 +1022,4 @@ suggestions, 20 questions, a 37-URL sitemap, 33 unit tests, 15 guards, 27 banned
 briefings. All eight had drifted or were one edit from drifting. They are now `{}`-tokens substituted by
 `req_interp()` from the same objects the pages render from, an unknown token raises, and
 `check_requirement_tokens()` fails the build if a token survives into a page (both directions tested).
-Recorded as **F68**.
+Recorded as **F69**.

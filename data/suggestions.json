@@ -58,7 +58,7 @@
     }
    ],
    "recommendation": "No longer needs an owner action for the model step - it is answered and published. The residual decision is only whether to replace the three link.amazon short links with tagged /dp/ URLs, which is SG-02's call.",
-   "why": "Recorded for the file's history: this was option A, and the fetcher reached the same page a browser would. The lesson is in flag F63 - a premise that 'this can only be done by hand' survived ten passes because no one re-tested it, and the option list here was written around the false premise.",
+   "why": "Recorded for the file's history: this was option A, and the fetcher reached the same page a browser would. The lesson is in flag F64 - a premise that 'this can only be done by hand' survived ten passes because no one re-tested it, and the option list here was written around the false premise.",
    "impact": 5,
    "confidence": 5,
    "effort": "done",

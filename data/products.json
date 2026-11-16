@@ -33,7 +33,7 @@
      "S18",
      "S16"
     ],
-    "caveat": "Closed on 2026-11-16 for the ASIN-to-model step. The listing's own Product information block for B0CDY277D3 reads 'Model Number: RJ38-SQPF-3TDB-2W' and 'Part Number: RJ38-SQPF-3TDB-2W' - the string the brand page and the owner's manual publish, so this mapping now has three official documents instead of two. The earlier caveat on this row said Amazon does not publish the model number on the ASIN; that premise was tested and found false (F49, F63). What remains unconfirmed is the supplied short link to ASIN attribution (F6, F10), not the model behind the ASIN."
+    "caveat": "Closed on 2026-11-16 for the ASIN-to-model step. The listing's own Product information block for B0CDY277D3 reads 'Model Number: RJ38-SQPF-3TDB-2W' and 'Part Number: RJ38-SQPF-3TDB-2W' - the string the brand page and the owner's manual publish, so this mapping now has three official documents instead of two. The earlier caveat on this row said Amazon does not publish the model number on the ASIN; that premise was tested and found false (F49, F64). What remains unconfirmed is the supplied short link to ASIN attribution (F6, F10), not the model behind the ASIN."
    },
    "sibling_sku": {
     "v": "RJ38-SQPF-3TDB-2 (labelled 'Dual-Basket' on chefman.com)",
@@ -224,7 +224,7 @@
      "source": [
       "S16"
      ],
-     "note": "The listing's Features & Specs table gives the maximum in °F and the minimum in °C. The brand page (S10) publishes 200–450 °F / 95–235 °C: the 450 °F ceiling matches, while 93 °C is 199.4 °F against the brand's 95 °C floor. Two degrees, in the same direction as the 8 Qt's equivalent pair, so this reads as rounding between documents rather than two machines - recorded as published and not reconciled (F67). Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
+     "note": "The listing's Features & Specs table gives the maximum in °F and the minimum in °C. The brand page (S10) publishes 200–450 °F / 95–235 °C: the 450 °F ceiling matches, while 93 °C is 199.4 °F against the brand's 95 °C floor. Two degrees, in the same direction as the 8 Qt's equivalent pair, so this reads as rounding between documents rather than two machines - recorded as published and not reconciled (F68). Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
     },
     {
      "label": "Listing item weight",
@@ -240,7 +240,7 @@
      "source": [
       "S16"
      ],
-     "note": "The same three figures as the brand page's Specification block (S10), quoted in the listing's own depth-width-height order; unlike the 8 Qt, this pair agrees (F64 covers the product where they do not). Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
+     "note": "The same three figures as the brand page's Specification block (S10), quoted in the listing's own depth-width-height order; unlike the 8 Qt, this pair agrees (F65 covers the product where they do not). Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
     },
     {
      "label": "Listing capacity field",
@@ -248,7 +248,7 @@
      "source": [
       "S16"
      ],
-     "note": "The listing's Capacity field says 6 liters while the same page's title, its Size field and the brand page all say 6 quarts (5.67 L) - 0.33 L apart, purely because a unit label moved between fields. Quoted so a reader who checks the page finds the same words; the site's published capacity stays 6 Qt / 5.67 L (F64). Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
+     "note": "The listing's Capacity field says 6 liters while the same page's title, its Size field and the brand page all say 6 quarts (5.67 L) - 0.33 L apart, purely because a unit label moved between fields. Quoted so a reader who checks the page finds the same words; the site's published capacity stays 6 Qt / 5.67 L (F65). Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
     },
     {
      "label": "Listing colour / finish",
@@ -313,7 +313,7 @@
     {
      "id": "F2",
      "issue": "Two near-identical Chefman SKUs exist (RJ38-SQPF-3TDB-2 and RJ38-SQPF-3TDB-2W), and a third, RJ38-3DBW-V2, is published on the same brand store. The -2W owner's manual matches this listing's features exactly, but the mapping used to rest on feature wording alone.",
-     "action": "Closed for the ASIN-to-model step on 2026-11-16 by session arena/ba29c641: the listing for B0CDY277D3 publishes 'Model Number: RJ38-SQPF-3TDB-2W' and 'Part Number: RJ38-SQPF-3TDB-2W' in its Product information block, matching the -2W manual and the brand page, so the mapping is no longer an inference from feature wording (F63). Open part: the supplied short link to ASIN attribution (F6, F10) is the account holder's to state, and whether the seller ships a -2 unit against the ASIN is answerable only from the box.",
+     "action": "Closed for the ASIN-to-model step on 2026-11-16 by session arena/ba29c641: the listing for B0CDY277D3 publishes 'Model Number: RJ38-SQPF-3TDB-2W' and 'Part Number: RJ38-SQPF-3TDB-2W' in its Product information block, matching the -2W manual and the brand page, so the mapping is no longer an inference from feature wording (F64). Open part: the supplied short link to ASIN attribution (F6, F10) is the account holder's to state, and whether the seller ships a -2 unit against the ASIN is answerable only from the box.",
      "sources": [
       "S18",
       "S11",
@@ -380,7 +380,7 @@
      "S14",
      "S28"
     ],
-    "caveat": "Three official documents give three different strings for the same appliance and this pass did not reconcile them: the owner's manual is headed FAFO-001 (S15), the brand page lists 4-00675-02A-VN (S14), and the listing's Product information block read on 2026-11-16 states 'Model Number: 4-00675-02X-VN' with the same string in its Part Number row - the brand SKU with X where the brand page has A (S28). All three are quoted; none is asserted as the model printed on the unit. This is the one product where reading the listing did not settle the mapping. See F65.",
+    "caveat": "Three official documents give three different strings for the same appliance and this pass did not reconcile them: the owner's manual is headed FAFO-001 (S15), the brand page lists 4-00675-02A-VN (S14), and the listing's Product information block read on 2026-11-16 states 'Model Number: 4-00675-02X-VN' with the same string in its Part Number row - the brand SKU with X where the brand page has A (S28). All three are quoted; none is asserted as the model printed on the unit. This is the one product where reading the listing did not settle the mapping. See F66.",
     "amazon_listing_string": "4-00675-02X-VN"
    },
    "specs": [
@@ -457,7 +457,7 @@
       "S14",
       "S15"
      ],
-     "note": "Two official documents state 7: the Emeril product page says \"Included are 7 premium accessories\", and the owner's manual enumerates 13 numbered parts, of which 6 are built into the appliance (main unit, door handle, glass door, LED display, control panel, control knob), leaving 7 removable accessories (drip tray, wire rack, baking pan, rotisserie spit, crisper tray, rotisserie fetch tool, plate handle). The Amazon listing title for the supplied link instead says \"Six Cooking Accessories Included\"; that conflicting document is in the flag register, not here, because a row's source list is read as the evidence for the value and that title does not support 7. The manual adds that \"Some accessories may not be included with purchase\", so count the box before relying on this Addendum 2026-11-16: the listing is not a single 'six' to weigh against the manual's seven - inside one table it says '7 Accessories' in its Configuration field, enumerates six named parts in its Included Components row, and says 'Six Cooking Accessories Included' in its title. F48 asked which count is right; F66 records that the page holds both, and the site keeps 7 on the strength of the brand page and the manual."
+     "note": "Two official documents state 7: the Emeril product page says \"Included are 7 premium accessories\", and the owner's manual enumerates 13 numbered parts, of which 6 are built into the appliance (main unit, door handle, glass door, LED display, control panel, control knob), leaving 7 removable accessories (drip tray, wire rack, baking pan, rotisserie spit, crisper tray, rotisserie fetch tool, plate handle). The Amazon listing title for the supplied link instead says \"Six Cooking Accessories Included\"; that conflicting document is in the flag register, not here, because a row's source list is read as the evidence for the value and that title does not support 7. The manual adds that \"Some accessories may not be included with purchase\", so count the box before relying on this Addendum 2026-11-16: the listing is not a single 'six' to weigh against the manual's seven - inside one table it says '7 Accessories' in its Configuration field, enumerates six named parts in its Included Components row, and says 'Six Cooking Accessories Included' in its title. F48 asked which count is right; F67 records that the page holds both, and the site keeps 7 on the strength of the brand page and the manual."
     },
     {
      "label": "Interior light",
@@ -504,7 +504,7 @@
      "source": [
       "S28"
      ],
-     "note": "Stated identically in the listing's Model Number and Part Number rows. The brand page's string differs by one character (02A where the listing reads 02X); neither is overwritten and the difference is F65. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+     "note": "Stated identically in the listing's Model Number and Part Number rows. The brand page's string differs by one character (02A where the listing reads 02X); neither is overwritten and the difference is F66. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
     },
     {
      "label": "Listing temperature settings",
@@ -528,7 +528,7 @@
      "source": [
       "S28"
      ],
-     "note": "A third official document for the function count, agreeing with the owner's manual's 24 named presets against the brand page's '25 Cooking Pre-sets' (F4). Its '7 Accessories' half agrees with the site's published accessory count while the same table's Included Components row enumerates six - see F66. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+     "note": "A third official document for the function count, agreeing with the owner's manual's 24 named presets against the brand page's '25 Cooking Pre-sets' (F4). Its '7 Accessories' half agrees with the site's published accessory count while the same table's Included Components row enumerates six - see F67. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
     },
     {
      "label": "Listing included components",
@@ -536,7 +536,7 @@
      "source": [
       "S28"
      ],
-     "note": "Quoted as the field reads: six entries. How that squares with the Configuration field's '7 Accessories' in the same table, and with the manual's thirteen numbered parts of which six are built into the appliance, is recorded as F66 rather than averaged away. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+     "note": "Quoted as the field reads: six entries. How that squares with the Configuration field's '7 Accessories' in the same table, and with the manual's thirteen numbered parts of which six are built into the appliance, is recorded as F67 rather than averaged away. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
     },
     {
      "label": "Listing materials",
@@ -690,7 +690,7 @@
      "S13",
      "S29"
     ],
-    "caveat": "The code is published by the listing - but not in the field its name suggests. The Product information block read on 2026-11-16 states 'Part Number: RJ38-SQSS-8T', while the row labelled 'Model Number' holds the marketing string 'Large Air Fryer' (S29). So the ASIN-to-model step is sourced from the listing's Part Number row together with the brand page and the manual, and a procedure that reads only the 'Model Number' row - the procedure SG-01 told the owner to follow - would have returned a non-code. See F63. Note this identifies what the listing claims, not what ships in the box: the 450 °F wording in the same listing's title still matches a second 8 Qt SKU (F3, F33)."
+    "caveat": "The code is published by the listing - but not in the field its name suggests. The Product information block read on 2026-11-16 states 'Part Number: RJ38-SQSS-8T', while the row labelled 'Model Number' holds the marketing string 'Large Air Fryer' (S29). So the ASIN-to-model step is sourced from the listing's Part Number row together with the brand page and the manual, and a procedure that reads only the 'Model Number' row - the procedure SG-01 told the owner to follow - would have returned a non-code. See F64. Note this identifies what the listing claims, not what ships in the box: the 450 °F wording in the same listing's title still matches a second 8 Qt SKU (F3, F33)."
    },
    "specs": [
     {
@@ -795,7 +795,7 @@
      "source": [
       "S12"
      ],
-     "note": "Filled on 2026-11-14 from the same Specifications block, which separates the 5 Qt and 8 Qt figures: 'Dimensions: (8 Qt Model) 15.4 in x 12.6 in x 13.5 in' and 'Weight: (8 Qt Model) 12.8 lbs / 5.8 kg'. The 8 Qt column applies to RJ38-SQSS-8T, the model on this product page Cross-check 2026-11-16: the listing's own Measurements table gives 12.75\"D × 13.5\"W × 10\"H for the same ASIN - three different numbers, two of them transposed, from two official documents that agree on the weight (12.8 lb). The brand page is the published value because it separates the 5 Qt and 8 Qt columns and names the model; the listing's figures are recorded on their own row and the disagreement is F64."
+     "note": "Filled on 2026-11-14 from the same Specifications block, which separates the 5 Qt and 8 Qt figures: 'Dimensions: (8 Qt Model) 15.4 in x 12.6 in x 13.5 in' and 'Weight: (8 Qt Model) 12.8 lbs / 5.8 kg'. The 8 Qt column applies to RJ38-SQSS-8T, the model on this product page Cross-check 2026-11-16: the listing's own Measurements table gives 12.75\"D × 13.5\"W × 10\"H for the same ASIN - three different numbers, two of them transposed, from two official documents that agree on the weight (12.8 lb). The brand page is the published value because it separates the 5 Qt and 8 Qt columns and names the model; the listing's figures are recorded on their own row and the disagreement is F65."
     },
     {
      "label": "Warranty",
@@ -827,7 +827,7 @@
      "source": [
       "S29"
      ],
-     "note": "Quoted as the row reads; it is not a model code, which is the point recorded in F63. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+     "note": "Quoted as the row reads; it is not a model code, which is the point recorded in F64. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
     },
     {
      "label": "Listing temperature settings",
@@ -835,7 +835,7 @@
      "source": [
       "S29"
      ],
-     "note": "The maximum matches the brand page's 400 °F (S12) and contradicts the 450 °F Hi-Fry claim in this same listing's title; the minimum (94 °C = 201.2 °F) does not convert exactly to the brand page's 200 °F floor (F67). Recorded as published - see F3, F33 and F64 for what this does and does not decide. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
+     "note": "The maximum matches the brand page's 400 °F (S12) and contradicts the 450 °F Hi-Fry claim in this same listing's title; the minimum (94 °C = 201.2 °F) does not convert exactly to the brand page's 200 °F floor (F68). Recorded as published - see F3, F33 and F65 for what this does and does not decide. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
     },
     {
      "label": "Listing special features",
@@ -875,7 +875,7 @@
      "source": [
       "S29"
      ],
-     "note": "Does not agree with the brand page's 15.4 × 12.6 × 13.5 in for the 8 Qt model. Both are published; neither is corrected. A shopper measuring a shelf should read both - F64. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
+     "note": "Does not agree with the brand page's 15.4 × 12.6 × 13.5 in for the 8 Qt model. Both are published; neither is corrected. A shopper measuring a shelf should read both - F65. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
     },
     {
      "label": "Listing item weight",
@@ -956,7 +956,7 @@
     {
      "id": "F3",
      "issue": "Serious spec conflict about maximum temperature, and the brand side disagrees with itself. The Amazon listing (S29, re-read 2026-11-16 through the supplied short link) says 450 °F Hi-Fry, 4-in-1 (bake/dehydrate/frozen). One brand page and its manual — the TurboFry Touch Stainless (RJ38-SQSS-8T, S12/S13) — document 200–400 °F with four food-type presets. But Chefman's other 8 Qt page, TurboFry 8 Qt w/ High Fry (RJ38-8T-BLACK, S26, re-read live 2026-11-16), states a 450 °F Hi-Fry button and a 450 °F / 232 °C Hi-Fry temperature, matching the listing. Two different Chefman 8 Qt models are therefore in play; which model the ASIN maps to is unconfirmed (question Q-01).",
-     "action": "Conflicting claims shown side by side; no value asserted. Narrowed 2026-11-16 by session arena/ba29c641: the listing's own spec table states a 400 °F maximum and its Part Number identifies RJ38-SQSS-8T, so the 450 °F wording now conflicts with the page it appears on as well as with the brand documents - and because a second Chefman 8 Qt page does document 450 °F Hi-Fry (S26), the two-models explanation stays open alongside the stale-title one. Neither is asserted. What a buyer should do is read the manual in the box; what would settle it is a statement from Chefman about which SKU sits behind the ASIN. See F33 and F63.",
+     "action": "Conflicting claims shown side by side; no value asserted. Narrowed 2026-11-16 by session arena/ba29c641: the listing's own spec table states a 400 °F maximum and its Part Number identifies RJ38-SQSS-8T, so the 450 °F wording now conflicts with the page it appears on as well as with the brand documents - and because a second Chefman 8 Qt page does document 450 °F Hi-Fry (S26), the two-models explanation stays open alongside the stale-title one. Neither is asserted. What a buyer should do is read the manual in the box; what would settle it is a statement from Chefman about which SKU sits behind the ASIN. See F33 and F64.",
      "sources": [
       "S12",
       "S13",

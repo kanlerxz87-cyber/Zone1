@@ -4662,10 +4662,10 @@ on the model step, SG-01's "five minutes in a browser" was never the owner's job
 (`known`). F3/F33 are **not** closed: pass 11's live re-read of `RJ38-8T-BLACK` (S26) documents 450 °F, so the
 two-models reading stays live and both are published. 31 sourced rows added to `data/products.json` (46 → 77;
 75 verified, 2 blank and flagged), each labelled "as listed by Amazon"; the Emeril browse node's stale
-"not read" caveat removed; new flags **F63** (the false premise, and the Model-vs-Part-Number trap),
-**F64** (8 Qt footprint 15.4×12.6×13.5 vs 12.75×13.5×10; 6 Qt Capacity field says litres where its own page
-says quarts), **F65** (three Emeril model strings), **F66** (the listing says 7 accessories in Configuration,
-enumerates six, and says "Six" in the title — narrows F48, which had only seen the title), **F67** (°C floors
+"not read" caveat removed; new flags **F64** (the false premise, and the Model-vs-Part-Number trap),
+**F65** (8 Qt footprint 15.4×12.6×13.5 vs 12.75×13.5×10; 6 Qt Capacity field says litres where its own page
+says quarts), **F66** (three Emeril model strings), **F67** (the listing says 7 accessories in Configuration,
+enumerates six, and says "Six" in the title — narrows F48, which had only seen the title), **F68** (°C floors
 that do not convert to the °F floors beside them). Prices, ratings, review counts and rank positions were read
 and are not published. Evidence: `reports/asin-model-mapping-2026-11-16.md`.
 
@@ -4689,7 +4689,7 @@ this board already records. That reconciliation changed three of my own claims, 
 of kept: F53's "filled by this pass" (pass 10 filled it first, via the short link — now recorded as corroboration),
 the Q-02 answer's "the second-SKU explanation is no longer needed" (S26 says otherwise), and the F3 action text.
 Also fixed: `check_requirement_tokens` caught my own flag prose emitting braces, and the requirements register's
-typed counts became computed (**F68**). Gates on the final tree: `python3 build.py` 46 sitemap URLs exit 0 ·
+typed counts became computed (**F69**). Gates on the final tree: `python3 build.py` 46 sitemap URLs exit 0 ·
 `verify.py` 126 pages, 77 spec rows (75/2), 34 sources, 0 errors, 0 external warnings · `ci-check.sh` OK ·
 `check_links.py` 7,826 links, 0 broken · `verify_site.py` all assertions · `research/check_research.py` OK ·
 `node --check assets/app.js` OK · rebuild leaves `git status` clean.
