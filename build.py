@@ -107,6 +107,12 @@ PASS10 = json.loads(_p10.read_text(encoding="utf-8")) if _p10.exists() else None
 # arena/9f0e6668 already owns the round-10 follow-up ledger above.
 _p10u2 = ROOT / "session-9fccce0c" / "pass10.json"
 PASS10_U2 = json.loads(_p10u2.read_text(encoding="utf-8")) if _p10u2.exists() else None
+# Additive round-11 ledger (2026-11-16, arena/e05e5316-zone1): the eleventh independent
+# re-read, and the first in this series that also audited the *rendered pages* rather than
+# only the dataset. Same additive pattern - the file is owned by this session's folder and
+# the page simply omits the section if the file is absent.
+_p11 = ROOT / "session-e05e5316" / "pass11.json"
+PASS11 = json.loads(_p11.read_text(encoding="utf-8")) if _p11.exists() else None
 
 # Decision layer (added 2026-11-15, arena/3ddfa50e). Two registers that exist to be reviewed
 # rather than acted on: the suggestions queue and the open-questions register. Both are
@@ -1904,6 +1910,10 @@ PROGRAMME_FLAGS = [
      "All three products - the 'Amazon browse node' row and open question Q-11",
      "Recorded 2026-11-15 by arena/63a2c638, round 9, at the same time as the value itself was added, so the limit travels with the value. Both Chefman listings render the breadcrumb 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S16, S29). It is tempting to read 'Kitchen' there and apply the 4.50% Kitchen rate from the Commission Income Statement (S3). That would be an inference, not a source: S3's categories are commission categories defined by the Associates programme, Amazon's browse nodes are a shopper-navigation taxonomy, and Amazon publishes no mapping between the two. The same breadcrumb begins 'Home & Kitchen', and S3 also carries 'Home' at 3.00%, so the breadcrumb alone cannot even tell you which of the two it resembles. The site therefore continues to show the commission rate as unconfirmed (Q-11) and now shows the browse node as a separate, sourced fact. The Emeril browse node is blank: three fetches of that ASIN on 2026-11-15 returned Amazon's automated 'Continue shopping' checkpoint instead of the listing page, and a value that was never rendered cannot be recorded.",
      ["S3", "S16", "S29", "S28"]),
+    ("F63", "Amazon's own listing pages name further listings in each of the three formats, including a second Chefman 6 Quart Dual Basket with a different title. Recorded as evidence for the model-identity flag, not published as comparison content.",
+     "The three supplied links, read live 2026-11-16 by arena/e05e5316-zone1",
+     "Each of the three listing pages carries a 'Customers who viewed this item also viewed' module. On the Chefman 6 Qt listing it names a second \u201cChefman 6 Quart Dual Basket Air Fryer\u201d with a different title and a different ASIN (B0B7C327LK), plus a 10 Qt Gourmia dual basket and an 8.8 QT Nutrichef. On the Emeril listing it names an Emeril Lagasse Dual Zone 25QT, a Ninja French Door Premier FO101 20.3 Qt and a Midea Flexify Classic French Door 26.4 QT. On the Chefman 8 Qt listing it names two Chefman 6 QT Compact listings and an 8 Qt Gourmia. Two consequences, both stated rather than resolved. First, this is evidence for F1/F2: two different Amazon listings carry the name \u201cChefman 6 Quart Dual Basket\u201d, so reading the model number off a listing is the only way to know which of them the account holder meant. Second, the module also renders prices and star ratings; those are not recorded here and are not published, because the Competition data section on every product page is deliberately empty on the grounds that IP License \u00a72(e) restricts building an aggregated dataset from Amazon pages, and a competitor table built from this module would be exactly that. The observation is recorded so the owner can decide whether the research agent should read competitor sets at all, and under what permission. No model identity is asserted for any ASIN here.",
+     ["S16", "S17", "S28", "S29"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -2645,7 +2655,8 @@ def page_exec():
     # every rendered register so it cannot drift as a targeted addendum is added.
     LEDGER_ROWS = (len(REVERIFICATION["tests"]) + (len(PASS9["rows"]) if PASS9 else 0)
                    + (len(PASS10["rows"]) if PASS10 else 0)
-                   + (len(PASS10_U2["rows"]) if PASS10_U2 else 0))
+                   + (len(PASS10_U2["rows"]) if PASS10_U2 else 0)
+                   + (len(PASS11["rows"]) if PASS11 else 0))
     # How many pages the root build publishes. Counted from the directories this
     # generator writes to, so the number in the prose cannot drift away from the
     # number of pages actually shipped.
@@ -3168,6 +3179,55 @@ No value was filled in that a source did not state.</p>
 back, and the verdict \u2014 is in <code>reports/verification-2026-11-16-9fccce0c.md</code>.</p>
 """
 
+    # ---- round-11 addendum (arena/e05e5316-zone1): independent re-read, 2026-11-16 ----
+    p11_html = ""
+    if PASS11:
+        p11 = PASS11
+
+        def p11row(t):
+            cls, label = REV_VERDICT[t["verdict"]]
+            return (
+                f'<tr><td><strong>{e(t["claim"])}</strong></td>'
+                f'<td class="small">{e(t["published_value"])}</td>'
+                f'<td class="small">{e(t["observed"])}</td>'
+                f'<td><span class="pill {cls}">{e(label)}</span></td>'
+                f'<td class="small"><a href="{e(t["source_url"])}" target="_blank" rel="noopener">'
+                f'{e(t["source_label"])}</a></td></tr>'
+            )
+
+        p11rows = "".join(p11row(t) for t in p11["rows"])
+        p11_conf = sum(1 for t in p11["rows"] if t["verdict"] == "confirmed")
+        p11_part = sum(1 for t in p11["rows"] if t["verdict"] == "partially-confirmed")
+        p11_conflict = sum(1 for t in p11["rows"] if t["verdict"] == "conflict-live")
+        p11_new = sum(1 for t in p11["rows"] if t["verdict"] == "new-evidence")
+        p11_irreg = "".join(f'<li>{e(item)}</li>' for item in p11["irregularities"])
+        p11_notread = ", ".join(p11.get("not_re_read", []))
+        p11_html = f"""
+<h2>Round 11 \u2014 independent re-read ({e(p11['pass_date'])}, arena/e05e5316-zone1)</h2>
+<p class="small">{e(p11['lede'])}</p>
+<p class="tiny muted"><strong>{p11_conf}</strong> of the {len(p11['rows'])} rows below were confirmed
+against the live official source on {e(p11['pass_date'])};
+<strong>{p11_part}</strong> were confirmed in part,
+<strong>{p11_conflict}</strong> record an official disagreement that is still open and still unasserted,
+and <strong>{p11_new}</strong> record a new observation. No value was filled in that a source did not state.</p>
+<div class="callout info"><strong>Scope and caution</strong><p class="small">{e(p11['scope_note'])}</p></div>
+<div class="tablewrap">
+<table>
+  <caption>Round-11 re-reads, {e(p11['pass_date'])}</caption>
+  <thead><tr><th style="width:17%">Claim</th><th style="width:17%">Published value</th>
+  <th style="width:42%">What the official source says</th><th style="width:12%">Verdict</th>
+  <th style="width:12%">Source</th></tr></thead>
+  <tbody>{p11rows}</tbody>
+</table>
+</div>
+
+<h3>Open irregularities \u2014 not resolved by this pass</h3>
+<ul class="tight small">{p11_irreg}</ul>
+<p class="tiny muted">Not opened in this pass: {e(p11_notread)}. Their recorded reads stand as dated evidence.</p>
+<p class="tiny muted">The full evidence for this pass \u2014 every URL requested, the exact string read
+back, and the verdict \u2014 is in <code>reports/verification-2026-11-16-e05e5316.md</code>.</p>
+"""
+
     lr = rev.get("link_resolution") or {}
     lr_html = ""
     if lr:
@@ -3207,6 +3267,7 @@ back, and the verdict \u2014 is in <code>reports/verification-2026-11-16-9fccce0
 {p9_html}
 {p10_html}
 {p10u2_html}
+{p11_html}
 
 <h2>What this pass changed on the site</h2>
 <ul class="tight small">{changes}</ul>

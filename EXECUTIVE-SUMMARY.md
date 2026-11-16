@@ -923,3 +923,95 @@ article set, and filled the one verifiable blank (Emeril browse node) from a liv
 Recorded the same-day S3 finding (schedule now public; Kitchen 4.50% matches the candidate rows).
 Full report: [`reports/verification-2026-11-16-121929a5.md`](reports/verification-2026-11-16-121929a5.md);
 one-page briefing: [`EXECUTIVE-SUMMARY-PASS10-121929a5.md`](EXECUTIVE-SUMMARY-PASS10-121929a5.md).
+
+## 18. Verification round 11 and the published-page audit — arena/e05e5316-zone1 (2026-11-16)
+
+This pass did three things: re-read the load-bearing sources live, audit the **rendered pages**
+rather than the dataset, and turn the audit into a permanent gate.
+
+### 18.1 What the live re-read found
+
+Every load-bearing source was fetched again on 2026-11-16 and the quoted string read out of that
+response. Nothing published was found wrong, and nothing had to change.
+
+| Checked live on 2026-11-16 | Result |
+|---|---|
+| Operating Agreement (S1) | Header still reads *"Updated: October 15, 2025"*. |
+| Program Policies (S2) | Header still reads *"Updated: April 14, 2026"*. |
+| Standard Commission Income Statement (S3) | Kitchen 4.50%, All Other 4.00%, Home 3.00% — unchanged; still no air-fryer row and still no ASIN→category mapping, so the per-product rate stays blank. |
+| Application Review Process (S4) | *"at least three within the first 180 days"*, *"at least 10 posts"*, *"generally within the last 60 days"*, *"at least 500"* followers — all four unchanged. |
+| FTC Disclosures 101 (S8) | *"Place it so it's hard to miss"* and *"You can't talk about your experience with a product you haven't tried"* — verbatim. |
+| 16 CFR Part 255 (S9) | *"up to date as of 11/12/2026"*, *"last amended 10/30/2026"*; § 255.5 is *"Disclosure of material connections"*. |
+| PA-API 5 deprecation notice (S24) | *"deprecated and is being replaced by the Creators API"*; calls return 403 — confirms F24 exactly. |
+| Google outbound-link guidance (S31) | *"Mark links that are advertisements or paid placements … with the `sponsored` value"* — the site's `rel="sponsored nofollow"` is a documented form. |
+| Chefman 6 Qt page + endpoint + owner guide (S10, S32, S18) | Model, 1,307 reviews, $119.99/$119.99, two 3-quart baskets, Sync Finish, *"raise the cooking temperature to 450˚F (235˚C) for 2 minutes"*, 1-year warranty — all in the manufacturer's own words. |
+| Chefman 8 Qt page + endpoint (S12, S33) | Model, 717 reviews, 8 Qt $119.99 and 5 Qt $79.99, and the *"200–400°F"* body text that conflicts with the listing title. Unchanged. |
+| Emeril page + owner guide (S14, S15) | 26 qt / 24.6 L, 75–500 °F, 1700 W / 120 V, 2.6 from 25 reviews, and the 24 named presets on the manual's control panel against the brand page's 25. Unchanged. |
+| The three supplied short links (S17) | All three landed on the same three candidate ASINs with the same listing titles the site publishes, character for character; all three carried `plpRedirect=mhFallback` and **no `tag=` parameter**, so F6 stands. |
+
+**One thing this pass did not re-confirm, said plainly:** the **4.6 / 5 average** for the two
+Chefman products was not separately legible in this pass's rendering of the brand pages. The
+review **counts** (1,307 and 717) and the Emeril average (2.6 from 25) were re-read and are
+unchanged; the Chefman averages stand on the 2026-11-16 read by arena/9fccce0c, which read the
+star breakdown. It is recorded that way rather than quietly re-asserted.
+
+### 18.2 New evidence — the pages name more listings than the site publishes
+
+Each of the three Amazon listing pages carries a *"Customers who viewed this item also viewed"*
+module. On the Chefman 6 Qt listing it names **a second "Chefman 6 Quart Dual Basket Air Fryer"
+with a different title**; on the Emeril listing an Emeril Dual Zone 25QT, a Ninja French Door
+Premier FO101 20.3 Qt and a Midea Flexify 26.4 QT; on the Chefman 8 Qt listing two Chefman 6 QT
+Compact listings and an 8 Qt Gourmia.
+
+This is published as **flag F63**, with the source links, and deliberately **not** as a competitor
+table: the *Competition data* section on every product page is empty on the grounds that IP
+License §2(e) restricts building an aggregated dataset from Amazon pages, and a table built from
+this module would be exactly that. The prices and ratings the module also renders were not
+recorded. What it does prove is that **two different Amazon listings carry the name "Chefman 6
+Quart Dual Basket"** — which is why handover action H1, reading the model number off three
+listings, is the only route to a confirmed identity.
+
+### 18.3 The published-page audit, and three defects it found
+
+The repository's gates read the **dataset** and the **generator**. Nothing read the **page that
+ships**. `scripts/audit_pages.py` (new) reads the rendered HTML of every page the root generator
+writes and checks per-row source coverage across every data table, duplicate ids, JSON-LD,
+canonical URLs, meta descriptions, the heading outline, `alt` text, `lang`, the viewport, table
+headers, the affiliate anchors and the house banned-phrase list — where a **quoted** phrase is
+evidence, not slop.
+
+| # | Defect | Where | Fix |
+|---|---|---|---|
+| D1 | The footer labelled its five columns `<h5>`, so **every** page skipped a heading level (h2/h3 → h5). Invisible in a visual review; broken outline for a screen reader | 33 pages | Footer headings are now `<h2>` (a `<footer>` is its own sectioning root); the CSS that gives them their look moved with them |
+| D2 | `handover.html` went `h1` → `h3` for the five owner actions | 1 page | Now `<h2>` |
+| D3 | `404.html` went `h1` → `h3` for its two card headings | 1 page | Now `<h2>` |
+
+Two audit findings were **not** defects and were left alone: the 404 page correctly has no
+canonical URL (the repository's own guard requires `noindex` and forbids it), and nine rows cite
+this repository rather than an official source — the site's legend table, the two internal KPIs
+(F26 says outright they are operating targets), four design-opinion suggestion rows whose own
+callout points them at the Flagged page, and one genuinely unanswered question. Those nine are
+reported as warnings every time, so "the row cites the repository" can never be mistaken for "the
+row cites the source".
+
+**The class is now impossible to reintroduce silently.** `build.py` gained
+`check_heading_order()` — one `<h1>` per page, no heading more than one level deeper than the
+one before it, no `<h5>`/`<h6>`. It was **proved to fire**: with an `<h5>` injected, the build
+exited 1 and named the page and the heading; restored, it exited 0. `scripts/audit_pages.py` is
+now part of `scripts/ci-check.sh`.
+
+### 18.4 Gates (all green after the final edit)
+
+`build.py` → 37 pages · `verify.py` → 116 pages, 46 spec rows (43 verified / 3 blank+flagged), 34
+sources, **0 errors, 0 external warnings** · `scripts/ci-check.sh` → 33 unit tests OK, data audit
+clean, s2 build current, links 0 broken, **page audit 0 errors / 9 warnings** · `research/
+check_research.py` → OK · `scripts/verify_site.py` → all assertions passed · `platform/audit/
+report.py` → AUDIT PASSED · `node --check assets/app.js` → OK.
+
+### 18.5 What this pass did not resolve
+
+F1/F2 (which manufacturer model each ASIN ships), F6 (the Associates tag inside the short links),
+F3 (the 450 °F vs 400 °F conflict) and F4/F5/F29 (the Emeril preset count) all remain open, and
+the new F63 evidence makes the first of them more important, not less. Account status, approval
+and the per-ASIN commission rate live inside Amazon's own systems. Organic traffic is still zero
+and is still not deliverable from inside a repository.
