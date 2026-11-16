@@ -838,7 +838,7 @@ leaves open are published rather than guessed: whether an ordinary public listin
 Feeds, and the policies page does not extend the definition to ordinary pages), and what the
 agent must call itself. Those are **question Q-21** and **suggestion SG-22**. A third point is
 only partly legible — §4(a) refers to "the requirements in section 3 of these Agent Terms", and
-that section was not visible in the render used for this pass, which is recorded as **flag F60**
+that section was not visible in the render used for this pass, which is recorded as **flag F62**
 rather than papered over.
 
 ### 17.2 Three published pages pointed at a flag that does not exist
@@ -904,6 +904,6 @@ rebuild leaves `git diff` empty outside the files this pass edited.
 It did not resolve F1/F2 (which manufacturer model each ASIN ships), F6 (the Associates tag
 inside the short links), F3 (the 450 °F conflict) or F4/F5 (the Emeril preset count) — none of
 those is answerable from outside the account holder's browser. It did not read IP License §4 end
-to end, and said so (F60). It did not change any published value that a source did not
+to end, and said so (F62). It did not change any published value that a source did not
 contradict, and it did not touch a single file in `site/`, `s2/`, `data/s2/`, `research/`,
 `platform/`, `docs/`, `dashboard/`, `crosscheck/` or `annex-88769516/`.

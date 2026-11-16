@@ -148,14 +148,14 @@
   {
    "title": "The two clauses that govern an AI-agent affiliate platform were not in the canonical register",
    "detail": "IP License §4 (the Agent Terms) and Participation Requirements §5 were read live on 2026-11-16. Before this pass, data/compliance.json held zero occurrences of \"Agent Terms\" and data/platform.json held zero occurrences of \"Agent\" — although the brief this project answers is explicitly an AI-powered affiliate platform and the root site ships a platform blueprint proposing automated research. They are now compliance requirements C17 and C18, with platform guardrail G11. What they do not settle is published as question Q-21 and queued as suggestion SG-22: whether an ordinary public listing page counts as Program Content, and what the agent is called. Neither is answered by inference.",
-   "flag": "F59",
+   "flag": "F61",
    "source_label": "Amazon Associates Central — Program Policies, IP License §4 and Participation Requirements §5",
    "source_url": "https://affiliate-program.amazon.com/help/operating/policies"
   },
   {
    "title": "Three published pages pointed at a flag number that exists in no register",
    "detail": "data/questions.json, data/suggestions.json and data/sources.json each told the reader to see the flag numbered 46 for the Application Review Process recency criterion. The canonical register runs F1–F45 and F47–F58; the legacy data/flags.json register runs F01–F27. There is no 46 in either, so a reader who followed the pointer landed on the Flagged page and found nothing. The three pointers now name F56, the row that covers it, and a new build guard fails the build if any generated page cites a flag, source, question or suggestion id that is not in the register it points at. The guard was proven to fire on an injected violation.",
-   "flag": "F59",
+   "flag": "F61",
    "source_label": "This repository — the fix and the guard that now prevents it",
    "source_url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/reports/verification-2026-11-16.md"
   },
@@ -168,8 +168,8 @@
   },
   {
    "title": "One limit stated rather than papered over: IP License §4 was not read end to end",
-   "detail": "The Program Policies page renders its IP License as one long table, and the markdown conversion used for this pass collapsed part of it. Everything quoted in requirement C17 was read directly in the response body, but the section was not read to its end: sub-part (a) refers to \"the requirements in section 3 of these Agent Terms\", and the text of that section was not visible. The Agent Terms are published as the rules this pass could read, with the limit stated on the row, and flag F60 records what is still missing.",
-   "flag": "F60",
+   "detail": "The Program Policies page renders its IP License as one long table, and the markdown conversion used for this pass collapsed part of it. Everything quoted in requirement C17 was read directly in the response body, but the section was not read to its end: sub-part (a) refers to \"the requirements in section 3 of these Agent Terms\", and the text of that section was not visible. The Agent Terms are published as the rules this pass could read, with the limit stated on the row, and flag F62 records what is still missing.",
+   "flag": "F62",
    "source_label": "Amazon Associates Central — Program Policies, IP License §4",
    "source_url": "https://affiliate-program.amazon.com/help/operating/policies"
   }

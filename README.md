@@ -261,7 +261,7 @@ things, and all three are fixed:
   requirements **C17** and **C18** and platform guardrail **G11**. The scope question they raise
   (does an ordinary public listing page count as Program Content, and what must the agent call
   itself?) is published as **Q-21** and **SG-22** rather than answered by inference, and the
-  limit of what could be read is published as **F60**.
+  limit of what could be read is published as **F62**.
 * **Three published pages pointed at a flag that exists in no register.** `data/questions.json`,
   `data/suggestions.json` and `data/sources.json` all sent readers to "flag F46"; there is no
   F46 in either register in this repository. The pointers now name **F56**, and a new build guard
