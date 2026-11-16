@@ -5162,28 +5162,37 @@ both volatile counters unchanged from the values already published (no `data/pro
 needed); the three standing irregularities (F1/F2/F3 family, F4/F5, F46) re-confirmed and left
 published as flags. Factual-value edits this pass: **none**.
 
-**Gates (all green after the final edit, on the final rebased tree):** `python3 build.py` exit 0 —
-**47 pages**, 46 sitemap URLs + `feed.xml` (19 items) · `python3 verify.py` 126 pages, 46 spec
-rows (44 verified / 2 blank+flagged), 34 sources, **0 errors, 0 external warnings** ·
-`bash scripts/ci-check.sh` 33 tests OK, data audit clean, s2 build current, **7,846 links /
-0 broken** · `python3 scripts/verify_site.py` **393 assertions, ALL PASSED** ·
-`python3 research/check_research.py` OK · `python3 platform/audit/report.py` AUDIT PASSED ·
-`node --check assets/app.js` OK · two consecutive `build.py` runs **byte-identical**.
+**Gates (all green after the final edit, on the final rebased tree `d5f449d`):** `python3 build.py`
+exit 0 — **48 pages**, 47 sitemap URLs + `feed.xml` (19 items) · `python3 verify.py` 127 pages,
+77 spec rows (75 verified / 2 blank+flagged — session `ba29c641`'s direct listing reads added 31
+rows), **0 errors, 0 external warnings** · `bash scripts/ci-check.sh` 33 tests OK, data audit
+clean, s2 build current, **8,287 links / 0 broken** · `python3 scripts/verify_site.py` **393
+assertions, ALL PASSED** · `python3 research/check_research.py` OK ·
+`python3 platform/audit/report.py` AUDIT PASSED · `node --check assets/app.js` OK ·
+two consecutive `build.py` runs **byte-identical**.
 `s2/` stamp drift produced by `ci-check.sh`'s own s2 rebuild was reverted before commit — s2/ is
 outside this pass's declared scope, and prior PRs' CI proved `--check` tolerates the stamp.
 
-**Merge-conflict resolutions during two rebase rounds (protocol item 6) — origin/main advanced
-from `4225b95` to `5631333` → `4ec77d8` → `4ed5843` (PRs #94–#112) while this pass worked:**
+**Merge-conflict resolutions during three rebase rounds (protocol item 6) — origin/main advanced
+from `4225b95` to `5631333` → `4ec77d8` → `4ed5843` → `d5f449d` (PRs #94–#117) while this pass
+worked:**
 
 | File | Resolution — nothing discarded |
 |---|---|
 | `COORDINATION.md` (×3) | keep-both: every other session's board rows, claim-log entries and completion records retained; this pass's board and record appended after them |
 | `build.py` / `assets/style.css` (design-layer commit) | **upstream taken wholesale** — the design-coherence system is canonical; this pass's additive pieces (PASS12 loader + render block, LEDGER_ROWS term, feed, masthead, footer column, head links, additive CSS) re-applied on top as fresh edits |
 | `data/design-prompt.json` (A-11) | upstream kept — session `492acddc`'s correction had already landed; this session's independent correction of the same row is recorded here and in the evidence report |
-| `data/suggestions.json` | upstream (26 rows, SG-01–26) + this pass's four rows renumbered **SG-27–SG-30**, inserted with verified extraction; duplicate-id asserts enforced |
-| `EXECUTIVE-SUMMARY.md` | upstream's §19 (design-coherence) and §20 (seasonal) kept verbatim; this pass's section renumbered **§21** with subsections 21.1–21.3 |
+| `data/suggestions.json` | upstream (26 rows, SG-01–26, stable across all three rounds) + this pass's four rows renumbered **SG-27–SG-30**, inserted with verified extraction; duplicate-id asserts enforced |
+| `EXECUTIVE-SUMMARY.md` | upstream's §19 (design-coherence), §20 (seasonal) and both upstream §21 sections kept verbatim; this pass's section renumbered **§22** with subsections 22.1–22.3 — §22 notes that upstream's duplicate §21 numbering was left as published rather than renumbered by this session |
 | `README.md` | upstream's briefing/report rows kept, this session's report inserted; articles row updated to the dataset's 19 with the feed note; this pass's closing section rewritten to the pivot narrative |
 | generated HTML | never hand-merged — regenerated in full from the merged generator; two consecutive builds byte-identical |
+
+**Dated addendum to this pass's own ledger:** after this session's spot reads, session
+`ba29c641` read all three listings' Product information blocks directly; F1 closed for two of
+three products and the Emeril part-number conflict opened as **F70**. `session-8874422b/pass12.json`
+carries a scope-note addendum so its rows are read as a snapshot of the register at the moment of
+this session's reads, not as a contradiction of the later ones. This pass also adopted the
+upstream resolution of design-prompt row A-11 (session `492acddc`'s fix had already landed).
 
 **Irregularities:** none introduced. Process notes logged for transparency: (1) the sandbox clone
 is shallow, so `git pull --rebase origin main` initially replayed an already-merged commit and was

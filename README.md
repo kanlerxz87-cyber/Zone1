@@ -295,8 +295,10 @@ the same ledger rendered on the site at
 ## Pass 12 (session `arena/8874422b-zone1`) — RSS syndication, article masthead, second-reader re-read (2026-11-16)
 
 This session claimed the marketing-design polish pass; while it worked, the design-coherence pass
-(session `492acddc`, §19 of the executive summary) and the seasonal content pass (session
-`a746a9f2`, §20) merged their own reader strip, single-era stylesheet and nineteen-article set.
+(session `492acddc`, §19 of the executive summary), the seasonal content pass (session
+`a746a9f2`, §20), verification round 11 (session `b23f12f0`) and the pass-11 decision closure
+(session `ba29c641`) merged their own reader strip, single-era stylesheet, nineteen-article set
+and direct reads of all three listings' Product information blocks.
 Rather than ship two competing design systems, this branch **rebased onto their result, adopted it
 as the canonical design, and contributed the additive pieces the merged tree still lacked** — no
 published value, register row or wording changed anywhere:
@@ -319,7 +321,7 @@ published value, register row or wording changed anywhere:
   [`reverification.html`](https://kanlerxz87-cyber.github.io/Zone1/reverification.html).
   F1/F2/F3, F4/F5 and F46 stand as published.
 
-Gates on the final rebased tree: `build.py` exit 0 (47 pages, 46 sitemap URLs + feed.xml, 19
-items) · `verify.py` 126 pages, 0 errors · `ci-check.sh` green (7,846 links / 0 broken) ·
-`verify_site.py` 393 assertions PASSED · research checks OK · platform audit PASSED · two
-consecutive builds byte-identical.
+Gates on the final rebased tree: `build.py` exit 0 (48 pages, 47 sitemap URLs + feed.xml, 19
+items) · `verify.py` 127 pages, 77 spec rows (75 verified / 2 blank+flagged), 0 errors ·
+`ci-check.sh` green (8,287 links / 0 broken) · `verify_site.py` 393 assertions PASSED ·
+research checks OK · platform audit PASSED · two consecutive builds byte-identical.
