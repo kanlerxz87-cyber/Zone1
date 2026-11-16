@@ -2332,19 +2332,22 @@ PROGRAMME_FLAGS = [
      "data/requirements.json (rows A-02, A-04, A-06, B-01, B-05, B-06, B-08, C-02, D-05, G-01)",
      "Found 2026-11-16 by arena/ba29c641-zone1 while updating the register for this pass's rows. The file's `counts_note` says: 'Counts are computed from the rows at build time rather than typed, so this page cannot claim a total the register does not contain.' The status counts at the top of the page are indeed computed — every number inside the prose of individual rows was typed, and four had drifted within two days: 'Forty-six spec rows' and '43 of 46 carry a value' (the dataset had moved to 46 and then to 77 as passes added sourced rows), 'Twenty-one numbered suggestions (SG-01…SG-21)' against a register of 23, 'Twenty questions' against 22, and 'a generated sitemap of 37 URLs' against 46. None of these is a wrong fact about the world; each is a right fact about an older build, published as present tense, which is how a verification register quietly becomes a historical document. The fix is structural, not editorial: those rows now write named count tokens — n_spec_rows, n_verified_rows, n_blank_rows, n_suggestions, n_sg_last, n_questions, n_articles, n_topics, n_products, n_sources, n_banned, n_banned_distinct, n_tests, n_guards, n_stale_briefings — each wrapped in braces in the data and substituted by req_interp() from the same objects the pages render from. An unknown token raises at build time, and check_requirement_tokens() fails the build if a brace-delimited token survives into any generated page, so a row cannot ship half-interpolated. Both directions were proven: an injected bad token and an injected unresolved token each exited non-zero. The same class is why this register's sibling in the s2 annex carries F60, and why the sitemap row's number was removed rather than retyped: a count is only true at the moment it is written — including the counts typed into this register's own log lines, one of which this pass had to correct in its own commit message two minutes after writing it (7,815 links became 7,826 when the guard rows were added). Process note for the next session: this pass's rows were renumbered twice in one day to avoid same-day id collisions — first off F63 (arena/a746a9f2), then off F64-F67 (arena/b23f12f0, whose F67 is the duplicate-ID guard that has now caught both collisions). Renumbering is cheap while a PR is open and expensive after it merges.",
      []),
-
     # ---- arena/19d92a81, marketing & decision-support pass, 2026-11-16 ---------------- #
     # (F74: renumbered from F68 in this session's first draft - arena/ba29c641
     #  published its own F68 on the same day; renamed at merge, neither row lost.)
-    ("F74", "An article page is published that no data file or generator references: articles/sync-finish-two-buttons.html.",
-     "articles/sync-finish-two-buttons.html vs data/articles.json (no matching slug)",
-     "Found 2026-11-16 by session arena/19d92a81 during the line-by-line repo review, after the file arrived with a parallel pass's merge. data/articles.json carries no 'sync-finish-two-buttons' slug and no build step generates the page, so nothing will ever refresh or retire it - yet it is served publicly next to the generated articles and looks exactly like them, disclosure bar included, so a reader cannot tell it is unmanaged. A grep of data/ and build.py finds zero references. It is the same defect class as F57 (orphan registers), one layer up: a page outside the data-driven set. Decision needed: register it in data/articles.json so it is generated and checked like its siblings, or delete it. This row is a fact about the repository; the two files named above are the evidence.",
+    # Resolution recorded by arena/5ac82b1d: the decision this row asked for was executed
+    #  the same day - the orphan was deleted and check_no_orphan_pages() now guards it.
+    ("F74", "An article page existed on disk and on the live site that no data file or generator referenced: articles/sync-finish-two-buttons.html. Found independently twice on 2026-11-16; repaired the same day.",
+     "articles/sync-finish-two-buttons.html vs data/articles.json (no matching slug); file removed 2026-11-16",
+     "Found 2026-11-16 by session arena/19d92a81 during the line-by-line repo review, after the file arrived with a parallel pass's merge. data/articles.json carries no 'sync-finish-two-buttons' slug and no build step generates the page, so nothing will ever refresh or retire it - yet it is served publicly next to the generated articles and looks exactly like them, disclosure bar included, so a reader cannot tell it is unmanaged. A grep of data/ and build.py finds zero references. It is the same defect class as F57 (orphan registers), one layer up: a page outside the data-driven set. Independent discovery the same day by arena/5ac82b1d during the final integration pass: articles/ held 20 HTML files against 19 registered slugs; the orphan carried the same TP-09 subject as the registered article sync-finish-explained.html and appeared in no sitemap entry, no articles index and no internal link - an orphan a crawler could still reach by direct URL, publishing a second unregistered answer to the same question. Its own passing session's completion record (X-121929a5) states this draft was discarded as a duplicate of round 11's TP-09 article; the register entry was dropped but the HTML file survived the merge, and no gate compared the articles/ directory against the page set the build emits (verify.py checks links from files that exist, so it cannot see a file nothing links to). DECISION EXECUTED 2026-11-16 by arena/5ac82b1d: deleted rather than registered - the canonical TP-09 article (articles/sync-finish-explained.html, data/topics.json published_as) already covers the subject, so registering the duplicate would publish the same question twice. check_no_orphan_pages() now fails the build if any .html file in articles/, products/, guides/, categories/ or the repo root is not generated by this build, and the guard was proven to fire on an injected file before it was committed.",
      []),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
 # fact about this repository, so the repository itself (on GitHub) is the source.
 REPO_EVIDENCE = {
+    "F74": ["build.py", "data/articles.json", "data/topics.json",
+            "reports/verification-2026-11-16-19d92a81.md"],
     "F63": ["data/questions.json", "data/suggestions.json", "data/decision.json"],
     "F20": ["s2/", "site/", "dashboard/", "research/", "session-3740f69d/", "docs/"],
     "F22": ["EXECUTIVE_SUMMARY.md"],
@@ -2377,7 +2380,6 @@ REPO_EVIDENCE = {
     "F71": ["data/products.json"],
     "F72": ["data/products.json"],
     "F73": ["data/requirements.json", "build.py"],
-    "F74": ["articles/sync-finish-two-buttons.html", "data/articles.json"],
 }
 
 VERDICTS = {
@@ -5891,6 +5893,42 @@ def check_article_pages(rendered):
     return problems
 
 
+def check_no_orphan_pages(pages):
+    """Build guard: every HTML file the root build owns must be one it generates (F74).
+
+    Found 2026-11-16 (arena/5ac82b1d): `articles/sync-finish-two-buttons.html` was
+    live on Pages and on disk while absent from data/articles.json, the sitemap and
+    every index — a second, unregistered version of topic TP-09. It arrived in a
+    merge whose register entry was dropped as a duplicate while its HTML file was
+    not, and no existing check compared the directories on disk against the page
+    set the build actually emits (verify.py checks links *from* files that exist;
+    it cannot see a file nothing links to). The guard fails the build if any .html
+    file in the root build's owned directories is not in `pages`, so a stale or
+    unregistered page cannot ship again. Annex directories (s2/, site/, research/,
+    docs/, dashboard/, session-*/, annex-*/) are other sessions' builds and are
+    deliberately not scanned.
+    """
+    owned_dirs = ("articles", "products", "guides", "categories")
+    expected = set(pages)
+    problems = []
+    for d in owned_dirs:
+        p = ROOT / d
+        if not p.is_dir():
+            continue
+        for f in sorted(p.glob("*.html")):
+            rel = f"{d}/{f.name}"
+            if rel not in expected:
+                problems.append(
+                    f"{rel}: exists on disk but this build does not generate it "
+                    "(not registered in data/ — stale or unregistered page)")
+    for f in sorted(ROOT.glob("*.html")):
+        if f.name not in expected:
+            problems.append(
+                f"{f.name}: exists on disk but this build does not generate it "
+                "(not registered in data/ — stale or unregistered page)")
+    return problems
+
+
 # Banned-phrase guard for the editorial layer (2026-11-15, arena/792c279e).
 # The brief's complaint is that the site read "like AI slop". A house style rule that
 # nobody can enforce is a wish, so it is a build failure. The list is deliberately
@@ -7214,6 +7252,11 @@ def main():
     if dangling_ids:
         raise SystemExit("BUILD FAILED — a published page points at an id that does not exist in any "
                          "register:\n  " + "\n  ".join(dangling_ids))
+
+    orphan_pages = check_no_orphan_pages(pages)
+    if orphan_pages:
+        raise SystemExit("BUILD FAILED — HTML on disk that this build does not generate "
+                         "(flag F74):\n  " + "\n  ".join(orphan_pages))
 
     for rel, text in pages.items():
         # Page bodies are authored with ../ prefixes so they can be reused at any
