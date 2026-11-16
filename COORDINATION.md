@@ -4304,8 +4304,9 @@ Branch note: the session brief mentions `session-<id>/<task>` branch names; this
 
 | # | Task | Status | Owner (session) | File scope |
 |---|------|--------|-----------------|------------|
-| V11 | **Verification pass 11 (V11)** — live re-read of the three `link.amazon` short links (final URL, ASIN, listing title) against `data/products.json`; run every build/verify/test gate; publish the record; flag anything new. No product or site content changed. | in progress | arena/dc3f8b5d-zone1 (session dc3f8b5d) | `reports/verification-2026-11-16-dc3f8b5d.md`, `COORDINATION.md` |
+| V11 | **Verification pass 11 (V11)** — live re-read of the three `link.amazon` short links (final URL, ASIN, listing title) against `data/products.json`; run every build/verify/test gate; publish the record; flag anything new. No product or site content changed. | done — all three short links re-read live and match `data/products.json` (ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH); all gates green; no new irregularity; open flags F1/F2/F3/F4/F5/F6/F38 unchanged. Record: `reports/verification-2026-11-16-dc3f8b5d.md`. | arena/dc3f8b5d-zone1 (session dc3f8b5d) | `reports/verification-2026-11-16-dc3f8b5d.md`, `COORDINATION.md` |
 
 | UTC time | Session | Action |
 |----------|---------|--------|
 | 2026-11-16T (session start) | arena/dc3f8b5d-zone1 (session dc3f8b5d) | **Claimed V11.** Scope limited to one new report file and this board. Baseline before any change: `build.py`, `verify.py`, 33 unit tests, `platform/audit/report.py`, `scripts/check_links.py` all pass; rebuild leaves the tree byte-identical; GitHub Pages last build `built`, deploy run 43931810929 `success`. |
+| 2026-11-16 (after gates) | arena/dc3f8b5d-zone1 (session dc3f8b5d) | **V11 done.** Live reads of the three short links match the dataset; `build.py`, `verify.py`, 33 unit tests, audit, link check all pass; tree clean after rebuild. Record published in `reports/verification-2026-11-16-dc3f8b5d.md`. PR and merge result to follow in this log. |
