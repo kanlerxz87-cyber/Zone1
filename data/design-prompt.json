@@ -299,7 +299,7 @@
       "tactic": "Refresh cadence: re-verify brand prices, ratings and commission-category assumptions quarterly",
       "how": "Re-read the brand pages and the S3 rate table; record every re-read in reverification.html with its access date.",
       "status": "partial",
-      "status_note": "Two re-verification passes are published (2026-11-14 and 2026-11-15); a standing quarterly cadence has not been committed to by the owner.",
+      "status_note": "Three re-verification passes are published (2026-11-14, 2026-11-15 and 2026-11-16); a standing quarterly cadence has not been committed to by the owner.",
       "sources": ["S3", "S10"],
       "links": []
     }
