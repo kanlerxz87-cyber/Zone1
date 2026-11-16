@@ -1,6 +1,6 @@
 {
  "version": "1.1",
- "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26",
+ "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped)",
  "compiled": "2026-11-16",
  "how_to_read": [
   "Nothing on this page has been implemented. It is a decision queue for the site owner.",
@@ -15,7 +15,7 @@
    "id": "SG-01",
    "title": "Settle which exact model each supplied link points to, before any more content ships",
    "area": "Product identity",
-   "problem": "The site markets three products but cannot state which manufacturer model each Amazon listing is. Chefman publishes three 6-quart dual-basket models (RJ38-3DBW-V2, RJ38-SQPF-3TDB-2, RJ38-SQPF-3TDB-2W) and the 8-quart ASIN carries a 450 F Hi-Fry claim that the RJ38-SQSS-8T manual does not support. A buyer who lands on the wrong spec table is the one failure mode that costs both trust and money.",
+   "problem": "CLOSED on 2026-11-16 for the half this suggestion said only a human could close. The site's register held that Amazon does not publish a model number on the ASIN, which made 'read the Product information row in a browser' the only route. Session ba29c641 fetched all three listing pages and the Product information block rendered: B0CDY277D3 states Model Number and Part Number RJ38-SQPF-3TDB-2W, B08DKYBTPH states Part Number RJ38-SQSS-8T, and B09B7SB46R states 4-00675-02X-VN. The two Chefman codes match the manufacturer documents; the Emeril code differs from the brand page by one character and stays a published conflict. Open half: which product the three supplied 9-character short-link tokens were meant to point at.",
    "evidence": [
     {
      "label": "Chefman 6 Qt dual-window product page (model RJ38-SQPF-3TDB-2W)",
@@ -57,11 +57,11 @@
      "reversible": true
     }
    ],
-   "recommendation": "A, then keep publishing.",
-   "why": "Amazon does not publish ASIN-to-model mappings anywhere machine-readable, and the brand sites publish model numbers independently of the listing. The two only meet inside the listing's own Product information block, which is visible to you in a browser and to nobody without one. Every other route is inference, and inference is exactly what this project refuses to publish.",
+   "recommendation": "No longer needs an owner action for the model step - it is answered and published. The residual decision is only whether to replace the three link.amazon short links with tagged /dp/ URLs, which is SG-02's call.",
+   "why": "Recorded for the file's history: this was option A, and the fetcher reached the same page a browser would. The lesson is in flag F64 - a premise that 'this can only be done by hand' survived ten passes because no one re-tested it, and the option list here was written around the false premise.",
    "impact": 5,
    "confidence": 5,
-   "effort": "S",
+   "effort": "done",
    "risk_of_not_doing": "High. A wrong spec table is a factual misstatement about a product you are paid to recommend, and it is the kind of error that attracts both refunds and FTC attention.",
    "blocks": [
     "SG-06",
@@ -70,7 +70,8 @@
    "blocked_by": [
     "Q-01",
     "Q-02"
-   ]
+   ],
+   "resolved_on": "2026-11-16"
   },
   {
    "id": "SG-02",
@@ -1324,16 +1325,179 @@
     }
    ],
    "recommendation": "A, with B as the stopgap if the build work slips.",
-   "why": "The 180-day application clock (S4) means the order of decisions is itself a decision: confirming the tag after the content push instead of before it wastes the push. A computed triage makes the register answer the first question every visitor actually has — 'what do I do first?' — and it is the one addition that improves the owner's decision making rather than adding more for them to read.",
+   "why": "The 180-day application clock (S4) means the order of decisions is itself a decision: confirming the tag after the content push instead of before it wastes the push. A computed triage makes the register answer the first question every visitor actually has — 'what do I do first?' — and it is the one addition that improves the owner's decision making rather than adding more for them to read. Implemented 2026-11-16 by session arena/ba29c641 under path A: the triage is computed on decision-log.html from both registers' 'blocks' arrays (transitive downstream count), so it cannot go stale the way the hand-written list in option B would.",
    "impact": 3,
    "confidence": 4,
-   "effort": "M",
+   "effort": "done",
    "risk_of_not_doing": "Low. The evidence all exists; the cost is the owner's time spent re-deriving priorities from a register that already contains them.",
+   "blocks": [],
+   "blocked_by": [],
+   "resolved_on": "2026-11-16"
+  },
+  {
+   "id": "SG-27",
+   "title": "Review the shopper navigation labels now that a reader strip ships",
+   "area": "Site design",
+   "problem": "The design-coherence pass (session 492acddc, PRs #111/#112) shipped a four-item shopper strip (Picks, Buying guide, Articles, Compare) in the topbar. The label set deserves a deliberate review now that the design system has settled: a six-item alternative would add Products and The data, giving a shopper a complete map of the buyer-facing site in one glance while the evidence registers stay in the sidebar for reviewers.",
+   "evidence": [
+    {
+     "label": "The shipped strip - build.py topnav_items on main",
+     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py"
+    },
+    {
+     "label": "Google Search Central - site structure and navigation guidance",
+     "url": "https://developers.google.com/search/docs/crawling-indexing/site-structure-overview"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Review the labels, then widen the strip if the review agrees",
+     "what": "Review the shipped four-item strip against a six-item alternative (add Products and The data), with every entry re-using an existing NAV href so the link checker and guards keep covering it. Nothing is changed by this row itself; it is a review request.",
+     "effort": "S",
+     "risk": "low",
+     "reversible": true
+    },
+    {
+     "label": "B. Leave navigation as the sidebar only",
+     "what": "Keep the single-sitemap sidebar. No visual risk, but every reader from search keeps meeting a reviewer's navigation first.",
+     "effort": "—",
+     "risk": "none (status quo)",
+     "reversible": true
+    }
+   ],
+   "recommendation": "Review the labels: the shipped four-item strip is one constant in build.py; adding Products and The data would make it a complete shopper map.",
+   "why": "The strip is the site's single most-used navigation surface for shoppers; the label set deserves a deliberate review now that the design system has settled.",
+   "impact": 4,
+   "confidence": 4,
+   "effort": "S",
+   "risk_of_not_doing": "The site keeps presenting a compliance workbench to shoppers; bounce from search visitors stays unmeasured but structural.",
    "blocks": [],
    "blocked_by": []
   },
   {
-   "id": "SG-27",
+   "id": "SG-28",
+   "title": "Ship an RSS feed of the article set (done in pass 12) and wire it into the reader loop",
+   "area": "Organic traffic",
+   "problem": "Fifteen sourced articles now exist and the set grows, but nothing tells a returning reader (or an aggregator) that something new is published. A static site with no accounts, no cookies and no analytics cannot email anyone - but it can publish a feed, which needs no consent banner and no third-party script, exactly matching this site's privacy posture (§3(e) statement in the footer).",
+   "evidence": [
+    {
+     "label": "The feed itself - generated from data/articles.json at build time",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/feed.xml"
+    },
+    {
+     "label": "Google Search Central - syndication and feed guidance for publishers",
+     "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Keep the feed, add it to the reader loop (shipped) and submit the sitemap in Search Console",
+     "what": "Pass 12 generates feed.xml from data/articles.json (deterministic: pubDate derives from the register's own accessed date), links it from every page head and the footer, and surfaces it on the articles index. The owner-only next step is registering the site in Google Search Console / Bing Webmaster Tools and submitting sitemap.xml - a five-minute account action that no build can do for you.",
+     "effort": "S (done) / M (account actions, owner)",
+     "risk": "low",
+     "reversible": true
+    },
+    {
+     "label": "B. Skip syndication",
+     "what": "Rely on crawling alone. The articles are already sitemap-listed; the feed is a convenience, not a requirement.",
+     "effort": "—",
+     "risk": "none (status quo)",
+     "reversible": true
+    }
+   ],
+   "recommendation": "A. The feed is shipped and reproducible; the Search Console submission is the one unclaimed owner action with direct organic-traffic value (see handover.html).",
+   "why": "It is the only traffic mechanism that works with this site's no-cookie, no-script, no-account posture, and it costs a static file.",
+   "impact": 3,
+   "confidence": 4,
+   "effort": "S",
+   "risk_of_not_doing": "Readers who would follow the set have no mechanism to; discovery stays purely search-driven.",
+   "blocks": [],
+   "blocked_by": []
+  },
+  {
+   "id": "SG-29",
+   "title": "Register the site in Search Console and Bing Webmaster Tools (owner action, ten minutes)",
+   "area": "Organic traffic",
+   "problem": "The sitemap and robots.txt have shipped since pass 7, but nothing in this repo can verify how the site is indexed, and nothing can submit the sitemap on the owner's behalf: verification requires an account only the owner controls. Until it is done, the only index feedback the project gets is third-party.",
+   "evidence": [
+    {
+     "label": "Google Search Central - Search Console fundamentals (verification is an account holder's step)",
+     "url": "https://developers.google.com/search/docs/fundamentals/search-console-basics"
+    },
+    {
+     "label": "The sitemap this action would submit - live",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/sitemap.xml"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Owner registers both tools and submits sitemap.xml",
+     "what": "Verify the GitHub Pages origin, submit the sitemap once, and re-check after each article batch. No code change; the feed from SG-28 rides along.",
+     "effort": "S",
+     "risk": "low",
+     "reversible": true
+    },
+    {
+     "label": "B. Defer until a custom domain exists (see SG-11's domain question if present)",
+     "what": "Avoid verifying the github.io origin twice. Slower traffic signal, and the deferred state has already lasted the whole project.",
+     "effort": "—",
+     "risk": "moderate (deferred discovery)",
+     "reversible": true
+    }
+   ],
+   "recommendation": "A now, regardless of any future domain decision - index data from the live origin is useful immediately and costs nothing.",
+   "why": "Every traffic decision on decisions.html is currently made blind: this is the cheapest source of real query and index data the project can get.",
+   "impact": 4,
+   "confidence": 5,
+   "effort": "S",
+   "risk_of_not_doing": "The traffic plan stays assumption-based; indexing problems, if any, stay invisible.",
+   "blocks": [],
+   "blocked_by": [
+    "Q-03"
+   ]
+  },
+  {
+   "id": "SG-30",
+   "title": "Decide the reader-capture mechanism before any newsletter or retention feature is added",
+   "area": "Conversion",
+   "problem": "A marketing brief eventually asks for email capture or a waitlist. This site currently runs no script, sets no cookie, and holds no data - that posture is stated in the footer and is a compliance asset (Program Policies §3(e) requires an accurate statement of technology use). Any capture mechanism changes that statement the day it ships, so the decision and the privacy-notice rewrite must happen together, before implementation, not after.",
+   "evidence": [
+    {
+     "label": "Associates Program Policies §3(e) - accurate statement of cookie and third-party technology use",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+     "label": "FTC Disclosures 101 - the honesty rules that would also apply to any signup promise",
+     "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Keep the no-data posture (recommended until SG-25's index data exists)",
+     "what": "Ship nothing that stores reader data. The RSS feed from SG-28 already covers follow-without-account, and the footer statement stays true without edits.",
+     "effort": "—",
+     "risk": "none (status quo)",
+     "reversible": true
+    },
+    {
+     "label": "B. Add a third-party newsletter embed",
+     "what": "Requires: a provider decision, a privacy-notice rewrite in the footer, a cookie/technology re-statement under §3(e), and a re-run of the no-tracking guard (C-19/V11) with a documented exception. Not implemented in pass 12; deliberately proposed, not built.",
+     "effort": "M",
+     "risk": "moderate (compliance surface grows)",
+     "reversible": true
+    }
+   ],
+   "recommendation": "A for now; revisit only after SG-25 produces real traffic data that shows returning readers exist.",
+   "why": "The no-cookie posture is one of the site's strongest trust signals; trading it for an unproven capture widget is a bad deal before any traffic data exists.",
+   "impact": 3,
+   "confidence": 4,
+   "effort": "—",
+   "risk_of_not_doing": "Someone ships an embed later without rewriting the privacy statement, and the §3(e) statement becomes inaccurate - a real compliance breach rather than a style issue.",
+   "blocks": [],
+   "blocked_by": []
+  },
+  {
+   "id": "SG-32",
    "title": "Add production-method authorship to every buyer-facing page - and a named editor when there is one",
    "area": "Editorial trust",
    "problem": "The buyer-facing pages carry disclosure and sourcing but no byline and no visible 'how this is made' statement on the page a shopper actually lands on. A reader deciding whether to trust a purchase recommendation asks 'who wrote this?' before 'is this sourced?'. Right now the honest answer is: an automated pipeline checked against manufacturer documents - which is defensible and should be stated where it will be read, not only in the article layer's help box.",
@@ -1386,7 +1550,7 @@
    ]
   },
   {
-   "id": "SG-28",
+   "id": "SG-33",
    "title": "Pick one brand name for reader-facing surfaces, and label the annexes as annexes",
    "area": "Brand",
    "problem": "One origin publishes at least three names: 'Zone1 Kitchen' at the root, 'Zone1 - Amazon Associates platform' under /s2, and 'Zone1 - verified Amazon affiliate product intelligence' in the README. F44 already records the parallel-builds problem; this is the naming half of it. Readers and search engines see three brands in one place.",
@@ -1440,7 +1604,7 @@
    ]
   },
   {
-   "id": "SG-29",
+   "id": "SG-34",
    "title": "Re-plan the automation platform around the Creators API, not PA-API 5",
    "area": "Platform and automation",
    "problem": "The automation blueprint plans around PA-API 5 for product research, price and availability data. Amazon has published a PA-API 5 deprecation notice pointing at the Creators API. Building the pipeline on a deprecated interface wastes the work and strands the data contracts.",
@@ -1494,64 +1658,7 @@
    ]
   },
   {
-   "id": "SG-30",
-   "title": "Start one owned audience channel before the algorithm owns all the traffic",
-   "area": "Traffic",
-   "problem": "Organic search is the only channel on the plan and it is currently zero - no analytics, no Search Console verification, no inbound links. The whole business sits on one unowned channel. An owned channel (a feed, then a newsletter) is the standard hedge and needs no tracking to start.",
-   "evidence": [
-    {
-     "label": "Requirements register B-07/E-03 (data/requirements.json on GitHub)",
-     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/requirements.json"
-    },
-    {
-     "label": "Requirements register - traffic rows B-07 / E-03 (not delivered)",
-     "url": "https://kanlerxz87-cyber.github.io/Zone1/requirements.html"
-    },
-    {
-     "label": "Topics channel rows CH-1..CH-5 with their constraints",
-     "url": "https://kanlerxz87-cyber.github.io/Zone1/topics.html"
-    },
-    {
-     "label": "Question Q-08 (what may this site measure)",
-     "url": "https://kanlerxz87-cyber.github.io/Zone1/questions.html#q-08"
-    }
-   ],
-   "options": [
-    {
-     "label": "A. Email newsletter",
-     "what": "Highest leverage, needs owner tooling, a sender identity, and consent design.",
-     "effort": "M",
-     "risk": "low",
-     "reversible": true
-    },
-    {
-     "label": "B. RSS/Atom feed surfaced prominently, zero data collection",
-     "what": "The channel exists the day the link is added; no privacy questions at all.",
-     "effort": "S",
-     "risk": "none",
-     "reversible": true
-    },
-    {
-     "label": "C. None yet",
-     "what": "Stay search-only until traffic exists.",
-     "effort": "0",
-     "risk": "medium",
-     "reversible": true
-    }
-   ],
-   "recommendation": "B now, A when there is an owner to run it.",
-   "why": "B is a link and a feed file - it cannot breach the privacy disclosure because it collects nothing - and it gives the seasonal calendar (SG-24) somewhere to publish to while search traction builds.",
-   "impact": 3,
-   "confidence": 3,
-   "effort": "S",
-   "risk_of_not_doing": "Medium over a year: single-channel sites live and die with one ranking update.",
-   "blocks": [],
-   "blocked_by": [
-    "Q-08"
-   ]
-  },
-  {
-   "id": "SG-31",
+   "id": "SG-35",
    "title": "Turn the article set into four deliberate clusters with one hub each",
    "area": "Content and traffic",
    "problem": "Twenty-one articles carry target queries after this merge (2026-11-16) but there is no cluster map: internal linking is whatever a reader happens to click. Small sites rank for competitive commercial queries by owning a cluster completely, not by publishing one page per idea.",
@@ -1679,7 +1786,7 @@
   {
    "id": "P5",
    "name": "Make it read like a publication",
-   "promise": "The reader-facing polish path: authorship, navigation, brand, imagery, seasons, and clusters - the changes that make the site feel published rather than generated.",
+   "promise": "The reader-facing polish path: authorship, navigation, brand, imagery, seasons, and clusters - the changes that make the site feel published rather than generated. It carries the parallel passes rows too (SG-27..SG-30: nav labels, the shipped RSS feed, Search Console, reader capture).",
    "contains": [
     "SG-23",
     "SG-24",
@@ -1688,7 +1795,10 @@
     "SG-28",
     "SG-29",
     "SG-30",
-    "SG-31"
+    "SG-32",
+    "SG-33",
+    "SG-34",
+    "SG-35"
    ],
    "effort": "M (mostly small changes in the generator and the nav; the calendar and brand rows need one owner decision each)",
    "must_be_true_first": "P1's safety rows (SG-01, SG-02, SG-07, SG-11) should be settled, because polish on top of an unconfirmed product identity polishes the wrong thing. Nothing else blocks this path.",

@@ -22,6 +22,12 @@
 >
 > Coverage figures below (e.g. "18 of 30 product fields") describe the **legacy `docs/` and `site/`
 > builds**, not the current root site, which reports 43 spec rows: 42 verified, 1 blank and flagged.
+>
+> **Refreshed 2026-11-16 by session `arena/ba29c641-zone1`.** The count this banner pointed at is
+> itself now history: the root site reports **77 spec rows, 75 verified, 2 blank and flagged** over
+> **34** sources, after pass 11 read the Product information block of all three listings (see flag
+> **F64** on [Flagged for review](flagged.html)). Read the numbers on the published page, not in any
+> Markdown file at this root — including this banner, which is a pointer, not a register.
 
 **Project:** Amazon Associates property covering three air fryers, with a verification and
 compliance layer.

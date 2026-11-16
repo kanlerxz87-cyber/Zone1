@@ -34,6 +34,14 @@ identity mapping.
 
 ## 3. Verification result
 
+> **Refreshed 2026-11-16 by session `arena/ba29c641-zone1`** (this file's own numbering calls it pass 11;
+> note a second session used the same pass label the same day, so trust the session id), because the numbers below
+> had become the file's oldest claims: `data/products.json` now holds **77 specification rows — 75
+> verified, 2 blank and flagged**, over **35** official sources. The 31 added rows are all values
+> read from the three listings' own Product information blocks on 2026-11-16, each labelled
+> "as listed by Amazon" so a listing claim never reads as a manufacturer specification; one blank
+> row (the Emeril browse node) was filled from that same read. The bullets under this note are the
+> running record of how the count moved, kept with their dates rather than rewritten.
 - **43 specification rows** across the three products.
 - **41 verified** — each read on the manufacturer's own product page or owner's manual, each with a
   clickable source link. *(Count corrected 2026-11-14 by two independent passes to match `verify.py`; then
@@ -1181,7 +1189,162 @@ reads), Q-02/Q-04 (Associates tag — not observable outside Associates Central)
 rate — only observable in the Associates reports after real sales), and the Emeril product weight.
 None was filled by inference.
 
-## 22. Marketing & decision-support pass — session `arena/19d92a81`, branch `arena/19d92a81-zone1` (2026-11-16)
+## 21. Pass 11 — the premise that cost ten passes, and a way to close the decision queue (2026-11-16, session `arena/ba29c641-zone1`)
+
+### 21.1 The finding that matters
+
+Pass 10 recorded at §17.6 that F1/F2 "are not answerable from outside the account holder's browser".
+They were. This pass fetched `https://www.amazon.com/dp/B0CDY277D3`, `B09B7SB46R` and `B08DKYBTPH`
+and each page's **Product information** block rendered, model rows included:
+
+| ASIN | What the listing states | What the site had held |
+|---|---|---|
+| B0CDY277D3 | Model Number **RJ38-SQPF-3TDB-2W**, Part Number same, Model Name "Turbo Fry® Touch", 1700 W / 120 V, Max 450 °F · Min 93 °C, 13.38″ × 11.81″ × 10.63″, 13.3 lb, Capacity field "6 liters", UPC 810087845025 | Model from the brand page and the manual only, with the caveat "Amazon does not publish the model number on the ASIN" |
+| B08DKYBTPH | Part Number **RJ38-SQSS-8T**, Model Number row holding the marketing string "Large Air Fryer", 1700 W / 120 V, Max 400 °F · Min 94 °C, 12.75″ × 13.5″ × 10″, 12.8 lb, Warranty "1-Year Limited Warranty", UPC 816458024518 | Model from the brand page and the manual; the 450 °F row blank because two sites disagreed |
+| B09B7SB46R | Model Number and Part Number **4-00675-02X-VN**, Min 75 °F · Max 500 °F, 1700 W / 120 V, 16.9″ × 15.8″ × 14.8″, Configuration "…24 Functions and 7 Accessories", Included Components enumerating six named parts, UPC 752356835682 | Model FAFO-001 (manual) / 4-00675-02A-VN (brand page); browse node blank because three 2026-11-15 fetches hit a checkpoint page |
+
+Read in full: **F68** (`flagged.html#f68`). The correction is narrower than it looks and worth
+stating twice. What closed is the ASIN-to-model step, for all three products. What did **not** close
+is the supplied-link-to-ASIN attribution: the three `link.amazon` tokens are still nine characters,
+still not ASINs, and still arrive through `plpRedirect=mhFallback` (F6, F7, F10 stand). No sentence
+on this site now says the listing hides its model number; the register's F1 was corrected rather
+than deleted, so the wrong premise stays visible in the file that carried it.
+
+### 21.2 Four conflicts this pass found, and did not resolve
+
+* **F69** — the 8 Qt's footprint: brand page 15.4 × 12.6 × 13.5 in, its own listing 12.75 × 13.5 × 10
+  (S12 vs S29); and the 6 Qt's listing Capacity field reading "6 liters" where its title, its Size
+  field and the brand page all read 6 quarts.
+* **F70** — three official model strings for the Emeril, the newest two one character apart
+  (`02A-VN` on the brand page, `02X-VN` on the listing, `FAFO-001` in the manual).
+* **F71** — the Emeril listing contradicts itself about the box: "7 Accessories" in its Configuration
+  field, six parts enumerated in its Included Components row, "Six" in its title. The same fetch made
+  the 24-presets side of F4 stronger, so one read moved two rows in opposite directions.
+* **F72** — °C floors that do not convert to the °F floors on two products (93 °C vs 95 °C; 94 °C vs
+  200 °F): rounding across documents, published as each source states it, never merged.
+
+Prices, availability, star ratings, review counts and the Best Sellers Rank line were all visible in
+these fetches and are **not** on the site: Program Policies §2(b) and §6(t) for the first three
+(`data/products.json` `amazon_price_policy`), and this repository's own reading of IP License §2(e)
+for rank data, which stays a decision not to publish rather than a claim that no such figure exists
+(that wording was corrected in the s2 register, R-03).
+
+### 21.3 Two gates repaired, one of which could not fail
+
+`.github/workflows/ci.yml` and `scripts/ci-check.sh` both ran `build_s2_site.py` (which writes) and
+then `--check` (which compares a rebuild with the files the previous line had just produced). The
+step titled *"Prove the committed HTML is current"* therefore could not report staleness. It now runs
+`--check` alone, tolerating only the header's build date, which is derived from git and unreadable
+from a shallow checkout; the stamp itself was also converted in UTC, because `git log --format=%cs`
+had been stamping one commit 2026-11-16 in UTC and 2026-11-17 in JST. Proof the repaired gate fires:
+one changed word in `s2/pages/sources.html` → `STALE BUILD`, exit 1.
+
+**F60 was repaired at source**: `data/s2/requirements.json` R-01 now names both registers and the
+paths that exist, R-08 restates the blocker as the ASIN-to-commission-category mapping with the
+public Commission Income Statement as its source, and R-03's "no public demand metric exists" was
+corrected to the reason that is actually true here.
+
+### 21.4 The decision queue now has a closing mechanism
+
+`suggestions.html` held a growing reviewed queue (23 rows at the time of writing, 26 after the merge with the seasonal pass) and no way to finish one. `decision-log.html` is new:
+one picker per suggestion, the register's own recommended path, and a computed *adopt-after-silence*
+default — reversible, risk none-or-low, and no `unknowable` blocking question. **The split is computed on the
+page, not typed here: today 16 rows carry a default a later pass may implement without asking, 8 wait for a
+person, and 2 are recorded done.** The rule is read from `data/suggestions.json` and `data/questions.json` at
+build time, so the page cannot promise a default its own data does not support, and the same computation
+prints the ordered queue the next pass works through.
+Silence never authorises spending, account actions, credential changes, a price or rating, a
+compliance posture, or any flagged product fact — that limit is printed on the page. A choice is
+exported as the body of `data/decision-log.json`, whose `choices` array is empty by design: a session
+that filled it would be inventing an instruction. Q-01 and Q-02 moved from `missing` to `known`
+because this pass answered them from the listing read, and SG-01's "five minutes in a browser" is
+closed as unnecessary.
+
+### 21.5 What pass 11 did not do
+
+It did not touch `articles/`, `data/articles.json` or `data/topics.json` — the two open PRs on the
+board (#94, #95) own that ground, and a third copy of the same source ledger was the last thing this
+repository needs. It did not delete the five stale root briefings; it put a pointer on each (F59's
+disposition). It did not fill the two remaining blanks, did not assert a commission rate per ASIN, and
+did not state what either contradicting document "really" means. `python3 verify.py` reports
+**127 pages, 77 spec rows (75 verified, 2 blank and flagged), 35 sources, 0 errors, 0 external warnings**;
+`scripts/check_links.py` reports **8,096 links, 0 broken**; `scripts/ci-check.sh`, `scripts/verify_site.py`
+and `research/check_research.py` all pass; a clean rebuild leaves `git status` empty.
+
+### 21.6 One more instance of the defect this repository keeps finding
+
+While updating the requirements register for this pass, its own preamble was checked against its own rows:
+the file promises "counts are computed from the rows at build time rather than typed, so this page cannot
+claim a total the register does not contain", and then types eight counts into prose — 46 spec rows, 21
+suggestions, 20 questions, a 37-URL sitemap, 33 unit tests, 15 guards, 27 banned phrases, five stale
+briefings. All eight had drifted or were one edit from drifting. They are now `{}`-tokens substituted by
+`req_interp()` from the same objects the pages render from, an unknown token raises, and
+`check_requirement_tokens()` fails the build if a token survives into a page (both directions tested).
+Recorded as **F73**.
+
+---
+
+## 22. Pass 12 (session `arena/8874422b-zone1`) — RSS syndication, article masthead and the second-reader spot re-read (2026-11-16)
+
+*(Numbered §22 because two earlier sessions had each already taken §21 — their duplicate is left
+as published; this session did not renumber another session's section.)*
+
+**Branch:** `arena/8874422b-zone1` · rebased three times onto a moving `origin/main`
+(final base `d5f449d`) · **Full evidence:**
+[`reports/verification-2026-11-16-8874422b.md`](reports/verification-2026-11-16-8874422b.md) ·
+**Ledger on the site:** [`reverification.html`](https://kanlerxz87-cyber.github.io/Zone1/reverification.html)
+
+This session claimed a marketing-design polish pass while three other design/content sessions
+worked in parallel. Their passes (§19 design-coherence, §20 seasonal, §21 round 11 and pass 11)
+merged a reader strip, a single-era stylesheet, SVG glyphs, a nineteen-article set and — via
+session `ba29c641` — direct reads of all three listings' Product information blocks that closed
+F1 for two of three products. **Shipping two competing design systems would have made the site
+worse**, so this branch rebased onto their result each time, adopted it wholesale as canonical,
+and re-scoped its contribution to the additive pieces the merged tree still lacked —
+presentation-only throughout: **no published value, register row, flag or wording changed.**
+
+### 22.1 What this session added to the merged tree
+
+| Addition | Where | Status |
+|---|---|---|
+| **RSS feed** `feed.xml` (19 items), generated deterministically from `data/articles.json` — pubDate derives from the register's own accessed date, so CI's reproducibility gate holds; linked from every page head (`rel="alternate"`), the articles index and the footer | `build.py` `main()`; `feed.xml` | shipped; reviewable as **SG-28** |
+| **Article masthead**: kicker, headline, standfirst and a meta row (kind · reading time · sources-read date · a "documentation-based — no hands-on testing" badge), styled with the shipped stylesheet's own variables | `page_article()`, additive CSS block | shipped |
+| **Footer brand column** naming the publisher and the feed; RSS link in the sources column; `theme-color` meta | `layout()` | shipped |
+| **Second-reader spot re-read** of the load-bearing rows (below), rendered as its own ledger section and wired into the executive summary's ledger-row count | `session-8874422b/pass12.json` | shipped, with a dated addendum noting that session `ba29c641`'s later direct reads moved the model-mapping rows (F1 closed 2/3; Emeril part-number conflict opened as **F70**) |
+| **Suggestion rows SG-27–SG-30** (nav-label review, feed, Search Console submission, reader-capture decision — numbered after main's SG-23–26) | `data/suggestions.json` | published |
+
+**SG-27** deliberately asks for a review of the shipped shopper-strip labels
+(Picks · Buying guide · Articles · Compare) against a six-item alternative (add Products and The
+data) rather than changing them — the design system is `492acddc`'s; this session reviews, it does
+not re-litigate.
+
+### 22.2 The spot re-read — a second reader on the same day
+
+Earlier the same day, sessions `3dfe4b45`, `492acddc`, `b23f12f0` and `ba29c641` covered the
+register. This pass adds what a second independent reader confirms fresh: the three supplied
+`link.amazon` short links (all resolving to `/dp/B0CDY277D3`, `/dp/B09B7SB46R`, `/dp/B08DKYBTPH`
+through `plpRedirect=mhFallback` fallback pages), the two volatile Chefman counters (**1,307** and
+**717** — unchanged), the Emeril 24-vs-25 preset conflict (re-confirmed live on one page), and the
+Program Policies stamp (**Updated: April 14, 2026** — unchanged). **All seven rows: confirmed.**
+Still open, unchanged by this pass: the Associates tag inside the links (F6), the Emeril
+part-number variant (F70), and the preset-count conflict (F4/F5 family).
+
+### 22.3 Gates (on the final rebased tree)
+
+`python3 build.py` → exit 0, **48 pages**, 47 sitemap URLs + **feed.xml (19 items)** ·
+`python3 verify.py` → 127 pages, 77 spec rows (75 verified / 2 blank+flagged), 0 errors,
+0 external warnings · `bash scripts/ci-check.sh` → 33 unit tests OK, data audit clean, s2 build
+current, **8,287 links / 0 broken** · `python3 scripts/verify_site.py` → 393 assertions, ALL
+PASSED · `python3 research/check_research.py` → OK · `python3 platform/audit/report.py` →
+AUDIT PASSED · `node --check assets/app.js` → OK · two consecutive `build.py` runs produce
+byte-identical HTML.
+
+The merge record for this pass is appended to `COORDINATION.md` after the PR lands.
+
+## 23. Marketing & decision-support pass — session `arena/19d92a81`, branch `arena/19d92a81-zone1` (2026-11-16)
+
+*(Numbering note: two earlier sections both claim §21 and were left as written by their
+sessions; this section is numbered 23 to stay unique.)*
 
 **The brief this pass answered:** make the site read like a polished marketing affiliate
 publication with catchy, trend-aware, product-related articles that can earn organic traffic —

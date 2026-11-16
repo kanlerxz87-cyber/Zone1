@@ -11,9 +11,8 @@ decision and keeps the verification layer one click behind it.
 **Strategy:** [`decisions.html`](https://kanlerxz87-cyber.github.io/Zone1/decisions.html) — niche scorecard, traffic plan, measurement plan, kill rule
 **Decision queue:** [`suggestions.html`](https://kanlerxz87-cyber.github.io/Zone1/suggestions.html) — review and choose before anything is built
 **Open questions:** [`questions.html`](https://kanlerxz87-cyber.github.io/Zone1/questions.html) — what must be answered first
-**Briefing:** [`EXECUTIVE-SUMMARY-PASS8.md`](EXECUTIVE-SUMMARY-PASS8.md) (pass 9 addendum at the end) · [`EXECUTIVE-SUMMARY-PASS9.md`](EXECUTIVE-SUMMARY-PASS9.md) (search plumbing and duplicate builds) · [`EXECUTIVE-SUMMARY-PASS9-42CA97AD.md`](EXECUTIVE-SUMMARY-PASS9-42CA97AD.md) (verification pass 9) · [`EXECUTIVE-SUMMARY.md`](EXECUTIVE-SUMMARY.md) §19 (design-coherence pass 12, latest; §17 = verification pass 10)
-**Today's live re-verification:** [`reports/verification-2026-11-16-19d92a81.md`](reports/verification-2026-11-16-19d92a81.md) (pass 12b: short links, S15 manual, S26, line-by-line review) · [`reports/verification-2026-11-16-492acddc.md`](reports/verification-2026-11-16-492acddc.md) (pass 12: policies, commission table, FTC, brand pages + WCAG audit) · [`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md) (full pass 10) · [`reports/verification-2026-11-16.md`](reports/verification-2026-11-16.md) (round 10, session c334fb1c) · [`reports/verification-round11-2026-11-16.md`](reports/verification-round11-2026-11-16.md) (round 11, session 3dfe4b45) · [`reports/verification-2026-11-15.md`](reports/verification-2026-11-15.md) (pass 9)
-
+**Briefing:** [`EXECUTIVE-SUMMARY-PASS8.md`](EXECUTIVE-SUMMARY-PASS8.md) (pass 9 addendum at the end) · [`EXECUTIVE-SUMMARY-PASS9.md`](EXECUTIVE-SUMMARY-PASS9.md) (search plumbing and duplicate builds) · [`EXECUTIVE-SUMMARY-PASS9-42CA97AD.md`](EXECUTIVE-SUMMARY-PASS9-42CA97AD.md) (verification pass 9) · [`EXECUTIVE-SUMMARY.md`](EXECUTIVE-SUMMARY.md) §19 (design-coherence pass 12) · §20 (seasonal content pass) · §21/§22 (verification round 11 + RSS syndication passes) · §23 (marketing & decision-support pass, session arena/19d92a81)
+**Today's live re-verification:** [`reports/verification-2026-11-16-19d92a81.md`](reports/verification-2026-11-16-19d92a81.md) (marketing pass: short links, S15 manual, S26, line-by-line review) · [`reports/verification-2026-11-16-8874422b.md`](reports/verification-2026-11-16-8874422b.md) (second-reader spot re-read, this session) · [`reports/verification-2026-11-16-492acddc.md`](reports/verification-2026-11-16-492acddc.md) (pass 12: policies, commission table, FTC, brand pages + WCAG audit) · [`reports/verification-round11-2026-11-16.md`](reports/verification-round11-2026-11-16.md) (round 11, session 3dfe4b45) · [`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md) (full pass 10) · [`reports/verification-2026-11-15.md`](reports/verification-2026-11-15.md) (pass 9)
 ## What is in here
 
 | Path | What it is |
@@ -22,7 +21,7 @@ decision and keeps the verification layer one click behind it.
 | `picks.html` | **This week's picks** — a decision rule instead of a ranking, with the commission arithmetic and the table rows it came from |
 | `decisions.html` | **Decisions** — four niches scored on five criteria, six traffic channels with their prerequisites, six metrics, and a pre-committed kill rule |
 | `handover.html` | **Handover** — the five things only the account holder can do, each with the time it takes and the flags it closes |
-| `articles/` | **Twenty-one sourced articles (counted 2026-11-16)** — comparisons, explainers, feature and care walkthroughs, a source-forensics piece and two policy explainers. Every highlighted value in them must appear verbatim in `data/products.json` or the build fails. |
+| `articles/` | **Twenty-one sourced articles (counted 2026-11-16)** — comparisons, explainers, feature and care walkthroughs, a source-forensics piece and two policy explainers. Every highlighted value in them must appear verbatim in `data/products.json` or the build fails. The set also ships as an RSS feed (`feed.xml`). |
 | `categories/` | Category pages (currently: kitchen appliances / air fryers) |
 | `products/` | One documentation-based review per product |
 | `compare.html` | Verified-only comparison matrix, gaps left visible |
@@ -32,7 +31,7 @@ decision and keeps the verification layer one click behind it.
 | `platform.html` | Automation blueprint, guardrails, KPIs, launch sequence |
 | `compliance.html` | 18 program/legal requirements, quoted, each with a source link — including the two that govern an AI-agent platform (IP License §4 Agent Terms and Participation Requirements §5) |
 | `flagged.html` | Every unverified value, source conflict and irregularity |
-| `suggestions.html` | **Decision queue** — 22 evidence-backed suggestions, each with alternative paths, effort, risk and a recommendation. Nothing on it is implemented. |
+| `suggestions.html` | **Decision queue** — 30 evidence-backed suggestions, each with alternative paths, effort, risk and a recommendation. Rows SG-27–SG-30 (session `8874422b`) add the RSS feed decision, a nav-label review, the Search Console step and the reader-capture posture. |
 | `questions.html` | **Open questions** — 21 questions split into known / discoverable / not-stated / account-only. The five that an official source already settles carry their **answer** on the row; the rest say so plainly and name the step that would produce one. |
 | `requirements.html` | **Every requirement in the brief, and whether this repository meets it** — 51 rows, each with a live status, the path that implements it and a source link. Added 2026-11-16 by session `ad8105b3`. |
 | `executive-summary.html` | One-page briefing |
@@ -291,3 +290,37 @@ session, the full register). Neither replaces the other; the site publishes both
 No published value was found wrong. Full evidence, row by row: **[`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md)**;
 the same ledger rendered on the site at
 [`reverification.html`](https://kanlerxz87-cyber.github.io/Zone1/reverification.html).
+
+## Pass 12 (session `arena/8874422b-zone1`) — RSS syndication, article masthead, second-reader re-read (2026-11-16)
+
+This session claimed the marketing-design polish pass; while it worked, the design-coherence pass
+(session `492acddc`, §19 of the executive summary), the seasonal content pass (session
+`a746a9f2`, §20), verification round 11 (session `b23f12f0`) and the pass-11 decision closure
+(session `ba29c641`) merged their own reader strip, single-era stylesheet, nineteen-article set
+and direct reads of all three listings' Product information blocks.
+Rather than ship two competing design systems, this branch **rebased onto their result, adopted it
+as the canonical design, and contributed the additive pieces the merged tree still lacked** — no
+published value, register row or wording changed anywhere:
+
+* **RSS feed.** `feed.xml` (19 items) is generated deterministically from `data/articles.json`
+  (pubDate derives from the register's own accessed date, so the reproducibility gate holds) and
+  linked from every page head, the articles index and the footer. Shipped as **SG-28**; the
+  owner-only Search Console step is **SG-29**; the keep-the-no-cookie-posture decision is
+  **SG-30**; a review of the shipped shopper-strip labels is **SG-27**.
+* **Article masthead.** Articles open with a kicker/headline/standfirst block and a meta row
+  (kind · reading time · sources-read date · "documentation-based — no hands-on testing" badge),
+  styled in the shipped stylesheet's own vocabulary.
+* **Footer brand column** naming the publisher and the feed; `theme-color` meta.
+* **Second-reader spot re-read.** The three `link.amazon` short links (same three `/dp/`
+  destinations through the same fallback-style redirects), both Chefman counters (1,307 / 717 —
+  unchanged), the Emeril preset conflict (re-confirmed live on one page) and the Program Policies
+  stamp (April 14, 2026 — unchanged). Evidence:
+  **[`reports/verification-2026-11-16-8874422b.md`](reports/verification-2026-11-16-8874422b.md)**;
+  ledger rendered at
+  [`reverification.html`](https://kanlerxz87-cyber.github.io/Zone1/reverification.html).
+  F1/F2/F3, F4/F5 and F46 stand as published.
+
+Gates on the final rebased tree: `build.py` exit 0 (48 pages, 47 sitemap URLs + feed.xml, 19
+items) · `verify.py` 127 pages, 77 spec rows (75 verified / 2 blank+flagged), 0 errors ·
+`ci-check.sh` green (8,287 links / 0 broken) · `verify_site.py` 393 assertions PASSED ·
+research checks OK · platform audit PASSED · two consecutive builds byte-identical.
