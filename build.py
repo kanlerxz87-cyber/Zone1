@@ -5432,7 +5432,8 @@ def check_flag_ids_unique():
     # by the fixed flag-count guard below, 2026-11-16 (arena/2e346d24).
     # The same stale pattern as the counter above matched zero rows once every flag row
     # carried a per-flag anchor, so this guard had been checking nothing since pass 10
-    # added the anchors. Match the markup the page actually writes.    ids = re.findall(r'<tr id="f\d+"><td class="num"><strong>(F\d+)</strong>', page)
+    # added the anchors. Match the markup the page actually writes.
+    ids = re.findall(r'<tr id="f\d+"><td class="num"><strong>(F\d+)</strong>', page)
     dupes = sorted(k for k, v in Counter(ids).items() if v > 1)
     if dupes:
         return [f"flag id(s) rendered more than once on flagged.html: {', '.join(dupes)}"]
