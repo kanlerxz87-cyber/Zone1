@@ -4076,3 +4076,54 @@ sales. S28 — blocked by a bot checkpoint on 2026-11-15. None was filled in by 
 | UTC time | Session | Action |
 |----------|---------|--------|
 | 2026-11-16T18:30Z | arena/a746a9f2 (session a746a9f2) | Claimed X-a746a9f2 after reading the board. Worktree clean at `6dbfa7c` (= `origin/main`, merge of PR #85). All prior tasks T1–T20/U1/X-633b115f/X-bf487400 marked done (T20's `in progress` row is stale — its completion record and PRs #71/#73 show it done; owner's row not edited, noted here per precedent). Arena pins this session to branch `arena/a746a9f2-zone1`, so the `session-<id>/<task>` branch in the protocol is this branch. Baseline gates re-run green before claim: `build.py` 29 pages + robots/sitemap (36 URLs), `verify.py` 115 pages / 46 spec rows (43 verified, 3 blank+flagged) / 34 sources / 0 errors, `scripts/ci-check.sh` 33 tests + 6,372 links / 0 broken. Scope is additive; parallel-build directories (`site/`, `s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*`, other `session-*`) are not edited. |
+
+### X-a746a9f2 completion record — arena/a746a9f2-zone1 (2026-11-16 UTC)
+
+**Task:** X-a746a9f2 · **Status: done** · **Branch:** `arena/a746a9f2-zone1` (base `6dbfa7c` = `origin/main` at claim time). A line-by-line repo review, a live re-verification of every key official source, a seasonal/trendy content and marketing-suggestion pass feeding the design prompt and the decision pages, an executive-summary refresh, and final integration (gates → PR → merge → GitHub Pages confirmation).
+
+**Verification performed (all reads live 2026-11-16 UTC via server-side fetch; this sandbox has no direct egress to non-GitHub hosts).** Full evidence table with the exact string read back per row: `reports/verification-2026-11-16.md` (V1–V14). Summary:
+
+| Source | Result |
+|---|---|
+| link.amazon/B04G1MEwY → `/dp/B0CDY277D3` (S17/S16) | same destination, fallback params; listing title matched stored value verbatim |
+| link.amazon/B02NbDxp3 → `/dp/B09B7SB46R` (S17/S28) | **S28 re-read after the 2026-11-15 bot checkpoint — cleared**; title verbatim incl. "24 One-Touch Preset Options" and "Six Cooking Accessories Included" (F4/F50 conflicts live) |
+| link.amazon/B00hJ57DV → `/dp/B08DKYBTPH` (S17/S29) | same destination; title verbatim (F3/Q-02 conflict live) |
+| S10 / S12 / S26 / S14 (manufacturer) | every published spec row still matches; 8 Qt Touch max 400 °F confirmed again; RJ38-8T-BLACK's 450 °F Hi-Fry + 4 functions confirmed; Emeril 25-vs-24 presets and 10-in-1/11-in-1 still conflicting on the same page |
+| S1–S5 (Associates) | version stamps unchanged (2025-10-15 / 2026-04-14); commission Table 1 read in full with no login (Kitchen 4.50%, All Other 4.00%); required disclosure sentence verbatim; 3 sales/180 days, 10 posts, 60-day recency, 500 followers |
+| S8 / S9 (FTC / eCFR) | "You can't talk about your experience with a product you haven't tried."; 16 CFR 255 up to date as of 11/12/2026, §255.0–255.6 incl. §255.5 |
+
+**One blank cell filled from a verbatim read (nothing inferred):** the Emeril "Amazon browse node" row, previously unrendered behind the checkpoint, is populated from today's breadcrumb read (S28) with F53's limit travelling with it. Spec rows: 46 total → 44 verified / 2 blank+flagged (the 2 remaining blanks are genuine: no 6 Qt preset count is documented; the 8 Qt Hi-Fry row is the F3 conflict).
+
+**Built this pass (additive):**
+
+* `data/articles.json` +1 → 13 articles: `air-fryer-gift-guide-2026` (seasonal Q4 gift guide; every number a `{{published value}}` splice; anti-slop voice; "four things this gift guide cannot tell you" trust section).
+* `data/topics.json` +3 → 17 topics: TP-15 (published as the new article), TP-16 holiday hosting, TP-17 Black-Friday-deal-season angle; `page_topics` lede count made computed (was hardcoded "Fourteen").
+* `data/suggestions.json` +3 → 24: SG-22 seasonal calendar (blocked by Q-21), SG-23 one compliant CTA component across all money pages — the design-prompt component spec the brief asks for (blocked by Q-04), SG-24 computed "decide this first" triage (decision-making support per the brief).
+* `data/questions.json` +1 → 21: Q-21 publishing calendar / sign-off ("no seasonal content" recorded as an acceptable answer).
+* `EXECUTIVE-SUMMARY.md` §17 (decision-ready addendum). `reports/verification-2026-11-16.md` (new).
+
+**Irregularities found and handled this pass (published as flag F59 + a dated F53 update, non-blocking):**
+
+1. **F59 — fourth occurrence of the stale-count defect class** (after F14/F38/F52): three register surfaces asserted "eight articles" while the index publishes thirteen — `data/questions.json` Q-10, `data/suggestions.json` SG-09, `data/decision.json` niche rows. Fixed per the F52 precedent: dated counts + pointer at the live index. **Cross-scope edit logged as required:** `data/decision.json` (created by completed session 792c279e) changed as an integration-scope wording fix — before: `the site's existing eight articles already point at it` → after: `the site's existing articles (13 as of 2026-11-16) already point at it`; before: `Eight articles already exist in this shape` → after: `13 articles already exist in this shape (2026-11-16)`. No value or source in that file was touched. Same class of dated fix applied in-scope to Q-10 and SG-09 and to `data/design-prompt.json`'s "12 articles" status note (now dated).
+2. **F53's stale sentence** ("the Emeril browse node … cannot be recorded") received a dated update: the checkpoint cleared 2026-11-16 and the row is now populated. The flag's limit (browse path ≠ commission category) is unchanged.
+3. **SG-23 corrected mid-pass after an accuracy check of my own draft:** the first wording said "no page states what a buyer should click"; a grep of the rendered pages showed the three product pages already carry a CTA button ("Open supplied Amazon link — verify model", rel="nofollow sponsored"). The row now states the true gap: one ad-hoc CTA on product pages only, none on comparison/guide/picks/articles, and no component spec in the design prompt.
+4. Cleared without action: `decision-gate.html` ("14 questions") and `marketing-directions.html` ("12 suggestions") are parallel registers whose ledes render their own frozen register length — internally consistent; the "16 suggestions" strings in `reverification.html`/`executive-summary.html` are historical recounts of already-fixed defects.
+
+**Gate results (2026-11-16, after all edits, deterministic — a second build produced zero drift):**
+
+| Gate | Result |
+|---|---|
+| `python3 build.py` | 37 URLs in sitemap (was 36), exit 0 — row-source, disclosure, SEO metadata, affiliate-link qualification, price/rating leakage, unique flag IDs, article splices, voice, decision arithmetic all enforced |
+| `python3 verify.py` | 116 pages, 46 spec rows (44 verified / 2 blank+flagged), 34 sources, **0 errors, 0 external warnings** |
+| `bash scripts/ci-check.sh` | OK — 33 unit tests, data audit clean, **6,483 links / 0 broken** |
+| `python3 research/check_research.py` | OK |
+| `python3 scripts/verify_site.py` | ALL CHECKS PASSED |
+| `python3 platform/audit/report.py` | AUDIT PASSED (0 warnings) |
+| `node --check assets/app.js` | OK |
+| conflict-marker scan, `git diff --check` | clean |
+
+**What this pass did not resolve (unchanged, all published on `flagged.html`):** Q-01/Q-02 (ASIN→model mapping — Amazon serves automated reads the reduced "Product summary" shell with no Product information block), Q-03/Q-04 (account status; the tag inside the supplied short links), Q-11 (commission category per ASIN — only the Earnings report names it), the owner's country statement (F42), and the flag-register unification decision (F44/F47). Nothing was filled by inference. Brand review-count drift (1,305→1,307; 716→717) is the already-registered F19 behaviour and affects no published value.
+
+**No file in `site/`, `s2/`, `data/s2/`, `data/verified/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-88769516/` or any other `session-*` directory was edited by this session.**
+
+**PR / merge / deploy:** recorded below after the merge completes.

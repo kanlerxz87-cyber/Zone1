@@ -800,3 +800,72 @@ sessions' builds.
 
 Open `suggestions.html` and pick one of the four paths rather than one of the sixteen rows. Path 1
 is unblocked and takes an afternoon; everything else assumes it.
+
+## 17. Line-by-line review, live re-verification and the seasonal content pass — 2026-11-16 (session `arena/a746a9f2`, branch `arena/a746a9f2-zone1`)
+
+Task **X-a746a9f2** on the coordination board. This pass answered the brief's three standing
+demands — verify everything against official sources with links, keep the site a polished
+marketing property rather than an audit report, and leave the owner with a decision layer
+instead of more reading — in one integrated sweep.
+
+### 17.1 What was verified (14/14 sources read live on 2026-11-16)
+
+Full evidence table: `reports/verification-2026-11-16.md` (rows V1–V14: exact string read back,
+verdict, per-row). Summary:
+
+* **The three supplied short links** re-resolved to the same candidate ASINs (B0CDY277D3,
+  B09B7SB46R, B08DKYBTPH) with fallback-style parameters; all three listing titles matched the
+  stored values character for character. The 2026-11-15 bot checkpoint on the Emeril listing
+  **cleared**: S28 is now read twice over.
+* **Four manufacturer pages** (Chefman 6 Qt, Chefman 8 Qt Touch, Chefman 8 Qt High-Fry, Emeril 26 QT):
+  every published specification still matches. Every registered conflict is still **live** —
+  the 8 Qt model/temperature conflict (F3), the Emeril 24-vs-25 presets (F4) and 10-in-1/11-in-1
+  counting (F5), the six-vs-seven accessories (F50).
+* **Five Associates pages + FTC + eCFR**: agreement version stamps unchanged (Oct 15 2025 / Apr 14
+  2026); commission table read in full with no login (Kitchen 4.50%, All Other 4.00%); the required
+  disclosure sentence verbatim; 3-sales/180-days, 10 posts, 60-day recency; "You can't talk about
+  your experience with a product you haven't tried"; 16 CFR 255 current as of 11/12/2026.
+* **No published value changed** except one blank cell that a verbatim read now fills: the Emeril
+  "Amazon browse node", previously unrendered behind the checkpoint, is populated from today's
+  breadcrumb read (S28) and flagged with its limit exactly as F53 requires. Result: 44 of 46
+  specification rows verified; the two remaining blanks are genuine (no preset count is documented
+  for the 6 Qt; the 8 Qt Hi-Fry row is the F3 conflict and must stay blank).
+
+### 17.2 What shipped (the marketing and decision layers)
+
+* **One new article** — *Air fryer gift guide 2026: match the format to the person* — the site's
+  first seasonal piece, written for the Q4 query window that is open now. Format-first, every value
+  a `{{published value}}` splice with its source, and a closing section naming the four things a
+  gift guide cannot tell you (price, taste, exact SKU, box contents). Published as **TP-15**.
+* **Three new topic rows** (TP-15…TP-17): the gift guide (published), a holiday-hosting capacity
+  piece and a deal-season "what a price-free site can still tell you" piece (both proposed, each
+  with hooks, intent, and must-cite lists). The topics lede count is now computed.
+* **Three new suggestions** feeding the owner's decision queue and the design prompt:
+  **SG-22** ship the seasonal cluster while the season is live (options A/B/C, blocked by Q-21);
+  **SG-23** one policy-compliant CTA component designed now and wired when the tag exists (the
+  component spec the design prompt lacked; blocked by Q-04); **SG-24** a computed "decide this
+  first" triage at the top of the queue — the brief's request for decision-making support.
+* **Q-21**: who decides the publishing calendar and what the deadlines are — the one missing owner
+  statement the seasonal plan needs. "No seasonal content" is recorded as an acceptable answer.
+
+### 17.3 Defects found and fixed (flag F59 on the register)
+
+* **Fourth occurrence of the stale-count defect class** (after F14, F38, F52): three register
+  surfaces asserted "eight articles" while the index publishes thirteen — `data/questions.json`
+  Q-10, `data/suggestions.json` SG-09, and `data/decision.json` (the niche rows). All three
+  corrected per the F52 precedent to dated counts with a pointer at the live index; the
+  `decision.json` fix is a cross-scope integration edit with before/after strings logged in
+  `COORDINATION.md`. Related scan results cleared: the parallel-register pages are internally
+  consistent, and `data/design-prompt.json`'s "12 articles" note is now dated.
+* **F53's stale sentence** (Emeril browse node "cannot be recorded") received a dated update
+  recording the checkpoint clearance and the filled row.
+
+### 17.4 What is still open (unchanged, non-blocking)
+
+Q-01/Q-02 (ASIN→model mapping — Amazon serves automated reads a reduced shell with no Product
+information block), Q-03/Q-04 (account status; the tag inside the supplied short links), Q-11
+(commission category per ASIN — only the Earnings report names it), the owner's country statement
+(F42), and the flag-register unification decision (F44/F47). Every one of these remains blank,
+flagged and linked on `flagged.html`. The 2026-11-16 pass is recorded in `COORDINATION.md`;
+all gates green (build 37 URLs · verify 116 pages / 0 errors · ci-check 6,483 links / 0 broken ·
+research + site + platform audits clean).

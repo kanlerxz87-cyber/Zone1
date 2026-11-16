@@ -1136,7 +1136,7 @@
    "id": "SG-23",
    "title": "One compliant call-to-action pattern on every money page — design it now, wire it when the tag exists",
    "area": "Editorial and conversion",
-   "problem": "The site explains everything and converts nothing: there is no single designed CTA component anywhere in the build. The product pages link the supplied short links in evidence tables, but no page states what a buyer should click, in what words, with what disclosure. The design prompt the owner will hand to a designer therefore has no component spec for the one element the business model depends on. The complication is real: the supplied links carry no observable tag (Q-04) and are flagged as possible Redirecting Links, so the honest CTA today is not 'buy now' but 'check the listing yourself'. A designed pattern can say that in one line and swap to tagged Special Links the day attribution exists.",
+   "problem": "The site has exactly one call-to-action component and it lives on the three product pages only: a button reading 'Open supplied Amazon link - verify model' with rel=\"nofollow sponsored\". The comparison page, the buying guide, the picks page and all thirteen articles end without any next step for the reader, and the design prompt the owner will hand to a designer contains no CTA component spec at all. The complication is real: the supplied links carry no observable tag (Q-04) and are flagged as possible Redirecting Links, so the honest CTA today is not 'buy now' but 'check the listing yourself'. A designed pattern can say that in one line, appear on every page that discusses a product, and swap to tagged Special Links the day attribution exists.",
    "evidence": [
     {
      "label": "Identify yourself as an Associate — link-level disclosure must be clear and conspicuous: '(paid link)', '#ad', '#CommissionsEarned' (read live 2026-11-16)",
@@ -1154,7 +1154,7 @@
    "options": [
     {
      "label": "A. Design the pattern now, publish it on the money pages, swap the destination later",
-     "what": "One component: a text link or button reading 'Check this listing on Amazon (paid link)', rel=\"sponsored\", no price or availability text, linking the supplied short link today and a tagged Special Link once Q-04 is answered. The design prompt gains the component spec; the product pages gain a next step.",
+     "what": "One component, used everywhere a product is discussed: a text link or button reading 'Check this listing on Amazon (paid link)', rel=\"sponsored\", no price or availability text, linking the supplied short link today and a tagged Special Link once Q-04 is answered. The design prompt gains the component spec; the comparison, guide, picks and article pages gain the next step the product pages already have.",
      "effort": "S",
      "risk": "low — the disclosure and rel rules are already build-guarded",
      "reversible": true
