@@ -1281,3 +1281,62 @@ briefings. All eight had drifted or were one edit from drifting. They are now `{
 `req_interp()` from the same objects the pages render from, an unknown token raises, and
 `check_requirement_tokens()` fails the build if a token survives into a page (both directions tested).
 Recorded as **F73**.
+
+---
+
+## 22. Pass 12 (session `arena/8874422b-zone1`) — RSS syndication, article masthead and the second-reader spot re-read (2026-11-16)
+
+*(Numbered §22 because two earlier sessions had each already taken §21 — their duplicate is left
+as published; this session did not renumber another session's section.)*
+
+**Branch:** `arena/8874422b-zone1` · rebased three times onto a moving `origin/main`
+(final base `d5f449d`) · **Full evidence:**
+[`reports/verification-2026-11-16-8874422b.md`](reports/verification-2026-11-16-8874422b.md) ·
+**Ledger on the site:** [`reverification.html`](https://kanlerxz87-cyber.github.io/Zone1/reverification.html)
+
+This session claimed a marketing-design polish pass while three other design/content sessions
+worked in parallel. Their passes (§19 design-coherence, §20 seasonal, §21 round 11 and pass 11)
+merged a reader strip, a single-era stylesheet, SVG glyphs, a nineteen-article set and — via
+session `ba29c641` — direct reads of all three listings' Product information blocks that closed
+F1 for two of three products. **Shipping two competing design systems would have made the site
+worse**, so this branch rebased onto their result each time, adopted it wholesale as canonical,
+and re-scoped its contribution to the additive pieces the merged tree still lacked —
+presentation-only throughout: **no published value, register row, flag or wording changed.**
+
+### 22.1 What this session added to the merged tree
+
+| Addition | Where | Status |
+|---|---|---|
+| **RSS feed** `feed.xml` (19 items), generated deterministically from `data/articles.json` — pubDate derives from the register's own accessed date, so CI's reproducibility gate holds; linked from every page head (`rel="alternate"`), the articles index and the footer | `build.py` `main()`; `feed.xml` | shipped; reviewable as **SG-28** |
+| **Article masthead**: kicker, headline, standfirst and a meta row (kind · reading time · sources-read date · a "documentation-based — no hands-on testing" badge), styled with the shipped stylesheet's own variables | `page_article()`, additive CSS block | shipped |
+| **Footer brand column** naming the publisher and the feed; RSS link in the sources column; `theme-color` meta | `layout()` | shipped |
+| **Second-reader spot re-read** of the load-bearing rows (below), rendered as its own ledger section and wired into the executive summary's ledger-row count | `session-8874422b/pass12.json` | shipped, with a dated addendum noting that session `ba29c641`'s later direct reads moved the model-mapping rows (F1 closed 2/3; Emeril part-number conflict opened as **F70**) |
+| **Suggestion rows SG-27–SG-30** (nav-label review, feed, Search Console submission, reader-capture decision — numbered after main's SG-23–26) | `data/suggestions.json` | published |
+
+**SG-27** deliberately asks for a review of the shipped shopper-strip labels
+(Picks · Buying guide · Articles · Compare) against a six-item alternative (add Products and The
+data) rather than changing them — the design system is `492acddc`'s; this session reviews, it does
+not re-litigate.
+
+### 22.2 The spot re-read — a second reader on the same day
+
+Earlier the same day, sessions `3dfe4b45`, `492acddc`, `b23f12f0` and `ba29c641` covered the
+register. This pass adds what a second independent reader confirms fresh: the three supplied
+`link.amazon` short links (all resolving to `/dp/B0CDY277D3`, `/dp/B09B7SB46R`, `/dp/B08DKYBTPH`
+through `plpRedirect=mhFallback` fallback pages), the two volatile Chefman counters (**1,307** and
+**717** — unchanged), the Emeril 24-vs-25 preset conflict (re-confirmed live on one page), and the
+Program Policies stamp (**Updated: April 14, 2026** — unchanged). **All seven rows: confirmed.**
+Still open, unchanged by this pass: the Associates tag inside the links (F6), the Emeril
+part-number variant (F70), and the preset-count conflict (F4/F5 family).
+
+### 22.3 Gates (on the final rebased tree)
+
+`python3 build.py` → exit 0, **48 pages**, 47 sitemap URLs + **feed.xml (19 items)** ·
+`python3 verify.py` → 127 pages, 77 spec rows (75 verified / 2 blank+flagged), 0 errors,
+0 external warnings · `bash scripts/ci-check.sh` → 33 unit tests OK, data audit clean, s2 build
+current, **8,287 links / 0 broken** · `python3 scripts/verify_site.py` → 393 assertions, ALL
+PASSED · `python3 research/check_research.py` → OK · `python3 platform/audit/report.py` →
+AUDIT PASSED · `node --check assets/app.js` → OK · two consecutive `build.py` runs produce
+byte-identical HTML.
+
+The merge record for this pass is appended to `COORDINATION.md` after the PR lands.

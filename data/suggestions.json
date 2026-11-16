@@ -1333,6 +1333,168 @@
    "blocks": [],
    "blocked_by": [],
    "resolved_on": "2026-11-16"
+  },
+  {
+   "id": "SG-27",
+   "title": "Review the shopper navigation labels now that a reader strip ships",
+   "area": "Site design",
+   "problem": "The design-coherence pass (session 492acddc, PRs #111/#112) shipped a four-item shopper strip (Picks, Buying guide, Articles, Compare) in the topbar. The label set deserves a deliberate review now that the design system has settled: a six-item alternative would add Products and The data, giving a shopper a complete map of the buyer-facing site in one glance while the evidence registers stay in the sidebar for reviewers.",
+   "evidence": [
+    {
+     "label": "The shipped strip - build.py topnav_items on main",
+     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py"
+    },
+    {
+     "label": "Google Search Central - site structure and navigation guidance",
+     "url": "https://developers.google.com/search/docs/crawling-indexing/site-structure-overview"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Review the labels, then widen the strip if the review agrees",
+     "what": "Review the shipped four-item strip against a six-item alternative (add Products and The data), with every entry re-using an existing NAV href so the link checker and guards keep covering it. Nothing is changed by this row itself; it is a review request.",
+     "effort": "S",
+     "risk": "low",
+     "reversible": true
+    },
+    {
+     "label": "B. Leave navigation as the sidebar only",
+     "what": "Keep the single-sitemap sidebar. No visual risk, but every reader from search keeps meeting a reviewer's navigation first.",
+     "effort": "—",
+     "risk": "none (status quo)",
+     "reversible": true
+    }
+   ],
+   "recommendation": "Review the labels: the shipped four-item strip is one constant in build.py; adding Products and The data would make it a complete shopper map.",
+   "why": "The strip is the site's single most-used navigation surface for shoppers; the label set deserves a deliberate review now that the design system has settled.",
+   "impact": 4,
+   "confidence": 4,
+   "effort": "S",
+   "risk_of_not_doing": "The site keeps presenting a compliance workbench to shoppers; bounce from search visitors stays unmeasured but structural.",
+   "blocks": [],
+   "blocked_by": []
+  },
+  {
+   "id": "SG-28",
+   "title": "Ship an RSS feed of the article set (done in pass 12) and wire it into the reader loop",
+   "area": "Organic traffic",
+   "problem": "Fifteen sourced articles now exist and the set grows, but nothing tells a returning reader (or an aggregator) that something new is published. A static site with no accounts, no cookies and no analytics cannot email anyone - but it can publish a feed, which needs no consent banner and no third-party script, exactly matching this site's privacy posture (§3(e) statement in the footer).",
+   "evidence": [
+    {
+     "label": "The feed itself - generated from data/articles.json at build time",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/feed.xml"
+    },
+    {
+     "label": "Google Search Central - syndication and feed guidance for publishers",
+     "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Keep the feed, add it to the reader loop (shipped) and submit the sitemap in Search Console",
+     "what": "Pass 12 generates feed.xml from data/articles.json (deterministic: pubDate derives from the register's own accessed date), links it from every page head and the footer, and surfaces it on the articles index. The owner-only next step is registering the site in Google Search Console / Bing Webmaster Tools and submitting sitemap.xml - a five-minute account action that no build can do for you.",
+     "effort": "S (done) / M (account actions, owner)",
+     "risk": "low",
+     "reversible": true
+    },
+    {
+     "label": "B. Skip syndication",
+     "what": "Rely on crawling alone. The articles are already sitemap-listed; the feed is a convenience, not a requirement.",
+     "effort": "—",
+     "risk": "none (status quo)",
+     "reversible": true
+    }
+   ],
+   "recommendation": "A. The feed is shipped and reproducible; the Search Console submission is the one unclaimed owner action with direct organic-traffic value (see handover.html).",
+   "why": "It is the only traffic mechanism that works with this site's no-cookie, no-script, no-account posture, and it costs a static file.",
+   "impact": 3,
+   "confidence": 4,
+   "effort": "S",
+   "risk_of_not_doing": "Readers who would follow the set have no mechanism to; discovery stays purely search-driven.",
+   "blocks": [],
+   "blocked_by": []
+  },
+  {
+   "id": "SG-29",
+   "title": "Register the site in Search Console and Bing Webmaster Tools (owner action, ten minutes)",
+   "area": "Organic traffic",
+   "problem": "The sitemap and robots.txt have shipped since pass 7, but nothing in this repo can verify how the site is indexed, and nothing can submit the sitemap on the owner's behalf: verification requires an account only the owner controls. Until it is done, the only index feedback the project gets is third-party.",
+   "evidence": [
+    {
+     "label": "Google Search Central - Search Console fundamentals (verification is an account holder's step)",
+     "url": "https://developers.google.com/search/docs/fundamentals/search-console-basics"
+    },
+    {
+     "label": "The sitemap this action would submit - live",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/sitemap.xml"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Owner registers both tools and submits sitemap.xml",
+     "what": "Verify the GitHub Pages origin, submit the sitemap once, and re-check after each article batch. No code change; the feed from SG-28 rides along.",
+     "effort": "S",
+     "risk": "low",
+     "reversible": true
+    },
+    {
+     "label": "B. Defer until a custom domain exists (see SG-11's domain question if present)",
+     "what": "Avoid verifying the github.io origin twice. Slower traffic signal, and the deferred state has already lasted the whole project.",
+     "effort": "—",
+     "risk": "moderate (deferred discovery)",
+     "reversible": true
+    }
+   ],
+   "recommendation": "A now, regardless of any future domain decision - index data from the live origin is useful immediately and costs nothing.",
+   "why": "Every traffic decision on decisions.html is currently made blind: this is the cheapest source of real query and index data the project can get.",
+   "impact": 4,
+   "confidence": 5,
+   "effort": "S",
+   "risk_of_not_doing": "The traffic plan stays assumption-based; indexing problems, if any, stay invisible.",
+   "blocks": [],
+   "blocked_by": [
+    "Q-03"
+   ]
+  },
+  {
+   "id": "SG-30",
+   "title": "Decide the reader-capture mechanism before any newsletter or retention feature is added",
+   "area": "Conversion",
+   "problem": "A marketing brief eventually asks for email capture or a waitlist. This site currently runs no script, sets no cookie, and holds no data - that posture is stated in the footer and is a compliance asset (Program Policies §3(e) requires an accurate statement of technology use). Any capture mechanism changes that statement the day it ships, so the decision and the privacy-notice rewrite must happen together, before implementation, not after.",
+   "evidence": [
+    {
+     "label": "Associates Program Policies §3(e) - accurate statement of cookie and third-party technology use",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+     "label": "FTC Disclosures 101 - the honesty rules that would also apply to any signup promise",
+     "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Keep the no-data posture (recommended until SG-25's index data exists)",
+     "what": "Ship nothing that stores reader data. The RSS feed from SG-28 already covers follow-without-account, and the footer statement stays true without edits.",
+     "effort": "—",
+     "risk": "none (status quo)",
+     "reversible": true
+    },
+    {
+     "label": "B. Add a third-party newsletter embed",
+     "what": "Requires: a provider decision, a privacy-notice rewrite in the footer, a cookie/technology re-statement under §3(e), and a re-run of the no-tracking guard (C-19/V11) with a documented exception. Not implemented in pass 12; deliberately proposed, not built.",
+     "effort": "M",
+     "risk": "moderate (compliance surface grows)",
+     "reversible": true
+    }
+   ],
+   "recommendation": "A for now; revisit only after SG-25 produces real traffic data that shows returning readers exist.",
+   "why": "The no-cookie posture is one of the site's strongest trust signals; trading it for an unproven capture widget is a bad deal before any traffic data exists.",
+   "impact": 3,
+   "confidence": 4,
+   "effort": "—",
+   "risk_of_not_doing": "Someone ships an embed later without rewriting the privacy statement, and the §3(e) statement becomes inaccurate - a real compliance breach rather than a style issue.",
+   "blocks": [],
+   "blocked_by": []
   }
  ],
  "paths_intro": "A decision queue with this many rows is a backlog, not a decision. The paths below group the suggestions into four coherent pieces of work. Each path is ordered, names what has to be true before it can start, and says plainly what it will not fix. Pick one path, finish it, then pick the next. The grouping is this pass's judgement; the dependencies inside it are not - they are the blocked_by links already recorded on each row.",

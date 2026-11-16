@@ -549,3 +549,12 @@ footer.site strong{color:#f4f1e2}
 .figure svg{max-width:100%;height:auto;display:block;background:#fffdf7}
 .fighead{font:700 1.1rem/1.3 var(--serif);color:var(--brand-ink);margin:0 0 .4rem}
 .figcap{font-size:.85rem;color:var(--muted);margin:.5rem 0 0;line-height:1.5}
+
+/* ===== additive: arena/8874422b-zone1 (2026-11-16) — article masthead + footer brand
+   column. Presentation only, in this stylesheet's own vocabulary; no values touched. */
+.article-head{max-width:74ch; padding-bottom:1.05rem; border-bottom:1px solid var(--line); margin-bottom:1.25rem}
+.article-head .lede{margin:.55rem 0 .8rem}
+.article-meta{display:flex; flex-wrap:wrap; align-items:center; gap:.45rem .7rem; font-size:.79rem; color:var(--muted)}
+.article-meta .pill{font-size:.68rem; white-space:nowrap}
+.foot-brand h5{font-family:var(--serif); font-size:.95rem; text-transform:none; letter-spacing:0; color:var(--brand-ink)}
+.foot-brand p:first-of-type{font-family:var(--serif); font-size:.94rem; line-height:1.55}
