@@ -4589,3 +4589,29 @@ times while this pass worked (`4225b95` → `96f8daa` → `dab153e` → final), 
 
 No commit was lost, no other session's data was overwritten, and the final tree is
 byte-reproducible (`build.py` leaves `git diff` empty).
+
+## Task board — arena/695f03b7-zone1 (2026-11-16 UTC) — pass 10 completion record
+
+Base `main` at `6dbfa7c`; claimed P1–P4 on this branch at `697a1de`. The claim commit was not
+carried onto `main` when the work was replayed onto the moving tip, so this record is appended
+here instead of being rewritten into the history.
+
+| # | Task | Status | Where it landed |
+|---|------|--------|-----------------|
+| P1 | Pass-10 live re-verification, all 34 registered sources | done (28 confirmed / 3 partly confirmed / 1 conflict-live / 2 not re-checked; no published value changed) | `data/pass10.json`, `pass10.html`, `data/sources.json` (append only) |
+| P2 | Original figure layer, generated from `data/products.json` | done (footprint, temperature, preset-conflict, decision tree; sources per figure) | `assets/figures/*.svg`, `figures.html`, `build.py` (`build_figures`), `assets/style.css`, `products.json` `figures` block |
+| P3 | Gap register for the pass-10 findings | done (photography rights: F46 programme flag, Q-22, SG-23; published as an open decision, nothing guessed) | `data/flags.json` (F28), `data/questions.json` (Q-22), `data/suggestions.json` (SG-23), `build.py` PROGRAMME_FLAGS (F46) |
+| P4 | Integration, gates, PR, merge, Pages | done | PR #95 merged (merge commit `45e6ab8`, 2026-11-16 18:59 UTC); Pages build `45e6ab8` reached `built`; live `pass10.html` and `figures.html` read back |
+
+Note on Q-22 and SG-23: the agent-terms question and the Agent/[name] declaration decision
+belong to session 9fccce0c as Q-21 and SG-22. Those IDs are kept as they are; this session's
+photography items were numbered Q-22 and SG-23 to avoid a collision.
+
+Merge history: PR #95 was first opened against `9c6deab`, failed to merge twice because `main`
+advanced (PRs #98, then #103–#106), and was rebased each time. Conflicts were confined to the
+generated HTML (`executive-summary.html`, `index.html`, `questions.html`, `suggestions.html`);
+those were taken from `main` and regenerated from `build.py` rather than hand-merged. No data
+file conflicted. Gates on the final tree: `verify.py` 0 errors, `check_links.py` 0 broken of
+7,466, `scripts/ci-check.sh` OK, `research/check_research.py` OK, `platform/audit/report.py`
+0 warnings, `node --check assets/app.js` valid. CI `verify` and the annex rebuild both passed
+on the final commit before the merge.

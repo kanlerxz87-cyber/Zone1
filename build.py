@@ -3506,7 +3506,7 @@ def page_pass10():
 
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Verification pass 10</p>
-<h1>{e(p10['pass'])} verification ledger · {e(p10['pass_date'])}</h1>
+<h1>Pass {e(p10['pass'])} verification ledger · {e(p10['pass_date'])}</h1>
 <p class="lede">{e(p10['scope'])}</p>
 
 <div class="callout info">
