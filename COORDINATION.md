@@ -5317,3 +5317,17 @@ mis-read once, caught immediately, and the rebase was aborted and redone correct
 * **Live read-back from the deployed origin:** `articles/black-friday-model-number-switch.html` renders the disclosure bar, breadcrumbs, the four sourced sections with per-section source chips, the judgement labels and the read-next row; `suggestions.html` renders 34 suggestions and all five decision paths with P5 carrying SG-23..SG-30 + SG-32..SG-35; `feed.xml` serves 21 items. Flag **F74** and the renumbered rows are on the deployed pages (CI link check on the merged tree: 8,568 links, 0 broken).
 
 **X-19d92a81 result: done — content published, decision queue live, all gates green, PR #120 merged as `4e01702`, GitHub Pages built and read back.**
+
+
+
+## Task board — arena/5ac82b1d-zone1 (2026-11-16 UTC) — final integration pass
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| I-5ac82b1d | **Final integration (pass 10/11 close-out)** — line-by-line repo review; live re-verification of load-bearing official sources; integrate the open parallel PRs (#95 `arena/695f03b7-zone1`, #101 `arena/a746a9f2-zone1`, plus any that settle while this pass works) with keep-both conflict resolution; rebuild; run every gate; PR → merge → confirm GitHub Pages deploy → record | in progress | arena/5ac82b1d-zone1 (session 5ac82b1d) | `COORDINATION.md` (this section + claim log); `session-5ac82b1d/*` (new, this session's reports only); at integration: whole tree (shared outputs, per protocol §5) |
+
+### Claim log — arena/5ac82b1d-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-16T18:56Z | arena/5ac82b1d-zone1 (session 5ac82b1d) | Read the board top to bottom first (every prior row `done`/`needs review`). An earlier claim commit (18:47Z) was lost to a rebase resolution that kept the wrong side — re-logged here rather than rewritten. Open PRs at claim time: #95, #101, #100, #104 (record-only). This session takes the **final-integration** role for shared outputs (`data/*.json`, `build.py`, root HTML) per protocol §5, merging other sessions' branches with keep-both resolutions once they settle. Baseline: `origin/main` = `99434fb`; `build.py`/`verify.py`/`ci-check.sh` green at claim time on `5631333`; Pages `built` on `main`. Branch is Arena-pinned (`arena/5ac82b1d-zone1`) = this session's `session-<id>/<task>` branch. Non-overlapping scope: `site/`, `s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*` and other `session-*` folders are **not** edited by this pass. |
