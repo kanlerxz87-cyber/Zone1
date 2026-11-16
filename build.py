@@ -15,6 +15,7 @@ Out:  index.html, products/*.html, categories/*.html, guides/*.html,
 import html
 import json
 import os
+import posixpath
 import re
 import shutil
 from urllib.parse import quote_plus
@@ -1207,8 +1208,17 @@ def _dashboard_article_cards():
 
 
 def _flag_count():
-    """Rows on the Flagged page, counted the same way the duplicate-ID guard counts them."""
-    return len(re.findall(r'<tr><td class="num"><strong>F\d+</strong>', page_flagged()))
+    """Rows on the Flagged page.
+
+    Counted from the same markup `page_flagged()` emits, which has been
+    `<tr id="fNN"><td class="num"><strong>FNN</strong>` since pass 10 added per-row
+    anchors. The previous pattern (`<tr><td class="num">...`, with no id attribute)
+    silently stopped matching at that commit and the landing page published
+    "0 Flags open" next to a 61-row register. `check_flag_count_matches_page()`
+    now asserts the two agree, so this cannot regress unnoticed again.
+    """
+    return len(re.findall(r'<tr id="f\d+"><td class="num"><strong>F\d+</strong>',
+                          page_flagged()))
 
 
 def pulse_strip():
@@ -4114,10 +4124,29 @@ def page_topics():
             f'<td class="small">{cites}</td></tr>'
         )
 
-    # Detail cards only for what is not written yet; published topics are one click away.
+    # Detail cards. The plan table links every row to #tp-NN, so every row must have a
+    # target: before this pass the block below was skipped for published topics, which
+    # left 8 of 14 in-page links on this page pointing at nothing. Published topics get
+    # a short card that links the article; unwritten ones get the full brief.
     cards = []
     for it in items:
         if it["status"] == "published":
+            cites = " ".join(
+                f'<a class="src-link" href="{e(c["url"])}" target="_blank" rel="noopener">{e(c["label"])} ↗</a>'
+                for c in it["must_cite"]
+            )
+            cards.append(f"""
+<article class="sug" id="{e(it['id'].lower())}">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">{e(it['id'])} · {e(it['intent'])} · published</div>
+      <h3><a href="../{e(it['published_as'])}">{e(it['title'])}</a></h3>
+    </div>
+  </div>
+  <p><strong>The angle.</strong> {e(it['angle'])}</p>
+  <p class="small"><a href="../{e(it['published_as'])}">Read the article →</a></p>
+  <div class="evidence"><strong>Must cite.</strong> {cites}</div>
+</article>""")
             continue
         cites = " ".join(
             f'<a class="src-link" href="{e(c["url"])}" target="_blank" rel="noopener">{e(c["label"])} ↗</a>'
@@ -4182,8 +4211,11 @@ owner's manual, so none of them requires a claim this site cannot support.</p>
 </table>
 <p class="tiny muted">{e(t['demand_note'])}</p>
 
-<h2>Not written yet</h2>
-<p class="small">{''.join(cards) if cards else '<span class="muted">Nothing is outstanding.</span>'}</p>
+<h2>The brief behind each topic</h2>
+<p class="small muted">Every row in the plan table links here. Published topics link straight to the
+article; unwritten ones carry the angle, the reason it could earn traffic, the sources any finished
+version must cite, and what blocks it.</p>
+<p class="small">{''.join(cards) if cards else '<span class="muted">No topics are on the plan yet.</span>'}</p>
 
 <h2>How any of it may be promoted</h2>
 <table>
@@ -5318,11 +5350,66 @@ def check_flag_ids_unique():
     """
     from collections import Counter
     page = page_flagged()
-    ids = re.findall(r'<tr><td class="num"><strong>(F\d+)</strong>', page)
+    # The row markup carries an id attribute since pass 10 (<tr id="fNN">); matching on
+    # `<tr><td class="num">` made this guard find zero rows and pass vacuously. Located
+    # by the fixed flag-count guard below, 2026-11-16 (arena/2e346d24).
+    ids = re.findall(r'<tr id="f\d+"><td class="num"><strong>(F\d+)</strong>', page)
     dupes = sorted(k for k, v in Counter(ids).items() if v > 1)
     if dupes:
         return [f"flag id(s) rendered more than once on flagged.html: {', '.join(dupes)}"]
     return []
+
+
+def check_flag_count_matches_page():
+    """Build guard: the landing page's "Flags open" tile must equal the register it links to.
+
+    The defect this prevents was live on main at 9c6deab: `_flag_count()` matched
+    `<tr><td class="num">` while `page_flagged()` had emitted `<tr id="fNN">` since the
+    per-row anchors landed, so the front page advertised "0 Flags open" beside a 61-row
+    register. A typed total is what passes 9 and 10 both caught themselves getting wrong;
+    a computed total is only better if something checks the computation. This does.
+    """
+    rendered = len(re.findall(r'<tr id="f\d+"><td class="num"><strong>F\d+</strong>',
+                              page_flagged()))
+    computed = _flag_count()
+    if rendered == 0:
+        return ["flagged.html renders no flag rows, so the landing-page count cannot be trusted"]
+    if rendered != computed:
+        return [f"landing-page flag count ({computed}) disagrees with the rendered "
+                f"register ({rendered} rows)"]
+    # The tile on index.html must publish that same number, not a literal of its own.
+    idx = page_index()
+    m = re.search(r'<div class="tile"><b>(\d+)</b><span>Flags open', idx)
+    if not m:
+        return ["index.html no longer renders the Flags open tile"]
+    if int(m.group(1)) != rendered:
+        return [f"index.html publishes {m.group(1)} flags, register holds {rendered}"]
+    return []
+
+
+def check_internal_fragments(pages):
+    """Build guard: every href="#id" must resolve to an element on the page it names.
+
+    `verify.py` checks that a link's *file* exists; it has never checked the fragment.
+    A plan table that links each row to a detail block the template no longer emits is
+    therefore invisible to every existing gate - which is exactly what topics.html was
+    doing for 8 of its 14 rows when this guard was written (2026-11-16, arena/2e346d24).
+    """
+    ids = {rel: set(re.findall(r'\sid="([^"]+)"', text)) for rel, text in pages.items()}
+    problems = []
+    for rel, text in pages.items():
+        if not rel.endswith(".html"):
+            continue
+        for target, frag in re.findall(r'href="([^"#]*)#([^"]+)"', text):
+            if frag in ("", "top"):
+                continue
+            dest = rel if target == "" else posixpath.normpath(
+                posixpath.join(posixpath.dirname(rel), target))
+            if dest not in ids:
+                continue  # an external or generated-at-another-step target; verify.py owns it
+            if frag not in ids[dest]:
+                problems.append(f"{rel}: href=\"{target}#{frag}\" has no target in {dest}")
+    return problems
 
 
 def _canonical_flag_ids():
@@ -5750,6 +5837,14 @@ def main():
     flag_id_problems = check_flag_ids_unique()
     if flag_id_problems:
         raise SystemExit("BUILD FAILED — flag register integrity:\n  " + "\n  ".join(flag_id_problems))
+    flag_count_problems = check_flag_count_matches_page()
+    if flag_count_problems:
+        raise SystemExit("BUILD FAILED — landing-page total disagrees with the published "
+                         "register:\n  " + "\n  ".join(flag_count_problems))
+    fragment_problems = check_internal_fragments(pages)
+    if fragment_problems:
+        raise SystemExit("BUILD FAILED — an in-page link points at an element that is not "
+                         "rendered:\n  " + "\n  ".join(fragment_problems))
     ref_problems = check_question_block_refs()
     if ref_problems:
         raise SystemExit("BUILD FAILED — decision-layer cross-reference:\n  " + "\n  ".join(ref_problems))
