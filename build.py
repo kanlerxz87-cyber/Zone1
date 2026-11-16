@@ -4745,13 +4745,15 @@ def page_articles_index():
             if links:
                 prods = ('<p class="tiny muted" style="margin:.4rem 0 0">About: '
                          + " · ".join(links) + "</p>")
+        # An article that serves no single product (site-level pieces) leaves prods
+        # empty; emitting the slot anyway would publish a trailing-whitespace line.
+        prods_html = (prods + "\n") if prods else ""
         cards.append(f"""<article class="card article-card">
   <span class="kicker">{e(a['kicker'])}</span>
   <a class="cardtitle" href="../articles/{a['slug']}.html">{e(a['title'])}</a>
   <span class="cardtext">{e(a['standfirst'])}</span>
   <span class="tiny muted">{e(a['kind'])} · {a['reading_minutes']} min read</span>
-  {prods}
-</article>""")
+{prods_html}</article>""")
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Articles</p>
 <h1>Articles</h1>

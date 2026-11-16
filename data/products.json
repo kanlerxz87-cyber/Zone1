@@ -211,7 +211,7 @@
       ]
      }
     ],
-    "why_unverified": "Amazon's published rate table (S3) lists rates by product category. It does not publish which category a given ASIN is assigned to, and air fryers are not named in the table. Choosing between the Kitchen row and the fallback row would be inference, so the rate is left blank.",
+    "why_unverified": "Amazon's published rate table (S3) lists rates by product category. It does not publish which category a given ASIN is assigned to, and air fryers are not named in the table. Choosing between the Kitchen row and the fallback row would be inference, so the rate is left blank. Re-read 2026-11-16 (pass 10, session 121929a5): the Standard Commission Income Statement page (S3) is now publicly readable without sign-in; its Table 1 states 'Physical Books, Kitchen, Automotive — 4.50%' and 'All Other Categories — 4.00%', matching the candidate rows above. What remains unconfirmed is the mapping from this ASIN to the schedule's category for commission purposes — Amazon's own assignment is authoritative only inside Associates reporting.",
     "rate_source_note": "Only S3 is authoritative. Several well-ranked third-party blogs claimed 3%, 4.5% or 5% for kitchen appliances on the same day; those were discarded as non-official and mutually contradictory."
    },
    "competition": {
@@ -391,12 +391,12 @@
     },
     {
      "label": "Amazon browse node",
-     "value": null,
+     "value": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
      "source": [
       "S28"
      ],
      "unverified": "Not read. Three fetches of this ASIN on 2026-11-15 were each answered with Amazon's automated 'Continue shopping' checkpoint instead of the product page, so no breadcrumb was rendered. The two Chefman ASINs fetched cleanly in the same window. Left blank rather than assumed to match the others.",
-     "note": "Blank pending a fetch that returns the actual listing page."
+     "note": "Blank until 2026-11-16: filled in pass 10 (session 121929a5) from the breadcrumb trail of the live detail page (S28), re-read that day both directly and via the supplied short link. Same node string the two Chefman rows carry."
     }
    ],
    "pricing": {
@@ -448,7 +448,7 @@
       ]
      }
     ],
-    "why_unverified": "A French-door air fryer toaster oven could plausibly sit in Kitchen, Home or the fallback row. Amazon does not publish the ASIN's category, so the rate is blank. Note this product also spans multiple categories, which is exactly the case where guessing goes wrong.",
+    "why_unverified": "A French-door air fryer toaster oven could plausibly sit in Kitchen, Home or the fallback row. Amazon does not publish the ASIN's category, so the rate is blank. Note this product also spans multiple categories, which is exactly the case where guessing goes wrong. Re-read 2026-11-16 (pass 10, session 121929a5): the Standard Commission Income Statement page (S3) is now publicly readable without sign-in; its Table 1 states 'Physical Books, Kitchen, Automotive — 4.50%' and 'All Other Categories — 4.00%', matching the candidate rows above. What remains unconfirmed is the mapping from this ASIN to the schedule's category for commission purposes — Amazon's own assignment is authoritative only inside Associates reporting.",
     "rate_source_note": "Only the official Standard Commission Income Statement (S3) is used for rates. Third-party blogs claiming 3%, 4.5% or 5% for kitchen appliances were discarded: they disagreed with each other and with the published table on the day of verification."
    },
    "competition": {
@@ -691,7 +691,7 @@
       ]
      }
     ],
-    "why_unverified": "Category assignment per ASIN is not published by Amazon (S3).",
+    "why_unverified": "Category assignment per ASIN is not published by Amazon (S3). Re-read 2026-11-16 (pass 10, session 121929a5): the Standard Commission Income Statement page (S3) is now publicly readable without sign-in; its Table 1 states 'Physical Books, Kitchen, Automotive — 4.50%' and 'All Other Categories — 4.00%', matching the candidate rows above. What remains unconfirmed is the mapping from this ASIN to the schedule's category for commission purposes — Amazon's own assignment is authoritative only inside Associates reporting.",
     "rate_source_note": "Only the official Standard Commission Income Statement (S3) is used for rates. Third-party blogs claiming 3%, 4.5% or 5% for kitchen appliances were discarded: they disagreed with each other and with the published table on the day of verification."
    },
    "competition": {
@@ -729,7 +729,7 @@
    }
   }
  ],
- "reverified": "2026-11-15",
+ "reverified": "2026-11-16 by arena/121929a5-zone1 (X-121929a5 pass 10: short-link resolutions, listing titles, browse nodes, brand pages S10/S12/S14, manual S18, and program/FTC/eCFR sources S1/S2/S3/S8/S9 re-read live; Emeril browse-node blank filled from S28; prior line-by-line passes 2026-11-15 by 792c279e and 2026-11-14 by 81495d2d; see reports/verification-2026-11-16-121929a5.md)",
  "reverified_by": "arena/792c279e-zone1 (T20 line-by-line pass; see reports/verification-2026-11-15.md)",
  "source_conflicts": {
   "note": "Official documents that contradict a published specification value. Each entry names a row and the source id that contradicts it. The build fails if that source id appears in the row's source list, because a row's source list is read as the evidence for its value. The contradicting document belongs in the flag register, where it is the evidence of the conflict. Added 2026-11-15 by arena/88bb2db6.",

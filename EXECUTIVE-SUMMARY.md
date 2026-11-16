@@ -907,3 +907,19 @@ those is answerable from outside the account holder's browser. It did not read I
 to end, and said so (F62). It did not change any published value that a source did not
 contradict, and it did not touch a single file in `site/`, `s2/`, `data/s2/`, `research/`,
 `platform/`, `docs/`, `dashboard/`, `crosscheck/` or `annex-88769516/`.
+
+---
+
+## 18. Pass 10 content pass — session `arena/121929a5-zone1` (2026-11-16)
+
+Complements §17: session 9fccce0c re-verified the register and repaired its cross-references; this
+session re-read the wider registry live (short-link resolutions with titles matching stored records
+character-for-character; two Amazon detail pages direct, one via the resolver after a bot checkpoint;
+all three manufacturer pages; the Chefman 6 Qt manual; OA §5; Program Policies April 14, 2026;
+FTC/eCFR), then wrote the five articles the topic queue had planned (TP-07 box contents, TP-08
+rotisserie, TP-09 sync modes, TP-10 aerosol-oil care, A-9 disclosure explainer) — article set 12 → 17.
+Corrected three stale status rows (TP-04, TP-11, A-11) that disagreed with the already-published
+article set, and filled the one verifiable blank (Emeril browse node) from a live official page.
+Recorded the same-day S3 finding (schedule now public; Kitchen 4.50% matches the candidate rows).
+Full report: [`reports/verification-2026-11-16-121929a5.md`](reports/verification-2026-11-16-121929a5.md);
+one-page briefing: [`EXECUTIVE-SUMMARY-PASS10-121929a5.md`](EXECUTIVE-SUMMARY-PASS10-121929a5.md).
