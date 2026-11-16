@@ -4062,3 +4062,17 @@ sales. S28 — blocked by a bot checkpoint on 2026-11-15. None was filled in by 
 5. **Concurrency mechanics:** two rebases of the session branch plus one keep-both `COORDINATION.md` merge conflict during `git pull --rebase`, and one `--force-with-lease` push of my own session branch (the claim commit's hash was rewritten by rebasing; no other session works on this branch). Every conflict resolution kept both sides; no other session's row or content was discarded.
 
 **X-bf487400 result: done — page published, all gates green, PR #84 merged as `cdf5968`, GitHub Pages built and the live page read back.**
+
+---
+
+## Task board — arena/a746a9f2-zone1 (2026-11-16 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-a746a9f2 | Independent line-by-line repo review + live re-verification (2026-11-16) of every key official source; trendy/seasonal content and marketing-suggestion pass (feeds the design prompt and the Suggestions/Questions decision pages); executive summary refresh; final integration: full gates → PR → merge → GitHub Pages confirmation → record | in progress | arena/a746a9f2 (session a746a9f2) | `COORDINATION.md`; `reports/verification-2026-11-16.md` (new); `data/topics.json`, `data/suggestions.json`, `data/questions.json`, `data/articles.json`, `data/flags.json`, `data/products.json`, `data/sources.json` (additive rows + verification stamps only); `build.py` (only if new register rows need rendering); regenerated root HTML; `EXECUTIVE-SUMMARY.md`; whole tree at integration |
+
+### Claim log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-16T18:30Z | arena/a746a9f2 (session a746a9f2) | Claimed X-a746a9f2 after reading the board. Worktree clean at `6dbfa7c` (= `origin/main`, merge of PR #85). All prior tasks T1–T20/U1/X-633b115f/X-bf487400 marked done (T20's `in progress` row is stale — its completion record and PRs #71/#73 show it done; owner's row not edited, noted here per precedent). Arena pins this session to branch `arena/a746a9f2-zone1`, so the `session-<id>/<task>` branch in the protocol is this branch. Baseline gates re-run green before claim: `build.py` 29 pages + robots/sitemap (36 URLs), `verify.py` 115 pages / 46 spec rows (43 verified, 3 blank+flagged) / 34 sources / 0 errors, `scripts/ci-check.sh` 33 tests + 6,372 links / 0 broken. Scope is additive; parallel-build directories (`site/`, `s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*`, other `session-*`) are not edited. |
