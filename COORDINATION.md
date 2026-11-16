@@ -4094,3 +4094,65 @@ sales. S28 — blocked by a bot checkpoint on 2026-11-15. None was filled in by 
 | 2026-11-16T18:30Z | arena/ad8105b3-zone1 (session ad8105b3) | Read the board top to bottom before claiming. Every prior row is `done`/`needs review`; the only `in progress` rows are historical entries whose completion records for the same sessions appear further down the file, and no open PR is claimed by another session. Worktree clean at `6dbfa7c` (= `origin/main`), Pages `built` at `6dbfa7c`. Arena pins this session to branch `arena/ad8105b3-zone1`, so that branch is this session's `session-<id>/<task>` branch. Baseline gates at claim time: `build.py` 37 pages exit 0 and byte-reproducible; `verify.py` 115 pages, 46 spec rows (43 verified / 3 blank+flagged), 0 errors; `ci-check.sh` 33 tests OK, 6,372 links / 0 broken. Scope is deliberately additive and non-overlapping: no file in `s2/`, `site/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crossref/`, `annex-*/` or `session-*/` is edited by this session. |
 
 **Request to the owner of `data/s2/requirements.json` (logged, not edited):** row R-01's `where` field reads "data/requirements.json rendered on Requirements page". Neither that file nor a root Requirements page exists; the file is `data/s2/requirements.json` and it renders at `s2/pages/requirements.html`. Row R-08's stated reason (the Commission Income Statement is a "login-gated rate card (F-04)") is contradicted by this repository's own S3 record, which states Table 1 was read without a login on 2026-11-14. This session did not edit the s2 annex; it records both in the root Flagged page and cites the corrected path in the new root register.
+
+### Y1–Y4 completion record — arena/ad8105b3-zone1 (2026-11-16 UTC)
+
+**Task:** Y1–Y4 · **Status:** done · **Branch:** `arena/ad8105b3-zone1` (base `6dbfa7c`, rebased twice: onto `main` @ `7bd712a` after PRs #86 and #88 landed mid-session).
+
+**What shipped.** One new root page, `requirements.html`, generated from a new `data/requirements.json`. It closes the only requirement in the brief that had no first-class page: *"collect, organize, and analyze utilizing a full list of requirements."*
+
+| Group | Rows | What it covers |
+|---|---|---|
+| A. What the brief asked for | 9 | Requirements list, suggestions section, questions list, missing-information discovery, executive summary, no-manual-input, coordination, flagged page |
+| B. The site, design and traffic | 9 | Polished-not-AI-slop, landing page, category subpages, dashboard tables, per-row source rule, SEO plumbing, **organic traffic**, articles, live Pages |
+| C. Product research | 9 | Link resolution, specs, **pricing**, **reviews**, competition, **commission potential**, **trending**, **high-converting**, niches |
+| D. Content generation | 6 | Articles, comparisons, buying guides, automation, house voice, no-price-or-rating rule |
+| E. Publishing and measurement | 6 | Affiliate links, Associate tag, **click tracking**, **conversion tracking**, optimisation, dead-link detection |
+| F. Compliance | 8 | Operating Agreement, FTC 16 CFR 255, exact disclosure, cookie statement, paid search, price tracking, no-model-training, misleading claims |
+| G. Automation platform | 4 | Automation/scalability, traceable data, blueprint, a running pipeline |
+
+Totals, computed from the rows at build time rather than typed: **27 delivered · 13 partial · 8 blocked · 3 not built.** The page prints these itself, so it cannot claim a total its own register does not contain — which is the defect class this pass set out to remove (below).
+
+**The four defects found and fixed.**
+
+1. **No coverage view existed.** The brief's first requirement had no page. The repository's only requirements register — `data/s2/requirements.json`, 19 rows — renders at `s2/pages/requirements.html`, and **no link on the home page reached it**. Its states were also stale against the repository: `data/requirements.json` did not exist at the cited path, and R-08's blocking reason ("login-gated rate card") was contradicted by that annex's own `flags.json` row F-04, which is titled *"CORRECTED — a public commission table does exist."* Published as **F60**; the annex was **not** edited (another session's output). The new register substitutes the corrected fact, and re-read S3 live on 2026-11-16 to confirm it.
+
+2. **Nothing checked that a register's cited paths exist.** A status table that points at absent files reads as verification and is none. Added `check_requirement_paths()`, which fails the build on any `where` path, evidence link or source ID that does not resolve — accepting pages the same build generates. **Proven to fire**: build fails with `A-01: file does not exist: does/not/exist.py` on an injected bad path; passes when restored.
+
+3. **Six executive summaries, five stale, all published.** GitHub Pages serves the repository root, so `EXECUTIVE-SUMMARY.md`, `EXECUTIVE_SUMMARY.md`, `EXECUTIVE-SUMMARY-PASS8.md`, `EXECUTIVE-SUMMARY-PASS9.md` and `EXECUTIVE-SUMMARY-PASS9-42CA97AD.md` are all reachable next to the generated page. `EXECUTIVE_SUMMARY.md` was already recorded (F28) as asserting *"Identity verified. All three short links resolve to… different ASINs"*, which this site's reconciled position contradicts. Published as **F59**; none deleted, because they are other sessions' committed evidence. `executive-summary.html` no longer endorses them and links the register instead.
+
+4. **`flagged.html` had no per-flag anchors.** `flag`/`F1`-style anchors resolved to nothing, so every `#fNN` link in the repository — including one this pass added — landed at the top of the page. Fixed by emitting `id="fNN"` on each row; all 59 now resolve and the link checker reports **0 advisory findings**, down from 5.
+
+**Self-review caught this pass's own worst defect.** The first draft of the register typed its own counts. Checked against the repository, five were wrong: "fourteen banned phrases" (27 entries, 24 distinct), "fourteen affiliate anchors" on the product pages (13), "20 build-failing guards" (15), a typed internal-link total that had moved from 6,373 to 6,730 within the session, and a per-product flag split (9, not the number implied). All five corrected against the tree, the link total removed from prose entirely, and the remaining counts either verified or replaced with the page's own computed total. Recorded here rather than quietly fixed, because a pass whose subject is stale typed totals has to report its own.
+
+**Live re-verification actually performed (2026-11-16).** Server-side fetches; this sandbox has no direct outbound network, so nothing is restated from memory:
+
+| Source | Read | Result |
+|---|---|---|
+| S1 Operating Agreement | live | header unchanged: *"Updated: October 15, 2025"* |
+| S2 Program Policies | live | header reads **"Updated: April 14, 2026."** — §2(b) price/availability, §3(e) cookie disclosure, §5 no-model-training, §6(t) reviews/ratings, §6(y) no price tracking, Prohibited Paid Search Placement all read verbatim |
+| S3 Commission Income Statement | live, no login | Table 1: *"Physical Books, Kitchen, Automotive" 4.50%*, *"Home" 3.00%*, *"All Other Categories" 4.00%* |
+| S8 FTC Disclosures 101 | live | "When to Disclose" / "How to Disclose" read verbatim |
+| S10 Chefman 6 Qt page | live | model RJ38-SQPF-3TDB-2W on page, 1,307 reviews, Sync Finish + Hi-Fry text present |
+| S17 short link `B04G1MEwY` | live | resolved via `plpRedirect=mhFallback` → ASIN `B0CDY277D3`, title matched stored value character for character |
+
+`data/sources.json` → `reverified` advanced to `2026-11-16`, with an itemised record naming the **six** sources re-read and the **28** that were *not*, so a parallel pass can see exactly what this one did and did not establish. S4–S6, S7, S9 and S11–S34 are explicitly listed as not re-read. Nothing on the site depends on a claim only S7 makes; that scope limit is stated in the data rather than glossed.
+
+**Gates, all green after the final rebase:**
+
+| Gate | Result |
+|---|---|
+| `python3 build.py` | 38 pages, 37 sitemap URLs, exit 0, byte-reproducible (CI's `git diff --exit-code` passes) |
+| `python3 verify.py` | 116 pages, 46 spec rows (43 verified / 3 blank+flagged), 34 sources, **0 errors, 0 external warnings** |
+| `bash scripts/ci-check.sh` | 33 unit tests OK · data audit clean · S2 build current · **6,740 links, 0 broken, 0 advisory** |
+| `check_requirement_paths()` | fails on an injected bad path, passes when restored |
+| Conflict-marker scan | clean |
+
+**Overlap handling — no other session's work discarded.** PRs #86 (`arena/c334fb1c`, verification round 10) and #88 (`arena/9f0e6668`, round-10 review counts) merged while this session worked. Rebased onto `7bd712a` with two `COORDINATION.md` keep-both resolutions (both boards and both claim-log rows retained) and one generated-file conflict in `index.html`, resolved by discarding the hand-generated artifact and **regenerating from the merged generator** — verified afterwards that `arena/9f0e6668`'s round-10 sentence (*"A targeted follow-up on 2026-11-16 rechecked all three link destinations… refreshed two dated manufacturer review counters"*) still renders. No file in `s2/`, `site/`, `research/`, `platform/`, `docs/`, `dashboard/`, `annex-*/` or `session-*/` was edited by this session.
+
+**Irregularities still open (published, not fixed — all non-blocking):**
+
+* **F60 not repaired at source.** `data/s2/requirements.json` R-01/R-08 remain as they are; the annex owner needs to re-point R-01 at `data/s2/requirements.json` and restate R-08's blocker as the ASIN→category mapping.
+* **F59 not repaired at source.** Five stale Markdown briefings remain served at the root; disposition is the owner's call.
+* **The eight `blocked` rows are not a to-do list.** Each depends on a fact that exists only inside Amazon's own systems (tag, approval status, per-ASIN commission category, customer reviews, conversion reports). The alternative to leaving them open is inventing a number.
+* **Organic traffic is genuinely zero.** B-07 / E-03 are `not_delivered`: no analytics, no Search Console verification, no inbound links, and a `github.io` project subpath rather than a domain the owner controls. A sitemap is a precondition, not a cause.
