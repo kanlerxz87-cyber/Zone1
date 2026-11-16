@@ -160,7 +160,8 @@
     "Warranty terms are published for all three: 1-year Chefman assurance (S10), limited 1-year from the owner's manual (S13), and 1-year warranty (S14).",
     "Product weight is published for both Chefman models from their specification blocks: 13.3 lb / 6.03 kg for the 6 Qt (S10) and 12.8 lb / 5.8 kg for the 8 Qt (S12).",
     "The same brand's own commerce endpoint, read on 2026-11-15, reports 14.51 lb / 6,582 g for RJ38-SQPF-3TDB-2W (S32) and 13.4 lb / 6,078 g for RJ38-SQSS-8T (S33) - both higher, and neither page says which figure is the product and which is the package (flag F51).",
-    "NARROWED 2026-11-15 (arena/63a2c638, flag F52): this row previously asked for dimensions, weight and warranty for all three products and was filed as 'not_stated'. Eight of those nine cells were already published from official sources in data/products.json. Only one cell is genuinely open."
+    "NARROWED 2026-11-15 (arena/63a2c638, flag F52): this row previously asked for dimensions, weight and warranty for all three products and was filed as 'not_stated'. Eight of those nine cells were already published from official sources in data/products.json. Only one cell is genuinely open.",
+    "NEW EVIDENCE 2026-11-16 (arena/b23f12f0, round 11): the brand storefront's own machine-readable product record (S35) reports a variant weight of 27.04 lb / 12,265 g for SKU 4-00675-02A-VN. This is recorded as a candidate, not published as the Emeril's product weight, because the endpoint does not say whether its weight field is the product or the packaged weight - the same ambiguity flag F51 records for the two Chefman models, whose specification-block weights (13.3 lb and 12.8 lb) are both lower than their own endpoint weights (14.51 lb and 13.4 lb). Converting a shipping figure into a product specification is exactly the inference this project refuses to make."
    ],
    "what_is_missing": "Two things, and only two. (1) The Emeril 26 QT product weight - neither the brand product page (S14) nor the owner's manual (S15) states one. (2) A statement from Chefman, on either page, saying whether its published weight is the product or the packaged weight.",
    "how_to_discover": "For the Emeril: read the 'Product information' or specification table on the brand page and the specifications page of the owner's manual; if neither states a weight, leave the cell blank and say so rather than converting a shipping weight. For the Chefman labels: quote the sentence next to the weight in each Specifications block, and quote the endpoint field, then decide which one the site publishes - or publish both with their labels.",
@@ -179,6 +180,10 @@
     {
      "label": "Emeril French Door 360 page",
      "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+    },
+    {
+     "label": "Emeril Everyday commerce endpoint (S35) - variant weight field",
+     "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360.json"
     }
    ]
   },
@@ -278,9 +283,9 @@
    "group": "Content strategy",
    "question": "Which search intent does each existing article own, and who is allowed to write the next one?",
    "state": "missing",
-   "why_it_matters": "Eight articles already exist and two compete for the same comparison intent. Without an intent map, the ninth will duplicate the fifth, and two pages on one query on one domain split each other's authority.",
+   "why_it_matters": "A published article set already exists (live count on the articles index) and two of its pieces compete for the same comparison intent. Without an intent map, the ninth will duplicate the fifth, and two pages on one query on one domain split each other's authority.",
    "what_we_know": [
-    "Eight articles are published, all source-linked, none claiming hands-on testing.",
+    "Every published article is source-linked and none claims hands-on testing (live count on the articles index).",
     "One earlier pass already deleted three orphaned drafts for exactly this reason and preserved their text in session-7111e2b6/articles-superseded.json."
    ],
    "what_is_missing": "A written assignment of one primary intent per article, and a rule that a new article may not target an intent already claimed.",
@@ -314,20 +319,9 @@
     "Amazon does not publish an ASIN-to-category mapping, which is why the site shows both candidate rows.",
     "All three listings display the same breadcrumb: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers.",
     "The same breadcrumb does NOT settle this question. The Commission Income Statement's categories (S3) are commission categories defined by the Associates programme; browse nodes are a shopper-navigation taxonomy; Amazon publishes no mapping between them. The breadcrumb begins 'Home & Kitchen' while S3 carries both 'Kitchen' at 4.50% and 'Home' at 3.00%, so it cannot even indicate which of the two it resembles. See flag F53.",
-    "The Emeril browse node is unknown: three fetches of ASIN B09B7SB46R on 2026-11-15 were answered with Amazon's automated 'Continue shopping' checkpoint rather than the listing page, so no breadcrumb was ever rendered and none was recorded (S28).",
-    "The same breadcrumb does NOT settle this question. The Commission Income Statement's categories (S3) are commission categories defined by the Associates programme; browse nodes are a shopper-navigation taxonomy; Amazon publishes no mapping between them. The breadcrumb begins 'Home & Kitchen' while S3 carries both 'Kitchen' at 4.50% and 'Home' at 3.00%, so it cannot even indicate which of the two it resembles. See flag F53.",
-    "The Emeril browse node is unknown: three fetches of ASIN B09B7SB46R on 2026-11-15 were answered with Amazon's automated 'Continue shopping' checkpoint rather than the listing page, so no breadcrumb was ever rendered and none was recorded (S28).",
-    "The same breadcrumb does NOT settle this question. The Commission Income Statement's categories (S3) are commission categories defined by the Associates programme; browse nodes are a shopper-navigation taxonomy; Amazon publishes no mapping between them. The breadcrumb begins 'Home & Kitchen' while S3 carries both 'Kitchen' at 4.50% and 'Home' at 3.00%, so it cannot even indicate which of the two it resembles. See flag F53.",
-    "The Emeril browse node is unknown: three fetches of ASIN B09B7SB46R on 2026-11-15 were answered with Amazon's automated 'Continue shopping' checkpoint rather than the listing page, so no breadcrumb was ever rendered and none was recorded (S28).",
-    "The same breadcrumb does NOT settle this question. The Commission Income Statement's categories (S3) are commission categories defined by the Associates programme; browse nodes are a shopper-navigation taxonomy; Amazon publishes no mapping between them. The breadcrumb begins 'Home & Kitchen' while S3 carries both 'Kitchen' at 4.50% and 'Home' at 3.00%, so it cannot even indicate which of the two it resembles. See flag F53.",
-    "The Emeril browse node is unknown: three fetches of ASIN B09B7SB46R on 2026-11-15 were answered with Amazon's automated 'Continue shopping' checkpoint rather than the listing page, so no breadcrumb was ever rendered and none was recorded (S28).",
-    "The same breadcrumb does NOT settle this question. The Commission Income Statement's categories (S3) are commission categories defined by the Associates programme; browse nodes are a shopper-navigation taxonomy; Amazon publishes no mapping between them. The breadcrumb begins 'Home & Kitchen' while S3 carries both 'Kitchen' at 4.50% and 'Home' at 3.00%, so it cannot even indicate which of the two it resembles. See flag F53.",
-    "The Emeril browse node is unknown: three fetches of ASIN B09B7SB46R on 2026-11-15 were answered with Amazon's automated 'Continue shopping' checkpoint rather than the listing page, so no breadcrumb was ever rendered and none was recorded (S28).",
-    "The same breadcrumb does NOT settle this question. The Commission Income Statement's categories (S3) are commission categories defined by the Associates programme; browse nodes are a shopper-navigation taxonomy; Amazon publishes no mapping between them. The breadcrumb begins 'Home & Kitchen' while S3 carries both 'Kitchen' at 4.50% and 'Home' at 3.00%, so it cannot even indicate which of the two it resembles. See flag F53.",
-    "The Emeril browse node is unknown: three fetches of ASIN B09B7SB46R on 2026-11-15 were answered with Amazon's automated 'Continue shopping' checkpoint rather than the listing page, so no breadcrumb was ever rendered and none was recorded (S28).",
+    "RESOLVED 2026-11-16 (arena/b23f12f0, round 11, flag F65): the Emeril browse node is no longer unknown. ASIN B09B7SB46R was fetched successfully on 2026-11-16 and rendered the breadcrumb 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S28) - identical to the two Chefman paths - and the same breadcrumb was reached independently through the supplied short link in the same session (S17). The 2026-11-15 reading that called the block 'per-ASIN' was wrong: on 2026-11-16 the same ASIN fetched cleanly on the first attempt while one of the two ASINs that had worked the previous day was served the checkpoint on its first attempt and returned the listing only on a retry. The checkpoint is intermittent per request, so a failed fetch is not evidence about the ASIN.",
     "NEW 2026-11-15 (arena/63a2c638): the two Chefman listings each render an Amazon browse-node breadcrumb reading 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S16 for B0CDY277D3, S29 for B08DKYBTPH). That breadcrumb is now published as a sourced fact on each product page.",
-    "The same breadcrumb does NOT settle this question. The Commission Income Statement's categories (S3) are commission categories defined by the Associates programme; browse nodes are a shopper-navigation taxonomy; Amazon publishes no mapping between them. The breadcrumb begins 'Home & Kitchen' while S3 carries both 'Kitchen' at 4.50% and 'Home' at 3.00%, so it cannot even indicate which of the two it resembles. See flag F53.",
-    "The Emeril browse node is unknown: three fetches of ASIN B09B7SB46R on 2026-11-15 were answered with Amazon's automated 'Continue shopping' checkpoint rather than the listing page, so no breadcrumb was ever rendered and none was recorded (S28)."
+    "UPDATED 2026-11-16 (arena/b23f12f0): all three listings now have a confirmed browse node, and all three are the same node. That closes the last blank cell in the commission question's evidence, but it does not close the question - see the entry above on why a browse path is not a commission category."
    ],
    "what_is_missing": "Confirmation of the category Amazon applies at commission time. The breadcrumb is strong evidence; the Earnings report is proof.",
    "how_to_discover": "The rate is not discoverable from any public page - it is only observable after the fact, in the Associates reports, where each qualifying purchase shows the rate actually applied. Read the category column on the first few real orders and the question answers itself. Publishing a rate before then means publishing a guess about how Amazon classified the product.",
@@ -633,6 +627,60 @@
   },
   {
    "id": "Q-22",
+   "group": "Product photography",
+   "question": "Which images may this site publish, and whose permission covers them?",
+   "state": "missing",
+   "why_it_matters": "SG-23 cannot be decided, and no product photography can be published safely, until the image source and its rights are recorded.",
+   "what_we_know": [
+    "Amazon's Operating Agreement licenses Program Content (including images) to Associates under the Agreement's rules.",
+    "The FTC requires clear disclosure of material connections, which applies to imagery as well as text."
+   ],
+   "what_is_missing": "A recorded decision on which image source the site uses, and the rights statement covering each image.",
+   "how_to_discover": "Read Amazon's Program Content/IP provisions in the Operating Agreement and Program Policies, then decide between owner photos, licensed imagery, Program Content images, or text-and-diagrams only.",
+   "blocks": [
+    "SG-23"
+   ],
+   "sources": [
+    {
+     "label": "Associates Program Operating Agreement",
+     "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+    },
+    {
+     "label": "Associates Program Policies",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+   ]
+  },
+  {
+   "id": "Q-23",
+   "group": "Content strategy",
+   "question": "Who decides the publishing calendar — including seasonal pieces such as the gift guide — and what is each piece's deadline?",
+   "state": "missing",
+   "why_it_matters": "The brief asks for trendy topics and organic traffic, and organic traffic has windows: gift-guide and deal queries peak in November and December and close at year's end. This pass publishes one seasonal piece (TP-15) and queues two more (TP-16, TP-17), but no register can decide on the owner's behalf how many pieces the window deserves, who signs them off, or what the January window is for. Without an answer the queue stalls exactly when search demand and the 4.50% Kitchen commission rate overlap (SG-24).",
+   "what_we_know": [
+    "The Standard Commission Income Statement, read live 2026-11-16, pays 4.50% on Kitchen and 4.00% on All Other Categories.",
+    "The topic register now holds three seasonal rows: TP-15 (gift guide, published 2026-11-16), TP-16 (hosting capacity) and TP-17 (deal-season checks), both proposed.",
+    "The application review requires site content to be recent — 'generally within the last 60 days' — and looks for about 10 posts.",
+    "Nothing in the repository records any owner statement about seasonal content, deadlines or sign-off."
+   ],
+   "what_is_missing": "A one-line owner decision: which seasonal window(s) to target, how many pieces per window, who approves a publish, and the date each piece must be ready by. 'No seasonal content' is also a usable answer — it would retire TP-16 and TP-17 instead of leaving them pending.",
+   "how_to_discover": "The owner states the calendar once — in COORDINATION.md, in a dated reply, or in the handover sheet — and the editorial queue's blocked_by rows are cleared against that statement. The search window itself is not in dispute; only the owner's appetite and sign-off are missing.",
+   "blocks": [
+    "SG-24"
+   ],
+   "sources": [
+    {
+     "label": "Standard Commission Income Statement (Kitchen 4.50%)",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+    },
+    {
+     "label": "Application Review Process — 10 posts, 60-day recency",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
+    }
+   ]
+  },
+  {
+   "id": "Q-24",
    "group": "Governance",
    "question": "Who signs off on the suggestion queue, and on what cadence?",
    "state": "unknowable",
@@ -645,14 +693,11 @@
    "what_is_missing": "A named decider, a review cadence, and what 'approved' means - approved to build, or approved to test?",
    "how_to_discover": "One message from the owner: a cadence (for example '30 minutes monthly, I mark each row approve/reject/defer') and what approval means. The page can render an approval-state column as soon as the data carries it.",
    "blocks": [
-    "SG-23",
-    "SG-24",
-    "SG-25",
-    "SG-26",
     "SG-27",
     "SG-28",
     "SG-29",
-    "SG-30"
+    "SG-30",
+    "SG-31"
    ],
    "sources": [
     {
@@ -670,7 +715,7 @@
    ]
   },
   {
-   "id": "Q-23",
+   "id": "Q-25",
    "group": "Brand",
    "question": "Is 'Zone1 Kitchen' the final brand name for this site?",
    "state": "missing",
@@ -681,9 +726,9 @@
     "The README titles the project 'Zone1 - verified Amazon affiliate product intelligence'."
    ],
    "what_is_missing": "The owner's decision on the one name reader-facing surfaces should carry.",
-   "how_to_discover": "The owner states the name in one line; a single commit then aligns titles, og tags, the annex header and the README. SG-27 carries the implementation options.",
+   "how_to_discover": "The owner states the name in one line; a single commit then aligns titles, og tags, the annex header and the README. SG-28 carries the implementation options.",
    "blocks": [
-    "SG-27"
+    "SG-28"
    ],
    "sources": [
     {
@@ -701,63 +746,6 @@
    ]
   },
   {
-   "id": "Q-24",
-   "group": "Content operations",
-   "question": "What is the publishing cadence, and who approves seasonal content before it ships?",
-   "state": "unknowable",
-   "why_it_matters": "Seasonal pages only earn their traffic if they exist four to six weeks before the retail moment. Without a cadence and a one-line approval, every seasonal piece will keep shipping mid-season, like the first three did.",
-   "what_we_know": [
-    "The topics page carries a proposed queue with per-row status (TP-15..TP-17 published 2026-11-16, TP-18/TP-19 proposed and gated on the marketplace question Q-20).",
-    "The content pipeline (research, draft, claim-check, publish) is proven by eighteen generated articles."
-   ],
-   "what_is_missing": "A calendar, a sign-off owner, and a lead time. SG-25 assumes four to six weeks and offers three cadence options.",
-   "how_to_discover": "One message from the owner: 'ship seasonal pieces on the calendar without asking' or 'review each draft first', plus any blackout dates. The answer sets the lead time in the calendar.",
-   "blocks": [
-    "SG-25"
-   ],
-   "sources": [
-    {
-     "label": "Topic register (data/topics.json on GitHub)",
-     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/topics.json"
-    },
-    {
-     "label": "Topics and traffic plan",
-     "url": "https://kanlerxz87-cyber.github.io/Zone1/topics.html"
-    },
-    {
-     "label": "Articles index",
-     "url": "https://kanlerxz87-cyber.github.io/Zone1/articles/index.html"
-    }
-   ]
-  },
-  {
-   "id": "Q-25",
-   "group": "Imagery and IP",
-   "question": "May the site use Amazon product images, and under what terms?",
-   "state": "unknowable",
-   "why_it_matters": "Product imagery is the most requested design upgrade and the most likely compliance trap. The Operating Agreement licenses Amazon Content only for approved uses; hotlinking or generating look-alike product photos is not that.",
-   "what_we_know": [
-    "The Operating Agreement contains an IP License governing use of Amazon Content in connection with properly formatted Special Links.",
-    "Program Policies restrict price and rating display to Amazon-served links or official API data (section 2(b) and section 6(t) as cited on the compliance page).",
-    "The site publishes no imagery today, deliberately - see SG-26."
-   ],
-   "what_is_missing": "Whether the account is approved, whether SiteStripe image sourcing is enabled for it, and which image sources the owner wants used.",
-   "how_to_discover": "Associates Central, SiteStripe settings and the IP License section of the Operating Agreement - five minutes once the account is accessible. Record the answer on SG-26.",
-   "blocks": [
-    "SG-26"
-   ],
-   "sources": [
-    {
-     "label": "Associates Program Operating Agreement (IP License)",
-     "url": "https://affiliate-program.amazon.com/help/operating/agreement"
-    },
-    {
-     "label": "Associates Program Policies (2(b), 6(t))",
-     "url": "https://affiliate-program.amazon.com/help/operating/policies"
-    }
-   ]
-  },
-  {
    "id": "Q-26",
    "group": "Automation",
    "question": "Which API will the automation platform call, now that PA-API 5 has a deprecation notice?",
@@ -765,12 +753,12 @@
    "why_it_matters": "The brief's platform automates product research, pricing and availability - all of which depend on an official data interface. Amazon has published a PA-API 5 deprecation notice; planning the pipeline against a deprecated interface strands the work.",
    "what_we_know": [
     "Amazon publishes a PA-API 5 Deprecation Notice and a Product Advertising API registration topic (both linked on this row).",
-    "The platform blueprint's verification stages are API-agnostic; only the acquisition layer is interface-specific (SG-28)."
+    "The platform blueprint's verification stages are API-agnostic; only the acquisition layer is interface-specific (SG-29)."
    ],
    "what_is_missing": "The replacement interface's eligibility terms, rate limits and timeline as they apply to this account - and which interface the owner wants the platform built against.",
    "how_to_discover": "Read the deprecation notice's replacement guidance (linked), check the account's eligibility for the successor API, then record the decision in data/platform.json and update the blueprint page.",
    "blocks": [
-    "SG-28"
+    "SG-29"
    ],
    "sources": [
     {

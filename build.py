@@ -15,6 +15,7 @@ Out:  index.html, products/*.html, categories/*.html, guides/*.html,
 import html
 import json
 import os
+import posixpath
 import re
 import shutil
 from urllib.parse import quote_plus
@@ -106,6 +107,12 @@ PASS10 = json.loads(_p10.read_text(encoding="utf-8")) if _p10.exists() else None
 # arena/9f0e6668 already owns the round-10 follow-up ledger above.
 _p10u2 = ROOT / "session-9fccce0c" / "pass10.json"
 PASS10_U2 = json.loads(_p10u2.read_text(encoding="utf-8")) if _p10u2.exists() else None
+# Additive pass-10 full source ledger (2026-11-16, arena/695f03b7-zone1): every
+# registered source in data/sources.json re-read live, one row per source, rendered
+# as its own page by page_pass10(). Owned by this session; if the file is ever
+# removed the page renders nothing rather than failing the build.
+_p10full = ROOT / "data" / "pass10.json"
+PASS10_FULL = json.loads(_p10full.read_text(encoding="utf-8")) if _p10full.exists() else None
 
 # Decision layer (added 2026-11-15, arena/3ddfa50e). Two registers that exist to be reviewed
 # rather than acted on: the suggestions queue and the open-questions register. Both are
@@ -146,6 +153,51 @@ def src_links(ids):
     if not ids:
         return '<span class="src src-none">no official source</span>'
     return " ".join(src_link(i) for i in ids)
+
+
+def format_glyph(kind):
+    """Hand-drawn stroke-only SVG glyphs for the three air-fryer formats.
+
+    Added by pass 12 (2026-11-16, session 492acddc) as the landing page's only
+    artwork. Original line art drawn for this site — no external image, no brand
+    asset, no photograph — so the no-first-party-imagery stance is preserved and
+    verify.py's host allow-list is untouched. Purely decorative (aria-hidden).
+    """
+    head = ('<svg class="glyph" viewBox="0 0 76 46" fill="none" stroke="currentColor" '
+            'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" '
+            'aria-hidden="true" focusable="false">')
+    dot = ('<circle cx="{cx}" cy="9" r="1.6" fill="currentColor" stroke="none"/>')
+    body = {
+        # Two independent baskets: one housing, centre divider, two drawer fronts.
+        "dual": (
+            '<rect x="4" y="14" width="68" height="26" rx="6"/>'
+            '<line x1="38" y1="14" x2="38" y2="40"/>'
+            '<rect x="10" y="21" width="22" height="12" rx="3"/>'
+            '<rect x="44" y="21" width="22" height="12" rx="3"/>'
+            '<line x1="17" y1="27" x2="25" y2="27"/>'
+            '<line x1="51" y1="27" x2="59" y2="27"/>'
+        ),
+        # French-door oven: wide body, control strip, two door panes with bars.
+        "oven": (
+            '<rect x="4" y="10" width="68" height="30" rx="4"/>'
+            '<line x1="10" y1="17" x2="66" y2="17"/>'
+            '<line x1="38" y1="17" x2="38" y2="40"/>'
+            '<line x1="33" y1="24" x2="33" y2="33"/>'
+            '<line x1="43" y1="24" x2="43" y2="33"/>'
+            '<line x1="11" y1="40" x2="11" y2="44"/>'
+            '<line x1="65" y1="40" x2="65" y2="44"/>'
+        ),
+        # Single large basket: tall body, one drawer, side handle.
+        "single": (
+            '<rect x="12" y="6" width="52" height="34" rx="6"/>'
+            '<rect x="21" y="21" width="26" height="12" rx="3"/>'
+            '<line x1="47" y1="27" x2="58" y2="27"/>'
+            '<line x1="19" y1="40" x2="19" y2="44"/>'
+            '<line x1="57" y1="40" x2="57" y2="44"/>'
+        ),
+    }
+    dots = "".join(dot.format(cx=cx) for cx in (28, 36, 44, 52))
+    return head + dots + body[kind] + "</svg>"
 
 
 # --------------------------------------------------------------------------- #
@@ -317,6 +369,12 @@ NAV = [
     ("executive-summary.html", "Executive summary", "Decision-ready briefing"),
     # Added by the 2026-11-14 integration pass: the line-by-line re-read ledger.
     ("reverification.html", "Re-verification", "Published values re-read against their official sources"),
+    # Added 2026-11-16 by arena/695f03b7-zone1: the full source-by-source re-read ledger,
+    # one row per registered source with its official link and the 2026-11-16 observation.
+    ("pass10.html", "Verification pass 10", "All 34 official sources re-read on 2026-11-16"),
+    # Added 2026-11-16 by arena/695f03b7-zone1: data-driven diagrams generated from
+    # data/products.json at build time; diagrams only, because photography rights are open.
+    ("figures.html", "Figures and diagrams", "Four diagrams generated from the published dataset"),
     # All parallel-session builds are now reached through one page rather than six sidebar
     # entries (2026-11-14, arena/6b2eddeb). Six entries in the main nav made a reader choose
     # between six answers to the same question; flag F35 records why that was a problem.
@@ -399,427 +457,540 @@ def json_ld(page_rel, title, description):
 # --------------------------------------------------------------------------- #
 
 CSS = r"""
-:root{
-  --bg:#f6f7f9; --panel:#ffffff; --ink:#111827; --muted:#6b7280; --line:#e5e7eb;
-  --brand:#0f766e; --brand-soft:#ccfbf1; --warn:#b45309; --warn-soft:#fef3c7;
-  --bad:#b91c1c; --bad-soft:#fee2e2; --ok:#15803d; --ok-soft:#dcfce7;
-  --shadow:0 1px 2px rgba(16,24,40,.06),0 1px 3px rgba(16,24,40,.10);
-  --radius:12px; --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
-}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{
-  margin:0; background:var(--bg); color:var(--ink);
-  font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-}
-a{color:var(--brand); text-decoration:none}
-a:hover{text-decoration:underline}
-code{font-family:var(--mono); font-size:.9em; background:#eef2f4; padding:.1em .35em; border-radius:4px}
+/* ==========================================================================
+   Zone1 Kitchen — design system (pass 12, 2026-11-16, session 492acddc)
+   --------------------------------------------------------------------------
+   One coherent stylesheet, replacing three stacked eras (dashboard → editorial
+   override → commercial components). It covers every class the 29 canonical
+   pages generated by build.py actually emit (scoped inventory: 116 classes).
 
-/* disclosure bar — required on every page */
+   Brief this answers:
+     - "polished marketing affiliate website", "not AI slop".
+     - No external assets (no webfonts, no images): system serif display +
+       system sans body, hand-drawn inline SVG glyphs only.
+     - The verification layer stays one click behind the prose: source badges
+       become quiet footnote chips instead of loud boxes.
+   Palette is anchored to the favicon green (#245746) the brand already owns.
+   ========================================================================== */
+
+:root{
+  --paper:#f5f1e8;          /* page background — warm paper */
+  --panel:#fffdf7;          /* cards — cream */
+  --panel-deep:#efe9d8;     /* alternate surface — aged paper */
+  --ink:#212821;            /* text */
+  --muted:#5e675d;          /* secondary text */
+  --faint:#67705f;          /* labels — 4.59:1 on paper, 5.09:1 on panel (WCAG AA, pass-12 audit) */
+  --line:#e4ddc9;           /* hairlines */
+  --line-strong:#d2c8ab;    /* emphasis rules */
+  --brand:#245746;          /* deep green — the brand */
+  --brand-deep:#16382e;
+  --brand-ink:#1d3025;
+  --brand-soft:#e6efe3;
+  --brand-line:#c6d8c5;
+  --accent:#b05a2f;         /* terracotta — eyebrows, links of emphasis */
+  --accent-soft:#f7e6d7;
+  --accent-line:#ecc9ab;
+  --ok:#2f6745;   --ok-soft:#e4f0e4;   --ok-line:#c8dcc8;
+  --warn:#92531e; --warn-soft:#fdeed2; --warn-line:#ecd3a4;
+  --bad:#9c4437;  --bad-soft:#f7e5e0;  --bad-line:#ecc7bd;
+  --info:#3d6a78; --info-soft:#e3eef1; --info-line:#c8dde3;
+  --shadow:0 1px 2px rgba(33,40,33,.05), 0 6px 18px rgba(33,40,33,.06);
+  --shadow-lift:0 2px 4px rgba(33,40,33,.07), 0 14px 28px rgba(33,40,33,.10);
+  --radius:14px; --radius-lg:20px;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font:16px/1.65 var(--sans);
+}
+
+/* ---------------------------------------------------------------- links */
+a{color:var(--brand); text-decoration:none; text-underline-offset:.18em}
+a:hover{color:#173f32; text-decoration:underline}
+:focus-visible{outline:3px solid #ca784d; outline-offset:3px; border-radius:4px}
+.skip-link{
+  position:absolute; z-index:100; top:-5rem; left:1rem; padding:.55rem .85rem;
+  background:var(--panel); color:var(--brand-deep); border:2px solid var(--brand);
+  border-radius:8px; font-weight:700;
+}
+.skip-link:focus{top:1rem}
+
+code{font-family:var(--mono); font-size:.9em; background:var(--panel-deep);
+  padding:.1em .35em; border-radius:4px}
+
+/* -------------------------------------------------- disclosure bar (required) */
 .disclosure-bar{
-  background:#0b3b36; color:#d7fffb; font-size:.82rem;
-  padding:.5rem 1.25rem; text-align:center; letter-spacing:.01em;
+  background:var(--brand-deep); color:#eef0df; font-size:.8rem;
+  padding:.55rem 1.25rem; text-align:center; letter-spacing:.01em;
 }
 .disclosure-bar strong{color:#fff}
+.disclosure-bar a{color:#cfe0cf; text-decoration:underline; text-underline-offset:.2em}
+.disclosure-bar a:hover{color:#fff}
 
-/* top bar */
+/* --------------------------------------------------------------- top bar */
 .topbar{
-  position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:1rem;
-  background:var(--panel); border-bottom:1px solid var(--line);
-  padding:.7rem 1.25rem; box-shadow:var(--shadow);
+  position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:1.25rem;
+  background:rgba(255,253,247,.94); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line); padding:.75rem 1.4rem;
 }
-.brand{display:flex; align-items:center; gap:.6rem; font-weight:700; letter-spacing:-.01em}
+.brand{display:flex; align-items:center; gap:.65rem; font-weight:700; letter-spacing:-.01em}
 .brand .mark{
-  width:30px; height:30px; border-radius:9px; display:grid; place-items:center;
-  background:linear-gradient(135deg,#0f766e,#0ea5a4); color:#fff; font-size:.9rem; font-weight:800;
+  width:34px; height:34px; border-radius:50%; display:grid; place-items:center;
+  background:var(--brand); color:#fff; font-size:.82rem; font-weight:800; letter-spacing:.02em;
 }
-.brand small{display:block; font-weight:500; color:var(--muted); font-size:.72rem; letter-spacing:.02em}
+.brand small{display:block; font-weight:600; color:var(--faint); font-size:.66rem;
+  letter-spacing:.1em; text-transform:uppercase; margin-top:.1rem}
 .topbar .spacer{flex:1}
-.topbar .meta{color:var(--muted); font-size:.78rem; font-family:var(--mono)}
-.navtoggle{display:none; border:1px solid var(--line); background:#fff; border-radius:8px; padding:.4rem .6rem; font:inherit; cursor:pointer}
+.topbar .meta{color:var(--faint); font-size:.74rem; font-family:var(--mono)}
 
-/* shell */
-.shell{display:grid; grid-template-columns:250px minmax(0,1fr); gap:1.25rem; max-width:1400px; margin:0 auto; padding:1.25rem}
-.sidebar{position:sticky; top:74px; align-self:start}
-.sidebar .group{margin-bottom:1.1rem}
+/* compact primary nav — the shopper destinations, always visible on desktop */
+.topnav{display:flex; align-items:center; gap:.3rem}
+.topnav a{
+  padding:.38rem .78rem; border-radius:999px; font-size:.85rem; font-weight:600;
+  color:#44503f;
+}
+.topnav a:hover{background:var(--brand-soft); color:var(--brand-deep); text-decoration:none}
+.topnav a.active{background:var(--brand); color:#fff}
+.navtoggle{
+  display:none; border:1px solid var(--line-strong); background:var(--panel);
+  border-radius:8px; padding:.42rem .7rem; font:inherit; font-weight:600; cursor:pointer;
+}
+
+/* ----------------------------------------------------------------- shell */
+.shell{
+  display:grid; grid-template-columns:236px minmax(0,1fr); gap:1.75rem;
+  max-width:1460px; margin:0 auto; padding:1.5rem 1.4rem 3rem;
+}
+main{min-width:0}
+
+/* sidebar */
+.sidebar{position:sticky; top:66px; align-self:start; font-size:.9rem}
+.sidebar .group{margin-bottom:1.5rem}
 .sidebar .group h4{
-  margin:0 0 .4rem .6rem; font-size:.7rem; text-transform:uppercase;
-  letter-spacing:.09em; color:#9ca3af; font-weight:700;
+  display:flex; align-items:center; gap:.6rem;
+  margin:0 0 .45rem; font-size:.67rem; font-weight:800; text-transform:uppercase;
+  letter-spacing:.13em; color:var(--faint);
 }
+.sidebar .group h4::after{content:""; flex:1; height:1px; background:var(--line)}
 .sidebar a{
-  display:block; padding:.45rem .6rem; border-radius:8px; color:#374151;
-  font-size:.9rem; border:1px solid transparent;
+  display:block; padding:.42rem .62rem; border-radius:9px; color:#3c443c;
+  border:1px solid transparent; line-height:1.35;
 }
-.sidebar a:hover{background:#eef2f4; text-decoration:none}
-.sidebar a.active{background:var(--brand-soft); border-color:#99f6e4; color:#0b3b36; font-weight:600}
-.sidebar a .sub{display:block; font-size:.74rem; color:var(--muted); font-weight:400}
-.sidebar a.active .sub{color:#0f766e}
+.sidebar a:hover{background:var(--panel-deep); color:var(--brand-deep); text-decoration:none}
+.sidebar a.active{
+  background:var(--brand-soft); border-color:var(--brand-line); color:var(--brand-deep);
+  font-weight:650; box-shadow:inset 3px 0 0 var(--brand);
+}
+.sidebar a .sub{display:block; font-size:.72rem; color:var(--faint); font-weight:400;
+  letter-spacing:.01em; margin-top:.1rem}
+.sidebar a.active .sub{color:#4a6a55}
 
-main{min-width:0; padding-bottom:3rem}
-.crumbs{font-size:.8rem; color:var(--muted); margin:0 0 .5rem}
-.crumbs a{color:var(--muted)}
-h1{font-size:clamp(1.5rem,2.6vw,2.05rem); line-height:1.2; margin:.1rem 0 .5rem; letter-spacing:-.02em}
-h2{font-size:1.18rem; margin:2rem 0 .6rem; letter-spacing:-.01em}
-h3{font-size:1rem; margin:1.4rem 0 .4rem}
-.lede{font-size:1.02rem; color:#374151; max-width:74ch; margin:0 0 1rem}
+/* ---------------------------------------------------------------- prose */
+.crumbs{font-size:.78rem; color:var(--faint); margin:0 0 .6rem}
+.crumbs a{color:var(--faint)}
+.crumbs a:hover{color:var(--brand)}
+h1,h2,h3,h4{font-family:var(--serif); color:var(--brand-ink); font-weight:500}
+h1{font-size:clamp(1.9rem,3.1vw,2.6rem); line-height:1.12; margin:.2rem 0 .6rem;
+  letter-spacing:-.028em}
+h2{font-size:clamp(1.42rem,2.3vw,1.85rem); line-height:1.18; margin:2.3rem 0 .7rem;
+  letter-spacing:-.02em}
+h3{font-size:1.13rem; margin:1.4rem 0 .45rem; letter-spacing:-.01em}
+.lede{font-size:1.05rem; color:#3e463d; max-width:72ch; margin:0 0 1rem}
 .muted{color:var(--muted)}
-.small{font-size:.85rem}
-.tiny{font-size:.78rem}
+.small{font-size:.87rem}
+.tiny{font-size:.76rem}
+.note{font-size:.82rem; color:var(--muted)}
+blockquote{
+  margin:1rem 0; padding:.75rem 1.1rem; border-left:3px solid var(--line-strong);
+  background:var(--panel); color:#3a423a; font-size:.95rem; border-radius:0 10px 10px 0;
+}
+blockquote cite{display:block; margin-top:.45rem; font-size:.78rem; color:var(--faint);
+  font-style:normal}
+ul.tight,ol.tight{margin:.4rem 0 .9rem; padding-left:1.25rem}
+ul.tight li,ol.tight li{margin:.28rem 0}
+details{margin:.5rem 0}
+summary{cursor:pointer; font-weight:650}
+hr{border:0; border-top:1px solid var(--line); margin:1.6rem 0}
 
-/* cards */
-.card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:1.1rem 1.2rem; box-shadow:var(--shadow); margin:0 0 1rem}
-/* article layer */
-.cardgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1rem; margin:1.2rem 0}
-.cardgrid .card{margin:0; display:flex; flex-direction:column; gap:.4rem; transition:border-color .15s, transform .15s}
-.cardgrid .card:hover{border-color:var(--brand); transform:translateY(-1px); text-decoration:none}
-.kicker{display:inline-block; font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; font-weight:700; color:var(--brand); margin:0 0 .2rem}
-.cardtitle{font-size:1.06rem; font-weight:700; line-height:1.3; color:var(--ink)}
-.cardtext{font-size:.9rem; color:#4b5563; line-height:1.5}
-code.specval{background:var(--brand-soft); color:#0b3b36; border:1px solid #99f6e4; padding:.05em .4em; border-radius:5px; font-size:.86em; white-space:normal}
+/* ---------------------------------------------------------------- cards */
+.card{
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:1.15rem 1.25rem; box-shadow:var(--shadow); margin:0 0 1rem;
+}
 .card.tight{padding:.85rem 1rem}
+.cardgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1rem; margin:1.2rem 0}
+.cardgrid .card{margin:0; display:flex; flex-direction:column; gap:.45rem;
+  transition:box-shadow .16s, transform .16s, border-color .16s}
+a.card:hover, .cardgrid a.card:hover{border-color:var(--brand-line);
+  box-shadow:var(--shadow-lift); transform:translateY(-2px); text-decoration:none}
+.kicker{display:inline-block; font-size:.68rem; letter-spacing:.12em; text-transform:uppercase;
+  font-weight:800; color:var(--accent); margin:0 0 .25rem}
+.cardtitle{font-size:1.08rem; font-weight:700; line-height:1.3; color:var(--brand-ink);
+  font-family:var(--serif); font-weight:600}
+.cardtext{font-size:.9rem; color:#4a524a; line-height:1.55}
 .grid{display:grid; gap:1rem}
-.grid-3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
 .grid-2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
-.grid-4{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.grid-3{grid-template-columns:repeat(auto-fit,minmax(255px,1fr))}
+.grid-4{grid-template-columns:repeat(auto-fit,minmax(185px,1fr))}
+.twocol{display:grid; grid-template-columns:1fr 1fr; gap:1rem}
 
-/* stat tiles */
-.stat{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:.9rem 1rem; box-shadow:var(--shadow)}
-.stat .n{font-size:1.75rem; font-weight:800; letter-spacing:-.03em; line-height:1.1}
-.stat .l{font-size:.76rem; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); font-weight:700; margin-top:.15rem}
+/* decision cards + product cards on the landing page */
+.decision-grid{align-items:stretch}
+.decision-card{display:flex; flex-direction:column; min-height:225px; padding:1.3rem 1.35rem}
+.decision-label,.product-type{margin:0; color:var(--accent); font-size:.67rem; font-weight:800;
+  letter-spacing:.13em; text-transform:uppercase}
+.decision-card h3{margin:.3rem 0 .5rem; font-size:1.26rem; line-height:1.2}
+.decision-card p.small{margin:.1rem 0 .9rem; color:#4c554c}
+.decision-card>a{margin-top:auto; font-size:.88rem; font-weight:700}
+.decision-card .glyph{width:76px; height:46px; color:var(--accent); margin:.1rem 0 .5rem}
+.pcard{display:flex; flex-direction:column; gap:.55rem; min-height:250px}
+.pcard h3{margin:.05rem 0; font-size:1.3rem; line-height:1.2}
+.pcard h3 a{color:var(--brand-ink)}
+.pcard h3 a:hover{color:var(--brand)}
+.pcard .product-name{margin:0; line-height:1.45}
+.product-fact{display:grid; gap:.12rem; padding:.75rem 0;
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+.product-fact>span:first-child{color:var(--faint); font-size:.68rem; letter-spacing:.09em;
+  text-transform:uppercase}
+.product-fact>strong{font-family:var(--serif); font-size:1.24rem; font-weight:500;
+  color:var(--brand-ink)}
+.product-match{display:flex; align-items:center; flex-wrap:wrap; gap:.4rem; margin:.1rem 0}
+.chip{font-size:.74rem; background:var(--panel-deep); border:1px solid var(--line);
+  border-radius:6px; padding:.1rem .48rem; color:#4a524a}
+.archive-panel{margin-top:1.6rem; padding:1.25rem 1.4rem; background:var(--panel-deep);
+  border:1px solid var(--line); border-radius:16px}
+.archive-panel .section-eyebrow{margin:0 0 .2rem}
+.archive-panel h3{margin:.15rem 0 .4rem; font-size:1.32rem}
+.archive-panel p{margin:.3rem 0}
+.pick .pick-cta{margin-top:auto; display:inline-block; font-weight:700; font-size:.88rem}
+.pick h3{font-family:var(--serif); font-weight:500; font-size:1.3rem; line-height:1.22;
+  letter-spacing:-.01em}
+.card.pick{border-color:#cfd8c9}
+.card.pick:hover{border-color:var(--brand-line); box-shadow:var(--shadow-lift);
+  transform:translateY(-2px)}
+.picks-hero{position:relative}
+
+/* ------------------------------------------------------------------ hero */
+.editorial-hero{
+  position:relative; display:grid; grid-template-columns:1.15fr .85fr; gap:2rem;
+  padding:2.7rem 2.8rem; margin:0 0 1.4rem;
+  background:linear-gradient(180deg,#fffdf7 0%,#f8f3e3 100%);
+  border:1px solid var(--line); border-radius:var(--radius-lg); overflow:hidden;
+}
+.editorial-hero::before{
+  content:""; position:absolute; right:-140px; top:-160px; width:340px; height:340px;
+  border-radius:50%; border:1px solid rgba(36,87,70,.16);
+  box-shadow:0 0 0 34px rgba(36,87,70,.04), 0 0 0 68px rgba(36,87,70,.03);
+  pointer-events:none;
+}
+.editorial-hero::after{
+  content:""; position:absolute; left:-120px; bottom:-180px; width:260px; height:260px;
+  border-radius:50%; border:1px solid rgba(176,90,47,.16);
+  box-shadow:0 0 0 30px rgba(176,90,47,.04); pointer-events:none;
+}
+.hero-copy{align-self:center; max-width:640px; position:relative; z-index:1}
+.hero-eyebrow,.section-eyebrow{margin:0 0 .75rem; color:var(--accent); font-size:.7rem;
+  font-weight:800; letter-spacing:.16em; text-transform:uppercase}
+.hero-eyebrow span{color:var(--faint); padding:0 .35rem}
+.hero-title{max-width:12ch; margin:.15rem 0 1rem; color:var(--brand-ink);
+  font:500 clamp(2.9rem,5.4vw,4.9rem)/.98 var(--serif); letter-spacing:-.055em}
+.hero-copy .lede{max-width:56ch; margin:0; font-size:1.08rem}
+.hero-actions{display:flex; flex-wrap:wrap; gap:.7rem; margin:1.5rem 0 .5rem}
+.hero-footnote{margin:.7rem 0 0; color:#5e6b5e; font-size:.75rem; letter-spacing:.04em}
+.hero-panel{
+  display:flex; flex-direction:column; justify-content:center; min-width:0;
+  padding:1.4rem 1.5rem; color:#f4f1e2;
+  background:linear-gradient(160deg,#214a3b 0%,var(--brand-deep) 100%);
+  border-radius:18px; box-shadow:0 14px 34px rgba(22,56,46,.18);
+  position:relative; z-index:1;
+}
+.hero-panel-kicker{display:flex; justify-content:space-between; gap:1rem; margin:0;
+  color:#e8b88a; font-size:.67rem; font-weight:800; letter-spacing:.15em; text-transform:uppercase}
+.hero-panel-kicker span{color:#cbd6c4; letter-spacing:.08em}
+.hero-panel h2{margin:.5rem 0 .9rem; color:#fffdf6; font-size:1.75rem; line-height:1.12}
+.hero-choice{
+  display:grid; grid-template-columns:30px minmax(0,1fr) 18px; gap:.6rem; align-items:center;
+  padding:.85rem 0; border-top:1px solid rgba(239,244,231,.2);
+}
+.hero-choice:first-of-type{border-top:0}
+.hero-index{color:#e8b88a; font-family:var(--mono); font-size:.75rem}
+.hero-choice-copy{display:flex; flex-direction:column; min-width:0}
+.hero-choice-copy>a{color:#fffdf6; text-decoration:none}
+.hero-choice-copy>a:hover{text-decoration:underline; text-underline-offset:.2em; color:#fff}
+.hero-choice-copy strong{color:#fffdf6; font-size:.92rem; line-height:1.3}
+.hero-choice-copy small{margin-top:.2rem; color:#c4d2bd; font-size:.72rem}
+.hero-arrow{color:#e8b88a; text-align:right}
+
+/* --------------------------------------------------- pulse tiles / stats */
+.pulse{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.75rem;
+  margin:1.2rem 0}
+.pulse .tile{background:var(--panel); border:1px solid var(--line); border-radius:12px;
+  padding:.8rem .9rem; box-shadow:var(--shadow)}
+.pulse .tile b{display:block; font:600 1.45rem/1.1 var(--serif); letter-spacing:-.02em;
+  color:var(--brand-ink)}
+.pulse .tile span{display:block; font-size:.71rem; text-transform:uppercase; letter-spacing:.08em;
+  color:var(--faint); margin:.3rem 0 .15rem}
+.pulse .tile a{font-size:.78rem}
+.stat{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:.9rem 1rem; box-shadow:var(--shadow)}
+.stat .n{font-size:1.75rem; font-weight:800; letter-spacing:-.03em; line-height:1.1;
+  font-family:var(--serif); font-weight:600}
+.stat .l{font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--faint);
+  font-weight:700; margin-top:.15rem}
 .stat .h{font-size:.78rem; color:var(--muted); margin-top:.35rem}
-.stat.warn .n{color:var(--warn)}
 .stat.ok .n{color:var(--ok)}
+.stat.warn .n{color:var(--warn)}
 .stat.bad .n{color:var(--bad)}
 .stat.brand .n{color:var(--brand)}
+.method-strip{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.2rem;
+  padding:1.25rem 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  margin:1.4rem 0}
+.method-strip>div{display:grid; grid-template-columns:30px 1fr; column-gap:.6rem; align-items:start}
+.method-number{grid-row:span 2; color:var(--accent); font:700 .75rem/1.7 var(--mono)}
+.method-strip strong{font-size:.88rem; line-height:1.35; font-family:var(--serif); font-weight:600}
+.method-strip p{margin:.2rem 0 0; color:var(--muted); font-size:.79rem; line-height:1.5}
 
-/* tables */
-.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius); background:var(--panel); box-shadow:var(--shadow)}
-table{border-collapse:collapse; width:100%; font-size:.875rem}
-caption{caption-side:top; text-align:left; padding:.75rem 1rem .25rem; font-weight:700; font-size:.9rem}
-th,td{padding:.6rem .8rem; text-align:left; vertical-align:top; border-bottom:1px solid var(--line)}
-thead th{
-  background:#f3f5f7; font-size:.72rem; text-transform:uppercase; letter-spacing:.06em;
-  color:#4b5563; font-weight:700; white-space:nowrap; position:sticky; top:0;
+/* ------------------------------------------------------------- callouts */
+.callout{
+  background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--accent);
+  border-radius:12px; padding:1rem 1.15rem; margin:1.2rem 0; box-shadow:var(--shadow);
+  font-size:.95rem;
 }
-tbody tr:nth-child(even){background:#fbfcfd}
-tbody tr:hover{background:#f0fdfa}
-td.num{font-variant-numeric:tabular-nums; white-space:nowrap}
-.blank{color:#9ca3af; font-style:italic}
-
-/* pills + badges */
-.pill{display:inline-block; padding:.12rem .5rem; border-radius:999px; font-size:.72rem; font-weight:700; letter-spacing:.02em; white-space:nowrap}
-.pill-ok{background:var(--ok-soft); color:#14532d}
-.pill-warn{background:var(--warn-soft); color:#78350f}
-.pill-bad{background:var(--bad-soft); color:#7f1d1d}
-.pill-info{background:#e0f2fe; color:#075985}
-.src{
-  display:inline-block; font-family:var(--mono); font-size:.7rem; font-weight:700;
-  background:#eef7f6; color:#0b5a54; border:1px solid #cbe8e5; border-radius:5px;
-  padding:.05rem .35rem; margin-right:.15rem;
-}
-.src:hover{background:#d9f2ef; text-decoration:none}
-.src-none{background:#fef3c7; color:#78350f; border-color:#fde68a}
-.src-bad{background:#fee2e2; color:#7f1d1d; border-color:#fecaca}
-
-/* CTA */
-.cta-row{display:flex; flex-wrap:wrap; align-items:center; gap:.6rem; margin:.8rem 0 .4rem}
-.btn{
-  display:inline-flex; align-items:center; gap:.45rem; background:var(--brand); color:#fff;
-  padding:.6rem 1rem; border-radius:9px; font-weight:650; font-size:.9rem; border:1px solid #0b5f59;
-}
-.btn:hover{background:#0b5f59; text-decoration:none; color:#fff}
-.btn-ghost{background:#fff; color:#0b3b36; border:1px solid var(--line)}
-.btn-ghost:hover{background:#f3f5f7; color:#0b3b36}
-.paid-tag{
-  font-size:.68rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase;
-  background:var(--warn-soft); color:#78350f; border:1px solid #fde68a; border-radius:5px; padding:.12rem .4rem;
-}
-.cta-note{font-size:.78rem; color:var(--muted); margin:0 0 .8rem; max-width:70ch}
-
-/* callouts */
-.callout{border-left:4px solid var(--warn); background:var(--warn-soft); padding:.8rem 1rem; border-radius:0 10px 10px 0; margin:1rem 0}
-.callout.bad{border-color:var(--bad); background:var(--bad-soft)}
-.callout.ok{border-color:var(--ok); background:var(--ok-soft)}
-.callout.info{border-color:var(--brand); background:#ecfdfa}
+.callout.bad{border-left-color:var(--bad); background:#fdf6f3}
+.callout.ok{border-left-color:var(--ok); background:#f4faf4}
+.callout.info{border-left-color:var(--info); background:#f2f8fa}
+.callout.trust{border-left-color:var(--ok); background:#f4faf4}
+.callout.note{border-left-color:var(--brand); background:var(--brand-soft)}
+.callout.warn{border-left-color:var(--warn); background:var(--warn-soft)}
 .callout p:last-child{margin-bottom:0}
 .callout strong{display:block; margin-bottom:.2rem}
+.link-status{margin:1.2rem 0 1.5rem; border-left-color:#c87539; background:#fdf5e8}
+.link-status-heading{display:flex; align-items:center; flex-wrap:wrap; gap:.65rem; margin:0 0 .3rem}
+.link-status-heading strong{display:inline; margin:0; color:#4a3418}
+.link-status p{margin:.35rem 0 0}
 
-blockquote{margin:.8rem 0; padding:.7rem 1rem; border-left:3px solid #cbd5e1; background:#f8fafc; color:#334155; font-size:.92rem}
-blockquote cite{display:block; margin-top:.4rem; font-size:.78rem; color:var(--muted); font-style:normal}
-
-ul.tight,ol.tight{margin:.4rem 0 .8rem; padding-left:1.2rem}
-ul.tight li,ol.tight li{margin:.25rem 0}
-
-/* product cards */
-.pcard{display:flex; flex-direction:column; gap:.5rem}
-.pcard .rank{font-size:.7rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--brand)}
-.pcard h3{margin:0; font-size:1.02rem}
-.pcard .facts{display:flex; flex-wrap:wrap; gap:.35rem}
-.chip{font-size:.74rem; background:#f1f5f9; border:1px solid var(--line); border-radius:6px; padding:.1rem .45rem; color:#334155}
-
-/* calculator */
-.calc{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:.75rem; align-items:end}
-.calc label{display:block; font-size:.78rem; font-weight:700; color:#374151; margin-bottom:.25rem}
-.calc input,.calc select{
-  width:100%; padding:.5rem .6rem; border:1px solid #cbd5e1; border-radius:8px;
-  font:inherit; font-size:.9rem; background:#fff;
+/* ---------------------------------------------------------------- tables */
+.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius);
+  background:var(--panel); box-shadow:var(--shadow)}
+table{border-collapse:collapse; width:100%; font-size:.875rem}
+caption{caption-side:top; text-align:left; padding:.85rem 1.1rem .3rem; font-weight:600;
+  font-size:.92rem; font-family:var(--serif); color:var(--brand-ink)}
+th,td{padding:.66rem .85rem; text-align:left; vertical-align:top;
+  border-bottom:1px solid var(--line)}
+thead th{
+  background:var(--panel-deep); font-size:.68rem; text-transform:uppercase; letter-spacing:.09em;
+  color:#54513f; font-weight:800; white-space:nowrap; position:sticky; top:0;
+  border-bottom:2px solid var(--line-strong);
 }
-.calc .out{background:#0b3b36; color:#d7fffb; border-radius:10px; padding:.8rem 1rem; text-align:center}
-.calc .out b{display:block; font-size:1.5rem; color:#fff; letter-spacing:-.02em}
-.calc .out span{font-size:.74rem; text-transform:uppercase; letter-spacing:.07em}
+tbody tr:hover{background:#fbf7ec}
+td.num{font-variant-numeric:tabular-nums; white-space:nowrap}
+.blank{color:var(--faint); font-style:italic}
+.specval{background:var(--brand-soft); color:var(--brand-deep); border:1px solid var(--brand-line);
+  padding:.05em .4em; border-radius:5px; font-size:.86em; font-family:var(--mono);
+  white-space:normal}
+.comparison-table td .tiny{margin-top:.3rem; line-height:1.4}
+.comparison-table .src{margin:.05rem .1rem .05rem 0}
 
-footer.site{border-top:1px solid var(--line); background:var(--panel); padding:2rem 1.25rem; margin-top:2rem}
-footer.site .inner{max-width:1400px; margin:0 auto; display:grid; gap:1.25rem; grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-footer.site h5{margin:0 0 .4rem; font-size:.78rem; text-transform:uppercase; letter-spacing:.08em; color:#6b7280}
-footer.site p,footer.site li{font-size:.82rem; color:#4b5563}
-footer.site ul{list-style:none; margin:0; padding:0}
-footer.site li{margin:.2rem 0}
-.legal{max-width:1400px; margin:1.25rem auto 0; padding-top:1rem; border-top:1px solid var(--line); font-size:.76rem; color:var(--muted)}
+/* ------------------------------------------------- pills & source badges */
+.pill{display:inline-block; padding:.14rem .55rem; border-radius:999px; font-size:.68rem;
+  font-weight:700; letter-spacing:.04em; text-transform:uppercase; white-space:nowrap}
+.pill-ok{background:var(--ok-soft); color:#1d4d2c; border:1px solid var(--ok-line)}
+.pill-warn{background:var(--warn-soft); color:#74440f; border:1px solid var(--warn-line)}
+.pill-bad{background:var(--bad-soft); color:#7d2d20; border:1px solid var(--bad-line)}
+.pill-info{background:var(--info-soft); color:#2a4f5b; border:1px solid var(--info-line)}
+/* source badges read as footnote marks, not buttons — prose stays quiet */
+.src{
+  display:inline-block; font-family:var(--mono); font-size:.64rem; font-weight:700;
+  background:#eef2e7; color:#3c6b56; border:1px solid #d5e0cd; border-radius:4px;
+  padding:.04rem .32rem; margin-right:.14rem; vertical-align:.14em; letter-spacing:.02em;
+}
+.src:hover{background:#dfe8d6; color:var(--brand-deep); text-decoration:none}
+.src-none{background:var(--warn-soft); color:#74440f; border-color:var(--warn-line)}
+.src-bad{background:var(--bad-soft); color:#7d2d20; border-color:var(--bad-line)}
+.src-link{display:inline-block; margin:.12rem .6rem .12rem 0; color:var(--brand); font-size:.82rem}
+.score{flex:0 0 auto; display:grid; place-items:center; min-width:56px; padding:.4rem .5rem;
+  border-radius:10px; background:var(--brand-soft); border:1px solid var(--brand-line);
+  color:var(--brand-deep)}
+.score strong{font-size:1.16rem; line-height:1; font-family:var(--serif)}
+.score span{font-size:.6rem; text-transform:uppercase; letter-spacing:.07em; font-weight:700}
 
-@media (max-width:960px){
-  .shell{grid-template-columns:1fr; padding:.9rem}
-  .sidebar{position:static; display:none}
-  .sidebar.open{display:block}
-  .navtoggle{display:inline-block}
-  .topbar .meta{display:none}
-  th,td{padding:.5rem .6rem}
+/* --------------------------------------------------------------- buttons */
+.cta-row{display:flex; flex-wrap:wrap; align-items:center; gap:.6rem; margin:.9rem 0 .4rem}
+.btn{
+  display:inline-flex; align-items:center; gap:.45rem; background:var(--brand); color:#fff;
+  padding:.62rem 1.08rem; border-radius:10px; font-weight:700; font-size:.9rem;
+  border:1px solid #1c4838; box-shadow:var(--shadow);
 }
-@media print{
-  .topbar,.sidebar,.navtoggle,.cta-row{display:none}
-  body{background:#fff}
-  .card,.tablewrap,.stat{box-shadow:none}
+.btn:hover{background:#1c4838; text-decoration:none; color:#fff}
+.btn-ghost{background:var(--panel); color:var(--brand-deep); border:1px solid var(--line-strong);
+  box-shadow:none}
+.btn-ghost:hover{background:var(--panel-deep); color:var(--brand-deep)}
+.paid-tag{
+  font-size:.64rem; font-weight:800; letter-spacing:.07em; text-transform:uppercase;
+  background:var(--warn-soft); color:#74440f; border:1px solid var(--warn-line);
+  border-radius:5px; padding:.14rem .45rem;
 }
-/* ---- decision layer: suggestions + open questions (2026-11-15) ---- */
-.chip{display:inline-block; padding:.05rem .4rem; border:1px solid var(--line); border-radius:999px;
-  font-size:.7rem; font-weight:700; color:var(--muted); background:#f9fafb; font-family:var(--mono)}
+.cta-note{font-size:.79rem; color:var(--muted); margin:0 0 .9rem; max-width:72ch}
+
+/* --------------------------------------------------- decision layer pages */
 .sug,.qcard{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
-  padding:1rem 1.15rem; margin:0 0 1rem; box-shadow:var(--shadow)}
-.sug-head{display:flex; gap:1rem; align-items:flex-start; justify-content:space-between; margin-bottom:.4rem}
-.sug-head h3{margin:.1rem 0 0; font-size:1.02rem; line-height:1.35}
-.score{flex:0 0 auto; display:grid; place-items:center; min-width:56px; padding:.35rem .5rem;
-  border-radius:10px; background:var(--brand-soft); border:1px solid #99f6e4; color:#0b3b36}
-.score strong{font-size:1.15rem; line-height:1}
-.score span{font-size:.62rem; text-transform:uppercase; letter-spacing:.06em; font-weight:700}
+  padding:1.05rem 1.2rem; margin:0 0 1rem; box-shadow:var(--shadow)}
+.sug-head{display:flex; gap:1rem; align-items:flex-start; justify-content:space-between;
+  margin-bottom:.45rem}
+.sug-head h3{margin:.1rem 0 0; font-size:1.05rem; line-height:1.35}
 .sug p,.qcard p{margin:.45rem 0}
-.evidence{background:#f9fafb; border:1px dashed var(--line); border-radius:9px;
-  padding:.5rem .65rem; margin:.6rem 0; font-size:.82rem}
-.src-link{display:inline-block; margin:.12rem .55rem .12rem 0; color:var(--brand); font-size:.82rem}
-/* paste-ready design prompt block (design-prompt.html) */
-.prompt-block{
-  display:block; white-space:pre-wrap; word-break:break-word; overflow-wrap:anywhere;
-  background:#0b3b36; color:#e7f7f2; padding:1.15rem 1.3rem; margin:0 0 .8rem;
-  border-radius:12px; box-shadow:var(--shadow);
-  font:0.79rem/1.6 var(--mono); tab-size:2;
-}
-.label{margin:.7rem 0 .3rem; font-size:.7rem; text-transform:uppercase; letter-spacing:.08em;
-  color:#9ca3af; font-weight:700}
+.evidence{background:var(--panel-deep); border:1px dashed var(--line-strong); border-radius:9px;
+  padding:.55rem .7rem; margin:.6rem 0; font-size:.82rem}
+.label{margin:.75rem 0 .3rem; font-size:.68rem; text-transform:uppercase; letter-spacing:.1em;
+  color:var(--faint); font-weight:800}
 .paths{margin:.2rem 0 .6rem; padding-left:1.3rem}
 .paths li{margin:0 0 .6rem}
 .paths li strong{font-size:.9rem}
-.rec{margin:.6rem 0; padding:.55rem .7rem; background:var(--ok-soft);
-  border:1px solid #bbf7d0; border-radius:9px; font-size:.88rem}
-.twocol{display:grid; grid-template-columns:1fr 1fr; gap:1rem}
-ul.tight{margin:.2rem 0 .6rem; padding-left:1.15rem}
-ul.tight li{margin:.25rem 0; font-size:.86rem}
-@media (max-width:820px){.twocol{grid-template-columns:1fr}}
-
-/* Editorial refresh: warm, quiet typography instead of a generic admin dashboard. */
-:root{
-  --bg:#f4f2eb; --panel:#fffefa; --ink:#202820; --muted:#626b62; --line:#deded2;
-  --brand:#245746; --brand-soft:#e5eee6; --warn:#92531e; --warn-soft:#fff1d8;
-  --bad:#9c4437; --bad-soft:#f8e8e3; --ok:#2f6745; --ok-soft:#e4f0e6;
-  --shadow:0 7px 24px rgba(32,40,32,.055); --radius:15px;
-  --accent:#b75d3c; --serif:Georgia,"Times New Roman",serif;
+.rec{margin:.6rem 0; padding:.55rem .75rem; background:var(--ok-soft);
+  border:1px solid var(--ok-line); border-radius:9px; font-size:.88rem}
+.prompt-block{
+  display:block; white-space:pre-wrap; word-break:break-word; overflow-wrap:anywhere;
+  background:var(--brand-deep); color:#e7f1e6; padding:1.2rem 1.35rem; margin:0 0 .8rem;
+  border-radius:12px; box-shadow:var(--shadow);
+  font:0.79rem/1.6 var(--mono); tab-size:2;
 }
-body{background:var(--bg); color:var(--ink); line-height:1.65}
-.skip-link{position:absolute; z-index:100; top:-5rem; left:1rem; padding:.55rem .85rem; background:#fffefa; color:#173f32; border:2px solid #245746; border-radius:8px; font-weight:700}
-.skip-link:focus{top:1rem}
-a{color:var(--brand); text-underline-offset:.18em}
-a:hover{color:#173f32}
-:focus-visible{outline:3px solid #ca784d; outline-offset:3px; border-radius:4px}
-.disclosure-bar{background:#173f34; color:#f2f4ec; padding:.58rem 1.25rem; font-size:.8rem}
-.topbar{background:#fffefa; border-bottom-color:#deded2; box-shadow:none; padding:.8rem 1.4rem}
-.brand .mark{background:#245746; border-radius:50%; width:34px; height:34px}
-.brand small{font-size:.68rem; letter-spacing:.045em; text-transform:uppercase; color:#677168}
-.shell{max-width:1500px; grid-template-columns:230px minmax(0,1fr); gap:1.65rem; padding:1.5rem}
-.sidebar .group h4{color:#8a8d82; letter-spacing:.12em}
-.sidebar a{color:#39453b; padding:.48rem .7rem}
-.sidebar a.active{background:#e4eee5; border-color:#c9d9ca; color:#1d4a39}
-main{padding-bottom:4rem}
-h1,h2,h3{font-family:var(--serif)}
-h1{font-size:clamp(2rem,3.3vw,2.7rem); font-weight:500; letter-spacing:-.035em; line-height:1.08}
-h2{font-size:clamp(1.4rem,2.25vw,1.9rem); font-weight:500; letter-spacing:-.025em; margin-top:2.35rem}
-h3{font-size:1.12rem; font-weight:600}
-.lede{font-size:1.08rem; color:#465348}
-.card,.stat,.sug,.qcard{background:var(--panel); border-color:var(--line); box-shadow:var(--shadow); border-radius:var(--radius)}
-.card{padding:1.25rem 1.35rem}
-.tablewrap{box-shadow:none; border-color:#d8d9ce; border-radius:13px}
-table{font-size:.86rem}
-thead th{background:#e9ece4; color:#435044}
-tbody tr:nth-child(even){background:#faf9f4}
-tbody tr:hover{background:#f1f4ed}
-.btn{background:#245746; border-color:#194635; border-radius:999px; padding:.7rem 1.2rem; font-weight:700}
-.btn:hover{background:#173f32}
-.btn-ghost{background:transparent; color:#245746; border-color:#aab8aa}
-.btn-ghost:hover{background:#e8eee7; color:#173f32}
-.paid-tag{border-radius:999px; letter-spacing:.035em}
-.callout{border-radius:0 12px 12px 0}
-.callout.info{background:#e8efe7}
-.cta-note{max-width:78ch}
-
-.editorial-hero{
-  position:relative; isolation:isolate; overflow:hidden; display:grid;
-  grid-template-columns:minmax(0,1.15fr) minmax(310px,.85fr); gap:clamp(1.5rem,3.5vw,3rem);
-  align-items:stretch; margin:.1rem 0 1.25rem; padding:clamp(1.5rem,4vw,3.5rem);
-  border:1px solid #d8ddcf; border-radius:26px; background:#eceee2;
-}
-.editorial-hero:before{content:""; position:absolute; z-index:-1; width:28rem; height:28rem; right:20%; top:-22rem; border:1px solid rgba(36,87,70,.14); border-radius:50%; box-shadow:0 0 0 35px rgba(36,87,70,.035),0 0 0 70px rgba(36,87,70,.025)}
-.hero-copy{align-self:center; max-width:650px}
-.hero-eyebrow,.section-eyebrow{margin:0 0 .75rem; color:var(--accent); font-size:.7rem; font-weight:800; letter-spacing:.15em; text-transform:uppercase}
-.hero-eyebrow span{color:#929487; padding:0 .35rem}
-.hero-title{max-width:11ch; margin:.2rem 0 1rem; color:#1d3025; font:500 clamp(3rem,5.7vw,5.25rem)/.96 var(--serif); letter-spacing:-.065em}
-.hero-copy .lede{max-width:58ch; margin:0; font-size:1.08rem}
-.hero-actions{display:flex; flex-wrap:wrap; gap:.7rem; margin:1.5rem 0 .5rem}
-.hero-footnote{margin:.65rem 0 0; color:#606b5f; font-size:.75rem; letter-spacing:.035em}
-.hero-panel{display:flex; flex-direction:column; justify-content:center; min-width:0; padding:1.35rem 1.45rem; color:#f6f4eb; background:#214a3c; border-radius:19px; box-shadow:0 12px 30px rgba(27,61,49,.12)}
-.hero-panel-kicker{display:flex; justify-content:space-between; gap:1rem; margin:0; color:#e5b580; font-size:.68rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase}
-.hero-panel-kicker span{color:#d0dace; letter-spacing:.08em}
-.hero-panel h2{margin:.45rem 0 .9rem; color:#fffdf6; font-size:1.8rem; line-height:1.1}
-.hero-choice{display:grid; grid-template-columns:30px minmax(0,1fr) 18px; gap:.55rem; align-items:center; padding:.85rem 0; color:#f6f4eb; border-top:1px solid rgba(239,244,231,.19)}
-.hero-choice:hover{border-color:rgba(239,244,231,.55)}
-.hero-index{color:#e5b580; font-family:var(--mono); font-size:.76rem}
-.hero-choice-copy{display:flex; flex-direction:column; min-width:0}
-.hero-choice-copy>a{color:#fffdf6; text-decoration:none}
-.hero-choice-copy>a:hover{text-decoration:underline; text-underline-offset:.2em}
-.hero-choice-copy strong{color:#fffdf6; font-size:.91rem; line-height:1.3}
-.hero-choice-copy small{margin-top:.18rem; color:#d4dfd3; font-size:.72rem}
-.hero-panel .src{margin:.05rem .1rem; background:#e4efe5; border-color:#d0e3d2; color:#204a39}
-.hero-arrow{color:#e5b580; text-align:right}
-.link-status{margin:1.15rem 0 1.5rem; background:#fff2dd; border-left-color:#c87539; border-color:#efd6b2; border-left-width:5px; padding:1rem 1.15rem}
-.link-status-heading{display:flex; align-items:center; flex-wrap:wrap; gap:.65rem; margin:0 0 .3rem}
-.link-status-heading strong{display:inline; margin:0; color:#48331f}
-.link-status p{margin:.35rem 0 0}
-.method-strip{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; padding:1.15rem 0; border-top:1px solid #deded2; border-bottom:1px solid #deded2}
-.method-strip>div{display:grid; grid-template-columns:30px 1fr; column-gap:.55rem; align-items:start}
-.method-number{grid-row:span 2; color:var(--accent); font:700 .75rem/1.6 var(--mono)}
-.method-strip strong{font-size:.86rem; line-height:1.35}
-.method-strip p{margin:.2rem 0 0; color:var(--muted); font-size:.78rem; line-height:1.45}
-.section-heading{max-width:700px; margin:2.4rem 0 1rem}
-.section-heading .section-eyebrow{margin-bottom:.25rem}
+.buyer-toc{display:flex; flex-wrap:wrap; gap:.45rem; margin:.9rem 0 1.4rem}
+.buyer-toc a{font-size:.8rem; border:1px solid var(--line-strong); background:var(--panel);
+  border-radius:999px; padding:.3rem .75rem; color:#44503f}
+.buyer-toc a:hover{border-color:var(--accent); background:var(--accent-soft); color:var(--brand-deep);
+  text-decoration:none}
+.quick-guide{margin:2rem 0 .5rem}
+.section-heading{max-width:700px; margin:2.5rem 0 1rem}
+.section-heading .section-eyebrow{margin-bottom:.3rem}
 .section-heading h2{margin:.1rem 0 .4rem}
 .section-heading p:last-child{margin:.2rem 0}
-.decision-grid{align-items:stretch}
-.decision-card{display:flex; flex-direction:column; min-height:235px; padding:1.25rem 1.35rem}
-.decision-label,.product-type{margin:0; color:var(--accent); font-size:.68rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase}
-.decision-card h3{margin:.25rem 0 .45rem; font-size:1.23rem; line-height:1.2}
-.decision-card p.small{margin:.1rem 0 .85rem; color:#515c52}
-.decision-card>a{margin-top:auto; font-size:.87rem; font-weight:700}
-.pcard{gap:.55rem; min-height:270px}
-.pcard h3{margin:.05rem 0; font-size:1.3rem; line-height:1.2}
-.pcard .product-name{margin:0; line-height:1.45}
-.product-fact{display:grid; gap:.1rem; padding:.7rem 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
-.product-fact>span:first-child{color:var(--muted); font-size:.7rem; letter-spacing:.06em; text-transform:uppercase}
-.product-fact>strong{font-family:var(--serif); font-size:1.22rem; font-weight:500}
-.product-match{display:flex; align-items:center; flex-wrap:wrap; gap:.4rem; margin:.1rem 0}
-.product-match .pill{white-space:normal}
-.archive-panel{margin-top:1.5rem; padding:1.2rem 1.4rem; background:#ebece2; border:1px solid #d8ddcf; border-radius:16px}
-.archive-panel .section-eyebrow{margin:0 0 .2rem}
-.archive-panel h3{margin:.15rem 0 .35rem; font-size:1.35rem}
-.archive-panel p{margin:.3rem 0}
-.comparison-table td .tiny{margin-top:.3rem; line-height:1.4}
-.comparison-table .src{margin:.05rem .1rem .05rem 0}
-footer.site{background:#ebece5; border-top-color:#d8d9ce; margin-top:2.5rem}
-footer.site .inner{max-width:1500px}
-footer.site h5{color:#405548}
-footer.site p,footer.site li{color:#59645a}
-.legal{border-top-color:#d4d7cc}
 
+/* --------------------------------------------------------------- articles */
+.article-card .cardtitle{font-family:var(--serif); font-weight:600}
+.article-nav{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:.85rem;
+  margin:1.3rem 0}
+.article-nav .card{display:block; margin:0}
+.article-nav strong{font-size:.92rem; line-height:1.3}
+.share{display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin:1.7rem 0 .5rem;
+  padding-top:1.1rem; border-top:1px solid var(--line)}
+.share a,.share button{display:inline-flex; align-items:center; gap:.35rem; border:1px solid var(--line);
+  background:var(--panel); color:var(--ink); border-radius:999px; padding:.34rem .85rem;
+  font:inherit; font-size:.8rem; cursor:pointer; text-decoration:none}
+.share a:hover,.share button:hover{border-color:var(--accent); background:var(--accent-soft);
+  text-decoration:none}
+.share .label{font-size:.7rem; text-transform:uppercase; letter-spacing:.09em; color:var(--faint);
+  margin-right:.2rem}
+
+/* ----------------------------------------------------- channel / handover */
+.channel{padding:1rem 1.15rem}
+.channel-head{display:flex; align-items:center; gap:.55rem; flex-wrap:wrap; margin-bottom:.35rem}
+.channel-head h3{margin:0; font-size:1.02rem; font-family:var(--serif); font-weight:600}
+.channel ul{margin:.2rem 0 .5rem 1.15rem; padding:0}
+.channel li{margin:.12rem 0}
+.handover-item{border-left:4px solid var(--brand)}
+.handover-head{display:flex; align-items:baseline; gap:.6rem; flex-wrap:wrap}
+.handover-head h3{margin:0; font-family:var(--serif); font-weight:600; font-size:1.08rem;
+  line-height:1.3; flex:1 1 60%}
+.handover-num{font:800 .8rem/1 var(--mono); color:#fff; background:var(--brand); border-radius:6px;
+  padding:.34rem .48rem}
+.handover-meta{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:.85rem;
+  margin-top:.75rem; padding-top:.75rem; border-top:1px solid var(--line)}
+.handover-meta .tiny{display:block; text-transform:uppercase; letter-spacing:.08em}
+
+/* ------------------------------------------------------------- calculator */
+.calc{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:.8rem; align-items:end}
+.calc label{display:block; font-size:.76rem; font-weight:700; color:#44503f; margin-bottom:.28rem}
+.calc input,.calc select{
+  width:100%; padding:.52rem .6rem; border:1px solid var(--line-strong); border-radius:8px;
+  font:inherit; font-size:.9rem; background:#fff;
+}
+.calc .out{background:var(--brand-deep); color:#e7f1e6; border-radius:10px; padding:.85rem 1rem;
+  text-align:center}
+.calc .out b{display:block; font-size:1.5rem; color:#fff; letter-spacing:-.02em;
+  font-family:var(--serif); font-weight:600}
+.calc .out span{font-size:.72rem; text-transform:uppercase; letter-spacing:.08em}
+
+/* ----------------------------------------------------------------- footer */
+footer.site{background:var(--brand-deep); color:#dfe4d2; margin-top:2.6rem;
+  padding:2.4rem 1.4rem 2rem}
+footer.site .inner{max-width:1460px; margin:0 auto; display:grid; gap:1.5rem;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+footer.site h5{margin:0 0 .5rem; font-size:.7rem; text-transform:uppercase; letter-spacing:.12em;
+  color:#9fb8a4}
+footer.site p,footer.site li{font-size:.83rem; color:#c9d2bd; line-height:1.55}
+footer.site ul{list-style:none; margin:0; padding:0}
+footer.site li{margin:.22rem 0}
+footer.site a{color:#eef0df; text-decoration:underline; text-underline-offset:.2em}
+footer.site a:hover{color:#fff}
+footer.site strong{color:#f4f1e2}
+.legal{max-width:1460px; margin:1.6rem auto 0; padding-top:1.2rem;
+  border-top:1px solid rgba(239,244,231,.2); font-size:.76rem; color:#b7c4ab}
+
+/* --------------------------------------------------------------- utilities */
+.ok{color:var(--ok)}
+.warn{color:var(--warn)}
+.bad{color:var(--bad)}
+.info{color:var(--info)}
+.trust{color:var(--ok)}
+.spacer{flex:1}
+.h{font-size:.78rem; color:var(--muted); margin-top:.35rem}
+
+/* ----------------------------------------------------------- media queries */
+@media (max-width:1140px){
+  .topnav{display:none}
+  .topbar .meta{display:none}
+  .navtoggle{display:inline-block}
+}
 @media (max-width:960px){
   .shell{grid-template-columns:1fr; padding:1rem}
-  .sidebar{background:#fffefa; border:1px solid var(--line); border-radius:14px; padding:.6rem}
-  .editorial-hero{grid-template-columns:minmax(0,1fr) minmax(290px,.8fr); padding:1.5rem}
-  .hero-title{font-size:clamp(2.8rem,6vw,4rem)}
+  .sidebar{position:static; display:none; background:var(--panel); border:1px solid var(--line);
+    border-radius:14px; padding:.7rem .8rem; margin-bottom:1.25rem}
+  .sidebar.open{display:block}
+  th,td{padding:.55rem .65rem}
 }
 @media (max-width:760px){
-  .editorial-hero{grid-template-columns:1fr; gap:1.25rem; border-radius:20px}
-  .hero-title{max-width:12ch; font-size:clamp(3rem,12vw,4.4rem)}
-  .hero-panel{padding:1.1rem 1.2rem}
-  .method-strip{grid-template-columns:1fr; gap:.8rem}
+  .editorial-hero{grid-template-columns:1fr; gap:1.4rem; padding:1.6rem; border-radius:18px}
+  .hero-title{font-size:clamp(2.7rem,11vw,3.6rem)}
+  .method-strip{grid-template-columns:1fr; gap:.9rem}
+  .twocol{grid-template-columns:1fr}
 }
 @media (max-width:560px){
-  .topbar{padding:.65rem .85rem}
-  .brand small{max-width:180px; font-size:.62rem}
+  .topbar{padding:.6rem .85rem}
+  .brand small{max-width:190px; font-size:.6rem}
   .shell{padding:.75rem}
-  .editorial-hero{padding:1.2rem}
+  .editorial-hero{padding:1.25rem}
   .hero-actions{align-items:stretch}
   .hero-actions .btn{justify-content:center; flex:1 1 100%}
   .link-status-heading{align-items:flex-start; flex-direction:column}
   .decision-card{min-height:0}
   table{font-size:.8rem}
+  footer.site{padding:1.8rem 1rem 1.5rem}
 }
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important; transition:none!important}}
+@media print{
+  .topbar,.sidebar,.navtoggle,.topnav,.cta-row,.share{display:none}
+  body{background:#fff}
+  .card,.tablewrap,.stat,.sug,.qcard{box-shadow:none}
+  .editorial-hero{border:1px solid #ddd}
+  footer.site{background:#fff; color:#222}
+  footer.site p,footer.site li{color:#444}
+  footer.site a{color:#245746}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important; transition:none!important}
+}
 
-/* ===== 2026-11-15 (arena/792c279e): commercial + decision components ===== */
-:root{ --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
-       --accent:#245746; --accent-soft:#e3ece4; }
-
-.picks-hero{position:relative}
-.pick .pick-cta{margin-top:auto; display:inline-block; font-weight:700; font-size:.88rem}
-.pick h3{font-family:var(--serif); font-weight:500; font-size:1.32rem; line-height:1.22; letter-spacing:-.01em}
-.card.pick{border-color:#cfdacf}
-.card.pick:hover{border-color:var(--accent)}
-
-.callout{background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--accent);
-  border-radius:10px; padding:.9rem 1.1rem; margin:1.1rem 0; box-shadow:var(--shadow); font-size:.94rem}
-.callout.trust{border-left-color:#0f766e; background:#f4fbf8}
-.callout.bad{border-left-color:var(--bad); background:#fff6f6}
-.callout.ok{border-left-color:var(--ok); background:#f5fbf6}
-
-.channel{padding:1rem 1.15rem}
-.channel-head{display:flex; align-items:center; gap:.55rem; flex-wrap:wrap; margin-bottom:.35rem}
-.channel-head h3{margin:0; font-size:1.02rem; font-family:var(--serif); font-weight:600}
-.channel ul{margin:.2rem 0 .5rem 1.1rem; padding:0}
-.channel li{margin:.12rem 0}
-
-.handover-item{border-left:4px solid var(--accent)}
-.handover-head{display:flex; align-items:baseline; gap:.6rem; flex-wrap:wrap}
-.handover-head h3{margin:0; font-family:var(--serif); font-weight:600; font-size:1.08rem; line-height:1.3; flex:1 1 60%}
-.handover-num{font:800 .8rem/1 var(--mono); color:#fff; background:var(--accent); border-radius:6px; padding:.32rem .45rem}
-.handover-meta{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:.8rem; margin-top:.7rem;
-  padding-top:.7rem; border-top:1px solid var(--line)}
-.handover-meta .tiny{display:block; text-transform:uppercase; letter-spacing:.08em}
-
-.article-head{max-width:74ch}
-.article-body{max-width:74ch}
-.article-body h2{font-family:var(--serif); font-weight:600; font-size:1.3rem; letter-spacing:-.01em; margin-top:2.1rem}
-.article-body p:first-of-type{font-size:1.05rem}
-.share{display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin:1.6rem 0 .5rem; padding-top:1rem; border-top:1px solid var(--line)}
-.share a,.share button{display:inline-flex; align-items:center; gap:.35rem; border:1px solid var(--line);
-  background:#fff; color:var(--ink); border-radius:999px; padding:.32rem .8rem; font:inherit; font-size:.8rem;
-  cursor:pointer; text-decoration:none}
-.share a:hover,.share button:hover{border-color:var(--accent); background:var(--accent-soft); text-decoration:none}
-.share .label{font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-right:.2rem}
-.article-nav{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:.8rem; margin:1.2rem 0}
-.article-nav .card{display:block; margin:0}
-.article-nav strong{font-size:.92rem; line-height:1.3}
-
-.pulse{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.7rem; margin:1.1rem 0}
-.pulse .tile{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:.75rem .85rem; box-shadow:var(--shadow)}
-.pulse .tile b{display:block; font:800 1.35rem/1.1 var(--serif); letter-spacing:-.02em}
-.pulse .tile span{display:block; font-size:.72rem; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); margin-top:.25rem}
-.pulse .tile a{font-size:.78rem}
-details.card summary{cursor:pointer; font-size:.9rem}
-
-/* section rhythm on the buyer-facing pages */
-.quick-guide{margin:1.8rem 0 .5rem}
-.buyer-toc{display:flex; flex-wrap:wrap; gap:.45rem; margin:.9rem 0 1.4rem}
-.buyer-toc a{font-size:.8rem; border:1px solid var(--line); background:#fff; border-radius:999px;
-  padding:.28rem .7rem; color:#374151}
-.buyer-toc a:hover{border-color:var(--accent); background:var(--accent-soft); text-decoration:none}
-.article-card .cardtitle{font-family:var(--serif); font-weight:600}
-@media (max-width:560px){ .handover-head h3{font-size:1rem} }
-
+/* figure panels — ported from pass 10 (arena/695f03b7-zone1), which this rewrite
+   replaced along with the old stylesheet tail; preserved per protocol item 6. */
+.figure{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:1rem 1.1rem;margin:1.1rem 0;overflow:auto}
+.figure svg{max-width:100%;height:auto;display:block;background:#fffdf7}
+.fighead{font:700 1.1rem/1.3 var(--serif);color:var(--brand-ink);margin:0 0 .4rem}
+.figcap{font-size:.85rem;color:var(--muted);margin:.5rem 0 0;line-height:1.5}
 """
 
 JS = r"""
@@ -919,12 +1090,28 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     # hub, so the sidebar advertised "8 parallel builds" while the catalogue below it listed 7.
     # Caught 2026-11-15 (pass 9) by comparing the string with PARALLEL_BUILDS. Both numbers now
     # come from the catalogue, which is the thing the reader is being sent to read.
+    # (Pass 12, 492acddc: the group wrapper moved into the sidebar markup — this entry now
+    # renders inside the "Owner workspace" group instead of a lone "Archive" group.)
     more_nav = (
-        '<div class="group"><h4>Archive</h4>'
         f'<a href="{prefix}previous-passes.html">Previous passes<span class="sub">'
-        f'{len(PARALLEL_BUILDS)} parallel builds kept in this repo, catalogued</span></a></div>'
+        f'{len(PARALLEL_BUILDS)} parallel builds kept in this repo, catalogued</span></a>'
         if parallel else ""
     )
+    # Compact primary nav in the topbar (pass 12, 492acddc): the four shopper
+    # destinations stay visible on desktop without opening the full index.
+    # Labels here are deliberately shorter than their sidebar counterparts; the
+    # sidebar keeps the descriptive ones. Active state keys off the same
+    # `active` href the sidebar uses.
+    topnav_items = (
+        ("picks.html", "Picks"),
+        ("guides/buying-guide-air-fryers.html", "Buying guide"),
+        ("articles/index.html", "Articles"),
+        ("compare.html", "Compare"),
+    )
+    def _topnav_link(href, label):
+        cls = ' class="active"' if href == active else ""
+        return f'<a href="{prefix}{href}"{cls}>{e(label)}</a>'
+    topnav = "".join(_topnav_link(href, label) for href, label in topnav_items)
     desc = f'<meta name="description" content="{e(description)}">' if description else ""
 
     # Absolute URL of this page. The landing page canonicalises to the directory form
@@ -976,6 +1163,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     <span class="mark">Z1</span>
     <span>{e(SITE_NAME)}<small>{e(SITE_TAGLINE)}</small></span>
   </a>
+  <nav class="topnav" aria-label="Primary">{topnav}</nav>
   <span class="spacer"></span>
   <span class="meta">data verified {e(ACCESSED)}{(" · re-verified " + e(REVERIFIED)) if REVERIFIED else ""}</span>
   <button class="navtoggle" type="button" aria-controls="site-nav" aria-expanded="false">Menu</button>
@@ -983,7 +1171,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
 <div class="shell">
   <nav id="site-nav" class="sidebar" aria-label="Primary navigation">
     <div class="group">
-      <h4>Start here</h4>
+      <h4>Shop smart</h4>
       {N("index.html")}
       {N("picks.html")}
       {N("guides/buying-guide-air-fryers.html")}
@@ -996,7 +1184,14 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
       {N("compare.html")}
     </div>
     <div class="group">
-      <h4>Decide</h4>
+      <h4>Trust &amp; evidence</h4>
+      {N("compliance.html")}
+      {N("flagged.html")}
+      {N("data.html")}
+      {N("reverification.html")}
+    </div>
+    <div class="group">
+      <h4>Owner workspace</h4>
       {N("decisions.html")}
       {N("suggestions.html")}
       {N("design-prompt.html")}
@@ -1004,19 +1199,9 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
       {N("requirements.html")}
       {N("topics.html")}
       {N("executive-summary.html")}
-    </div>
-    <div class="group">
-      <h4>Evidence</h4>
-      {N("data.html")}
-      {N("reverification.html")}
-      {N("compliance.html")}
-      {N("flagged.html")}
-    </div>
-    <div class="group">
-      <h4>Platform</h4>
       {N("platform.html")}
+      {more_nav}
     </div>
-    {more_nav}
   </nav>
   <main id="main-content">
     {body}
@@ -1207,8 +1392,17 @@ def _dashboard_article_cards():
 
 
 def _flag_count():
-    """Rows on the Flagged page, counted the same way the duplicate-ID guard counts them."""
-    return len(re.findall(r'<tr><td class="num"><strong>F\d+</strong>', page_flagged()))
+    """Rows on the Flagged page.
+
+    Counted from the same markup `page_flagged()` emits, which has been
+    `<tr id="fNN"><td class="num"><strong>FNN</strong>` since pass 10 added per-row
+    anchors. The previous pattern (`<tr><td class="num">...`, with no id attribute)
+    silently stopped matching at that commit and the landing page published
+    "0 Flags open" next to a 61-row register. `check_flag_count_matches_page()`
+    now asserts the two agree, so this cannot regress unnoticed again.
+    """
+    return len(re.findall(r'<tr id="f\d+"><td class="num"><strong>F\d+</strong>',
+                          page_flagged()))
 
 
 def pulse_strip():
@@ -1314,18 +1508,21 @@ def page_index():
   <div class="grid grid-3 decision-grid">
     <article class="card decision-card">
       <p class="decision-label">Two baskets</p>
+      {format_glyph('dual')}
       <h3>Two foods, separate settings</h3>
       <p class="small">The 6 Qt Chefman manual documents two 3-quart baskets and a Sync Finish function. That is the documented difference; we have not tested the cooking result. {src_links(['S18'])}</p>
       <a href="articles/dual-basket-vs-single-basket.html">Two baskets or one? →</a>
     </article>
     <article class="card decision-card">
       <p class="decision-label">Oven-style</p>
+      {format_glyph('oven')}
       <h3>More than a basket</h3>
       <p class="small">The Emeril is described as a 26 QT French-door toaster-oven combo, and the manual documents a rotisserie. Its owner's manual lists 24 presets and the supplied listing title agrees; the brand page's specification block says 25, so the flag stays open. {src_links(['S14', 'S15'])}</p>
       <a href="articles/dual-basket-vs-oven-air-fryer.html">Basket or countertop oven? →</a>
     </article>
     <article class="card decision-card">
       <p class="decision-label">Single basket</p>
+      {format_glyph('single')}
       <h3>One 8 Qt cooking space</h3>
       <p class="small">Chefman's product page lists an 8 Qt basket and four named presets. The supplied listing title and the manufacturer's specification set contain a temperature discrepancy, so the exact model mapping remains open. {src_links(['S12', 'S13', 'S29'])}</p>
       <a href="articles/what-450f-actually-means.html">What the temperature label means →</a>
@@ -1461,7 +1658,7 @@ much to trust a number, not required reading before buying. The same material, i
     <h3 style="margin-top:0">Judge the operation</h3>
     <ul class="tight small">
       <li><a href="platform.html">Platform blueprint</a> — the automation, the data model, the guardrails.</li>
-      <li><a href="compliance.html">Compliance</a> — 16 requirements, each quoted with a source link.</li>
+      <li><a href="compliance.html">Compliance</a> — {len(COMPLIANCE['requirements'])} requirements, each quoted with a source link.</li>
       <li><a href="flagged.html">Flagged for review</a> — everything that still needs a human decision.</li>
       <li><a href="executive-summary.html">Executive summary</a> — the one-page version.</li>
     </ul>
@@ -1883,13 +2080,56 @@ PROGRAMME_FLAGS = [
      ["S2"]),
     ("F53", "The Amazon browse-node breadcrumb is now published for two ASINs, and it does not settle which commission rate applies.",
      "All three products - the 'Amazon browse node' row and open question Q-11",
-     "Recorded 2026-11-15 by arena/63a2c638, round 9, at the same time as the value itself was added, so the limit travels with the value. Both Chefman listings render the breadcrumb 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S16, S29). It is tempting to read 'Kitchen' there and apply the 4.50% Kitchen rate from the Commission Income Statement (S3). That would be an inference, not a source: S3's categories are commission categories defined by the Associates programme, Amazon's browse nodes are a shopper-navigation taxonomy, and Amazon publishes no mapping between the two. The same breadcrumb begins 'Home & Kitchen', and S3 also carries 'Home' at 3.00%, so the breadcrumb alone cannot even tell you which of the two it resembles. The site therefore continues to show the commission rate as unconfirmed (Q-11) and now shows the browse node as a separate, sourced fact. The Emeril browse node is blank: three fetches of that ASIN on 2026-11-15 returned Amazon's automated 'Continue shopping' checkpoint instead of the listing page, and a value that was never rendered cannot be recorded.",
+     "Recorded 2026-11-15 by arena/63a2c638, round 9, at the same time as the value itself was added, so the limit travels with the value. Both Chefman listings render the breadcrumb 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S16, S29). It is tempting to read 'Kitchen' there and apply the 4.50% Kitchen rate from the Commission Income Statement (S3). That would be an inference, not a source: S3's categories are commission categories defined by the Associates programme, Amazon's browse nodes are a shopper-navigation taxonomy, and Amazon publishes no mapping between the two. The same breadcrumb begins 'Home & Kitchen', and S3 also carries 'Home' at 3.00%, so the breadcrumb alone cannot even tell you which of the two it resembles. The site therefore continues to show the commission rate as unconfirmed (Q-11) and now shows the browse node as a separate, sourced fact. The Emeril browse node is blank: three fetches of that ASIN on 2026-11-15 returned Amazon's automated 'Continue shopping' checkpoint instead of the listing page, and a value that was never rendered cannot be recorded. Update 2026-11-16 (arena/a746a9f2): the checkpoint cleared and the breadcrumb rendered on B09B7SB46R; the Emeril browse-node row is now populated from that read (S28). The limit stated above is unchanged \u2014 the browse path still does not settle which commission rate applies (Q-11).",
      ["S3", "S16", "S29", "S28"]),
+    # ---- arena/695f03b7-zone1, task P3, 2026-11-16 -------------------------------- #
+    # Product-photography rights gap: no row records which images the site publishes or
+    # whose permission covers them; Amazon Program Content/image rights and FTC disclosure
+    # duties are unresolved until Q-22 is answered and SG-23 decided (SG-23 recommends
+    # text-and-diagrams-only for now). No product photography is published. Flag number F46
+    # is free on the canonical register (origin/main carries F1-F45 and F47-F62); no other
+    # session's row is renumbered.
+    ("F46", "Product photography rights are undecided: no row records which images, if any, the site publishes, whose permission covers them, or how Amazon Program Content image rights apply to these specific products. Amazon's Operating Agreement and Program Policies govern Program Content imagery; the FTC treats imagery as part of an endorsement requiring clear disclosure of material connections. No product photography is published and Q-22 asks what may be published and whose permission covers it.",
+     "SG-23, Q-22 and all three product pages",
+     "Recorded 2026-11-16 by arena/695f03b7-zone1. The design layer offers owner photos, licensed imagery and Amazon Program Content as image options, but none is decided; until Q-22 is answered, the site stays text-and-diagrams-only and the figures on figures.html are generated diagrams, not photographs. Evidence: data/suggestions.json (SG-23), data/questions.json (Q-22), build.py flags register.",
+     ["S1", "S2"]),
+
+# ---- arena/a746a9f2, line-by-line review pass, 2026-11-16 ----------------------- #
+    ("F63", "Fourth occurrence of the stale-count defect class: three registers asserted 'eight articles' after the set grew to thirteen. Found and fixed.",
+     "data/questions.json Q-10, data/suggestions.json SG-09, data/decision.json niche rows",
+     "Recorded 2026-11-16 by arena/a746a9f2 (X-a746a9f2). The brief's line-by-line review grepped every generated page for register counts and found live assertions that had gone stale as the article set grew: questions.html (Q-10's 'what we know' cell and the page's JSON-LD) and suggestions.html (SG-09's title, problem, evidence label and recommendation) both said 'eight articles', and decisions.html carried 'the site's existing eight articles' plus a pill reading 'Eight articles already exist in this shape' - while the articles index publishes thirteen. This is the same defect class as F14, F38 and F52: a register cell written as a snapshot and read as a live fact. Fixed per the F52 precedent: the two rows inside this session's claimed scope were corrected in place, and the third (data/decision.json, created by a completed session) was corrected as an integration-scope wording fix, with before/after strings logged in COORDINATION.md. All three now carry a dated count (13, 2026-11-16) plus a pointer to the live articles index, so they read as dated snapshots rather than live claims. The same scan cleared the 'parallel register' pages (decision-gate.html's fourteen questions, marketing-directions.html's twelve suggestions) as internally consistent \u2014 their ledes render their own frozen register's length \u2014 and cleared the historical recounts in reverification.html and executive-summary.html, which describe already-fixed defects. No build guard can police free-prose counts without a whitelist of claim sentences; check_register_preambles covers repeated sentences only. Decision needed: adopt computed counts in register prose (SG-26 option A machinery) or accept dated snapshots as the house standard.",
+     []),
+
+    # ---- arena/b23f12f0, verification round 11, 2026-11-16 --------------------------- #
+    # Four findings. F64 is a defect this pass repaired and then guarded. F65 corrects a
+    # conclusion an earlier pass recorded. F66 is new evidence on two conflicts that
+    # were already open. F67 is a build guard that had silently stopped working.
+    ("F64", "Three registers carried duplicated content onto the published site. Found by line-by-line review, repaired, and guarded.",
+     "questions.html row Q-11, the articles note, and one Chefman 8 Qt specification row",
+     "Recorded 2026-11-16 by arena/b23f12f0, round 11. A line-by-line read of data/ found three places where the same text was stored more than once and then published more than once: (1) the Q-11 row of the open-questions register carried three of its 'what we know' entries seven times each - 18 entries collapsing to 6 - so the sentence 'The same breadcrumb does NOT settle this question' appeared 14 times in the rendered questions.html; (2) the note field in data/articles.json repeated its first paragraph verbatim, joined by a pipe, so the editorial discipline statement was printed twice; (3) the 'Hi-Fry / 450 F mode' row of the Chefman 8 Qt product cited source S29 three times in a row, which a reader sees as three source badges for one claim. None of the three is a wrong fact - each is the same fact printed repeatedly, which is precisely the pattern that makes a page read as machine-generated. All three were repaired with an order-preserving de-duplication that changed no wording. A build guard, check_register_duplicates(), now fails the build if any register list repeats an entry or any register string repeats a sentence, and the guard was proven to fire on an injected duplicate before it was committed.",
+     ["S3", "S29"]),
+
+    ("F65", "A recorded conclusion about Amazon\u2019s bot checkpoint was wrong: the block is intermittent per request, not a property of the ASIN.",
+     "data/sources.json source S28, data/products.json, and the 'Amazon browse node' row of the Emeril 26 QT product",
+     "Recorded 2026-11-16 by arena/b23f12f0, round 11, because an earlier pass recorded a conclusion that this pass contradicts. On 2026-11-15 three fetches of ASIN B09B7SB46R were each answered by Amazon\u2019s automated 'Continue shopping' checkpoint, while the two Chefman ASINs fetched cleanly in the same window. The recorded conclusion was 'this is a per-ASIN block, not a site-wide one'. Round 11 re-tested it: the Emeril ASIN loaded on the first attempt, and in the same session B0CDY277D3 - which had loaded cleanly the previous day - was served the checkpoint on its first attempt and returned the listing only on a retry. So the block is intermittent per request. The 2026-11-15 evidence could not have distinguished the two readings, because a per-ASIN pattern and an intermittent pattern look identical across three failures, but the distinction matters: a failed fetch is not evidence about the ASIN, and no future pass should record 'blocked' as a property of a listing. Separately, this pass filled the Emeril browse-node cell and then found that session 121929a5 (pass 10) had filled the same cell independently on the same day, by the same route - the detail page and the supplied short link - reaching the identical string. Two independent reads agreeing is worth more than one, so both are recorded on the row and both sources cited (S28, S17). This pass also removed a stale 'unverified' field that the earlier fill had left behind, which still read 'Not read ... left blank' on a row that now carried a value; it did not render, but it would have contradicted the value if the render rule ever changed.",
+     ["S28", "S17", "S16", "S29"]),
+
+    ("F66", "The Emeril brand page now documents 24 presets and 25 presets on the same page, and states a different accessory count from its own Amazon listing title.",
+     "Emeril 26 QT French Door - the preset count and the included-accessories count",
+     "Recorded 2026-11-16 by arena/b23f12f0, round 11, from a source this project had not previously read: the brand storefront\u2019s own machine-readable product record (S35), whose description text carries an updated_at stamp of 2026-11-16. It states 'Equipped with 24 one-touch cooking presets' and 'Included are 7 premium accessories'. Two consequences. On presets: the brand\u2019s specification block still says '25 Cooking Pre-sets', so the brand now contradicts itself within a single page rather than across two documents. The owner\u2019s manual\u2019s chart names 24 and the Amazon listing title says 24, so 24 now has three statements behind it and the site continues to publish 24 - but the conflict is recorded as live and unresolved, because the brand has not withdrawn the 25. On accessories: the site publishes 7 on the strength of the brand page, while the current Amazon listing title for the same ASIN reads 'Six Cooking Accessories Included'. Both figures are quoted, neither was reconciled by inference, and the discrepancy is published rather than averaged. Neither published value changed in this pass.",
+     ["S35", "S14", "S15", "S28"]),
+
+    ("F67", "The flag duplicate-ID guard had gone blind: it matched zero rows and reported success, so it could not catch a same-day collision between two sessions.",
+     "build.py - check_flag_ids_unique(), and the Flagged page it reads",
+     "Found independently by two sessions on 2026-11-16 and repaired by the first of them. This pass (arena/b23f12f0, round 11) found the defect while renumbering its own flags and checking whether the guard would object; session arena/2e346d24 located and repaired it on main first, and additionally added check_flag_count_matches_page() for the related defect where the landing page was advertising zero open flags beside a 61-row register. The defect: check_flag_ids_unique() counted flag rows with a pattern that began with a bare opening table-row tag followed immediately by the number cell, while page_flagged() has emitted a row id attribute since the per-row anchors landed. The pattern therefore matched nothing, and a Counter over an empty list reports no duplicates - so the guard returned success on every run while two sessions published different rows under F61 and F62 on the same day. This repository has been bitten by flag-ID collisions at least three times before (F28, F40 and the preamble case F58), which is why the guard exists. It is recorded here rather than in the repairing session's own words because the finding belongs on the register even though the repair predates this pass landing. Nothing in this row is a claim by this pass to have made the fix.",
+     ["S1"]),
+
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
 # fact about this repository, so the repository itself (on GitHub) is the source.
 REPO_EVIDENCE = {
+    "F63": ["data/questions.json", "data/suggestions.json", "data/decision.json"],
     "F20": ["s2/", "site/", "dashboard/", "research/", "session-3740f69d/", "docs/"],
     "F22": ["EXECUTIVE_SUMMARY.md"],
     "F23": ["scripts/build.mjs"],
@@ -1911,6 +2151,10 @@ REPO_EVIDENCE = {
     "F43": ["suggestions.html", "questions.html"],
     "F44": ["dashboard/", "annex-88769516/", "session-3740f69d/", "research/", "s2/", "site/", "docs/", "sitemap.xml"],
     "F45": ["build.py", "sitemap.xml"],
+    "F64": ["data/questions.json", "data/articles.json", "data/products.json", "build.py"],
+    "F65": ["data/sources.json", "data/products.json"],
+    "F66": ["data/sources.json", "data/products.json"],
+    "F67": ["build.py", "flagged.html"],
 }
 
 VERDICTS = {
@@ -3208,6 +3452,342 @@ back, and the verdict \u2014 is in <code>reports/verification-2026-11-16-9fccce0
               )
 
 
+# --------------------------------------------------------------------------- #
+# figure layer (pass 10, arena/695f03b7-zone1)
+# Four data-driven SVG diagrams generated from data/products.json at build time,
+# so no number in a figure can drift from the dataset. Sources travel with each
+# figure; nothing is inferred. They are diagrams, not photographs, because
+# product-photography rights are undecided (Q-22 / SG-23 / flag F46).
+# --------------------------------------------------------------------------- #
+FIGURES_DIR = ROOT / "assets" / "figures"
+FIG_W, FIG_H = 900, 520
+
+
+def _svg_frame(title, note, src_lines):
+    src_html = "".join(f'<text x="22" y="{y}" class="src">{e(s)}</text>' for y, s in src_lines)
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {FIG_W} {FIG_H}" '
+        f'role="img" aria-labelledby="t"><title id="t">{e(title)}</title>'
+        f'<style>.t{{font:700 17px/1.25 system-ui,sans-serif;fill:#111827;}}'
+        f'.s{{font:600 12.5px/1.4 system-ui,sans-serif;fill:#374151;}}'
+        f'.m{{font:400 12px/1.45 system-ui,sans-serif;fill:#4b5563;}}'
+        f'.b{{font:700 13px/1.3 system-ui,sans-serif;fill:#ffffff;}}'
+        f'.x{{font:600 11.5px/1.3 system-ui,sans-serif;fill:#6b7280;}}'
+        f'.l{{font:600 12px/1.3 system-ui,sans-serif;fill:#111827;}}'
+        f'</style>'
+        f'<rect width="{FIG_W}" height="{FIG_H}" fill="#ffffff"/>'
+        f'<text x="22" y="34" class="t">{e(title)}</text>'
+        f'<text x="22" y="52" class="m">{e(note)}</text>{src_html}'
+    )
+
+
+def _svg_close():
+    return "</svg>"
+
+
+def fig_footprint():
+    cfg = PRODUCTS["figures"]
+    scale = cfg["scale_px_per_inch"]
+    products = cfg["footprint"]
+    y0, band = 150, 118
+    axis_y = y0 + band * len(products) + 26
+    ticks = "".join(
+        f'<line x1="{22 + t * scale}" y1="{axis_y}" x2="{22 + t * scale}" y2="{axis_y + 4}" stroke="#9ca3af" stroke-width="1"/>'
+        f'<text x="{22 + t * scale - 7}" y="{axis_y + 18}" class="x" text-anchor="middle">{t}</text>'
+        for t in range(0, 57, 10)
+    )
+    axis = (
+        f'<line x1="22" y1="{axis_y}" x2="{22 + 56 * scale}" y2="{axis_y}" stroke="#9ca3af" stroke-width="1.5"/>'
+        f'<text x="22" y="{axis_y + 36}" class="x">Inches — true scale, {scale} px per inch</text>'
+        + ticks
+    )
+    panels = ""
+    for i, p in enumerate(products):
+        y = y0 + i * band
+        wpx = p["w"] * scale
+        panels += (
+            f'<rect x="22" y="{y}" width="{wpx}" height="{p["d"] * scale}" fill="#2563eb" rx="4"/>'
+            f'<text x="{22 + wpx / 2}" y="{y + p["d"] * scale / 2 + 5}" class="b" text-anchor="middle">{e(p["label"])}</text>'
+            f'<text x="22" y="{y + p["d"] * scale + 18}" class="m">{e(p["w"])}" W × {e(p["d"])}" D × {e(p["h"])}" H</text>'
+            f'<text x="22" y="{y - 8}" class="l">{e(p["label"])}</text>'
+        )
+    src_lines = [(axis_y + 48, "Sources: " + ", ".join(f'{e(p["label"])} — {e(p["source"])}' for p in products))]
+    return _svg_frame("Footprint at true scale — width × depth × height",
+                      "Rectangles are drawn at true scale (16 px per inch) from the dimensions the manufacturers publish.",
+                      src_lines) + panels + axis + _svg_close()
+
+
+def fig_temperature():
+    cfg = PRODUCTS["figures"]
+    products = cfg["temperature"]
+    lo = min(p["min"] for p in products)
+    hi = max(p["max"] for p in products)
+    x0, x1 = 90, 850
+    span = (hi + 60) - (lo - 20)
+
+    def xof(v):
+        return x0 + (v - (lo - 20)) * (x1 - x0) / span
+
+    axis_y = 330
+    bars = ""
+    y = 150
+    colors = ["#2563eb", "#16a34a", "#b45309"]
+    for i, p in enumerate(products):
+        bars += (
+            f'<rect x="{xof(p["min"])}" y="{y}" width="{xof(p["max"]) - xof(p["min"])}" height="34" '
+            f'fill="{colors[i]}" opacity=".9" rx="3"/>'
+            f'<text x="{xof(p["min"]) - 10}" y="{y + 22}" class="x" text-anchor="end">{p["min"]}</text>'
+            f'<text x="{xof(p["max"]) + 10}" y="{y + 22}" class="b">{p["max"]}</text>'
+            f'<text x="{x0}" y="{y - 12}" class="l">{e(p["label"])}</text>'
+            f'<text x="{x0}" y="{y + 56}" class="m">{e(p.get("note", ""))}</text>'
+            f'<text x="{x0}" y="{y + 74}" class="src">Source {e(p["source"])}' + (f' · conflict: {e(p["conflict_source"])}' if p.get("conflict_source") else "") + "</text>"
+        )
+        y += 98
+    ticks = "".join(
+        f'<text x="{xof(v)}" y="{axis_y + 18}" class="x" text-anchor="middle">{v}</text>'
+        for v in range(100, 551, 100)
+    )
+    axis = f'<line x1="{x0}" y1="{axis_y}" x2="{x1}" y2="{axis_y}" stroke="#9ca3af" stroke-width="1.5"/>{ticks}'
+    src_lines = [(axis_y + 46, "Sources: " + ", ".join(f'{e(p["label"])} — {e(p["source"])}' for p in products))]
+    return (_svg_frame("Documented temperature ranges",
+                       "Each bar runs from the documented minimum to the documented maximum. The Chefman 8 Qt bar ends at 400 °F because the brand page and manual document 200–400 °F; the 450 °F the Amazon listing title advertises is a live conflict (F3) and is not asserted here.",
+                       src_lines) + bars + axis + _svg_close())
+
+
+def fig_presets():
+    cfg = PRODUCTS["figures"]
+    rows_src = cfg["presets"]
+    maxc = max(p["count"] for p in rows_src if p["count"] is not None)
+    x0, x1 = 90, 760
+
+    def xof(c):
+        return x0 + c * (x1 - x0) / maxc
+
+    rows = ""
+    y = 150
+    for p in rows_src:
+        if p["count"] is not None:
+            fill = "#dc2626" if p.get("conflict") else "#2563eb"
+            rows += (
+                f'<rect x="{x0}" y="{y}" width="{xof(p["count"]) - x0}" height="30" '
+                f'fill="{fill}" opacity=".9" rx="3"/>'
+                f'<text x="{xof(p["count"]) + 8}" y="{y + 21}" class="b">{p["count"]}</text>'
+            )
+        else:
+            rows += f'<text x="{x0 + 10}" y="{y + 21}" class="m">— not documented</text>'
+        rows += (
+            f'<text x="22" y="{y - 8}" class="l">{e(p["document"])}</text>'
+            f'<text x="{x1 + 10}" y="{y + 22}" class="m">{e(p["note"])}</text>'
+            f'<text x="22" y="{y + 44}" class="src">Source {e(p["source"])}' + (f' · conflicts with {e(p.get("conflict_source", ""))}' if p.get("conflict_source") else "") + "</text>"
+        )
+        y += 92
+    src_lines = [(y + 10, "Reading: bar length = preset count stated by that document. Red = one official document disagrees with another for the same product; no count is asserted until the conflict is settled.")]
+    return (_svg_frame("Preset-count conflict — what each official document states",
+                       "The site states 24 presets for the Emeril 26 QT on the strength of the owner's manual (S15); the brand page's own specification block says 25 (S14), so the conflict stays open (F29). The Chefman 8 Qt documents four presets in both page and manual (S12, S13). For the Chefman 6 Qt dual-basket no official source publishes a preset count, so the row is blank (F36).",
+                       src_lines) + rows + _svg_close())
+
+
+def fig_decision_tree():
+    nodes = [
+        ("q1", "Cooking two different foods at once, on separate settings?", "start"),
+        ("q2", "Replacing a toaster oven too — toast, bake, rotisserie?", "q1"),
+        ("q3", "Cooking for 4–6 people from one basket?", "q2"),
+        ("a1", "Chefman 6 Qt Dual Basket — Sync Finish, two 3-qt baskets", "q1"),
+        ("a2", "Emeril 26 QT French Door — rotisserie, 75–500 °F, 24 presets", "q2"),
+        ("a3", "Chefman 8 Qt TurboFry — one 8-qt basket, 200–400 °F", "q3"),
+        ("a4", "Reconsider capacity before choosing a model", "q3"),
+    ]
+    xq, xa = 250, 660
+    yq, ya = 170, 170
+    step = 90
+    drawn = {}
+    drawn["q1"] = (xq, yq)
+    drawn["q2"] = (xq, yq + step)
+    drawn["q3"] = (xq, yq + 2 * step)
+    drawn["a1"] = (xa, yq)
+    drawn["a2"] = (xa, yq + step)
+    drawn["a3"] = (xa, yq + 2 * step)
+    drawn["a4"] = (xa, yq + 2 * step)
+    edges = [
+        ("q1", "a1", "yes"), ("q1", "q2", "no"),
+        ("q2", "a2", "yes"), ("q2", "q3", "no"),
+        ("q3", "a3", "yes"), ("q3", "a4", "no"),
+    ]
+    lines = ""
+    for a, b, tag in edges:
+        x1_, y1_ = drawn[a]; x2_, y2_ = drawn[b]
+        lines += f'<line x1="{x1_ + 145 if a.startswith("q") else x1_}" y1="{y1_ + 26}" x2="{x2_ - 150 if b.startswith("a") else x2_}" y2="{y2_ + 26}" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6,4"/>'
+        mx = (x1_ + x2_) / 2
+        lines += f'<text x="{mx}" y="{y2_ + 14}" class="m" text-anchor="middle">{tag}</text>'
+    boxes = ""
+    for nid, label, _ in nodes:
+        cx, cy = drawn[nid]
+        w = 320
+        fill = "#2563eb" if nid.startswith("q") else ("#16a34a" if nid.startswith("a") and nid != "a4" else "#9ca3af")
+        parts = label.split("\n")
+        boxes += (
+            f'<rect x="{cx - w / 2}" y="{cy}" width="{w}" height="56" fill="{fill}" rx="8"/>'
+            f'<text x="{cx}" y="{cy + 19}" class="b" text-anchor="middle">{e(parts[0])}</text>'
+        )
+        if len(parts) > 1:
+            boxes += f'<text x="{cx}" y="{cy + 37}" class="b" text-anchor="middle">{e(parts[1])}</text>'
+    return (_svg_frame("Format decision tree — choose by job, not by brand",
+                       "Generated from data/products.json. Each answer names the product whose documented capability fits; the tree is decision support, not a recommendation.",
+                       [(yq + 2 * step + 90, "Sources: Chefman 6 Qt — S10 · Emeril 26 QT — S15/S14 · Chefman 8 Qt — S12/S13")]) + lines + boxes + _svg_close())
+
+
+def build_figures():
+    FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+    for name, fn in (("footprint", fig_footprint), ("temperature", fig_temperature),
+                     ("presets", fig_presets), ("decision-tree", fig_decision_tree)):
+        (FIGURES_DIR / f"{name}.svg").write_text(fn(), encoding="utf-8")
+
+
+def page_pass10():
+    """Pass-10 ledger: every registered source re-read live on 2026-11-16, one row per
+    source, each row carrying its official source link and the observed verdict.
+
+    Additive only: no published value changes here; irregularities are flagged, never
+    inferred. Renders at pass10.html and is linked from the Evidence nav group.
+    """
+    p10 = PASS10_FULL
+    if not p10:
+        return ""
+    tally = p10["tally"]
+
+    def verdict_html(v):
+        cls, label = REV_VERDICT[v]
+        return f'<span class="pill {cls}">{e(label)}</span>'
+
+    def row(r):
+        return (
+            f'<tr><td class="num">{e(r["id"])}</td>'
+            f'<td class="small"><strong>{e(r["source"])}</strong><br><span class="tiny muted">{e(r["source_label"])}</span></td>'
+            f'<td class="small">{e(r["claim"])}</td>'
+            f'<td class="small">{e(r["published_value"])}</td>'
+            f'<td class="small">{e(r["observed_2026_11_16"])}</td>'
+            f'<td class="small">{verdict_html(r["verdict"])}</td>'
+            f'<td class="small"><a href="{e(r["source_url"])}" target="_blank" rel="noopener">'
+            f'{e(r["source"])} — official page</a></td></tr>'
+        )
+
+    rows = "".join(row(r) for r in p10["rows"])
+    conf = tally["confirmed"]
+    part = tally["partially-confirmed"]
+    confl = tally["conflict-live"]
+    nrc = tally["not-rechecked"]
+
+    stats = [
+        ("ok", conf, "Confirmed against the live official source"),
+        ("brand", part, "Partly confirmed (document read in part)"),
+        ("warn", nrc, "Not re-checked in this pass — earlier record stands"),
+        ("bad", confl, "Official sources still disagree — nothing asserted"),
+    ]
+    stat_html = "".join(
+        f'<div class="stat {cls}"><div class="n">{n}</div><div class="l">{e(lbl)}</div></div>'
+        for cls, n, lbl in stats
+    )
+
+    irr = "".join(
+        f'<div class="callout info" style="margin:.6rem 0">'
+        f'<strong class="small">Flag {e(x["id"])}</strong> {e(x["summary"])}'
+        f'<p class="tiny muted">Sources: {e(", ".join(x["sources"]))}</p>'
+        f'</div>'
+        for x in p10["irregularities"]
+    )
+
+    carried = "".join(f"<li>{e(c)}</li>" for c in p10["carried_forward"])
+
+    body = f"""
+<p class="crumbs"><a href="../index.html">Home</a> / Verification pass 10</p>
+<h1>Pass {e(p10['pass'])} verification ledger · {e(p10['pass_date'])}</h1>
+<p class="lede">{e(p10['scope'])}</p>
+
+<div class="callout info">
+  <strong>Method</strong>
+  <p class="small">{e(p10['method'])}</p>
+</div>
+
+<div class="grid grid-4" style="margin:1rem 0 1.25rem">{stat_html}</div>
+
+<p class="small"><strong>{conf} confirmed</strong> · <strong>{part} partly confirmed</strong> ·
+<strong>{confl} conflict live</strong> · <strong>{nrc} not re-checked</strong> — no published
+value changed and no new product-value correction is justified. Every irregularity below is
+already flagged; none is inferred.</p>
+
+<div class="tablewrap">
+<table>
+  <caption>All {len(p10['rows'])} registered sources, re-read on {e(p10['pass_date'])}</caption>
+  <thead><tr><th style="width:8%">Pass-10 ID</th><th style="width:16%">Official source</th>
+  <th style="width:22%">Claim checked against the source</th>
+  <th style="width:20%">Value this site publishes from it</th>
+  <th style="width:20%">What the source said on {e(p10['pass_date'])}</th>
+  <th style="width:7%">Verdict</th><th style="width:7%">Source link</th></tr></thead>
+  <tbody>{rows}</tbody>
+</table>
+</div>
+
+<h2>Irregularities carried in the flag register</h2>
+{irr}
+
+<h2>Round 10 (previously reported)</h2>
+<ul class="tight small">{carried}</ul>
+<p class="tiny muted">The three supplied short links, S2 and the live homepage were re-read by round 10
+(session c334fb1c); see
+<a href="../reports/verification-2026-11-16.md">reports/verification-2026-11-16.md</a>.
+That record is not duplicated in this ledger.</p>
+
+<p class="tiny muted">{e(p10['conclusion'])}</p>
+<p class="tiny muted">Raw observations: <code>data/pass10.json</code> — one row per registered source,
+each row linking to its official source.</p>
+"""
+    return layout("pass10.html", f"Verification pass 10 · {p10['pass_date']}", body,
+                  active="pass10.html",
+                  description=f"Pass {p10['pass']} ledger: every official source (S1-S34) re-read on {p10['pass_date']} against the value this site publishes from it, with verdicts and source links.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Verification pass 10", page_url("pass10.html")),
+    ])])
+
+
+def page_figures():
+    captions = {
+        "footprint": ("How much counter each model needs", "True-scale footprint drawn from the manufacturer-published dimensions."),
+        "temperature": ("Documented cooking temperature ranges", "Min–max from each official source; conflicts are shown, not hidden."),
+        "presets": ("Preset-count conflict, document by document", "Why the site states 24 for the Emeril and four for the Chefman 8 Qt — and why the Chefman 6 Qt row stays blank."),
+        "decision-tree": ("Choose by the job, not by the brand", "Decision support generated from the published dataset; not a recommendation."),
+    }
+    panels = ""
+    for name in ("footprint", "temperature", "presets", "decision-tree"):
+        svg = (FIGURES_DIR / f"{name}.svg").read_text(encoding="utf-8")
+        cap, lede = captions[name]
+        panels += (
+            f'<div class="figure">'
+            f'<h4 class="fighead">{e(cap)}</h4>'
+            f'{svg}'
+            f'<p class="figcap">{e(lede)}</p>'
+            f'</div>'
+        )
+    body = f"""
+<p class="crumbs"><a href="../index.html">Home</a> / Figures</p>
+<h1>Figures and diagrams</h1>
+<p class="lede">Four diagrams, all generated at build time from data/products.json. None of them contains a number
+that this dataset does not hold, and each one carries the official sources of its own figures. They are diagrams,
+not photographs: product-photography rights are undecided (Q-22, SG-23, flag F46), so the site stays
+text-and-diagrams-only until a decision is recorded.</p>
+{panels}
+<p class="tiny muted">Regenerate: <code>python3 build.py</code>. Sources are cited per figure and the raw data is in
+<code>data/products.json</code> → <code>figures</code>.</p>
+"""
+    return layout("figures.html", "Figures and diagrams", body,
+                  active="figures.html",
+                  description="Data-driven diagrams generated from the published dataset: footprint at true scale, temperature ranges, preset-count conflict, format decision tree.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Figures", page_url("figures.html")),
+    ])])
+
+
 PARALLEL_BUILDS = [
     ("research/index.html", "research/", "Deep-dive research",
      "Independent 25-source pass: a 90-field product table, a 23-row compliance matrix with verbatim quotations, a 17-item flag register (I-1 to I-17), a content plan and a 10-step automation pipeline.",
@@ -3596,10 +4176,10 @@ def page_suggestions():
         paths_html = f"""
 <h2>Choose a path before you choose a suggestion</h2>
 <p class="lede">{e(s.get('paths_intro',''))}</p>
-<table>
+<div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Path</th><th>Suggestions it contains</th><th>Effort</th><th>Evidence behind its rows</th></tr></thead>
   <tbody>{''.join(path_rows)}</tbody>
-</table>
+</table></div>
 <p class="tiny muted">{e(s.get('paths_note',''))}</p>
 {''.join(path_articles)}
 """
@@ -3646,10 +4226,10 @@ a short story rather than an open-ended project.</p>
 {paths_html}
 <h2>At a glance</h2>
 <p class="small muted">Read the table, then take one row and read the full entry for it. The <em>Your call</em> column lists the paths that are on the table for that suggestion &mdash; write the letter you choose next to it, with the date. Nothing on this page has been implemented, and implementing anything starts by choosing a path here.</p>
-<table>
+<div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Suggestion</th><th>Area</th><th>Priority</th><th>Effort · cost of waiting</th><th>Your call</th><th>Evidence</th></tr></thead>
   <tbody>{''.join(rows)}</tbody>
-</table>
+</table></div>
 <p class="tiny muted">Priority is impact x confidence, both scored by this pass out of 5. It is judgement. The evidence column is the fact.</p>
 
 <h2>The queue</h2>
@@ -3771,10 +4351,10 @@ settled without you links to the row that blocks it.</p>
 <p class="small">{counts['known']} known and sourced · {counts['missing']} missing but discoverable ·
 {counts['not_stated']} not stated by the official source · {counts['unknowable']} requiring account access ·
 {len(q['questions'])} total.</p>
-<table>
+<div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Question</th><th>Group</th><th>State</th><th>Source</th></tr></thead>
   <tbody>{''.join(rows)}</tbody>
-</table>
+</table></div>
 
 <h2>The questions in full</h2>
 {''.join(sections)}
@@ -4114,10 +4694,29 @@ def page_topics():
             f'<td class="small">{cites}</td></tr>'
         )
 
-    # Detail cards only for what is not written yet; published topics are one click away.
+    # Detail cards. The plan table links every row to #tp-NN, so every row must have a
+    # target: before this pass the block below was skipped for published topics, which
+    # left 8 of 14 in-page links on this page pointing at nothing. Published topics get
+    # a short card that links the article; unwritten ones get the full brief.
     cards = []
     for it in items:
         if it["status"] == "published":
+            cites = " ".join(
+                f'<a class="src-link" href="{e(c["url"])}" target="_blank" rel="noopener">{e(c["label"])} ↗</a>'
+                for c in it["must_cite"]
+            )
+            cards.append(f"""
+<article class="sug" id="{e(it['id'].lower())}">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">{e(it['id'])} · {e(it['intent'])} · published</div>
+      <h3><a href="../{e(it['published_as'])}">{e(it['title'])}</a></h3>
+    </div>
+  </div>
+  <p><strong>The angle.</strong> {e(it['angle'])}</p>
+  <p class="small"><a href="../{e(it['published_as'])}">Read the article →</a></p>
+  <div class="evidence"><strong>Must cite.</strong> {cites}</div>
+</article>""")
             continue
         cites = " ".join(
             f'<a class="src-link" href="{e(c["url"])}" target="_blank" rel="noopener">{e(c["label"])} ↗</a>'
@@ -4139,8 +4738,7 @@ def page_topics():
   </div>
   <p><strong>The angle.</strong> {e(it['angle'])}</p>
   <p class="small"><strong>Why it could earn traffic.</strong> {e(it['why_it_could_earn_traffic'])}</p>
-  {caveat}
-  <div class="evidence"><strong>Must cite.</strong> {cites}</div>
+{('  ' + caveat) if caveat else ''}  <div class="evidence"><strong>Must cite.</strong> {cites}</div>
   <p class="small"><strong>Blocked by:</strong> {blocked_html}</p>
 </article>""")
 
@@ -4165,8 +4763,8 @@ def page_topics():
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Content and traffic plan</p>
 <h1>What to write next, and how it is allowed to be promoted</h1>
-<p class="lede">Fourteen topics for this product set — {n_pub} already published and {n_new} not yet
-written — and five distribution channels, two of which Amazon's policies close off entirely. The
+<p class="lede">{n_pub + n_new} topics for this product set — {n_pub} already published and {n_new} not yet
+written — and {len(TOPICS.get('channels', []))} distribution channels, two of which Amazon's policies close off entirely. The
 topics are chosen for one reason: each one is answerable from an official manufacturer page or an
 owner's manual, so none of them requires a claim this site cannot support.</p>
 
@@ -4176,20 +4774,23 @@ owner's manual, so none of them requires a claim this site cannot support.</p>
 </div>
 
 <h2>The plan</h2>
-<table>
+<div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Topic</th><th>Intent</th><th>Serves</th><th>State</th><th>Must cite</th></tr></thead>
   <tbody>{''.join(rows)}</tbody>
-</table>
+</table></div>
 <p class="tiny muted">{e(t['demand_note'])}</p>
 
-<h2>Not written yet</h2>
-<p class="small">{''.join(cards) if cards else '<span class="muted">Nothing is outstanding.</span>'}</p>
+<h2>The brief behind each topic</h2>
+<p class="small muted">Every row in the plan table links here. Published topics link straight to the
+article; unwritten ones carry the angle, the reason it could earn traffic, the sources any finished
+version must cite, and what blocks it.</p>
+<p class="small">{''.join(cards) if cards else '<span class="muted">No topics are on the plan yet.</span>'}</p>
 
 <h2>How any of it may be promoted</h2>
-<table>
+<div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Channel</th><th>Status</th><th>Verdict</th><th>The constraint</th><th>Source</th></tr></thead>
   <tbody>{''.join(ch_rows)}</tbody>
-</table>
+</table></div>
 <p class="tiny muted">{e(t['channels_note'])}</p>
 
 <div class="callout note" style="margin-top:1.5rem">
@@ -4330,9 +4931,9 @@ def page_requirements():
         sections.append(
             f'<h2 id="group-{gid.lower()}">{gid}. {e(gname)}</h2>'
             f'<p class="tiny muted">{len(rows)} requirements · {e(summary)}</p>'
-            '<table><thead><tr><th>#</th><th>Requirement</th><th>Status</th>'
+            '<div class="tablewrap"><table><thead><tr><th>#</th><th>Requirement</th><th>Status</th>'
             '<th>What that status means here</th><th>Where it lives</th><th>Evidence</th>'
-            f'</tr></thead><tbody>{"".join(row(r) for r in rows)}</tbody></table>'
+            f'</tr></thead><tbody>{"".join(row(r) for r in rows)}</tbody></table></div>'
         )
 
     legend_html = "".join(
@@ -4745,13 +5346,15 @@ def page_articles_index():
             if links:
                 prods = ('<p class="tiny muted" style="margin:.4rem 0 0">About: '
                          + " · ".join(links) + "</p>")
+        # An article that serves no single product (site-level pieces) leaves prods
+        # empty; emitting the slot anyway would publish a trailing-whitespace line.
+        prods_html = (prods + "\n") if prods else ""
         cards.append(f"""<article class="card article-card">
   <span class="kicker">{e(a['kicker'])}</span>
   <a class="cardtitle" href="../articles/{a['slug']}.html">{e(a['title'])}</a>
   <span class="cardtext">{e(a['standfirst'])}</span>
   <span class="tiny muted">{e(a['kind'])} · {a['reading_minutes']} min read</span>
-  {prods}
-</article>""")
+{prods_html}</article>""")
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Articles</p>
 <h1>Articles</h1>
@@ -5316,11 +5919,93 @@ def check_flag_ids_unique():
     """
     from collections import Counter
     page = page_flagged()
-    ids = re.findall(r'<tr><td class="num"><strong>(F\d+)</strong>', page)
+    # The row markup carries an id attribute since pass 10 (<tr id="fNN">); matching on
+    # `<tr><td class="num">` made this guard find zero rows and pass vacuously. Located
+    # by the fixed flag-count guard below, 2026-11-16 (arena/2e346d24).
+    ids = re.findall(r'<tr id="f\d+"><td class="num"><strong>(F\d+)</strong>', page)
     dupes = sorted(k for k, v in Counter(ids).items() if v > 1)
     if dupes:
         return [f"flag id(s) rendered more than once on flagged.html: {', '.join(dupes)}"]
     return []
+
+
+def check_flag_count_matches_page():
+    """Build guard: the landing page's "Flags open" tile must equal the register it links to.
+
+    The defect this prevents was live on main at 9c6deab: `_flag_count()` matched
+    `<tr><td class="num">` while `page_flagged()` had emitted `<tr id="fNN">` since the
+    per-row anchors landed, so the front page advertised "0 Flags open" beside a 61-row
+    register. A typed total is what passes 9 and 10 both caught themselves getting wrong;
+    a computed total is only better if something checks the computation. This does.
+    """
+    rendered = len(re.findall(r'<tr id="f\d+"><td class="num"><strong>F\d+</strong>',
+                              page_flagged()))
+    computed = _flag_count()
+    if rendered == 0:
+        return ["flagged.html renders no flag rows, so the landing-page count cannot be trusted"]
+    if rendered != computed:
+        return [f"landing-page flag count ({computed}) disagrees with the rendered "
+                f"register ({rendered} rows)"]
+    # The tile on index.html must publish that same number, not a literal of its own.
+    idx = page_index()
+    m = re.search(r'<div class="tile"><b>(\d+)</b><span>Flags open', idx)
+    if not m:
+        return ["index.html no longer renders the Flags open tile"]
+    if int(m.group(1)) != rendered:
+        return [f"index.html publishes {m.group(1)} flags, register holds {rendered}"]
+    return []
+
+
+def check_callout_states_and_table_wraps(pages):
+    """Build guard: every CSS state a page uses must be defined, and wide tables must scroll.
+
+    Two visual defects were live on main at 9c6deab and neither had a gate:
+    `.callout.note` (13 uses) and `.callout.warn` (33 uses) had no rule in the stylesheet, so
+    46 callouts rendered with no colour distinction between "for information" and "this could
+    be wrong"; and four register pages emitted `<table>` outside `.tablewrap`, so those
+    tables forced the whole page to scroll sideways at phone width. Both are cheap to check
+    and expensive to notice by eye on a page nobody proof-reads twice.
+    """
+    problems = []
+    defined = set(re.findall(r'\.callout\.([a-z]+)', CSS))
+    for rel, text in pages.items():
+        if not rel.endswith(".html"):
+            continue
+        used = set(re.findall(r'class="callout ([a-z]+)"', text))
+        for state in sorted(used - defined):
+            problems.append(f"{rel}: .callout.{state} is used but has no CSS rule")
+        for m in re.finditer(r"<table[ >]", text):
+            before = text[max(0, m.start() - 220):m.start()]
+            if "tablewrap" not in before:
+                problems.append(f"{rel}: a <table> is not inside .tablewrap and will "
+                                f"overflow the viewport on a narrow screen")
+                break
+    return problems
+
+
+def check_internal_fragments(pages):
+    """Build guard: every href="#id" must resolve to an element on the page it names.
+
+    `verify.py` checks that a link's *file* exists; it has never checked the fragment.
+    A plan table that links each row to a detail block the template no longer emits is
+    therefore invisible to every existing gate - which is exactly what topics.html was
+    doing for 8 of its 14 rows when this guard was written (2026-11-16, arena/2e346d24).
+    """
+    ids = {rel: set(re.findall(r'\sid="([^"]+)"', text)) for rel, text in pages.items()}
+    problems = []
+    for rel, text in pages.items():
+        if not rel.endswith(".html"):
+            continue
+        for target, frag in re.findall(r'href="([^"#]*)#([^"]+)"', text):
+            if frag in ("", "top"):
+                continue
+            dest = rel if target == "" else posixpath.normpath(
+                posixpath.join(posixpath.dirname(rel), target))
+            if dest not in ids:
+                continue  # an external or generated-at-another-step target; verify.py owns it
+            if frag not in ids[dest]:
+                problems.append(f"{rel}: href=\"{target}#{frag}\" has no target in {dest}")
+    return problems
 
 
 def _canonical_flag_ids():
@@ -5422,6 +6107,63 @@ def check_register_preambles():
             if n > 1:
                 problems.append(
                     f"{name}: the sentence {sentence[:70]!r} appears {n} times in the preamble")
+    return problems
+
+
+def check_register_duplicates():
+    """Build guard: a register must not carry the same content twice.
+
+    Three separate places shipped duplicated prose to the published site and no gate
+    caught them (flag F64): a questions register whose 'what we know' list repeated
+    three entries seven times each, so one sentence rendered 14 times on
+    questions.html; an articles note that repeated its opening paragraph; and a
+    specification row that cited the same source three times in a row. None was a
+    wrong fact - each was the same fact printed repeatedly, which is exactly the
+    pattern that makes a page read as machine-generated.
+
+    check_register_preambles() covers preamble text only. This guard covers every
+    other register field, in both forms the defect took: a repeated entry in a list,
+    and a repeated sentence inside one string.
+    """
+    import collections as _c
+    problems = []
+
+    def sentences(text):
+        return [s.strip() for s in re.split(r"(?<=\.)\s+", text) if len(s.strip()) > 40]
+
+    def walk(node, path, label):
+        if isinstance(node, dict):
+            for key, value in node.items():
+                walk(value, f"{path}/{key}", label)
+        elif isinstance(node, list):
+            counts = _c.Counter(x for x in node if isinstance(x, str) and x.strip())
+            for text, n in counts.items():
+                if n > 1:
+                    problems.append(
+                        f"{label} {path}: the list entry {text[:70]!r} appears {n} times")
+            for index, value in enumerate(node):
+                walk(value, f"{path}[{index}]", label)
+        elif isinstance(node, str):
+            for text, n in _c.Counter(sentences(node)).items():
+                if n > 1:
+                    problems.append(
+                        f"{label} {path}: the sentence {text[:70]!r} appears {n} times")
+
+    registers = [
+        ("questions.json", QUESTIONS),
+        ("suggestions.json", SUGGESTIONS),
+        ("articles.json", ARTICLES),
+        ("products.json", PRODUCTS),
+    ]
+    if "DECISION" in globals():
+        registers.append(("decision.json", DECISION))
+    if "TOPICS" in globals():
+        registers.append(("topics.json", TOPICS))
+    if "DESIGN_PROMPT" in globals():
+        registers.append(("design-prompt.json", DESIGN_PROMPT))
+    for label, data in registers:
+        if data:
+            walk(data, "", label)
     return problems
 
 
@@ -5682,6 +6424,7 @@ def main():
     assets.mkdir(exist_ok=True)
     (assets / "style.css").write_text(CSS, encoding="utf-8")
     (assets / "app.js").write_text(JS, encoding="utf-8")
+    build_figures()
 
     for d in ("products", "categories", "guides", "articles"):
         (ROOT / d).mkdir(exist_ok=True)
@@ -5702,6 +6445,8 @@ def main():
     pages["platform.html"] = page_platform()
     pages["executive-summary.html"] = page_exec()
     pages["reverification.html"] = page_reverification()
+    pages["pass10.html"] = page_pass10()
+    pages["figures.html"] = page_figures()
     pages["picks.html"] = page_picks()
     pages["decisions.html"] = page_decisions()
     pages["handover.html"] = page_handover()
@@ -5748,12 +6493,28 @@ def main():
     flag_id_problems = check_flag_ids_unique()
     if flag_id_problems:
         raise SystemExit("BUILD FAILED — flag register integrity:\n  " + "\n  ".join(flag_id_problems))
+    flag_count_problems = check_flag_count_matches_page()
+    if flag_count_problems:
+        raise SystemExit("BUILD FAILED — landing-page total disagrees with the published "
+                         "register:\n  " + "\n  ".join(flag_count_problems))
+    visual_problems = check_callout_states_and_table_wraps(pages)
+    if visual_problems:
+        raise SystemExit("BUILD FAILED — rendered page would not display as designed:\n  "
+                         + "\n  ".join(visual_problems))
+    fragment_problems = check_internal_fragments(pages)
+    if fragment_problems:
+        raise SystemExit("BUILD FAILED — an in-page link points at an element that is not "
+                         "rendered:\n  " + "\n  ".join(fragment_problems))
     ref_problems = check_question_block_refs()
     if ref_problems:
         raise SystemExit("BUILD FAILED — decision-layer cross-reference:\n  " + "\n  ".join(ref_problems))
     preamble_problems = check_register_preambles()
     if preamble_problems:
         raise SystemExit("BUILD FAILED — register preamble repeats itself:\n  " + "\n  ".join(preamble_problems))
+    duplicate_problems = check_register_duplicates()
+    if duplicate_problems:
+        raise SystemExit("BUILD FAILED — register carries duplicated content (flag F64):\n  "
+                         + "\n  ".join(duplicate_problems))
     price_problems = check_no_price_tracking(pages)
     if price_problems:
         raise SystemExit("BUILD FAILED — Prohibited feature (Program Policies 6(y)):\n  "

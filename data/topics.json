@@ -125,8 +125,10 @@
      "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
     }
    ],
-   "status": "proposed",
-   "blocked_by": []
+   "status": "published",
+   "blocked_by": [],
+   "published_as": "articles/small-kitchen-air-fryer-dimensions.html",
+   "status_note": "Status corrected 2026-11-16 (pass 10, session 121929a5): already published as the counter-space guide; the register still said 'proposed'. No content change."
   },
   {
    "id": "TP-05",
@@ -197,10 +199,12 @@
      "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"
     }
    ],
-   "status": "proposed",
+   "status": "published",
    "blocked_by": [
     "Q-01"
-   ]
+   ],
+   "published_as": "articles/whats-in-the-box.html",
+   "status_note": "Written 2026-11-16 (pass 10, session 121929a5) from values already in data/products.json; every quote re-read live the same day."
   },
   {
    "id": "TP-08",
@@ -222,8 +226,10 @@
      "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
     }
    ],
-   "status": "proposed",
-   "blocked_by": []
+   "status": "published",
+   "blocked_by": [],
+   "published_as": "articles/rotisserie-at-home.html",
+   "status_note": "Written 2026-11-16 (pass 10, session 121929a5)."
   },
   {
    "id": "TP-09",
@@ -379,58 +385,99 @@
   },
   {
    "id": "TP-15",
-   "title": "The Black Friday model-number switch: the deal that quietly changes the product",
-   "hook": "Deal season is the season of near-identical model numbers - and this repo has already caught one.",
+   "title": "Air fryer gift guide 2026: match the format to the person",
+   "hook": "The season's highest-intent air-fryer query, answered with documents instead of hands.",
    "intent": "Commercial investigation",
    "serves": [
-    "chefman-8qt-turbofry",
     "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
     "emeril-26qt-french-door"
    ],
-   "angle": "The supplied Amazon listing for the 8-quart borrows features from one Chefman model and its finish from another. That documented conflict becomes the seasonal story, plus a three-minute pre-purchase check.",
-   "why_it_could_earn_traffic": "Judgement: 'black friday air fryer deals' is a high-intent seasonal query, and a source-led deal-safety angle is differentiated from the price-roundup pages that dominate it. Demand is argued, not measured (see demand_note).",
+   "angle": "Gift-guide season is the one window where 'which format?' outranks 'which model?' as the buyer's question. The three documented formats — two 3-quart baskets, one 8-quart basket, a 26 qt French-door oven — map to three kinds of kitchens, and every number the guide needs already sits in data/products.json with per-row sources. The guide names what it cannot answer (price, performance, exact SKU) instead of padding.",
+   "why_it_could_earn_traffic": "Judgement: 'air fryer gift guide' is a predictable November–December query with clear buying intent. A format-first guide that admits its limits is differentiated against roundup pages that rank units nobody on the page has opened.",
    "must_cite": [
     {
-     "label": "Amazon listing for the 8-quart (title mixes two models)",
-     "url": "https://www.amazon.com/dp/B08DKYBTPH"
+     "label": "Chefman 6 Qt product page",
+     "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
     },
     {
-     "label": "Chefman RJ38-8T-BLACK product page",
-     "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-8-qt-air-fryer-w-high-fry"
+     "label": "Chefman 8 Qt product page",
+     "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+    },
+    {
+     "label": "Emeril product page",
+     "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+    },
+    {
+     "label": "Emeril owner's manual (FAFO-001)",
+     "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282"
     }
    ],
    "status": "published",
-   "published_as": "articles/black-friday-model-number-switch.html",
-   "blocked_by": []
+   "blocked_by": [],
+   "published_as": "articles/air-fryer-gift-guide-2026.html"
   },
   {
    "id": "TP-16",
-   "title": "The honest 2026 air-fryer gift guide: match the format to the person",
-   "hook": "The gift question is a counter-space question. Answer it with tape measures, not adjectives.",
-   "intent": "Commercial investigation",
+   "title": "Holiday hosting math: capacity, presets and counter space before the guests arrive",
+   "hook": "Hosting week is when capacity stops being a number and becomes a question.",
+   "intent": "Transactional",
    "serves": [
     "chefman-6qt-dual-basket",
     "chefman-8qt-turbofry",
     "emeril-26qt-french-door"
    ],
-   "angle": "Three documented formats matched to three kinds of kitchens, with warranty, cord and accessory-count fine print taken from the manuals - including the 'keep the receipt' rule the Emeril manual actually states.",
-   "why_it_could_earn_traffic": "Judgement: the gift-guide format is the classic affiliate genre for Q4, and 'air fryer gift ideas' searches arrive pre-purchase. A guide that leads with fit and fine print earns links from the care and deal pieces.",
+   "angle": "Three sourced capacity figures (6 Qt split into two 3-quart baskets; 8 qt sized by the brand for 4–6 people; 26 qt / 24.6 L with a documented rotisserie) plus three sourced footprints decide the hosting question before any feature does. The counter-space angle from TP-04, applied to the week people actually run out of room.",
+   "why_it_could_earn_traffic": "Judgement: hosting-related searches peak through late November and December, and this site already holds every value the article needs with per-row sources — the cheapest seasonal article left in the queue.",
    "must_cite": [
     {
-     "label": "Emeril FAFO-001 owner's manual (guarantee, proof of purchase)",
-     "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"
+     "label": "Chefman 6 Qt product page",
+     "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
     },
     {
-     "label": "Chefman 8 Qt TurboFry Touch product page (warranty, household size)",
+     "label": "Chefman 8 Qt product page",
      "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+    },
+    {
+     "label": "Emeril product page",
+     "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
     }
    ],
-   "status": "published",
-   "published_as": "articles/air-fryer-gift-guide-2026.html",
+   "status": "proposed",
    "blocked_by": []
   },
   {
    "id": "TP-17",
+   "title": "Black Friday air fryer deals: what a site that publishes no prices can still tell you",
+   "hook": "Deals expire at midnight. The difference between two near-identical models does not.",
+   "intent": "Commercial investigation",
+   "serves": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "angle": "During deal season buyers compare discount banners, then discover the unit they bought tops out at 400 °F when the listing said 450 °F. This site cannot show a single price (Program Policies 2(b)), and that constraint is the article: three checks — model number, temperature ceiling, basket layout — that survive the sale, each backed by the official pages already in the register. Realized 2026-11-16 by session arena/19d92a81 as the model-number-switch investigation - deal safety built on this repository's own documented listing conflicts.",
+   "why_it_could_earn_traffic": "Judgement: 'air fryer deal' queries spike in a short predictable window, the policy-honest angle is unusual enough to earn links, and every check in the article re-links an existing explainer.",
+   "must_cite": [
+    {
+     "label": "Associates Program Policies — price display rule 2(b)",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+     "label": "Chefman 6 Qt product page",
+     "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+    },
+    {
+     "label": "Chefman 8 Qt product page",
+     "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+    }
+   ],
+   "status": "published",
+   "blocked_by": [],
+   "published_as": "articles/black-friday-model-number-switch.html"
+  },
+  {
+   "id": "TP-18",
    "title": "How to clean an air fryer, according to the people who made it",
    "hook": "The post-gift question with the biggest audience and the emptiest search results full of vinegar hacks.",
    "intent": "Informational",
@@ -456,7 +503,7 @@
    "blocked_by": []
   },
   {
-   "id": "TP-18",
+   "id": "TP-19",
    "title": "January: the first-week setup and care checklist for a gifted air fryer",
    "hook": "Every December gift has a first week. This is the page that survives it.",
    "intent": "Informational",
@@ -480,7 +527,7 @@
    ]
   },
   {
-   "id": "TP-19",
+   "id": "TP-20",
    "title": "Prime Day 2027: the summer version of the model-number check",
    "hook": "The July edition of the November problem, with the same three-minute fix.",
    "intent": "Commercial investigation",

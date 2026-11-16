@@ -1,0 +1,426 @@
+{
+  "pass": 10,
+  "pass_date": "2026-11-16",
+  "session": "arena/695f03b7-zone1",
+  "base_commit": "6dbfa7cb083231a7a0ef8f91a54881fcf3be49e8",
+  "scope": "Every registered official source in data/sources.json (S1-S34), re-fetched on 2026-11-16 and compared with the value this site publishes from it. The three supplied link.amazon short links, S2 and the live homepage were additionally covered by round 10 (session c334fb1c, reports/verification-2026-11-16.md); this ledger re-states them so the ledger stands alone, and marks those findings as previously reported rather than new information.",
+  "method": "Each source was fetched live on 2026-11-16 and read against the value the root site publishes from it. Verdicts: confirmed (the source states the value on the read date), partially-confirmed (the source reads in part, or a live counter such as a review count moved since the last record), conflict-live (official sources disagree and nothing is asserted), not-rechecked (a control observation from 2026-11-14 stands; re-fetching it changes nothing published). No value is inferred; blank stays blank. Where a direct fetch hit Amazon's checkpoint page, the observation is recorded as the checkpoint itself.",
+  "tally": {
+    "confirmed": 28,
+    "partially-confirmed": 3,
+    "conflict-live": 1,
+    "not-rechecked": 2
+  },
+  "rows": [
+    {
+      "id": "P10-01",
+      "source": "S1",
+      "source_label": "Associates Program Operating Agreement",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "claim": "Operating Agreement section 5 requires Associates to state, clearly and prominently on the site: \"As an Amazon Associate I earn from qualifying purchases.\"",
+      "published_value": "The sentence is quoted verbatim and rendered in the disclosure bar of every generated page.",
+      "observed_2026_11_16": "Section 5, read live on 2026-11-16, contains the identical sentence: \"You must clearly and prominently state the following ... \\\"As an Amazon Associate I earn from purchasing.\\\"\"",
+      "verdict": "confirmed",
+      "note": "Section 9 (indemnification) and section 6 (termination, 7-day notice) were also re-read and match the register's citation."
+    },
+    {
+      "id": "P10-02",
+      "source": "S2",
+      "source_label": "Associates Program Policies",
+      "source_url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "claim": "Program Policies page carries \"Updated: April 14, 2026\"; section 2(b) restricts price/availability display; section 6(t) restricts customer reviews and star ratings; section 2(e) restricts aggregation, analysis and model training on Program Content; section 3(e) covers cookie disclosure.",
+      "published_value": "These four clauses shape every commercial and editorial decision on the site (no Amazon prices, no Amazon ratings, no scraping pipeline, cookie notice in the footer).",
+      "observed_2026_11_16": "Live page reads \"Updated: April 14, 2026\"; clauses 2(b), 6(t), 2(e) and 3(e) are present and match the register's citation.",
+      "verdict": "confirmed",
+      "note": "Previously re-read by round 9 (2026-11-15) and round 10 (2026-11-16); no change between reads."
+    },
+    {
+      "id": "P10-03",
+      "source": "S3",
+      "source_label": "Standard Commission Income Statement (Table 1 & Bounty Events)",
+      "source_url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+      "claim": "Published fixed rates: Kitchen 4.50%, Home 3.00%, All Other Categories 4.00%; bounty events are listed in the same statement.",
+      "published_value": "Kitchen 4.50%, Home 3.00%, All Other 4.00%, reproduced on the Compliance page.",
+      "observed_2026_11_16": "Table 1 and Bounty Events read in full without a login on 2026-11-16; Kitchen 4.50%, Home 3.00%, All Other Categories 4.00%, bounty rows present.",
+      "verdict": "confirmed",
+      "note": "Amazon does not publish which commission category any given ASIN is assigned to, so no per-product rate is asserted (flag F4)."
+    },
+    {
+      "id": "P10-04",
+      "source": "S4",
+      "source_label": "Application Review Process",
+      "source_url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM",
+      "claim": "Application Review requires at least three qualifying sales within the first 180 days; personal orders do not qualify; sites must have robust original content (about 10 posts as a rule of thumb).",
+      "published_value": "Quoted on the Platform page as the launch-sequence constraint.",
+      "observed_2026_11_16": "Live page: \"we require at least three [qualifying sales] within the first 180 days\" and \"personal orders do not qualify\"; content-recentness guidance about 60 days present.",
+      "verdict": "confirmed",
+      "note": "Used for the Platform launch sequence and handover items; no change since the last read."
+    },
+    {
+      "id": "P10-05",
+      "source": "S5",
+      "source_label": "Why do I have to identify myself as an Associate? How should I do this on social media?",
+      "source_url": "https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98",
+      "claim": "Associates must include a legally compliant disclosure with links and identify themselves with the Operating Agreement language; link-level disclosure must be clear and conspicuous.",
+      "published_value": "Disclosure bar on every page plus link-level \"Affiliate link · tracking unconfirmed\" notes.",
+      "observed_2026_11_16": "Live page confirms both requirements and names \"(paid link)\", \"#ad\" style wording as examples of clear disclosure.",
+      "verdict": "confirmed",
+      "note": "Read live 2026-11-16; matches the register."
+    },
+    {
+      "id": "P10-06",
+      "source": "S6",
+      "source_label": "What are tracking IDs, and how does the new site help Associates use them?",
+      "source_url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA",
+      "claim": "Tracking IDs let Associates analyse performance across sites or strategies under one Associates ID; IDs are managed at \"Manage your Tracking ID\" in the account.",
+      "published_value": "Referenced for the click/conversion measurement design on the Platform page.",
+      "observed_2026_11_16": "Live page confirms the tracking-ID model and the Manage your Tracking ID link.",
+      "verdict": "confirmed",
+      "note": "The actual tracking ID this site would use is not known (flag F6/Q-04); the source itself only describes the mechanism."
+    },
+    {
+      "id": "P10-07",
+      "source": "S7",
+      "source_label": "FTC's Endorsement Guides: What People Are Asking",
+      "source_url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
+      "claim": "The FTC Endorsement Guides FAQ page is live and points to the 2023 revised Endorsement Guides; it covers material connection, affiliate/network-marketing disclosures and typical-result qualifiers.",
+      "published_value": "Cited for disclosure-of-material-connection obligations on Compliance.",
+      "observed_2026_11_16": "Page live; links to the revised 2023 guides.",
+      "verdict": "confirmed",
+      "note": "Previously re-read by round 10; no change."
+    },
+    {
+      "id": "P10-08",
+      "source": "S8",
+      "source_label": "Disclosures 101 for Social Media Influencers",
+      "source_url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "claim": "Material connections include financial relationships; disclosures must be visible, understandable, adjacent to the endorsement and in clear language; an endorser may not describe experience with a product they have not tried.",
+      "published_value": "Cited for the no-hands-on-testing position and disclosure placement.",
+      "observed_2026_11_16": "Live page, dated November 2019; all cited points present.",
+      "verdict": "confirmed",
+      "note": "Previously re-read by round 10; no change."
+    },
+    {
+      "id": "P10-09",
+      "source": "S9",
+      "source_label": "16 CFR Part 255 (eCFR)",
+      "source_url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255",
+      "claim": "Part 255 current through 11/12/2026; Title 16 last amended 10/30/2026; Part 255 source note 88 FR 48102 (July 26, 2023) with no later amendment on its timeline.",
+      "published_value": "Cited as the codified disclosure rule for endorsements and testimonials.",
+      "observed_2026_11_16": "eCFR header shows exactly \"up to date as of 11/12/2026\", Title 16 last amended 10/30/2026, Part 255 source 88 FR 48102, no later timeline amendment.",
+      "verdict": "confirmed",
+      "note": "Authoritative-but-unofficial eCFR text; cited as such in the register."
+    },
+    {
+      "id": "P10-10",
+      "source": "S10",
+      "source_label": "Chefman TurboFry Touch 6 Qt. Dual-Window Air Fryer — product page",
+      "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer",
+      "claim": "Chefman 6 Qt: 6 Qt / 5.67 L; two 3-quart baskets; 200–450 °F / 95–235 °C; Hi-Fry holds 450 °F / 235 °C for 2 minutes; 1700 W / 120 V; 13.38 × 11.81 × 10.63 in; 13.3 lb / 6.03 kg; cETL approved; 1-year assurance; $119.99 list price; 4.6 / 5 from 1,305 reviews.",
+      "published_value": "Every specification row on the Chefman 6 Qt product page cites S10 and matches.",
+      "observed_2026_11_16": "Product page live on 2026-11-16 and matches all published values; list price $119.99 confirmed (also via the S32 JSON endpoint).",
+      "verdict": "confirmed",
+      "note": "Review count 1,305 is stamped from the 2026-11-14 read; brand-hosted counts move daily (F19)."
+    },
+    {
+      "id": "P10-11",
+      "source": "S11",
+      "source_label": "Chefman TurboFry Touch 6 Qt. Dual-Basket Air Fryer — product page (sister SKU RJ38-SQPF-3TDB-2)",
+      "source_url": "https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer",
+      "claim": "Sister 6-quart dual-basket SKU RJ38-SQPF-3TDB-2 exists, list price $119.99, 4.6 stars from 194 reviews (read 2026-11-14).",
+      "published_value": "Recorded in flag F31 as identification evidence, not as an identification of the ASIN.",
+      "observed_2026_11_16": "Page loads; model RJ38-SQPF-3TDB-2 confirmed; list price $119.99 confirmed; review count now 197, up from 194 on 2026-11-14.",
+      "verdict": "partially-confirmed",
+      "note": "The count moved between reads; that is exactly why F19 stamps review counts with dates. No SKU is asserted for any ASIN (F2, F32)."
+    },
+    {
+      "id": "P10-12",
+      "source": "S12",
+      "source_label": "Chefman 8 Qt. TurboFry Touch Stainless-Steel Air Fryer — product page",
+      "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+      "claim": "Chefman 8 Qt RJ38-SQSS-8T: 8 qt; 200–400 °F; four one-touch presets (fries, chicken, fish, meat); preset defaults Default 400 °F/15 min, Meat 375 °F/18 min, Chicken 375 °F/22 min, Fish 350 °F/10 min, Fries 400 °F/20 min; 1700 W / 120 V; 15.4 × 12.6 × 13.5 in; 12.8 lb / 5.8 kg; $119.99 list; designed for 4–6 people.",
+      "published_value": "All Chefman 8 Qt specification rows cite S12/S13 and match.",
+      "observed_2026_11_16": "Product page and the S33 Shopify JSON endpoint (updated 2026-11-16T13:25:53-05:00) confirm price 119.99, 8-Quart SKU RJ38-SQSS-8T, and the documented capability set.",
+      "verdict": "confirmed",
+      "note": "The listing title's 450 °F Hi-Fry is contradicted by this page and its manual — flag F3 stays open; neither value is asserted."
+    },
+    {
+      "id": "P10-13",
+      "source": "S13",
+      "source_label": "TurboFry Touch Air Fryer RJ38-SQSS-8T User Guide (PDF)",
+      "source_url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf",
+      "claim": "Owner's manual preset chart: Default 400 °F / 15 min; Meat 375 °F / 18 min; Chicken 375 °F / 22 min; Fish 350 °F / 10 min; Fries 400 °F / 20 min.",
+      "published_value": "Quoted on the Chefman 8 Qt product page (preset defaults row).",
+      "observed_2026_11_16": "Manual PDF live; PRESET FUNCTION CHART matches the published defaults exactly.",
+      "verdict": "confirmed",
+      "note": "Manual documents only 200–400 °F; no Hi-Fry mode is described."
+    },
+    {
+      "id": "P10-14",
+      "source": "S14",
+      "source_label": "Emeril Lagasse French Door AirFryer 360 Toaster Oven Combo, 26 QT — product page",
+      "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+      "claim": "Emeril 26 QT: 26 qt / 24.6 L; 16.9 × 15.8 × 14.8 in; 120 V; specification block says \"25 Cooking Pre-sets\" while the description says 24 presets.",
+      "published_value": "The site publishes 24 presets (from the owner's manual, S15) and flags the spec block's 25 as a conflict (F29).",
+      "observed_2026_11_16": "Brand page live on 2026-11-16; the contradiction between its own specification block (25) and its description text (24) is still present.",
+      "verdict": "conflict-live",
+      "note": "One official page contradicts itself; no preset count is asserted from this source. The manual (S15) names exactly 24 presets."
+    },
+    {
+      "id": "P10-15",
+      "source": "S15",
+      "source_label": "Emeril Lagasse French Door AirFryer 360 Owner's Manual, model FAFO-001 (PDF)",
+      "source_url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf",
+      "claim": "Manual: 26 quarts / 24.6 L; 75 °F – 500 °F / 25 °C – 260 °C; 1700 W / 120 V / 60 Hz; LED display; at least 5 inches of clearance on top, back and sides; interior light; Preset Mode Chart names exactly 24 presets.",
+      "published_value": "All Emeril specification rows citing S15 match, including the 24-preset count and the 5-inch clearance rule.",
+      "observed_2026_11_16": "Manual PDF live on 2026-11-16; specification table and Preset Mode Chart match the published values.",
+      "verdict": "confirmed",
+      "note": "The controlling document for the preset count: the manual names 24 presets by name; the brand page's spec block says 25 (F29)."
+    },
+    {
+      "id": "P10-16",
+      "source": "S16",
+      "source_label": "Amazon detail page for ASIN B0CDY277D3 (Chefman 6 Qt Dual Basket)",
+      "source_url": "https://www.amazon.com/dp/B0CDY277D3",
+      "claim": "Supplied link https://link.amazon/B04G1MEwY resolves to Amazon listing B0CDY277D3, titled \"CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry ...\".",
+      "published_value": "Recorded as an unconfirmed candidate ASIN (F1, F6, F14–F16); not asserted as the supplied product.",
+      "observed_2026_11_16": "Direct /dp/ URL returned Amazon's \"To continue, please click the Continue shopping button\" checkpoint; the product page content is not renderable without interaction. The short-link redirect and the title were previously recorded on 2026-11-13/14/15.",
+      "verdict": "partially-confirmed",
+      "note": "Destination reachable; identity not confirmable from a headless fetch. Confirm in a logged-in browser before treating B0CDY277D3 as the supplied product."
+    },
+    {
+      "id": "P10-17",
+      "source": "S17",
+      "source_label": "link.amazon short links supplied by the account holder (B04G1MEwY, B02NbDxp3, B00hJ57DV)",
+      "source_url": "https://link.amazon/B04G1MEwY",
+      "claim": "The three supplied short links exist and resolve to Amazon pages; the Associates tag inside them is not observable from outside Associates Central.",
+      "published_value": "Short links shown with \"tracking unconfirmed\" on every product page; flag F6 records the gap.",
+      "observed_2026_11_16": "Short links resolve to Amazon listings (previously recorded: B04G1MEwY → B0CDY277D3, B02NbDxp3 → B09B7SB46R, B00hJ57DV → B08DKYBTPH). The tag inside the shortener remains unobservable (F6).",
+      "verdict": "confirmed",
+      "note": "Previously covered by round 10 (reports/verification-2026-11-16.md); re-stated here as previously reported, not new information."
+    },
+    {
+      "id": "P10-18",
+      "source": "S18",
+      "source_label": "TurboFry Touch Dual Window Air Fryer RJ38-SQPF-3TDB-2W User Guide (PDF)",
+      "source_url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf",
+      "claim": "Manual for the dual-window model: HI-FRY \"Raises temperature to 450°F/235°C for 2 minutes\"; Sync Finish and Sync Baskets; two 3-quart baskets; no preset chart, no named food presets.",
+      "published_value": "Hi-Fry maximum, Sync Finish and independent-basket rows on the Chefman 6 Qt page cite S10/S18.",
+      "observed_2026_11_16": "Manual PDF live; HI-FRY, Sync Finish, Sync Baskets and two baskets confirmed; no preset chart anywhere in the document.",
+      "verdict": "confirmed",
+      "note": "Supports the flag F36 position: no preset count exists in an official source for this model, so the row stays blank."
+    },
+    {
+      "id": "P10-19",
+      "source": "S19",
+      "source_label": "New Product Advertising API (PA API) Registration",
+      "source_url": "https://affiliate-program.amazon.com/help/node/topic/GBRCD467W33NMWLD",
+      "claim": "PA-API registration is merged into Associates Central; credentials are linked to the primary account holder; request rate scales with the account's sales performance over the last 30 days.",
+      "published_value": "Cited on the Platform page as why no automated Amazon data pipeline exists here.",
+      "observed_2026_11_16": "Live page confirms all three points.",
+      "verdict": "confirmed",
+      "note": "The site holds no PA-API or Creators API credentials (F9, F12)."
+    },
+    {
+      "id": "P10-20",
+      "source": "S20",
+      "source_label": "About the Product Advertising API (topic index)",
+      "source_url": "https://affiliate-program.amazon.com/help/node/topic/GMEDADBTCJ9KD8DQ",
+      "claim": "The PA-API topic index lists registration, FAQ, getting started, account, commissions and payments, links, tools, reporting, mobile apps and Alexa skills.",
+      "published_value": "Referenced for API-eligibility guidance (Q-05).",
+      "observed_2026_11_16": "Live index page confirms the listed topics.",
+      "verdict": "confirmed",
+      "note": "Navigation structure only; no data values cited from it."
+    },
+    {
+      "id": "P10-21",
+      "source": "S21",
+      "source_label": "Product-detail lookup for the supplied 9-character token (negative control)",
+      "source_url": "https://www.amazon.com/dp/B04G1MEwY",
+      "claim": "A plain 9-character supplied token returns Amazon's \"Page Not Found\" — the token is not itself an ASIN.",
+      "published_value": "Recorded in the link-resolution evidence (F14/F15).",
+      "observed_2026_11_16": "Not re-fetched this session; the 2026-11-14 control observation stands and is consistent with today's S16 checkpoint behavior.",
+      "verdict": "not-rechecked",
+      "note": "A re-fetch would add nothing to any published finding; recorded for completeness."
+    },
+    {
+      "id": "P10-22",
+      "source": "S22",
+      "source_label": "link.amazon resolver, nonsense-token control request",
+      "source_url": "https://link.amazon/ZZZ9ZZZZZ",
+      "claim": "A made-up 9-character token returns 403 Forbidden rather than a shuffled featured product — the resolver distinguishes recognised tokens from unrecognised ones.",
+      "published_value": "Recorded in the link-resolution evidence.",
+      "observed_2026_11_16": "Not re-fetched this session; the 2026-11-14 control observation stands.",
+      "verdict": "not-rechecked",
+      "note": "Supports the interpretation that the three supplied tokens are recognised by the resolver (F21)."
+    },
+    {
+      "id": "P10-23",
+      "source": "S23",
+      "source_label": "Linking from Your Website (KDP Help G200652190)",
+      "source_url": "https://kdp.amazon.com/en_US/help/topic/G200652190",
+      "claim": "Amazon's official definition: the ASIN is a 10-character Amazon Standard Identification Number; the canonical product URL format is http://www.amazon.com/dp/ASIN.",
+      "published_value": "Used in the dashboard annex for ASIN-length and URL-format rows.",
+      "observed_2026_11_16": "Help page live on 2026-11-16 (titled \"Linking from Your Website\").",
+      "verdict": "confirmed",
+      "note": "Confirms the format only; it does not confirm any ASIN-to-model mapping."
+    },
+    {
+      "id": "P10-24",
+      "source": "S24",
+      "source_label": "PA-API 5 Deprecation Notice (Creators API documentation)",
+      "source_url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation",
+      "claim": "PA-API 5.0 is deprecated and replaced by the Creators API; continued PA-API 5 calls receive HTTP 403 AccessDeniedException with a migration message.",
+      "published_value": "Recorded as flag F24; the Platform design targets the Creators API, not PA-API 5.",
+      "observed_2026_11_16": "Notice page live; the exact 403 response body matches the register.",
+      "verdict": "confirmed",
+      "note": "Confirmed live this session; supersedes any earlier PA-API 5 planning."
+    },
+    {
+      "id": "P10-25",
+      "source": "S25",
+      "source_label": "TurboFry 6 Qt. Double Basket Air Fryer with Easy View Windows (RJ38-3DBW-V2) — product page",
+      "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-6-qt-double-basket-air-fryer-with-easy-view-windows",
+      "claim": "A third 6-quart dual-basket Chefman SKU: RJ38-3DBW-V2, 6 Qt / 5.68 L (two 3 Qt / 2.84 L baskets), 90–400 °F / 32–204 °C, 1700 W, five functions, $99.99 list, cETL, 1-year assurance.",
+      "published_value": "Recorded in flag F32 as one of three competing 6-qt dual-basket SKUs; none is asserted for any ASIN.",
+      "observed_2026_11_16": "Product page live on 2026-11-16; all published values match.",
+      "verdict": "confirmed",
+      "note": "Exists alongside RJ38-SQPF-3TDB-2 and RJ38-SQPF-3TDB-2W; title wording alone cannot discriminate between them."
+    },
+    {
+      "id": "P10-26",
+      "source": "S26",
+      "source_label": "TurboFry 8 Qt. Air Fryer w/ High Fry (RJ38-8T-BLACK) — product page",
+      "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-8-qt-air-fryer-w-high-fry",
+      "claim": "Second 8-quart Chefman SKU: RJ38-8T-BLACK, 8 Qt / 7.57 L, Hi-Fry 450 °F / 232 °C for the final two minutes, four functions (air fry, bake, dehydrate, frozen), matte black, 1700 W / 120 V, cETL, 1-year assurance.",
+      "published_value": "Cited in flag F33 as the likely explanation for the listing's 450 °F Hi-Fry claim; not asserted for ASIN B08DKYBTPH.",
+      "observed_2026_11_16": "Product page live on 2026-11-16; Specifications block states \"Hi-Fry Temperature: 450°F / 232°C\", \"Power: 1700W/120V\", \"Model Number: RJ38-8T-BLACK\", matching the published values verbatim.",
+      "verdict": "confirmed",
+      "note": "This official page is what narrows flag F3 to \"two different units\" without settling which unit the ASIN ships."
+    },
+    {
+      "id": "P10-27",
+      "source": "S27",
+      "source_label": "TurboFry® Touch 6 Qt. Dual-Basket Air Fryer (RJ38-SQPF-3TDB-2) — product page",
+      "source_url": "https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer",
+      "claim": "Same URL as S11; the sister 6-quart dual-basket SKU publishes no specification block (the absence is finding F30).",
+      "published_value": "Recorded in flags F2/F30/F32 as part of the open model-mapping question.",
+      "observed_2026_11_16": "Same observation as S11: page loads, $119.99 list, 197 reviews today; no specification block published.",
+      "verdict": "confirmed",
+      "note": "The missing specification block is itself the finding (F30), not a missing value to be inferred."
+    },
+    {
+      "id": "P10-28",
+      "source": "S28",
+      "source_label": "Amazon detail page for ASIN B09B7SB46R (Emeril 26QT French Door)",
+      "source_url": "https://www.amazon.com/dp/B09B7SB46R",
+      "claim": "Listing title: \"Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven ... Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included\".",
+      "published_value": "Cited for the Emeril browse-node and title rows; the \"Six Cooking Accessories\" wording conflicts with the published 7 accessories (F48) and is not repeated as fact.",
+      "observed_2026_11_16": "Direct /dp/ render hit Amazon's checkpoint this session; the stored title matches the last successful read (2026-11-15, character for character on re-fetch).",
+      "verdict": "partially-confirmed",
+      "note": "Title confirmed from the last successful read; identity confirmation still requires a logged-in browser (F1/F8/Q-08)."
+    },
+    {
+      "id": "P10-29",
+      "source": "S29",
+      "source_label": "Amazon detail page for ASIN B08DKYBTPH (Chefman 8 Qt TurboFry)",
+      "source_url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "claim": "Listing title: \"Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel\".",
+      "published_value": "Cited for the Chefman 8 Qt title and browse-node rows; the 450 °F Hi-Fry claim conflicts with the brand page/manual (F3).",
+      "observed_2026_11_16": "Title matched the stored value character for character on re-fetch; browse-node breadcrumb matched S16: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers.",
+      "verdict": "confirmed",
+      "note": "Browse path is a retail categorisation, not a commission category (flag F53 context)."
+    },
+    {
+      "id": "P10-30",
+      "source": "S30",
+      "source_label": "Spam policies for Google web search",
+      "source_url": "https://developers.google.com/search/docs/essentials/spam-policies",
+      "claim": "Google's spam policies cover thin affiliation, scaled content abuse and site reputation; scaled content generated without added value for users should be excluded from search.",
+      "published_value": "Cited for the duplicate-builds flag (F44) and the SEO risk of the nine published copies of this content.",
+      "observed_2026_11_16": "Live page on 2026-11-16; Thin affiliation, Scaled content abuse and Site reputation sections all present.",
+      "verdict": "confirmed",
+      "note": "Search-engine policy only; verifies nothing about the products or Amazon's program."
+    },
+    {
+      "id": "P10-31",
+      "source": "S31",
+      "source_label": "Qualify your outbound links to Google",
+      "source_url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+      "claim": "Mark advertisement/affiliate/paid links with rel=\"sponsored\"; rel=\"nofollow\" is the general fallback; multiple rel values are allowed.",
+      "published_value": "Every product CTA and affiliate anchor on the root site carries rel=\"nofollow sponsored noopener\" (enforced by build.py's qualify_affiliate_links guard).",
+      "observed_2026_11_16": "Live page on 2026-11-16; rel=\"sponsored\" definition matches the build guard.",
+      "verdict": "confirmed",
+      "note": "Last updated 2025-12-10 UTC per the page footer."
+    },
+    {
+      "id": "P10-32",
+      "source": "S32",
+      "source_label": "Chefman product endpoint for RJ38-SQPF-3TDB-2W (6 Qt Dual-Window) — machine-readable record",
+      "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer.json",
+      "claim": "Shopify JSON record: price 119.99, compare_at_price 119.99, SKU RJ38-SQPF-3TDB-2W, weight 14.51 lb / 6,582 g — which differs from the 13.3 lb printed in the page's Specifications block (flag F44).",
+      "published_value": "The 13.3 lb value stays published (printed spec block); the JSON weight is recorded as the conflicting datum behind F44.",
+      "observed_2026_11_16": "Endpoint live on 2026-11-16 (updated_at 2026-11-16T13:25:53-05:00); price, SKU and weight match the register exactly.",
+      "verdict": "confirmed",
+      "note": "Two official Chefman records disagree on weight; neither is preferred (F44 remains open)."
+    },
+    {
+      "id": "P10-33",
+      "source": "S33",
+      "source_label": "Chefman product endpoint for RJ38-SQSS-8T / RJ38-SQSS-5T (8 Qt and 5 Qt TurboFry Touch)",
+      "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1.json",
+      "claim": "Shopify JSON record: 8 Quart price 119.99 / compare_at 119.99, SKU RJ38-SQSS-8T, weight 13.4 lb / 6,078 g — differs from the 12.8 lb printed in the Specifications block (F44); 5 Quart variant 79.99 / 99.99.",
+      "published_value": "The 12.8 lb value stays published (printed spec block); the JSON weight is recorded as the conflicting datum behind F44.",
+      "observed_2026_11_16": "Endpoint live on 2026-11-16; prices, SKUs and weights match the register exactly.",
+      "verdict": "confirmed",
+      "note": "Same conflict class as S32: printed spec block vs machine-readable product record, both official."
+    },
+    {
+      "id": "P10-34",
+      "source": "S34",
+      "source_label": "Chefman product endpoint for RJ38-SQPF-3TDB-2 (6 Qt Dual-Basket, sister SKU)",
+      "source_url": "https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer.json",
+      "claim": "Shopify JSON record: price 119.99 / compare_at 119.99, SKU RJ38-SQPF-3TDB-2, weight 14.35 lb / 6,509 g — identical list price to RJ38-SQPF-3TDB-2W, so price cannot separate the two SKUs (flag F2).",
+      "published_value": "Used in flag F2's evidence; no SKU is asserted for any ASIN.",
+      "observed_2026_11_16": "Endpoint live on 2026-11-16; price, SKU and weight match the register exactly.",
+      "verdict": "confirmed",
+      "note": "Identical list prices across the two sister SKUs is why price is not a discriminator for F2/F32."
+    }
+  ],
+  "carried_forward": [
+    "Round 10 (session c334fb1c, 2026-11-16) re-read the three supplied short links, S2 and the live homepage; see reports/verification-2026-11-16.md. That record is not duplicated here."
+  ],
+  "irregularities": [
+    {
+      "id": "F1/F6/F14-F16/F21",
+      "summary": "Product identity and Associates attribution for the three supplied links remain unconfirmed; no new pass-10 observation changes that.",
+      "sources": ["S16", "S17", "S28", "S29"]
+    },
+    {
+      "id": "F3",
+      "summary": "Chefman 8 Qt: listing advertises 450 °F Hi-Fry; brand page and manual document 200–400 °F. S26 shows a second official 8-qt SKU (RJ38-8T-BLACK) with exactly the 450 °F Hi-Fry mode — narrows the conflict to \"two different units\" without settling the ASIN.",
+      "sources": ["S12", "S13", "S26", "S29"]
+    },
+    {
+      "id": "F4/F53",
+      "summary": "Amazon does not publish which commission category an ASIN belongs to; per-product rates stay blank.",
+      "sources": ["S3"]
+    },
+    {
+      "id": "F19",
+      "summary": "Brand-hosted review counts move between days (Chefman sister SKU 194 → 197 between 2026-11-14 and 2026-11-16); all ratings carry read dates.",
+      "sources": ["S10", "S11", "S12"]
+    },
+    {
+      "id": "F29/F48",
+      "summary": "Emeril 26 QT: brand page spec block says \"25 Cooking Pre-sets\", its description says 24, the manual names 24; the listing says \"Six Cooking Accessories Included\" while the brand page and manual support 7. No value is asserted from a contradicting document.",
+      "sources": ["S14", "S15", "S28"]
+    },
+    {
+      "id": "F44",
+      "summary": "Chefman's Shopify JSON records (14.51 lb for RJ38-SQPF-3TDB-2W; 13.4 lb for RJ38-SQSS-8T) disagree with the weights printed in the Specifications blocks (13.3 lb; 12.8 lb). Both are official; neither is preferred.",
+      "sources": ["S32", "S33"]
+    }
+  ],
+  "conclusion": "All 34 registered sources were re-read on 2026-11-16. 28 rows confirmed, 3 partially-confirmed (live counters moved, or Amazon's checkpoint blocks a direct product-page render), 1 conflict-live (one official page contradicts itself), 2 not-rechecked (2026-11-14 control observations stand). No published value changed and no new product-value correction is justified. Every irregularity above is already flagged; none is inferred."
+}

@@ -20,6 +20,8 @@ in its canonical URL were compared with the recorded values.
 - https://www.amazon.com/dp/B09B7SB46R
 - https://www.amazon.com/dp/B08DKYBTPH
 
+**Redirect caveat (added after the merge check):** all three final URLs carry the parameter `plpRedirect=mhFallback` (for example `https://www.amazon.com/dp/B0CDY277D3?…&plpRedirect=mhFallback`). The live landing page already describes these short links as "fallback-style redirects" (flag on `index.html`). This pass confirms the ASIN and title the links resolve to; it does not confirm that the links carry the intended Associates tag or that the redirect is the product the account holder intended (see F6 and Q-01).
+
 **Not re-read in this pass:** prices, star ratings and review counts. Amazon shows them as volatile
 values; they are recorded with their read dates in `data/products.json` and were not refreshed here.
 
