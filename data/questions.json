@@ -546,26 +546,33 @@
    "id": "Q-19",
    "group": "Content operations",
    "question": "How often should this site's published values be re-read?",
-   "state": "missing",
-   "why_it_matters": "The Associates application-review criteria recorded in this repository include a requirement that site content be recent, and that requirement governs whether a review of this site succeeds. The exact window was not re-read on 2026-11-15 (flag F46), so it must be confirmed before it is used as a schedule. Meanwhile the drift is demonstrably real: a manufacturer's own review counter moved within twenty-four hours.",
+   "state": "known",
+   "why_it_matters": "The Associates application-review criteria recorded in this repository include a requirement that site content be recent, and that requirement governs whether a review of this site succeeds. The window had been carried forward rather than re-read (flag F56), so it could not be used as a schedule; that gap was closed by a live re-read on 2026-11-16. The drift is demonstrably real: a manufacturer's own review counter moved twice inside three days.",
+   "answer": "Amazon states the review-side recency criterion itself, and it is now read from the source rather than carried forward. Application Review Process, read live 2026-11-16: \"Content on your website must be recent (generally within the last 60 days). You must own your website.\" Two other criteria from the same page are now confirmed from the same read: \"we require at least three within the first 180 days\" of qualifying sales (personal orders do not qualify) and \"a good rule of thumb is at least 10 posts\" of original content per site. So the site's review clock is 60 days, not an assumption. What Amazon does not state is a refresh interval for individual published values - that is the owner's schedule to set, and the site's own drift evidence argues for a tighter one: Chefman's 6 Qt counter read 1,302 on 2026-11-13, 1,305 on 2026-11-14 and 1,307 on 2026-11-16, and the 8 Qt counter read 715, then 716, then 717, with both averages holding at 4.6 throughout.",
    "what_we_know": [
     "Every rating figure the site publishes already carries its read date, and flag F19 records why.",
-    "Re-read 2026-11-15: the Chefman 6 Qt counter still read 1,305 and the 8 Qt still read 716, unchanged from the 2026-11-14 read, while the averages held at 4.6.",
-    "The 2026-11-15 pass re-read every manufacturer page and every owner's manual and found no published value to be wrong."
+    "Re-read 2026-11-16: the Chefman 6 Qt counter read 1,307 (from 1,305) and the 8 Qt read 717 (from 716), while both averages held at 4.6. The two rows the site publishes were refreshed to this reading.",
+    "The 2026-11-15 pass re-read every manufacturer page and every owner's manual and found no published value to be wrong.",
+    "Application Review Process, re-read live 2026-11-16: the 180-day / three-sale rule, the ~10-post rule, the 60-day content-recency rule and the ~500-follower social threshold are all confirmed verbatim. That closes the 'not re-read' part of flag F56.",
+    "The 2026-11-16 pass re-read the Standard Commission Income Statement, the Program Policies page, 16 CFR Part 255, both Chefman product pages, the Emeril product page and all three supplied short links, and found no published value wrong."
    ],
-   "what_is_missing": "The recency criterion itself, read from the Application Review Process page rather than carried forward, and the owner's chosen refresh interval for each class of value.",
-   "how_to_discover": "Re-read the Application Review Process page and record the exact wording with its date. Then set an interval per value class and let the build report anything past it - which is SG-18.",
+   "what_is_missing": "The owner's chosen refresh interval for each class of value - Amazon states the review-side recency window, not a maintenance schedule for a documentation site. Nothing on the site has gone stale: the most recent read of every published value is 2026-11-16.",
+   "how_to_discover": "Set an interval per value class and let the build report anything past it - which is SG-18. The Application Review page no longer needs re-reading for its own sake, only when Amazon changes it.",
    "blocks": [
     "SG-18"
    ],
    "sources": [
     {
-     "label": "Application Review Process - content recency criterion (not re-read 2026-11-15; see flag F46)",
+     "label": "Application Review Process - content recency criterion, read live 2026-11-16 (closes flag F56)",
      "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
     },
     {
-     "label": "Chefman 6 Qt brand page - review count at the 2026-11-15 read",
+     "label": "Chefman 6 Qt brand page - review count at the 2026-11-16 read",
      "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+    },
+    {
+     "label": "Chefman 8 Qt brand page - review count at the 2026-11-16 read",
+     "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
     }
    ]
   },
@@ -591,6 +598,36 @@
     {
      "label": "Standard Commission Income Statement (US)",
      "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+    }
+   ]
+  },
+  {
+   "id": "Q-21",
+   "group": "Platform compliance",
+   "question": "If the research agent is automated, what is it allowed to touch, and what must it call itself?",
+   "state": "missing",
+   "why_it_matters": "This project is an AI-powered affiliate platform, and Amazon's Program Policies contain a section written for exactly that case: IP License §4, the Agent Terms. They were read live on 2026-11-16 and had never been carried into this site's compliance register, the platform blueprint, or the questions register. The rule is not academic: an agent that fetches Amazon pages without identifying itself, or that works around a bot check, is outside the licence. It decides how the research stage of the platform may be built.",
+   "what_we_know": [
+    "IP License §4, read verbatim 2026-11-16: \"The terms in this section (\"Agent Terms\") apply if you use, allow, enable, or cause the deployment of an Agent to access, use, or interact with the Program Content. For the purposes of these Agent Terms, \"Agent\" means any software or service that takes autonomous or semi-autonomous action on behalf of, or at the instruction of, any person or entity.\"",
+    "Same section, verbatim: \"In all HTTP/HTTPS requests, identify that the request is from an Agent and disclose the name of the Agent by including the following in the request's user agent string: \"Agent/[agent name]\" (e.g., Agent/AmazonAgent)\"; \"Not conceal or obfuscate that any access, use, or interactions are from an Agent…\"; \"Respond truthfully to any question or prompt seeking to determine if interactions are coming from a human or a computer.\"",
+    "Same section, verbatim: \"At our sole discretion, we may limit, including by technical measures, whether and how any Agent accesses, uses, and interacts with Program Content.\"",
+    "Participation Requirements §5, read verbatim 2026-11-16: \"You will not, without express prior written approval, use, or allow any third party to use, any Special Links or Program Content to develop machine learning models or related technology.\"",
+    "IP License §1, read verbatim 2026-11-16: \"We will not allow any third party to, use Program Content to, directly or indirectly, develop or improve large language or multimodal models, machine learning models or related technology.\"",
+    "The published site consumes no Program Content at all, so no Agent Term is triggered by anything it renders today. The clauses matter for the proposed research agent, not for the pages."
+   ],
+   "what_is_missing": "Two things, and neither can be settled from a public page. First, whether a public Amazon product page fetched by an automated tool counts as \"Program Content\" — the IP License defines Program Content around Creators API, PA API and Data Feeds, and the policies page does not say whether an ordinary listing page is inside that definition. Second, the agent's declared name. A third point is only partly legible: IP License §4(a) refers to \"the requirements in section 3 of these Agent Terms\", and section 3 of the Agent Terms was not readable in the render used for this pass (flag F62), so the full list of identification requirements is not yet on the record.",
+   "how_to_discover": "Read IP License §4 in a browser, in full, including the section 3 cross-reference. Then ask Amazon one question in writing — through Associates Central support — and keep the answer: \"Does fetching a public amazon.com product detail page with an automated tool count as accessing Program Content under IP License §4, and is a User-Agent of Agent/zone1-research acceptable?\" Until Amazon answers, the conservative design is the one in SG-22: identify as an agent, never defeat a bot check, and keep the research stage off Program Content entirely.",
+   "blocks": [
+    "SG-22"
+   ],
+   "sources": [
+    {
+     "label": "Associates Program IP License §4 (Agents) and §1 — read live 2026-11-16",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+     "label": "Associates Program Participation Requirements §5 — read live 2026-11-16",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
     }
    ]
   }

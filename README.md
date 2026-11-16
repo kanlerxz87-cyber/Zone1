@@ -11,8 +11,8 @@ decision and keeps the verification layer one click behind it.
 **Strategy:** [`decisions.html`](https://kanlerxz87-cyber.github.io/Zone1/decisions.html) — niche scorecard, traffic plan, measurement plan, kill rule
 **Decision queue:** [`suggestions.html`](https://kanlerxz87-cyber.github.io/Zone1/suggestions.html) — review and choose before anything is built
 **Open questions:** [`questions.html`](https://kanlerxz87-cyber.github.io/Zone1/questions.html) — what must be answered first
-**Briefing:** [`EXECUTIVE-SUMMARY-PASS8.md`](EXECUTIVE-SUMMARY-PASS8.md) (pass 9 addendum at the end) · [`EXECUTIVE-SUMMARY-PASS9.md`](EXECUTIVE-SUMMARY-PASS9.md) (search plumbing and duplicate builds) · [`EXECUTIVE-SUMMARY-PASS9-42CA97AD.md`](EXECUTIVE-SUMMARY-PASS9-42CA97AD.md) (verification pass 9, this session)
-**Today's live re-verification:** [`reports/verification-2026-11-15.md`](reports/verification-2026-11-15.md)
+**Briefing:** [`EXECUTIVE-SUMMARY-PASS8.md`](EXECUTIVE-SUMMARY-PASS8.md) (pass 9 addendum at the end) · [`EXECUTIVE-SUMMARY-PASS9.md`](EXECUTIVE-SUMMARY-PASS9.md) (search plumbing and duplicate builds) · [`EXECUTIVE-SUMMARY-PASS9-42CA97AD.md`](EXECUTIVE-SUMMARY-PASS9-42CA97AD.md) (verification pass 9) · [`EXECUTIVE-SUMMARY.md`](EXECUTIVE-SUMMARY.md) §17 (verification pass 10, this session)
+**Today's live re-verification:** [`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md) (full pass 10, this session) · [`reports/verification-2026-11-16.md`](reports/verification-2026-11-16.md) (round 10, session c334fb1c) · [`reports/verification-2026-11-15.md`](reports/verification-2026-11-15.md) (pass 9)
 
 ## What is in here
 
@@ -30,10 +30,11 @@ decision and keeps the verification layer one click behind it.
 | `previous-passes.html` | Catalogue of every older build in this repo, where each one disagrees with this one, and which is canonical |
 | `data.html` | Full specification register + source register |
 | `platform.html` | Automation blueprint, guardrails, KPIs, launch sequence |
-| `compliance.html` | 16 program/legal requirements, quoted, each with a source link |
+| `compliance.html` | 18 program/legal requirements, quoted, each with a source link — including the two that govern an AI-agent platform (IP License §4 Agent Terms and Participation Requirements §5) |
 | `flagged.html` | Every unverified value, source conflict and irregularity |
-| `suggestions.html` | **Decision queue** — 21 evidence-backed suggestions, each with alternative paths, effort, risk and a recommendation. Nothing on it is implemented. |
-| `questions.html` | **Open questions** — 20 questions split into known / discoverable / not-stated / account-only. The four that an official source already settles carry their **answer** on the row; the rest say so plainly and name the step that would produce one. |
+| `suggestions.html` | **Decision queue** — 22 evidence-backed suggestions, each with alternative paths, effort, risk and a recommendation. Nothing on it is implemented. |
+| `questions.html` | **Open questions** — 21 questions split into known / discoverable / not-stated / account-only. The five that an official source already settles carry their **answer** on the row; the rest say so plainly and name the step that would produce one. |
+| `requirements.html` | **Every requirement in the brief, and whether this repository meets it** — 51 rows, each with a live status, the path that implements it and a source link. Added 2026-11-16 by session `ad8105b3`. |
 | `executive-summary.html` | One-page briefing |
 | `reverification.html` | Line-by-line re-read of every published value (2026-11-14 pass), each row with its verdict and source link |
 | `session-81495d2d/EVIDENCE-2026-11-14.md` | Raw evidence behind that ledger: exact requests, exact responses, and what was not re-read |
@@ -245,3 +246,39 @@ Four new findings, all published on [`flagged.html`](flagged.html):
 
 The highest-value action for the account holder is unchanged and now more specific: open the three
 listings, read the model number in each one's product-information block, and settle F32 and F33.
+
+---
+
+## Pass 10 — 2026-11-16 (`arena/9fccce0c-zone1`)
+
+A tenth independent re-read of the same source register, run because the register is made of
+values that move and because the last several passes each found something. It found three
+things, and all three are fixed:
+
+* **The clauses that govern the brief were missing from the canonical register.** The Program
+  Policies page carries **IP License §4 ("Agents" / the Agent Terms)** and **Participation
+  Requirements §5** — written for exactly the case this project is, an AI-powered affiliate
+  platform that automates research. Read verbatim on 2026-11-16 and now published as compliance
+  requirements **C17** and **C18** and platform guardrail **G11**. The scope question they raise
+  (does an ordinary public listing page count as Program Content, and what must the agent call
+  itself?) is published as **Q-21** and **SG-22** rather than answered by inference, and the
+  limit of what could be read is published as **F62**. The two defects are published as
+  **F61** and **F62**.
+* **Three published pages pointed at a flag that exists in no register.** `data/questions.json`,
+  `data/suggestions.json` and `data/sources.json` all sent readers to "flag F46"; there is no
+  F46 in either register in this repository. The pointers now name **F56**, and a new build guard
+  (`check_register_cross_references()`) fails the build if any generated page cites a flag,
+  source, question or suggestion id that does not exist. The guard was proven to fire on an
+  injected violation.
+* **The carried-forward Application Review figures are now read from the source**, which closes
+  **F56** and gives **Q-19** its answer, and the two volatile Chefman review counters had moved
+  again (1,307 and 717) and were refreshed with all three read dates kept.
+
+Two independent sessions verified sources on 2026-11-16 and both records are kept:
+`reports/verification-2026-11-16.md` (session `c334fb1c`, the three short links, the policy
+date and the live landing page) and `reports/verification-2026-11-16-9fccce0c.md` (this
+session, the full register). Neither replaces the other; the site publishes both ledgers.
+
+No published value was found wrong. Full evidence, row by row: **[`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md)**;
+the same ledger rendered on the site at
+[`reverification.html`](https://kanlerxz87-cyber.github.io/Zone1/reverification.html).

@@ -1,0 +1,177 @@
+{
+ "id": "pass-10",
+ "pass_date": "2026-11-16",
+ "performed_by": "arena/9fccce0c-zone1",
+ "title": "Pass 10 — independent re-verification round 10",
+ "lede": "A session that wrote none of the stored values re-read the load-bearing official sources on 2026-11-16 and checked them against what the site publishes. It found three things: two clauses that govern an AI-agent affiliate platform and had never been carried into the canonical compliance register, three published pages that pointed at a flag number which exists in no register, and two volatile review counters that had moved again. Everything it could close, it closed; everything it could not, it published.",
+ "scope_note": "Covers the Standard Commission Income Statement, the Application Review Process, the Associates Program Policies page (including the IP License and the Agent Terms), 16 CFR Part 255, both Chefman product pages, the Emeril product page, the three Chefman store endpoints, and the three supplied link.amazon short links with the listings behind them. The parallel builds in s2/, site/, dashboard/, research/, docs/, annex-88769516/ and session-*/ keep their own verification records and were not re-checked here.",
+ "method": "Each row is one live fetch on 2026-11-16 of the official domain the site cites for that fact, read through the page-fetch tool — this sandbox has no shell egress to non-GitHub hosts. Where a value is quoted, the wording is the wording the document used. Where two official documents disagree, the row says so and no winner is picked.",
+ "rows": [
+  {
+   "claim": "Commission Table 1 — the Kitchen rate the site models revenue with",
+   "published_value": "Kitchen 4.50% (candidate row); All Other Categories 4.00%; Home 3.00%; PC 2.50%; per-product rate blank",
+   "observed": "Read live without a login. \"Physical Books, Kitchen, Automotive | 4.50%\"; \"All Other Categories | 4.00%\"; \"Toys, Furniture, Home, Home Improvement … | 3.00%\"; \"PC, PC Components, DVD & Blu-Ray | 2.50%\". Still no air-fryer row and still no published ASIN-to-category mapping, so the per-product rate stays blank.",
+   "verdict": "confirmed",
+   "source_label": "Amazon Associates Central — Standard Commission Income Statement",
+   "source_url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+  },
+  {
+   "claim": "Application Review Process — the criteria the site quotes for its own content bar",
+   "published_value": "three qualifying sales within 180 days; about 10 posts; content recent within about 60 days; about 500 social followers",
+   "observed": "Read live. \"we require at least three within the first 180 days\"; \"a good rule of thumb is at least 10 posts\"; \"Content on your website must be recent (generally within the last 60 days)\"; \"in most cases, at least 500\". Also read: \"personal orders do not qualify\" and \"we aren't able to reassess an application once it's been rejected\". These four figures had been carried forward since 2026-11-13; they are now read from the source, which closes the carried-forward part of flag F56.",
+   "verdict": "new-evidence",
+   "source_label": "Amazon Associates Central — Application Review Process",
+   "source_url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
+  },
+  {
+   "claim": "Program Policies — the page's own \"Updated\" line and section order",
+   "published_value": "Updated: April 14, 2026",
+   "observed": "Page heading reads \"Updated: April 14, 2026. (Current Associates, see what's changed.)\" Section order unchanged: Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License, Influencer Program Policy, Creator Ads Boost.",
+   "verdict": "confirmed",
+   "source_label": "Amazon Associates Central — Program Policies",
+   "source_url": "https://affiliate-program.amazon.com/help/operating/policies"
+  },
+  {
+   "claim": "Attribution windows the site publishes (24-hour session, 89-day cart, 180-day fulfilment)",
+   "published_value": "24 hours / 89 days / 180 days",
+   "observed": "Read live in the Commission Income Statement: a session ends when \"24 hours elapse from that click\"; the cart rule is \"no later than 89 days after their initial click-through of the Special Link\"; the fulfilment rule is \"within 180 days of the purchase, the Product is shipped to, streamed or downloaded by, and paid for by the customer\".",
+   "verdict": "confirmed",
+   "source_label": "Amazon Associates Central — Program Policies, Commission Income Statement §1",
+   "source_url": "https://affiliate-program.amazon.com/help/operating/policies"
+  },
+  {
+   "claim": "Participation Requirements §6(t), §6(w) and §6(y) — the three rules that shape the whole site",
+   "published_value": "no Amazon reviews or star ratings without the API; link shorteners must not obscure that the link goes to Amazon; no price tracking or price alerting",
+   "observed": "Read live. §6(t): \"You will not display or otherwise use any of our customer reviews or star ratings, in part or in whole, on your Site unless you have obtained a link to that customer review or star rating through Creators API or PA API…\" §6(w): \"You will not use a link shortening service, button, hyperlink or other ad placement in a manner that makes it unclear that you are linking to an Amazon Site.\" §6(y): \"Unless otherwise agreed by Amazon, your Site must not have price tracking and/or price alerting functionality.\"",
+   "verdict": "confirmed",
+   "source_label": "Amazon Associates Central — Program Policies, Participation Requirements §6",
+   "source_url": "https://affiliate-program.amazon.com/help/operating/policies"
+  },
+  {
+   "claim": "IP License §4 — the Agent Terms that govern an AI-agent affiliate platform",
+   "published_value": "not in the canonical register before this pass",
+   "observed": "Read live. \"The terms in this section (\"Agent Terms\") apply if you use, allow, enable, or cause the deployment of an Agent to access, use, or interact with the Program Content. For the purposes of these Agent Terms, \"Agent\" means any software or service that takes autonomous or semi-autonomous action on behalf of, or at the instruction of, any person or entity.\" §4(c): \"In all HTTP/HTTPS requests, identify that the request is from an Agent and disclose the name of the Agent by including the following in the request's user agent string: \"Agent/[agent name]\" (e.g., Agent/AmazonAgent)\"; \"Not conceal or obfuscate that any access, use, or interactions are from an Agent…\"; \"Respond truthfully to any question or prompt seeking to determine if interactions are coming from a human or a computer.\"",
+   "verdict": "new-evidence",
+   "source_label": "Amazon Associates Central — Program Policies, IP License §4",
+   "source_url": "https://affiliate-program.amazon.com/help/operating/policies"
+  },
+  {
+   "claim": "Participation Requirements §5 — no model development from Special Links or Program Content",
+   "published_value": "not in the canonical register before this pass",
+   "observed": "Read live: \"You will not, without express prior written approval, use, or allow any third party to use, any Special Links or Program Content to develop machine learning models or related technology.\" Read in the same pass, IP License §1: \"We will not allow any third party to, use Program Content to, directly or indirectly, develop or improve large language or multimodal models, machine learning models or related technology.\"",
+   "verdict": "new-evidence",
+   "source_label": "Amazon Associates Central — Program Policies, Participation Requirements §5 and IP License §1",
+   "source_url": "https://affiliate-program.amazon.com/help/operating/policies"
+  },
+  {
+   "claim": "link.amazon/B04G1MEwY lands on the Chefman 6 Qt listing",
+   "published_value": "ASIN B0CDY277D3; title \"CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black\"",
+   "observed": "Followed the short link. Landed on www.amazon.com/dp/B0CDY277D3 with lv=shuf and plpRedirect=mhFallback. The page <title> read \"Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen\" — the stored title, character for character. Browse-node breadcrumb re-read: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers.",
+   "verdict": "confirmed",
+   "source_label": "Amazon — the redirect target of the supplied short link",
+   "source_url": "https://link.amazon/B04G1MEwY"
+  },
+  {
+   "claim": "link.amazon/B02NbDxp3 lands on the Emeril 26 QT listing",
+   "published_value": "ASIN B09B7SB46R; title \"Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included\"",
+   "observed": "Followed the short link. Landed on www.amazon.com/dp/B09B7SB46R with lv=shuf and plpRedirect=mhFallback. The page <title> read the stored string, character for character, including the wording that changed on 2026-11-15. Same browse-node breadcrumb as the other two listings. A direct request to the /dp/ URL was answered with Amazon's bot checkpoint on this date.",
+   "verdict": "confirmed",
+   "source_label": "Amazon — the redirect target of the supplied short link",
+   "source_url": "https://link.amazon/B02NbDxp3"
+  },
+  {
+   "claim": "link.amazon/B00hJ57DV lands on the Chefman 8 Qt listing",
+   "published_value": "ASIN B08DKYBTPH; title \"Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel\"",
+   "observed": "Followed the short link. Landed on www.amazon.com/dp/B08DKYBTPH with lv=shuf and plpRedirect=mhFallback. The page <title> read the stored string, character for character. Same browse-node breadcrumb as the other two listings.",
+   "verdict": "confirmed",
+   "source_label": "Amazon — the redirect target of the supplied short link",
+   "source_url": "https://link.amazon/B00hJ57DV"
+  },
+  {
+   "claim": "Chefman 6 Qt brand-site review count",
+   "published_value": "4.6 / 5 from 1,305 reviews (read 2026-11-14)",
+   "observed": "Brand-hosted widget read 4.6 from 1,307 total reviews on 2026-11-16 (5★ 928 · 4★ 258 · 3★ 85 · 2★ 12 · 1★ 24). The count moved +2; the average held at 4.6 for the third consecutive read. The published row was refreshed to this reading and all three read dates are kept in it.",
+   "verdict": "moved",
+   "source_label": "Chefman (brand) — TurboFry Touch 6 Qt Dual-Window product page",
+   "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+  },
+  {
+   "claim": "Chefman 8 Qt brand-site review count",
+   "published_value": "4.6 / 5 from 716 reviews (read 2026-11-14)",
+   "observed": "Brand-hosted widget read 4.6 from 717 total reviews on 2026-11-16 (5★ 523 · 4★ 131 · 3★ 42 · 2★ 10 · 1★ 11). The count moved +1; the average held at 4.6 for the third consecutive read. The published row was refreshed to this reading.",
+   "verdict": "moved",
+   "source_label": "Chefman (brand) — TurboFry Touch 8 Qt product page",
+   "source_url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+  },
+  {
+   "claim": "Chefman 6 Qt and 8 Qt specification rows",
+   "published_value": "6 Qt: 6 Qt / 5.67 L, 200–450 °F, 13.38 × 11.81 × 10.63 in, 13.3 lb, 1700 W/120 V, RJ38-SQPF-3TDB-2W. 8 Qt: 5 or 8 Qt / 4.73 or 7.57 L, 200–400 °F, 1700 W/120 V, 15.4 × 12.6 × 13.5 in, 12.8 lb, RJ38-SQSS-8T",
+   "observed": "Both brand pages re-read. Every published specification row was still stated in the manufacturer's own Specifications block, character for character. The 8 Qt page still reads \"Max temp: 400ºF/ 205ºC\" with four cooking presets, which is the other half of the 450 °F conflict recorded as flag F3.",
+   "verdict": "confirmed",
+   "source_label": "Chefman (brand) — both product pages",
+   "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+  },
+  {
+   "claim": "Chefman store endpoints — list price, SKU and shipping weight",
+   "published_value": "6 Qt -2W: $119.99 / $119.99, 14.51 lb. 8 Qt: $119.99 / $119.99, 13.4 lb; 5 Qt variant $79.99 / $99.99. Sister SKU -2: $119.99 / $119.99, 14.35 lb",
+   "observed": "All three machine-readable endpoints re-read. sku, price, compare_at_price, grams and weight matched the published values exactly. The 6 Qt and 8 Qt shipping weights still differ from the weights printed in the pages' own Specifications blocks, which remains flag F44.",
+   "verdict": "confirmed",
+   "source_label": "Chefman (brand) — product endpoints served by chefman.com",
+   "source_url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer.json"
+  },
+  {
+   "claim": "Emeril 26 QT — price, model, rating and the specification block",
+   "published_value": "$199.99; model 4-00675-02A-VN; brand-hosted rating 2.6 from 25 reviews; 26 qt / 24.6 L; 16.9″D × 15.8″W × 14.8″H; 120 V",
+   "observed": "Re-read. Price, model and rating unchanged. Specification icons still read \"26-Quart Capacity — preparing food for 4–6 people\", \"Dual-Speed Fan\", \"25 Cooking Pre-sets\", \"16.9\"D x 15.8\"W x 14.8\"H\", \"24.6 Liters\", \"120 volts\". Body copy still reads \"10-in-1\". The four-way preset and in-1 disagreement is still live between official pages, and the site still asserts none of the four figures.",
+   "verdict": "conflict-live",
+   "source_label": "Emeril Everyday (brand) — French Door AirFryer 360 product page",
+   "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+  },
+  {
+   "claim": "16 CFR Part 255 — the FTC endorsement rule the site cites",
+   "published_value": "16 CFR Part 255; §255.5 Disclosure of material connections; source 88 FR 48102 (Jul 26 2023); Title 16 up to date as of 11/12/2026",
+   "observed": "eCFR re-read. \"Displaying title 16, up to date as of 11/12/2026. Title 16 was last amended 10/30/2026.\" Source note still \"88 FR 48102, July 26, 2023, unless otherwise noted.\" §255.5 still titled \"Disclosure of material connections.\"",
+   "verdict": "confirmed",
+   "source_label": "eCFR — 16 CFR Part 255",
+   "source_url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255"
+  },
+  {
+   "claim": "The two FTC guidance pages, the Operating Agreement, the disclosure and tracking-ID help articles, Google's two policy pages, the PA-API deprecation notice and the owner's manuals",
+   "published_value": "as published; unchanged since the passes that fetched them",
+   "observed": "Not re-fetched in this pass. Each was read live on 2026-11-13 to 2026-11-15 and its wording is published unchanged; this pass makes no new claim about them, so re-reading would only repeat a date.",
+   "verdict": "not-rechecked",
+   "source_label": "Amazon Associates Central — Program Policies (the corpus these rows come from)",
+   "source_url": "https://affiliate-program.amazon.com/help/operating/policies"
+  }
+ ],
+ "new_evidence": [
+  {
+   "title": "The two clauses that govern an AI-agent affiliate platform were not in the canonical register",
+   "detail": "IP License §4 (the Agent Terms) and Participation Requirements §5 were read live on 2026-11-16. Before this pass, data/compliance.json held zero occurrences of \"Agent Terms\" and data/platform.json held zero occurrences of \"Agent\" — although the brief this project answers is explicitly an AI-powered affiliate platform and the root site ships a platform blueprint proposing automated research. They are now compliance requirements C17 and C18, with platform guardrail G11. What they do not settle is published as question Q-21 and queued as suggestion SG-22: whether an ordinary public listing page counts as Program Content, and what the agent is called. Neither is answered by inference.",
+   "flag": "F61",
+   "source_label": "Amazon Associates Central — Program Policies, IP License §4 and Participation Requirements §5",
+   "source_url": "https://affiliate-program.amazon.com/help/operating/policies"
+  },
+  {
+   "title": "Three published pages pointed at a flag number that exists in no register",
+   "detail": "data/questions.json, data/suggestions.json and data/sources.json each told the reader to see the flag numbered 46 for the Application Review Process recency criterion. The canonical register runs F1–F45 and F47–F58; the legacy data/flags.json register runs F01–F27. There is no 46 in either, so a reader who followed the pointer landed on the Flagged page and found nothing. The three pointers now name F56, the row that covers it, and a new build guard fails the build if any generated page cites a flag, source, question or suggestion id that is not in the register it points at. The guard was proven to fire on an injected violation.",
+   "flag": "F61",
+   "source_label": "This repository — the fix and the guard that now prevents it",
+   "source_url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/reports/verification-2026-11-16.md"
+  },
+  {
+   "title": "The Application Review criteria are now read from the source rather than carried forward",
+   "detail": "The 180-day / three-sale rule, the ~10-post rule, the 60-day content-recency rule and the ~500-follower social threshold were re-read live on 2026-11-16 and confirmed verbatim. That closes the carried-forward part of flag F56 and moves question Q-19 from \"missing\" to \"known and sourced\", with the answer on the row. What Amazon still does not state is a refresh interval for individual published values — that remains the owner's schedule to set, which is SG-19.",
+   "flag": "F56",
+   "source_label": "Amazon Associates Central — Application Review Process",
+   "source_url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
+  },
+  {
+   "title": "One limit stated rather than papered over: IP License §4 was not read end to end",
+   "detail": "The Program Policies page renders its IP License as one long table, and the markdown conversion used for this pass collapsed part of it. Everything quoted in requirement C17 was read directly in the response body, but the section was not read to its end: sub-part (a) refers to \"the requirements in section 3 of these Agent Terms\", and the text of that section was not visible. The Agent Terms are published as the rules this pass could read, with the limit stated on the row, and flag F62 records what is still missing.",
+   "flag": "F62",
+   "source_label": "Amazon Associates Central — Program Policies, IP License §4",
+   "source_url": "https://affiliate-program.amazon.com/help/operating/policies"
+  }
+ ]
+}

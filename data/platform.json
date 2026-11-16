@@ -104,7 +104,8 @@
     { "id": "G7", "rule": "No experience claims, no invented testing", "source": ["S8"], "clause": "Disclosures 101 — What Else to Know", "enforcement": "Copy review checklist; the phrase 'we tested' is a build-time fail." },
     { "id": "G8", "rule": "No price tracking or price alerts", "source": ["S2"], "clause": "Participation Requirements §6(y)", "enforcement": "Feature explicitly out of scope; the pricing panel shows brand list price only." },
     { "id": "G9", "rule": "Disclosure is unremovable", "source": ["S1", "S5"], "clause": "Operating Agreement §5; disclosure help article", "enforcement": "Injected by the layout function; a page without it cannot be generated." },
-    { "id": "G10", "rule": "No framing, cloaking or auto-redirect", "source": ["S2"], "clause": "Participation Requirements §6(n), §6(v)", "enforcement": "Outbound links are direct; no iframes; no meta-refresh." }
+    { "id": "G10", "rule": "No framing, cloaking or auto-redirect", "source": ["S2"], "clause": "Participation Requirements §6(n), §6(v)", "enforcement": "Outbound links are direct; no iframes; no meta-refresh." },
+    { "id": "G11", "rule": "Any agent that touches Program Content identifies itself and never defeats a bot check", "source": ["S2"], "clause": "IP License §4 (Agents); Participation Requirements §5", "enforcement": "A design constraint on the research agent, not on the published site: every HTTP/HTTPS request carries the agent name in the User-Agent string as \"Agent/[agent name]\"; no CAPTCHA is completed or circumvented; no request pattern imitates a human; the agent answers truthfully if asked whether a request is human. Queued for the owner's decision as SG-22 and not implemented in code." }
   ],
 
   "automation_vs_human": [

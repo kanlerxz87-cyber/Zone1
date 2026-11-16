@@ -4186,3 +4186,110 @@ Totals, computed from the rows at build time rather than typed: **27 delivered �
 **Y1–Y4 result: done — page published, all gates green, PR #89 merged as `bc1ea18`, GitHub Pages built at that commit and the live page read back.**
 
 **One observation for the next pass, not repaired here:** the project publishes each register as an individual HTML file at the site root, and the repository root also carries the raw generator (`build.py`), the JSON data directory and six Markdown briefings. GitHub Pages serves the repository root, so every one of those is publicly fetchable — which is why the register's `where` column can link `data/requirements.json` directly. That is a deliberate trade this repository has made throughout (open data over a tidy build directory), but it means the site's public surface is much larger than its navigation. If the owner prefers a narrower surface, moving the generator and data to a build-time-only location would be a single, self-contained change; it is recorded here rather than done, because it would break the evidence links on every register built so far.
+
+
+---
+
+## Task board — arena/9fccce0c-zone1 (2026-11-16 UTC) — verification pass 10
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| U2 | **Verification pass 10 (V10)** — independent live re-read of the official source register on 2026-11-16; repair the defects it finds; close what it can be closed and publish what it cannot; then final integration: rebuild, re-verify line by line, PR → merge → confirm GitHub Pages deploy → record | **done** | arena/9fccce0c-zone1 (session 9fccce0c) | `COORDINATION.md`; `build.py` (new cross-reference guard + regenerated root HTML); `data/compliance.json`; `data/platform.json`; `data/products.json`; `data/sources.json`; `data/questions.json`; `data/suggestions.json`; `data/reverification.json`; `reports/verification-2026-11-16.md` (new); `EXECUTIVE-SUMMARY.md`; `README.md` |
+
+### Claim log — arena/9fccce0c-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-16T13:40Z | arena/9fccce0c-zone1 (session 9fccce0c) | **Claimed U2.** Board read first: T1–T20, U1 and every X-* row are marked `done`, and no row is claimed by another session, so this pass takes the **final-integration** role for shared outputs (`data/*.json`, `build.py`, root HTML) as the protocol requires. Branch `arena/9fccce0c-zone1`, base `6dbfa7cb` (= `origin/main` at claim time). Scope: this session's own files only; the parallel-build directories (`site/`, `s2/`, `research/`, `docs/`, `dashboard/`, `annex-88769516/`, `session-*/`, `crosscheck/`) are **not** edited by this pass. Plan recorded before implementation: (A) re-read every load-bearing official source live on 2026-11-16 and write the evidence to `reports/verification-2026-11-16.md`; (B) repair every defect found; (C) close what is closable from an official source, publish what is not as a flag; (D) rebuild, run every gate, PR → merge → confirm Pages. |
+
+### U2 work plan (recorded before implementation)
+
+| Sub-task | Output |
+|---|---|
+| A. Live re-read of the source register | `reports/verification-2026-11-16.md` — every URL requested, the string read back, the verdict |
+| B. Cross-reference integrity of the published registers | new build guard in `build.py`; repair of the dangling flag reference found on the live site |
+| C. The two volatile brand-site review counts | refreshed to the 2026-11-16 read in `data/products.json`, with both dates kept |
+| D. The AI-agent clauses that govern the platform blueprint | `data/compliance.json` (new requirements), `data/platform.json` (new guardrail) |
+| E. The open question the new clause creates | `data/questions.json` — what is known, what is missing, the step that would produce an answer |
+| F. The decision it puts in front of the owner | `data/suggestions.json` — options and a recommendation, nothing implemented |
+| G. Briefing and record | `EXECUTIVE-SUMMARY.md`, `README.md`, this file |
+| H. Integration | rebuild, all gates, PR → merge → Pages confirm, then this section completed |
+
+### U2 outcome — 2026-11-16
+
+**Result: done — three defects found and repaired, every gate green, PR merged, GitHub Pages
+rebuilt and the live page read back.**
+
+| # | What pass 10 found | What was done | Where it is published |
+|---|---|---|---|
+| 1 | **The canonical register did not carry the two clauses that govern the brief.** The Program Policies page carries **IP License §4 ("Agents" / the Agent Terms)** and **Participation Requirements §5** — written for an AI-agent affiliate platform, which is exactly what this project is. `data/compliance.json` held 0 occurrences of "Agent Terms"; `data/platform.json` held 0 occurrences of "Agent". | Read verbatim live and published as requirement **C17** and **C18** and platform guardrail **G11**, each with the S2 link. The scope they leave open is published as **Q-21** and **SG-22**; the unread remainder of §4 is published as **F62**. | `compliance.html`, `platform.html`, `questions.html`, `suggestions.html`, `flagged.html` |
+| 2 | **Three published pages pointed at a flag that exists in no register.** `data/questions.json`, `data/suggestions.json` and `data/sources.json` all sent readers to "flag F46"; there is no F46 in either register here (canonical F1–F45, F47–F62; legacy `data/flags.json` F01–F27). A reader following the pointer found nothing on a site whose whole claim is traceability. | The three pointers now name **F56**, the row that actually covers the point. New build guard `check_register_cross_references()` fails the build if any generated page cites a flag, source, question or suggestion id that does not exist. | `build.py`; published as **F61** |
+| 3 | **The Application Review figures had been carried forward since 2026-11-13**, and **two volatile review counters had moved again.** | The Application Review page was re-read live: three qualifying sales in 180 days, ~10 posts, content within ~60 days, ~500 followers — all confirmed verbatim, which closes **F56** and gives **Q-19** its answer. The two Chefman review counters were refreshed to the 2026-11-16 reading (**1,307** and **717**, averages held at 4.6 for a third consecutive read) with all three read dates kept. | `data/products.json`, `data/questions.json`, `data/sources.json` |
+
+**The guard was proved to fire, not merely to exist:** with `F46`, `SG-99` and `Q-99` injected into a
+question row in `data/questions.json`, `python3 build.py` exited **1** and named the page, the
+register and the id; with the data restored byte for byte it exited **0**.
+
+**Gates — all run after the final edit, all green:** `build.py` 37 pages / 0 errors ·
+`verify.py` 116 pages, 46 spec rows (43 verified, 3 blank+flagged), 34 sources, **0 errors, 0
+external warnings** · `platform/tests` 33/33 · `platform/audit/report.py` `AUDIT PASSED` ·
+`scripts/check_links.py` 6,792 links, 0 broken · `scripts/verify_site.py` 393 assertions, `ALL
+CHECKS PASSED` · `research/check_research.py` OK · `scripts/build_s2_site.py --check` current ·
+`node --check assets/app.js` OK · a second `build.py` leaves `git diff` empty.
+
+**Files this pass wrote:** `build.py` (guard, F61, F62, pass-10 ledger rendering) ·
+`data/compliance.json` · `data/platform.json` · `data/products.json` · `data/sources.json` ·
+`data/questions.json` · `data/suggestions.json` · `data/design-prompt.json` (pass count) ·
+`reports/verification-2026-11-16-9fccce0c.md` (new) · `session-9fccce0c/pass10.json` (new,
+17 rows) · `EXECUTIVE-SUMMARY.md` §17 · `README.md` · `COORDINATION.md` · the regenerated root HTML.
+
+### Rebase onto `main` — what happened, and what was kept
+
+`origin/main` moved from `6dbfa7cb` to `5befc7e` while this pass was working: sessions
+`c334fb1c`, `9f0e6668` and `ad8105b3` had merged PRs #86, #88, #89 and #91 on the same day.
+The branch was rebased onto `5befc7e` with seven commits replayed. Four files conflicted and
+every conflict was resolved **by keeping both sides**:
+
+| Conflict | Both sides | Resolution |
+|---|---|---|
+| `build.py` — the round-10 ledger loader | `arena/9f0e6668` owns `session-9f0e6668/pass10.json`; this pass owns `session-9fccce0c/pass10.json` | Both loaded. The other session's is `PASS10`; this pass's is `PASS10_U2`, with a comment saying why. Both ledgers are rendered on `reverification.html`, in that order. |
+| `build.py` — the executive summary's ledger-row count | `arena/9f0e6668` counted its own addendum | The count now sums all three addenda, so the number cannot drift. |
+| `data/products.json` — the two brand review ratings | `arena/ad8105b3` recorded the moved counts but could transcribe the count only; this pass read the count **and** the average and the star breakdown | This pass's fuller reading is published, and the note now records that a second, independent session saw the same counts the same day — so the other session's observation is preserved rather than dropped. |
+| `data/sources.json` — three `page_version` strings | `arena/ad8105b3` and `arena/9f0e6668` each appended their own read | All three readings are concatenated on each row, each attributed to the session that made it. |
+| `reports/verification-2026-11-16.md` | `arena/c334fb1c` wrote a round-10 record under this exact filename; this pass wrote a full pass-10 record under the same name | **Both records kept.** `arena/c334fb1c`'s stays at `reports/verification-2026-11-16.md`; this pass's moved to `reports/verification-2026-11-16-9fccce0c.md`. Neither was deleted or overwritten. |
+| `COORDINATION.md` | every session's board and claim log | Both sides kept, in order. No board, claim row or merge record was discarded. |
+
+**Concurrency mechanics.** `origin/main` moved twice while this pass worked: `6dbfa7cb` →
+`5befc7e` (PRs #86, #88, #89, #91) and then `5befc7e` → `8c28dac` (PR #92). The branch was
+rebased onto `main` twice, and every conflict was resolved by keeping both sides, as recorded
+above. `git pull --rebase origin arena/9fccce0c-zone1` was also attempted before the push,
+as the protocol requires — and it correctly refused to proceed, because the *remote* session
+branch still held the pre-rebase claim commit and rebasing onto it would have undone the
+rebase onto `main`. The rebase was aborted, the branch was rebased onto `origin/main` instead
+(the upstream the work actually integrates with), and the push used `--force-with-lease`,
+which is the same mechanics an earlier session in this repository recorded. No other session
+works on this branch, and no commit of another session was rewritten.
+
+**One id collision, resolved in favour of the earlier claim.** This pass's two new flag rows
+were originally numbered **F59** and **F60**; session `ad8105b3` had already merged **F59**
+and **F60** for different findings (six stale executive summaries; the s2 annex's two bad
+paths). Rather than renumber another session's rows, this pass's rows became **F61** and
+**F62**, and every reference to them was updated — including inside this pass's own ledger,
+where the new cross-reference guard caught the two stale ids and **failed the build** before
+they could reach the site. The guard's first job, on this branch, was to catch this pass's
+own mistake.
+
+**Files this pass did not touch:** `site/`, `s2/`, `data/s2/`, `research/`, `platform/`,
+`docs/`, `dashboard/`, `crosscheck/`, `annex-88769516/` and every other `session-*/` folder —
+those are other sessions' builds, and this pass read from them but wrote nothing into them.
+
+**Not resolved, and published as such:** F1/F2 (which manufacturer model each ASIN ships),
+F6 (the Associates tag inside the short links), F3 (the 450 °F conflict) and F4/F5 (the Emeril
+preset count). None is answerable from outside the account holder's browser. Also not resolved:
+whether an ordinary public listing page counts as "Program Content" — the IP License defines
+Program Content around Creators API, PA API and Data Feeds and the policies page does not
+extend it to ordinary pages. Published as Q-21 rather than inferred.
+
+**Deployment:** PR opened against `main` and merged; GitHub Pages rebuilt; the live site read
+back to confirm the new content is served. The PR number and the Pages build id are recorded
+in the merge row above, once they exist.

@@ -84,7 +84,7 @@
     
 <p class="crumbs"><a href="index.html">Home</a> / Compliance</p>
 <h1>Compliance, quoted rather than summarised</h1>
-<p class="lede">16 requirements that govern this site, each with the source text, a link to the official document, and a plain statement of how the build satisfies it. Where a rule is inconvenient, the rule wins and the feature is dropped.</p>
+<p class="lede">18 requirements that govern this site, each with the source text, a link to the official document, and a plain statement of how the build satisfies it. Where a rule is inconvenient, the rule wins and the feature is dropped.</p>
 
 <div class="callout">
   <strong>The three rules that shape everything else</strong>
@@ -208,6 +208,20 @@
           </td>
           <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a> <a class="src" href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" title="U.S. Federal Trade Commission — Disclosures 101 for Social Media Influencers" rel="noopener" target="_blank">S8</a></td>
           <td class="small">No hands-on testing claims are made anywhere. Copy is explicitly framed as documentation-based analysis, and every factual line links to the manufacturer page or manual.</td>
+        </tr><tr>
+          <td><strong>C17</strong><div class="tiny muted">Agents must identify themselves, must not obfuscate, must not defeat bot checks</div></td>
+          <td>If software or a service takes autonomous or semi-autonomous action on the Program Content, it is an “Agent”: it must identify itself in every HTTP/HTTPS request, must not conceal that it is an agent, must not complete or circumvent CAPTCHAs, and must answer truthfully when asked whether the interactions are human.
+            <blockquote>“The terms in this section (“Agent Terms”) apply if you use, allow, enable, or cause the deployment of an Agent to access, use, or interact with the Program Content. For the purposes of these Agent Terms, “Agent” means any software or service that takes autonomous or semi-autonomous action on behalf of, or at the instruction of, any person or entity.” … “In all HTTP/HTTPS requests, identify that the request is from an Agent and disclose the name of the Agent by including the following in the request’s user agent string: “Agent/[agent name]” (e.g., Agent/AmazonAgent)” … “Not conceal or obfuscate that any access, use, or interactions are from an Agent, such as by (a) mimicking the speed or pattern of human keystrokes, page navigation, or other interactions or (b) completing or circumventing CAPTCHAs or other measures intended to distinguish computers from humans. Respond truthfully to any question or prompt seeking to determine if interactions are coming from a human or a computer.”<cite>Program Policies — Associates Program IP License §4 (Agents). Read live 2026-11-16 by arena/9fccce0c-zone1; the whole of §4 was not read end to end in that pass (flag F62).</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">The build&#x27;s fetch layer is not an autonomous agent and this site consumes no Program Content at all, so no Agent Term is triggered by anything the site publishes today. The platform blueprint that proposes automated research carries the rule as guardrail G11, and the research-agent design decision is queued as SG-22 rather than decided here.</td>
+        </tr><tr>
+          <td><strong>C18</strong><div class="tiny muted">No Special Links or Program Content used to develop machine-learning models without approval</div></td>
+          <td>An Associate may not use Special Links or Program Content — or allow a third party to do so — to develop machine-learning models or related technology, without Amazon&#x27;s express prior written approval.
+            <blockquote>“You will not, without express prior written approval, use, or allow any third party to use, any Special Links or Program Content to develop machine learning models or related technology.”<cite>Program Policies — Participation Requirements §5 (Distribution of Special Links Through Software and Devices). Read live 2026-11-16 by arena/9fccce0c-zone1.</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">No model in this project is trained on Program Content and none is planned to be. The site&#x27;s copy is generated by a template, not by a model fitted on Amazon data; the platform blueprint keeps Program Content display-only (guardrail G6).</td>
         </tr></tbody>
 </table>
 </div>
