@@ -12,7 +12,7 @@ decision and keeps the verification layer one click behind it.
 **Decision queue:** [`suggestions.html`](https://kanlerxz87-cyber.github.io/Zone1/suggestions.html) — review and choose before anything is built
 **Open questions:** [`questions.html`](https://kanlerxz87-cyber.github.io/Zone1/questions.html) — what must be answered first
 **Briefing:** [`EXECUTIVE-SUMMARY-PASS8.md`](EXECUTIVE-SUMMARY-PASS8.md) (pass 9 addendum at the end) · [`EXECUTIVE-SUMMARY-PASS9.md`](EXECUTIVE-SUMMARY-PASS9.md) (search plumbing and duplicate builds) · [`EXECUTIVE-SUMMARY-PASS9-42CA97AD.md`](EXECUTIVE-SUMMARY-PASS9-42CA97AD.md) (verification pass 9) · [`EXECUTIVE-SUMMARY.md`](EXECUTIVE-SUMMARY.md) §19 (design-coherence pass 12, latest; §17 = verification pass 10)
-**Today's live re-verification:** [`reports/verification-2026-11-16-492acddc.md`](reports/verification-2026-11-16-492acddc.md) (pass 12: policies, commission table, FTC, brand pages + WCAG audit) · [`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md) (full pass 10) · [`reports/verification-2026-11-16.md`](reports/verification-2026-11-16.md) (round 10, session c334fb1c) · [`reports/verification-round11-2026-11-16.md`](reports/verification-round11-2026-11-16.md) (round 11, session 3dfe4b45) · [`reports/verification-2026-11-15.md`](reports/verification-2026-11-15.md) (pass 9)
+**Today's live re-verification:** [`reports/verification-2026-11-16-19d92a81.md`](reports/verification-2026-11-16-19d92a81.md) (pass 12b: short links, S15 manual, S26, line-by-line review) · [`reports/verification-2026-11-16-492acddc.md`](reports/verification-2026-11-16-492acddc.md) (pass 12: policies, commission table, FTC, brand pages + WCAG audit) · [`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md) (full pass 10) · [`reports/verification-2026-11-16.md`](reports/verification-2026-11-16.md) (round 10, session c334fb1c) · [`reports/verification-round11-2026-11-16.md`](reports/verification-round11-2026-11-16.md) (round 11, session 3dfe4b45) · [`reports/verification-2026-11-15.md`](reports/verification-2026-11-15.md) (pass 9)
 
 ## What is in here
 
@@ -22,7 +22,7 @@ decision and keeps the verification layer one click behind it.
 | `picks.html` | **This week's picks** — a decision rule instead of a ranking, with the commission arithmetic and the table rows it came from |
 | `decisions.html` | **Decisions** — four niches scored on five criteria, six traffic channels with their prerequisites, six metrics, and a pre-committed kill rule |
 | `handover.html` | **Handover** — the five things only the account holder can do, each with the time it takes and the flags it closes |
-| `articles/` | **Seventeen sourced articles** — comparisons, explainers, feature and care walkthroughs, a source-forensics piece and two policy explainers. Every highlighted value in them must appear verbatim in `data/products.json` or the build fails. |
+| `articles/` | **Twenty-one sourced articles (counted 2026-11-16)** — comparisons, explainers, feature and care walkthroughs, a source-forensics piece and two policy explainers. Every highlighted value in them must appear verbatim in `data/products.json` or the build fails. |
 | `categories/` | Category pages (currently: kitchen appliances / air fryers) |
 | `products/` | One documentation-based review per product |
 | `compare.html` | Verified-only comparison matrix, gaps left visible |

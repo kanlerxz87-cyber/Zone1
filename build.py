@@ -2124,6 +2124,12 @@ PROGRAMME_FLAGS = [
      "Found independently by two sessions on 2026-11-16 and repaired by the first of them. This pass (arena/b23f12f0, round 11) found the defect while renumbering its own flags and checking whether the guard would object; session arena/2e346d24 located and repaired it on main first, and additionally added check_flag_count_matches_page() for the related defect where the landing page was advertising zero open flags beside a 61-row register. The defect: check_flag_ids_unique() counted flag rows with a pattern that began with a bare opening table-row tag followed immediately by the number cell, while page_flagged() has emitted a row id attribute since the per-row anchors landed. The pattern therefore matched nothing, and a Counter over an empty list reports no duplicates - so the guard returned success on every run while two sessions published different rows under F61 and F62 on the same day. This repository has been bitten by flag-ID collisions at least three times before (F28, F40 and the preamble case F58), which is why the guard exists. It is recorded here rather than in the repairing session's own words because the finding belongs on the register even though the repair predates this pass landing. Nothing in this row is a claim by this pass to have made the fix.",
      ["S1"]),
 
+    # ---- arena/19d92a81, marketing & decision-support pass, 2026-11-16 ---------------- #
+    ("F68", "An article page is published that no data file or generator references: articles/sync-finish-two-buttons.html.",
+     "articles/sync-finish-two-buttons.html vs data/articles.json (no matching slug)",
+     "Found 2026-11-16 by session arena/19d92a81 during the line-by-line repo review, after the file arrived with a parallel pass's merge. data/articles.json carries no 'sync-finish-two-buttons' slug and no build step generates the page, so nothing will ever refresh or retire it - yet it is served publicly next to the generated articles and looks exactly like them, disclosure bar included, so a reader cannot tell it is unmanaged. A grep of data/ and build.py finds zero references. It is the same defect class as F57 (orphan registers), one layer up: a page outside the data-driven set. Decision needed: register it in data/articles.json so it is generated and checked like its siblings, or delete it. This row is a fact about the repository; the two files named above are the evidence.",
+     []),
+
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -2155,6 +2161,7 @@ REPO_EVIDENCE = {
     "F65": ["data/sources.json", "data/products.json"],
     "F66": ["data/sources.json", "data/products.json"],
     "F67": ["build.py", "flagged.html"],
+    "F68": ["articles/sync-finish-two-buttons.html", "data/articles.json"],
 }
 
 VERDICTS = {
