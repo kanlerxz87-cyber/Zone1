@@ -4927,3 +4927,35 @@ inference.
 * **Merge:** `gh pr merge 101 --merge` **without waiting for approval**, state `MERGED` at `2026-11-16T19:12:20Z`, merge commit **`43da403de8ac856204a0f3cf5a41afdd31b53f94`**. PR CI run passed before merge. The merge landed cleanly through four recorded keep-both seams against concurrently moving `main` (PRs #86–#112); no other session's content was discarded at any seam.
 * **GitHub Pages:** the `pages build and deployment` workflow completed **`success`** on `main`; `pages/builds/latest` reports `status: built`, `error: null`, commit `4ed5843` (the descendant of `43da403` that also carries concurrent PR #112 — `43da403` is its ancestor, so the deployed site contains this pass's work). Live read-back confirmed `articles/air-fryer-gift-guide-2026.html` is deployed with its sourced specification splices, per-section official source links, the affiliate disclosure, and the "four things this gift guide cannot tell you" section — and `flagged.html`, `questions.html`, `suggestions.html` and `decisions.html` carry rows F63, Q-23, SG-24/25/26 and the count-proof fixes.
 * **Result: task X-a746a9f2 complete** — verification (14/14 live reads, evidence table `reports/verification-2026-11-16-a746a9f2.md`), marketing/seasonal layer (1 new article, TP-15–TP-17), decision layer (SG-24–SG-26, Q-23), executive summary §20, flags F63 + dated F53 update, integration merged and deployed, and this record.
+
+---
+
+### PR and deployment record — X-b23f12f0 (session `arena/b23f12f0`, 2026-11-16)
+
+| Item | Result |
+|---|---|
+| PR | **[#113](https://github.com/kanlerxz87-cyber/Zone1/pull/113)** — "Round 11: verification of unread sources, duplication repairs + guard, Emeril browse node (F64–F67)" |
+| Opened from | `arena/b23f12f0-zone1` → `main` |
+| Merge state at merge time | `CLEAN` / `MERGEABLE` (the branch was rebased onto `main` at `4ed5843`, PR #112, immediately before) |
+| Merged | Yes — without awaiting review, per the brief. Merge commit **`b4b6a3d`**, landed on `main` as **`26015ae`** |
+| Merge method | `gh pr merge 113 --merge` |
+| Pages build | `gh api …/pages` → `status: built`, source `main`, `https://kanlerxz87-cyber.github.io/Zone1/` |
+| Live read-back | Confirmed on the live site: **F64, F65, F66 and F67 all render** on `flagged.html` (page reports **67 open items**); the Emeril "Amazon browse node" row publishes the node with **both** sessions' corroboration and sources **S28 + S17**, with the stale `unverified` text gone |
+
+**Rebase history.** `main` advanced from `6dbfa7c` to `4ed5843` (PRs #85–#112) during this pass, so the
+branch was rebased five times. Five consecutive `COORDINATION.md` conflicts were resolved keep-both.
+After the fifth, the pass switched to a reset-and-re-apply strategy (reset to `origin/main`, re-apply
+this pass's changes from a repeatable script onto the current files, rebuild, re-run every gate, one
+commit), which ended the conflict cycle. **No other session's work was discarded at any point.**
+
+**One fix withdrawn in favour of another session.** This pass found that `check_flag_ids_unique()` had
+gone blind and wrote a fix. Before it could land, session `arena/2e346d24` located and fixed the same
+defect on `main`, and added `check_flag_count_matches_page()` for the related fault where the front page
+advertised zero open flags beside a 61-row register. **Their repair is kept; this pass's identical fix
+was dropped.** The finding is published as **F67** with the credit stated on the row itself.
+
+**Flagged items did not block the merge**, per the brief: F64, F65, F66 and F67 are published on
+[Flagged for review](https://kanlerxz87-cyber.github.io/Zone1/flagged.html) with source links.
+
+**The site is not broken:** build exit 0, 46 sitemap URLs, 7,699 links / 0 broken, 393 assertions passed,
+platform audit 0 warnings, research check OK.
