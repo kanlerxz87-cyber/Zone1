@@ -5825,6 +5825,58 @@ def check_affiliate_link_qualification(pages):
     return problems
 
 
+# Directories this generator owns. Nothing outside them is ever touched here.
+OWNED_PAGE_DIRS = ("products", "categories", "guides", "articles")
+
+# Every page name this generator writes at the site root. A root file that is in
+# this list but was not written by the current build is a leftover from a page
+# that has been removed, and GitHub Pages would keep serving it.
+ROOT_PAGE_NAMES = (
+    "404.html", "compare.html", "compliance.html", "data.html", "decision-gate.html",
+    "decisions.html", "design-prompt.html", "executive-summary.html", "flagged.html",
+    "handover.html", "index.html", "marketing-directions.html", "picks.html",
+    "platform.html", "previous-passes.html", "questions.html", "requirements.html",
+    "reverification.html", "suggestions.html", "topics.html",
+)
+
+
+def clean_stale_pages(pages):
+    """Delete pages this generator no longer produces.
+
+    GitHub Pages serves the repository root, so a page the generator stopped
+    writing is still published, still reachable by URL, and still carries
+    whatever markup it had when it was last written. That is not hypothetical:
+    on 2026-11-16 the tree still held articles/sync-finish-two-buttons.html
+    after the article it contained was replaced by articles/sync-finish-explained.html
+    in the round-11 merge. The live site was serving a stale duplicate with the
+    old navigation and the old footer, and nothing in the sitemap or on any page
+    pointed at it - the worst kind of live page: reachable, wrong and invisible.
+
+    The rule is narrow on purpose: only files inside the directories this
+    generator owns, and only root files whose name is one this generator has
+    produced, are removed. Other sessions' builds (site/, s2/, research/,
+    dashboard/, docs/, platform/, crosscheck/, annex-*/, session-*/) are never
+    touched.
+    """
+    written = {rel.replace("\\", "/") for rel in pages}
+    removed = []
+    for d in OWNED_PAGE_DIRS:
+        base = ROOT / d
+        if not base.is_dir():
+            continue
+        for path in sorted(base.glob("*.html")):
+            rel = f"{d}/{path.name}"
+            if rel not in written:
+                path.unlink()
+                removed.append(rel)
+    for name in ROOT_PAGE_NAMES:
+        path = ROOT / name
+        if path.exists() and name not in written:
+            path.unlink()
+            removed.append(name)
+    return removed
+
+
 def check_heading_order(pages):
     """Build guard: the heading outline of every generated page must be walkable.
 
@@ -6034,6 +6086,12 @@ def main():
         out = ROOT / rel
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(text, encoding="utf-8")
+
+    stale = clean_stale_pages(pages)
+    if stale:
+        print("removed stale generated pages (no longer produced by this generator):")
+        for rel in stale:
+            print(f"  {rel}")
 
     total_bytes = sum(len(t) for t in pages.values())
     print(f"built {len(pages)} pages ({total_bytes/1024:.0f} KB of HTML)")
