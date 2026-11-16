@@ -41,7 +41,7 @@
      "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
     }
    ],
-   "answer": "Answered for the ASIN-to-model step on 2026-11-16, without a human in a browser. Each listing's own Product information block carries the code: B0CDY277D3 publishes Model Number and Part Number RJ38-SQPF-3TDB-2W; B08DKYBTPH publishes Part Number RJ38-SQSS-8T (its Model Number row holds the string 'Large Air Fryer'); B09B7SB46R publishes Model Number and Part Number 4-00675-02X-VN, which is the brand page's 4-00675-02A-VN with one character changed. The first two agree with the manufacturer documents the site already held, so those two rows are now sourced twice. The third does not, and is published as a conflict (F65) rather than resolved. What this does NOT answer is which product the three supplied link.amazon tokens were meant to point at: the tokens are 9 characters, are not ASINs, and the observed destinations arrive through a fallback redirect (F7, F10). That half still belongs to the account holder."
+   "answer": "Answered for the ASIN-to-model step on 2026-11-16, without a human in a browser - which is the part that matters, because F49 had recorded that no automated read could reach this table and SG-01 had assigned it to the owner as a five-minute browser job. Each listing's own Product information block carries the code: B0CDY277D3 publishes Model Number and Part Number RJ38-SQPF-3TDB-2W; B08DKYBTPH publishes Part Number RJ38-SQSS-8T (its Model Number row holds the string 'Large Air Fryer'); B09B7SB46R publishes Model Number and Part Number 4-00675-02X-VN, which is the brand page's 4-00675-02A-VN with one character changed. The first two agree with the manufacturer documents the site already held, so those two rows are now sourced twice. The third does not, and is published as a conflict (F65) rather than resolved. What this does NOT answer is which product the three supplied link.amazon tokens were meant to point at: the tokens are 9 characters, are not ASINs, and the observed destinations arrive through a fallback redirect (F7, F10). That half still belongs to the account holder."
   },
   {
    "id": "Q-02",
@@ -54,8 +54,8 @@
     "The chefman.com page for RJ38-SQSS-8T states a maximum temperature of 400 F.",
     "Chefman publishes a separate RJ38-8T-BLACK that documents 450 F Hi-Fry and exactly those four functions (flag F33)."
    ],
-   "what_is_missing": "A confirmed statement from Chefman or the seller that the ASIN's title is stale rather than the specification - the site refuses to pick one without it.",
-   "how_to_discover": "Done 2026-11-16 by session ba29c641 (Part Number and Max Temperature rows read from the listing's Product information block). The shipping question stays with the account holder.",
+   "what_is_missing": "A statement from Chefman or the seller about which SKU sits behind ASIN B08DKYBTPH, or the model plate on a unit bought against it. The site will not pick between its own documents without one.",
+   "how_to_discover": "Done 2026-11-16 by session arena/ba29c641 (Part Number and Max Temperature rows read from the listing's Product information block; see reports/asin-model-mapping-2026-11-16.md). What a script cannot do: open the box.",
    "blocks": [
     "SG-01"
    ],
@@ -69,7 +69,7 @@
      "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf"
     }
    ],
-   "answer": "The listing identifies itself as RJ38-SQSS-8T: its Part Number row reads exactly that, which is the code the brand page and the owner's manual publish for the 200–400 °F stainless model, and the same page's Features & Specs table states a 400 °F maximum. So the 450 °F Hi-Fry wording in the title is contradicted by the page it sits on, not by a second site, and the RJ38-8T-BLACK hypothesis in F33 is no longer needed to explain the difference. Two things this still does not settle: whether the seller ships a different machine under that ASIN (only an ordered unit or the rating label can answer that), and why the listing carries a 450 °F claim at all. The site does not market a 450 °F capability for this product."
+   "answer": "Read from the listing on 2026-11-16, and the answer is 'the listing says both'. Its Part Number row reads RJ38-SQSS-8T - the code the brand page and the manual publish for the 200-400 F stainless model - and its own Features & Specs table states a 400 F maximum, while its title advertises '450 F Hi-Fry Option' with Bake/Dehydrate/Frozen. Because Chefman separately publishes RJ38-8T-BLACK at 450 F Hi-Fry with exactly those four functions (S26, re-read live 2026-11-16), the two explanations F3 and F33 hold - a title carried over from another SKU, or a second model listed under the first one's part number - are both still open, and the listing's self-contradiction is now evidence in the case rather than a third site disagreeing. What the read does settle is the direction of the conflict, and what the site may not say: no copy here markets a 450 F capability for this product, and the temperature ceiling of the unit that ships is left unasserted."
   },
   {
    "id": "Q-03",

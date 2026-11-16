@@ -53,14 +53,14 @@ document.addEventListener('click', function (ev) {
 })();
 
 // Owner decision picker (2026-11-16, arena/ba29c641) — decision-log.html only.
-// A static host has nowhere to POST a choice, so the picker keeps it in this browser and
-// exports the exact JSON body of data/decision-log.json. Progressive: with JS off the page
-// still reads end to end and every default is printed in the register table; only the
-// picking needs the script. No dependency, no network call, nothing leaves the page.
+// A static host has nowhere to POST a choice, so the picker keeps it in this browser and exports
+// the exact JSON body of data/decision-log.json. Progressive: with JS off the page still reads end
+// to end, every default is printed in the register table, and only the picking needs the script.
+// No dependency, no network call, nothing leaves the page.
 (function () {
   var root = document.getElementById('decision-picker');
   if (!root) return;
-  var KEY = 'zone1-decision-log-v1';
+  var KEY = 'zone1-***';
   var counter = document.getElementById('decision-counter');
   var out = document.getElementById('decision-output');
   var store = {};
@@ -102,7 +102,8 @@ document.addEventListener('click', function (ev) {
       exported: new Date().toISOString().slice(0, 10),
       exported_from: 'decision-log.html',
       choices: collect(),
-      note: 'Merge choices[] into data/decision-log.json. A recorded choice outranks the default; a suggestion absent from this list keeps its default.'
+      note: 'Merge choices[] into data/decision-log.json. A recorded choice outranks the default; ' +
+            'a suggestion absent from this list keeps its default.'
     }, null, 1);
   }
   function paint() {
@@ -116,12 +117,16 @@ document.addEventListener('click', function (ev) {
   }
   function record(target) {
     var fs = target.closest ? target.closest('fieldset[data-sg]') : null;
-    if (!fs) return null;
-    var id = fs.getAttribute('data-sg');
-    store[id] = { path: chosen(fs), note: note(fs) };
+    if (!fs) return;
+    store[fs.getAttribute('data-sg')] = { path: chosen(fs), note: note(fs) };
     persist();
     paint();
-    return fs;
+  }
+  function flash(btn, msg) {
+    var old = btn.textContent;
+    btn.setAttribute('data-label', old);
+    btn.textContent = msg;
+    setTimeout(function () { btn.textContent = old; }, 1900);
   }
   root.addEventListener('change', function (ev) { record(ev.target); });
   root.addEventListener('input', function (ev) {
@@ -141,32 +146,29 @@ document.addEventListener('click', function (ev) {
       return;
     }
     var text = payload();
+    var n = collect().length;
     if (act === 'download') {
-      if (!collect().length) { flash(btn, 'nothing picked yet'); return; }
+      if (!n) { flash(btn, 'nothing picked yet'); return; }
       var blob = new Blob([text], { type: 'application/json' });
-      var a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'decision-log.json';
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'decision-log.json';
+      document.body.appendChild(link);
+      link.click();
+      setTimeout(function () { URL.revokeObjectURL(link.href); link.remove(); }, 0);
       flash(btn, 'downloaded');
       return;
     }
     if (out) { out.hidden = false; out.textContent = text; }
-    if (!collect().length) { flash(btn, 'nothing picked yet'); return; }
+    if (!n) { flash(btn, 'nothing picked yet'); return; }
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function () { flash(btn, 'copied — paste it into any session'); },
-                                                function () { flash(btn, 'shown below — select and copy'); });
+      navigator.clipboard.writeText(text).then(
+        function () { flash(btn, 'copied — paste it into any session'); },
+        function () { flash(btn, 'shown below — select and copy'); });
     } else {
       flash(btn, 'shown below — select and copy');
     }
   });
-  function flash(btn, msg) {
-    var old = btn.textContent;
-    btn.textContent = msg;
-    setTimeout(function () { btn.textContent = old; }, 1800);
-  }
   panels().forEach(function (fs) {
     var v = store[fs.getAttribute('data-sg')];
     if (!v) return;

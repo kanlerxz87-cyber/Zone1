@@ -34,7 +34,8 @@ identity mapping.
 
 ## 3. Verification result
 
-> **Refreshed 2026-11-16 by pass 11** (session `arena/ba29c641-zone1`), because the numbers below
+> **Refreshed 2026-11-16 by session `arena/ba29c641-zone1`** (this file's own numbering calls it pass 11;
+> note a second session used the same pass label the same day, so trust the session id), because the numbers below
 > had become the file's oldest claims: `data/products.json` now holds **77 specification rows — 75
 > verified, 2 blank and flagged**, over **34** official sources. The 31 added rows are all values
 > read from the three listings' own Product information blocks on 2026-11-16, each labelled
@@ -1008,4 +1009,17 @@ board (#94, #95) own that ground, and a third copy of the same source ledger was
 repository needs. It did not delete the five stale root briefings; it put a pointer on each (F59's
 disposition). It did not fill the two remaining blanks, did not assert a commission rate per ASIN, and
 did not state what either contradicting document "really" means. `python3 verify.py` reports
-**117 pages, 0 errors, 0 external warnings**; `scripts/check_links.py` reports **0 broken links**
+**126 pages, 77 spec rows (75 verified, 2 blank and flagged), 34 sources, 0 errors, 0 external warnings**;
+`scripts/check_links.py` reports **7,815 links, 0 broken**; `scripts/ci-check.sh`, `scripts/verify_site.py`
+and `research/check_research.py` all pass; a clean rebuild leaves `git status` empty.
+
+### 19.6 One more instance of the defect this repository keeps finding
+
+While updating the requirements register for this pass, its own preamble was checked against its own rows:
+the file promises "counts are computed from the rows at build time rather than typed, so this page cannot
+claim a total the register does not contain", and then types eight counts into prose — 46 spec rows, 21
+suggestions, 20 questions, a 37-URL sitemap, 33 unit tests, 15 guards, 27 banned phrases, five stale
+briefings. All eight had drifted or were one edit from drifting. They are now `{}`-tokens substituted by
+`req_interp()` from the same objects the pages render from, an unknown token raises, and
+`check_requirement_tokens()` fails the build if a token survives into a page (both directions tested).
+Recorded as **F68**.

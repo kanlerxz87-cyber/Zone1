@@ -113,8 +113,9 @@ td.num{font-variant-numeric:tabular-nums; white-space:nowrap}
 .pill-warn{background:var(--warn-soft); color:#78350f}
 .pill-bad{background:var(--bad-soft); color:#7f1d1d}
 .pill-info{background:#e0f2fe; color:#075985}
-/* Owner decision log (2026-11-16, arena/ba29c641): a picker on a static host has to look
-   like a form and behave like one, or it reads as decoration. */
+/* Owner decision log (2026-11-16, arena/ba29c641). A picker on a static host has to look like a
+   form and behave like one, or it reads as decoration: real inputs, a visible default, and a
+   payload you can hand back. */
 .decision-picker fieldset{border:1px solid var(--line); border-radius:var(--radius); padding:.75rem .95rem .85rem; margin:.6rem 0; background:var(--panel)}
 .decision-picker legend{font-size:.9rem; font-weight:700; padding:0 .45rem}
 .decision-picker legend a{font-family:var(--mono); font-size:.8rem}

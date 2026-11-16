@@ -4342,27 +4342,6 @@ extend it to ordinary pages. Published as Q-21 rather than inferred.
 **Deployment:** PR opened against `main` and merged; GitHub Pages rebuilt; the live site read
 back to confirm the new content is served. The PR number and the Pages build id are recorded
 in the merge row above, once they exist.
-<<<<<<< HEAD
----
-
-## Task board — arena/ba29c641-zone1 (2026-11-16 UTC, session ba29c641)
-
-**Claim log — this session reads the whole board before claiming.** At claim time `origin/main` = `9c6deab` (PR #93 merged); two PRs are OPEN from concurrent sessions: #94 (`arena/121929a5-zone1`: 5 articles, `data/products.json`, `data/sources.json`, `data/articles.json`, `data/topics.json`, `build.py`, regenerated root HTML) and #95 (`arena/695f03b7-zone1`: `data/pass10.json`, `page_pass10`, `assets/figures/*`, `data/suggestions.json`, `data/questions.json`, `data/flags.json`, `build.py`). Both were left untouched. **This session deliberately avoids** `articles/`, `data/articles.json`, `data/topics.json`, `data/pass10.json`, `assets/figures/`, `EXECUTIVE-SUMMARY.md`, and any re-run of the 34-source ledger that #94/#95 already publish — that is their scope, and duplicating it would produce a third copy of the same table.
-
-| # | Task | Status | Owner (session) | File scope |
-|---|------|--------|-----------------|------------|
-| Z1 | Repair **F60 at source**: re-point `data/s2/requirements.json` R-01 at the file that exists and restate R-08's blocker as the ASIN→category mapping (the request logged by `arena/ad8105b3`; the annex has no active owner, so this session takes it) | in progress | arena/ba29c641-zone1 (session ba29c641) | `data/s2/requirements.json`, `s2/**` register regeneration only if `scripts/build_s2_site.py --check` requires it |
-| Z2 | Live **Product-information-block read** of the three `/dp/` ASINs, to attempt closing F46 / SG-01 / F2 / F3 / F32 / F33 (ASIN→model mapping) with an official source rather than inference. Publish the outcome — including a negative result — as a new evidence report | in progress | arena/ba29c641-zone1 (session ba29c641) | `reports/asin-model-mapping-2026-11-16.md` (new) |
-| Z3 | Owner **decision record**: make the Suggestions queue actually closable — per-suggestion "chosen path" state, a decision register `data/decision-log.json` the next agent pass reads, and a copy/export affordance so an owner's choice survives a static host | in progress | arena/ba29c641-zone1 (session ba29c641) | `data/decision-log.json` (new), `build.py` (`page_suggestions`, `page_index`, NAV), `assets/app.js`, regenerated `suggestions.html` + `index.html` only |
-| Z4 | **F59 disposition**: the five superseded root Markdown briefings stay as evidence but stop reading as current — pointer header on each, plus the flagged-page row updated with the disposition | in progress | arena/ba29c641-zone1 (session ba29c641) | `EXECUTIVE_SUMMARY.md`, `EXECUTIVE-SUMMARY-PASS8.md`, `EXECUTIVE-SUMMARY-PASS9.md`, `EXECUTIVE-SUMMARY-PASS9-42CA97AD.md`, `annex-88769516/README.md` (no) — NOT `EXECUTIVE-SUMMARY.md` (owned by #94) |
-| Z5 | Final integration for this pass: rebase onto `main` after #94/#95 land, re-run every gate, confirm byte-reproducible build with no broken links, PR → merge → confirm Pages deploy → record | in progress | arena/ba29c641-zone1 (session ba29c641) | whole tree at integration |
-
-### Overlap notes
-
-* Z3 touches `build.py`, which #94 and #95 both touch. Resolution rule adopted from `arena/ad8105b3`: on conflict, keep their changes and **regenerate** the HTML from the merged generator rather than hand-merging artifacts.
-* Z1 touches `data/s2/**`, which neither open PR lists. `s2/` was the scope of `zone1-s2` (`arena/f28312ac`, PRs long merged); its board rows are `done`, so this is a repair of an already-published register, not a takeover of active work.
-* Z4 touches only files no open PR lists.
-=======
 
 ---
 
@@ -4639,4 +4618,83 @@ file conflicted. Gates on the final tree: `verify.py` 0 errors, `check_links.py`
 7,466, `scripts/ci-check.sh` OK, `research/check_research.py` OK, `platform/audit/report.py`
 0 warnings, `node --check assets/app.js` valid. CI `verify` and the annex rebuild both passed
 on the final commit before the merge.
->>>>>>> origin/main
+
+---
+
+## Task board — arena/ba29c641-zone1 (2026-11-16 UTC, session ba29c641)
+
+**Claim log — this session reads the whole board before claiming.** At claim time `origin/main` = `9c6deab` (PR #93 merged); two PRs are OPEN from concurrent sessions: #94 (`arena/121929a5-zone1`: 5 articles, `data/products.json`, `data/sources.json`, `data/articles.json`, `data/topics.json`, `build.py`, regenerated root HTML) and #95 (`arena/695f03b7-zone1`: `data/pass10.json`, `page_pass10`, `assets/figures/*`, `data/suggestions.json`, `data/questions.json`, `data/flags.json`, `build.py`). Both were left untouched. **This session deliberately avoids** `articles/`, `data/articles.json`, `data/topics.json`, `data/pass10.json`, `assets/figures/`, `EXECUTIVE-SUMMARY.md`, and any re-run of the 34-source ledger that #94/#95 already publish — that is their scope, and duplicating it would produce a third copy of the same table.
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| Z1 | Repair **F60 at source**: re-point `data/s2/requirements.json` R-01 at the file that exists and restate R-08's blocker as the ASIN→category mapping (the request logged by `arena/ad8105b3`; the annex has no active owner, so this session takes it) | done | arena/ba29c641-zone1 (session ba29c641) | `data/s2/requirements.json`, `s2/**` register regeneration only if `scripts/build_s2_site.py --check` requires it |
+| Z2 | Live **Product-information-block read** of the three `/dp/` ASINs, to attempt closing F46 / SG-01 / F2 / F3 / F32 / F33 (ASIN→model mapping) with an official source rather than inference. Publish the outcome — including a negative result — as a new evidence report | done | arena/ba29c641-zone1 (session ba29c641) | `reports/asin-model-mapping-2026-11-16.md` (new) |
+| Z3 | Owner **decision record**: make the Suggestions queue actually closable — per-suggestion "chosen path" state, a decision register `data/decision-log.json` the next agent pass reads, and a copy/export affordance so an owner's choice survives a static host | done | arena/ba29c641-zone1 (session ba29c641) | `data/decision-log.json` (new), `build.py` (`page_suggestions`, `page_index`, NAV), `assets/app.js`, regenerated `suggestions.html` + `index.html` only |
+| Z4 | **F59 disposition**: the five superseded root Markdown briefings stay as evidence but stop reading as current — pointer header on each, plus the flagged-page row updated with the disposition | done | arena/ba29c641-zone1 (session ba29c641) | `EXECUTIVE_SUMMARY.md`, `EXECUTIVE-SUMMARY-PASS8.md`, `EXECUTIVE-SUMMARY-PASS9.md`, `EXECUTIVE-SUMMARY-PASS9-42CA97AD.md`, `annex-88769516/README.md` (no) — NOT `EXECUTIVE-SUMMARY.md` (owned by #94) |
+| Z5 | Final integration for this pass: rebase onto `main` after #94/#95 land, re-run every gate, confirm byte-reproducible build with no broken links, PR → merge → confirm Pages deploy → record | done | arena/ba29c641-zone1 (session ba29c641) | whole tree at integration |
+
+### Overlap notes
+
+* Z3 touches `build.py`, which #94 and #95 both touch. Resolution rule adopted from `arena/ad8105b3`: on conflict, keep their changes and **regenerate** the HTML from the merged generator rather than hand-merging artifacts.
+* Z1 touches `data/s2/**`, which neither open PR lists. `s2/` was the scope of `zone1-s2` (`arena/f28312ac`, PRs long merged); its board rows are `done`, so this is a repair of an already-published register, not a takeover of active work.
+* Z4 touches only files no open PR lists.
+
+### Completion record — arena/ba29c641-zone1 (2026-11-16, appended after the merge)
+
+**Z1 done.** `data/s2/requirements.json` repaired at source: R-01 names both registers and the paths that
+exist; R-08 restates the blocker as the ASIN→commission-category mapping and cites the public Standard
+Commission Income Statement instead of a "login-gated rate card (F-04)"; R-03's "no public demand metric
+exists" corrected to the real reason (a listing does carry a rank line; this repository declines to publish
+it under IP License §2(e)). Annex regenerated with `scripts/build_s2_site.py`; `--check` current; `check_links.py`
+7,815 links, 0 broken. **Two gate defects found while doing it and repaired:** `.github/workflows/ci.yml` and
+`scripts/ci-check.sh` each ran the annex builder (which *writes*) and only then `--check`, so the step titled
+"prove the committed HTML is current" compared a rebuild with the bytes the previous line had produced and
+could not fail; `--check` now runs alone and tolerates only the header's build date, and the stamp is converted
+in UTC because `git log --format=%cs` had been stamping one commit 2026-11-16 in UTC and 2026-11-17 in JST.
+Proof the repaired gate bites: one changed word in `s2/pages/sources.html` → `STALE BUILD`, exit 1.
+
+**Z2 done, with a result that reverses a standing claim.** All three `/dp/` listings were fetched and each
+**Product information** block rendered: B0CDY277D3 → Model Number *and* Part Number `RJ38-SQPF-3TDB-2W`;
+B08DKYBTPH → Part Number `RJ38-SQSS-8T` (its Model Number row holds the marketing string "Large Air Fryer");
+B09B7SB46R → `4-00675-02X-VN`, one character from the brand page's `4-00675-02A-VN`. So **F49's premise —
+"rendered client-side, so an automated read cannot see it; a human browser can" — is false**, and F1/F2 close
+on the model step, SG-01's "five minutes in a browser" was never the owner's job, and Q-01/Q-02 are answered
+(`known`). F3/F33 are **not** closed: pass 11's live re-read of `RJ38-8T-BLACK` (S26) documents 450 °F, so the
+two-models reading stays live and both are published. 31 sourced rows added to `data/products.json` (46 → 77;
+75 verified, 2 blank and flagged), each labelled "as listed by Amazon"; the Emeril browse node's stale
+"not read" caveat removed; new flags **F63** (the false premise, and the Model-vs-Part-Number trap),
+**F64** (8 Qt footprint 15.4×12.6×13.5 vs 12.75×13.5×10; 6 Qt Capacity field says litres where its own page
+says quarts), **F65** (three Emeril model strings), **F66** (the listing says 7 accessories in Configuration,
+enumerates six, and says "Six" in the title — narrows F48, which had only seen the title), **F67** (°C floors
+that do not convert to the °F floors beside them). Prices, ratings, review counts and rank positions were read
+and are not published. Evidence: `reports/asin-model-mapping-2026-11-16.md`.
+
+**Z3 done.** `decision-log.html` + `data/decision-log.json`: one picker per suggestion, an
+**adopt-after-silence default computed from `data/suggestions.json` and `data/questions.json`** (letters matched
+loosely, because SG-23's labels read "A"/"B"/"C" and a strict `"<L>."` test would have dropped a row out of the
+rule), and `choices[]` empty by design — a session that filled it would be inventing an instruction. Today:
+15 carry a default a pass may implement, 7 hold for a person, 1 recorded done; the page prints that queue in
+priority order for the next agent pass. Copy/download affordance in `assets/app.js` (localStorage, no network).
+Linked from the nav, the suggestions page and the landing-page callout.
+
+**Z4 done.** Banners on `EXECUTIVE_SUMMARY.md` (its 2026-11-14 banner also refreshed — it quoted a count that
+is itself now history), `EXECUTIVE-SUMMARY-PASS8.md`, `-PASS9.md`, `-PASS9-42CA97AD.md` and
+`-PASS10-121929a5.md` (added by the merge; it needed the same treatment). F59's row carries the disposition:
+banner option chosen, nothing deleted, no historical sentence rewritten.
+
+**Z5 done.** `origin/main` had moved from `9c6deab` to include #94, #95, #103–#109 while this session worked,
+so a rebase was replaced by a **merge of `origin/main`**, with `build.py`, `data/products.json` and
+`data/sources.json` taken from main and this pass's edits re-applied on top rather than hand-merged — the rule
+this board already records. That reconciliation changed three of my own claims, and they were corrected instead
+of kept: F53's "filled by this pass" (pass 10 filled it first, via the short link — now recorded as corroboration),
+the Q-02 answer's "the second-SKU explanation is no longer needed" (S26 says otherwise), and the F3 action text.
+Also fixed: `check_requirement_tokens` caught my own flag prose emitting braces, and the requirements register's
+typed counts became computed (**F68**). Gates on the final tree: `python3 build.py` 46 sitemap URLs exit 0 ·
+`verify.py` 126 pages, 77 spec rows (75/2), 34 sources, 0 errors, 0 external warnings · `ci-check.sh` OK ·
+`check_links.py` 7,815 links, 0 broken · `verify_site.py` all assertions · `research/check_research.py` OK ·
+`node --check assets/app.js` OK · rebuild leaves `git status` clean.
+
+*Process note for the next session:* a merge that resolves conflicts by re-applying edits is safer here than a
+rebase, because this repository's registers are large single files that both sides append to; and a
+`git add` of a conflicted Markdown file can commit the markers — check `git show HEAD:COORDINATION.md |
+grep -c '^<<<<<<<'` before opening the PR, not after.
