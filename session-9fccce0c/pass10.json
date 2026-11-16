@@ -154,10 +154,10 @@
   },
   {
    "title": "Three published pages pointed at a flag number that exists in no register",
-   "detail": "data/questions.json, data/suggestions.json and data/sources.json each told the reader to see the flag numbered 46 for the Application Review Process recency criterion. The canonical register runs F1–F45 and F47–F58; the legacy data/flags.json register runs F01–F27. There is no 46 in either, so a reader who followed the pointer landed on the Flagged page and found nothing. The three pointers now name F56, the row that covers it, and a new build guard fails the build if any generated page cites a flag, source, question or suggestion id that is not in the register it points at. The guard was proven to fire on an injected violation.",
+   "detail": "data/questions.json, data/suggestions.json and data/sources.json each told the reader to see the flag numbered 46 for the Application Review Process recency criterion. The canonical register runs F1–F45 and F47–F62; the legacy data/flags.json register runs F01–F27. There is no 46 in either, so a reader who followed the pointer landed on the Flagged page and found nothing. The three pointers now name F56, the row that covers it, and a new build guard fails the build if any generated page cites a flag, source, question or suggestion id that is not in the register it points at. The guard was proven to fire on an injected violation.",
    "flag": "F61",
    "source_label": "This repository — the fix and the guard that now prevents it",
-   "source_url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/reports/verification-2026-11-16.md"
+   "source_url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/reports/verification-2026-11-16-9fccce0c.md"
   },
   {
    "title": "The Application Review criteria are now read from the source rather than carried forward",
