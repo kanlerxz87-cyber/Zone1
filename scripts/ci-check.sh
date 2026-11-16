@@ -16,4 +16,6 @@ python3 scripts/build_s2_site.py >/dev/null
 python3 scripts/build_s2_site.py --check
 echo "· link check"
 python3 scripts/check_links.py
+echo "· page audit (rendered HTML)"
+python3 scripts/audit_pages.py
 echo "OK"

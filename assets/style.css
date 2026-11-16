@@ -171,7 +171,7 @@ ul.tight li,ol.tight li{margin:.25rem 0}
 
 footer.site{border-top:1px solid var(--line); background:var(--panel); padding:2rem 1.25rem; margin-top:2rem}
 footer.site .inner{max-width:1400px; margin:0 auto; display:grid; gap:1.25rem; grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-footer.site h5{margin:0 0 .4rem; font-size:.78rem; text-transform:uppercase; letter-spacing:.08em; color:#6b7280}
+footer.site h2{margin:0 0 .4rem; font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#6b7280}
 footer.site p,footer.site li{font-size:.82rem; color:#4b5563}
 footer.site ul{list-style:none; margin:0; padding:0}
 footer.site li{margin:.2rem 0}
@@ -331,7 +331,7 @@ tbody tr:hover{background:#f1f4ed}
 .comparison-table .src{margin:.05rem .1rem .05rem 0}
 footer.site{background:#ebece5; border-top-color:#d8d9ce; margin-top:2.5rem}
 footer.site .inner{max-width:1500px}
-footer.site h5{color:#405548}
+footer.site h2{color:#405548}
 footer.site p,footer.site li{color:#59645a}
 .legal{border-top-color:#d4d7cc}
 
@@ -393,7 +393,7 @@ footer.site p,footer.site li{color:#59645a}
 
 .handover-item{border-left:4px solid var(--accent)}
 .handover-head{display:flex; align-items:baseline; gap:.6rem; flex-wrap:wrap}
-.handover-head h3{margin:0; font-family:var(--serif); font-weight:600; font-size:1.08rem; line-height:1.3; flex:1 1 60%}
+.handover-head h2{margin:0; font-family:var(--serif); font-weight:600; font-size:1.08rem; line-height:1.3; flex:1 1 60%}
 .handover-num{font:800 .8rem/1 var(--mono); color:#fff; background:var(--accent); border-radius:6px; padding:.32rem .45rem}
 .handover-meta{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:.8rem; margin-top:.7rem;
   padding-top:.7rem; border-top:1px solid var(--line)}
@@ -427,5 +427,5 @@ details.card summary{cursor:pointer; font-size:.9rem}
   padding:.28rem .7rem; color:#374151}
 .buyer-toc a:hover{border-color:var(--accent); background:var(--accent-soft); text-decoration:none}
 .article-card .cardtitle{font-family:var(--serif); font-weight:600}
-@media (max-width:560px){ .handover-head h3{font-size:1rem} }
+@media (max-width:560px){ .handover-head h2{font-size:1rem} }
 

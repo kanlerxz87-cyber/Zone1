@@ -1,0 +1,36 @@
+{
+  "pages_checked": 38,
+  "errors": 0,
+  "warnings": 9,
+  "error_list": [],
+  "warning_list": [
+    "decision-gate.html: table 0 row 11 cites the repository, not an official source — Q-12 | What is the search demand for the air-fryer topics | Search volume, trend and competition data for each",
+    "index.html: table 2 row 1 cites the repository, not an official source — No official source states the value, or official s",
+    "index.html: table 2 row 2 cites the repository, not an official source — Conflict | Two official sources state different things and ne",
+    "marketing-directions.html: table 0 row 0 cites the repository, not an official source — SG-01Design | Make the home page a product finder: one question  | A) Keep the dashboard. B) Finder-first home page (",
+    "marketing-directions.html: table 0 row 5 cites the repository, not an official source — SG-06Content and SEO | Pick article topics from real search demand, not f | A) Choose a keyword tool and export its data first",
+    "marketing-directions.html: table 0 row 10 cites the repository, not an official source — SG-11Automation | Require the build gate to pass before any article  | A) Keep the gate blocking (recommended). B) Warn o",
+    "marketing-directions.html: table 0 row 11 cites the repository, not an official source — SG-12Freshness | Set a re-verification interval for every price-fre | A) Every 30 days. B) Every 90 days (recommended fo",
+    "platform.html: table 3 row 0 cites the repository, not an official source — Verified-row coverage | Share of published table rows whose every value ca",
+    "platform.html: table 3 row 1 cites the repository, not an official source — Flag resolution time"
+  ],
+  "official_hosts": [
+    "advertising.amazon.com",
+    "affiliate-program.amazon.com",
+    "api.github.com",
+    "cdn.shopify.com",
+    "chefman.com",
+    "developers.google.com",
+    "docs.github.com",
+    "github.com",
+    "kanlerxz87-cyber.github.io",
+    "kdp.amazon.com",
+    "link.amazon",
+    "sell.amazon.com",
+    "www.amazon.com",
+    "www.ecfr.gov",
+    "www.emerileveryday.com",
+    "www.ftc.gov",
+    "www.p65warnings.ca.gov"
+  ]
+}

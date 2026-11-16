@@ -572,7 +572,7 @@ ul.tight li,ol.tight li{margin:.25rem 0}
 
 footer.site{border-top:1px solid var(--line); background:var(--panel); padding:2rem 1.25rem; margin-top:2rem}
 footer.site .inner{max-width:1400px; margin:0 auto; display:grid; gap:1.25rem; grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-footer.site h5{margin:0 0 .4rem; font-size:.78rem; text-transform:uppercase; letter-spacing:.08em; color:#6b7280}
+footer.site h2{margin:0 0 .4rem; font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:#6b7280}
 footer.site p,footer.site li{font-size:.82rem; color:#4b5563}
 footer.site ul{list-style:none; margin:0; padding:0}
 footer.site li{margin:.2rem 0}
@@ -732,7 +732,7 @@ tbody tr:hover{background:#f1f4ed}
 .comparison-table .src{margin:.05rem .1rem .05rem 0}
 footer.site{background:#ebece5; border-top-color:#d8d9ce; margin-top:2.5rem}
 footer.site .inner{max-width:1500px}
-footer.site h5{color:#405548}
+footer.site h2{color:#405548}
 footer.site p,footer.site li{color:#59645a}
 .legal{border-top-color:#d4d7cc}
 
@@ -794,7 +794,7 @@ footer.site p,footer.site li{color:#59645a}
 
 .handover-item{border-left:4px solid var(--accent)}
 .handover-head{display:flex; align-items:baseline; gap:.6rem; flex-wrap:wrap}
-.handover-head h3{margin:0; font-family:var(--serif); font-weight:600; font-size:1.08rem; line-height:1.3; flex:1 1 60%}
+.handover-head h2{margin:0; font-family:var(--serif); font-weight:600; font-size:1.08rem; line-height:1.3; flex:1 1 60%}
 .handover-num{font:800 .8rem/1 var(--mono); color:#fff; background:var(--accent); border-radius:6px; padding:.32rem .45rem}
 .handover-meta{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:.8rem; margin-top:.7rem;
   padding-top:.7rem; border-top:1px solid var(--line)}
@@ -828,7 +828,7 @@ details.card summary{cursor:pointer; font-size:.9rem}
   padding:.28rem .7rem; color:#374151}
 .buyer-toc a:hover{border-color:var(--accent); background:var(--accent-soft); text-decoration:none}
 .article-card .cardtitle{font-family:var(--serif); font-weight:600}
-@media (max-width:560px){ .handover-head h3{font-size:1rem} }
+@media (max-width:560px){ .handover-head h2{font-size:1rem} }
 
 """
 
@@ -1035,27 +1035,27 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
 <footer class="site">
   <div class="inner">
     <div>
-      <h5>Research archive</h5>
+      <h2>Research archive</h2>
       <p>Older verification builds and supporting reports are kept separate from the main buying guide.</p>
       <p><a href="{prefix}previous-passes.html">Browse prior passes and annexes →</a></p>
     </div>
     <div>
-      <h5>Disclosure</h5>
+      <h2>Disclosure</h2>
       <p><strong>{e(DISCLOSURE)}</strong></p>
       <p>We may earn a commission from a qualifying purchase made through an eligible link. The three supplied Amazon short links have not been confirmed to match the named models or carry this site's Associates tracking ID. Amazon prices, availability and ratings are not published here.</p>
     </div>
     <div>
-      <h5>Verification</h5>
+      <h2>Verification</h2>
       <p>Every asserted value on this site links to the official page it came from. Values that could not be confirmed from an official source are left blank and listed on the <a href="{prefix}flagged.html">Flagged for review</a> page.</p>
       <p class="tiny">Data verified {e(ACCESSED)}. Policies change: always re-check the source before relying on it.</p>
     </div>
     <div>
-      <h5>Cookies &amp; privacy</h5>
+      <h2>Cookies &amp; privacy</h2>
       <p>This site sets no cookies itself, runs no analytics, and has no comment forms or accounts. Following an Amazon link takes you to Amazon, whose own privacy notice and cookie practices apply from that point. No data you enter here is collected, because there is nowhere to enter it.</p>
       <p class="tiny">Amazon's Program Policies §3(e) require an accurate statement of cookie and third-party technology use on Associate sites. This notice satisfies that requirement for the current build; it must be updated the moment any analytics, embeds or affiliate-network script is added.</p>
     </div>
     <div>
-      <h5>Sources</h5>
+      <h2>Sources</h2>
       <ul>
         <li><a href="https://affiliate-program.amazon.com/help/operating/agreement" target="_blank" rel="noopener">Associates Operating Agreement</a></li>
         <li><a href="https://affiliate-program.amazon.com/help/operating/policies" target="_blank" rel="noopener">Associates Program Policies</a></li>
@@ -4446,7 +4446,7 @@ def page_404():
 <h1>That page is not here</h1>
 <p class="lede">The link may be stale, or the page may not exist. Everything published is reachable from the dashboard.</p>
 <div class="grid grid-2">
-  <div class="card"><h3 style="margin-top:0">Products</h3>
+  <div class="card"><h2 style="margin-top:0;font-size:1.02rem">Products</h2>
     <ul class="tight small">
       <li><a href="products/chefman-6qt-dual-basket.html">Chefman 6 Qt Dual Basket</a></li>
       <li><a href="products/emeril-26qt-french-door.html">Emeril 26 QT French Door</a></li>
@@ -4454,7 +4454,7 @@ def page_404():
       <li><a href="compare.html">Comparison matrix</a></li>
     </ul>
   </div>
-  <div class="card"><h3 style="margin-top:0">Research</h3>
+  <div class="card"><h2 style="margin-top:0;font-size:1.02rem">Research</h2>
     <ul class="tight small">
       <li><a href="data.html">Full dataset</a></li>
       <li><a href="compliance.html">Compliance</a></li>
@@ -5307,7 +5307,7 @@ def page_handover():
 <article class="card handover-item">
   <div class="handover-head">
     <span class="handover-num">{e(h['id'])}</span>
-    <h3>{_md(h['owner_action'])}</h3>
+    <h2>{_md(h['owner_action'])}</h2>
     <span class="pill pill-info">{e(h['time'])}</span>
   </div>
   <p class="small">{_md(h['why_now'])}</p>
@@ -5764,7 +5764,52 @@ def check_affiliate_link_qualification(pages):
     return problems
 
 
+def check_heading_order(pages):
+    """Build guard: the heading outline of every generated page must be walkable.
+
+    Written because the defect was live on 2026-11-16: the footer labelled its
+    five columns with ``<h5>``, so every generated page skipped a heading level
+    (h2 or h3 -> h5), and two pages skipped one inside ``<main>`` (h1 -> h3).
+    A skipped level breaks the outline that a screen-reader user and the
+    heading parsers behind structured data both build from the page, and it
+    is invisible in a visual review — which is exactly the kind of defect
+    that comes back with the next template edit.
+
+    House rule enforced here:
+      * exactly one ``<h1>`` per page;
+      * no heading may sit more than one level deeper than the one before it;
+      * no ``<h5>`` or ``<h6>`` anywhere — the site uses h1..h4 only.
+    """
+    problems = []
+    heading_re = re.compile(r"<h([1-6])\b[^>]*>(.*?)</h\1>", re.S | re.I)
+    for rel, html_text in sorted(pages.items()):
+        if not rel.endswith(".html"):
+            continue
+        body = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", html_text, flags=re.S)
+        headings = []
+        for m in heading_re.finditer(body):
+            level = int(m.group(1))
+            text = re.sub(r"<[^>]+>", "", m.group(2))
+            text = re.sub(r"\s+", " ", text).strip()
+            headings.append((level, text))
+        if not headings:
+            problems.append(f"{rel}: page has no headings at all")
+            continue
+        h1s = [h for h in headings if h[0] == 1]
+        if len(h1s) != 1:
+            problems.append(f"{rel}: {len(h1s)} <h1> elements (expected exactly 1)")
+        prev = None
+        for level, text in headings:
+            if level >= 5:
+                problems.append(f"{rel}: <h{level}> used ({text[:40]!r}); the site uses h1..h4 only")
+            if prev is not None and level > prev + 1:
+                problems.append(f"{rel}: heading jumps from h{prev} to h{level} at {text[:40]!r}")
+            prev = level
+    return problems
+
+
 def check_seo_metadata(pages):
+
     """Build guard: the SEO/sharing metadata must exist on every generated page.
 
     Written because the defect it prevents was live: before pass 9 no generated page had a
@@ -5898,6 +5943,9 @@ def main():
     seo_problems = check_seo_metadata(pages)
     if seo_problems:
         raise SystemExit("BUILD FAILED - SEO/sharing metadata:\n  " + "\n  ".join(seo_problems))
+    heading_problems = check_heading_order(pages)
+    if heading_problems:
+        raise SystemExit("BUILD FAILED - heading outline:\n  " + "\n  ".join(heading_problems))
     affiliate_problems = check_affiliate_link_qualification(pages)
     if affiliate_problems:
         raise SystemExit("BUILD FAILED - unqualified affiliate links (Google spam policies, "
