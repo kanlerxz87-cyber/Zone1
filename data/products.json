@@ -393,10 +393,10 @@
      "label": "Amazon browse node",
      "value": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
      "source": [
-      "S28"
+      "S28",
+      "S17"
      ],
-     "unverified": "Not read. Three fetches of this ASIN on 2026-11-15 were each answered with Amazon's automated 'Continue shopping' checkpoint instead of the product page, so no breadcrumb was rendered. The two Chefman ASINs fetched cleanly in the same window. Left blank rather than assumed to match the others.",
-     "note": "Blank until 2026-11-16: filled in pass 10 (session 121929a5) from the breadcrumb trail of the live detail page (S28), re-read that day both directly and via the supplied short link. Same node string the two Chefman rows carry."
+     "note": "Blank until 2026-11-16: filled in pass 10 (session 121929a5) from the breadcrumb trail of the live detail page (S28), re-read that day both directly and via the supplied short link. Same node string the two Chefman rows carry. Independently re-read on 2026-11-16 by session b23f12f0 (round 11) from both the detail page (S28) and the supplied short link (S17), after the 2026-11-15 checkpoint block cleared - two sessions reached the same string by the same route. The 2026-11-15 reading that called the block 'per-ASIN' was wrong: it is intermittent per request (see flag F65)."
     }
    ],
    "pricing": {
@@ -611,8 +611,6 @@
      "value": null,
      "unverified": "The Amazon listing title advertises a '450 °F Hi-Fry option' and Bake/Dehydrate/Frozen functions, but the brand product page and the RJ38-SQSS-8T owner's manual document only 200–400 °F with fries/chicken/fish/meat presets. Either the ASIN is a different SKU or one official source is stale. Not asserted.",
      "source": [
-      "S29",
-      "S29",
       "S29"
      ]
     },
