@@ -4920,3 +4920,10 @@ inference.
 `data/sources.json` (S35 + 14 stamps) · `data/products.json` (Emeril browse node) · `data/questions.json`
 (Q-06 candidate, Q-11 resolution, de-duplication) · `data/articles.json` (note de-duplication) ·
 `build.py` (F64–F67, `check_register_duplicates()`) · `COORDINATION.md` · regenerated root HTML.
+
+### X-a746a9f2 — PR, merge and deploy record (2026-11-16 UTC)
+
+* **PR:** [#101](https://github.com/kanlerxz87-cyber/Zone1/pull/101) — *Line-by-line review, live re-verification (2026-11-16), seasonal content cluster and decision-layer additions* — `arena/a746a9f2-zone1` → `main`.
+* **Merge:** `gh pr merge 101 --merge` **without waiting for approval**, state `MERGED` at `2026-11-16T19:12:20Z`, merge commit **`43da403de8ac856204a0f3cf5a41afdd31b53f94`**. PR CI run passed before merge. The merge landed cleanly through four recorded keep-both seams against concurrently moving `main` (PRs #86–#112); no other session's content was discarded at any seam.
+* **GitHub Pages:** the `pages build and deployment` workflow completed **`success`** on `main`; `pages/builds/latest` reports `status: built`, `error: null`, commit `4ed5843` (the descendant of `43da403` that also carries concurrent PR #112 — `43da403` is its ancestor, so the deployed site contains this pass's work). Live read-back confirmed `articles/air-fryer-gift-guide-2026.html` is deployed with its sourced specification splices, per-section official source links, the affiliate disclosure, and the "four things this gift guide cannot tell you" section — and `flagged.html`, `questions.html`, `suggestions.html` and `decisions.html` carry rows F63, Q-23, SG-24/25/26 and the count-proof fixes.
+* **Result: task X-a746a9f2 complete** — verification (14/14 live reads, evidence table `reports/verification-2026-11-16-a746a9f2.md`), marketing/seasonal layer (1 new article, TP-15–TP-17), decision layer (SG-24–SG-26, Q-23), executive summary §20, flags F63 + dated F53 update, integration merged and deployed, and this record.
