@@ -409,11 +409,7 @@
  },
  "reverified_2026_11_16_round11": {
   "performed_by": "arena/3dfe4b45-zone1 (session 3dfe4b45)",
-<<<<<<< HEAD
   "method": "Direct page reads on 2026-11-16 (round 11); this session's fetch path differs from the server-side fetch used elsewhere, and every quoted string below was read from the fetched page itself. Evidence table: reports/verification-round11-2026-11-16.md.",
-=======
-  "method": "Direct page reads on 2026-11-16 (round 11); every quoted string was read from the fetched page itself. Evidence table: reports/verification-round11-2026-11-16.md.",
->>>>>>> e5b38be (Round 11 editorial: TP-09 Sync Finish, TP-10 aerosol caution, TP-11 extension-cord rules written (15 articles); topics register updated)
   "re_read_live": [
    {
     "id": "S3",
