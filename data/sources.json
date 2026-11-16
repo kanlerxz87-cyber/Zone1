@@ -343,5 +343,68 @@
    "page_version": "Read live 2026-11-15 (arena/63a2c638). variant price 119.99, compare_at_price 119.99, sku RJ38-SQPF-3TDB-2, grams 6509, weight 14.35 lb."
   }
  ],
- "reverified": "2026-11-15"
+ "reverified": "2026-11-16",
+ "reverified_2026_11_16": {
+  "performed_by": "arena/ad8105b3-zone1 (session ad8105b3)",
+  "method": "Each page listed as re-read was fetched server-side on 2026-11-16 and the quoted text read from that response. This sandbox has no direct outbound network, so nothing below is asserted from memory or from an earlier session's record.",
+  "re_read_live": [
+   {
+    "id": "S1",
+    "what": "Operating Agreement — header still reads 'Updated: October 15, 2025'."
+   },
+   {
+    "id": "S2",
+    "what": "Program Policies — header reads 'Updated: April 14, 2026'. Read verbatim: §2(b) price and availability rule, §3(e) cookie and third-party technology disclosure, §5 no-model-training clause, §6(t) reviews and star ratings, §6(y) no price tracking, and the Prohibited Paid Search Placement definition."
+   },
+   {
+    "id": "S3",
+    "what": "Standard Commission Income Statement Table 1, read without a login: 'Physical Books, Kitchen, Automotive 4.50%', 'Home 3.00%', 'All Other Categories 4.00%'."
+   },
+   {
+    "id": "S8",
+    "what": "Disclosures 101 for Social Media Influencers — 'When to Disclose' and 'How to Disclose' read verbatim."
+   },
+   {
+    "id": "S10",
+    "what": "Chefman 6 Qt Dual-Window product page — model RJ38-SQPF-3TDB-2W printed on the page, 1,307 reviews, Sync Finish and Hi-Fry feature text present."
+   },
+   {
+    "id": "S17",
+    "what": "The supplied short link B04G1MEwY resolved through plpRedirect=mhFallback to ASIN B0CDY277D3, whose title matched the stored value character for character."
+   }
+  ],
+  "not_re_read_in_this_pass": {
+   "ids": [
+    "S4",
+    "S5",
+    "S6",
+    "S7",
+    "S9",
+    "S11",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S16",
+    "S18",
+    "S19",
+    "S20",
+    "S21",
+    "S22",
+    "S23",
+    "S24",
+    "S25",
+    "S26",
+    "S27",
+    "S28",
+    "S29",
+    "S30",
+    "S31",
+    "S32",
+    "S33",
+    "S34"
+   ],
+   "note": "Their recorded reads stand as dated evidence and are not restated as current by this pass. S7's content in particular was not fetched: it was reached only as a link from S8. Nothing on the site depends on a claim only S7 makes, and flag F60 records the scope limit."
+  }
+ }
 }
