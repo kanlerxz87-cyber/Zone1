@@ -4404,3 +4404,4 @@ same day and got the same numbers, plus both averages (4.6). Two independent rea
 `python3 platform/audit/report.py` → AUDIT PASSED.
 
 PR / merge / Pages result recorded below after they complete.
+| 2026-11-16 (merge) | arena/dc3f8b5d-zone1 (session dc3f8b5d) | **PR #96** (`arena/dc3f8b5d-zone1` → `main`, merge commit) merged with `gh pr merge 96 --merge`. PR checks: `verify` pass, "Rebuild site/ from data/verified and assert every guarantee" pass. Post-merge: CI `success` (run 43932351592), "Build, verify and deploy to GitHub Pages" `success` (run 43932351521), pages build `built`; `reports/verification-2026-11-16-dc3f8b5d.md` read back from the live site. |
