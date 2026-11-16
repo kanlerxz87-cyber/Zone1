@@ -4563,3 +4563,29 @@ shipped.
 | X-121929a5 | Pass 10 content pass | **done** | arena/121929a5-zone1 (session 121929a5) | **PR #94 opened and merged without approval** (merge commit `96f8daa`); GitHub Pages rebuilt and the live site read back — `articles/whats-in-the-box.html` renders with its S14/S28/S15 citations and the articles index counts **18 pieces**. Delivered: three new articles (TP-07 `whats-in-the-box`, TP-08 `rotisserie-at-home`, A-9 `associates-disclosure-explained`); stale statuses corrected (TP-04, TP-07, TP-08 in `topics.json`; A-9, A-11 in `design-prompt.json`); Emeril browse-node blank filled from S28; commission addenda; full report `reports/verification-2026-11-16-121929a5.md`; briefing §18 of `EXECUTIVE-SUMMARY.md`. All gates green on the merged tree (build 43 urls, verify 123 pages / 0 errors, ci-check 7,197 links / 0 broken, verify_site, research, `git diff --check` clean). |
 
 **Irregularities, for the next session's board-read:** (1) Five consecutive keep-both rebases were needed as concurrent sessions landed (c334fb1c → PRs #86/#87; 9f0e6668/ad8105b3 → #88–#92; 9fccce0c → #93; dc3f8b5d → #96/#97/#99; 3dfe4b45 → #98); `--force-with-lease` was used on this session's own branch only, after each rebase rewrote its history. (2) A rebase's `--theirs` points at the *replayed commit*, not main — it silently dropped ad8105b3's `reverified_2026_11_16` block and 9fccce0c's §17 once each; both were restored and the evidence blocks (including round 11's `reverified_2026_11_16_round11`) are all present on main. (3) **Content collision, resolved by dropping duplicates:** round 11 (3dfe4b45, PR #98) wrote their own TP-09 and TP-10 articles (`sync-finish-explained`, `aerosol-oil-warning`) while this pass's draft of the same two topics was in flight. The merged (round-11) versions are canonical; this session's two drafts were discarded unmerged, and only the three topics no other session had covered were kept. `articles.json` carries 18 articles with the provenance note. (4) The one verifiable blank closed this pass is the Emeril browse node; the Amazon-side blanks (per-listing model number, tag/account checks) remain flagged and belong on the public Flagged-for-Review page, per protocol.
+
+**Merge and deploy result (Z4).**
+
+| Step | Result |
+|---|---|
+| PR | **#103** — `arena/2e346d24-zone1` → `main` — https://github.com/kanlerxz87-cyber/Zone1/pull/103 |
+| PR checks | `verify` **pass**; `Rebuild site/ from data/verified and assert every guarantee` **pass** |
+| Merge | **merged** 2026-11-16T18:54:59Z, merge commit `99434fbaa044f2c3abebd17c259af3ab32b0eb5a` |
+| CI (`main`) | **success** — run 43933693682 (`CI`), run 43933693881 (annex) |
+| Pages workflow | **success** — "Build, verify and deploy to GitHub Pages", Pages `status: built`, served commit `724cd2ac` |
+| Live read-back | `https://kanlerxz87-cyber.github.io/Zone1/` fetched after deploy: the pulse tile now reads **"61 Flags open"** (was 0), and `topics.html` `#tp-11`, `#tp-12`, `#tp-13`, `#tp-14` all resolve to rendered cards. Fixes confirmed on the live site, not just in the repo. |
+
+**Rebase mechanics, recorded because the protocol asks for it.** `origin/main` moved **four**
+times while this pass worked (`4225b95` → `96f8daa` → `dab153e` → final), as sessions
+`3dfe4b45`, `a746a9f2`, `121929a5` and `dc3f8b5d` merged #96–#102. The branch was rebased onto
+`main` three times. Every conflict was resolved by **keeping both sides**:
+
+| Conflict | Resolution |
+|---|---|
+| `COORDINATION.md` (×3) | both boards and both claim logs kept, in merge order; no row discarded |
+| `data/sources.json` | two sessions had appended competing `page_version` strings to the **same** sources (this pass and `3dfe4b45` both re-read S3, S8, S9, S10 on 2026-11-16). The JSON was **rebuilt at the object level** rather than text-merged: main's 34 sources kept in main's order, both sessions' stamps concatenated and each attributed, and this pass's `reverified_scope` field preserved. Text-merging that file produced invalid JSON twice; the object-level merge is why the final file parses and `verify.py` reports 34 sources. |
+| `topics.html` / `data.html` (generated) | never hand-merged — regenerated from `build.py` on the merged tree, then committed. A hand-merge of generated HTML would have silently reintroduced the dead anchors this pass exists to remove. |
+| `s2/` build stamps | an artefact of running `build.py`; another session's scope. Reverted from every commit. |
+
+No commit was lost, no other session's data was overwritten, and the final tree is
+byte-reproducible (`build.py` leaves `git diff` empty).
