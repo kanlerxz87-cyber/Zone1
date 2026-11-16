@@ -1029,6 +1029,229 @@
     }
    ],
    "closing_note": "No appliance in this article was plugged in, measured or tested. The power rows are published dataset values sourced to the manufacturer pages, and the cord instructions are quoted from the owner's manuals."
+  },
+  {
+   "slug": "black-friday-model-number-switch",
+   "kind": "Investigation",
+   "kicker": "Seasonal / deal safety",
+   "title": "The Black Friday model-number switch, and the three-minute check that catches it",
+   "standfirst": "Discount badges stack up in November. The listings underneath them do not always describe the same machine - including the three this site tracks. Here is the documented version, and the check to run before the deal timer wins.",
+   "target_query": "black friday air fryer deals",
+   "intent": "Commercial investigation",
+   "reading_minutes": 6,
+   "products": [
+    "chefman-8qt-turbofry",
+    "chefman-6qt-dual-basket",
+    "emeril-26qt-french-door"
+   ],
+   "sections": [
+    {
+     "h": "One listing, two machines' features",
+     "paras": [
+      "The Amazon listing behind this site's 8-quart pick sells a stainless-steel air fryer whose title advertises a Hi-Fry button and a high-heat finish. Chefman documents that button on a different model: the matte-black RJ38-8T-BLACK, whose own page lists four functions and a two-minute 450F finish. The stainless unit, RJ38-SQSS-8T, is documented with a ceiling of {{200–400 °F}} and no Hi-Fry mode anywhere in its own documentation.",
+      "Neither machine is a fake, and the listing is not a scam. It is a hybrid: title features borrowed from one model, finish borrowed from the other. This repository has carried that conflict as an open flag through several verification rounds precisely because a rendered listing page is the only place it shows."
+     ],
+     "cite": [
+      "S29",
+      "S26",
+      "S12"
+     ]
+    },
+    {
+     "h": "The same pattern one size down",
+     "paras": [
+      "Chefman's 6-quart drawer exists in three documented variants: the dual-window model this site tracks (RJ38-SQPF-3TDB-2W), a sibling labelled 'Dual-Basket' (RJ38-SQPF-3TDB-2), and a third 'Easy View Windows' double-basket page (RJ38-3DBW-V2). Different pages, different features, near-identical names - the exact conditions a deal carousel compresses into one thumbnail.",
+      "The Emeril oven shows the softer version of the same problem: one official product page states its preset count two different ways, and the owner's manual states it a third. The manual's countable list is the one this site publishes against; the reasoning is written up in the preset-count investigation."
+     ],
+     "cite": [
+      "S10",
+      "S18",
+      "S27",
+      "S25",
+      "S14",
+      "S15"
+     ]
+    },
+    {
+     "h": "Why deal season makes it worse",
+     "paras": [
+      "**Judgement, not a sourced fact:** bundles, seller swaps and open-box stock all move faster in November, and a listing title can be edited independently of the product behind it. The discount timer is doing retail work, not verification work.",
+      "A model number is the opposite. It sits in the listing's Product information table, it maps to one manufacturer page, and it cannot drift from the thing itself without changing the thing itself."
+     ],
+     "cite": [
+      "S2"
+     ]
+    },
+    {
+     "h": "The three-minute check",
+     "paras": [
+      "Find the Model Number row in the listing's Product information table, and match it against the brand's own product page - not against the title. If the title's features and the model page's features disagree, the model page is describing the machine that will actually arrive.",
+      "Count what the manual says is in the box against what the listing shows. The oven this site tracks records {{7}} accessories across two official statements, while its own manual cautions that not every pictured accessory ships with every unit: 'Some accessories may not be included with purchase.'",
+      "**Judgement:** do the check before the timer runs out, not after. A deal that survives three minutes of reading is a deal worth taking; one that does not was selling the countdown, not the appliance."
+     ],
+     "cite": [
+      "S29",
+      "S14",
+      "S15",
+      "S2"
+     ]
+    }
+   ],
+   "closing_note": "No product in this article was tested, and no listing was purchased. Model pages and listing titles were read on 2026-11-15 and 2026-11-16 and are linked per section. This site displays no Amazon prices or discount percentages."
+  },
+  {
+   "slug": "air-fryer-gift-guide-2026",
+   "kind": "Buying guide",
+   "kicker": "Seasonal / gift guide",
+   "title": "The honest 2026 air-fryer gift guide: match the format to the person",
+   "standfirst": "An air fryer is a wonderful gift and a terrible surprise. Three documented formats, matched to three kinds of kitchens, with the fine print that decides whether the gift is still there in February.",
+   "target_query": "air fryer gift ideas",
+   "intent": "Commercial investigation",
+   "reading_minutes": 7,
+   "products": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "sections": [
+    {
+     "h": "Give the format, not the feature list",
+     "paras": [
+      "Every air fryer on this page moves hot air. What separates them is shape: two drawers, one big basket, or a countertop oven with doors. The shape decides what fits the counter, what fits dinner, and what survives the return window; the feature list decides very little.",
+      "This is the site's usual format map told as a gift problem. You are matching an appliance to a kitchen you may never have stood in, so the documented measurements below matter more than the adjectives."
+     ],
+     "cite": [
+      "S10",
+      "S12",
+      "S14"
+     ]
+    },
+    {
+     "h": "For the person cooking for one or two, on one counter",
+     "paras": [
+      "The dual-basket Chefman is documented at {{6 Qt / 5.67 L}} total, divided into {{Two 3-quart baskets::two 3-quart baskets}} with independent time and temperature. Its footprint is recorded at {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}} and it weighs {{13.3 lb / 6.03 kg}} - the lightest of the three, which matters when the gift has to be carried up stairs.",
+      "The documented gift-saver on this model is Sync Finish: the shorter cook waits so both drawers land together, per the product page and the manual. For someone whose cooking rhythm is a protein plus a side, that is the feature that gets used in week one."
+     ],
+     "cite": [
+      "S10",
+      "S18"
+     ]
+    },
+    {
+     "h": "For the household that cooks in batches",
+     "paras": [
+      "The 8-quart basket is described by its own brand page as {{Designed for 4–6 people::designed for 4–6 people}}, with four one-touch programs documented: {{Fries, Chicken, Fish, Meat (one-touch)}}. Its recorded footprint is {{8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg}}.",
+      "One catch this site has documented at length: the Amazon listing for this size mixes features of two Chefman models. Before buying it as a gift, run the model-number check from the Black Friday piece above."
+     ],
+     "cite": [
+      "S12",
+      "S13"
+     ]
+    },
+    {
+     "h": "For the one who wanted an oven",
+     "paras": [
+      "The Emeril French-door unit is a countertop oven that air fries: {{26 qt / 24.6 L (manual: 1,519 cu in)}}, doors documented as {{French doors, single-pull opening::french doors, single-pull opening}}, and a rotisserie - {{Yes (manual documents a rotisserie preset and spit set)::yes (manual documents a rotisserie preset and spit set)}} - that no basket can offer.",
+      "It is also the physically largest gift here at {{16.9 D × 15.8 W × 14.8 H in}}, and its manual asks for five inches of clearance on the top, back and sides. Measure the recipient's cabinets before the wrapping paper goes on."
+     ],
+     "cite": [
+      "S14",
+      "S15"
+     ]
+    },
+    {
+     "h": "The fine print that decides whether the gift stays",
+     "paras": [
+      "Warranty is the gift receipt's backup. Chefman documents {{Limited 1-year warranty from date of retail purchase (non-transferable, original purchaser)::limited 1-year warranty from date of retail purchase (non-transferable, original purchaser)}} on the 8-quart page, and the dual-basket's warranty is recorded as {{1-year Chefman assurance}}.",
+      "The Emeril manual documents both a 90-day money-back guarantee and a one-year replacement guarantee that, in its own words, extends only to the original purchaser and is not transferable - and it requires proof of purchase. That last line is the gift instruction: leave the receipt in the box. Everything else in this guide is a preference; that one is a rule from the manual.",
+      "The gift-size traps this set has already produced: an accessory count two official documents agree on while the manual cautions 'Some accessories may not be included with purchase', and cord rules that split by brand - the Chefman manuals permit a rated extension cord with care, while the Emeril manual says never. If the recipient's outlet is across the kitchen, that difference is the gift."
+     ],
+     "cite": [
+      "S10",
+      "S12",
+      "S13",
+      "S14",
+      "S15"
+     ]
+    }
+   ],
+   "closing_note": "No product in this guide was tested, and no price is shown - Amazon prices may only be displayed when Amazon serves the link or the data comes from the official API. Warranty and guarantee wording is quoted from each manufacturer's own page or manual, linked per section."
+  },
+  {
+   "slug": "how-to-clean-an-air-fryer",
+   "kind": "Guide",
+   "kicker": "Care and upkeep",
+   "title": "How to clean an air fryer, according to the people who made it",
+   "standfirst": "Three manuals in this set carry cleaning sections. Quoted side by side, they agree on the big rules and split on the details. No vinegar hacks and no life tricks - just the instructions in the box.",
+   "target_query": "how to clean an air fryer",
+   "intent": "Informational",
+   "reading_minutes": 5,
+   "products": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "sections": [
+    {
+     "h": "The rules all three manuals share",
+     "paras": [
+      "Unplug first, cool down first. The Emeril manual's cleaning section opens with it: remove the power cord from the wall socket and be certain the appliance is thoroughly cooled before cleaning. Its instructions add a specific wait - allow at least thirty minutes to cool before attempting cleaning or storing.",
+      "Never submerge the appliance body. The Chefman dual-window manual says the unit is wiped with a damp cloth and never submerged; the Emeril's before-first-use steps say the same in different words."
+     ],
+     "cite": [
+      "S15",
+      "S18"
+     ]
+    },
+    {
+     "h": "Where the manuals split: the dishwasher",
+     "paras": [
+      "The two Chefman units put their cooking parts on the top rack. The dataset's care rows read: {{Nonstick, dishwasher-safe baskets. Manual caution: never spray with aerosol cooking oil — use a non-aerosol mister instead}}, and for the 8-quart, {{Nonstick basket and rack; top-rack dishwasher safe::nonstick basket and rack; top-rack dishwasher safe}}.",
+      "The Emeril oven draws the line differently. Its accessories are hand-wash - caked-on food should be soaked in warm, soapy water, and hand-washing is recommended - and the appliance body may not be soaked, submerged, or washed in the dishwasher. A countertop oven is not a basket, and its manual says so."
+     ],
+     "cite": [
+      "S10",
+      "S18",
+      "S12",
+      "S13",
+      "S15"
+     ]
+    },
+    {
+     "h": "The one rule that saves the coating",
+     "paras": [
+      "The dual-basket manual's caution is worth reading once in the manufacturer's own words: never spray the baskets or racks with cooking oil from an aerosol spray can. The manual offers the substitute in the same breath - fill a non-aerosol mister instead.",
+      "The 8-quart manual records no aerosol rule, and this site does not extend one model's rule to another by analogy. The mister satisfies the rule that exists and breaks none that do."
+     ],
+     "cite": [
+      "S18",
+      "S13"
+     ]
+    },
+    {
+     "h": "The never list, in the manuals' own words",
+     "paras": [
+      "Metal scouring pads are banned in the Emeril manual: pieces can break off and touch electrical parts. Non-metallic pads only. Abrasive cleansers are out on the Chefman side as well.",
+      "Do not scrub the heating coils - the Emeril manual calls them fragile and says they may break - and rinse the interior so no standing water is left behind."
+     ],
+     "cite": [
+      "S15",
+      "S18"
+     ]
+    },
+    {
+     "h": "A five-minute routine built only from the above",
+     "paras": [
+      "**Judgement, assembled from the instructions above:** cool, unplug, remove parts, soak anything caked, top-rack the dishwasher-safe parts and hand-wash the rest, wipe the cavity with a damp cloth and mild detergent, dry, reassemble. Nothing here is a home remedy; it is the manuals' steps in one order."
+     ],
+     "cite": [
+      "S15",
+      "S18",
+      "S13"
+     ]
+    }
+   ],
+   "closing_note": "No product was cleaned for this article. Every instruction above is quoted or condensed from the manufacturer manuals linked per section, read on 2026-11-16."
   }
  ],
  "updated": "2026-11-16"

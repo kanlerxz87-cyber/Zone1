@@ -1,6 +1,6 @@
 {
  "version": "1",
- "compiled": "2026-11-15",
+ "compiled": "2026-11-16",
  "compiled_by": "arena/63a2c638 (integration pass 9)",
  "status_of_this_document": "proposal",
  "disclaimer": [
@@ -375,6 +375,132 @@
    "published_as": "articles/chefman-6qt-documented-review.html",
    "blocked_by": [
     "Q-01"
+   ]
+  },
+  {
+   "id": "TP-15",
+   "title": "The Black Friday model-number switch: the deal that quietly changes the product",
+   "hook": "Deal season is the season of near-identical model numbers - and this repo has already caught one.",
+   "intent": "Commercial investigation",
+   "serves": [
+    "chefman-8qt-turbofry",
+    "chefman-6qt-dual-basket",
+    "emeril-26qt-french-door"
+   ],
+   "angle": "The supplied Amazon listing for the 8-quart borrows features from one Chefman model and its finish from another. That documented conflict becomes the seasonal story, plus a three-minute pre-purchase check.",
+   "why_it_could_earn_traffic": "Judgement: 'black friday air fryer deals' is a high-intent seasonal query, and a source-led deal-safety angle is differentiated from the price-roundup pages that dominate it. Demand is argued, not measured (see demand_note).",
+   "must_cite": [
+    {
+     "label": "Amazon listing for the 8-quart (title mixes two models)",
+     "url": "https://www.amazon.com/dp/B08DKYBTPH"
+    },
+    {
+     "label": "Chefman RJ38-8T-BLACK product page",
+     "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-8-qt-air-fryer-w-high-fry"
+    }
+   ],
+   "status": "published",
+   "published_as": "articles/black-friday-model-number-switch.html",
+   "blocked_by": []
+  },
+  {
+   "id": "TP-16",
+   "title": "The honest 2026 air-fryer gift guide: match the format to the person",
+   "hook": "The gift question is a counter-space question. Answer it with tape measures, not adjectives.",
+   "intent": "Commercial investigation",
+   "serves": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "angle": "Three documented formats matched to three kinds of kitchens, with warranty, cord and accessory-count fine print taken from the manuals - including the 'keep the receipt' rule the Emeril manual actually states.",
+   "why_it_could_earn_traffic": "Judgement: the gift-guide format is the classic affiliate genre for Q4, and 'air fryer gift ideas' searches arrive pre-purchase. A guide that leads with fit and fine print earns links from the care and deal pieces.",
+   "must_cite": [
+    {
+     "label": "Emeril FAFO-001 owner's manual (guarantee, proof of purchase)",
+     "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"
+    },
+    {
+     "label": "Chefman 8 Qt TurboFry Touch product page (warranty, household size)",
+     "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+    }
+   ],
+   "status": "published",
+   "published_as": "articles/air-fryer-gift-guide-2026.html",
+   "blocked_by": []
+  },
+  {
+   "id": "TP-17",
+   "title": "How to clean an air fryer, according to the people who made it",
+   "hook": "The post-gift question with the biggest audience and the emptiest search results full of vinegar hacks.",
+   "intent": "Informational",
+   "serves": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "angle": "The three manuals' cleaning sections quoted side by side: what is dishwasher-safe per model, the aerosol caution, the never list. Informational intent feeds the commercial pages through internal links.",
+   "why_it_could_earn_traffic": "Judgement: care queries peak after gifting seasons and recur with every new owner; the honest-source angle fits this site's voice where recipe-blog answers do not. Demand is argued, not measured.",
+   "must_cite": [
+    {
+     "label": "Chefman RJ38-SQPF-3TDB-2W owner's manual (care and cleaning)",
+     "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf"
+    },
+    {
+     "label": "Emeril FAFO-001 owner's manual (Cleaning & Storage)",
+     "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"
+    }
+   ],
+   "status": "published",
+   "published_as": "articles/how-to-clean-an-air-fryer.html",
+   "blocked_by": []
+  },
+  {
+   "id": "TP-18",
+   "title": "January: the first-week setup and care checklist for a gifted air fryer",
+   "hook": "Every December gift has a first week. This is the page that survives it.",
+   "intent": "Informational",
+   "serves": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "angle": "A compilation from the manuals' before-first-use, care and safety sections: burn-in steps, clearance, cord rules, first-cook presets. Seasonal, but reusable every year.",
+   "why_it_could_earn_traffic": "Judgement: compiles three already-verified source sets into one seasonal landing page; January is when gifted units get their first use and their first search.",
+   "must_cite": [
+    {
+     "label": "Emeril FAFO-001 owner's manual (Before First Use)",
+     "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"
+    }
+   ],
+   "status": "proposed",
+   "published_as": null,
+   "blocked_by": [
+    "Q-20"
+   ]
+  },
+  {
+   "id": "TP-19",
+   "title": "Prime Day 2027: the summer version of the model-number check",
+   "hook": "The July edition of the November problem, with the same three-minute fix.",
+   "intent": "Commercial investigation",
+   "serves": [
+    "chefman-8qt-turbofry",
+    "chefman-6qt-dual-basket",
+    "emeril-26qt-french-door"
+   ],
+   "angle": "Seasonal sequel to the Black Friday piece: refresh the model-conflict watchlist before the sale event, not during it. Blocked until the marketplace question is answered, because Prime Day is marketplace-specific.",
+   "why_it_could_earn_traffic": "Judgement: seasonal events concentrate buying intent twice a year; the same verified watchlist serves both. Demand is argued, not measured.",
+   "must_cite": [
+    {
+     "label": "Flag register (model-conflict rows)",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+    }
+   ],
+   "status": "proposed",
+   "published_as": null,
+   "blocked_by": [
+    "Q-20"
    ]
   }
  ],

@@ -1,6 +1,6 @@
 {
  "version": "1.1",
- "compiled": "2026-11-15",
+ "compiled": "2026-11-16",
  "preamble": "A decision is only as good as the information behind it. This page separates four states that are usually mixed together: what we know and can prove, what we do not know but could look up, what the official source does not state, and what we cannot know at all without information that only the account holder possesses. Every suggestion on the Suggestions page points at the rows below that block it. Nothing here is a guess about what the answer probably is. Questions in the 'known and sourced' state carry their answer on the row: an official source already settles them, and the answer is what the source says. Every other row states plainly that no answer is published, and names the step that would produce one.",
  "legend": {
   "known": "Verified against an official source this pass fetched itself, or recorded by an earlier pass whose fetch is logged in this repository. The source link is on the row.",
@@ -628,6 +628,158 @@
     {
      "label": "Associates Program Participation Requirements §5 — read live 2026-11-16",
      "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+   ]
+  },
+  {
+   "id": "Q-22",
+   "group": "Governance",
+   "question": "Who signs off on the suggestion queue, and on what cadence?",
+   "state": "unknowable",
+   "why_it_matters": "The suggestions page exists so a human picks the path before anything is built. Without a named decider and a cadence, it is a backlog - and each pass that adds well-argued rows makes the backlog longer, not the decisions better.",
+   "what_we_know": [
+    "Every row on the suggestions page is explicitly unimplemented and carries options, a recommendation, effort and risk.",
+    "Several earlier flags were dispositioned as 'the owner's call' (for example F59), which is this same gap surfacing elsewhere.",
+    "Decision path P5 (session arena/19d92a81) groups the reader-facing polish suggestions so one 'yes' covers eight rows."
+   ],
+   "what_is_missing": "A named decider, a review cadence, and what 'approved' means - approved to build, or approved to test?",
+   "how_to_discover": "One message from the owner: a cadence (for example '30 minutes monthly, I mark each row approve/reject/defer') and what approval means. The page can render an approval-state column as soon as the data carries it.",
+   "blocks": [
+    "SG-23",
+    "SG-24",
+    "SG-25",
+    "SG-26",
+    "SG-27",
+    "SG-28",
+    "SG-29",
+    "SG-30"
+   ],
+   "sources": [
+    {
+     "label": "Suggestions register (data/suggestions.json on GitHub)",
+     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/suggestions.json"
+    },
+    {
+     "label": "Suggestions page - the decision queue",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/suggestions.html"
+    },
+    {
+     "label": "Flagged register - rows dispositioned to the owner",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+    }
+   ]
+  },
+  {
+   "id": "Q-23",
+   "group": "Brand",
+   "question": "Is 'Zone1 Kitchen' the final brand name for this site?",
+   "state": "missing",
+   "why_it_matters": "One origin currently publishes at least three names (root, /s2 annex, README). Titles, structured data and share cards all carry a name; search engines and readers treat it as a promise about who published the page.",
+   "what_we_know": [
+    "The root site's titles and organization schema use 'Zone1 Kitchen' with the tagline 'Air-fryer decisions, backed by sources'.",
+    "The /s2 annex publishes under 'Zone1 - Amazon Associates platform'.",
+    "The README titles the project 'Zone1 - verified Amazon affiliate product intelligence'."
+   ],
+   "what_is_missing": "The owner's decision on the one name reader-facing surfaces should carry.",
+   "how_to_discover": "The owner states the name in one line; a single commit then aligns titles, og tags, the annex header and the README. SG-27 carries the implementation options.",
+   "blocks": [
+    "SG-27"
+   ],
+   "sources": [
+    {
+     "label": "Root site (titles, schema)",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/"
+    },
+    {
+     "label": "s2 annex header",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/s2/"
+    },
+    {
+     "label": "README",
+     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/README.md"
+    }
+   ]
+  },
+  {
+   "id": "Q-24",
+   "group": "Content operations",
+   "question": "What is the publishing cadence, and who approves seasonal content before it ships?",
+   "state": "unknowable",
+   "why_it_matters": "Seasonal pages only earn their traffic if they exist four to six weeks before the retail moment. Without a cadence and a one-line approval, every seasonal piece will keep shipping mid-season, like the first three did.",
+   "what_we_know": [
+    "The topics page carries a proposed queue with per-row status (TP-15..TP-17 published 2026-11-16, TP-18/TP-19 proposed and gated on the marketplace question Q-20).",
+    "The content pipeline (research, draft, claim-check, publish) is proven by eighteen generated articles."
+   ],
+   "what_is_missing": "A calendar, a sign-off owner, and a lead time. SG-25 assumes four to six weeks and offers three cadence options.",
+   "how_to_discover": "One message from the owner: 'ship seasonal pieces on the calendar without asking' or 'review each draft first', plus any blackout dates. The answer sets the lead time in the calendar.",
+   "blocks": [
+    "SG-25"
+   ],
+   "sources": [
+    {
+     "label": "Topic register (data/topics.json on GitHub)",
+     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/topics.json"
+    },
+    {
+     "label": "Topics and traffic plan",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/topics.html"
+    },
+    {
+     "label": "Articles index",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/articles/index.html"
+    }
+   ]
+  },
+  {
+   "id": "Q-25",
+   "group": "Imagery and IP",
+   "question": "May the site use Amazon product images, and under what terms?",
+   "state": "unknowable",
+   "why_it_matters": "Product imagery is the most requested design upgrade and the most likely compliance trap. The Operating Agreement licenses Amazon Content only for approved uses; hotlinking or generating look-alike product photos is not that.",
+   "what_we_know": [
+    "The Operating Agreement contains an IP License governing use of Amazon Content in connection with properly formatted Special Links.",
+    "Program Policies restrict price and rating display to Amazon-served links or official API data (section 2(b) and section 6(t) as cited on the compliance page).",
+    "The site publishes no imagery today, deliberately - see SG-26."
+   ],
+   "what_is_missing": "Whether the account is approved, whether SiteStripe image sourcing is enabled for it, and which image sources the owner wants used.",
+   "how_to_discover": "Associates Central, SiteStripe settings and the IP License section of the Operating Agreement - five minutes once the account is accessible. Record the answer on SG-26.",
+   "blocks": [
+    "SG-26"
+   ],
+   "sources": [
+    {
+     "label": "Associates Program Operating Agreement (IP License)",
+     "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+    },
+    {
+     "label": "Associates Program Policies (2(b), 6(t))",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+   ]
+  },
+  {
+   "id": "Q-26",
+   "group": "Automation",
+   "question": "Which API will the automation platform call, now that PA-API 5 has a deprecation notice?",
+   "state": "missing",
+   "why_it_matters": "The brief's platform automates product research, pricing and availability - all of which depend on an official data interface. Amazon has published a PA-API 5 deprecation notice; planning the pipeline against a deprecated interface strands the work.",
+   "what_we_know": [
+    "Amazon publishes a PA-API 5 Deprecation Notice and a Product Advertising API registration topic (both linked on this row).",
+    "The platform blueprint's verification stages are API-agnostic; only the acquisition layer is interface-specific (SG-28)."
+   ],
+   "what_is_missing": "The replacement interface's eligibility terms, rate limits and timeline as they apply to this account - and which interface the owner wants the platform built against.",
+   "how_to_discover": "Read the deprecation notice's replacement guidance (linked), check the account's eligibility for the successor API, then record the decision in data/platform.json and update the blueprint page.",
+   "blocks": [
+    "SG-28"
+   ],
+   "sources": [
+    {
+     "label": "PA-API 5 Deprecation Notice (official)",
+     "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation"
+    },
+    {
+     "label": "New Product Advertising API registration (official)",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GBRCD467W33NMWLD"
     }
    ]
   }
