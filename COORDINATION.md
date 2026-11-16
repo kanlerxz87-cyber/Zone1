@@ -4194,7 +4194,7 @@ Totals, computed from the rows at build time rather than typed: **27 delivered �
 
 | # | Task | Status | Owner (session) | File scope |
 |---|------|--------|-----------------|------------|
-| U2 | **Verification pass 10 (V10)** — independent live re-read of the official source register on 2026-11-16; repair the defects it finds; close what it can be closed and publish what it cannot; then final integration: rebuild, re-verify line by line, PR → merge → confirm GitHub Pages deploy → record | in progress | arena/9fccce0c-zone1 (session 9fccce0c) | `COORDINATION.md`; `build.py` (new cross-reference guard + regenerated root HTML); `data/compliance.json`; `data/platform.json`; `data/products.json`; `data/sources.json`; `data/questions.json`; `data/suggestions.json`; `data/reverification.json`; `reports/verification-2026-11-16.md` (new); `EXECUTIVE-SUMMARY.md`; `README.md` |
+| U2 | **Verification pass 10 (V10)** — independent live re-read of the official source register on 2026-11-16; repair the defects it finds; close what it can be closed and publish what it cannot; then final integration: rebuild, re-verify line by line, PR → merge → confirm GitHub Pages deploy → record | **done** | arena/9fccce0c-zone1 (session 9fccce0c) | `COORDINATION.md`; `build.py` (new cross-reference guard + regenerated root HTML); `data/compliance.json`; `data/platform.json`; `data/products.json`; `data/sources.json`; `data/questions.json`; `data/suggestions.json`; `data/reverification.json`; `reports/verification-2026-11-16.md` (new); `EXECUTIVE-SUMMARY.md`; `README.md` |
 
 ### Claim log — arena/9fccce0c-zone1
 
@@ -4214,3 +4214,45 @@ Totals, computed from the rows at build time rather than typed: **27 delivered �
 | F. The decision it puts in front of the owner | `data/suggestions.json` — options and a recommendation, nothing implemented |
 | G. Briefing and record | `EXECUTIVE-SUMMARY.md`, `README.md`, this file |
 | H. Integration | rebuild, all gates, PR → merge → Pages confirm, then this section completed |
+
+### U2 outcome — 2026-11-16
+
+**Result: done — three defects found and repaired, every gate green, PR merged, GitHub Pages
+rebuilt and the live page read back.**
+
+| # | What pass 10 found | What was done | Where it is published |
+|---|---|---|---|
+| 1 | **The canonical register did not carry the two clauses that govern the brief.** The Program Policies page carries **IP License §4 ("Agents" / the Agent Terms)** and **Participation Requirements §5** — written for an AI-agent affiliate platform, which is exactly what this project is. `data/compliance.json` held 0 occurrences of "Agent Terms"; `data/platform.json` held 0 occurrences of "Agent". | Read verbatim live and published as requirement **C17** and **C18** and platform guardrail **G11**, each with the S2 link. The scope they leave open is published as **Q-21** and **SG-22**; the unread remainder of §4 is published as **F60**. | `compliance.html`, `platform.html`, `questions.html`, `suggestions.html`, `flagged.html` |
+| 2 | **Three published pages pointed at a flag that exists in no register.** `data/questions.json`, `data/suggestions.json` and `data/sources.json` all sent readers to "flag F46"; there is no F46 in either register here (canonical F1–F45, F47–F60; legacy `data/flags.json` F01–F27). A reader following the pointer found nothing on a site whose whole claim is traceability. | The three pointers now name **F56**, the row that actually covers the point. New build guard `check_register_cross_references()` fails the build if any generated page cites a flag, source, question or suggestion id that does not exist. | `build.py`; published as **F59** |
+| 3 | **The Application Review figures had been carried forward since 2026-11-13**, and **two volatile review counters had moved again.** | The Application Review page was re-read live: three qualifying sales in 180 days, ~10 posts, content within ~60 days, ~500 followers — all confirmed verbatim, which closes **F56** and gives **Q-19** its answer. The two Chefman review counters were refreshed to the 2026-11-16 reading (**1,307** and **717**, averages held at 4.6 for a third consecutive read) with all three read dates kept. | `data/products.json`, `data/questions.json`, `data/sources.json` |
+
+**The guard was proved to fire, not merely to exist:** with `F46`, `SG-99` and `Q-99` injected into a
+question row in `data/questions.json`, `python3 build.py` exited **1** and named the page, the
+register and the id; with the data restored byte for byte it exited **0**.
+
+**Gates — all run after the final edit, all green:** `build.py` 36 pages / 0 errors ·
+`verify.py` 115 pages, 46 spec rows (43 verified, 3 blank+flagged), 34 sources, **0 errors, 0
+external warnings** · `platform/tests` 33/33 · `platform/audit/report.py` `AUDIT PASSED` ·
+`scripts/check_links.py` 6,425 links, 0 broken · `scripts/verify_site.py` 393 assertions, `ALL
+CHECKS PASSED` · `research/check_research.py` OK · `scripts/build_s2_site.py --check` current ·
+`node --check assets/app.js` OK · a second `build.py` leaves `git diff` empty.
+
+**Files this pass wrote:** `build.py` (guard, F59, F60, pass-10 ledger rendering) ·
+`data/compliance.json` · `data/platform.json` · `data/products.json` · `data/sources.json` ·
+`data/questions.json` · `data/suggestions.json` · `data/design-prompt.json` (pass count) ·
+`reports/verification-2026-11-16.md` (new) · `session-9fccce0c/pass10.json` (new, 17 rows) ·
+`EXECUTIVE-SUMMARY.md` §17 · `README.md` · `COORDINATION.md` · the regenerated root HTML.
+
+**Files this pass did not touch:** `site/`, `s2/`, `data/s2/`, `research/`, `platform/`,
+`docs/`, `dashboard/`, `crosscheck/`, `annex-88769516/` and every other `session-*/` folder —
+those are other sessions' builds, and this pass read from them but wrote nothing into them.
+
+**Not resolved, and published as such:** F1/F2 (which manufacturer model each ASIN ships),
+F6 (the Associates tag inside the short links), F3 (the 450 °F conflict) and F4/F5 (the Emeril
+preset count). None is answerable from outside the account holder's browser. Also not resolved:
+whether an ordinary public listing page counts as "Program Content" — the IP License defines
+Program Content around Creators API, PA API and Data Feeds and the policies page does not
+extend it to ordinary pages. Published as Q-21 rather than inferred.
+
+**Deployment:** PR opened against `main` and merged; GitHub Pages rebuilt; the live site read
+back to confirm the new content is served.
