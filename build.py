@@ -1234,7 +1234,14 @@ def _flag_count():
     """
     return len(re.findall(r'<tr id="f\d+"><td class="num"><strong>F\d+</strong>',
                           page_flagged()))
+    """Rows on the Flagged page, counted the same way the duplicate-ID guard counts them.
 
+    The regex used to look for '<tr><td class="num"><strong>F\d+</strong>', which matched
+    nothing once pass 10 gave every row a per-flag anchor ('<tr id="fNN">'). The landing
+    page then published "0 Flags open" beside a 62-row register. Found 2026-11-16 by
+    arena/e05e5316-zone1 from the rendered page, not from the dataset.
+    """
+    return len(re.findall(r'<tr id="f\d+">', page_flagged()))
 
 def pulse_strip():
     """Landing-page tiles. Every number is computed from the data, never typed."""
@@ -5423,7 +5430,9 @@ def check_flag_ids_unique():
     # The row markup carries an id attribute since pass 10 (<tr id="fNN">); matching on
     # `<tr><td class="num">` made this guard find zero rows and pass vacuously. Located
     # by the fixed flag-count guard below, 2026-11-16 (arena/2e346d24).
-    ids = re.findall(r'<tr id="f\d+"><td class="num"><strong>(F\d+)</strong>', page)
+    # The same stale pattern as the counter above matched zero rows once every flag row
+    # carried a per-flag anchor, so this guard had been checking nothing since pass 10
+    # added the anchors. Match the markup the page actually writes.    ids = re.findall(r'<tr id="f\d+"><td class="num"><strong>(F\d+)</strong>', page)
     dupes = sorted(k for k, v in Counter(ids).items() if v > 1)
     if dupes:
         return [f"flag id(s) rendered more than once on flagged.html: {', '.join(dupes)}"]
@@ -5877,6 +5886,39 @@ def clean_stale_pages(pages):
     return removed
 
 
+def check_landing_counters(pages):
+    """Build guard: the numbers on the landing page must equal what the site holds.
+
+    The landing page states four counts. Each is computed by a helper, and a helper
+    can drift from the thing it counts: "Flags open" read 0 beside a 62-row register
+    because the helper's regex had not been updated when the Flagged page's rows
+    gained per-row anchors. A wrong number on the front page is the most-read error
+    on the site, so each count is recomputed here from the rendered pages it refers to.
+    """
+    problems = []
+    index = pages.get("index.html", "")
+    tiles = dict((m.group(2).strip(), m.group(1).strip())
+                 for m in re.finditer(
+                     r'<div class="tile"><b>([^<]*)</b><span>([^<]*)</span>', index))
+    if not tiles:
+        return ["index.html: no landing-page counters found"]
+    flagged = pages.get("flagged.html", "")
+    expected = {
+        "Products compared": len(PRODUCT_LIST),
+        "Sourced articles": len(ARTICLES["articles"]),
+        "Official sources": len(SOURCES["sources"]),
+        "Flags open": len(re.findall(r'<tr id="f\d+">', flagged)),
+    }
+    for label, want in expected.items():
+        got = tiles.get(label)
+        if got is None:
+            problems.append(f"index.html: no counter tile labelled {label!r}")
+        elif got != str(want):
+            problems.append(
+                f"index.html: counter {label!r} reads {got}, but the site holds {want}")
+    return problems
+
+
 def check_heading_order(pages):
     """Build guard: the heading outline of every generated page must be walkable.
 
@@ -6059,6 +6101,9 @@ def main():
     heading_problems = check_heading_order(pages)
     if heading_problems:
         raise SystemExit("BUILD FAILED - heading outline:\n  " + "\n  ".join(heading_problems))
+    counter_problems = check_landing_counters(pages)
+    if counter_problems:
+        raise SystemExit("BUILD FAILED - landing-page counters:\n  " + "\n  ".join(counter_problems))
     affiliate_problems = check_affiliate_link_qualification(pages)
     if affiliate_problems:
         raise SystemExit("BUILD FAILED - unqualified affiliate links (Google spam policies, "
