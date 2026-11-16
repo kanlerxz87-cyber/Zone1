@@ -188,7 +188,7 @@
   ],
   "decision": {
    "recommendation": "Build on N1, with N2 as the internal-link cluster and N3 as the trust layer. Do not buy traffic against N4 until the operator has real testing.",
-   "why": "N1 is the only candidate where all three supplied products are equally useful, every claim is already sourced, and the site's existing eight articles already point at it.",
+   "why": "N1 is the only candidate where all three supplied products are equally useful, every claim is already sourced, and the site's existing articles (13 as of 2026-11-16) already point at it.",
    "alternative": "If the operator wants to grow the audience before the products, start with N3 and accept slower conversion; the measurement page explains how to tell the difference."
   }
  },
@@ -221,7 +221,7 @@
     "effort": "Low",
     "cost": "None beyond hosting",
     "risk": "Low volume per page, so it needs breadth",
-    "status": "Eight articles already exist in this shape"
+    "status": "13 articles already exist in this shape (2026-11-16)"
    },
    {
     "id": "T3",

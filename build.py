@@ -1830,13 +1830,20 @@ PROGRAMME_FLAGS = [
 
     ("F53", "The Amazon browse-node breadcrumb is now published for two ASINs, and it does not settle which commission rate applies.",
      "All three products - the 'Amazon browse node' row and open question Q-11",
-     "Recorded 2026-11-15 by arena/63a2c638, round 9, at the same time as the value itself was added, so the limit travels with the value. Both Chefman listings render the breadcrumb 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S16, S29). It is tempting to read 'Kitchen' there and apply the 4.50% Kitchen rate from the Commission Income Statement (S3). That would be an inference, not a source: S3's categories are commission categories defined by the Associates programme, Amazon's browse nodes are a shopper-navigation taxonomy, and Amazon publishes no mapping between the two. The same breadcrumb begins 'Home & Kitchen', and S3 also carries 'Home' at 3.00%, so the breadcrumb alone cannot even tell you which of the two it resembles. The site therefore continues to show the commission rate as unconfirmed (Q-11) and now shows the browse node as a separate, sourced fact. The Emeril browse node is blank: three fetches of that ASIN on 2026-11-15 returned Amazon's automated 'Continue shopping' checkpoint instead of the listing page, and a value that was never rendered cannot be recorded.",
+     "Recorded 2026-11-15 by arena/63a2c638, round 9, at the same time as the value itself was added, so the limit travels with the value. Both Chefman listings render the breadcrumb 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S16, S29). It is tempting to read 'Kitchen' there and apply the 4.50% Kitchen rate from the Commission Income Statement (S3). That would be an inference, not a source: S3's categories are commission categories defined by the Associates programme, Amazon's browse nodes are a shopper-navigation taxonomy, and Amazon publishes no mapping between the two. The same breadcrumb begins 'Home & Kitchen', and S3 also carries 'Home' at 3.00%, so the breadcrumb alone cannot even tell you which of the two it resembles. The site therefore continues to show the commission rate as unconfirmed (Q-11) and now shows the browse node as a separate, sourced fact. The Emeril browse node is blank: three fetches of that ASIN on 2026-11-15 returned Amazon's automated 'Continue shopping' checkpoint instead of the listing page, and a value that was never rendered cannot be recorded. Update 2026-11-16 (arena/a746a9f2): the checkpoint cleared and the breadcrumb rendered on B09B7SB46R; the Emeril browse-node row is now populated from that read (S28). The limit stated above is unchanged \u2014 the browse path still does not settle which commission rate applies (Q-11).",
      ["S3", "S16", "S29", "S28"]),
+
+    # ---- arena/a746a9f2, line-by-line review pass, 2026-11-16 ----------------------- #
+    ("F59", "Fourth occurrence of the stale-count defect class: three registers asserted 'eight articles' after the set grew to thirteen. Found and fixed.",
+     "data/questions.json Q-10, data/suggestions.json SG-09, data/decision.json niche rows",
+     "Recorded 2026-11-16 by arena/a746a9f2 (X-a746a9f2). The brief's line-by-line review grepped every generated page for register counts and found live assertions that had gone stale as the article set grew: questions.html (Q-10's 'what we know' cell and the page's JSON-LD) and suggestions.html (SG-09's title, problem, evidence label and recommendation) both said 'eight articles', and decisions.html carried 'the site's existing eight articles' plus a pill reading 'Eight articles already exist in this shape' - while the articles index publishes thirteen. This is the same defect class as F14, F38 and F52: a register cell written as a snapshot and read as a live fact. Fixed per the F52 precedent: the two rows inside this session's claimed scope were corrected in place, and the third (data/decision.json, created by a completed session) was corrected as an integration-scope wording fix, with before/after strings logged in COORDINATION.md. All three now carry a dated count (13, 2026-11-16) plus a pointer to the live articles index, so they read as dated snapshots rather than live claims. The same scan cleared the 'parallel register' pages (decision-gate.html's fourteen questions, marketing-directions.html's twelve suggestions) as internally consistent \u2014 their ledes render their own frozen register's length \u2014 and cleared the historical recounts in reverification.html and executive-summary.html, which describe already-fixed defects. No build guard can police free-prose counts without a whitelist of claim sentences; check_register_preambles covers repeated sentences only. Decision needed: adopt computed counts in register prose (SG-24 option A machinery) or accept dated snapshots as the house standard.",
+     []),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
 # fact about this repository, so the repository itself (on GitHub) is the source.
 REPO_EVIDENCE = {
+    "F59": ["data/questions.json", "data/suggestions.json", "data/decision.json"],
     "F20": ["s2/", "site/", "dashboard/", "research/", "session-3740f69d/", "docs/"],
     "F22": ["EXECUTIVE_SUMMARY.md"],
     "F23": ["scripts/build.mjs"],
@@ -3927,8 +3934,7 @@ def page_topics():
   </div>
   <p><strong>The angle.</strong> {e(it['angle'])}</p>
   <p class="small"><strong>Why it could earn traffic.</strong> {e(it['why_it_could_earn_traffic'])}</p>
-  {caveat}
-  <div class="evidence"><strong>Must cite.</strong> {cites}</div>
+{('  ' + caveat) if caveat else ''}  <div class="evidence"><strong>Must cite.</strong> {cites}</div>
   <p class="small"><strong>Blocked by:</strong> {blocked_html}</p>
 </article>""")
 
@@ -3953,8 +3959,8 @@ def page_topics():
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Content and traffic plan</p>
 <h1>What to write next, and how it is allowed to be promoted</h1>
-<p class="lede">Fourteen topics for this product set — {n_pub} already published and {n_new} not yet
-written — and five distribution channels, two of which Amazon's policies close off entirely. The
+<p class="lede">{n_pub + n_new} topics for this product set — {n_pub} already published and {n_new} not yet
+written — and {len(TOPICS.get('channels', []))} distribution channels, two of which Amazon's policies close off entirely. The
 topics are chosen for one reason: each one is answerable from an official manufacturer page or an
 owner's manual, so none of them requires a claim this site cannot support.</p>
 

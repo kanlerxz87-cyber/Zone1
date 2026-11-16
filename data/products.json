@@ -391,12 +391,11 @@
     },
     {
      "label": "Amazon browse node",
-     "value": null,
+     "value": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
      "source": [
       "S28"
      ],
-     "unverified": "Not read. Three fetches of this ASIN on 2026-11-15 were each answered with Amazon's automated 'Continue shopping' checkpoint instead of the product page, so no breadcrumb was rendered. The two Chefman ASINs fetched cleanly in the same window. Left blank rather than assumed to match the others.",
-     "note": "Blank pending a fetch that returns the actual listing page."
+     "note": "Read from the listing's own breadcrumb trail on 2026-11-16, after the 2026-11-15 automated 'Continue shopping' checkpoint cleared (reports/verification-2026-11-16.md, V2). Identical to the two Chefman ASINs. Browse path only, not a commission category - see flag F53."
     }
    ],
    "pricing": {
@@ -729,8 +728,8 @@
    }
   }
  ],
- "reverified": "2026-11-15",
- "reverified_by": "arena/792c279e-zone1 (T20 line-by-line pass; see reports/verification-2026-11-15.md)",
+ "reverified": "2026-11-16",
+ "reverified_by": "arena/a746a9f2-zone1 (X-a746a9f2 live re-verification pass; see reports/verification-2026-11-16.md. One blank cell filled from a verbatim read: the Emeril Amazon browse node, previously unrendered behind a bot checkpoint.)",
  "source_conflicts": {
   "note": "Official documents that contradict a published specification value. Each entry names a row and the source id that contradicts it. The build fails if that source id appears in the row's source list, because a row's source list is read as the evidence for its value. The contradicting document belongs in the flag register, where it is the evidence of the conflict. Added 2026-11-15 by arena/88bb2db6.",
   "entries": [
