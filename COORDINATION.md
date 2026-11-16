@@ -4379,3 +4379,28 @@ s2 build current, **6,548 links / 0 broken** · `python3 research/check_research
 No file in `site/`, `s2/`, `data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`,
 `annex-*` or `session-*` was edited by this session. `build.py` itself was not edited; all page changes
 are regenerated output.
+
+### X-3dfe4b45 post-rebase addendum — merge-conflict resolution and final numbers (2026-11-16 UTC)
+
+Logged per protocol item 6. While this session worked, four more PRs landed on `main` (#88–#92: sessions
+`9f0e6668` (round-10 counter refresh), `ad8105b3` (requirements page Y1–Y4), plus their record commits),
+and three `git pull --rebase` conflicts were resolved without discarding anything:
+
+| Conflict | Resolution |
+|---|---|
+| `COORDINATION.md` at EOF (claim block vs the R10/Y1–Y4 boards) | keep-both: both boards and both claim logs retained, separated by a divider |
+| `data/sources.json` — S10/S12/S14 `page_version` and the `reverified` block | page versions concatenated (their targeted counter read **and** this round's full spec read); `reverified` stays `2026-11-16`; their `reverified_2026_11_16` itemised object (ad8105b3) kept untouched and this round's reads added as a sibling `reverified_2026_11_16_round11` object, including its own not-re-read list. The two sessions' reads are complementary: this round re-read exactly what their list marked not-re-read (S9, S12, S13, S14, S15, S18) plus S3/S8/S10 |
+| Generated HTML + sitemap (index/data/exec-summary/sitemap) | resolved by regenerating **all** pages from the merged generator (the `build.py` that now carries `requirements.html`), not by hand-merging artifacts |
+
+**Independent cross-check that fell out of the collision:** session `9f0e6668` refreshed the Chefman
+review counters to 1,307 / 717 from its own fetches; this session read the same two widgets later the
+same day and got the same numbers, plus both averages (4.6). Two independent reads, one value.
+
+**Final gate numbers on the rebased, merged tree (supersede the pre-rebase figures above):**
+`python3 build.py` → exit 0, **40 sitemap URLs** · `python3 verify.py` → **119 pages**, 46 spec rows
+(43 verified / 3 blank+flagged), 34 sources, **0 errors, 0 external warnings** · `bash scripts/ci-check.sh`
+→ 33 unit tests OK, data audit clean, s2 build current, **6,921 links / 0 broken** ·
+`python3 research/check_research.py` → OK · `python3 scripts/verify_site.py` → 393 assertions, ALL PASSED ·
+`python3 platform/audit/report.py` → AUDIT PASSED.
+
+PR / merge / Pages result recorded below after they complete.
