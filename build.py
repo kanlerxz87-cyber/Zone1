@@ -2564,6 +2564,18 @@ def page_platform():
               )
 
 
+def _req_counts_html():
+    """Live counts from the requirements register, so the briefing cannot disagree with it."""
+    counts = {}
+    for r in REQUIREMENTS["requirements"]:
+        counts[r["status"]] = counts.get(r["status"], 0) + 1
+    parts = " · ".join(
+        f"<strong>{counts.get(k, 0)}</strong> {REQ_STATUS[k][1].lower()}"
+        for k in ("delivered", "partial", "blocked", "not_delivered")
+    )
+    return parts + "."
+
+
 def page_exec():
     # The number of re-verification rows the executive summary quotes. Derived from
     # every rendered register so it cannot drift as a targeted addendum is added.
@@ -2739,6 +2751,16 @@ def page_exec():
 </div>
 <p class="tiny muted">Brand list prices from {src_link('S10')}, {src_link('S12')} and {src_link('S14')}; rates from {src_link('S3')}. Amazon computes commission on Qualifying Revenue after shipping, tax, returns and bad debt, so real payouts are lower. The Amazon selling price — the number that would actually drive commission — is unknown to this project by policy.</p>
 
+<h2>Coverage against the brief</h2>
+<div class="callout note">
+  <strong>Every requirement in the brief, and what is actually done about it</strong>
+  <p class="small" style="margin-bottom:0">{_req_counts_html()} The <a href="requirements.html">Requirements and
+  status</a> page lists all {len(REQUIREMENTS['requirements'])} rows individually, each with the path that
+  implements it and the official source that settles it. A row is marked <em>blocked</em> only where the input
+  exists solely inside Amazon's own systems — the Associate tag, the account's approval status, per-ASIN
+  commission categories, customer reviews, conversion reports — and never to mean "not done yet".</p>
+</div>
+
 <h2>Recommendation</h2>
 <ol class="tight small">
   <li><strong>Publish this build.</strong> It satisfies the content substance a review looks for, and it is honest under inspection.</li>
@@ -2750,7 +2772,10 @@ def page_exec():
   <li><strong>Decide the product set before the next content push.</strong> Two of the three products share a brand and a form factor, which caps what the comparison can answer. See <a href="suggestions.html#sg-20">SG-20</a>.</li>
 </ol>
 
-<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../EXECUTIVE-SUMMARY-PASS9-42CA97AD.md">Download this pass's markdown briefing</a> <a class="btn btn-ghost" href="../EXECUTIVE-SUMMARY-PASS9.md">Earlier pass-9 briefing</a> <a class="btn btn-ghost" href="../flagged.html">See every open flag</a></p>
+<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="requirements.html">Requirement-by-requirement status</a> <a class="btn btn-ghost" href="flagged.html">See every open flag</a></p>
+<p class="tiny muted">The Markdown briefings this page used to link are undated records from earlier passes; five of
+them sit at the repository root and at least one contradicts the position published here. They are not endorsed by
+this page. See <a href="flagged.html#f59">F59</a>.</p>
 """
     return layout("executive-summary.html", "Executive summary", body, active="executive-summary.html",
                   description="One-page executive summary: findings, source conflicts, economics and the recommended next decision.",

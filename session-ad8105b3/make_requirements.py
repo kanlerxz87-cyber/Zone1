@@ -74,7 +74,7 @@ R += [
    "Flagged irregularities and unverified items do not block the merge. Publish them on a clearly labeled 'Flagged for Review' page.",
    "delivered", ["flagged.html","data/flags.json"],
    [("flagged page","flagged.html")],
-   "Fifty-eight numbered flags plus 25 per-product flags, each with severity, the item affected, the evidence, the action needed and the official source. This pass added F59 and F60."),
+   "Every open irregularity in one register, each with the item affected, the evidence, the action needed and the official source, plus a separate table of blanked product values and the document that failed to state one. This pass added F59 and F60. The register's own total is printed by the page from its rows, not typed into this sentence, because a typed total is the first thing to go stale."),
 ]
 
 # ------------------------------------------------------- B. site and design
@@ -83,7 +83,7 @@ R += [
    "It should not read like some AI slop website like it looks like now.",
    "partial", ["assets/style.css","data/articles.json"],
    [("house voice guard","build.py"),("voice rules","design-prompt.html")],
-   "The build now fails on fourteen stock phrases ('in today's fast-paced world', 'elevate your', 'game-changer', 'dive into', 'seamless experience' …) and on machine-spliced sentences. What is still missing is visual: the site has no product photography at all, because Amazon's Program Content may not be used without the API and manufacturer images carry their own licence. That single omission is the largest remaining reason it reads as a document rather than a shop window."),
+   "The build now fails on 27 banned stock-phrase entries (24 distinct phrases: 'in today's fast-paced world', 'elevate your', 'game-changer', 'dive into', 'seamless experience', 'cutting-edge' …) and on machine-spliced sentences. What is still missing is visual: the site has no product photography at all, because Amazon's Program Content may not be used without the API and manufacturer images carry their own licence. That single omission is the largest remaining reason it reads as a document rather than a shop window."),
  r("B-02","Site","A clean, simple landing page",
    "Create a github page live site for this repo with a clean landing page.",
    "delivered", ["index.html"], [("live page","https://kanlerxz87-cyber.github.io/Zone1/")],
@@ -207,7 +207,7 @@ R += [
    "It should not read like some AI slop website",
    "delivered", ["build.py","data/articles.json"],
    [("voice guards","build.py"),("the rule","design-prompt.html")],
-   "Two separate build failures: fourteen banned stock phrases, and check_article_splices(), which catches a capitalised display value dropped into a mid-sentence slot ('is 6 Qt / 5.67 L as Two 3-quart baskets'). The second defect had shipped and was invisible to every earlier check, because each value was correct in its table."),
+   "Two separate build failures: 27 banned stock-phrase entries (24 distinct phrases), and check_article_splices(), which catches a capitalised display value dropped into a mid-sentence slot ('is 6 Qt / 5.67 L as Two 3-quart baskets'). The second defect had shipped and was invisible to every earlier check, because each value was correct in its table."),
  r("D-06","Content","Never show an Amazon price or rating without the API",
    "compliance with Amazon Associates policies",
    "delivered", ["data/products.json","build.py"],
@@ -222,7 +222,7 @@ R += [
    "publish and manage affiliate links",
    "partial", ["products/chefman-6qt-dual-basket.html","build.py"],
    [("a product page","products/chefman-6qt-dual-basket.html")],
-   "Fourteen clickable affiliate anchors are live across the three product pages, every one carrying rel=\"sponsored\" — qualify_affiliate_links() rewrites them and check_affiliate_link_qualification() fails the build if any is unqualified. What is unmanaged is the destination: the links cannot be confirmed to carry the owner's tag (E-02).",
+   "Thirteen clickable affiliate anchors are live across the three product pages — five, four and four — and every one, including the one in the home-page warning, carries rel=\"sponsored\" — qualify_affiliate_links() rewrites them and check_affiliate_link_qualification() fails the build if any is unqualified. What is unmanaged is the destination: the links cannot be confirmed to carry the owner's tag (E-02).",
    ("S30","S31")),
  r("E-02","Publishing","Attach the owner's Associate tag to every link",
    "publish and manage affiliate links",
@@ -246,7 +246,7 @@ R += [
    "publish and manage affiliate links",
    "partial", ["scripts/check_links.py"],
    [("link checker","scripts/check_links.py")],
-   "6,373 internal links are checked on every CI run and none are broken. External links are not re-checked automatically: this sandbox has no outbound network access, so a scheduled remote check has to run in CI, not here.",
+   "The link checker reads every page on every CI run and none of the internal links are broken; the count is printed by the gate rather than typed here, because it changes whenever a page is added. External links are not re-checked automatically: this sandbox has no outbound network access, so a scheduled remote check has to run in CI, not here.",
  ),
 ]
 
@@ -308,7 +308,7 @@ R += [
    "Prioritize automation, scalability, data-driven decisions",
    "partial", ["platform/","scripts/build_site.py"],
    [("platform modules","platform/README.md"),("site generator","scripts/build_site.py")],
-   "The repository is a working build system: a data audit, 33 unit tests, a site generator with 20 build-failing guards, a link checker and a byte-reproducibility check, all running in CI on every push. What is not automated is the research itself, because the inputs it needs are behind a login (C-03, C-04, E-02, E-04)."),
+   "The repository is a working build system: a data audit, 33 unit tests, a site generator with 15 build-failing guards, a link checker and a byte-reproducibility check, all running in CI on every push. What is not automated is the research itself, because the inputs it needs are behind a login (C-03, C-04, E-02, E-04)."),
  r("G-02","Platform","Every decision traceable to data",
    "data-driven decisions",
    "delivered", ["verify.py","platform/audit/report.py"],
