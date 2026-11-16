@@ -114,6 +114,12 @@ PASS10_U2 = json.loads(_p10u2.read_text(encoding="utf-8")) if _p10u2.exists() el
 _p11 = ROOT / "session-e05e5316" / "pass11.json"
 PASS11 = json.loads(_p11.read_text(encoding="utf-8")) if _p11.exists() else None
 
+# Additive pass-10 full source ledger (2026-11-16, arena/695f03b7-zone1): every
+# registered source in data/sources.json re-read live, one row per source, rendered
+# as its own page by page_pass10(). Owned by this session; if the file is ever
+# removed the page renders nothing rather than failing the build.
+_p10full = ROOT / "data" / "pass10.json"
+PASS10_FULL = json.loads(_p10full.read_text(encoding="utf-8")) if _p10full.exists() else None
 # Decision layer (added 2026-11-15, arena/3ddfa50e). Two registers that exist to be reviewed
 # rather than acted on: the suggestions queue and the open-questions register. Both are
 # generated from JSON so a reviewer edits data, never a template.
@@ -324,6 +330,12 @@ NAV = [
     ("executive-summary.html", "Executive summary", "Decision-ready briefing"),
     # Added by the 2026-11-14 integration pass: the line-by-line re-read ledger.
     ("reverification.html", "Re-verification", "Published values re-read against their official sources"),
+    # Added 2026-11-16 by arena/695f03b7-zone1: the full source-by-source re-read ledger,
+    # one row per registered source with its official link and the 2026-11-16 observation.
+    ("pass10.html", "Verification pass 10", "All 34 official sources re-read on 2026-11-16"),
+    # Added 2026-11-16 by arena/695f03b7-zone1: data-driven diagrams generated from
+    # data/products.json at build time; diagrams only, because photography rights are open.
+    ("figures.html", "Figures and diagrams", "Four diagrams generated from the published dataset"),
     # All parallel-session builds are now reached through one page rather than six sidebar
     # entries (2026-11-14, arena/6b2eddeb). Six entries in the main nav made a reader choose
     # between six answers to the same question; flag F35 records why that was a problem.
@@ -836,6 +848,12 @@ details.card summary{cursor:pointer; font-size:.9rem}
 .article-card .cardtitle{font-family:var(--serif); font-weight:600}
 @media (max-width:560px){ .handover-head h2{font-size:1rem} }
 
+/* figure panels (pass 10, arena/695f03b7-zone1) */
+.figure{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:1rem 1.1rem;margin:1.1rem 0;overflow:auto}
+.figure svg{max-width:100%;height:auto;display:block;background:#ffffff}
+.fighead{font:700 1.1rem/1.3 var(--serif);color:var(--ink);margin:0 0 .4rem}
+.figcap{font-size:.85rem;color:var(--muted);margin:.5rem 0 0;line-height:1.5}
+
 """
 
 JS = r"""
@@ -1025,6 +1043,8 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
       <h4>Evidence</h4>
       {N("data.html")}
       {N("reverification.html")}
+      {N("pass10.html")}
+      {N("figures.html")}
       {N("compliance.html")}
       {N("flagged.html")}
     </div>
@@ -1921,7 +1941,18 @@ PROGRAMME_FLAGS = [
      "The three supplied links, read live 2026-11-16 by arena/e05e5316-zone1",
      "Each of the three listing pages carries a 'Customers who viewed this item also viewed' module. On the Chefman 6 Qt listing it names a second \u201cChefman 6 Quart Dual Basket Air Fryer\u201d with a different title and a different ASIN (B0B7C327LK), plus a 10 Qt Gourmia dual basket and an 8.8 QT Nutrichef. On the Emeril listing it names an Emeril Lagasse Dual Zone 25QT, a Ninja French Door Premier FO101 20.3 Qt and a Midea Flexify Classic French Door 26.4 QT. On the Chefman 8 Qt listing it names two Chefman 6 QT Compact listings and an 8 Qt Gourmia. Two consequences, both stated rather than resolved. First, this is evidence for F1/F2: two different Amazon listings carry the name \u201cChefman 6 Quart Dual Basket\u201d, so reading the model number off a listing is the only way to know which of them the account holder meant. Second, the module also renders prices and star ratings; those are not recorded here and are not published, because the Competition data section on every product page is deliberately empty on the grounds that IP License \u00a72(e) restricts building an aggregated dataset from Amazon pages, and a competitor table built from this module would be exactly that. The observation is recorded so the owner can decide whether the research agent should read competitor sets at all, and under what permission. No model identity is asserted for any ASIN here.",
      ["S16", "S17", "S28", "S29"]),
-]
+
+    # ---- arena/695f03b7-zone1, task P3, 2026-11-16 -------------------------------- #
+    # Product-photography rights gap: no row records which images the site publishes or
+    # whose permission covers them; Amazon Program Content/image rights and FTC disclosure
+    # duties are unresolved until Q-22 is answered and SG-23 decided (SG-23 recommends
+    # text-and-diagrams-only for now). No product photography is published. Flag number F46
+    # is free on the canonical register (origin/main carries F1-F45 and F47-F62); no other
+    # session's row is renumbered.
+    ("F46", "Product photography rights are undecided: no row records which images, if any, the site publishes, whose permission covers them, or how Amazon Program Content image rights apply to these specific products. Amazon's Operating Agreement and Program Policies govern Program Content imagery; the FTC treats imagery as part of an endorsement requiring clear disclosure of material connections. No product photography is published and Q-22 asks what may be published and whose permission covers it.",
+     "SG-23, Q-22 and all three product pages",
+     "Recorded 2026-11-16 by arena/695f03b7-zone1. The design layer offers owner photos, licensed imagery and Amazon Program Content as image options, but none is decided; until Q-22 is answered, the site stays text-and-diagrams-only and the figures on figures.html are generated diagrams, not photographs. Evidence: data/suggestions.json (SG-23), data/questions.json (Q-22), build.py flags register.",
+     ["S1", "S2"]),]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
 # fact about this repository, so the repository itself (on GitHub) is the source.
@@ -3293,6 +3324,342 @@ back, and the verdict \u2014 is in <code>reports/verification-2026-11-16-e05e531
         ("Re-verification", page_url("reverification.html")),
     ])]
               )
+
+
+# --------------------------------------------------------------------------- #
+# figure layer (pass 10, arena/695f03b7-zone1)
+# Four data-driven SVG diagrams generated from data/products.json at build time,
+# so no number in a figure can drift from the dataset. Sources travel with each
+# figure; nothing is inferred. They are diagrams, not photographs, because
+# product-photography rights are undecided (Q-22 / SG-23 / flag F46).
+# --------------------------------------------------------------------------- #
+FIGURES_DIR = ROOT / "assets" / "figures"
+FIG_W, FIG_H = 900, 520
+
+
+def _svg_frame(title, note, src_lines):
+    src_html = "".join(f'<text x="22" y="{y}" class="src">{e(s)}</text>' for y, s in src_lines)
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {FIG_W} {FIG_H}" '
+        f'role="img" aria-labelledby="t"><title id="t">{e(title)}</title>'
+        f'<style>.t{{font:700 17px/1.25 system-ui,sans-serif;fill:#111827;}}'
+        f'.s{{font:600 12.5px/1.4 system-ui,sans-serif;fill:#374151;}}'
+        f'.m{{font:400 12px/1.45 system-ui,sans-serif;fill:#4b5563;}}'
+        f'.b{{font:700 13px/1.3 system-ui,sans-serif;fill:#ffffff;}}'
+        f'.x{{font:600 11.5px/1.3 system-ui,sans-serif;fill:#6b7280;}}'
+        f'.l{{font:600 12px/1.3 system-ui,sans-serif;fill:#111827;}}'
+        f'</style>'
+        f'<rect width="{FIG_W}" height="{FIG_H}" fill="#ffffff"/>'
+        f'<text x="22" y="34" class="t">{e(title)}</text>'
+        f'<text x="22" y="52" class="m">{e(note)}</text>{src_html}'
+    )
+
+
+def _svg_close():
+    return "</svg>"
+
+
+def fig_footprint():
+    cfg = PRODUCTS["figures"]
+    scale = cfg["scale_px_per_inch"]
+    products = cfg["footprint"]
+    y0, band = 150, 118
+    axis_y = y0 + band * len(products) + 26
+    ticks = "".join(
+        f'<line x1="{22 + t * scale}" y1="{axis_y}" x2="{22 + t * scale}" y2="{axis_y + 4}" stroke="#9ca3af" stroke-width="1"/>'
+        f'<text x="{22 + t * scale - 7}" y="{axis_y + 18}" class="x" text-anchor="middle">{t}</text>'
+        for t in range(0, 57, 10)
+    )
+    axis = (
+        f'<line x1="22" y1="{axis_y}" x2="{22 + 56 * scale}" y2="{axis_y}" stroke="#9ca3af" stroke-width="1.5"/>'
+        f'<text x="22" y="{axis_y + 36}" class="x">Inches — true scale, {scale} px per inch</text>'
+        + ticks
+    )
+    panels = ""
+    for i, p in enumerate(products):
+        y = y0 + i * band
+        wpx = p["w"] * scale
+        panels += (
+            f'<rect x="22" y="{y}" width="{wpx}" height="{p["d"] * scale}" fill="#2563eb" rx="4"/>'
+            f'<text x="{22 + wpx / 2}" y="{y + p["d"] * scale / 2 + 5}" class="b" text-anchor="middle">{e(p["label"])}</text>'
+            f'<text x="22" y="{y + p["d"] * scale + 18}" class="m">{e(p["w"])}" W × {e(p["d"])}" D × {e(p["h"])}" H</text>'
+            f'<text x="22" y="{y - 8}" class="l">{e(p["label"])}</text>'
+        )
+    src_lines = [(axis_y + 48, "Sources: " + ", ".join(f'{e(p["label"])} — {e(p["source"])}' for p in products))]
+    return _svg_frame("Footprint at true scale — width × depth × height",
+                      "Rectangles are drawn at true scale (16 px per inch) from the dimensions the manufacturers publish.",
+                      src_lines) + panels + axis + _svg_close()
+
+
+def fig_temperature():
+    cfg = PRODUCTS["figures"]
+    products = cfg["temperature"]
+    lo = min(p["min"] for p in products)
+    hi = max(p["max"] for p in products)
+    x0, x1 = 90, 850
+    span = (hi + 60) - (lo - 20)
+
+    def xof(v):
+        return x0 + (v - (lo - 20)) * (x1 - x0) / span
+
+    axis_y = 330
+    bars = ""
+    y = 150
+    colors = ["#2563eb", "#16a34a", "#b45309"]
+    for i, p in enumerate(products):
+        bars += (
+            f'<rect x="{xof(p["min"])}" y="{y}" width="{xof(p["max"]) - xof(p["min"])}" height="34" '
+            f'fill="{colors[i]}" opacity=".9" rx="3"/>'
+            f'<text x="{xof(p["min"]) - 10}" y="{y + 22}" class="x" text-anchor="end">{p["min"]}</text>'
+            f'<text x="{xof(p["max"]) + 10}" y="{y + 22}" class="b">{p["max"]}</text>'
+            f'<text x="{x0}" y="{y - 12}" class="l">{e(p["label"])}</text>'
+            f'<text x="{x0}" y="{y + 56}" class="m">{e(p.get("note", ""))}</text>'
+            f'<text x="{x0}" y="{y + 74}" class="src">Source {e(p["source"])}' + (f' · conflict: {e(p["conflict_source"])}' if p.get("conflict_source") else "") + "</text>"
+        )
+        y += 98
+    ticks = "".join(
+        f'<text x="{xof(v)}" y="{axis_y + 18}" class="x" text-anchor="middle">{v}</text>'
+        for v in range(100, 551, 100)
+    )
+    axis = f'<line x1="{x0}" y1="{axis_y}" x2="{x1}" y2="{axis_y}" stroke="#9ca3af" stroke-width="1.5"/>{ticks}'
+    src_lines = [(axis_y + 46, "Sources: " + ", ".join(f'{e(p["label"])} — {e(p["source"])}' for p in products))]
+    return (_svg_frame("Documented temperature ranges",
+                       "Each bar runs from the documented minimum to the documented maximum. The Chefman 8 Qt bar ends at 400 °F because the brand page and manual document 200–400 °F; the 450 °F the Amazon listing title advertises is a live conflict (F3) and is not asserted here.",
+                       src_lines) + bars + axis + _svg_close())
+
+
+def fig_presets():
+    cfg = PRODUCTS["figures"]
+    rows_src = cfg["presets"]
+    maxc = max(p["count"] for p in rows_src if p["count"] is not None)
+    x0, x1 = 90, 760
+
+    def xof(c):
+        return x0 + c * (x1 - x0) / maxc
+
+    rows = ""
+    y = 150
+    for p in rows_src:
+        if p["count"] is not None:
+            fill = "#dc2626" if p.get("conflict") else "#2563eb"
+            rows += (
+                f'<rect x="{x0}" y="{y}" width="{xof(p["count"]) - x0}" height="30" '
+                f'fill="{fill}" opacity=".9" rx="3"/>'
+                f'<text x="{xof(p["count"]) + 8}" y="{y + 21}" class="b">{p["count"]}</text>'
+            )
+        else:
+            rows += f'<text x="{x0 + 10}" y="{y + 21}" class="m">— not documented</text>'
+        rows += (
+            f'<text x="22" y="{y - 8}" class="l">{e(p["document"])}</text>'
+            f'<text x="{x1 + 10}" y="{y + 22}" class="m">{e(p["note"])}</text>'
+            f'<text x="22" y="{y + 44}" class="src">Source {e(p["source"])}' + (f' · conflicts with {e(p.get("conflict_source", ""))}' if p.get("conflict_source") else "") + "</text>"
+        )
+        y += 92
+    src_lines = [(y + 10, "Reading: bar length = preset count stated by that document. Red = one official document disagrees with another for the same product; no count is asserted until the conflict is settled.")]
+    return (_svg_frame("Preset-count conflict — what each official document states",
+                       "The site states 24 presets for the Emeril 26 QT on the strength of the owner's manual (S15); the brand page's own specification block says 25 (S14), so the conflict stays open (F29). The Chefman 8 Qt documents four presets in both page and manual (S12, S13). For the Chefman 6 Qt dual-basket no official source publishes a preset count, so the row is blank (F36).",
+                       src_lines) + rows + _svg_close())
+
+
+def fig_decision_tree():
+    nodes = [
+        ("q1", "Cooking two different foods at once, on separate settings?", "start"),
+        ("q2", "Replacing a toaster oven too — toast, bake, rotisserie?", "q1"),
+        ("q3", "Cooking for 4–6 people from one basket?", "q2"),
+        ("a1", "Chefman 6 Qt Dual Basket — Sync Finish, two 3-qt baskets", "q1"),
+        ("a2", "Emeril 26 QT French Door — rotisserie, 75–500 °F, 24 presets", "q2"),
+        ("a3", "Chefman 8 Qt TurboFry — one 8-qt basket, 200–400 °F", "q3"),
+        ("a4", "Reconsider capacity before choosing a model", "q3"),
+    ]
+    xq, xa = 250, 660
+    yq, ya = 170, 170
+    step = 90
+    drawn = {}
+    drawn["q1"] = (xq, yq)
+    drawn["q2"] = (xq, yq + step)
+    drawn["q3"] = (xq, yq + 2 * step)
+    drawn["a1"] = (xa, yq)
+    drawn["a2"] = (xa, yq + step)
+    drawn["a3"] = (xa, yq + 2 * step)
+    drawn["a4"] = (xa, yq + 2 * step)
+    edges = [
+        ("q1", "a1", "yes"), ("q1", "q2", "no"),
+        ("q2", "a2", "yes"), ("q2", "q3", "no"),
+        ("q3", "a3", "yes"), ("q3", "a4", "no"),
+    ]
+    lines = ""
+    for a, b, tag in edges:
+        x1_, y1_ = drawn[a]; x2_, y2_ = drawn[b]
+        lines += f'<line x1="{x1_ + 145 if a.startswith("q") else x1_}" y1="{y1_ + 26}" x2="{x2_ - 150 if b.startswith("a") else x2_}" y2="{y2_ + 26}" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6,4"/>'
+        mx = (x1_ + x2_) / 2
+        lines += f'<text x="{mx}" y="{y2_ + 14}" class="m" text-anchor="middle">{tag}</text>'
+    boxes = ""
+    for nid, label, _ in nodes:
+        cx, cy = drawn[nid]
+        w = 320
+        fill = "#2563eb" if nid.startswith("q") else ("#16a34a" if nid.startswith("a") and nid != "a4" else "#9ca3af")
+        parts = label.split("\n")
+        boxes += (
+            f'<rect x="{cx - w / 2}" y="{cy}" width="{w}" height="56" fill="{fill}" rx="8"/>'
+            f'<text x="{cx}" y="{cy + 19}" class="b" text-anchor="middle">{e(parts[0])}</text>'
+        )
+        if len(parts) > 1:
+            boxes += f'<text x="{cx}" y="{cy + 37}" class="b" text-anchor="middle">{e(parts[1])}</text>'
+    return (_svg_frame("Format decision tree — choose by job, not by brand",
+                       "Generated from data/products.json. Each answer names the product whose documented capability fits; the tree is decision support, not a recommendation.",
+                       [(yq + 2 * step + 90, "Sources: Chefman 6 Qt — S10 · Emeril 26 QT — S15/S14 · Chefman 8 Qt — S12/S13")]) + lines + boxes + _svg_close())
+
+
+def build_figures():
+    FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+    for name, fn in (("footprint", fig_footprint), ("temperature", fig_temperature),
+                     ("presets", fig_presets), ("decision-tree", fig_decision_tree)):
+        (FIGURES_DIR / f"{name}.svg").write_text(fn(), encoding="utf-8")
+
+
+def page_pass10():
+    """Pass-10 ledger: every registered source re-read live on 2026-11-16, one row per
+    source, each row carrying its official source link and the observed verdict.
+
+    Additive only: no published value changes here; irregularities are flagged, never
+    inferred. Renders at pass10.html and is linked from the Evidence nav group.
+    """
+    p10 = PASS10_FULL
+    if not p10:
+        return ""
+    tally = p10["tally"]
+
+    def verdict_html(v):
+        cls, label = REV_VERDICT[v]
+        return f'<span class="pill {cls}">{e(label)}</span>'
+
+    def row(r):
+        return (
+            f'<tr><td class="num">{e(r["id"])}</td>'
+            f'<td class="small"><strong>{e(r["source"])}</strong><br><span class="tiny muted">{e(r["source_label"])}</span></td>'
+            f'<td class="small">{e(r["claim"])}</td>'
+            f'<td class="small">{e(r["published_value"])}</td>'
+            f'<td class="small">{e(r["observed_2026_11_16"])}</td>'
+            f'<td class="small">{verdict_html(r["verdict"])}</td>'
+            f'<td class="small"><a href="{e(r["source_url"])}" target="_blank" rel="noopener">'
+            f'{e(r["source"])} — official page</a></td></tr>'
+        )
+
+    rows = "".join(row(r) for r in p10["rows"])
+    conf = tally["confirmed"]
+    part = tally["partially-confirmed"]
+    confl = tally["conflict-live"]
+    nrc = tally["not-rechecked"]
+
+    stats = [
+        ("ok", conf, "Confirmed against the live official source"),
+        ("brand", part, "Partly confirmed (document read in part)"),
+        ("warn", nrc, "Not re-checked in this pass — earlier record stands"),
+        ("bad", confl, "Official sources still disagree — nothing asserted"),
+    ]
+    stat_html = "".join(
+        f'<div class="stat {cls}"><div class="n">{n}</div><div class="l">{e(lbl)}</div></div>'
+        for cls, n, lbl in stats
+    )
+
+    irr = "".join(
+        f'<div class="callout info" style="margin:.6rem 0">'
+        f'<strong class="small">Flag {e(x["id"])}</strong> {e(x["summary"])}'
+        f'<p class="tiny muted">Sources: {e(", ".join(x["sources"]))}</p>'
+        f'</div>'
+        for x in p10["irregularities"]
+    )
+
+    carried = "".join(f"<li>{e(c)}</li>" for c in p10["carried_forward"])
+
+    body = f"""
+<p class="crumbs"><a href="../index.html">Home</a> / Verification pass 10</p>
+<h1>{e(p10['pass'])} verification ledger · {e(p10['pass_date'])}</h1>
+<p class="lede">{e(p10['scope'])}</p>
+
+<div class="callout info">
+  <strong>Method</strong>
+  <p class="small">{e(p10['method'])}</p>
+</div>
+
+<div class="grid grid-4" style="margin:1rem 0 1.25rem">{stat_html}</div>
+
+<p class="small"><strong>{conf} confirmed</strong> · <strong>{part} partly confirmed</strong> ·
+<strong>{confl} conflict live</strong> · <strong>{nrc} not re-checked</strong> — no published
+value changed and no new product-value correction is justified. Every irregularity below is
+already flagged; none is inferred.</p>
+
+<div class="tablewrap">
+<table>
+  <caption>All {len(p10['rows'])} registered sources, re-read on {e(p10['pass_date'])}</caption>
+  <thead><tr><th style="width:8%">Pass-10 ID</th><th style="width:16%">Official source</th>
+  <th style="width:22%">Claim checked against the source</th>
+  <th style="width:20%">Value this site publishes from it</th>
+  <th style="width:20%">What the source said on {e(p10['pass_date'])}</th>
+  <th style="width:7%">Verdict</th><th style="width:7%">Source link</th></tr></thead>
+  <tbody>{rows}</tbody>
+</table>
+</div>
+
+<h2>Irregularities carried in the flag register</h2>
+{irr}
+
+<h2>Round 10 (previously reported)</h2>
+<ul class="tight small">{carried}</ul>
+<p class="tiny muted">The three supplied short links, S2 and the live homepage were re-read by round 10
+(session c334fb1c); see
+<a href="../reports/verification-2026-11-16.md">reports/verification-2026-11-16.md</a>.
+That record is not duplicated in this ledger.</p>
+
+<p class="tiny muted">{e(p10['conclusion'])}</p>
+<p class="tiny muted">Raw observations: <code>data/pass10.json</code> — one row per registered source,
+each row linking to its official source.</p>
+"""
+    return layout("pass10.html", f"Verification pass 10 · {p10['pass_date']}", body,
+                  active="pass10.html",
+                  description=f"Pass {p10['pass']} ledger: every official source (S1-S34) re-read on {p10['pass_date']} against the value this site publishes from it, with verdicts and source links.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Verification pass 10", page_url("pass10.html")),
+    ])])
+
+
+def page_figures():
+    captions = {
+        "footprint": ("How much counter each model needs", "True-scale footprint drawn from the manufacturer-published dimensions."),
+        "temperature": ("Documented cooking temperature ranges", "Min–max from each official source; conflicts are shown, not hidden."),
+        "presets": ("Preset-count conflict, document by document", "Why the site states 24 for the Emeril and four for the Chefman 8 Qt — and why the Chefman 6 Qt row stays blank."),
+        "decision-tree": ("Choose by the job, not by the brand", "Decision support generated from the published dataset; not a recommendation."),
+    }
+    panels = ""
+    for name in ("footprint", "temperature", "presets", "decision-tree"):
+        svg = (FIGURES_DIR / f"{name}.svg").read_text(encoding="utf-8")
+        cap, lede = captions[name]
+        panels += (
+            f'<div class="figure">'
+            f'<h4 class="fighead">{e(cap)}</h4>'
+            f'{svg}'
+            f'<p class="figcap">{e(lede)}</p>'
+            f'</div>'
+        )
+    body = f"""
+<p class="crumbs"><a href="../index.html">Home</a> / Figures</p>
+<h1>Figures and diagrams</h1>
+<p class="lede">Four diagrams, all generated at build time from data/products.json. None of them contains a number
+that this dataset does not hold, and each one carries the official sources of its own figures. They are diagrams,
+not photographs: product-photography rights are undecided (Q-22, SG-23, flag F46), so the site stays
+text-and-diagrams-only until a decision is recorded.</p>
+{panels}
+<p class="tiny muted">Regenerate: <code>python3 build.py</code>. Sources are cited per figure and the raw data is in
+<code>data/products.json</code> → <code>figures</code>.</p>
+"""
+    return layout("figures.html", "Figures and diagrams", body,
+                  active="figures.html",
+                  description="Data-driven diagrams generated from the published dataset: footprint at true scale, temperature ranges, preset-count conflict, format decision tree.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Figures", page_url("figures.html")),
+    ])])
 
 
 PARALLEL_BUILDS = [
@@ -6008,6 +6375,7 @@ def main():
     assets.mkdir(exist_ok=True)
     (assets / "style.css").write_text(CSS, encoding="utf-8")
     (assets / "app.js").write_text(JS, encoding="utf-8")
+    build_figures()
 
     for d in ("products", "categories", "guides", "articles"):
         (ROOT / d).mkdir(exist_ok=True)
@@ -6028,6 +6396,8 @@ def main():
     pages["platform.html"] = page_platform()
     pages["executive-summary.html"] = page_exec()
     pages["reverification.html"] = page_reverification()
+    pages["pass10.html"] = page_pass10()
+    pages["figures.html"] = page_figures()
     pages["picks.html"] = page_picks()
     pages["decisions.html"] = page_decisions()
     pages["handover.html"] = page_handover()
