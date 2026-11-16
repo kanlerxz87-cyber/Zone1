@@ -2993,13 +2993,20 @@ One new conflict was found and filed rather than resolved by guesswork.</p>
     p10_html = ""
     if PASS10:
         p10 = PASS10
+        def p10_source_links(t):
+            links = [{"label": t["source_label"], "url": t["source_url"]}]
+            links.extend(t.get("additional_sources", []))
+            return "<br>".join(
+                f'<a href="{e(source["url"])}" target="_blank" rel="noopener">{e(source["label"])}</a>'
+                for source in links
+            )
+
         p10rows = "".join(
             f'<tr><td><strong>{e(t["claim"])}</strong></td>'
             f'<td class="small">{e(t["previous"])}</td>'
             f'<td class="small">{e(t["observed"])}</td>'
             f'<td class="small">{e(t["verdict"])}</td>'
-            f'<td class="small"><a href="{e(t["source_url"])}" target="_blank" rel="noopener">'
-            f'{e(t["source_label"])}</a></td></tr>'
+            f'<td class="small">{p10_source_links(t)}</td></tr>'
             for t in p10["rows"]
         )
         p10flags = "".join(f"<li>{e(item)}</li>" for item in p10["irregularities"])
@@ -3012,7 +3019,7 @@ One new conflict was found and filed rather than resolved by guesswork.</p>
   <caption>Targeted official-source re-reads, {e(p10['pass_date'])}</caption>
   <thead><tr><th style="width:18%">Claim</th><th style="width:17%">Previously recorded</th>
   <th style="width:35%">Current observation</th><th style="width:17%">Verdict</th>
-  <th style="width:13%">Official source</th></tr></thead>
+  <th style="width:13%">Official source(s)</th></tr></thead>
   <tbody>{p10rows}</tbody>
 </table>
 </div>

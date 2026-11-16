@@ -48,9 +48,15 @@
       "claim": "Emeril brand-page rating and preset-count conflict",
       "previous": "Brand page previously recorded as 2.6 (25 reviews), with conflicting preset claims.",
       "observed": "The page displayed 2.6 (25); its spec strip still says 25 Cooking Pre-sets, the description still says 10-in-1, and an image is described as an 11-in-1 convection oven. The Amazon title observed through the supplied link says 24 one-touch preset options.",
-      "verdict": "Rating unchanged; claims remain conflicted and no single preset count is inferred.",
+      "verdict": "Rating unchanged; product-page and listing claims remain conflicted; no single preset count is inferred.",
       "source_label": "Emeril Everyday product page",
-      "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+      "source_url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+      "additional_sources": [
+        {
+          "label": "Amazon supplied short link — current listing title",
+          "url": "https://link.amazon/B02NbDxp3"
+        }
+      ]
     },
     {
       "claim": "Amazon Associates commission table and policy version",
@@ -61,12 +67,20 @@
       "source_url": "https://affiliate-program.amazon.com/help/operating/policies"
     },
     {
-      "claim": "FTC disclosure guidance and current eCFR status",
-      "previous": "FTC Disclosures 101 and 16 CFR Part 255 cited by the site.",
-      "observed": "The FTC guidance still says disclosures should be hard to miss and warns not to describe experience with a product that was not tried. The eCFR page reports Title 16 up to date as of 2026-11-12 and lists 16 CFR Part 255, including §255.5.",
-      "verdict": "Official sources re-read; no copy or compliance claim changed.",
-      "source_label": "FTC Disclosures 101 and eCFR Part 255",
+      "claim": "FTC disclosure guidance",
+      "previous": "FTC Disclosures 101 is cited for placement and experience claims.",
+      "observed": "The FTC guidance still says disclosures should be hard to miss and warns not to describe experience with a product that was not tried.",
+      "verdict": "Official source re-read; no compliance copy changed.",
+      "source_label": "FTC — Disclosures 101 for Social Media Influencers",
       "source_url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+    },
+    {
+      "claim": "Current eCFR status for 16 CFR Part 255",
+      "previous": "16 CFR Part 255, including §255.5, is cited by the site.",
+      "observed": "The eCFR page reports Title 16 up to date as of 2026-11-12 and lists 16 CFR Part 255, including §255.5.",
+      "verdict": "Official source re-read; no compliance copy changed.",
+      "source_label": "eCFR — 16 CFR Part 255",
+      "source_url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255"
     }
   ],
   "irregularities": [
