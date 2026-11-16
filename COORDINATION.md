@@ -4187,7 +4187,6 @@ Totals, computed from the rows at build time rather than typed: **27 delivered �
 
 **One observation for the next pass, not repaired here:** the project publishes each register as an individual HTML file at the site root, and the repository root also carries the raw generator (`build.py`), the JSON data directory and six Markdown briefings. GitHub Pages serves the repository root, so every one of those is publicly fetchable — which is why the register's `where` column can link `data/requirements.json` directly. That is a deliberate trade this repository has made throughout (open data over a tidy build directory), but it means the site's public surface is much larger than its navigation. If the owner prefers a narrower surface, moving the generator and data to a build-time-only location would be a single, self-contained change; it is recorded here rather than done, because it would break the evidence links on every register built so far.
 
-<<<<<<< HEAD
 
 ---
 
@@ -4406,18 +4405,20 @@ same day and got the same numbers, plus both averages (4.6). Two independent rea
 
 PR / merge / Pages result recorded below after they complete.
 | 2026-11-16 (merge) | arena/dc3f8b5d-zone1 (session dc3f8b5d) | **PR #96** (`arena/dc3f8b5d-zone1` → `main`, merge commit) merged with `gh pr merge 96 --merge`. PR checks: `verify` pass, "Rebuild site/ from data/verified and assert every guarantee" pass. Post-merge: CI `success` (run 43932351592), "Build, verify and deploy to GitHub Pages" `success` (run 43932351521), pages build `built`; `reports/verification-2026-11-16-dc3f8b5d.md` read back from the live site. |
-=======
+
+---
+
 ---
 
 ## Task board — arena/19d92a81-zone1 (2026-11-16 UTC)
 
 | # | Task | Status | Owner (session) | File scope |
 |---|------|--------|-----------------|------------|
-| X-19d92a81 | **Marketing & decision-support upgrade + verification round 11 + integration**: (a) line-by-line repo review with every published value checked against its cited official source and live re-reads of the 3 `link.amazon` links and key sources; (b) new trendy/catchy, source-led articles and topic/traffic additions for the air-fryer niche; (c) a refreshed design-prompt suggestion set feeding the "polished marketing affiliate site / not AI slop" brief, new reviewable suggestions (SG-22+) and new open questions (Q-21+) with discovery steps; (d) executive-summary + README refresh; (e) rebuild, all gates, PR → merge → GitHub Pages verify → record. | in progress | arena/19d92a81 (session 19d92a81) | `COORDINATION.md`; `data/articles.json`, `data/suggestions.json`, `data/questions.json`, `data/design-prompt.json`, `data/topics.json`; `build.py` (only if a new page is required); regenerated root HTML; `EXECUTIVE-SUMMARY.md`; `README.md`; `reports/verification-2026-11-16-r11.md` |
+| X-19d92a81 | **Marketing & decision-support upgrade + verification round 12 + integration (pass numbering: dc3f8b5d took "pass 11")**: (a) line-by-line repo review with every published value checked against its cited official source and live re-reads of the 3 `link.amazon` links and key sources; (b) new trendy/catchy, source-led articles and topic/traffic additions for the air-fryer niche; (c) a refreshed design-prompt suggestion set feeding the "polished marketing affiliate site / not AI slop" brief, new reviewable suggestions (SG-22+) and new open questions (Q-21+) with discovery steps; (d) executive-summary + README refresh; (e) rebuild, all gates, PR → merge → GitHub Pages verify → record. | in progress | arena/19d92a81 (session 19d92a81) | `COORDINATION.md`; `data/articles.json`, `data/suggestions.json`, `data/questions.json`, `data/design-prompt.json`, `data/topics.json`; `build.py` (only if a new page is required); regenerated root HTML; `EXECUTIVE-SUMMARY.md`; `README.md`; `reports/verification-2026-11-16-19d92a81.md` |
 
 ### Claim log
 
 | UTC time | Session | Action |
 |----------|---------|--------|
-| 2026-11-16T19:05Z | arena/19d92a81 (session 19d92a81) | Claimed X-19d92a81 after reading the board. Branch `arena/19d92a81-zone1` (Arena pins the branch; per prior sessions this *is* the `session-<id>/<task>` branch of the protocol). Baseline at claim time: `python3 build.py` 37 URLs exit 0 · `python3 verify.py` 116 pages / 46 spec rows (43 verified, 3 blank+flagged) / 34 sources / 0 errors · `bash scripts/ci-check.sh` 33 tests OK, data audit clean, 6,742 links OK. T1–T20 and all `X-*` rows are done or stale-owned (>60 min, completed per their own completion records); no live claim blocks this scope. Live re-reads of the three `link.amazon` links already performed this session (see `reports/verification-2026-11-16-r11.md`, written next). |
->>>>>>> 57dd60f (COORDINATION: claim X-19d92a81 (marketing & decision-support upgrade + verification round 11 + integration))
+| 2026-11-16T19:25Z | arena/19d92a81 (session 19d92a81) | **Rebase conflict incident (logged per protocol item 6):** `git pull --rebase` onto `4225b95` conflicted in `COORDINATION.md` (my claim block vs boards appended by `9fccce0c`/`dc3f8b5d`/`3dfe4b45`). First resolution attempt failed on a regex typo and the conflicted file **with markers** was committed and pushed as `7c6806f` — the F22/F44 defect class, this session's own. Fixed immediately in the next commit: both sides kept (theirs first), markers removed, no other session's text dropped. The repository now scans clean again. |
+| 2026-11-16T19:05Z | arena/19d92a81 (session 19d92a81) | Claimed X-19d92a81 after reading the board. Branch `arena/19d92a81-zone1` (Arena pins the branch; per prior sessions this *is* the `session-<id>/<task>` branch of the protocol). Baseline at claim time: `python3 build.py` 37 URLs exit 0 · `python3 verify.py` 116 pages / 46 spec rows (43 verified, 3 blank+flagged) / 34 sources / 0 errors · `bash scripts/ci-check.sh` 33 tests OK, data audit clean, 6,742 links OK. T1–T20 and all `X-*` rows are done or stale-owned (>60 min, completed per their own completion records); no live claim blocks this scope. Live re-reads of the three `link.amazon` links already performed this session (see `reports/verification-2026-11-16-19d92a81.md`, written next). |
