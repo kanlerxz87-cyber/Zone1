@@ -806,7 +806,7 @@ is unblocked and takes an afternoon; everything else assumes it.
 ## 17. Pass 10 — verification, and the two clauses the brief needed (2026-11-16, session `arena/9fccce0c-zone1`)
 
 **Branch:** `arena/9fccce0c-zone1` · **Baseline:** `6dbfa7cb` (= `origin/main` at claim time)
-**Full evidence:** [`reports/verification-2026-11-16.md`](reports/verification-2026-11-16.md) ·
+**Full evidence:** [`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md) ·
 **Ledger on the site:** [`reverification.html`](https://kanlerxz87-cyber.github.io/Zone1/reverification.html)
 
 This is the tenth independent re-read of the same register. It was run because the register is made

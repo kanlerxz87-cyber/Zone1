@@ -12,7 +12,7 @@ decision and keeps the verification layer one click behind it.
 **Decision queue:** [`suggestions.html`](https://kanlerxz87-cyber.github.io/Zone1/suggestions.html) — review and choose before anything is built
 **Open questions:** [`questions.html`](https://kanlerxz87-cyber.github.io/Zone1/questions.html) — what must be answered first
 **Briefing:** [`EXECUTIVE-SUMMARY-PASS8.md`](EXECUTIVE-SUMMARY-PASS8.md) (pass 9 addendum at the end) · [`EXECUTIVE-SUMMARY-PASS9.md`](EXECUTIVE-SUMMARY-PASS9.md) (search plumbing and duplicate builds) · [`EXECUTIVE-SUMMARY-PASS9-42CA97AD.md`](EXECUTIVE-SUMMARY-PASS9-42CA97AD.md) (verification pass 9) · [`EXECUTIVE-SUMMARY.md`](EXECUTIVE-SUMMARY.md) §17 (verification pass 10, this session)
-**Today's live re-verification:** [`reports/verification-2026-11-16.md`](reports/verification-2026-11-16.md) (pass 10, this session) · [`reports/verification-2026-11-15.md`](reports/verification-2026-11-15.md) (pass 9)
+**Today's live re-verification:** [`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md) (full pass 10, this session) · [`reports/verification-2026-11-16.md`](reports/verification-2026-11-16.md) (round 10, session c334fb1c) · [`reports/verification-2026-11-15.md`](reports/verification-2026-11-15.md) (pass 9)
 
 ## What is in here
 
@@ -34,6 +34,7 @@ decision and keeps the verification layer one click behind it.
 | `flagged.html` | Every unverified value, source conflict and irregularity |
 | `suggestions.html` | **Decision queue** — 22 evidence-backed suggestions, each with alternative paths, effort, risk and a recommendation. Nothing on it is implemented. |
 | `questions.html` | **Open questions** — 21 questions split into known / discoverable / not-stated / account-only. The five that an official source already settles carry their **answer** on the row; the rest say so plainly and name the step that would produce one. |
+| `requirements.html` | **Every requirement in the brief, and whether this repository meets it** — 51 rows, each with a live status, the path that implements it and a source link. Added 2026-11-16 by session `ad8105b3`. |
 | `executive-summary.html` | One-page briefing |
 | `reverification.html` | Line-by-line re-read of every published value (2026-11-14 pass), each row with its verdict and source link |
 | `session-81495d2d/EVIDENCE-2026-11-14.md` | Raw evidence behind that ledger: exact requests, exact responses, and what was not re-read |
@@ -261,7 +262,8 @@ things, and all three are fixed:
   requirements **C17** and **C18** and platform guardrail **G11**. The scope question they raise
   (does an ordinary public listing page count as Program Content, and what must the agent call
   itself?) is published as **Q-21** and **SG-22** rather than answered by inference, and the
-  limit of what could be read is published as **F62**.
+  limit of what could be read is published as **F62**. The two defects are published as
+  **F61** and **F62**.
 * **Three published pages pointed at a flag that exists in no register.** `data/questions.json`,
   `data/suggestions.json` and `data/sources.json` all sent readers to "flag F46"; there is no
   F46 in either register in this repository. The pointers now name **F56**, and a new build guard
@@ -272,6 +274,11 @@ things, and all three are fixed:
   **F56** and gives **Q-19** its answer, and the two volatile Chefman review counters had moved
   again (1,307 and 717) and were refreshed with all three read dates kept.
 
-No published value was found wrong. Full evidence, row by row: **[`reports/verification-2026-11-16.md`](reports/verification-2026-11-16.md)**;
+Two independent sessions verified sources on 2026-11-16 and both records are kept:
+`reports/verification-2026-11-16.md` (session `c334fb1c`, the three short links, the policy
+date and the live landing page) and `reports/verification-2026-11-16-9fccce0c.md` (this
+session, the full register). Neither replaces the other; the site publishes both ledgers.
+
+No published value was found wrong. Full evidence, row by row: **[`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md)**;
 the same ledger rendered on the site at
 [`reverification.html`](https://kanlerxz87-cyber.github.io/Zone1/reverification.html).

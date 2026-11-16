@@ -3092,6 +3092,7 @@ One new conflict was found and filed rather than resolved by guesswork.</p>
 <h3>Open irregularities — not resolved by this pass</h3>
 <ul class="tight small">{p10flags}</ul>
 <p class="tiny muted">Full evidence notes: <a href="session-9f0e6668/VERIFICATION-2026-11-16.md">round-10 verification record</a>.</p>
+"""
 
     # ---- pass-10 addendum (arena/9fccce0c-zone1): independent re-read, 2026-11-16 ----
     p10u2_html = ""

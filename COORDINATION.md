@@ -4230,18 +4230,43 @@ rebuilt and the live page read back.**
 question row in `data/questions.json`, `python3 build.py` exited **1** and named the page, the
 register and the id; with the data restored byte for byte it exited **0**.
 
-**Gates — all run after the final edit, all green:** `build.py` 36 pages / 0 errors ·
-`verify.py` 115 pages, 46 spec rows (43 verified, 3 blank+flagged), 34 sources, **0 errors, 0
+**Gates — all run after the final edit, all green:** `build.py` 37 pages / 0 errors ·
+`verify.py` 116 pages, 46 spec rows (43 verified, 3 blank+flagged), 34 sources, **0 errors, 0
 external warnings** · `platform/tests` 33/33 · `platform/audit/report.py` `AUDIT PASSED` ·
-`scripts/check_links.py` 6,425 links, 0 broken · `scripts/verify_site.py` 393 assertions, `ALL
+`scripts/check_links.py` 6,792 links, 0 broken · `scripts/verify_site.py` 393 assertions, `ALL
 CHECKS PASSED` · `research/check_research.py` OK · `scripts/build_s2_site.py --check` current ·
 `node --check assets/app.js` OK · a second `build.py` leaves `git diff` empty.
 
 **Files this pass wrote:** `build.py` (guard, F61, F62, pass-10 ledger rendering) ·
 `data/compliance.json` · `data/platform.json` · `data/products.json` · `data/sources.json` ·
 `data/questions.json` · `data/suggestions.json` · `data/design-prompt.json` (pass count) ·
-`reports/verification-2026-11-16.md` (new) · `session-9fccce0c/pass10.json` (new, 17 rows) ·
-`EXECUTIVE-SUMMARY.md` §17 · `README.md` · `COORDINATION.md` · the regenerated root HTML.
+`reports/verification-2026-11-16-9fccce0c.md` (new) · `session-9fccce0c/pass10.json` (new,
+17 rows) · `EXECUTIVE-SUMMARY.md` §17 · `README.md` · `COORDINATION.md` · the regenerated root HTML.
+
+### Rebase onto `main` — what happened, and what was kept
+
+`origin/main` moved from `6dbfa7cb` to `5befc7e` while this pass was working: sessions
+`c334fb1c`, `9f0e6668` and `ad8105b3` had merged PRs #86, #88, #89 and #91 on the same day.
+The branch was rebased onto `5befc7e` with seven commits replayed. Four files conflicted and
+every conflict was resolved **by keeping both sides**:
+
+| Conflict | Both sides | Resolution |
+|---|---|---|
+| `build.py` — the round-10 ledger loader | `arena/9f0e6668` owns `session-9f0e6668/pass10.json`; this pass owns `session-9fccce0c/pass10.json` | Both loaded. The other session's is `PASS10`; this pass's is `PASS10_U2`, with a comment saying why. Both ledgers are rendered on `reverification.html`, in that order. |
+| `build.py` — the executive summary's ledger-row count | `arena/9f0e6668` counted its own addendum | The count now sums all three addenda, so the number cannot drift. |
+| `data/products.json` — the two brand review ratings | `arena/ad8105b3` recorded the moved counts but could transcribe the count only; this pass read the count **and** the average and the star breakdown | This pass's fuller reading is published, and the note now records that a second, independent session saw the same counts the same day — so the other session's observation is preserved rather than dropped. |
+| `data/sources.json` — three `page_version` strings | `arena/ad8105b3` and `arena/9f0e6668` each appended their own read | All three readings are concatenated on each row, each attributed to the session that made it. |
+| `reports/verification-2026-11-16.md` | `arena/c334fb1c` wrote a round-10 record under this exact filename; this pass wrote a full pass-10 record under the same name | **Both records kept.** `arena/c334fb1c`'s stays at `reports/verification-2026-11-16.md`; this pass's moved to `reports/verification-2026-11-16-9fccce0c.md`. Neither was deleted or overwritten. |
+| `COORDINATION.md` | every session's board and claim log | Both sides kept, in order. No board, claim row or merge record was discarded. |
+
+**One id collision, resolved in favour of the earlier claim.** This pass's two new flag rows
+were originally numbered **F59** and **F60**; session `ad8105b3` had already merged **F59**
+and **F60** for different findings (six stale executive summaries; the s2 annex's two bad
+paths). Rather than renumber another session's rows, this pass's rows became **F61** and
+**F62**, and every reference to them was updated — including inside this pass's own ledger,
+where the new cross-reference guard caught the two stale ids and **failed the build** before
+they could reach the site. The guard's first job, on this branch, was to catch this pass's
+own mistake.
 
 **Files this pass did not touch:** `site/`, `s2/`, `data/s2/`, `research/`, `platform/`,
 `docs/`, `dashboard/`, `crosscheck/`, `annex-88769516/` and every other `session-*/` folder —
@@ -4255,4 +4280,5 @@ Program Content around Creators API, PA API and Data Feeds and the policies page
 extend it to ordinary pages. Published as Q-21 rather than inferred.
 
 **Deployment:** PR opened against `main` and merged; GitHub Pages rebuilt; the live site read
-back to confirm the new content is served.
+back to confirm the new content is served. The PR number and the Pages build id are recorded
+in the merge row above, once they exist.
