@@ -385,6 +385,71 @@ def root_build_pages():
     return pages
 
 
+def audit_counters():
+    """The landing page's counters must equal what the other pages actually contain.
+
+    A counter on the front page is the most-read number on the site and the easiest
+    to get wrong: it is computed by a helper that can drift from the page it is
+    counting. This check recomputes each one from the rendered HTML of the pages it
+    refers to, so a number that has gone stale fails here rather than being
+    published.
+    """
+    errors = []
+    index_path = os.path.join(ROOT, "index.html")
+    if not os.path.exists(index_path):
+        return errors
+    html_text = open(index_path, encoding="utf-8").read()
+    tiles = dict((m.group(2).strip(), m.group(1).strip())
+                 for m in re.finditer(
+                     r'<div class="tile"><b>([^<]*)</b><span>([^<]*)</span>', html_text))
+    if not tiles:
+        errors.append("index.html: no landing-page counters found to check")
+        return errors
+
+    def count_files(subdir, skip=()):
+        d = os.path.join(ROOT, subdir)
+        if not os.path.isdir(d):
+            return 0
+        return len([n for n in os.listdir(d)
+                    if n.endswith(".html") and n not in skip])
+
+    def count_ids(page_rel, pattern):
+        p = os.path.join(ROOT, page_rel)
+        if not os.path.exists(p):
+            return 0
+        return len(re.findall(pattern, open(p, encoding="utf-8").read()))
+
+    def count_sources_in_register():
+        """The source register is one table on data.html; count only its rows."""
+        p = os.path.join(ROOT, "data.html")
+        if not os.path.exists(p):
+            return 0
+        text = open(p, encoding="utf-8").read()
+        start = text.find('id="sources"')
+        if start == -1:
+            return 0
+        end = text.find("</table>", start)
+        seg = text[start:end if end != -1 else len(text)]
+        return len(re.findall(r'<td><a class="src"[^>]*>S\d+</a></td>', seg))
+
+    expected = {
+        "Products compared": count_files("products"),
+        "Sourced articles": count_files("articles", skip=("index.html",)),
+        "Official sources": count_sources_in_register(),
+        "Flags open": count_ids("flagged.html", r'<tr id="f\d+"'),
+    }
+    for label, want in expected.items():
+        if label not in tiles:
+            errors.append(f"index.html: no counter tile labelled {label!r}")
+            continue
+        got = tiles[label]
+        if got != str(want):
+            errors.append(
+                f"index.html: counter {label!r} reads {got}, but the pages it counts hold {want}"
+            )
+    return errors
+
+
 def main():
     out_json = None
     if "--json" in sys.argv:
@@ -409,6 +474,8 @@ def main():
             all_warnings.append(
                 f"identical meta description on {len(pages)} pages: {pages[:5]} — {d[:70]!r}"
             )
+
+    all_errors.extend(audit_counters())
 
     report = {
         "pages_checked": pages_checked,

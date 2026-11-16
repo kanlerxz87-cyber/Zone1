@@ -4546,3 +4546,5 @@ shipped.
   the underlying JSON is complete. It runs against the root build's pages only; the parallel
   annexes (`site/`, `s2/`, `research/`, `dashboard/`, `docs/`, `platform/`, `crosscheck/`,
   `annex-*`, `session-*/`) are read but not edited, as they belong to other sessions.
+
+  `annex-*`, `session-*/`) are read but not edited, as they belong to other sessions.
