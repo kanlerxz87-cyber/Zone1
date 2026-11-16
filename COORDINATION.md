@@ -4326,3 +4326,56 @@ Branch note: the session brief mentions `session-<id>/<task>` branch names; this
 | UTC time | Session | Action |
 |----------|---------|--------|
 | 2026-11-16T18:35Z | arena/3dfe4b45-zone1 (session 3dfe4b45) | Claimed X-3dfe4b45 after reading the board. Worktree clean; rebased on `origin/main` at `f3d2d4e` (PRs #86/#87, session c334fb1c's verification round 10 — deliberately not duplicated: round 10 re-read the three short links, the S2 page date and the live landing page; round 11 covers exactly what round 10 listed under "Not re-read in this round"). Scope is additive and does not touch `site/`, `s2/`, `research/`, `docs/`, `dashboard/`, `annex-*` or `session-*`. Board hygiene: the T20 row (session 792c279e) still reads "in progress" although that session's own completion record above says done and its PRs (#71/#73) merged; its claim is more than 24 hours old with no commits, so per protocol item 7 this session takes over the row update only and marks it done with a handoff note. Arena fixes this session to branch `arena/3dfe4b45-zone1`, which therefore acts as the protocol's `session-<id>/<task>` branch. |
+
+### X-3dfe4b45 completion record — arena/3dfe4b45-zone1 (2026-11-16 UTC)
+
+**Status: done** (PR, merge and Pages confirmation appended below after they complete).
+
+**What this round did.** It covered exactly the sources round 10 listed as "Not re-read in this round",
+then grew the editorial layer by the three topic-register rows that are fully supported by values the
+re-read confirmed. Full evidence table: `reports/verification-round11-2026-11-16.md`.
+
+**Live re-verification performed (all direct page reads, 2026-11-16 UTC):**
+
+| Source | What was read | Verdict |
+|---|---|---|
+| [S10 — Chefman 6 Qt page](https://chefman.com/products/turbofry-touch-dual-window-air-fryer) | Spec block: RJ38-SQPF-3TDB-2W, 6 Qt / 5.67 L, 200–450 °F, 13.38 × 11.81 × 10.63 in, 13.3 lbs, 1700W/120V, cETL, 1-year assurance | every published row matches |
+| [S12 — Chefman 8 Qt page](https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1) | RJ38-SQSS-8T, 5 or 8 Qt, 200–400 °F, 1700W/120V, (8 Qt) 15.4 × 12.6 × 13.5 in, 12.8 lbs, presets, 98% less oil, 4–6 people | every published row matches; F3 conflict stands (brand still says 400 °F) |
+| [S14 — Emeril page](https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360) | 26-Qt, 24.6 L, 16.9″D × 15.8″W × 14.8″H, 120 V, 1-year warranty; **25 (icon) vs 24 (description) vs 10-in-1 (heading) on the same page**; no weight row | published rows match; preset conflict re-confirmed; Q-06 stays open |
+| [S15 — Emeril FAFO-001 manual](https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf) | Spec table (FAFO-001, 120 V/1700 W/60 Hz, 26 qt / 1519 cu in, 75–500 °F, LED); 24 named presets; Rotisserie Spit and Forks; "NEVER use with an extension cord" | matches |
+| [S13 — Chefman 8 Qt manual](https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf) | RJ38-SQSS-8T, one basket in features, preset defaults, cord-rating clause | matches |
+| [S18 — Chefman 6 Qt manual](https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf) | "two 3-quart baskets", Sync Finish/Sync Baskets mechanics, HI-FRY 450 °F/2 min, **aerosol CAUTION sentence verbatim**, dishwasher-safe racks | matches |
+| [S3 — Commission Table 1](https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ) | Kitchen 4.50%, All Other Categories 4.00%, read with no login | matches |
+| [S8 — FTC Disclosures 101](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers) | "November 2019" stamp; the no-experience sentence and hard-to-miss placement verbatim | matches |
+| [S9 — eCFR 16 CFR 255](https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255) | Title 16 "up to date as of 11/12/2026"; §255.0–255.6; 88 FR 48102 | matches |
+
+**Observations recorded, nothing changed (all non-blocking):**
+review widgets moved again (6 Qt 1,305→**1,307**, 8 Qt 716→**717**, both averages 4.6 — F14 pattern);
+the Emeril preset conflict confirmed three ways on one page; the 8 Qt 450 °F vs 400 °F conflict stands;
+the Emeril weight cell stays blank; brand list-price display now renders tiered discount selectors over
+the same $119.99 list (not published by this site).
+
+**Editorial growth (the brief's "catchy articles", built under the existing number/source guards):**
+
+| Register row | Article | Basis |
+|---|---|---|
+| TP-09 → published | `articles/sync-finish-explained.html` | S18 re-read today + published feature row |
+| TP-10 → published | `articles/aerosol-oil-warning.html` | S18 caution sentence read verbatim today; S13/S12 care rows |
+| TP-11 → published | `articles/extension-cord-rules-in-the-manuals.html` | wattage rows + manuals' own cord instructions; the register's caveat honoured — no circuit, breaker or amp claims |
+
+TP-04 was **not** written (its ground is covered by pass T20's published `articles/small-kitchen-air-fryer-dimensions.html`);
+TP-07/TP-08 remain proposals for the reasons recorded in the report. Article count: 12 → **15**.
+
+**Register contradiction observed, not edited (per protocol item 4):** `data/design-prompt.json` still
+lists A-11 as `not-written` although pass T20 published `articles/small-kitchen-air-fryer-dimensions.html`.
+Filed in the evidence report §4 as a request to that register's owner; not fixed from this scope.
+
+**Verification (all gates, as CI runs them):** `python3 build.py` → 29 pages + robots/sitemap (**39 URLs**),
+exit 0 · `python3 verify.py` → **118 pages**, 46 spec rows (43 verified / 3 blank+flagged), 34 sources,
+**0 errors, 0 external warnings** · `bash scripts/ci-check.sh` → 33 unit tests OK, data audit clean,
+s2 build current, **6,548 links / 0 broken** · `python3 research/check_research.py` → OK ·
+`python3 scripts/verify_site.py` → 393 assertions, ALL CHECKS PASSED.
+
+No file in `site/`, `s2/`, `data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`,
+`annex-*` or `session-*` was edited by this session. `build.py` itself was not edited; all page changes
+are regenerated output.
