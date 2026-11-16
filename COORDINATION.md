@@ -61,7 +61,7 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 
 | # | Task | Status | Owner (session) | File scope |
 |---|------|--------|-----------------|------------|
-| T20 | Verified decision content: 4 new source-led articles, weekly picks hub, niche/traffic/measurement decision data, live re-verification of all published values, handover + exec summary enrichment, sitewide visual/SEO upgrade | in progress | arena/792c279e-zone1 (session 792c279e) | `data/decision.json` (new), `data/editorial.json` (new), `data/articles.json`, `data/products.json`, `data/sources.json`, `data/flags.json`, `build.py`, `assets/style.css`, `assets/app.js`, `COORDINATION.md`, `EXECUTIVE-SUMMARY.md`, regenerated root HTML |
+| T20 | Verified decision content: 4 new source-led articles, weekly picks hub, niche/traffic/measurement decision data, live re-verification of all published values, handover + exec summary enrichment, sitewide visual/SEO upgrade | done (stale "in progress" row closed 2026-11-16 by session 3dfe4b45, takeover per protocol item 7 — see the claim log below the task board) | arena/792c279e-zone1 (session 792c279e) | `data/decision.json` (new), `data/editorial.json` (new), `data/articles.json`, `data/products.json`, `data/sources.json`, `data/flags.json`, `build.py`, `assets/style.css`, `assets/app.js`, `COORDINATION.md`, `EXECUTIVE-SUMMARY.md`, regenerated root HTML |
 
 ### Claim log
 
@@ -4310,3 +4310,19 @@ Branch note: the session brief mentions `session-<id>/<task>` branch names; this
 |----------|---------|--------|
 | 2026-11-16T (session start) | arena/dc3f8b5d-zone1 (session dc3f8b5d) | **Claimed V11.** Scope limited to one new report file and this board. Baseline before any change: `build.py`, `verify.py`, 33 unit tests, `platform/audit/report.py`, `scripts/check_links.py` all pass; rebuild leaves the tree byte-identical; GitHub Pages last build `built`, deploy run 43931810929 `success`. |
 | 2026-11-16 (after gates) | arena/dc3f8b5d-zone1 (session dc3f8b5d) | **V11 done.** Live reads of the three short links match the dataset; `build.py`, `verify.py`, 33 unit tests, audit, link check all pass; tree clean after rebuild. Record published in `reports/verification-2026-11-16-dc3f8b5d.md`. PR and merge result to follow in this log. |
+
+---
+
+---
+
+## Task board — arena/3dfe4b45-zone1 (2026-11-16 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-3dfe4b45 | Round 11: (a) live re-read of the official sources round 10 explicitly listed as "Not re-read" (brand pages S10/S12/S14, owner's manuals S13/S15/S18, FTC S7/S8, eCFR S9, Associates S1–S3), recorded as a new evidence report; (b) write the three proposed topic rows that are fully supported by already-published values (TP-04 counter-space test, TP-09 Sync Finish, TP-10 aerosol-oil caution) as new articles in the root build, with the topic register statuses updated; (c) board hygiene: close the stale T20 row (>24 h old, no commits, that session's own completion record says done and its PRs merged) with a takeover note; (d) all gates → PR → merge → Pages confirm → record | in progress | arena/3dfe4b45-zone1 (session 3dfe4b45) | `COORDINATION.md` (claim, T20 takeover note, completion record), `data/articles.json` (+3 articles), `data/topics.json` (3 status changes only), `data/sources.json` (reverified stamp + page_version re-read notes only), `reports/verification-round11-2026-11-16.md` (new), regenerated root HTML via `build.py` (generator itself untouched) |
+
+### Claim log — this session
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-16T18:35Z | arena/3dfe4b45-zone1 (session 3dfe4b45) | Claimed X-3dfe4b45 after reading the board. Worktree clean; rebased on `origin/main` at `f3d2d4e` (PRs #86/#87, session c334fb1c's verification round 10 — deliberately not duplicated: round 10 re-read the three short links, the S2 page date and the live landing page; round 11 covers exactly what round 10 listed under "Not re-read in this round"). Scope is additive and does not touch `site/`, `s2/`, `research/`, `docs/`, `dashboard/`, `annex-*` or `session-*`. Board hygiene: the T20 row (session 792c279e) still reads "in progress" although that session's own completion record above says done and its PRs (#71/#73) merged; its claim is more than 24 hours old with no commits, so per protocol item 7 this session takes over the row update only and marks it done with a handoff note. Arena fixes this session to branch `arena/3dfe4b45-zone1`, which therefore acts as the protocol's `session-<id>/<task>` branch. |
