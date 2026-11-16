@@ -3337,11 +3337,15 @@ FIGURES_DIR = ROOT / "assets" / "figures"
 FIG_W, FIG_H = 900, 520
 
 
-def _svg_frame(title, note, src_lines):
+def _svg_frame(title, note, src_lines, uid="fig"):
+    # The four figures are inlined into a single page, so each <svg> needs its own
+    # accessible-name id: a shared id="t" made every figure's title point at the
+    # first one, and four <title id="t"> elements on one page are a duplicate-id
+    # defect. Found 2026-11-16 by the page audit, not by eye.
     src_html = "".join(f'<text x="22" y="{y}" class="src">{e(s)}</text>' for y, s in src_lines)
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {FIG_W} {FIG_H}" '
-        f'role="img" aria-labelledby="t"><title id="t">{e(title)}</title>'
+        f'role="img" aria-labelledby="{uid}-title"><title id="{uid}-title">{e(title)}</title>'
         f'<style>.t{{font:700 17px/1.25 system-ui,sans-serif;fill:#111827;}}'
         f'.s{{font:600 12.5px/1.4 system-ui,sans-serif;fill:#374151;}}'
         f'.m{{font:400 12px/1.45 system-ui,sans-serif;fill:#4b5563;}}'
@@ -3388,7 +3392,7 @@ def fig_footprint():
     src_lines = [(axis_y + 48, "Sources: " + ", ".join(f'{e(p["label"])} — {e(p["source"])}' for p in products))]
     return _svg_frame("Footprint at true scale — width × depth × height",
                       "Rectangles are drawn at true scale (16 px per inch) from the dimensions the manufacturers publish.",
-                      src_lines) + panels + axis + _svg_close()
+                      src_lines, uid="fig-footprint") + panels + axis + _svg_close()
 
 
 def fig_temperature():
@@ -3425,7 +3429,7 @@ def fig_temperature():
     src_lines = [(axis_y + 46, "Sources: " + ", ".join(f'{e(p["label"])} — {e(p["source"])}' for p in products))]
     return (_svg_frame("Documented temperature ranges",
                        "Each bar runs from the documented minimum to the documented maximum. The Chefman 8 Qt bar ends at 400 °F because the brand page and manual document 200–400 °F; the 450 °F the Amazon listing title advertises is a live conflict (F3) and is not asserted here.",
-                       src_lines) + bars + axis + _svg_close())
+                       src_lines, uid="fig-temperature") + bars + axis + _svg_close())
 
 
 def fig_presets():
@@ -3458,7 +3462,7 @@ def fig_presets():
     src_lines = [(y + 10, "Reading: bar length = preset count stated by that document. Red = one official document disagrees with another for the same product; no count is asserted until the conflict is settled.")]
     return (_svg_frame("Preset-count conflict — what each official document states",
                        "The site states 24 presets for the Emeril 26 QT on the strength of the owner's manual (S15); the brand page's own specification block says 25 (S14), so the conflict stays open (F29). The Chefman 8 Qt documents four presets in both page and manual (S12, S13). For the Chefman 6 Qt dual-basket no official source publishes a preset count, so the row is blank (F36).",
-                       src_lines) + rows + _svg_close())
+                       src_lines, uid="fig-presets") + rows + _svg_close())
 
 
 def fig_decision_tree():
@@ -3507,7 +3511,7 @@ def fig_decision_tree():
             boxes += f'<text x="{cx}" y="{cy + 37}" class="b" text-anchor="middle">{e(parts[1])}</text>'
     return (_svg_frame("Format decision tree — choose by job, not by brand",
                        "Generated from data/products.json. Each answer names the product whose documented capability fits; the tree is decision support, not a recommendation.",
-                       [(yq + 2 * step + 90, "Sources: Chefman 6 Qt — S10 · Emeril 26 QT — S15/S14 · Chefman 8 Qt — S12/S13")]) + lines + boxes + _svg_close())
+                       [(yq + 2 * step + 90, "Sources: Chefman 6 Qt — S10 · Emeril 26 QT — S15/S14 · Chefman 8 Qt — S12/S13")], uid="fig-decision-tree") + lines + boxes + _svg_close())
 
 
 def build_figures():
@@ -3637,7 +3641,7 @@ def page_figures():
         cap, lede = captions[name]
         panels += (
             f'<div class="figure">'
-            f'<h4 class="fighead">{e(cap)}</h4>'
+            f'<h2 class="fighead">{e(cap)}</h2>'
             f'{svg}'
             f'<p class="figcap">{e(lede)}</p>'
             f'</div>'
