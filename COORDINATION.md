@@ -4812,3 +4812,111 @@ regenerated all pages from the merged generator; (2) onto `37aceb1` (PR #110) �
 EOF only. A new build guard (CSS-coverage check) fired during that reconciliation and caught two
 callout variants missing from the rewrite; they were added (`X-492acddc post-rebase reconciliation`
 commit) and every gate was re-run green afterwards.
+
+---
+
+## X-b23f12f0 completion record — arena/b23f12f0-zone1 (2026-11-16 UTC)
+
+**Status: done.** Branch `arena/b23f12f0-zone1`, based on `origin/main` at `4ed5843` (PR #112),
+opened as **PR #113**. Session ID `b23f12f0`.
+
+**1. Verification round 11 — the sources round 10 did not open.** Session `c334fb1c` (round 10)
+recorded the FTC pages (S8), 16 CFR 255 (S9), the brand pages (S10, S12, S14), the manuals (S13, S15,
+S18) and the commission table (S3) as *not re-read*. This pass re-read exactly that set, plus S1, S4,
+the three `/dp/` pages and two storefront endpoints. Every value re-read matched its stored record.
+**No published product value changed.**
+
+| Source | Read today | Verdict |
+|---|---|---|
+| S1 Operating Agreement | "Updated: October 15, 2025" | confirmed |
+| S3 Commission Income Statement | Table 1 read with no login; Kitchen 4.50%, All Other 4.00% | confirmed |
+| S4 Application Review | 3 sales/180 days, 10 posts, 60 days, 500 followers, rejection final | confirmed |
+| S8 FTC Disclosures 101 | "hard to miss"; "can't talk about … you haven't tried"; Nov 2019 | confirmed |
+| S9 16 CFR 255 | "up to date as of 11/12/2026", last amended 10/30/2026; §255.5 present | confirmed |
+| S10/S32, S12/S33 | endpoint prices, SKUs, weights unchanged; the brand touched both records today | confirmed |
+| S14 Emeril | price 199.99, SKU 4-00675-02A-VN; **description now says 24 presets / 7 accessories** | confirmed + new evidence |
+| S16, S28, S29 | all three `<title>`s matched character for character | confirmed |
+
+**2. One blank cell closed (and a recorded conclusion corrected).** The Emeril "Amazon browse node" row
+was blank because three fetches of `B09B7SB46R` on 2026-11-15 were answered by Amazon's "Continue
+shopping" checkpoint. It loaded on the first attempt today. In the same session `B0CDY277D3` — which
+had loaded cleanly yesterday — was served the checkpoint first and returned the listing only on a
+retry. So the block is **intermittent per request, not per-ASIN**, which is what round 9 had written.
+A failed fetch is not evidence about an ASIN. Verified specification rows: **43 → 44**. Session
+`121929a5` filled the same cell independently the same day by the same route, reaching the identical
+string; both are now recorded on the row (S28, S17). This pass also removed a stale `unverified` field
+the parallel fill left behind, which still read "Not read … left blank" on a row that then carried a
+value. **F65**.
+
+**3. Three duplication defects repaired.** Q-11's `what_we_know` carried three entries seven times each
+— 18 entries collapsing to 6, and the sentence *"The same breadcrumb does NOT settle this question"*
+rendered **14 times** on one page (now 1 visible + 1 in JSON-LD); the articles note repeated its opening
+paragraph; one Chefman 8 Qt row cited S29 three times. Order-preserving de-duplication, no wording
+changed. New guard `check_register_duplicates()` added and proven to fire (injected → exit 1, clean →
+exit 0). **F64**.
+
+**4. A blind guard found, and credit where it is due.** While renumbering its own flags this pass found
+that `check_flag_ids_unique()` matched zero rows and so reported success — it could not have caught two
+sessions publishing different rows under F61 and F62 on the same day. Before this pass could land its
+repair, session `arena/2e346d24` located and fixed the same defect on `main`, and added
+`check_flag_count_matches_page()` for the related fault where the front page advertised zero open flags
+beside a 61-row register. **Their repair is kept; this pass's identical fix was withdrawn. F67.**
+
+**5. New evidence published without asserting it.** The Emeril brand page's own description now states
+24 presets and 7 premium accessories while its specification block still states 25, and the Amazon
+listing title says "Six Cooking Accessories Included". Both conflicts stay open; nothing was reconciled
+by inference. The Emeril endpoint weight (27.04 lb / 12,265 g) is recorded as a **candidate** on Q-06,
+not published as a product weight, because the endpoint does not say whether the field is the product or
+the packaged weight. **F66**. Registered **S35** and stamped 14 sources with the round-11 read.
+
+#### Flag-number collisions (two, both resolved in favour of the session that landed first)
+
+| Collision | Resolution |
+|---|---|
+| **F59/F60** — reserved by this pass, published by `ad8105b3` in PR #89 | This pass renumbered to F61/F62/F63. Their rows untouched. |
+| **F61/F62** — then published by `9fccce0c` in PR #93 | Renumbered again to **F64/F65/F66**. Their rows untouched. The second collision was invisible until the blind guard was fixed. |
+
+#### Concurrency
+
+Eight other sessions were active on this repository on 2026-11-16 (`c334fb1c`, `9f0e6668`, `ad8105b3`,
+`9fccce0c`, `121929a5`, `2e346d24`, `f0878842`, `492acddc`). `main` advanced from `6dbfa7c` to `4ed5843`
+(PRs #85–#112) while this pass ran. After five consecutive `COORDINATION.md` rebase conflicts the pass
+switched strategy: reset to `origin/main`, re-apply this pass's changes onto the current files via a
+repeatable script, rebuild, re-run every gate, one commit. **No other session's work was discarded.**
+
+**Scope note logged, not edited:** running `bash scripts/ci-check.sh` rebuilds the `s2/` annex as a side
+effect and rewrites the build-date stamp in every `s2/**.html` header (13 files, `built 2026-11-13` →
+`built 2026-11-15`). The stamp is not derived from the current date, so the churn is unrelated to what
+the verifying session did. This pass reverted the change and did not commit it, because `s2/` is another
+session's file scope; the note is recorded above for the annex owner.
+
+#### Verification (all gates, as CI runs them)
+
+| Gate | Result |
+|---|---|
+| `python3 build.py` | exit 0, 46 sitemap URLs |
+| `python3 verify.py` | 126 pages · 46 spec rows (**44 verified**, 2 blank+flagged) · 35 sources · **0 errors** |
+| `bash scripts/ci-check.sh` | 33 unit tests OK · data audit clean · **7,699 links / 0 broken** |
+| `python3 scripts/verify_site.py` | 393 assertions, all passed |
+| `python3 platform/audit/report.py` | AUDIT PASSED, 0 warnings |
+| `python3 research/check_research.py` | OK |
+| flag-ID uniqueness | no duplicates |
+| conflict-marker scan (`*.md/*.py/*.json/*.html`) | clean |
+| anti-slop scan (27 stock-phrase patterns) | 0 uses in prose — the only matches are the style-guide pages quoting the banned list |
+
+No file in `site/`, `s2/`, `data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`
+or `annex-88769516/` was edited by this pass.
+
+#### What this pass did not resolve
+
+Q-01 (model number per listing — Amazon serves the reduced "Product summary" shell to automated reads),
+Q-02/Q-04 (Associates tag — not observable outside Associates Central), Q-11 (commission rate — only
+observable in Associates reports after real sales), and the Emeril product weight. None was filled by
+inference.
+
+#### Files
+
+`reports/verification-2026-11-16-b23f12f0.md` (new, evidence table) · `EXECUTIVE-SUMMARY.md` §21 ·
+`data/sources.json` (S35 + 14 stamps) · `data/products.json` (Emeril browse node) · `data/questions.json`
+(Q-06 candidate, Q-11 resolution, de-duplication) · `data/articles.json` (note de-duplication) ·
+`build.py` (F64–F67, `check_register_duplicates()`) · `COORDINATION.md` · regenerated root HTML.
