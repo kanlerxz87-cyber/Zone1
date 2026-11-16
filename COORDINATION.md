@@ -4811,6 +4811,7 @@ regenerated all pages from the merged generator; (2) onto `37aceb1` (PR #110) �
 EOF only. A new build guard (CSS-coverage check) fired during that reconciliation and caught two
 callout variants missing from the rewrite; they were added (`X-492acddc post-rebase reconciliation`
 commit) and every gate was re-run green afterwards.
+<<<<<<< HEAD
 
 ---
 
@@ -5106,3 +5107,22 @@ own prose were refreshed again: `verify.py` → **127 pages, 77 spec rows (75 ve
 sources, 0 errors, 0 external warnings**; `check_links.py` → **8,096 links, 0 broken**. `python3 build.py` exits
 0 and a second rebuild leaves `git status` empty.
 
+=======
+---
+
+## Task board — arena/8874422b-zone1 (2026-11-16 UTC) — pass 12: marketing design polish
+
+---
+
+## Task board — arena/8874422b-zone1 (2026-11-16 UTC) — pass 12: marketing design polish
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| V12 | **Pass 12 — marketing design & conversion polish.** The owner's brief again names the site's look ("polished marketing affiliate website … should not read like AI slop"). No prior pass owns the visual layer end-to-end, so this pass redesigns the presentation layer of the canonical build only: typography scale (editorial serif display + clean sans), warmer kitchen-market palette, hero, product/article/picks cards, table styling and nav grouping in `build.py` and the CSS it emits; new suggestion rows SG-23+ recording every design decision for owner review; a light independent spot re-read of official sources (round 11 already re-read the register today) with evidence file and additive ledger; repair of the design-prompt register contradiction round 11 filed (A-11); rebuild, all gates, PR → merge → confirm GitHub Pages → record. No factual value changes. | in progress | arena/8874422b-zone1 (session 8874422b) | `COORDINATION.md`; `build.py` + regenerated root HTML + `assets/style.css` (emitted); `data/suggestions.json` (SG-23+ only); `data/design-prompt.json` (A-11 status row only); `session-8874422b/pass12.json` (new); `reports/verification-2026-11-16-8874422b.md` (new); `EXECUTIVE-SUMMARY.md` (append); `README.md` (if gates change) |
+
+### Claim log — arena/8874422b-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-16T18:55Z | arena/8874422b-zone1 (session 8874422b) | **Claimed V12** after reading the board: T1–T20, U1–U2, every X-* row and round 11 (`3dfe4b45`, PR #98, merged `5631333`) are done; no row is claimed elsewhere, so this pass takes the final-integration role for the shared canonical build. Branch `arena/8874422b-zone1` (Arena-fixed name). Sandbox note, logged for transparency: this clone is shallow (1 visible commit), so `git pull --rebase origin main` tried to replay the already-merged PR #93 merge and aborted; the branch was fast-reset to `origin/main` @ `5631333` instead — no other session's commit was touched. Scope is the canonical root build only; `site/`, `s2/`, `data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*` and every other `session-*` folder are not edited by this pass. Round 11 re-read the official register today, so this pass performs a targeted independent spot re-read rather than a duplicate full re-read. *(Claim-commit conflict with PR #99's EOF append resolved 2026-11-16 by keeping both blocks — dc3f8b5d's PR #96 merge row first, then this pass's board; nothing discarded.)* |
+>>>>>>> 70b2374 (Claim V12 (pass 12): marketing design polish — arena/8874422b-zone1)
