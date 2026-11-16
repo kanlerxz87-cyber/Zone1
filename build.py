@@ -2099,6 +2099,31 @@ PROGRAMME_FLAGS = [
      "data/questions.json Q-10, data/suggestions.json SG-09, data/decision.json niche rows",
      "Recorded 2026-11-16 by arena/a746a9f2 (X-a746a9f2). The brief's line-by-line review grepped every generated page for register counts and found live assertions that had gone stale as the article set grew: questions.html (Q-10's 'what we know' cell and the page's JSON-LD) and suggestions.html (SG-09's title, problem, evidence label and recommendation) both said 'eight articles', and decisions.html carried 'the site's existing eight articles' plus a pill reading 'Eight articles already exist in this shape' - while the articles index publishes thirteen. This is the same defect class as F14, F38 and F52: a register cell written as a snapshot and read as a live fact. Fixed per the F52 precedent: the two rows inside this session's claimed scope were corrected in place, and the third (data/decision.json, created by a completed session) was corrected as an integration-scope wording fix, with before/after strings logged in COORDINATION.md. All three now carry a dated count (13, 2026-11-16) plus a pointer to the live articles index, so they read as dated snapshots rather than live claims. The same scan cleared the 'parallel register' pages (decision-gate.html's fourteen questions, marketing-directions.html's twelve suggestions) as internally consistent \u2014 their ledes render their own frozen register's length \u2014 and cleared the historical recounts in reverification.html and executive-summary.html, which describe already-fixed defects. No build guard can police free-prose counts without a whitelist of claim sentences; check_register_preambles covers repeated sentences only. Decision needed: adopt computed counts in register prose (SG-26 option A machinery) or accept dated snapshots as the house standard.",
      []),
+
+    # ---- arena/b23f12f0, verification round 11, 2026-11-16 --------------------------- #
+    # Four findings. F64 is a defect this pass repaired and then guarded. F65 corrects a
+    # conclusion an earlier pass recorded. F66 is new evidence on two conflicts that
+    # were already open. F67 is a build guard that had silently stopped working.
+    ("F64", "Three registers carried duplicated content onto the published site. Found by line-by-line review, repaired, and guarded.",
+     "questions.html row Q-11, the articles note, and one Chefman 8 Qt specification row",
+     "Recorded 2026-11-16 by arena/b23f12f0, round 11. A line-by-line read of data/ found three places where the same text was stored more than once and then published more than once: (1) the Q-11 row of the open-questions register carried three of its 'what we know' entries seven times each - 18 entries collapsing to 6 - so the sentence 'The same breadcrumb does NOT settle this question' appeared 14 times in the rendered questions.html; (2) the note field in data/articles.json repeated its first paragraph verbatim, joined by a pipe, so the editorial discipline statement was printed twice; (3) the 'Hi-Fry / 450 F mode' row of the Chefman 8 Qt product cited source S29 three times in a row, which a reader sees as three source badges for one claim. None of the three is a wrong fact - each is the same fact printed repeatedly, which is precisely the pattern that makes a page read as machine-generated. All three were repaired with an order-preserving de-duplication that changed no wording. A build guard, check_register_duplicates(), now fails the build if any register list repeats an entry or any register string repeats a sentence, and the guard was proven to fire on an injected duplicate before it was committed.",
+     ["S3", "S29"]),
+
+    ("F65", "A recorded conclusion about Amazon\u2019s bot checkpoint was wrong: the block is intermittent per request, not a property of the ASIN.",
+     "data/sources.json source S28, data/products.json, and the 'Amazon browse node' row of the Emeril 26 QT product",
+     "Recorded 2026-11-16 by arena/b23f12f0, round 11, because an earlier pass recorded a conclusion that this pass contradicts. On 2026-11-15 three fetches of ASIN B09B7SB46R were each answered by Amazon\u2019s automated 'Continue shopping' checkpoint, while the two Chefman ASINs fetched cleanly in the same window. The recorded conclusion was 'this is a per-ASIN block, not a site-wide one'. Round 11 re-tested it: the Emeril ASIN loaded on the first attempt, and in the same session B0CDY277D3 - which had loaded cleanly the previous day - was served the checkpoint on its first attempt and returned the listing only on a retry. So the block is intermittent per request. The 2026-11-15 evidence could not have distinguished the two readings, because a per-ASIN pattern and an intermittent pattern look identical across three failures, but the distinction matters: a failed fetch is not evidence about the ASIN, and no future pass should record 'blocked' as a property of a listing. Separately, this pass filled the Emeril browse-node cell and then found that session 121929a5 (pass 10) had filled the same cell independently on the same day, by the same route - the detail page and the supplied short link - reaching the identical string. Two independent reads agreeing is worth more than one, so both are recorded on the row and both sources cited (S28, S17). This pass also removed a stale 'unverified' field that the earlier fill had left behind, which still read 'Not read ... left blank' on a row that now carried a value; it did not render, but it would have contradicted the value if the render rule ever changed.",
+     ["S28", "S17", "S16", "S29"]),
+
+    ("F66", "The Emeril brand page now documents 24 presets and 25 presets on the same page, and states a different accessory count from its own Amazon listing title.",
+     "Emeril 26 QT French Door - the preset count and the included-accessories count",
+     "Recorded 2026-11-16 by arena/b23f12f0, round 11, from a source this project had not previously read: the brand storefront\u2019s own machine-readable product record (S35), whose description text carries an updated_at stamp of 2026-11-16. It states 'Equipped with 24 one-touch cooking presets' and 'Included are 7 premium accessories'. Two consequences. On presets: the brand\u2019s specification block still says '25 Cooking Pre-sets', so the brand now contradicts itself within a single page rather than across two documents. The owner\u2019s manual\u2019s chart names 24 and the Amazon listing title says 24, so 24 now has three statements behind it and the site continues to publish 24 - but the conflict is recorded as live and unresolved, because the brand has not withdrawn the 25. On accessories: the site publishes 7 on the strength of the brand page, while the current Amazon listing title for the same ASIN reads 'Six Cooking Accessories Included'. Both figures are quoted, neither was reconciled by inference, and the discrepancy is published rather than averaged. Neither published value changed in this pass.",
+     ["S35", "S14", "S15", "S28"]),
+
+    ("F67", "The flag duplicate-ID guard had gone blind: it matched zero rows and reported success, so it could not catch a same-day collision between two sessions.",
+     "build.py - check_flag_ids_unique(), and the Flagged page it reads",
+     "Found independently by two sessions on 2026-11-16 and repaired by the first of them. This pass (arena/b23f12f0, round 11) found the defect while renumbering its own flags and checking whether the guard would object; session arena/2e346d24 located and repaired it on main first, and additionally added check_flag_count_matches_page() for the related defect where the landing page was advertising zero open flags beside a 61-row register. The defect: check_flag_ids_unique() counted flag rows with a pattern that began with a bare opening table-row tag followed immediately by the number cell, while page_flagged() has emitted a row id attribute since the per-row anchors landed. The pattern therefore matched nothing, and a Counter over an empty list reports no duplicates - so the guard returned success on every run while two sessions published different rows under F61 and F62 on the same day. This repository has been bitten by flag-ID collisions at least three times before (F28, F40 and the preamble case F58), which is why the guard exists. It is recorded here rather than in the repairing session's own words because the finding belongs on the register even though the repair predates this pass landing. Nothing in this row is a claim by this pass to have made the fix.",
+     ["S1"]),
+
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -2126,6 +2151,10 @@ REPO_EVIDENCE = {
     "F43": ["suggestions.html", "questions.html"],
     "F44": ["dashboard/", "annex-88769516/", "session-3740f69d/", "research/", "s2/", "site/", "docs/", "sitemap.xml"],
     "F45": ["build.py", "sitemap.xml"],
+    "F64": ["data/questions.json", "data/articles.json", "data/products.json", "build.py"],
+    "F65": ["data/sources.json", "data/products.json"],
+    "F66": ["data/sources.json", "data/products.json"],
+    "F67": ["build.py", "flagged.html"],
 }
 
 VERDICTS = {
@@ -6081,6 +6110,63 @@ def check_register_preambles():
     return problems
 
 
+def check_register_duplicates():
+    """Build guard: a register must not carry the same content twice.
+
+    Three separate places shipped duplicated prose to the published site and no gate
+    caught them (flag F64): a questions register whose 'what we know' list repeated
+    three entries seven times each, so one sentence rendered 14 times on
+    questions.html; an articles note that repeated its opening paragraph; and a
+    specification row that cited the same source three times in a row. None was a
+    wrong fact - each was the same fact printed repeatedly, which is exactly the
+    pattern that makes a page read as machine-generated.
+
+    check_register_preambles() covers preamble text only. This guard covers every
+    other register field, in both forms the defect took: a repeated entry in a list,
+    and a repeated sentence inside one string.
+    """
+    import collections as _c
+    problems = []
+
+    def sentences(text):
+        return [s.strip() for s in re.split(r"(?<=\.)\s+", text) if len(s.strip()) > 40]
+
+    def walk(node, path, label):
+        if isinstance(node, dict):
+            for key, value in node.items():
+                walk(value, f"{path}/{key}", label)
+        elif isinstance(node, list):
+            counts = _c.Counter(x for x in node if isinstance(x, str) and x.strip())
+            for text, n in counts.items():
+                if n > 1:
+                    problems.append(
+                        f"{label} {path}: the list entry {text[:70]!r} appears {n} times")
+            for index, value in enumerate(node):
+                walk(value, f"{path}[{index}]", label)
+        elif isinstance(node, str):
+            for text, n in _c.Counter(sentences(node)).items():
+                if n > 1:
+                    problems.append(
+                        f"{label} {path}: the sentence {text[:70]!r} appears {n} times")
+
+    registers = [
+        ("questions.json", QUESTIONS),
+        ("suggestions.json", SUGGESTIONS),
+        ("articles.json", ARTICLES),
+        ("products.json", PRODUCTS),
+    ]
+    if "DECISION" in globals():
+        registers.append(("decision.json", DECISION))
+    if "TOPICS" in globals():
+        registers.append(("topics.json", TOPICS))
+    if "DESIGN_PROMPT" in globals():
+        registers.append(("design-prompt.json", DESIGN_PROMPT))
+    for label, data in registers:
+        if data:
+            walk(data, "", label)
+    return problems
+
+
 def check_question_block_refs():
     """Build guard: a suggestion must not point at a question that does not exist, and a
     question must not point at a suggestion that does not exist. A dangling cross-reference
@@ -6425,6 +6511,10 @@ def main():
     preamble_problems = check_register_preambles()
     if preamble_problems:
         raise SystemExit("BUILD FAILED — register preamble repeats itself:\n  " + "\n  ".join(preamble_problems))
+    duplicate_problems = check_register_duplicates()
+    if duplicate_problems:
+        raise SystemExit("BUILD FAILED — register carries duplicated content (flag F64):\n  "
+                         + "\n  ".join(duplicate_problems))
     price_problems = check_no_price_tracking(pages)
     if price_problems:
         raise SystemExit("BUILD FAILED — Prohibited feature (Program Policies 6(y)):\n  "
