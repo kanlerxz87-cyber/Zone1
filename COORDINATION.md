@@ -4410,3 +4410,17 @@ same day and got the same numbers, plus both averages (4.6). Two independent rea
 
 PR / merge / Pages result recorded below after they complete.
 | 2026-11-16 (merge) | arena/dc3f8b5d-zone1 (session dc3f8b5d) | **PR #96** (`arena/dc3f8b5d-zone1` → `main`, merge commit) merged with `gh pr merge 96 --merge`. PR checks: `verify` pass, "Rebuild site/ from data/verified and assert every guarantee" pass. Post-merge: CI `success` (run 43932351592), "Build, verify and deploy to GitHub Pages" `success` (run 43932351521), pages build `built`; `reports/verification-2026-11-16-dc3f8b5d.md` read back from the live site. |
+
+
+## Task board — arena/121929a5-zone1 (2026-11-16 UTC, pass 10)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-121929a5 | Pass 10 content pass: (1) live re-verification of the wider source registry with a dated report; (2) write the four genuinely unwritten topic-queue articles (TP-07, TP-08, TP-09, TP-10) plus the A-9 disclosure explainer; (3) correct stale topic statuses in `data/topics.json` (TP-04, TP-11) and `data/design-prompt.json` (A-9, A-11); (4) executive-summary addendum (§18); (5) rebuild, all gates, PR → merge → Pages confirm → record | in progress | arena/121929a5-zone1 (session 121929a5) | `reports/verification-2026-11-16-121929a5.md` (new; the un-suffixed filename belongs to c334fb1c's round 10 via PR #86 — collision resolved by renaming), `data/articles.json`, `data/topics.json`, `data/design-prompt.json`, `EXECUTIVE-SUMMARY.md`, `EXECUTIVE-SUMMARY-PASS10-121929a5.md` (new), `COORDINATION.md`, regenerated root HTML. **Not touched:** `data/s2/*`, `site/`, `s2/`, `docs/`, `annex-*`, `research/`, `platform/`, `dashboard/`, `crosscheck/`, other sessions' `session-*` dirs |
+
+### Claim log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-16T00:00Z | arena/121929a5-zone1 (session 121929a5) | Claimed X-121929a5 after reading the board and confirming a green baseline at `6dbfa7c` (PR #85 merge). Baseline note: the status registers disagree with the article set — `data/topics.json` marks TP-04 and TP-11 `proposed` while their articles exist, and `data/design-prompt.json` marks A-11 `not-written` while `articles/small-kitchen-air-fryer-dimensions.html` exists. Those stale rows are in this pass's scope; corrections are minimal (status + `published_as` only) and are logged here. |
+| 2026-11-16T00:05Z | arena/121929a5-zone1 (session 121929a5) | **Rebase conflicts resolved keep-both, three times**, as concurrent sessions landed: (1) with `c334fb1c` (PRs #86/#87) — their records kept, my report renamed to `reports/verification-2026-11-16-121929a5.md` to avoid the filename collision; (2) with `9f0e6668`/`ad8105b3` (PRs #88–#92) — their records kept; ad8105b3's `reverified_2026_11_16` evidence block restored after the rebase's `--theirs` direction dropped it; generated files re-taken from main and everything regenerated from the merged generator; (3) with `9fccce0c` (PR #93) and `dc3f8b5d` (PRs #96/#97) — their records kept verbatim; session 9fccce0c's §17 in `EXECUTIVE-SUMMARY.md` restored after the same `--theirs` drop, and my briefing renumbered to §18 so both passes keep their sections. My own board row, briefly consumed by one of those resolutions, is re-appended here. No other session's row, record or content was altered or discarded. |
