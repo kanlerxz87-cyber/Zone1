@@ -766,6 +766,8 @@ a.card:hover, .cardgrid a.card:hover{border-color:var(--brand-line);
 .callout.ok{border-left-color:var(--ok); background:#f4faf4}
 .callout.info{border-left-color:var(--info); background:#f2f8fa}
 .callout.trust{border-left-color:var(--ok); background:#f4faf4}
+.callout.note{border-left-color:var(--brand); background:var(--brand-soft)}
+.callout.warn{border-left-color:var(--warn); background:var(--warn-soft)}
 .callout p:last-child{margin-bottom:0}
 .callout strong{display:block; margin-bottom:.2rem}
 .link-status{margin:1.2rem 0 1.5rem; border-left-color:#c87539; background:#fdf5e8}

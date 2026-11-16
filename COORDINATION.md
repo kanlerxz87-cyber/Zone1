@@ -4692,7 +4692,7 @@ PASSED · `node --check assets/app.js` → OK · two consecutive builds → **by
 **Files this pass wrote:** `build.py` (CSS var, `layout()` topnav + sidebar groups,
 `page_index()` glyphs + dynamic compliance count, `format_glyph()` helper) ·
 `data/design-prompt.json` · `reports/verification-2026-11-16-492acddc.md` (new) ·
-`EXECUTIVE-SUMMARY.md` §18 · `README.md` · `COORDINATION.md` · regenerated root HTML +
+`EXECUTIVE-SUMMARY.md` §19 · `README.md` · `COORDINATION.md` · regenerated root HTML +
 `robots.txt` + `sitemap.xml`.
 
 **Files this pass did not touch:** `site/`, `s2/`, `data/s2/`, `research/`, `platform/`,
