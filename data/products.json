@@ -702,11 +702,12 @@
    "flags": [
     {
      "id": "F3",
-     "issue": "Serious spec conflict between the Amazon listing (450 °F Hi-Fry, 4-in-1 including bake/dehydrate/frozen) and the brand page + owner's manual (200–400 °F, four food-type presets).",
-     "action": "Conflicting claims shown side by side; no value asserted. Needs the account holder to open the live listing and compare with the manual.",
+     "issue": "Serious spec conflict about maximum temperature, and the brand side disagrees with itself. The Amazon listing (S29, re-read 2026-11-16 through the supplied short link) says 450 °F Hi-Fry, 4-in-1 (bake/dehydrate/frozen). One brand page and its manual — the TurboFry Touch Stainless (RJ38-SQSS-8T, S12/S13) — document 200–400 °F with four food-type presets. But Chefman's other 8 Qt page, TurboFry 8 Qt w/ High Fry (RJ38-8T-BLACK, S26, re-read live 2026-11-16), states a 450 °F Hi-Fry button and a 450 °F / 232 °C Hi-Fry temperature, matching the listing. Two different Chefman 8 Qt models are therefore in play; which model the ASIN maps to is unconfirmed (question Q-01).",
+     "action": "Conflicting claims shown side by side; no value asserted. Needs the account holder to open the live listing, read the model number off the Product information table, and compare it with both brand pages and the manual.",
      "sources": [
       "S12",
       "S13",
+      "S26",
       "S29"
      ]
     },
