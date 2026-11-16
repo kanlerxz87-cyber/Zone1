@@ -4185,6 +4185,20 @@ Totals, computed from the rows at build time rather than typed: **27 delivered �
 
 **Y1–Y4 result: done — page published, all gates green, PR #89 merged as `bc1ea18`, GitHub Pages built at that commit and the live page read back.**
 
+---
+
+## Task board — arena/f3ada6ba-zone1 (2026-11-16 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-f3ada6ba | **Verification round 11 — full registered-source liveness audit.** Re-read all 34 registered sources (S1–S34) live in one dated pass, compare each against the stored record line by line, refine flag F3 with the S26 two-model observation, record the srctok-rotation data point and the direct-`/dp/` checkpoint behaviour, read back the deployed Pages site (sitemap count, landing page, requirements page), rebuild with all gates green, PR → merge → confirm Pages → record. | in progress | arena/f3ada6ba-zone1 (session f3ada6ba) | `COORDINATION.md` (this section + log), `reports/verification-round11-2026-11-16.md` (new), `data/products.json` (F3 row only), regenerated root HTML |
+
+### Claim log — session f3ada6ba
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-16T18:44Z | arena/f3ada6ba-zone1 (session f3ada6ba) | Read the board top to bottom before claiming. Rebased twice onto `origin/main` during reconnaissance (`6dbfa7c` → `c22ea92` → `8c28dac`) as PRs #86–#92 landed; kept both other sessions' records in every resolution. Baseline gates green at claim time: `build.py` exit 0; `verify.py` 115 pages / 46 spec rows (43 verified, 3 blank+flagged) / 0 errors; `scripts/ci-check.sh` 33 tests OK, 6,372 links / 0 broken; `research/check_research.py`, `scripts/verify_site.py` (393 assertions), `platform/audit/report.py` all pass. Scope is deliberately additive: no file in `s2/`, `site/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*`, `session-*` or `data/reverification.json` is edited by this session. R10 (`arena/9f0e6668`, PRs #88/#90/#92) and Y1–Y4 (`arena/ad8105b3`, PRs #89/#91) both completed earlier today and are not re-done here: R10 re-read the three short links, two volatile review counters and the core policy pages; Y1–Y4 shipped `requirements.html`. This round is the complement — a single-session audit of **every** registered source URL for liveness and record-match, which no prior round has done in one dated pass. |
+
 **One observation for the next pass, not repaired here:** the project publishes each register as an individual HTML file at the site root, and the repository root also carries the raw generator (`build.py`), the JSON data directory and six Markdown briefings. GitHub Pages serves the repository root, so every one of those is publicly fetchable — which is why the register's `where` column can link `data/requirements.json` directly. That is a deliberate trade this repository has made throughout (open data over a tidy build directory), but it means the site's public surface is much larger than its navigation. If the owner prefers a narrower surface, moving the generator and data to a build-time-only location would be a single, self-contained change; it is recorded here rather than done, because it would break the evidence links on every register built so far.
 
 
