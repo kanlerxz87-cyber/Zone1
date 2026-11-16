@@ -5106,6 +5106,33 @@ own prose were refreshed again: `verify.py` → **127 pages, 77 spec rows (75 ve
 sources, 0 errors, 0 external warnings**; `check_links.py` → **8,096 links, 0 broken**. `python3 build.py` exits
 0 and a second rebuild leaves `git status` empty.
 
+### PR and deploy record — arena/ba29c641-zone1 (2026-11-16 19:25 UTC)
+
+* **PR #117** — "Pass 11: the listing read that closed F1/F2 (46→77 sourced rows), a decision queue that closes
+  itself, and a CI gate that could not fail" — opened from `arena/ba29c641-zone1` against `main`, merged with
+  `gh pr merge 117 --merge` as **`d5f449d`** (state `MERGED`, merged_at 2026-11-16T19:25:05Z). Not a squash, not
+  a rebase: the branch's history (three `origin/main` merges plus the work commits) is preserved on `main`.
+* **CI on the PR:** `verify` → pass (6s), `Verify verification annex (site/)` → pass (9s); `mergeStateStatus`
+  `CLEAN` before merging. Nothing was merged with a failing or missing gate, and `python3 build.py` + all ten
+  local gates were re-run on the final head before pushing.
+* **GitHub Pages:** workflow `pages.yml` run for head `d5f449d` → **success**; `GET
+  /repos/.../pages/builds/latest` → `status: built`, `created_at: 2026-11-16T19:25:06Z`.
+* **Live read-back** of `https://kanlerxz87-cyber.github.io/Zone1/`:
+  * `decision-log.html` → **serves the new page** (title "Owner decision log · Zone1 Kitchen", queue of 26 rows,
+    16 carrying a default / 8 waiting, the computed "Start here" triage headede by Q-03 and Q-04, and the
+    `implemented` table naming SG-26 path A). This page exists only in this merge, so it is proof the deploy is current.
+  * `flagged.html` → the fetcher returned a **cached pre-deploy copy** (its F1 row still showed the superseded
+    title). Checked against the committed artifact instead: `git show d5f449d:flagged.html` contains the rewritten
+    F1 ("…recorded for ten passes as not published by Amazon. Closed on 2026-11-16…") and F68–F73, so the deployed
+    bytes are right and the stale text was the reader's cache, not the site's. Recorded rather than smoothed over:
+    a live read can lie this way, and the distinction matters for anyone auditing the deploy.
+* **Follow-up commits merged with this record as PR #118:** `EXECUTIVE-SUMMARY.md` §21.4 refreshed to the computed
+  split (16 / 8 / 2 over 26 rows, replacing a typed "14 of 22" that had gone stale the moment two other sessions'
+  suggestions landed — the same `F73` defect class, caught in this pass's own prose) and the duplicated sentence
+  left by a line-range edit removed. Sources are **35** now (`S35`, registered by round 11), so every count in this
+  pass's prose was re-read from `verify.py` rather than typed: **127 pages, 77 spec rows (75 verified / 2
+  blank+flagged), 35 sources, 0 errors, 0 external warnings; 8,096 links, 0 broken.**
+
 ---
 
 ## Task board — arena/8874422b-zone1 (2026-11-16 UTC) — pass 12: marketing design polish
