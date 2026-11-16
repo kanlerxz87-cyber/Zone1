@@ -1010,7 +1010,7 @@ repository needs. It did not delete the five stale root briefings; it put a poin
 disposition). It did not fill the two remaining blanks, did not assert a commission rate per ASIN, and
 did not state what either contradicting document "really" means. `python3 verify.py` reports
 **126 pages, 77 spec rows (75 verified, 2 blank and flagged), 34 sources, 0 errors, 0 external warnings**;
-`scripts/check_links.py` reports **7,815 links, 0 broken**; `scripts/ci-check.sh`, `scripts/verify_site.py`
+`scripts/check_links.py` reports **7,826 links, 0 broken**; `scripts/ci-check.sh`, `scripts/verify_site.py`
 and `research/check_research.py` all pass; a clean rebuild leaves `git status` empty.
 
 ### 19.6 One more instance of the defect this repository keeps finding

@@ -4646,7 +4646,7 @@ exist; R-08 restates the blocker as the ASIN→commission-category mapping and c
 Commission Income Statement instead of a "login-gated rate card (F-04)"; R-03's "no public demand metric
 exists" corrected to the real reason (a listing does carry a rank line; this repository declines to publish
 it under IP License §2(e)). Annex regenerated with `scripts/build_s2_site.py`; `--check` current; `check_links.py`
-7,815 links, 0 broken. **Two gate defects found while doing it and repaired:** `.github/workflows/ci.yml` and
+7,826 links, 0 broken. **Two gate defects found while doing it and repaired:** `.github/workflows/ci.yml` and
 `scripts/ci-check.sh` each ran the annex builder (which *writes*) and only then `--check`, so the step titled
 "prove the committed HTML is current" compared a rebuild with the bytes the previous line had produced and
 could not fail; `--check` now runs alone and tolerates only the header's build date, and the stamp is converted
@@ -4691,7 +4691,7 @@ the Q-02 answer's "the second-SKU explanation is no longer needed" (S26 says oth
 Also fixed: `check_requirement_tokens` caught my own flag prose emitting braces, and the requirements register's
 typed counts became computed (**F68**). Gates on the final tree: `python3 build.py` 46 sitemap URLs exit 0 ·
 `verify.py` 126 pages, 77 spec rows (75/2), 34 sources, 0 errors, 0 external warnings · `ci-check.sh` OK ·
-`check_links.py` 7,815 links, 0 broken · `verify_site.py` all assertions · `research/check_research.py` OK ·
+`check_links.py` 7,826 links, 0 broken · `verify_site.py` all assertions · `research/check_research.py` OK ·
 `node --check assets/app.js` OK · rebuild leaves `git status` clean.
 
 *Process note for the next session:* a merge that resolves conflicts by re-applying edits is safer here than a
