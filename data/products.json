@@ -743,5 +743,128 @@
     "reason": "The Amazon listing title for the supplied link ends 'Six Cooking Accessories Included'. It contradicts the published 7. The brand page (S14) and the owner's manual (S15) both support 7 - the manual by enumerating 13 numbered parts of which 6 are built into the appliance, leaving 7 removable accessories - so the row cites those two and the listing is recorded in the flag register instead (F48, F50)."
    }
   ]
+ },
+ "figures": {
+  "note": "All numbers in this block are inputs to build.py's figure generator (assets/figures/*.svg). A figure can therefore never state a number this dataset does not hold; changing a figure requires changing data/products.json and rebuilding. Sources are cited per entry and carried into each SVG's metadata.",
+  "scale_px_per_inch": 16,
+  "footprint": [
+   {
+    "product": "chefman-6qt-dual-basket",
+    "label": "Chefman 6 Qt Dual Basket",
+    "w": 13.38,
+    "d": 11.81,
+    "h": 10.63,
+    "source": "S10"
+   },
+   {
+    "product": "emeril-26qt-french-door",
+    "label": "Emeril 26 QT French Door",
+    "w": 15.8,
+    "d": 16.9,
+    "h": 14.8,
+    "source": "S14"
+   },
+   {
+    "product": "chefman-8qt-turbofry",
+    "label": "Chefman 8 Qt TurboFry",
+    "w": 15.4,
+    "d": 12.6,
+    "h": 13.5,
+    "source": "S12"
+   }
+  ],
+  "temperature": [
+   {
+    "product": "chefman-6qt-dual-basket",
+    "label": "Chefman 6 Qt",
+    "min": 200,
+    "max": 450,
+    "unit": "°F",
+    "note": "Hi-Fry holds 450 °F for 2 minutes (finish mode, not full-cycle)",
+    "source": "S10",
+    "support": "S18"
+   },
+   {
+    "product": "emeril-26qt-french-door",
+    "label": "Emeril 26 QT",
+    "min": 75,
+    "max": 500,
+    "unit": "°F",
+    "note": "Owner's manual",
+    "source": "S15"
+   },
+   {
+    "product": "chefman-8qt-turbofry",
+    "label": "Chefman 8 Qt",
+    "min": 200,
+    "max": 400,
+    "unit": "°F",
+    "note": "Listing title advertises 450 °F Hi-Fry — conflict with brand page and manual, not asserted (F3)",
+    "source": "S12",
+    "conflict_source": "S29"
+   }
+  ],
+  "presets": [
+   {
+    "product": "emeril-26qt-french-door",
+    "document": "Owner's manual (FAFO-001), Preset Mode Chart",
+    "source": "S15",
+    "count": 24,
+    "note": "Names 24 presets by name; the controlling document"
+   },
+   {
+    "product": "emeril-26qt-french-door",
+    "document": "Brand page specification block",
+    "source": "S14",
+    "count": 25,
+    "note": "Contradicts the same page's description (24) — conflict, not resolved (F29)",
+    "conflict": true
+   },
+   {
+    "product": "emeril-26qt-french-door",
+    "document": "Amazon listing title (B09B7SB46R)",
+    "source": "S28",
+    "count": 24,
+    "note": "\"24 One-Touch Preset Options\""
+   },
+   {
+    "product": "chefman-8qt-turbofry",
+    "document": "Brand page product features",
+    "source": "S12",
+    "count": 4,
+    "note": "Fries, Chicken, Fish, Meat"
+   },
+   {
+    "product": "chefman-8qt-turbofry",
+    "document": "Owner's manual RJ38-SQSS-8T",
+    "source": "S13",
+    "count": 4,
+    "note": "Preset Function Chart, same four functions"
+   },
+   {
+    "product": "chefman-6qt-dual-basket",
+    "document": "Owner's manual RJ38-SQPF-3TDB-2W",
+    "source": "S18",
+    "count": null,
+    "note": "No preset chart published; count left blank, not inferred (F36)"
+   }
+  ],
+  "decision_tree": [
+   {
+    "question": "Cooking two different foods at once, on separate settings?",
+    "yes": "chefman-6qt-dual-basket",
+    "no_question": "Replacing a toaster oven as well — toast, bake, rotisserie?"
+   },
+   {
+    "question": "Replacing a toaster oven as well — toast, bake, rotisserie?",
+    "yes": "emeril-26qt-french-door",
+    "no_question": "Cooking for 4–6 people from one basket?"
+   },
+   {
+    "question": "Cooking for 4–6 people from one basket?",
+    "yes": "chefman-8qt-turbofry",
+    "no": "Reconsider capacity before choosing a model."
+   }
+  ]
  }
 }

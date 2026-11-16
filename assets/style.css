@@ -429,3 +429,9 @@ details.card summary{cursor:pointer; font-size:.9rem}
 .article-card .cardtitle{font-family:var(--serif); font-weight:600}
 @media (max-width:560px){ .handover-head h3{font-size:1rem} }
 
+/* figure panels (pass 10, arena/695f03b7-zone1) */
+.figure{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:1rem 1.1rem;margin:1.1rem 0;overflow:auto}
+.figure svg{max-width:100%;height:auto;display:block;background:#ffffff}
+.fighead{font:700 1.1rem/1.3 var(--serif);color:var(--ink);margin:0 0 .4rem}
+.figcap{font-size:.85rem;color:var(--muted);margin:.5rem 0 0;line-height:1.5}
+
