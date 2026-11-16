@@ -1,6 +1,6 @@
 {
  "version": "1.1",
- "compiled": "2026-11-15",
+ "compiled": "2026-11-16",
  "preamble": "A decision is only as good as the information behind it. This page separates four states that are usually mixed together: what we know and can prove, what we do not know but could look up, what the official source does not state, and what we cannot know at all without information that only the account holder possesses. Every suggestion on the Suggestions page points at the rows below that block it. Nothing here is a guess about what the answer probably is. Questions in the 'known and sourced' state carry their answer on the row: an official source already settles them, and the answer is what the source says. Every other row states plainly that no answer is published, and names the step that would produce one.",
  "legend": {
   "known": "Verified against an official source this pass fetched itself, or recorded by an earlier pass whose fetch is logged in this repository. The source link is on the row.",
@@ -278,9 +278,9 @@
    "group": "Content strategy",
    "question": "Which search intent does each existing article own, and who is allowed to write the next one?",
    "state": "missing",
-   "why_it_matters": "Eight articles already exist and two compete for the same comparison intent. Without an intent map, the ninth will duplicate the fifth, and two pages on one query on one domain split each other's authority.",
+   "why_it_matters": "Thirteen articles exist as of 2026-11-16 (the live count is on the articles index) and two compete for the same comparison intent. Without an intent map, the ninth will duplicate the fifth, and two pages on one query on one domain split each other's authority.",
    "what_we_know": [
-    "Eight articles are published, all source-linked, none claiming hands-on testing.",
+    "Every published article is source-linked and none claims hands-on testing - 13 on 2026-11-16 (live count on the articles index).",
     "One earlier pass already deleted three orphaned drafts for exactly this reason and preserved their text in session-7111e2b6/articles-superseded.json."
    ],
    "what_is_missing": "A written assignment of one primary intent per article, and a rule that a new article may not target an intent already claimed.",
@@ -591,6 +591,34 @@
     {
      "label": "Standard Commission Income Statement (US)",
      "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+    }
+   ]
+  },
+  {
+   "id": "Q-21",
+   "group": "Content strategy",
+   "question": "Who decides the publishing calendar — including seasonal pieces such as the gift guide — and what is each piece's deadline?",
+   "state": "missing",
+   "why_it_matters": "The brief asks for trendy topics and organic traffic, and organic traffic has windows: gift-guide and deal queries peak in November and December and close at year's end. This pass publishes one seasonal piece (TP-15) and queues two more (TP-16, TP-17), but no register can decide on the owner's behalf how many pieces the window deserves, who signs them off, or what the January window is for. Without an answer the queue stalls exactly when search demand and the 4.50% Kitchen commission rate overlap (SG-22).",
+   "what_we_know": [
+    "The Standard Commission Income Statement, read live 2026-11-16, pays 4.50% on Kitchen and 4.00% on All Other Categories.",
+    "The topic register now holds three seasonal rows: TP-15 (gift guide, published 2026-11-16), TP-16 (hosting capacity) and TP-17 (deal-season checks), both proposed.",
+    "The application review requires site content to be recent — 'generally within the last 60 days' — and looks for about 10 posts.",
+    "Nothing in the repository records any owner statement about seasonal content, deadlines or sign-off."
+   ],
+   "what_is_missing": "A one-line owner decision: which seasonal window(s) to target, how many pieces per window, who approves a publish, and the date each piece must be ready by. 'No seasonal content' is also a usable answer — it would retire TP-16 and TP-17 instead of leaving them pending.",
+   "how_to_discover": "The owner states the calendar once — in COORDINATION.md, in a dated reply, or in the handover sheet — and the editorial queue's blocked_by rows are cleared against that statement. The search window itself is not in dispute; only the owner's appetite and sign-off are missing.",
+   "blocks": [
+    "SG-22"
+   ],
+   "sources": [
+    {
+     "label": "Standard Commission Income Statement (Kitchen 4.50%)",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+    },
+    {
+     "label": "Application Review Process — 10 posts, 60-day recency",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
     }
    ]
   }
