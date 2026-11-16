@@ -681,6 +681,97 @@
      "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
     }
    ]
+  },
+  {
+   "id": "Q-24",
+   "group": "Governance",
+   "question": "Who signs off on the suggestion queue, and on what cadence?",
+   "state": "unknowable",
+   "why_it_matters": "The suggestions page exists so a human picks the path before anything is built. Without a named decider and a cadence, it is a backlog - and each pass that adds well-argued rows makes the backlog longer, not the decisions better.",
+   "what_we_know": [
+    "Every row on the suggestions page is explicitly unimplemented and carries options, a recommendation, effort and risk.",
+    "Several earlier flags were dispositioned as 'the owner's call' (for example F59), which is this same gap surfacing elsewhere.",
+    "Decision path P5 (session arena/19d92a81) groups the reader-facing polish suggestions so one 'yes' covers eight rows."
+   ],
+   "what_is_missing": "A named decider, a review cadence, and what 'approved' means - approved to build, or approved to test?",
+   "how_to_discover": "One message from the owner: a cadence (for example '30 minutes monthly, I mark each row approve/reject/defer') and what approval means. The page can render an approval-state column as soon as the data carries it.",
+   "blocks": [
+    "SG-32",
+    "SG-33",
+    "SG-34",
+    "SG-35"
+   ],
+   "sources": [
+    {
+     "label": "Suggestions register (data/suggestions.json on GitHub)",
+     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/suggestions.json"
+    },
+    {
+     "label": "Suggestions page - the decision queue",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/suggestions.html"
+    },
+    {
+     "label": "Flagged register - rows dispositioned to the owner",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+    }
+   ]
+  },
+  {
+   "id": "Q-25",
+   "group": "Brand",
+   "question": "Is 'Zone1 Kitchen' the final brand name for this site?",
+   "state": "missing",
+   "why_it_matters": "One origin currently publishes at least three names (root, /s2 annex, README). Titles, structured data and share cards all carry a name; search engines and readers treat it as a promise about who published the page.",
+   "what_we_know": [
+    "The root site's titles and organization schema use 'Zone1 Kitchen' with the tagline 'Air-fryer decisions, backed by sources'.",
+    "The /s2 annex publishes under 'Zone1 - Amazon Associates platform'.",
+    "The README titles the project 'Zone1 - verified Amazon affiliate product intelligence'."
+   ],
+   "what_is_missing": "The owner's decision on the one name reader-facing surfaces should carry.",
+   "how_to_discover": "The owner states the name in one line; a single commit then aligns titles, og tags, the annex header and the README. SG-28 carries the implementation options.",
+   "blocks": [
+    "SG-33"
+   ],
+   "sources": [
+    {
+     "label": "Root site (titles, schema)",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/"
+    },
+    {
+     "label": "s2 annex header",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/s2/"
+    },
+    {
+     "label": "README",
+     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/README.md"
+    }
+   ]
+  },
+  {
+   "id": "Q-26",
+   "group": "Automation",
+   "question": "Which API will the automation platform call, now that PA-API 5 has a deprecation notice?",
+   "state": "missing",
+   "why_it_matters": "The brief's platform automates product research, pricing and availability - all of which depend on an official data interface. Amazon has published a PA-API 5 deprecation notice; planning the pipeline against a deprecated interface strands the work.",
+   "what_we_know": [
+    "Amazon publishes a PA-API 5 Deprecation Notice and a Product Advertising API registration topic (both linked on this row).",
+    "The platform blueprint's verification stages are API-agnostic; only the acquisition layer is interface-specific (SG-34)."
+   ],
+   "what_is_missing": "The replacement interface's eligibility terms, rate limits and timeline as they apply to this account - and which interface the owner wants the platform built against.",
+   "how_to_discover": "Read the deprecation notice's replacement guidance (linked), check the account's eligibility for the successor API, then record the decision in data/platform.json and update the blueprint page.",
+   "blocks": [
+    "SG-34"
+   ],
+   "sources": [
+    {
+     "label": "PA-API 5 Deprecation Notice (official)",
+     "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation"
+    },
+    {
+     "label": "New Product Advertising API registration (official)",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GBRCD467W33NMWLD"
+    }
+   ]
   }
  ]
 }

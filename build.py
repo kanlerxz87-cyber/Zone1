@@ -2332,6 +2332,14 @@ PROGRAMME_FLAGS = [
      "data/requirements.json (rows A-02, A-04, A-06, B-01, B-05, B-06, B-08, C-02, D-05, G-01)",
      "Found 2026-11-16 by arena/ba29c641-zone1 while updating the register for this pass's rows. The file's `counts_note` says: 'Counts are computed from the rows at build time rather than typed, so this page cannot claim a total the register does not contain.' The status counts at the top of the page are indeed computed — every number inside the prose of individual rows was typed, and four had drifted within two days: 'Forty-six spec rows' and '43 of 46 carry a value' (the dataset had moved to 46 and then to 77 as passes added sourced rows), 'Twenty-one numbered suggestions (SG-01…SG-21)' against a register of 23, 'Twenty questions' against 22, and 'a generated sitemap of 37 URLs' against 46. None of these is a wrong fact about the world; each is a right fact about an older build, published as present tense, which is how a verification register quietly becomes a historical document. The fix is structural, not editorial: those rows now write named count tokens — n_spec_rows, n_verified_rows, n_blank_rows, n_suggestions, n_sg_last, n_questions, n_articles, n_topics, n_products, n_sources, n_banned, n_banned_distinct, n_tests, n_guards, n_stale_briefings — each wrapped in braces in the data and substituted by req_interp() from the same objects the pages render from. An unknown token raises at build time, and check_requirement_tokens() fails the build if a brace-delimited token survives into any generated page, so a row cannot ship half-interpolated. Both directions were proven: an injected bad token and an injected unresolved token each exited non-zero. The same class is why this register's sibling in the s2 annex carries F60, and why the sitemap row's number was removed rather than retyped: a count is only true at the moment it is written — including the counts typed into this register's own log lines, one of which this pass had to correct in its own commit message two minutes after writing it (7,815 links became 7,826 when the guard rows were added). Process note for the next session: this pass's rows were renumbered twice in one day to avoid same-day id collisions — first off F63 (arena/a746a9f2), then off F64-F67 (arena/b23f12f0, whose F67 is the duplicate-ID guard that has now caught both collisions). Renumbering is cheap while a PR is open and expensive after it merges.",
      []),
+
+    # ---- arena/19d92a81, marketing & decision-support pass, 2026-11-16 ---------------- #
+    # (F74: renumbered from F68 in this session's first draft - arena/ba29c641
+    #  published its own F68 on the same day; renamed at merge, neither row lost.)
+    ("F74", "An article page is published that no data file or generator references: articles/sync-finish-two-buttons.html.",
+     "articles/sync-finish-two-buttons.html vs data/articles.json (no matching slug)",
+     "Found 2026-11-16 by session arena/19d92a81 during the line-by-line repo review, after the file arrived with a parallel pass's merge. data/articles.json carries no 'sync-finish-two-buttons' slug and no build step generates the page, so nothing will ever refresh or retire it - yet it is served publicly next to the generated articles and looks exactly like them, disclosure bar included, so a reader cannot tell it is unmanaged. A grep of data/ and build.py finds zero references. It is the same defect class as F57 (orphan registers), one layer up: a page outside the data-driven set. Decision needed: register it in data/articles.json so it is generated and checked like its siblings, or delete it. This row is a fact about the repository; the two files named above are the evidence.",
+     []),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -2369,6 +2377,7 @@ REPO_EVIDENCE = {
     "F71": ["data/products.json"],
     "F72": ["data/products.json"],
     "F73": ["data/requirements.json", "build.py"],
+    "F74": ["articles/sync-finish-two-buttons.html", "data/articles.json"],
 }
 
 VERDICTS = {

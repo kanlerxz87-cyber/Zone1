@@ -1340,3 +1340,52 @@ AUDIT PASSED · `node --check assets/app.js` → OK · two consecutive `build.py
 byte-identical HTML.
 
 The merge record for this pass is appended to `COORDINATION.md` after the PR lands.
+
+## 23. Marketing & decision-support pass — session `arena/19d92a81`, branch `arena/19d92a81-zone1` (2026-11-16)
+
+*(Numbering note: two earlier sections both claim §21 and were left as written by their
+sessions; this section is numbered 23 to stay unique.)*
+
+**The brief this pass answered:** make the site read like a polished marketing affiliate
+publication with catchy, trend-aware, product-related articles that can earn organic traffic —
+"not AI slop" — while every claim stays inside the sourcing rules; and keep the decision-support
+layers (suggestions, questions, design prompt) current so the owner chooses the path before
+anything changes.
+
+**Shipped (all source-led, all gates green):**
+
+* **Two seasonal articles** in the article set (now 21 rows, 2026-11-16): *The Black Friday
+  model-number switch, and the three-minute check that catches it* — a deal-safety investigation
+  built entirely on this repository's own documented listing conflicts (fulfils the proposed
+  TP-17), and *How to clean an air fryer, according to the people who made it* — the three
+  manuals' cleaning sections quoted side by side (new TP-18). A third seasonal piece (gift guide)
+  was drafted and **dropped at merge** in favour of the parallel pass's already-published
+  `air-fryer-gift-guide-2026`; two gift guides would be the duplication this register exists to
+  prevent.
+* **Decision support:** five new reviewable suggestions (**SG-27..SG-31**: production-method
+  authorship, brand consolidation, Creators-API re-planning, an owned zero-data channel, and a
+  four-cluster map) grouped into decision path **P5 — "Make it read like a publication"**, which
+  also carries the parallel pass's SG-23..SG-25; three new open questions (**Q-24..Q-26**:
+  who signs off on the queue, the brand name, and which API the automation platform calls) each
+  with its discovery step; and a **marketing & organic-traffic addendum** to the paste-ready
+  design prompt (rows D-11/D-13, A-12/A-14/A-15, T-9..T-12, V-5..V-7, R-7/R-8) — the
+  "suggestions that feed the prompt" the brief asked for. Nothing on the suggestion queue is
+  implemented; the owner still picks.
+* **Verification round 12** (`reports/verification-2026-11-16-19d92a81.md`): the three supplied
+  `link.amazon` links re-read live and matched to their recorded candidate ASINs
+  (B0CDY277D3 / B09B7SB46R / B08DKYBTPH — identity still *unconfirmed*, caveat unchanged);
+  S26 and the full S15 manual (including the Cleaning & Storage section) re-read verbatim.
+* **One new irregularity, flagged not guessed:** `articles/sync-finish-two-buttons.html` is
+  published outside the data-driven article set (**F74**), with the register-or-delete decision
+  left to the owner. README's stale article count fixed with a dated snapshot.
+
+**Merge reconciliation (logged in COORDINATION.md):** this session's branch met four parallel
+passes mid-flight. Their published work won where it landed first (gift guide, nav/style pass,
+SG-23..26, Q-22/23, TP-15..17); this session's unique work was renumbered and its
+cross-references rewritten; every dropped duplicate is named in the log. The session's own
+rebase conflict briefly committed conflict markers into COORDINATION.md (`7c6806f`) — the F22
+class — repaired within the session (`3e4859f`) and logged.
+
+**State at the end of this pass:** `build.py` exit 0 (48 sitemap URLs, every guard green) ·
+`verify.py` 128 pages, 46 spec rows (44 verified, 2 blank+flagged), 35 sources, 0 errors ·
+`ci-check.sh` 7,958 links, 0 broken.

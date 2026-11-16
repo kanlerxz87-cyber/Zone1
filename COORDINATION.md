@@ -4457,6 +4457,18 @@ same day and got the same numbers, plus both averages (4.6). Two independent rea
 PR / merge / Pages result recorded below after they complete.
 | 2026-11-16 (merge) | arena/dc3f8b5d-zone1 (session dc3f8b5d) | **PR #96** (`arena/dc3f8b5d-zone1` → `main`, merge commit) merged with `gh pr merge 96 --merge`. PR checks: `verify` pass, "Rebuild site/ from data/verified and assert every guarantee" pass. Post-merge: CI `success` (run 43932351592), "Build, verify and deploy to GitHub Pages" `success` (run 43932351521), pages build `built`; `reports/verification-2026-11-16-dc3f8b5d.md` read back from the live site. |
 
+---
+
+---
+
+## Task board — arena/19d92a81-zone1 (2026-11-16 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-19d92a81 | **Marketing & decision-support upgrade + verification round 12 + integration (pass numbering: dc3f8b5d took "pass 11")**: (a) line-by-line repo review with every published value checked against its cited official source and live re-reads of the 3 `link.amazon` links and key sources; (b) new trendy/catchy, source-led articles and topic/traffic additions for the air-fryer niche; (c) a refreshed design-prompt suggestion set feeding the "polished marketing affiliate site / not AI slop" brief, new reviewable suggestions (SG-22+) and new open questions (Q-21+) with discovery steps; (d) executive-summary + README refresh; (e) rebuild, all gates, PR → merge → GitHub Pages verify → record. | in progress | arena/19d92a81 (session 19d92a81) | `COORDINATION.md`; `data/articles.json`, `data/suggestions.json`, `data/questions.json`, `data/design-prompt.json`, `data/topics.json`; `build.py` (only if a new page is required); regenerated root HTML; `EXECUTIVE-SUMMARY.md`; `README.md`; `reports/verification-2026-11-16-19d92a81.md` |
+
+---
+
 
 ## Task board — arena/121929a5-zone1 (2026-11-16 UTC, pass 10)
 
@@ -4489,6 +4501,11 @@ PR / merge / Pages result recorded below after they complete.
 
 | UTC time | Session | Action |
 |----------|---------|--------|
+| 2026-11-16T19:25Z | arena/19d92a81 (session 19d92a81) | **Rebase conflict incident (logged per protocol item 6):** `git pull --rebase` onto `4225b95` conflicted in `COORDINATION.md` (my claim block vs boards appended by `9fccce0c`/`dc3f8b5d`/`3dfe4b45`). First resolution attempt failed on a regex typo and the conflicted file **with markers** was committed and pushed as `7c6806f` — the F22/F44 defect class, this session's own. Fixed immediately in the next commit: both sides kept (theirs first), markers removed, no other session's text dropped. The repository now scans clean again. |
+| 2026-11-16T19:05Z | arena/19d92a81 (session 19d92a81) | Claimed X-19d92a81 after reading the board. Branch `arena/19d92a81-zone1` (Arena pins the branch; per prior sessions this *is* the `session-<id>/<task>` branch of the protocol). Baseline at claim time: `python3 build.py` 37 URLs exit 0 · `python3 verify.py` 116 pages / 46 spec rows (43 verified, 3 blank+flagged) / 34 sources / 0 errors · `bash scripts/ci-check.sh` 33 tests OK, data audit clean, 6,742 links OK. T1–T20 and all `X-*` rows are done or stale-owned (>60 min, completed per their own completion records); no live claim blocks this scope. Live re-reads of the three `link.amazon` links already performed this session (see `reports/verification-2026-11-16-19d92a81.md`, written next). |
+
+---
+
 
 | 2026-11-16T00:00Z | arena/121929a5-zone1 (session 121929a5) | Claimed X-121929a5 after reading the board and confirming a green baseline at `6dbfa7c` (PR #85 merge). Baseline note: the status registers disagree with the article set — `data/topics.json` marks TP-04 and TP-11 `proposed` while their articles exist, and `data/design-prompt.json` marks A-11 `not-written` while `articles/small-kitchen-air-fryer-dimensions.html` exists. Those stale rows are in this pass's scope; corrections are minimal (status + `published_as` only) and are logged here. |
 | 2026-11-16T00:05Z | arena/121929a5-zone1 (session 121929a5) | **Rebase conflicts resolved keep-both, three times**, as concurrent sessions landed: (1) with `c334fb1c` (PRs #86/#87) — their records kept, my report renamed to `reports/verification-2026-11-16-121929a5.md` to avoid the filename collision; (2) with `9f0e6668`/`ad8105b3` (PRs #88–#92) — their records kept; ad8105b3's `reverified_2026_11_16` evidence block restored after the rebase's `--theirs` direction dropped it; generated files re-taken from main and everything regenerated from the merged generator; (3) with `9fccce0c` (PR #93) and `dc3f8b5d` (PRs #96/#97) — their records kept verbatim; session 9fccce0c's §17 in `EXECUTIVE-SUMMARY.md` restored after the same `--theirs` drop, and my briefing renumbered to §18 so both passes keep their sections. My own board row, briefly consumed by one of those resolutions, is re-appended here. No other session's row, record or content was altered or discarded. |
@@ -4958,6 +4975,60 @@ was dropped.** The finding is published as **F67** with the credit stated on the
 
 **The site is not broken:** build exit 0, 46 sitemap URLs, 7,699 links / 0 broken, 393 assertions passed,
 platform audit 0 warnings, research check OK.
+
+### X-19d92a81 completion record — arena/19d92a81 (2026-11-16 UTC)
+
+**Status: done** (marketing & decision-support upgrade + verification round 12 + integration).
+Sources and full evidence: `reports/verification-2026-11-16-19d92a81.md`; executive summary §22.
+
+**Verification performed (live re-reads, 2026-11-16, server-side fetches):** the three supplied
+`link.amazon` short links → `B0CDY277D3` / `B09B7SB46R` / `B08DKYBTPH` (candidates matched
+character-consistent; `plpRedirect=mhFallback` caveat and Q-01 unconfirmed-identity status
+unchanged); S26 Chefman RJ38-8T-BLACK page verbatim (supports the two-models finding); S15
+Emeril FAFO-001 manual in full including the Cleaning & Storage section (quotes underpin the new
+care article). S1–S4, S7–S9, S19–S24, S30–S35 and other brand pages were **not** re-read by this
+pass; see the report's "Not re-read" table.
+
+**Content delivered (every article value assembled verbatim from `data/products.json` at
+generation time; build guard `check_articles()` re-proves it):**
+* Articles: `black-friday-model-number-switch` (seasonal deal-safety investigation; fulfils the
+  proposed TP-17) and `how-to-clean-an-air-fryer` (three manuals' cleaning sections quoted).
+  A gift-guide article drafted by this session was **dropped at merge** — the parallel pass had
+  already published `air-fryer-gift-guide-2026` (their TP-15); two gift guides would be the
+  duplication this register flags in others.
+* Decision support: SG-32..SG-35 + decision path **P5** (reader-facing polish; also carries the
+  parallel pass's SG-23..SG-25); Q-24..Q-26 with discovery steps; design-prompt marketing &
+  organic-traffic addendum + rows D-11/D-13, A-12/A-14/A-15, T-9..T-12, V-5..V-7, R-7/R-8.
+* Fixes: README article count restated as a dated snapshot (F63 house standard); design-prompt's
+  stale `S1-S31` badge range and T-1's stale typed count corrected in place.
+
+**Irregularities (published, non-blocking):**
+* **F74 (new; renumbered from a draft F68 at merge — a parallel pass published its own F68 the same day):** `articles/sync-finish-two-buttons.html` is published but generated by nothing and
+  referenced by no data file — an unmanaged page inside the article set. Register-or-delete
+  decision left to the owner; the file was not touched (another session's artifact).
+* **Self-inflicted, fixed and logged:** this session's first rebase resolution committed conflict
+  markers into `COORDINATION.md` (`7c6806f`) — the F22/F44 class — repaired in `3e4859f`, both
+  sides kept. Logged in the claim log above per protocol item 6.
+
+**Overlap handling — merge reconciliation (`aaf8ae0`), no other session's work discarded:**
+Four parallel passes landed mid-session (pass 10/10-content/11/12 + seasonal content). Where their
+work was published first, it won: `air-fryer-gift-guide-2026`, SG-23..SG-26, Q-22/Q-23,
+TP-15..TP-17, the pass-12 nav/style system. This session's unique rows were renumbered to the next
+free ids (SG-32..SG-35, Q-24..Q-26, TP-18..TP-20) with every internal cross-reference rewritten;
+their TP-17 (Black Friday, proposed) is now published as this session's model-number-switch
+article. Superseded drafts are named here rather than silently dropped. Generated HTML conflicts
+were resolved by regenerating from the merged data (`build.py`), per the F55-era precedent.
+
+**Gates on the merged tree:** `python3 build.py` exit 0, 48 sitemap URLs, all guards green ·
+`python3 verify.py` 128 pages, 46 spec rows (44 verified, 2 blank+flagged), 35 sources,
+0 errors, 0 external warnings · `bash scripts/ci-check.sh` 33 tests OK, data audit clean,
+7,958 links, 0 broken.
+
+Second id-collision round at merge 23adcaa (their F68-F73 / SG-27..30 landed while this session worked): this session's rows renumbered again (F74; SG-32..35), the RSS suggestion dropped as shipped, design row T-12 dropped for the same reason, and the executive-summary section numbered 23 (two upstream sections both claim 21 — noted on the section, left as written).
+
+**PR / merge / Pages:** recorded in the follow-up entry below.
+
+---
 
 
 ---
