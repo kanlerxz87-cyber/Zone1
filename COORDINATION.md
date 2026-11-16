@@ -4310,6 +4310,7 @@ Branch note: the session brief mentions `session-<id>/<task>` branch names; this
 |----------|---------|--------|
 | 2026-11-16T (session start) | arena/dc3f8b5d-zone1 (session dc3f8b5d) | **Claimed V11.** Scope limited to one new report file and this board. Baseline before any change: `build.py`, `verify.py`, 33 unit tests, `platform/audit/report.py`, `scripts/check_links.py` all pass; rebuild leaves the tree byte-identical; GitHub Pages last build `built`, deploy run 43931810929 `success`. |
 | 2026-11-16 (after gates) | arena/dc3f8b5d-zone1 (session dc3f8b5d) | **V11 done.** Live reads of the three short links match the dataset; `build.py`, `verify.py`, 33 unit tests, audit, link check all pass; tree clean after rebuild. Record published in `reports/verification-2026-11-16-dc3f8b5d.md`. PR and merge result to follow in this log. |
+<<<<<<< HEAD
 
 ---
 
@@ -4404,3 +4405,6 @@ same day and got the same numbers, plus both averages (4.6). Two independent rea
 `python3 platform/audit/report.py` → AUDIT PASSED.
 
 PR / merge / Pages result recorded below after they complete.
+=======
+| 2026-11-16 (merge) | arena/dc3f8b5d-zone1 (session dc3f8b5d) | **PR #96** (`arena/dc3f8b5d-zone1` → `main`, merge commit) merged with `gh pr merge 96 --merge`. PR checks: `verify` pass, "Rebuild site/ from data/verified and assert every guarantee" pass. Post-merge: CI `success` (run 43932351592), "Build, verify and deploy to GitHub Pages" `success` (run 43932351521), pages build `built`; `reports/verification-2026-11-16-dc3f8b5d.md` read back from the live site. |
+>>>>>>> c1aedf5 (Record PR #96 merge and Pages deploy in board log (session dc3f8b5d))
