@@ -1134,6 +1134,55 @@
    "risk_of_not_doing": "High, and rising. The site currently makes no automated request against an Amazon listing page in its build; the moment a research agent is switched on, the Agent Terms apply, and an agent that does not identify itself is outside the licence. The cost of doing this later is a rewrite of the fetcher rather than a header change.",
    "blocks": [],
    "blocked_by": []
+  },
+  {
+   "id": "SG-23",
+   "title": "Settle product photography licensing before any image is published",
+   "area": "Trust and compliance",
+   "problem": "The design layer offers owner photos, licensed imagery and Amazon Program Content as image options, but no row records which images (if any) the site will publish, whose permission covers them, or how Program Content image rights apply to these specific products. Publishing unlicensed manufacturer or brand photography would be an unmitigated rights risk on a site whose value proposition is sourcing transparency.",
+   "evidence": [
+    {
+     "url": "https://affiliate-program.amazon.com/help/operating/agreement",
+     "label": "Associates Program Operating Agreement — Program Content and IP rules (S1)"
+    },
+    {
+     "url": "https://affiliate-program.amazon.com/help/operating/policies",
+     "label": "Associates Program Policies (S2)"
+    }
+   ],
+   "options": [
+    {
+     "label": "A",
+     "what": "Publish only owner-taken photographs, credited as such.",
+     "effort": "High",
+     "risk": "Low",
+     "reversible": true
+    },
+    {
+     "label": "B",
+     "what": "Use Amazon Program Content images only as the Operating Agreement allows, with the required disclosure.",
+     "effort": "Medium",
+     "risk": "Medium",
+     "reversible": true
+    },
+    {
+     "label": "C",
+     "what": "Stay text-and-diagram only; the figures on figures.html are generated from data/products.json, not photographed.",
+     "effort": "Low",
+     "risk": "Low",
+     "reversible": true
+    }
+   ],
+   "recommendation": "C for now (lowest risk, no rights decision required), with A revisited if the owner takes their own product photos.",
+   "why": "No image-rights decision exists in the repository; choosing C keeps the site publishable while Q-22 is answered.",
+   "impact": 3,
+   "confidence": 5,
+   "effort": "Low",
+   "risk_of_not_doing": "Unlicensed brand or manufacturer photography published by mistake, with no rights trail.",
+   "blocks": [],
+   "blocked_by": [
+    "Q-22"
+   ]
   }
  ],
  "paths_intro": "A decision queue with this many rows is a backlog, not a decision. The paths below group the suggestions into four coherent pieces of work. Each path is ordered, names what has to be true before it can start, and says plainly what it will not fix. Pick one path, finish it, then pick the next. The grouping is this pass's judgement; the dependencies inside it are not - they are the blocked_by links already recorded on each row.",

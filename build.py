@@ -15,6 +15,7 @@ Out:  index.html, products/*.html, categories/*.html, guides/*.html,
 import html
 import json
 import os
+import posixpath
 import re
 import shutil
 from urllib.parse import quote_plus
@@ -106,6 +107,12 @@ PASS10 = json.loads(_p10.read_text(encoding="utf-8")) if _p10.exists() else None
 # arena/9f0e6668 already owns the round-10 follow-up ledger above.
 _p10u2 = ROOT / "session-9fccce0c" / "pass10.json"
 PASS10_U2 = json.loads(_p10u2.read_text(encoding="utf-8")) if _p10u2.exists() else None
+# Additive pass-10 full source ledger (2026-11-16, arena/695f03b7-zone1): every
+# registered source in data/sources.json re-read live, one row per source, rendered
+# as its own page by page_pass10(). Owned by this session; if the file is ever
+# removed the page renders nothing rather than failing the build.
+_p10full = ROOT / "data" / "pass10.json"
+PASS10_FULL = json.loads(_p10full.read_text(encoding="utf-8")) if _p10full.exists() else None
 
 # Decision layer (added 2026-11-15, arena/3ddfa50e). Two registers that exist to be reviewed
 # rather than acted on: the suggestions queue and the open-questions register. Both are
@@ -113,10 +120,6 @@ PASS10_U2 = json.loads(_p10u2.read_text(encoding="utf-8")) if _p10u2.exists() el
 DECISION = load("decision.json")
 SUGGESTIONS = load("suggestions.json")
 QUESTIONS = load("questions.json")
-# Owner decision record (added 2026-11-16, arena/ba29c641): the write-side of the
-# suggestions review. choices[] is empty until an owner actually decides something, and no
-# session may fill it on their behalf.
-DECISION_LOG = load("decision-log.json")
 SUG_BY_ID = {s["id"]: s for s in SUGGESTIONS["suggestions"]}
 # Design/content/traffic suggestion layer (added 2026-11-15, arena/bf487400-zone1).
 # The paste-ready design prompt plus the D/A/T/V/R registers, generated from JSON so the
@@ -311,8 +314,6 @@ NAV = [
     ("compliance.html", "Compliance", "Program rules, quoted, with sources"),
     ("flagged.html", "Flagged for review", "Unverified values and irregularities"),
     ("suggestions.html", "Suggestions", "Review site improvements before implementation"),
-    # Added 2026-11-16 (arena/ba29c641): the queue had 21 rows and no way to close one.
-    ("decision-log.html", "Owner decision log", "Pick a path per suggestion, or let the stated default stand"),
     ("design-prompt.html", "Design prompt pack", "Design, topics and tactics — review before changes"),
     ("questions.html", "Questions and gaps", "Known facts, missing answers and discovery steps"),
     ("requirements.html", "Requirements and status", "Every requirement in the brief, and whether this repo meets it"),
@@ -323,6 +324,12 @@ NAV = [
     ("executive-summary.html", "Executive summary", "Decision-ready briefing"),
     # Added by the 2026-11-14 integration pass: the line-by-line re-read ledger.
     ("reverification.html", "Re-verification", "Published values re-read against their official sources"),
+    # Added 2026-11-16 by arena/695f03b7-zone1: the full source-by-source re-read ledger,
+    # one row per registered source with its official link and the 2026-11-16 observation.
+    ("pass10.html", "Verification pass 10", "All 34 official sources re-read on 2026-11-16"),
+    # Added 2026-11-16 by arena/695f03b7-zone1: data-driven diagrams generated from
+    # data/products.json at build time; diagrams only, because photography rights are open.
+    ("figures.html", "Figures and diagrams", "Four diagrams generated from the published dataset"),
     # All parallel-session builds are now reached through one page rather than six sidebar
     # entries (2026-11-14, arena/6b2eddeb). Six entries in the main nav made a reader choose
     # between six answers to the same question; flag F35 records why that was a problem.
@@ -519,20 +526,6 @@ td.num{font-variant-numeric:tabular-nums; white-space:nowrap}
 .pill-warn{background:var(--warn-soft); color:#78350f}
 .pill-bad{background:var(--bad-soft); color:#7f1d1d}
 .pill-info{background:#e0f2fe; color:#075985}
-/* Owner decision log (2026-11-16, arena/ba29c641): a picker on a static host has to look
-   like a form and behave like one, or it reads as decoration. */
-.decision-picker fieldset{border:1px solid var(--line); border-radius:var(--radius); padding:.75rem .95rem .85rem; margin:.6rem 0; background:var(--panel)}
-.decision-picker legend{font-size:.9rem; font-weight:700; padding:0 .45rem}
-.decision-picker legend a{font-family:var(--mono); font-size:.8rem}
-.dec-opt{display:flex; flex-wrap:wrap; gap:.45rem; align-items:baseline; padding:.22rem 0; font-size:.9rem}
-.dec-opt input{margin:.25rem 0 0}
-.dec-opt em{flex-basis:100%; margin-left:1.2rem}
-.tag-default{font-size:.62rem; text-transform:uppercase; letter-spacing:.05em; background:var(--ok-soft); color:#14532d; padding:.12rem .4rem; border-radius:.3rem; font-style:normal}
-.hold-row{display:flex; gap:.45rem; align-items:baseline; font-size:.85rem; color:var(--muted); margin-top:.35rem}
-.decision-picker textarea{width:100%; font:inherit; font-size:.85rem; margin-top:.5rem; padding:.4rem .55rem; border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--ink)}
-.decision-actions{display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin:.7rem 0 .95rem}
-.decision-actions .btn{font-size:.82rem; padding:.4rem .8rem; border-radius:999px; cursor:pointer}
-.decision-out{background:#0f172a; color:#e2e8f0; padding:.85rem 1rem; border-radius:10px; font-family:var(--mono); font-size:.74rem; line-height:1.5; overflow:auto; max-height:22rem; white-space:pre-wrap}
 .src{
   display:inline-block; font-family:var(--mono); font-size:.7rem; font-weight:700;
   background:#eef7f6; color:#0b5a54; border:1px solid #cbe8e5; border-radius:5px;
@@ -793,6 +786,15 @@ footer.site p,footer.site li{color:#59645a}
 .callout{background:var(--panel); border:1px solid var(--line); border-left:4px solid var(--accent);
   border-radius:10px; padding:.9rem 1.1rem; margin:1.1rem 0; box-shadow:var(--shadow); font-size:.94rem}
 .callout.trust{border-left-color:#0f766e; background:#f4fbf8}
+/* Added 2026-11-16 (arena/2e346d24): `.note` (13 uses) and `.warn` (33 uses) had no rule at
+   all, so 46 callouts on the generated pages rendered as uncoloured boxes with no visual
+   difference between "for your information" and "this could be wrong". */
+.callout.note{border-left-color:var(--brand); background:var(--brand-soft)}
+.callout.warn{border-left-color:var(--warn); background:var(--warn-soft)}
+/* Same pass: the four register pages (topics, suggestions, questions, requirements) put wide
+   tables directly in the flow. `.tablewrap` scrolls horizontally; without it those tables
+   forced the whole page to scroll sideways at phone widths. */
+.tablewrap table{margin:0; border:0}
 .callout.bad{border-left-color:var(--bad); background:#fff6f6}
 .callout.ok{border-left-color:var(--ok); background:#f5fbf6}
 
@@ -839,6 +841,12 @@ details.card summary{cursor:pointer; font-size:.9rem}
 .buyer-toc a:hover{border-color:var(--accent); background:var(--accent-soft); text-decoration:none}
 .article-card .cardtitle{font-family:var(--serif); font-weight:600}
 @media (max-width:560px){ .handover-head h3{font-size:1rem} }
+
+/* figure panels (pass 10, arena/695f03b7-zone1) */
+.figure{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:1rem 1.1rem;margin:1.1rem 0;overflow:auto}
+.figure svg{max-width:100%;height:auto;display:block;background:#ffffff}
+.fighead{font:700 1.1rem/1.3 var(--serif);color:var(--ink);margin:0 0 .4rem}
+.figcap{font-size:.85rem;color:var(--muted);margin:.5rem 0 0;line-height:1.5}
 
 """
 
@@ -894,134 +902,6 @@ document.addEventListener('click', function (ev) {
   form.addEventListener('input', run);
   form.addEventListener('submit', function (e) { e.preventDefault(); run(); });
   run();
-})();
-
-// Owner decision picker (2026-11-16, arena/ba29c641) — decision-log.html only.
-// A static host has nowhere to POST a choice, so the picker keeps it in this browser and
-// exports the exact JSON body of data/decision-log.json. Progressive: with JS off the page
-// still reads end to end and every default is printed in the register table; only the
-// picking needs the script. No dependency, no network call, nothing leaves the page.
-(function () {
-  var root = document.getElementById('decision-picker');
-  if (!root) return;
-  var KEY = 'zone1-decision-log-v1';
-  var counter = document.getElementById('decision-counter');
-  var out = document.getElementById('decision-output');
-  var store = {};
-  try { store = JSON.parse(window.localStorage.getItem(KEY) || '{}') || {}; } catch (err) { store = {}; }
-
-  function panels() {
-    return Array.prototype.slice.call(root.querySelectorAll('fieldset[data-sg]'));
-  }
-  function chosen(fs) {
-    var i = fs.querySelector('input:checked');
-    return i ? i.value : '';
-  }
-  function note(fs) {
-    var t = fs.querySelector('textarea.dec-note');
-    return t ? t.value.trim() : '';
-  }
-  function collect() {
-    var today = new Date().toISOString().slice(0, 10);
-    var picked = [];
-    panels().forEach(function (fs) {
-      var path = chosen(fs), txt = note(fs);
-      if (!path && !txt) return;
-      picked.push({
-        id: fs.getAttribute('data-sg'),
-        suggestion: fs.getAttribute('data-title'),
-        chosen_path: path === 'HOLD' ? 'hold' : path,
-        default_if_silent: fs.getAttribute('data-default') || 'none',
-        overrode_default: !!(path && path !== 'HOLD' && fs.getAttribute('data-default') &&
-                            path !== fs.getAttribute('data-default')),
-        note: txt,
-        recorded_at: today
-      });
-    });
-    return picked;
-  }
-  function payload() {
-    return JSON.stringify({
-      version: '1.1',
-      exported: new Date().toISOString().slice(0, 10),
-      exported_from: 'decision-log.html',
-      choices: collect(),
-      note: 'Merge choices[] into data/decision-log.json. A recorded choice outranks the default; a suggestion absent from this list keeps its default.'
-    }, null, 1);
-  }
-  function paint() {
-    if (!counter) return;
-    var n = collect().length;
-    counter.textContent = n + ' of ' + panels().length + ' picked in this browser' +
-      (n ? ' — copy or download to hand it back' : ' — nothing picked yet');
-  }
-  function persist() {
-    try { window.localStorage.setItem(KEY, JSON.stringify(store)); } catch (err) {}
-  }
-  function record(target) {
-    var fs = target.closest ? target.closest('fieldset[data-sg]') : null;
-    if (!fs) return null;
-    var id = fs.getAttribute('data-sg');
-    store[id] = { path: chosen(fs), note: note(fs) };
-    persist();
-    paint();
-    return fs;
-  }
-  root.addEventListener('change', function (ev) { record(ev.target); });
-  root.addEventListener('input', function (ev) {
-    if (ev.target && ev.target.tagName === 'TEXTAREA') record(ev.target);
-  });
-  document.addEventListener('click', function (ev) {
-    var btn = ev.target.closest ? ev.target.closest('[data-decision-action]') : null;
-    if (!btn) return;
-    var act = btn.getAttribute('data-decision-action');
-    if (act === 'clear') {
-      store = {};
-      try { window.localStorage.removeItem(KEY); } catch (err) {}
-      root.querySelectorAll('input').forEach(function (i) { i.checked = false; });
-      root.querySelectorAll('textarea').forEach(function (t) { t.value = ''; });
-      if (out) { out.hidden = true; out.textContent = ''; }
-      paint();
-      return;
-    }
-    var text = payload();
-    if (act === 'download') {
-      if (!collect().length) { flash(btn, 'nothing picked yet'); return; }
-      var blob = new Blob([text], { type: 'application/json' });
-      var a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'decision-log.json';
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 0);
-      flash(btn, 'downloaded');
-      return;
-    }
-    if (out) { out.hidden = false; out.textContent = text; }
-    if (!collect().length) { flash(btn, 'nothing picked yet'); return; }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function () { flash(btn, 'copied — paste it into any session'); },
-                                                function () { flash(btn, 'shown below — select and copy'); });
-    } else {
-      flash(btn, 'shown below — select and copy');
-    }
-  });
-  function flash(btn, msg) {
-    var old = btn.textContent;
-    btn.textContent = msg;
-    setTimeout(function () { btn.textContent = old; }, 1800);
-  }
-  panels().forEach(function (fs) {
-    var v = store[fs.getAttribute('data-sg')];
-    if (!v) return;
-    if (v.path) {
-      var i = fs.querySelector('input[value="' + v.path + '"]');
-      if (i) i.checked = true;
-    }
-    var t = fs.querySelector('textarea.dec-note');
-    if (t && v.note) t.value = v.note;
-  });
-  paint();
 })();
 """
 
@@ -1157,6 +1037,8 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
       <h4>Evidence</h4>
       {N("data.html")}
       {N("reverification.html")}
+      {N("pass10.html")}
+      {N("figures.html")}
       {N("compliance.html")}
       {N("flagged.html")}
     </div>
@@ -1355,8 +1237,17 @@ def _dashboard_article_cards():
 
 
 def _flag_count():
-    """Rows on the Flagged page, counted the same way the duplicate-ID guard counts them."""
-    return len(re.findall(r'<tr><td class="num"><strong>F\d+</strong>', page_flagged()))
+    """Rows on the Flagged page.
+
+    Counted from the same markup `page_flagged()` emits, which has been
+    `<tr id="fNN"><td class="num"><strong>FNN</strong>` since pass 10 added per-row
+    anchors. The previous pattern (`<tr><td class="num">...`, with no id attribute)
+    silently stopped matching at that commit and the landing page published
+    "0 Flags open" next to a 61-row register. `check_flag_count_matches_page()`
+    now asserts the two agree, so this cannot regress unnoticed again.
+    """
+    return len(re.findall(r'<tr id="f\d+"><td class="num"><strong>F\d+</strong>',
+                          page_flagged()))
 
 
 def pulse_strip():
@@ -1791,8 +1682,8 @@ def page_product(p):
 
 
 PROGRAMME_FLAGS = [
-    ("F1", "ASIN → manufacturer model number: previously recorded as not published by Amazon. Partly closed on 2026-11-16 - see F63.",
-     "All three", "HISTORY KEPT: for ten passes this row said the model number could not be read from the listing, and each product's model was therefore recorded as a documented match with a caveat. On 2026-11-16 session ba29c641 fetched all three listing pages and the Product information block rendered: B0CDY277D3 states Model Number and Part Number RJ38-SQPF-3TDB-2W, B08DKYBTPH states Part Number RJ38-SQSS-8T, and B09B7SB46R states 4-00675-02X-VN. Two of the three now match a second official document and are no longer caveated as unconfirmable; the third contradicts the brand page by one character and stays a conflict (F65). The premise that only a human in a browser could close this was wrong, which is the finding in F63. Still open: which product the three supplied short-link tokens were meant to point at (F6, F7, F10).", ["S16", "S28", "S29"]),
+    ("F1", "ASIN → manufacturer model number is not published by Amazon.",
+     "All three", "Each product's model number is recorded as a match by capacity/finish/brand wording, with an explicit caveat. Flagged rather than asserted.", ["S16"]),
     ("F6", "The Associates tag inside the three link.amazon short links is not observable.",
      "All three links", "The shortener hides the tag. Attribution cannot be verified from outside Associates Central, so 'associates_tag_confirmed' is false for all three links. Needs the account holder to open Manage Tracking IDs.", ["S2", "S17"]),
     ("F7", "Program Policies §6(w) (Content on your Site) prohibits link shortening that makes it unclear you are linking to an Amazon Site.",
@@ -1856,10 +1747,10 @@ PROGRAMME_FLAGS = [
      "Re-read 2026-11-14 by sess-54c66535. The dual-basket page RJ38-SQPF-3TDB-2 reports 4.6 stars from 194 reviews; the dual-window page RJ38-SQPF-3TDB-2W reports 4.6 stars from 1,305 reviews, on an identical list price and promo ladder. The 6.7x gap is a usable signal for deciding which SKU the supplied ASIN maps to, which is open flag F2. It is not an identification: Amazon does not publish the model number behind an ASIN, and a review count is not a product identifier. No SKU is asserted.", ["S11", "S10"]),
     ("F32", "Chefman sells three different 6-quart dual-basket SKUs; the site names two of them.",
      "Chefman 6 Qt Dual Basket",
-     "Found live 2026-11-14 by arena/6b2eddeb. Chefman's own store currently publishes RJ38-3DBW-V2 ('TurboFry 6 Qt. Double Basket Air Fryer with Easy View Windows': 6 Qt / 5.68 L as two 3 Qt / 2.84 L baskets, 90–400 °F / 32–204 °C, 1700 W, five functions — air fry, bake, reheat, dehydrate, frozen — easy-view windows, interior lights, shake notifications, 4.5 stars from 30 reviews, $99.99 list), RJ38-SQPF-3TDB-2 (dual-basket, 4.6 from 194, no specification block published) and RJ38-SQPF-3TDB-2W (dual-window, 200–450 °F, Hi-Fry, 4.6 from 1,305). The site records the -2W mapping because the Amazon title says 'Hi-Fry' and 'Easy View Windows', and Hi-Fry is documented only on the -2W page — but Easy View windows appear on all three, so the title does not discriminate on its own. This is an identification risk, not an identification. Two other builds shipped in this repo (site/, research/) map the same ASIN to RJ38-3DBW-V2 with no caveat, so a reader can reach two different official-looking answers two clicks apart. Decision needed: open the listing, read the model plate or the 'Product information' model number, and settle it once. Addendum 2026-11-16 (session ba29c641): the decision this row asked for - reading the model number off the listing - was carried out by a fetch, and the listing states RJ38-SQPF-3TDB-2W in both its Model Number and Part Number rows. That is the code the root site publishes, so the site/ and research/ mapping of the same ASIN to RJ38-3DBW-V2 is now the minority reading against a document each build can read; it is not overwritten here because those trees belong to other sessions. See F63.", ["S25", "S27", "S10", "S16"]),
+     "Found live 2026-11-14 by arena/6b2eddeb. Chefman's own store currently publishes RJ38-3DBW-V2 ('TurboFry 6 Qt. Double Basket Air Fryer with Easy View Windows': 6 Qt / 5.68 L as two 3 Qt / 2.84 L baskets, 90–400 °F / 32–204 °C, 1700 W, five functions — air fry, bake, reheat, dehydrate, frozen — easy-view windows, interior lights, shake notifications, 4.5 stars from 30 reviews, $99.99 list), RJ38-SQPF-3TDB-2 (dual-basket, 4.6 from 194, no specification block published) and RJ38-SQPF-3TDB-2W (dual-window, 200–450 °F, Hi-Fry, 4.6 from 1,305). The site records the -2W mapping because the Amazon title says 'Hi-Fry' and 'Easy View Windows', and Hi-Fry is documented only on the -2W page — but Easy View windows appear on all three, so the title does not discriminate on its own. This is an identification risk, not an identification. Two other builds shipped in this repo (site/, research/) map the same ASIN to RJ38-3DBW-V2 with no caveat, so a reader can reach two different official-looking answers two clicks apart. Decision needed: open the listing, read the model plate or the 'Product information' model number, and settle it once.", ["S25", "S27", "S10"]),
     ("F33", "The 'Hi-Fry / 450 °F: None' row for the 8 Qt product is only true of the stainless SKU, and a second official SKU matches the Amazon title exactly.",
      "Chefman 8 Qt TurboFry",
-     "Found live 2026-11-14 by arena/6b2eddeb — narrows F3, does not resolve it. Chefman sells RJ38-SQSS-8T (TurboFry Touch Stainless-Steel, max 400 °F / 205 °C, four food presets, stainless finish — the SKU the site currently maps) and RJ38-8T-BLACK (TurboFry 8 Qt Air Fryer w/ High Fry: Hi-Fry 450 °F / 232 °C for the final two minutes, and exactly four functions — air fry, bake, dehydrate, frozen — in a matte-black finish). The Amazon listing title for B08DKYBTPH reads '…4-in-1 with 450°F Hi-Fry Option… | Bake, Dehydrate, Frozen | … Stainless Steel'. The function list and the 450 °F Hi-Fry match RJ38-8T-BLACK word for word; the finish matches RJ38-SQSS-8T. So the title may describe a third variant, or may carry a finish that does not match the unit. The previous framing — 'one of the two official sources is stale' — is now the less likely explanation. No value is changed and neither model is asserted; a human should read the model number printed in the listing's Product information section. Addendum 2026-11-16 (session ba29c641): the listing's own Product information block was captured. It states Part Number RJ38-SQSS-8T and Max Temperature Setting 400 °F, so the 450 °F Hi-Fry wording sits in the same page as a figure that contradicts it. That makes the stale-title explanation more likely than the second-SKU explanation, and it is recorded as a contradiction to be avoided in copy rather than as a resolved specification. The physical unit still decides; no shipping claim is made.", ["S12", "S26", "S16", "S29"]),
+     "Found live 2026-11-14 by arena/6b2eddeb — narrows F3, does not resolve it. Chefman sells RJ38-SQSS-8T (TurboFry Touch Stainless-Steel, max 400 °F / 205 °C, four food presets, stainless finish — the SKU the site currently maps) and RJ38-8T-BLACK (TurboFry 8 Qt Air Fryer w/ High Fry: Hi-Fry 450 °F / 232 °C for the final two minutes, and exactly four functions — air fry, bake, dehydrate, frozen — in a matte-black finish). The Amazon listing title for B08DKYBTPH reads '…4-in-1 with 450°F Hi-Fry Option… | Bake, Dehydrate, Frozen | … Stainless Steel'. The function list and the 450 °F Hi-Fry match RJ38-8T-BLACK word for word; the finish matches RJ38-SQSS-8T. So the title may describe a third variant, or may carry a finish that does not match the unit. The previous framing — 'one of the two official sources is stale' — is now the less likely explanation. No value is changed and neither model is asserted; a human should read the model number printed in the listing's Product information section.", ["S12", "S26", "S16"]),
     ("F34", "The second executive summary at the repo root still asserts two things that are now known to be wrong.",
      "EXECUTIVE_SUMMARY.md",
      "Found 2026-11-14 by arena/6b2eddeb. EXECUTIVE_SUMMARY.md (the older of the two root summaries) states in its Key findings: 'Identity verified. All three short links resolve to Amazon.com product pages with different ASINs' and 'the official commission schedule redirected to a sign-in page'. This session re-fetched both on 2026-11-14: the Associates Program Standard Commission Income Statement (Table 1 and Bounty Events) was read in full with no login, and product identity is explicitly NOT verified anywhere on this site (F14–F16, F21, F32, F33). A dated correction banner was placed above that document by an earlier pass, but the contradicting sentences remain in the body and the file is still served from the site root by direct link. Decision needed: retire the duplicate document, or rewrite the two sentences. This pass did not edit it — the sentence is another session's published work and rewriting it is a content decision, not a verification one.", ["S1", "S3"]),
@@ -1981,12 +1872,12 @@ PROGRAMME_FLAGS = [
     # Neither changes a published value; both are records a reader can act on.
     ("F59", "The repository serves six separate executive summaries, five of them stale and none labelled stale.",
      "EXECUTIVE-SUMMARY.md, EXECUTIVE_SUMMARY.md, EXECUTIVE-SUMMARY-PASS8.md, EXECUTIVE-SUMMARY-PASS9.md, EXECUTIVE-SUMMARY-PASS9-42CA97AD.md, executive-summary.html",
-     "Recorded 2026-11-16 by arena/ad8105b3. A read of the repository root finds six files whose names all claim to be the executive summary: the generated executive-summary.html (current, built from data), EXECUTIVE-SUMMARY.md, and four earlier or parallel-session Markdown files (EXECUTIVE_SUMMARY.md, EXECUTIVE-SUMMARY-PASS8.md, EXECUTIVE-SUMMARY-PASS9.md, EXECUTIVE-SUMMARY-PASS9-42CA97AD.md). GitHub Pages publishes the repository root, so all six are reachable by URL. At least one, EXECUTIVE_SUMMARY.md, is already recorded in this register (F28) as asserting 'Identity verified. All three short links resolve to Amazon.com product pages with different ASINs', which this site's reconciled position contradicts. This pass did not delete or rewrite any of them: they are other sessions' committed records, and deleting another session's evidence is not a repair. The live site links only executive-summary.html. Decision needed: keep one Markdown briefing and move the rest under an archive directory with a one-line header saying what superseded them, or add a banner to each. Evidence: the six files themselves, and the root README. Disposition recorded 2026-11-16 by session ba29c641: the four non-canonical root briefings (EXECUTIVE_SUMMARY.md, EXECUTIVE-SUMMARY-PASS8.md, EXECUTIVE-SUMMARY-PASS9.md and EXECUTIVE-SUMMARY-PASS9-42CA97AD.md) are kept as committed evidence and now open with a two-line SUPERSEDED banner naming the current page and the specific claim inside them that the repository has since reversed. Nothing was deleted and no historical text was rewritten; the banner reports the disagreement instead of burying it. EXECUTIVE-SUMMARY.md was not touched: it is the live briefing and was being edited by a concurrent session when this disposition was written.",
+     "Recorded 2026-11-16 by arena/ad8105b3. A read of the repository root finds six files whose names all claim to be the executive summary: the generated executive-summary.html (current, built from data), EXECUTIVE-SUMMARY.md, and four earlier or parallel-session Markdown files (EXECUTIVE_SUMMARY.md, EXECUTIVE-SUMMARY-PASS8.md, EXECUTIVE-SUMMARY-PASS9.md, EXECUTIVE-SUMMARY-PASS9-42CA97AD.md). GitHub Pages publishes the repository root, so all six are reachable by URL. At least one, EXECUTIVE_SUMMARY.md, is already recorded in this register (F28) as asserting 'Identity verified. All three short links resolve to Amazon.com product pages with different ASINs', which this site's reconciled position contradicts. This pass did not delete or rewrite any of them: they are other sessions' committed records, and deleting another session's evidence is not a repair. The live site links only executive-summary.html. Decision needed: keep one Markdown briefing and move the rest under an archive directory with a one-line header saying what superseded them, or add a banner to each. Evidence: the six files themselves, and the root README.",
      ["S1"]),
 
     ("F60", "The s2 annex's requirements register cites two paths that do not exist, and its commission row rests on a premise the annex itself has since corrected.",
      "data/s2/requirements.json rows R-01 and R-08",
-     "Recorded 2026-11-16 by arena/ad8105b3 while building the root requirements register (requirements.html). Two defects in the annex register. (1) R-01 'Collect and organise a full list of requirements' gives its implementation path as 'data/requirements.json rendered on Requirements page'. There is no data/requirements.json: the file is data/s2/requirements.json, and it renders at s2/pages/requirements.html. So the repository's only requirements register pointed the reader at a different, non-existent file. This is the third occurrence of the same defect class (after F14 and F38 in this register), which is why the new root register has check_requirement_paths() failing the build on any cited path that does not exist, and that guard was proven to fire on an injected bad path. (2) R-08 'Analyse commission potential' is marked blocked with the reason 'login-gated rate card (F-04)'. data/s2/flags.json row F-04 is itself titled 'CORRECTED — a public commission table does exist' and records that the Standard Commission Income Statement is readable without a login, which this pass re-confirmed live on 2026-11-16: Table 1 renders 'Physical Books, Kitchen, Automotive 4.50%'. The genuine remaining gap is narrower — Table 1 is keyed to categories, not ASINs — and the root register states it that way. Neither row was edited in the annex: data/s2/requirements.json is another session's published output. Decision needed: re-point R-01 at the real path, and restate R-08's blocking reason as the ASIN-to-category mapping rather than a login. Evidence: the two annex files and the commission page. Repaired at source 2026-11-16 by session ba29c641 in data/s2/requirements.json, with the correction noted on the annex's own published page: R-01's path is now named exactly (the root register does now exist at data/requirements.json since PR #89, alongside the annex's copy), and R-08 is restated as the ASIN-to-category mapping gap with the public rate table as its source. R-03's 'no public demand metric exists' wording was also corrected, because the listing page does carry a rank line - which this repository's own reading of IP License §2(e) still keeps out of the site's tables (F8).",
+     "Recorded 2026-11-16 by arena/ad8105b3 while building the root requirements register (requirements.html). Two defects in the annex register. (1) R-01 'Collect and organise a full list of requirements' gives its implementation path as 'data/requirements.json rendered on Requirements page'. There is no data/requirements.json: the file is data/s2/requirements.json, and it renders at s2/pages/requirements.html. So the repository's only requirements register pointed the reader at a different, non-existent file. This is the third occurrence of the same defect class (after F14 and F38 in this register), which is why the new root register has check_requirement_paths() failing the build on any cited path that does not exist, and that guard was proven to fire on an injected bad path. (2) R-08 'Analyse commission potential' is marked blocked with the reason 'login-gated rate card (F-04)'. data/s2/flags.json row F-04 is itself titled 'CORRECTED — a public commission table does exist' and records that the Standard Commission Income Statement is readable without a login, which this pass re-confirmed live on 2026-11-16: Table 1 renders 'Physical Books, Kitchen, Automotive 4.50%'. The genuine remaining gap is narrower — Table 1 is keyed to categories, not ASINs — and the root register states it that way. Neither row was edited in the annex: data/s2/requirements.json is another session's published output. Decision needed: re-point R-01 at the real path, and restate R-08's blocking reason as the ASIN-to-category mapping rather than a login. Evidence: the two annex files and the commission page.",
      ["S3"]),
 
     # ---- arena/63a2c638, integration pass 9, 2026-11-15 ----------------------------- #
@@ -2031,32 +1922,19 @@ PROGRAMME_FLAGS = [
      ["S2"]),
     ("F53", "The Amazon browse-node breadcrumb is now published for two ASINs, and it does not settle which commission rate applies.",
      "All three products - the 'Amazon browse node' row and open question Q-11",
-     "Recorded 2026-11-15 by arena/63a2c638, round 9, at the same time as the value itself was added, so the limit travels with the value. Both Chefman listings render the breadcrumb 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S16, S29). It is tempting to read 'Kitchen' there and apply the 4.50% Kitchen rate from the Commission Income Statement (S3). That would be an inference, not a source: S3's categories are commission categories defined by the Associates programme, Amazon's browse nodes are a shopper-navigation taxonomy, and Amazon publishes no mapping between the two. The same breadcrumb begins 'Home & Kitchen', and S3 also carries 'Home' at 3.00%, so the breadcrumb alone cannot even tell you which of the two it resembles. The site therefore continues to show the commission rate as unconfirmed (Q-11) and now shows the browse node as a separate, sourced fact. The Emeril browse node is blank: three fetches of that ASIN on 2026-11-15 returned Amazon's automated 'Continue shopping' checkpoint instead of the listing page, and a value that was never rendered cannot be recorded. Addendum 2026-11-16 (session ba29c641): the Emeril listing rendered on the fourth attempt and its classification line - Kitchen & Dining, Air Fryers node 17659096011 - filled the row that had been left blank. Three of three ASINs now carry a browse classification, and none of them carries a commission category, so the inference this row forbids is still forbidden.",
+     "Recorded 2026-11-15 by arena/63a2c638, round 9, at the same time as the value itself was added, so the limit travels with the value. Both Chefman listings render the breadcrumb 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S16, S29). It is tempting to read 'Kitchen' there and apply the 4.50% Kitchen rate from the Commission Income Statement (S3). That would be an inference, not a source: S3's categories are commission categories defined by the Associates programme, Amazon's browse nodes are a shopper-navigation taxonomy, and Amazon publishes no mapping between the two. The same breadcrumb begins 'Home & Kitchen', and S3 also carries 'Home' at 3.00%, so the breadcrumb alone cannot even tell you which of the two it resembles. The site therefore continues to show the commission rate as unconfirmed (Q-11) and now shows the browse node as a separate, sourced fact. The Emeril browse node is blank: three fetches of that ASIN on 2026-11-15 returned Amazon's automated 'Continue shopping' checkpoint instead of the listing page, and a value that was never rendered cannot be recorded.",
      ["S3", "S16", "S29", "S28"]),
-    ("F63", "A premise the site had carried for ten passes - that a listing does not publish a model number, so only a human in a browser could settle product identity - was tested and is false.",
-     "All three product pages, the model_number field in data/products.json, SG-01 and Q-01",
-     "Found 2026-11-16 by arena/ba29c641-zone1. Every pass from the first wrote the same sentence: 'Amazon does not publish the model number on the ASIN', and SG-01 turned it into a five-minute job for the owner ('open the listing in a browser, scroll to Product information') that then blocked four other flags and two suggestions. On 2026-11-16 this pass fetched https://www.amazon.com/dp/B0CDY277D3 and the page's Product information block was there, naming 'Model Number: RJ38-SQPF-3TDB-2W' and 'Part Number: RJ38-SQPF-3TDB-2W' - the same string the brand page and the owner's manual publish. The same read on B08DKYBTPH returned 'Part Number: RJ38-SQSS-8T' but a 'Model Number' row holding the marketing string 'Large Air Fryer', which is why the method has to read both rows. B09B7SB46R returned '4-00675-02X-VN' in both rows, one character away from the brand page's '4-00675-02A-VN'. Nothing in the repository had actually tested the sentence; it had only been copied forward. Two consequences beyond the data: a 'this needs a human' flag is a claim about what a fetch can reach, and it belongs in the same queue as any other checkable value; and an option list built around an untested premise costs the owner time they did not owe. Evidence: the three pages as fetched, and reports/asin-model-mapping-2026-11-16.md.",
-     ["S16", "S28", "S29", "S10", "S12", "S13", "S18"]),
-
-    ("F64", "The two official documents for the 8 Qt disagree on its footprint, and the listing's own page disagrees with itself about the 6 Qt's capacity units.",
-     "chefman-8qt-turbofry 'Dimensions' rows; chefman-6qt-dual-basket 'Capacity (as listed by Amazon)' row",
-     "Found 2026-11-16 by arena/ba29c641-zone1. chefman.com publishes the 8 Qt (RJ38-SQSS-8T) as 15.4 in x 12.6 in x 13.5 in and separates the 5 Qt figures on the same page (S12); the listing for B08DKYBTPH publishes 12.75\"D x 13.5\"W x 10\"H (S29). Those are not two ways of writing one number - the depth differs by 2.65 in and the height by 3.5 in, and a buyer checking a 13.5 in clearance under a cabinet gets a different answer from each official source. The site keeps the manufacturer's figures as the published row and the listing's figures on their own row, both dated, and does not average them. Same class on the 6 Qt: the listing's Capacity field reads '6 liters' while its title, its Size field and the brand page all read 6 quarts (5.67 L) - a 0.33 L difference that only exists because a unit label moved. Anything on the site that turns a capacity or a footprint into a recommendation (the small-kitchen dimensions article and the capacity guide) should carry this caveat until the brand states which figures are the shipping carton and which are the appliance. Decision needed: ask Chefman which measurement is the cabinet clearance figure, or drop cabinet-clearance advice from the marketing copy. Nothing was invented here to fill the gap.",
-     ["S12", "S29", "S10", "S16"]),
-
-    ("F65", "Three official documents give three different model strings for the Emeril 26 QT, and the newest two differ by a single character.",
-     "emeril-26qt-french-door 'model_number' field and its listing rows",
-     "Found 2026-11-16 by arena/ba29c641-zone1. The owner's manual is headed FAFO-001 (S15), the brand product page lists 4-00675-02A-VN (S14), and the listing for B09B7SB46R states 4-00675-02X-VN in both its Model Number and Part Number rows (S28). An 'A' and an 'X' in the tenth position is the whole difference, and it is exactly the kind of difference that means either a variant suffix or a transcription error somewhere. This repository has no document that says which, so the row quotes all three and chooses none. It matters commercially: a comparison page that prints the wrong SKU string invites the 'this review is for a different model' complaint, and on a site whose whole claim is traceability that is the expensive failure. Decision needed: Emeril Everyday support can state the SKU behind the ASIN in one reply; until then the product page shows the three strings and the one character in dispute.",
-     ["S14", "S15", "S28"]),
-
-    ("F66", "The Emeril listing contradicts itself about what is in the box: 7 accessories in one field, six enumerated in the next, 'Six' in the title.",
-     "emeril-26qt-french-door 'Included accessories' and 'Configuration'/'Included components' rows; F4",
-     "Found 2026-11-16 by arena/ba29c641-zone1. Reading the listing's Product information block in full showed three statements on one page: the Configuration field reads 'Air Fryer Toaster Oven Combo with 24 Functions and 7 Accessories'; the Included Components row enumerates six named parts (Rack, Bake Pan, Drip Tray, Crisper Basket, Rotisserie Spit, Fetch Tool); the title says 'Six Cooking Accessories Included'. The brand page and the manual support 7 (S14, S15), the listing's own enumeration supports 6, and the site's published value stays 7 because two documents state it and the third contradicts itself. The same Configuration field is also the third document agreeing with the manual's 24 functions against the brand page's '25 Cooking Pre-sets', so one fetch moved two open rows in opposite directions: it strengthened F4's resolution and complicated the accessory count. Both are published as read. No copy on the site may state an accessory count as a selling point until a single document owns the answer. Decision needed: which is it - and the answer is on the packing list, not on a listing page.",
-     ["S14", "S15", "S28"]),
-
-    ("F67", "Temperature floors published in degrees Celsius do not convert to the floors published in degrees Fahrenheit, on two of the three products.",
-     "chefman-6qt-dual-basket and chefman-8qt-turbofry temperature rows; the energy-cost and 450 F articles",
-     "Found 2026-11-16 by arena/ba29c641-zone1. The 6 Qt brand page gives 200-450 \u00b0F / 95-235 \u00b0C (S10); the same product's listing states 'Min Temperature Setting: 93 \u00b0C' (S16), and 93 \u00b0C is 199.4 \u00b0F, not 95 \u00b0C's 203 \u00b0F. The 8 Qt listing states 'Min 94 \u00b0C' against the brand page's 200 \u00b0F (S29, S12) - 201.2 \u00b0F. Each difference is about two degrees and each is in the same document pair a shopper is told to trust, which is a rounding inconsistency rather than a product difference: 200 \u00b0F is 93.3 \u00b0C, and someone rounded it upward in one place and left it in Fahrenheit in the other. The site publishes each figure as its source states it and does not present a converted range as if a manufacturer had. It is a small thing with a real consequence for copy: an article that says 'the 6 Qt starts at 95 \u00b0C' is quoting one page and contradicting another, so both units should be shown with the source that uses them.",
-     ["S10", "S16", "S12", "S29"]),
+    # ---- arena/695f03b7-zone1, task P3, 2026-11-16 -------------------------------- #
+    # Product-photography rights gap: no row records which images the site publishes or
+    # whose permission covers them; Amazon Program Content/image rights and FTC disclosure
+    # duties are unresolved until Q-22 is answered and SG-23 decided (SG-23 recommends
+    # text-and-diagrams-only for now). No product photography is published. Flag number F46
+    # is free on the canonical register (origin/main carries F1-F45 and F47-F62); no other
+    # session's row is renumbered.
+    ("F46", "Product photography rights are undecided: no row records which images, if any, the site publishes, whose permission covers them, or how Amazon Program Content image rights apply to these specific products. Amazon's Operating Agreement and Program Policies govern Program Content imagery; the FTC treats imagery as part of an endorsement requiring clear disclosure of material connections. No product photography is published and Q-22 asks what may be published and whose permission covers it.",
+     "SG-23, Q-22 and all three product pages",
+     "Recorded 2026-11-16 by arena/695f03b7-zone1. The design layer offers owner photos, licensed imagery and Amazon Program Content as image options, but none is decided; until Q-22 is answered, the site stays text-and-diagrams-only and the figures on figures.html are generated diagrams, not photographs. Evidence: data/suggestions.json (SG-23), data/questions.json (Q-22), build.py flags register.",
+     ["S1", "S2"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -3380,6 +3258,342 @@ back, and the verdict \u2014 is in <code>reports/verification-2026-11-16-9fccce0
               )
 
 
+# --------------------------------------------------------------------------- #
+# figure layer (pass 10, arena/695f03b7-zone1)
+# Four data-driven SVG diagrams generated from data/products.json at build time,
+# so no number in a figure can drift from the dataset. Sources travel with each
+# figure; nothing is inferred. They are diagrams, not photographs, because
+# product-photography rights are undecided (Q-22 / SG-23 / flag F46).
+# --------------------------------------------------------------------------- #
+FIGURES_DIR = ROOT / "assets" / "figures"
+FIG_W, FIG_H = 900, 520
+
+
+def _svg_frame(title, note, src_lines):
+    src_html = "".join(f'<text x="22" y="{y}" class="src">{e(s)}</text>' for y, s in src_lines)
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {FIG_W} {FIG_H}" '
+        f'role="img" aria-labelledby="t"><title id="t">{e(title)}</title>'
+        f'<style>.t{{font:700 17px/1.25 system-ui,sans-serif;fill:#111827;}}'
+        f'.s{{font:600 12.5px/1.4 system-ui,sans-serif;fill:#374151;}}'
+        f'.m{{font:400 12px/1.45 system-ui,sans-serif;fill:#4b5563;}}'
+        f'.b{{font:700 13px/1.3 system-ui,sans-serif;fill:#ffffff;}}'
+        f'.x{{font:600 11.5px/1.3 system-ui,sans-serif;fill:#6b7280;}}'
+        f'.l{{font:600 12px/1.3 system-ui,sans-serif;fill:#111827;}}'
+        f'</style>'
+        f'<rect width="{FIG_W}" height="{FIG_H}" fill="#ffffff"/>'
+        f'<text x="22" y="34" class="t">{e(title)}</text>'
+        f'<text x="22" y="52" class="m">{e(note)}</text>{src_html}'
+    )
+
+
+def _svg_close():
+    return "</svg>"
+
+
+def fig_footprint():
+    cfg = PRODUCTS["figures"]
+    scale = cfg["scale_px_per_inch"]
+    products = cfg["footprint"]
+    y0, band = 150, 118
+    axis_y = y0 + band * len(products) + 26
+    ticks = "".join(
+        f'<line x1="{22 + t * scale}" y1="{axis_y}" x2="{22 + t * scale}" y2="{axis_y + 4}" stroke="#9ca3af" stroke-width="1"/>'
+        f'<text x="{22 + t * scale - 7}" y="{axis_y + 18}" class="x" text-anchor="middle">{t}</text>'
+        for t in range(0, 57, 10)
+    )
+    axis = (
+        f'<line x1="22" y1="{axis_y}" x2="{22 + 56 * scale}" y2="{axis_y}" stroke="#9ca3af" stroke-width="1.5"/>'
+        f'<text x="22" y="{axis_y + 36}" class="x">Inches — true scale, {scale} px per inch</text>'
+        + ticks
+    )
+    panels = ""
+    for i, p in enumerate(products):
+        y = y0 + i * band
+        wpx = p["w"] * scale
+        panels += (
+            f'<rect x="22" y="{y}" width="{wpx}" height="{p["d"] * scale}" fill="#2563eb" rx="4"/>'
+            f'<text x="{22 + wpx / 2}" y="{y + p["d"] * scale / 2 + 5}" class="b" text-anchor="middle">{e(p["label"])}</text>'
+            f'<text x="22" y="{y + p["d"] * scale + 18}" class="m">{e(p["w"])}" W × {e(p["d"])}" D × {e(p["h"])}" H</text>'
+            f'<text x="22" y="{y - 8}" class="l">{e(p["label"])}</text>'
+        )
+    src_lines = [(axis_y + 48, "Sources: " + ", ".join(f'{e(p["label"])} — {e(p["source"])}' for p in products))]
+    return _svg_frame("Footprint at true scale — width × depth × height",
+                      "Rectangles are drawn at true scale (16 px per inch) from the dimensions the manufacturers publish.",
+                      src_lines) + panels + axis + _svg_close()
+
+
+def fig_temperature():
+    cfg = PRODUCTS["figures"]
+    products = cfg["temperature"]
+    lo = min(p["min"] for p in products)
+    hi = max(p["max"] for p in products)
+    x0, x1 = 90, 850
+    span = (hi + 60) - (lo - 20)
+
+    def xof(v):
+        return x0 + (v - (lo - 20)) * (x1 - x0) / span
+
+    axis_y = 330
+    bars = ""
+    y = 150
+    colors = ["#2563eb", "#16a34a", "#b45309"]
+    for i, p in enumerate(products):
+        bars += (
+            f'<rect x="{xof(p["min"])}" y="{y}" width="{xof(p["max"]) - xof(p["min"])}" height="34" '
+            f'fill="{colors[i]}" opacity=".9" rx="3"/>'
+            f'<text x="{xof(p["min"]) - 10}" y="{y + 22}" class="x" text-anchor="end">{p["min"]}</text>'
+            f'<text x="{xof(p["max"]) + 10}" y="{y + 22}" class="b">{p["max"]}</text>'
+            f'<text x="{x0}" y="{y - 12}" class="l">{e(p["label"])}</text>'
+            f'<text x="{x0}" y="{y + 56}" class="m">{e(p.get("note", ""))}</text>'
+            f'<text x="{x0}" y="{y + 74}" class="src">Source {e(p["source"])}' + (f' · conflict: {e(p["conflict_source"])}' if p.get("conflict_source") else "") + "</text>"
+        )
+        y += 98
+    ticks = "".join(
+        f'<text x="{xof(v)}" y="{axis_y + 18}" class="x" text-anchor="middle">{v}</text>'
+        for v in range(100, 551, 100)
+    )
+    axis = f'<line x1="{x0}" y1="{axis_y}" x2="{x1}" y2="{axis_y}" stroke="#9ca3af" stroke-width="1.5"/>{ticks}'
+    src_lines = [(axis_y + 46, "Sources: " + ", ".join(f'{e(p["label"])} — {e(p["source"])}' for p in products))]
+    return (_svg_frame("Documented temperature ranges",
+                       "Each bar runs from the documented minimum to the documented maximum. The Chefman 8 Qt bar ends at 400 °F because the brand page and manual document 200–400 °F; the 450 °F the Amazon listing title advertises is a live conflict (F3) and is not asserted here.",
+                       src_lines) + bars + axis + _svg_close())
+
+
+def fig_presets():
+    cfg = PRODUCTS["figures"]
+    rows_src = cfg["presets"]
+    maxc = max(p["count"] for p in rows_src if p["count"] is not None)
+    x0, x1 = 90, 760
+
+    def xof(c):
+        return x0 + c * (x1 - x0) / maxc
+
+    rows = ""
+    y = 150
+    for p in rows_src:
+        if p["count"] is not None:
+            fill = "#dc2626" if p.get("conflict") else "#2563eb"
+            rows += (
+                f'<rect x="{x0}" y="{y}" width="{xof(p["count"]) - x0}" height="30" '
+                f'fill="{fill}" opacity=".9" rx="3"/>'
+                f'<text x="{xof(p["count"]) + 8}" y="{y + 21}" class="b">{p["count"]}</text>'
+            )
+        else:
+            rows += f'<text x="{x0 + 10}" y="{y + 21}" class="m">— not documented</text>'
+        rows += (
+            f'<text x="22" y="{y - 8}" class="l">{e(p["document"])}</text>'
+            f'<text x="{x1 + 10}" y="{y + 22}" class="m">{e(p["note"])}</text>'
+            f'<text x="22" y="{y + 44}" class="src">Source {e(p["source"])}' + (f' · conflicts with {e(p.get("conflict_source", ""))}' if p.get("conflict_source") else "") + "</text>"
+        )
+        y += 92
+    src_lines = [(y + 10, "Reading: bar length = preset count stated by that document. Red = one official document disagrees with another for the same product; no count is asserted until the conflict is settled.")]
+    return (_svg_frame("Preset-count conflict — what each official document states",
+                       "The site states 24 presets for the Emeril 26 QT on the strength of the owner's manual (S15); the brand page's own specification block says 25 (S14), so the conflict stays open (F29). The Chefman 8 Qt documents four presets in both page and manual (S12, S13). For the Chefman 6 Qt dual-basket no official source publishes a preset count, so the row is blank (F36).",
+                       src_lines) + rows + _svg_close())
+
+
+def fig_decision_tree():
+    nodes = [
+        ("q1", "Cooking two different foods at once, on separate settings?", "start"),
+        ("q2", "Replacing a toaster oven too — toast, bake, rotisserie?", "q1"),
+        ("q3", "Cooking for 4–6 people from one basket?", "q2"),
+        ("a1", "Chefman 6 Qt Dual Basket — Sync Finish, two 3-qt baskets", "q1"),
+        ("a2", "Emeril 26 QT French Door — rotisserie, 75–500 °F, 24 presets", "q2"),
+        ("a3", "Chefman 8 Qt TurboFry — one 8-qt basket, 200–400 °F", "q3"),
+        ("a4", "Reconsider capacity before choosing a model", "q3"),
+    ]
+    xq, xa = 250, 660
+    yq, ya = 170, 170
+    step = 90
+    drawn = {}
+    drawn["q1"] = (xq, yq)
+    drawn["q2"] = (xq, yq + step)
+    drawn["q3"] = (xq, yq + 2 * step)
+    drawn["a1"] = (xa, yq)
+    drawn["a2"] = (xa, yq + step)
+    drawn["a3"] = (xa, yq + 2 * step)
+    drawn["a4"] = (xa, yq + 2 * step)
+    edges = [
+        ("q1", "a1", "yes"), ("q1", "q2", "no"),
+        ("q2", "a2", "yes"), ("q2", "q3", "no"),
+        ("q3", "a3", "yes"), ("q3", "a4", "no"),
+    ]
+    lines = ""
+    for a, b, tag in edges:
+        x1_, y1_ = drawn[a]; x2_, y2_ = drawn[b]
+        lines += f'<line x1="{x1_ + 145 if a.startswith("q") else x1_}" y1="{y1_ + 26}" x2="{x2_ - 150 if b.startswith("a") else x2_}" y2="{y2_ + 26}" stroke="#9ca3af" stroke-width="2" stroke-dasharray="6,4"/>'
+        mx = (x1_ + x2_) / 2
+        lines += f'<text x="{mx}" y="{y2_ + 14}" class="m" text-anchor="middle">{tag}</text>'
+    boxes = ""
+    for nid, label, _ in nodes:
+        cx, cy = drawn[nid]
+        w = 320
+        fill = "#2563eb" if nid.startswith("q") else ("#16a34a" if nid.startswith("a") and nid != "a4" else "#9ca3af")
+        parts = label.split("\n")
+        boxes += (
+            f'<rect x="{cx - w / 2}" y="{cy}" width="{w}" height="56" fill="{fill}" rx="8"/>'
+            f'<text x="{cx}" y="{cy + 19}" class="b" text-anchor="middle">{e(parts[0])}</text>'
+        )
+        if len(parts) > 1:
+            boxes += f'<text x="{cx}" y="{cy + 37}" class="b" text-anchor="middle">{e(parts[1])}</text>'
+    return (_svg_frame("Format decision tree — choose by job, not by brand",
+                       "Generated from data/products.json. Each answer names the product whose documented capability fits; the tree is decision support, not a recommendation.",
+                       [(yq + 2 * step + 90, "Sources: Chefman 6 Qt — S10 · Emeril 26 QT — S15/S14 · Chefman 8 Qt — S12/S13")]) + lines + boxes + _svg_close())
+
+
+def build_figures():
+    FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+    for name, fn in (("footprint", fig_footprint), ("temperature", fig_temperature),
+                     ("presets", fig_presets), ("decision-tree", fig_decision_tree)):
+        (FIGURES_DIR / f"{name}.svg").write_text(fn(), encoding="utf-8")
+
+
+def page_pass10():
+    """Pass-10 ledger: every registered source re-read live on 2026-11-16, one row per
+    source, each row carrying its official source link and the observed verdict.
+
+    Additive only: no published value changes here; irregularities are flagged, never
+    inferred. Renders at pass10.html and is linked from the Evidence nav group.
+    """
+    p10 = PASS10_FULL
+    if not p10:
+        return ""
+    tally = p10["tally"]
+
+    def verdict_html(v):
+        cls, label = REV_VERDICT[v]
+        return f'<span class="pill {cls}">{e(label)}</span>'
+
+    def row(r):
+        return (
+            f'<tr><td class="num">{e(r["id"])}</td>'
+            f'<td class="small"><strong>{e(r["source"])}</strong><br><span class="tiny muted">{e(r["source_label"])}</span></td>'
+            f'<td class="small">{e(r["claim"])}</td>'
+            f'<td class="small">{e(r["published_value"])}</td>'
+            f'<td class="small">{e(r["observed_2026_11_16"])}</td>'
+            f'<td class="small">{verdict_html(r["verdict"])}</td>'
+            f'<td class="small"><a href="{e(r["source_url"])}" target="_blank" rel="noopener">'
+            f'{e(r["source"])} — official page</a></td></tr>'
+        )
+
+    rows = "".join(row(r) for r in p10["rows"])
+    conf = tally["confirmed"]
+    part = tally["partially-confirmed"]
+    confl = tally["conflict-live"]
+    nrc = tally["not-rechecked"]
+
+    stats = [
+        ("ok", conf, "Confirmed against the live official source"),
+        ("brand", part, "Partly confirmed (document read in part)"),
+        ("warn", nrc, "Not re-checked in this pass — earlier record stands"),
+        ("bad", confl, "Official sources still disagree — nothing asserted"),
+    ]
+    stat_html = "".join(
+        f'<div class="stat {cls}"><div class="n">{n}</div><div class="l">{e(lbl)}</div></div>'
+        for cls, n, lbl in stats
+    )
+
+    irr = "".join(
+        f'<div class="callout info" style="margin:.6rem 0">'
+        f'<strong class="small">Flag {e(x["id"])}</strong> {e(x["summary"])}'
+        f'<p class="tiny muted">Sources: {e(", ".join(x["sources"]))}</p>'
+        f'</div>'
+        for x in p10["irregularities"]
+    )
+
+    carried = "".join(f"<li>{e(c)}</li>" for c in p10["carried_forward"])
+
+    body = f"""
+<p class="crumbs"><a href="../index.html">Home</a> / Verification pass 10</p>
+<h1>Pass {e(p10['pass'])} verification ledger · {e(p10['pass_date'])}</h1>
+<p class="lede">{e(p10['scope'])}</p>
+
+<div class="callout info">
+  <strong>Method</strong>
+  <p class="small">{e(p10['method'])}</p>
+</div>
+
+<div class="grid grid-4" style="margin:1rem 0 1.25rem">{stat_html}</div>
+
+<p class="small"><strong>{conf} confirmed</strong> · <strong>{part} partly confirmed</strong> ·
+<strong>{confl} conflict live</strong> · <strong>{nrc} not re-checked</strong> — no published
+value changed and no new product-value correction is justified. Every irregularity below is
+already flagged; none is inferred.</p>
+
+<div class="tablewrap">
+<table>
+  <caption>All {len(p10['rows'])} registered sources, re-read on {e(p10['pass_date'])}</caption>
+  <thead><tr><th style="width:8%">Pass-10 ID</th><th style="width:16%">Official source</th>
+  <th style="width:22%">Claim checked against the source</th>
+  <th style="width:20%">Value this site publishes from it</th>
+  <th style="width:20%">What the source said on {e(p10['pass_date'])}</th>
+  <th style="width:7%">Verdict</th><th style="width:7%">Source link</th></tr></thead>
+  <tbody>{rows}</tbody>
+</table>
+</div>
+
+<h2>Irregularities carried in the flag register</h2>
+{irr}
+
+<h2>Round 10 (previously reported)</h2>
+<ul class="tight small">{carried}</ul>
+<p class="tiny muted">The three supplied short links, S2 and the live homepage were re-read by round 10
+(session c334fb1c); see
+<a href="../reports/verification-2026-11-16.md">reports/verification-2026-11-16.md</a>.
+That record is not duplicated in this ledger.</p>
+
+<p class="tiny muted">{e(p10['conclusion'])}</p>
+<p class="tiny muted">Raw observations: <code>data/pass10.json</code> — one row per registered source,
+each row linking to its official source.</p>
+"""
+    return layout("pass10.html", f"Verification pass 10 · {p10['pass_date']}", body,
+                  active="pass10.html",
+                  description=f"Pass {p10['pass']} ledger: every official source (S1-S34) re-read on {p10['pass_date']} against the value this site publishes from it, with verdicts and source links.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Verification pass 10", page_url("pass10.html")),
+    ])])
+
+
+def page_figures():
+    captions = {
+        "footprint": ("How much counter each model needs", "True-scale footprint drawn from the manufacturer-published dimensions."),
+        "temperature": ("Documented cooking temperature ranges", "Min–max from each official source; conflicts are shown, not hidden."),
+        "presets": ("Preset-count conflict, document by document", "Why the site states 24 for the Emeril and four for the Chefman 8 Qt — and why the Chefman 6 Qt row stays blank."),
+        "decision-tree": ("Choose by the job, not by the brand", "Decision support generated from the published dataset; not a recommendation."),
+    }
+    panels = ""
+    for name in ("footprint", "temperature", "presets", "decision-tree"):
+        svg = (FIGURES_DIR / f"{name}.svg").read_text(encoding="utf-8")
+        cap, lede = captions[name]
+        panels += (
+            f'<div class="figure">'
+            f'<h4 class="fighead">{e(cap)}</h4>'
+            f'{svg}'
+            f'<p class="figcap">{e(lede)}</p>'
+            f'</div>'
+        )
+    body = f"""
+<p class="crumbs"><a href="../index.html">Home</a> / Figures</p>
+<h1>Figures and diagrams</h1>
+<p class="lede">Four diagrams, all generated at build time from data/products.json. None of them contains a number
+that this dataset does not hold, and each one carries the official sources of its own figures. They are diagrams,
+not photographs: product-photography rights are undecided (Q-22, SG-23, flag F46), so the site stays
+text-and-diagrams-only until a decision is recorded.</p>
+{panels}
+<p class="tiny muted">Regenerate: <code>python3 build.py</code>. Sources are cited per figure and the raw data is in
+<code>data/products.json</code> → <code>figures</code>.</p>
+"""
+    return layout("figures.html", "Figures and diagrams", body,
+                  active="figures.html",
+                  description="Data-driven diagrams generated from the published dataset: footprint at true scale, temperature ranges, preset-count conflict, format decision tree.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+        ("Home", SITE_URL + "/"),
+        ("Figures", page_url("figures.html")),
+    ])])
+
+
 PARALLEL_BUILDS = [
     ("research/index.html", "research/", "Deep-dive research",
      "Independent 25-source pass: a 90-field product table, a 23-row compliance matrix with verbatim quotations, a 17-item flag register (I-1 to I-17), a content plan and a 10-step automation pipeline.",
@@ -3768,10 +3982,10 @@ def page_suggestions():
         paths_html = f"""
 <h2>Choose a path before you choose a suggestion</h2>
 <p class="lede">{e(s.get('paths_intro',''))}</p>
-<table>
+<div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Path</th><th>Suggestions it contains</th><th>Effort</th><th>Evidence behind its rows</th></tr></thead>
   <tbody>{''.join(path_rows)}</tbody>
-</table>
+</table></div>
 <p class="tiny muted">{e(s.get('paths_note',''))}</p>
 {''.join(path_articles)}
 """
@@ -3813,18 +4027,15 @@ a short story rather than an open-ended project.</p>
   The score is <em>{e(s["scoring_note"])}</em>
   Suggestions blocked by something only you can supply link to the exact row on the
   <a href="questions.html">Open questions</a> page.
-  <a href="decision-log.html">The owner decision log</a> is where a choice is recorded: it holds one
-  picker per suggestion, the default that stands if nothing is picked, and an export that turns the
-  picks into the file the next agent pass reads.
 </div>
 
 {paths_html}
 <h2>At a glance</h2>
 <p class="small muted">Read the table, then take one row and read the full entry for it. The <em>Your call</em> column lists the paths that are on the table for that suggestion &mdash; write the letter you choose next to it, with the date. Nothing on this page has been implemented, and implementing anything starts by choosing a path here.</p>
-<table>
+<div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Suggestion</th><th>Area</th><th>Priority</th><th>Effort · cost of waiting</th><th>Your call</th><th>Evidence</th></tr></thead>
   <tbody>{''.join(rows)}</tbody>
-</table>
+</table></div>
 <p class="tiny muted">Priority is impact x confidence, both scored by this pass out of 5. It is judgement. The evidence column is the fact.</p>
 
 <h2>The queue</h2>
@@ -3946,10 +4157,10 @@ settled without you links to the row that blocks it.</p>
 <p class="small">{counts['known']} known and sourced · {counts['missing']} missing but discoverable ·
 {counts['not_stated']} not stated by the official source · {counts['unknowable']} requiring account access ·
 {len(q['questions'])} total.</p>
-<table>
+<div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Question</th><th>Group</th><th>State</th><th>Source</th></tr></thead>
   <tbody>{''.join(rows)}</tbody>
-</table>
+</table></div>
 
 <h2>The questions in full</h2>
 {''.join(sections)}
@@ -4148,228 +4359,6 @@ QUESTIONS_ALT = [
 ]
 
 
-
-def page_decision_log():
-    """Owner decision log (2026-11-16, arena/ba29c641).
-
-    The brief asks for two things that pull against each other: a section where a human
-    reviews suggestions and chooses a path *before* anything changes, and no manual input
-    required of the owner to keep the project moving. They meet in one rule, computed here
-    rather than asserted in prose: a suggestion with a recommended path that is reversible,
-    low-risk and unblocked by an account-only fact carries that path as a default, and
-    everything else waits. The picker records a real choice over any default, and the page
-    exports the file a later pass reads.
-    """
-    s = SUGGESTIONS
-    log = DECISION_LOG
-    qinfo = {q["id"]: q for q in QUESTIONS["questions"]}
-    recorded = {c["id"]: c for c in (log.get("choices") or [])}
-    safe_risk = ("none", "low")
-
-    def default_for(sg):
-        """Return (letter, label, kind, reason) for one suggestion's stand-if-silent outcome."""
-        rec = (sg.get("recommendation") or "").strip()
-        letter = rec[:1].upper() if rec else ""
-        opts = sg.get("options") or []
-        chosen = None
-        if len(letter) == 1 and letter.isalpha():
-            chosen = next((o for o in opts
-                           if (o.get("label") or "").strip().startswith(letter + ".")), None)
-        if chosen is None:
-            return ("", "", "hold", "The recommendation does not name a lettered path this "
-                    "register can match, so there is nothing to default to.")
-        blocked = sg.get("blocked_by") or []
-        hard = [b for b in blocked if qinfo.get(b, {}).get("state") == "unknowable"]
-        if hard:
-            return (letter, chosen.get("label", ""), "hold",
-                    "It depends on a fact only the account holder can supply ("
-                    + ", ".join(hard) + "), so silence is not consent here.")
-        if chosen.get("reversible") is False:
-            return (letter, chosen.get("label", ""), "hold",
-                    "Marked not reversible: an irreversible change waits for a person.")
-        if (chosen.get("risk") or "").strip().lower() not in safe_risk:
-            return (letter, chosen.get("label", ""), "hold",
-                    "Risk is " + str(chosen.get("risk")) + ", above the low bar this register "
-                    "sets for acting without an answer.")
-        return (letter, chosen.get("label", ""), "auto",
-                "Reversible, risk " + str(chosen.get("risk")) + ", no account-only blocker, so the "
-                "default stands until a picker overrules it.")
-
-    order = sorted(s["suggestions"], key=lambda x: -(x["impact"] * x["confidence"]))
-    computed = {sg["id"]: default_for(sg) for sg in order}
-    n_auto = sum(1 for v in computed.values() if v[2] == "auto")
-    n_hold = len(order) - n_auto
-
-    rows = []
-    for sg in order:
-        letter, label, kind, reason = computed[sg["id"]]
-        blocked = sg.get("blocked_by") or []
-        blist = " ".join(
-            f'<a class="src" href="questions.html#{e(q.lower())}">{e(q)}</a>'
-            for q in blocked) or '<span class="tiny muted">nothing blocked</span>'
-        ev = [x["url"] for x in sg["evidence"] if x["url"].startswith("https://")]
-        ev_links = " ".join(
-            f'<a class="src-link" href="{e(u)}" target="_blank" rel="noopener">'
-            f'{e(u.split("//")[-1][:30])} ↗</a>' for u in ev[:2])
-        rec = recorded.get(sg["id"])
-        if rec:
-            state = (f'<span class="pill pill-ok">recorded</span>'
-                     f'<div class="tiny">{e(str(rec.get("chosen_path", "")))} · '
-                     f'{e(str(rec.get("recorded_at", "")))}</div>')
-        elif kind == "auto":
-            state = f'<span class="pill pill-ok">default {e(letter)}</span>'
-        else:
-            state = '<span class="pill pill-warn">open</span>'
-        rows.append(
-            f'<tr id="{e(sg["id"].lower())}">'
-            f'<td class="num">{e(sg["id"])}</td>'
-            f'<td><a href="suggestions.html#{e(sg["id"].lower())}">{e(sg["title"])}</a>'
-            f'<div class="tiny muted">{e(sg["area"])} · priority {sg["impact"] * sg["confidence"]}</div></td>'
-            f'<td class="small">{e((label or sg.get("recommendation", "")).strip())}</td>'
-            f'<td class="small">{e(reason)}<div class="tiny muted">Blocked by: {blist}</div></td>'
-            f'<td>{state}</td>'
-            f'<td class="small">{ev_links} <a class="src" href="flagged.html">Flagged ↗</a></td>'
-            f'</tr>')
-
-    fields = []
-    for sg in order:
-        letter, label, kind, reason = computed[sg["id"]]
-        opts_html = "".join(
-            f'<label class="dec-opt"><input type="radio" name="dec-{e(sg["id"])}" '
-            f'value="{e((o.get("label") or "").strip()[0])}" data-sg="{e(sg["id"])}">'
-            f'<span>{e(o.get("label"))}</span>'
-            f'<em class="tiny muted">effort {e(str(o.get("effort")))} · risk {e(str(o.get("risk")))}</em>'
-            + ('<b class="tag-default">default</b>' if (o.get("label") or "").strip().startswith(letter + ".") and kind == "auto" else "")
-            + '</label>'
-            for o in (sg.get("options") or []))
-        fields.append(
-            f'<fieldset class="dec-row" data-sg="{e(sg["id"])}" '
-            f'data-title="{e(sg["title"])}" data-default="{e(letter if kind == "auto" else "")}">'
-            f'<legend><a href="suggestions.html#{e(sg["id"].lower())}">{e(sg["id"])}</a> '
-            f'{e(sg["title"])} '
-            + (f'<span class="pill pill-ok">default {e(letter)}</span>' if kind == "auto"
-               else '<span class="pill pill-warn">waits for you</span>')
-            + '</legend>'
-            f'<p class="tiny muted">{e(sg.get("problem", ""))[:220]}{"…" if len(sg.get("problem", "")) > 220 else ""}</p>'
-            f'{opts_html}'
-            f'<label class="hold-row"><input type="radio" name="dec-{e(sg["id"])}" value="HOLD" '
-            f'data-sg="{e(sg["id"])}"><span>Hold this one — change nothing</span></label>'
-            f'<textarea class="dec-note" rows="2" data-sg="{e(sg["id"])}" '
-            f'placeholder="Optional: a condition, a date, or why. This travels with your choice."></textarea>'
-            f'</fieldset>')
-
-    if recorded:
-        rec_tbl = ('<table><thead><tr><th>Suggestion</th><th>Chosen path</th><th>Recorded</th>'
-                   '<th>Note</th></tr></thead><tbody>' + "".join(
-                       f'<tr><td class="num">{e(c["id"])}</td><td>{e(str(c.get("chosen_path", "")))}</td>'
-                       f'<td>{e(str(c.get("recorded_at", "")))}</td>'
-                       f'<td class="small">{e(str(c.get("note", "") or "—"))} '
-                       f'<a class="src" href="flagged.html">context ↗</a></td></tr>'
-                       for c in (log.get("choices") or [])) + "</tbody></table>")
-        rec_note = ""
-    else:
-        rec_tbl = ('<div class="callout note"><p class="small" style="margin:0">No owner decision is '
-                   'recorded in the repository yet, so every row below stands on its default. That is '
-                   'the designed state, not a gap: <code>choices</code> stays empty until a person '
-                   'chooses, because a session that fills it would be inventing an instruction. '
-                   + str(n_auto) + ' suggestions carry a default that a later pass may implement '
-                   'without asking; ' + str(n_hold) + ' hold until someone picks.</p></div>')
-        rec_note = ""
-
-    steps = "".join(f"<li>{e(x)}</li>" for x in log.get("how_to_return_a_choice", []))
-
-    auto_in_order = [sg for sg in order if computed[sg["id"]][2] == "auto"]
-    queue = "".join(
-        f'<li><a href="suggestions.html#{e(sg["id"].lower())}">{e(sg["id"])}</a> — '
-        f'path {e(computed[sg["id"]][0])} · {e(sg["title"])}'
-        f'<div class="tiny muted">priority {sg["impact"] * sg["confidence"]} · effort '
-        f'{e(str(sg.get("effort", "")))} · touches: {e(sg.get("area", ""))}</div></li>'
-        for sg in auto_in_order)
-
-    body = f"""
-<p class="crumbs"><a href="index.html">Home</a> / Owner decision log</p>
-<h1>Owner decision log: pick a path, or let the stated default stand</h1>
-<p class="lede">The suggestion queue runs to {len(order)} entries, and a queue nobody closes is a
-backlog. This page is the closing mechanism: one picker per suggestion, the default that applies if
-nobody answers, and an export that turns picks into the file the next agent pass reads. The rule is
-computed from the same registers the suggestions live in, so the page cannot promise a default its
-own data does not support.</p>
-
-<div class="callout info">
-  <strong>The standing rule.</strong>
-  <p class="small">{e((log.get("policy") or {}).get("text", ""))}</p>
-  <p class="small"><strong>What silence never authorises.</strong> {e((log.get("policy") or {}).get("scope_limit", ""))}</p>
-  <p class="tiny muted" style="margin-bottom:0">{e((log.get("policy") or {}).get("rule_applied", ""))}</p>
-</div>
-
-<div class="grid grid-3">
-  <div class="stat"><div class="n">{len(order)}</div><div class="l">Suggestions on the queue</div><div class="h"><a href="suggestions.html">Read them →</a></div></div>
-  <div class="stat ok"><div class="n">{n_auto}</div><div class="l">Carry a default a pass may implement</div><div class="h">reversible · low risk · unblocked</div></div>
-  <div class="stat warn"><div class="n">{n_hold}</div><div class="l">Hold until someone picks</div><div class="h"><a href="questions.html">Open questions →</a></div></div>
-</div>
-
-<h2>How a choice becomes work</h2>
-<ol class="small">{steps}</ol>
-
-<h2>The register</h2>
-<p class="small muted">Read the default column before the picker: it is what happens if you do
-nothing. Priority is the scoring this register carries, judgement rather than measurement — the
-evidence links are the facts.</p>
-<div class="tablewrap">
-<table>
-  <caption>Every open suggestion, its default, and what it waits on</caption>
-  <thead><tr><th>#</th><th>Suggestion</th><th>Path it recommends</th><th>If nobody answers</th>
-  <th>State</th><th>Evidence</th></tr></thead>
-  <tbody>{"".join(rows)}</tbody>
-</table>
-</div>
-
-<h2>Pick a path</h2>
-<p class="small muted">Choices are stored in this browser (localStorage) so the page remembers
-between visits, and nothing leaves the page until you press copy or download. The <em>default</em>
-tag marks the path the register would take if you said nothing — picking it explicitly is still
-worth it, because a recorded choice outranks a default and says why.</p>
-<div class="decision-actions">
-  <span id="decision-counter" class="tiny muted">0 of {len(order)} picked in this browser</span>
-  <button type="button" class="btn btn-ghost" data-decision-action="copy">Copy decision record</button>
-  <button type="button" class="btn" data-decision-action="download">Download decision-log.json</button>
-  <button type="button" class="btn btn-ghost" data-decision-action="clear">Clear this browser&rsquo;s picks</button>
-</div>
-<div class="decision-picker" id="decision-picker">
-{"".join(fields)}
-</div>
-<pre class="decision-out" id="decision-output" hidden></pre>
-
-<h2>What is recorded in the repository</h2>
-{rec_tbl}
-<p class="tiny muted">{e((log.get("choices_note") or "").strip())}</p>
-
-<h2>For the next agent pass</h2>
-<p class="small muted">In this order, one commit per row, each with the evidence that justifies it.
-{n_auto} defaults is a queue, not a big-bang release: a pass that lands a dozen page changes in
-one commit cannot say which one broke a page, and this site&rsquo;s own rule is that a change has to
-be checkable on its own.</p>
-<ol class="small">{queue}</ol>
-<p class="small">Read <code>data/decision-log.json</code> first. A recorded choice outranks the
-default in this table, and a row with neither is still open. Implementing a default means the
-change and its evidence in one commit, then a row appended to <code>choices</code> naming this
-session, the path and the date, so the next reader sees that the default was executed rather than
-merely available. Nothing on this page authorises spending, credential changes, account actions, or
-a product fact the flag register holds open.</p>
-<p class="small"><a href="suggestions.html">Suggestions queue</a> ·
-<a href="questions.html">Open questions</a> ·
-<a href="requirements.html">Requirements and status</a> ·
-<a href="flagged.html">Flagged for review</a></p>
-"""
-    return layout("decision-log.html", "Owner decision log", body, active="decision-log.html",
-                  description="Every suggestion on the queue with the path it recommends, the default that stands if the owner says nothing, and a picker that records a chosen path as a file the next agent pass can implement.",
-                  jsonld_blocks=[breadcrumbs_jsonld([
-        ("Home", SITE_URL + "/"),
-        ("Owner decision log", page_url("decision-log.html")),
-    ])]
-              )
-
-
 def page_suggestions_alt():
     rows = []
     for sid, area, text, basis, basis_src, options, effort in SUGGESTIONS_ALT:
@@ -4511,10 +4500,29 @@ def page_topics():
             f'<td class="small">{cites}</td></tr>'
         )
 
-    # Detail cards only for what is not written yet; published topics are one click away.
+    # Detail cards. The plan table links every row to #tp-NN, so every row must have a
+    # target: before this pass the block below was skipped for published topics, which
+    # left 8 of 14 in-page links on this page pointing at nothing. Published topics get
+    # a short card that links the article; unwritten ones get the full brief.
     cards = []
     for it in items:
         if it["status"] == "published":
+            cites = " ".join(
+                f'<a class="src-link" href="{e(c["url"])}" target="_blank" rel="noopener">{e(c["label"])} ↗</a>'
+                for c in it["must_cite"]
+            )
+            cards.append(f"""
+<article class="sug" id="{e(it['id'].lower())}">
+  <div class="sug-head">
+    <div>
+      <div class="tiny muted">{e(it['id'])} · {e(it['intent'])} · published</div>
+      <h3><a href="../{e(it['published_as'])}">{e(it['title'])}</a></h3>
+    </div>
+  </div>
+  <p><strong>The angle.</strong> {e(it['angle'])}</p>
+  <p class="small"><a href="../{e(it['published_as'])}">Read the article →</a></p>
+  <div class="evidence"><strong>Must cite.</strong> {cites}</div>
+</article>""")
             continue
         cites = " ".join(
             f'<a class="src-link" href="{e(c["url"])}" target="_blank" rel="noopener">{e(c["label"])} ↗</a>'
@@ -4573,20 +4581,23 @@ owner's manual, so none of them requires a claim this site cannot support.</p>
 </div>
 
 <h2>The plan</h2>
-<table>
+<div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Topic</th><th>Intent</th><th>Serves</th><th>State</th><th>Must cite</th></tr></thead>
   <tbody>{''.join(rows)}</tbody>
-</table>
+</table></div>
 <p class="tiny muted">{e(t['demand_note'])}</p>
 
-<h2>Not written yet</h2>
-<p class="small">{''.join(cards) if cards else '<span class="muted">Nothing is outstanding.</span>'}</p>
+<h2>The brief behind each topic</h2>
+<p class="small muted">Every row in the plan table links here. Published topics link straight to the
+article; unwritten ones carry the angle, the reason it could earn traffic, the sources any finished
+version must cite, and what blocks it.</p>
+<p class="small">{''.join(cards) if cards else '<span class="muted">No topics are on the plan yet.</span>'}</p>
 
 <h2>How any of it may be promoted</h2>
-<table>
+<div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Channel</th><th>Status</th><th>Verdict</th><th>The constraint</th><th>Source</th></tr></thead>
   <tbody>{''.join(ch_rows)}</tbody>
-</table>
+</table></div>
 <p class="tiny muted">{e(t['channels_note'])}</p>
 
 <div class="callout note" style="margin-top:1.5rem">
@@ -4727,9 +4738,9 @@ def page_requirements():
         sections.append(
             f'<h2 id="group-{gid.lower()}">{gid}. {e(gname)}</h2>'
             f'<p class="tiny muted">{len(rows)} requirements · {e(summary)}</p>'
-            '<table><thead><tr><th>#</th><th>Requirement</th><th>Status</th>'
+            '<div class="tablewrap"><table><thead><tr><th>#</th><th>Requirement</th><th>Status</th>'
             '<th>What that status means here</th><th>Where it lives</th><th>Evidence</th>'
-            f'</tr></thead><tbody>{"".join(row(r) for r in rows)}</tbody></table>'
+            f'</tr></thead><tbody>{"".join(row(r) for r in rows)}</tbody></table></div>'
         )
 
     legend_html = "".join(
@@ -5142,13 +5153,15 @@ def page_articles_index():
             if links:
                 prods = ('<p class="tiny muted" style="margin:.4rem 0 0">About: '
                          + " · ".join(links) + "</p>")
+        # An article that serves no single product (site-level pieces) leaves prods
+        # empty; emitting the slot anyway would publish a trailing-whitespace line.
+        prods_html = (prods + "\n") if prods else ""
         cards.append(f"""<article class="card article-card">
   <span class="kicker">{e(a['kicker'])}</span>
   <a class="cardtitle" href="../articles/{a['slug']}.html">{e(a['title'])}</a>
   <span class="cardtext">{e(a['standfirst'])}</span>
   <span class="tiny muted">{e(a['kind'])} · {a['reading_minutes']} min read</span>
-  {prods}
-</article>""")
+{prods_html}</article>""")
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Articles</p>
 <h1>Articles</h1>
@@ -5713,11 +5726,93 @@ def check_flag_ids_unique():
     """
     from collections import Counter
     page = page_flagged()
-    ids = re.findall(r'<tr><td class="num"><strong>(F\d+)</strong>', page)
+    # The row markup carries an id attribute since pass 10 (<tr id="fNN">); matching on
+    # `<tr><td class="num">` made this guard find zero rows and pass vacuously. Located
+    # by the fixed flag-count guard below, 2026-11-16 (arena/2e346d24).
+    ids = re.findall(r'<tr id="f\d+"><td class="num"><strong>(F\d+)</strong>', page)
     dupes = sorted(k for k, v in Counter(ids).items() if v > 1)
     if dupes:
         return [f"flag id(s) rendered more than once on flagged.html: {', '.join(dupes)}"]
     return []
+
+
+def check_flag_count_matches_page():
+    """Build guard: the landing page's "Flags open" tile must equal the register it links to.
+
+    The defect this prevents was live on main at 9c6deab: `_flag_count()` matched
+    `<tr><td class="num">` while `page_flagged()` had emitted `<tr id="fNN">` since the
+    per-row anchors landed, so the front page advertised "0 Flags open" beside a 61-row
+    register. A typed total is what passes 9 and 10 both caught themselves getting wrong;
+    a computed total is only better if something checks the computation. This does.
+    """
+    rendered = len(re.findall(r'<tr id="f\d+"><td class="num"><strong>F\d+</strong>',
+                              page_flagged()))
+    computed = _flag_count()
+    if rendered == 0:
+        return ["flagged.html renders no flag rows, so the landing-page count cannot be trusted"]
+    if rendered != computed:
+        return [f"landing-page flag count ({computed}) disagrees with the rendered "
+                f"register ({rendered} rows)"]
+    # The tile on index.html must publish that same number, not a literal of its own.
+    idx = page_index()
+    m = re.search(r'<div class="tile"><b>(\d+)</b><span>Flags open', idx)
+    if not m:
+        return ["index.html no longer renders the Flags open tile"]
+    if int(m.group(1)) != rendered:
+        return [f"index.html publishes {m.group(1)} flags, register holds {rendered}"]
+    return []
+
+
+def check_callout_states_and_table_wraps(pages):
+    """Build guard: every CSS state a page uses must be defined, and wide tables must scroll.
+
+    Two visual defects were live on main at 9c6deab and neither had a gate:
+    `.callout.note` (13 uses) and `.callout.warn` (33 uses) had no rule in the stylesheet, so
+    46 callouts rendered with no colour distinction between "for information" and "this could
+    be wrong"; and four register pages emitted `<table>` outside `.tablewrap`, so those
+    tables forced the whole page to scroll sideways at phone width. Both are cheap to check
+    and expensive to notice by eye on a page nobody proof-reads twice.
+    """
+    problems = []
+    defined = set(re.findall(r'\.callout\.([a-z]+)', CSS))
+    for rel, text in pages.items():
+        if not rel.endswith(".html"):
+            continue
+        used = set(re.findall(r'class="callout ([a-z]+)"', text))
+        for state in sorted(used - defined):
+            problems.append(f"{rel}: .callout.{state} is used but has no CSS rule")
+        for m in re.finditer(r"<table[ >]", text):
+            before = text[max(0, m.start() - 220):m.start()]
+            if "tablewrap" not in before:
+                problems.append(f"{rel}: a <table> is not inside .tablewrap and will "
+                                f"overflow the viewport on a narrow screen")
+                break
+    return problems
+
+
+def check_internal_fragments(pages):
+    """Build guard: every href="#id" must resolve to an element on the page it names.
+
+    `verify.py` checks that a link's *file* exists; it has never checked the fragment.
+    A plan table that links each row to a detail block the template no longer emits is
+    therefore invisible to every existing gate - which is exactly what topics.html was
+    doing for 8 of its 14 rows when this guard was written (2026-11-16, arena/2e346d24).
+    """
+    ids = {rel: set(re.findall(r'\sid="([^"]+)"', text)) for rel, text in pages.items()}
+    problems = []
+    for rel, text in pages.items():
+        if not rel.endswith(".html"):
+            continue
+        for target, frag in re.findall(r'href="([^"#]*)#([^"]+)"', text):
+            if frag in ("", "top"):
+                continue
+            dest = rel if target == "" else posixpath.normpath(
+                posixpath.join(posixpath.dirname(rel), target))
+            if dest not in ids:
+                continue  # an external or generated-at-another-step target; verify.py owns it
+            if frag not in ids[dest]:
+                problems.append(f"{rel}: href=\"{target}#{frag}\" has no target in {dest}")
+    return problems
 
 
 def _canonical_flag_ids():
@@ -6079,6 +6174,7 @@ def main():
     assets.mkdir(exist_ok=True)
     (assets / "style.css").write_text(CSS, encoding="utf-8")
     (assets / "app.js").write_text(JS, encoding="utf-8")
+    build_figures()
 
     for d in ("products", "categories", "guides", "articles"):
         (ROOT / d).mkdir(exist_ok=True)
@@ -6099,11 +6195,12 @@ def main():
     pages["platform.html"] = page_platform()
     pages["executive-summary.html"] = page_exec()
     pages["reverification.html"] = page_reverification()
+    pages["pass10.html"] = page_pass10()
+    pages["figures.html"] = page_figures()
     pages["picks.html"] = page_picks()
     pages["decisions.html"] = page_decisions()
     pages["handover.html"] = page_handover()
     pages["suggestions.html"] = page_suggestions()
-    pages["decision-log.html"] = page_decision_log()
     pages["design-prompt.html"] = page_design_prompt()
     pages["questions.html"] = page_questions()
     pages["requirements.html"] = page_requirements()
@@ -6146,6 +6243,18 @@ def main():
     flag_id_problems = check_flag_ids_unique()
     if flag_id_problems:
         raise SystemExit("BUILD FAILED — flag register integrity:\n  " + "\n  ".join(flag_id_problems))
+    flag_count_problems = check_flag_count_matches_page()
+    if flag_count_problems:
+        raise SystemExit("BUILD FAILED — landing-page total disagrees with the published "
+                         "register:\n  " + "\n  ".join(flag_count_problems))
+    visual_problems = check_callout_states_and_table_wraps(pages)
+    if visual_problems:
+        raise SystemExit("BUILD FAILED — rendered page would not display as designed:\n  "
+                         + "\n  ".join(visual_problems))
+    fragment_problems = check_internal_fragments(pages)
+    if fragment_problems:
+        raise SystemExit("BUILD FAILED — an in-page link points at an element that is not "
+                         "rendered:\n  " + "\n  ".join(fragment_problems))
     ref_problems = check_question_block_refs()
     if ref_problems:
         raise SystemExit("BUILD FAILED — decision-layer cross-reference:\n  " + "\n  ".join(ref_problems))

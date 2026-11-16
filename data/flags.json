@@ -307,6 +307,18 @@
     "S2"
    ],
    "action": "Labels corrected in build.py, data/compliance.json, data/products.json, data/sources.json, data/platform.json, data/marketing.json, README.md, EXECUTIVE-SUMMARY.md and EXECUTIVE_SUMMARY.md; no content change."
+  },
+  {
+   "id": "F28",
+   "severity": "Medium",
+   "type": "Unverified data",
+   "item": "Product photography rights",
+   "detail": "No row records which images (if any) the site will publish, whose permission covers them, or how Amazon Program Content image rights apply to these specific products. The design layer offers owner photos, licensed imagery and Program Content as options (SG-23), but none is decided; Q-22 asks what may be published and whose permission covers it. Until a decision is recorded, no product photography is published and the figures on figures.html are generated diagrams, not photographs.",
+   "sources": [
+    "S1",
+    "S2"
+   ],
+   "action": "Record the photography decision as suggestion SG-23, answer Q-22 from Amazon's Program Content/IP rules and the FTC disclosure guidance, then publish only licensed or owner-taken images."
   }
  ]
 }

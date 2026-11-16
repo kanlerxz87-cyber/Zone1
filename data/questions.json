@@ -626,6 +626,32 @@
      "url": "https://affiliate-program.amazon.com/help/operating/policies"
     }
    ]
+  },
+  {
+   "id": "Q-22",
+   "group": "Product photography",
+   "question": "Which images may this site publish, and whose permission covers them?",
+   "state": "missing",
+   "why_it_matters": "SG-23 cannot be decided, and no product photography can be published safely, until the image source and its rights are recorded.",
+   "what_we_know": [
+    "Amazon's Operating Agreement licenses Program Content (including images) to Associates under the Agreement's rules.",
+    "The FTC requires clear disclosure of material connections, which applies to imagery as well as text."
+   ],
+   "what_is_missing": "A recorded decision on which image source the site uses, and the rights statement covering each image.",
+   "how_to_discover": "Read Amazon's Program Content/IP provisions in the Operating Agreement and Program Policies, then decide between owner photos, licensed imagery, Program Content images, or text-and-diagrams only.",
+   "blocks": [
+    "SG-23"
+   ],
+   "sources": [
+    {
+     "label": "Associates Program Operating Agreement",
+     "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+    },
+    {
+     "label": "Associates Program Policies",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+   ]
   }
  ]
 }

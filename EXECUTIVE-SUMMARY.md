@@ -915,9 +915,25 @@ to end, and said so (F62). It did not change any published value that a source d
 contradict, and it did not touch a single file in `site/`, `s2/`, `data/s2/`, `research/`,
 `platform/`, `docs/`, `dashboard/`, `crosscheck/` or `annex-88769516/`.
 
-## 18. Pass 11 — the premise that cost ten passes, and a way to close the decision queue (2026-11-16, session `arena/ba29c641-zone1`)
+---
 
-### 18.1 The finding that matters
+## 18. Pass 10 content pass — session `arena/121929a5-zone1` (2026-11-16)
+
+Complements §17: session 9fccce0c re-verified the register and repaired its cross-references; this
+session re-read the wider registry live (short-link resolutions with titles matching stored records
+character-for-character; two Amazon detail pages direct, one via the resolver after a bot checkpoint;
+all three manufacturer pages; the Chefman 6 Qt manual; OA §5; Program Policies April 14, 2026;
+FTC/eCFR), then wrote the five articles the topic queue had planned (TP-07 box contents, TP-08
+rotisserie, TP-09 sync modes, TP-10 aerosol-oil care, A-9 disclosure explainer) — article set 12 → 17.
+Corrected three stale status rows (TP-04, TP-11, A-11) that disagreed with the already-published
+article set, and filled the one verifiable blank (Emeril browse node) from a live official page.
+Recorded the same-day S3 finding (schedule now public; Kitchen 4.50% matches the candidate rows).
+Full report: [`reports/verification-2026-11-16-121929a5.md`](reports/verification-2026-11-16-121929a5.md);
+one-page briefing: [`EXECUTIVE-SUMMARY-PASS10-121929a5.md`](EXECUTIVE-SUMMARY-PASS10-121929a5.md).
+
+## 19. Pass 11 — the premise that cost ten passes, and a way to close the decision queue (2026-11-16, session `arena/ba29c641-zone1`)
+
+### 19.1 The finding that matters
 
 Pass 10 recorded at §17.6 that F1/F2 "are not answerable from outside the account holder's browser".
 They were. This pass fetched `https://www.amazon.com/dp/B0CDY277D3`, `B09B7SB46R` and `B08DKYBTPH`
@@ -936,7 +952,7 @@ still not ASINs, and still arrive through `plpRedirect=mhFallback` (F6, F7, F10 
 on this site now says the listing hides its model number; the register's F1 was corrected rather
 than deleted, so the wrong premise stays visible in the file that carried it.
 
-### 18.2 Four conflicts this pass found, and did not resolve
+### 19.2 Four conflicts this pass found, and did not resolve
 
 * **F64** — the 8 Qt's footprint: brand page 15.4 × 12.6 × 13.5 in, its own listing 12.75 × 13.5 × 10
   (S12 vs S29); and the 6 Qt's listing Capacity field reading "6 liters" where its title, its Size
@@ -955,7 +971,7 @@ these fetches and are **not** on the site: Program Policies §2(b) and §6(t) fo
 for rank data, which stays a decision not to publish rather than a claim that no such figure exists
 (that wording was corrected in the s2 register, R-03).
 
-### 18.3 Two gates repaired, one of which could not fail
+### 19.3 Two gates repaired, one of which could not fail
 
 `.github/workflows/ci.yml` and `scripts/ci-check.sh` both ran `build_s2_site.py` (which writes) and
 then `--check` (which compares a rebuild with the files the previous line had just produced). The
@@ -970,7 +986,7 @@ paths that exist, R-08 restates the blocker as the ASIN-to-commission-category m
 public Commission Income Statement as its source, and R-03's "no public demand metric exists" was
 corrected to the reason that is actually true here.
 
-### 18.4 The decision queue now has a closing mechanism
+### 19.4 The decision queue now has a closing mechanism
 
 `suggestions.html` held 22 reviewed suggestions and no way to finish one. `decision-log.html` is new:
 one picker per suggestion, the register's own recommended path, and a computed *adopt-after-silence*
@@ -985,7 +1001,7 @@ that filled it would be inventing an instruction. Q-01 and Q-02 moved from `miss
 because this pass answered them from the listing read, and SG-01's "five minutes in a browser" is
 closed as unnecessary.
 
-### 18.5 What pass 11 did not do
+### 19.5 What pass 11 did not do
 
 It did not touch `articles/`, `data/articles.json` or `data/topics.json` — the two open PRs on the
 board (#94, #95) own that ground, and a third copy of the same source ledger was the last thing this

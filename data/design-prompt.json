@@ -201,11 +201,12 @@
       "title": "Amazon Associates disclosure: what 'As an Amazon Associate I earn from qualifying purchases' actually means",
       "format": "Policy explainer",
       "hook": "Disclosure explained for readers; signals compliance.",
-      "status": "not-written",
-      "status_note": "Not written. The compliance page quotes the rules for operators; nothing yet explains them to a reader.",
-      "published_as": null,
+      "status": "published",
+      "status_note": "Written 2026-11-16 (pass 10, session 121929a5) as the disclosure explainer: OA §5 wording and breach clause, FTC placement guidance, 16 CFR 255.5, and what the sentence does not permit. Complements the affiliate-economics piece, which already covers the FTC layer.",
+      "published_as": "articles/associates-disclosure-explained.html",
       "cites": ["S1", "S8"],
-      "links": []
+      "links": [],
+      "status_note_prev": "Not written. The compliance page quotes the rules for operators; nothing yet explains them to a reader."
     },
     {
       "id": "A-10",
@@ -223,11 +224,12 @@
       "title": "Will it fit? Reading air-fryer dimensions before you buy",
       "format": "Buying guide",
       "hook": "Counter-space decision from the dimension rows the dataset now carries - feeds the secondary cluster recommended on decisions.html.",
-      "status": "not-written",
-      "status_note": "Not written; recommended as the next topic. The three products' exterior dimensions are published in the verified dataset, so the article is fully sourced without any new research.",
-      "published_as": null,
+      "status": "published",
+      "status_note": "Status corrected 2026-11-16 (pass 10, session 121929a5): already published by session 792c279e as the counter-space guide; this register still said 'not-written'. No content change.",
+      "published_as": "articles/small-kitchen-air-fryer-dimensions.html",
       "cites": ["S10", "S12", "S14"],
-      "links": []
+      "links": [],
+      "status_note_prev": "Not written; recommended as the next topic. The three products' exterior dimensions are published in the verified dataset, so the article is fully sourced without any new research."
     }
   ],
   "tactics": [
