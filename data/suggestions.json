@@ -1136,6 +1136,55 @@
   },
   {
    "id": "SG-23",
+   "title": "Settle product photography licensing before any image is published",
+   "area": "Trust and compliance",
+   "problem": "The design layer offers owner photos, licensed imagery and Amazon Program Content as image options, but no row records which images (if any) the site will publish, whose permission covers them, or how Program Content image rights apply to these specific products. Publishing unlicensed manufacturer or brand photography would be an unmitigated rights risk on a site whose value proposition is sourcing transparency.",
+   "evidence": [
+    {
+     "url": "https://affiliate-program.amazon.com/help/operating/agreement",
+     "label": "Associates Program Operating Agreement — Program Content and IP rules (S1)"
+    },
+    {
+     "url": "https://affiliate-program.amazon.com/help/operating/policies",
+     "label": "Associates Program Policies (S2)"
+    }
+   ],
+   "options": [
+    {
+     "label": "A",
+     "what": "Publish only owner-taken photographs, credited as such.",
+     "effort": "High",
+     "risk": "Low",
+     "reversible": true
+    },
+    {
+     "label": "B",
+     "what": "Use Amazon Program Content images only as the Operating Agreement allows, with the required disclosure.",
+     "effort": "Medium",
+     "risk": "Medium",
+     "reversible": true
+    },
+    {
+     "label": "C",
+     "what": "Stay text-and-diagram only; the figures on figures.html are generated from data/products.json, not photographed.",
+     "effort": "Low",
+     "risk": "Low",
+     "reversible": true
+    }
+   ],
+   "recommendation": "C for now (lowest risk, no rights decision required), with A revisited if the owner takes their own product photos.",
+   "why": "No image-rights decision exists in the repository; choosing C keeps the site publishable while Q-22 is answered.",
+   "impact": 3,
+   "confidence": 5,
+   "effort": "Low",
+   "risk_of_not_doing": "Unlicensed brand or manufacturer photography published by mistake, with no rights trail.",
+   "blocks": [],
+   "blocked_by": [
+    "Q-22"
+   ]
+  },
+  {
+   "id": "SG-24",
    "title": "Ship the seasonal content while the season is live, and date-stamp it",
    "area": "Content strategy",
    "problem": "The brief asks for trendy topics and organic traffic, and organic traffic has windows: gift-guide and deal queries for this category peak in November and December and close at year's end. As of this pass the topic register had no seasonal rows at all, while every value a seasonal cluster needs is already published with per-row sources. The cost of the usual response - 'plan the seasonal content properly, ship it next quarter' - is that the window closes first. This pass publishes the first piece (TP-15) and queues two more (TP-16, TP-17); what is missing is the owner's decision on how many pieces the window deserves and who signs them off.",
@@ -1180,11 +1229,11 @@
    "risk_of_not_doing": "Medium. Nothing breaks and no rule is breached; the site simply sits out the quarter when air-fryer searches and Kitchen-category commission both peak, then restarts the calendar in January having published nothing for the audience that arrived in November.",
    "blocks": [],
    "blocked_by": [
-    "Q-22"
+    "Q-23"
    ]
   },
   {
-   "id": "SG-24",
+   "id": "SG-25",
    "title": "One compliant call-to-action pattern on every money page — design it now, wire it when the tag exists",
    "area": "Editorial and conversion",
    "problem": "The site has exactly one call-to-action component and it lives on the three product pages only: a button reading 'Open supplied Amazon link - verify model' with rel=\"nofollow sponsored\". The comparison page, the buying guide, the picks page and the articles end without any next step for the reader, and the design prompt the owner will hand to a designer contains no CTA component spec at all. The complication is real: the supplied links carry no observable tag (Q-04) and are flagged as possible Redirecting Links, so the honest CTA today is not 'buy now' but 'check the listing yourself'. A designed pattern can say that in one line, appear on every page that discusses a product, and swap to tagged Special Links the day attribution exists.",
@@ -1237,7 +1286,7 @@
    ]
   },
   {
-   "id": "SG-25",
+   "id": "SG-26",
    "title": "Put a five-row 'decide this first' triage at the top of the decision queue",
    "area": "Decision making",
    "problem": "The decision layer holds more than forty rows across suggestions, open questions and several paths — a backlog, by the register's own admission. The brief asks for a section that improves decision making, and the register delivers evidence but not order: a reviewer must read every row before knowing which five actions unblock the rest. The ordering is already derivable from the register's own blocker graph (the product identity, tag, account-status and price-policy rows block nearly everything commercial), so the site can compute a short ranked list instead of asking a human to re-derive it every visit.",

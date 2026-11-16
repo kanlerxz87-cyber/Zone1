@@ -211,7 +211,7 @@
       ]
      }
     ],
-    "why_unverified": "Amazon's published rate table (S3) lists rates by product category. It does not publish which category a given ASIN is assigned to, and air fryers are not named in the table. Choosing between the Kitchen row and the fallback row would be inference, so the rate is left blank.",
+    "why_unverified": "Amazon's published rate table (S3) lists rates by product category. It does not publish which category a given ASIN is assigned to, and air fryers are not named in the table. Choosing between the Kitchen row and the fallback row would be inference, so the rate is left blank. Re-read 2026-11-16 (pass 10, session 121929a5): the Standard Commission Income Statement page (S3) is now publicly readable without sign-in; its Table 1 states 'Physical Books, Kitchen, Automotive — 4.50%' and 'All Other Categories — 4.00%', matching the candidate rows above. What remains unconfirmed is the mapping from this ASIN to the schedule's category for commission purposes — Amazon's own assignment is authoritative only inside Associates reporting.",
     "rate_source_note": "Only S3 is authoritative. Several well-ranked third-party blogs claimed 3%, 4.5% or 5% for kitchen appliances on the same day; those were discarded as non-official and mutually contradictory."
    },
    "competition": {
@@ -395,7 +395,8 @@
      "source": [
       "S28"
      ],
-     "note": "Read from the listing's own breadcrumb trail on 2026-11-16, after the 2026-11-15 automated 'Continue shopping' checkpoint cleared (reports/verification-2026-11-16-a746a9f2.md, V2). Identical to the two Chefman ASINs. Browse path only, not a commission category - see flag F53."
+     "unverified": "Not read. Three fetches of this ASIN on 2026-11-15 were each answered with Amazon's automated 'Continue shopping' checkpoint instead of the product page, so no breadcrumb was rendered. The two Chefman ASINs fetched cleanly in the same window. Left blank rather than assumed to match the others.",
+     "note": "Blank until 2026-11-16: filled in pass 10 (session 121929a5) from the breadcrumb trail of the live detail page (S28), re-read that day both directly and via the supplied short link. Same node string the two Chefman rows carry."
     }
    ],
    "pricing": {
@@ -447,7 +448,7 @@
       ]
      }
     ],
-    "why_unverified": "A French-door air fryer toaster oven could plausibly sit in Kitchen, Home or the fallback row. Amazon does not publish the ASIN's category, so the rate is blank. Note this product also spans multiple categories, which is exactly the case where guessing goes wrong.",
+    "why_unverified": "A French-door air fryer toaster oven could plausibly sit in Kitchen, Home or the fallback row. Amazon does not publish the ASIN's category, so the rate is blank. Note this product also spans multiple categories, which is exactly the case where guessing goes wrong. Re-read 2026-11-16 (pass 10, session 121929a5): the Standard Commission Income Statement page (S3) is now publicly readable without sign-in; its Table 1 states 'Physical Books, Kitchen, Automotive — 4.50%' and 'All Other Categories — 4.00%', matching the candidate rows above. What remains unconfirmed is the mapping from this ASIN to the schedule's category for commission purposes — Amazon's own assignment is authoritative only inside Associates reporting.",
     "rate_source_note": "Only the official Standard Commission Income Statement (S3) is used for rates. Third-party blogs claiming 3%, 4.5% or 5% for kitchen appliances were discarded: they disagreed with each other and with the published table on the day of verification."
    },
    "competition": {
@@ -690,7 +691,7 @@
       ]
      }
     ],
-    "why_unverified": "Category assignment per ASIN is not published by Amazon (S3).",
+    "why_unverified": "Category assignment per ASIN is not published by Amazon (S3). Re-read 2026-11-16 (pass 10, session 121929a5): the Standard Commission Income Statement page (S3) is now publicly readable without sign-in; its Table 1 states 'Physical Books, Kitchen, Automotive — 4.50%' and 'All Other Categories — 4.00%', matching the candidate rows above. What remains unconfirmed is the mapping from this ASIN to the schedule's category for commission purposes — Amazon's own assignment is authoritative only inside Associates reporting.",
     "rate_source_note": "Only the official Standard Commission Income Statement (S3) is used for rates. Third-party blogs claiming 3%, 4.5% or 5% for kitchen appliances were discarded: they disagreed with each other and with the published table on the day of verification."
    },
    "competition": {
@@ -701,11 +702,12 @@
    "flags": [
     {
      "id": "F3",
-     "issue": "Serious spec conflict between the Amazon listing (450 °F Hi-Fry, 4-in-1 including bake/dehydrate/frozen) and the brand page + owner's manual (200–400 °F, four food-type presets).",
-     "action": "Conflicting claims shown side by side; no value asserted. Needs the account holder to open the live listing and compare with the manual.",
+     "issue": "Serious spec conflict about maximum temperature, and the brand side disagrees with itself. The Amazon listing (S29, re-read 2026-11-16 through the supplied short link) says 450 °F Hi-Fry, 4-in-1 (bake/dehydrate/frozen). One brand page and its manual — the TurboFry Touch Stainless (RJ38-SQSS-8T, S12/S13) — document 200–400 °F with four food-type presets. But Chefman's other 8 Qt page, TurboFry 8 Qt w/ High Fry (RJ38-8T-BLACK, S26, re-read live 2026-11-16), states a 450 °F Hi-Fry button and a 450 °F / 232 °C Hi-Fry temperature, matching the listing. Two different Chefman 8 Qt models are therefore in play; which model the ASIN maps to is unconfirmed (question Q-01).",
+     "action": "Conflicting claims shown side by side; no value asserted. Needs the account holder to open the live listing, read the model number off the Product information table, and compare it with both brand pages and the manual.",
      "sources": [
       "S12",
       "S13",
+      "S26",
       "S29"
      ]
     },
@@ -739,6 +741,129 @@
     "value": "7",
     "conflicting_source": "S28",
     "reason": "The Amazon listing title for the supplied link ends 'Six Cooking Accessories Included'. It contradicts the published 7. The brand page (S14) and the owner's manual (S15) both support 7 - the manual by enumerating 13 numbered parts of which 6 are built into the appliance, leaving 7 removable accessories - so the row cites those two and the listing is recorded in the flag register instead (F48, F50)."
+   }
+  ]
+ },
+ "figures": {
+  "note": "All numbers in this block are inputs to build.py's figure generator (assets/figures/*.svg). A figure can therefore never state a number this dataset does not hold; changing a figure requires changing data/products.json and rebuilding. Sources are cited per entry and carried into each SVG's metadata.",
+  "scale_px_per_inch": 16,
+  "footprint": [
+   {
+    "product": "chefman-6qt-dual-basket",
+    "label": "Chefman 6 Qt Dual Basket",
+    "w": 13.38,
+    "d": 11.81,
+    "h": 10.63,
+    "source": "S10"
+   },
+   {
+    "product": "emeril-26qt-french-door",
+    "label": "Emeril 26 QT French Door",
+    "w": 15.8,
+    "d": 16.9,
+    "h": 14.8,
+    "source": "S14"
+   },
+   {
+    "product": "chefman-8qt-turbofry",
+    "label": "Chefman 8 Qt TurboFry",
+    "w": 15.4,
+    "d": 12.6,
+    "h": 13.5,
+    "source": "S12"
+   }
+  ],
+  "temperature": [
+   {
+    "product": "chefman-6qt-dual-basket",
+    "label": "Chefman 6 Qt",
+    "min": 200,
+    "max": 450,
+    "unit": "°F",
+    "note": "Hi-Fry holds 450 °F for 2 minutes (finish mode, not full-cycle)",
+    "source": "S10",
+    "support": "S18"
+   },
+   {
+    "product": "emeril-26qt-french-door",
+    "label": "Emeril 26 QT",
+    "min": 75,
+    "max": 500,
+    "unit": "°F",
+    "note": "Owner's manual",
+    "source": "S15"
+   },
+   {
+    "product": "chefman-8qt-turbofry",
+    "label": "Chefman 8 Qt",
+    "min": 200,
+    "max": 400,
+    "unit": "°F",
+    "note": "Listing title advertises 450 °F Hi-Fry — conflict with brand page and manual, not asserted (F3)",
+    "source": "S12",
+    "conflict_source": "S29"
+   }
+  ],
+  "presets": [
+   {
+    "product": "emeril-26qt-french-door",
+    "document": "Owner's manual (FAFO-001), Preset Mode Chart",
+    "source": "S15",
+    "count": 24,
+    "note": "Names 24 presets by name; the controlling document"
+   },
+   {
+    "product": "emeril-26qt-french-door",
+    "document": "Brand page specification block",
+    "source": "S14",
+    "count": 25,
+    "note": "Contradicts the same page's description (24) — conflict, not resolved (F29)",
+    "conflict": true
+   },
+   {
+    "product": "emeril-26qt-french-door",
+    "document": "Amazon listing title (B09B7SB46R)",
+    "source": "S28",
+    "count": 24,
+    "note": "\"24 One-Touch Preset Options\""
+   },
+   {
+    "product": "chefman-8qt-turbofry",
+    "document": "Brand page product features",
+    "source": "S12",
+    "count": 4,
+    "note": "Fries, Chicken, Fish, Meat"
+   },
+   {
+    "product": "chefman-8qt-turbofry",
+    "document": "Owner's manual RJ38-SQSS-8T",
+    "source": "S13",
+    "count": 4,
+    "note": "Preset Function Chart, same four functions"
+   },
+   {
+    "product": "chefman-6qt-dual-basket",
+    "document": "Owner's manual RJ38-SQPF-3TDB-2W",
+    "source": "S18",
+    "count": null,
+    "note": "No preset chart published; count left blank, not inferred (F36)"
+   }
+  ],
+  "decision_tree": [
+   {
+    "question": "Cooking two different foods at once, on separate settings?",
+    "yes": "chefman-6qt-dual-basket",
+    "no_question": "Replacing a toaster oven as well — toast, bake, rotisserie?"
+   },
+   {
+    "question": "Replacing a toaster oven as well — toast, bake, rotisserie?",
+    "yes": "emeril-26qt-french-door",
+    "no_question": "Cooking for 4–6 people from one basket?"
+   },
+   {
+    "question": "Cooking for 4–6 people from one basket?",
+    "yes": "chefman-8qt-turbofry",
+    "no": "Reconsider capacity before choosing a model."
    }
   ]
  }

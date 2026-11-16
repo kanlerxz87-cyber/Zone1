@@ -633,10 +633,36 @@
   },
   {
    "id": "Q-22",
+   "group": "Product photography",
+   "question": "Which images may this site publish, and whose permission covers them?",
+   "state": "missing",
+   "why_it_matters": "SG-23 cannot be decided, and no product photography can be published safely, until the image source and its rights are recorded.",
+   "what_we_know": [
+    "Amazon's Operating Agreement licenses Program Content (including images) to Associates under the Agreement's rules.",
+    "The FTC requires clear disclosure of material connections, which applies to imagery as well as text."
+   ],
+   "what_is_missing": "A recorded decision on which image source the site uses, and the rights statement covering each image.",
+   "how_to_discover": "Read Amazon's Program Content/IP provisions in the Operating Agreement and Program Policies, then decide between owner photos, licensed imagery, Program Content images, or text-and-diagrams only.",
+   "blocks": [
+    "SG-23"
+   ],
+   "sources": [
+    {
+     "label": "Associates Program Operating Agreement",
+     "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+    },
+    {
+     "label": "Associates Program Policies",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+   ]
+  },
+  {
+   "id": "Q-23",
    "group": "Content strategy",
    "question": "Who decides the publishing calendar — including seasonal pieces such as the gift guide — and what is each piece's deadline?",
    "state": "missing",
-   "why_it_matters": "The brief asks for trendy topics and organic traffic, and organic traffic has windows: gift-guide and deal queries peak in November and December and close at year's end. This pass publishes one seasonal piece (TP-15) and queues two more (TP-16, TP-17), but no register can decide on the owner's behalf how many pieces the window deserves, who signs them off, or what the January window is for. Without an answer the queue stalls exactly when search demand and the 4.50% Kitchen commission rate overlap (SG-23).",
+   "why_it_matters": "The brief asks for trendy topics and organic traffic, and organic traffic has windows: gift-guide and deal queries peak in November and December and close at year's end. This pass publishes one seasonal piece (TP-15) and queues two more (TP-16, TP-17), but no register can decide on the owner's behalf how many pieces the window deserves, who signs them off, or what the January window is for. Without an answer the queue stalls exactly when search demand and the 4.50% Kitchen commission rate overlap (SG-24).",
    "what_we_know": [
     "The Standard Commission Income Statement, read live 2026-11-16, pays 4.50% on Kitchen and 4.00% on All Other Categories.",
     "The topic register now holds three seasonal rows: TP-15 (gift guide, published 2026-11-16), TP-16 (hosting capacity) and TP-17 (deal-season checks), both proposed.",
@@ -646,7 +672,7 @@
    "what_is_missing": "A one-line owner decision: which seasonal window(s) to target, how many pieces per window, who approves a publish, and the date each piece must be ready by. 'No seasonal content' is also a usable answer — it would retire TP-16 and TP-17 instead of leaving them pending.",
    "how_to_discover": "The owner states the calendar once — in COORDINATION.md, in a dated reply, or in the handover sheet — and the editorial queue's blocked_by rows are cleared against that statement. The search window itself is not in dispute; only the owner's appetite and sign-off are missing.",
    "blocks": [
-    "SG-23"
+    "SG-24"
    ],
    "sources": [
     {

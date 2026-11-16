@@ -908,16 +908,32 @@ to end, and said so (F62). It did not change any published value that a source d
 contradict, and it did not touch a single file in `site/`, `s2/`, `data/s2/`, `research/`,
 `platform/`, `docs/`, `dashboard/`, `crosscheck/` or `annex-88769516/`.
 
-## 18. Line-by-line review, live re-verification and the seasonal content pass — 2026-11-16 (session `arena/a746a9f2`, branch `arena/a746a9f2-zone1`)
+---
+
+## 18. Pass 10 content pass — session `arena/121929a5-zone1` (2026-11-16)
+
+Complements §17: session 9fccce0c re-verified the register and repaired its cross-references; this
+session re-read the wider registry live (short-link resolutions with titles matching stored records
+character-for-character; two Amazon detail pages direct, one via the resolver after a bot checkpoint;
+all three manufacturer pages; the Chefman 6 Qt manual; OA §5; Program Policies April 14, 2026;
+FTC/eCFR), then wrote the five articles the topic queue had planned (TP-07 box contents, TP-08
+rotisserie, TP-09 sync modes, TP-10 aerosol-oil care, A-9 disclosure explainer) — article set 12 → 17.
+Corrected three stale status rows (TP-04, TP-11, A-11) that disagreed with the already-published
+article set, and filled the one verifiable blank (Emeril browse node) from a live official page.
+Recorded the same-day S3 finding (schedule now public; Kitchen 4.50% matches the candidate rows).
+Full report: [`reports/verification-2026-11-16-121929a5.md`](reports/verification-2026-11-16-121929a5.md);
+one-page briefing: [`EXECUTIVE-SUMMARY-PASS10-121929a5.md`](EXECUTIVE-SUMMARY-PASS10-121929a5.md).
+
+## 19. Line-by-line review, live re-verification and the seasonal content pass — 2026-11-16 (session `arena/a746a9f2`, branch `arena/a746a9f2-zone1`)
 
 Task **X-a746a9f2** on the coordination board. This pass answered the brief's three standing
 demands — verify everything against official sources with links, keep the site a polished
 marketing property rather than an audit report, and leave the owner with a decision layer
-instead of more reading — in one integrated sweep. It merged at the same seam as concurrent
-rounds 10–11 (sessions `c334fb1c`, `9f0e6668`, `ad8105b3`, `9fccce0c`, `dc3f8b5d`, `3dfe4b45`);
-every collision is listed in §18.3.
+instead of more reading — in one integrated sweep. It merged at the same seams as concurrent
+rounds 10–11 (sessions `c334fb1c`, `9f0e6668`, `ad8105b3`, `9fccce0c`, `dc3f8b5d`, `3dfe4b45`,
+`695f03b7`, `121929a5`, `f3ada6ba` and others); every collision is listed in §19.3.
 
-### 18.1 What was verified (14/14 sources read live on 2026-11-16)
+### 19.1 What was verified (14/14 sources read live on 2026-11-16)
 
 Full evidence table: `reports/verification-2026-11-16-a746a9f2.md` (rows V1–V14: the exact string
 read back per row, with the URL and the verdict). Summary:
@@ -934,72 +950,73 @@ read back per row, with the URL and the verdict). Summary:
   2026); commission table read in full with no login (Kitchen 4.50%, All Other 4.00%); the required
   disclosure sentence verbatim; 3-sales/180-days, 10 posts, 60-day recency; "You can't talk about
   your experience with a product you haven't tried"; 16 CFR 255 current as of 11/12/2026.
-* **One blank cell filled from a verbatim read** (nothing inferred): the Emeril
-  "Amazon browse node", previously unrendered behind the checkpoint, is populated from today's
-  breadcrumb read (S28) and flagged with its limit exactly as F53 requires. Result: 44 of 46
-  specification rows verified; the two remaining blanks are genuine (no preset count is documented
-  for the 6 Qt; the 8 Qt Hi-Fry row is the F3 conflict and must stay blank).
+* **The Emeril "Amazon browse node" cell** — blank behind the checkpoint in this pass's early
+  reading — was filled from a live breadcrumb read in V2 of the report; concurrent session
+  `121929a5` independently filled the same cell from the same page in pass 10 (convergent, both
+  recorded). Spec rows stand at 46 total: 44 verified, 2 blank+flagged — and the two blanks are
+  genuine (no preset count is documented for the 6 Qt; the 8 Qt Hi-Fry row is the F3 conflict and
+  must stay blank).
 
-### 18.2 What shipped (the marketing and decision layers)
+### 19.2 What shipped (the marketing and decision layers)
 
-* **One new article** — *Air fryer gift guide 2026: match the format to the person* — the site's
-  first seasonal piece, written for the Q4 query window that is open now. Format-first, every value
-  a `{{published value}}` splice with its source, and a closing section naming the four things a
+* **One new article** — *Air fryer gift guide 2026: match the format to the person* — this pass's
+  seasonal piece, written for the Q4 query window that is open now. Format-first, every value a
+  `{{published value}}` splice with its source, and a closing section naming the four things a
   gift guide cannot tell you (price, taste, exact SKU, box contents). Published as **TP-15**.
 * **Three new topic rows** (TP-15…TP-17): the gift guide (published), a holiday-hosting capacity
   piece and a deal-season "what a price-free site can still tell you" piece (both proposed, each
   with hooks, intent and must-cite lists). The topics lede count is now computed rather than
   hardcoded.
 * **Three new suggestions** feeding the owner's decision queue and the design prompt:
-  **SG-23** ship the seasonal cluster while the season is live (options A/B/C, blocked by Q-22);
-  **SG-24** one policy-compliant CTA component designed now and wired when the tag exists (the
-  component spec the design prompt lacked; blocked by Q-04); **SG-25** a computed "decide this
+  **SG-24** ship the seasonal cluster while the season is live (options A/B/C, blocked by Q-23);
+  **SG-25** one policy-compliant CTA component designed now and wired when the tag exists (the
+  component spec the design prompt lacked; blocked by Q-04); **SG-26** a computed "decide this
   first" triage at the top of the queue — the brief's request for decision-making support.
-* **Q-22**: who decides the publishing calendar and what the deadlines are — the one missing owner
+* **Q-23**: who decides the publishing calendar and what the deadlines are — the one missing owner
   statement the seasonal plan needs. "No seasonal content" is recorded as an acceptable answer.
 
-### 18.3 Defects found and fixed, and the merge-seam collisions
+### 19.3 Defects found and fixed, and the merge-seam collisions
 
 * **Stale-count defect class, fourth occurrence** (after F14, F38, F52), published as **F63**:
   three register surfaces asserted "eight articles" while the index had long since outgrown the
   number — `data/questions.json` Q-10, `data/suggestions.json` SG-09, and `data/decision.json`'s
-  niche rows. Fixed per the F52 precedent; because the count moved again at the merge seam
-  (concurrent rounds published three more articles), the corrected wording is deliberately
-  count-proof — "live count on the articles index" — instead of a fresh snapshot that would age
-  the same way. The `decision.json` fix is a cross-scope integration edit with before/after
-  strings logged in `COORDINATION.md`. `data/design-prompt.json`'s "12 articles" status note
-  received the same treatment.
+  niche rows. Fixed per the F52 precedent; because the count moved twice at the merge seams
+  (concurrent passes published more articles while this one worked), the corrected wording is
+  deliberately **count-proof** — "live count on the articles index" — instead of a fresh snapshot
+  that would age the same way. The `decision.json` fix is a cross-scope integration edit with
+  before/after strings logged in `COORDINATION.md`. `data/design-prompt.json`'s "12 articles"
+  status note received the same treatment.
 * **F53's stale sentence** (Emeril browse node "cannot be recorded") received a dated update
   recording the checkpoint clearance and the filled row.
-* **SG-24 corrected mid-pass after an accuracy check of my own draft**: the first wording claimed
+* **SG-25 corrected mid-pass after an accuracy check of my own draft**: the first wording claimed
   no page states what a buyer should click; a grep of the rendered pages showed the product pages
   already carry one CTA button ("Open supplied Amazon link — verify model"). The row now states
   the true gap: one ad-hoc CTA on product pages only, none on comparison/guide/picks/article
   pages, and no component spec in the design prompt.
 * **Merge-seam ID collisions with concurrent sessions** (kept their rows, renumbered mine — the
-  convention every earlier seam used):
+  convention every earlier seam used; this pass's rows were renumbered **twice**, once per seam):
 
-  | This pass's draft ID | Merged ID | Collided with |
+  | This pass's draft ID | Final ID | Renumbered at |
   |---|---|---|
-  | SG-22 (seasonal calendar) | **SG-23** | main's SG-22 (research-agent terms, PR #99) |
-  | SG-23 (CTA component) | **SG-24** | — (renumbered to keep order) |
-  | SG-24 (decision triage) | **SG-25** | — |
-  | Q-21 (publishing calendar) | **Q-22** | main's Q-21 (agent scope question) |
-  | flag F59 (stale counts) | **F63** | main's F59–F62 (exec-summary register, s2 paths, compliance register, Agent Terms) |
-  | this summary section (§17) | **§18** | main's §17 (pass 10) |
-  | `reports/verification-2026-11-16.md` | **`reports/verification-2026-11-16-a746a9f2.md`** | main's same-path file (session c334fb1c, round 10) |
+  | SG-22 (seasonal calendar) | **SG-24** | seam 1: main's SG-22 (agent terms) · seam 2: main's SG-23 (photography licensing) |
+  | SG-23 (CTA component) | **SG-25** | seam 1 (order) · seam 2 (SG-23 taken) |
+  | SG-24 (decision triage) | **SG-26** | seam 1 (order) · seam 2 (order) |
+  | Q-21 (publishing calendar) | **Q-23** | seam 1: main's Q-21 (agent scope) · seam 2: main's Q-22 (image rights) |
+  | flag F59 (stale counts) | **F63** | seam 1: main's F59–F62 |
+  | this summary section (§17) | **§19** | seam 1: main's §17 (pass 10) · seam 2: main's §18 (pass 10 content) |
+  | `reports/verification-2026-11-16.md` | **`reports/verification-2026-11-16-a746a9f2.md`** | seam 1: main's same-path file (session c334fb1c) |
 
 * Cleared without action: `decision-gate.html` ("14 questions") and `marketing-directions.html`
   ("12 suggestions") are parallel registers whose ledes render their own frozen register length —
   internally consistent; the "16 suggestions" strings in `reverification.html`/
   `executive-summary.html` are historical recounts of already-fixed defects.
 
-### 18.4 What is still open (unchanged, non-blocking)
+### 19.4 What is still open (unchanged, non-blocking)
 
 Q-01/Q-02 (ASIN→model mapping — Amazon serves automated reads a reduced shell with no Product
 information block), Q-03/Q-04 (account status; the tag inside the supplied short links), Q-11
 (commission category per ASIN — only the Earnings report names it), the owner's country statement
 (F42), and the flag-register unification decision (F44/F47). Every one of these remains blank,
-flagged and linked on `flagged.html`. Merged-tree gates on 2026-11-16: `build.py` 41 URLs ·
-`verify.py` 120 pages / 46 spec rows (44 verified, 2 blank+flagged) / 34 sources / 0 errors ·
-`ci-check.sh` 7,083 links / 0 broken · research, site and platform audits clean.
+flagged and linked on `flagged.html`. Merged-tree gates on 2026-11-16: `build.py` 46 URLs ·
+`verify.py` 126 pages / 46 spec rows (44 verified, 2 blank+flagged) / 34 sources / 0 errors ·
+`ci-check.sh` 7,587 links / 0 broken · research, site and platform audits clean.
