@@ -686,5 +686,37 @@
   "method": "Registered S38 as a documentation reference; did not fetch the page content.",
   "read_live": [],
   "what": "The repository config points to a GitHub Pages public origin. No first-party analytics runtime or endpoint was verified in this integration."
+ },
+ "reverified_2026_11_17_0cf55ef3": {
+  "session": "arena/0cf55ef3-zone1",
+  "date": "2026-11-17",
+  "method": "server-side fetch (fetch_page) of each URL below; every value was read from the live response body in this session, not copied from an earlier session's record",
+  "read": [
+   "S1",
+   "S2",
+   "S3",
+   "S4",
+   "S8",
+   "S9",
+   "S10",
+   "S12",
+   "S14",
+   "S17",
+   "S28",
+   "S29",
+   "S36",
+   "S37"
+  ],
+  "observations": {
+   "short_links": "All five supplied link.amazon tokens were re-opened: B04G1MEwY -> /dp/B0CDY277D3, B02NbDxp3 -> /dp/B09B7SB46R, B00hJ57DV -> /dp/B08DKYBTPH, B0c8moW59 -> /dp/B0DHZTCNR5, B0f3GKalj -> /dp/B0DZFD6R9Z. Every target is unchanged from the register; all five still resolve through lv=shuf / plpRedirect=mhFallback-style parameters with no visible tag=, so F17/F24 and Q-04 remain open exactly as recorded.",
+   "s1_s2_stamps": "S1 Operating Agreement still reads 'Updated: October 15, 2025'; S2 Program Policies still reads 'Updated: April 14, 2026'. Both match the register.",
+   "s3_commission": "S3 fee table unchanged: Table 1 Kitchen 4.50%, All Other 4.00%; bounty rates $12.00 (Prime), $5.00 (Prime Video First Stream), $0.25 (Stream).",
+   "s4_eligibility": "S4 eligibility thresholds unchanged: 3 qualifying sales in 180 days, ~10 posts, 500+ organic followers.",
+   "s8_ftc": "S8 Disclosures 101 still dated November 2019 and still uses 'hard to miss' and the 'can't talk about a product you haven't tried' rule.",
+   "s9_ecfr": "S9 eCFR Part 255 renders 'up to date as of 11/13/2026'; last amended 10/30/2026 (88 FR 48102). The register carries 11/12/2026; eCFR re-stamps daily and no substantive text changed, so this is a benign one-day roll, recorded rather than repaired.",
+   "s10_s12_s14": "Brand pages unchanged: Chefman 6 Qt RJ38-SQPF-3TDB-2W (1310 reviews line, 450 F Hi-Fry, Sync Finish); Chefman 8 Qt RJ38-SQSS-8T (717 reviews line, 200-400 F); Emeril FAFO-001 (25 Presets icon, $199.99, 2.6/25, 10-in-1). The live 25-vs-24 preset conflict is still present on the vendor page, so F4/F5 stay open by design."
+  },
+  "not_read_by_this_pass": "S5, S6, S7, S11, S13, S15, S16, S18-S27, S30-S35 were not re-fetched by this pass and nothing about them is restated as current here. The Emeril and Chefman owner's-manual PDFs (S15 and the 8 Qt manual) were also not re-opened, so the 24-preset count and the manual-only claims are carried forward from the records that read them.",
+  "deliberately_not_used": "Prices, star ratings, review counts and Best Sellers Rank values visible in the live responses were read and excluded from every published surface, per S2 and this repository's no-price/no-rating rule. Review-count figures are cited only as date-stamped vendor-page readings inside the source register, never on reader-facing pages."
  }
 }
