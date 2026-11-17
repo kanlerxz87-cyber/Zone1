@@ -371,6 +371,15 @@ row-by-row account of what was dropped and why are published at
 [`session-58cbaaa2/artifacts/`](session-58cbaaa2/artifacts/README.md); the evidence record for what did
 land is [`reports/verification-2026-11-17-58cbaaa2.md`](reports/verification-2026-11-17-58cbaaa2.md).
 
+**And the repair needed repairing, on the record.** The merged pass published the category lede as "0 of
+the five links … were observed landing on air fryer listings": the count was derived from
+`observed_listing_category`, which is not a browse path but a prose judgement stored by the consolidation
+pass, hyphenated — so nothing matched and the number came back zero, with every gate green (the guard
+parsed spelled 1–12 and skipped the literal `0` it could not read). PR #141 reads the field as text,
+refuses to build when the classifier finds nothing, derives the sentence's tail as well as its number, and
+teaches the guard digits and `zero`/`no`; all three wrong forms now fail the build. **A derived number is
+only as verified as the field it reads** — F82's own text carries the whole account.
+
 Gates on the landed tree: `build.py` exit 0 (52 pages, 31 sitemap URLs, 21 feed items; two consecutive
 builds byte-identical; rebuild leaves the working tree clean) · `verify.py` 130 pages, 77 spec rows
 (75 verified / 2 blank+flagged), 42 sources, 0 errors · `ci-check.sh` 33 platform tests, audit clean,

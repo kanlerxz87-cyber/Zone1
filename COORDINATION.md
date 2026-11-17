@@ -5606,6 +5606,21 @@ before opening a PR: this session's scope was cut in half twice by a rule read b
 whether TP-22/TP-23 get written. (4) When the owner submits another link, add a row to
 `data/product-intent.json` — never a sentence.
 
-**PRs and merges.** Recorded in the follow-up commit on this branch once the merge and the Pages read-back
-are known, per the house pattern (this row ships inside the PR it describes, so the merge sha cannot be
-in it).
+**PRs and merges.**
+* **PR #140** (https://github.com/kanlerxz87-cyber/Zone1/pull/140) — head `e8e1856` after the forced
+  re-scope push, `MERGEABLE` / `CLEAN`, both CI runs green (`CI` 8s, `verify` 7s), **merged with
+  `gh pr merge --merge` at 2026-11-17T16:53:30Z as `6c9d313`**; Pages ran on the merge commit
+  (`pages build and deployment` 28s, `Build, verify and deploy to GitHub Pages` 31s, both success) and
+  the live `product-intent.html` read back with this pass's S39/S40 badges and brand-catalogue notes on
+  PI-04/PI-05, confirming the deploy rather than trusting the workflow colour.
+* **PR #141 — the F82 repair, repaired.** The merged pass deployed a lede reading "0 of the five links …
+  observed landing on air fryer listings": the derived count read `observed_listing_category` as an Amazon
+  browse path when it holds a hyphenated prose judgement, so nothing matched and the number came back zero
+  with every gate green (the guard parsed spelled 1–12 and skipped the literal `0`). Follow-up on this
+  branch: classify the register's words as text, refuse to build when the classifier finds nothing, derive
+  the sentence's tail as well as its number, teach the guard digits and `zero`/`no`, and record the whole
+  account in F82, `README.md`, `EXECUTIVE-SUMMARY.md` §24.5 and `reports/verification-2026-11-17-58cbaaa2.md`
+  §5b — plus `session-58cbaaa2/pass13-lede-repair.md`. Three wrong forms now fail the build; the correct
+  tree builds silently. No register data changed, so nothing else moved.
+* **Board hygiene:** `I-5b17c077` still reads `in progress` though its work merged through #131/#132 —
+  left for its owner session, per the rule against editing another session's row.

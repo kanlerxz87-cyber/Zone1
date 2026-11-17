@@ -2325,7 +2325,7 @@ PROGRAMME_FLAGS = [
      ["S41", "S42", "S6", "S2"]),
     ("F82", "A present-tense sentence still counted the submitted links at three, two days after the register grew to five.",
      "categories/kitchen-appliances.html lede",
-     "Found 2026-11-17 while re-scoping this session against main, in the same class main's F77/F79 lineage describes but with the narrative rather than a value out of date: the category lede opened 'The three supplied links were observed landing on air fryer or air fryer-oven listings on 2026-11-13/14', which was true at the time and is now a partial description of a five-row register whose two newest rows sit under Thermometers & Timers. The sentence is repaired where the tense is present — the lede reads its counts from len(rows) and from the register's own observed_listing_category field — and check_submitted_link_count() fails the build if a present-tense surface asserts a different count in its own words — both directions proven on 2026-11-17: the current tree builds silently, and injecting the old phrase back into the lede exited non-zero with the register's own row count named in the message. (A first version of the pattern required a lead-in word like 'all' and matched nothing, which is how a guard that cannot fail gets shipped: the negative test is the guard.) The scope is narrowed to the shopper surfaces and the two registers: a dated verification row that says 'all three supplied links' is a true statement about 2026-11-14, and a check that could only be satisfied by rewriting history is worse than no check. Process note for whoever next receives a link: add a row to data/product-intent.json — never a sentence.",
+     "Found 2026-11-17 while re-scoping this session against main, in the same class main's F77/F79 lineage describes but with the narrative rather than a value out of date: the category lede opened 'The three supplied links were observed landing on air fryer or air fryer-oven listings on 2026-11-13/14', which was true at the time and is now a partial description of a five-row register whose two newest rows sit under Thermometers & Timers. The sentence is repaired where the tense is present — the lede reads its counts from len(rows) and from the register's own observed_listing_category field — and check_submitted_link_count() fails the build if a present-tense surface asserts a different count in its own words — both directions proven on 2026-11-17: the current tree builds silently, and injecting the old phrase back into the lede exited non-zero with the register's own row count named in the message. (A first version of the pattern required a lead-in word like 'all' and matched nothing, which is how a guard that cannot fail gets shipped: the negative test is the guard.) The scope is narrowed to the shopper surfaces and the two registers: a dated verification row that says 'all three supplied links' is a true statement about 2026-11-14, and a check that could only be satisfied by rewriting history is worse than no check. Addendum, recorded after #140 merged as 6c9d313: the first fix moved the number out of the sentence and into the code, and shipped a worse sentence. The lede published as '0 of the five links submitted to this project were observed landing on air fryer listings' because observed_listing_category is not a browse path — the consolidation pass stores a prose judgement in it ('Air-fryer product title on observed landing page; intended product unconfirmed'), hyphenated — and the classifier tested for 'air fryer' with a space, so no row matched and the count came back zero. Every gate stayed green: a derived number is only as verified as the field it reads. Repaired in the follow-up by reading the register as text (hyphens normalised), by refusing to build at all when the classifier finds nothing, by deriving the lede's 'and the rest land elsewhere' tail instead of keeping it as fixed prose (that clause is false the day every submitted link lands in-category), and by extending this guard to the computed 'N of the M links submitted to this project' shape as well as the hand-typed 'N supplied links' phrase. Deriving a number from a field whose meaning was inferred from its name is guessing with extra steps. Process note for whoever next receives a link: add a row to data/product-intent.json — never a sentence.",
      ["S17", "S2"]),
 ]
 
@@ -2405,7 +2405,7 @@ def page_category():
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Kitchen appliances</p>
 <h1>Category: kitchen appliances — air fryers</h1>
-<p class="lede">{_num_word(_submitted_links_in_category()).capitalize()} of the {_num_word(N_SUBMITTED_LINKS)} links submitted to this project were observed landing on air fryer or air fryer-oven listings, and the rest land under a different Amazon browse path — recorded on the <a href="../product-intent.html">link-intent record</a> and left out of this category rather than folded into it (F77, F80). Product identity from the tokens is still unconfirmed (F14–F16), so this category label is provisional. The table below lists every tracked product with its verified capacity, the manufacturer's list price and its open flags. Amazon price is blank on every row by policy, not by oversight.</p>
+<p class="lede">{_submitted_link_clause()}. Product identity from the tokens is still unconfirmed (F14–F16), so this category label is provisional. The table below lists every tracked product with its verified capacity, the manufacturer's list price and its open flags. Amazon price is blank on every row by policy, not by oversight.</p>
 
 <div class="tablewrap">
 <table>
@@ -6349,18 +6349,50 @@ def _num_word(n):
             8: "eight", 9: "nine", 10: "ten", 11: "eleven", 12: "twelve"}.get(n, str(n))
 
 
+def _register_category_words():
+    """The register's own words for where each submitted link landed, keyed by row id.
+
+    Name warning, learned the hard way on 2026-11-17: `observed_listing_category` is not an Amazon
+    browse-path string. The consolidation pass stores a prose judgement in it — "Air-fryer product title
+    on observed landing page; intended product unconfirmed" — so it must be read as text, in whatever
+    spelling that text uses, and never compared against a canonical category slug.
+    """
+    return [str(r.get("observed_listing_category") or "") for r in SUBMITTED_ROWS]
+
+
 def _submitted_links_in_category():
     """Submitted links the register files in this site's own category.
 
-    "In category" is read off the register's own `observed_listing_category`, the field the
-    consolidation pass added for exactly this purpose — not from a guess about the product.
+    Read off the register's own words, normalised for the hyphen those words actually use. The helper
+    refuses to return a count it cannot support: a silent zero here once rendered a confident, false
+    sentence, and a derived number that reaches zero because a field was misread is a bug, not a finding.
     """
-    n = 0
-    for r in SUBMITTED_ROWS:
-        crumb = str(r.get("observed_listing_category") or "")
-        if "air fryer" in crumb.lower():
-            n += 1
+    words = _register_category_words()
+    n = sum(1 for crumb in words if "air fryer" in " ".join(crumb.lower().replace("-", " ").split()))
+    if n == 0:
+        raise SystemExit(
+            "BUILD FAILED — the kitchen-appliances lede cannot derive its count (F82): no row of "
+            f"data/product-intent.json classifies into this category from observed_listing_category "
+            f"({sorted(set(words.values()))!r}). Either that wording changed or the field no longer means "
+            "what its name suggests — read the register, do not hard-code the sentence.")
     return n
+
+
+def _submitted_link_clause():
+    """The category lede's opening sentence, computed end to end from the register.
+
+    The tail is derived as well as the number: "and the rest land under a different Amazon browse path"
+    is only true while some link actually does, so it cannot live in the template as fixed prose.
+    """
+    n = _submitted_links_in_category()
+    total = N_SUBMITTED_LINKS
+    head = (f"{_num_word(n).capitalize()} of the {_num_word(total)} links submitted to this project were "
+            "observed landing on air fryer or air fryer-oven listings")
+    if n >= total:
+        return head + "; every link submitted so far resolves inside this category"
+    return (head + f", and the other {_num_word(total - n)} land under a different Amazon browse path — "
+            'recorded on the <a href="../product-intent.html">link-intent record</a> and left out of this '
+            "category rather than folded into it (F77, F80)")
 
 
 def page_intent():
@@ -7320,6 +7352,14 @@ def check_submitted_link_count(pages):
     present_tense = {"index.html", "product-intent.html", "measurement.html", "compare.html",
                      "picks.html", "compliance.html", "categories", "products", "guides"}
     words = {v: k for k, v in _LINK_NUM_WORDS.items()}
+    num = {**_LINK_NUM_WORDS, "zero": 0, "no": 0}
+    alt = "|".join(_LINK_NUM_WORDS) + "|zero|no"
+    split_re = re.compile(rf"\b({alt}|\d+)\s+of\s+the\s+({alt}|\d+)\s+links?\s+submitted to this project",
+                          re.I)
+
+    def _val(tok):
+        return int(tok) if tok.isdigit() else num.get(tok)
+    in_cat = _submitted_links_in_category()
     problems = []
     for rel, html_text in pages.items():
         if rel.split("/")[0] not in present_tense:
@@ -7334,6 +7374,16 @@ def check_submitted_link_count(pages):
                 f"{rel}: asserts '{words.get(n, n)} {kind} links' where data/product-intent.json holds "
                 f"{N_SUBMITTED_LINKS} rows — read the count from the register, or date the sentence so it "
                 f"says when it was true")
+        for m in split_re.finditer(plain):
+            n_in, n_to = _val(m.group(1).lower()), _val(m.group(2).lower())
+            if n_in is None or n_to is None:
+                continue
+            if n_in != in_cat or n_to != N_SUBMITTED_LINKS:
+                problems.append(
+                    f"{rel}: says '{_num_word(n_in)} of the {_num_word(n_to)} links submitted to this "
+                    f"project' where the register yields {_num_word(in_cat)} of "
+                    f"{_num_word(N_SUBMITTED_LINKS)} — the sentence is computed by _submitted_link_clause();"
+                    " restore the call instead of typing numbers into it (F82)")
     return problems
 
 

@@ -105,6 +105,29 @@ A process note in the same category: the first version of the pattern required a
 (`all`, `none of`, …) and therefore matched nothing at all — a guard that cannot fail. The negative test
 is what caught it, and it is recorded in F82 rather than tidied away.
 
+## 5b. Addendum, written after this merged — the fix was wrong too
+
+PR #140 merged as `6c9d313` and deployed with the lede reading **"0 of the five links submitted to this
+project were observed landing on air fryer or air fryer-oven listings."** The repair had moved the number
+out of the sentence and into the code, and the code read `observed_listing_category` as an Amazon browse
+path. It is not one: the consolidation pass stores a *prose judgement* in that field — "Air-fryer product
+title on observed landing page; intended product unconfirmed" — hyphenated, and the classifier tested for
+`"air fryer"` with a space. No row matched, the count returned 0, the sentence rendered confidently, and
+**every gate stayed green**. Recorded here rather than quietly amended, because the failure is the point:
+
+* **A derived number is only as verified as the field it reads.** "Computed from the register" is not a
+  synonym for "true"; it moved the guess from the prose into the code, where no reader could see it.
+* **A guard with a parsing hole is a guard that passes.** The original check could only read spelled
+  numbers 1–12, so a literal `0` was unparseable and skipped — the one value the defect actually
+  produced. Digit and `zero`/`no` forms now parse, and the classifier **refuses to build** when it
+  matches nothing, so a register-wording change fails loudly instead of silently publishing a zero.
+* **Fixed prose inside a computed sentence is the same defect in slower clothing.** The tail ("and the
+  rest land under a different browse path") is derived now too — it becomes false the day every submitted
+  link lands in-category.
+* **Re-proved in both directions.** Current tree builds silently; injecting `Four of the five`,
+  `0 of the five` and `Zero of the five` each exits non-zero naming the register's own numbers and
+  pointing at `_submitted_link_clause()`. Follow-up: PR #141.
+
 ## 6. Refused, and why
 
 No Amazon prices, star ratings, review counts or rankings (Policies §2(b)/§6(t); no PA-API/Creators

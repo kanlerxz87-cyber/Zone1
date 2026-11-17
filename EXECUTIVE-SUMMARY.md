@@ -1451,7 +1451,24 @@ were proven, and the proof is what caught the interesting bug: the first pattern
 (`all`, `none of`) and matched nothing at all. **A guard that cannot fail is a comment with a name**, and
 it is recorded that way in the flag rather than tidied out of it.
 
-### 24.5 Not done, and gates
+### 24.5 Addendum — the repair shipped a worse sentence, and it is on the record
+
+PR #140 deployed with the category lede reading **"0 of the five links … were observed landing on air
+fryer … listings."** The derived count was derived from the wrong field: `observed_listing_category` holds
+a prose judgement ("Air-fryer product title on observed landing page; intended product unconfirmed"), not
+an Amazon browse path, and the classifier looked for `air fryer` with a space where the text hyphenates it.
+Nothing caught it — `build.py`, `verify.py`, `ci-check.sh`, `verify_site.py` and both unit suites were
+green, because the guard parsed spelled numbers 1–12 and a literal `0` was unparseable, so it was skipped.
+The follow-up (PR #141) reads the field as text, **refuses to build when it classifies nothing**, derives
+the sentence's tail as well as its number, and teaches the guard digits plus `zero`/`no`; the three wrong
+forms (`Four of the five`, `0 of the five`, `Zero of the five`) each now fail the build with the register's
+own numbers in the message. The lesson is not "check your regex": it is that **deriving a number from a
+field whose meaning you inferred from its name is guessing with extra steps**, and that a computed value is
+not automatically a verified one. This is the second entry in a week — after §24.4's guard-that-matched-
+nothing — where the interesting finding was about the checking, not the content, and it is published
+because a defect quietly amended out of the record returns next pass.
+
+### 24.6 Not done, and gates
 
 No prices, ratings, review counts or rankings; no photography; no analytics endpoint, and no browser
 collection while main's contract keeps it off; no ledger row, conversion score or revenue forecast; no
