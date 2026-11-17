@@ -5361,3 +5361,17 @@ mis-read once, caught immediately, and the rebase was aborted and redone correct
 * **GitHub Pages:** `pages/builds/latest` → `status: built`, commit `f741559…`, `error: null`.
 * **Live read-back from the deployed origin:** the deleted orphan's URL now serves the 404 page **with absolute links** (every href resolves to `/Zone1/...`, fixing F75); canonical `articles/sync-finish-explained.html` renders with disclosure, per-section source chips and prev/next; `flagged.html` renders **75 open items** including F74 and F75; landing tile reads 75.
 * **Irregularities left open (published, none blocking):** F1–F73 unchanged owner decisions — short-link attribution (F6/F7/F10), Associates tag observability (F6), cookie disclosure (F11), 8 Qt temperature conflict (F3), listing self-contradictions (F71), 2 blank+flagged spec rows. All on `flagged.html` with sources.
+
+### X-1c97a25f — product-intent, tracking-ID record and campaign ledger — arena/1c97a25f-zone1 (2026-11-17)
+
+**Claimed and completed by session 1c97a25f.** File scope: `data/config.json`, `data/sources.json` (S36, S37 added), `data/product-intent.json` (new), `data/campaign-ledger.json` (new), `build.py` (new `page_intent`, nav entry, F76–F79), regenerated HTML, `EXECUTIVE-SUMMARY-SHOP-PASS.md` (new), this log.
+
+* **Tracking ID `shopnow047c-20`:** recorded in `config.json` as `selected_tracking_id`. **Not applied** to any link: the brief requires a one-link Associates test first, and that needs the account holder's login. Flag **F76**.
+* **Product-intent record:** all five supplied links on `product-intent.html`. Intended ASIN and official URL left blank (short codes are 9 characters, not ASINs; no owner confirmation). Observed targets recorded in separate fields on 2026-11-17. Flag **F77**.
+* **Off-scope links:** PI-04 (B0c8moW59 → B0DHZTCNR5) and PI-05 (B0f3GKalj → B0DZFD6R9Z) are meat thermometers, not air fryers. Registered as S36 and S37. No specification rows published. Flag **F78**.
+* **S23 mismatch:** the coordination notes call S23 the official ASIN definition; `sources.json` registers S23 as the KDP linking page. Flag **F79**.
+* **Campaign ledger:** empty by design. No click, order or revenue figure exists in the repo.
+* **Sources used:** S2, S5, S6, S16, S17, S28, S29, S36, S37 (Amazon listing pages, fetched 2026-11-17). The search results used to look for an ASIN definition were third-party and were **not** used as sources.
+* **Verification:** every gate in the Pages and CI workflows passed on the final tree (see `EXECUTIVE-SUMMARY-SHOP-PASS.md`). The `site/` annex was regenerated with no change, because its tag is still blank.
+* **Not done in this pass:** product-led landing page redesign, outbound-click counter and self-hosted analytics endpoint, Search Console and RSS submission (SG-27..30), new guides, real product photography. These are listed in the executive summary as open.
+
