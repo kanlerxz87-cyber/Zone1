@@ -1,0 +1,1196 @@
+{
+ "version": "1.0",
+ "compiled": "2026-11-16",
+ "session": "arena/ad8105b3-zone1",
+ "purpose": "Every requirement in the brief, one row each, with the status judged against what is actually in this repository and published on this site on 2026-11-16 - not against what the plan says. Where a requirement cannot be met, the row names the exact missing input and the clause that makes it missing.",
+ "rule": "Status is a claim about this repository, so each one is checkable: the 'where' paths must exist in the tree (the build fails if one does not), the evidence links open the file or the official page that settles it, and a row with no evidence must be a row whose honest answer is that nothing exists yet.",
+ "status_legend": {
+  "delivered": "Implemented and visible on the published site.",
+  "partial": "Implemented in part. The gap is named on the row.",
+  "blocked": "Cannot be done from outside Amazon's own systems. No amount of work here closes it.",
+  "not_delivered": "Buildable today with the inputs already present, and not built yet."
+ },
+ "counts_note": "Counts are computed from the rows at build time rather than typed, so this page cannot claim a total the register does not contain.",
+ "requirements": [
+  {
+   "id": "A-01",
+   "scope": "Brief",
+   "requirement": "Collect, organise and analyse against a full list of requirements",
+   "clause": "The goal of this project is to collect, organize, and analyze utilizing a full list of requirements.",
+   "status": "delivered",
+   "where": [
+    "data/requirements.json",
+    "build.py"
+   ],
+   "evidence": [
+    {
+     "label": "this register",
+     "url": "requirements.html"
+    },
+    {
+     "label": "generator",
+     "url": "build.py"
+    }
+   ],
+   "why": "This page is that list: every requirement in the brief, one row each, with its own status, implementation path and source. The counts at the top are computed from the rows at build time, so this page cannot claim a total it does not contain. Until this pass the 19-row register existed only inside the s2/ annex, reachable from the home page by no link at all.",
+   "sources": []
+  },
+  {
+   "id": "A-02",
+   "scope": "Brief",
+   "requirement": "Suggest improvements to design, polish and marketing",
+   "clause": "Make suggestions that will feed into the prompt to design The site so it should look like a polished marketing affiliate website.",
+   "status": "delivered",
+   "where": [
+    "data/suggestions.json",
+    "suggestions.html"
+   ],
+   "evidence": [
+    {
+     "label": "21 suggestions",
+     "url": "suggestions.html"
+    },
+    {
+     "label": "data",
+     "url": "data/suggestions.json"
+    }
+   ],
+   "why": "Twenty-one numbered suggestions (SG-01…SG-21), each with options considered, effort, impact, risk and a recommended path. The paste-ready design prompt itself is on its own page so it can be handed to a designer unedited.",
+   "sources": []
+  },
+  {
+   "id": "A-03",
+   "scope": "Brief",
+   "requirement": "A dedicated suggestions section, reviewable before anything is implemented",
+   "clause": "Create a section dedicated for suggestions so someone can review suggestions and choose the best path before implementing any changes.",
+   "status": "delivered",
+   "where": [
+    "suggestions.html",
+    "design-prompt.html",
+    "data/suggestions.json"
+   ],
+   "evidence": [
+    {
+     "label": "suggestions",
+     "url": "suggestions.html"
+    },
+    {
+     "label": "design prompt",
+     "url": "design-prompt.html"
+    }
+   ],
+   "why": "Two decision registers, deliberately split: suggestions.html is the implementation queue (what to change), design-prompt.html is the status view (what has already shipped). Every row carries an empty Decision column, so nothing is applied by an agent on the owner's behalf.",
+   "sources": []
+  },
+  {
+   "id": "A-04",
+   "scope": "Brief",
+   "requirement": "A clear list of questions, information and answers needed before a decision",
+   "clause": "I want a clear list of questions, informations and answers that need to be addressed before any decision can be reasonably made.",
+   "status": "delivered",
+   "where": [
+    "questions.html",
+    "data/questions.json"
+   ],
+   "evidence": [
+    {
+     "label": "20 questions",
+     "url": "questions.html"
+    },
+    {
+     "label": "data",
+     "url": "data/questions.json"
+    }
+   ],
+   "why": "Twenty questions, each recording what is known, what is missing, the answer that would unblock it, and the steps that would discover it. Where the answer is already in the repository the row says so and links it, rather than asking again.",
+   "sources": []
+  },
+  {
+   "id": "A-05",
+   "scope": "Brief",
+   "requirement": "Suggest how to discover information the project does not have",
+   "clause": "Suggestions need to be made to discover missing information.",
+   "status": "delivered",
+   "where": [
+    "questions.html",
+    "data/questions.json"
+   ],
+   "evidence": [
+    {
+     "label": "discovery steps",
+     "url": "questions.html"
+    },
+    {
+     "label": "data",
+     "url": "data/questions.json"
+    }
+   ],
+   "why": "Each question row carries numbered discovery steps. The steps distinguish what a script can do (re-fetch a page), what only a signed-in human can do (read the Product information table, read Associates reports), and what no one can obtain (a public demand metric that Amazon does not publish).",
+   "sources": []
+  },
+  {
+   "id": "A-06",
+   "scope": "Brief",
+   "requirement": "An executive summary outlining the important details",
+   "clause": "Create an executive summary outlining important details.",
+   "status": "delivered",
+   "where": [
+    "data/reverification.json",
+    "executive-summary.html"
+   ],
+   "evidence": [
+    {
+     "label": "executive summary",
+     "url": "executive-summary.html"
+    }
+   ],
+   "why": "The briefing page is generated from data, so it cannot drift from the registers it summarises. Note the repository also carries five stale executive-summary Markdown files at its root, which is a separate defect recorded as flag F59.",
+   "sources": []
+  },
+  {
+   "id": "A-07",
+   "scope": "Brief",
+   "requirement": "No manual input required from the account holder",
+   "clause": "There should be no manual input on my part.",
+   "status": "partial",
+   "where": [
+    "handover.html",
+    "data/decision.json"
+   ],
+   "evidence": [
+    {
+     "label": "handover",
+     "url": "handover.html"
+    },
+    {
+     "label": "data",
+     "url": "data/decision.json"
+    }
+   ],
+   "why": "Everything a machine can do here has been done. Five items cannot be automated honestly: the Associate tag is only visible inside Associates Central, the Approve/Reject status of the Associates application is only visible there, the model number on each listing is rendered client-side, real sales data requires real sales, and a social account requires a human to own it. They are collected on one page with the exact click-path for each.",
+   "sources": []
+  },
+  {
+   "id": "A-08",
+   "scope": "Brief",
+   "requirement": "Coordinate parallel agent sessions without duplicate work or conflicts",
+   "clause": "Multiple agent sessions may work on this repo at the same time, so coordinate to avoid conflicts and duplicate work.",
+   "status": "delivered",
+   "where": [
+    "COORDINATION.md"
+   ],
+   "evidence": [
+    {
+     "label": "task board",
+     "url": "COORDINATION.md"
+    }
+   ],
+   "why": "COORDINATION.md is the shared board: task, status, owning session, file scope, plus a claim log and a per-session completion record. This session claimed Y1–Y4 and pushed that claim before touching any other file.",
+   "sources": []
+  },
+  {
+   "id": "A-09",
+   "scope": "Brief",
+   "requirement": "Flag irregularities for review without blocking publication",
+   "clause": "Flagged irregularities and unverified items do not block the merge. Publish them on a clearly labeled 'Flagged for Review' page.",
+   "status": "delivered",
+   "where": [
+    "flagged.html",
+    "data/flags.json"
+   ],
+   "evidence": [
+    {
+     "label": "flagged page",
+     "url": "flagged.html"
+    }
+   ],
+   "why": "Every open irregularity in one register, each with the item affected, the evidence, the action needed and the official source, plus a separate table of blanked product values and the document that failed to state one. This pass added F59 and F60. The register's own total is printed by the page from its rows, not typed into this sentence, because a typed total is the first thing to go stale.",
+   "sources": []
+  },
+  {
+   "id": "B-01",
+   "scope": "Site",
+   "requirement": "Look like a polished marketing affiliate website, not an AI-slop site",
+   "clause": "It should not read like some AI slop website like it looks like now.",
+   "status": "partial",
+   "where": [
+    "assets/style.css",
+    "data/articles.json"
+   ],
+   "evidence": [
+    {
+     "label": "house voice guard",
+     "url": "build.py"
+    },
+    {
+     "label": "voice rules",
+     "url": "design-prompt.html"
+    }
+   ],
+   "why": "The build now fails on 27 banned stock-phrase entries (24 distinct phrases: 'in today's fast-paced world', 'elevate your', 'game-changer', 'dive into', 'seamless experience', 'cutting-edge' …) and on machine-spliced sentences. What is still missing is visual: the site has no product photography at all, because Amazon's Program Content may not be used without the API and manufacturer images carry their own licence. That single omission is the largest remaining reason it reads as a document rather than a shop window.",
+   "sources": []
+  },
+  {
+   "id": "B-02",
+   "scope": "Site",
+   "requirement": "A clean, simple landing page",
+   "clause": "Create a github page live site for this repo with a clean landing page.",
+   "status": "delivered",
+   "where": [
+    "index.html"
+   ],
+   "evidence": [
+    {
+     "label": "live page",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/"
+    }
+   ],
+   "why": "The home page states the decision rule before the products, shows five live counts, and puts the unverified-identity warning above the fold rather than in a footnote.",
+   "sources": []
+  },
+  {
+   "id": "B-03",
+   "scope": "Site",
+   "requirement": "Subpages organised by category",
+   "clause": "with a clean landing page and subpages organized by category.",
+   "status": "partial",
+   "where": [
+    "categories/kitchen-appliances.html"
+   ],
+   "evidence": [
+    {
+     "label": "the one category",
+     "url": "categories/kitchen-appliances.html"
+    }
+   ],
+   "why": "The category page exists and is correct, but there is exactly one category, because there are three products and all three are air fryers. A category tree with one branch is a directory, not a taxonomy; the structure is built and the coverage is the gap. Widening it needs a decision about the product set, which is SG-20.",
+   "sources": []
+  },
+  {
+   "id": "B-04",
+   "scope": "Site",
+   "requirement": "A simple dashboard-like UI with findings in readable tables",
+   "clause": "The UI should be clean, user friendly, simple, and easy to use, like a simple dashboard. It should contain all entries and findings in a simple, easy to read table format.",
+   "status": "delivered",
+   "where": [
+    "compare.html",
+    "data.html",
+    "index.html"
+   ],
+   "evidence": [
+    {
+     "label": "comparison matrix",
+     "url": "compare.html"
+    },
+    {
+     "label": "full dataset",
+     "url": "data.html"
+    }
+   ],
+   "why": "Every register on the site is a table with a fixed column set. The comparison matrix is the shopper-facing one; data.html is the same data with the field-level source and gap for each cell.",
+   "sources": []
+  },
+  {
+   "id": "B-05",
+   "scope": "Site",
+   "requirement": "Every table row links an official source; unconfirmed values left blank and flagged",
+   "clause": "Every table row must have a source link to an official site. If a value can't be confirmed from an official source, leave it blank and flag it as unverified.",
+   "status": "delivered",
+   "where": [
+    "verify.py",
+    "build.py"
+   ],
+   "evidence": [
+    {
+     "label": "verify.py",
+     "url": "verify.py"
+    },
+    {
+     "label": "row-source guard",
+     "url": "build.py"
+    }
+   ],
+   "why": "Enforced twice: verify.py fails on a spec row with a value and no source, and check_row_sources() fails the build on any table data row that cites neither a registered official host nor the flagged page. 43 of 46 spec rows carry a value; the 3 that do not are blank and flagged.",
+   "sources": []
+  },
+  {
+   "id": "B-06",
+   "scope": "Site",
+   "requirement": "Search-engine plumbing: canonical, social cards, structured data, sitemap, robots",
+   "clause": "generate organic traffic to the website so real people can click the links",
+   "status": "delivered",
+   "where": [
+    "sitemap.xml",
+    "robots.txt",
+    "build.py"
+   ],
+   "evidence": [
+    {
+     "label": "sitemap",
+     "url": "sitemap.xml"
+    },
+    {
+     "label": "robots.txt",
+     "url": "robots.txt"
+    }
+   ],
+   "why": "Canonical URL, Open Graph and Twitter tags, JSON-LD (WebSite, Article, BreadcrumbList), a generated sitemap of 37 URLs and a robots.txt, all built from the same page list as the HTML so they cannot drift. check_seo_metadata() fails the build if any page loses them.",
+   "sources": []
+  },
+  {
+   "id": "B-07",
+   "scope": "Site",
+   "requirement": "Actually generate organic traffic",
+   "clause": "it should be able to generate organic traffic to the website so real people can click the links and buy it",
+   "status": "not_delivered",
+   "where": [],
+   "evidence": [],
+   "why": "This is the honest gap. The site is technically indexable but nothing has been submitted to any search engine, no page has an inbound link, the domain is a github.io project subpath rather than a domain the owner controls, and there is no analytics to tell whether a single visitor arrives. Publishing a sitemap is a precondition for organic traffic, not a cause of it.",
+   "sources": [
+    "S30"
+   ]
+  },
+  {
+   "id": "B-08",
+   "scope": "Site",
+   "requirement": "Catchy, trendy articles that a shopper would actually read",
+   "clause": "It should include catchy trendy articles and topics related to the product we are promoting.",
+   "status": "partial",
+   "where": [
+    "articles/index.html",
+    "data/topics.json"
+   ],
+   "evidence": [
+    {
+     "label": "12 articles",
+     "url": "articles/index.html"
+    },
+    {
+     "label": "14-topic plan",
+     "url": "topics.html"
+    }
+   ],
+   "why": "Twelve articles are published and three more are specified but unwritten. They are written to answer a question that a listing cannot ('Two 3-quart drawers or one 8-quart basket: which actually feeds four people?'), which is the durable form of 'trendy' — but they are deliberately not trend-chasing, because a trending topic has no official source and this site will not publish a claim it cannot cite.",
+   "sources": []
+  },
+  {
+   "id": "B-09",
+   "scope": "Site",
+   "requirement": "A live GitHub Pages site with deploys confirmed, not assumed",
+   "clause": "Create a github page live site for this repo",
+   "status": "delivered",
+   "where": [
+    ".github/workflows/pages.yml"
+   ],
+   "evidence": [
+    {
+     "label": "deploy workflow",
+     "url": ".github/workflows/pages.yml"
+    }
+   ],
+   "why": "pages.yml rebuilds, re-verifies, proves the committed HTML is byte-identical to a fresh build, then deploys. The build gate is what stops a broken site from reaching the domain: if the rebuild differs from what is committed, the job fails before the deploy step runs.",
+   "sources": []
+  },
+  {
+   "id": "C-01",
+   "scope": "Research",
+   "requirement": "Resolve the three supplied links to identified products",
+   "clause": "Build marketing for the following products. [three link.amazon short links]",
+   "status": "blocked",
+   "where": [
+    "data/products.json",
+    "data/flags.json"
+   ],
+   "evidence": [
+    {
+     "label": "the supplied link",
+     "url": "https://link.amazon/B04G1MEwY"
+    }
+   ],
+   "why": "Each token is nine characters where an ASIN is ten, and each direct /dp/<token> lookup returns Amazon's Page Not Found. Each short link does land on a detail page, reproducibly, but through a fallback redirect (plmRedirect=mhFallback) whose own canonical URL points at a different ASIN. The candidate ASINs are published and labelled unconfirmed; the owner's confirmation is the only thing that closes this.",
+   "sources": [
+    "S16",
+    "S17"
+   ]
+  },
+  {
+   "id": "C-02",
+   "scope": "Research",
+   "requirement": "Verify product specifications from official sources",
+   "clause": "analyzes pricing, reviews, competition",
+   "status": "delivered",
+   "where": [
+    "data/products.json",
+    "products/chefman-6qt-dual-basket.html"
+   ],
+   "evidence": [
+    {
+     "label": "product page",
+     "url": "products/chefman-6qt-dual-basket.html"
+    },
+    {
+     "label": "manual",
+     "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf"
+    }
+   ],
+   "why": "Forty-six spec rows across three products, read from the manufacturer's product page or the owner's manual and cited field by field. Where the manual is more precise than the page (the Hi-Fry mode holds 450 °F for two minutes rather than cooking at it) the manual wins and the difference is stated.",
+   "sources": [
+    "S10",
+    "S12",
+    "S13",
+    "S14",
+    "S15",
+    "S18"
+   ]
+  },
+  {
+   "id": "C-03",
+   "scope": "Research",
+   "requirement": "Analyse pricing",
+   "clause": "analyzes pricing",
+   "status": "blocked",
+   "where": [
+    "data/products.json"
+   ],
+   "evidence": [
+    {
+     "label": "Program Policies",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+   ],
+   "why": "Program Policies §2(b): an Associate site may show a price only if Amazon serves that link or the price comes from Creators API/PA API. This project holds neither credential. Manufacturer list prices are published instead and labelled as manufacturer prices — they are not Amazon offers, and the page says so on the row.",
+   "sources": [
+    "S2",
+    "S10"
+   ]
+  },
+  {
+   "id": "C-04",
+   "scope": "Research",
+   "requirement": "Analyse customer reviews and star ratings",
+   "clause": "analyzes reviews",
+   "status": "blocked",
+   "where": [
+    "data/products.json"
+   ],
+   "evidence": [
+    {
+     "label": "Program Policies",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+   ],
+   "why": "Program Policies §6(t): customer reviews and star ratings may be displayed only when obtained through Creators API or PA API. No rating, review count or review quote appears anywhere on the site, and check_no_price_tracking() plus the verify.py leak scan fail the build if one is introduced.",
+   "sources": [
+    "S2"
+   ]
+  },
+  {
+   "id": "C-05",
+   "scope": "Research",
+   "requirement": "Analyse competition",
+   "clause": "analyzes competition",
+   "status": "partial",
+   "where": [
+    "platform/scoring.py",
+    "data/opportunities.json"
+   ],
+   "evidence": [
+    {
+     "label": "scoring model",
+     "url": "platform/scoring.py"
+    },
+    {
+     "label": "opportunities",
+     "url": "data/opportunities.json"
+    }
+   ],
+   "why": "A transparent weighted scoring model exists and refuses to score a record with missing required inputs. What it cannot do is populate the competition inputs: Amazon publishes no share-of-voice, review-velocity or listing-density metric to an Associate, and any number invented for those columns would be the exact failure the brief forbids.",
+   "sources": [
+    "S2"
+   ]
+  },
+  {
+   "id": "C-06",
+   "scope": "Research",
+   "requirement": "Analyse commission potential per product",
+   "clause": "analyzes ... commission potential",
+   "status": "blocked",
+   "where": [
+    "data/decision.json",
+    "picks.html"
+   ],
+   "evidence": [
+    {
+     "label": "commission table",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+    }
+   ],
+   "why": "The rate card is public and was read again today: Table 1 sets 'Physical Books, Kitchen, Automotive' at 4.50%, 'Home' at 3.00% and 'All Other Categories' at 4.00%. What it does not do is map an ASIN to a category. Air fryers are not named, and the listing's browse path is a browse path, not a commission category, so the honest answer is a range and it is published as a range.",
+   "sources": [
+    "S3"
+   ]
+  },
+  {
+   "id": "C-07",
+   "scope": "Research",
+   "requirement": "Identify trending products",
+   "clause": "identifies trending and high-converting products",
+   "status": "blocked",
+   "where": [],
+   "evidence": [],
+   "why": "Amazon publishes no public demand, search-volume or sales-rank history to an Associate. Any 'trending' list this project produced would be its own guess wearing a table, which is worse than no page. The dependency is recorded rather than worked around.",
+   "sources": [
+    "S2"
+   ]
+  },
+  {
+   "id": "C-08",
+   "scope": "Research",
+   "requirement": "Identify high-converting products",
+   "clause": "identifies trending and high-converting products",
+   "status": "blocked",
+   "where": [],
+   "evidence": [],
+   "why": "Click and conversion data exists only inside Associates Central reporting, behind a login that belongs to the account holder. Until that account reports real traffic there is nothing to rank.",
+   "sources": [
+    "S2"
+   ]
+  },
+  {
+   "id": "C-09",
+   "scope": "Research",
+   "requirement": "Identify profitable niches",
+   "clause": "The agent should identify profitable niches",
+   "status": "partial",
+   "where": [
+    "platform/scoring.py",
+    "decisions.html"
+   ],
+   "evidence": [
+    {
+     "label": "method and decision",
+     "url": "decisions.html"
+    },
+    {
+     "label": "scoring",
+     "url": "platform/scoring.py"
+    }
+   ],
+   "why": "The niche method is built and the candidate niche is stated (air-fryer format choice, where the buyer's real question is shape rather than brand). Profitability itself is arithmetically undecidable without a commission category per ASIN (C-06) and traffic (B-07).",
+   "sources": [
+    "S3"
+   ]
+  },
+  {
+   "id": "D-01",
+   "scope": "Content",
+   "requirement": "Generate SEO-optimised product articles",
+   "clause": "generates SEO-optimized product articles, comparisons, and buying guides",
+   "status": "partial",
+   "where": [
+    "platform/content/generator.py"
+   ],
+   "evidence": [
+    {
+     "label": "generator",
+     "url": "platform/content/generator.py"
+    },
+    {
+     "label": "voice guard",
+     "url": "build.py"
+    }
+   ],
+   "why": "The generator builds structure only — headings, the disclosure block, the link slot, the comparison skeleton — and fills a sentence only from a sourced fact passed in by the caller; a missing fact becomes an explicit placeholder. The twelve published articles were authored against that gate rather than emitted by it, so no unpublished claim could enter the copy.",
+   "sources": []
+  },
+  {
+   "id": "D-02",
+   "scope": "Content",
+   "requirement": "Generate comparisons",
+   "clause": "generates ... comparisons",
+   "status": "delivered",
+   "where": [
+    "compare.html",
+    "articles/dual-basket-vs-single-basket.html"
+   ],
+   "evidence": [
+    {
+     "label": "matrix",
+     "url": "compare.html"
+    },
+    {
+     "label": "head-to-head",
+     "url": "articles/dual-basket-vs-single-basket.html"
+    }
+   ],
+   "why": "A field-by-field matrix with a source on every populated cell, and head-to-head pieces that state the trade and label the judgement as a judgement.",
+   "sources": []
+  },
+  {
+   "id": "D-03",
+   "scope": "Content",
+   "requirement": "Generate buying guides",
+   "clause": "generates ... buying guides",
+   "status": "delivered",
+   "where": [
+    "guides/buying-guide-air-fryers.html"
+   ],
+   "evidence": [
+    {
+     "label": "buying guide",
+     "url": "guides/buying-guide-air-fryers.html"
+    }
+   ],
+   "why": "The guide is organised by form factor — the decision a buyer actually makes — rather than by a ranked list, which this site could not honestly produce without testing.",
+   "sources": []
+  },
+  {
+   "id": "D-04",
+   "scope": "Content",
+   "requirement": "Automate the writing pipeline end to end",
+   "clause": "Prioritize automation, scalability",
+   "status": "partial",
+   "where": [
+    "platform/content/generator.py",
+    "platform/content/claims_checker.py",
+    "platform/content/similarity.py",
+    "platform/content/lint.py"
+   ],
+   "evidence": [
+    {
+     "label": "claims checker",
+     "url": "platform/content/claims_checker.py"
+    },
+    {
+     "label": "similarity",
+     "url": "platform/content/similarity.py"
+    }
+   ],
+   "why": "Four gate modules exist and are unit-tested: a claims checker, a similarity check against existing copy, a style lint, and the source gate in the generator. They are not wired to publish, deliberately — an unattended pipeline that writes and deploys without a human is the mechanism by which slop sites are made, and the brief asks for the opposite.",
+   "sources": []
+  },
+  {
+   "id": "D-05",
+   "scope": "Content",
+   "requirement": "Enforce a house voice that does not read as machine-written",
+   "clause": "It should not read like some AI slop website",
+   "status": "delivered",
+   "where": [
+    "build.py",
+    "data/articles.json"
+   ],
+   "evidence": [
+    {
+     "label": "voice guards",
+     "url": "build.py"
+    },
+    {
+     "label": "the rule",
+     "url": "design-prompt.html"
+    }
+   ],
+   "why": "Two separate build failures: 27 banned stock-phrase entries (24 distinct phrases), and check_article_splices(), which catches a capitalised display value dropped into a mid-sentence slot ('is 6 Qt / 5.67 L as Two 3-quart baskets'). The second defect had shipped and was invisible to every earlier check, because each value was correct in its table.",
+   "sources": []
+  },
+  {
+   "id": "D-06",
+   "scope": "Content",
+   "requirement": "Never show an Amazon price or rating without the API",
+   "clause": "compliance with Amazon Associates policies",
+   "status": "delivered",
+   "where": [
+    "data/products.json",
+    "build.py"
+   ],
+   "evidence": [
+    {
+     "label": "policy",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+   ],
+   "why": "Enforced, not documented: the verifier fails the build on three markup markers — the star-rating attribute class, the star-rating sentence, and an Amazon price label — in any page. Structured data deliberately omits schema.org Product, Offer and AggregateRating, so no invented price is ever asserted to a search engine.",
+   "sources": [
+    "S2"
+   ]
+  },
+  {
+   "id": "E-01",
+   "scope": "Publishing",
+   "requirement": "Publish and manage affiliate links",
+   "clause": "publish and manage affiliate links",
+   "status": "partial",
+   "where": [
+    "products/chefman-6qt-dual-basket.html",
+    "build.py"
+   ],
+   "evidence": [
+    {
+     "label": "a product page",
+     "url": "products/chefman-6qt-dual-basket.html"
+    }
+   ],
+   "why": "Thirteen clickable affiliate anchors are live across the three product pages — five, four and four — and every one, including the one in the home-page warning, carries rel=\"sponsored\" — qualify_affiliate_links() rewrites them and check_affiliate_link_qualification() fails the build if any is unqualified. What is unmanaged is the destination: the links cannot be confirmed to carry the owner's tag (E-02).",
+   "sources": [
+    "S30",
+    "S31"
+   ]
+  },
+  {
+   "id": "E-02",
+   "scope": "Publishing",
+   "requirement": "Attach the owner's Associate tag to every link",
+   "clause": "publish and manage affiliate links",
+   "status": "blocked",
+   "where": [],
+   "evidence": [],
+   "why": "The tag is visible only inside Associates Central, so no external check can confirm what is attached to a supplied short link. A purchase through an untagged link earns nothing, which makes this the highest-value open item on the site even though it is invisible to every gate here.",
+   "sources": [
+    "S2"
+   ]
+  },
+  {
+   "id": "E-03",
+   "scope": "Publishing",
+   "requirement": "Track clicks",
+   "clause": "track clicks and conversions",
+   "status": "not_delivered",
+   "where": [],
+   "evidence": [],
+   "why": "There is no analytics on the site at all — no script, no beacon, no server-side log the owner can read. The footer says so precisely, because Program Policies §3(e) requires an accurate statement of cookie and third-party technology use, and adding a tracker without rewriting that statement would make the footer false.",
+   "sources": []
+  },
+  {
+   "id": "E-04",
+   "scope": "Publishing",
+   "requirement": "Track conversions",
+   "clause": "track clicks and conversions",
+   "status": "blocked",
+   "where": [],
+   "evidence": [],
+   "why": "Conversions are reported only by Amazon, inside the Associates account, after real sales. Nothing on this site can observe them, and no third-party estimate would be the owner's actual number.",
+   "sources": []
+  },
+  {
+   "id": "E-05",
+   "scope": "Publishing",
+   "requirement": "Continuously optimise campaigns",
+   "clause": "continuously optimize campaigns to maximize affiliate revenue",
+   "status": "not_delivered",
+   "where": [
+    "platform/pipeline/rot_sweep.py"
+   ],
+   "evidence": [
+    {
+     "label": "rotation sweep",
+     "url": "platform/pipeline/rot_sweep.py"
+    }
+   ],
+   "why": "The rotation sweep module exists but has no campaign data to act on, because there is no click or conversion data (E-03, E-04). Optimising requires a loop that closes; this one currently has no input.",
+   "sources": []
+  },
+  {
+   "id": "E-06",
+   "scope": "Publishing",
+   "requirement": "Detect dead links before a reader does",
+   "clause": "publish and manage affiliate links",
+   "status": "partial",
+   "where": [
+    "scripts/check_links.py"
+   ],
+   "evidence": [
+    {
+     "label": "link checker",
+     "url": "scripts/check_links.py"
+    }
+   ],
+   "why": "The link checker reads every page on every CI run and none of the internal links are broken; the count is printed by the gate rather than typed here, because it changes whenever a page is added. External links are not re-checked automatically: this sandbox has no outbound network access, so a scheduled remote check has to run in CI, not here.",
+   "sources": []
+  },
+  {
+   "id": "F-01",
+   "scope": "Compliance",
+   "requirement": "Comply with the Amazon Associates Operating Agreement",
+   "clause": "compliance with Amazon Associates policies and disclosure requirements",
+   "status": "delivered",
+   "where": [
+    "data/compliance.json",
+    "compliance.html"
+   ],
+   "evidence": [
+    {
+     "label": "rule matrix",
+     "url": "compliance.html"
+    },
+    {
+     "label": "agreement",
+     "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+    }
+   ],
+   "why": "Sixteen rules are quoted verbatim with their clause numbers and each is mapped to the code that enforces it. The Operating Agreement was re-read today; it still shows 'Updated: October 15, 2025'. The full 82-rule matrix lives in the s2/ annex.",
+   "sources": [
+    "S1",
+    "S2"
+   ]
+  },
+  {
+   "id": "F-02",
+   "scope": "Compliance",
+   "requirement": "Meet FTC endorsement rules (16 CFR Part 255)",
+   "clause": "disclosure requirements",
+   "status": "delivered",
+   "where": [
+    "data/compliance.json",
+    "compliance.html"
+   ],
+   "evidence": [
+    {
+     "label": "16 CFR 255",
+     "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255"
+    },
+    {
+     "label": "Disclosures 101",
+     "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+    }
+   ],
+   "why": "The FTC's own placement test — hard to miss, same medium as the endorsement, not hidden behind a click — is met: the disclosure is a persistent bar above the fold on every page, plus a visible per-link tag. Both FTC pages were re-read today and the quoted language is unchanged.",
+   "sources": [
+    "S7",
+    "S8",
+    "S9"
+   ]
+  },
+  {
+   "id": "F-03",
+   "scope": "Compliance",
+   "requirement": "The exact Amazon-required disclosure sentence on every page",
+   "clause": "disclosure requirements",
+   "status": "delivered",
+   "where": [
+    "build.py",
+    "index.html"
+   ],
+   "evidence": [
+    {
+     "label": "a page",
+     "url": "index.html"
+    }
+   ],
+   "why": "check_disclosure() fails the build if any generated page lacks the exact sentence 'As an Amazon Associate I earn from qualifying purchases.' It is in the header bar and the footer, not only the footer, because the footer alone is the placement the FTC calls likely to be missed.",
+   "sources": [
+    "S1"
+   ]
+  },
+  {
+   "id": "F-04",
+   "scope": "Compliance",
+   "requirement": "Accurate cookie and third-party technology statement",
+   "clause": "compliance with Amazon Associates policies",
+   "status": "partial",
+   "where": [
+    "build.py",
+    "data/flags.json"
+   ],
+   "evidence": [
+    {
+     "label": "policy",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+     "label": "flag",
+     "url": "flagged.html"
+    }
+   ],
+   "why": "Program Policies §3(e). The current statement is accurate for what the site does — it sets no cookies and runs no analytics — but it is a sentence in the footer, not a drafted privacy policy, and it must be rewritten the moment a tracker is added (E-03).",
+   "sources": [
+    "S2"
+   ]
+  },
+  {
+   "id": "F-05",
+   "scope": "Compliance",
+   "requirement": "No Prohibited Paid Search Placement",
+   "clause": "compliance with Amazon Associates policies",
+   "status": "delivered",
+   "where": [
+    "compliance.html"
+   ],
+   "evidence": [
+    {
+     "label": "rule row",
+     "url": "compliance.html"
+    }
+   ],
+   "why": "The site buys no advertising and bids on no keyword, so the prohibition is met by not doing the thing. The rule is quoted anyway, because a future paid-search experiment is exactly the kind of decision that gets made without re-reading the agreement.",
+   "sources": [
+    "S2"
+   ]
+  },
+  {
+   "id": "F-06",
+   "scope": "Compliance",
+   "requirement": "No price tracking or price-alert functionality",
+   "clause": "compliance with Amazon Associates policies",
+   "status": "delivered",
+   "where": [
+    "build.py"
+   ],
+   "evidence": [
+    {
+     "label": "the guard",
+     "url": "build.py"
+    }
+   ],
+   "why": "Program Policies §6(y): a site must not have price tracking and/or price alerting functionality unless Amazon agrees. check_no_price_tracking() scans script bodies and attribute values — not prose, so the site stays free to explain the rule — and fails the build on an injected tracker.",
+   "sources": [
+    "S2"
+   ]
+  },
+  {
+   "id": "F-07",
+   "scope": "Compliance",
+   "requirement": "Do not train or build models on Amazon's Program Content",
+   "clause": "compliance with Amazon Associates policies",
+   "status": "delivered",
+   "where": [
+    "platform/README.md",
+    "data/compliance.json"
+   ],
+   "evidence": [
+    {
+     "label": "policy",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+   ],
+   "why": "Program Policies §5 forbids using Special Links or Program Content to develop machine-learning models without prior written approval. The research pipeline therefore reads manufacturer pages and owner's manuals, never Amazon's Program Content, and the credential gate returns SKIPPED_NO_CREDENTIALS rather than substituting simulated data.",
+   "sources": [
+    "S2"
+   ]
+  },
+  {
+   "id": "F-08",
+   "scope": "Compliance",
+   "requirement": "No inaccurate, overbroad or misleading product claims",
+   "clause": "compliance with Amazon Associates policies",
+   "status": "delivered",
+   "where": [
+    "platform/content/claims_checker.py"
+   ],
+   "evidence": [
+    {
+     "label": "claims checker",
+     "url": "platform/content/claims_checker.py"
+    },
+    {
+     "label": "guard",
+     "url": "build.py"
+    }
+   ],
+   "why": "Program Policies §2(b). Three gates: the claims checker, check_articles() (an article may not state a value that is not in the published dataset), and check_spec_source_conflicts() (a row may not cite a document that contradicts its own value).",
+   "sources": [
+    "S2"
+   ]
+  },
+  {
+   "id": "G-01",
+   "scope": "Platform",
+   "requirement": "Prioritise automation and scalability",
+   "clause": "Prioritize automation, scalability, data-driven decisions",
+   "status": "partial",
+   "where": [
+    "platform/",
+    "scripts/build_site.py"
+   ],
+   "evidence": [
+    {
+     "label": "platform modules",
+     "url": "platform/README.md"
+    },
+    {
+     "label": "site generator",
+     "url": "scripts/build_site.py"
+    }
+   ],
+   "why": "The repository is a working build system: a data audit, 33 unit tests, a site generator with 15 build-failing guards, a link checker and a byte-reproducibility check, all running in CI on every push. What is not automated is the research itself, because the inputs it needs are behind a login (C-03, C-04, E-02, E-04).",
+   "sources": []
+  },
+  {
+   "id": "G-02",
+   "scope": "Platform",
+   "requirement": "Every decision traceable to data",
+   "clause": "data-driven decisions",
+   "status": "delivered",
+   "where": [
+    "verify.py",
+    "platform/audit/report.py"
+   ],
+   "evidence": [
+    {
+     "label": "audit",
+     "url": "platform/audit/report.py"
+    },
+    {
+     "label": "verifier",
+     "url": "verify.py"
+    }
+   ],
+   "why": "Two independent gates read the same data: verify.py from the rendered HTML, the audit from the JSON. A value that cannot be traced to a registered source fails one of them.",
+   "sources": []
+  },
+  {
+   "id": "G-03",
+   "scope": "Platform",
+   "requirement": "A documented platform blueprint",
+   "clause": "Build an AI-powered Amazon affiliate marketing platform",
+   "status": "delivered",
+   "where": [
+    "platform.html",
+    "data/platform.json"
+   ],
+   "evidence": [
+    {
+     "label": "blueprint",
+     "url": "platform.html"
+    }
+   ],
+   "why": "The architecture, the stage-by-stage pipeline, the credential gates and the compliance guardrails, each mapped to the module that implements it.",
+   "sources": []
+  },
+  {
+   "id": "G-04",
+   "scope": "Platform",
+   "requirement": "A working, running automated pipeline",
+   "clause": "The agent should ... continuously optimize campaigns",
+   "status": "partial",
+   "where": [
+    "platform/tests/",
+    "platform/pipeline/eligibility.py"
+   ],
+   "evidence": [
+    {
+     "label": "tests",
+     "url": "platform/tests/"
+    },
+    {
+     "label": "eligibility gate",
+     "url": "platform/pipeline/eligibility.py"
+    }
+   ],
+   "why": "The stages and their tests run; the pipeline as a live loop does not, because every networked stage is credential-gated and no credential is present. That gate is the design working as intended, not a defect — the alternative is a pipeline that invents its own inputs.",
+   "sources": []
+  },
+  {
+   "id": "H-01",
+   "scope": "Brief",
+   "requirement": "Build a product-intent confirmation record for every submitted link",
+   "clause": "For each submitted link, store the intended ASIN, official listing URL, confirmation date, and source. Keep observed redirect targets in a separate field. Do not merge the two fields.",
+   "status": "delivered",
+   "where": [
+    "data/product-intent-confirmations.json",
+    "links.html",
+    "build.py"
+   ],
+   "evidence": [
+    {
+     "label": "the register page",
+     "url": "links.html"
+    },
+    {
+     "label": "the ledger data",
+     "url": "data/product-intent-confirmations.json"
+    }
+   ],
+   "why": "The ledger was created by arena/02b4e9c7 on 2026-11-17 with the four intended fields blank on every row and the three previously observed destinations in a separate object; this pass filled the observation fields for the two links nobody had re-read, left every intended field blank, and rendered the whole thing at links.html so the row a human must fill is a row a human can see. The two fields are never merged: on 2026-11-17 all {n_submitted_links} links were re-resolved, {n_intent_confirmed} have a confirmed intended product, and the register says so in those words.",
+   "sources": [
+    "S23",
+    "S17",
+    "S38"
+   ]
+  },
+  {
+   "id": "H-02",
+   "scope": "Compliance",
+   "requirement": "Record the selected tracking ID and gate every tagged link behind confirmation",
+   "clause": "Selected Tracking ID: shopnow047c-20 — and, from the compliance line: Replace ambiguous outbound links with validated Special Links, testing one link per product in the enrolled Associates workflow before scaling.",
+   "status": "partial",
+   "where": [
+    "data/product-intent-confirmations.json",
+    "links.html",
+    "build.py",
+    "measurement.html"
+   ],
+   "evidence": [
+    {
+     "label": "Amazon — what a tracking ID is, and where they are managed",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA"
+    },
+    {
+     "label": "the gate, as published",
+     "url": "links.html"
+    }
+   ],
+   "why": "Recorded and shape-checked against Amazon's own example (storeid-20): the ID exists on the register, its status reads 'user-provided; not independently validated', and no published link carries it. The half that can be automated is built — check_special_link_gate() fails the build if a tagged anchor appears while the gate is closed, or if the gate is opened without a confirmation date and a source — and the half that cannot is left to the account holder, with the exact screen and four edit steps written on the page. Partial is the honest status: the machinery is done, the confirmation is not. Read the same day, S39 corrected the site's own reasoning: because a tracking ID does not need to appear in the click-through URL for attribution to work, the register does not cite the clean landing URLs as evidence of anything; S40 supplies the screen, the 100-ID limit and the report where a click test is read.",
+   "sources": [
+    "S6",
+    "S2",
+    "S39",
+    "S40"
+   ]
+  },
+  {
+   "id": "H-03",
+   "scope": "Platform",
+   "requirement": "Turn on click and conversion measurement with five defined events and an empty campaign ledger",
+   "clause": "Add a privacy-preserving outbound-click counter and a self-hosted analytics endpoint; record the five defined events. Start with an empty but well-defined campaign ledger… No conversion score or revenue forecast is presented here.",
+   "status": "partial",
+   "where": [
+    "data/measurement.json",
+    "measurement.html",
+    "assets/app.js",
+    "build.py"
+   ],
+   "evidence": [
+    {
+     "label": "the measurement page",
+     "url": "measurement.html"
+    },
+    {
+     "label": "the register",
+     "url": "data/measurement.json"
+    },
+    {
+     "label": "Program Policies §3(e), the obligation the posture answers to",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    }
+   ],
+   "why": "{n_events} events are defined with properties, prohibited contents, status and the decision each one informs; a cookieless, request-free counter ships in the generated script and is disclosed in the footer's section 3(e) statement; the ledger has eight columns with a filling rule each and {n_ledger_rows} rows. The endpoint is the named gap: static Pages hosting has nowhere to receive an event, so the register records it as null and the deployment boundary says what must exist first — inventing a collector URL would have been the one way to fail this requirement honestly.",
+   "sources": [
+    "S2",
+    "S6"
+   ]
+  },
+  {
+   "id": "H-04",
+   "scope": "Site",
+   "requirement": "Mobile-first pass: type scale, tap targets, sticky comparison bar",
+   "clause": "S-20 — Mobile-first pass: type scale, tap targets, sticky comparison bar.",
+   "status": "delivered",
+   "where": [
+    "build.py",
+    "assets/style.css",
+    "compare.html"
+   ],
+   "evidence": [
+    {
+     "label": "the shipped stylesheet tail",
+     "url": "assets/style.css"
+    },
+    {
+     "label": "the comparison page, with the bar",
+     "url": "compare.html"
+    }
+   ],
+   "why": "Presentation only, in the stylesheet's existing vocabulary: 44px minimum tap targets on the controls a shopper actually taps below 760px, a type floor at 560px so a wide table stops being the reason a page needs pinching, and a sticky comparison bar on the comparison page that keeps the buying guide and the open-questions link within reach while a reader scrolls a matrix. No published value, source or status label is touched, and the print stylesheet hides the chrome the way it hides the rest.",
+   "sources": []
+  }
+ ]
+}

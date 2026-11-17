@@ -1,6 +1,6 @@
 {
  "version": "1.1",
- "compiled": "2026-11-16",
+ "compiled": "2026-11-17",
  "preamble": "A decision is only as good as the information behind it. This page separates four states that are usually mixed together: what we know and can prove, what we do not know but could look up, what the official source does not state, and what we cannot know at all without information that only the account holder possesses. Every suggestion on the Suggestions page points at the rows below that block it. Nothing here is a guess about what the answer probably is. Questions in the 'known and sourced' state carry their answer on the row: an official source already settles them, and the answer is what the source says. Every other row states plainly that no answer is published, and names the step that would produce one.",
  "legend": {
   "known": "Verified against an official source this pass fetched itself, or recorded by an earlier pass whose fetch is logged in this repository. The source link is on the row.",
@@ -783,6 +783,70 @@
     {
      "label": "New Product Advertising API registration (official)",
      "url": "https://affiliate-program.amazon.com/help/node/topic/GBRCD467W33NMWLD"
+    }
+   ]
+  },
+  {
+   "id": "Q-27",
+   "group": "Product identity",
+   "question": "Which product were the two links submitted on 2026-11-17 created to send a reader to — and does this site publish them at all?",
+   "state": "missing",
+   "why_it_matters": "It decides whether this is a three-product air-fryer guide or a kitchen-tools publication, and that moves the navigation, the category page, the internal-link graph and the commission-category argument. Reading it off a fallback redirect would put unconfirmed product claims on a page that gets paid for them, and F80 shows the two candidates do not reconcile with either manufacturer's own model names — so this cannot be settled by a pass reading harder.",
+   "what_we_know": [
+    "Both links were re-read live on 2026-11-17: PI-04 lands on /dp/B0DHZTCNR5 and PI-05 on /dp/B0DZFD6R9Z, each with the same lv=shuf / plpRedirect=mhFallback fallback form recorded for the original three, and neither landing URL carrying an asin= parameter.",
+    "Amazon files both candidates under Kitchen Utensils & Gadgets > Thermometers & Timers > Meat — a different browse path from the air-fryer listings this site is built around (F77).",
+    "The brands' own pages were read the same day: ThermoMaven names its instant-read line F1 Pro / F1 Turbo and does not use the '1 Sec' label the listing carries; CHEF iQ states model CQ60-3C-Z3-E for the iQ Sense, a designation the listing does not repeat, and names air-fryer use among that product's heat environments.",
+    "intended_asin, official_listing_url, confirmation_date and confirmation_source are null on both rows by construction, and the observed destinations live only in the observed_* fields."
+   ],
+   "what_is_missing": "A statement from the account holder of which product each link was created to promote — ideally the official /dp/ URL they entered in the Link Building tool, with the date it was checked in their own browser. 'The link was sent in error' is a complete answer and closes the row.",
+   "how_to_discover": "Open each submitted link in the browser signed in to the Amazon account and read the listing title plus the model line in Product information; compare it with what you meant to promote and with the brand pages registered as S39/S40. If it matches, fill the four intended fields on that row of data/product-intent.json; the build's contract then permits the tagging question to be taken up in order (Q-28).",
+   "blocks": [
+    "SG-36"
+   ],
+   "sources": [
+    {
+     "label": "CHEF iQ — iQ Sense product page (brand-official)",
+     "url": "https://chefiq.com/products/iq-sense"
+    },
+    {
+     "label": "ThermoMaven — official site, instant-read line-up",
+     "url": "https://www.thermomaven.com/"
+    },
+    {
+     "label": "Amazon — ASIN and product URL definition",
+     "url": "https://kdp.amazon.com/en_US/help/topic/G200652190"
+    }
+   ]
+  },
+  {
+   "id": "Q-28",
+   "group": "Attribution",
+   "question": "Is shopnow047c-20 listed on the Associates account, and does a click through a published link appear under it in the Tracking ID Summary Report?",
+   "state": "unknowable",
+   "why_it_matters": "Until both halves are true the site cannot earn, and no page on it could tell you. A tag that does not exist attributes nothing; a tag that exists but is not the one attached attributes nothing either. Everything else in the queue — content, measurement, the category question — is downstream of one screen inside the account.",
+   "what_we_know": [
+    "The value was supplied by the account holder on 2026-11-17 and is recorded as user-provided; its shape matches the only example Amazon publishes (storeid-20, sub-tag storeid-1-20), re-read verbatim from S6 the same day.",
+    "No official page states a validation rule or lists which IDs exist for which account, so a shape match cannot confirm existence, and the repository keeps associate_tag blank by contract rather than filling it.",
+    "S41 states that a tracking ID need not appear in the click-through URL for a sale to be attributed, so the clean landing URLs observed for the submitted links neither support nor undermine anything: a URL inspection cannot fill the per-row associates_link_test fields.",
+    "S42 names where the result is read — the Tracking ID Summary Report — and records the 100-IDs-per-account limit that makes a per-channel scheme practical (F81)."
+   ],
+   "what_is_missing": "Two observations only the account holder can make: the ID present at Associates Central > Manage your Tracking ID, and a click-through appearing in that ID's summary report.",
+   "how_to_discover": "Open Manage your Tracking ID and check for shopnow047c-20. Click one published product link. Read the Tracking ID Summary Report for that click. Write the date and the report name into data/product-intent.json's per-row associates_link_test_* fields and the associates_central_confirmation fields — the build contract in tests/test_build_contract.py then governs when the tag may be applied, and a later pass can close F76 and this row together.",
+   "blocks": [
+    "SG-37"
+   ],
+   "sources": [
+    {
+     "label": "Amazon — how IDs are created and reported, and the limit per account",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GJDYPQZK6E37RLPU"
+    },
+    {
+     "label": "Amazon — a tag need not appear in the URL to attribute the sale",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GF4RJEQNXSMR7SP3"
+    },
+    {
+     "label": "Amazon — what a tracking ID is (re-read verbatim 2026-11-17)",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA"
     }
    ]
   }

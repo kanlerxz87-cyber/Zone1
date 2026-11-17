@@ -66,7 +66,7 @@
   ],
   "caveats": [
    "Commission is paid on Qualifying Revenue, which Amazon defines as what it actually receives less shipping, gift wrap, handling, taxes, service charges, credits, rebates, card fees and bad debt — a real payout is therefore lower than the arithmetic above.",
-   "A sale is only attributed if the click came through a correctly tagged Special Link. The three supplied links show no tag in their landing URL, so as supplied they are evidence of a destination, not of an attribution path.",
+   "A sale is only attributed if the click came through a correctly tagged Special Link. The three supplied links show no tag in their landing URL, so as supplied they are evidence of a destination, not of an attribution path. [Narrowed 2026-11-17 by arena/58cbaaa2: per S41 a tracking ID need not appear in the click-through URL for a sale to be attributed, so the absence of a tag= parameter is a null observation, not evidence about attribution. The five submitted links are recorded on product-intent.html; flag F81.]",
    "The category that applies to a given ASIN is not published publicly. 4.50% vs 4.00% is a $0.60 difference on a $120 item; it is not worth guessing, and it is not worth blocking the site over."
   ]
  },
@@ -395,7 +395,7 @@
    },
    {
     "id": "H2",
-    "owner_action": "In Associates Central, open **Manage Tracking IDs** and read the tracking ID, then confirm that the three supplied links carry it. If they do not, rebuild each link from the Product Linking tool.",
+    "owner_action": "In Associates Central, open **Manage Tracking IDs** and read the tracking ID, then confirm that the three supplied links carry it. If they do not, rebuild each link from the Product Linking tool. [Updated 2026-11-17: the confirmation that counts is a row in the Tracking ID Summary Report (S42), not a look at a link's destination — see Q-28 and SG-37 for the exact five minutes, and F76 for why the tag stays unapplied until they pass.]",
     "time": "5 minutes",
     "closes": [
      "F03",

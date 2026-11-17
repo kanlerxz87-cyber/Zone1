@@ -1111,6 +1111,69 @@
    ],
    "why": "The stages and their tests run; the pipeline as a live loop does not, because every networked stage is credential-gated and no credential is present. That gate is the design working as intended, not a defect — the alternative is a pipeline that invents its own inputs.",
    "sources": []
+  },
+  {
+   "id": "H-01",
+   "scope": "Brief",
+   "requirement": "Record each submitted link with intended ASIN, official listing URL, confirmation date and source, kept separate from the observed redirect target",
+   "clause": "Create a product-intent confirmation record for every submitted product link: intended ASIN, official listing URL, confirmation date, and source. Keep observed redirect targets in a separate field. Do not merge the two fields. Validate the supplied short links by testing one per product in the enrolled Associates workflow before scaling.",
+   "status": "partial",
+   "where": [
+    "data/product-intent.json",
+    "product-intent.html",
+    "build.py",
+    "tests/test_build_contract.py"
+   ],
+   "evidence": [
+    {
+     "label": "the rendered record, with the brand-catalogue table and the method correction",
+     "url": "product-intent.html"
+    },
+    {
+     "label": "this pass's evidence file",
+     "url": "reports/verification-2026-11-17-58cbaaa2.md"
+    },
+    {
+     "label": "Amazon — where an enrolled link test is actually read",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GJDYPQZK6E37RLPU"
+    }
+   ],
+   "why": "The register, the field separation and the build contract were merged by other sessions; this pass added what they lacked — the brand-catalogue check on the two links submitted on 2026-11-17, which shows a listing marketing phrase and a manufacturer model number are different kinds of identifier and closes neither row (F80), and a dated correction of the inference that a landing URL without a visible tag says anything about attribution (F81, S41). Partial by arithmetic rather than by judgement: {n_submitted_links} rows, {n_intent_confirmed} with a confirmed intended product, {n_link_tests_passed} enrolled-Associates link tests recorded. Only the account holder can move those two numbers, which is Q-27 and Q-28.",
+   "sources": [
+    "S23",
+    "S36",
+    "S37",
+    "S39",
+    "S40",
+    "S41",
+    "S42"
+   ]
+  },
+  {
+   "id": "H-02",
+   "scope": "Site",
+   "requirement": "Keep narrative counts in prose derived from the registers rather than typed into sentences",
+   "clause": "Flag irregularities found during review; never let a published page assert something the data contradicts.",
+   "status": "delivered",
+   "where": [
+    "build.py",
+    "categories/kitchen-appliances.html",
+    "data/product-intent.json"
+   ],
+   "evidence": [
+    {
+     "label": "the guard",
+     "url": "build.py"
+    },
+    {
+     "label": "the category page whose lede was repaired",
+     "url": "categories/kitchen-appliances.html"
+    }
+   ],
+   "why": "The category lede still described the submitted set as three links, present tense, two days after the register grew to five — every value inside the sentence correct, the sentence false, and no gate reading narrative. Repaired where the tense is present (the lede now reads len(rows) and the register's own observed_listing_category field, spelled by _num_word) and guarded by check_submitted_link_count(), scoped to the shopper surfaces and the two registers so a dated row that truthfully records 2026-11-14 cannot be 'fixed' by rewriting it. Recorded as F82 with the process note: when the owner submits another link, add a row, never a sentence.",
+   "sources": [
+    "S17"
+   ]
   }
  ]
 }

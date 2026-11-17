@@ -1,0 +1,286 @@
+{
+  "schema_version": 2,
+  "prepared_on": "2026-11-17",
+  "purpose": "Keep operator-confirmed product intent separate from observed Amazon redirect destinations. A redirect observation is not confirmation of the product the operator meant to promote.",
+  "selected_tracking_id": {
+    "value": "shopnow047c-20",
+    "provenance": "Supplied in the project brief on 2026-11-17.",
+    "status": "user-provided; not independently validated in Associates Central and not confirmed as the tag on any submitted short link",
+    "associates_central_confirmation_date": null,
+    "source": null,
+    "format_check": {
+      "against": "Amazon's published example of a tracking ID in the Associates help page on tracking IDs (S6)",
+      "official_example": "storeid-20 (with sub-tag IDs of the form storeid-1-20)",
+      "supplied_value": "shopnow047c-20",
+      "characters": 14,
+      "result": "Matches the published shape: a lower-case account-style prefix followed by the marketplace suffix, the same form as the help page's own storeid-20 example. A shape match is not an existence check.",
+      "what_this_check_cannot_establish": "Whether the ID exists on the account, whether it is the ID attached to any of the five submitted links, and whether the account is approved to earn. None of those is observable from outside Associates Central.",
+      "source": "S6",
+      "note_2026_11_17": "Amazon's own help node, read 2026-11-17 (S39), states that 'it is not necessary for your unique ID to appear in order for us to track sales made after the initial click through' because the shopping session is tagged on Amazon's side. The absence of a tag= parameter on an observed landing URL is therefore a null observation, not a negative one: it cannot be cited as evidence that a link failed to attribute. The positive still has to come from inside the account — the Tracking ID Summary Report named by S40."
+    },
+    "owner_action": {
+      "what": "Open Associates Central → Manage your Tracking ID and confirm shopnow047c-20 is listed; then click through one published link and confirm the click appears in that ID's report.",
+      "where": "https://affiliate-program.amazon.com/home/account/tag/manage",
+      "estimated_minutes": 5,
+      "unblocks": [
+        "SG-37",
+        "SG-02",
+        "Q-04",
+        "Q-28",
+        "the special-link gate in build.py"
+      ],
+      "where_is_documented": "S6, S40",
+      "confirmation_is_read_in": "Tracking ID Summary Report (S40)"
+    },
+    "tagging_gate": {
+      "state": "closed",
+      "why_closed": "While the ID is unconfirmed, every outbound product link on this site stays exactly as supplied and carries no tag parameter. A tag that does not exist on the account cannot earn, and a link rewritten to a destination nobody confirmed would be a commercial link invented by the publisher. The gate opens by data, not by editing a template.",
+      "to_open": [
+        "Set intended_product.status to 'confirmed' on the record whose listing the owner meant to promote, with official_listing_url and confirmation_source filled.",
+        "Set selected_tracking_id.associates_central_confirmation_date to the date the ID was read on the Manage your Tracking ID screen, and add the screen's own URL as source.",
+        "Set tagging_gate.state to 'open' and rebuild. build.py then emits canonical /dp/<confirmed ASIN>?tag=<value> links for confirmed records only.",
+        "The build fails if the gate is open with no confirmation evidence (check_special_link_gate), and if any tagged link appears for a record whose identity is unconfirmed."
+      ],
+      "enforced_by": "check_special_link_gate() in build.py"
+    },
+    "observation_method_correction": {
+      "url_absence_is_not_evidence": "Amazon's own help node, read 2026-11-17 (S39), states that 'it is not necessary for your unique ID to appear in order for us to track sales made after the initial click through' because the shopping session is tagged on Amazon's side. The absence of a tag= parameter on an observed landing URL is therefore a null observation, not a negative one: it cannot be cited as evidence that a link failed to attribute. The positive still has to come from inside the account — the Tracking ID Summary Report named by S40.",
+      "management_screen": "Two official nodes name the same screen (S6, S40): Associates Central > 'Manage your Tracking ID', linked as https://affiliate-program.amazon.com/home/account/tag/manage. S40 also records a limit of 100 tracking IDs per associate account and that each ID's data appears in the Tracking ID Summary Report — which is where a click test is actually read."
+    },
+    "correction_date": "2026-11-17"
+  },
+  "records": [
+    {
+      "record_id": "PI-01",
+      "submitted_link": "https://link.amazon/B04G1MEwY",
+      "intended_product": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmed_on": null,
+        "confirmation_source": null,
+        "status": "not confirmed"
+      },
+      "observed_redirect_target": {
+        "url": "https://www.amazon.com/dp/B0CDY277D3",
+        "observed_on": "2026-11-16",
+        "observation_status": "recorded redirect destination only; does not confirm operator intent or Associates attribution",
+        "evidence": [
+          "reports/verification-2026-11-16-19d92a81.md",
+          "https://link.amazon/B04G1MEwY",
+          "https://www.amazon.com/dp/B0CDY277D3"
+        ]
+      },
+      "submitted_token": {
+        "as_supplied": "B04G1MEwY",
+        "characters": 9,
+        "matches_amazon_asin_length": false,
+        "note": "Captured exactly as supplied in the 2026-11-17 brief and not normalised. Recorded here rather than in intended_product because a token in a URL is not a confirmation of intent. See submitted_token_rule."
+      },
+      "observation_2026_11_17": {
+        "final_url": "https://www.amazon.com/dp/B0CDY277D3?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-1ffea10d1d3c7fc5&channelId=704&plpRedirect=mhFallback",
+        "candidate_asin": "B0CDY277D3",
+        "listing_title_as_served": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen",
+        "category_breadcrumb_as_served": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+        "fallback_markers": [
+          "lv=shuf",
+          "plpRedirect=mhFallback",
+          "btn_ref=srctok-…"
+        ],
+        "stable_vs_prior_observation": "Destination ASIN and listing title match the 2026-11-16 record; the btn_ref/srctok value differs, as it has between every prior repeat request (flag F41).",
+        "observed_on": "2026-11-17",
+        "observed_by": "arena/58cbaaa2-zone1"
+      }
+    },
+    {
+      "record_id": "PI-02",
+      "submitted_link": "https://link.amazon/B02NbDxp3",
+      "intended_product": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmed_on": null,
+        "confirmation_source": null,
+        "status": "not confirmed"
+      },
+      "observed_redirect_target": {
+        "url": "https://www.amazon.com/dp/B09B7SB46R",
+        "observed_on": "2026-11-16",
+        "observation_status": "recorded redirect destination only; does not confirm operator intent or Associates attribution",
+        "evidence": [
+          "reports/verification-2026-11-16-19d92a81.md",
+          "https://link.amazon/B02NbDxp3",
+          "https://www.amazon.com/dp/B09B7SB46R"
+        ]
+      },
+      "submitted_token": {
+        "as_supplied": "B02NbDxp3",
+        "characters": 9,
+        "matches_amazon_asin_length": false,
+        "note": "Captured exactly as supplied in the 2026-11-17 brief and not normalised. Recorded here rather than in intended_product because a token in a URL is not a confirmation of intent. See submitted_token_rule."
+      },
+      "observation_2026_11_17": {
+        "final_url": "https://www.amazon.com/dp/B09B7SB46R?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-6af2110975721338&channelId=704&plpRedirect=mhFallback",
+        "candidate_asin": "B09B7SB46R",
+        "listing_title_as_served": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen",
+        "category_breadcrumb_as_served": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+        "fallback_markers": [
+          "lv=shuf",
+          "plpRedirect=mhFallback",
+          "btn_ref=srctok-…"
+        ],
+        "stable_vs_prior_observation": "Destination and title match the 2026-11-16 record, including 'Six Cooking Accessories Included', which is the figure that conflicts with the brand page's 7 (flag F71). Re-confirmed, not resolved.",
+        "observed_on": "2026-11-17",
+        "observed_by": "arena/58cbaaa2-zone1"
+      }
+    },
+    {
+      "record_id": "PI-03",
+      "submitted_link": "https://link.amazon/B00hJ57DV",
+      "intended_product": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmed_on": null,
+        "confirmation_source": null,
+        "status": "not confirmed"
+      },
+      "observed_redirect_target": {
+        "url": "https://www.amazon.com/dp/B08DKYBTPH",
+        "observed_on": "2026-11-16",
+        "observation_status": "recorded redirect destination only; does not confirm operator intent or Associates attribution",
+        "evidence": [
+          "reports/verification-2026-11-16-19d92a81.md",
+          "https://link.amazon/B00hJ57DV",
+          "https://www.amazon.com/dp/B08DKYBTPH"
+        ]
+      },
+      "submitted_token": {
+        "as_supplied": "B00hJ57DV",
+        "characters": 9,
+        "matches_amazon_asin_length": false,
+        "note": "Captured exactly as supplied in the 2026-11-17 brief and not normalised. Recorded here rather than in intended_product because a token in a URL is not a confirmation of intent. See submitted_token_rule."
+      },
+      "observation_2026_11_17": {
+        "final_url": "https://www.amazon.com/dp/B08DKYBTPH?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-573e21e39d4d4c1c&channelId=704&plpRedirect=mhFallback&th=1",
+        "candidate_asin": "B08DKYBTPH",
+        "listing_title_as_served": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel : Home & Kitchen",
+        "category_breadcrumb_as_served": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+        "fallback_markers": [
+          "lv=shuf",
+          "plpRedirect=mhFallback",
+          "btn_ref=srctok-…"
+        ],
+        "stable_vs_prior_observation": "Destination and title match the 2026-11-16 record, including the '450°F Hi-Fry' wording that the RJ38-SQSS-8T brand page and manual contradict (flag F3). Re-confirmed, not resolved.",
+        "observed_on": "2026-11-17",
+        "observed_by": "arena/58cbaaa2-zone1"
+      }
+    },
+    {
+      "record_id": "PI-04",
+      "submitted_link": "https://link.amazon/B0c8moW59",
+      "intended_product": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmed_on": null,
+        "confirmation_source": null,
+        "status": "not confirmed"
+      },
+      "observed_redirect_target": {
+        "url": "https://www.amazon.com/dp/B0DHZTCNR5",
+        "observed_on": "2026-11-17",
+        "observation_status": "recorded redirect destination only; does not confirm operator intent or Associates attribution. First observed 2026-11-17 by arena/58cbaaa2 — the version-1 record of this file carried no observation for this link.",
+        "evidence": [
+          "reports/verification-2026-11-17-58cbaaa2.md",
+          "https://link.amazon/B0c8moW59",
+          "https://www.amazon.com/dp/B0DHZTCNR5"
+        ]
+      },
+      "submitted_token": {
+        "as_supplied": "B0c8moW59",
+        "characters": 9,
+        "matches_amazon_asin_length": false,
+        "note": "Captured exactly as supplied in the 2026-11-17 brief and not normalised. Recorded here rather than in intended_product because a token in a URL is not a confirmation of intent. See submitted_token_rule."
+      },
+      "observation_2026_11_17": {
+        "final_url": "https://www.amazon.com/dp/B0DHZTCNR5?lv=shuf&btn_type=ss&gaOptInStatus=true&content-id=amzn1.sym.4582c56b-139d-4168-9db2-822c68889360&ie=UTF8&btn_ref=srctok-633f9dc54185b50f&channelId=500&plpRedirect=mhFallback",
+        "candidate_asin": "B0DHZTCNR5",
+        "listing_title_as_served": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black : Home & Kitchen",
+        "category_breadcrumb_as_served": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+        "fallback_markers": [
+          "lv=shuf",
+          "plpRedirect=mhFallback",
+          "btn_ref=srctok-…",
+          "channelId=500"
+        ],
+        "stable_vs_prior_observation": "First observation of this link in this repository; nothing to compare it against. The 2026-11-16 records cover only the other three links.",
+        "observed_on": "2026-11-17",
+        "observed_by": "arena/58cbaaa2-zone1"
+      },
+      "category_observed": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+      "not_in_this_sites_scope": "The observed candidate is a cooking thermometer. This site publishes air fryers only, so the row is deliberately not promoted into a product page: no spec table, no comparison row and no article is generated from an unconfirmed identity (the rule SG-01 exists to enforce)."
+    },
+    {
+      "record_id": "PI-05",
+      "submitted_link": "https://link.amazon/B0f3GKalj",
+      "intended_product": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmed_on": null,
+        "confirmation_source": null,
+        "status": "not confirmed"
+      },
+      "observed_redirect_target": {
+        "url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+        "observed_on": "2026-11-17",
+        "observation_status": "recorded redirect destination only; does not confirm operator intent or Associates attribution. First observed 2026-11-17 by arena/58cbaaa2 — the version-1 record of this file carried no observation for this link.",
+        "evidence": [
+          "reports/verification-2026-11-17-58cbaaa2.md",
+          "https://link.amazon/B0f3GKalj",
+          "https://www.amazon.com/dp/B0DZFD6R9Z"
+        ]
+      },
+      "submitted_token": {
+        "as_supplied": "B0f3GKalj",
+        "characters": 9,
+        "matches_amazon_asin_length": false,
+        "note": "Captured exactly as supplied in the 2026-11-17 brief and not normalised. Recorded here rather than in intended_product because a token in a URL is not a confirmation of intent. See submitted_token_rule."
+      },
+      "observation_2026_11_17": {
+        "final_url": "https://www.amazon.com/dp/B0DZFD6R9Z?lv=shuf&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&btn_type=ss&gaOptInStatus=true&language=en_US&btn_ref=srctok-101536bcd8e0be02&channelId=500&plpRedirect=mhFallback&th=1",
+        "candidate_asin": "B0DZFD6R9Z",
+        "listing_title_as_served": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen",
+        "category_breadcrumb_as_served": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+        "fallback_markers": [
+          "lv=shuf",
+          "plpRedirect=mhFallback",
+          "btn_ref=srctok-…",
+          "channelId=500"
+        ],
+        "stable_vs_prior_observation": "First observation of this link in this repository; nothing to compare it against.",
+        "observed_on": "2026-11-17",
+        "observed_by": "arena/58cbaaa2-zone1"
+      },
+      "category_observed": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+      "not_in_this_sites_scope": "The observed candidate is a cooking thermometer. This site publishes air fryers only, so the row is deliberately not promoted into a product page: no spec table, no comparison row and no article is generated from an unconfirmed identity (the rule SG-01 exists to enforce)."
+    }
+  ],
+  "source_notes": {
+    "associates_special_links": "https://affiliate-program.amazon.com/help/operating/policies",
+    "associates_operating_agreement": "https://affiliate-program.amazon.com/help/operating/agreement",
+    "amazon_asin_help": "https://kdp.amazon.com/en_US/help/topic/G200652190",
+    "source_use_rule": "Amazon policy links are official policy references, not evidence that a particular short link is compliant. Each intended ASIN/listing field remains blank until the operator's product intent is confirmed and the official listing is recorded."
+  },
+  "schema_note": "Version 1 recorded the five submitted links with the intent fields blank and the three previously observed redirect targets filled. Version 2 (2026-11-17, arena/58cbaaa2) keeps every version-1 field and value exactly as written and adds three things: a per-record submitted_token block (the identifier captured as supplied, checked against Amazon's own ASIN definition, and deliberately kept out of intended_product), a per-record observation_2026_11_17 block from a live re-read of all five links, and the tracking-ID gate. The two records that had no observation now have one. No intended_product field was filled by this pass: a redirect destination is evidence of where a link lands, never evidence of what the operator meant.",
+  "observations_2026_11_17": {
+    "observed_on": "2026-11-17",
+    "observed_by": "arena/58cbaaa2-zone1 (session 58cbaaa2, pass 13)",
+    "method": "Each of the five submitted URLs was requested through a server-side fetch on 2026-11-17 UTC; the final URL, the served page <title> and the category breadcrumb were read from the response. Prices, star ratings and review counts are present in those pages and are deliberately not recorded here: Program Policies section 2(b) and 6(t) restrict their use to Amazon-served links or the Creators/PA API, which this project does not hold.",
+    "result": "Five for five landed on URLs carrying lv=shuf and plpRedirect=mhFallback — the same generated fallback form the previous passes recorded for the first three links. For the first three, the candidate ASIN and listing title are unchanged since 2026-11-16. For PI-04 and PI-05 this is the first recorded observation.",
+    "the_new_finding": "PI-04 and PI-05 do not resolve to air fryers. Their candidate destinations are a ThermoMaven instant-read meat thermometer and a CHEF iQ Sense Gen3 wireless meat thermometer, both filed by Amazon under Kitchen Utensils & Gadgets > Thermometers & Timers > Meat. Every product page, article, comparison row and buying guide on this site is about air fryers. So the submitted product set now spans two categories and the site's framing — 'three air fryers' — is an owner decision that the brief has quietly changed. Recorded as flag F76 and as suggestion SG-36; nothing on the site was silently widened.",
+    "brand_side_check": "The two candidate products were cross-read against the brands' own pages so the owner has something to compare intent against: CHEF iQ publishes the iQ Sense (model CQ60-3C-Z3-E, five sensors, ambient range to 1,000 degrees F, Wi-Fi hub, and its own listing copy names air-fryer use) at S36; ThermoMaven's official site publishes an instant-read line whose named models are the F1 Pro and F1 Turbo — its F1 Turbo is described with a 0.5-second read, while the observed Amazon title says '1 Sec', so the brand's own catalogue does not settle which model the candidate ASIN is (S37, flag F77). No brand figure is published as a specification of the observed listing: neither listing's identity is confirmed."
+  },
+  "submitted_token_rule": {
+    "rule": "The identifier in each submitted URL is recorded exactly as supplied, in its own field. It is not copied into intended_product.asin and it is not treated as a validated ASIN.",
+    "why": "Amazon's own identifier definition states an ASIN is a 10-character number. Every one of the five submitted tokens is 9 characters, so each fails that definition on length alone. That does not make the links invalid or non-compliant — the short-link format, not the operator, chose the encoding, and no official Amazon page documents link.amazon (flag F16). It does mean the token cannot be used as a checkable product identifier, which is why the confirmation fields stay blank.",
+    "official_definition_source": "S23",
+    "compliance_status_of_the_links": "unresolved — see FLG-003 note in the brief and flags F10, F14, F15, F16, F77"
+  }
+}

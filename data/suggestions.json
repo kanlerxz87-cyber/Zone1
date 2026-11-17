@@ -1,6 +1,6 @@
 {
  "version": "1.1",
- "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped)",
+ "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped); SG-36..SG-38 and path P6 by arena/58cbaaa2 (2026-11-17) — written twice, and shortened the second time: the first draft's parallel intent register, measurement register and flags were dropped when main's merged registers and collection-disabled contract were found. The withdrawn draft is published at session-58cbaaa2/artifacts/.",
  "compiled": "2026-11-16",
  "how_to_read": [
   "Nothing on this page has been implemented. It is a decision queue for the site owner.",
@@ -1711,6 +1711,187 @@
    "risk_of_not_doing": "Low now, compounding: every article added without a map makes the next one worth less.",
    "blocks": [],
    "blocked_by": []
+  },
+  {
+   "id": "SG-36",
+   "title": "Decide what happens to the two links that are not air fryers — with the paths in front of you",
+   "area": "Product set and scope",
+   "problem": "main's F77 records the observation and asks the owner to say what the two links submitted on 2026-11-17 were meant to promote, or drop them. What a register cannot do is present the choice, and this is now a choice with a cost attached to delay: the brand-catalogue check (F80) shows the two candidate listings do not reconcile with either manufacturer's own model names, so the rows cannot be closed by reading harder, while every new article written for 'three air fryers' deepens a frame the owner may already have outgrown. Publishing the two thermometers from a fallback destination would build a second shallow footprint on top of the first.",
+   "evidence": [
+    {
+     "label": "Link-intent record, PI-04 and PI-05 with the brand-catalogue check",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/product-intent.html"
+    },
+    {
+     "label": "Flag F80 — what the two brand pages do and do not settle",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f80"
+    },
+    {
+     "label": "CHEF iQ iQ Sense page (brand-official)",
+     "url": "https://chefiq.com/products/iq-sense"
+    },
+    {
+     "label": "ThermoMaven official site (its own model names)",
+     "url": "https://www.thermomaven.com/"
+    },
+    {
+     "label": "data/product-intent.json",
+     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/product-intent.json"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Park both rows: the register keeps them, the site publishes neither",
+     "what": "Zero new pages. The site keeps one reader intent, one internal-link graph and one set of sourced claims, and both links stay available the moment their identity is confirmed.",
+     "effort": "S",
+     "risk": "none",
+     "reversible": true
+    },
+    {
+     "label": "B. Stand up a thermometer category — after the documents, in that order",
+     "what": "Confirm the intended product (Q-27), read the brand pages and manuals into the source register, then write one comparison and one guide. In this order a second category is a publication; in the reverse order it is two thin sites sharing a domain.",
+     "effort": "L",
+     "risk": "medium",
+     "reversible": true
+    },
+    {
+     "label": "C. Follow the newest links and re-plan the site around thermometers",
+     "what": "Treat the two most recent submissions as the direction and archive the air-fryer set. Cheapest to justify if the owner says so in one sentence; destructive to infer from a URL.",
+     "effort": "L",
+     "risk": "high",
+     "reversible": false
+    }
+   ],
+   "recommendation": "A. Publish nothing new from an unconfirmed identity; keep the register as the visible record and choose B or C only after Q-27 is answered.",
+   "why": "The site's only durable asset is that a reader can check every row. A page about a product nobody confirmed the link points at spends that asset to gain two pages.",
+   "impact": 5,
+   "confidence": 4,
+   "effort": "S",
+   "risk_of_not_doing": "Medium and rising: re-framing later means rewriting the navigation, the category page and the internal-link graph, not just adding pages — and the category lede has already had to be repaired once because the count was typed rather than read (F82).",
+   "blocks": [],
+   "blocked_by": [
+    "Q-27"
+   ]
+  },
+  {
+   "id": "SG-37",
+   "title": "Close the attribution question where it can actually be closed: one click, read in the Tracking ID Summary Report",
+   "area": "Attribution",
+   "problem": "The repository now holds the right machinery and the right blank fields: the tracking ID is recorded as user-provided and unvalidated, associate_tag is deliberately blank, F76 states that no link is confirmed to carry it, and every row has associates_link_test_passed/date/source fields waiting for a result that only the account holder can produce. What was missing is the statement of *where* the result is read — and a caution: reading a landing URL is not a test. Amazon's own help node (S41) says the ID need not appear in the URL at all, so the observations this project has accumulated about clean landing URLs cannot fill those fields. S42 names the screen that creates IDs, the Tracking ID Summary Report where per-ID data appears, and the limit of 100 IDs per account, which is what makes a per-channel scheme cheap enough to do in the same sitting.",
+   "evidence": [
+    {
+     "label": "Amazon — where IDs are created, the 100-per-account limit, the report that reads them",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GJDYPQZK6E37RLPU"
+    },
+    {
+     "label": "Amazon — a tag need not appear in the click-through URL",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GF4RJEQNXSMR7SP3"
+    },
+    {
+     "label": "Amazon — what tracking IDs are, and the storeid-20 example (re-read verbatim 2026-11-17)",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA"
+    },
+    {
+     "label": "Flag F81 — the over-reading, corrected on the record",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f81"
+    },
+    {
+     "label": "The record carrying the per-row test fields",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/product-intent.html"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Confirm the ID, click one published link, read the report, write the result back",
+     "what": "Check shopnow047c-20 is listed at Manage your Tracking ID; click one published product link; confirm the click appears in that ID's report. Then fill associates_central_confirmation_date/source and the per-row test fields in data/product-intent.json — a later pass can then set associate_tag with the contract in tests/test_build_contract.py satisfied, and nothing else needs to change.",
+     "effort": "S",
+     "risk": "low",
+     "reversible": true
+    },
+    {
+     "label": "B. A, plus one ID per channel while you are in there",
+     "what": "Same screen, a few more minutes. Per-channel IDs give clicks and orders per channel inside Amazon's reporting with no code on this site; S42 records 100 per account, so there is room for site, newsletter and social.",
+     "effort": "S",
+     "risk": "low",
+     "reversible": true
+    },
+    {
+     "label": "C. Leave the fields empty",
+     "what": "Status quo, which is the correct default and is worth naming: unvalidated tag, untagged links, no attribution, no earnings. It is defensible for a publication whose value is its sources and indefensible for an affiliate site.",
+     "effort": "0",
+     "risk": "medium",
+     "reversible": true
+    }
+   ],
+   "recommendation": "A, then B in the same sitting — and never a URL inspection as a substitute for the report row.",
+   "why": "It is the one queue item where a five-minute check by the only person with account access converts a whole site from 'content that might earn' to 'content that is attributed', and it is the only item that closes F76, F81 and the per-row test fields at once.",
+   "impact": 5,
+   "confidence": 5,
+   "effort": "S",
+   "risk_of_not_doing": "High in the narrow sense that matters: an unattributed click is the same as no click.",
+   "blocks": [],
+   "blocked_by": [
+    "Q-28"
+   ]
+  },
+  {
+   "id": "SG-38",
+   "title": "Settle what the measurement layer is allowed to become, so the disabled collector stops being an open question in three files at once",
+   "area": "Measurement",
+   "problem": "Three places currently describe one decision in different tenses: data/measurement.json holds five events with status defined_not_shipped, analytics/collector.py is a working fail-closed service that GitHub Pages does not run and that refuses events until four operator-set conditions are met, and the footer tells readers that browser collection is disabled and nothing is sent. All three are true today. None of them says what the project intends, which is the condition under which a 'proposed' page turns into an unowned surface a later pass quotes. This session built a cookieless, request-free browser tally for EV-02/EV-04 while working on an older base, found main carrying the opposite posture behind a test (tests/test_build_contract.py), and withdrew it rather than merge around a decision — the option set below is that withdrawn work, offered as a choice instead of a fait accompli.",
+   "evidence": [
+    {
+     "label": "The event definitions and the deployment gate",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/measurement.html"
+    },
+    {
+     "label": "The collector the repository already ships, and its fail-closed contract",
+     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/analytics/collector.py"
+    },
+    {
+     "label": "The test that enforces collection staying off",
+     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/tests/test_build_contract.py"
+    },
+    {
+     "label": "Program Policies §3(e), the disclosure any collection triggers",
+     "url": "https://affiliate-program.amazon.com/help/operating/policies"
+    },
+    {
+     "label": "Amazon — per-ID reporting, the option needing no code on this site",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GJDYPQZK6E37RLPU"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Keep collection off; run per-channel tracking IDs instead, and re-point the page at Amazon's numbers",
+     "what": "SG-37 path B does the measuring with no new technology to host or disclose. measurement.html gains one line saying which channel question the report answers and which it does not, and the footer statement stays accurate without amendment.",
+     "effort": "S",
+     "risk": "none",
+     "reversible": true
+    },
+    {
+     "label": "B. Deploy the collector the repository already contains, then wire EV-01 to EV-04 to it",
+     "what": "Host analytics/collector.py on any origin the owner controls, set the four environment conditions, approve the privacy and retention notice, test the event flow, and only then change the footer in the same commit — the sequence the collector's own docstring and the build contract both require. The campaign ledger still fills only from an authorized report (report_import.py), never from the event stream.",
+     "effort": "L",
+     "risk": "medium",
+     "reversible": true
+    },
+    {
+     "label": "C. Ship the local-only tally as a labelled diagnostic, endpoint still absent",
+     "what": "What this session had built: counts kept in the reader's own browser, no cookie, no request, no identifier, export and erase on the measurement page, and an honest label that a single device cannot say anything about an audience. Cheapest instrument that tests whether the links work. Rejected as a unilateral move on purpose: it makes the footer's 'browser collection remains disabled' sentence false, and a decision that flips a tested, merged posture belongs to the owner, not to a pass.",
+     "effort": "M",
+     "risk": "medium",
+     "reversible": true
+    }
+   ],
+   "recommendation": "A now, B when there is somebody to read the numbers, C only as an explicit amendment to the footer statement in the same commit.",
+   "why": "A improves decision quality today at zero compliance cost and is the only option that needs nothing the account holder has not already been asked for in SG-37. The ledger stays empty in all three cases, because nothing authorized has been recorded — that is the design, not a shortfall.",
+   "impact": 4,
+   "confidence": 4,
+   "effort": "S",
+   "risk_of_not_doing": "Low as a breach risk while collection stays off, and rising as a documentation risk: an event specification nobody owns and a service nobody deploys is how a later pass ends up quoting a number that was never measured.",
+   "blocks": [],
+   "blocked_by": []
   }
  ],
  "paths_intro": "A decision queue with this many rows is a backlog, not a decision. The paths below group the suggestions into four coherent pieces of work. Each path is ordered, names what has to be true before it can start, and says plainly what it will not fix. Pick one path, finish it, then pick the next. The grouping is this pass's judgement; the dependencies inside it are not - they are the blocked_by links already recorded on each row.",
@@ -1810,6 +1991,22 @@
    "does_not_fix": "It does not settle product identity (Q-01/Q-02), the Associates tag (Q-04), or the domain (Q-07) - those remain owner decisions the polish cannot make.",
    "pick_this_if": "You want the site to win readers while the account questions are still open, and you are willing to answer two one-message questions (Q-25 brand, Q-23 publishing decisions) to unblock it.",
    "why_first": "Not first - parallel. Unlike P1, nothing here can make the site wrong; it can only make it more or less convincing. It can run alongside any other path."
+  },
+  {
+   "id": "P6",
+   "name": "Make the money path real: five links, one tag, one report row",
+   "promise": "Turn what the owner supplied on 2026-11-17 — two more links and a tracking ID — into a site whose commercial links are attributed on evidence rather than on assumption, and whose product set is a decision instead of an accident.",
+   "contains": [
+    "SG-36",
+    "SG-37",
+    "SG-38"
+   ],
+   "effort": "S (two of the three rows are a browser, a report and five minutes; the third is a reading-and-choosing task)",
+   "must_be_true_first": "Nothing outside the owner's screens. The intent register, the link-test fields, the tagging contract and the five event definitions are merged and enforced by the build, so this path answers questions rather than waiting on code.",
+   "delivers": "Every submitted link confirmed or explicitly parked; a tracking ID whose attribution has been observed in the Tracking ID Summary Report rather than inferred from markup; a per-channel sub-tag scheme that needs no infrastructure; and a measurement layer whose status, service and disclosure say the same thing in the same tense.",
+   "does_not_fix": "It will not produce a conversion figure. Orders come from an authorized first-party report, and the campaign ledger's first row is transcribed by a human or does not exist.",
+   "pick_this_if": "You intend to earn from this site rather than merely publish it.",
+   "why_first": "It is the only path where the owner's own action unblocks the largest number of other rows, and the only one whose entire bottleneck is a login this repository will never have."
   }
  ]
 }
