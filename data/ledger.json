@@ -1,0 +1,23 @@
+{
+  "created": "2026-11-17",
+  "session": "arena/9fe0b6b3-zone1 (session 9fe0b6b3)",
+  "status": "empty by design",
+  "status_note": "This ledger is deliberately empty. It is the record of what the campaign actually did, and at the time it was created the site had not yet served a single eligible session. An empty ledger with fixed column meanings is more useful than a filled one with invented numbers: the columns cannot be quietly redefined later to make a bad month look better.",
+  "fill_rule": "Add a row only when every value in it was read from an authorized first-party report - Amazon Associates Central for orders and earnings, the site's own self-hosted collector for sessions and clicks. Never estimate a missing cell, never back-fill from memory, and never carry a number forward from a previous row. If a value was not read, leave the field empty and add a provenance note saying why.",
+  "never_published": [
+    "A conversion rate or revenue forecast derived from these columns. Amazon restricts the disclosure of program performance data, and this site has insufficient eligible sessions for any rate to mean anything. The ledger records counts; it does not project from them."
+  ],
+  "columns": [
+    {"name": "timestamp", "type": "ISO 8601 UTC instant or a whole UTC day", "meaning": "When the report was generated, not when the row was written.", "example": ""},
+    {"name": "source", "type": "enum", "meaning": "Which authorized report the numbers came from. One of: amazon-associates-central (earnings/orders report), self-hosted-collector (this site's own endpoint).", "example": ""},
+    {"name": "channel", "type": "enum", "meaning": "Where the traffic arrived from. One of: organic-search, rss, direct, referral, social, none-yet.", "example": ""},
+    {"name": "eligible_sessions", "type": "integer or empty", "meaning": "Sessions on this site that could have produced a qualifying click. From the self-hosted collector only.", "example": ""},
+    {"name": "clicks", "type": "integer or empty", "meaning": "Outbound clicks on sponsored product links, as counted by this site's own counter. Site-side number.", "example": ""},
+    {"name": "reported_orders", "type": "integer or empty", "meaning": "Qualifying orders as reported by Amazon Associates Central. Amazon-side number. It does not have to reconcile with clicks, and usually will not.", "example": ""},
+    {"name": "provenance", "type": "text", "meaning": "Dated note naming the exact report and the person or process that read it. This is the field that makes the row auditable.", "example": ""}
+  ],
+  "provenance_trail": [
+    {"date": "2026-11-17", "action": "Ledger schema defined and published with zero rows.", "by": "arena/9fe0b6b3-zone1", "note": "No eligible sessions had occurred: the tracking ID was supplied in this same pass and no validated Special Link had been published yet."}
+  ],
+  "rows": []
+}

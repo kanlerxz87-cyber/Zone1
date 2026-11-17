@@ -1,0 +1,95 @@
+{
+  "created": "2026-11-17",
+  "session": "arena/9fe0b6b3-zone1 (session 9fe0b6b3)",
+  "principle": "Measurement is turned on before more editorial is written, because the next topic should be chosen from measured queries rather than instinct. The counter is privacy-preserving by construction: no cookie, no account, no cross-site identifier, no fingerprinting surface, and no per-reader history. It counts events, not people.",
+  "status": "built, not yet deployed",
+  "status_note": "The client counter ships on every page and the endpoint contract below is fixed, but no endpoint is configured yet (endpoint.url is empty). Until it is filled, events are counted in the page's own memory for the current visit only and nothing leaves the browser. The site says so in plain words rather than implying measurement that does not exist. This is a deliberate, published state, not an oversight.",
+  "sources": ["S2", "S37", "S8"],
+  "policy_basis": {
+    "cookie_disclosure": "Amazon's Program Policies require an accurate statement of cookie and third-party technology use on Associate sites. Because this build sets no cookies and runs no third-party script, the statement stays true; the moment an endpoint is configured with any storage, the footer notice must be updated in the same change. Enforced by the build guard check_analytics_disclosure_realism.",
+    "sources": ["S2"]
+  },
+  "endpoint": {
+    "url": "",
+    "method": "POST",
+    "content_type": "application/json",
+    "kind": "self-hosted",
+    "reference_implementation": "analytics/collect.js",
+    "why_blank": "GitHub Pages serves static files only and cannot run a server-side endpoint. A self-hosted collector has to run somewhere that can execute code - a small worker, a serverless function, or the operator's own host. The client is written so that filling in this one URL turns collection on with no other change.",
+    "payload_shape": {
+      "e": "event id (string)",
+      "p": "page path relative to the site root (string)",
+      "r": "referring host, COARSE: the registrable domain only, or empty for a direct arrival (string)",
+      "a": "ASIN, outbound_click only (string)",
+      "l": "link register id (LI-01..LI-05), outbound_click only (string)",
+      "v": "numeric value, meaning depends on the event (number or null)"
+    },
+    "server_rules": [
+      "Reject any request carrying a cookie, an authorization header, or a field not in payload_shape.",
+      "Do not store the client IP address. Derive a coarse country from it in memory, then discard it.",
+      "Do not store a user agent string. Derive a boolean is_bot from it in memory, then discard it.",
+      "Store aggregates: event id, page path, coarse country, is_bot, and a UTC day bucket. Never a per-event timestamp finer than the day.",
+      "Rotate the daily bucket key; a retained bucket is at most 14 days old."
+    ]
+  },
+  "client": {
+    "file": "assets/measure.js",
+    "no_cookies": true,
+    "no_local_storage": true,
+    "no_fingerprinting": true,
+    "transport": "navigator.sendBeacon when available, falling back to fetch with keepalive",
+    "failure_mode": "silent. A blocked or missing endpoint must never change what the reader sees or break a link.",
+    "click_counter": "Every anchor carrying data-z1-click is counted at click time, before navigation. The count is held in memory for the current visit and, when an endpoint is configured, one anonymised outbound_click record is sent per click. The raw submitted link is never rewritten by script: the href the crawler and the reader see is the href the build produced."
+  },
+  "events": [
+    {
+      "id": "page_view",
+      "name": "Page view",
+      "fires_when": "A generated page finishes loading.",
+      "payload": {"p": "page path", "r": "coarse referrer domain"},
+      "measures": "Which pages real readers land on, and from where.",
+      "privacy": "No identifier of any kind. Two views are indistinguishable.",
+      "status": "defined, counter wired"
+    },
+    {
+      "id": "guide_read",
+      "name": "Guide read to the end",
+      "fires_when": "A reader reaches the last section of an article or guide.",
+      "payload": {"p": "page path", "v": "estimated reading depth 0-100"},
+      "measures": "Whether a question-shaped guide is actually read, not just clicked.",
+      "privacy": "Depth is a coarse integer; no scroll trace is kept.",
+      "status": "defined, counter wired"
+    },
+    {
+      "id": "chooser_complete",
+      "name": "Chooser completed",
+      "fires_when": "A reader answers all three questions of the 'which one is for you' chooser.",
+      "payload": {"p": "page path", "a": "resulting product slug", "v": "questions answered"},
+      "measures": "Which buying situation readers actually put themselves in - the input the next article should be chosen from.",
+      "privacy": "Answers are not stored individually, only the resulting product slug.",
+      "status": "defined, counter wired"
+    },
+    {
+      "id": "outbound_click",
+      "name": "Outbound product click",
+      "fires_when": "A reader clicks any sponsored product link.",
+      "payload": {"p": "page path", "a": "ASIN", "l": "link register id"},
+      "measures": "Clicks per product per page. This is the only click number this site can measure itself; orders come from Amazon's own reports only.",
+      "privacy": "Counts the click, not the clicker. No session identifier travels with it.",
+      "status": "defined, counter wired"
+    },
+    {
+      "id": "subscribe",
+      "name": "Reader captures the feed",
+      "fires_when": "A reader opens or copies the RSS feed address.",
+      "payload": {"p": "page path", "v": "1"},
+      "measures": "The only durable, cookieless way to bring a reader back.",
+      "privacy": "No email address is collected; the site has no form and no list.",
+      "status": "defined, counter wired"
+    }
+  ],
+  "not_measured_here": [
+    "Orders and earnings. Those exist only in Amazon's Associates reports and enter the campaign ledger from there, never from this counter.",
+    "Conversion rate and revenue forecasts. No such figure is computed or published on this site - see the ledger note."
+  ]
+}

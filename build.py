@@ -1485,6 +1485,20 @@ def spec_table(p, prefix=""):
 """
 
 
+def _val_cell(field, suffix=""):
+    """Render a cell from a {v, s} field, or an honest blank when v is None.
+
+    Two products registered on 2026-11-17 (the two meat thermometers) have no
+    manufacturer list price and no brand-site rating, because no brand page for
+    them has been read. Printing the string "None" into a commercial summary
+    would be worse than leaving the cell empty, so the blank form is used.
+    """
+    if field and field.get("v"):
+        return f'{e(field["v"])}{suffix} {src_links(field.get("s", []))}'
+    return ('<span class="blank">— not confirmed —</span> ' + flag_pill("unverified")
+            + " " + src_links(field.get("s", []) if field else []))
+
+
 def commercial_table():
     rows = []
     for p in PRODUCT_LIST:
@@ -1494,15 +1508,19 @@ def commercial_table():
             '<span class="blank">— not confirmed —</span> ' + flag_pill("unverified")
         )
         rate_cell = f'{rate_value} {src_link("S3")}'
+        price_cell = _val_cell(p["pricing"]["brand_list_price"])
+        price_cell = price_cell.replace(
+            flag_pill("unverified"),
+            flag_pill("unverified") + ' <span class="tiny muted">brand list price</span>')
+        rating_cell = _val_cell(p["reviews"].get("brand_site_rating"))
         rows.append(
             f'<tr>'
             f'<td><a href="products/{p["slug"]}.html">{e(p["short_name"])}</a></td>'
             f'<td>{e(p["brand"])}</td>'
-            f'<td>{e(p["pricing"]["brand_list_price"]["v"])} '
-            f'<span class="tiny muted">brand list price</span> {src_links(p["pricing"]["brand_list_price"]["s"])}</td>'
+            f'<td>{price_cell}</td>'
             f'<td class="blank">not displayed {src_link("S2")}</td>'
             f'<td>{rate_cell}</td>'
-            f'<td>{e(p["reviews"]["brand_site_rating"]["v"])} {src_links(p["reviews"]["brand_site_rating"]["s"])}</td>'
+            f'<td>{rating_cell}</td>'
             f'<td><a href="flagged.html">{len([f for f in p["flags"]])} flagged</a></td>'
             f'</tr>'
         )
@@ -1928,6 +1946,19 @@ def page_product(p):
         f'<tr><td>{e(c["category"])}</td><td class="num">{e(c["rate"])}</td><td>{src_links(c["source"])}</td></tr>'
         for c in p["commission"]["candidate_rows"]
     )
+    # Two products registered on 2026-11-17 (the two meat thermometers) have no brand
+    # list price and no brand-site rating, because no brand page for them has been read.
+    # Printing "None" into a stat tile would be worse than an honest blank, and the
+    # tile still carries a source: the only official document read for those products
+    # is their Amazon listing, which is what the ASIN tile cites.
+    _lp = p["pricing"]["brand_list_price"]
+    list_price_stat = (e(_lp["v"]) if _lp and _lp.get("v")
+                       else '<span class="blank">— not confirmed —</span>')
+    list_price_src = src_links(_lp["s"] if _lp else p["asin"]["s"])
+    _rt = p["reviews"].get("brand_site_rating")
+    rating_stat = (e(_rt["v"].split(" from")[0]) if _rt and _rt.get("v")
+                   else '<span class="blank">— not confirmed —</span>')
+    rating_src = src_links(_rt["s"] if _rt else p["asin"]["s"])
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / <a href="../categories/kitchen-appliances.html">Kitchen</a> / {e(p['short_name'])}</p>
 <h1>{e(p['short_name'])}</h1>
@@ -1935,8 +1966,8 @@ def page_product(p):
 
 <div class="grid grid-4" style="margin-bottom:1rem">
   <div class="stat warn"><div class="n" style="font-size:1.15rem">{e(p['asin']['v'])}</div><div class="l">Candidate ASIN · unconfirmed</div><div class="h">{src_links(p['asin']['s'])}</div></div>
-  <div class="stat"><div class="n" style="font-size:1.15rem">{e(p['pricing']['brand_list_price']['v'])}</div><div class="l">Brand list price</div><div class="h">{src_links(p['pricing']['brand_list_price']['s'])}</div></div>
-  <div class="stat"><div class="n" style="font-size:1.15rem">{e(p['reviews']['brand_site_rating']['v'].split(' from')[0])}</div><div class="l">Brand-site rating · not Amazon</div><div class="h">{src_links(p['reviews']['brand_site_rating']['s'])}</div></div>
+  <div class="stat"><div class="n" style="font-size:1.15rem">{list_price_stat}</div><div class="l">Brand list price</div><div class="h">{list_price_src}</div></div>
+  <div class="stat"><div class="n" style="font-size:1.15rem">{rating_stat}</div><div class="l">Brand-site rating · not Amazon</div><div class="h">{rating_src}</div></div>
   <div class="stat warn"><div class="n" style="font-size:1.15rem">{len(p['flags'])}</div><div class="l">Open flags</div><div class="h"><a href="../flagged.html">Review all flags →</a></div></div>
 </div>
 
@@ -3130,7 +3161,13 @@ def page_exec():
     # each product's brand-page list price and the rates come from the published Table 1 held
     # in data/compliance.json, so this table cannot drift away from the sources it cites.
     def _price(p):
-        m = re.search(r"\$\s*([\d,]+\.\d{2})", p["pricing"]["brand_list_price"]["v"])
+        # Two products registered on 2026-11-17 publish no brand list price (no brand
+        # page has been read for them), so there is nothing to compute from. They are
+        # skipped rather than given an invented price.
+        raw = (p["pricing"].get("brand_list_price") or {}).get("v")
+        if not raw:
+            return None
+        m = re.search(r"\$\s*([\d,]+\.\d{2})", raw)
         return float(m.group(1).replace(",", "")) if m else None
 
     def _rate(*needles):

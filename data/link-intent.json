@@ -1,0 +1,162 @@
+{
+  "created": "2026-11-17",
+  "session": "arena/9fe0b6b3-zone1 (session 9fe0b6b3)",
+  "tracking_id_supplied": "shopnow047c-20",
+  "tracking_id_note": "The account holder supplied this as the Selected Tracking ID. Amazon's own help states that its software 'automatically adds \"-20\" to the end of all Associate IDs', so the string has the documented shape of a US Associates Store/Tracking ID (S36). That is a statement about FORMAT ONLY. Nothing on this site asserts that this ID belongs to the account holder, that it is active, or that it is attached to the five supplied short links - none of that is observable from outside Associates Central (flag F6).",
+  "tracking_id_status": "format-consistent, ownership unconfirmed",
+  "tracking_id_sources": ["S36"],
+  "field_discipline": "The 'intent' block and the 'observation' block are different kinds of statement and are NEVER merged. 'intent' records what the account holder says a link was created to point at; it can only be filled by a human who has checked Associates Central. 'observation' records what the link actually did when this repository followed it. A destination that is reproducible is still not an intention. Copying an observed ASIN into the intent block is the exact error this register exists to prevent, and a build guard fails the build if it happens (see check_link_intent in build.py).",
+  "sources": ["S2", "S17", "S36", "S38", "S39", "S40"],
+  "links": [
+    {
+      "id": "LI-01",
+      "submitted_link": "https://link.amazon/B04G1MEwY",
+      "token": "B04G1MEwY",
+      "supplied": "2026-11-13 (first pass)",
+      "intent": {
+        "intended_asin": "",
+        "official_listing_url": "",
+        "confirmation_date": "",
+        "confirmation_source": "",
+        "status": "unconfirmed",
+        "note": "Left blank on purpose. Only the account holder can state which product this link was created to point at, and that statement has to be checked against Associates Central. Flag F76."
+      },
+      "observation": {
+        "observed_redirect_asin": "B0CDY277D3",
+        "observed_listing_title": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
+        "observed_category_breadcrumb": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+        "observed_date": "2026-11-17",
+        "observed_redirect_url": "https://www.amazon.com/dp/B0CDY277D3?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-1ffea10d1d3c7fc5&channelId=704&plpRedirect=mhFallback",
+        "sources": ["S17"],
+        "note": "Destination unchanged from every prior recorded read. Landing URL carried lv=shuf and plpRedirect=mhFallback and showed no tag= parameter, so the tracking ID inside the short link remains unobservable (F6). The observed title matches data/products.json character for character."
+      },
+      "special_link": {
+        "validated_special_link": "",
+        "validation_date": "",
+        "validation_source": "",
+        "status": "not validated",
+        "note": "Requires the enrolled Associates workflow: generate the link from Associates Central (or SiteStripe) for this ASIN with the supplied tracking ID, open it, and confirm the destination plus the tracking report before this link is published at scale. See the gate on links.html."
+      }
+    },
+    {
+      "id": "LI-02",
+      "submitted_link": "https://link.amazon/B02NbDxp3",
+      "token": "B02NbDxp3",
+      "supplied": "2026-11-13 (first pass)",
+      "intent": {
+        "intended_asin": "",
+        "official_listing_url": "",
+        "confirmation_date": "",
+        "confirmation_source": "",
+        "status": "unconfirmed",
+        "note": "Left blank on purpose - see LI-01. Flag F76."
+      },
+      "observation": {
+        "observed_redirect_asin": "B09B7SB46R",
+        "observed_listing_title": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
+        "observed_category_breadcrumb": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+        "observed_date": "2026-11-17",
+        "observed_redirect_url": "https://www.amazon.com/dp/B09B7SB46R?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-6af2110975721338&channelId=704&plpRedirect=mhFallback",
+        "sources": ["S17"],
+        "note": "Destination unchanged. Same fallback markers, no visible tag= parameter. Title matches data/products.json character for character."
+      },
+      "special_link": {
+        "validated_special_link": "",
+        "validation_date": "",
+        "validation_source": "",
+        "status": "not validated",
+        "note": "See LI-01."
+      }
+    },
+    {
+      "id": "LI-03",
+      "submitted_link": "https://link.amazon/B00hJ57DV",
+      "token": "B00hJ57DV",
+      "supplied": "2026-11-13 (first pass)",
+      "intent": {
+        "intended_asin": "",
+        "official_listing_url": "",
+        "confirmation_date": "",
+        "confirmation_source": "",
+        "status": "unconfirmed",
+        "note": "Left blank on purpose - see LI-01. Flag F76."
+      },
+      "observation": {
+        "observed_redirect_asin": "B08DKYBTPH",
+        "observed_listing_title": "Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
+        "observed_category_breadcrumb": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+        "observed_date": "2026-11-17",
+        "observed_redirect_url": "https://www.amazon.com/dp/B08DKYBTPH?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-573e21e39d4d4c1c&channelId=704&plpRedirect=mhFallback&th=1",
+        "sources": ["S17"],
+        "note": "Destination unchanged. Same fallback markers, no visible tag= parameter. Title matches data/products.json character for character."
+      },
+      "special_link": {
+        "validated_special_link": "",
+        "validation_date": "",
+        "validation_source": "",
+        "status": "not validated",
+        "note": "See LI-01."
+      }
+    },
+    {
+      "id": "LI-04",
+      "submitted_link": "https://link.amazon/B0c8moW59",
+      "token": "B0c8moW59",
+      "supplied": "2026-11-17 (this pass)",
+      "intent": {
+        "intended_asin": "",
+        "official_listing_url": "",
+        "confirmation_date": "",
+        "confirmation_source": "",
+        "status": "unconfirmed",
+        "note": "Newly supplied in this pass. Left blank on purpose - see LI-01. Flag F76."
+      },
+      "observation": {
+        "observed_redirect_asin": "B0DHZTCNR5",
+        "observed_listing_title": "ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black",
+        "observed_category_breadcrumb": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+        "observed_date": "2026-11-17",
+        "observed_redirect_url": "https://www.amazon.com/dp/B0DHZTCNR5?lv=shuf&btn_type=ss&gaOptInStatus=true&_encoding=UTF8&language=en_US&ie=UTF8&btn_ref=srctok-633f9dc54185b50f&channelId=500&plpRedirect=mhFallback",
+        "sources": ["S38", "S40"],
+        "note": "Read twice on 2026-11-17: once by following the short link, once by requesting /dp/B0DHZTCNR5 directly. Both returned the same ASIN and the same title string. The observed product is a MEAT THERMOMETER, not an air fryer - it sits in a different Amazon browse category from the first three links. Flag F77."
+      },
+      "special_link": {
+        "validated_special_link": "",
+        "validation_date": "",
+        "validation_source": "",
+        "status": "not validated",
+        "note": "See LI-01."
+      }
+    },
+    {
+      "id": "LI-05",
+      "submitted_link": "https://link.amazon/B0f3GKalj",
+      "token": "B0f3GKalj",
+      "supplied": "2026-11-17 (this pass)",
+      "intent": {
+        "intended_asin": "",
+        "official_listing_url": "",
+        "confirmation_date": "",
+        "confirmation_source": "",
+        "status": "unconfirmed",
+        "note": "Newly supplied in this pass. Left blank on purpose - see LI-01. Flag F76."
+      },
+      "observation": {
+        "observed_redirect_asin": "B0DZFD6R9Z",
+        "observed_listing_title": "CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3",
+        "observed_category_breadcrumb": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+        "observed_date": "2026-11-17",
+        "observed_redirect_url": "https://www.amazon.com/dp/B0DZFD6R9Z?lv=shuf&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&btn_type=ss&gaOptInStatus=true&language=en_US&btn_ref=srctok-101536bcd8e0be02&channelId=500&plpRedirect=mhFallback&th=1",
+        "sources": ["S39", "S40"],
+        "note": "Read twice on 2026-11-17: once by following the short link, once by requesting /dp/B0DZFD6R9Z directly. Both returned the same ASIN and the same title string. A MEAT THERMOMETER, not an air fryer, though the listing title does name 'Air Fryer' among the appliances it is used with. Flag F77."
+      },
+      "special_link": {
+        "validated_special_link": "",
+        "validation_date": "",
+        "validation_source": "",
+        "status": "not validated",
+        "note": "See LI-01."
+      }
+    }
+  ]
+}
