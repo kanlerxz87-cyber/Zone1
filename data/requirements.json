@@ -10,7 +10,7 @@
     "blocked": "Cannot be done from outside Amazon's own systems. No amount of work here closes it.",
     "not_delivered": "Buildable today with the inputs already present, and not built yet."
   },
-  "counts_note": "Counts are computed from the rows at build time rather than typed, so this page cannot claim a total the register does not contain. Statuses last moved 2026-11-17 by arena/fd9778a1-zone1 (pass 13 shopfront): B-08 and A-02 to A-05 delivered, B-01 and D-01 still partial with the reason named.",
+  "counts_note": "Counts are computed from the rows at build time rather than typed, so this page cannot claim a total the register does not contain.",
   "requirements": [
     {
       "id": "A-01",
@@ -89,7 +89,7 @@
           "url": "reports/verification-2026-11-17-fd9778a1.md"
         }
       ],
-      "why": "Three review surfaces, one mechanism: suggestions.html is the queue with paths, design-prompt.html is the status view with a blank Decision column, and decision-log.html is where a path is picked and exported back as JSON. Pass 13 added path P6 ('make the shop look bought-in') and a computed decision desk at the top of the queue — open rows, rows blocked on an unanswered question, the questions that unblock the most, and the highest-scoring row with no recorded choice — all of it counted from the registers at build time, so it cannot go stale the way a typed summary does.",
+      "why": "Three review surfaces, one mechanism: suggestions.html is the queue with paths, design-prompt.html is the status view with a blank Decision column, and decision-log.html is where a path is picked and exported back as JSON. Pass 13 added path P7 (numbered after the money-path P6 that merged the same day) ('make the shop look bought-in') and a computed decision desk at the top of the queue — open rows, rows blocked on an unanswered question, the questions that unblock the most, and the highest-scoring row with no recorded choice — all of it counted from the registers at build time, so it cannot go stale the way a typed summary does.",
       "sources": []
     },
     {
@@ -116,7 +116,7 @@
           "url": "reports/verification-2026-11-17-fd9778a1.md"
         }
       ],
-      "why": "Eleven rows added on 2026-11-17 (Q-27 to Q-37), each stating the answer's owner: the account holder alone can settle the click-test question (Q-34) and the photography rights question (Q-31); Search Console ownership settles the next topic (Q-28); two rows record what an official source was read and does not state (Q-35's weight conflict, Q-36's quotation rule). Nothing here was filled by inference, and the four states — known, missing, unknowable, not_stated — are the legend, not decoration.",
+      "why": "{n_questions} questions, each recording what is known, what is missing, the answer that would unblock it, and the steps that would discover it. Where the answer is already in the repository the row says so and links it, rather than asking again. Eleven rows added on 2026-11-17 (Q-29 to Q-39), each stating the answer's owner: the account holder alone can settle the click-test question (Q-36) and the photography rights question (Q-33); Search Console ownership settles the next topic (Q-30); two rows record what an official source was read and does not state (Q-37's weight conflict, Q-38's quotation rule). Nothing here was filled by inference, and the four states — known, missing, unknowable, not_stated — are the legend, not decoration.",
       "sources": []
     },
     {
@@ -144,7 +144,7 @@
           "url": "reports/verification-2026-11-17-fd9778a1.md"
         }
       ],
-      "why": "Every new row ends in a discovery step concrete enough to hand to someone: which Associates Central screen answers Q-34, which email answers Q-31, which four weeks of data answers Q-28, and which single line of build.py answers Q-30. Where the answer would need a source this verifier cannot cite, the row says so instead of inventing the citation (Q-37, F86).",
+      "why": "Every new row ends in a discovery step concrete enough to hand to someone: which Associates Central screen answers Q-36, which email answers Q-33, which four weeks of data answers Q-30, and which single line of build.py answers Q-32. Where the answer would need a source this verifier cannot cite, the row says so instead of inventing the citation (Q-39, F88).",
       "sources": []
     },
     {
@@ -251,10 +251,10 @@
           "url": "reports/verification-2026-11-17-fd9778a1.md"
         }
       ],
-      "why": "The build fails on {n_banned} banned stock-phrase entries and on machine-spliced sentences, and pass 13 (2026-11-17) added the shop layer a buyer judges a storefront by: the front page opens with the three machines (capacity, the brand's own list price, a 'Best for' row and a 'Check first' row each), the product pages lead with the same decision block, and mobile got a fluid type scale, a 44 px minimum hit area and a sticky comparison route. What still keeps this row at partial is one fact, not one effort: there is no product image anywhere on the site, because Amazon's Program Content may not be copied and no brand licence is recorded (Q-31, SG-39). A shop window with no goods in it reads as generated, whatever the typography does.",
+      "why": "The build fails on {n_banned} banned stock-phrase entries and on machine-spliced sentences, and pass 13 (2026-11-17) added the shop layer a buyer judges a storefront by: the front page opens with the three machines (capacity, the brand's own list price, a 'Best for' row and a 'Check first' row each), the product pages lead with the same decision block, and mobile got a fluid type scale, a 44 px minimum hit area and a sticky comparison route. What still keeps this row at partial is one fact, not one effort: there is no product image anywhere on the site, because Amazon's Program Content may not be copied and no brand licence is recorded (Q-33, SG-42). A shop window with no goods in it reads as generated, whatever the typography does.",
       "sources": [
         "S1",
-        "S38"
+        "S43"
       ]
     },
     {
@@ -402,7 +402,7 @@
           "url": "reports/verification-2026-11-17-fd9778a1.md"
         }
       ],
-      "why": "{n_articles} articles as this register was last updated, three of them added by pass 13 on 2026-11-17 with the shapes a shopper actually types: 'Chefman vs. Emeril: what a basket brand and an oven brand actually publish', '“98% less oil” is a sentence on a box, not a measurement', and 'Eight questions to ask before you buy a multi-function kitchen appliance'. Trendy in the durable sense — a question with a documented answer and a visible gap where there is none — and deliberately not trend-chasing: a trending claim with no official source is the one thing this build will not publish. What is still missing is not titles, it is cadence and query data (Q-28, Q-33, SG-40).",
+      "why": "{n_articles} articles are published and {n_topics_minus_articles} more topics are specified but unwritten. They are written to answer a question that a listing cannot ('Two 3-quart drawers or one 8-quart basket: which actually feeds four people?'), which is the durable form of 'trendy' — but they are deliberately not trend-chasing, because a trending topic has no official source and this site will not publish a claim it cannot cite. {n_articles} articles as this register was last updated, three of them added by pass 13 on 2026-11-17 with the shapes a shopper actually types: 'Chefman vs. Emeril: what a basket brand and an oven brand actually publish', '“98% less oil” is a sentence on a box, not a measurement', and 'Eight questions to ask before you buy a multi-function kitchen appliance'. Trendy in the durable sense — a question with a documented answer and a visible gap where there is none — and deliberately not trend-chasing: a trending claim with no official source is the one thing this build will not publish. What is still missing is not titles, it is cadence and query data (Q-30, Q-35, SG-43).",
       "sources": [
         "S30"
       ]
@@ -783,30 +783,28 @@
       "scope": "Publishing",
       "requirement": "Attach the owner's Associate tag to every link",
       "clause": "publish and manage affiliate links",
-      "status": "delivered",
+      "status": "blocked",
       "where": [
         "data/config.json",
-        "build.py",
         "data/product-intent.json",
+        "build.py",
         "product-intent.html"
       ],
       "evidence": [
         {
-          "label": "data/config.json",
-          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/config.json"
-        },
-        {
-          "label": "build.py",
-          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py"
-        },
-        {
-          "label": "product-intent.html",
+          "label": "Tracking-ID status and explicit no-apply gate",
           "url": "product-intent.html"
+        },
+        {
+          "label": "Build contract",
+          "url": "build.py"
         }
       ],
-      "why": "Resolved 2026-11-17 by session 5b17c077. Until this pass no tag existed in data/config.json and the root build never read the field, so no link could earn. Program Policies §2(a) requires Special Links to use the assigned Associates ID and §2(b) requires the tag as a URL parameter on every link to an Amazon Site. The tag shopnow047c-20 is now on every outbound product link and check_associate_tagging() fails the build without it. What remains open is not the attachment (gate-enforced) but two owner-side facts: that shopnow047c-20 is the right tag for the account, and that the account is approved (F6, Q-03).",
+      "why": "Blocked by the brief’s required account-holder test. shopnow047c-20 is recorded as user-provided but is not validated in Associates Central, is not applied to links, and has not passed an enrolled-Associates test for any confirmed intended product. The build keeps associate_tag blank and fails if a tag is configured before all intended-link confirmation and test fields are complete. Do not mark attachment delivered before the required tests.",
       "sources": [
-        "S2"
+        "S2",
+        "S5",
+        "S6"
       ]
     },
     {
@@ -814,11 +812,29 @@
       "scope": "Publishing",
       "requirement": "Track clicks",
       "clause": "track clicks and conversions",
-      "status": "not_delivered",
-      "where": [],
-      "evidence": [],
-      "why": "There is no analytics on the site at all — no script, no beacon, no server-side log the owner can read. The footer says so precisely, because Program Policies §3(e) requires an accurate statement of cookie and third-party technology use, and adding a tracker without rewriting that statement would make the footer false.",
-      "sources": []
+      "status": "partial",
+      "where": [
+        "data/analytics-plan.json",
+        "analytics/collector.py",
+        "assets/analytics.js",
+        "tests/test_analytics.py",
+        "measurement.html"
+      ],
+      "evidence": [
+        {
+          "label": "Disabled measurement plan",
+          "url": "measurement.html"
+        },
+        {
+          "label": "Collector reference",
+          "url": "analytics/collector.py"
+        }
+      ],
+      "why": "The five-event schema and privacy-minimizing reference collector/client are defined and locally tested, but the client is disabled and the collector is not deployed. The current GitHub Pages publication has no verified same-origin runtime; collection remains off until the host, proxy logs, privacy notice and endpoint tests are approved.",
+      "sources": [
+        "S38",
+        "S2"
+      ]
     },
     {
       "id": "E-04",
@@ -1138,6 +1154,69 @@
       ],
       "why": "The stages and their tests run; the pipeline as a live loop does not, because every networked stage is credential-gated and no credential is present. That gate is the design working as intended, not a defect — the alternative is a pipeline that invents its own inputs.",
       "sources": []
+    },
+    {
+      "id": "H-01",
+      "scope": "Brief",
+      "requirement": "Record each submitted link with intended ASIN, official listing URL, confirmation date and source, kept separate from the observed redirect target",
+      "clause": "Create a product-intent confirmation record for every submitted product link: intended ASIN, official listing URL, confirmation date, and source. Keep observed redirect targets in a separate field. Do not merge the two fields. Validate the supplied short links by testing one per product in the enrolled Associates workflow before scaling.",
+      "status": "partial",
+      "where": [
+        "data/product-intent.json",
+        "product-intent.html",
+        "build.py",
+        "tests/test_build_contract.py"
+      ],
+      "evidence": [
+        {
+          "label": "the rendered record, with the brand-catalogue table and the method correction",
+          "url": "product-intent.html"
+        },
+        {
+          "label": "this pass's evidence file",
+          "url": "reports/verification-2026-11-17-58cbaaa2.md"
+        },
+        {
+          "label": "Amazon — where an enrolled link test is actually read",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GJDYPQZK6E37RLPU"
+        }
+      ],
+      "why": "The register, the field separation and the build contract were merged by other sessions; this pass added what they lacked — the brand-catalogue check on the two links submitted on 2026-11-17, which shows a listing marketing phrase and a manufacturer model number are different kinds of identifier and closes neither row (F80), and a dated correction of the inference that a landing URL without a visible tag says anything about attribution (F81, S41). Partial by arithmetic rather than by judgement: {n_submitted_links} rows, {n_intent_confirmed} with a confirmed intended product, {n_link_tests_passed} enrolled-Associates link tests recorded. Only the account holder can move those two numbers, which is Q-27 and Q-28.",
+      "sources": [
+        "S23",
+        "S36",
+        "S37",
+        "S39",
+        "S40",
+        "S41",
+        "S42"
+      ]
+    },
+    {
+      "id": "H-02",
+      "scope": "Site",
+      "requirement": "Keep narrative counts in prose derived from the registers rather than typed into sentences",
+      "clause": "Flag irregularities found during review; never let a published page assert something the data contradicts.",
+      "status": "delivered",
+      "where": [
+        "build.py",
+        "categories/kitchen-appliances.html",
+        "data/product-intent.json"
+      ],
+      "evidence": [
+        {
+          "label": "the guard",
+          "url": "build.py"
+        },
+        {
+          "label": "the category page whose lede was repaired",
+          "url": "categories/kitchen-appliances.html"
+        }
+      ],
+      "why": "The category lede still described the submitted set as three links, present tense, two days after the register grew to five — every value inside the sentence correct, the sentence false, and no gate reading narrative. Repaired where the tense is present (the lede now reads len(rows) and the register's own observed_listing_category field, spelled by _num_word) and guarded by check_submitted_link_count(), scoped to the shopper surfaces and the two registers so a dated row that truthfully records 2026-11-14 cannot be 'fixed' by rewriting it. Recorded as F82 with the process note: when the owner submits another link, add a row, never a sentence.",
+      "sources": [
+        "S17"
+      ]
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "compiled": "2026-11-17 (extended by arena/fd9778a1-zone1; original register compiled 2026-11-16)",
+  "compiled": "2026-11-17",
   "preamble": "A decision is only as good as the information behind it. This page separates four states that are usually mixed together: what we know and can prove, what we do not know but could look up, what the official source does not state, and what we cannot know at all without information that only the account holder possesses. Every suggestion on the Suggestions page points at the rows below that block it. Nothing here is a guess about what the answer probably is. Questions in the 'known and sourced' state carry their answer on the row: an official source already settles them, and the answer is what the source says. Every other row states plainly that no answer is published, and names the step that would produce one.",
   "legend": {
     "known": "Verified against an official source this pass fetched itself, or recorded by an earlier pass whose fetch is logged in this repository. The source link is on the row.",
@@ -12,16 +12,16 @@
     {
       "id": "Q-01",
       "group": "Product identity",
-      "question": "Which exact manufacturer model number does each of the three supplied Amazon links point to?",
-      "state": "known",
-      "why_it_matters": "Three separate Chefman 6-quart dual-basket models exist with different documented temperature ranges and functions. If the wrong model is on a product page, every specification below it is a misstatement about a product the site is paid to recommend.",
+      "question": "Which products are intended behind the five supplied short links, and which official listing does each point to?",
+      "state": "missing",
+      "why_it_matters": "The three-product register contains candidate listings, but the five submitted links do not establish which products the account holder intended. Treating an observed destination as intent could send a reader to the wrong product.",
       "what_we_know": [
-        "All three link.amazon short links resolve to the same three ASINs on every recorded fetch: B0CDY277D3, B09B7SB46R and B08DKYBTPH (7 observation rounds, 2026-11-13 to 2026-11-15).",
-        "The three destination pages carry the listing titles recorded in data/products.json, except the Emeril title, which changed between 2026-11-14 and 2026-11-15 (flag F38).",
-        "The bare 9-character codes in the short links (B04G1MEwY, B02NbDxp3, B00hJ57DV) are not ASINs and return 'Page Not Found' when used as /dp/ identifiers. Re-tested 2026-11-15."
+        "The project brief supplies five exact link strings; the canonical product register contains three air-fryer candidates.",
+        "A 2026-11-17 fetch recorded separate observed Amazon redirect destinations and titles for all five links, including two thermometer titles; these observations do not establish intended products.",
+        "The intended ASIN, official listing URL, confirmation date and confirmation source remain blank for all five rows in data/product-intent.json."
       ],
-      "what_is_missing": "Nothing for the model step. For the link attribution: a statement from the account holder, or the Associates Central link builder showing which ASIN each short link was created for. Neither is reachable from this repository.",
-      "how_to_discover": "Done 2026-11-16 by session ba29c641: the Product information block was read off all three listing pages and published on the product pages and in reports/asin-model-mapping-2026-11-16.md. The residual part - link-to-ASIN intent - can only be settled by whoever created the short links.",
+      "what_is_missing": "The account holder’s intended product and an official Amazon listing URL confirmed against that intent for each supplied link.",
+      "how_to_discover": "In the account holder’s normal signed-in browser, compare each submitted link with the product they actually intended to promote. Only after the account holder confirms that match, fill intended_asin, official_listing_url, confirmation_date and confirmation_source together in data/product-intent.json. Keep the original supplied_link and observed_redirect_target/title in their separate fields; do not treat the redirect as confirmation.",
       "blocks": [
         "SG-01",
         "SG-04",
@@ -29,19 +29,26 @@
       ],
       "sources": [
         {
-          "label": "Chefman 6 Qt dual-window model page (RJ38-SQPF-3TDB-2W)",
-          "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+          "label": "Observed 6 Qt candidate listing (S16)",
+          "url": "https://www.amazon.com/dp/B0CDY277D3"
         },
         {
-          "label": "Chefman 8 Qt model page",
-          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+          "label": "Observed Emeril candidate listing (S28)",
+          "url": "https://www.amazon.com/dp/B09B7SB46R"
         },
         {
-          "label": "Flag register rows F2, F3, F32, F33",
-          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+          "label": "Observed 8 Qt candidate listing (S29)",
+          "url": "https://www.amazon.com/dp/B08DKYBTPH"
+        },
+        {
+          "label": "Observed PI-04 Amazon page title (S36)",
+          "url": "https://www.amazon.com/dp/B0DHZTCNR5"
+        },
+        {
+          "label": "Observed PI-05 Amazon page title (S37)",
+          "url": "https://www.amazon.com/dp/B0DZFD6R9Z"
         }
-      ],
-      "answer": "Answered for the ASIN-to-model step on 2026-11-16, without a human in a browser - which is the part that matters, because F49 had recorded that no automated read could reach this table and SG-01 had assigned it to the owner as a five-minute browser job. Each listing's own Product information block carries the code: B0CDY277D3 publishes Model Number and Part Number RJ38-SQPF-3TDB-2W; B08DKYBTPH publishes Part Number RJ38-SQSS-8T (its Model Number row holds the string 'Large Air Fryer'); B09B7SB46R publishes Model Number and Part Number 4-00675-02X-VN, which is the brand page's 4-00675-02A-VN with one character changed. The first two agree with the manufacturer documents the site already held, so those two rows are now sourced twice. The third does not, and is published as a conflict (F66) rather than resolved. What this does NOT answer is which product the three supplied link.amazon tokens were meant to point at: the tokens are 9 characters, are not ASINs, and the observed destinations arrive through a fallback redirect (F7, F10). That half still belongs to the account holder."
+      ]
     },
     {
       "id": "Q-02",
@@ -101,15 +108,16 @@
     {
       "id": "Q-04",
       "group": "Attribution",
-      "question": "Which Associates tag is inside the three supplied short links, and does it belong to this account?",
+      "question": "Which Associates tracking ID is active on the account, and does each of the five supplied links report clicks to it?",
       "state": "unknowable",
       "why_it_matters": "This is the only question on the page whose answer determines whether the site earns any money at all. Program Policies section 2(a) requires Special Links to use the Associates ID assigned to you; section 2(b) requires the tag to appear as a parameter in each link.",
       "what_we_know": [
-        "The links are link.amazon short links, so the redirect target is observable but the embedded tag is not.",
-        "The redirect target carries Amazon's own parameters (lv=shuf, btn_ref=srctok-..., plpRedirect=mhFallback) but no tag= parameter is visible in the landing URL."
+        "The project brief supplies shopnow047c-20 as the selected tracking ID; it has not been independently checked in Associates Central.",
+        "The ID is not applied by this build. The tag inside any of the five short links is not confirmed from public redirect observations.",
+        "Amazon’s tracking-ID help page describes separate reporting by tracking ID; that public help page does not confirm this account’s ID or any particular link."
       ],
-      "what_is_missing": "The full tagged URL. It is inside the short link and is only visible from the account that created it, or by reading the click report.",
-      "how_to_discover": "Option 1: open each link while signed in to Associates Central and confirm the click appears against your tracking ID. Option 2: rebuild each link as a full amazon.com URL with your tag and use that instead.",
+      "what_is_missing": "Associates Central confirmation that shopnow047c-20 belongs to and is active on the account, plus one successful enrolled-Associates test and attributable report result for each confirmed intended product/link.",
+      "how_to_discover": "In Associates Central, open Manage Tracking IDs and verify the selected ID. After intended products are confirmed, create or select one enrolled Special Link per product, follow each link using the account holder’s normal test procedure, and confirm each click appears against the intended tracking ID in Reports. Do not apply the tag broadly until all intended product tests pass.",
       "blocks": [
         "SG-02",
         "SG-08"
@@ -228,22 +236,27 @@
       "state": "missing",
       "why_it_matters": "The footer currently states the site sets no cookies and runs no analytics, which satisfies Program Policies section 3(e) as written. Adding any analytics makes that statement false immediately and triggers a privacy-notice update plus, for EU and UK visitors, consent requirements.",
       "what_we_know": [
-        "The site is fully static and runs no client-side tracking of any kind.",
-        "Amazon reports clicks and orders per tracking ID without any on-site script.",
-        "Section 2(b) permits additional sub-tag IDs to separate traffic sources."
+        "The current build loads no analytics client and sends no visitor events; its footer says so.",
+        "The brief requests privacy-preserving measurement. A reference collector and disabled browser client exist in this branch, but neither is deployed or collecting.",
+        "The repository configuration points the canonical site at a GitHub Pages URL; this checkout has no configured or verified same-origin analytics endpoint. The S38 documentation URL is a reference and was not fetched in this integration.",
+        "Amazon Associates Program Policies §3(e) require an accurate cookie/technology statement; collection remains disabled."
       ],
-      "what_is_missing": "Whether third-party analytics are wanted at all, and if so which lawful basis applies for EU visitors.",
-      "how_to_discover": "Decide between Associates sub-tags alone (no disclosure change) and a cookieless analytics script (small disclosure update). The choice is in the Suggestions page, SG-08.",
+      "what_is_missing": "A verified first-party runtime and same-origin route; approved visitor-facing privacy and retention notice; host/proxy log configuration review; a successful end-to-end test; and authorized Associates reports for order/conversion figures.",
+      "how_to_discover": "Choose and deploy an owner-controlled runtime for /api/analytics/events on the publication origin. Review application, host and proxy logging/retention, update and approve the privacy notice, then test the disabled-by-default collector end to end. Only after all gates pass may the owner explicitly enable collection. Obtain conversion/order totals only from authorized Associates Central reports.",
       "blocks": [
         "SG-08"
       ],
       "sources": [
         {
-          "label": "Program Policies, section 3(e)",
+          "label": "GitHub Pages documentation reference (not fetched in this integration)",
+          "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages"
+        },
+        {
+          "label": "Amazon Associates Program Policies §3(e)",
           "url": "https://affiliate-program.amazon.com/help/operating/policies"
         },
         {
-          "label": "Tracking IDs and sub-tags",
+          "label": "Tracking IDs and reporting",
           "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA"
         }
       ]
@@ -287,11 +300,11 @@
       "state": "missing",
       "why_it_matters": "A published article set already exists (live count on the articles index) and two of its pieces compete for the same comparison intent. Without an intent map, the ninth will duplicate the fifth, and two pages on one query on one domain split each other's authority.",
       "what_we_know": [
-        "Every published article is source-linked and none claims hands-on testing (live count on the articles index).",
-        "One earlier pass already deleted three orphaned drafts for exactly this reason and preserved their text in session-7111e2b6/articles-superseded.json."
+        "The repository holds published, sourced articles and a topic register; those titles are editorial proposals and do not demonstrate search demand.",
+        "No verified Search Console query export is recorded in the repository, and no keyword demand or trend figure is claimed."
       ],
-      "what_is_missing": "A written assignment of one primary intent per article, and a rule that a new article may not target an intent already claimed.",
-      "how_to_discover": "Thirty minutes with the article index. Assign each one intent, publish the map, and make a duplicate a build failure.",
+      "what_is_missing": "Measured Search Console query/page data for the verified property, reader feedback, and a dated assignment of one primary intent per article.",
+      "how_to_discover": "Verify ownership of the site property in Search Console, submit the current sitemap, wait for data to accumulate, then save a dated query/page export. Use observed impressions, clicks and reader questions to choose future topics; do not call a topic trending before data supports it.",
       "blocks": [
         "SG-09"
       ],
@@ -395,12 +408,12 @@
       "state": "unknowable",
       "why_it_matters": "Every revenue projection on this site is arithmetic on an assumed conversion rate. Until one real sale exists, the honest number of sales attributable to this site is zero and any revenue figure is a scenario, not a forecast.",
       "what_we_know": [
-        "Manufacturer list prices are $119.99, $199.99 and $119.99 USD, each sourced to the brand page.",
-        "At the Kitchen rate of 4.50%, a sale at list price is worth roughly $5.40, $9.00 and $5.40 respectively before returns.",
-        "No sales data exists in this repository."
+        "The repository campaign ledger is empty; no authorized report totals for clicks, eligible sessions or orders have been added.",
+        "Actual conversions and revenue are unknown. The absence of rows is not evidence of zero visits or zero orders.",
+        "Amazon reporting is account-only; a click count alone does not establish a qualifying purchase or commission."
       ],
-      "what_is_missing": "Real click and order counts. These live in Associates Central and cannot be obtained by research.",
-      "how_to_discover": "Associates Central > Reports. Until there is history, label any projection as a scenario with its assumed conversion rate stated.",
+      "what_is_missing": "Authorized first-party click/session/order data, including the report source and date range.",
+      "how_to_discover": "After link tests and real traffic, retrieve the actual Associates Central report and copy its reported totals into data/campaign-ledger.json with timestamp, source, channel and date range. Do not estimate conversion rate or revenue from clicks.",
       "blocks": [],
       "sources": [
         {
@@ -775,10 +788,74 @@
     },
     {
       "id": "Q-27",
+      "group": "Product identity",
+      "question": "Which product were the two links submitted on 2026-11-17 created to send a reader to — and does this site publish them at all?",
+      "state": "missing",
+      "why_it_matters": "It decides whether this is a three-product air-fryer guide or a kitchen-tools publication, and that moves the navigation, the category page, the internal-link graph and the commission-category argument. Reading it off a fallback redirect would put unconfirmed product claims on a page that gets paid for them, and F80 shows the two candidates do not reconcile with either manufacturer's own model names — so this cannot be settled by a pass reading harder.",
+      "what_we_know": [
+        "Both links were re-read live on 2026-11-17: PI-04 lands on /dp/B0DHZTCNR5 and PI-05 on /dp/B0DZFD6R9Z, each with the same lv=shuf / plpRedirect=mhFallback fallback form recorded for the original three, and neither landing URL carrying an asin= parameter.",
+        "Amazon files both candidates under Kitchen Utensils & Gadgets > Thermometers & Timers > Meat — a different browse path from the air-fryer listings this site is built around (F77).",
+        "The brands' own pages were read the same day: ThermoMaven names its instant-read line F1 Pro / F1 Turbo and does not use the '1 Sec' label the listing carries; CHEF iQ states model CQ60-3C-Z3-E for the iQ Sense, a designation the listing does not repeat, and names air-fryer use among that product's heat environments.",
+        "intended_asin, official_listing_url, confirmation_date and confirmation_source are null on both rows by construction, and the observed destinations live only in the observed_* fields."
+      ],
+      "what_is_missing": "A statement from the account holder of which product each link was created to promote — ideally the official /dp/ URL they entered in the Link Building tool, with the date it was checked in their own browser. 'The link was sent in error' is a complete answer and closes the row.",
+      "how_to_discover": "Open each submitted link in the browser signed in to the Amazon account and read the listing title plus the model line in Product information; compare it with what you meant to promote and with the brand pages registered as S39/S40. If it matches, fill the four intended fields on that row of data/product-intent.json; the build's contract then permits the tagging question to be taken up in order (Q-28).",
+      "blocks": [
+        "SG-36"
+      ],
+      "sources": [
+        {
+          "label": "CHEF iQ — iQ Sense product page (brand-official)",
+          "url": "https://chefiq.com/products/iq-sense"
+        },
+        {
+          "label": "ThermoMaven — official site, instant-read line-up",
+          "url": "https://www.thermomaven.com/"
+        },
+        {
+          "label": "Amazon — ASIN and product URL definition",
+          "url": "https://kdp.amazon.com/en_US/help/topic/G200652190"
+        }
+      ]
+    },
+    {
+      "id": "Q-28",
+      "group": "Attribution",
+      "question": "Is shopnow047c-20 listed on the Associates account, and does a click through a published link appear under it in the Tracking ID Summary Report?",
+      "state": "unknowable",
+      "why_it_matters": "Until both halves are true the site cannot earn, and no page on it could tell you. A tag that does not exist attributes nothing; a tag that exists but is not the one attached attributes nothing either. Everything else in the queue — content, measurement, the category question — is downstream of one screen inside the account.",
+      "what_we_know": [
+        "The value was supplied by the account holder on 2026-11-17 and is recorded as user-provided; its shape matches the only example Amazon publishes (storeid-20, sub-tag storeid-1-20), re-read verbatim from S6 the same day.",
+        "No official page states a validation rule or lists which IDs exist for which account, so a shape match cannot confirm existence, and the repository keeps associate_tag blank by contract rather than filling it.",
+        "S41 states that a tracking ID need not appear in the click-through URL for a sale to be attributed, so the clean landing URLs observed for the submitted links neither support nor undermine anything: a URL inspection cannot fill the per-row associates_link_test fields.",
+        "S42 names where the result is read — the Tracking ID Summary Report — and records the 100-IDs-per-account limit that makes a per-channel scheme practical (F81)."
+      ],
+      "what_is_missing": "Two observations only the account holder can make: the ID present at Associates Central > Manage your Tracking ID, and a click-through appearing in that ID's summary report.",
+      "how_to_discover": "Open Manage your Tracking ID and check for shopnow047c-20. Click one published product link. Read the Tracking ID Summary Report for that click. Write the date and the report name into data/product-intent.json's per-row associates_link_test_* fields and the associates_central_confirmation fields — the build contract in tests/test_build_contract.py then governs when the tag may be applied, and a later pass can close F76 and this row together.",
+      "blocks": [
+        "SG-37"
+      ],
+      "sources": [
+        {
+          "label": "Amazon — how IDs are created and reported, and the limit per account",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GJDYPQZK6E37RLPU"
+        },
+        {
+          "label": "Amazon — a tag need not appear in the URL to attribute the sale",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GF4RJEQNXSMR7SP3"
+        },
+        {
+          "label": "Amazon — what a tracking ID is (re-read verbatim 2026-11-17)",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA"
+        }
+      ]
+    },
+    {
+      "id": "Q-29",
       "group": "Measurement",
       "question": "Is there any host on this project that can receive a click event, and who operates it?",
       "state": "missing",
-      "why_it_matters": "Three of the four decisions in the shopfront path (SG-38, SG-43, SG-44) are placement decisions. Placement can only be judged with a click counter, and a static GitHub Pages site has no server to count on. Until this is answered, every 'this will convert better' claim about the design - including the ones on this repository's own pages - is unfalsifiable.",
+      "why_it_matters": "Three of the four decisions in the shopfront path (SG-41, SG-46, SG-47) are placement decisions. Placement can only be judged with a click counter, and a static GitHub Pages site has no server to count on. Until this is answered, every 'this will convert better' claim about the design - including the ones on this repository's own pages - is unfalsifiable.",
       "what_we_know": [
         "The site ships no analytics, sets no cookies, and states that in the footer's cookie notice, which is the disclosure Program Policies 3(e) asks for.",
         "measurement.html defines five events with their fields and explicitly records that none of them can fire from a static host.",
@@ -787,9 +864,9 @@
       "what_is_missing": "A decision: self-host a minimal counter, adopt a privacy-first hosted product, or accept Amazon's earnings report as the only measurement. Each changes what the footer must disclose.",
       "how_to_discover": "Answer the three sub-questions in writing: (1) who runs a server here; (2) is a first-party counter acceptable to you if it stores page, timestamp and destination host with no cookie and no fingerprint; (3) does the choice get written into the cookie notice the same day it ships. Nothing in this repository can answer them, and nothing public will.",
       "blocks": [
-        "SG-44",
-        "SG-38",
-        "SG-43"
+        "SG-47",
+        "SG-41",
+        "SG-46"
       ],
       "sources": [
         {
@@ -808,7 +885,7 @@
       "answer": null
     },
     {
-      "id": "Q-28",
+      "id": "Q-30",
       "group": "Content strategy",
       "question": "Which search queries does the site already appear for, and at what position?",
       "state": "missing",
@@ -821,8 +898,8 @@
       "what_is_missing": "Ownership of the property, the submitted sitemap, and 4-8 weeks of query data. Then the two numbers that decide the next topic: impressions by query, and average position for queries where an existing article already answers the intent.",
       "how_to_discover": "Verify the property for kanlerxz87-cyber.github.io/Zone1/ (a DNS TXT record you control, or an HTML meta tag committed by an agent - the second is one line in layout() and no agent may pick the domain for you), submit sitemap.xml, then export the query report after four weeks and paste it into data/campaign-ledger.json with a date and a source note.",
       "blocks": [
-        "SG-40",
-        "SG-43"
+        "SG-43",
+        "SG-46"
       ],
       "sources": [
         {
@@ -841,7 +918,7 @@
       "answer": null
     },
     {
-      "id": "Q-29",
+      "id": "Q-31",
       "group": "Authorship",
       "question": "Whose name is on this publication, and what does that person actually have?",
       "state": "missing",
@@ -849,12 +926,12 @@
       "what_we_know": [
         "No author identity exists in the repository: the structured data names the site as publisher, and every article page says documentation-based, no hands-on testing.",
         "Suggestion SG-32 proposes a production-method authorship line, which the site could ship today because it is a description of how the page was made.",
-        "The only person who can hold the appliances is the owner; SG-39 option A is the same decision viewed from the media side."
+        "The only person who can hold the appliances is the owner; SG-42 option A is the same decision viewed from the media side."
       ],
       "what_is_missing": "Three things: a name or handle to publish, one sentence about why that person is qualified to compare published documents (not to cook), and a decision on whether they will ever handle a unit - because if they do, the 'no hands-on testing' sentence has to come off, and a review of the tested machine becomes possible.",
       "how_to_discover": "Owner answer, ten minutes. Then an agent pass updates data/site.json, the Organization and Article structured data, and the footer's 'who runs this' block.",
       "blocks": [
-        "SG-41"
+        "SG-44"
       ],
       "sources": [
         {
@@ -873,7 +950,7 @@
       "answer": null
     },
     {
-      "id": "Q-30",
+      "id": "Q-32",
       "group": "Site ownership",
       "question": "Is this a subpath of a GitHub Pages domain, or a domain of its own?",
       "state": "missing",
@@ -883,11 +960,11 @@
         "GitHub Pages supports a custom domain with a DNS record and a settings change, documented by GitHub.",
         "The site name shown to readers is 'Zone1 Kitchen', which is a repository label adapted rather than a brand."
       ],
-      "what_is_missing": "A decision on the domain, and the brand name that goes with it. Then a mechanical change: SITE_URL in data/config.json, the footer masthead, the og:image card and the Search Console property in Q-28.",
+      "what_is_missing": "A decision on the domain, and the brand name that goes with it. Then a mechanical change: SITE_URL in data/config.json, the footer masthead, the og:image card and the Search Console property in Q-30.",
       "how_to_discover": "Pick a name, buy or point a domain, set it in Pages settings, then have an agent pass change base_url in data/config.json and re-run the build: the guard that compares committed HTML to a rebuild will surface every place the old URL was hardcoded.",
       "blocks": [
-        "SG-41",
-        "SG-43"
+        "SG-44",
+        "SG-46"
       ],
       "sources": [
         {
@@ -910,7 +987,7 @@
       "answer": null
     },
     {
-      "id": "Q-31",
+      "id": "Q-33",
       "group": "Product photography",
       "question": "Who owns the rights to any image of these three products, and is a photo of your own kitchen allowed to appear?",
       "state": "not_stated",
@@ -924,7 +1001,7 @@
       "what_is_missing": "Either a photograph you took (with a sentence saying who took it and when), or written permission from a brand naming this site, or an explicit decision to stay text-and-diagrams. All three are answers; only the first two need doing.",
       "how_to_discover": "Option one is an afternoon with a phone: three units, front, open, and the model plate, plus a line of caption. Option two is one email each to Chefman and Emeril press asking for permission to use product imagery on this site specifically, with the reply filed in data/sources.json like any other fact.",
       "blocks": [
-        "SG-39"
+        "SG-42"
       ],
       "sources": [
         {
@@ -943,7 +1020,7 @@
       "answer": null
     },
     {
-      "id": "Q-32",
+      "id": "Q-34",
       "group": "Brand",
       "question": "What is this site for, in one sentence a shopper would repeat: a buying guide, a deals page, or a verification service?",
       "state": "missing",
@@ -956,9 +1033,9 @@
       "what_is_missing": "One sentence, owned by you, and consistency with it. If the answer is 'a buying guide', the register pages move to the footer permanently and the article set gets the front page. If it is 'a verification service for people who buy appliances', the flags and the read dates move up, and the site should stop imitating a shop.",
       "how_to_discover": "No research step exists. Write the sentence, then have a pass test every page against it: any surface that does not serve the sentence becomes an annex. Decisions R-9 to R-12 on design-prompt.html are where it gets recorded.",
       "blocks": [
-        "SG-36",
-        "SG-41",
-        "SG-43"
+        "SG-39",
+        "SG-44",
+        "SG-46"
       ],
       "sources": [
         {
@@ -977,7 +1054,7 @@
       "answer": null
     },
     {
-      "id": "Q-33",
+      "id": "Q-35",
       "group": "Content operations",
       "question": "Who writes the next article, on what schedule, and who checks it before it publishes?",
       "state": "missing",
@@ -985,12 +1062,12 @@
       "what_we_know": [
         "Every article is machine-checked: a value quoted in prose must already be a published value in the dataset, an unregistered source citation fails the build, and banned stock phrases fail it too.",
         "The voice rules on design-prompt.html are the editorial standard currently enforced, and they were adopted on 2026-11-16.",
-        "The kill rule proposed in SG-40 is the only published performance commitment in the content plan."
+        "The kill rule proposed in SG-43 is the only published performance commitment in the content plan."
       ],
-      "what_is_missing": "A cadence (SG-40), an editor - is a human reading each piece before it ships, or is the guard the only check? - and a byline policy, which is Q-29. Answering the editor question alone changes what 'published' means on this site.",
+      "what_is_missing": "A cadence (SG-43), an editor - is a human reading each piece before it ships, or is the guard the only check? - and a byline policy, which is Q-31. Answering the editor question alone changes what 'published' means on this site.",
       "how_to_discover": "Owner decision, then recorded in data/topics.json as a cadence field and on the decisions register as a status change.",
       "blocks": [
-        "SG-40"
+        "SG-43"
       ],
       "sources": [
         {
@@ -1009,7 +1086,7 @@
       "answer": null
     },
     {
-      "id": "Q-34",
+      "id": "Q-36",
       "group": "Attribution",
       "question": "Did the one-link test produce a tracked click in the Associates earnings report?",
       "state": "unknowable",
@@ -1022,8 +1099,8 @@
       "what_is_missing": "One click, one day, one screenshot of the earnings or tracking report showing that click attributed to the ID.",
       "how_to_discover": "In Associates Central: build one link for the 6 Qt ASIN with tracking ID shopnow047c-20, open it in a private window, confirm the destination is amazon.com/dp/B0CDY277D3 with the tag in the URL, then check the report the next day. Paste the observation into data/product-intent.json and this row's answer field; an agent pass will then close F76.",
       "blocks": [
-        "SG-38",
-        "SG-44"
+        "SG-41",
+        "SG-47"
       ],
       "sources": [
         {
@@ -1042,18 +1119,18 @@
       "answer": null
     },
     {
-      "id": "Q-35",
+      "id": "Q-37",
       "group": "Evidence base",
       "question": "Which figure is the appliance's weight, and which is the boxed figure, for the 8 Qt?",
       "state": "not_stated",
-      "why_it_matters": "Found by this pass on the brand's own page, on the same date, from two fields of the same product record: the specification block says 12.8 lbs / 5.8 kg and the store variant carries 13.4 lb. A reader who is deciding whether a shelf or a cupboard can take it gets a different answer depending on which field they find, and neither document says which one is the product and which is the package. Recorded as F84.",
+      "why_it_matters": "Found by this pass on the brand's own page, on the same date, from two fields of the same product record: the specification block says 12.8 lbs / 5.8 kg and the store variant carries 13.4 lb. A reader who is deciding whether a shelf or a cupboard can take it gets a different answer depending on which field they find, and neither document says which one is the product and which is the package. Recorded as F86.",
       "what_we_know": [
         "Both numbers are on chefman.com for RJ38-SQSS-8T as read on 2026-11-17.",
         "The site publishes the specification-block figure, because that block is where the brand states the appliance's dimensions and weight together.",
         "Nothing was averaged, and no weight claim appears in any article on this site."
       ],
       "what_is_missing": "A statement from Chefman of which figure is the appliance, or a third document that says so (the manual's specification page is the likeliest place and does not carry a weight for this model).",
-      "how_to_discover": "Ask Chefman support for the net weight of RJ38-SQSS-8T, or photograph the scale readout if a unit is on hand. Either answer closes F84 and lets the small-kitchen article state a weight.",
+      "how_to_discover": "Ask Chefman support for the net weight of RJ38-SQSS-8T, or photograph the scale readout if a unit is on hand. Either answer closes F86 and lets the small-kitchen article state a weight.",
       "blocks": [],
       "sources": [
         {
@@ -1065,14 +1142,14 @@
           "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1.json"
         },
         {
-          "label": "Flag F84",
+          "label": "Flag F86",
           "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f84"
         }
       ],
       "answer": null
     },
     {
-      "id": "Q-36",
+      "id": "Q-38",
       "group": "Platform compliance",
       "question": "May the site use a brand's own marketing sentence as content, and with what framing?",
       "state": "not_stated",
@@ -1102,20 +1179,20 @@
       "answer": null
     },
     {
-      "id": "Q-37",
+      "id": "Q-39",
       "group": "Governance",
       "question": "Which accessibility and mobile standard is the design required to meet, and can this site cite it?",
       "state": "missing",
-      "why_it_matters": "This pass widened tap targets to a 44 px minimum and added a fluid type scale. Both are usability choices the build enforces and no page claims they satisfy a standard, because the site cannot cite one: the verifier's official-host list contains no accessibility body, so a WCAG reference could not be linked as a source without weakening every other citation on the page. Recorded as F86.",
+      "why_it_matters": "This pass widened tap targets to a 44 px minimum and added a fluid type scale. Both are usability choices the build enforces and no page claims they satisfy a standard, because the site cannot cite one: the verifier's official-host list contains no accessibility body, so a WCAG reference could not be linked as a source without weakening every other citation on the page. Recorded as F88.",
       "what_we_know": [
         "The site's own checks confirm contrast pairs and disclosure presence, not conformance to an external standard.",
-        "Google's page-experience guidance asks whether content displays well on mobile and whether intrusive interstitials are avoided - both satisfied by the current build and quotable from a registered source (S38).",
+        "Google's page-experience guidance asks whether content displays well on mobile and whether intrusive interstitials are avoided - both satisfied by the current build and quotable from a registered source (S43).",
         "No accessibility standard is registered in data/sources.json, so no page on this site may assert conformance."
       ],
       "what_is_missing": "A decision on whether to hold the design to a named standard. If yes, an owner or agent pass must register the standard's own publisher page as a source - and the verifier's host list is the gate, which is a one-line change with a reason attached.",
       "how_to_discover": "Decide the standard, then have a pass add its official page to data/sources.json and to verify.py's allow list in the same commit, so the claim and the citation arrive together. Do not add the claim first.",
       "blocks": [
-        "SG-38"
+        "SG-41"
       ],
       "sources": [
         {
@@ -1127,7 +1204,7 @@
           "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/verify.py"
         },
         {
-          "label": "Flag F86",
+          "label": "Flag F88",
           "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f86"
         }
       ],

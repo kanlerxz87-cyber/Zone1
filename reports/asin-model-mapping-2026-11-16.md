@@ -1,5 +1,7 @@
 # ASIN → model mapping: reading the listing's own Product information block
 
+> **Correction (2026-11-17, F79):** Section 5 below cites S23 as a general ASIN-length and `/dp/`-format definition. The source register identifies S23 as KDP's “Linking from Your Website” help page and does not substantiate that general claim. Do not use the supplied short-link path tokens to infer intended products or ASINs. Current supplied URLs, observed destinations, and blank owner-confirmed intent fields are in [`data/product-intent.json`](../data/product-intent.json). This correction narrows the source claim; it does not alter the reported 2026-11-16 listing-page observations.
+
 **Session:** `arena/ba29c641-zone1` (pass 11) · **Date:** 2026-11-16 (UTC) · **Task:** Z2 on the board
 **Method:** server-side fetch of the live URL, then a line-by-line read of the returned page. Nothing
 below is recalled, inferred or carried over from another file: every value is quoted from the response
@@ -137,11 +139,13 @@ These values were in the same responses and are **not** on the site:
    documenting 450 °F, the two-models explanation is not closed, and the listing's self-contradiction is
    evidence in the case rather than a verdict. What is new in this pass is the Product information block itself,
    which neither pass captured.
-2. **The three supplied tokens are still not ASINs.** `B04G1MEwY`, `B02NbDxp3`, `B00hJ57DV` are nine
-   characters; an ASIN is ten (<https://kdp.amazon.com/en_US/help/topic/G200652190>, S23). Using them
-   as `/dp/` identifiers returns Amazon's 404 page (S21). The `link.amazon` short links resolve to the
-   three ASINs above through `plpRedirect=mhFallback`, and this repository has never established that
-   a fallback destination is what the link was created to point at. **F6, F7, F10 stand.**
+2. **The supplied path tokens do not establish intended products or ASINs.** This report's earlier
+   character-count assertion and its S23 citation are withdrawn under F79; the source register identifies
+   S23 as KDP's “Linking from Your Website” page, not a substantiated general ASIN-format source. S21
+   records a historical `/dp/<token>` fetch response only; it does not establish the validity of the
+   submitted short links. The 2026-11-17 intent ledger keeps submitted URLs, observed destinations and
+   owner-confirmed intent separate. **F6, F7, F10 stand** as historical flags; do not infer product
+   identity from redirect behavior.
 3. **The Associates tag inside those short links is still unobservable** (**F6**). Nothing on the site
    can show it, and no `tag=` parameter exists in any link this build emits (`data/config.json`
    `associate_tag` is empty, by design, with a visible warning).
@@ -168,7 +172,7 @@ These values were in the same responses and are **not** on the site:
 | 8 Qt Part Number, 400 °F maximum, 1-Year Limited Warranty, dimensions | <https://www.amazon.com/dp/B08DKYBTPH> |
 | 8 Qt brand page (the 15.4 × 12.6 × 13.5 in figures) | <https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1> |
 | 8 Qt owner's manual (warranty terms, four presets) | <https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf> |
-| ASIN length definition (10 characters) | <https://kdp.amazon.com/en_US/help/topic/G200652190> |
+| S23: KDP Help “Linking from Your Website” (not cited here as a general ASIN-format definition; see F79) | <https://kdp.amazon.com/en_US/help/topic/G200652190> |
 | Price / rating / aggregation rules | <https://affiliate-program.amazon.com/help/operating/policies> |
 | The supplied short links, exactly as given | <https://link.amazon/B04G1MEwY> · <https://link.amazon/B02NbDxp3> · <https://link.amazon/B00hJ57DV> |
 

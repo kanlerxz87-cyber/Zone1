@@ -1,5 +1,7 @@
 # Executive summary — Zone1 Amazon affiliate platform
 
+> **Historical briefing, superseded for the 2026-11-17 link-intent and measurement status.** Use [`data/product-intent.json`](data/product-intent.json), [`data/analytics-plan.json`](data/analytics-plan.json), and [`reports/brief-reconciliation-2026-11-17.md`](reports/brief-reconciliation-2026-11-17.md) for the current record. The five submitted URLs, observed destinations and owner-confirmed intent must remain separate; no intended listing or Associates attribution is confirmed by this historical summary.
+
 **Prepared:** 2026-11-13 (UTC) · **Branch:** `arena/105bc29e-zone1` · **Live site:** https://kanlerxz87-cyber.github.io/Zone1/
 
 ---
@@ -167,7 +169,7 @@ This settles a disagreement between earlier sessions in favour of the cross-chec
 
 ### 10.3 Citation-quality fixes in the dashboard annex (flag **F15**)
 
-Some rows in the separately-built `dashboard/` annex cited third-party sites (barcode.graphics, keywordseverywhere.com, manuals.plus, aruljohn.com, u2l.ai) instead of official sources. Where an official source exists it has been added — Amazon's own [KDP Help G200652190](https://kdp.amazon.com/en_US/help/topic/G200652190) ("your 10-character Amazon Standard Identification Number"; canonical `amazon.com/dp/ASIN` format), verified live and added as **S23**. Where no official source exists (the short-domain list), the row is now explicitly marked **unverified**. No original claim was deleted.
+Some rows in the separately-built `dashboard/` annex cited third-party sites (barcode.graphics, keywordseverywhere.com, manuals.plus, aruljohn.com, u2l.ai) instead of official sources. S23 was added from Amazon KDP Help G200652190, registered as “Linking from Your Website.” **Correction (2026-11-17, F79):** the source record does not substantiate the earlier general-ASIN-definition or `/dp/` format claim; do not rely on S23 for that claim. Where no official source exists (the short-domain list), the row is marked unverified.
 
 ### 10.4 Preserved disagreements (flag **F16**)
 
@@ -606,8 +608,8 @@ session live under `session-3b99448e/` so they cannot overwrite another session'
 Re-reviewed the three supplied `link.amazon` short links against the official evidence already
 recorded in this repo (no live Amazon fetch was possible from this session):
 
-- The tokens are 9 characters; an ASIN is 10 characters (S23 — Amazon KDP Help).
-- `amazon.com/dp/<token>` returns "Page Not Found" (S21); an unrecognised short-link token returns
+- The submitted path tokens are preserved as supplied and are not used as evidence of intended product identity. The earlier S23 citation for a general ASIN definition is withdrawn under F79; no token-format or link-validity conclusion is needed here.
+- Earlier `/dp/<token>` checks returned "Page Not Found" for a tested path (S21), while an unrecognised short-link token returned
   403 (S22).
 - The short links resolve through Amazon's `plpRedirect=mhFallback` handler to air-fryer listings
   (candidate ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH — S17/S16), but destination is not identity:
@@ -628,9 +630,7 @@ recorded in this repo (no live Amazon fetch was possible from this session):
   pages; sitemap.xml + robots.txt already ship; compete on transparency ("shows its gaps"); Pinterest/
   TikTok/YouTube Shorts for visuals; double-opt-in email; quarterly re-verification against official
   sources.
-- **Compliance:** disclosure wording per OA §5 (S1) and FTC (S7/S8/S9); replace `link.amazon/` short
-  links with canonical tagged `/dp/<ASIN>` URLs only after Q-1/Q-2 are answered; PA-API 5 is
-  deprecated — Creators API only (S24); IP License §2(e) bars training models on Program Content.
+- **Compliance (historical note updated 2026-11-17):** keep each submitted URL, observed destination and owner-confirmed intent separate. Do not replace a link or attach `shopnow047c-20` until the intended listing is confirmed and the account holder completes the required Associates test for that product. The ID remains unapplied and unverified here. Other historical policy notes in this section are not a substitute for current account checks.
 
 ### 14.3 T15 — decision gate (`session-3b99448e/decisions.md`)
 
@@ -719,7 +719,7 @@ None of these changed a sourced value. All ten are fixed on this branch.
 
 ### 15.8 The recommendation is unchanged
 
-Verify the three model numbers and the Associates tag in a logged-in browser, then replace the three `link.amazon` short links with canonical tagged `/dp/<ASIN>?tag=<tracking-id>` URLs built inside Associates Central, then re-run the re-verification pass. Until then the site publishes candidate mappings, leaves every unconfirmed value blank, and flags the rest. Nothing was invented to fill a gap.
+**Historical recommendation, superseded 2026-11-17:** the current integration does not treat the three observed destinations as proof of the intended products. The account holder must first confirm each intended listing separately, verify the user-provided `shopnow047c-20` in Associates Central, and complete the required enrolled-Associates test per confirmed product. Until those checks are recorded, keep the ID unapplied, the intended fields blank, and the campaign ledger empty. Do not replace the supplied links based only on redirect observations.
 
 ---
 
@@ -1205,8 +1205,7 @@ and each page's **Product information** block rendered, model rows included:
 
 Read in full: **F68** (`flagged.html#f68`). The correction is narrower than it looks and worth
 stating twice. What closed is the ASIN-to-model step, for all three products. What did **not** close
-is the supplied-link-to-ASIN attribution: the three `link.amazon` tokens are still nine characters,
-still not ASINs, and still arrive through `plpRedirect=mhFallback` (F6, F7, F10 stand). No sentence
+is the supplied-link-to-ASIN attribution: the three `link.amazon` URLs have recorded redirect observations, but the path tokens are not used as proof of intended ASINs or products (F6, F7, F10 stand). No sentence
 on this site now says the listing hides its model number; the register's F1 was corrected rather
 than deleted, so the wrong premise stays visible in the file that carried it.
 
@@ -1389,3 +1388,79 @@ class — repaired within the session (`3e4859f`) and logged.
 **State at the end of this pass:** `build.py` exit 0 (48 sitemap URLs, every guard green) ·
 `verify.py` 128 pages, 46 spec rows (44 verified, 2 blank+flagged), 35 sources, 0 errors ·
 `ci-check.sh` 7,958 links, 0 broken.
+
+---
+
+## 24. Pass 13 — the pass that deleted its own work, twice (2026-11-17, session `arena/58cbaaa2-zone1`)
+
+**Branch** `arena/58cbaaa2-zone1`, built on `9c6e3f0`, landed on `4609ff3`.
+**Evidence:** [`reports/verification-2026-11-17-58cbaaa2.md`](reports/verification-2026-11-17-58cbaaa2.md) ·
+**Withdrawn draft:** [`session-58cbaaa2/artifacts/`](session-58cbaaa2/artifacts/README.md)
+
+### 24.1 The finding worth more than the feature list
+
+Ten PRs merged while this pass worked, and the most useful thing it did was notice that its own
+deliverables already existed, in better form, with tests attached. It had built a second product-intent
+register (retired by the consolidation in `arena/5b17c077`), a second measurement register (superseded by
+main's five-event file and the fail-closed `analytics/collector.py`), and a gate refusing to emit a tagged
+link until the account holder confirmed the ID — then main's own `check_intent_measurement_contract()`
+arrived and took the harder line: `associate_tag` stays blank, collection stays off, and
+`tests/test_build_contract.py` fails if anyone flips either. Each duplicate was dropped rather than
+merged, and the drop list is published with the draft so the work stays auditable. A browser click counter
+that was working and shipped-as-code got the same treatment: it would have made the footer's
+"browser collection remains disabled" sentence false, so it became **SG-38 path C** with the reason
+written on the row. The rule this session learned, recorded for whoever is next: **fetch before you
+build.**
+
+### 24.2 What is new, and why it could not be derived from what main had
+
+All five submitted links were re-resolved on 2026-11-17; PI-04 → `/dp/B0DHZTCNR5` and PI-05 →
+`/dp/B0DZFD6R9Z`, both under *Thermometers & Timers › Meat*, all five through the same `mhFallback` form
+with no `asin=` parameter. The increment is the second opinion: both candidates were read against their
+manufacturers' own catalogues rather than their listings (**S39** CHEF iQ, **S40** ThermoMaven), and
+neither reconciles — ThermoMaven's instant-read line is F1 Pro / F1 Turbo and does not use the "1 Sec"
+label the listing carries; CHEF iQ states CQ60-3C-Z3-E where the listing gives a product name. So the
+rows cannot be closed by a pass reading harder, which is why no product page exists for either and why
+the decision is put to the owner as **SG-36 / Q-27** with three named paths (**F80**). The brand-catalogue
+table on `product-intent.html` is generated from the register's own fields: a new row needs no template
+edit, and each verdict cell links to the flag rather than reading as a closed item.
+
+### 24.3 The correction, and the discipline around it
+
+**F81.** Two help nodes reachable from `S6`, read the same day, narrow what a landing URL can show.
+Amazon states that a tracking ID "is not necessary … to appear in order for us to track sales made after
+the initial click through" (**S41**) — so the missing `tag=` parameter that several passes cited beside
+their caution about attribution is a *null* observation, not a negative one, and it can never satisfy the
+per-row `associates_link_test_*` fields. **S42** names where the real confirmation is read (Tracking ID
+Summary Report), the screen that creates IDs and the 100-per-account limit — the material for
+**SG-37 / Q-28**, which is the only item on the queue that unblocks revenue and the only one whose
+bottleneck is a login. The correction is applied where the inference is drawn in the present tense and in
+dated brackets on the two `decision.json` rows; the historical rows are untouched, because they are
+records of what those passes saw and editing them backwards would remove the audit trail that makes them
+evidence.
+
+### 24.4 The count defect, now with a guard that can actually fail
+
+**F82.** The category lede still opened "The three supplied links were observed landing…" two days after
+the register grew to five: the same class as F73/F77/F79, one step up, because every number inside the
+sentence was fine and nothing read the narrative. It now computes its counts from `len(rows)` and the
+register's `observed_listing_category`, and `check_submitted_link_count()` fails the build on a
+mismatch — scoped to the shopper surfaces and the two registers, so a dated row that truthfully says
+"all three supplied links" about 2026-11-14 can never be "fixed" by rewriting history. Both directions
+were proven, and the proof is what caught the interesting bug: the first pattern required a lead-in word
+(`all`, `none of`) and matched nothing at all. **A guard that cannot fail is a comment with a name**, and
+it is recorded that way in the flag rather than tidied out of it.
+
+### 24.5 Not done, and gates
+
+No prices, ratings, review counts or rankings; no photography; no analytics endpoint, and no browser
+collection while main's contract keeps it off; no ledger row, conversion score or revenue forecast; no
+claim that the supplied links are invalid; no unilateral edit to a merged decision or to another
+session's annex.
+
+`build.py` exit 0 — 52 pages, 31 sitemap URLs, `feed.xml` 21 items, two consecutive builds
+byte-identical, rebuild leaves the working tree clean · `verify.py` 130 pages, 77 spec rows
+(75 verified / 2 blank+flagged), 42 sources, 0 warnings, 0 errors, one pre-existing NOTE ·
+`ci-check.sh` 33 platform tests, data audit clean, s2 annex current, 9,585 links / 0 broken ·
+`python3 -m unittest discover -s tests` 17 tests OK (the intent/analytics contract included) ·
+`scripts/verify_site.py` 393 assertions PASSED · `research/check_research.py` 834 checks OK.

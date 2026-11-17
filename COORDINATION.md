@@ -5531,39 +5531,195 @@ two blank+flagged spec rows. Nothing was filled by inference.
 
 **Open, unchanged, published on flagged.html (none blocking):** F3, F4/F5, F70, F71, F11, Q-01/Q-02/Q-04 and the two blank+flagged spec rows. Nothing was filled by inference.
 
+
 ---
 
-## Task board — arena/c55fa0d8-zone1 (2026-11-17 UTC) — shop brief, scoped pass
+### arena/66c32067-zone1 — held TP-21 draft, gates and record (2026-11-17 UTC)
 
-| # | Task | Status | Owner (session) | File scope |
-|---|------|--------|-----------------|------------|
-| C55-1 | Audit the shop brief against the live repo; add the one question-shaped guide topic the repo does not yet hold (TP-21); map the other suggested titles to existing published articles; record the blocked items with their owner actions | done | arena/c55fa0d8-zone1 | `data/topics.json` (TP-21 appended), `topics.html` (regenerated), `EXECUTIVE-SUMMARY-SHOP-PASS.md` (addendum), `COORDINATION.md` |
+**Claim:** executive summary (`EXECUTIVE-SUMMARY-PASS-66c32067.md`) and this record. Held draft kept at `session-66c32067/` (not served).
 
-### Claim and audit log — arena/c55fa0d8-zone1
+**Collision recorded:** this session drafted a six-question guide for the fourth working title, and it was merged into a branch while `main` (PR #135, session `c55fa0d8`) had registered the same topic as TP-21 with status *proposed*, blocked by **Q-20** (owner-only: which country and marketplace the site promotes). Publishing the draft would have overridden that block, so it was **not published**. The draft's content is kept at `session-66c32067/TP-21-held-draft-article.json` and `session-66c32067/TP-21-held-draft-topic.json`, and `main`'s TP-21 record is untouched. Release is a single build step after Q-20 is answered.
 
-| UTC time | Action |
-|----------|--------|
-| 2026-11-17 | Baseline on the branch: `build.py` exit 0; `verify.py` 77 spec rows (75 verified / 2 blank+flagged), 37 sources, 0 errors; `scripts/ci-check.sh` OK, 8,764 links / 0 broken. |
-| 2026-11-17 | Audit against the brief: the front page already leads with the three products and carries the disclosure strip above the fold and in the footer; every `/dp/` link carries the owner tag `shopnow047c-20` and `rel="sponsored"` (gated since PR #128); `sitemap.xml` (51 URLs) and `feed.xml` (21 items) are generated from the articles. |
-| 2026-11-17 | Suggested working titles mapped to existing coverage: "Basket or oven-style air fryer: what should you compare?" → TP-05 (`dual-basket-vs-oven-air-fryer`); "A no-hype checklist for comparing air fryer capacity" → TP-03 (`air-fryer-capacity-guide`); "How to assess cleanup and counter-space trade-offs" → TP-04 and `how-to-clean-an-air-fryer` (partial: cleaning is covered from the manuals, not as a trade-off study). "Questions to ask before buying a multi-function kitchen appliance" had **no** entry, so it is added as **TP-21 (proposed)**, citing only the three manufacturer product pages already in the register. |
+**Not built, deliberately:** the five-event click counter. The site is static GitHub Pages with no endpoint to receive events; the footer says no analytics run; a beacon would make that false, and a counter with no endpoint would invent numbers. Still blocked on an endpoint the owner controls (`measurement.html`).
 
-### C55-1 completion record
+**Live re-read 2026-11-17 (for the held draft):** Emeril product page (26-Quart, 16.9"D × 15.8"W × 14.8"H, 24.6 Liters, 120 volts, "Included are 7 premium accessories") — confirmed. Chefman 8 Qt brand page (name, 200–400 °F, presets, dishwasher-safe basket and rack) — confirmed. Amazon listing B08DKYBTPH — title matches; its dimensions field was not reached and rests on the prior dated read (S29).
 
-**Status: done, with the blocked items below left open on purpose.** No new product value, price, rating or commission figure was added. TP-21 is a proposed topic, not a published article; its "why it could earn traffic" line is labelled as judgement because no keyword or Associates data exists in this repository.
+**Irregularity:** the 8 Qt listing dimensions (S29 12.75"D × 13.5"W × 10"H) disagree with the brand page (S12 15.4 × 12.6 × 13.5 in). Both are recorded in the held draft; neither chosen.
 
-**Blocked, not implemented in this pass (each needs an owner action or a decision that cannot be made from the sandbox):**
+**Gates on the merged tree:** see the PR description (build, verify, CI, link check, annex, research).
 
-1. **One-link Associates test and tracking report** — needs the account holder's Associates login. Tag is applied and gated on-site; attribution is still untested (F76).
-2. **Outbound-click counter and self-hosted analytics endpoint** — GitHub Pages serves static files only; there is no server to receive events. A browser-only counter would produce a number that is not a count, so none was shipped. The five event definitions remain on `measurement.html`. A host for the endpoint is an owner decision.
-3. **Search Console and sitemap submission (SG-28/SG-29)** — needs verified property access in the owner's Google account.
-4. **Real product photography (S-18)** — no rights-cleared image source exists in the register; open decision (F46 / Q-22).
-5. **Campaign ledger figures** — remain empty by design until authorised first-party reports are supplied.
+### arena/66c32067-zone1 — PR and merge result (2026-11-17 UTC)
+
+* **PR [#136](https://github.com/kanlerxz87-cyber/Zone1/pull/136)** — held TP-21 draft, executive summary, collision record. Merged with `gh pr merge 136 --merge` at **2026-11-17T16:39:33Z**, merge commit **`80bb0e234cc6cce0bc16062d7d1ee26c656ea69c`**. Required checks before merge: `CI` and `Verify verification annex (site/)` both success; `mergeStateStatus: CLEAN`. Merged without waiting for approval.
+* **Conflict during the pass:** `main` gained PR #135 (session `c55fa0d8`) registering TP-21 as *proposed*, blocked by Q-20. Resolved by keeping `main`'s TP-21 record and not publishing the held draft. Both sessions' records are kept.
+* **Post-merge workflows on `main` at `80bb0e2`:** `CI` success · `Build, verify and deploy to GitHub Pages` success · `Verify verification annex (site/)` success · `pages build and deployment` success.
+* **GitHub Pages:** `pages/builds/latest` → `status: built`, commit `80bb0e2…`, `error: null`. Live read-back: `articles/multi-function-buying-questions.html` returns the site's 404 page (draft correctly not served); `articles/index.html` lists the published set.
+* **Owner action:** answer **Q-20** (country and marketplace the site promotes). Then the held draft in `session-66c32067/` can be released.
+
+---
+
+## X-58cbaaa2 — pass 13: two new submitted links, the brand catalogues, the attribution reasoning, and a re-scoped finish (2026-11-17)
+
+| ID | Task | Status | Branch / session | Scope actually touched |
+|---|---|---|---|---|
+| X-58cbaaa2 | **Pass 13.** The 2026-11-17 brief supplied two further `link.amazon` links (`B0c8moW59`, `B0f3GKalj`), the selected tracking ID `shopnow047c-20`, and the measurement instruction (privacy-preserving click counter + self-hosted endpoint + five defined events + empty-but-well-defined campaign ledger, no conversion score or forecast). Work: live re-read of all five submitted links; brand-catalogue checks against the manufacturers' own pages; registration of the official nodes bearing on attribution; the increment onto main's canonical registers; decision rows for what the new inputs change; line-by-line review with defects repaired and guarded; rebuild, every gate, PR → merge → confirm Pages → record. | **done** | arena/58cbaaa2-zone1 (session 58cbaaa2) | `data/sources.json` (S39–S42 added, S6 re-read note); `data/product-intent.json` (brand-catalogue fields, `observation_method_correction`, `sub_tag_plan` — main's file extended, not replaced); `build.py` (register-read constants, `_num_word`, F80–F82 with `REPO_EVIDENCE`, `check_submitted_link_count()`, three `req_counts()` tokens, `product-intent.html` blocks, category lede); `verify.py` (two brand hosts allow-listed, commented); regenerated root HTML; `data/suggestions.json` (SG-36–SG-38 + P6), `data/questions.json` (Q-27/Q-28), `data/topics.json` (TP-22/TP-23, queued not written), `data/requirements.json` (H-01/H-02), `data/decision.json` (dated bracket annotations, no rewrite); `reports/verification-2026-11-17-58cbaaa2.md`; `README.md`, `EXECUTIVE-SUMMARY.md` (§24); `session-58cbaaa2/*` incl. the withdrawn draft and its diff. **Not touched:** `site/`, `s2/`, `data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*`, `analytics/`, `tests/`, other `session-*` dirs, and no other session's flag/topic ids |
+
+**The headline, stated plainly because it is the useful part.** This pass built roughly three times what
+it merged. On base `9c6e3f0` it produced a second product-intent register (`data/product-intent-confirmations.json`
+schema v2 + `links.html` + flags F76–F80 + `check_special_link_gate()`), a second measurement register
+(own `data/measurement.json`, own page, cookieless browser counter in `assets/app.js` + footer §3(e)
+rewrite) and a mobile pass. Two fetches later it had withdrawn all of it: `arena/5b17c077` had
+consolidated three intent records into `data/product-intent.json` → `product-intent.html` and retired the
+file this session was editing, and `arena/c55fa0d8` had made the collection posture a **tested** contract
+(`associate_tag` blank, `analytics/collector.py` fail-closed and undeployed,
+`tests/test_build_contract.py` failing if browser collection is enabled or a tag is applied before the
+account checks pass). Main also renumbered its flags to F76–F79, took S36–S38 and published `TP-21`, so
+this session's ids were re-cut to F80–F82, S39–S42, TP-22/TP-23 rather than collide. The withdrawn work is
+published, not hidden, at `session-58cbaaa2/artifacts/` (full diff in `pass13-original.patch`, drop list
+in its `README.md`), because an agent's superseded effort is evidence too.
+
+**Sources consulted live on 2026-11-17 (registered as S39–S42; S6 re-read verbatim).**
+`chefiq.com/products/iq-sense` · `thermomaven.com` · `affiliate-program.amazon.com/help/node/topic/GF4RJEQNXSMR7SP3`
+(a tracking ID need not appear in the click-through URL) · `…/GJDYPQZK6E37RLPU` (ID creation screen,
+100-per-account limit, Tracking ID Summary Report) · plus re-resolution of all five `link.amazon` tokens
+→ `/dp/B0CDY277D3`, `/dp/B09B7SB46R`, `/dp/B08DKYBTPH` (unchanged from 2026-11-16, same `mhFallback`
+form), `/dp/B0DHZTCNR5`, `/dp/B0DZFD6R9Z` (both under Thermometers & Timers › Meat).
+
+**Verification result.** No published value changed and no inference was filled: all five rows keep
+`intended_asin`/`official_listing_url`/`confirmation_date`/`confirmation_source` null, observations stay in
+the `observed_*` fields, `associate_tag` stays blank, and no link is described as invalid — its compliance
+status is unresolved (main's F76), which this pass restates rather than settles.
+
+**Irregularities published on the flagged page.** **F80** neither new candidate reconciles with its
+manufacturer's own catalogue, so no product page for either (decision: Q-27 / SG-36). **F81** the
+inference from a missing `tag=` parameter was an over-reading; corrected where the inference is drawn in
+the present tense, historical rows untouched. **F82** main's category lede still counted "the three
+supplied links" present-tense two days after the register grew to five — repaired by reading the register,
+guarded by `check_submitted_link_count()` in both directions, with the note that the first pattern matched
+nothing (a guard that cannot fail is a comment with a name).
+
+**Handover notes for the board.** (1) `I-5b17c077`'s row still reads `in progress` although its work merged
+through #131/#132 — left for its owner session to close; rewriting another session's board row is not this
+session's call. (2) The next session should `git fetch origin main` **before** building, and re-fetch
+before opening a PR: this session's scope was cut in half twice by a rule read but not practised.
+(3) Q-28 is five minutes inside the account and is the only row that unblocks revenue; Q-27 decides
+whether TP-22/TP-23 get written. (4) When the owner submits another link, add a row to
+`data/product-intent.json` — never a sentence.
+
+**PRs and merges.** Recorded in the follow-up commit on this branch once the merge and the Pages read-back
+are known, per the house pattern (this row ships inside the PR it describes, so the merge sha cannot be
+in it).
 
 **Sources:** the three product pages already registered for TP-21 (`chefman.com` ×2, `emerileveryday.com`), as last read in the earlier 2026-11-17 pass (the `data/sources.json` page_version stamps). **This session did not re-fetch them**, so no new live check is claimed; no new source ID was added.
 
 **Gates:** `python3 build.py` exit 0 · `python3 verify.py` 77 spec rows, 37 sources, 0 errors, 0 external warnings · `bash scripts/ci-check.sh` OK, 8,769 links / 0 broken.
 
 ---
+
+## Task board — arena/0cf55ef3-zone1 (2026-11-17 UTC) — verification & decision-support pass
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-0cf55ef3 | Independent pass per the standing brief: line-by-line repo review; live re-verification of the five supplied `link.amazon` links and the key official sources; defect hunt over the newest additions (TP-21 / shop-pass copy, PR #135); review of the suggestions register and the decision gate against the "review suggestions before implementing" brief; all gates green; PR → merge → Pages confirm → record | in progress | arena/0cf55ef3-zone1 (session 0cf55ef3) | `COORDINATION.md`; `reports/verification-2026-11-17-0cf55ef3.md` (new); regenerated root HTML if a defect is repaired; whole tree at integration |
+
+### Claim log — arena/0cf55ef3-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17T17:05Z | arena/0cf55ef3-zone1 (session 0cf55ef3) | Claimed X-0cf55ef3. Rebased to `origin/main` @ `913d0ab` (includes PR #135). No open claim from another session; the blocked items recorded by C55-1 (Associates test, analytics host, Search Console, photography, ledger figures) are owner actions and are not re-claimed here. This session edits only the files in its claimed scope; `data/topics.json` / `EXECUTIVE-SUMMARY-SHOP-PASS.md` (C55 scope) are read-only for this pass. |
+
+### Completion record — arena/0cf55ef3-zone1 — X-0cf55ef3 (2026-11-17 UTC)
+
+**Status: done.** Independent verification & decision-support pass. Report:
+`reports/verification-2026-11-17-0cf55ef3.md`.
+
+**Live re-verification (server-side fetch, this session).** All five supplied short links
+re-opened and re-resolved to the same five destination ASINs the register records
+(B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z); all still land through
+`lv=shuf` / `plpRedirect=mhFallback` with no visible `tag=`, so F6 / F82 / Q-04 stay open.
+Sources re-read live: S1, S2, S3, S4, S8, S9, S10, S12, S14, S17, S28, S29, S36, S37.
+No source drift required repair. One benign delta: the eCFR "up to date as of" stamp rolled
+11/12 → 11/13/2026 with no substantive change — recorded in `data/sources.json` as
+`reverified_2026_11_17_0cf55ef3`, not rewritten. Prices, ratings, review counts and rank
+values seen in those responses were read and deliberately excluded from every published
+surface. Sources S5, S6, S7, S11, S13, S15, S16, S18–S27, S30–S35 and both owner's-manual
+PDFs were **not** re-read and nothing about them is restated.
+
+**Defects found and repaired (all at source, all re-verified after):**
+
+1. **F83 — handover pointed at flag ids that do not exist where the reader is sent.**
+   `data/decision.json` `handover.items[*].closes` carried `F01/F02/F03/F06/F07` (ids from the
+   older annex register `data/flags.json`, F01–F27) while `handover.html` / `decisions.html`
+   sit beside a Flagged page that renders the canonical register (F1, F6, …), where the same
+   numbers mean different things. Re-pointed: H1 → F1/F32/F33, H2 → F6/F82, H3 → Q-03
+   (labelled a question), H4 → M1–M4 (labelled measurement rows), H5 → the owner decision log.
+   Both renderers now link an id only when it matches `F\d{1,2}`.
+2. **New guard, proven to fire.** `check_legacy_flag_pointers(pages)` fails the build when a
+   zero-padded id is printed in a block that never names the legacy register. Injected
+   `<p>closes F01 today</p>` into `handover.html`: build failed with the expected message;
+   tree restored and rebuilt clean. (First draft used a character window and false-positived on
+   F83's own row; rewritten to check per block — table row / article / list item / paragraph.)
+3. **F84 — three typed counts had gone stale.** `handover.html` headline said "…eighteen
+   flags" and the homepage repeated it twice, against five handover items closing five flag
+   rows; `index.html` said "Eight reads" above a 21-article grid; `data/requirements.json`
+   B-08 said "Twelve articles … three more" (now 21 and 4) and A-04 said "Twenty questions"
+   (now 26). Repaired: article count computed at build time, requirements rows use the
+   existing `{n_articles}` / `{n_questions}` tokens plus a new `{n_topics_minus_articles}`
+   (unknown tokens still fail the build), handover headline/summary state the five-row figure.
+4. **Citation truncation on the topic plan table (TP-21 / shop pass).** Seven topic rows
+   (TP-02, TP-03, TP-04, TP-15, TP-16, TP-17, TP-21) showed two must-cite links with no
+   indication that more were required — TP-21's row showed 2 of its 3. Rows now append
+   `+N more in the brief ↓` linking to the detail card that lists every source.
+
+**Reviewed, no change needed.** TP-21 as committed (status `proposed`, `published_as: null`,
+three manufacturer must-cites, demand line labelled judgement) — sound; `data/topics.json`
+and `EXECUTIVE-SUMMARY-SHOP-PASS.md` were not edited (C55 scope). `decision-gate.html` is a
+deliberately frozen 14-question parallel register whose lede renders its own register's
+length — internally consistent, cleared previously and re-confirmed here. Suggestions register
+(34 rows, five paths P1–P5 with effort / prerequisites / what-it-does-not-fix / pick-this-if)
+satisfies the "review suggestions before implementing" brief; seasonal coverage already exists
+(SG-24 + published TP-15 gift guide and TP-17 Black Friday row), so no duplicate row was added.
+
+**Structural sweep.** 52 root pages checked for the Associates disclosure, canonical, single
+H1, JSON-LD parse, unique title/meta description, and `/dp/` links carrying
+`tag=shopnow047c-20` + `rel="sponsored"`: clean (the 404 correctly carries no canonical).
+Stale-count grep over every generated page: remaining hits are historical recounts on
+`flagged.html`/`reverification.html` and dated snapshots — not live claims.
+
+**Gates after repair (all exit 0).** `build.py` — 52 pages, sitemap 51 URLs, feed 21 items,
+84 flag rows; `research/build_research.py` + `check_research.py` — 393 assertions,
+ALL CHECKS PASSED; `verify.py` — 130 pages, 77 spec rows (75 verified / 2 blank+flagged),
+37 sources, 0 external warnings, 0 errors; `scripts/build_site.py` + `verify_site.py` — no
+broken links, disclosures present; `platform/audit/report.py` — AUDIT PASSED, 0 warnings;
+`scripts/ci-check.sh` — 33 unit tests OK, data audit clean, 8,788 links / 0 broken.
+Reproducibility: a clean rebuild leaves only the intended edits.
+
+**Owner-blocked items left open (not re-attempted, per C55-1).** Associates one-link test
+(F6/F82/Q-04, F1/F32/F33/F77), analytics endpoint (SG-08), Search Console / Bing (SG-29),
+product photography (SG-23/F46/Q-22), campaign ledger figures (SG-08), domain decision
+(Q-07/SG-16), account threshold (Q-03/SG-11). None blocks a merge; all are published on the
+Flagged for review page with source links.
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17T18:40Z | arena/0cf55ef3-zone1 (session 0cf55ef3) | X-0cf55ef3 marked **done**. 5 short links + 14 sources re-read live (no drift). Repaired F83 (handover → non-existent flag ids), F84 (three stale typed counts), topic-table citation truncation; added `check_legacy_flag_pointers()` and proved it fires. All gates green. |
+
+### arena/0cf55ef3-zone1 — PR and merge result (2026-11-17 UTC)
+
+* **PR [#143](https://github.com/kanlerxz87-cyber/Zone1/pull/143)** — verification pass X-0cf55ef3. Merged with `gh pr merge 143 --merge` at **2026-11-17T16:58:08Z**, merge commit **`e9542859aeca557b4624e17ba83146141ecedf38`**. Required checks before merge: `verify` and `Rebuild site/ from data/verified and assert every guarantee` both **success**; `mergeStateStatus: CLEAN`. Merged without waiting for approval.
+* **Workflows on `main` at `e954285`:** `CI` success · `Build, verify and deploy to GitHub Pages` success · `Verify verification annex (site/)` success · `pages-build-deployment` success.
+* **GitHub Pages:** `pages/builds/latest` → `status: built`, commit `e954285…`, `error: null`. Live read-back (cache-busted): `handover.html` renders the repaired heading and every *Closes* cell resolves to a real anchor (`F1`, `F32`, `F33` / `F6`, `F76`), disclosure present; `requirements.html` renders its counts from the register tokens (`28 questions`, `21 articles`), not from typed prose.
+* **Two rebases and one real collision during the pass.** `main` advanced twice while this pass was running (PR #136 → #138 → #140, sessions `66c32067` / `58cbaaa2`). Each conflict was resolved without discarding another session's work:
+  - `build.py` — main's `publication-compare-cta` block and pass-13 register constants kept from main; this pass's F83/F84 rows and `check_legacy_flag_pointers()` layered on top.
+  - `data/requirements.json` — main's newer semantic status/`where`/`why` content kept for the tag and analytics rows (another session's decisions, not this pass's to reverse); this pass's count tokens applied only to A-04 and B-08.
+  - `data/sources.json` — both sessions' independent re-verification blocks kept side by side.
+  - `COORDINATION.md` — main's PR #136/#138 records and this pass's task board both kept.
+* **Flag-id collision caught by the existing guard, and fixed in this pass's own merge.** The first resolution left two rows numbered `F81` and two numbered `F82` in the working tree — this pass's branch still carried pass-12's `F81` ("two of the five links never examined") and `F82` ("no Associates tag on any of the five"), which pass 13 had **superseded** with its own F80/F81/F82 on `main`. `check_flag_ids_unique()` failed the build with `flag id(s) rendered more than once on flagged.html: F81, F82` — exactly the guard F40/F62 exist for. Those two stale rows are **not on `origin/main` at all** (`git log -S` finds them only in this pass's commit), so they were dropped rather than renumbered, and the surviving `F81`/`F82` remain pass 13's. The knock-on was also fixed: `H2`'s `closes` now points at `F6` + **`F76`** (the tracking-ID status row), not `F82`, because `F82` on `main` is a stale-count row, and F83's prose says so.
+* **Owner actions recorded, not re-attempted:** F6/F76/Q-04 and Q-28/SG-37 (Associates tag + one-link test), F1/F32/F33 (intended product), F4/F5/F45 (Emeril presets/accessories), F3/F33 (450 °F), Q-03/SG-11 (account threshold), SG-16/Q-07 (domain), SG-29 (Search Console/Bing), SG-23/F46/Q-22 (photography), SG-08 (analytics endpoint), Q-20 (country/marketplace), Q-27/SG-36 (the two thermometer links). None blocks a merge; all are published on the Flagged for review page with source links.
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17T17:12Z | arena/0cf55ef3-zone1 (session 0cf55ef3) | PR #143 merged as `e954285`; all four `main` workflows success; Pages `status: built` at the merge commit, `error: null`; live read-back confirms the repairs serve. X-0cf55ef3 **done**. |
 
 ## Task board — arena/fd9778a1-zone1 (2026-11-17 UTC) — shopfront polish pass + decision desk (pass 13)
 
@@ -5630,3 +5786,52 @@ and what SG-45 proposes to close — read that row before reordering data again 
 preambles (`lede`, `how_to_read`) are frozen for repeated-sentence checks, so a lede edit that copies a `why` from
 another row fails; a status sentence in a register is safer computed than typed, and typed row counts are now
 scrutinised as F87 (see `check_requirement_tokens()` for the `{n_*}` tokens the requirements register does allow).
+
+### Merge record — arena/fd9778a1-zone1 onto `main` as of `272da81` (2026-11-17 UTC)
+
+**Why this section exists.** This session and `arena/58cbaaa2` + `arena/0cf55ef3` were working in parallel from the
+same base (`913d0ab`) and both called their work "pass 13". Their PRs merged first, so their numbering is the
+published one and **this session's rows were renumbered upward** rather than the other way round. No row of theirs
+was edited, moved or deleted; none of ours was dropped.
+
+| This pass drafted | Published as | Collision |
+|---|---|---|
+| SG-36 … SG-45 | **SG-39 … SG-48** | `main` took SG-36/37/38 |
+| path P6 "Make the shop look bought-in" | **path P7** | `main` published P6 "Make the money path real" |
+| Q-27 … Q-37 | **Q-29 … Q-39** | `main` added Q-27/28 |
+| source S38 (Google page experience) | **S43** | `main` registered S38 (GitHub Pages) and S39–S42 |
+| TP-22/23/24 | **TP-24/25/26** | `main` published TP-22/23 as the two thermometer guides |
+| flags F83 … F87 | **F85 … F89** | `main` added F83/F84 |
+| TP-21 (its own row) | **TP-21, shared** | both sessions meant the same topic; this pass supplied its published article, so the row moved `proposed → published` |
+
+References were rewritten in the same operation — inside prose, in `blocks` / `blocked_by`, in `paths[].contains`, in
+the requirements register's `why` cells, in the decision log's `implemented` rows and in
+`reports/verification-2026-11-17-fd9778a1.md` — with one single-pass substitution, because applying the shift
+rule id-by-id in sequence re-hit ids it had just produced (`Q-27 → Q-29 → Q-31`) and invents a third row. A
+cross-reference check over every register confirms no `SG-`/`Q-`/`TP-`/`F`/`S` token in any data file points at a
+row that does not exist. **Process note, in the tradition of the F81/F82 note above: renumbering is cheap while a
+PR is open and confusing after it merges, so a future session that finds a same-day collision should record the
+mapping here and in its verification report, as done here.**
+
+**One design concession, recorded rather than argued.** `main` restructured `page_index()` into a publication
+layout whose product cards name the job each format does and whose only onward step is a CTA into `compare.html` —
+dropping the inline side-by-side table and the verification-metric strip this pass had *moved* below that table.
+Both passes were implementing the same requirement ("lead with the products, not the audit trail"), and `main`'s
+version goes further, so this pass's table was not re-added. Its merchandising rows (`Best for` / `Check first`,
+and `price_line()` with the manufacturer's own list price) were kept inside `main`'s card. The card's outbound link
+stays `main`'s supplied short link with the "tracking unconfirmed" label; this pass's draft had built a
+`/dp/<ASIN>` button, and `main`'s F81/F82 rows explain why an inferred identifier is the wrong thing to publish.
+The mobile-first pass (type scale, 44 px hit areas, sticky comparison bar, table hint) and every `check_*` guard are
+unchanged by the merge.
+
+**Gates after the merge, on this branch:** `python3 build.py` exit 0 · 133 pages, **34** sitemap URLs (31 on
+`main` + this pass's three articles), **24** feed items · `python3 verify.py` 77 spec rows (75 verified /
+2 blank+flagged), **43** sources, 0 errors, 0 external warnings · `bash scripts/ci-check.sh` 33 unit tests OK,
+data audit clean, annex build current (16 files), link check OK **10,318** links · rebuild reproducibility: 55
+generated pages hashed before and after a second build, 0 changed. Registers now: 47 suggestions / 7 paths,
+39 questions, 26 topics, 24 articles, 53 requirement rows, 89 programme flags.
+
+**Request to the owners of the parallel builds (unchanged, and not edited by this session):** F87 (was F85) —
+`s2/`, `site/`, `research/`, `docs/`, `dashboard/` and `annex-88769516/` keep their own stylesheets and their own
+navigation, so the shopfront and mobile work lands only in the canonical root build. Port the tokens in each
+generator, or label those builds as archives; no HTML in those directories was touched by this pass.
