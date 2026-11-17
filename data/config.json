@@ -1,6 +1,6 @@
 {
-  "associate_tag": "",
-  "associate_tag_note": "Left blank on purpose. No Amazon Associates tag was supplied with this project. Amazon requires the tag as a URL parameter on every Special Link (Program Policies, Participation Requirements §2(b)). While this is blank, build_site.py renders every outbound link as a plain untagged /dp/<ASIN> URL and stamps a visible 'tag pending' warning on the site. Set it to your real tag (format XXXXX-20) and re-run the build. See flagged item F-10.",
+  "associate_tag": "shopnow047c-20",
+  "associate_tag_note": "Set 2026-11-17 from the owner-supplied tracking ID shopnow047c-20 (brief: \"Selected Tracking ID: shopnow047c-20\"). Amazon Program Policies §2(a) requires Special Links to use the assigned Associates ID and §2(b) requires the tag as a URL parameter on every link, so the build appends ?tag=<this> to every /dp/<ASIN> link and fails if any outbound product link lacks it. The tag format (xxxxx-20) is validated against the §2(b) pattern before any page is written. Recorded in data/intent-record.json as the site's own tag; it is NOT evidence that the five supplied link.amazon links carry it.",
   "site": {
     "title": "Air Fryer Affiliate Intelligence",
     "tagline": "Verified data, sourced line by line, for three air fryers.",
@@ -9,7 +9,9 @@
     "base_url": "https://kanlerxz87-cyber.github.io/Zone1/",
     "disclosure_amazon": "As an Amazon Associate I earn from qualifying purchases.",
     "disclosure_general": "I get commissions for purchases made through links on this page.",
-    "disclosure_general_note": "This wording follows the FTC's own example for affiliate disclosure, which states: \u201cYou could say something like, \u2018I get commissions for purchases made through links in this post.\u2019\u201d The FTC also warns that \u201caffiliate link\u201d alone is inadequate.",
+    "disclosure_general_note": "This wording follows the FTC's own example for affiliate disclosure, which states: “You could say something like, ‘I get commissions for purchases made through links in this post.’” The FTC also warns that “affiliate link” alone is inadequate.",
     "freshness_label": "13 November 2026"
-  }
+  },
+  "associate_tag_added": "2026-11-17",
+  "associate_tag_source": "Owner brief, 2026-11-17 (Selected Tracking ID: shopnow047c-20)"
 }
