@@ -5405,3 +5405,38 @@ mis-read once, caught immediately, and the rebase was aborted and redone correct
 * **Conflicts during the pass:** main advanced twice (#126, #127, both from session 02b4e9c7). Each time `COORDINATION.md` conflicted and was resolved keep-both (nothing from the other session was removed). The parallel record `data/product-intent-confirmations.json` was kept untouched and is flagged as F80.
 * **Post-merge:** GitHub Pages build for `bfe7e58` → `status: built`, `error: null`. Workflows on main: `Build, verify and deploy to GitHub Pages`, `CI`, `Verify verification annex (site/)`, `pages build and deployment` → all success.
 * **Live read-back:** https://kanlerxz87-cyber.github.io/Zone1/product-intent.html renders the disclosure strip, all five sourced rows, the tracking-ID "not yet applied" status and the empty ledger.
+
+---
+
+## Task board — arena/5b17c077-zone1 (2026-11-17 UTC) — tracking ID + product-intent record + disclosure/analytics
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| I-5b17c077 | **Final integration (pass 12)**: (1) wire the owner-supplied Associates tracking ID `shopnow047c-20` into the root build so every outbound Amazon link is a compliant Special Link with a build gate; (2) publish a product-intent confirmation record keeping *intended* ASIN/URL/date/source separate from *observed* redirect target, and extend it to the two supplied links never previously examined; (3) make the outbound-click measurement honest — a privacy-preserving counter that is not shipped as a fake number; (4) keep the disclosure above the fold and every outbound product link `rel="sponsored"`; (5) rebuild, run every gate, PR → merge → confirm Pages → record | in progress | arena/5b17c077-zone1 (session 5b17c077) | `COORDINATION.md` (this section); `session-5b17c077/*`; `data/intent-record.json` (new); at integration: `build.py`, `data/config.json`, regenerated root HTML (shared outputs per protocol §5) |
+
+### Claim log — arena/5b17c077-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17T15:58Z | arena/5b17c077-zone1 (session 5b17c077) | Read the board first: every prior row is `done`/`needs review`; no open PR (#124 was the last merge, `9c6e3f0`), so no other session holds a claim. Baseline on this branch: `python3 build.py` → 50 pages / 49 sitemap URLs / feed 21 items, exit 0; `python3 verify.py` → 128 pages, 77 spec rows (75 verified / 2 blank+flagged), 35 sources, 0 errors, 0 external warnings. Takes the **final-integration** role for shared outputs per protocol §5. Non-overlapping scope: `site/`, `s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*` and other `session-*` folders are **not** edited by this pass. |
+
+### I-5b17c077 plan (recorded before implementation)
+
+Live re-verification for this pass was done from the sandbox with `fetch_page` between 15:58Z and 16:20Z on 2026-11-17.
+
+1. **Tracking ID.** The owner supplied `shopnow047c-20` (previously no tag existed anywhere in the repo — flag F-10, the single highest-impact revenue blocker). Amazon Program Policies §2(a) ("Special Links must use the Associates ID we have assigned to you") and §2(b) ("you must include your Associates ID or 'tag' … as a parameter in the URL of each link") require it on every link. Planned change: set `associate_tag` in `data/config.json`, make the root build emit `?tag=` on every `/dp/` link, and add a gate that fails the build if any outbound product link lacks it once a tag is configured.
+2. **Product-intent record.** The brief asks for a record storing the *intended* ASIN, official listing URL, confirmation date and source, with *observed* redirect targets in a separate never-merged field. No such record exists in the repo. Planned change: new `data/intent-record.json` plus a reader-facing page.
+3. **Two never-examined links.** The brief lists **five** product links; the repo tracks **three**. `B0c8moW59` and `B0f3GKalj` appear in **zero** files. Live reads this pass resolved them to `B0DHZTCNR5` (ThermoMaven meat thermometer) and `B0DZFD6R9Z` (CHEF iQ meat thermometer) — a different product category from the three air fryers. This is a new irregularity to publish, not to silently fix.
+4. **No tag on the supplied links.** All three re-read `link.amazon` links again landed with `plpRedirect=mhFallback` and **no `tag=` parameter**, so they are not Special Links as supplied. §3(w) also bars shorteners that make it unclear you are linking to Amazon.
+
+### I-5b17c077 completion record (content)
+
+**Status: done.** Full report: `session-5b17c077/verification-2026-11-17.md`.
+
+* **Tracking ID wired and gated.** The root build never read `associate_tag`; every outbound link was untagged (flag F-10, open for ten passes). Set to the owner-supplied `shopnow047c-20`; `amazon_product_url()` builds every `/dp/` link, `tag_and_qualify_amazon_links()` applies tag + `rel="sponsored"` in one idempotent post-render pass, and `check_associate_tagging()` **fails the build** on any untagged or unqualified Amazon link. Gate proven to fire in four directions (transform, idempotency, untagged link, blank tag).
+* **Product CTA de-shortened.** `product_cta()` no longer sends readers through the untagged `link.amazon` shortener; it points at the tagged `/dp/<ASIN>` listing. §2(a) (tag required), §2(b) (tag on *each* link) and §3(w) (no ambiguity that the destination is Amazon) read live 2026-11-17.
+* **Product-intent record added** (`data/intent-record.json` → `intent-record.html`). Intended ASIN / listing URL / source in separate fields from the observed redirect target, never merged. 5 rows, **0 owner-confirmed**, `confirmation_date: null` throughout. The page states plainly that the three "matches" are **not independent corroboration**, because the register's candidate ASIN was itself derived by following the same links — that is why confirmation is still null.
+* **Two supplied links had never been examined.** The brief lists five; every prior pass tracked three; `B0c8moW59` and `B0f3GKalj` appear in **zero** files. Read live 2026-11-17 they resolve to `B0DHZTCNR5` (ThermoMaven meat thermometer) and `B0DZFD6R9Z` (CHEF iQ meat thermometer) — a **different product category**. Intended product recorded as **unknown, not inferred**. Published as **F81** (renumbered from F76, which the parallel session had already used); **F82** records that no supplied URL carried a tag.
+* **Measurement specified, not faked** (`data/measurement.json` → `measurement.html`). EV-01…EV-05 defined with what each records and what it must never record; campaign ledger **empty on purpose**; three prerequisites listed. **No count, rate or revenue forecast published** — GitHub Pages has no endpoint to receive a beacon, and the footer's §3(e) "no analytics" statement must change in the same commit that adds one.
+* **Requirements:** E-02 `blocked` → `delivered` with evidence (tag attached and gate-enforced). E-03/E-04 stay `not_delivered` — measurement is specified, not shipped.
+* **Gates:** `build.py` 52 pages / 51 sitemap URLs / feed 21, idempotent · `verify.py` 130 pages, 77 spec rows (75 verified / 2 blank+flagged), 0 errors · `ci-check.sh` 33 tests, audit clean, **8,683 links / 0 broken** · disclosure above the fold on **52/52** root pages (computed `<main>` position).
