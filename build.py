@@ -5577,6 +5577,20 @@ version must cite, and what blocks it.</p>
 </table></div>
 <p class="tiny muted">{e(t['channels_note'])}</p>
 
+<h2 id="cadence">Publishing cadence</h2>
+<div class="callout info">
+  <strong>{e((t.get('publishing_cadence') or {}).get('cadence', ''))}</strong>
+  <ul class="tight small" style="margin-bottom:0">
+    <li>{e((t.get('publishing_cadence') or {}).get('rule', ''))}</li>
+    <li>{e((t.get('publishing_cadence') or {}).get('working_titles', ''))}</li>
+    <li>{e((t.get('publishing_cadence') or {}).get('next_topic_rule', ''))}</li>
+  </ul>
+</div>
+
+<h2 id="growth-angle">{e((t.get('growth_angle') or {}).get('headline', ''))}</h2>
+<p class="small muted">{e((t.get('growth_angle') or {}).get('date', ''))} &middot; {e((t.get('growth_angle') or {}).get('status', ''))}</p>
+<ul class="tight small">{''.join(f'<li>{e(x)}</li>' for x in (t.get('growth_angle') or {}).get('points', []))}</ul>
+
 <div class="callout note" style="margin-top:1.5rem">
   <strong>Where this fits.</strong>
   The topics above are the editorial half of <a href="suggestions.html#sg-09">SG-09</a> and

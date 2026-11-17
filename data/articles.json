@@ -1,6 +1,6 @@
 {
  "accessed": "2026-11-14",
- "note": "Editorial layer for the article set. Every factual statement in every article below is either (a) a value already published in data/products.json, which carries its own source id, or (b) a direct quote from an Amazon Associates, FTC or eCFR document already registered in data/sources.json. No claim of first-hand testing appears anywhere, no superlative is asserted as fact, and no Amazon price, star rating or review count is used. Articles that would need a hands-on measurement are deliberately not written. | 2026-11-14 (sess-7111e2b6): a sixth article, the capacity guide, was added during the merge with the concurrently-merged article set. The four drafts this session wrote for queries those articles already cover are preserved verbatim in session-7111e2b6/articles-superseded.json. | 2026-11-15 (arena/792c279e-zone1): four articles added — dimensions, running costs, who pays for reviews, and the two-model 8 Qt explainer. Same discipline: every {{placeholder}} must already exist in data/products.json or the build fails; every section cites registered sources only; no numbers were re-typed from the articles themselves. | 2026-11-16 (arena/3dfe4b45-zone1, round 11): three articles added — the Sync Finish explainer (TP-09), the aerosol-oil caution (TP-10), and the manuals' extension-cord rules (TP-11, written only inside the manuals' own cord and clearance instructions per the topic register's caveat). No new numbers: every placeholder is a value already published in data/products.json, whose manufacturer pages and manuals were re-read live on 2026-11-16 (see reports/verification-round11-2026-11-16.md). | 2026-11-16 (arena/121929a5-zone1, pass 10): three articles added — TP-07 box contents, TP-08 rotisserie, and the A-9 disclosure explainer. Two articles this pass drafted (TP-09 sync modes, TP-10 aerosol care) collided with round 11's merged coverage of the same topics; the merged versions are kept and these duplicates were dropped, not merged. Quotes in the kept articles were transcribed from live 2026-11-16 fetches (reports/verification-2026-11-16-121929a5.md).",
+ "note": "Editorial layer for the article set. Every factual statement in every article below is either (a) a value already published in data/products.json, which carries its own source id, or (b) a direct quote from an Amazon Associates, FTC or eCFR document already registered in data/sources.json. No claim of first-hand testing appears anywhere, no superlative is asserted as fact, and no Amazon price, star rating or review count is used. Articles that would need a hands-on measurement are deliberately not written. | 2026-11-14 (sess-7111e2b6): a sixth article, the capacity guide, was added during the merge with the concurrently-merged article set. The four drafts this session wrote for queries those articles already cover are preserved verbatim in session-7111e2b6/articles-superseded.json. | 2026-11-15 (arena/792c279e-zone1): four articles added — dimensions, running costs, who pays for reviews, and the two-model 8 Qt explainer. Same discipline: every {{placeholder}} must already exist in data/products.json or the build fails; every section cites registered sources only; no numbers were re-typed from the articles themselves. | 2026-11-16 (arena/3dfe4b45-zone1, round 11): three articles added — the Sync Finish explainer (TP-09), the aerosol-oil caution (TP-10), and the manuals' extension-cord rules (TP-11, written only inside the manuals' own cord and clearance instructions per the topic register's caveat). No new numbers: every placeholder is a value already published in data/products.json, whose manufacturer pages and manuals were re-read live on 2026-11-16 (see reports/verification-round11-2026-11-16.md). | 2026-11-16 (arena/121929a5-zone1, pass 10): three articles added — TP-07 box contents, TP-08 rotisserie, and the A-9 disclosure explainer. Two articles this pass drafted (TP-09 sync modes, TP-10 aerosol care) collided with round 11's merged coverage of the same topics; the merged versions are kept and these duplicates were dropped, not merged. Quotes in the kept articles were transcribed from live 2026-11-16 fetches (reports/verification-2026-11-16-121929a5.md). | 2026-11-17 (arena/c9e97e02): four question-shaped guides published — one page per buyer question, per the brief's S-07 and its editorial hypotheses. Titles are the brief's working titles, not claims about search volume or product superiority. Same discipline as every earlier batch: every {{placeholder}} is a value already published in data/products.json, every section cites registered sources only, no test claim and no price appears, and the four pages are summary answers that point at the long-form articles rather than repeating them.",
  "discipline": "A factual sentence must carry a citation to a registered source. A sentence that states a view, a decision rule or a judgement is marked as such by the rendering (the 'How to read this' box) and is never presented as a verified fact. Where an official source is silent, the article says it is silent instead of filling the gap.",
  "articles": [
   {
@@ -1427,7 +1427,345 @@
     }
    ],
    "closing_note": "No product was cleaned for this article. Every instruction above is quoted or condensed from the manufacturer manuals linked per section, read on 2026-11-16."
+  },
+  {
+   "slug": "basket-or-oven-what-to-compare",
+   "kind": "Question guide",
+   "kicker": "Question guide",
+   "title": "Basket or oven-style air fryer: what should you compare?",
+   "standfirst": "Capacity is the last row to read, not the first. The two formats answer different cooking questions, and four documented facts decide between them: what cooks at once, what covers the counter, how hot it goes, and which functions exist outside the marketing copy.",
+   "target_query": "basket or oven style air fryer what to compare",
+   "intent": "Commercial investigation",
+   "reading_minutes": 5,
+   "products": [
+    "chefman-6qt-dual-basket",
+    "emeril-26qt-french-door",
+    "chefman-8qt-turbofry"
+   ],
+   "sections": [
+    {
+     "h": "The short answer",
+     "paras": [
+      "Compare the format before the model. A two-basket machine and a countertop oven are not one product in two sizes; they solve different problems, and the spec rows that separate them are the same four every time.",
+      "Everything below is quoted from manufacturer pages and owner's manuals. Nobody here cooked with these appliances, and no cooking result is claimed — the comparison is between the documents."
+     ],
+     "cite": [
+      "S10",
+      "S12",
+      "S14"
+     ]
+    },
+    {
+     "h": "What cooks at once, in the manufacturers' own numbers",
+     "paras": [
+      "The Chefman 6 Qt Dual Basket is documented at {{6 Qt / 5.67 L}}, split into {{Two 3-quart baskets::two 3-quart baskets}} with independent time and temperature per side. That is two dishes at two settings.",
+      "The Emeril 26 QT French Door is documented at {{26 qt / 24.6 L (manual: 1,519 cu in)}} in a single cavity — {{French doors, single-pull opening}} is the documented door row. That is one dish at one setting, sized larger than either basket.",
+      "The Chefman 8 Qt TurboFry sits between them: {{8 qt (brand also sells a 5 qt version of the same product page)}} in one basket, described by the brand with one phrase: {{Designed for 4–6 people}}."
+     ],
+     "cite": [
+      "S10",
+      "S18",
+      "S14",
+      "S15",
+      "S12"
+     ]
+    },
+    {
+     "h": "What each one asks of your counter",
+     "paras": [
+      "The dual-basket unit measures {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}} and weighs {{13.3 lb / 6.03 kg}}. Measure it like furniture, because that is what it becomes.",
+      "The oven measures {{16.9 D × 15.8 W × 14.8 H in}}. Check the depth against your counter run first, and read the manual's clearance instructions before trusting the raw figures.",
+      "The large-basket unit's brand page publishes {{8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg}}. Its Amazon listing gives different depth and height figures; this site prints both and flags the disagreement instead of picking one."
+     ],
+     "cite": [
+      "S10",
+      "S14",
+      "S15",
+      "S12",
+      "S29"
+     ]
+    },
+    {
+     "h": "How hot each one goes — and what the badges mean",
+     "paras": [
+      "The dual-basket range is {{200–450 °F / 95–235 °C}}, with a finishing mode documented as {{450 °F / 235 °C, held for 2 minutes, for extra browning}}. Two minutes, not a full cycle — read that row before trusting a badge.",
+      "The oven's documented range is {{75–500 °F / 25–260 °C}}. It is the only unit here whose range reaches below the others' floor, which is what makes proofing and dehydrating real functions rather than labels.",
+      "The large-basket unit is documented at {{200–400 °F}} while its own Amazon listing title advertises a higher finishing figure its manual never mentions. The contradiction stays open on the flagged page; this site asserts neither ceiling."
+     ],
+     "cite": [
+      "S10",
+      "S18",
+      "S15",
+      "S12",
+      "S13",
+      "S16"
+     ]
+    },
+    {
+     "h": "Functions that exist in a manual, not just on a box",
+     "paras": [
+      "Ask which functions a manual documents. The oven's manual names its preset chart and a rotisserie; the dual-basket manual documents its finish mode and a nonstick-care caution; the large-basket manual documents one preset row — {{Fries, Chicken, Fish, Meat (one-touch)}} — and little else.",
+      "Where a listing and a manual disagree — preset counts, accessory counts, temperature ceilings — this site prints both and flags the gap. A smoothed-over number is worse than a visible one."
+     ],
+     "cite": [
+      "S15",
+      "S18",
+      "S13",
+      "S2"
+     ]
+    }
+   ],
+   "closing_note": "This page answers the question in summary. The sourced long-form versions live in this site's basket-versus-oven article, capacity guide and counter-space piece, and every quoted value appears in the full dataset with its official source link."
+  },
+  {
+   "slug": "no-hype-capacity-checklist",
+   "kind": "Question guide",
+   "kicker": "Question guide",
+   "title": "A no-hype checklist for comparing air fryer capacity",
+   "standfirst": "Quarts are not servings, litres are not baskets, and a bigger number is not a bigger machine. Five checks turn the capacity column back into something you can shop with.",
+   "target_query": "how to compare air fryer capacity",
+   "intent": "Commercial investigation",
+   "reading_minutes": 5,
+   "products": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "sections": [
+    {
+     "h": "Why the capacity column misleads",
+     "paras": [
+      "Capacity is the most-shopped number on the box and the least standardised. In this very product set, one listing's capacity field reads {{6 liters}} while the same page's size field and the manufacturer page say {{6 Qt / 5.67 L}}. Same product, two units, one page apart."
+     ],
+     "cite": [
+      "S10",
+      "S19"
+     ]
+    },
+    {
+     "h": "Check one: put the volume in a single unit",
+     "paras": [
+      "Before comparing anything, convert to one unit and one convention. The three units here are documented as {{6 Qt / 5.67 L}}, {{8 qt (brand also sells a 5 qt version of the same product page)}}, and {{26 qt / 24.6 L (manual: 1,519 cu in)}}. The oven's manual states its volume in cubic inches as well; the brand page states quarts and litres. Use whichever you like, as long as it is the same one across your shortlist."
+     ],
+     "cite": [
+      "S10",
+      "S12",
+      "S14",
+      "S15"
+     ]
+    },
+    {
+     "h": "Check two: how that volume is divided",
+     "paras": [
+      "Total volume says nothing about simultaneity. The dual-basket unit splits its cavity into {{Two 3-quart baskets::two 3-quart baskets}}, so its real constraint is the smaller side, not the total. The other two are single cavities: one basket of {{8 qt (brand also sells a 5 qt version of the same product page)}} or one oven of {{26 qt / 24.6 L (manual: 1,519 cu in)}}.",
+      "Household-size language is a brand's judgement, not a measurement — {{Designed for 4–6 people}} appears on one of these pages and answers a different question than any quart figure does."
+     ],
+     "cite": [
+      "S18",
+      "S12",
+      "S14"
+     ]
+    },
+    {
+     "h": "Check three: the counter cost of the volume",
+     "paras": [
+      "Volume is bought with footprint. The documented figures: {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}} for the dual-basket unit, {{8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg}} for the large-basket unit per its brand page, and {{16.9 D × 15.8 W × 14.8 H in}} for the oven.",
+      "One of these rows is a live disagreement — the large-basket unit's listing publishes different depth and height than its brand page — which is exactly why the checklist keeps source links next to values."
+     ],
+     "cite": [
+      "S10",
+      "S12",
+      "S29",
+      "S14"
+     ]
+    },
+    {
+     "h": "Check four: the temperature range under the volume",
+     "paras": [
+      "A big cavity you cannot run at the temperature the recipe needs is decoration. The documented ranges are {{200–450 °F / 95–235 °C}}, {{200–400 °F}}, and {{75–500 °F / 25–260 °C}}.",
+      "The floors differ more than the ceilings: only the oven's range reaches low enough for the dehydrate and proof functions printed on it. If those functions are why you want the bigger machine, check the floor number first."
+     ],
+     "cite": [
+      "S10",
+      "S12",
+      "S15"
+     ]
+    },
+    {
+     "h": "Check five: who states the number",
+     "paras": [
+      "Rank the sources the way this site does: manufacturer page and owner's manual first, listing fields as corroboration, and any disagreement printed rather than averaged. When a listing's dimensions, capacity field or preset count drift from the brand's own page, that drift is information — it is the thing to ask the seller about before paying."
+     ],
+     "cite": [
+      "S2",
+      "S28",
+      "S29"
+     ]
+    }
+   ],
+   "closing_note": "The five checks are the question-shaped version of this site's capacity guide and counter-space analysis; every value above is a published, sourced figure from the dataset, and every conflict is on the flagged page rather than in the footnotes."
+  },
+  {
+   "slug": "cleanup-and-counter-space-trade-offs",
+   "kind": "Question guide",
+   "kicker": "Question guide",
+   "title": "How to assess cleanup and counter-space trade-offs",
+   "standfirst": "Both are documented; neither is tested here. The manuals say what comes apart and what not to spray on it, the dimensions say what stays on the counter — and the honest trade-off between them is a question about your kitchen, not about the machine.",
+   "target_query": "air fryer cleanup and counter space trade off",
+   "intent": "Commercial investigation",
+   "reading_minutes": 5,
+   "products": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "sections": [
+    {
+     "h": "Cleanup, exactly as the manuals document it",
+     "paras": [
+      "The dual-basket unit's care row reads: {{Nonstick, dishwasher-safe baskets. Manual caution: never spray with aerosol cooking oil — use a non-aerosol mister instead}} That caution is in the manual, not in a review — aerosol propellants damage the nonstick coating the warranty covers.",
+      "The large-basket unit carries one care row: {{Nonstick basket and rack; top-rack dishwasher safe}} One basket and one rack, and a shake reminder ({{LED shake reminder}}) that exists because single-basket machines need a manual toss mid-cook.",
+      "The oven's documented included parts read like a manifest — {{Rack, Bake Pan, Drip Tray, Crisper Basket, Rotisserie Spit, Fetch Tool}} — more surfaces than either basket unit, which is the cleanup side of buying versatility."
+     ],
+     "cite": [
+      "S18",
+      "S12",
+      "S13",
+      "S14",
+      "S15"
+     ]
+    },
+    {
+     "h": "Counter space, in the documented dimensions",
+     "paras": [
+      "The dual-basket unit: {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}}, {{13.3 lb / 6.03 kg}}. The large-basket unit per its brand page: {{8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg}}. The oven: {{16.9 D × 15.8 W × 14.8 H in}}.",
+      "Numbers on a spec page exclude the clearance each manual asks for around the hot surfaces, and they exclude the door swing the French-door design opens into. The tape measure wins every time."
+     ],
+     "cite": [
+      "S10",
+      "S12",
+      "S14",
+      "S15"
+     ]
+    },
+    {
+     "h": "The trade-off, stated plainly",
+     "paras": [
+      "Small footprint usually means more hands-on cleanup: one basket to shake, one cavity to wipe. Larger footprint buys capacity and functions but claims more counter and adds parts to wash.",
+      "The dishwasher question is documented case by case — basket units list dishwasher-safe components, the oven lists a parts set whose care instructions live in its manual. None of that tells you how often you will actually wash them; that depends on how you cook, and no document on this site knows that."
+     ],
+     "cite": [
+      "S18",
+      "S13",
+      "S15"
+     ]
+    },
+    {
+     "h": "What the documents cannot answer",
+     "paras": [
+      "How noisy a unit is, how evenly it browns, whether the baskets stay smooth after a year of dishwasher cycles — no manufacturer page states these things, so this site does not either. Anyone who answers them for you without a test protocol is guessing with confidence.",
+      "What the documents can do is narrow the choice to one format. If you have the counter for the oven and wash parts by hand anyway, the trade-off points one way; if the counter is the constraint, it points the other. Both conclusions come from rows on this page, not from a score."
+     ],
+     "cite": [
+      "S8",
+      "S2"
+     ]
+    }
+   ],
+   "closing_note": "Cleanup detail per model lives in this site's cleaning guide and the aerosol-oil caution piece; the footprint arithmetic behind these rows is in the counter-space analysis. Every value quoted here is a published, sourced figure — the trade-off itself is yours to make."
+  },
+  {
+   "slug": "questions-before-a-multifunction-appliance",
+   "kind": "Question guide",
+   "kicker": "Question guide",
+   "title": "Questions to ask before buying a multi-function kitchen appliance",
+   "standfirst": "Multi-function is a claim, not a specification. Six questions turn it back into facts you can check against a manual — before paying for functions the documents never mention.",
+   "target_query": "questions before buying multifunction kitchen appliance",
+   "intent": "Commercial investigation",
+   "reading_minutes": 6,
+   "products": [
+    "emeril-26qt-french-door",
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry"
+   ],
+   "sections": [
+    {
+     "h": "One: which functions are named, not just counted",
+     "paras": [
+      "A listing can lead with a configuration string — {{Air Fryer Toaster Oven Combo with 24 Functions and 7 Accessories}} — while the same brand's specification block counts differently and the owner's manual names its own chart. Ask for the names, then match them to the presets you will actually press.",
+      "In this product set the preset count is a live contradiction between official documents — it is logged on the flagged page precisely because counting badges settles nothing."
+     ],
+     "cite": [
+      "S14",
+      "S15",
+      "S29"
+     ]
+    },
+    {
+     "h": "Two: does the manual document the headline feature",
+     "paras": [
+      "The feature a listing leads with is the one most worth checking. The dual-basket unit's finish mode is documented as {{450 °F / 235 °C, held for 2 minutes, for extra browning}} — a detail the manual states and the marketing rounds away.",
+      "The rotisserie function on the oven is backed by a manual row: {{Yes (manual documents a rotisserie preset and spit set)}} A function with a documented part and preset is a different purchase from a function with a picture on the box."
+     ],
+     "cite": [
+      "S18",
+      "S15",
+      "S14"
+     ]
+    },
+    {
+     "h": "Three: what range sits under the functions",
+     "paras": [
+      "Every function runs inside the temperature range, so the range is the real feature list. The documented rows: {{200–450 °F / 95–235 °C}} and a two-minute finishing mode on one unit, {{200–400 °F}} on another, {{75–500 °F / 25–260 °C}} on the oven.",
+      "Dehydrate and proof need the low end; crisp and finish need the high end. If a function needs a number the range does not include, the function is decoration."
+     ],
+     "cite": [
+      "S10",
+      "S12",
+      "S15"
+     ]
+    },
+    {
+     "h": "Four: what arrives to support the functions",
+     "paras": [
+      "Count the parts against the promises. The oven's documents state {{7}} accessories while its own listing's component field enumerates a different number of entries — both figures are printed here rather than reconciled.",
+      "The dual-basket unit's listing names its included components with two words — {{User Guide}}. A rotisserie function without a spit in the box is a future purchase, not a feature."
+     ],
+     "cite": [
+      "S14",
+      "S15",
+      "S28",
+      "S18"
+     ]
+    },
+    {
+     "h": "Five: what the warranty actually says",
+     "paras": [
+      "Warranty rows are where multi-function ambitions meet repair reality. Three rows, verbatim: {{1-year Chefman assurance}} The second is longer — {{Limited 1-year warranty from date of retail purchase (non-transferable, original purchaser)}} The third is short: {{1-year warranty}}.",
+      "Read who is covered and for how long, not the word 'warranty'. One of these rows is a manufacturer assurance phrase, one is a dated, non-transferable term, and the difference is in the wording, not the marketing."
+     ],
+     "cite": [
+      "S10",
+      "S13",
+      "S14"
+     ]
+    },
+    {
+     "h": "Six: what it costs to run, and what this site will not tell you",
+     "paras": [
+      "All three units here are rated at {{1700 W / 120 V}} class power — the oven's own row reads {{1700 W}} on {{120 V / 60 Hz}}. The wattage is documented; the running cost depends on your tariff and your cook cycle.",
+      "What this site will not tell you is the price. Amazon prices, availability and ratings are not published here, because Amazon's program rules only permit them where Amazon serves the link or the data. Check the live listing yourself; the links here carry the destination ASIN in plain sight."
+     ],
+     "cite": [
+      "S10",
+      "S14",
+      "S15",
+      "S2"
+     ]
+    }
+   ],
+   "closing_note": "Six questions, every answer sourced to a manufacturer page or owner's manual. The longer versions of these checks live in this site's preset-count piece, the what's-in-the-box audit, and the buying guide — and the flagged page lists every point where official documents disagree."
   }
  ],
- "updated": "2026-11-16"
+ "updated": "2026-11-17"
 }

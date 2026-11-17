@@ -576,8 +576,8 @@
      "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
     }
    ],
-   "status": "proposed",
-   "published_as": null,
+   "status": "published",
+   "published_as": "articles/questions-before-a-multifunction-appliance.html",
    "blocked_by": []
   },
   {
@@ -629,6 +629,84 @@
     "Q-27"
    ],
    "status_note": "Queued 2026-11-17 and waiting on Q-27. blocked_by is a register field for the reader's benefit, not a build gate; nothing here will write the piece early."
+  },
+  {
+   "id": "TP-24",
+   "title": "Basket or oven-style air fryer: what should you compare?",
+   "hook": "The working title is the question; the answer is four documented rows, not a verdict.",
+   "intent": "Question guide",
+   "serves": [
+    "chefman-6qt-dual-basket",
+    "emeril-26qt-french-door",
+    "chefman-8qt-turbofry"
+   ],
+   "angle": "One page per buyer question, per the brief's S-07. This one answers the format question directly (what cooks at once, counter cost, temperature floors, documented functions) and points at the long-form articles for the detail. Working title taken from the owner's brief — it is not a claim about search volume or product superiority.",
+   "why_it_could_earn_traffic": "Judgement, not measurement: the format question is the first fork in every air-fryer search journey, and a page that answers it with sourced rows rather than a verdict is the kind of result that earns the next click. Demand is measured only after the endpoint and the Search Console report exist.",
+   "must_cite": [
+    {
+     "label": "Chefman 6 Qt product page — capacity split and footprint",
+     "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+    },
+    {
+     "label": "Emeril product page — 26 qt cavity and dimensions",
+     "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+    }
+   ],
+   "status": "published",
+   "published_as": "articles/basket-or-oven-what-to-compare.html",
+   "blocked_by": []
+  },
+  {
+   "id": "TP-25",
+   "title": "A no-hype checklist for comparing air fryer capacity",
+   "hook": "Five checks that turn the least standardised number on the box into something shoppable.",
+   "intent": "Question guide",
+   "serves": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "angle": "The capacity question answered as a checklist: one unit, division of volume, footprint cost, temperature floor, and who states the number. Uses this product set's own listing-vs-brand unit mismatch as the worked example. Working title from the owner's brief.",
+   "why_it_could_earn_traffic": "Judgement, not measurement: capacity is the most-shopped spec and the least standardised, so a checklist that names the failure modes answers a query more completely than a review that repeats the quart figure.",
+   "must_cite": [
+    {
+     "label": "Chefman 6 Qt product page — capacity and listing capacity field",
+     "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+    },
+    {
+     "label": "Chefman 8 Qt product page — capacity, dimensions block",
+     "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+    }
+   ],
+   "status": "published",
+   "published_as": "articles/no-hype-capacity-checklist.html",
+   "blocked_by": []
+  },
+  {
+   "id": "TP-26",
+   "title": "How to assess cleanup and counter-space trade-offs",
+   "hook": "Both sides of the trade-off are documented. The choice between them is yours — here are the rows it turns on.",
+   "intent": "Question guide",
+   "serves": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "angle": "Cleanup documentation (dishwasher rows, the aerosol caution, the parts manifest) weighed against the documented dimensions, with a plain section on what no document answers. Working title from the owner's brief.",
+   "why_it_could_earn_traffic": "Judgement, not measurement: cleanup and footprint are the two complaints that recur in every air-fryer conversation, and a page that treats them as one trade-off answers the question behind the question.",
+   "must_cite": [
+    {
+     "label": "Chefman 6 Qt owner's manual — care and aerosol caution",
+     "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf"
+    },
+    {
+     "label": "Emeril owner's manual — parts and care",
+     "url": "https://www.emerileveryday.com/pages/manuals"
+    }
+   ],
+   "status": "published",
+   "published_as": "articles/cleanup-and-counter-space-trade-offs.html",
+   "blocked_by": []
   }
  ],
  "channels": [
@@ -688,5 +766,24 @@
    }
   }
  ],
- "channels_note": "CH-2 and CH-5 are not recommendations to weigh; they are clauses in a contract this site has to operate inside. They are listed alongside the real channels because a traffic plan that omits them reads as if they were never considered."
+ "channels_note": "CH-2 and CH-5 are not recommendations to weigh; they are clauses in a contract this site has to operate inside. They are listed alongside the real channels because a traffic plan that omits them reads as if they were never considered.",
+ "publishing_cadence": {
+  "started": "2026-11-17",
+  "cadence": "One question-shaped guide per week while the question register has unanswered rows.",
+  "rule": "Each new guide is written into data/articles.json and this register in the same commit, which puts it in the sitemap and the RSS feed automatically — the two cannot drift because all three are generated from the same file. Nothing publishes unless its source links pass the build's article guards.",
+  "working_titles": "The four question guides published 2026-11-17 carry the brief's suggested titles. They are working titles: not claims about popularity, search volume or product superiority, and they change when measurement says a different question is being asked.",
+  "next_topic_rule": "Once the self-hosted analytics endpoint is deployed (measurement.html prerequisites 1-2) and the owner shares the Search Console query report (prerequisite 4), the next question is chosen from measured queries and measured EV-01/EV-02 counts instead of judgement. Until then this register's rows are the queue and every demand statement stays labelled judgement."
+ },
+ "growth_angle": {
+  "headline": "Grow organic traffic on the verification angle, not on volume",
+  "date": "2026-11-17",
+  "status": "plan published; growth itself is measured only after the endpoint and the query report exist",
+  "points": [
+   "The differentiator is not how many articles exist — it is that every number carries its source, conflicts are printed rather than smoothed, and this site declines to publish Amazon prices and ratings it cannot source. That is the promise the titles and meta descriptions make, and the question guides are written to keep it.",
+   "One indexable site: the sitemap lists only the canonical build's URLs, every page carries a canonical tag, and the parallel annex builds are asked out of the index in robots.txt. Flag F83 records the honest limit of that last lever on a project-pages host and names the mechanism (noindex) that actually works.",
+   "Question-shaped pages first: one page per buyer question, each answering the question on the page rather than teasing a video or a newsletter. The brief's four editorial hypotheses are published as TP-21 to TP-24; the next ones come from measured queries, not instinct.",
+   "Measurement before optimisation: EV-01 to EV-04 count arrivals, clicks and completions once the endpoint is deployed; EV-05 enters the campaign ledger only from the owner's Associates reports. No conversion score or revenue forecast is presented anywhere, and none will be until first-party numbers exist.",
+   "The kill rule stays as written in the decision layer: if measured queries show no arrival on the verification angle after a dated review window, the angle changes on evidence — the sourcing discipline does not."
+  ]
+ }
 }
