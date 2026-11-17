@@ -5979,3 +5979,26 @@ generated pages hashed before and after a second build, 0 changed. Registers now
 `s2/`, `site/`, `research/`, `docs/`, `dashboard/` and `annex-88769516/` keep their own stylesheets and their own
 navigation, so the shopfront and mobile work lands only in the canonical root build. Port the tokens in each
 generator, or label those builds as archives; no HTML in those directories was touched by this pass.
+
+### Merge result — PR #147 merged into `main` as `92fe683` (2026-11-17 17:25 UTC), Pages confirmed
+
+`gh pr merge 147 --merge` completed after both PR checks passed (`verify`, and `Rebuild site/ from data/verified and
+assert every guarantee`). GitHub Pages reports `status: built` for commit `92fe683`, 23.5 s, finished 17:26:17Z.
+Live read-back during this session: `https://kanlerxz87-cyber.github.io/Zone1/articles/chefman-vs-emeril-air-fryer.html`
+serves the pass-13 guide with its section-level source citations, the disclosure band, the "no hands-on testing, and
+no Amazon numbers" callout, and the weight-gap paragraph naming 13.4 lb against 12.8 lbs without averaging them.
+Numbers on the published site now: 47 suggestions / 7 paths, 40 questions, 26 topics, 24 articles, 43 sources, 53
+requirement rows, 89 programme flags, 35 sitemap URLs, 24 feed items.
+
+**Follow the two id mappings before editing anything this pass touched** — `COORDINATION.md`'s merge record above and
+§7 of `reports/verification-2026-11-17-fd9778a1.md`. In short: this session's rows are SG-39…SG-48, path P7,
+Q-30…Q-40, source S43, topics TP-24/25/26 and flags F85…F89; TP-21 was shared and moved `proposed → published`. If a
+third same-day collision lands, renumber the *unmerged* side, apply the substitution in one pass over a copy taken
+from `git show`, and print the mapping in both places — that is what made this merge reviewable.
+
+**Still open for whoever picks this up**, unchanged by the merge and recorded rather than dropped: no first-party
+measurement host (Q-30, Q-31) so nothing about conversion, traffic or popularity may be claimed anywhere; the
+Associates approval state and the one-link tracked-click check (Q-37, SG-47) which only the account holder can do;
+a byline (Q-31 area) and product photography rights (Q-33) which need a human decision; the accessibility-source
+registration that F88 and Q-40 hold apart from the styling change; the weight discrepancy Q-38; and the parallel
+builds' own generators (F87 / Q-32) which this session deliberately did not touch.
