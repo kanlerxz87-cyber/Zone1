@@ -5547,3 +5547,11 @@ two blank+flagged spec rows. Nothing was filled by inference.
 **Irregularity:** the 8 Qt listing dimensions (S29 12.75"D × 13.5"W × 10"H) disagree with the brand page (S12 15.4 × 12.6 × 13.5 in). Both are recorded in the held draft; neither chosen.
 
 **Gates on the merged tree:** see the PR description (build, verify, CI, link check, annex, research).
+
+### arena/66c32067-zone1 — PR and merge result (2026-11-17 UTC)
+
+* **PR [#136](https://github.com/kanlerxz87-cyber/Zone1/pull/136)** — held TP-21 draft, executive summary, collision record. Merged with `gh pr merge 136 --merge` at **2026-11-17T16:39:33Z**, merge commit **`80bb0e234cc6cce0bc16062d7d1ee26c656ea69c`**. Required checks before merge: `CI` and `Verify verification annex (site/)` both success; `mergeStateStatus: CLEAN`. Merged without waiting for approval.
+* **Conflict during the pass:** `main` gained PR #135 (session `c55fa0d8`) registering TP-21 as *proposed*, blocked by Q-20. Resolved by keeping `main`'s TP-21 record and not publishing the held draft. Both sessions' records are kept.
+* **Post-merge workflows on `main` at `80bb0e2`:** `CI` success · `Build, verify and deploy to GitHub Pages` success · `Verify verification annex (site/)` success · `pages build and deployment` success.
+* **GitHub Pages:** `pages/builds/latest` → `status: built`, commit `80bb0e2…`, `error: null`. Live read-back: `articles/multi-function-buying-questions.html` returns the site's 404 page (draft correctly not served); `articles/index.html` lists the published set.
+* **Owner action:** answer **Q-20** (country and marketplace the site promotes). Then the held draft in `session-66c32067/` can be released.
