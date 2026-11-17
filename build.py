@@ -52,9 +52,9 @@ PUBLISHER = {
     "url": SITE_URL + "/",
     "logo": OG_IMAGE,
     "description": (
-        "An independent, documentation-based air-fryer buying guide. Every specification "
-        "links to the manufacturer's own page or owner's manual; nothing is inferred and "
-        "no hands-on testing is claimed."
+        "An independent, documentation-based air-fryer buying guide, with a small shelf of the "
+        "accessories that go with one. Every specification links to the manufacturer's own page or "
+        "owner's manual; nothing is inferred and no hands-on testing is claimed."
     ),
     # The disclosure and the non-affiliation statement travel inside the structured
     # data, not only in the page body, so a consumer that reads the data alone still
@@ -87,6 +87,14 @@ ASSOCIATE_TAG = (CONFIG.get("associate_tag") or "").strip()
 # §2(b) publishes the format as "XXXXX-##". Accept a letter/digit lead and a `-20`/`-21`
 # style suffix, and refuse anything else rather than emit a link that cannot track.
 ASSOCIATE_TAG_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9\-]{2,}-(20|21|22)$")
+# Pass 13 (2026-11-17, arena/00bc7156): the second product cluster. The brief supplied five
+# product links, not three; the fourth and fifth resolve to meat thermometers, which cannot share a
+# comparison matrix with an air fryer. They are held in data/adjacent.json rather than
+# data/products.json on purpose, so the three-product air-fryer register, its figures and its
+# arithmetic stay what they are, and the accessories are published to the same row rule. An absent
+# file renders no cluster page rather than failing the build, the pattern the pass ledgers use.
+ADJACENT = load("adjacent.json") if (DATA / "adjacent.json").exists() else {"products": []}
+ADJACENT_LIST = ADJACENT.get("products", [])
 COMPLIANCE = load("compliance.json")
 MARKETING = load("marketing.json")
 PLATFORM = load("platform.json")
@@ -391,6 +399,9 @@ NAV = [
     ("product-intent.html", "Product intent & ledger", "Link records, tracking ID status, and the empty campaign ledger"),
     ("decisions.html", "Decisions & handover", "Niche, traffic, measurement, and the five things only you can do"),
     ("categories/kitchen-appliances.html", "Category: Kitchen", "All tracked products in one category"),
+    # Added 2026-11-17 (arena/00bc7156): two of the five links the brief supplied are not air
+    # fryers, so they get their own shelf rather than a row in a matrix they do not belong in.
+    ("categories/kitchen-tools.html", "Kitchen tools", "The two supplied links that are not air fryers"),
     ("compare.html", "Comparison", "Verified-only side-by-side matrix"),
     ("guides/buying-guide-air-fryers.html", "Buying guide", "How to choose a form factor"),
     ("articles/index.html", "Articles", "Sourced reads — comparisons, explainers, policy"),
@@ -1281,6 +1292,19 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
         f'<span class="sub">candidate ASIN {e(p["asin"]["v"])} (unconfirmed)</span></a>'
         for p in PRODUCT_LIST
     )
+    # Pass 13 (2026-11-17, arena/00bc7156): the accessory cluster gets one sidebar entry in the
+    # Products group, which is where SG-43's default put it - reachable, labelled, and out of the
+    # shopper's way. Both counts are computed from the data: the literal '3 tracked products' on the
+    # line above survived eleven passes only because nobody added a fourth air fryer, and a cluster
+    # entry typed the same way would go stale the first time a row is filled. The blank-row count is
+    # stated on purpose: a shelf that advertises what it cannot answer yet is the difference between
+    # this page and the copy the brief called AI slop.
+    _adj_blank = sum(1 for _p in ADJACENT_LIST for _r in _p.get("specs", []) if _r.get("value") is None)
+    _adj_cls = ' class="active"' if active == "categories/kitchen-tools.html" else ""
+    tools_nav = ""
+    if ADJACENT_LIST:
+        tools_nav = (f'<a href="{prefix}categories/kitchen-tools.html"{_adj_cls}>Kitchen tools'
+                      f'<span class="sub">{len(ADJACENT_LIST)} accessories · {_adj_blank} rows blank by rule</span></a>')
     # Sidebar gets ONE entry. Every parallel build is catalogued, with its disagreements
     # named, on previous-passes.html.
     # The count used to be len(parallel), i.e. every NAV entry containing a "/" that was not
@@ -1379,8 +1403,9 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     </div>
     <div class="group">
       <h4>Products</h4>
-      <a href="{prefix}categories/kitchen-appliances.html"{' class="active"' if active=='categories/kitchen-appliances.html' else ''}>Category: Kitchen<span class="sub">3 tracked products</span></a>
+      <a href="{prefix}categories/kitchen-appliances.html"{' class="active"' if active=='categories/kitchen-appliances.html' else ''}>Category: Kitchen<span class="sub">{len(PRODUCT_LIST)} tracked products</span></a>
       {prod_nav}
+      {tools_nav}
       {N("compare.html")}
       {N("product-intent.html")}
     </div>
@@ -1696,6 +1721,11 @@ def page_index():
 </article>"""
         for p in PRODUCT_LIST
     )
+    # Pass 13 (2026-11-17, arena/00bc7156): the accessory shelf sits after the comparison and before
+    # the commercial block, per SG-43's default — a labelled row below the fold, not a second question
+    # in the finder. Built only when data/adjacent.json has products, so removing the file removes the
+    # shelf rather than breaking the page.
+    shelf = ('\n<h2>If you cook thick cuts, one more row</h2>\n<p class="small muted">Two of the five product links this project was given are not air fryers: they are a\nThermoMaven instant-read thermometer and a CHEF iQ Sense wireless probe. They are kept off the comparison above\nbecause a probe and a fryer share no rows, and published as their own page — including the rows no official\ndocument supports today, which is the part most accessory pages leave out.\n<a href="categories/kitchen-tools.html">See the two, side by side →</a></p>\n' if ADJACENT_LIST else "")
     body = f"""
 <div class="editorial-hero">
   <div class="hero-copy">
@@ -1818,6 +1848,8 @@ def page_index():
 <h2>Product notes, not rankings</h2>
 <p class="small muted">The Amazon model match remains unconfirmed for every item. These pages separate manufacturer specifications from what is known about the supplied links.</p>
 <div class="grid grid-3">{cards}</div>
+
+{shelf}
 
 <h2>This week's picks &mdash; and what one sale is worth</h2>
 <p class="small muted">A picks page is usually a ranking. The one on this site is a decision rule: each product wins a different job, and the job you have decides the product. It also shows what Amazon actually pays per sale at each candidate rate, with the table row it came from.</p>
@@ -2431,6 +2463,21 @@ PROGRAMME_FLAGS = [
      "data/product-intent.json (17 Nov observations) vs data/product-intent-confirmations.json (session 02b4e9c7, 16 Nov observations; PI-04/PI-05 not researched)",
      "RESOLVED 2026-11-17 by the integration session (arena/5b17c077), which the original row itself assigned the decision to. data/product-intent.json is the single canonical record: the build renders it as product-intent.html, it covers all five supplied links, and it now records that the tracking ID is applied to every outbound link. data/product-intent-confirmations.json is retired, not deleted, so its 16 Nov observations remain on disk and in git history as a dated artefact; nothing in the build reads it. The disagreement was about dates and coverage, not about any published value: neither file ever asserted a confirmed intended ASIN. A THIRD parallel record (data/intent-record.json with page intent-record.html) was created by this same integration session and retired in the same pass for the same reason; the two findings it alone carried were promoted to flags F81 and F82 rather than lost, which is why this row points at three files and only one page.",
      ["S17", "S16", "S28", "S29", "S36", "S37"]),
+    ("F83", "The two supplied links that no earlier pass recorded are now registered, published and specified - and the two rows that said no page would ever be published for them are now stale.",
+     "Supplied links 4 and 5 (B0c8moW59, B0f3GKalj); flags F78, F81; requirements row C-01",
+     "Remediation record, 2026-11-17 (arena/00bc7156). The coverage gap itself is F81's finding, reached independently the same day by three sessions on one brief - a grep for both tokens returned zero files after twelve passes had each re-read only the three links already registered. What this pass adds is what the gap is now closed with: both links followed live, both products published as a sourced second cluster (categories/kitchen-tools.html, data/adjacent.json, 21 rows, six blank with their reasons), and F78's stated position - 'No thermometer page or specification has been published' - overtaken by events rather than edited by a stranger. F78's owner question is still open, because publishing the products is not confirming the intent: both intent fields stay null (PI-04, PI-05) and only the account holder can fill them (Q-27). Two stale statements are recorded rather than silently corrected, since both belong to other passes: F81's 'This site publishes no product page for either' is now false as of this merge, and requirements.html row C-01 still quotes the brief as three links while its note spells the redirect parameter plmRedirect where every served URL in this repository reads plpRedirect - a wording drift, not a data error, and the two are fixed together in this pass.", ["S40", "S41", "S36", "S37"]),
+    ("F84", "The accessory cluster publishes six blank or policy-suppressed rows, so its pages are thinner than the air-fryer pages by design.",
+     "Kitchen tools cluster (2 items)",
+     "Recorded 2026-11-17. This is not an omission to fix quietly: data/adjacent.json holds each blank row with the reason it is blank and the read that would fill it, and the cluster page prints that reason inside the cell rather than hiding it. Four of the six (model code, waterproof rating, warranty, temperature ranges) need the Product information blocks this session's fetch could not reach, because a request for a later chunk of a page returns a proxy signing error in this environment. The other two are Amazon prices and ratings, barred by Program Policies 2(b) and 6(t) for anyone without the API. Closing the first four is SG-39, and most of it is a browser, not a build.", ["S36", "S37", "S38", "S39"]),
+    ("F85", "A brand page contradicts itself on the sensor count of the product this site publishes.",
+     "CHEF iQ Sense (candidate ASIN B0DZFD6R9Z)",
+     "Read 2026-11-17 by arena/00bc7156: chefiq.com/products/iq-sense describes 'Five internal sensors and heat resistance up to 1000°F' in its opening paragraph while its own feature list states '4 internal temperature sensors for accuracy within 1°F' plus '1 ambient temperature sensor'. Both lines are published side by side. The reading that reconciles them - five sensors per probe, four of them internal - is an inference about a sentence, so no article on this site states a sensor count without quoting both lines, and the Amazon title's '5 Sensors' does not say whether it counts per probe or per kit. A manufacturer page that disagrees with itself is the seller's problem to fix and the reviewer's problem to publish, not this register's to arbitrate.", ["S38", "S37"]),
+    ("F86", "The listing's headline speed and the brand's headline speed for its named instant-read model do not agree, and no document ties the two together.",
+     "ThermoMaven instant-read (candidate ASIN B0DHZTCNR5)",
+     "The listing title leads with '1 Sec'; the brand storefront leads its instant-read line, named F1 Turbo, with '0.5s Instant Read', and no '1 Sec' model appears on that page. If the two are the same unit, one headline is stale; if they are not, the storefront's IP67 rating and lifetime warranty must not be attached to this ASIN. This pass could not tell which, because neither document states a model code for the listing, so the site publishes both figures against their own sources, leaves the Water resistance and Warranty terms rows blank, and sells neither number.", ["S36", "S39"]),
+    ("F87", "The short-link caution in this register gives a reason the register's own control test does not support.",
+     "All five supplied links; rows F10, F14, F15, F41",
+     "Recorded 2026-11-17 by arena/00bc7156. The caution points at destinations served with plpRedirect=mhFallback as though the marker showed the link failed to reach the intended product. Control test: a direct request for the bare, known-correct URL https://www.amazon.com/dp/B0CDY277D3 - no short link, no redirect in the chain - was served at https://www.amazon.com/dp/B0CDY277D3?lv=shuf&channelId=500&plpRedirect=mhFallback, with the register's recorded listing title. The marker is therefore a property of how detail pages are served to this fetcher, not evidence about a submitted link, and any inference resting on it alone is weakened. What genuinely keeps identity open is independent and survives: a nine-character token names no ASIN, and no account holder has ever recorded what the links were meant to point at. The rewording is deliberately not done in this row's own pass - see SG-38 and Q-29, which ask a second reader to repeat the control before four register rows are rewritten on one observation.", ["S16", "S17", "S40"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -2481,6 +2528,172 @@ VERDICTS = {
     "chefman-8qt-turbofry":
         "A conventional single-basket 8-quart air fryer with a documented 200–400 °F range, four food-type presets and dishwasher-safe nonstick parts. The unresolved problem is that the Amazon listing title advertises a 450 °F Hi-Fry mode and bake/dehydrate/frozen functions that the RJ38-SQSS-8T page and manual do not document. A 2026-11-14 read found that Chefman sells a second 8-quart SKU, RJ38-8T-BLACK, whose page states exactly that Hi-Fry mode and exactly those four functions — so the listing probably describes a different unit rather than a stale page (flag F33). The listing has since been read: its own Part Number row identifies RJ38-SQSS-8T and its own spec table states a 400 °F maximum (S29, read 2026-11-16). So the 450 °F wording in the title is contradicted by the page that carries it — but because a second Chefman 8 Qt page documents exactly that 450 °F Hi-Fry (S26), the honest position is unchanged in kind: the temperature ceiling of the machine that ships against this ASIN is not something this site will assert, and a buyer should read the manual in the box. See F3, F33 and F68.",
 }
+
+
+
+def page_tools_category():
+    """Kitchen tools — the accessory shelf (added 2026-11-17, arena/00bc7156).
+
+    Two of the five product links in the brief are not air fryers. They are published here,
+    side by side, with every row linked to the document it was read from and every unsupported
+    row left visibly blank. It is deliberately one page rather than two product pages: a product
+    page whose spec table is mostly blank is the thin-content pattern this site's own rules
+    reject (SG-41), and the file's editorial_rule field says so where a future editor will read
+    it. The cluster is kept out of compare.html because a probe and a fryer do not share rows.
+    """
+    prods = ADJACENT_LIST
+    labels = []
+    for _p in prods:
+        for _srow in _p.get("specs", []):
+            if _srow["label"] not in labels:
+                labels.append(_srow["label"])
+
+    def cell(item, label):
+        row = next((x for x in item.get("specs", []) if x["label"] == label), None)
+        if row is None:
+            return '<td class="blank tiny muted">not a row for this item</td>'
+        srcs = src_links(row.get("source") or [])
+        note = f'<div class="tiny muted">{e(row["note"])}</div>' if row.get("note") else ""
+        if row.get("value") is None:
+            return (f'<td class="blank">not stated'
+                    f'<div class="tiny">{e(row.get("unverified", ""))}</div>{srcs}</td>')
+        return f'<td>{e(row["value"])} {srcs}{note}</td>'
+
+    table_rows = "".join(
+        f'<tr id="row-{i}"><td><strong>{e(label)}</strong></td>'
+        + "".join(cell(item, label) for item in prods) + "</tr>"
+        for i, label in enumerate(labels, start=1)
+    )
+    flag_rows = "".join(
+        f'<tr><td class="num"><strong>{e(fl["id"])}</strong></td>'
+        f'<td>{e(item["short_name"])}</td><td class="small">{e(fl["issue"])}</td>'
+        f'<td class="small">{e(fl["action"])} {src_links(fl.get("sources") or [])}</td></tr>'
+        for item in prods for fl in item.get("flags", [])
+    )
+    head = "".join(f'<th>{e(x["short_name"])}</th>' for x in prods)
+    # Aligned with the root build's reader-link policy (F81, merged 2026-11-17): the site sends
+    # readers to the tagged /dp/ listing, and shows the submitted short link as evidence rather than
+    # as the path. That policy's stated reason — that a tag cannot travel through a link.amazon
+    # redirect — is itself untested and this cluster does not rely on it either way; what matters
+    # here is that the cluster does not quietly keep using a link form the rest of the site
+    # stopped sending readers through. Source ids are attached to the token, not to the CTA, so a
+    # reviewer can trace which read recorded which URL.
+    def _tool_card(x):
+        asin = (x.get("asin") or {}).get("v") or ""
+        dp = f"https://www.amazon.com/dp/{asin}" if asin else ""
+        if dp and ASSOCIATE_TAG:
+            dp += f"?tag={ASSOCIATE_TAG}"
+        cta = (
+            f'<a class="cta" href="{e(dp)}" rel="sponsored nofollow noopener" target="_blank">'
+            f'View the Amazon listing</a> <span class="paid-tag">Sponsored link · tag {e(ASSOCIATE_TAG or "not set")}</span>'
+            if dp else '<span class="tiny muted">No destination recorded</span>'
+        )
+        ls = x.get("link_source")
+        return (
+            f'<div class="card"><span class="kicker">{e(x["brand"])}</span>'
+            f'<span class="cardtitle">{e(x["name"])}</span>'
+            f'<span class="cardtext">Candidate ASIN {e(asin or "not stated")} — {e(x.get("asin_status", ""))}</span>'
+            f'<div style="margin-top:.55rem">{cta}</div>'
+            f'<span class="tiny muted">Submitted as <code>{e(x["link"])}</code>{(" " + src_links([ls])) if ls else ""} '
+            f'— shown as the record of what was given to this project, not as the link to click.</span></div>'
+        )
+    intro = "".join(_tool_card(x) for x in prods)
+    body = f"""
+<p class="crumbs"><a href="../index.html">Home</a> / {e(ADJACENT["cluster"]["name"])}</p>
+<h1>{e(ADJACENT["cluster"]["name"])} — {e(ADJACENT["cluster"]["subname"])}</h1>
+<p class="lede">{len(prods)} products, one job: telling you what the middle of the food is doing while the
+appliance only knows what the air is doing. They arrived in this project as the fourth and fifth links in the
+brief, and unlike the first three they are not air fryers — so they get their own page, their own rows, and
+the same rule about what may be published.</p>
+
+<div class="callout bad">
+  <strong>Read this before you treat anything below as a recommendation</strong>
+  <p class="small">Both entries sit on a <em>candidate</em> ASIN: the detail page the submitted short link was
+  served at when it was followed on {e(ADJACENT["prepared_on"])}. That is an observation of a redirect, not a
+  confirmation that either product is what the account holder meant to promote, and the intent fields on
+  rows {e("PI-04")} and {e("PI-05")} of <a href="../product-intent.html">the product-intent record</a> are
+  blank for both — see
+  <a href="../questions.html#q-27">Q-27</a>. No price, star rating, review count or commission rate appears on
+  this page: the first two are barred without Amazon-served content or the API {src_links(['S2'])}, and the last
+  is not published anywhere in this register for either item {src_links(['S3'])}. The button under each name
+  goes to the ASIN this site recorded, tagged with the site's Associates ID; the short link the project was
+  handed is printed as evidence in <code>form, not as the path a reader is sent along — the same rule the rest
+  of the site adopted on 2026-11-17 (F81).</p>
+</div>
+
+<div class="grid grid-2" style="margin:1.1rem 0">{intro}</div>
+
+<h2 id="side-by-side">The two, side by side</h2>
+<p class="small muted">Every cell links to the document it was read from. A cell that says <em>not stated</em> is
+a row this site could not source, not a row it decided to skip — the reason is printed in the cell.</p>
+<div class="tablewrap">
+<table>
+  <caption>Accessory cluster, verified rows only</caption>
+  <thead><tr><th style="width:22%">Row</th>{head}</tr></thead>
+  <tbody>{table_rows}</tbody>
+</table>
+</div>
+
+<h2 id="where-documents-disagree">Where the documents disagree with each other, or with themselves</h2>
+<div class="tablewrap">
+<table>
+  <caption>Publishing a conflict instead of choosing a winner</caption>
+  <thead><tr><th style="width:8%">ID</th><th style="width:18%">Item</th><th style="width:37%">Conflict</th><th style="width:37%">What would settle it</th></tr></thead>
+  <tbody>{flag_rows}</tbody>
+</table>
+</div>
+
+<h2 id="why-a-shelf">Why this is a shelf and not a catalogue</h2>
+<p class="small">{e(ADJACENT["editorial_rule_applied"])}</p>
+<p class="small">{e(ADJACENT["relationship_to_the_air_fryer_register"])}</p>
+<div class="callout info">
+  <strong>{e(ADJACENT["commission_note"]["text"])}</strong>
+  <p class="small">Recorded rather than estimated: {src_links(ADJACENT["commission_note"]["sources"])} — and see
+  <a href="../questions.html#q-30">Q-30</a> for the one account-side read that would fill it.</p>
+</div>
+
+<h2 id="what-this-pass-could-read">What this page could not reach</h2>
+<p class="small">{e(ADJACENT["read_constraints"]["text"])}</p>
+<p class="small">Rows affected: {", ".join("<code>" + e(x) + "</code>" for x in ADJACENT["read_constraints"]["affected_rows"])}.
+Closing them is <a href="../suggestions.html#sg-39">SG-39</a>, and it is mostly a browser, not a build.</p>
+
+<h2 id="next">Where to go next</h2>
+<ul class="tight small">
+  <li><a href="../articles/probe-thermometer-with-an-air-fryer.html">Do you need a probe thermometer with an air fryer?</a> — the question this page exists to answer.</li>
+  <li><a href="../articles/thermometer-accuracy-claims-explained.html">A thermometer says ±0.5°F. What is that number actually promising?</a> — why the two accuracy figures above are not comparable.</li>
+  <li><a href="kitchen-appliances.html">The air fryers</a> — the three products this site was built around, with the manuals behind each row.</li>
+  <li><a href="../compare.html">Comparison matrix</a> · <a href="../guides/buying-guide-air-fryers.html">Buying guide</a> · <a href="../flagged.html">Flagged for review</a></li>
+</ul>
+"""
+    curl = page_url("categories/kitchen-tools.html")
+    ld = [
+        {"@type": "CollectionPage",
+         "@id": curl + "#webpage",
+         "url": curl,
+         "name": ADJACENT["cluster"]["name"],
+         "description": ADJACENT["title"],
+         "isPartOf": {"@id": SITE_URL + "/#website"},
+         "about": {"@id": SITE_URL + "/#organization"},
+         "inLanguage": "en-US"},
+        breadcrumbs_jsonld([
+            ("Home", SITE_URL + "/"),
+            (ADJACENT["cluster"]["name"], curl),
+        ]),
+        {"@type": "ItemList",
+         "@id": curl + "#items",
+         "name": "Air-fryer-adjacent tools tracked by this site",
+         "itemListElement": [
+             {"@type": "ListItem", "position": i, "name": x["name"], "url": curl}
+             for i, x in enumerate(prods, start=1)],
+         },
+    ]
+    return layout("categories/kitchen-tools.html", "Kitchen tools — meat thermometers for the air-fryer cook",
+                  body, active="categories/kitchen-tools.html",
+                  description=("The two supplied product links that are not air fryers: a ThermoMaven instant-read "
+                               "and a CHEF iQ Sense wireless probe, each row linked to the brand page or listing it "
+                               "came from, every unsupported row left blank and explained."),
+                  jsonld_blocks=ld)
+
 
 
 def page_category():
@@ -5830,6 +6043,28 @@ def _published_values():
         for spec in p["specs"]:
             if spec.get("note"):
                 vals.add(spec["note"])
+    # Pass 13 (2026-11-17): data/adjacent.json is published as well, so its values are quotable in
+    # articles under exactly the same rule - a placeholder may name only a value the dataset
+    # publishes. Extending this set is what lets an article quote an accessory figure; not extending
+    # it would have left the guard able to wave through a number nothing in the repository carries.
+    for p in ADJACENT_LIST:
+        for spec in p.get("specs", []):
+            vals.add(spec.get("value"))
+            vals.add(spec.get("label"))
+            if spec.get("note"):
+                vals.add(spec["note"])
+        for k in ("name", "short_name", "brand", "category"):
+            if p.get(k):
+                vals.add(p[k])
+        for k in ("asin", "model_number", "amazon_listing_title"):
+            f = p.get(k)
+            if isinstance(f, dict) and f.get("v"):
+                vals.add(f["v"])
+            elif isinstance(f, str):
+                vals.add(f)
+        for k, v in p.items():
+            if isinstance(v, str):
+                vals.add(v)
     _PRODUCT_VALUES = vals
     return vals
 
@@ -6039,6 +6274,37 @@ BANNED_PHRASES = [
 ]
 
 
+def check_adjacent_rows():
+    """Build guard: the accessory cluster obeys the same row rule as the air-fryer register.
+
+    data/adjacent.json is data this build publishes, so it is held to the standard the rest of the
+    site is: a row with a value names the registered source it was read from, a blank row states
+    why it is blank, and no row may cite a document the source register does not carry. Written
+    2026-11-17 (arena/00bc7156) because the honest alternative - publishing a second category
+    outside the gates that police the first - would make the looser file the place a wrong value
+    could hide.
+    """
+    problems = []
+    for p in ADJACENT_LIST:
+        if not p.get("specs"):
+            problems.append(f"{p.get('slug', '?')}: cluster entry with no specification rows")
+        for srow in p.get("specs", []):
+            label = f"{p.get('slug', '?')}/{srow.get('label')}"
+            if srow.get("value") is not None:
+                if not srow.get("source"):
+                    problems.append(f"{label}: a value with no source id")
+                for sid in srow.get("source") or []:
+                    if sid not in SRC_BY_ID:
+                        problems.append(f"{label}: cites unregistered source {sid}")
+            elif not srow.get("unverified"):
+                problems.append(f"{label}: blank row with no stated reason it is blank")
+        for fl in p.get("flags", []):
+            for sid in fl.get("sources") or []:
+                if sid not in SRC_BY_ID:
+                    problems.append(f"{p.get('slug')} flag {fl.get('id')}: cites unregistered source {sid}")
+    return problems
+
+
 def check_decision_data():
     """Build guard for data/decision.json (2026-11-15, arena/792c279e).
 
@@ -6208,7 +6474,10 @@ def page_articles_index():
         },
     ]
     return layout("articles/index.html", "Articles", body, active="articles/index.html",
-                  description="Eight sourced articles on dual-basket vs oven air fryers, what a 450 F badge means, preset-count conflicts, capacity from published numbers, and why this site publishes no Amazon prices.",
+                  description=(f"{len(ARTICLES['articles'])} sourced guides on dual-basket vs oven air fryers, "
+                               "what a 450 F badge means, preset-count conflicts, capacity from published numbers, "
+                               "why this site publishes no Amazon prices, and the probe that tells you what the "
+                               "cavity cannot."),
                   jsonld_blocks=ld)
 
 
@@ -6520,6 +6789,48 @@ def page_intent():
             f'<td>{e(r["observed_title"])}</td>'
             f'<td>{srcs}<br><span class="tiny muted">{e(r["note"])}</span></td></tr>'
         )
+    # Pass 13 (2026-11-17, arena/00bc7156): the re-read block and the marker control test are rendered
+    # from data/product-intent.json rather than summarised here, so this page shows whatever the ledger
+    # holds and a later pass that rewrites the ledger rewrites the page with it.
+    reads = intent.get("reads_2026_11_17_00bc7156") or {}
+    ctl = reads.get("control_test") or {}
+    reads_block = ""
+    if reads:
+        _links = " · ".join("<code>" + e(u) + "</code>" for u in reads.get("links_read", []))
+        _skip = " · ".join("<code>" + e(u) + "</code>" for u in reads.get("links_not_re_read_in_this_pass", []))
+        _blob = ("https://github.com/kanlerxz87-cyber/Zone1/blob/main/"
+                 + reads.get("evidence_log", "session-00bc7156/observations-2026-11-17.json"))
+        _rows = [
+            ("Links followed by this pass", _links, ["S40", "S41"]),
+            ("Not re-read by this pass",
+             _skip + '<div class="tiny muted">' + e(reads.get("reread_result", "")) + "</div>", ["S16", "S17"]),
+            ("<strong>The question the control asks</strong>", e(ctl.get("question", "")), []),
+            ("How it was run", e(ctl.get("method", "")), []),
+            ("What came back", e(ctl.get("observed", "")), ["S16"]),
+            ("What that implies", e(ctl.get("implication", "")), []),
+            ("What still justifies the caution", e(ctl.get("what_still_justifies_the_caveat", "")), ["S2"]),
+            ("Status", e(ctl.get("status", "")) + ' <a href="flagged.html#f87">F87</a> · '
+             '<a href="suggestions.html#sg-38">SG-38</a> · <a href="questions.html#q-29">Q-29</a>', []),
+        ]
+        # Rows with no external document behind them are facts about this repository's own fetch, so
+        # they cite the fetch log - which is what makes them checkable at all.
+        _log = f'<a href="{_blob}">raw fetch log</a>'
+        _body = "".join(
+            f'<tr><td>{k}</td><td class="small">{v} {" " + src_links(ids) if ids else " " + _log}</td></tr>'
+            for k, v, ids in _rows
+        )
+        reads_block = (
+            '\\n<h2>The 2026-11-17 re-read, and a control test that weakens one long-standing reason</h2>\\n'
+            '<p class="small">Recorded on this page because this is where the redirect observations live — and the '
+            'marker those observations have been read as proving does not survive a control. Full fetch log: '
+            '<a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/session-00bc7156/observations-2026-11-17.json">'
+            '<code>session-00bc7156/observations-2026-11-17.json</code></a>.</p>\\n'
+            '<div class="tablewrap"><table><caption>What the fifth and sixth reads established, and what they did not</caption>'
+            '<thead><tr><th style="width:26%">Item</th><th>Record</th></tr></thead><tbody>' + _body + '</tbody></table></div>\\n'
+            '<p class="small">Two of the five rows above (PI-04, PI-05) now have published specification rows of their '
+            'own — <a href="categories/kitchen-tools.html">the kitchen-tools cluster</a> — with the fields no official '
+            'document supports left blank on the page instead of dropped from the record.</p>\\n'
+        )
     ledger_cols = "".join(f"<th>{e(c)}</th>" for c in ledger["columns"])
     tag = intent["tracking_id_selected"]
     body = f"""
@@ -6545,7 +6856,7 @@ def page_intent():
   <tbody>{"".join(body_rows)}</tbody>
 </table>
 </div>
-
+{reads_block}
 <h2>Campaign ledger</h2>
 <p class="small">Empty by design. A row is added only from an authorised first-party report and keeps its timestamp, source report and date range. No conversion score, revenue forecast or estimate is stored or shown.</p>
 <div class="tablewrap">
@@ -7476,6 +7787,8 @@ def main():
     for p in PRODUCT_LIST:
         pages[f"products/{p['slug']}.html"] = page_product(p)
     pages["categories/kitchen-appliances.html"] = page_category()
+    if ADJACENT_LIST:
+        pages["categories/kitchen-tools.html"] = page_tools_category()
     pages["compare.html"] = page_compare()
     pages["guides/buying-guide-air-fryers.html"] = page_guide()
     pages["articles/index.html"] = page_articles_index()
@@ -7530,6 +7843,10 @@ def main():
     if article_problems:
         raise SystemExit("BUILD FAILED — article cites an unregistered source or states an "
                          "unpublished value:\n  " + "\n  ".join(article_problems))
+    adjacent_problems = check_adjacent_rows()
+    if adjacent_problems:
+        raise SystemExit("BUILD FAILED — the accessory cluster breaks the row rule (a value without "
+                         "a registered source, or a blank without a reason):\n  " + "\n  ".join(adjacent_problems))
     decision_problems = check_decision_data()
     if decision_problems:
         raise SystemExit("BUILD FAILED — decision data no longer matches the official table:\n  "
@@ -7679,8 +7996,9 @@ def main():
         "  <channel>\n"
         f"    <title>{e(SITE_NAME)} — sourced air-fryer articles</title>\n"
         f"    <link>{e(_feed_link)}</link>\n"
-        "    <description>Documentation-based air-fryer buying guides. Every factual "
-        "sentence cites the manufacturer page or owner's manual it came from; no "
+        "    <description>Documentation-based buying guides for air fryers and the "
+        "accessories tested against nothing but the manufacturer's own documents. Every "
+        "factual sentence cites the manufacturer page or owner's manual it came from; no "
         "hands-on testing is claimed and no Amazon price or rating is published.</description>\n"
         "    <language>en-us</language>\n"
         f"    <lastBuildDate>{_feed_date}</lastBuildDate>\n"

@@ -48,6 +48,13 @@ OFFICIAL_HOSTS = {
     "www.linkedin.com",
     "www.facebook.com",
     "chefman.com",
+    # Brand storefronts for the accessory cluster, added 2026-11-17 (arena/00bc7156). Each is the
+    # official home of the fact it is cited for: chefiq.com publishes the iQ Sense feature list this
+    # site quotes, and thermomaven.com is the only manufacturer document that speaks about the
+    # instant-read line at all. Both are cited in data/sources.json (S38, S39); neither is used for a
+    # price, a rating, or a claim about the other brand.
+    "chefiq.com",
+    "www.thermomaven.com",
     "cdn.shopify.com",
     "www.emerileveryday.com",
     "www.ftc.gov",

@@ -3,7 +3,7 @@
   <channel>
     <title>Zone1 Kitchen — sourced air-fryer articles</title>
     <link>https://kanlerxz87-cyber.github.io/Zone1/articles/index.html</link>
-    <description>Documentation-based air-fryer buying guides. Every factual sentence cites the manufacturer page or owner's manual it came from; no hands-on testing is claimed and no Amazon price or rating is published.</description>
+    <description>Documentation-based buying guides for air fryers and the accessories tested against nothing but the manufacturer's own documents. Every factual sentence cites the manufacturer page or owner's manual it came from; no hands-on testing is claimed and no Amazon price or rating is published.</description>
     <language>en-us</language>
     <lastBuildDate>Sat, 14 Nov 2026 09:00:00 +0000</lastBuildDate>
     <atom:link href="https://kanlerxz87-cyber.github.io/Zone1/feed.xml" rel="self" type="application/rss+xml" />
@@ -173,6 +173,22 @@
       <guid isPermaLink="true">https://kanlerxz87-cyber.github.io/Zone1/articles/how-to-clean-an-air-fryer.html</guid>
       <description>Three manuals in this set carry cleaning sections. Quoted side by side, they agree on the big rules and split on the details. No vinegar hacks and no life tricks - just the instructions in the box.</description>
       <category>Guide</category>
+      <pubDate>Sat, 14 Nov 2026 09:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Do you need a probe thermometer with an air fryer?</title>
+      <link>https://kanlerxz87-cyber.github.io/Zone1/articles/probe-thermometer-with-an-air-fryer.html</link>
+      <guid isPermaLink="true">https://kanlerxz87-cyber.github.io/Zone1/articles/probe-thermometer-with-an-air-fryer.html</guid>
+      <description>An air fryer cooks fast and hot in a small cavity, which is exactly when a thick cut can read done on the outside and sit under temperature in the middle. Two of the links supplied to this project point at probes rather than fryers, so the question is now on the site&#x27;s own doorstep. Here is what the manufacturer documents actually establish, and what they do not.</description>
+      <category>Guide</category>
+      <pubDate>Sat, 14 Nov 2026 09:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>A thermometer says ±0.5°F. What is that number actually promising?</title>
+      <link>https://kanlerxz87-cyber.github.io/Zone1/articles/thermometer-accuracy-claims-explained.html</link>
+      <guid isPermaLink="true">https://kanlerxz87-cyber.github.io/Zone1/articles/thermometer-accuracy-claims-explained.html</guid>
+      <description>Accuracy figures on thermometer packaging are the most quoted numbers in the category and the least qualified. Two documents in this project&#x27;s own link set state two different ones. Neither is wrong, and neither tells you what you would need to know to compare them - which is the gap this piece is about.</description>
+      <category>Explainer</category>
       <pubDate>Sat, 14 Nov 2026 09:00:00 +0000</pubDate>
     </item>
   </channel>

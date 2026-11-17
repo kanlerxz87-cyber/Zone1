@@ -1,0 +1,310 @@
+{
+ "version": 1,
+ "prepared_on": "2026-11-17",
+ "prepared_by": "arena/00bc7156-zone1",
+ "title": "Air-fryer-adjacent tools: the two supplied links that are not air fryers",
+ "why_this_file_exists": "The brief supplied five link.amazon URLs. The canonical product register (data/products.json) describes three, all air fryers. The fourth and fifth appear in no earlier pass of this repository. Read live on 2026-11-17 they resolve to meat thermometers, not air fryers, so the register's discipline could not simply absorb them: a thermometer does not belong in an air-fryer comparison matrix, and inventing a fifth row for appliances that measure different things would be the worse error. This file holds them as a second cluster, verified to the same standard, with the pairing rationale stated where a source supports it.",
+ "relationship_to_the_air_fryer_register": "Not merged into data/products.json and not published in compare.html or the capacity figures. The air-fryer comparison stays apples-to-apples: three appliances, the same spec rows, the same manuals. This cluster gets its own page and its own rows, because the useful comparison here is between two thermometers, and between a thermometer and the appliance it goes with.",
+ "editorial_rule_applied": "A page whose cells are mostly blank is thin content, and thin affiliation is the failure mode Google's spam policies name (S30). So this pass publishes one comparison page for the cluster rather than two near-empty product pages, and the rows that no official document supports stay in the blank-and-flagged table on the Flagged page instead of as empty product pages.",
+ "link_status": "Candidate destinations only. The intended product of both links is unconfirmed - see data/product-intent.json (rows PI-04, PI-05), the canonical record after flag F80 retired the parallel file this pass first amended, and published at product-intent.html. This pass's 2026-11-17 reads are recorded there as observed_redirect_target_full, observed_via and reads_2026_11_17_00bc7156. Nothing here may be read as the account holder's intent.",
+ "cluster": {
+  "slug": "kitchen-tools",
+  "name": "Kitchen tools",
+  "subname": "Meat thermometers for the air-fryer cook",
+  "page": "categories/kitchen-tools.html",
+  "amazon_browse_path": "Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat",
+  "browse_source": [
+   "S36",
+   "S37"
+  ]
+ },
+ "products": [
+  {
+   "slug": "thermomaven-1-sec-instant-read",
+   "rank": 1,
+   "brand": "ThermoMaven",
+   "name": "ThermoMaven 1 Sec Professional Digital Meat Thermometer (Black)",
+   "short_name": "ThermoMaven 1 Sec instant-read",
+   "category": "Kitchen tools → meat thermometers",
+   "link": "https://link.amazon/B0c8moW59",
+   "asin": {
+    "v": "B0DHZTCNR5",
+    "s": [
+     "S40",
+     "S36"
+    ]
+   },
+   "asin_status": "Candidate. Taken from the destination the submitted short link was served at on 2026-11-17, and from the URL that page canonically answers to. Not confirmed as the product the account holder intended (PI-04).",
+   "amazon_listing_title": {
+    "v": "ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black",
+    "s": [
+     "S36"
+    ],
+    "read": "2026-11-17"
+   },
+   "model_number": null,
+   "model_number_note": "Neither the listing page (S36) nor the brand storefront (S39) states a model code for a '1 Sec' product in this pass. The brand's own instant-read line is named F1 Turbo, whose headline claims differ from the listing's.",
+   "specs": [
+    {
+     "label": "Headline response time (as listed by Amazon)",
+     "value": "1 Sec",
+     "source": [
+      "S36"
+     ],
+     "note": "Read from the listing title. Not a measured response time and not a manufacturer specification."
+    },
+    {
+     "label": "Brand-page headline for its named instant-read model",
+     "value": "0.5s Instant Read",
+     "source": [
+      "S39"
+     ],
+     "note": "Published by the brand for the F1 Turbo. Recorded here because it contradicts the listing title's 1 Sec for a model this pass could not show to be the same unit — and contradicting figures are only useful if both are on the page."
+    },
+    {
+     "label": "Accuracy claim (as listed by Amazon)",
+     "value": "±0.5℉",
+     "source": [
+      "S36"
+     ],
+     "note": "Listing title. The test method, the tolerance basis and whether the figure is typical or maximum are not stated on the page read."
+    },
+    {
+     "label": "Certification claim (as listed by Amazon)",
+     "value": "NIST & NSF Certified",
+     "source": [
+      "S36"
+     ],
+     "note": "Listing title, as published by the seller. No certificate or accredited-scope document was read in this pass."
+    },
+    {
+     "label": "Display (as listed by Amazon)",
+     "value": "Auto-rotate bright LED screen",
+     "source": [
+      "S36"
+     ]
+    },
+    {
+     "label": "Water resistance",
+     "value": null,
+     "source": [
+      "S36"
+     ],
+     "unverified": "The listing title says \"Highly Waterproof\", which is a marketing phrase, not an IP rating. The brand storefront publishes IP67 for its F1 Turbo instant-read model and IPX8 for its wireless models, and none of those names is confirmed to be this listing's model. Publishing either rating against this ASIN would attribute a specification to a product that has not been shown to be the same unit, so the row is blank."
+    },
+    {
+     "label": "Model / SKU",
+     "value": null,
+     "source": [
+      "S39"
+     ],
+     "unverified": "The brand storefront's instant-read line is named F1 Turbo (model files seen in its manual name the vendor as Shenzhen Auros Technology Innovation Co., Ltd for other lines). No '1 Sec' model appears on the home page, and the listing's Product information block was not reached in this pass. To close: read the Product information block for B0DHZTCNR5 in a browser, or ask the seller which brand-line model it is."
+    },
+    {
+     "label": "Warranty terms",
+     "value": null,
+     "source": [
+      "S39"
+     ],
+     "unverified": "The brand's own product tiles state a lifetime warranty for one model and 1.5-year warranties for others, which is not a warranty for this listing. The brand's warranty policy page was not read in this pass. To close: read https://www.thermomaven.com/warranty against the model code once the model is confirmed."
+    },
+    {
+     "label": "Amazon price and star rating",
+     "value": null,
+     "source": [
+      "S2"
+     ],
+     "unverified": "Both were visible on the listing page and are deliberately not published. Per S2, prices and availability may only be displayed when Amazon serves the link, and customer reviews and star ratings only when obtained via Creators API or PA API. This project holds neither."
+    },
+    {
+     "label": "Category placement on Amazon",
+     "value": "Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat",
+     "source": [
+      "S36"
+     ]
+    }
+   ],
+   "flags": [
+    {
+     "id": "T-F1",
+     "issue": "The listing's headline says 1 second; the brand's own instant-read model is advertised at 0.5 seconds.",
+     "sources": [
+      "S36",
+      "S39"
+     ],
+     "action": "Unresolved because the two documents may describe different products. Do not average them, and do not sell the faster figure."
+    },
+    {
+     "id": "T-F2",
+     "issue": "No manufacturer document in this pass states a model code for the ASIN, so no brand specification may be attached to it.",
+     "sources": [
+      "S36",
+      "S39"
+     ],
+     "action": "Read the listing's Product information block in a browser (the fetch used here reached only the first chunk of the page), then fill the Model / SKU row from that reading alone."
+    }
+   ]
+  },
+  {
+   "slug": "chef-iq-sense-gen3",
+   "rank": 2,
+   "brand": "CHEF iQ",
+   "name": "CHEF iQ Sense Smart Wireless Meat Thermometer, Gen3 (3 probes, as listed)",
+   "short_name": "CHEF iQ Sense (Gen3)",
+   "category": "Kitchen tools → meat thermometers",
+   "link": "https://link.amazon/B0f3GKalj",
+   "asin": {
+    "v": "B0DZFD6R9Z",
+    "s": [
+     "S41",
+     "S37"
+    ]
+   },
+   "asin_status": "Candidate, on the same basis as the row above: the destination the submitted link was served at on 2026-11-17. Not owner-confirmed (PI-05).",
+   "amazon_listing_title": {
+    "v": "CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3",
+    "s": [
+     "S37"
+    ],
+    "read": "2026-11-17"
+   },
+   "model_number": {
+    "v": "CQ60-1C-Z1-E is the code the brand page shows for its default selection (1 Probe, Dark Smoke); the page offers 1, 2, 3 and 4-probe variants",
+    "s": [
+     "S38"
+    ],
+    "caveat": "Do not read this as the ASIN's model. The listing is titled for 3 probes; which variant string that ASIN ships is stated by neither document read in this pass."
+   },
+   "specs": [
+    {
+     "label": "Sensors (brand page, feature list)",
+     "value": "4 internal temperature sensors plus 1 ambient temperature sensor",
+     "source": [
+      "S38"
+     ]
+    },
+    {
+     "label": "Sensor count (as listed by Amazon)",
+     "value": "5 Sensors",
+     "source": [
+      "S37"
+     ],
+     "note": "Consistent with four internal plus one ambient per probe on the brand's list. Note the brand page's own description paragraph says \"Five internal sensors\", which its feature list contradicts."
+    },
+    {
+     "label": "Accuracy (brand page)",
+     "value": "within 1°F",
+     "source": [
+      "S38"
+     ]
+    },
+    {
+     "label": "Heat resistance",
+     "value": "up to 1,000ºF (537ºC)",
+     "source": [
+      "S38",
+      "S37"
+     ],
+     "note": "Stated by the brand page and, as \"1000°F Heat Safe\", in the listing title."
+    },
+    {
+     "label": "Connectivity",
+     "value": "Wi-Fi and Bluetooth",
+     "source": [
+      "S38",
+      "S37"
+     ]
+    },
+    {
+     "label": "Wireless range (as listed by Amazon)",
+     "value": "WiFi Unlimited Range",
+     "source": [
+      "S37"
+     ],
+     "note": "\"Unlimited\" is the listing's word, carried by the brand's description of the hub as well. No range in metres or feet is published by either document read."
+    },
+    {
+     "label": "Appliances the brand says it works with",
+     "value": "oven, stovetop, gas and charcoal grills, smoker, air fryer, deep fryer, and sous vide",
+     "source": [
+      "S38"
+     ],
+     "note": "The air-fryer compatibility this whole cluster rests on is stated on the brand's own page and repeated in the listing title."
+    },
+    {
+     "label": "Probe count (as listed by Amazon)",
+     "value": "3 Ultra-Thin Probes",
+     "source": [
+      "S37"
+     ],
+     "note": "The brand page sells 1, 2, 3 and 4-probe configurations, so the probe count is a property of the variant, not of the product line. The 'as listed by Amazon' qualifier sits in the label so the value can be quoted in a sentence without dragging it along."
+    },
+    {
+     "label": "Battery life",
+     "value": "Multiple days of probe battery life per charge",
+     "source": [
+      "S38"
+     ]
+    },
+    {
+     "label": "Internal and ambient temperature ranges",
+     "value": null,
+     "source": [
+      "S38"
+     ],
+     "unverified": "Not read. These figures sit below the feature list on the brand page, and the fetch used in this pass returned only the first of three chunks. To close: re-read the brand page's specification block, or the manual, and fill the row from that text alone."
+    },
+    {
+     "label": "Amazon price and star rating",
+     "value": null,
+     "source": [
+      "S2"
+     ],
+     "unverified": "Same rule as the row above in the other product: permitted only when Amazon serves the link or via Creators/PA API, which this project does not hold."
+    },
+    {
+     "label": "Category placement on Amazon",
+     "value": "Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat",
+     "source": [
+      "S37"
+     ]
+    }
+   ],
+   "flags": [
+    {
+     "id": "T-F3",
+     "issue": "The brand page says \"Five internal sensors\" in its description and \"4 internal temperature sensors\" plus \"1 ambient temperature sensor\" in its own feature list.",
+     "sources": [
+      "S38"
+     ],
+     "action": "Published as a wording conflict on one document, not resolved. The reading that reconciles them - five sensors per probe, four of them internal - is an inference, so no article states a sensor count without quoting both lines."
+    },
+    {
+     "id": "T-F4",
+     "issue": "The listing's \"5 Sensors\" does not say whether it counts sensors per probe or across the three probes.",
+     "sources": [
+      "S37"
+     ],
+     "action": "Left as the listing's own wording. A per-probe reading is plausible and is labelled as a reading, not a fact."
+    }
+   ]
+  }
+ ],
+ "commission_note": {
+  "text": "No commission rate is published for either item. The Standard Commission Income Statement (S3) lists a 4.50% row for \"Physical Books, Kitchen, Automotive\" and a 3.00% row that includes \"Home\"; both products sit on Amazon pages under Home & Kitchen › Kitchen & Dining, and the rate that actually applies is the one the reporting system assigns to the ASIN's category, which no public document in this register states. The mapping is therefore left open rather than inferred.",
+  "sources": [
+   "S3"
+  ]
+ },
+ "read_constraints": {
+  "text": "Every value above comes from the first chunk of a page fetched on 2026-11-17 by this session. In this environment a chunked continuation of a fetched page could not be retrieved (the proxy returns a signing error), so deep specification blocks - Amazon's Product information table, the brand page's spec table, any manual - were out of reach. Rows they would fill are blank and flagged; none was copied from a search snippet, which is not a read of the source.",
+  "affected_rows": [
+   "Water resistance",
+   "Model / SKU",
+   "Warranty terms",
+   "Internal and ambient temperature ranges"
+  ]
+ },
+ "intent_ledger_file": "data/product-intent.json",
+ "intent_ledger_note": "This pass first appended its 2026-11-17 observations to data/product-intent-confirmations.json. Flag F80, merged from main the same day, had retired that file in favour of data/product-intent.json, so the append was reverted and the substance moved to the canonical record. One published ledger, no third copy."
+}

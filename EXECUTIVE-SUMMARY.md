@@ -1389,3 +1389,88 @@ class — repaired within the session (`3e4859f`) and logged.
 **State at the end of this pass:** `build.py` exit 0 (48 sitemap URLs, every guard green) ·
 `verify.py` 128 pages, 46 spec rows (44 verified, 2 blank+flagged), 35 sources, 0 errors ·
 `ci-check.sh` 7,958 links, 0 broken.
+
+## 24. Pass 13 — the two links nobody had opened, and a caution resting on the wrong fact (2026-11-17, session `arena/00bc7156-zone1`)
+
+**Full report:** `reports/verification-2026-11-17-00bc7156.md` · **Raw fetch log:** `session-00bc7156/observations-2026-11-17.json`
+
+**The gap this pass found is arithmetic, not analysis.** The brief supplied five `link.amazon`
+product links. The repository registers three. A tree-wide search for the tokens `B0c8moW59` and
+`B0f3GKalj` returned **zero files** — twelve passes had each re-verified the three links already
+recorded and asked nothing about the two nobody had written down. Followed live on 2026-11-17, they
+resolve to `B0DHZTCNR5` (ThermoMaven instant-read thermometer) and `B0DZFD6R9Z` (CHEF iQ Sense
+wireless probe, 3-probe listing) — **a different product category from the three air fryers**, under
+`Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat`.
+
+**What was published, and what was refused.** A second product page,
+`categories/kitchen-tools.html`, with 20 rows in which every cell links to the document it was read
+from and the six unsupported rows print *not stated* with their reason in the cell; a new dataset,
+`data/adjacent.json`, held to the air-fryer register's own row rule by a new build guard
+(`check_adjacent_rows`) that fails the build on a value without a registered source or a blank
+without a reason; two question-shaped guides added to the article register, the sitemap (52 URLs) and
+the feed (23 items); and five rows each in the questions (`Q-27`…`Q-31`) and suggestions
+(`SG-36`…`SG-43`, with a new decision path **P6**) registers. Refused: no model code, warranty, IP
+rating or temperature range was attached to either accessory — those blocks sit below the first chunk
+of a page, and a request for a later chunk fails with a proxy signing error in this sandbox, so the
+rows are blank rather than filled from a search snippet. No commission rate is published for either
+item (the official table groups `Kitchen` at 4.50% and `Home` at 3.00%, and which applies to an ASIN is
+not a public fact), and no accessory product page was generated, because a page that is mostly blanks
+is the thin-content pattern `SG-41` exists to reject.
+
+**One caution in this register has been resting on the wrong fact since day two.** Flags F10, F14,
+F15 and F41 explain "product identity unconfirmed" partly by pointing at destinations served with
+`plpRedirect=mhFallback`. Control test, 2026-11-17: a **bare request for `https://www.amazon.com/dp/B0CDY277D3`**
+— a registered, known-correct ASIN, no short link, no redirect in the chain — was served at
+`…?lv=shuf&channelId=500&plpRedirect=mhFallback` with the register's recorded title. The marker is
+how Amazon serves detail pages to this fetcher, not evidence that a link missed its target. The caveat
+survives on two independent facts that were always the real ones: a nine-character token names no ASIN,
+and no account holder has ever stated what the five links were for. The four rows are **not** reworded
+in this pass — that is `SG-38`, gated on `Q-29`, which asks a second reader to repeat a sixty-second
+control before twelve passes of prose get rewritten on one observation.
+
+**Two brand documents contradict themselves or each other, and both contradictions are on the page.**
+CHEF iQ's product page says "Five internal sensors" in its description and "4 internal temperature
+sensors" plus "1 ambient" in its own feature list (**F85**); ThermoMaven's storefront headlines its
+named instant-read model at `0.5s Instant Read` while the listing in this project's link set headlines
+`1 Sec`, with no model code linking the two (**F86**). Neither is arbitrated. The air-fryer pairing the
+accessory cluster rests on is not an inference either: CHEF iQ's own page lists *air fryer* among the
+appliances the probe is compatible with.
+
+**Coverage and self-description, corrected as far as the evidence goes.** The two links this pass
+published are recorded on the canonical product-intent ledger (`data/product-intent.json`, published as
+`product-intent.html`): today's full served URLs went into `observed_redirect_target_full` and
+`observed_via` on PI-04/PI-05, and the control test into a dated `reads_2026_11_17_00bc7156` block. All
+five intended-ASIN fields stay null — that is the owner's to fill (two minutes, four links). The
+reconciliation is itself logged: this pass first amended the parallel ledger that flag F80 had retired
+hours earlier, noticed on rebase, reverted the append and moved the substance, so the repository keeps one
+record instead of three. Two rows are now stale by this pass's own doing and say so in F83 rather than
+being edited silently: F78's 'No thermometer page or specification has been published' and F81's 'This
+site publishes no product page for either' are both overtaken, and `requirements.html` row C-01 still
+quotes the brief as three links while spelling the redirect parameter `plmRedirect` where every served URL
+here reads `plpRedirect` — the count and the spelling were both corrected in this pass, the status left
+`blocked`, because resolving identity is still the owner's step. The site's publisher
+description and RSS description gained one clause naming the accessories, because a page about
+thermometers under a masthead that promises only air fryers is a metadata mismatch a searcher sees
+(`SG-37`, default A, recorded on the decision log); the landing page gained a shelf under the comparison,
+not a second question in the finder (`SG-43`, default A). Two stale counts were repaired on the way — the
+articles hub shipped a meta description saying "Eight sourced articles" against a 21-article register,
+and the sidebar's `3 tracked products` had been typed for eleven passes; both are now computed.
+
+**Rebased onto a moving `main` twice in one pass.** #132 landed the tracking-ID gate, the canonical
+`data/product-intent.json` and flags F76–F82 while this branch was open, including F80's retirement of the
+ledger this pass had first appended to. The reconciliation: six intended new sources became four (main's
+`S36`/`S37` already covered the same two listing URLs, so this pass's read caveat was appended to main's
+records instead of replacing them), flag ids stayed at F83+, the retired file was restored to main's state
+and the observations moved to the canonical record, and the cluster's reader link was switched to main's
+tagged-`/dp/` policy with the submitted short link shown as `<code>` evidence. The control test is rendered
+on `product-intent.html` rather than left as an orphan block.
+
+**State at the end of this pass:** `build.py` exit 0 (55 pages built, 54 sitemap URLs, feed 23 items, every
+guard green including the new one plus #132's tag gate, rebuild byte-identical) · `verify.py` **133 pages,
+41 sources, 0 errors, 0 external warnings** · `ci-check.sh` 33 tests OK, audit clean, **9,239 links,
+0 broken** ·
+`scripts/verify_site.py` 393 assertions passed · `build_s2_site.py --check`, `research/check_research.py`,
+`node --check assets/app.js` and `git diff --check` all clean. Open owner items this pass added, none
+blocking: **F83** (the twelve-pass coverage gap itself, and the fact that `requirements.html` row C-01
+still quotes the brief as three links), **F84** (six blank rows by design), **F85**, **F86**, **F87**
+(the marker reasoning above).

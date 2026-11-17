@@ -579,6 +579,53 @@
    "status": "proposed",
    "published_as": null,
    "blocked_by": []
+  },
+  {
+   "id": "TP-23",
+   "title": "A thermometer says ±0.5°F. What is that number actually promising?",
+   "hook": "Two documents, two tolerances, no comparable conditions.",
+   "intent": "Informational",
+   "serves": [],
+   "angle": "Spec literacy for the accessory category: what an accuracy figure needs (range, basis, typical-or-maximum, who measured) before two brands can be compared, and why this site ranks nothing on the strength of a title.",
+   "why_it_could_earn_traffic": "Judgement: tolerance figures are quoted verbatim in this category's marketing, so the question is asked where the answer is not given. No search-volume data exists in this repository, and none is claimed.",
+   "must_cite": [
+    {
+     "label": "Amazon listing title stating the accuracy figure",
+     "url": "https://www.amazon.com/dp/B0DHZTCNR5"
+    },
+    {
+     "label": "CHEF iQ brand page feature list",
+     "url": "https://chefiq.com/products/iq-sense"
+    }
+   ],
+   "status": "published",
+   "published_as": "articles/thermometer-accuracy-claims-explained.html",
+   "blocked_by": [],
+   "published_on": "2026-11-17",
+   "published_by": "arena/00bc7156-zone1",
+   "registered_by": "arena/00bc7156-zone1 (pass 13, 2026-11-17)",
+   "renumbered_note": "Renumbered from TP-21/22/23 on 2026-11-17: session c55fa0d8 merged its own TP-21 ('Questions to ask before buying a multi-function kitchen appliance') while this branch was open, and this repository's rule is that a merged id belongs to whoever published it first. No row was dropped; the ids moved. Nothing else in the tree referenced these three ids, so no cross-reference needed rewriting."
+  },
+  {
+   "id": "TP-24",
+   "title": "Instant-read or left-in probe: which fits a countertop air fryer?",
+   "hook": "One you hold, one you leave alone.",
+   "intent": "Comparison",
+   "serves": [],
+   "angle": "The comparison this cluster can support: cavity space, the fact that a wireless probe must stay in the food while it cooks, and what each document says about heat limits. Blocked on specifications, not on ideas.",
+   "why_it_could_earn_traffic": "Judgement only. Before it is written, the blank rows in data/adjacent.json (temperature ranges, model codes, waterproof ratings) need a read of the pages this pass could not paginate.",
+   "must_cite": [
+    {
+     "label": "ThermoMaven official storefront",
+     "url": "https://www.thermomaven.com/"
+    }
+   ],
+   "status": "proposed",
+   "published_as": null,
+   "blocked_by": [],
+   "note": "Not written 2026-11-17: it would publish a comparison whose specification rows are blank in the dataset, which is the thin-content pattern this site's own rules reject.",
+   "registered_by": "arena/00bc7156-zone1 (pass 13, 2026-11-17)",
+   "renumbered_note": "Renumbered from TP-21/22/23 on 2026-11-17: session c55fa0d8 merged its own TP-21 ('Questions to ask before buying a multi-function kitchen appliance') while this branch was open, and this repository's rule is that a merged id belongs to whoever published it first. No row was dropped; the ids moved. Nothing else in the tree referenced these three ids, so no cross-reference needed rewriting."
   }
  ],
  "channels": [
@@ -638,5 +685,6 @@
    }
   }
  ],
- "channels_note": "CH-2 and CH-5 are not recommendations to weigh; they are clauses in a contract this site has to operate inside. They are listed alongside the real channels because a traffic plan that omits them reads as if they were never considered."
+ "channels_note": "CH-2 and CH-5 are not recommendations to weigh; they are clauses in a contract this site has to operate inside. They are listed alongside the real channels because a traffic plan that omits them reads as if they were never considered.",
+ "notes": " | Pass 13 (2026-11-17, arena/00bc7156) added TP-22, TP-23 and TP-24 for the accessory cluster. TP-22 and TP-23 are published; TP-24 is held at proposed on purpose, because its comparison rows are blank in the dataset and this site's own thin-content rule says a table with more gaps than answers is not worth a URL."
 }

@@ -1,0 +1,78 @@
+{
+  "session": "arena/00bc7156-zone1",
+  "date": "2026-11-17",
+  "method": "Server-side page fetches from this sandbox. Each entry records the URL requested, the URL the response was served at, and the served document's <title>. No browser, no account, no Amazon API.",
+  "tooling_limit": "A fetch of a long page returns its first chunk; a request for a later chunk of the same page returned an upstream proxy signing error on every attempt in this session (four pages affected). Deep blocks - Amazon's Product information table, the brand spec tables, any manual - were therefore unreachable, and no value in this pass was taken from a search-result snippet, which is not a read of the source.",
+  "observations": [
+    {
+      "submitted": "https://link.amazon/B0c8moW59",
+      "served_at": "https://www.amazon.com/dp/B0DHZTCNR5?lv=shuf&btn_type=ss&gaOptInStatus=true&_encoding=UTF8&sp_csd=d2lkZ2V0TmFtZT1zcF9waG9uZV9ob21lcGFnZV9ibGVuZGVk&language=en_US&content-id=amzn1.sym.4582c56b-139d-4168-9db2-822c68889360&ie=UTF8&btn_ref=srctok-633f9dc54185b50f&channelId=500&plpRedirect=mhFallback",
+      "served_asin": "B0DHZTCNR5",
+      "served_title": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black : Home & Kitchen",
+      "category_path": "Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat",
+      "prior_repository_coverage": "none — the token appeared in zero files before this pass"
+    },
+    {
+      "submitted": "https://link.amazon/B0f3GKalj",
+      "served_at": "https://www.amazon.com/dp/B0DZFD6R9Z?lv=shuf&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&btn_type=ss&gaOptInStatus=true&language=en_US&btn_ref=srctok-101536bcd8e0be02&channelId=500&plpRedirect=mhFallback&th=1",
+      "served_asin": "B0DZFD6R9Z",
+      "served_title": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen",
+      "category_path": "Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat",
+      "prior_repository_coverage": "none — the token appeared in zero files before this pass"
+    },
+    {
+      "submitted": "https://link.amazon/B04G1MEwY",
+      "served_at": "https://www.amazon.com/dp/B0CDY277D3?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-1ffea10d1d3c7fc5&channelId=704&plpRedirect=mhFallback",
+      "served_asin": "B0CDY277D3",
+      "served_title": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen",
+      "matches_register": "exact — character-for-character with data/products.json",
+      "note": "srctok and channelId differ from earlier recorded observations; the destination ASIN does not."
+    },
+    {
+      "control": "https://www.amazon.com/dp/B0CDY277D3 (requested bare: no short link, no redirect chain)",
+      "served_at": "https://www.amazon.com/dp/B0CDY277D3?lv=shuf&channelId=500&plpRedirect=mhFallback",
+      "served_title": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, ... : Home & Kitchen",
+      "finding": "The lv=shuf and plpRedirect=mhFallback parameters are attached when a detail page is served to this fetcher, whether or not a short link was involved. They are not evidence about a submitted link.",
+      "conclusion_for_the_register": "Any caution resting on the marker alone is weakened. The caution survives on two independent facts: the submitted tokens are nine characters where an ASIN is ten, and no account-holder statement of intent exists."
+    },
+    {
+      "brand_page": "https://chefiq.com/products/iq-sense",
+      "read": "first of three chunks",
+      "confirms": [
+        "product name iQ Sense®",
+        "default variant code CQ60-1C-Z1-E (1 Probe, Dark Smoke)",
+        "configuration choices 1, 2, 3 and 4 probes; two colours",
+        "feature bullets: Wi-Fi and Bluetooth® connectivity · Multiple days of probe battery life per charge · Compatible with the oven, stovetop, gas and charcoal grills, smoker, air fryer, deep fryer, and sous vide · Heat resistant up to 1,000ºF (537ºC) · 4 internal temperature sensors for accuracy within 1°F · 1 ambient temperature sensor",
+        "description sentence: 'Five internal sensors and heat resistance up to 1000°F' — contradicted by the feature list on the same page"
+      ],
+      "not_read": [
+        "temperature ranges",
+        "probe dimensions",
+        "materials",
+        "specification table"
+      ],
+      "excluded_by_policy": [
+        "brand list price",
+        "review counts"
+      ]
+    },
+    {
+      "brand_page": "https://www.thermomaven.com/",
+      "read": "first of two chunks",
+      "confirms": [
+        "the brand's instant-read line is named F1 Turbo, headlined 0.5s Instant Read · ±0.5℉ Accuracy · IP67 Waterproof · Lifetime Warranty",
+        "wireless lines G2, P2, WT02 Lite are headlined separately (IPX8, 3000ft, 1.5-year warranty)",
+        "no model named '1 Sec' appears on the home page"
+      ],
+      "finding": "the listing in this project's link set and the brand's own headline for its named instant-read model state different response times, and no document read here ties the two together",
+      "excluded_by_policy": [
+        "brand list prices",
+        "star counts and review totals shown on the storefront"
+      ]
+    }
+  ],
+  "not_re_read_this_pass": [
+    "https://link.amazon/B02NbDxp3",
+    "https://link.amazon/B00hJ57DV — their 2026-11-16 observations stand; recorded in the ledger so provenance says which links a given pass actually read"
+  ]
+}

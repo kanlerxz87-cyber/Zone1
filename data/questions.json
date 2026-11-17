@@ -1,777 +1,917 @@
 {
- "version": "1.1",
- "compiled": "2026-11-16",
- "preamble": "A decision is only as good as the information behind it. This page separates four states that are usually mixed together: what we know and can prove, what we do not know but could look up, what the official source does not state, and what we cannot know at all without information that only the account holder possesses. Every suggestion on the Suggestions page points at the rows below that block it. Nothing here is a guess about what the answer probably is. Questions in the 'known and sourced' state carry their answer on the row: an official source already settles them, and the answer is what the source says. Every other row states plainly that no answer is published, and names the step that would produce one.",
- "legend": {
-  "known": "Verified against an official source this pass fetched itself, or recorded by an earlier pass whose fetch is logged in this repository. The source link is on the row.",
-  "missing": "Not established anywhere in this repository. It is discoverable - someone with browser or account access can settle it - but it has not been settled.",
-  "unknowable": "Cannot be established from outside the account. No amount of public research answers it. It must come from the account holder or from Associates Central.",
-  "not_stated": "The official source exists and was read, and it simply does not state the fact. This is different from missing: we looked, and it is not published."
- },
- "questions": [
-  {
-   "id": "Q-01",
-   "group": "Product identity",
-   "question": "Which exact manufacturer model number does each of the three supplied Amazon links point to?",
-   "state": "known",
-   "why_it_matters": "Three separate Chefman 6-quart dual-basket models exist with different documented temperature ranges and functions. If the wrong model is on a product page, every specification below it is a misstatement about a product the site is paid to recommend.",
-   "what_we_know": [
-    "All three link.amazon short links resolve to the same three ASINs on every recorded fetch: B0CDY277D3, B09B7SB46R and B08DKYBTPH (7 observation rounds, 2026-11-13 to 2026-11-15).",
-    "The three destination pages carry the listing titles recorded in data/products.json, except the Emeril title, which changed between 2026-11-14 and 2026-11-15 (flag F38).",
-    "The bare 9-character codes in the short links (B04G1MEwY, B02NbDxp3, B00hJ57DV) are not ASINs and return 'Page Not Found' when used as /dp/ identifiers. Re-tested 2026-11-15."
-   ],
-   "what_is_missing": "Nothing for the model step. For the link attribution: a statement from the account holder, or the Associates Central link builder showing which ASIN each short link was created for. Neither is reachable from this repository.",
-   "how_to_discover": "Done 2026-11-16 by session ba29c641: the Product information block was read off all three listing pages and published on the product pages and in reports/asin-model-mapping-2026-11-16.md. The residual part - link-to-ASIN intent - can only be settled by whoever created the short links.",
-   "blocks": [
-    "SG-01",
-    "SG-04",
-    "SG-10"
-   ],
-   "sources": [
-    {
-     "label": "Chefman 6 Qt dual-window model page (RJ38-SQPF-3TDB-2W)",
-     "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
-    },
-    {
-     "label": "Chefman 8 Qt model page",
-     "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
-    },
-    {
-     "label": "Flag register rows F2, F3, F32, F33",
-     "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
-    }
-   ],
-   "answer": "Answered for the ASIN-to-model step on 2026-11-16, without a human in a browser - which is the part that matters, because F49 had recorded that no automated read could reach this table and SG-01 had assigned it to the owner as a five-minute browser job. Each listing's own Product information block carries the code: B0CDY277D3 publishes Model Number and Part Number RJ38-SQPF-3TDB-2W; B08DKYBTPH publishes Part Number RJ38-SQSS-8T (its Model Number row holds the string 'Large Air Fryer'); B09B7SB46R publishes Model Number and Part Number 4-00675-02X-VN, which is the brand page's 4-00675-02A-VN with one character changed. The first two agree with the manufacturer documents the site already held, so those two rows are now sourced twice. The third does not, and is published as a conflict (F66) rather than resolved. What this does NOT answer is which product the three supplied link.amazon tokens were meant to point at: the tokens are 9 characters, are not ASINs, and the observed destinations arrive through a fallback redirect (F7, F10). That half still belongs to the account holder."
+  "version": "1.1",
+  "compiled": "2026-11-16",
+  "preamble": "A decision is only as good as the information behind it. This page separates four states that are usually mixed together: what we know and can prove, what we do not know but could look up, what the official source does not state, and what we cannot know at all without information that only the account holder possesses. Every suggestion on the Suggestions page points at the rows below that block it. Nothing here is a guess about what the answer probably is. Questions in the 'known and sourced' state carry their answer on the row: an official source already settles them, and the answer is what the source says. Every other row states plainly that no answer is published, and names the step that would produce one.",
+  "legend": {
+    "known": "Verified against an official source this pass fetched itself, or recorded by an earlier pass whose fetch is logged in this repository. The source link is on the row.",
+    "missing": "Not established anywhere in this repository. It is discoverable - someone with browser or account access can settle it - but it has not been settled.",
+    "unknowable": "Cannot be established from outside the account. No amount of public research answers it. It must come from the account holder or from Associates Central.",
+    "not_stated": "The official source exists and was read, and it simply does not state the fact. This is different from missing: we looked, and it is not published."
   },
-  {
-   "id": "Q-02",
-   "group": "Product identity",
-   "question": "Is the Chefman 8 Qt listing the RJ38-SQSS-8T the site maps it to, or the RJ38-8T-BLACK that documents the 450 F Hi-Fry?",
-   "state": "known",
-   "why_it_matters": "The listing title advertises '450 F Hi-Fry ... Bake, Dehydrate, Frozen'. The RJ38-SQSS-8T brand page and manual document 200-400 F and four food presets, with no Hi-Fry. One of the two is simply a different machine. This is the sharpest unresolved conflict in the dataset.",
-   "what_we_know": [
-    "The Amazon listing title contains '450 F Hi-Fry Option' and 'Bake, Dehydrate, Frozen'.",
-    "The chefman.com page for RJ38-SQSS-8T states a maximum temperature of 400 F.",
-    "Chefman publishes a separate RJ38-8T-BLACK that documents 450 F Hi-Fry and exactly those four functions (flag F33)."
-   ],
-   "what_is_missing": "A statement from Chefman or the seller about which SKU sits behind ASIN B08DKYBTPH, or the model plate on a unit bought against it. The site will not pick between its own documents without one.",
-   "how_to_discover": "Done 2026-11-16 by session arena/ba29c641 (Part Number and Max Temperature rows read from the listing's Product information block; see reports/asin-model-mapping-2026-11-16.md). What a script cannot do: open the box.",
-   "blocks": [
-    "SG-01"
-   ],
-   "sources": [
+  "questions": [
     {
-     "label": "Chefman 8 Qt page - 400 F maximum",
-     "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+      "id": "Q-01",
+      "group": "Product identity",
+      "question": "Which exact manufacturer model number does each of the three supplied Amazon links point to?",
+      "state": "known",
+      "why_it_matters": "Three separate Chefman 6-quart dual-basket models exist with different documented temperature ranges and functions. If the wrong model is on a product page, every specification below it is a misstatement about a product the site is paid to recommend.",
+      "what_we_know": [
+        "All three link.amazon short links resolve to the same three ASINs on every recorded fetch: B0CDY277D3, B09B7SB46R and B08DKYBTPH (7 observation rounds, 2026-11-13 to 2026-11-15).",
+        "The three destination pages carry the listing titles recorded in data/products.json, except the Emeril title, which changed between 2026-11-14 and 2026-11-15 (flag F38).",
+        "The bare 9-character codes in the short links (B04G1MEwY, B02NbDxp3, B00hJ57DV) are not ASINs and return 'Page Not Found' when used as /dp/ identifiers. Re-tested 2026-11-15."
+      ],
+      "what_is_missing": "Nothing for the model step. For the link attribution: a statement from the account holder, or the Associates Central link builder showing which ASIN each short link was created for. Neither is reachable from this repository.",
+      "how_to_discover": "Done 2026-11-16 by session ba29c641: the Product information block was read off all three listing pages and published on the product pages and in reports/asin-model-mapping-2026-11-16.md. The residual part - link-to-ASIN intent - can only be settled by whoever created the short links.",
+      "blocks": [
+        "SG-01",
+        "SG-04",
+        "SG-10"
+      ],
+      "sources": [
+        {
+          "label": "Chefman 6 Qt dual-window model page (RJ38-SQPF-3TDB-2W)",
+          "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+        },
+        {
+          "label": "Chefman 8 Qt model page",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        },
+        {
+          "label": "Flag register rows F2, F3, F32, F33",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+        }
+      ],
+      "answer": "Answered for the ASIN-to-model step on 2026-11-16, without a human in a browser - which is the part that matters, because F49 had recorded that no automated read could reach this table and SG-01 had assigned it to the owner as a five-minute browser job. Each listing's own Product information block carries the code: B0CDY277D3 publishes Model Number and Part Number RJ38-SQPF-3TDB-2W; B08DKYBTPH publishes Part Number RJ38-SQSS-8T (its Model Number row holds the string 'Large Air Fryer'); B09B7SB46R publishes Model Number and Part Number 4-00675-02X-VN, which is the brand page's 4-00675-02A-VN with one character changed. The first two agree with the manufacturer documents the site already held, so those two rows are now sourced twice. The third does not, and is published as a conflict (F66) rather than resolved. What this does NOT answer is which product the three supplied link.amazon tokens were meant to point at: the tokens are 9 characters, are not ASINs, and the observed destinations arrive through a fallback redirect (F7, F10). That half still belongs to the account holder."
     },
     {
-     "label": "RJ38-SQSS-8T owner's manual",
-     "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf"
+      "id": "Q-02",
+      "group": "Product identity",
+      "question": "Is the Chefman 8 Qt listing the RJ38-SQSS-8T the site maps it to, or the RJ38-8T-BLACK that documents the 450 F Hi-Fry?",
+      "state": "known",
+      "why_it_matters": "The listing title advertises '450 F Hi-Fry ... Bake, Dehydrate, Frozen'. The RJ38-SQSS-8T brand page and manual document 200-400 F and four food presets, with no Hi-Fry. One of the two is simply a different machine. This is the sharpest unresolved conflict in the dataset.",
+      "what_we_know": [
+        "The Amazon listing title contains '450 F Hi-Fry Option' and 'Bake, Dehydrate, Frozen'.",
+        "The chefman.com page for RJ38-SQSS-8T states a maximum temperature of 400 F.",
+        "Chefman publishes a separate RJ38-8T-BLACK that documents 450 F Hi-Fry and exactly those four functions (flag F33)."
+      ],
+      "what_is_missing": "A statement from Chefman or the seller about which SKU sits behind ASIN B08DKYBTPH, or the model plate on a unit bought against it. The site will not pick between its own documents without one.",
+      "how_to_discover": "Done 2026-11-16 by session arena/ba29c641 (Part Number and Max Temperature rows read from the listing's Product information block; see reports/asin-model-mapping-2026-11-16.md). What a script cannot do: open the box.",
+      "blocks": [
+        "SG-01"
+      ],
+      "sources": [
+        {
+          "label": "Chefman 8 Qt page - 400 F maximum",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        },
+        {
+          "label": "RJ38-SQSS-8T owner's manual",
+          "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf"
+        }
+      ],
+      "answer": "Read from the listing on 2026-11-16, and the answer is 'the listing says both'. Its Part Number row reads RJ38-SQSS-8T - the code the brand page and the manual publish for the 200-400 F stainless model - and its own Features & Specs table states a 400 F maximum, while its title advertises '450 F Hi-Fry Option' with Bake/Dehydrate/Frozen. Because Chefman separately publishes RJ38-8T-BLACK at 450 F Hi-Fry with exactly those four functions (S26, re-read live 2026-11-16), the two explanations F3 and F33 hold - a title carried over from another SKU, or a second model listed under the first one's part number - are both still open, and the listing's self-contradiction is now evidence in the case rather than a third site disagreeing. What the read does settle is the direction of the conflict, and what the site may not say: no copy here markets a 450 F capability for this product, and the temperature ceiling of the unit that ships is left unasserted."
+    },
+    {
+      "id": "Q-03",
+      "group": "Programme status",
+      "question": "Is the Amazon Associates account approved, in review, or closed - and when did the current review window start?",
+      "state": "unknowable",
+      "why_it_matters": "An unapproved account earns nothing and is subject to a qualifying-sales requirement. The correct content plan for an account in review is the opposite of the correct plan for an approved one: conversion first versus breadth first.",
+      "what_we_know": [
+        "The Standard Commission Income Statement can be read without signing in, so the rate table is public.",
+        "The site is built as though the account is live, but nothing in the repository records its status."
+      ],
+      "what_is_missing": "The account status and the date the window began. Both are inside Associates Central.",
+      "how_to_discover": "Associates Central home page shows status directly. Record the status and, if in review, the date the application was submitted.",
+      "blocks": [
+        "SG-11",
+        "SG-02"
+      ],
+      "sources": [
+        {
+          "label": "Associates Central - application review process",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
+        },
+        {
+          "label": "Associates Program Operating Agreement",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        }
+      ]
+    },
+    {
+      "id": "Q-04",
+      "group": "Attribution",
+      "question": "Which Associates tag is inside the three supplied short links, and does it belong to this account?",
+      "state": "unknowable",
+      "why_it_matters": "This is the only question on the page whose answer determines whether the site earns any money at all. Program Policies section 2(a) requires Special Links to use the Associates ID assigned to you; section 2(b) requires the tag to appear as a parameter in each link.",
+      "what_we_know": [
+        "The links are link.amazon short links, so the redirect target is observable but the embedded tag is not.",
+        "The redirect target carries Amazon's own parameters (lv=shuf, btn_ref=srctok-..., plpRedirect=mhFallback) but no tag= parameter is visible in the landing URL."
+      ],
+      "what_is_missing": "The full tagged URL. It is inside the short link and is only visible from the account that created it, or by reading the click report.",
+      "how_to_discover": "Option 1: open each link while signed in to Associates Central and confirm the click appears against your tracking ID. Option 2: rebuild each link as a full amazon.com URL with your tag and use that instead.",
+      "blocks": [
+        "SG-02",
+        "SG-08"
+      ],
+      "sources": [
+        {
+          "label": "Program Policies, section 2(a) and 2(b)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Tracking IDs and sub-tags",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA"
+        }
+      ]
+    },
+    {
+      "id": "Q-05",
+      "group": "Data access",
+      "question": "Do you have, or can you get, Creators API access?",
+      "state": "unknowable",
+      "why_it_matters": "Program Policies section 2(b) permits displaying Amazon price and availability only when Amazon serves the link or when the data comes from Creators API or PA API. Section 6(t) restricts customer reviews and star ratings to API-served content. Without it, the comparison table cannot carry a price or a rating, by law rather than by choice.",
+      "what_we_know": [
+        "The rate table and all program documents are readable without signing in.",
+        "The site currently displays no Amazon price, rating or review count on any page, and that is correct rather than an omission."
+      ],
+      "what_is_missing": "Whether the account qualifies for Creators API, and whether any credentials exist.",
+      "how_to_discover": "Associates Central > Tools > Creators API (or PA API). Access requires qualifying sales. Record approved / not approved.",
+      "blocks": [
+        "SG-06"
+      ],
+      "sources": [
+        {
+          "label": "Program Policies, section 2(b) and 6(t)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "PA-API 5 deprecation notice",
+          "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation"
+        }
+      ]
+    },
+    {
+      "id": "Q-06",
+      "group": "Catalogue data",
+      "question": "What is the product weight of the Emeril 26 QT French Door, and is the weight published for the two Chefman models the product weight or the packaged weight?",
+      "state": "not_stated",
+      "why_it_matters": "Counter space and lifting weight are two of the few things a buyer can decide from a page without touching the product, which makes them unusually load-bearing for a 26-quart oven. Separately, the two Chefman weight figures this site publishes are contradicted by the same brand's own commerce endpoint, so the number may be right and the label on it wrong.",
+      "what_we_know": [
+        "Exterior dimensions are published for all three products from official sources: the Chefman 6 Qt from its product page (S10), the Chefman 8 Qt from its product page (S12), and the Emeril 26 QT from its product page (S14).",
+        "Warranty terms are published for all three: 1-year Chefman assurance (S10), limited 1-year from the owner's manual (S13), and 1-year warranty (S14).",
+        "Product weight is published for both Chefman models from their specification blocks: 13.3 lb / 6.03 kg for the 6 Qt (S10) and 12.8 lb / 5.8 kg for the 8 Qt (S12).",
+        "The same brand's own commerce endpoint, read on 2026-11-15, reports 14.51 lb / 6,582 g for RJ38-SQPF-3TDB-2W (S32) and 13.4 lb / 6,078 g for RJ38-SQSS-8T (S33) - both higher, and neither page says which figure is the product and which is the package (flag F51).",
+        "NARROWED 2026-11-15 (arena/63a2c638, flag F52): this row previously asked for dimensions, weight and warranty for all three products and was filed as 'not_stated'. Eight of those nine cells were already published from official sources in data/products.json. Only one cell is genuinely open.",
+        "NEW EVIDENCE 2026-11-16 (arena/b23f12f0, round 11): the brand storefront's own machine-readable product record (S35) reports a variant weight of 27.04 lb / 12,265 g for SKU 4-00675-02A-VN. This is recorded as a candidate, not published as the Emeril's product weight, because the endpoint does not say whether its weight field is the product or the packaged weight - the same ambiguity flag F51 records for the two Chefman models, whose specification-block weights (13.3 lb and 12.8 lb) are both lower than their own endpoint weights (14.51 lb and 13.4 lb). Converting a shipping figure into a product specification is exactly the inference this project refuses to make."
+      ],
+      "what_is_missing": "Two things, and only two. (1) The Emeril 26 QT product weight - neither the brand product page (S14) nor the owner's manual (S15) states one. (2) A statement from Chefman, on either page, saying whether its published weight is the product or the packaged weight.",
+      "how_to_discover": "For the Emeril: read the 'Product information' or specification table on the brand page and the specifications page of the owner's manual; if neither states a weight, leave the cell blank and say so rather than converting a shipping weight. For the Chefman labels: quote the sentence next to the weight in each Specifications block, and quote the endpoint field, then decide which one the site publishes - or publish both with their labels.",
+      "blocks": [
+        "SG-15"
+      ],
+      "sources": [
+        {
+          "label": "Chefman 6 Qt page",
+          "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+        },
+        {
+          "label": "Chefman 8 Qt page - Specifications block",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        },
+        {
+          "label": "Emeril French Door 360 page",
+          "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+        },
+        {
+          "label": "Emeril Everyday commerce endpoint (S35) - variant weight field",
+          "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360.json"
+        }
+      ]
+    },
+    {
+      "id": "Q-07",
+      "group": "Site ownership",
+      "question": "Should this be one public site, and should it live on a domain you own?",
+      "state": "unknowable",
+      "why_it_matters": "Nine HTML sites for the same three products are currently published on one github.io origin, and they disagree with each other. Separately, links earned on a github.io subdirectory cannot be moved later without losing them.",
+      "what_we_know": [
+        "GitHub Pages is configured to build from main at the repository root, legacy build type, HTTPS enforced.",
+        "Eight additional directories carry their own index.html and are served under the same origin.",
+        "The repository already generates robots.txt and a sitemap.xml for the root build only (23 URLs)."
+      ],
+      "what_is_missing": "Whether the annexes are meant to be public, and whether a custom domain is acceptable.",
+      "how_to_discover": "A decision, not a lookup: keep the annexes public as an audit trail, or publish only the root and keep the rest in the repository. Record the answer here.",
+      "blocks": [
+        "SG-05",
+        "SG-16"
+      ],
+      "sources": [
+        {
+          "label": "GitHub Pages custom domain documentation",
+          "url": "https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site"
+        },
+        {
+          "label": "Previous passes page",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/previous-passes.html"
+        },
+        {
+          "label": "Repository top level - every directory with an index.html",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/"
+        }
+      ]
+    },
+    {
+      "id": "Q-08",
+      "group": "Measurement",
+      "question": "What may this site measure, and whose consent does that require?",
+      "state": "missing",
+      "why_it_matters": "The footer currently states the site sets no cookies and runs no analytics, which satisfies Program Policies section 3(e) as written. Adding any analytics makes that statement false immediately and triggers a privacy-notice update plus, for EU and UK visitors, consent requirements.",
+      "what_we_know": [
+        "The site is fully static and runs no client-side tracking of any kind.",
+        "Amazon reports clicks and orders per tracking ID without any on-site script.",
+        "Section 2(b) permits additional sub-tag IDs to separate traffic sources."
+      ],
+      "what_is_missing": "Whether third-party analytics are wanted at all, and if so which lawful basis applies for EU visitors.",
+      "how_to_discover": "Decide between Associates sub-tags alone (no disclosure change) and a cookieless analytics script (small disclosure update). The choice is in the Suggestions page, SG-08.",
+      "blocks": [
+        "SG-08"
+      ],
+      "sources": [
+        {
+          "label": "Program Policies, section 3(e)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Tracking IDs and sub-tags",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA"
+        }
+      ]
+    },
+    {
+      "id": "Q-09",
+      "group": "Authorship",
+      "question": "Who is the named author, and what may the site honestly claim about how content is produced?",
+      "state": "unknowable",
+      "why_it_matters": "16 CFR 465.6 makes it deceptive for a business to misrepresent that a site it controls provides independent reviews. The site currently describes itself as 'an independent affiliate publisher' while every product page carries affiliate links, and it does not disclose that analysis is documentation-based and machine-assisted.",
+      "what_we_know": [
+        "No page on the site names an author or describes the production method.",
+        "The footer states no hands-on testing is claimed anywhere on the site.",
+        "16 CFR 255.5 requires disclosure of material connections that a significant minority of the audience would not expect."
+      ],
+      "what_is_missing": "The name to publish, whether an editorial human reviews each page before publication, and whether AI assistance will be disclosed.",
+      "how_to_discover": "A decision. If nothing else, publishing the method is enough: 'every number is quoted from a manufacturer document or the CFR, drafted with AI assistance and checked against the source'. That sentence is true today and is not currently on the site.",
+      "blocks": [
+        "SG-03",
+        "SG-14"
+      ],
+      "sources": [
+        {
+          "label": "16 CFR 465.6",
+          "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-465"
+        },
+        {
+          "label": "16 CFR 255.5",
+          "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.5"
+        },
+        {
+          "label": "FTC Endorsement Guides Q&A",
+          "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking"
+        }
+      ]
+    },
+    {
+      "id": "Q-10",
+      "group": "Content strategy",
+      "question": "Which search intent does each existing article own, and who is allowed to write the next one?",
+      "state": "missing",
+      "why_it_matters": "A published article set already exists (live count on the articles index) and two of its pieces compete for the same comparison intent. Without an intent map, the ninth will duplicate the fifth, and two pages on one query on one domain split each other's authority.",
+      "what_we_know": [
+        "Every published article is source-linked and none claims hands-on testing (live count on the articles index).",
+        "One earlier pass already deleted three orphaned drafts for exactly this reason and preserved their text in session-7111e2b6/articles-superseded.json."
+      ],
+      "what_is_missing": "A written assignment of one primary intent per article, and a rule that a new article may not target an intent already claimed.",
+      "how_to_discover": "Thirty minutes with the article index. Assign each one intent, publish the map, and make a duplicate a build failure.",
+      "blocks": [
+        "SG-09"
+      ],
+      "sources": [
+        {
+          "label": "Article index",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/articles/"
+        },
+        {
+          "label": "Superseded drafts and the reason each was removed",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/session-7111e2b6/articles-superseded.json"
+        },
+        {
+          "label": "data/articles.json",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/articles.json"
+        }
+      ]
+    },
+    {
+      "id": "Q-11",
+      "group": "Economics",
+      "question": "Which category has Amazon actually assigned to each ASIN, and therefore which commission rate applies?",
+      "state": "missing",
+      "why_it_matters": "Kitchen pays 4.50% and the fallback row pays 4.00%. A 0.50-point difference moves the break-even traffic estimate by about 12 percent, which decides whether this niche is worth the content investment.",
+      "what_we_know": [
+        "The published Table 1 lists Physical Books, Kitchen and Automotive at 4.50%, and All Other Categories at 4.00%.",
+        "Amazon does not publish an ASIN-to-category mapping, which is why the site shows both candidate rows.",
+        "All three listings display the same breadcrumb: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers.",
+        "The same breadcrumb does NOT settle this question. The Commission Income Statement's categories (S3) are commission categories defined by the Associates programme; browse nodes are a shopper-navigation taxonomy; Amazon publishes no mapping between them. The breadcrumb begins 'Home & Kitchen' while S3 carries both 'Kitchen' at 4.50% and 'Home' at 3.00%, so it cannot even indicate which of the two it resembles. See flag F53.",
+        "RESOLVED 2026-11-16 (arena/b23f12f0, round 11, flag F65): the Emeril browse node is no longer unknown. ASIN B09B7SB46R was fetched successfully on 2026-11-16 and rendered the breadcrumb 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S28) - identical to the two Chefman paths - and the same breadcrumb was reached independently through the supplied short link in the same session (S17). The 2026-11-15 reading that called the block 'per-ASIN' was wrong: on 2026-11-16 the same ASIN fetched cleanly on the first attempt while one of the two ASINs that had worked the previous day was served the checkpoint on its first attempt and returned the listing only on a retry. The checkpoint is intermittent per request, so a failed fetch is not evidence about the ASIN.",
+        "NEW 2026-11-15 (arena/63a2c638): the two Chefman listings each render an Amazon browse-node breadcrumb reading 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S16 for B0CDY277D3, S29 for B08DKYBTPH). That breadcrumb is now published as a sourced fact on each product page.",
+        "UPDATED 2026-11-16 (arena/b23f12f0): all three listings now have a confirmed browse node, and all three are the same node. That closes the last blank cell in the commission question's evidence, but it does not close the question - see the entry above on why a browse path is not a commission category.",
+        "Re-read again the same day by arena/ba29c641 fetching the /dp/ URL directly: its Best Sellers Rank line reads '#214 in Kitchen & Dining' and '#6 in Air Fryers' (node 17659096011), agreeing with both earlier reads. Three independent routes, one classification — and still no commission category."
+      ],
+      "what_is_missing": "Confirmation of the category Amazon applies at commission time. The breadcrumb is strong evidence; the Earnings report is proof.",
+      "how_to_discover": "The rate is not discoverable from any public page - it is only observable after the fact, in the Associates reports, where each qualifying purchase shows the rate actually applied. Read the category column on the first few real orders and the question answers itself. Publishing a rate before then means publishing a guess about how Amazon classified the product.",
+      "blocks": [
+        "SG-10"
+      ],
+      "sources": [
+        {
+          "label": "Standard Commission Income Statement, Table 1",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+        },
+        {
+          "label": "Chefman 6 Qt listing - visible breadcrumb",
+          "url": "https://link.amazon/B04G1MEwY"
+        }
+      ]
+    },
+    {
+      "id": "Q-12",
+      "group": "Repository integrity",
+      "question": "Is there any published statement on this site that a live official source contradicts today?",
+      "state": "missing",
+      "why_it_matters": "A site whose entire premise is that every value is sourced cannot carry a stale value next to a source link that no longer says it. That is worse than an unsourced value, because the citation lends it false authority.",
+      "what_we_know": [
+        "This pass fetched all three supplied links, the Commission Income Statement, the Program Policies page, 16 CFR 255.5, 16 CFR Part 465 and both manufacturers' product pages on 2026-11-15.",
+        "One published value was found stale and is corrected in this pass: the Emeril listing title, which now reads '24 One-Touch Preset Options' where the stored value read '24 cooking functions' (flag F38).",
+        "One citation defect was found and corrected: the source record S16 is registered as the B0CDY277D3 URL but was cited for all three listing titles, so two of the three citations pointed at a different product's page (flag F39).",
+        "One register-integrity defect was found and corrected: two different rows were both numbered F36 (flag F40)."
+      ],
+      "what_is_missing": "A standing re-read schedule. Review counts and listing titles change without notice, and no page on the site currently records when a value was last read except the re-verification ledger.",
+      "how_to_discover": "Re-read every value on a fixed cadence and publish the date next to each volatile figure. The re-verification ledger is the right home for this; it needs a schedule rather than a one-off pass.",
+      "blocks": [],
+      "sources": [
+        {
+          "label": "Program Policies - current version, Updated April 14, 2026",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Re-verification ledger",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/reverification.html"
+        }
+      ]
+    },
+    {
+      "id": "Q-13",
+      "group": "Programme viability",
+      "question": "What exactly does the current application-review process require, in its own words?",
+      "state": "unknowable",
+      "why_it_matters": "The repository records '3 qualifying sales / 180 days, 10 posts, 60-day recency, 500 followers' as the review criteria. This pass could not load that page to re-read it, so the figures are carried forward from an earlier logged fetch rather than confirmed today. They should not be restated as current fact until re-read.",
+      "what_we_know": [
+        "The page existed at the recorded URL and was quoted by an earlier pass with a logged fetch.",
+        "This pass attempted the page and did not get content back, so it is flagged rather than repeated as verified."
+      ],
+      "what_is_missing": "A current read of the review-process page, which requires loading it in a browser.",
+      "how_to_discover": "Open the source link and read the qualifying-criteria section. Record what it says today, with the date.",
+      "blocks": [],
+      "sources": [
+        {
+          "label": "Associates Central - application review process",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
+        }
+      ]
+    },
+    {
+      "id": "Q-14",
+      "group": "Economics",
+      "question": "What is the actual conversion rate for these three products, and what would one sale be worth?",
+      "state": "unknowable",
+      "why_it_matters": "Every revenue projection on this site is arithmetic on an assumed conversion rate. Until one real sale exists, the honest number of sales attributable to this site is zero and any revenue figure is a scenario, not a forecast.",
+      "what_we_know": [
+        "Manufacturer list prices are $119.99, $199.99 and $119.99 USD, each sourced to the brand page.",
+        "At the Kitchen rate of 4.50%, a sale at list price is worth roughly $5.40, $9.00 and $5.40 respectively before returns.",
+        "No sales data exists in this repository."
+      ],
+      "what_is_missing": "Real click and order counts. These live in Associates Central and cannot be obtained by research.",
+      "how_to_discover": "Associates Central > Reports. Until there is history, label any projection as a scenario with its assumed conversion rate stated.",
+      "blocks": [],
+      "sources": [
+        {
+          "label": "Standard Commission Income Statement",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+        },
+        {
+          "label": "Chefman 6 Qt brand list price",
+          "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+        },
+        {
+          "label": "Emeril brand list price",
+          "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+        }
+      ]
+    },
+    {
+      "id": "Q-15",
+      "group": "Economics",
+      "question": "What commission rate does Amazon's published table give for kitchen appliances, and does that rate apply to these three listings?",
+      "state": "known",
+      "why_it_matters": "The rate is the single number that converts traffic into money, and it is the number an affiliate page most often asserts without checking. Kitchen pays 4.50% and the fallback row pays 4.00%, so the difference between the two is worth roughly a twelfth of the modelled revenue.",
+      "answer": "The published Table 1 row reads \"Physical Books, Kitchen, Automotive - 4.50%\". Two of the three listings rendered that breadcrumb on 2026-11-15 (B0CDY277D3 and B08DKYBTPH). The third, B09B7SB46R, was fetched three times that day and returned Amazon's checkpoint page each time, so as of 2026-11-15 this sentence claimed more than the repository had evidence for - the correct position was recorded on flags F53 and Q-11. On 2026-11-16 session ba29c641 read that listing's own classification line (Kitchen & Dining; Air Fryers node 17659096011), so all three are now sourced, from two different read locations on two different days. 4.50% remains a working rate, not a confirmed one. The one thing still missing is the category Amazon applies when it settles a commission: that name appears only on a shipped line in the Associates Earnings report. Until one exists, the site publishes both candidate rows and labels which is which.",
+      "what_we_know": [
+        "The published Table 1 lists Physical Books, Kitchen and Automotive at 4.50%, and All Other Categories at 4.00%.",
+        "Amazon does not publish an ASIN-to-category mapping, which is why the site shows both candidate rows.",
+        "All three listings display the same breadcrumb: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers.",
+        "Re-read 2026-11-15: the breadcrumb was read directly on all three ASINs - B0CDY277D3, B09B7SB46R and B08DKYBTPH - not only on the Emeril listing, which was the limit of the earlier observation recorded in the annex register's F-06."
+      ],
+      "what_is_missing": "Confirmation of the category Amazon applies at commission time. No public source states it for an ASIN; the Earnings report names it only on a shipped line.",
+      "how_to_discover": "Associates Central > Reports > Earnings shows the category applied to each shipped item. Before any sale exists, the breadcrumb is the best available evidence and is recorded as evidence rather than as confirmation.",
+      "blocks": [
+        "SG-10"
+      ],
+      "sources": [
+        {
+          "label": "Standard Commission Income Statement, Table 1",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+        },
+        {
+          "label": "Chefman 6 Qt listing - browse-node path read 2026-11-15",
+          "url": "https://link.amazon/B04G1MEwY"
+        },
+        {
+          "label": "Emeril 26 Qt listing - browse-node path read 2026-11-15",
+          "url": "https://link.amazon/B02NbDxp3"
+        },
+        {
+          "label": "Chefman 8 Qt listing - browse-node path read 2026-11-15",
+          "url": "https://link.amazon/B00hJ57DV"
+        }
+      ]
+    },
+    {
+      "id": "Q-16",
+      "group": "Programme compliance",
+      "question": "May this site display Amazon prices, star ratings or review counts?",
+      "state": "known",
+      "why_it_matters": "These are the three fields a reader expects on an affiliate page and the three an Associate site usually cannot show. Getting this wrong is the fastest route to a policy breach, so the answer has to be a rule rather than a preference.",
+      "answer": "No, unless the account holds Creators API or PA API access. Program Policies section 2(b) allows a site to show prices and availability only when Amazon serves the link or the data comes from Creators API or PA API; section 6(t) allows customer reviews and star ratings only when obtained through those same APIs. This build holds neither, so every Amazon price, rating and review count on the site is left blank and flagged. The one rating that does appear is each manufacturer's own review widget on the manufacturer's own page, shown with the date it was read - that is the brand's content, not Program Content, and it is not an Amazon rating.",
+      "what_we_know": [
+        "Program Policies 2(b), read verbatim 2026-11-15: \"Product prices and availability may vary from time to time. ... your Site may only show prices and availability if: (a) we serve the link in which that price and availability data are displayed, or (b) you obtain Product pricing and availability data via Creators API or PA API and you comply with the requirements regarding use of Creators API or PA API in the License.\"",
+        "Program Policies 6(t), read verbatim 2026-11-15: \"You will not display or otherwise use any of our customer reviews or star ratings, in part or in whole, on your Site unless you have obtained a link to that customer review or star rating through Creators API or PA API and you comply with the requirements for Creators API and PA API described in the License.\"",
+        "The build has an executable guard for this: a build check refuses to emit any price tracking or price alerting element, and the site carries no price or rating values at all."
+      ],
+      "what_is_missing": "Nothing about the rule itself - it is a settled reading of the current policy text. What is missing is whether the account will ever hold the API access that would unlock the display.",
+      "how_to_discover": "Not applicable to the rule. If the account later obtains Creators API or PA API access, sections 2(b) and 6(t) must be re-read against that API's own licence terms before any value is displayed.",
+      "blocks": [
+        "SG-06"
+      ],
+      "sources": [
+        {
+          "label": "Associates Program Policies - Participation Requirements 2(b) and 6(t)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ]
+    },
+    {
+      "id": "Q-17",
+      "group": "Evidence base",
+      "question": "What is this site's product coverage actually based on?",
+      "state": "known",
+      "why_it_matters": "A reader who assumes the site tested these appliances will read its comparisons wrongly, and 16 CFR 465.6 makes it deceptive for a business to misrepresent a site it controls as providing independent review. The basis of the coverage therefore has to be stated plainly, not implied.",
+      "answer": "Manufacturer documentation only. Every specification on this site comes from the manufacturer's own product page or the owner's manual for that exact model, read on the date recorded alongside it. No appliance was bought, unboxed, cooked in, weighed or photographed, so no page here claims a cooking result, a measured time, a noise level or a hands-on comparison. The three product pages are document reviews and say so in their titles and their ledes; the articles carry the same statement at the top. Where the official record contradicts itself - the 8-quart 450 F ceiling, the Emeril preset count - the site publishes the conflict instead of resolving it by guesswork.",
+      "what_we_know": [
+        "Every populated specification row in data/products.json names at least one official source, and build.py fails the build if a row carries a value with no source.",
+        "All three owner's manuals were read end to end on 2026-11-15 and every value attributed to them was found in them.",
+        "The site's own footer, every article header and the three product pages each state that nothing was tested."
+      ],
+      "what_is_missing": "Nothing about the coverage. What the site cannot answer is how any of these machines actually cooks, because nobody here has used one - and that gap is the honest limit of every comparison on the site.",
+      "how_to_discover": "Only by buying and testing each unit and recording the test. The conflicts that a reader is most likely to hit - which Chefman 8-quart model the listing actually is, what the Emeril's preset count really says - can only be settled by reading the model plate on the unit, or by the owner's own test.",
+      "blocks": [
+        "SG-15"
+      ],
+      "sources": [
+        {
+          "label": "Chefman RJ38-SQPF-3TDB-2W owner's manual - the 6 Qt document source",
+          "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf"
+        },
+        {
+          "label": "Chefman RJ38-SQSS-8T owner's manual - the 8 Qt document source",
+          "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf"
+        },
+        {
+          "label": "Emeril FAFO-001 owner's manual - the 26 Qt document source",
+          "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"
+        },
+        {
+          "label": "16 CFR 465.6 - company-controlled review sites",
+          "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-465/section-465.6"
+        }
+      ]
+    },
+    {
+      "id": "Q-18",
+      "group": "Platform and compliance",
+      "question": "Can the brief's AI agent read and analyse Amazon's own product data?",
+      "state": "known",
+      "why_it_matters": "The brief's central instruction is to build an AI platform that \"automates product research, identifies trending and high-converting products, analyses pricing, reviews, competition and commission potential\". If that platform is designed to read Amazon listing content, the design is either unlawful under the licence or needs written approval, and the difference decides the whole architecture.",
+      "answer": "Not under the standard licence, and this project does not attempt it. IP License section 1 says Amazon \"will not allow any third party to use Program Content to, directly or indirectly, develop or improve large language or multimodal models, machine learning models or related technology\". Section 2(e) forbids accessing Creators API, PA API or Data Feeds \"for the purpose of aggregating, analyzing, extracting, or repurposing any Product Advertising Content ... or in the direct training or fine-tuning of a machine learning and/or foundational model\" without Amazon's express prior written approval. Listing titles, prices, ratings and review counts are Program Content. The automation that remains available is exactly what this repository already does: read manufacturers' own published pages, hold a verified dataset, and generate prose that may only state values present in that dataset. That is a design constraint on the platform, not an open question.",
+      "what_we_know": [
+        "IP License section 1, read verbatim 2026-11-15: \"This license does not include any downloading, copying or other use of Program Content for the benefit of any third party, or any use of data mining, robots, or similar data gathering and extraction tools.\"",
+        "IP License section 1, final paragraph, read verbatim 2026-11-15: \"will not allow any third party to, use Program Content to, directly or indirectly, develop or improve large language or multimodal models, machine learning models or related technology.\"",
+        "IP License section 2(e), read verbatim 2026-11-15: \"You will not, without our express prior written approval, access or use Creators API, PA API or Data Feeds for the purpose of aggregating, analyzing, extracting, or repurposing any Product Advertising Content or in connection with any software or other application intended for use by persons or entities that offer products on an Amazon Site, or in the direct training or fine-tuning of a machine learning and/or foundational model.\"",
+        "The repository already runs its automation on first-party and manufacturer data only; flag F8 records the same constraint as a platform guardrail."
+      ],
+      "what_is_missing": "Nothing in the rule. What is missing is Amazon's prior written approval, which section 2(e) names as the only route to the restricted use and which does not exist today.",
+      "how_to_discover": "Only Amazon can grant it. Until approval exists in writing, the constraint stands and the platform must run on manufacturer and first-party data.",
+      "blocks": [
+        "SG-17"
+      ],
+      "sources": [
+        {
+          "label": "Associates Program IP License, sections 1 and 2(e)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ]
+    },
+    {
+      "id": "Q-19",
+      "group": "Content operations",
+      "question": "How often should this site's published values be re-read?",
+      "state": "known",
+      "why_it_matters": "The Associates application-review criteria recorded in this repository include a requirement that site content be recent, and that requirement governs whether a review of this site succeeds. The window had been carried forward rather than re-read (flag F56), so it could not be used as a schedule; that gap was closed by a live re-read on 2026-11-16. The drift is demonstrably real: a manufacturer's own review counter moved twice inside three days.",
+      "answer": "Amazon states the review-side recency criterion itself, and it is now read from the source rather than carried forward. Application Review Process, read live 2026-11-16: \"Content on your website must be recent (generally within the last 60 days). You must own your website.\" Two other criteria from the same page are now confirmed from the same read: \"we require at least three within the first 180 days\" of qualifying sales (personal orders do not qualify) and \"a good rule of thumb is at least 10 posts\" of original content per site. So the site's review clock is 60 days, not an assumption. What Amazon does not state is a refresh interval for individual published values - that is the owner's schedule to set, and the site's own drift evidence argues for a tighter one: Chefman's 6 Qt counter read 1,302 on 2026-11-13, 1,305 on 2026-11-14 and 1,307 on 2026-11-16, and the 8 Qt counter read 715, then 716, then 717, with both averages holding at 4.6 throughout.",
+      "what_we_know": [
+        "Every rating figure the site publishes already carries its read date, and flag F19 records why.",
+        "Re-read 2026-11-16: the Chefman 6 Qt counter read 1,307 (from 1,305) and the 8 Qt read 717 (from 716), while both averages held at 4.6. The two rows the site publishes were refreshed to this reading.",
+        "The 2026-11-15 pass re-read every manufacturer page and every owner's manual and found no published value to be wrong.",
+        "Application Review Process, re-read live 2026-11-16: the 180-day / three-sale rule, the ~10-post rule, the 60-day content-recency rule and the ~500-follower social threshold are all confirmed verbatim. That closes the 'not re-read' part of flag F56.",
+        "The 2026-11-16 pass re-read the Standard Commission Income Statement, the Program Policies page, 16 CFR Part 255, both Chefman product pages, the Emeril product page and all three supplied short links, and found no published value wrong."
+      ],
+      "what_is_missing": "The owner's chosen refresh interval for each class of value - Amazon states the review-side recency window, not a maintenance schedule for a documentation site. Nothing on the site has gone stale: the most recent read of every published value is 2026-11-16.",
+      "how_to_discover": "Set an interval per value class and let the build report anything past it - which is SG-18. The Application Review page no longer needs re-reading for its own sake, only when Amazon changes it.",
+      "blocks": [
+        "SG-18"
+      ],
+      "sources": [
+        {
+          "label": "Application Review Process - content recency criterion, read live 2026-11-16 (closes flag F56)",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
+        },
+        {
+          "label": "Chefman 6 Qt brand page - review count at the 2026-11-16 read",
+          "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+        },
+        {
+          "label": "Chefman 8 Qt brand page - review count at the 2026-11-16 read",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        }
+      ]
+    },
+    {
+      "id": "Q-20",
+      "group": "Site ownership",
+      "question": "Which country and marketplace is this site actually promoting, and who states it?",
+      "state": "missing",
+      "why_it_matters": "All three supplied links resolve to amazon.com, the US marketplace. Whether the operator can hold a US Associates account, and on what terms, is not a detail: it decides the tax form, the payment method, the disclosure wording and which marketplace's commission table applies. The repository currently holds two different statements about where the operator is - Japan in the 2026-11-15 pages and Norway in the s2 annex register - and neither came from the operator (flag F42).",
+      "what_we_know": [
+        "All three supplied link.amazon short links resolve to amazon.com, the US marketplace, and all three listings sit under the same US browse-node path.",
+        "Participation Requirements 1, read verbatim 2026-11-15: \"If you are a non-US person participating in the Associates Program, you agree that unless you have otherwise notified us in your tax information you will perform all services under the Agreement outside the United States.\"",
+        "The commission table the site publishes is the US Standard Commission Income Statement."
+      ],
+      "what_is_missing": "The operator's actual country of residence, stated once by the operator, and the marketplace the site is intended to promote. The two statements already in the repository are agent-session observations, not owner statements.",
+      "how_to_discover": "The owner states their country once, one register row cites it, and the other wording is corrected to match. The Associates application itself, which asks for tax information and a bank account, is the authority on whether a non-US applicant is accepted.",
+      "blocks": [],
+      "sources": [
+        {
+          "label": "Associates Program Policies - Participation Requirements 1 (enrollment and eligibility)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Standard Commission Income Statement (US)",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+        }
+      ]
+    },
+    {
+      "id": "Q-21",
+      "group": "Platform compliance",
+      "question": "If the research agent is automated, what is it allowed to touch, and what must it call itself?",
+      "state": "missing",
+      "why_it_matters": "This project is an AI-powered affiliate platform, and Amazon's Program Policies contain a section written for exactly that case: IP License §4, the Agent Terms. They were read live on 2026-11-16 and had never been carried into this site's compliance register, the platform blueprint, or the questions register. The rule is not academic: an agent that fetches Amazon pages without identifying itself, or that works around a bot check, is outside the licence. It decides how the research stage of the platform may be built.",
+      "what_we_know": [
+        "IP License §4, read verbatim 2026-11-16: \"The terms in this section (\"Agent Terms\") apply if you use, allow, enable, or cause the deployment of an Agent to access, use, or interact with the Program Content. For the purposes of these Agent Terms, \"Agent\" means any software or service that takes autonomous or semi-autonomous action on behalf of, or at the instruction of, any person or entity.\"",
+        "Same section, verbatim: \"In all HTTP/HTTPS requests, identify that the request is from an Agent and disclose the name of the Agent by including the following in the request's user agent string: \"Agent/[agent name]\" (e.g., Agent/AmazonAgent)\"; \"Not conceal or obfuscate that any access, use, or interactions are from an Agent…\"; \"Respond truthfully to any question or prompt seeking to determine if interactions are coming from a human or a computer.\"",
+        "Same section, verbatim: \"At our sole discretion, we may limit, including by technical measures, whether and how any Agent accesses, uses, and interacts with Program Content.\"",
+        "Participation Requirements §5, read verbatim 2026-11-16: \"You will not, without express prior written approval, use, or allow any third party to use, any Special Links or Program Content to develop machine learning models or related technology.\"",
+        "IP License §1, read verbatim 2026-11-16: \"We will not allow any third party to, use Program Content to, directly or indirectly, develop or improve large language or multimodal models, machine learning models or related technology.\"",
+        "The published site consumes no Program Content at all, so no Agent Term is triggered by anything it renders today. The clauses matter for the proposed research agent, not for the pages."
+      ],
+      "what_is_missing": "Two things, and neither can be settled from a public page. First, whether a public Amazon product page fetched by an automated tool counts as \"Program Content\" — the IP License defines Program Content around Creators API, PA API and Data Feeds, and the policies page does not say whether an ordinary listing page is inside that definition. Second, the agent's declared name. A third point is only partly legible: IP License §4(a) refers to \"the requirements in section 3 of these Agent Terms\", and section 3 of the Agent Terms was not readable in the render used for this pass (flag F62), so the full list of identification requirements is not yet on the record.",
+      "how_to_discover": "Read IP License §4 in a browser, in full, including the section 3 cross-reference. Then ask Amazon one question in writing — through Associates Central support — and keep the answer: \"Does fetching a public amazon.com product detail page with an automated tool count as accessing Program Content under IP License §4, and is a User-Agent of Agent/zone1-research acceptable?\" Until Amazon answers, the conservative design is the one in SG-22: identify as an agent, never defeat a bot check, and keep the research stage off Program Content entirely.",
+      "blocks": [
+        "SG-22"
+      ],
+      "sources": [
+        {
+          "label": "Associates Program IP License §4 (Agents) and §1 — read live 2026-11-16",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Associates Program Participation Requirements §5 — read live 2026-11-16",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ]
+    },
+    {
+      "id": "Q-22",
+      "group": "Product photography",
+      "question": "Which images may this site publish, and whose permission covers them?",
+      "state": "missing",
+      "why_it_matters": "SG-23 cannot be decided, and no product photography can be published safely, until the image source and its rights are recorded.",
+      "what_we_know": [
+        "Amazon's Operating Agreement licenses Program Content (including images) to Associates under the Agreement's rules.",
+        "The FTC requires clear disclosure of material connections, which applies to imagery as well as text."
+      ],
+      "what_is_missing": "A recorded decision on which image source the site uses, and the rights statement covering each image.",
+      "how_to_discover": "Read Amazon's Program Content/IP provisions in the Operating Agreement and Program Policies, then decide between owner photos, licensed imagery, Program Content images, or text-and-diagrams only.",
+      "blocks": [
+        "SG-23"
+      ],
+      "sources": [
+        {
+          "label": "Associates Program Operating Agreement",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        },
+        {
+          "label": "Associates Program Policies",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ]
+    },
+    {
+      "id": "Q-23",
+      "group": "Content strategy",
+      "question": "Who decides the publishing calendar — including seasonal pieces such as the gift guide — and what is each piece's deadline?",
+      "state": "missing",
+      "why_it_matters": "The brief asks for trendy topics and organic traffic, and organic traffic has windows: gift-guide and deal queries peak in November and December and close at year's end. This pass publishes one seasonal piece (TP-15) and queues two more (TP-16, TP-17), but no register can decide on the owner's behalf how many pieces the window deserves, who signs them off, or what the January window is for. Without an answer the queue stalls exactly when search demand and the 4.50% Kitchen commission rate overlap (SG-24).",
+      "what_we_know": [
+        "The Standard Commission Income Statement, read live 2026-11-16, pays 4.50% on Kitchen and 4.00% on All Other Categories.",
+        "The topic register now holds three seasonal rows: TP-15 (gift guide, published 2026-11-16), TP-16 (hosting capacity) and TP-17 (deal-season checks), both proposed.",
+        "The application review requires site content to be recent — 'generally within the last 60 days' — and looks for about 10 posts.",
+        "Nothing in the repository records any owner statement about seasonal content, deadlines or sign-off."
+      ],
+      "what_is_missing": "A one-line owner decision: which seasonal window(s) to target, how many pieces per window, who approves a publish, and the date each piece must be ready by. 'No seasonal content' is also a usable answer — it would retire TP-16 and TP-17 instead of leaving them pending.",
+      "how_to_discover": "The owner states the calendar once — in COORDINATION.md, in a dated reply, or in the handover sheet — and the editorial queue's blocked_by rows are cleared against that statement. The search window itself is not in dispute; only the owner's appetite and sign-off are missing.",
+      "blocks": [
+        "SG-24"
+      ],
+      "sources": [
+        {
+          "label": "Standard Commission Income Statement (Kitchen 4.50%)",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+        },
+        {
+          "label": "Application Review Process — 10 posts, 60-day recency",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
+        }
+      ]
+    },
+    {
+      "id": "Q-24",
+      "group": "Governance",
+      "question": "Who signs off on the suggestion queue, and on what cadence?",
+      "state": "unknowable",
+      "why_it_matters": "The suggestions page exists so a human picks the path before anything is built. Without a named decider and a cadence, it is a backlog - and each pass that adds well-argued rows makes the backlog longer, not the decisions better.",
+      "what_we_know": [
+        "Every row on the suggestions page is explicitly unimplemented and carries options, a recommendation, effort and risk.",
+        "Several earlier flags were dispositioned as 'the owner's call' (for example F59), which is this same gap surfacing elsewhere.",
+        "Decision path P5 (session arena/19d92a81) groups the reader-facing polish suggestions so one 'yes' covers eight rows."
+      ],
+      "what_is_missing": "A named decider, a review cadence, and what 'approved' means - approved to build, or approved to test?",
+      "how_to_discover": "One message from the owner: a cadence (for example '30 minutes monthly, I mark each row approve/reject/defer') and what approval means. The page can render an approval-state column as soon as the data carries it.",
+      "blocks": [
+        "SG-32",
+        "SG-33",
+        "SG-34",
+        "SG-35"
+      ],
+      "sources": [
+        {
+          "label": "Suggestions register (data/suggestions.json on GitHub)",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/suggestions.json"
+        },
+        {
+          "label": "Suggestions page - the decision queue",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/suggestions.html"
+        },
+        {
+          "label": "Flagged register - rows dispositioned to the owner",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+        }
+      ]
+    },
+    {
+      "id": "Q-25",
+      "group": "Brand",
+      "question": "Is 'Zone1 Kitchen' the final brand name for this site?",
+      "state": "missing",
+      "why_it_matters": "One origin currently publishes at least three names (root, /s2 annex, README). Titles, structured data and share cards all carry a name; search engines and readers treat it as a promise about who published the page.",
+      "what_we_know": [
+        "The root site's titles and organization schema use 'Zone1 Kitchen' with the tagline 'Air-fryer decisions, backed by sources'.",
+        "The /s2 annex publishes under 'Zone1 - Amazon Associates platform'.",
+        "The README titles the project 'Zone1 - verified Amazon affiliate product intelligence'."
+      ],
+      "what_is_missing": "The owner's decision on the one name reader-facing surfaces should carry.",
+      "how_to_discover": "The owner states the name in one line; a single commit then aligns titles, og tags, the annex header and the README. SG-28 carries the implementation options.",
+      "blocks": [
+        "SG-33"
+      ],
+      "sources": [
+        {
+          "label": "Root site (titles, schema)",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/"
+        },
+        {
+          "label": "s2 annex header",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/s2/"
+        },
+        {
+          "label": "README",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/README.md"
+        }
+      ]
+    },
+    {
+      "id": "Q-26",
+      "group": "Automation",
+      "question": "Which API will the automation platform call, now that PA-API 5 has a deprecation notice?",
+      "state": "missing",
+      "why_it_matters": "The brief's platform automates product research, pricing and availability - all of which depend on an official data interface. Amazon has published a PA-API 5 deprecation notice; planning the pipeline against a deprecated interface strands the work.",
+      "what_we_know": [
+        "Amazon publishes a PA-API 5 Deprecation Notice and a Product Advertising API registration topic (both linked on this row).",
+        "The platform blueprint's verification stages are API-agnostic; only the acquisition layer is interface-specific (SG-34)."
+      ],
+      "what_is_missing": "The replacement interface's eligibility terms, rate limits and timeline as they apply to this account - and which interface the owner wants the platform built against.",
+      "how_to_discover": "Read the deprecation notice's replacement guidance (linked), check the account's eligibility for the successor API, then record the decision in data/platform.json and update the blueprint page.",
+      "blocks": [
+        "SG-34"
+      ],
+      "sources": [
+        {
+          "label": "PA-API 5 Deprecation Notice (official)",
+          "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation"
+        },
+        {
+          "label": "New Product Advertising API registration (official)",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GBRCD467W33NMWLD"
+        }
+      ]
+    },
+    {
+      "id": "Q-27",
+      "group": "Product identity",
+      "question": "For the fourth and fifth supplied links, is there a product the operator meant to promote, and is it meant for this site at all?",
+      "state": "unknowable",
+      "why_it_matters": "Everything downstream depends on it. If the operator's intent was a meat thermometer, the site needs a second category and a different buying guide; if the two URLs were pasted in error, publishing them as recommendations would be promoting products nobody chose. Twelve passes of this repository resolved the first three links; the fourth and fifth were not even recorded until 2026-11-17.",
+      "what_we_know": [
+        "Both links were followed by arena/00bc7156-zone1 on 2026-11-17. https://link.amazon/B0c8moW59 was served at the detail page for B0DHZTCNR5 (ThermoMaven 1 Sec instant-read thermometer); https://link.amazon/B0f3GKalj at B0DZFD6R9Z (CHEF iQ Sense Gen3, 3-probe). Both recorded in data/product-intent-confirmations.json.",
+        "Both served URLs carry the same plpRedirect=mhFallback marker the three air-fryer links carry, and the same marker appears on a direct request to a known-correct ASIN (see Q-29's control test), so it settles nothing in either direction.",
+        "The bare tokens are nine characters where an ASIN is ten, so the links themselves name no product, and neither item appears in the three-product register that the site's comparison and buying guides are built from."
+      ],
+      "what_is_missing": "One statement from the account holder: the intended product for each link. Nothing in the public record can supply it.",
+      "how_to_discover": "Open both links signed in to the account, compare the listing that appears against what was meant, and write the answer into the intended_product fields of data/product-intent-confirmations.json. Two minutes each; the fields are already there and blank.",
+      "blocks": [
+        "SG-36",
+        "SG-41"
+      ],
+      "sources": [
+        {
+          "label": "Amazon listing the fourth link was served at (ThermoMaven, read 2026-11-17)",
+          "url": "https://www.amazon.com/dp/B0DHZTCNR5"
+        },
+        {
+          "label": "Amazon listing the fifth link was served at (CHEF iQ Sense, read 2026-11-17)",
+          "url": "https://www.amazon.com/dp/B0DZFD6R9Z"
+        },
+        {
+          "label": "Product-intent ledger in this repository (PI-04, PI-05)",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/product-intent-confirmations.json"
+        }
+      ]
+    },
+    {
+      "id": "Q-28",
+      "group": "Catalogue data",
+      "question": "Do the two accessory listings correspond to the models the brands themselves publish, and if so which ones?",
+      "state": "missing",
+      "why_it_matters": "A specification belongs to a model, not to a brand. ThermoMaven's own storefront leads its instant-read line with a 0.5-second response, while the listing in this project's link set leads with 1 Sec; if those are the same unit, one of the two headline figures is stale, and if they are not, the storefront's IP rating and lifetime warranty must not be attached to the listing's ASIN.",
+      "what_we_know": [
+        "Read 2026-11-17: the brand storefront lists an F1 Turbo instant-read model at 0.5s and ±0.5℉, and its tiles state IP67 there and IPX8 on the wireless lines; no '1 Sec' model appears on the page.",
+        "For CHEF iQ, the brand page's default selection reads CQ60-1C-Z1-E (1 probe) while the Amazon listing is titled for 3 probes, and the page offers 1, 2, 3 and 4-probe configurations - so a single product line covers several SKUs.",
+        "Neither brand's documents were matched to the candidate ASINs by any source in this repository."
+      ],
+      "what_is_missing": "The model or part number each candidate ASIN ships. Amazon's own Product information block for B0DHZTCNR5 and B0DZFD6R9Z would settle the CHEF iQ variant and probably the ThermoMaven model.",
+      "how_to_discover": "Read the Product information block on each listing in a browser - it was out of reach for this session's fetch, which returned only the first chunk of each page. For the precedent of this being possible, see how the three air-fryer model codes were closed on 2026-11-16.",
+      "blocks": [
+        "SG-36",
+        "SG-39"
+      ],
+      "sources": [
+        {
+          "label": "ThermoMaven storefront",
+          "url": "https://www.thermomaven.com/"
+        },
+        {
+          "label": "CHEF iQ iQ Sense product page",
+          "url": "https://chefiq.com/products/iq-sense"
+        }
+      ]
+    },
+    {
+      "id": "Q-29",
+      "group": "Verification method",
+      "question": "Does a plpRedirect=mhFallback destination actually indicate that a submitted short link failed to resolve to the intended product?",
+      "state": "known",
+      "answer": "No - and the repository has been treating it as though it partly does. Tested 2026-11-17 by arena/00bc7156-zone1: a direct request for https://www.amazon.com/dp/B0CDY277D3, a bare known-correct ASIN with no short link and no redirect in the chain, was served at https://www.amazon.com/dp/B0CDY277D3?lv=shuf&channelId=500&plpRedirect=mhFallback. The marker is a property of how Amazon serves detail pages to this fetcher, not a signal about the submitted link.",
+      "why_it_matters": "Twelve passes of flags cite the fallback marker as the reason product identity stays open. If that is the stated reason, the register is explaining the caveat with a fact that does not support it, and the next pass will copy the sentence forward. What genuinely keeps identity open is simpler and independent: the submitted tokens are nine characters, they name no ASIN, and no account holder has ever stated what they were meant to point at.",
+      "what_we_know": [
+        "The control test above, run on a registered ASIN whose listing title matched the register character-for-character.",
+        "The rows affected are the register's F10, F14, F15 and F41, which describe the marker correctly as an observation but have been read downstream as evidence about intent.",
+        "Nothing about the disclosure rule, the sponsored qualification or the intended-versus-observed field split changes: none of them rests on the marker."
+      ],
+      "what_is_missing": "Nothing for the conclusion, which is a negative. A second reader should re-run the control before the flag wording is rewritten, so the correction is not itself a single observation.",
+      "how_to_discover": "Request a bare /dp/ URL for any ASIN already in the register and look at the URL the response is served at. Sixty seconds, no account needed.",
+      "blocks": [
+        "SG-38"
+      ],
+      "sources": [
+        {
+          "label": "One of the short links, as submitted",
+          "url": "https://link.amazon/B04G1MEwY"
+        },
+        {
+          "label": "The ASIN its destination serves",
+          "url": "https://www.amazon.com/dp/B0CDY277D3"
+        }
+      ]
+    },
+    {
+      "id": "Q-30",
+      "group": "Economics",
+      "question": "Which commission category applies to the two accessory listings, and what rate?",
+      "state": "unknowable",
+      "why_it_matters": "The site publishes a commission table and a per-sale arithmetic page for the air fryers. Adding accessories without a rate leaves the reader with an implied 4.50%; adding an invented one is a factual error about money.",
+      "what_we_know": [
+        "The Standard Commission Income Statement read for this register lists 4.50% for a row grouped as Physical Books, Kitchen, Automotive and 3.00% for a row that includes Home; both accessories sit on Amazon pages under Home & Kitchen › Kitchen & Dining.",
+        "The category name that decides the rate is assigned by Amazon to the ASIN, not by the browse path a reader sees, and no public page in this register states it for either listing."
+      ],
+      "what_is_missing": "The rate Amazon assigns to each of the two ASINs, as visible in the link builder or an authorised report.",
+      "how_to_discover": "In Associates Central, look up either ASIN in the link builder, which states the category and rate for that item; record the dated read. Until then the accessory pages publish no rate, which is what the cluster page does today.",
+      "blocks": [
+        "SG-40"
+      ],
+      "sources": [
+        {
+          "label": "Standard Commission Income Statement",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
+        }
+      ]
+    },
+    {
+      "id": "Q-31",
+      "group": "Brand",
+      "question": "Is Zone1 one air-fryer publication with an accessory shelf, or a broader kitchen-tools site?",
+      "state": "missing",
+      "why_it_matters": "The masthead, tagline, structured-data description, RSS title and every 'about' sentence currently say air fryers. A second category published under those words either reads as an error to a reader or quietly rebrands the site; both are visible in search results, where the description and the page disagree.",
+      "what_we_know": [
+        "The published identity is 'Zone1 Kitchen — Air-fryer decisions, backed by sources', and the front page's finder asks only the air-fryer question.",
+        "The accessory cluster published by this pass is deliberately small: one comparison page, two items, and no per-product pages, because the specification depth to justify pages does not exist yet.",
+        "An earlier register row (F39) records that the brand name itself is still the owner's to settle."
+      ],
+      "what_is_missing": "One owner decision, which then dictates the tagline, the RSS title, the structured-data description and the nav.",
+      "how_to_discover": "Answer it against the catalogue plan rather than these two links: if the next ten products are air fryers and their accessories, keep the name and label the second cluster 'accessories'; if the intent is a wider kitchen-tools site, rebrand before the accessory set grows, while there are four pages to change rather than forty.",
+      "blocks": [
+        "SG-37",
+        "SG-43"
+      ],
+      "sources": [
+        {
+          "label": "build.py — SITE_NAME, SITE_TAGLINE and the publisher description this question is about",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py"
+        },
+        {
+          "label": "Google: create helpful, people-first content (site-level quality)",
+          "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+        }
+      ]
     }
-   ],
-   "answer": "Read from the listing on 2026-11-16, and the answer is 'the listing says both'. Its Part Number row reads RJ38-SQSS-8T - the code the brand page and the manual publish for the 200-400 F stainless model - and its own Features & Specs table states a 400 F maximum, while its title advertises '450 F Hi-Fry Option' with Bake/Dehydrate/Frozen. Because Chefman separately publishes RJ38-8T-BLACK at 450 F Hi-Fry with exactly those four functions (S26, re-read live 2026-11-16), the two explanations F3 and F33 hold - a title carried over from another SKU, or a second model listed under the first one's part number - are both still open, and the listing's self-contradiction is now evidence in the case rather than a third site disagreeing. What the read does settle is the direction of the conflict, and what the site may not say: no copy here markets a 450 F capability for this product, and the temperature ceiling of the unit that ships is left unasserted."
-  },
-  {
-   "id": "Q-03",
-   "group": "Programme status",
-   "question": "Is the Amazon Associates account approved, in review, or closed - and when did the current review window start?",
-   "state": "unknowable",
-   "why_it_matters": "An unapproved account earns nothing and is subject to a qualifying-sales requirement. The correct content plan for an account in review is the opposite of the correct plan for an approved one: conversion first versus breadth first.",
-   "what_we_know": [
-    "The Standard Commission Income Statement can be read without signing in, so the rate table is public.",
-    "The site is built as though the account is live, but nothing in the repository records its status."
-   ],
-   "what_is_missing": "The account status and the date the window began. Both are inside Associates Central.",
-   "how_to_discover": "Associates Central home page shows status directly. Record the status and, if in review, the date the application was submitted.",
-   "blocks": [
-    "SG-11",
-    "SG-02"
-   ],
-   "sources": [
-    {
-     "label": "Associates Central - application review process",
-     "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
-    },
-    {
-     "label": "Associates Program Operating Agreement",
-     "url": "https://affiliate-program.amazon.com/help/operating/agreement"
-    }
-   ]
-  },
-  {
-   "id": "Q-04",
-   "group": "Attribution",
-   "question": "Which Associates tag is inside the three supplied short links, and does it belong to this account?",
-   "state": "unknowable",
-   "why_it_matters": "This is the only question on the page whose answer determines whether the site earns any money at all. Program Policies section 2(a) requires Special Links to use the Associates ID assigned to you; section 2(b) requires the tag to appear as a parameter in each link.",
-   "what_we_know": [
-    "The links are link.amazon short links, so the redirect target is observable but the embedded tag is not.",
-    "The redirect target carries Amazon's own parameters (lv=shuf, btn_ref=srctok-..., plpRedirect=mhFallback) but no tag= parameter is visible in the landing URL."
-   ],
-   "what_is_missing": "The full tagged URL. It is inside the short link and is only visible from the account that created it, or by reading the click report.",
-   "how_to_discover": "Option 1: open each link while signed in to Associates Central and confirm the click appears against your tracking ID. Option 2: rebuild each link as a full amazon.com URL with your tag and use that instead.",
-   "blocks": [
-    "SG-02",
-    "SG-08"
-   ],
-   "sources": [
-    {
-     "label": "Program Policies, section 2(a) and 2(b)",
-     "url": "https://affiliate-program.amazon.com/help/operating/policies"
-    },
-    {
-     "label": "Tracking IDs and sub-tags",
-     "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA"
-    }
-   ]
-  },
-  {
-   "id": "Q-05",
-   "group": "Data access",
-   "question": "Do you have, or can you get, Creators API access?",
-   "state": "unknowable",
-   "why_it_matters": "Program Policies section 2(b) permits displaying Amazon price and availability only when Amazon serves the link or when the data comes from Creators API or PA API. Section 6(t) restricts customer reviews and star ratings to API-served content. Without it, the comparison table cannot carry a price or a rating, by law rather than by choice.",
-   "what_we_know": [
-    "The rate table and all program documents are readable without signing in.",
-    "The site currently displays no Amazon price, rating or review count on any page, and that is correct rather than an omission."
-   ],
-   "what_is_missing": "Whether the account qualifies for Creators API, and whether any credentials exist.",
-   "how_to_discover": "Associates Central > Tools > Creators API (or PA API). Access requires qualifying sales. Record approved / not approved.",
-   "blocks": [
-    "SG-06"
-   ],
-   "sources": [
-    {
-     "label": "Program Policies, section 2(b) and 6(t)",
-     "url": "https://affiliate-program.amazon.com/help/operating/policies"
-    },
-    {
-     "label": "PA-API 5 deprecation notice",
-     "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation"
-    }
-   ]
-  },
-  {
-   "id": "Q-06",
-   "group": "Catalogue data",
-   "question": "What is the product weight of the Emeril 26 QT French Door, and is the weight published for the two Chefman models the product weight or the packaged weight?",
-   "state": "not_stated",
-   "why_it_matters": "Counter space and lifting weight are two of the few things a buyer can decide from a page without touching the product, which makes them unusually load-bearing for a 26-quart oven. Separately, the two Chefman weight figures this site publishes are contradicted by the same brand's own commerce endpoint, so the number may be right and the label on it wrong.",
-   "what_we_know": [
-    "Exterior dimensions are published for all three products from official sources: the Chefman 6 Qt from its product page (S10), the Chefman 8 Qt from its product page (S12), and the Emeril 26 QT from its product page (S14).",
-    "Warranty terms are published for all three: 1-year Chefman assurance (S10), limited 1-year from the owner's manual (S13), and 1-year warranty (S14).",
-    "Product weight is published for both Chefman models from their specification blocks: 13.3 lb / 6.03 kg for the 6 Qt (S10) and 12.8 lb / 5.8 kg for the 8 Qt (S12).",
-    "The same brand's own commerce endpoint, read on 2026-11-15, reports 14.51 lb / 6,582 g for RJ38-SQPF-3TDB-2W (S32) and 13.4 lb / 6,078 g for RJ38-SQSS-8T (S33) - both higher, and neither page says which figure is the product and which is the package (flag F51).",
-    "NARROWED 2026-11-15 (arena/63a2c638, flag F52): this row previously asked for dimensions, weight and warranty for all three products and was filed as 'not_stated'. Eight of those nine cells were already published from official sources in data/products.json. Only one cell is genuinely open.",
-    "NEW EVIDENCE 2026-11-16 (arena/b23f12f0, round 11): the brand storefront's own machine-readable product record (S35) reports a variant weight of 27.04 lb / 12,265 g for SKU 4-00675-02A-VN. This is recorded as a candidate, not published as the Emeril's product weight, because the endpoint does not say whether its weight field is the product or the packaged weight - the same ambiguity flag F51 records for the two Chefman models, whose specification-block weights (13.3 lb and 12.8 lb) are both lower than their own endpoint weights (14.51 lb and 13.4 lb). Converting a shipping figure into a product specification is exactly the inference this project refuses to make."
-   ],
-   "what_is_missing": "Two things, and only two. (1) The Emeril 26 QT product weight - neither the brand product page (S14) nor the owner's manual (S15) states one. (2) A statement from Chefman, on either page, saying whether its published weight is the product or the packaged weight.",
-   "how_to_discover": "For the Emeril: read the 'Product information' or specification table on the brand page and the specifications page of the owner's manual; if neither states a weight, leave the cell blank and say so rather than converting a shipping weight. For the Chefman labels: quote the sentence next to the weight in each Specifications block, and quote the endpoint field, then decide which one the site publishes - or publish both with their labels.",
-   "blocks": [
-    "SG-15"
-   ],
-   "sources": [
-    {
-     "label": "Chefman 6 Qt page",
-     "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
-    },
-    {
-     "label": "Chefman 8 Qt page - Specifications block",
-     "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
-    },
-    {
-     "label": "Emeril French Door 360 page",
-     "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
-    },
-    {
-     "label": "Emeril Everyday commerce endpoint (S35) - variant weight field",
-     "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360.json"
-    }
-   ]
-  },
-  {
-   "id": "Q-07",
-   "group": "Site ownership",
-   "question": "Should this be one public site, and should it live on a domain you own?",
-   "state": "unknowable",
-   "why_it_matters": "Nine HTML sites for the same three products are currently published on one github.io origin, and they disagree with each other. Separately, links earned on a github.io subdirectory cannot be moved later without losing them.",
-   "what_we_know": [
-    "GitHub Pages is configured to build from main at the repository root, legacy build type, HTTPS enforced.",
-    "Eight additional directories carry their own index.html and are served under the same origin.",
-    "The repository already generates robots.txt and a sitemap.xml for the root build only (23 URLs)."
-   ],
-   "what_is_missing": "Whether the annexes are meant to be public, and whether a custom domain is acceptable.",
-   "how_to_discover": "A decision, not a lookup: keep the annexes public as an audit trail, or publish only the root and keep the rest in the repository. Record the answer here.",
-   "blocks": [
-    "SG-05",
-    "SG-16"
-   ],
-   "sources": [
-    {
-     "label": "GitHub Pages custom domain documentation",
-     "url": "https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site"
-    },
-    {
-     "label": "Previous passes page",
-     "url": "https://kanlerxz87-cyber.github.io/Zone1/previous-passes.html"
-    },
-    {
-     "label": "Repository top level - every directory with an index.html",
-     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/"
-    }
-   ]
-  },
-  {
-   "id": "Q-08",
-   "group": "Measurement",
-   "question": "What may this site measure, and whose consent does that require?",
-   "state": "missing",
-   "why_it_matters": "The footer currently states the site sets no cookies and runs no analytics, which satisfies Program Policies section 3(e) as written. Adding any analytics makes that statement false immediately and triggers a privacy-notice update plus, for EU and UK visitors, consent requirements.",
-   "what_we_know": [
-    "The site is fully static and runs no client-side tracking of any kind.",
-    "Amazon reports clicks and orders per tracking ID without any on-site script.",
-    "Section 2(b) permits additional sub-tag IDs to separate traffic sources."
-   ],
-   "what_is_missing": "Whether third-party analytics are wanted at all, and if so which lawful basis applies for EU visitors.",
-   "how_to_discover": "Decide between Associates sub-tags alone (no disclosure change) and a cookieless analytics script (small disclosure update). The choice is in the Suggestions page, SG-08.",
-   "blocks": [
-    "SG-08"
-   ],
-   "sources": [
-    {
-     "label": "Program Policies, section 3(e)",
-     "url": "https://affiliate-program.amazon.com/help/operating/policies"
-    },
-    {
-     "label": "Tracking IDs and sub-tags",
-     "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA"
-    }
-   ]
-  },
-  {
-   "id": "Q-09",
-   "group": "Authorship",
-   "question": "Who is the named author, and what may the site honestly claim about how content is produced?",
-   "state": "unknowable",
-   "why_it_matters": "16 CFR 465.6 makes it deceptive for a business to misrepresent that a site it controls provides independent reviews. The site currently describes itself as 'an independent affiliate publisher' while every product page carries affiliate links, and it does not disclose that analysis is documentation-based and machine-assisted.",
-   "what_we_know": [
-    "No page on the site names an author or describes the production method.",
-    "The footer states no hands-on testing is claimed anywhere on the site.",
-    "16 CFR 255.5 requires disclosure of material connections that a significant minority of the audience would not expect."
-   ],
-   "what_is_missing": "The name to publish, whether an editorial human reviews each page before publication, and whether AI assistance will be disclosed.",
-   "how_to_discover": "A decision. If nothing else, publishing the method is enough: 'every number is quoted from a manufacturer document or the CFR, drafted with AI assistance and checked against the source'. That sentence is true today and is not currently on the site.",
-   "blocks": [
-    "SG-03",
-    "SG-14"
-   ],
-   "sources": [
-    {
-     "label": "16 CFR 465.6",
-     "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-465"
-    },
-    {
-     "label": "16 CFR 255.5",
-     "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255/section-255.5"
-    },
-    {
-     "label": "FTC Endorsement Guides Q&A",
-     "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking"
-    }
-   ]
-  },
-  {
-   "id": "Q-10",
-   "group": "Content strategy",
-   "question": "Which search intent does each existing article own, and who is allowed to write the next one?",
-   "state": "missing",
-   "why_it_matters": "A published article set already exists (live count on the articles index) and two of its pieces compete for the same comparison intent. Without an intent map, the ninth will duplicate the fifth, and two pages on one query on one domain split each other's authority.",
-   "what_we_know": [
-    "Every published article is source-linked and none claims hands-on testing (live count on the articles index).",
-    "One earlier pass already deleted three orphaned drafts for exactly this reason and preserved their text in session-7111e2b6/articles-superseded.json."
-   ],
-   "what_is_missing": "A written assignment of one primary intent per article, and a rule that a new article may not target an intent already claimed.",
-   "how_to_discover": "Thirty minutes with the article index. Assign each one intent, publish the map, and make a duplicate a build failure.",
-   "blocks": [
-    "SG-09"
-   ],
-   "sources": [
-    {
-     "label": "Article index",
-     "url": "https://kanlerxz87-cyber.github.io/Zone1/articles/"
-    },
-    {
-     "label": "Superseded drafts and the reason each was removed",
-     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/session-7111e2b6/articles-superseded.json"
-    },
-    {
-     "label": "data/articles.json",
-     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/articles.json"
-    }
-   ]
-  },
-  {
-   "id": "Q-11",
-   "group": "Economics",
-   "question": "Which category has Amazon actually assigned to each ASIN, and therefore which commission rate applies?",
-   "state": "missing",
-   "why_it_matters": "Kitchen pays 4.50% and the fallback row pays 4.00%. A 0.50-point difference moves the break-even traffic estimate by about 12 percent, which decides whether this niche is worth the content investment.",
-   "what_we_know": [
-    "The published Table 1 lists Physical Books, Kitchen and Automotive at 4.50%, and All Other Categories at 4.00%.",
-    "Amazon does not publish an ASIN-to-category mapping, which is why the site shows both candidate rows.",
-    "All three listings display the same breadcrumb: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers.",
-    "The same breadcrumb does NOT settle this question. The Commission Income Statement's categories (S3) are commission categories defined by the Associates programme; browse nodes are a shopper-navigation taxonomy; Amazon publishes no mapping between them. The breadcrumb begins 'Home & Kitchen' while S3 carries both 'Kitchen' at 4.50% and 'Home' at 3.00%, so it cannot even indicate which of the two it resembles. See flag F53.",
-    "RESOLVED 2026-11-16 (arena/b23f12f0, round 11, flag F65): the Emeril browse node is no longer unknown. ASIN B09B7SB46R was fetched successfully on 2026-11-16 and rendered the breadcrumb 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S28) - identical to the two Chefman paths - and the same breadcrumb was reached independently through the supplied short link in the same session (S17). The 2026-11-15 reading that called the block 'per-ASIN' was wrong: on 2026-11-16 the same ASIN fetched cleanly on the first attempt while one of the two ASINs that had worked the previous day was served the checkpoint on its first attempt and returned the listing only on a retry. The checkpoint is intermittent per request, so a failed fetch is not evidence about the ASIN.",
-    "NEW 2026-11-15 (arena/63a2c638): the two Chefman listings each render an Amazon browse-node breadcrumb reading 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S16 for B0CDY277D3, S29 for B08DKYBTPH). That breadcrumb is now published as a sourced fact on each product page.",
-    "UPDATED 2026-11-16 (arena/b23f12f0): all three listings now have a confirmed browse node, and all three are the same node. That closes the last blank cell in the commission question's evidence, but it does not close the question - see the entry above on why a browse path is not a commission category.",
-    "Re-read again the same day by arena/ba29c641 fetching the /dp/ URL directly: its Best Sellers Rank line reads '#214 in Kitchen & Dining' and '#6 in Air Fryers' (node 17659096011), agreeing with both earlier reads. Three independent routes, one classification — and still no commission category."
-   ],
-   "what_is_missing": "Confirmation of the category Amazon applies at commission time. The breadcrumb is strong evidence; the Earnings report is proof.",
-   "how_to_discover": "The rate is not discoverable from any public page - it is only observable after the fact, in the Associates reports, where each qualifying purchase shows the rate actually applied. Read the category column on the first few real orders and the question answers itself. Publishing a rate before then means publishing a guess about how Amazon classified the product.",
-   "blocks": [
-    "SG-10"
-   ],
-   "sources": [
-    {
-     "label": "Standard Commission Income Statement, Table 1",
-     "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
-    },
-    {
-     "label": "Chefman 6 Qt listing - visible breadcrumb",
-     "url": "https://link.amazon/B04G1MEwY"
-    }
-   ]
-  },
-  {
-   "id": "Q-12",
-   "group": "Repository integrity",
-   "question": "Is there any published statement on this site that a live official source contradicts today?",
-   "state": "missing",
-   "why_it_matters": "A site whose entire premise is that every value is sourced cannot carry a stale value next to a source link that no longer says it. That is worse than an unsourced value, because the citation lends it false authority.",
-   "what_we_know": [
-    "This pass fetched all three supplied links, the Commission Income Statement, the Program Policies page, 16 CFR 255.5, 16 CFR Part 465 and both manufacturers' product pages on 2026-11-15.",
-    "One published value was found stale and is corrected in this pass: the Emeril listing title, which now reads '24 One-Touch Preset Options' where the stored value read '24 cooking functions' (flag F38).",
-    "One citation defect was found and corrected: the source record S16 is registered as the B0CDY277D3 URL but was cited for all three listing titles, so two of the three citations pointed at a different product's page (flag F39).",
-    "One register-integrity defect was found and corrected: two different rows were both numbered F36 (flag F40)."
-   ],
-   "what_is_missing": "A standing re-read schedule. Review counts and listing titles change without notice, and no page on the site currently records when a value was last read except the re-verification ledger.",
-   "how_to_discover": "Re-read every value on a fixed cadence and publish the date next to each volatile figure. The re-verification ledger is the right home for this; it needs a schedule rather than a one-off pass.",
-   "blocks": [],
-   "sources": [
-    {
-     "label": "Program Policies - current version, Updated April 14, 2026",
-     "url": "https://affiliate-program.amazon.com/help/operating/policies"
-    },
-    {
-     "label": "Re-verification ledger",
-     "url": "https://kanlerxz87-cyber.github.io/Zone1/reverification.html"
-    }
-   ]
-  },
-  {
-   "id": "Q-13",
-   "group": "Programme viability",
-   "question": "What exactly does the current application-review process require, in its own words?",
-   "state": "unknowable",
-   "why_it_matters": "The repository records '3 qualifying sales / 180 days, 10 posts, 60-day recency, 500 followers' as the review criteria. This pass could not load that page to re-read it, so the figures are carried forward from an earlier logged fetch rather than confirmed today. They should not be restated as current fact until re-read.",
-   "what_we_know": [
-    "The page existed at the recorded URL and was quoted by an earlier pass with a logged fetch.",
-    "This pass attempted the page and did not get content back, so it is flagged rather than repeated as verified."
-   ],
-   "what_is_missing": "A current read of the review-process page, which requires loading it in a browser.",
-   "how_to_discover": "Open the source link and read the qualifying-criteria section. Record what it says today, with the date.",
-   "blocks": [],
-   "sources": [
-    {
-     "label": "Associates Central - application review process",
-     "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
-    }
-   ]
-  },
-  {
-   "id": "Q-14",
-   "group": "Economics",
-   "question": "What is the actual conversion rate for these three products, and what would one sale be worth?",
-   "state": "unknowable",
-   "why_it_matters": "Every revenue projection on this site is arithmetic on an assumed conversion rate. Until one real sale exists, the honest number of sales attributable to this site is zero and any revenue figure is a scenario, not a forecast.",
-   "what_we_know": [
-    "Manufacturer list prices are $119.99, $199.99 and $119.99 USD, each sourced to the brand page.",
-    "At the Kitchen rate of 4.50%, a sale at list price is worth roughly $5.40, $9.00 and $5.40 respectively before returns.",
-    "No sales data exists in this repository."
-   ],
-   "what_is_missing": "Real click and order counts. These live in Associates Central and cannot be obtained by research.",
-   "how_to_discover": "Associates Central > Reports. Until there is history, label any projection as a scenario with its assumed conversion rate stated.",
-   "blocks": [],
-   "sources": [
-    {
-     "label": "Standard Commission Income Statement",
-     "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
-    },
-    {
-     "label": "Chefman 6 Qt brand list price",
-     "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
-    },
-    {
-     "label": "Emeril brand list price",
-     "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
-    }
-   ]
-  },
-  {
-   "id": "Q-15",
-   "group": "Economics",
-   "question": "What commission rate does Amazon's published table give for kitchen appliances, and does that rate apply to these three listings?",
-   "state": "known",
-   "why_it_matters": "The rate is the single number that converts traffic into money, and it is the number an affiliate page most often asserts without checking. Kitchen pays 4.50% and the fallback row pays 4.00%, so the difference between the two is worth roughly a twelfth of the modelled revenue.",
-   "answer": "The published Table 1 row reads \"Physical Books, Kitchen, Automotive - 4.50%\". Two of the three listings rendered that breadcrumb on 2026-11-15 (B0CDY277D3 and B08DKYBTPH). The third, B09B7SB46R, was fetched three times that day and returned Amazon's checkpoint page each time, so as of 2026-11-15 this sentence claimed more than the repository had evidence for - the correct position was recorded on flags F53 and Q-11. On 2026-11-16 session ba29c641 read that listing's own classification line (Kitchen & Dining; Air Fryers node 17659096011), so all three are now sourced, from two different read locations on two different days. 4.50% remains a working rate, not a confirmed one. The one thing still missing is the category Amazon applies when it settles a commission: that name appears only on a shipped line in the Associates Earnings report. Until one exists, the site publishes both candidate rows and labels which is which.",
-   "what_we_know": [
-    "The published Table 1 lists Physical Books, Kitchen and Automotive at 4.50%, and All Other Categories at 4.00%.",
-    "Amazon does not publish an ASIN-to-category mapping, which is why the site shows both candidate rows.",
-    "All three listings display the same breadcrumb: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers.",
-    "Re-read 2026-11-15: the breadcrumb was read directly on all three ASINs - B0CDY277D3, B09B7SB46R and B08DKYBTPH - not only on the Emeril listing, which was the limit of the earlier observation recorded in the annex register's F-06."
-   ],
-   "what_is_missing": "Confirmation of the category Amazon applies at commission time. No public source states it for an ASIN; the Earnings report names it only on a shipped line.",
-   "how_to_discover": "Associates Central > Reports > Earnings shows the category applied to each shipped item. Before any sale exists, the breadcrumb is the best available evidence and is recorded as evidence rather than as confirmation.",
-   "blocks": [
-    "SG-10"
-   ],
-   "sources": [
-    {
-     "label": "Standard Commission Income Statement, Table 1",
-     "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
-    },
-    {
-     "label": "Chefman 6 Qt listing - browse-node path read 2026-11-15",
-     "url": "https://link.amazon/B04G1MEwY"
-    },
-    {
-     "label": "Emeril 26 Qt listing - browse-node path read 2026-11-15",
-     "url": "https://link.amazon/B02NbDxp3"
-    },
-    {
-     "label": "Chefman 8 Qt listing - browse-node path read 2026-11-15",
-     "url": "https://link.amazon/B00hJ57DV"
-    }
-   ]
-  },
-  {
-   "id": "Q-16",
-   "group": "Programme compliance",
-   "question": "May this site display Amazon prices, star ratings or review counts?",
-   "state": "known",
-   "why_it_matters": "These are the three fields a reader expects on an affiliate page and the three an Associate site usually cannot show. Getting this wrong is the fastest route to a policy breach, so the answer has to be a rule rather than a preference.",
-   "answer": "No, unless the account holds Creators API or PA API access. Program Policies section 2(b) allows a site to show prices and availability only when Amazon serves the link or the data comes from Creators API or PA API; section 6(t) allows customer reviews and star ratings only when obtained through those same APIs. This build holds neither, so every Amazon price, rating and review count on the site is left blank and flagged. The one rating that does appear is each manufacturer's own review widget on the manufacturer's own page, shown with the date it was read - that is the brand's content, not Program Content, and it is not an Amazon rating.",
-   "what_we_know": [
-    "Program Policies 2(b), read verbatim 2026-11-15: \"Product prices and availability may vary from time to time. ... your Site may only show prices and availability if: (a) we serve the link in which that price and availability data are displayed, or (b) you obtain Product pricing and availability data via Creators API or PA API and you comply with the requirements regarding use of Creators API or PA API in the License.\"",
-    "Program Policies 6(t), read verbatim 2026-11-15: \"You will not display or otherwise use any of our customer reviews or star ratings, in part or in whole, on your Site unless you have obtained a link to that customer review or star rating through Creators API or PA API and you comply with the requirements for Creators API and PA API described in the License.\"",
-    "The build has an executable guard for this: a build check refuses to emit any price tracking or price alerting element, and the site carries no price or rating values at all."
-   ],
-   "what_is_missing": "Nothing about the rule itself - it is a settled reading of the current policy text. What is missing is whether the account will ever hold the API access that would unlock the display.",
-   "how_to_discover": "Not applicable to the rule. If the account later obtains Creators API or PA API access, sections 2(b) and 6(t) must be re-read against that API's own licence terms before any value is displayed.",
-   "blocks": [
-    "SG-06"
-   ],
-   "sources": [
-    {
-     "label": "Associates Program Policies - Participation Requirements 2(b) and 6(t)",
-     "url": "https://affiliate-program.amazon.com/help/operating/policies"
-    }
-   ]
-  },
-  {
-   "id": "Q-17",
-   "group": "Evidence base",
-   "question": "What is this site's product coverage actually based on?",
-   "state": "known",
-   "why_it_matters": "A reader who assumes the site tested these appliances will read its comparisons wrongly, and 16 CFR 465.6 makes it deceptive for a business to misrepresent a site it controls as providing independent review. The basis of the coverage therefore has to be stated plainly, not implied.",
-   "answer": "Manufacturer documentation only. Every specification on this site comes from the manufacturer's own product page or the owner's manual for that exact model, read on the date recorded alongside it. No appliance was bought, unboxed, cooked in, weighed or photographed, so no page here claims a cooking result, a measured time, a noise level or a hands-on comparison. The three product pages are document reviews and say so in their titles and their ledes; the articles carry the same statement at the top. Where the official record contradicts itself - the 8-quart 450 F ceiling, the Emeril preset count - the site publishes the conflict instead of resolving it by guesswork.",
-   "what_we_know": [
-    "Every populated specification row in data/products.json names at least one official source, and build.py fails the build if a row carries a value with no source.",
-    "All three owner's manuals were read end to end on 2026-11-15 and every value attributed to them was found in them.",
-    "The site's own footer, every article header and the three product pages each state that nothing was tested."
-   ],
-   "what_is_missing": "Nothing about the coverage. What the site cannot answer is how any of these machines actually cooks, because nobody here has used one - and that gap is the honest limit of every comparison on the site.",
-   "how_to_discover": "Only by buying and testing each unit and recording the test. The conflicts that a reader is most likely to hit - which Chefman 8-quart model the listing actually is, what the Emeril's preset count really says - can only be settled by reading the model plate on the unit, or by the owner's own test.",
-   "blocks": [
-    "SG-15"
-   ],
-   "sources": [
-    {
-     "label": "Chefman RJ38-SQPF-3TDB-2W owner's manual - the 6 Qt document source",
-     "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf"
-    },
-    {
-     "label": "Chefman RJ38-SQSS-8T owner's manual - the 8 Qt document source",
-     "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf"
-    },
-    {
-     "label": "Emeril FAFO-001 owner's manual - the 26 Qt document source",
-     "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"
-    },
-    {
-     "label": "16 CFR 465.6 - company-controlled review sites",
-     "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-D/part-465/section-465.6"
-    }
-   ]
-  },
-  {
-   "id": "Q-18",
-   "group": "Platform and compliance",
-   "question": "Can the brief's AI agent read and analyse Amazon's own product data?",
-   "state": "known",
-   "why_it_matters": "The brief's central instruction is to build an AI platform that \"automates product research, identifies trending and high-converting products, analyses pricing, reviews, competition and commission potential\". If that platform is designed to read Amazon listing content, the design is either unlawful under the licence or needs written approval, and the difference decides the whole architecture.",
-   "answer": "Not under the standard licence, and this project does not attempt it. IP License section 1 says Amazon \"will not allow any third party to use Program Content to, directly or indirectly, develop or improve large language or multimodal models, machine learning models or related technology\". Section 2(e) forbids accessing Creators API, PA API or Data Feeds \"for the purpose of aggregating, analyzing, extracting, or repurposing any Product Advertising Content ... or in the direct training or fine-tuning of a machine learning and/or foundational model\" without Amazon's express prior written approval. Listing titles, prices, ratings and review counts are Program Content. The automation that remains available is exactly what this repository already does: read manufacturers' own published pages, hold a verified dataset, and generate prose that may only state values present in that dataset. That is a design constraint on the platform, not an open question.",
-   "what_we_know": [
-    "IP License section 1, read verbatim 2026-11-15: \"This license does not include any downloading, copying or other use of Program Content for the benefit of any third party, or any use of data mining, robots, or similar data gathering and extraction tools.\"",
-    "IP License section 1, final paragraph, read verbatim 2026-11-15: \"will not allow any third party to, use Program Content to, directly or indirectly, develop or improve large language or multimodal models, machine learning models or related technology.\"",
-    "IP License section 2(e), read verbatim 2026-11-15: \"You will not, without our express prior written approval, access or use Creators API, PA API or Data Feeds for the purpose of aggregating, analyzing, extracting, or repurposing any Product Advertising Content or in connection with any software or other application intended for use by persons or entities that offer products on an Amazon Site, or in the direct training or fine-tuning of a machine learning and/or foundational model.\"",
-    "The repository already runs its automation on first-party and manufacturer data only; flag F8 records the same constraint as a platform guardrail."
-   ],
-   "what_is_missing": "Nothing in the rule. What is missing is Amazon's prior written approval, which section 2(e) names as the only route to the restricted use and which does not exist today.",
-   "how_to_discover": "Only Amazon can grant it. Until approval exists in writing, the constraint stands and the platform must run on manufacturer and first-party data.",
-   "blocks": [
-    "SG-17"
-   ],
-   "sources": [
-    {
-     "label": "Associates Program IP License, sections 1 and 2(e)",
-     "url": "https://affiliate-program.amazon.com/help/operating/policies"
-    }
-   ]
-  },
-  {
-   "id": "Q-19",
-   "group": "Content operations",
-   "question": "How often should this site's published values be re-read?",
-   "state": "known",
-   "why_it_matters": "The Associates application-review criteria recorded in this repository include a requirement that site content be recent, and that requirement governs whether a review of this site succeeds. The window had been carried forward rather than re-read (flag F56), so it could not be used as a schedule; that gap was closed by a live re-read on 2026-11-16. The drift is demonstrably real: a manufacturer's own review counter moved twice inside three days.",
-   "answer": "Amazon states the review-side recency criterion itself, and it is now read from the source rather than carried forward. Application Review Process, read live 2026-11-16: \"Content on your website must be recent (generally within the last 60 days). You must own your website.\" Two other criteria from the same page are now confirmed from the same read: \"we require at least three within the first 180 days\" of qualifying sales (personal orders do not qualify) and \"a good rule of thumb is at least 10 posts\" of original content per site. So the site's review clock is 60 days, not an assumption. What Amazon does not state is a refresh interval for individual published values - that is the owner's schedule to set, and the site's own drift evidence argues for a tighter one: Chefman's 6 Qt counter read 1,302 on 2026-11-13, 1,305 on 2026-11-14 and 1,307 on 2026-11-16, and the 8 Qt counter read 715, then 716, then 717, with both averages holding at 4.6 throughout.",
-   "what_we_know": [
-    "Every rating figure the site publishes already carries its read date, and flag F19 records why.",
-    "Re-read 2026-11-16: the Chefman 6 Qt counter read 1,307 (from 1,305) and the 8 Qt read 717 (from 716), while both averages held at 4.6. The two rows the site publishes were refreshed to this reading.",
-    "The 2026-11-15 pass re-read every manufacturer page and every owner's manual and found no published value to be wrong.",
-    "Application Review Process, re-read live 2026-11-16: the 180-day / three-sale rule, the ~10-post rule, the 60-day content-recency rule and the ~500-follower social threshold are all confirmed verbatim. That closes the 'not re-read' part of flag F56.",
-    "The 2026-11-16 pass re-read the Standard Commission Income Statement, the Program Policies page, 16 CFR Part 255, both Chefman product pages, the Emeril product page and all three supplied short links, and found no published value wrong."
-   ],
-   "what_is_missing": "The owner's chosen refresh interval for each class of value - Amazon states the review-side recency window, not a maintenance schedule for a documentation site. Nothing on the site has gone stale: the most recent read of every published value is 2026-11-16.",
-   "how_to_discover": "Set an interval per value class and let the build report anything past it - which is SG-18. The Application Review page no longer needs re-reading for its own sake, only when Amazon changes it.",
-   "blocks": [
-    "SG-18"
-   ],
-   "sources": [
-    {
-     "label": "Application Review Process - content recency criterion, read live 2026-11-16 (closes flag F56)",
-     "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
-    },
-    {
-     "label": "Chefman 6 Qt brand page - review count at the 2026-11-16 read",
-     "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
-    },
-    {
-     "label": "Chefman 8 Qt brand page - review count at the 2026-11-16 read",
-     "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
-    }
-   ]
-  },
-  {
-   "id": "Q-20",
-   "group": "Site ownership",
-   "question": "Which country and marketplace is this site actually promoting, and who states it?",
-   "state": "missing",
-   "why_it_matters": "All three supplied links resolve to amazon.com, the US marketplace. Whether the operator can hold a US Associates account, and on what terms, is not a detail: it decides the tax form, the payment method, the disclosure wording and which marketplace's commission table applies. The repository currently holds two different statements about where the operator is - Japan in the 2026-11-15 pages and Norway in the s2 annex register - and neither came from the operator (flag F42).",
-   "what_we_know": [
-    "All three supplied link.amazon short links resolve to amazon.com, the US marketplace, and all three listings sit under the same US browse-node path.",
-    "Participation Requirements 1, read verbatim 2026-11-15: \"If you are a non-US person participating in the Associates Program, you agree that unless you have otherwise notified us in your tax information you will perform all services under the Agreement outside the United States.\"",
-    "The commission table the site publishes is the US Standard Commission Income Statement."
-   ],
-   "what_is_missing": "The operator's actual country of residence, stated once by the operator, and the marketplace the site is intended to promote. The two statements already in the repository are agent-session observations, not owner statements.",
-   "how_to_discover": "The owner states their country once, one register row cites it, and the other wording is corrected to match. The Associates application itself, which asks for tax information and a bank account, is the authority on whether a non-US applicant is accepted.",
-   "blocks": [],
-   "sources": [
-    {
-     "label": "Associates Program Policies - Participation Requirements 1 (enrollment and eligibility)",
-     "url": "https://affiliate-program.amazon.com/help/operating/policies"
-    },
-    {
-     "label": "Standard Commission Income Statement (US)",
-     "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
-    }
-   ]
-  },
-  {
-   "id": "Q-21",
-   "group": "Platform compliance",
-   "question": "If the research agent is automated, what is it allowed to touch, and what must it call itself?",
-   "state": "missing",
-   "why_it_matters": "This project is an AI-powered affiliate platform, and Amazon's Program Policies contain a section written for exactly that case: IP License §4, the Agent Terms. They were read live on 2026-11-16 and had never been carried into this site's compliance register, the platform blueprint, or the questions register. The rule is not academic: an agent that fetches Amazon pages without identifying itself, or that works around a bot check, is outside the licence. It decides how the research stage of the platform may be built.",
-   "what_we_know": [
-    "IP License §4, read verbatim 2026-11-16: \"The terms in this section (\"Agent Terms\") apply if you use, allow, enable, or cause the deployment of an Agent to access, use, or interact with the Program Content. For the purposes of these Agent Terms, \"Agent\" means any software or service that takes autonomous or semi-autonomous action on behalf of, or at the instruction of, any person or entity.\"",
-    "Same section, verbatim: \"In all HTTP/HTTPS requests, identify that the request is from an Agent and disclose the name of the Agent by including the following in the request's user agent string: \"Agent/[agent name]\" (e.g., Agent/AmazonAgent)\"; \"Not conceal or obfuscate that any access, use, or interactions are from an Agent…\"; \"Respond truthfully to any question or prompt seeking to determine if interactions are coming from a human or a computer.\"",
-    "Same section, verbatim: \"At our sole discretion, we may limit, including by technical measures, whether and how any Agent accesses, uses, and interacts with Program Content.\"",
-    "Participation Requirements §5, read verbatim 2026-11-16: \"You will not, without express prior written approval, use, or allow any third party to use, any Special Links or Program Content to develop machine learning models or related technology.\"",
-    "IP License §1, read verbatim 2026-11-16: \"We will not allow any third party to, use Program Content to, directly or indirectly, develop or improve large language or multimodal models, machine learning models or related technology.\"",
-    "The published site consumes no Program Content at all, so no Agent Term is triggered by anything it renders today. The clauses matter for the proposed research agent, not for the pages."
-   ],
-   "what_is_missing": "Two things, and neither can be settled from a public page. First, whether a public Amazon product page fetched by an automated tool counts as \"Program Content\" — the IP License defines Program Content around Creators API, PA API and Data Feeds, and the policies page does not say whether an ordinary listing page is inside that definition. Second, the agent's declared name. A third point is only partly legible: IP License §4(a) refers to \"the requirements in section 3 of these Agent Terms\", and section 3 of the Agent Terms was not readable in the render used for this pass (flag F62), so the full list of identification requirements is not yet on the record.",
-   "how_to_discover": "Read IP License §4 in a browser, in full, including the section 3 cross-reference. Then ask Amazon one question in writing — through Associates Central support — and keep the answer: \"Does fetching a public amazon.com product detail page with an automated tool count as accessing Program Content under IP License §4, and is a User-Agent of Agent/zone1-research acceptable?\" Until Amazon answers, the conservative design is the one in SG-22: identify as an agent, never defeat a bot check, and keep the research stage off Program Content entirely.",
-   "blocks": [
-    "SG-22"
-   ],
-   "sources": [
-    {
-     "label": "Associates Program IP License §4 (Agents) and §1 — read live 2026-11-16",
-     "url": "https://affiliate-program.amazon.com/help/operating/policies"
-    },
-    {
-     "label": "Associates Program Participation Requirements §5 — read live 2026-11-16",
-     "url": "https://affiliate-program.amazon.com/help/operating/policies"
-    }
-   ]
-  },
-  {
-   "id": "Q-22",
-   "group": "Product photography",
-   "question": "Which images may this site publish, and whose permission covers them?",
-   "state": "missing",
-   "why_it_matters": "SG-23 cannot be decided, and no product photography can be published safely, until the image source and its rights are recorded.",
-   "what_we_know": [
-    "Amazon's Operating Agreement licenses Program Content (including images) to Associates under the Agreement's rules.",
-    "The FTC requires clear disclosure of material connections, which applies to imagery as well as text."
-   ],
-   "what_is_missing": "A recorded decision on which image source the site uses, and the rights statement covering each image.",
-   "how_to_discover": "Read Amazon's Program Content/IP provisions in the Operating Agreement and Program Policies, then decide between owner photos, licensed imagery, Program Content images, or text-and-diagrams only.",
-   "blocks": [
-    "SG-23"
-   ],
-   "sources": [
-    {
-     "label": "Associates Program Operating Agreement",
-     "url": "https://affiliate-program.amazon.com/help/operating/agreement"
-    },
-    {
-     "label": "Associates Program Policies",
-     "url": "https://affiliate-program.amazon.com/help/operating/policies"
-    }
-   ]
-  },
-  {
-   "id": "Q-23",
-   "group": "Content strategy",
-   "question": "Who decides the publishing calendar — including seasonal pieces such as the gift guide — and what is each piece's deadline?",
-   "state": "missing",
-   "why_it_matters": "The brief asks for trendy topics and organic traffic, and organic traffic has windows: gift-guide and deal queries peak in November and December and close at year's end. This pass publishes one seasonal piece (TP-15) and queues two more (TP-16, TP-17), but no register can decide on the owner's behalf how many pieces the window deserves, who signs them off, or what the January window is for. Without an answer the queue stalls exactly when search demand and the 4.50% Kitchen commission rate overlap (SG-24).",
-   "what_we_know": [
-    "The Standard Commission Income Statement, read live 2026-11-16, pays 4.50% on Kitchen and 4.00% on All Other Categories.",
-    "The topic register now holds three seasonal rows: TP-15 (gift guide, published 2026-11-16), TP-16 (hosting capacity) and TP-17 (deal-season checks), both proposed.",
-    "The application review requires site content to be recent — 'generally within the last 60 days' — and looks for about 10 posts.",
-    "Nothing in the repository records any owner statement about seasonal content, deadlines or sign-off."
-   ],
-   "what_is_missing": "A one-line owner decision: which seasonal window(s) to target, how many pieces per window, who approves a publish, and the date each piece must be ready by. 'No seasonal content' is also a usable answer — it would retire TP-16 and TP-17 instead of leaving them pending.",
-   "how_to_discover": "The owner states the calendar once — in COORDINATION.md, in a dated reply, or in the handover sheet — and the editorial queue's blocked_by rows are cleared against that statement. The search window itself is not in dispute; only the owner's appetite and sign-off are missing.",
-   "blocks": [
-    "SG-24"
-   ],
-   "sources": [
-    {
-     "label": "Standard Commission Income Statement (Kitchen 4.50%)",
-     "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ"
-    },
-    {
-     "label": "Application Review Process — 10 posts, 60-day recency",
-     "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
-    }
-   ]
-  },
-  {
-   "id": "Q-24",
-   "group": "Governance",
-   "question": "Who signs off on the suggestion queue, and on what cadence?",
-   "state": "unknowable",
-   "why_it_matters": "The suggestions page exists so a human picks the path before anything is built. Without a named decider and a cadence, it is a backlog - and each pass that adds well-argued rows makes the backlog longer, not the decisions better.",
-   "what_we_know": [
-    "Every row on the suggestions page is explicitly unimplemented and carries options, a recommendation, effort and risk.",
-    "Several earlier flags were dispositioned as 'the owner's call' (for example F59), which is this same gap surfacing elsewhere.",
-    "Decision path P5 (session arena/19d92a81) groups the reader-facing polish suggestions so one 'yes' covers eight rows."
-   ],
-   "what_is_missing": "A named decider, a review cadence, and what 'approved' means - approved to build, or approved to test?",
-   "how_to_discover": "One message from the owner: a cadence (for example '30 minutes monthly, I mark each row approve/reject/defer') and what approval means. The page can render an approval-state column as soon as the data carries it.",
-   "blocks": [
-    "SG-32",
-    "SG-33",
-    "SG-34",
-    "SG-35"
-   ],
-   "sources": [
-    {
-     "label": "Suggestions register (data/suggestions.json on GitHub)",
-     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/suggestions.json"
-    },
-    {
-     "label": "Suggestions page - the decision queue",
-     "url": "https://kanlerxz87-cyber.github.io/Zone1/suggestions.html"
-    },
-    {
-     "label": "Flagged register - rows dispositioned to the owner",
-     "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
-    }
-   ]
-  },
-  {
-   "id": "Q-25",
-   "group": "Brand",
-   "question": "Is 'Zone1 Kitchen' the final brand name for this site?",
-   "state": "missing",
-   "why_it_matters": "One origin currently publishes at least three names (root, /s2 annex, README). Titles, structured data and share cards all carry a name; search engines and readers treat it as a promise about who published the page.",
-   "what_we_know": [
-    "The root site's titles and organization schema use 'Zone1 Kitchen' with the tagline 'Air-fryer decisions, backed by sources'.",
-    "The /s2 annex publishes under 'Zone1 - Amazon Associates platform'.",
-    "The README titles the project 'Zone1 - verified Amazon affiliate product intelligence'."
-   ],
-   "what_is_missing": "The owner's decision on the one name reader-facing surfaces should carry.",
-   "how_to_discover": "The owner states the name in one line; a single commit then aligns titles, og tags, the annex header and the README. SG-28 carries the implementation options.",
-   "blocks": [
-    "SG-33"
-   ],
-   "sources": [
-    {
-     "label": "Root site (titles, schema)",
-     "url": "https://kanlerxz87-cyber.github.io/Zone1/"
-    },
-    {
-     "label": "s2 annex header",
-     "url": "https://kanlerxz87-cyber.github.io/Zone1/s2/"
-    },
-    {
-     "label": "README",
-     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/README.md"
-    }
-   ]
-  },
-  {
-   "id": "Q-26",
-   "group": "Automation",
-   "question": "Which API will the automation platform call, now that PA-API 5 has a deprecation notice?",
-   "state": "missing",
-   "why_it_matters": "The brief's platform automates product research, pricing and availability - all of which depend on an official data interface. Amazon has published a PA-API 5 deprecation notice; planning the pipeline against a deprecated interface strands the work.",
-   "what_we_know": [
-    "Amazon publishes a PA-API 5 Deprecation Notice and a Product Advertising API registration topic (both linked on this row).",
-    "The platform blueprint's verification stages are API-agnostic; only the acquisition layer is interface-specific (SG-34)."
-   ],
-   "what_is_missing": "The replacement interface's eligibility terms, rate limits and timeline as they apply to this account - and which interface the owner wants the platform built against.",
-   "how_to_discover": "Read the deprecation notice's replacement guidance (linked), check the account's eligibility for the successor API, then record the decision in data/platform.json and update the blueprint page.",
-   "blocks": [
-    "SG-34"
-   ],
-   "sources": [
-    {
-     "label": "PA-API 5 Deprecation Notice (official)",
-     "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation"
-    },
-    {
-     "label": "New Product Advertising API registration (official)",
-     "url": "https://affiliate-program.amazon.com/help/node/topic/GBRCD467W33NMWLD"
-    }
-   ]
-  }
- ]
+  ],
+  "updated": "2026-11-17",
+  "updated_by": "arena/00bc7156-zone1 (five rows added for the second product cluster, the two links no earlier pass recorded, and the redirect-marker control test)"
 }
