@@ -1389,3 +1389,100 @@ class — repaired within the session (`3e4859f`) and logged.
 **State at the end of this pass:** `build.py` exit 0 (48 sitemap URLs, every guard green) ·
 `verify.py` 128 pages, 46 spec rows (44 verified, 2 blank+flagged), 35 sources, 0 errors ·
 `ci-check.sh` 7,958 links, 0 broken.
+
+---
+
+## 23. Pass 13 — the shop front, the measurement layer, and five products (2026-11-17)
+
+Session `arena/9fe0b6b3-zone1`. Branch `arena/9fe0b6b3-zone1`, base `9c6e3f0`.
+
+### What changed, in one paragraph
+
+The brief supplied **five** product links and a **Selected Tracking ID**; the repository
+held three products and an empty tag field. This pass registered the two new links,
+resolved all five live, built the product-intent confirmation record the brief asked for,
+turned the outbound-click counter and the self-hosted endpoint contract on, published an
+empty-but-defined campaign ledger, rebuilt the front page as a publication front page with
+every dashboard behind one navigation group and in the footer, and shipped two new
+question-shaped guides into the sitemap and feed. The tracking ID was **not** written to
+`data/config.json`, on purpose, and that decision is published rather than buried.
+
+### The findings that matter
+
+* **Two of the five links are not air fryers.** `https://link.amazon/B0c8moW59` resolves to
+  ASIN **B0DHZTCNR5** (ThermoMaven 1 Sec Professional Digital Meat Thermometer) and
+  `https://link.amazon/B0f3GKalj` resolves to ASIN **B0DZFD6R9Z** (CHEF iQ Sense Gen3
+  Smart Wireless Meat Thermometer). Both were read twice — once by following the short
+  link, once by requesting `/dp/<ASIN>` directly — and both sit in the browse path
+  *Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers &
+  Timers > Meat*, not the Air Fryers node. Flags **F77** and **F78**. Whether that is
+  deliberate is an open question, **Q-27**.
+* **The three original links re-resolved identically on 2026-11-17**, and the three listing
+  titles match the register character for character: B0CDY277D3, B09B7SB46R, B08DKYBTPH.
+* **A Selected Tracking ID was supplied: `shopnow047c-20`.** Amazon's own help states its
+  software "automatically adds \"-20\" to the end of all Associate IDs", so the string has
+  the documented shape of a US Associates ID. That is a statement about **format only**.
+  It is not evidence of ownership, of an approved account, or of attachment to these five
+  links — no resolved URL has carried a visible `tag=` parameter across eight recorded
+  rounds. Flag **F79**.
+* **The intended ASIN is blank for all five links, and that is the finding.** A redirect
+  that reproduces every time is still not a statement about intent.
+
+### Two decisions this pass made deliberately
+
+1. **The tracking ID was held out of `data/config.json`.** Setting that field makes
+   `scripts/build_site.py` append it to *every* outbound link at once — scaling five
+   unvalidated links before one has been confirmed. It is recorded in
+   `data/link-intent.json` and published on the product-link register instead. The
+   sequence is SG-38: confirm the ID, generate one Special Link, confirm destination and
+   the tracking report, *then* scale.
+2. **Only two of the four supplied working titles were published.** "Basket or oven-style
+   air fryer" and "a no-hype capacity checklist" are already answered by
+   `dual-basket-vs-oven-air-fryer` and `air-fryer-capacity-guide`. Republishing them under
+   new titles would be near-duplicate affiliate content — the exact failure mode the
+   "must not read like AI slop" brief is about. The mapping for all four is published on
+   `topics.html` so the decision is visible. The two new guides are
+   `questions-before-buying-multi-function-appliance` (supplied title 4, no existing
+   answer) and `cook-to-temperature-not-to-time` (serves the two products that had no
+   content at all).
+
+### What was built
+
+| Item | Where | State |
+|---|---|---|
+| Product-intent confirmation record — intent and observation as two separate blocks, never merged | `links.html`, `data/link-intent.json` | Shipped; guard `check_link_intent()` fails the build if they are merged |
+| Validated-Special-Link gate — one link per product, confirmed before scaling | `links.html` §3, SG-38 | Gate published; zero links validated |
+| Privacy-preserving outbound-click counter, five events, no cookies | `assets/measure.js`, `measurement.html`, `data/analytics.json` | Counter ships; **endpoint not configured, so nothing leaves the browser** |
+| Self-hosted endpoint contract + reference collector | `analytics/collect.js` | Contract fixed; needs a host (Q-29) |
+| Campaign ledger | `data/ledger.json`, `measurement.html` | **Empty by design**; no conversion score or revenue forecast is published |
+| Publication front page; every dashboard in one nav group **and** the footer | `index.html` | Shipped |
+| Disclosure above the fold on every page and repeated in the footer | all pages | Enforced by `check_disclosure_above_fold()` |
+| Two new products registered, every specification cell blank | `data/products.json` | 5 products, 2 categories, 13 blank+flagged rows |
+| Publishing cadence | `topics.html` | One guide a fortnight; slots 3–4 left open pending measurement |
+
+### Verification performed this pass
+
+All reads below were live on 2026-11-17.
+
+* Five short links re-resolved; the two new ASINs confirmed twice each by two routes.
+* **S2** Associates Program Policies — re-read, "Updated: April 14, 2026" (new source
+  **S36** added for the tracking-ID format; **S37** for the FTC endorsements page the brief
+  cites as S24; **S38/S39** for the two new listings; **S40** for the two new short links).
+* Titles for the three original products compared character for character against
+  `data/products.json` — all three match.
+
+### Irregularities left open (published, none blocking)
+
+F76 (intended ASIN blank for all five links) · F77 (two links land in a different browse
+category) · F78 (CHEF iQ's title contains "Air Fryer", so a keyword match mis-files it) ·
+F79 (tracking-ID ownership unconfirmed) · F6/F7/F10 (short-link attribution, unchanged) ·
+F11 (cookie disclosure) · F3 (8 Qt temperature conflict) · F71 (listing
+self-contradictions) · 13 blank+flagged specification rows.
+
+### State at the end of this pass
+
+`build.py` exit 0 — 55 sitemap URLs, 23 feed items, every guard green ·
+`verify.py` 132 pages, 88 spec rows (75 verified, 13 blank+flagged), 40 sources,
+0 errors, 0 external warnings · `ci-check.sh` 33 unit tests OK, data audit clean,
+s2 build current, 11,333 links / 0 broken · three new guards proven to fire in both
+directions.
