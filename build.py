@@ -163,6 +163,7 @@ SUG_BY_ID = {s["id"]: s for s in SUGGESTIONS["suggestions"]}
 # owner reviews data, never a template. Statuses describe the repository as built.
 DESIGN_PROMPT = load("design-prompt.json")
 
+
 SRC_BY_ID = {s["id"]: s for s in SOURCES["sources"]}
 ACCESSED = SOURCES["accessed"]
 # Date of the most recent line-by-line re-read of the published values (see reverification.html).
@@ -407,6 +408,7 @@ NAV = [
     ("compare.html", "Comparison", "Verified-only side-by-side matrix"),
     ("guides/buying-guide-air-fryers.html", "Buying guide", "How to choose a form factor"),
     ("articles/index.html", "Articles", "Sourced reads — comparisons, explainers, policy"),
+    ("clusters.html", "Article clusters", "The four questions the set is filed under"),
     ("data.html", "Full dataset", "Every field, value, source and gap"),
     ("platform.html", "Platform blueprint", "The automation and compliance design"),
     ("compliance.html", "Compliance", "Program rules, quoted, with sources"),
@@ -563,6 +565,17 @@ html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
 body{
   margin:0; background:var(--paper); color:var(--ink);
   font:16px/1.65 var(--sans);
+}
+
+/* ------------------------------------------------- article clusters */
+.cluster-group{margin:2.2rem 0 0}
+.cluster-head{border-left:3px solid var(--brand); padding:.1rem 0 .1rem .9rem; margin-bottom:1rem}
+.cluster-head h2{margin:.1rem 0 .35rem; font-size:1.35rem}
+.cluster-head p{margin:.25rem 0}
+.cluster-group .cardgrid{margin-top:.4rem}
+@media (max-width:760px){
+  .cluster-head{padding-left:.7rem}
+  .cluster-head h2{font-size:1.18rem}
 }
 
 /* ---------------------------------------------------------------- links */
@@ -6028,6 +6041,16 @@ def page_404():
 # --------------------------------------------------------------------------- #
 
 ARTICLES = load("articles.json")
+# The article cluster map (added 2026-11-17, session 79743fd2). The article set
+# had no map: "Read next" on every page showed the same three articles because
+# it was the first three rows of the file, and internal linking was whatever a
+# reader happened to click. A small site earns a commercial query by owning one
+# cluster completely rather than by publishing one page per idea, so the
+# articles are grouped by the question a reader actually arrives with, each
+# group has a named hub, and the build draws the links.
+CLUSTERS = load("clusters.json")
+CLUSTER_BY_ID = {c["id"]: c for c in CLUSTERS["clusters"]}
+ARTICLE_BY_SLUG = {a["slug"]: a for a in ARTICLES["articles"]}
 
 _PRODUCT_VALUES = None
 
@@ -6357,43 +6380,109 @@ def _n_words(n):
     return _NUM_WORDS.get(n, f"{n} pieces")
 
 
+def cluster_of(article):
+    """The cluster an article belongs to, or None when it has none."""
+    cid = article.get("cluster")
+    return CLUSTER_BY_ID.get(cid)
+
+
+def cluster_href(hub, prefix="../"):
+    """A link to a cluster's hub page, relative to wherever the reader is."""
+    return prefix + hub
+
+
+def cluster_siblings(article):
+    """The other articles in the same cluster, in the order the map lists them."""
+    c = cluster_of(article)
+    if not c:
+        return []
+    return [ARTICLE_BY_SLUG[s] for s in c["members"]
+            if s in ARTICLE_BY_SLUG and s != article["slug"]]
+
+
+def _article_card(a, prefix="../"):
+    """One article card. Shared by the articles index and the cluster map, so a
+    card looks the same wherever a reader meets it."""
+    prods = ""
+    if a["products"]:
+        links = []
+        for slug in a["products"]:
+            p = next((x for x in PRODUCT_LIST if x["slug"] == slug), None)
+            if p:
+                links.append(f'<a href="{prefix}products/{slug}.html">{e(p["short_name"])}</a>')
+        if links:
+            prods = ('<p class="tiny muted" style="margin:.4rem 0 0">About: '
+                     + " \u00b7 ".join(links) + "</p>")
+    # An article that serves no single product (site-level pieces) leaves prods
+    # empty; emitting the slot anyway would publish a trailing-whitespace line.
+    prods_html = (prods + "\n") if prods else ""
+    cluster = cluster_of(a)
+    badge = ""
+    if cluster:
+        badge = (f'<p class="tiny muted" style="margin:.5rem 0 0">In the cluster: '
+                 f'<a href="{prefix}clusters.html#{e(cluster["id"])}">{e(cluster["label"])}</a></p>\n')
+    return f"""<article class="card article-card">
+  <span class="kicker">{e(a["kicker"])}</span>
+  <a class="cardtitle" href="{prefix}articles/{a["slug"]}.html">{e(a["title"])}</a>
+  <span class="cardtext">{e(a["standfirst"])}</span>
+  <span class="tiny muted">{e(a["kind"])} \u00b7 {a["reading_minutes"]} min read</span>
+{badge}{prods_html}</article>"""
+
+
 def page_articles_index():
-    cards = []
-    for a in ARTICLES["articles"]:
-        prods = ""
-        if a["products"]:
-            links = []
-            for slug in a["products"]:
-                p = next((x for x in PRODUCT_LIST if x["slug"] == slug), None)
-                if p:
-                    links.append(f'<a href="../products/{slug}.html">{e(p["short_name"])}</a>')
-            if links:
-                prods = ('<p class="tiny muted" style="margin:.4rem 0 0">About: '
-                         + " · ".join(links) + "</p>")
-        # An article that serves no single product (site-level pieces) leaves prods
-        # empty; emitting the slot anyway would publish a trailing-whitespace line.
-        prods_html = (prods + "\n") if prods else ""
-        cards.append(f"""<article class="card article-card">
-  <span class="kicker">{e(a['kicker'])}</span>
-  <a class="cardtitle" href="../articles/{a['slug']}.html">{e(a['title'])}</a>
-  <span class="cardtext">{e(a['standfirst'])}</span>
-  <span class="tiny muted">{e(a['kind'])} · {a['reading_minutes']} min read</span>
-{prods_html}</article>""")
+    """The articles hub, grouped by the question a reader arrives with.
+
+    The order used to be the order of the file, and the "Read next" list on
+    every article was simply the first three rows of that file - so every
+    article on the site pointed at the same three articles. The groups below
+    replace that: each cluster names the question it answers, links to its hub,
+    and lists the articles that answer it.
+    """
+    groups = []
+    for c in CLUSTERS["clusters"]:
+        members = [ARTICLE_BY_SLUG[s] for s in c["members"] if s in ARTICLE_BY_SLUG]
+        if not members:
+            continue
+        cards = "\n".join(_article_card(a, prefix="../") for a in members)
+        groups.append(f"""<section class="cluster-group">
+  <div class="cluster-head">
+    <h2>{e(c["label"])}</h2>
+    <p class="small muted">{e(c["summary"])}</p>
+    <p class="tiny">Hub: <a href="../{e(c["hub"])}">{e(c["hub_label"])}</a> \u00b7
+    <a href="../clusters.html#{e(c["id"])}">the full map</a></p>
+  </div>
+  <div class="cardgrid">
+{cards}
+  </div>
+</section>""")
+    # Any article that is not in the map still has to be reachable, or the index
+    # would quietly lose a page.
+    orphans = [a for a in ARTICLES["articles"] if not cluster_of(a)]
+    if orphans:
+        cards = "\n".join(_article_card(a, prefix="../") for a in orphans)
+        groups.append(f"""<section class="cluster-group">
+  <div class="cluster-head"><h2>Not yet filed</h2></div>
+  <div class="cardgrid">
+{cards}
+  </div>
+</section>""")
+
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Articles</p>
 <h1>Articles</h1>
-<p class="lede">{_n_words(len(ARTICLES["articles"]))} written for this product set. Each one states what the manufacturer's own pages and manuals establish, links to the page it came from, and names the places where the official record contradicts itself rather than tidying them away.</p>
+<p class="lede">{_n_words(len(ARTICLES["articles"]))} written for this product set, filed under the
+four questions a shopper actually arrives with. Each one states what the manufacturer's own
+pages and manuals establish, links to the page it came from, and names the places where the
+official record contradicts itself rather than tidying them away.</p>
 
 <div class="callout info">
   <strong>How to read these articles</strong>
   <p class="small">A <code class="specval">highlighted number</code> is a value published in this site's verified dataset and is a quotation from a manufacturer page or owner's manual. An ordinary number in prose is a date or a page reference. Anything marked <em>judgement</em> or written as a decision rule is the site's opinion, not a sourced fact. <strong>No product in this set was tested by anyone here</strong>, so no article claims a cooking result, a measured time or a hands-on comparison.</p>
 </div>
 
-<p class="small" style="margin:0 0 1.2rem">New pieces land here as the manuals and the topic register produce them. Subscribe without an account: <a href="../feed.xml">RSS feed</a>.</p>
+<p class="small" style="margin:0 0 1.2rem">New pieces land here as the manuals and the topic register produce them. Subscribe without an account: <a href="../feed.xml">RSS feed</a>. The <a href="../clusters.html">cluster map</a> shows how the set fits together.</p>
 
-<div class="cardgrid">
-{chr(10).join(cards)}
-</div>
+{"".join(groups)}
 
 <h2>What these articles deliberately do not contain</h2>
 <div class="tablewrap">
@@ -6401,16 +6490,16 @@ def page_articles_index():
   <caption>Editorial rules this section is built to</caption>
   <thead><tr><th>Rule</th><th>Why</th><th>Source</th></tr></thead>
   <tbody>
-    <tr><td>No hands-on testing is claimed</td><td>A first-person testing claim that never happened is a deceptive endorsement, not a style choice.</td><td>{src_links(['S8', 'S2'])}</td></tr>
-    <tr><td>No Amazon price, star rating or review count</td><td>Both may only be displayed when Amazon serves the link or the data comes from Creators/PA API.</td><td>{src_links(['S2'])}</td></tr>
-    <tr><td>No superlative asserted as fact</td><td>"Best", "quietest" and "fastest" are measurements. None were taken.</td><td>{src_links(['S2'])}</td></tr>
-    <tr><td>A conflict is published, not resolved</td><td>Picking a winner between two official sources without evidence would be a fabrication with a citation attached.</td><td>{src_links(['S14', 'S12'])}</td></tr>
-    <tr><td>Disclosure on every page</td><td>Operating Agreement §5 and 16 CFR §255.5(a) both require it, in a place a reader will actually see.</td><td>{src_links(['S1', 'S9'])}</td></tr>
+    <tr><td>No hands-on testing is claimed</td><td>A first-person testing claim that never happened is a deceptive endorsement, not a style choice.</td><td>{src_links(["S8", "S2"])}</td></tr>
+    <tr><td>No Amazon price, star rating or review count</td><td>Both may only be displayed when Amazon serves the link or the data comes from Creators/PA API.</td><td>{src_links(["S2"])}</td></tr>
+    <tr><td>No superlative asserted as fact</td><td>"Best", "quietest" and "fastest" are measurements. None were taken.</td><td>{src_links(["S2"])}</td></tr>
+    <tr><td>A conflict is published, not resolved</td><td>Picking a winner between two official sources without evidence would be a fabrication with a citation attached.</td><td>{src_links(["S14", "S12"])}</td></tr>
+    <tr><td>Disclosure on every page</td><td>Operating Agreement \u00a75 and 16 CFR \u00a7255.5(a) both require it, in a place a reader will actually see.</td><td>{src_links(["S1", "S9"])}</td></tr>
   </tbody>
 </table>
 </div>
 
-<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../guides/buying-guide-air-fryers.html">Buying guide →</a> <a class="btn btn-ghost" href="../compare.html">Comparison matrix →</a> <a class="btn btn-ghost" href="../flagged.html">Flagged for review →</a></p>
+<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../guides/buying-guide-air-fryers.html">Buying guide \u2192</a> <a class="btn btn-ghost" href="../compare.html">Comparison matrix \u2192</a> <a class="btn btn-ghost" href="../flagged.html">Flagged for review \u2192</a></p>
 """
     aurl = page_url("articles/index.html")
     ld = [
@@ -6443,7 +6532,101 @@ def page_articles_index():
         },
     ]
     return layout("articles/index.html", "Articles", body, active="articles/index.html",
-                  description="Eight sourced articles on dual-basket vs oven air fryers, what a 450 F badge means, preset-count conflicts, capacity from published numbers, and why this site publishes no Amazon prices.",
+                  description="Sourced air-fryer articles filed under four questions a shopper actually arrives with: which machine to buy, what the numbers mean, what it is like to live with, and whether this page can be trusted.",
+                  jsonld_blocks=ld)
+
+
+def page_clusters():
+    """The cluster map: one page that shows how the article set fits together.
+
+    Added 2026-11-17 (session 79743fd2). Twenty-one articles with no map is
+    twenty-one pages a search engine has to work out the relationship between,
+    and a reader who wants a second answer to the question they just read has
+    to go back to a flat list. The map gives both of them the shape.
+    """
+    sections = []
+    for c in CLUSTERS["clusters"]:
+        members = [ARTICLE_BY_SLUG[s] for s in c["members"] if s in ARTICLE_BY_SLUG]
+        rows = ""
+        for a in members:
+            # The official documents this article rests on, so the row states
+            # where its facts came from rather than only what it says.
+            cites = []
+            for sec in a.get("sections") or []:
+                for sid in sec.get("cite") or []:
+                    if sid not in cites:
+                        cites.append(sid)
+            cite_cell = src_links(cites) if cites else (
+                '<span class="tiny muted">site-level piece: no product specification is quoted</span>')
+            rows += (
+                f'<tr><td class="small"><a href="articles/{e(a["slug"])}.html">{e(a["title"])}</a>'
+                f'<div class="tiny muted">{e(a["kind"])} \u00b7 {a["reading_minutes"]} min read</div></td>'
+                f'<td class="small">{e(a["standfirst"])}</td>'
+                f'<td class="small muted">{e(a["target_query"])}</td>'
+                f'<td class="small">{cite_cell}</td></tr>')
+        sections.append(f"""
+<section id="{e(c["id"])}" class="cluster-group">
+  <div class="cluster-head">
+    <p class="kicker">{e(c["intent"])}</p>
+    <h2>{e(c["label"])}</h2>
+    <p class="small muted">{e(c["summary"])}</p>
+    <p class="tiny">Hub: <a href="{e(c["hub"])}">{e(c["hub_label"])}</a></p>
+  </div>
+  <div class="tablewrap">
+  <table>
+    <caption>Articles in this cluster, with the query each one targets</caption>
+    <thead><tr><th style="width:26%">Article</th><th style="width:36%">What it answers</th><th style="width:18%">Query it targets</th><th style="width:20%">Official sources it rests on</th></tr></thead>
+    <tbody>{rows}</tbody>
+  </table>
+  </div>
+</section>""")
+
+    body = f"""
+<p class="crumbs"><a href="index.html">Home</a> / Article clusters</p>
+<h1>Four clusters, {len(ARTICLES["articles"])} articles</h1>
+<p class="lede">A small site earns a query by answering it completely rather than by publishing
+one page per idea. This is the shape of the set: the four questions a shopper brings here, the
+hub that answers each one, and the articles underneath it. Every link on this page is generated
+from <code>data/clusters.json</code>, so the map and the articles cannot drift apart.</p>
+
+<div class="callout info">
+  <strong>Why this is not a taxonomy exercise</strong>
+  <p class="small">The clusters are not tags. Each one is a question a reader arrives with, and
+  each article is filed under the question it actually answers. A piece about cleaning sits with
+  ownership questions, not with the format comparisons, even when it mentions the same three
+  products.</p>
+</div>
+
+{"".join(sections)}
+
+<div class="callout warn">
+  <strong>What a cluster is not</strong>
+  <p class="small">It is not a claim that these pages rank, or will rank, or that the search terms
+  in the last column have any volume behind them. The query each article targets is the
+  question it is written to answer, recorded so the set can be judged for overlap. No traffic
+  figure appears here because none has been measured.</p>
+</div>
+
+<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="articles/index.html">All articles →</a> <a class="btn btn-ghost" href="guides/buying-guide-air-fryers.html">Buying guide →</a> <a class="btn btn-ghost" href="compare.html">Comparison matrix →</a></p>
+"""
+    url = page_url("clusters.html")
+    ld = [
+        {
+            "@type": "CollectionPage",
+            "@id": url + "#webpage",
+            "url": url,
+            "name": "Article clusters",
+            "isPartOf": {"@id": SITE_URL + "/#website"},
+            "about": {"@id": SITE_URL + "/#organization"},
+            "inLanguage": "en-US",
+        },
+        breadcrumbs_jsonld([
+            ("Home", SITE_URL + "/"),
+            ("Article clusters", url),
+        ]),
+    ]
+    return layout("clusters.html", "Article clusters", body, active="articles/index.html",
+                  description="The article set filed under the four questions a shopper actually arrives with: which machine to buy, what the numbers mean, what it is like to live with, and whether the page can be trusted.",
                   jsonld_blocks=ld)
 
 
@@ -6460,10 +6643,44 @@ def page_article(a):
         if items:
             prods = ('<div class="callout"><strong>Products covered</strong>'
                      f'<ul class="tight small" style="margin:.4rem 0 0">{"".join(items)}</ul></div>')
-    related = [x for x in ARTICLES["articles"] if x["slug"] != a["slug"]][:3]
-    rel_html = "".join(
-        f'<li><a href="../articles/{x["slug"]}.html">{e(x["title"])}</a> '
-        f'<span class="tiny muted">— {e(x["kind"])}</span></li>' for x in related)
+    # "Read next" used to be the first three rows of data/articles.json minus
+    # this article, so every article on the site pointed at the same three
+    # articles. It is now the rest of this article's own cluster - the group
+    # that answers the same question - with the cluster hub above it.
+    _cluster = cluster_of(a)
+    _sibs = cluster_siblings(a)
+    rel_html = ""
+    if _sibs:
+        rel_html = "".join(
+            f'<li><a href="../articles/{x["slug"]}.html">{e(x["title"])}</a> '
+            f'<span class="tiny muted">— {e(x["kind"])}</span></li>' for x in _sibs)
+    cluster_badge = ""
+    if _cluster:
+        cluster_badge = (
+            f'<span class="pill pill-info">Cluster: <a href="../clusters.html#'
+            f'{e(_cluster["id"])}">{e(_cluster["label"])}</a></span>')
+    cluster_hub_html = ""
+    if _cluster:
+        cluster_hub_html = (
+            f'<p class="small" style="margin:.6rem 0 0">Hub for this cluster: '
+            f'<a href="../{e(_cluster["hub"])}">{e(_cluster["hub_label"])}</a></p>')
+    if rel_html:
+        read_next_html = (
+            "<h2>More in this cluster</h2>" + cluster_hub_html + "\n"
+            + '<ul class="tight small">' + rel_html + "</ul>")
+    elif _cluster:
+        read_next_html = (
+            "<h2>More in this cluster</h2>" + cluster_hub_html + "\n"
+            + '<p class="small">This is the only article filed under this cluster so far.</p>')
+    else:
+        read_next_html = (
+            "<h2>Read next</h2>"
+            + '<ul class="tight small">'
+            + "".join(
+                f'<li><a href="../articles/{x["slug"]}.html">{e(x["title"])}</a> '
+                f'<span class="tiny muted">— {e(x["kind"])}</span></li>'
+                for x in ARTICLES["articles"][:3] if x["slug"] != a["slug"])
+            + "</ul>")
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / <a href="../articles/index.html">Articles</a> / {e(a['kind'])}</p>
 <header class="article-head">
@@ -6475,6 +6692,7 @@ def page_article(a):
     <span>{a['reading_minutes']} min read</span><span aria-hidden="true">·</span>
     <span>sources read {ARTICLES['accessed']}</span><span aria-hidden="true">·</span>
     <span class="pill pill-info">Documentation-based — no hands-on testing</span>
+    {cluster_badge}
   </div>
 </header>
 
@@ -6489,8 +6707,7 @@ def page_article(a):
 
 <p class="small" style="margin-top:1.5rem"><em>{e(a['closing_note'])}</em></p>
 
-<h2>Read next</h2>
-<ul class="tight small">{rel_html}</ul>
+{read_next_html}
 
 <p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../articles/index.html">← All articles</a> <a class="btn btn-ghost" href="../flagged.html">What is unresolved →</a></p>
 """
@@ -7452,6 +7669,59 @@ def check_analytics_consistency(pages):
     return problems
 
 
+def check_clusters(generated=()):
+    """Build guard: the cluster map and the article set must agree.
+
+    The map is a second copy of a fact - which article belongs to which group -
+    and a second copy of a fact is where the two drift apart. When a new
+    article is added and nobody files it, it becomes invisible in the cluster
+    navigation and reachable only from the flat list; when an article is
+    renamed, the map points at a page that no longer exists. Both are the kind
+    of defect no link checker sees, because every link in the map is a valid
+    link to *something*.
+
+    This guard fails the build if an article is unfiled, if an article is filed
+    twice, if a cluster names an article that does not exist, if a cluster is
+    empty, or if a cluster's hub is not a page this build actually generates.
+    """
+    problems = []
+    ids = [c["id"] for c in CLUSTERS["clusters"]]
+    if len(ids) != len(set(ids)):
+        problems.append("two clusters share an id")
+    slugs = {a["slug"] for a in ARTICLES["articles"]}
+    filed = {}
+    for c in CLUSTERS["clusters"]:
+        if not c.get("members"):
+            problems.append(f'cluster {c["id"]} has no members')
+        for slug in c.get("members") or []:
+            if slug not in slugs:
+                problems.append(f'cluster {c["id"]} lists "{slug}", which is not an article')
+            if slug in filed:
+                problems.append(
+                    f'"{slug}" is in both cluster {filed[slug]} and cluster {c["id"]}')
+            filed[slug] = c["id"]
+    for a in ARTICLES["articles"]:
+        cid = a.get("cluster")
+        if not cid:
+            problems.append(f'article "{a["slug"]}" is not filed in a cluster')
+        elif cid not in CLUSTER_BY_ID:
+            problems.append(f'article "{a["slug"]}" names cluster "{cid}", which does not exist')
+        elif filed.get(a["slug"]) != cid:
+            problems.append(
+                f'article "{a["slug"]}" says cluster "{cid}" but the map files it under '
+                f'{filed.get(a["slug"])}')
+    known = set(generated) if generated else set()
+    for c in CLUSTERS["clusters"]:
+        hub = c.get("hub") or ""
+        if not hub:
+            problems.append(f'cluster {c["id"]} has no hub')
+        elif known and hub not in known:
+            problems.append(
+                f'cluster {c["id"]} points its hub at "{hub}", which this build does not '
+                "generate")
+    return problems
+
+
 def check_rows_have_sources():
     """Build-time guard: an asserted value with no source id is a hard failure."""
     problems = []
@@ -7887,6 +8157,7 @@ def main():
     pages["compare.html"] = page_compare()
     pages["guides/buying-guide-air-fryers.html"] = page_guide()
     pages["articles/index.html"] = page_articles_index()
+    pages["clusters.html"] = page_clusters()
     for _a in ARTICLES["articles"]:
         pages[f"articles/{_a['slug']}.html"] = page_article(_a)
     pages["data.html"] = page_data()
@@ -7975,6 +8246,9 @@ def main():
     if duplicate_problems:
         raise SystemExit("BUILD FAILED — register carries duplicated content (flag F64):\n  "
                          + "\n  ".join(duplicate_problems))
+    cluster_problems = check_clusters(generated=pages.keys())
+    if cluster_problems:
+        raise SystemExit("BUILD FAILED - the cluster map and the article set disagree:\n  " + "\n  ".join(cluster_problems))
     analytics_problems = check_analytics_consistency(pages)
     if analytics_problems:
         raise SystemExit("BUILD FAILED - measurement/privacy consistency:\n  " + "\n  ".join(analytics_problems))
