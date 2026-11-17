@@ -1,5 +1,7 @@
 # Executive summary — Zone1 Amazon affiliate platform
 
+> **Historical briefing, superseded for the 2026-11-17 link-intent and measurement status.** Use [`data/product-intent.json`](data/product-intent.json), [`data/analytics-plan.json`](data/analytics-plan.json), and [`reports/brief-reconciliation-2026-11-17.md`](reports/brief-reconciliation-2026-11-17.md) for the current record. The five submitted URLs, observed destinations and owner-confirmed intent must remain separate; no intended listing or Associates attribution is confirmed by this historical summary.
+
 **Prepared:** 2026-11-13 (UTC) · **Branch:** `arena/105bc29e-zone1` · **Live site:** https://kanlerxz87-cyber.github.io/Zone1/
 
 ---
@@ -167,7 +169,7 @@ This settles a disagreement between earlier sessions in favour of the cross-chec
 
 ### 10.3 Citation-quality fixes in the dashboard annex (flag **F15**)
 
-Some rows in the separately-built `dashboard/` annex cited third-party sites (barcode.graphics, keywordseverywhere.com, manuals.plus, aruljohn.com, u2l.ai) instead of official sources. Where an official source exists it has been added — Amazon's own [KDP Help G200652190](https://kdp.amazon.com/en_US/help/topic/G200652190) ("your 10-character Amazon Standard Identification Number"; canonical `amazon.com/dp/ASIN` format), verified live and added as **S23**. Where no official source exists (the short-domain list), the row is now explicitly marked **unverified**. No original claim was deleted.
+Some rows in the separately-built `dashboard/` annex cited third-party sites (barcode.graphics, keywordseverywhere.com, manuals.plus, aruljohn.com, u2l.ai) instead of official sources. S23 was added from Amazon KDP Help G200652190, registered as “Linking from Your Website.” **Correction (2026-11-17, F79):** the source record does not substantiate the earlier general-ASIN-definition or `/dp/` format claim; do not rely on S23 for that claim. Where no official source exists (the short-domain list), the row is marked unverified.
 
 ### 10.4 Preserved disagreements (flag **F16**)
 
@@ -606,8 +608,8 @@ session live under `session-3b99448e/` so they cannot overwrite another session'
 Re-reviewed the three supplied `link.amazon` short links against the official evidence already
 recorded in this repo (no live Amazon fetch was possible from this session):
 
-- The tokens are 9 characters; an ASIN is 10 characters (S23 — Amazon KDP Help).
-- `amazon.com/dp/<token>` returns "Page Not Found" (S21); an unrecognised short-link token returns
+- The submitted path tokens are preserved as supplied and are not used as evidence of intended product identity. The earlier S23 citation for a general ASIN definition is withdrawn under F79; no token-format or link-validity conclusion is needed here.
+- Earlier `/dp/<token>` checks returned "Page Not Found" for a tested path (S21), while an unrecognised short-link token returned
   403 (S22).
 - The short links resolve through Amazon's `plpRedirect=mhFallback` handler to air-fryer listings
   (candidate ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH — S17/S16), but destination is not identity:
@@ -1205,8 +1207,7 @@ and each page's **Product information** block rendered, model rows included:
 
 Read in full: **F68** (`flagged.html#f68`). The correction is narrower than it looks and worth
 stating twice. What closed is the ASIN-to-model step, for all three products. What did **not** close
-is the supplied-link-to-ASIN attribution: the three `link.amazon` tokens are still nine characters,
-still not ASINs, and still arrive through `plpRedirect=mhFallback` (F6, F7, F10 stand). No sentence
+is the supplied-link-to-ASIN attribution: the three `link.amazon` URLs have recorded redirect observations, but the path tokens are not used as proof of intended ASINs or products (F6, F7, F10 stand). No sentence
 on this site now says the listing hides its model number; the register's F1 was corrected rather
 than deleted, so the wrong premise stays visible in the file that carried it.
 

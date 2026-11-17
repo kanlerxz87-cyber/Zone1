@@ -12,16 +12,16 @@
   {
    "id": "Q-01",
    "group": "Product identity",
-   "question": "Which exact manufacturer model number does each of the three supplied Amazon links point to?",
-   "state": "known",
-   "why_it_matters": "Three separate Chefman 6-quart dual-basket models exist with different documented temperature ranges and functions. If the wrong model is on a product page, every specification below it is a misstatement about a product the site is paid to recommend.",
+   "question": "Which products are intended behind the five supplied short links, and which official listing does each point to?",
+   "state": "missing",
+   "why_it_matters": "The three-product register contains candidate listings, but the five submitted links do not establish which products the account holder intended. Treating an observed destination as intent could send a reader to the wrong product.",
    "what_we_know": [
-    "All three link.amazon short links resolve to the same three ASINs on every recorded fetch: B0CDY277D3, B09B7SB46R and B08DKYBTPH (7 observation rounds, 2026-11-13 to 2026-11-15).",
-    "The three destination pages carry the listing titles recorded in data/products.json, except the Emeril title, which changed between 2026-11-14 and 2026-11-15 (flag F38).",
-    "The bare 9-character codes in the short links (B04G1MEwY, B02NbDxp3, B00hJ57DV) are not ASINs and return 'Page Not Found' when used as /dp/ identifiers. Re-tested 2026-11-15."
+    "The project brief supplies five exact link strings; the canonical product register contains three air-fryer candidates.",
+    "A 2026-11-17 fetch recorded separate observed Amazon redirect destinations and titles for all five links, including two thermometer titles; these observations do not establish intended products.",
+    "The intended ASIN, official listing URL, confirmation date and confirmation source remain blank for all five rows in data/product-intent.json."
    ],
-   "what_is_missing": "Nothing for the model step. For the link attribution: a statement from the account holder, or the Associates Central link builder showing which ASIN each short link was created for. Neither is reachable from this repository.",
-   "how_to_discover": "Done 2026-11-16 by session ba29c641: the Product information block was read off all three listing pages and published on the product pages and in reports/asin-model-mapping-2026-11-16.md. The residual part - link-to-ASIN intent - can only be settled by whoever created the short links.",
+   "what_is_missing": "The account holder’s intended product and an official Amazon listing URL confirmed against that intent for each supplied link.",
+   "how_to_discover": "In the account holder’s normal signed-in browser, open each supplied link, compare the listing title and model/part number with the item intended, and record the official /dp/ URL and confirmation source in data/product-intent.json only after that check. Keep the observed redirect in its separate field.",
    "blocks": [
     "SG-01",
     "SG-04",
@@ -29,19 +29,26 @@
    ],
    "sources": [
     {
-     "label": "Chefman 6 Qt dual-window model page (RJ38-SQPF-3TDB-2W)",
-     "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+     "label": "Observed 6 Qt candidate listing (S16)",
+     "url": "https://www.amazon.com/dp/B0CDY277D3"
     },
     {
-     "label": "Chefman 8 Qt model page",
-     "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+     "label": "Observed Emeril candidate listing (S28)",
+     "url": "https://www.amazon.com/dp/B09B7SB46R"
     },
     {
-     "label": "Flag register rows F2, F3, F32, F33",
-     "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+     "label": "Observed 8 Qt candidate listing (S29)",
+     "url": "https://www.amazon.com/dp/B08DKYBTPH"
+    },
+    {
+     "label": "Observed PI-04 Amazon page title (S36)",
+     "url": "https://www.amazon.com/dp/B0DHZTCNR5"
+    },
+    {
+     "label": "Observed PI-05 Amazon page title (S37)",
+     "url": "https://www.amazon.com/dp/B0DZFD6R9Z"
     }
-   ],
-   "answer": "Answered for the ASIN-to-model step on 2026-11-16, without a human in a browser - which is the part that matters, because F49 had recorded that no automated read could reach this table and SG-01 had assigned it to the owner as a five-minute browser job. Each listing's own Product information block carries the code: B0CDY277D3 publishes Model Number and Part Number RJ38-SQPF-3TDB-2W; B08DKYBTPH publishes Part Number RJ38-SQSS-8T (its Model Number row holds the string 'Large Air Fryer'); B09B7SB46R publishes Model Number and Part Number 4-00675-02X-VN, which is the brand page's 4-00675-02A-VN with one character changed. The first two agree with the manufacturer documents the site already held, so those two rows are now sourced twice. The third does not, and is published as a conflict (F66) rather than resolved. What this does NOT answer is which product the three supplied link.amazon tokens were meant to point at: the tokens are 9 characters, are not ASINs, and the observed destinations arrive through a fallback redirect (F7, F10). That half still belongs to the account holder."
+   ]
   },
   {
    "id": "Q-02",
@@ -101,15 +108,16 @@
   {
    "id": "Q-04",
    "group": "Attribution",
-   "question": "Which Associates tag is inside the three supplied short links, and does it belong to this account?",
+   "question": "Which Associates tracking ID is active on the account, and does each of the five supplied links report clicks to it?",
    "state": "unknowable",
    "why_it_matters": "This is the only question on the page whose answer determines whether the site earns any money at all. Program Policies section 2(a) requires Special Links to use the Associates ID assigned to you; section 2(b) requires the tag to appear as a parameter in each link.",
    "what_we_know": [
-    "The links are link.amazon short links, so the redirect target is observable but the embedded tag is not.",
-    "The redirect target carries Amazon's own parameters (lv=shuf, btn_ref=srctok-..., plpRedirect=mhFallback) but no tag= parameter is visible in the landing URL."
+    "The project brief supplies shopnow047c-20 as the selected tracking ID; it has not been independently checked in Associates Central.",
+    "The ID is not applied by this build. The tag inside any of the five short links is not confirmed from public redirect observations.",
+    "Amazon’s tracking-ID help page describes separate reporting by tracking ID; that public help page does not confirm this account’s ID or any particular link."
    ],
-   "what_is_missing": "The full tagged URL. It is inside the short link and is only visible from the account that created it, or by reading the click report.",
-   "how_to_discover": "Option 1: open each link while signed in to Associates Central and confirm the click appears against your tracking ID. Option 2: rebuild each link as a full amazon.com URL with your tag and use that instead.",
+   "what_is_missing": "Associates Central confirmation that shopnow047c-20 belongs to and is active on the account, plus one successful enrolled-Associates test and attributable report result for each confirmed intended product/link.",
+   "how_to_discover": "In Associates Central, open Manage Tracking IDs and verify the selected ID. After intended products are confirmed, create or select one enrolled Special Link per product, follow each link using the account holder’s normal test procedure, and confirm each click appears against the intended tracking ID in Reports. Do not apply the tag broadly until all intended product tests pass.",
    "blocks": [
     "SG-02",
     "SG-08"
@@ -228,22 +236,27 @@
    "state": "missing",
    "why_it_matters": "The footer currently states the site sets no cookies and runs no analytics, which satisfies Program Policies section 3(e) as written. Adding any analytics makes that statement false immediately and triggers a privacy-notice update plus, for EU and UK visitors, consent requirements.",
    "what_we_know": [
-    "The site is fully static and runs no client-side tracking of any kind.",
-    "Amazon reports clicks and orders per tracking ID without any on-site script.",
-    "Section 2(b) permits additional sub-tag IDs to separate traffic sources."
+    "The current build loads no analytics client and sends no visitor events; its footer says so.",
+    "The brief requests privacy-preserving measurement. A reference collector and disabled browser client exist in this branch, but neither is deployed or collecting.",
+    "The repository configuration points the canonical site at a GitHub Pages URL; this checkout has no configured or verified same-origin analytics endpoint. The S38 documentation URL is a reference and was not fetched in this integration.",
+    "Amazon Associates Program Policies §3(e) require an accurate cookie/technology statement; collection remains disabled."
    ],
-   "what_is_missing": "Whether third-party analytics are wanted at all, and if so which lawful basis applies for EU visitors.",
-   "how_to_discover": "Decide between Associates sub-tags alone (no disclosure change) and a cookieless analytics script (small disclosure update). The choice is in the Suggestions page, SG-08.",
+   "what_is_missing": "A verified first-party runtime and same-origin route; approved visitor-facing privacy and retention notice; host/proxy log configuration review; a successful end-to-end test; and authorized Associates reports for order/conversion figures.",
+   "how_to_discover": "Choose and deploy an owner-controlled runtime for /api/analytics/events on the publication origin. Review application, host and proxy logging/retention, update and approve the privacy notice, then test the disabled-by-default collector end to end. Only after all gates pass may the owner explicitly enable collection. Obtain conversion/order totals only from authorized Associates Central reports.",
    "blocks": [
     "SG-08"
    ],
    "sources": [
     {
-     "label": "Program Policies, section 3(e)",
+     "label": "GitHub Pages documentation reference (not fetched in this integration)",
+     "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages"
+    },
+    {
+     "label": "Amazon Associates Program Policies §3(e)",
      "url": "https://affiliate-program.amazon.com/help/operating/policies"
     },
     {
-     "label": "Tracking IDs and sub-tags",
+     "label": "Tracking IDs and reporting",
      "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA"
     }
    ]
@@ -287,11 +300,11 @@
    "state": "missing",
    "why_it_matters": "A published article set already exists (live count on the articles index) and two of its pieces compete for the same comparison intent. Without an intent map, the ninth will duplicate the fifth, and two pages on one query on one domain split each other's authority.",
    "what_we_know": [
-    "Every published article is source-linked and none claims hands-on testing (live count on the articles index).",
-    "One earlier pass already deleted three orphaned drafts for exactly this reason and preserved their text in session-7111e2b6/articles-superseded.json."
+    "The repository holds published, sourced articles and a topic register; those titles are editorial proposals and do not demonstrate search demand.",
+    "No verified Search Console query export is recorded in the repository, and no keyword demand or trend figure is claimed."
    ],
-   "what_is_missing": "A written assignment of one primary intent per article, and a rule that a new article may not target an intent already claimed.",
-   "how_to_discover": "Thirty minutes with the article index. Assign each one intent, publish the map, and make a duplicate a build failure.",
+   "what_is_missing": "Measured Search Console query/page data for the verified property, reader feedback, and a dated assignment of one primary intent per article.",
+   "how_to_discover": "Verify ownership of the site property in Search Console, submit the current sitemap, wait for data to accumulate, then save a dated query/page export. Use observed impressions, clicks and reader questions to choose future topics; do not call a topic trending before data supports it.",
    "blocks": [
     "SG-09"
    ],
@@ -395,12 +408,12 @@
    "state": "unknowable",
    "why_it_matters": "Every revenue projection on this site is arithmetic on an assumed conversion rate. Until one real sale exists, the honest number of sales attributable to this site is zero and any revenue figure is a scenario, not a forecast.",
    "what_we_know": [
-    "Manufacturer list prices are $119.99, $199.99 and $119.99 USD, each sourced to the brand page.",
-    "At the Kitchen rate of 4.50%, a sale at list price is worth roughly $5.40, $9.00 and $5.40 respectively before returns.",
-    "No sales data exists in this repository."
+    "The repository campaign ledger is empty; no authorized report totals for clicks, eligible sessions or orders have been added.",
+    "Actual conversions and revenue are unknown. The absence of rows is not evidence of zero visits or zero orders.",
+    "Amazon reporting is account-only; a click count alone does not establish a qualifying purchase or commission."
    ],
-   "what_is_missing": "Real click and order counts. These live in Associates Central and cannot be obtained by research.",
-   "how_to_discover": "Associates Central > Reports. Until there is history, label any projection as a scenario with its assumed conversion rate stated.",
+   "what_is_missing": "Authorized first-party click/session/order data, including the report source and date range.",
+   "how_to_discover": "After link tests and real traffic, retrieve the actual Associates Central report and copy its reported totals into data/campaign-ledger.json with timestamp, source, channel and date range. Do not estimate conversion rate or revenue from clicks.",
    "blocks": [],
    "sources": [
     {

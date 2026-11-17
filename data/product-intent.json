@@ -1,14 +1,13 @@
 {
- "schema_note": "One row per link the owner supplied. intended_asin, official_listing_url, confirmation_date and confirmation_source are set ONLY from an official Amazon listing that the owner has confirmed as the intended product. observed_* fields are what a fetch of the supplied link returned on observed_on; they are kept in separate fields and are never copied into the intended fields. A 9-character short code is not an ASIN, so no intended ASIN is inferred from it.",
+ "schema_note": "One row per exact link supplied in the project brief. intended_asin, official_listing_url, confirmation_date and confirmation_source remain null until the account holder confirms the intended official Amazon listing. observed_* fields are the separate destination/title observed on the date shown; they are not product-intent or Associates-attribution confirmation. Short-link tokens are recorded as tokens, not asserted to be ASINs.",
  "tracking_id_selected": "shopnow047c-20",
  "tracking_id_applied_to_links": false,
- "tracking_id_status": "Selected by the account holder. Not applied to any outbound link yet. The Associates one-link test (Manage Tracking IDs and a tracking report, S6) has not been run, because it needs the account holder's Associates Central login. Applying the ID to all links is gated on that test.",
+ "tracking_id_status": "User-selected value recorded only. Not validated in Associates Central and not confirmed on any supplied link. The required enrolled-Associates link test has not been run for any intended product. Test one link per confirmed product and verify each tracking result before scaling; keep associate_tag blank until the account checks pass.",
  "rows": [
   {
    "id": "PI-01",
    "supplied_link": "https://link.amazon/B04G1MEwY",
    "short_code": "B04G1MEwY",
-   "category_fit": "Air fryer (in scope)",
    "intended_asin": null,
    "official_listing_url": null,
    "confirmation_date": null,
@@ -21,13 +20,13 @@
     "S17",
     "S16"
    ],
-   "note": "Observed target matches the ASIN recorded in the register since 2026-11-15. Not yet confirmed as the intended listing."
+   "note": "Observed fallback-style landing page/title only. It is not confirmation of the account holder’s intended listing or Associates attribution.",
+   "observed_listing_category": "Air-fryer product title on observed landing page; intended product unconfirmed"
   },
   {
    "id": "PI-02",
    "supplied_link": "https://link.amazon/B02NbDxp3",
    "short_code": "B02NbDxp3",
-   "category_fit": "Air fryer (in scope)",
    "intended_asin": null,
    "official_listing_url": null,
    "confirmation_date": null,
@@ -40,13 +39,13 @@
     "S17",
     "S28"
    ],
-   "note": "Observed target matches the register. The listing title says six accessories; the site publishes seven (open flag F48)."
+   "note": "Observed fallback-style landing page/title only. The listing title says six accessories; the separate product-register conflict remains flagged. This is not confirmation of intent or attribution.",
+   "observed_listing_category": "Air-fryer product title on observed landing page; intended product unconfirmed"
   },
   {
    "id": "PI-03",
    "supplied_link": "https://link.amazon/B00hJ57DV",
    "short_code": "B00hJ57DV",
-   "category_fit": "Air fryer (in scope)",
    "intended_asin": null,
    "official_listing_url": null,
    "confirmation_date": null,
@@ -59,13 +58,13 @@
     "S17",
     "S29"
    ],
-   "note": "Observed target matches the register."
+   "note": "Observed fallback-style landing page/title only. It is not confirmation of the account holder’s intended listing or Associates attribution.",
+   "observed_listing_category": "Air-fryer product title on observed landing page; intended product unconfirmed"
   },
   {
    "id": "PI-04",
    "supplied_link": "https://link.amazon/B0c8moW59",
    "short_code": "B0c8moW59",
-   "category_fit": "Meat thermometer (outside the air-fryer scope of this site)",
    "intended_asin": null,
    "official_listing_url": null,
    "confirmation_date": null,
@@ -75,16 +74,15 @@
    "observed_title": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black",
    "observed_on": "2026-11-17",
    "observed_source_ids": [
-    "S17",
     "S36"
    ],
-   "note": "Not previously in the register. The observed page is a thermometer, not an air fryer. Owner decision (flag F78)."
+   "note": "Observed Amazon page title is for a ThermoMaven meat thermometer. This redirect observation does not establish that the account holder intended to promote it.",
+   "observed_listing_category": "Meat-thermometer product title on observed landing page; intended product unconfirmed"
   },
   {
    "id": "PI-05",
    "supplied_link": "https://link.amazon/B0f3GKalj",
    "short_code": "B0f3GKalj",
-   "category_fit": "Meat thermometer (outside the air-fryer scope of this site)",
    "intended_asin": null,
    "official_listing_url": null,
    "confirmation_date": null,
@@ -94,10 +92,13 @@
    "observed_title": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen",
    "observed_on": "2026-11-17",
    "observed_source_ids": [
-    "S17",
     "S37"
    ],
-   "note": "Not previously in the register. The observed page is a thermometer, not an air fryer. Owner decision (flag F78)."
+   "note": "Observed Amazon page title is for a CHEF iQ meat thermometer. This redirect observation does not establish that the account holder intended to promote it.",
+   "observed_listing_category": "Meat-thermometer product title on observed landing page; intended product unconfirmed"
   }
- ]
+ ],
+ "tracking_id_provenance": "User-provided in the project brief on 2026-11-17; not independently checked in Associates Central.",
+ "tracking_id_associates_central_confirmation_date": null,
+ "tracking_id_associates_central_confirmation_source": null
 }

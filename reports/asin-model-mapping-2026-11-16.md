@@ -1,5 +1,7 @@
 # ASIN → model mapping: reading the listing's own Product information block
 
+> **Correction (2026-11-17, F79):** Section 5 below cites S23 as a general ASIN-length and `/dp/`-format definition. The source register identifies S23 as KDP's “Linking from Your Website” help page and does not substantiate that general claim. Do not use the supplied short-link path tokens to infer intended products or ASINs. Current supplied URLs, observed destinations, and blank owner-confirmed intent fields are in [`data/product-intent.json`](../data/product-intent.json). This correction narrows the source claim; it does not alter the reported 2026-11-16 listing-page observations.
+
 **Session:** `arena/ba29c641-zone1` (pass 11) · **Date:** 2026-11-16 (UTC) · **Task:** Z2 on the board
 **Method:** server-side fetch of the live URL, then a line-by-line read of the returned page. Nothing
 below is recalled, inferred or carried over from another file: every value is quoted from the response

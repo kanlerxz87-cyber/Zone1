@@ -753,10 +753,24 @@
    "scope": "Publishing",
    "requirement": "Track clicks",
    "clause": "track clicks and conversions",
-   "status": "not_delivered",
-   "where": [],
-   "evidence": [],
-   "why": "There is no analytics on the site at all — no script, no beacon, no server-side log the owner can read. The footer says so precisely, because Program Policies §3(e) requires an accurate statement of cookie and third-party technology use, and adding a tracker without rewriting that statement would make the footer false.",
+   "status": "partial",
+   "where": [
+    "analytics/collector.py",
+    "assets/analytics.js",
+    "data/analytics-plan.json",
+    "measurement.html"
+   ],
+   "evidence": [
+    {
+     "label": "Analytics plan (collection disabled; endpoint not deployed)",
+     "url": "measurement.html"
+    },
+    {
+     "label": "Reference collector and tests",
+     "url": "analytics/collector.py"
+    }
+   ],
+   "why": "A first-party aggregate event schema, privacy-minimizing reference collector, disabled browser client and tests are prepared. Collection is still not active: the canonical site is static GitHub Pages, no endpoint runtime is deployed, and the privacy notice has not been approved. No click data is claimed.",
    "sources": []
   },
   {
@@ -767,7 +781,7 @@
    "status": "blocked",
    "where": [],
    "evidence": [],
-   "why": "Conversions are reported only by Amazon, inside the Associates account, after real sales. Nothing on this site can observe them, and no third-party estimate would be the owner's actual number.",
+   "why": "Amazon-reported orders and commissions require an authorized Associates Central report. The site has no account access, and no conversion or revenue values are estimated from clicks.",
    "sources": []
   },
   {
