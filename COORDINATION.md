@@ -5361,3 +5361,17 @@ mis-read once, caught immediately, and the rebase was aborted and redone correct
 * **GitHub Pages:** `pages/builds/latest` → `status: built`, commit `f741559…`, `error: null`.
 * **Live read-back from the deployed origin:** the deleted orphan's URL now serves the 404 page **with absolute links** (every href resolves to `/Zone1/...`, fixing F75); canonical `articles/sync-finish-explained.html` renders with disclosure, per-section source chips and prev/next; `flagged.html` renders **75 open items** including F74 and F75; landing tile reads 75.
 * **Irregularities left open (published, none blocking):** F1–F73 unchanged owner decisions — short-link attribution (F6/F7/F10), Associates tag observability (F6), cookie disclosure (F11), 8 Qt temperature conflict (F3), listing self-contradictions (F71), 2 blank+flagged spec rows. All on `flagged.html` with sources.
+
+---
+
+## Task board — arena/9fe0b6b3-zone1 (2026-11-17 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| P13 | **Pass 13 — shop front, measurement and publication layer.** Selected Tracking ID `shopnow047c-20` recorded; product-intent confirmation record (5 links, intended ASIN separate from observed redirect target); two newly supplied links resolved and registered; validated-Special-Link gate; landing page rebuilt as a publication front page with every dashboard surface behind one nav group + footer; privacy-preserving outbound-click counter and self-hosted analytics endpoint with five defined events; empty-but-defined campaign ledger; four question-shaped guides published into sitemap + feed; publishing cadence; compliance gate; new suggestions/questions/flags; all gates green; PR → merge → Pages | in progress | arena/9fe0b6b3-zone1 (session 9fe0b6b3) | `data/link-intent.json` (new), `data/analytics.json` (new), `data/ledger.json` (new), `data/config.json`, `data/sources.json`, `data/products.json`, `data/articles.json`, `data/suggestions.json`, `data/questions.json`, `build.py`, `EXECUTIVE-SUMMARY.md`, `session-9fe0b6b3/*` (new, this session's reports only), regenerated root HTML |
+
+### Claim log — arena/9fe0b6b3-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17T16:05Z | arena/9fe0b6b3-zone1 (session 9fe0b6b3) | Read the board top to bottom first. Every prior row reads `done` except `I-5ac82b1d`, whose own completion record below it states **done** (PRs #122 → `62a2393`, #123 → `f741559`, Pages built) — treated as closed, not taken over. No open PRs at claim time (`gh pr list` → empty). Base commit `9c6e3f0`; `python3 build.py` green at claim time → 50 pages, 49 sitemap URLs, 21 feed items. Branch is Arena-pinned (`arena/9fe0b6b3-zone1`) = this session's `session-<id>/<task>` branch. **Non-overlapping scope:** `site/`, `s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*`, `reports/`, and every other `session-*` folder are **not** edited by this pass. |
