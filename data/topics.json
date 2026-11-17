@@ -579,7 +579,7 @@
         }
       ],
       "status": "published",
-      "published_as": "questions-before-buying-multi-function-appliance",
+      "published_as": "articles/questions-before-buying-multi-function-appliance.html",
       "blocked_by": []
     },
     {
@@ -611,7 +611,7 @@
         }
       ],
       "status": "published",
-      "published_as": "cook-to-temperature-not-to-time",
+      "published_as": "articles/cook-to-temperature-not-to-time.html",
       "blocked_by": [
         "Q-32"
       ]
