@@ -1031,8 +1031,94 @@ footer.site strong{color:#f4f1e2}
   table{font-size:.8rem}
   footer.site{padding:1.8rem 1rem 1.5rem}
 }
+/* =====================================================================
+   Shopfront pass — arena/fd9778a1-zone1 (2026-11-17), brief row S-20
+   ("mobile-first pass: type scale, tap targets, sticky comparison bar")
+   and SG-04/SG-15 (make it read like a shop).
+   Presentation only: nothing below generates a product value, price,
+   rating or claim. The figures a card shows are read from
+   data/products.json by the page function; this block only decides
+   where and how big they appear.
+   ===================================================================== */
+
+/* Fluid type scale. One clamp() per level so a 320 px phone and a 1600 px
+   desktop share a rhythm instead of the desktop scale being shrunk whole. */
+h1{font-size:clamp(1.85rem,1.1rem + 3.0vw,2.95rem)}
+h2{font-size:clamp(1.32rem,.95rem + 1.6vw,2.02rem)}
+h3{font-size:clamp(1.07rem,.99rem + .38vw,1.28rem)}
+h1.hero-title{font-size:clamp(2.3rem,1.35rem + 4.2vw,4.1rem)}
+
+/* Tap targets. The interactive chrome — nav, buttons, footer links, the
+   comparison bar — meets the 44 px minimum (WCAG 2.5.8 target size). Inline
+   links inside prose and table cells keep their density on purpose: widening
+   those would break the tables the site exists to show. */
+.btn,footer.site a,.sidebar a,.navtoggle,.topnav a,.shopbar a{min-height:44px}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:.4rem;
+  padding:.6rem 1.05rem; line-height:1.2}
+.sidebar a{display:flex; flex-direction:column; justify-content:center; padding:.5rem .6rem}
+.navtoggle{min-width:62px; padding:.3rem .8rem}
+.topnav a{display:inline-flex; align-items:center; padding:.35rem .7rem}
+footer.site a{display:inline-flex; align-items:center}
+
+/* A wide table on a narrow screen must stay readable. The wrap already scrolls;
+   assets/app.js reveals the one-line hint under it only when there really is
+   content hidden to the right, and hides it again at the last column. The hint is
+   a sibling of the scroller rather than an overlay, so it cannot drift as the
+   table moves. */
+.tablewrap-hint{display:none; font-size:.74rem; color:var(--muted); margin:.3rem 0 .55rem}
+.tablewrap-hint.show{display:block}
+
+/* The sticky comparison bar: one persistent route to the two pages a buyer who
+   is undecided needs. Mobile and tablet only, sits above the home indicator,
+   and steps out of the way once the footer is on screen (.at-page-end, JS). */
+.shopbar{position:fixed; left:0; right:0; bottom:0; z-index:40; display:none;
+  align-items:stretch; gap:.4rem; padding:.5rem .6rem;
+  padding-bottom:calc(.5rem + env(safe-area-inset-bottom));
+  background:rgba(255,253,247,.97); border-top:1px solid var(--line-strong);
+  box-shadow:0 -6px 18px rgba(33,40,33,.09);
+  transition:transform .18s ease}
+.shopbar.hide{transform:translateY(115%)}
+.shopbar .sb-label{display:flex; flex-direction:column; justify-content:center;
+  padding:0 .45rem 0 .1rem; min-width:0; max-width:36%}
+.shopbar .sb-label strong{font-family:var(--serif); font-size:.9rem; color:var(--brand-ink); line-height:1.25}
+.shopbar .sb-label small{font-size:.66rem; color:var(--muted); line-height:1.3}
+.shopbar a{flex:1 1 0; display:inline-flex; align-items:center; justify-content:center;
+  border-radius:11px; font-size:.84rem; font-weight:650; text-decoration:none;
+  padding:.4rem .5rem; text-align:center; line-height:1.2}
+.shopbar .sb-primary{background:var(--brand); color:#fff}
+.shopbar .sb-primary:hover{background:var(--brand-deep); color:#fff}
+.shopbar .sb-ghost{border:1px solid var(--brand-line); color:var(--brand-deep); background:var(--brand-soft)}
+@media (max-width:880px){
+  .shopbar{display:flex}
+  main{padding-bottom:5.4rem}
+}
+
+/* Merchandising rows on the product cards and the product page. The label is
+   editorial framing; both cells are quoted from the sourced spec and flag rows
+   that appear on the same page, with their own source chips. */
+.pcard{display:flex; flex-direction:column}
+.pcard dl.merch{margin:.65rem 0 .2rem; padding:0; border-top:1px solid var(--line)}
+.pcard dl.merch>div{display:grid; grid-template-columns:6.4rem 1fr; gap:.55rem;
+  padding:.5rem 0; border-bottom:1px dashed var(--line)}
+.pcard dl.merch dt{font-size:.66rem; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--accent); font-weight:700; padding-top:.12rem}
+.pcard dl.merch dd{margin:0; font-size:.82rem; line-height:1.45; color:var(--ink)}
+.pcard dl.merch dd a{white-space:nowrap}
+.pcard .price-line{display:flex; align-items:baseline; flex-wrap:wrap; gap:.4rem;
+  margin:.55rem 0 0; padding:.5rem 0 0; border-top:1px solid var(--line)}
+.pcard .price-line b{font-family:var(--serif); font-size:1.35rem; color:var(--brand-ink); letter-spacing:-.01em}
+.pcard .price-line .pl-note{font-size:.68rem; color:var(--muted); flex:1 1 100%}
+.pcard .pcard-cta{margin-top:auto; padding-top:.7rem}
+.verdict-strip{display:grid; gap:.55rem; margin:.9rem 0 0}
+@media (min-width:760px){.verdict-strip{grid-template-columns:1fr 1fr}}
+.verdict-strip .vs{border:1px solid var(--line); border-left:3px solid var(--accent);
+  border-radius:12px; background:var(--panel); padding:.65rem .8rem; box-shadow:var(--shadow)}
+.verdict-strip .vs dt{font-size:.66rem; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--accent); font-weight:700; margin-bottom:.2rem}
+.verdict-strip .vs dd{margin:0; font-size:.87rem; line-height:1.5}
+
 @media print{
-  .topbar,.sidebar,.navtoggle,.topnav,.cta-row,.share{display:none}
+  .topbar,.sidebar,.navtoggle,.topnav,.cta-row,.share,.shopbar{display:none}
   body{background:#fff}
   .card,.tablewrap,.stat,.sug,.qcard{box-shadow:none}
   .editorial-hero{border:1px solid #ddd}
@@ -1244,6 +1330,40 @@ document.addEventListener('click', function (ev) {
   });
   paint();
 })();
+
+// Shopfront pass (2026-11-17, arena/fd9778a1-zone1) — two presentation behaviours.
+// Both are progressive: with JavaScript off the tables still scroll (the fade is the
+// only thing missing), the comparison bar stays visible, and no content is hidden.
+// No network call, no storage, no measurement — this site records nothing (see the
+// cookies notice in the footer and measurement.html).
+(function () {
+  // Tell the reader a wide table continues past the right edge. The hint element
+  // lives outside the scroller, so it stays put while the table moves.
+  var wraps = Array.prototype.slice.call(document.querySelectorAll('.tablewrap'));
+  function paint() {
+    wraps.forEach(function (w) {
+      var hint = w.nextElementSibling;
+      if (!hint || !hint.classList.contains('tablewrap-hint')) return;
+      var past = w.scrollWidth - w.clientWidth - w.scrollLeft;
+      hint.classList.toggle('show', w.scrollWidth - w.clientWidth > 4 && past > 4);
+    });
+  }
+  if (wraps.length) {
+    wraps.forEach(function (w) { w.addEventListener('scroll', paint, { passive: true }); });
+    window.addEventListener('resize', paint);
+    paint();
+  }
+
+  // Step the sticky bar out of the way once the footer is on screen, so it never
+  // covers the disclosure text or the source list.
+  var bar = document.querySelector('.shopbar');
+  var foot = document.querySelector('footer.site');
+  if (bar && foot && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { bar.classList.toggle('hide', en.isIntersecting); });
+    }, { rootMargin: '0px 0px -8px 0px' }).observe(foot);
+  }
+})();
 """
 
 
@@ -1310,6 +1430,23 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
         cls = ' class="active"' if href == active else ""
         return f'<a href="{prefix}{href}"{cls}>{e(label)}</a>'
     topnav = "".join(_topnav_link(href, label) for href, label in topnav_items)
+
+    # Sticky comparison bar (brief S-20, added 2026-11-17 by arena/fd9778a1-zone1).
+    # Reader surfaces only — the owner-workspace pages get no bar, because a buyer
+    # route is not what those pages are for. The links are internal on purpose: this
+    # bar never adds a second outbound affiliate surface to police, and its second
+    # line restates the paid-link fact where the reader is about to act on it.
+    _READER_DIRS = ("products/", "categories/", "guides/", "articles/")
+    _READER_PAGES = ("index.html", "picks.html", "compare.html")
+    if page_rel in _READER_PAGES or page_rel.startswith(_READER_DIRS):
+        shopbar = f"""
+<div class="shopbar" aria-label="Keep comparing">
+  <span class="sb-label"><strong>Still deciding?</strong><small>Sponsored links · we may earn a commission</small></span>
+  <a class="sb-ghost" href="{prefix}picks.html">Which one fits</a>
+  <a class="sb-primary" href="{prefix}compare.html">Compare all {len(PRODUCT_LIST)} <span aria-hidden="true">→</span></a>
+</div>"""
+    else:
+        shopbar = ""
     desc = f'<meta name="description" content="{e(description)}">' if description else ""
 
     # Absolute URL of this page. The landing page canonicalises to the directory form
@@ -1408,6 +1545,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     {body}
   </main>
 </div>
+{shopbar}
 <footer class="site">
   <div class="inner">
     <div class="foot-brand">
@@ -1500,6 +1638,85 @@ def product_cta(p, prefix=""):
 
 
 
+# --------------------------------------------------------------------------- #
+# shopfront merchandising (added 2026-11-17, arena/fd9778a1-zone1)
+# --------------------------------------------------------------------------- #
+# Two cells per product, and both are quotations of rows this site already
+# publishes about that product: "Best for" names a feature the manufacturer's
+# own document states, "Check first" names the open conflict on the same page.
+# No performance, comfort, durability or taste claim appears here — not because
+# copywriting forbids it, but because no such fact exists in the register: a
+# hands-on claim would need a test, and no test was run (S8).
+MERCH = {
+    "chefman-6qt-dual-basket": {
+        "best_for": ("Cooking two dishes at two settings on one appliance. The manual documents two "
+                     "independent 3-quart baskets, each with its own time and temperature, and a "
+                     "Sync Finish function that starts the shorter cook late so both baskets land together.",
+                     ["S10", "S18"], "articles/sync-finish-explained.html", "How Sync Finish works →"),
+        "check_first": ("Chefman sells more than one 6-quart dual-basket SKU with near-identical "
+                        "specifications, and the model this page describes is the dual-window one. "
+                        "Read the model number on the appliance before treating any figure here as yours.",
+                        ["S10", "S11", "S27"], "flagged.html#f2", "Flag F2 →"),
+    },
+    "emeril-26qt-french-door": {
+        "best_for": ("A whole chicken, a 26-quart cavity and a mode list that reaches below 200 °F. "
+                     "The manual documents a 75–500 °F range, a rotisserie spit set and seven "
+                     "accessories, which is what separates it from a basket unit with a bigger box.",
+                     ["S14", "S15"], "articles/rotisserie-at-home.html", "What the rotisserie claim covers →"),
+        "check_first": ("The brand's own page disagrees with itself on the preset count (25 in its "
+                        "specification block, 24 in its description and in the Amazon listing title), "
+                        "and the listing's model code differs from the brand page by one character.",
+                        ["S14", "S15", "S28"], "flagged.html#f4", "Flags F4 and F5 →"),
+    },
+    "chefman-8qt-turbofry": {
+        "best_for": ("One large single basket for everyday batches. The brand page lists an 8 qt "
+                     "basket, four one-touch presets, an LED shake reminder and a top-rack "
+                     "dishwasher-safe basket and rack.",
+                     ["S12", "S13"], "articles/air-fryer-capacity-guide.html", "Is 8 qt the right size? →"),
+        "check_first": ("The Amazon listing title advertises a 450 °F Hi-Fry mode; the brand page for "
+                        "the model this site maps it to documents 200–400 °F. Those are probably two "
+                        "machines, and which one the ASIN ships is unresolved.",
+                        ["S12", "S29", "S26"], "flagged.html#f3", "Flag F3 →"),
+    },
+}
+
+
+def merch_pair(p, prefix="", mode="card"):
+    """The two merchandising cells for one product, built from MERCH + the register.
+
+    mode="card" renders one definition list with two rows (the front-page product card);
+    mode="strip" renders two separate boxes (the product page, which has the room).
+    """
+    m = MERCH.get(p["slug"])
+    if not m:
+        return ""
+    cells = []
+    for key, label in (("best_for", "Best for"), ("check_first", "Check first")):
+        text, srcs, link, link_label = m[key]
+        inner = (f'{e(text)}<span class="tiny"> {src_links(srcs)} '
+                 f'<a href="{prefix}{link}">{e(link_label)}</a></span>')
+        if mode == "strip":
+            cells.append(f'<dl class="vs"><dt>{label}</dt><dd>{inner}</dd></dl>')
+        else:
+            cells.append(f'<div><dt>{label}</dt><dd>{inner}</dd></div>')
+    if mode == "strip":
+        return "".join(cells)
+    return f'<dl class="merch">{"".join(cells)}</dl>'
+
+
+def price_line(p, prefix=""):
+    """Brand-published list price, with the reason no Amazon price appears next to it."""
+    blp = p["pricing"]["brand_list_price"]
+    return (
+        f'<p class="price-line"><b>{e(blp["v"])}</b>'
+        f'<span class="tiny">manufacturer list price {src_links(blp["s"])}</span>'
+        f'<span class="pl-note">Amazon\'s price is not shown here: Program Policies §2(b) and §6(t) '
+        f'bar an Associate site from displaying it, so the number above is the brand\'s own list price, '
+        f'not what a retailer charges today. Check the live price on the listing. '
+        f'<a href="{prefix}compliance.html">Why →</a></span></p>'
+    )
+
+
 def spec_table(p, prefix=""):
     rows = []
     for s in p["specs"]:
@@ -1525,6 +1742,7 @@ def spec_table(p, prefix=""):
   <tbody>{''.join(rows)}</tbody>
 </table>
 </div>
+<p class="tablewrap-hint">The table is wider than the screen — scroll it sideways to reach the source column.</p>
 """
 
 
@@ -1690,9 +1908,14 @@ def page_index():
     <strong>{e(next((s['value'] for s in p['specs'] if s['label'] == 'Capacity' and s['value']), '— not confirmed —'))}</strong>
     <span class="tiny">{src_links(next((s['source'] for s in p['specs'] if s['label'] == 'Capacity'), []))}</span>
   </div>
+  {price_line(p)}
+  {merch_pair(p)}
   <p class="product-match"><span class="pill pill-warn">Amazon model match unconfirmed</span>
     <a class="tiny" href="flagged.html">Review link status</a></p>
-  <p class="small" style="margin:.2rem 0 0"><a href="products/{p['slug']}.html">Read the sourced product notes →</a></p>
+  <div class="pcard-cta">
+    <a class="btn" href="{e(amazon_product_url(p['asin']['v']))}" target="_blank" rel="sponsored nofollow noopener">See it on Amazon <span aria-hidden="true">↗</span></a>
+    <p class="tiny muted" style="margin:.45rem 0 0"><a href="products/{p['slug']}.html">Read the sourced product notes →</a></p>
+  </div>
 </article>"""
         for p in PRODUCT_LIST
     )
@@ -1813,6 +2036,7 @@ def page_index():
   </tbody>
 </table>
 </div>
+<p class="tablewrap-hint">The table is wider than the screen — scroll it sideways to compare all three columns.</p>
 <p class="small muted">Measure your counter and cabinet clearance against the dimensions above. Noise level and real-world preheat time are not confirmed in the cited manufacturer materials. <a href="questions.html#q-06">See the open information gaps →</a></p>
 
 <h2>Product notes, not rankings</h2>
@@ -1984,6 +2208,10 @@ def page_product(p):
 </div>
 
 {product_cta(p, prefix="../")}
+
+<div class="verdict-strip" aria-label="What this machine is for, and what to check first">
+  {merch_pair(p, prefix="../", mode="strip")}
+</div>
 
 <div class="callout ok">
   <strong>How this review was produced</strong>

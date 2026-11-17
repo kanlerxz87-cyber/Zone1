@@ -181,3 +181,37 @@ document.addEventListener('click', function (ev) {
   });
   paint();
 })();
+
+// Shopfront pass (2026-11-17, arena/fd9778a1-zone1) — two presentation behaviours.
+// Both are progressive: with JavaScript off the tables still scroll (the fade is the
+// only thing missing), the comparison bar stays visible, and no content is hidden.
+// No network call, no storage, no measurement — this site records nothing (see the
+// cookies notice in the footer and measurement.html).
+(function () {
+  // Tell the reader a wide table continues past the right edge. The hint element
+  // lives outside the scroller, so it stays put while the table moves.
+  var wraps = Array.prototype.slice.call(document.querySelectorAll('.tablewrap'));
+  function paint() {
+    wraps.forEach(function (w) {
+      var hint = w.nextElementSibling;
+      if (!hint || !hint.classList.contains('tablewrap-hint')) return;
+      var past = w.scrollWidth - w.clientWidth - w.scrollLeft;
+      hint.classList.toggle('show', w.scrollWidth - w.clientWidth > 4 && past > 4);
+    });
+  }
+  if (wraps.length) {
+    wraps.forEach(function (w) { w.addEventListener('scroll', paint, { passive: true }); });
+    window.addEventListener('resize', paint);
+    paint();
+  }
+
+  // Step the sticky bar out of the way once the footer is on screen, so it never
+  // covers the disclosure text or the source list.
+  var bar = document.querySelector('.shopbar');
+  var foot = document.querySelector('footer.site');
+  if (bar && foot && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { bar.classList.toggle('hide', en.isIntersecting); });
+    }, { rootMargin: '0px 0px -8px 0px' }).observe(foot);
+  }
+})();
