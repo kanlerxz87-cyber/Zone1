@@ -5809,3 +5809,11 @@ blank+flagged), **42 sources**, 0 errors, 0 external warnings · `tests/` 17 uni
 393 assertions ALL PASSED · `research/check_research.py` OK · `platform/audit/report.py`
 AUDIT PASSED (0 warnings) · `node --check` OK on both JS assets.
 
+
+### X13 / pass-13 — PR and merge result (2026-11-17 UTC)
+
+* **PR [#142](https://github.com/kanlerxz87-cyber/Zone1/pull/142)** — "Pass 13 (X13): privacy-preserving click counter, four reader-intent clusters, live evidence pass" (`6ea0cdd`, `e6d5b88`, `7c1fc52`, `4228cd7`, merge seams `4af24c1`, `ac17464`). Merged with `gh pr merge 142 --merge` at **2026-11-17T17:08:23Z**, merge commit **`d143fe04c655c1391db737991adfa15b0f4c3909`**. Merged without waiting for approval; no check was failing at merge time.
+* **Conflicts during the pass (both recorded above):** main moved twice under the branch. First seam met `4609ff3` (PRs #124–#138: product-intent, campaign ledger, buyer-first homepage, measurement plan + collector + tests, TP-21 hold); second seam met `272da81` (PRs #140/#143/#145: X-58cbaaa2 brand catalogues for the two remaining supplied links, X-0cf55ef3 verification repairs). Nothing either side published was deleted; the Q-27 number collision was resolved by renumbering this session's question to **Q-29**.
+* **Post-merge GitHub Pages:** `pages/builds/latest` → `status: built`, commit `d143fe0…`, `error: null` (build 1378464502).
+* **Live read-back:** `index.html` serves the buyer-first front page with the disclosure above the fold and sourced product records; `clusters.html` serves the four-hub map with official source links on every row. Canonical URL: https://kanlerxz87-cyber.github.io/Zone1/
+* **Owner actions still open (published, none blocking):** deploy one of the `analytics/` endpoint sources and approve the privacy notice before enabling the counter (Q-08 / SG-08 / E-03); answer Q-27/Q-28 (what the two 2026-11-17 links were created to promote) and Q-29 (campaign-parameter recording); confirm the tracking ID in Associates Central before it is applied to any link (F76).
