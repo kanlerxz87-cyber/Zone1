@@ -5787,3 +5787,54 @@ clean.
 Q-01/Q-02/Q-04 and the two blank+flagged spec rows. No conversion score or revenue forecast
 was added anywhere; the campaign ledger remains empty on purpose. Nothing was filled by
 inference.
+
+### C9 merge reconciliation — arena/c9e97e02-zone1 (2026-11-17 UTC)
+
+This branch rebased over the mid-flight merges of `arena/66c32067`, `arena/58cbaaa2` and
+`arena/0cf55ef3` (PRs #136–#145) before opening its PR. The completion record above is the
+pre-rebase text and stands as written; these are the corrections the merge itself made, kept
+in the same dated spirit:
+
+* **Register ids moved to avoid same-day collisions** (the F67 lesson, applied early because
+  the PR was still open): the flag is **F85** (not F83 — upstream's F83/F84 landed first);
+  the new sources are **S43** (RFC 9309) and **S44** (Google robots intro), after upstream's
+  S38–S42; the new question is **Q-29** only — this pass's Q-28 (dated Associates report)
+  duplicated the parallel pass's Q-28 and was dropped, not numbered twice; the new
+  suggestions are **SG-39** (deploy one of the repository's two tested receivers — the
+  concrete step behind the parallel pass's SG-38) and **SG-41** (annex noindex / root-domain
+  decision). The parallel pass's SG-36/37 already covered this pass's SG-36/37 intent.
+* **Two measurement designs now coexist, deliberately.** The parallel passes shipped
+  `data/analytics-plan.json`, `analytics/collector.py` (fail-closed, same-origin) and a gated
+  `assets/analytics.js`; this pass shipped the counter in `assets/app.js` and the standalone
+  `platform/analytics/server.py`. The two event vocabularies are mapped on `measurement.html`
+  and the brief's rule is stated there: **enable exactly one path**. The endpoint schema and
+  the counter now speak the plan's canonical names (`page_view`, `outbound_click`,
+  `article_engagement`, `comparison_interaction`; EV-05 `affiliate_report_import` is
+  operator-only and rejected by the receiver), and the counter's payload matches the
+  receiver's schema field-for-field (a defect in the first cut of this pass, caught while
+  merging and fixed before the PR).
+* **The tracker-tag decision from PR #131 stands as the merged state:** `associate_tag` stays
+  blank until the tracking ID is confirmed in Associates Central and the enrolled-Associates
+  test passes (the parallel passes' guard `check_intent_measurement_contract` enforces it;
+  S41/S42 are their evidence). The click counter records the tag a link actually carries —
+  today none, which is the same thing the flag register says (F82).
+* **Requirements statuses:** E-03/E-04/E-05/B-07/B-08/D-01 gained this pass's dated evidence
+  (machinery shipped, counts still empty); F-04 gained the §3(e)-guard evidence but stays
+  `partial` with the parallel pass's reason intact (the standalone privacy page, F11); B-06
+  stays `delivered` per the parallel pass's evidence with the robots.txt subpath gap recorded
+  on the flagged page as F85 and routed to the owner as SG-41.
+* **Topics:** the brief's multi-function question was already TP-21 in the parallel pass's
+  plan and is now marked published (`articles/questions-before-a-multifunction-appliance.html`);
+  the brief's other three question guides are TP-24…TP-26.
+* **Merge-verified re-reads (2026-11-17 UTC, evidence table in
+  `reports/verification-2026-11-17-c9e97e02.md`):** the three supplied short links resolved to
+  `/dp/B0CDY277D3`, `/dp/B09B7SB46R`, `/dp/B08DKYBTPH` with titles matching the register
+  character-for-character (fallback parameters, `gaOptInStatus=true`, no `tag=` — F82
+  unchanged); S2 "Updated: April 14, 2026" unchanged; S3 Table 1 Kitchen 4.50% / All Other
+  4.00% unchanged. Nothing filled by inference; nothing merged broken.
+
+**Gates on the merged tree (2026-11-17):** build.py → 134 pages / 35 sitemap URLs / feed 25
+items / robots.txt written · verify.py → 77 spec rows (75 verified, 2 blank+flagged), 44
+sources, 0 errors, 0 external warnings · ci-check.sh → unit + analytics (21) + data audit
+clean + link check 10,082 links / 0 broken · research + site annex + platform audit all pass ·
+node --check OK.
