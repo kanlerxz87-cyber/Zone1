@@ -5559,6 +5559,6 @@ two blank+flagged spec rows. Nothing was filled by inference.
 4. **Real product photography (S-18)** — no rights-cleared image source exists in the register; open decision (F46 / Q-22).
 5. **Campaign ledger figures** — remain empty by design until authorised first-party reports are supplied.
 
-**Sources:** the three product pages already registered for TP-21 (`chefman.com` ×2, `emerileveryday.com`), re-read in the 2026-11-17 pass recorded above; no new source ID was added.
+**Sources:** the three product pages already registered for TP-21 (`chefman.com` ×2, `emerileveryday.com`), as last read in the earlier 2026-11-17 pass (the `data/sources.json` page_version stamps). **This session did not re-fetch them**, so no new live check is claimed; no new source ID was added.
 
 **Gates:** `python3 build.py` exit 0 · `python3 verify.py` 77 spec rows, 37 sources, 0 errors, 0 external warnings · `bash scripts/ci-check.sh` OK, 8,769 links / 0 broken.
