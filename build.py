@@ -7767,6 +7767,28 @@ def page_measurement():
         for x in m["prerequisites"]
     )
     led = m["campaign_ledger"]
+    impl = m.get("implementation") or {}
+    # Every row of this table states where the thing described actually lives, so
+    # the reader can check the claim rather than take it. The row-source build
+    # guard requires a link in every data row, which is the right rule: a table
+    # of statements about this repository should point at this repository.
+    REPO_BLOB = "https://github.com/kanlerxz87-cyber/Zone1/blob/main/"
+    impl_where = {
+        "client": REPO_BLOB + "assets/analytics.js",
+        "switch": REPO_BLOB + "data/config.json",
+        "endpoint_source": REPO_BLOB + "analytics/README.md",
+        "guard": REPO_BLOB + "build.py",
+        "verification": REPO_BLOB + "reports/verification-2026-11-17-79743fd2.md",
+        "what_is_not_shipped": REPO_BLOB + "data/measurement.json",
+    }
+    impl_rows = ""
+    for k, v in impl.items():
+        where = impl_where.get(k, REPO_BLOB)
+        impl_rows += (
+            f'<tr><td class="small"><strong>{e(k.replace("_", " "))}</strong></td>'
+            f'<td class="small">{e(v)}</td>'
+            f'<td class="small"><a href="{e(where)}" target="_blank" rel="noopener">'
+            f'in this repository \u2197</a></td></tr>')
 
     body = f"""
 <h1>Measurement: five events, defined and not yet sending</h1>
@@ -7779,8 +7801,24 @@ a filled one here would not be.</p>
 <div class="callout bad">
   <strong>Status: {e(m['status'].replace('_', ' '))}</strong>
   <p class="small">Four of the five events need a server endpoint this repository does not
-  have. The fifth, reported orders, can only be entered by hand from the owner's Associates
-  report. Neither is something a session can invent.</p>
+  have: the client that would send them now ships, but there is nowhere for it to send to and
+  the switch is off. The fifth, reported orders, can only be entered by hand from the owner's
+  Associates report. Neither is something a session can invent.</p>
+</div>
+
+<div class="callout warn">
+  <strong>What is built, and what is not</strong>
+  <p class="small">The counter is written and shipped. The sink it would post to is not
+  deployed, and the switch is off. These are different things, and only the first one is
+  this repository's to do.</p>
+</div>
+
+<div class="tablewrap">
+<table>
+  <caption>What ships, and what does not</caption>
+  <thead><tr><th style="width:18%">Part</th><th style="width:62%">State</th><th style="width:20%">Where to look</th></tr></thead>
+  <tbody>{impl_rows}</tbody>
+</table>
 </div>
 
 <h2>Why nothing is sending yet</h2>
@@ -7818,9 +7856,9 @@ a filled one here would not be.</p>
 §3(e) governs the disclosure an analytics script triggers; §3(s) bars artificially
 generating clicks; §2(b) bars associating a sub-tag with an end user.</p>
 """
-    return layout("measurement.html", "Measurement: five events, defined not sending", body,
+    return layout("measurement.html", "Measurement: five events, the counter shipped, none sending", body,
                   active="measurement.html",
-                  description="The five measurement events this site will record, what each excludes, and the prerequisites before any of them can send. No counts are reported because none has been measured.",
+                  description="The five measurement events this site will record, what each excludes, the privacy-preserving counter that now ships with the switch off, and the prerequisites before any of them can send. No counts are reported because none has been measured.",
                   jsonld_blocks=[breadcrumbs_jsonld([
         ("Home", SITE_URL + "/"),
         ("Measurement", page_url("measurement.html")),

@@ -771,11 +771,33 @@
       "scope": "Publishing",
       "requirement": "Track clicks",
       "clause": "track clicks and conversions",
-      "status": "not_delivered",
-      "where": [],
-      "evidence": [],
-      "why": "There is no analytics on the site at all — no script, no beacon, no server-side log the owner can read. The footer says so precisely, because Program Policies §3(e) requires an accurate statement of cookie and third-party technology use, and adding a tracker without rewriting that statement would make the footer false.",
-      "sources": []
+      "status": "partial",
+      "where": [
+        "assets/analytics.js",
+        "analytics/endpoint.php",
+        "analytics/worker.js",
+        "data/config.json",
+        "data/measurement.json",
+        "measurement.html"
+      ],
+      "evidence": [
+        {
+          "label": "the counter that ships (switched off)",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/assets/analytics.js"
+        },
+        {
+          "label": "the endpoint source the owner deploys",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/analytics/README.md"
+        },
+        {
+          "label": "Program Policies, section 3(e) and 3(s)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ],
+      "why": "The counter is written and shipped: assets/analytics.js records a reader-initiated click on an Amazon product link (and a page view, an article completion, a comparison view) with no cookie, no identifier, no IP address, no user agent and no referrer, and the endpoint source for a self-hosted sink ships in analytics/. It stays switched off because there is no endpoint host, and a counter with no sink behind it would report a number this site cannot source. The footer's cookie statement is now generated from the same configuration that switches the counter on, and a build guard fails the build if the statement and the shipped behaviour ever disagree — so the §3(e) exposure that used to sit under this row is closed. What is still missing is the owner's decision on where the endpoint runs, which no session can make.",
+      "sources": [
+        "S2"
+      ]
     },
     {
       "id": "E-04",
@@ -906,6 +928,8 @@
       "status": "partial",
       "where": [
         "build.py",
+        "data/config.json",
+        "assets/analytics.js",
         "data/flags.json"
       ],
       "evidence": [
@@ -918,7 +942,7 @@
           "url": "flagged.html"
         }
       ],
-      "why": "Program Policies §3(e). The current statement is accurate for what the site does — it sets no cookies and runs no analytics — but it is a sentence in the footer, not a drafted privacy policy, and it must be rewritten the moment a tracker is added (E-03).",
+      "why": "Program Policies §3(e). The statement is no longer a hand-typed sentence in the footer: it is generated from the same configuration block that decides whether the counter ships, so it cannot describe a behaviour the page does not have, and a build guard fails the build if any published sentence claiming the site runs no analytics would become false. What remains a limitation rather than a defect: it is a footer paragraph, not a drafted privacy policy, and it says nothing about EU/UK visitors' consent — which is why Q-08 and Q-27 remain open. Legal review is still recommended before the counter is switched on.",
       "sources": [
         "S2"
       ]

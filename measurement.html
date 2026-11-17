@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Measurement: five events, defined not sending · Zone1 Kitchen</title>
-<meta name="description" content="The five measurement events this site will record, what each excludes, and the prerequisites before any of them can send. No counts are reported because none has been measured.">
+<title>Measurement: five events, the counter shipped, none sending · Zone1 Kitchen</title>
+<meta name="description" content="The five measurement events this site will record, what each excludes, the privacy-preserving counter that now ships with the switch off, and the prerequisites before any of them can send. No counts are reported because none has been measured.">
 
 <link rel="canonical" href="https://kanlerxz87-cyber.github.io/Zone1/measurement.html">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Zone1 Kitchen">
-<meta property="og:title" content="Measurement: five events, defined not sending · Zone1 Kitchen">
-<meta property="og:description" content="The five measurement events this site will record, what each excludes, and the prerequisites before any of them can send. No counts are reported because none has been measured.">
+<meta property="og:title" content="Measurement: five events, the counter shipped, none sending · Zone1 Kitchen">
+<meta property="og:description" content="The five measurement events this site will record, what each excludes, the privacy-preserving counter that now ships with the switch off, and the prerequisites before any of them can send. No counts are reported because none has been measured.">
 <meta property="og:url" content="https://kanlerxz87-cyber.github.io/Zone1/measurement.html">
 <meta property="og:image" content="https://kanlerxz87-cyber.github.io/Zone1/assets/og-card.png">
 <meta property="og:image:width" content="1200">
@@ -19,8 +19,8 @@
 <meta property="og:image:alt" content="Zone1 Kitchen — Air-fryer decisions, backed by sources">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Measurement: five events, defined not sending · Zone1 Kitchen">
-<meta name="twitter:description" content="The five measurement events this site will record, what each excludes, and the prerequisites before any of them can send. No counts are reported because none has been measured.">
+<meta name="twitter:title" content="Measurement: five events, the counter shipped, none sending · Zone1 Kitchen">
+<meta name="twitter:description" content="The five measurement events this site will record, what each excludes, the privacy-preserving counter that now ships with the switch off, and the prerequisites before any of them can send. No counts are reported because none has been measured.">
 <meta name="twitter:image" content="https://kanlerxz87-cyber.github.io/Zone1/assets/og-card.png">
 <meta name="twitter:image:alt" content="Zone1 Kitchen — Air-fryer decisions, backed by sources">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","@id":"https://kanlerxz87-cyber.github.io/Zone1/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kanlerxz87-cyber.github.io/Zone1/"},{"@type":"ListItem","position":2,"name":"Measurement","item":"https://kanlerxz87-cyber.github.io/Zone1/measurement.html"}]}]}</script>
@@ -91,25 +91,41 @@ on this page, because none has been measured.</strong> An empty ledger is a true
 a filled one here would not be.</p>
 
 <div class="callout bad">
-  <strong>Status: defined not shipped</strong>
+  <strong>Status: client shipped endpoint not deployed</strong>
   <p class="small">Four of the five events need a server endpoint this repository does not
-  have. The fifth, reported orders, can only be entered by hand from the owner's Associates
-  report. Neither is something a session can invent.</p>
+  have: the client that would send them now ships, but there is nowhere for it to send to and
+  the switch is off. The fifth, reported orders, can only be entered by hand from the owner's
+  Associates report. Neither is something a session can invent.</p>
+</div>
+
+<div class="callout warn">
+  <strong>What is built, and what is not</strong>
+  <p class="small">The counter is written and shipped. The sink it would post to is not
+  deployed, and the switch is off. These are different things, and only the first one is
+  this repository's to do.</p>
+</div>
+
+<div class="tablewrap">
+<table>
+  <caption>What ships, and what does not</caption>
+  <thead><tr><th style="width:18%">Part</th><th style="width:62%">State</th><th style="width:20%">Where to look</th></tr></thead>
+  <tbody><tr><td class="small"><strong>client</strong></td><td class="small">assets/analytics.js — written by build.py, always present on disk, referenced by a page only when analytics.enabled is true and analytics.endpoint is set.</td><td class="small"><a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/assets/analytics.js" target="_blank" rel="noopener">in this repository ↗</a></td></tr><tr><td class="small"><strong>switch</strong></td><td class="small">data/config.json → analytics. One block decides the behaviour and the footer&#x27;s wording.</td><td class="small"><a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/config.json" target="_blank" rel="noopener">in this repository ↗</a></td></tr><tr><td class="small"><strong>endpoint source</strong></td><td class="small">analytics/endpoint.php (any PHP host) and analytics/worker.js (Cloudflare Workers). Both store the seven allowed fields and nothing else; neither writes the client IP address, the user agent, the referrer or any reader identifier.</td><td class="small"><a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/analytics/README.md" target="_blank" rel="noopener">in this repository ↗</a></td></tr><tr><td class="small"><strong>guard</strong></td><td class="small">build.py → check_analytics_consistency(). Fails the build if the footer&#x27;s statement and the shipped behaviour disagree, if the counter could identify a reader (cookie, storage API, user agent, referrer), if it could block the reader&#x27;s click, if it does not require event.isTrusted, or if the endpoint is not https, is a known hosted analytics product, or carries a query string.</td><td class="small"><a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py" target="_blank" rel="noopener">in this repository ↗</a></td></tr><tr><td class="small"><strong>verification</strong></td><td class="small">The guard was proven to fail by injecting each of those violations in turn, and each failure was reverted. The four passing conditions were verified with the same injection method: enabled-without-endpoint, third-party tracker host, plain-http endpoint, and a preventDefault call.</td><td class="small"><a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/reports/verification-2026-11-17-79743fd2.md" target="_blank" rel="noopener">in this repository ↗</a></td></tr><tr><td class="small"><strong>what is not shipped</strong></td><td class="small">The endpoint is not deployed. The counter is not enabled. No event has been sent and no count has been observed. Nothing in this repository should be read as a measurement.</td><td class="small"><a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/measurement.json" target="_blank" rel="noopener">in this repository ↗</a></td></tr></tbody>
+</table>
 </div>
 
 <h2>Why nothing is sending yet</h2>
-<ul class="tight small"><li>The site is static files on GitHub Pages. There is no server to receive a beacon, so a &#x27;self-hosted analytics endpoint&#x27; cannot be built inside this repository — it needs a host the owner controls.</li><li>The footer states, truthfully today, that the site sets no cookies and runs no analytics. Program Policies §3(e) requires an accurate statement of cookie and third-party technology use, so the moment a beacon ships that sentence is false unless it is updated in the same commit.</li><li>A click counter that reported a number without a real endpoint behind it would be an invented number on a page that promises every value is sourced. Nothing here reports a count it did not measure.</li><li>Amazon&#x27;s own conversion reporting lives in Associates Central and is not available to a third-party static site, so reported orders must come from the owner&#x27;s first-party report, not from this site.</li></ul>
+<ul class="tight small"><li>The site is static files on GitHub Pages. There is no server to receive a beacon, so the &#x27;self-hosted analytics endpoint&#x27; has to live on a host the account holder controls. The endpoint source now ships in analytics/ (a PHP file and a Cloudflare Worker), but this repository cannot deploy it and does not pretend to have.</li><li>A click counter that reported a number without a real endpoint behind it would be an invented number on a page that promises every value is sourced. The counter therefore ships with the switch off, and no count appears anywhere on this site.</li><li>The footer&#x27;s cookie and third-party-technology statement is now GENERATED from the same configuration block that decides whether the counter ships, so it cannot describe a behaviour the page does not have. Program Policies §3(e) is satisfied by construction rather than by a sentence somebody has to remember to update.</li><li>Amazon&#x27;s own conversion reporting lives in Associates Central and is not available to a third-party static site, so reported orders must come from the owner&#x27;s first-party report, not from this site.</li></ul>
 
 <h2>The five events</h2>
 
 <div class="card" style="margin:.7rem 0">
   <p class="section-eyebrow">EV-01 · <code>page_view</code></p>
-  <p class="small"><strong>Fires when:</strong> A human opens any article, product, comparison or guide page.</p>
+  <p class="small"><strong>Fires when:</strong> A human opens any article, product, comparison or guide page. The page type is derived from the URL by the build, so a new page is classified by where it lives.</p>
   <div class="grid" style="grid-template-columns:1fr 1fr;gap:1rem">
     <div><p class="tiny muted" style="margin:0">Records</p><ul class="tight small"><li>page slug</li><li>UTC date</li><li>whether the arrival carried a utm_source/campaign parameter</li></ul></div>
     <div><p class="tiny muted" style="margin:0">Never records</p><ul class="tight small"><li>IP address</li><li>user agent</li><li>referrer URL</li><li>reader identifier</li></ul></div>
   </div>
-  <p class="tiny muted" style="margin-bottom:0">Slug and date only. A per-reader identifier would turn this into behavioural tracking and break the no-cookie statement.</p>
+  <p class="tiny muted" style="margin-bottom:0">Slug and date only. A per-reader identifier would turn this into behavioural tracking and break the no-cookie statement. The utm parameter is recorded as a yes/no, not as its value: the value is what would let one page tell which channel sent it, and that is a wider question for the owner, not a detail this pass may settle (Q-27).</p>
 </div>
 <div class="card" style="margin:.7rem 0">
   <p class="section-eyebrow">EV-02 · <code>outbound_product_click</code></p>
@@ -118,7 +134,7 @@ a filled one here would not be.</p>
     <div><p class="tiny muted" style="margin:0">Records</p><ul class="tight small"><li>ASIN</li><li>page slug the click came from</li><li>UTC date</li><li>the Associates tag present on the link</li></ul></div>
     <div><p class="tiny muted" style="margin:0">Never records</p><ul class="tight small"><li>order value</li><li>what the reader bought</li><li>any Amazon session data</li></ul></div>
   </div>
-  <p class="tiny muted" style="margin-bottom:0">This is the earliest point at which this site can observe intent without Amazon&#x27;s data. It counts interest, not revenue, and must never be labelled a conversion.</p>
+  <p class="tiny muted" style="margin-bottom:0">This is the earliest point at which this site can observe intent without Amazon&#x27;s data. It counts interest, not revenue, and must never be labelled a conversion. The ASIN is read from the link the reader actually clicked, so it is the destination they were sent to, not the one the site would have preferred.</p>
 </div>
 <div class="card" style="margin:.7rem 0">
   <p class="section-eyebrow">EV-03 · <code>guide_completed</code></p>
@@ -127,11 +143,11 @@ a filled one here would not be.</p>
     <div><p class="tiny muted" style="margin:0">Records</p><ul class="tight small"><li>page slug</li><li>UTC date</li></ul></div>
     <div><p class="tiny muted" style="margin:0">Never records</p><ul class="tight small"><li>time on page</li><li>scroll depth histogram</li><li>reader identifier</li></ul></div>
   </div>
-  <p class="tiny muted" style="margin-bottom:0">A single completion flag is enough to answer &#x27;did anyone read this&#x27;. A depth histogram costs a cookie-free session id and buys nothing the editorial calendar uses.</p>
+  <p class="tiny muted" style="margin-bottom:0">A single completion flag is enough to answer &#x27;did anyone read this&#x27;. A depth histogram costs a cookie-free session id and buys nothing the editorial calendar uses. The last heading of every article carries the marker attribute the observer watches.</p>
 </div>
 <div class="card" style="margin:.7rem 0">
   <p class="section-eyebrow">EV-04 · <code>comparison_table_viewed</code></p>
-  <p class="small"><strong>Fires when:</strong> The comparison table becomes visible in the viewport on compare.html or a product page.</p>
+  <p class="small"><strong>Fires when:</strong> The comparison table becomes visible in the viewport on compare.html or on the landing page&#x27;s side-by-side table.</p>
   <div class="grid" style="grid-template-columns:1fr 1fr;gap:1rem">
     <div><p class="tiny muted" style="margin:0">Records</p><ul class="tight small"><li>page slug</li><li>UTC date</li></ul></div>
     <div><p class="tiny muted" style="margin:0">Never records</p><ul class="tight small"><li>which rows were expanded</li><li>reader identifier</li></ul></div>
@@ -150,7 +166,7 @@ a filled one here would not be.</p>
 
 <div class="callout info">
   <strong>Privacy rules the counter must keep</strong>
-  <ul class="tight small" style="margin-bottom:0"><li>No cookies are set by the counter. If a cookie is ever added, the footer statement and the §3(e) disclosure change in the same commit.</li><li>No persistent identifier per reader and no cross-site profile. Program Policies §2(b) separately forbids associating a sub-tag with a specific end user.</li><li>The counter records the event, the page slug and the product ASIN — never an IP address, user agent string or referrer.</li><li>Program Policies §3(s) forbids artificially generating clicks; the counter must never be fired by a bot, prefetch or crawler, so it is attached to a real click only.</li></ul>
+  <ul class="tight small" style="margin-bottom:0"><li>No cookies are set by the counter. If a cookie is ever added, the footer statement and the §3(e) disclosure change in the same commit — and the build guard fails if the counter file grows a cookie or storage call.</li><li>No persistent identifier per reader and no cross-site profile. Program Policies §2(b) separately forbids associating a sub-tag with a specific end user.</li><li>The counter records the event, the page slug, the product ASIN, the date and the tracking ID present on the link — never an IP address, user agent string or referrer. The client never reads those three values at all, which is checked by the build guard rather than promised in prose.</li><li>Program Policies §3(s) forbids artificially generating clicks; the counter fires only inside a click listener that requires event.isTrusted and a primary button, on a link whose href contains /dp/&lt;ASIN&gt;. Nothing fires on load, on scroll alone, or from a synthetic dispatchEvent, and the handler never calls preventDefault, so the reader&#x27;s click always reaches Amazon.</li><li>The request itself necessarily exposes the reader&#x27;s IP address to the server that receives it. That is a property of HTTP, not something the client can prevent. The shipped endpoints drop the address without writing it to disk; the host&#x27;s own web-server access log is outside this site&#x27;s control and is stated here rather than glossed over.</li></ul>
 </div>
 
 <h2>Campaign ledger</h2>
@@ -159,7 +175,7 @@ a filled one here would not be.</p>
 <table>
   <caption>Empty on purpose. Columns: date, source, channel, eligible_sessions, clicks, reported_orders, provenance</caption>
   <thead><tr><th>date</th><th>source</th><th>channel</th><th>eligible_sessions</th><th>clicks</th><th>reported_orders</th><th>provenance</th></tr></thead>
-  <tbody><tr><td colspan="7" class="small muted">No rows. No first-party analytics exist yet, the site has no endpoint, and no Associates report has been read into this repository. An empty ledger is a true statement; a filled one would not be. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td></tr></tbody>
+  <tbody><tr><td colspan="7" class="small muted">No rows. No first-party analytics exist yet: the endpoint is not deployed and the counter is off, so the site has measured nothing. No Associates report has been read into this repository either. An empty ledger is a true statement; a filled one would not be. When the counter is switched on, the clicks it records are first-party click measurements, and they still do not fill this table — the table takes rows from the Associates report. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td></tr></tbody>
 </table>
 </div>
 
@@ -169,7 +185,7 @@ a filled one here would not be.</p>
   <caption>Prerequisites, in order</caption>
   <thead><tr><th style="width:6%">Step</th><th style="width:34%">Owner action</th>
   <th style="width:16%">Blocks</th><th style="width:44%">Why</th></tr></thead>
-  <tbody><tr><td class="num">1</td><td class="small">Decide where the endpoint lives (a small host the owner controls, or a hosted privacy-first service).</td><td class="small">EV-01 to EV-04</td><td class="small">A static GitHub Pages repo cannot receive a beacon. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td></tr><tr><td class="num">2</td><td class="small">Update the footer cookie/analytics sentence and the §3(e) disclosure in the same commit that adds the beacon.</td><td class="small">Any shipped measurement</td><td class="small">Program Policies §3(e); the current footer would otherwise become false. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td></tr><tr><td class="num">3</td><td class="small">Report the Associates tracking ID in use and confirm the account is approved, then read the first order report.</td><td class="small">EV-05</td><td class="small">Without an approved account there is no report to enter and no commission to attribute. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td></tr></tbody>
+  <tbody><tr><td class="num">1</td><td class="small">Deploy one of the two endpoints in analytics/ on a host you control, over https.</td><td class="small">EV-01 to EV-04</td><td class="small">A static GitHub Pages repo cannot receive a beacon. The source is written; the hosting decision and the deployment are the account holder&#x27;s. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td></tr><tr><td class="num">2</td><td class="small">Set analytics.enabled and analytics.endpoint in data/config.json, rebuild, and update the published sentences the build guard names.</td><td class="small">Any shipped measurement</td><td class="small">Program Policies §3(e). The footer&#x27;s paragraph is generated from the switch, so it changes by itself; what the guard catches is the rest of the site — the registers quote sentences about a site that runs no analytics, and those quotes become false the moment the counter sends. The build names each one and where it comes from. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td></tr><tr><td class="num">3</td><td class="small">Report the Associates tracking ID in use and confirm the account is approved, then read the first order report.</td><td class="small">EV-05</td><td class="small">Without an approved account there is no report to enter and no commission to attribute. The tracking ID itself is already applied to every outbound product link; what is unconfirmed is whether the account is approved and whether the ASINs are the models intended. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td></tr></tbody>
 </table>
 </div>
 
