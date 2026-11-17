@@ -5382,18 +5382,7 @@ mis-read once, caught immediately, and the rebase was aborted and redone correct
 
 **Gates:** ledger JSON parsed and a custom check confirmed five rows, blank confirmation fields, and separation of intended vs observed targets; `python3 build.py` passed (50 pages, 49 sitemap URLs, RSS 21 items); `python3 verify.py` passed (128 pages, 77 specification rows, 35 sources, 0 errors); `bash scripts/ci-check.sh` passed (33 tests, audit clean, 8,518 links, 0 broken); `git diff --check` clean. The canonical generator/navigation/shared product register were intentionally not changed because concurrent scopes own those shared files. Analytics remains unimplemented: the static Pages site has no server-side event endpoint or Associates report access; the report defines a proposed five-event set and an explicit pre-deployment decision gate rather than shipping a nonfunctional browser-only counter.
 
-## Task board — arena/e82107a0-zone1 (2026-11-17 UTC) — integration pass
-
-| # | Task | Status | Owner (session) | File scope |
-|---|------|--------|-----------------|------------|
-| X-e82107a0 | Final integration for the 2026-11-17 brief: re-read the five submitted link redirects without treating a fallback as product intent; add a separate intended-ASIN confirmation register; record the selected tracking ID without asserting account ownership; deliver a privacy-preserving five-event collector and empty campaign ledger with an explicit GitHub Pages hosting gate; rebuild the home page as a buyer-first publication front page; group dashboard surfaces in one nav group and footer index; run every local gate and record the PR/Pages result | in progress | arena/e82107a0-zone1 | `COORDINATION.md`; root `build.py` + generated HTML/CSS/JS/feed/sitemap; `data/config.json`, `data/sources.json`, `data/product-intent.json` (detailed canonical ledger), `data/analytics*.json`, `data/campaign-ledger.json`, `data/questions.json`, `data/suggestions.json`, `data/decision-log.json`, `data/topics.json`, `data/flags.json`; new `analytics/` and `scripts/` tests; `reports/verification-2026-11-17.md`; `EXECUTIVE-SUMMARY.md` |
-
-### Claim log — arena/e82107a0-zone1
-
-| UTC time | Session | Action |
-|----------|---------|--------|
-| 2026-11-17 | arena/e82107a0-zone1 | Read the coordination board and latest completion records before claiming. The prior final integration (I-5ac82b1d) is recorded done; no other task was in progress and `gh pr list --state open` returned no open PRs when checked. During the required `git pull --rebase origin main`, origin advanced to `c6a143a` with PR #126 (R-02b4e9c7), which added the five-link intent ledger and report. This pass preserves that completed work, integrates the complementary open PR #125 (X-1c97a25f), and will consolidate the two overlapping ledgers into one canonical record rather than leave competing sources of truth. Arena pins this session to `arena/e82107a0-zone1`, so work stays on that branch rather than creating the protocol's per-task branch. This session takes the final-integration role for root shared outputs. Existing annexes and historical evidence are out of scope unless a root build gate requires a generated rebuild. |
-
+**PR / merge / Pages record:** [PR #126](https://github.com/kanlerxz87-cyber/Zone1/pull/126) merged 2026-11-17 as `c6a143a62db471f2e9a16f69051bdc3d298f3468`. Post-merge `CI`, `Build, verify and deploy to GitHub Pages`, and `Verify verification annex (site/)` all succeeded; `pages/builds/latest` reports `status: built`, commit `c6a143a…`, `error: null`. No separate live read-back was done for these markdown/JSON-only additions, which are not linked into generated site navigation.
 ### X-1c97a25f — product-intent, tracking-ID record and campaign ledger — arena/1c97a25f-zone1 (2026-11-17)
 
 **Claimed and completed by session 1c97a25f.** File scope: `data/config.json`, `data/sources.json` (S36, S37 added), `data/product-intent.json` (new), `data/campaign-ledger.json` (new), `build.py` (new `page_intent`, nav entry, F76–F79), regenerated HTML, `EXECUTIVE-SUMMARY-SHOP-PASS.md` (new), this log.
@@ -5406,3 +5395,138 @@ mis-read once, caught immediately, and the rebase was aborted and redone correct
 * **Sources used:** S2, S5, S6, S16, S17, S28, S29, S36, S37 (Amazon listing pages, fetched 2026-11-17). The search results used to look for an ASIN definition were third-party and were **not** used as sources.
 * **Verification:** every gate in the Pages and CI workflows passed on the final tree (see `EXECUTIVE-SUMMARY-SHOP-PASS.md`). The `site/` annex was regenerated with no change, because its tag is still blank.
 * **Not done in this pass:** product-led landing page redesign, outbound-click counter and self-hosted analytics endpoint, Search Console and RSS submission (SG-27..30), new guides, real product photography. These are listed in the executive summary as open.
+
+
+**X-1c97a25f handoff note (2026-11-17, same-day overlap):** while this branch was open, `main` received `data/product-intent-confirmations.json` and `reports/brief-reconciliation-2026-11-17.md` from session `02b4e9c7` (merged as #126). Both records are kept; neither file was edited or removed by this session. Differences for the integration session to reconcile: (a) that file dates the PI-01–PI-03 observations 2026-11-16 and does not observe PI-04/PI-05, while `product-intent.html` records fresh fetches of all five on 2026-11-17; (b) both state no intended ASIN is confirmed, so they agree on the central point. Flagged as **F80** on `flagged.html`. Also added in this pass: `build.py` now emits `product-intent.html` with flags F76–F79 and F80; sources S36/S37 added to `data/sources.json`.
+
+### X-1c97a25f — PR and merge result — arena/1c97a25f-zone1 (2026-11-17)
+
+* **PR #125:** https://github.com/kanlerxz87-cyber/Zone1/pull/125 — "Product-intent record, tracking-ID status and empty campaign ledger (1c97a25f)". Merged with `gh pr merge 125 --merge` at **2026-11-17T16:06:19Z**, merge commit **`bfe7e58c35957cdee64ba1856024347ed9a2f1a0`**, without waiting for approval (per the brief). Required checks before merge: `verify` pass, `Rebuild site/ from data/verified and assert every guarantee` pass; `mergeStateStatus: CLEAN`.
+* **Conflicts during the pass:** main advanced twice (#126, #127, both from session 02b4e9c7). Each time `COORDINATION.md` conflicted and was resolved keep-both (nothing from the other session was removed). The parallel record `data/product-intent-confirmations.json` was kept untouched and is flagged as F80.
+* **Post-merge:** GitHub Pages build for `bfe7e58` → `status: built`, `error: null`. Workflows on main: `Build, verify and deploy to GitHub Pages`, `CI`, `Verify verification annex (site/)`, `pages build and deployment` → all success.
+* **Live read-back:** https://kanlerxz87-cyber.github.io/Zone1/product-intent.html renders the disclosure strip, all five sourced rows, the tracking-ID "not yet applied" status and the empty ledger.
+
+---
+
+## Task board — arena/5b17c077-zone1 (2026-11-17 UTC) — tracking ID + product-intent record + disclosure/analytics
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| I-5b17c077 | **Final integration (pass 12)**: (1) wire the owner-supplied Associates tracking ID `shopnow047c-20` into the root build so every outbound Amazon link is a compliant Special Link with a build gate; (2) publish a product-intent confirmation record keeping *intended* ASIN/URL/date/source separate from *observed* redirect target, and extend it to the two supplied links never previously examined; (3) make the outbound-click measurement honest — a privacy-preserving counter that is not shipped as a fake number; (4) keep the disclosure above the fold and every outbound product link `rel="sponsored"`; (5) rebuild, run every gate, PR → merge → confirm Pages → record | in progress | arena/5b17c077-zone1 (session 5b17c077) | `COORDINATION.md` (this section); `session-5b17c077/*`; `data/intent-record.json` (new); at integration: `build.py`, `data/config.json`, regenerated root HTML (shared outputs per protocol §5) |
+
+### Claim log — arena/5b17c077-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17T15:58Z | arena/5b17c077-zone1 (session 5b17c077) | Read the board first: every prior row is `done`/`needs review`; no open PR (#124 was the last merge, `9c6e3f0`), so no other session holds a claim. Baseline on this branch: `python3 build.py` → 50 pages / 49 sitemap URLs / feed 21 items, exit 0; `python3 verify.py` → 128 pages, 77 spec rows (75 verified / 2 blank+flagged), 35 sources, 0 errors, 0 external warnings. Takes the **final-integration** role for shared outputs per protocol §5. Non-overlapping scope: `site/`, `s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*` and other `session-*` folders are **not** edited by this pass. |
+
+### I-5b17c077 plan (recorded before implementation)
+
+Live re-verification for this pass was done from the sandbox with `fetch_page` between 15:58Z and 16:20Z on 2026-11-17.
+
+1. **Tracking ID.** The owner supplied `shopnow047c-20` (previously no tag existed anywhere in the repo — flag F-10, the single highest-impact revenue blocker). Amazon Program Policies §2(a) ("Special Links must use the Associates ID we have assigned to you") and §2(b) ("you must include your Associates ID or 'tag' … as a parameter in the URL of each link") require it on every link. Planned change: set `associate_tag` in `data/config.json`, make the root build emit `?tag=` on every `/dp/` link, and add a gate that fails the build if any outbound product link lacks it once a tag is configured.
+2. **Product-intent record.** The brief asks for a record storing the *intended* ASIN, official listing URL, confirmation date and source, with *observed* redirect targets in a separate never-merged field. No such record exists in the repo. Planned change: new `data/intent-record.json` plus a reader-facing page.
+3. **Two never-examined links.** The brief lists **five** product links; the repo tracks **three**. `B0c8moW59` and `B0f3GKalj` appear in **zero** files. Live reads this pass resolved them to `B0DHZTCNR5` (ThermoMaven meat thermometer) and `B0DZFD6R9Z` (CHEF iQ meat thermometer) — a different product category from the three air fryers. This is a new irregularity to publish, not to silently fix.
+4. **No tag on the supplied links.** All three re-read `link.amazon` links again landed with `plpRedirect=mhFallback` and **no `tag=` parameter**, so they are not Special Links as supplied. §3(w) also bars shorteners that make it unclear you are linking to Amazon.
+
+### I-5b17c077 completion record (content)
+
+**Status: done.** Full report: `session-5b17c077/verification-2026-11-17.md`.
+
+* **Tracking ID wired and gated.** The root build never read `associate_tag`; every outbound link was untagged (flag F-10, open for ten passes). Set to the owner-supplied `shopnow047c-20`; `amazon_product_url()` builds every `/dp/` link, `tag_and_qualify_amazon_links()` applies tag + `rel="sponsored"` in one idempotent post-render pass, and `check_associate_tagging()` **fails the build** on any untagged or unqualified Amazon link. Gate proven to fire in four directions (transform, idempotency, untagged link, blank tag).
+* **Product CTA de-shortened.** `product_cta()` no longer sends readers through the untagged `link.amazon` shortener; it points at the tagged `/dp/<ASIN>` listing. §2(a) (tag required), §2(b) (tag on *each* link) and §3(w) (no ambiguity that the destination is Amazon) read live 2026-11-17.
+* **Product-intent record added** (`data/intent-record.json` → `intent-record.html`). Intended ASIN / listing URL / source in separate fields from the observed redirect target, never merged. 5 rows, **0 owner-confirmed**, `confirmation_date: null` throughout. The page states plainly that the three "matches" are **not independent corroboration**, because the register's candidate ASIN was itself derived by following the same links — that is why confirmation is still null.
+* **Two supplied links had never been examined.** The brief lists five; every prior pass tracked three; `B0c8moW59` and `B0f3GKalj` appear in **zero** files. Read live 2026-11-17 they resolve to `B0DHZTCNR5` (ThermoMaven meat thermometer) and `B0DZFD6R9Z` (CHEF iQ meat thermometer) — a **different product category**. Intended product recorded as **unknown, not inferred**. Published as **F81** (renumbered from F76, which the parallel session had already used); **F82** records that no supplied URL carried a tag.
+* **Measurement specified, not faked** (`data/measurement.json` → `measurement.html`). EV-01…EV-05 defined with what each records and what it must never record; campaign ledger **empty on purpose**; three prerequisites listed. **No count, rate or revenue forecast published** — GitHub Pages has no endpoint to receive a beacon, and the footer's §3(e) "no analytics" statement must change in the same commit that adds one.
+* **Requirements:** E-02 `blocked` → `delivered` with evidence (tag attached and gate-enforced). E-03/E-04 stay `not_delivered` — measurement is specified, not shipped.
+* **Gates:** `build.py` 52 pages / 51 sitemap URLs / feed 21, idempotent · `verify.py` 130 pages, 77 spec rows (75 verified / 2 blank+flagged), 0 errors · `ci-check.sh` 33 tests, audit clean, **8,683 links / 0 broken** · disclosure above the fold on **52/52** root pages (computed `<main>` position).
+---
+
+## Task board — arena/4618f77b-zone1 (2026-11-17 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-4618f77b | **Final verification & integration pass (2026-11-17)** — line-by-line repo review; live re-verification of the load-bearing official sources (3 `link.amazon` short links, Associates S1–S5, FTC S8/S9, brand pages S10/S12/S14) and the live deployed site; defect hunt over the delivered HTML; fix defects found + add guards; rebuild, run every gate, PR → merge → confirm GitHub Pages deploy → record. No factual value changes unless a defect demands it. | done | arena/4618f77b-zone1 (session 4618f77b) | `COORDINATION.md`; `reports/verification-2026-11-17-4618f77b.md` (new); `build.py`, `verify.py` (only if a defect requires it); regenerated root HTML; `data/*.json` (defect repairs only); `EXECUTIVE-SUMMARY.md` (append-only). Not touching: `site/`, `s2/`, `data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*`, other `session-*` dirs |
+
+### Claim log — arena/4618f77b-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17T (session start) | arena/4618f77b-zone1 (session 4618f77b) | **Claimed X-4618f77b** after reading the board top to bottom. Branch `arena/4618f77b-zone1` is a fresh branch at `9c6e3f0` (= `origin/main`, PR #124 merge, session 5ac82b1d). All prior rows (T1–T20, U1–U2, every X-* row) are `done`; no row is claimed elsewhere. No open PRs at claim time. Baseline gates re-run green before claim: `build.py` exit 0 (49 sitemap URLs, 21 feed items), `verify.py` 128 pages / 77 spec rows (75 verified, 2 blank+flagged) / 35 sources / 0 errors, `scripts/ci-check.sh` 33 tests OK / data audit clean / 8,518 links / 0 broken. GitHub Pages `status: built` (last deploy 2026-11-16T20:27:31Z). Arena pins this session to this branch, which therefore acts as the protocol's `session-<id>/<task>` branch. |
+
+### X-4618f77b completion record — arena/4618f77b-zone1 (2026-11-17 UTC)
+
+**Status: done.** Full evidence table: `reports/verification-2026-11-17-4618f77b.md`.
+
+**Live re-verification performed (all direct page reads, 2026-11-17 UTC, server-side fetch):**
+
+| Source | What was read | Verdict |
+|---|---|---|
+| link.amazon/B04G1MEwY → `/dp/B0CDY277D3` | listing `<title>` "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry…" | destination + title match `data/products.json`; redirect again carries `lv=shuf`, `plpRedirect=mhFallback` and a new `gaOptInStatus=true` parameter (F10/F15 unchanged) |
+| link.amazon/B02NbDxp3 → `/dp/B09B7SB46R` | title "Emeril Lagasse 26QT French Door… 24 One-Touch Preset Options… Six Cooking Accessories Included" | match; F4/F5/F71 conflicts live |
+| link.amazon/B00hJ57DV → `/dp/B08DKYBTPH` | title "Chefman Air Fryer 8 Qt… 450°F Hi-Fry Option…" | match; F3 conflict live |
+| S1 Operating Agreement | "Updated: October 15, 2025" | confirmed |
+| S2 Program Policies | "Updated: April 14, 2026"; all eight policy sections present | confirmed |
+| S3 Commission Income Statement | Table 1 read with no login: Kitchen 4.50%, All Other 4.00%; bounties $12.00/$5.00/$0.25 | confirmed; per-product rate still blank (no ASIN→category mapping) |
+| S4 Application Review | 3 sales/180 days, 10 posts, 60-day recency, 500 followers, rejection final | confirmed verbatim |
+| S5 Associate identification | required sentence verbatim; clear + conspicuous | confirmed |
+| S8 FTC Disclosures 101 | "November 2019"; "hard to miss"; "can't talk about… you haven't tried" | confirmed |
+| S9 eCFR 16 CFR 255 | "up to date as of **11/13/2026**" (moved from 11/12/2026 on the 2026-11-16 reads); §255.0–§255.6 | confirmed; the moving point-in-time stamp recorded on S9's `page_version` |
+| S10 Chefman 6 Qt | all spec rows match; review widget **1,310** (4.6) — moved from 1,307 | value refreshed, both read dates kept (F19) |
+| S12 Chefman 8 Qt | 200–400 °F, RJ38-SQSS-8T, 717 reviews | confirmed; F3 stands |
+| S14 Emeril | 26 Qt / 24.6 L / 16.9×15.8×14.8 in / 120 V / 4-00675-02A-VN / 2.6 (25); 25-icon vs 10-in-1 vs 11-in-1 asset | confirmed; four-way preset conflict stands |
+| Live deployed site (`/`, `/flagged.html`, `/feed.xml`, Pages API) | disclosure above the fold; tiles 3/21/35/75/0; flagged register 75 rows; feed 21 items; `status: built` | matches the local build |
+
+**Line-by-line defect hunt (delivered HTML):** 0 dead in-page anchors, 0 missing canonicals, 0 conflict
+markers, 0 orphan pages. One defect found and repaired: **`dashboard/products.html`** (parallel build,
+hand-authored) emitted its three clickable `link.amazon` links with `rel="noopener"` while the same
+build's `dashboard/links.html` emitted `rel="noopener nofollow sponsored"` — an internal contradiction
+on a compliance-relevant attribute (brief S-05). Fixed to match `links.html`. The canonical root build
+was already compliant under its `check_affiliate_link_qualification` guard (documented decision D-05:
+`/dp/` citations are source badges; the `link.amazon` host and CTAs carry `sponsored`).
+
+**Requests logged, not edited (other sessions' generated scopes):** `s2/`, `site/`, `research/` and the
+retired `docs/` carry `link.amazon` anchors with inconsistent `rel` values (`noopener`,
+`noopener nofollow`, `noopener noreferrer`, and correctly `sponsored` variants). Hand-editing those
+generated files would break their own reproducibility gates (`scripts/build_s2_site.py --check`,
+`scripts/verify_site.py`, `research/check_research.py`), so the request is logged here for their
+generator owners to align the `rel` values at the template level.
+
+**Files this pass wrote:** `dashboard/products.html` (3 rel fixes) · `data/products.json` (6 Qt review
+count 1,307 → 1,310, note updated, both read dates kept) · `data/sources.json` (S9, S10 `page_version`
+stamps) · regenerated `index.html`, `data.html` · `reports/verification-2026-11-17-4618f77b.md` (new) ·
+`COORDINATION.md` (this record).
+
+**Gates, all green after the final edit:** `python3 build.py` exit 0 (49 sitemap URLs, 21 feed items) ·
+`python3 verify.py` 128 pages, 77 spec rows (75 verified / 2 blank+flagged), 35 sources, 0 errors,
+0 external warnings · `bash scripts/ci-check.sh` 33 tests OK, data audit clean, 8,518 links / 0 broken ·
+`python3 research/check_research.py` OK · `python3 scripts/verify_site.py` ALL CHECKS PASSED ·
+`python3 platform/audit/report.py` AUDIT PASSED (0 warnings) · `node --check assets/app.js` OK ·
+`git diff --check` clean · a second `build.py` run reproduces the tree byte-for-byte.
+
+**Not resolved, unchanged and published as such:** F3, F4/F5, F70, F71, F11, Q-01/Q-02/Q-04 and the
+two blank+flagged spec rows. Nothing was filled by inference.
+
+### I-5b17c077 — PR, merge and Pages result (2026-11-17 UTC)
+
+* **PR [#128](https://github.com/kanlerxz87-cyber/Zone1/pull/128)** — "owner tracking ID wired + gated, intent records consolidated (F80 resolved), honest measurement spec". Merged with `gh pr merge 128 --merge` at **16:12:07Z**, merge commit **`5cd111d0d2a915637dbd7581f71c36ed07354bf0`**, without waiting for approval per the brief. Required checks before merge: `verify` pass, `Rebuild site/ from data/verified and assert every guarantee` pass; `mergeStateStatus: CLEAN`.
+* **PR [#131](https://github.com/kanlerxz87-cyber/Zone1/pull/131)** — follow-up fixing stale tag-status copy that the *live read-back* of #128 exposed (the intent page still said "not yet applied" while the footer said every link carries it). Merged at **16:15:22Z**, merge commit **`66a76c3e9a0a6bdadab8361e4e7d424c86186699`**, checks pass, `CLEAN`.
+* **Conflicts during the pass:** main advanced four times (#125, #126, #127, #129). `COORDINATION.md` conflicted twice (both resolved keep-both, nothing from the other session removed) and `data/config.json` once (kept this session's tagged version — the other side still had the tag blank). Generated HTML conflicts were regenerated rather than hand-merged. No `--force` push was needed on a shared branch.
+* **Post-merge workflows on `main` at `66a76c3`, all success:** `CI` · `Build, verify and deploy to GitHub Pages` · `Verify verification annex (site/)` · `pages build and deployment`.
+* **GitHub Pages:** `pages/builds/latest` → `status: built`, commit `66a76c3…`, `error: null`.
+* **Live read-back from the deployed origin (cache-busted, 2026-11-17):** `product-intent.html` renders the disclosure strip, the corrected "applied and gate-enforced / attribution still open" tracking status, all five rows with 2026-11-17 observation dates, and the empty ledger; its citation links carry `?tag=shopnow047c-20`. `measurement.html` renders the five event definitions, the empty ledger and the three prerequisites, with **no count, rate or forecast anywhere**.
+* **Irregularities left open (published, none blocking):** **F81** (two supplied links resolve to meat thermometers — different category; intended product unknown), **F82** (no supplied URL carried a tag; site no longer routes through them), **F76** (tag attached and gated, but attribution untested — needs the owner's Associates report), F3/F15/F71 and the 2 blank+flagged spec rows unchanged. **F80 resolved** by consolidating three parallel intent records into one.
+
+### X-4618f77b — final disposition (PR, merge, Pages, defect outcome)
+
+**PR #130 merged.** https://github.com/kanlerxz87-cyber/Zone1/pull/130 — "X-4618f77b: final verification & integration pass (2026-11-17)". Merged with `gh pr merge 130 --merge` at **2026-11-17T16:14:47Z**, merge commit **`05723ce39935f9ae9a4640fbe9524b4fdde0cf26`**, without waiting for approval (per the brief). Both required checks (`verify`, `Rebuild site/ from data/verified`) passed; `mergeStateStatus: CLEAN` before merge.
+
+**Rebase during the pass:** `main` advanced three times while this branch was open (PRs #125–#127 from session 1c97a25f, then #128 and the integration session's #131/#132). Each time this branch was rebased onto the latest `main` and every conflict resolved **keep-both** — upstream's product-intent records, tracking-ID work, sources S36/S37 and the F80–F82 flags are all preserved alongside this pass's verification stamps and data refreshes. Nothing from any session was discarded.
+
+**GitHub Pages:** latest build `status: built`, commit **`e31a391`** (= current `main`), deployed 2026-11-17T16:18:13Z, `error: null`. Live read-back of `data.html`, `product-intent.html`, `flagged.html`, the product pages and `feed.xml` all serve correctly from `https://kanlerxz87-cyber.github.io/Zone1/`.
+
+**One defect found by the live read-back, already fixed on main:** the live `product-intent.html` tracking-ID paragraph and flag F76 initially still said the tracking ID "is not yet applied", contradicting the tag actually present on every rendered `/dp/` link. On closer inspection the integration session's PRs #131/#132 had **already** corrected this on `main` (superior wording, referencing F76 and F82). This session's independent fix (commit `d1dc25c`) was therefore redundant; the branch was reset to `main`, the redundant commit dropped, and **PR #133 closed as a no-op** (superseded). The live site confirms the corrected text is now serving. No net change was needed from this session for that defect — credited to the integration session.
+
+**Net effect of X-4618f77b on main:** the claim/completion records, the verification evidence report (`reports/verification-2026-11-17-4618f77b.md`), the `dashboard/products.html` `rel="sponsored"` repair, and the 6 Qt review-counter refresh (1,307 → 1,310, both read dates kept) with the S9/S10 source stamps. All gates green on the merged tree: build.py exit 0 (51 sitemap URLs, 21 feed items) · verify.py 130 pages / 77 spec rows (75 verified, 2 blank+flagged) / 37 sources / 0 errors · ci-check.sh 8,763 links / 0 broken · research + site-annex + platform audit gates all passing.
+
+**Open, unchanged, published on flagged.html (none blocking):** F3, F4/F5, F70, F71, F11, Q-01/Q-02/Q-04 and the two blank+flagged spec rows. Nothing was filled by inference.

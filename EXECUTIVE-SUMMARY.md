@@ -630,9 +630,7 @@ recorded in this repo (no live Amazon fetch was possible from this session):
   pages; sitemap.xml + robots.txt already ship; compete on transparency ("shows its gaps"); Pinterest/
   TikTok/YouTube Shorts for visuals; double-opt-in email; quarterly re-verification against official
   sources.
-- **Compliance:** disclosure wording per OA §5 (S1) and FTC (S7/S8/S9); replace `link.amazon/` short
-  links with canonical tagged `/dp/<ASIN>` URLs only after Q-1/Q-2 are answered; PA-API 5 is
-  deprecated — Creators API only (S24); IP License §2(e) bars training models on Program Content.
+- **Compliance (historical note updated 2026-11-17):** keep each submitted URL, observed destination and owner-confirmed intent separate. Do not replace a link or attach `shopnow047c-20` until the intended listing is confirmed and the account holder completes the required Associates test for that product. The ID remains unapplied and unverified here. Other historical policy notes in this section are not a substitute for current account checks.
 
 ### 14.3 T15 — decision gate (`session-3b99448e/decisions.md`)
 
@@ -721,7 +719,7 @@ None of these changed a sourced value. All ten are fixed on this branch.
 
 ### 15.8 The recommendation is unchanged
 
-Verify the three model numbers and the Associates tag in a logged-in browser, then replace the three `link.amazon` short links with canonical tagged `/dp/<ASIN>?tag=<tracking-id>` URLs built inside Associates Central, then re-run the re-verification pass. Until then the site publishes candidate mappings, leaves every unconfirmed value blank, and flags the rest. Nothing was invented to fill a gap.
+**Historical recommendation, superseded 2026-11-17:** the current integration does not treat the three observed destinations as proof of the intended products. The account holder must first confirm each intended listing separately, verify the user-provided `shopnow047c-20` in Associates Central, and complete the required enrolled-Associates test per confirmed product. Until those checks are recorded, keep the ID unapplied, the intended fields blank, and the campaign ledger empty. Do not replace the supplied links based only on redirect observations.
 
 ---
 

@@ -2,7 +2,7 @@
  "schema_note": "One row per exact link supplied in the project brief. intended_asin, official_listing_url, confirmation_date and confirmation_source remain null until the account holder confirms the intended official Amazon listing. observed_* fields are the separate destination/title observed on the date shown; they are not product-intent or Associates-attribution confirmation. Short-link tokens are recorded as tokens, not asserted to be ASINs.",
  "tracking_id_selected": "shopnow047c-20",
  "tracking_id_applied_to_links": false,
- "tracking_id_status": "User-selected value recorded only. Not validated in Associates Central and not confirmed on any supplied link. The required enrolled-Associates link test has not been run for any intended product. Test one link per confirmed product and verify each tracking result before scaling; keep associate_tag blank until the account checks pass.",
+ "tracking_id_status": "User-provided value recorded only. Not validated in Associates Central and not confirmed on any supplied link. No per-product enrolled-Associates test has passed. Keep associate_tag blank until each intended listing is confirmed and its test result is recorded.",
  "rows": [
   {
    "id": "PI-01",
@@ -21,7 +21,10 @@
     "S16"
    ],
    "note": "Observed fallback-style landing page/title only. It is not confirmation of the account holder’s intended listing or Associates attribution.",
-   "observed_listing_category": "Air-fryer product title on observed landing page; intended product unconfirmed"
+   "observed_listing_category": "Air-fryer product title on observed landing page; intended product unconfirmed",
+   "associates_link_test_passed": false,
+   "associates_link_test_date": null,
+   "associates_link_test_source": null
   },
   {
    "id": "PI-02",
@@ -40,7 +43,10 @@
     "S28"
    ],
    "note": "Observed fallback-style landing page/title only. The listing title says six accessories; the separate product-register conflict remains flagged. This is not confirmation of intent or attribution.",
-   "observed_listing_category": "Air-fryer product title on observed landing page; intended product unconfirmed"
+   "observed_listing_category": "Air-fryer product title on observed landing page; intended product unconfirmed",
+   "associates_link_test_passed": false,
+   "associates_link_test_date": null,
+   "associates_link_test_source": null
   },
   {
    "id": "PI-03",
@@ -59,7 +65,10 @@
     "S29"
    ],
    "note": "Observed fallback-style landing page/title only. It is not confirmation of the account holder’s intended listing or Associates attribution.",
-   "observed_listing_category": "Air-fryer product title on observed landing page; intended product unconfirmed"
+   "observed_listing_category": "Air-fryer product title on observed landing page; intended product unconfirmed",
+   "associates_link_test_passed": false,
+   "associates_link_test_date": null,
+   "associates_link_test_source": null
   },
   {
    "id": "PI-04",
@@ -77,7 +86,10 @@
     "S36"
    ],
    "note": "Observed Amazon page title is for a ThermoMaven meat thermometer. This redirect observation does not establish that the account holder intended to promote it.",
-   "observed_listing_category": "Meat-thermometer product title on observed landing page; intended product unconfirmed"
+   "observed_listing_category": "Meat-thermometer product title on observed landing page; intended product unconfirmed",
+   "associates_link_test_passed": false,
+   "associates_link_test_date": null,
+   "associates_link_test_source": null
   },
   {
    "id": "PI-05",
@@ -95,10 +107,14 @@
     "S37"
    ],
    "note": "Observed Amazon page title is for a CHEF iQ meat thermometer. This redirect observation does not establish that the account holder intended to promote it.",
-   "observed_listing_category": "Meat-thermometer product title on observed landing page; intended product unconfirmed"
+   "observed_listing_category": "Meat-thermometer product title on observed landing page; intended product unconfirmed",
+   "associates_link_test_passed": false,
+   "associates_link_test_date": null,
+   "associates_link_test_source": null
   }
  ],
  "tracking_id_provenance": "User-provided in the project brief on 2026-11-17; not independently checked in Associates Central.",
  "tracking_id_associates_central_confirmation_date": null,
- "tracking_id_associates_central_confirmation_source": null
+ "tracking_id_associates_central_confirmation_source": null,
+ "tracking_id_associates_central_confirmed": false
 }

@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "compiled": "2026-11-17",
+  "session": "arena/5b17c077-zone1",
+  "status": "defined_not_shipped",
+  "purpose": "The five measurement events this site will record, defined precisely enough that whoever wires them cannot guess, plus the honest reason none of them is sending yet. Defining an event is not collecting it: this file is a specification, and every count in it is empty on purpose.",
+  "why_nothing_is_sending": [
+    "The site is static files on GitHub Pages. There is no server to receive a beacon, so a 'self-hosted analytics endpoint' cannot be built inside this repository — it needs a host the owner controls.",
+    "The footer states, truthfully today, that the site sets no cookies and runs no analytics. Program Policies §3(e) requires an accurate statement of cookie and third-party technology use, so the moment a beacon ships that sentence is false unless it is updated in the same commit.",
+    "A click counter that reported a number without a real endpoint behind it would be an invented number on a page that promises every value is sourced. Nothing here reports a count it did not measure.",
+    "Amazon's own conversion reporting lives in Associates Central and is not available to a third-party static site, so reported orders must come from the owner's first-party report, not from this site."
+  ],
+  "privacy_rules": [
+    "No cookies are set by the counter. If a cookie is ever added, the footer statement and the §3(e) disclosure change in the same commit.",
+    "No persistent identifier per reader and no cross-site profile. Program Policies §2(b) separately forbids associating a sub-tag with a specific end user.",
+    "The counter records the event, the page slug and the product ASIN — never an IP address, user agent string or referrer.",
+    "Program Policies §3(s) forbids artificially generating clicks; the counter must never be fired by a bot, prefetch or crawler, so it is attached to a real click only."
+  ],
+  "events": [
+    {
+      "id": "EV-01",
+      "name": "page_view",
+      "fires_when": "A human opens any article, product, comparison or guide page.",
+      "records": ["page slug", "UTC date", "whether the arrival carried a utm_source/campaign parameter"],
+      "explicitly_not_recorded": ["IP address", "user agent", "referrer URL", "reader identifier"],
+      "note": "Slug and date only. A per-reader identifier would turn this into behavioural tracking and break the no-cookie statement."
+    },
+    {
+      "id": "EV-02",
+      "name": "outbound_product_click",
+      "fires_when": "A reader clicks any link whose href points at www.amazon.com/dp/<ASIN>.",
+      "records": ["ASIN", "page slug the click came from", "UTC date", "the Associates tag present on the link"],
+      "explicitly_not_recorded": ["order value", "what the reader bought", "any Amazon session data"],
+      "note": "This is the earliest point at which this site can observe intent without Amazon's data. It counts interest, not revenue, and must never be labelled a conversion."
+    },
+    {
+      "id": "EV-03",
+      "name": "guide_completed",
+      "fires_when": "A reader scrolls a sourced article to its final section, measured at the last heading, not at the footer.",
+      "records": ["page slug", "UTC date"],
+      "explicitly_not_recorded": ["time on page", "scroll depth histogram", "reader identifier"],
+      "note": "A single completion flag is enough to answer 'did anyone read this'. A depth histogram costs a cookie-free session id and buys nothing the editorial calendar uses."
+    },
+    {
+      "id": "EV-04",
+      "name": "comparison_table_viewed",
+      "fires_when": "The comparison table becomes visible in the viewport on compare.html or a product page.",
+      "records": ["page slug", "UTC date"],
+      "explicitly_not_recorded": ["which rows were expanded", "reader identifier"],
+      "note": "Exists to test one editorial hypothesis: whether the comparison surface is the thing that earns clicks, or whether the articles do."
+    },
+    {
+      "id": "EV-05",
+      "name": "reported_order",
+      "fires_when": "Never automatically. It is entered by hand from an Amazon Associates Central order report for a dated period.",
+      "records": ["report period start/end", "ASIN (when the report itemises one)", "reported clicking-site subtag", "orders", "reported revenue", "date the report was read"],
+      "explicitly_not_recorded": ["inferred or modelled orders", "a conversion rate computed from mismatched windows"],
+      "note": "This is the only revenue-bearing event, and it is first-party: it comes from the owner's authorised report, never from this site. A score or forecast is deliberately absent."
+    }
+  ],
+  "campaign_ledger": {
+    "note": "Started empty on purpose, per the brief's 'empty but well-defined campaign ledger'. A row may only be added from an authorised first-party report. No conversion score and no revenue forecast is presented anywhere in this repository.",
+    "columns": ["date", "source", "channel", "eligible_sessions", "clicks", "reported_orders", "provenance"],
+    "rows": [],
+    "why_empty": "No first-party analytics exist yet, the site has no endpoint, and no Associates report has been read into this repository. An empty ledger is a true statement; a filled one would not be."
+  },
+  "prerequisites": [
+    {
+      "step": "1",
+      "owner_action": "Decide where the endpoint lives (a small host the owner controls, or a hosted privacy-first service).",
+      "blocks": "EV-01 to EV-04",
+      "why": "A static GitHub Pages repo cannot receive a beacon."
+    },
+    {
+      "step": "2",
+      "owner_action": "Update the footer cookie/analytics sentence and the §3(e) disclosure in the same commit that adds the beacon.",
+      "blocks": "Any shipped measurement",
+      "why": "Program Policies §3(e); the current footer would otherwise become false."
+    },
+    {
+      "step": "3",
+      "owner_action": "Report the Associates tracking ID in use and confirm the account is approved, then read the first order report.",
+      "blocks": "EV-05",
+      "why": "Without an approved account there is no report to enter and no commission to attribute."
+    }
+  ]
+}

@@ -21,7 +21,7 @@
     "The intended ASIN, official listing URL, confirmation date and confirmation source remain blank for all five rows in data/product-intent.json."
    ],
    "what_is_missing": "The account holder’s intended product and an official Amazon listing URL confirmed against that intent for each supplied link.",
-   "how_to_discover": "In the account holder’s normal signed-in browser, open each supplied link, compare the listing title and model/part number with the item intended, and record the official /dp/ URL and confirmation source in data/product-intent.json only after that check. Keep the observed redirect in its separate field.",
+   "how_to_discover": "In the account holder’s normal signed-in browser, compare each submitted link with the product they actually intended to promote. Only after the account holder confirms that match, fill intended_asin, official_listing_url, confirmation_date and confirmation_source together in data/product-intent.json. Keep the original supplied_link and observed_redirect_target/title in their separate fields; do not treat the redirect as confirmation.",
    "blocks": [
     "SG-01",
     "SG-04",

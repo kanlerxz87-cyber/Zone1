@@ -7217,8 +7217,21 @@ def check_intent_measurement_contract(pages=None):
     selected = SITE_CONFIG.get("selected_tracking_id")
     if selected != PRODUCT_INTENT.get("tracking_id_selected"):
         problems.append("selected tracking ID differs between config.json and product-intent.json")
-    if SITE_CONFIG.get("associate_tag") and not PRODUCT_INTENT.get("tracking_id_applied_to_links"):
-        problems.append("associate_tag cannot be applied while the required per-product link test is unconfirmed")
+    associate_tag = (SITE_CONFIG.get("associate_tag") or "").strip()
+    applied = bool(PRODUCT_INTENT.get("tracking_id_applied_to_links"))
+    if bool(associate_tag) != applied:
+        problems.append("associate_tag and tracking_id_applied_to_links must agree")
+    if associate_tag or applied:
+        if associate_tag != selected:
+            problems.append("configured associate_tag must match the separately recorded tracking ID")
+        if not SITE_CONFIG.get("selected_tracking_id_associates_central_confirmed") or not PRODUCT_INTENT.get("tracking_id_associates_central_confirmed"):
+            problems.append("associate_tag cannot be applied before the tracking ID is confirmed in Associates Central")
+        for row in rows:
+            intended_fields = ("intended_asin", "official_listing_url", "confirmation_date", "confirmation_source")
+            if not all(row.get(field) for field in intended_fields):
+                problems.append(f"{row.get('id')}: associate_tag cannot be applied before intended listing confirmation")
+            if not (row.get("associates_link_test_passed") and row.get("associates_link_test_date") and row.get("associates_link_test_source")):
+                problems.append(f"{row.get('id')}: associate_tag cannot be applied before its enrolled-Associates test is recorded")
 
     names = [event.get("name") for event in ANALYTICS_PLAN.get("events", [])]
     required_events = {
