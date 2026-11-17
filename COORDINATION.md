@@ -5821,7 +5821,7 @@ AUDIT PASSED (0 warnings) · `node --check` OK on both JS assets.
 
 | # | Task | Status | Owner (session) | File scope |
 |---|------|--------|-----------------|------------|
-| X-16adefc5 | **Independent live verification round + delivered-HTML defect hunt (2026-11-17).** Read the board first; re-read the load-bearing official sources live (Associates S1–S5, FTC S8/S9, brand pages S10/S12/S14, the five submitted `link.amazon` tokens); read the deployed GitHub Pages site back from the origin; run every local gate; hunt defects over the delivered root HTML line by line; publish `reports/verification-2026-11-17-16adefc5.md` and log any repair request in this file rather than editing a scope another open PR owns. No product/site content changed by this pass unless a gate fails. | in progress | arena/16adefc5-zone1 (session 16adefc5) | `COORDINATION.md` (this section); `reports/verification-2026-11-17-16adefc5.md` (new). Read-only on everything else: `build.py`, `data/*.json`, `verify.py` are touched by open PRs #139 (session 00bc7156) and #140 (session 58cbaaa2); `site/`, `s2/`, `research/`, `docs/`, `dashboard/`, `crosscheck/`, `analytics/`, `annex-*`, other `session-*` are other sessions' builds |
+| X-16adefc5 | **Independent live verification round + delivered-HTML defect hunt (2026-11-17).** Read the board first; re-read the load-bearing official sources live (Associates S1–S5, FTC S8/S9, brand pages S10/S12/S14, the five submitted `link.amazon` tokens); read the deployed GitHub Pages site back from the origin; run every local gate; hunt defects over the delivered root HTML line by line; publish `reports/verification-2026-11-17-16adefc5.md` and log any repair request in this file rather than editing a scope another open PR owns. No product/site content changed by this pass unless a gate fails. | done — report `reports/verification-2026-11-17-16adefc5.md` published, R-16adefc5-1 logged; completion record below | arena/16adefc5-zone1 (session 16adefc5) | `COORDINATION.md` (this section); `reports/verification-2026-11-17-16adefc5.md` (new). Read-only on everything else: `build.py`, `data/*.json`, `verify.py` are touched by open PRs #139 (session 00bc7156) and #140 (session 58cbaaa2); `site/`, `s2/`, `research/`, `docs/`, `dashboard/`, `crosscheck/`, `analytics/`, `annex-*`, other `session-*` are other sessions' builds |
 
 ### Claim log — arena/16adefc5-zone1
 
@@ -5835,3 +5835,32 @@ AUDIT PASSED (0 warnings) · `node --check` OK on both JS assets.
 |---|---------|-----|----------|
 | R-16adefc5-1 | Repair the three directory hrefs on `requirements.html` (`href="platform/"` once, `href="platform/tests/"` twice — rows G-01 and G-04 of `data/requirements.json`, rendered by `page_requirements()` in `build.py`). GitHub Pages serves 404 for a directory with no `index.html`; live read-back on 2026-11-17 confirmed `https://kanlerxz87-cyber.github.io/Zone1/platform/` returns the site's own 404 page. Suggested repair: point the relative href at the directory's index document (`README.md` exists for `platform/`, `test_platform.py` is the file `platform/tests/` means), and/or add a build guard failing any internal href that ends in `/` without an `index.html` beside it. The sibling `repo` link (`blob/main/platform/`) is fine — GitHub redirects `blob` → `tree`. | the session that next owns `build.py` / `data/requirements.json` (open PRs #139/#140 or the following integration pass) | live fetch of the deployed 404 above; local scan of all delivered HTML finds this defect on no other page |
 
+
+### Completion record — arena/16adefc5-zone1 (2026-11-17T17:06Z)
+
+**Status: done.** Full evidence table with manual-review links: `reports/verification-2026-11-17-16adefc5.md`.
+
+**Live re-verification performed (all direct page reads, 2026-11-17 16:45–17:05 UTC):**
+
+| Source | What was read | Verdict |
+|---|---|---|
+| S1 Operating Agreement | "Updated: October 15, 2025" | confirmed |
+| S2 Program Policies | "Updated: April 14, 2026"; §2(a) "Special Links must use the Associates ID we have assigned to you"; §2(b) tag `XXXXX-##` as a URL parameter; price/availability rule | confirmed verbatim |
+| S3 Commission statement | Table 1: "Physical Books, Kitchen, Automotive 4.50%", "All Other Categories 4.00%"; bounties $12.00 / $5.00 / $0.25 | confirmed verbatim |
+| S4 Application review | 3 sales/180 days · personal orders excluded · ≥10 posts · 60-day recency · ≥500 followers · rejection final | all five confirmed verbatim |
+| S5 Associate identification | "As an Amazon Associate I earn from qualifying purchases." + Clear/Conspicuous tests | confirmed verbatim |
+| S8 FTC Disclosures 101 | "November 2019"; "hard to miss"; "can't talk about your experience with a product you haven't tried" | confirmed verbatim |
+| S9 eCFR 16 CFR 255 | "up to date as of 11/13/2026"; last amended 10/30/2026; §255.0–§255.6; 88 FR 48102 | confirmed (matches the register's latest recorded stamp) |
+| S10 Chefman 6 Qt | 200–450 °F; Hi-Fry 450 °F; 13.38 × 11.81 × 10.63 in; 13.3 lb; 1700 W/120 V; RJ38-SQPF-3TDB-2W; widget 4.6 / **1,310** | all confirmed |
+| S12 Chefman 8 Qt | 200–400 °F; max 400 °F; 4 presets; 15.4 × 12.6 × 13.5 in; 12.8 lb; RJ38-SQSS-8T; widget 4.6 / **717**; no Hi-Fry on page | all confirmed |
+| S14 Emeril 26 QT | 16.9 × 15.8 × 14.8 in; 24.6 L; 120 V; 4-00675-02A-VN; widget 2.6 (25); "25 Cooking Pre-sets" strip; "10-in-1" description; "11-in-1" asset | all confirmed; four-way preset conflict still live, nothing inferred |
+| Five `link.amazon` tokens | B04G1MEwY→B0CDY277D3 · B02NbDxp3→B09B7SB46R · B00hJ57DV→B08DKYBTPH · B0c8moW59→B0DHZTCNR5 · B0f3GKalj→B0DZFD6R9Z; all still served with `lv=shuf` + `plpRedirect=mhFallback`, **no `tag=`**; titles match the register; the two thermometer links sit under Thermometers & Timers › Meat | all five confirmed; F81/F82 stand |
+| Deployed Pages | `status: built` @ `6c9d313` (16:53:56Z), all four workflows success; landing page disclosure-first editorial front page; product page disclosure above fold, CTA labelled "tracking unconfirmed", per-row sources | matches the local build |
+
+**Gates on this branch (base `6c9d313`), all green:** `build.py` exit 0 (31 sitemap URLs, 21 feed items), byte-clean rebuild · `verify.py` 130 pages / 77 spec rows (75 verified, 2 blank+flagged) / 42 sources / 0 errors · `ci-check.sh` 33 tests OK, audit clean, **9,585 links / 0 broken** · `research/check_research.py` OK · `scripts/verify_site.py` ALL CHECKS PASSED · `platform/audit/report.py` AUDIT PASSED · `node --check` OK · `tests/` 17 OK · `git diff --check` clean. Scripted defect scan over the 25 root pages: 0 dead anchors, 0 duplicate titles, 0 missing canonicals/meta descriptions, disclosure above `<main>` on 25/25, 0 conflict markers, 0 untagged or unsponsored product CTAs.
+
+**Defect found, not patched (scope discipline):** **R-16adefc5-1** — three directory hrefs on `requirements.html` (`platform/`, `platform/tests/` ×2) serve the site's 404 page on GitHub Pages; live-confirmed. Logged for the next owner of `build.py` / `data/requirements.json`; a repo-wide scan finds no other page with this defect.
+
+**State-of-play recorded, not decided:** on current main `data/config.json` carries `associate_tag: ''` — PR #137 blanked the brief's selected ID `shopnow047c-20` pending an enrolled-Associates test and removed `check_associate_tagging()`, reversing PR #128's wiring. The site publishes this honestly (F76, product-intent "recorded only", Q rows, SG row), and open PR #141 proposes re-wiring it. Also observed: 20 `/dp/` evidence-citation anchors ship `rel="noopener"` only (consistent with the recorded D-05 citation rationale) while every CTA and clickable `link.amazon` anchor carries `rel="sponsored"`. Nothing was changed; both items are in the report for the owner or the next pass.
+
+**Carried forward unchanged and published:** F3, F4/F5, F70, F71, F11, F76, F81, F82, Q-01/Q-02/Q-04, the 2 blank+flagged spec rows. Nothing was filled by inference.
