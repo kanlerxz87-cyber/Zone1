@@ -2380,6 +2380,10 @@ PROGRAMME_FLAGS = [
      "data/sources.json (S23) vs COORDINATION.md and the S-register note",
      "Register an official Amazon page that defines ASIN, or drop the claim. Until then the site does not rely on a definition of ASIN; it only reports the ASINs observed in /dp/ URLs. The search results used during this pass were third-party pages and were not used as sources.",
      ["S23", "S16"]),
+    ("F80", "Two product-intent records now exist in the repository, written in parallel the same day, and they disagree on observation dates and on PI-04 and PI-05.",
+     "data/product-intent.json (this page, 2026-11-17 observations) vs data/product-intent-confirmations.json (session 02b4e9c7, 2026-11-16 observations; PI-04 and PI-05 'not researched')",
+     "The integration session keeps one record and retires the other, with the dated observation history kept in one place. Neither file was deleted in this pass, because the other file belongs to another session. Both state that no intended ASIN or listing is confirmed.",
+     ["S17", "S16", "S28", "S29", "S36", "S37"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
