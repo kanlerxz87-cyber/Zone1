@@ -199,7 +199,7 @@
    "covers": "Tracking IDs / sub-tag reporting model",
    "kind": "Help article",
    "directness": "Primary",
-   "page_version": "Live page, 2026-11-13"
+   "page_version": "Live page, 2026-11-13 Re-read verbatim 2026-11-17 (arena/58cbaaa2-zone1) because the account holder supplied a tracking ID that day: the worked example remains 'storeid-20' with sub-tag 'storeid-1-20'; each ID can be reported individually; new IDs are created at Associates Central > 'Manage your Tracking ID'. The node states no validation rule and publishes no per-account list, so it can confirm the shape of an ID and nothing more."
   },
   {
    "id": "S7",
@@ -534,6 +534,46 @@
    "kind": "Platform documentation",
    "directness": "Primary — GitHub documentation for its Pages hosting product",
    "page_version": "Reference URL recorded 2026-11-17; page content not fetched in this integration."
+  },
+  {
+   "id": "S39",
+   "org": "CHEF iQ (brand)",
+   "url": "https://chefiq.com/products/iq-sense",
+   "title": "CHEF iQ iQ Sense wireless meat thermometer — official product page",
+   "covers": "The brand's own model designation, probe configuration and ambient rating for the iQ Sense, checked against the listing observed at /dp/B0DZFD6R9Z",
+   "kind": "Brand product page",
+   "directness": "Primary",
+   "page_version": "Read 2026-11-17 (arena/58cbaaa2-zone1). The brand page states model CQ60-3C-Z3-E, the Gen3 probe configuration and an ambient rating the observed Amazon listing does not repeat, and lists air-fryer use among the product's heat environments. It does not mention an Amazon ASIN. Registered because it is what the manufacturer states, not because it confirms a listing identity — see flag F80. Evidence: reports/verification-2026-11-17-58cbaaa2.md."
+  },
+  {
+   "id": "S40",
+   "org": "ThermoMaven (brand)",
+   "url": "https://www.thermomaven.com/",
+   "title": "ThermoMaven official site — instant-read and wireless thermometer line-up",
+   "covers": "The brand's own instant-read model names, checked against the '1 Sec' title on the listing observed at /dp/B0DHZTCNR5",
+   "kind": "Brand site",
+   "directness": "Primary",
+   "page_version": "Read 2026-11-17 (arena/58cbaaa2-zone1). The brand's instant-read line is named F1 Pro / F1 Turbo with a sub-second read; the site does not use '1 Sec' as a model name. Recorded as a divergence, not resolved: this site makes no claim about which product the submitted short code was created to promote (flag F80, Q-27). Evidence: reports/verification-2026-11-17-58cbaaa2.md."
+  },
+  {
+   "id": "S41",
+   "org": "Amazon.com Associates Central",
+   "url": "https://affiliate-program.amazon.com/help/node/topic/GF4RJEQNXSMR7SP3",
+   "title": "Why doesn't my tracking ID appear in your URL after a visitor clicks through to Amazon from my Web site?",
+   "covers": "Whether an absent tag= parameter on a landing URL can be read as evidence about attribution",
+   "kind": "Help article",
+   "directness": "Primary",
+   "page_version": "Read 2026-11-17 (arena/58cbaaa2-zone1), from the linked-topic list on S6. Full answer, verbatim: “We understand your concern, but rest assured that it is not necessary for your unique ID to appear in order for us to track sales made after the initial click through. The individual shopping session will be tagged in a way that allows us to track the items purchased and credit you with the appropriate commission.” This is the official statement that a landing URL without a visible tag is not evidence either way; it says nothing about whether a particular link carries a particular ID. Flag F81."
+  },
+  {
+   "id": "S42",
+   "org": "Amazon.com Associates Central",
+   "url": "https://affiliate-program.amazon.com/help/node/topic/GJDYPQZK6E37RLPU",
+   "title": "How do I request multiple tracking IDs?",
+   "covers": "Where additional tracking IDs are created, the 100-per-account limit, and the report where each ID's data is read",
+   "kind": "Help article",
+   "directness": "Primary",
+   "page_version": "Read 2026-11-17 (arena/58cbaaa2-zone1), from the linked-topic list on S6. Verbatim: to create multiple IDs, “visit your account and click on ‘Manage your Tracking ID’” (linked as https://affiliate-program.amazon.com/home/account/tag/manage); “Once they have been created, you will be able to see data on each ID in your Tracking ID Summary Report”; “there is a limit of 100 Tracking IDs per associate account”, with Associates Customer Service named for further requirements. This is where the enrolled-Associates test result this site waits for is actually read, and it is the second official page naming that screen."
   }
  ],
  "reverified_scope": "Pass 11 (arena/2e346d24-zone1) re-read live on 2026-11-16: S1, S2, S3, S4, S5, S8, S9, S10, S17, S28, S29, then S12, S14 and S18 later in the same session — fourteen sources in total. NOT re-read in pass 11 and therefore not restated: S6, S7, S11, S13, S15, S16, S19-S27, S30-S34, and the 8 Qt owner's-manual PDF. F3 (450 °F) was re-established live against S12 and the listing title; F4/F5 (Emeril presets) against S14. S15, the Emeril owner's manual, was NOT re-read, so the 24-preset count is carried forward and not re-asserted. Evidence: reports/verification-2026-11-16-2e346d24.md",

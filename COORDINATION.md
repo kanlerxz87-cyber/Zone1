@@ -5555,3 +5555,57 @@ two blank+flagged spec rows. Nothing was filled by inference.
 * **Post-merge workflows on `main` at `80bb0e2`:** `CI` success · `Build, verify and deploy to GitHub Pages` success · `Verify verification annex (site/)` success · `pages build and deployment` success.
 * **GitHub Pages:** `pages/builds/latest` → `status: built`, commit `80bb0e2…`, `error: null`. Live read-back: `articles/multi-function-buying-questions.html` returns the site's 404 page (draft correctly not served); `articles/index.html` lists the published set.
 * **Owner action:** answer **Q-20** (country and marketplace the site promotes). Then the held draft in `session-66c32067/` can be released.
+
+---
+
+## X-58cbaaa2 — pass 13: two new submitted links, the brand catalogues, the attribution reasoning, and a re-scoped finish (2026-11-17)
+
+| ID | Task | Status | Branch / session | Scope actually touched |
+|---|---|---|---|---|
+| X-58cbaaa2 | **Pass 13.** The 2026-11-17 brief supplied two further `link.amazon` links (`B0c8moW59`, `B0f3GKalj`), the selected tracking ID `shopnow047c-20`, and the measurement instruction (privacy-preserving click counter + self-hosted endpoint + five defined events + empty-but-well-defined campaign ledger, no conversion score or forecast). Work: live re-read of all five submitted links; brand-catalogue checks against the manufacturers' own pages; registration of the official nodes bearing on attribution; the increment onto main's canonical registers; decision rows for what the new inputs change; line-by-line review with defects repaired and guarded; rebuild, every gate, PR → merge → confirm Pages → record. | **done** | arena/58cbaaa2-zone1 (session 58cbaaa2) | `data/sources.json` (S39–S42 added, S6 re-read note); `data/product-intent.json` (brand-catalogue fields, `observation_method_correction`, `sub_tag_plan` — main's file extended, not replaced); `build.py` (register-read constants, `_num_word`, F80–F82 with `REPO_EVIDENCE`, `check_submitted_link_count()`, three `req_counts()` tokens, `product-intent.html` blocks, category lede); `verify.py` (two brand hosts allow-listed, commented); regenerated root HTML; `data/suggestions.json` (SG-36–SG-38 + P6), `data/questions.json` (Q-27/Q-28), `data/topics.json` (TP-22/TP-23, queued not written), `data/requirements.json` (H-01/H-02), `data/decision.json` (dated bracket annotations, no rewrite); `reports/verification-2026-11-17-58cbaaa2.md`; `README.md`, `EXECUTIVE-SUMMARY.md` (§24); `session-58cbaaa2/*` incl. the withdrawn draft and its diff. **Not touched:** `site/`, `s2/`, `data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*`, `analytics/`, `tests/`, other `session-*` dirs, and no other session's flag/topic ids |
+
+**The headline, stated plainly because it is the useful part.** This pass built roughly three times what
+it merged. On base `9c6e3f0` it produced a second product-intent register (`data/product-intent-confirmations.json`
+schema v2 + `links.html` + flags F76–F80 + `check_special_link_gate()`), a second measurement register
+(own `data/measurement.json`, own page, cookieless browser counter in `assets/app.js` + footer §3(e)
+rewrite) and a mobile pass. Two fetches later it had withdrawn all of it: `arena/5b17c077` had
+consolidated three intent records into `data/product-intent.json` → `product-intent.html` and retired the
+file this session was editing, and `arena/c55fa0d8` had made the collection posture a **tested** contract
+(`associate_tag` blank, `analytics/collector.py` fail-closed and undeployed,
+`tests/test_build_contract.py` failing if browser collection is enabled or a tag is applied before the
+account checks pass). Main also renumbered its flags to F76–F79, took S36–S38 and published `TP-21`, so
+this session's ids were re-cut to F80–F82, S39–S42, TP-22/TP-23 rather than collide. The withdrawn work is
+published, not hidden, at `session-58cbaaa2/artifacts/` (full diff in `pass13-original.patch`, drop list
+in its `README.md`), because an agent's superseded effort is evidence too.
+
+**Sources consulted live on 2026-11-17 (registered as S39–S42; S6 re-read verbatim).**
+`chefiq.com/products/iq-sense` · `thermomaven.com` · `affiliate-program.amazon.com/help/node/topic/GF4RJEQNXSMR7SP3`
+(a tracking ID need not appear in the click-through URL) · `…/GJDYPQZK6E37RLPU` (ID creation screen,
+100-per-account limit, Tracking ID Summary Report) · plus re-resolution of all five `link.amazon` tokens
+→ `/dp/B0CDY277D3`, `/dp/B09B7SB46R`, `/dp/B08DKYBTPH` (unchanged from 2026-11-16, same `mhFallback`
+form), `/dp/B0DHZTCNR5`, `/dp/B0DZFD6R9Z` (both under Thermometers & Timers › Meat).
+
+**Verification result.** No published value changed and no inference was filled: all five rows keep
+`intended_asin`/`official_listing_url`/`confirmation_date`/`confirmation_source` null, observations stay in
+the `observed_*` fields, `associate_tag` stays blank, and no link is described as invalid — its compliance
+status is unresolved (main's F76), which this pass restates rather than settles.
+
+**Irregularities published on the flagged page.** **F80** neither new candidate reconciles with its
+manufacturer's own catalogue, so no product page for either (decision: Q-27 / SG-36). **F81** the
+inference from a missing `tag=` parameter was an over-reading; corrected where the inference is drawn in
+the present tense, historical rows untouched. **F82** main's category lede still counted "the three
+supplied links" present-tense two days after the register grew to five — repaired by reading the register,
+guarded by `check_submitted_link_count()` in both directions, with the note that the first pattern matched
+nothing (a guard that cannot fail is a comment with a name).
+
+**Handover notes for the board.** (1) `I-5b17c077`'s row still reads `in progress` although its work merged
+through #131/#132 — left for its owner session to close; rewriting another session's board row is not this
+session's call. (2) The next session should `git fetch origin main` **before** building, and re-fetch
+before opening a PR: this session's scope was cut in half twice by a rule read but not practised.
+(3) Q-28 is five minutes inside the account and is the only row that unblocks revenue; Q-27 decides
+whether TP-22/TP-23 get written. (4) When the owner submits another link, add a row to
+`data/product-intent.json` — never a sentence.
+
+**PRs and merges.** Recorded in the follow-up commit on this branch once the merge and the Pages read-back
+are known, per the house pattern (this row ships inside the PR it describes, so the merge sha cannot be
+in it).

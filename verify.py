@@ -25,6 +25,10 @@ ROOT = Path(__file__).parent
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
 
 OFFICIAL_HOSTS = {
+    # Brand pages read 2026-11-17 against the two links submitted that day (sources S39/S40).
+    # Registered as official brand sites, which is not the same as confirming a listing identity: F80.
+    "chefiq.com",
+    "www.thermomaven.com",
     "affiliate-program.amazon.com",
     "www.amazon.com",
     "amazon.com",

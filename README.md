@@ -325,3 +325,54 @@ Gates on the final rebased tree: `build.py` exit 0 (48 pages, 47 sitemap URLs + 
 items) · `verify.py` 127 pages, 77 spec rows (75 verified / 2 blank+flagged), 0 errors ·
 `ci-check.sh` green (8,287 links / 0 broken) · `verify_site.py` 393 assertions PASSED ·
 research checks OK · platform audit PASSED · two consecutive builds byte-identical.
+
+---
+
+## Pass 13 (session `arena/58cbaaa2-zone1`) — two brand catalogues, one reasoning correction, and a pass that deleted its own work twice (2026-11-17)
+
+**What the brief added.** Two further `link.amazon` links (`B0c8moW59`, `B0f3GKalj`), the selected
+tracking ID `shopnow047c-20`, and the instruction to build click/conversion measurement first while
+publishing no conversion score or revenue forecast.
+
+**What landed.** Four official sources `S39–S42` — CHEF iQ's iQ Sense page, ThermoMaven's site, and the
+two tracking-ID help nodes reachable from `S6` — plus the brand-catalogue check on the two rows the new
+links created, rendered on `product-intent.html` from the register rather than typed into the template.
+Neither candidate listing reconciles with its manufacturer's own model names (**F80**): the observed
+"1 Sec" ThermoMaven title is not a brand model line (their instant-read line is F1 Pro / F1 Turbo), and
+the observed CHEF iQ listing omits the CQ60-3C-Z3-E designation the brand states. Consistent with, not
+confirmed by — so the intended fields stay null and no product page is written for either. The decision
+itself is now a queue row with three named paths (**SG-36** / **Q-27**).
+
+**The correction.** **F81.** Passes including this one cited the absence of a visible `tag=` parameter on
+a landing URL beside their caution about attribution. Amazon's own node (S41) says a tracking ID "is not
+necessary … to appear in order for us to track sales made after the initial click through", so a clean
+landing URL is a null observation, not a negative one, and cannot fill the per-row
+`associates_link_test_*` fields. Where the confirmation actually lives — the Tracking ID Summary Report,
+the screen that creates IDs, and the 100-per-account limit — is registered as S42 and written into the
+owner's five-minute path (**SG-37** / **Q-28**). The dated rows are left as written; the inference is
+corrected where it is drawn in the present tense.
+
+**A count, again.** **F82.** The category lede still said "The three supplied links were observed
+landing…" in the present tense, two days after the register grew to five — main's own F77/F79 class, one
+step up: every value inside the sentence was correct and no gate read the narrative. It now computes its
+numbers from `len(rows)` and the register's `observed_listing_category`, and
+`check_submitted_link_count()` fails the build on a mismatch, scoped to the present-tense surfaces so it
+cannot be satisfied by rewriting a dated row. Both directions proven; the guard's first version matched
+nothing, which is why the negative test is part of the row.
+
+**Why this PR is smaller than the session.** The pass built a parallel intent register, a parallel
+measurement register, a special-link gate, four flags and a browser click counter on base `9c6e3f0`, then
+fetched — twice. By the time it merged, `arena/5b17c077` had consolidated three intent records into
+`data/product-intent.json`, and `arena/c55fa0d8` had made the collection posture a tested contract:
+`associate_tag` blank, `analytics/collector.py` fail-closed and undeployed, footer stating that browser
+collection stays disabled. Shipping the counter would have overwritten that decision, so it was withdrawn
+and offered instead as **SG-38** with all three paths. The superseded draft, its full diff and a
+row-by-row account of what was dropped and why are published at
+[`session-58cbaaa2/artifacts/`](session-58cbaaa2/artifacts/README.md); the evidence record for what did
+land is [`reports/verification-2026-11-17-58cbaaa2.md`](reports/verification-2026-11-17-58cbaaa2.md).
+
+Gates on the landed tree: `build.py` exit 0 (52 pages, 31 sitemap URLs, 21 feed items; two consecutive
+builds byte-identical; rebuild leaves the working tree clean) · `verify.py` 130 pages, 77 spec rows
+(75 verified / 2 blank+flagged), 42 sources, 0 errors · `ci-check.sh` 33 platform tests, audit clean,
+s2 annex current, 9,585 links / 0 broken · `python3 -m unittest discover -s tests` 17 tests OK, including
+the intent/analytics contract · `verify_site.py` 393 assertions PASSED · research checks 834 OK.

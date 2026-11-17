@@ -1,6 +1,6 @@
 {
  "version": "1",
- "compiled": "2026-11-16",
+ "compiled": "2026-11-17",
  "compiled_by": "arena/63a2c638 (integration pass 9)",
  "status_of_this_document": "proposal",
  "disclaimer": [
@@ -579,6 +579,56 @@
    "status": "proposed",
    "published_as": null,
    "blocked_by": []
+  },
+  {
+   "id": "TP-22",
+   "title": "Can you leave a probe in an air fryer? What the manuals actually say",
+   "hook": "The appliance is built to run unattended. A wireless probe is built to be left in. Whether the two go together is a question the documents can answer.",
+   "intent": "Informational",
+   "serves": [],
+   "angle": "A reader who owns any of the three products has the same follow-up question: how do I know the chicken is done without opening the door. What this site can answer today is what the manuals and brand pages of the three air fryers say about the cavity, the rack positions and leaving the unit running — plus the fact that CHEF iQ lists air-fryer use among the iQ Sense's own heat environments (S39). What it will not do is assert a clearance, a maximum probe temperature inside a specific oven, or that any brand approves the pairing: no document read here states any of those, so those cells stay unwritten and the article says why.",
+   "why_it_could_earn_traffic": "Judgement, not measurement: it is the question that follows a purchase of a basket or oven-style air fryer, this site already holds the manufacturer documents on both sides of it, and nothing published here answers it yet.",
+   "must_cite": [
+    {
+     "label": "CHEF iQ iQ Sense product page — the brand's own use-case list, which names the air fryer",
+     "url": "https://chefiq.com/products/iq-sense"
+    },
+    {
+     "label": "Chefman 6 Qt owner's manual",
+     "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf"
+    },
+    {
+     "label": "Emeril French Door AirFryer 360 owner's manual",
+     "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"
+    }
+   ],
+   "status": "proposed",
+   "blocked_by": [],
+   "status_note": "Queued 2026-11-17 by arena/58cbaaa2 and deliberately not written. Writable from documents this site already cites; the half of the title that names a specific probe waits for Q-27. Numbered after 66c32067's TP-21, which this pass found already merged and did not renumber."
+  },
+  {
+   "id": "TP-23",
+   "title": "Instant-read or wireless probe: which measurement answers the question you actually have",
+   "hook": "One answers 'is this piece done right now'. The other answers 'when should I be home'.",
+   "intent": "Comparison",
+   "serves": [],
+   "angle": "Written only after the two newly submitted links are confirmed, and then from the brands' own documents: stated accuracy and read time from the manufacturer pages, never from a listing title, with an explicit statement that this site has not measured either device. The comparison a shopper needs is not which sensor is faster but which failure each design protects against — the overcooked chicken nobody watched, and the undercooked one nobody checked.",
+   "why_it_could_earn_traffic": "Judgement, not measurement: a two-way question with no obvious winner is a durable query, and this site would write it from primary documents rather than from a spec scrape.",
+   "must_cite": [
+    {
+     "label": "CHEF iQ iQ Sense product page",
+     "url": "https://chefiq.com/products/iq-sense"
+    },
+    {
+     "label": "ThermoMaven official site — instant-read models",
+     "url": "https://www.thermomaven.com/"
+    }
+   ],
+   "status": "proposed",
+   "blocked_by": [
+    "Q-27"
+   ],
+   "status_note": "Queued 2026-11-17 and waiting on Q-27. blocked_by is a register field for the reader's benefit, not a build gate; nothing here will write the piece early."
   }
  ],
  "channels": [
