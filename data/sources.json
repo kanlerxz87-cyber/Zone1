@@ -1,6 +1,6 @@
 {
  "accessed": "2026-11-13",
- "note": "Every entry below was fetched live on the access date. 'official' means the page is published by the party that owns the fact (Amazon, the FTC, the brand). No secondary blogs, retailer resellers or review aggregators are used anywhere in this project. Re-verification pass 2026-11-14 (sess-81495d2d) re-read S3, S5, S9, S10, S12, S14, S15, S16, S17 and S18 and added the two control lookups S21 and S22; see the Re-verification page. The same day's sess-cb2cfa7c pass additionally re-read S1–S5, S8–S10, S12, S14, S16, S17, S19 and added S23 (official ASIN definition) and S24 (PA-API 5 deprecation notice). Re-verification pass 2026-11-14 (session arena/6b2eddeb) added S25–S27: three further Chefman SKUs found live on the brand's own store while re-checking the model mapping for products 1 and 3. They are recorded because their existence changes what flags F3 and F2 can claim, not because any published value changed. Added 2026-11-15 by session 22f43836 (pass 9): S30 and S31 are Google Search Central's own published policy and guidance pages, added because the brief asks for organic traffic and link qualification is the search engine's stated requirement for affiliate links. They verify search-engine policy only; they verify nothing about the products or about Amazon's program. Re-verification pass 2026-11-16 (arena/a746a9f2) re-read S1–S5, S8–S10, S12, S14, S17, S26, S28 and S29 live; the full evidence table is reports/verification-2026-11-16-a746a9f2.md. The 2026-11-15 bot checkpoint on S28 cleared; no published value changed and no open conflict was closed. | Round 11 (2026-11-16, arena/b23f12f0) re-read S1, S3, S4, S8, S9, S10, S12, S14, S16, S17, S28, S29, S32 and S33, and added S35 (Emeril commerce endpoint). Round 10 the same day (session c334fb1c) had covered the three short links and S2; round 11 closes the sources round 10 recorded as not re-read.",
+ "note": "Every entry below was fetched live on the access date. 'official' means the page is published by the party that owns the fact (Amazon, the FTC, the brand). No secondary blogs, retailer resellers or review aggregators are used anywhere in this project. Re-verification pass 2026-11-14 (sess-81495d2d) re-read S3, S5, S9, S10, S12, S14, S15, S16, S17 and S18 and added the two control lookups S21 and S22; see the Re-verification page. The same day's sess-cb2cfa7c pass additionally re-read S1–S5, S8–S10, S12, S14, S16, S17, S19 and added S23 (later mischaracterized as a general ASIN definition; corrected under F79 because the registered title is KDP “Linking from Your Website”) and S24 (PA-API 5 deprecation notice). Re-verification pass 2026-11-14 (session arena/6b2eddeb) added S25–S27: three further Chefman SKUs found live on the brand's own store while re-checking the model mapping for products 1 and 3. They are recorded because their existence changes what flags F3 and F2 can claim, not because any published value changed. Added 2026-11-15 by session 22f43836 (pass 9): S30 and S31 are Google Search Central's own published policy and guidance pages, added because the brief asks for organic traffic and link qualification is the search engine's stated requirement for affiliate links. They verify search-engine policy only; they verify nothing about the products or about Amazon's program. Re-verification pass 2026-11-16 (arena/a746a9f2) re-read S1–S5, S8–S10, S12, S14, S17, S26, S28 and S29 live; the full evidence table is reports/verification-2026-11-16-a746a9f2.md. The 2026-11-15 bot checkpoint on S28 cleared; no published value changed and no open conflict was closed. | Round 11 (2026-11-16, arena/b23f12f0) re-read S1, S3, S4, S8, S9, S10, S12, S14, S16, S17, S28, S29, S32 and S33, and added S35 (Emeril commerce endpoint). Round 10 the same day (session c334fb1c) had covered the three short links and S2; round 11 closes the sources round 10 recorded as not re-read. | Final integration arena/e82107a0-zone1 (2026-11-17) registered S38 as a GitHub Pages documentation reference for the hosting gate; its content was not fetched here, and no analytics runtime or endpoint was verified.",
  "reverified": "2026-11-17",
  "reverified_2026_11_16": {
   "performed_by": "arena/ad8105b3-zone1 (session ad8105b3)",
@@ -374,7 +374,7 @@
    "org": "Amazon.com Kindle Direct Publishing (help centre)",
    "title": "Linking from Your Website (KDP Help G200652190)",
    "url": "https://kdp.amazon.com/en_US/help/topic/G200652190",
-   "covers": "Official Amazon definition: the ASIN is a 10-character Amazon Standard Identification Number, and the canonical product URL format is http://www.amazon.com/dp/ASIN. Used to source the ASIN-length and URL-format rows in the dashboard annex, which previously cited only third-party sites.",
+   "covers": "Registered KDP Help page titled “Linking from Your Website” (G200652190). The earlier description of this entry as a general ASIN-definition or canonical /dp/ URL-format source is unsupported by the registered title; do not cite S23 for those claims (see F79).",
    "kind": "Help article",
    "directness": "Primary (published by Amazon)",
    "page_version": "Live page, re-verified 2026-11-14 (sess-cb2cfa7c)"
@@ -510,25 +510,33 @@
    "org": "Amazon.com (product listings)",
    "title": "Amazon detail page for ASIN B0DHZTCNR5 (ThermoMaven 1 Sec digital meat thermometer, black)",
    "url": "https://www.amazon.com/dp/B0DHZTCNR5",
-   "covers": "Listing title and final URL for ASIN B0DHZTCNR5 only, as reached from the supplied short link https://link.amazon/B0c8moW59 on 2026-11-17. Not an air fryer; recorded in the product-intent record, not used for any specification claim. Listing title and browse path for ASIN B0DHZTCNR5 only. The title as served states: \"ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black\". The browse path is Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat. Registered as a single-ASIN URL on the rule established by F35: a source link must point at the page that states the value it supports.",
+   "covers": "Listing title and final URL for ASIN B0DHZTCNR5 only, as reached from the supplied short link https://link.amazon/B0c8moW59 on 2026-11-17. Not an air fryer; recorded in the product-intent record, not used for any specification claim.",
    "kind": "Retail listing",
    "directness": "Primary for 'what does this short link point to' only",
-   "page_version": "Fetched 2026-11-17 via link.amazon/B0c8moW59; final URL https://www.amazon.com/dp/B0DHZTCNR5 ; <title> reads 'Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black : Home & Kitchen'. Amazon prices and ratings deliberately not reproduced (S2 §2(b), §6(t)) | Read live 2026-11-17 (arena/00bc7156-zone1). Only the first chunk of the served page was retrievable in this pass: the page <title>, the browse path and the recommendation rail. The Product information block was not reached, so no model number, dimensions or warranty is asserted from this source.",
-   "verified": "Re-read 2026-11-17 by arena/00bc7156-zone1 with the same result. Only the first chunk of each listing was reachable in that pass, which is why the accessory cluster's Product-information rows are blank rather than filled; see read_constraints in data/adjacent.json."
+   "page_version": "Fetched 2026-11-17 via link.amazon/B0c8moW59; final URL https://www.amazon.com/dp/B0DHZTCNR5 ; <title> reads 'Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black : Home & Kitchen'. Amazon prices and ratings deliberately not reproduced (S2 §2(b), §6(t)) | Re-read 2026-11-17 by arena/00bc7156-zone1 with the same result. Only the first chunk of each listing was reachable in that pass, which is why the accessory cluster's Product-information rows are blank rather than filled; see read_constraints in data/adjacent.json."
   },
   {
    "id": "S37",
    "org": "Amazon.com (product listings)",
    "title": "Amazon detail page for ASIN B0DZFD6R9Z (CHEF iQ Sense smart wireless meat thermometer)",
    "url": "https://www.amazon.com/dp/B0DZFD6R9Z",
-   "covers": "Listing title and final URL for ASIN B0DZFD6R9Z only, as reached from the supplied short link https://link.amazon/B0f3GKalj on 2026-11-17. Not an air fryer; recorded in the product-intent record, not used for any specification claim. Listing title and browse path for ASIN B0DZFD6R9Z only. The title as served states: \"CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3\". The browse path is Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat.",
+   "covers": "Listing title and final URL for ASIN B0DZFD6R9Z only, as reached from the supplied short link https://link.amazon/B0f3GKalj on 2026-11-17. Not an air fryer; recorded in the product-intent record, not used for any specification claim.",
    "kind": "Retail listing",
    "directness": "Primary for 'what does this short link point to' only",
-   "page_version": "Fetched 2026-11-17 via link.amazon/B0f3GKalj; final URL https://www.amazon.com/dp/B0DZFD6R9Z ; <title> reads 'Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen'. Amazon prices and ratings deliberately not reproduced (S2 §2(b), §6(t)) | Read live 2026-11-17 (arena/00bc7156-zone1). First chunk only, for the same reason as S36.",
-   "verified": "Re-read 2026-11-17 by arena/00bc7156-zone1 with the same result. Only the first chunk of each listing was reachable in that pass, which is why the accessory cluster's Product-information rows are blank rather than filled; see read_constraints in data/adjacent.json."
+   "page_version": "Fetched 2026-11-17 via link.amazon/B0f3GKalj; final URL https://www.amazon.com/dp/B0DZFD6R9Z ; <title> reads 'Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen'. Amazon prices and ratings deliberately not reproduced (S2 §2(b), §6(t)) | Re-read 2026-11-17 by arena/00bc7156-zone1 with the same result. Only the first chunk of each listing was reachable in that pass, which is why the accessory cluster's Product-information rows are blank rather than filled; see read_constraints in data/adjacent.json."
   },
   {
    "id": "S38",
+   "org": "GitHub",
+   "title": "What is GitHub Pages?",
+   "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages",
+   "covers": "Official GitHub Pages documentation URL registered as a hosting reference. The page content was not fetched in this integration, so no statement about its contents is treated as re-verified here.",
+   "kind": "Platform documentation",
+   "directness": "Primary — GitHub documentation for its Pages hosting product",
+   "page_version": "Reference URL recorded 2026-11-17; page content not fetched in this integration."
+  },
+  {
+   "id": "S39",
    "org": "CHEF iQ (brand)",
    "title": "iQ Sense® — brand product page (chefiq.com)",
    "url": "https://chefiq.com/products/iq-sense",
@@ -536,10 +544,11 @@
    "kind": "Manufacturer product page",
    "directness": "Primary — served by the brand's own storefront",
    "page_version": "Read live 2026-11-17 (arena/00bc7156-zone1). The fetch returned the first of three chunks, ending mid-way through the feature list at \"Waterp\", so the specification table lower on the page (temperature ranges, probe dimensions, materials) was not read in this pass and nothing is asserted from it.",
-   "verified": "Verified 2026-11-17 by arena/00bc7156-zone1. The page's own internal wording conflict — 'Five internal sensors' in the description against '4 internal' plus '1 ambient' in the feature list — is recorded as a published flag rather than resolved."
+   "verified": "Verified 2026-11-17 by arena/00bc7156-zone1. The page's own internal wording conflict — 'Five internal sensors' in the description against '4 internal' plus '1 ambient' in the feature list — is recorded as a published flag rather than resolved.",
+   "registered_2026_11_17": "Added 2026-11-17 by arena/00bc7156-zone1 as S38; renumbered to S39 on the merge with main, which had already used that id for a GitHub Pages document."
   },
   {
-   "id": "S39",
+   "id": "S40",
    "org": "ThermoMaven (brand)",
    "title": "ThermoMaven official storefront — home page and product line",
    "url": "https://www.thermomaven.com/",
@@ -547,10 +556,11 @@
    "kind": "Manufacturer storefront",
    "directness": "Primary — served by the brand",
    "page_version": "Read live 2026-11-17 (arena/00bc7156-zone1). First of two chunks. Brand list prices and star-review counts appear on this page and are deliberately not republished: review counts move between days (see the register's note on volatile brand counters) and the site's rule on Amazon figures is set by S2.",
-   "verified": "Verified 2026-11-17 by arena/00bc7156-zone1. Used only to establish that the brand publishes no '1 Sec' model and that its named instant-read model carries different headline claims from the listing — a gap in model identity, not a specification for the ASIN."
+   "verified": "Verified 2026-11-17 by arena/00bc7156-zone1. Used only to establish that the brand publishes no '1 Sec' model and that its named instant-read model carries different headline claims from the listing — a gap in model identity, not a specification for the ASIN.",
+   "registered_2026_11_17": "Added 2026-11-17 by arena/00bc7156-zone1 as S39; renumbered to S40 on the merge with main, which had already used that id for a GitHub Pages document."
   },
   {
-   "id": "S40",
+   "id": "S41",
    "org": "Amazon.com",
    "title": "link.amazon short link supplied by the account holder (B0c8moW59)",
    "url": "https://link.amazon/B0c8moW59",
@@ -558,10 +568,11 @@
    "kind": "Submitted affiliate link",
    "directness": "Primary — the link itself",
    "page_version": "Followed 2026-11-17 (arena/00bc7156-zone1).",
-   "verified": "Verified 2026-11-17 by arena/00bc7156-zone1."
+   "verified": "Verified 2026-11-17 by arena/00bc7156-zone1.",
+   "registered_2026_11_17": "Added 2026-11-17 by arena/00bc7156-zone1 as S40; renumbered to S41 on the merge with main, which had already used that id for a GitHub Pages document."
   },
   {
-   "id": "S41",
+   "id": "S42",
    "org": "Amazon.com",
    "title": "link.amazon short link supplied by the account holder (B0f3GKalj)",
    "url": "https://link.amazon/B0f3GKalj",
@@ -569,7 +580,8 @@
    "kind": "Submitted affiliate link",
    "directness": "Primary — the link itself",
    "page_version": "Followed 2026-11-17 (arena/00bc7156-zone1).",
-   "verified": "Verified 2026-11-17 by arena/00bc7156-zone1."
+   "verified": "Verified 2026-11-17 by arena/00bc7156-zone1.",
+   "registered_2026_11_17": "Added 2026-11-17 by arena/00bc7156-zone1 as S41; renumbered to S42 on the merge with main, which had already used that id for a GitHub Pages document."
   }
  ],
  "reverified_scope": "Pass 11 (arena/2e346d24-zone1) re-read live on 2026-11-16: S1, S2, S3, S4, S5, S8, S9, S10, S17, S28, S29, then S12, S14 and S18 later in the same session — fourteen sources in total. NOT re-read in pass 11 and therefore not restated: S6, S7, S11, S13, S15, S16, S19-S27, S30-S34, and the 8 Qt owner's-manual PDF. F3 (450 °F) was re-established live against S12 and the listing title; F4/F5 (Emeril presets) against S14. S15, the Emeril owner's manual, was NOT re-read, so the 24-preset count is carried forward and not re-asserted. Evidence: reports/verification-2026-11-16-2e346d24.md",
@@ -676,5 +688,12 @@
   "not_read_by_this_pass": "Every other registered source (S1-S15, S17-S27, S30-S34) was not re-fetched by this session, so nothing else is restated as current here. The same three short links, the policy pages, the commission table, the manuals and both brand pages were re-read the same day by sessions 9fccce0c, 121929a5, 2e346d24 and 695f03b7, and their records stand on their own dates; where this pass agrees with one of them it says which read produced which value.",
   "deliberately_not_used": "Prices, discounts, delivery dates, star ratings, review counts and Best Sellers Rank positions seen in the same responses: S2 §2(b) and §6(t) for the first three, and this repository's reading of IP License §2(e) for rank data. Recorded in reports/asin-model-mapping-2026-11-16.md §4 as read-and-excluded rather than silently dropped."
  },
- "reverified_2026_11_17_00bc7156": "2026-11-17 (arena/00bc7156-zone1): six new sources S36-S41 registered after live reads, all first-chunk reads, none of them converted into a manufacturer specification. The three air-fryer listing sources (S16, S28, S29) and the short-link source (S17) were re-read the same day; S16 again matched the register title character-for-character."
+ "integration_note_2026_11_17_e82107a0": {
+  "performed_by": "arena/e82107a0-zone1",
+  "date": "2026-11-17",
+  "method": "Registered S38 as a documentation reference; did not fetch the page content.",
+  "read_live": [],
+  "what": "The repository config points to a GitHub Pages public origin. No first-party analytics runtime or endpoint was verified in this integration."
+ },
+ "reverified_2026_11_17_00bc7156": "2026-11-17 (arena/00bc7156-zone1): all five supplied links re-read, four new sources registered as S39-S42 after the collision with main's S38 (this pass had numbered its additions S38-S41). S16 again matched the register title character-for-character for B04G1MEwY. Raw log: session-00bc7156/observations-2026-11-17.json."
 }

@@ -30,7 +30,7 @@
    "asin": {
     "v": "B0DHZTCNR5",
     "s": [
-     "S40",
+     "S41",
      "S36"
     ]
    },
@@ -57,7 +57,7 @@
      "label": "Brand-page headline for its named instant-read model",
      "value": "0.5s Instant Read",
      "source": [
-      "S39"
+      "S40"
      ],
      "note": "Published by the brand for the F1 Turbo. Recorded here because it contradicts the listing title's 1 Sec for a model this pass could not show to be the same unit — and contradicting figures are only useful if both are on the page."
     },
@@ -96,7 +96,7 @@
      "label": "Model / SKU",
      "value": null,
      "source": [
-      "S39"
+      "S40"
      ],
      "unverified": "The brand storefront's instant-read line is named F1 Turbo (model files seen in its manual name the vendor as Shenzhen Auros Technology Innovation Co., Ltd for other lines). No '1 Sec' model appears on the home page, and the listing's Product information block was not reached in this pass. To close: read the Product information block for B0DHZTCNR5 in a browser, or ask the seller which brand-line model it is."
     },
@@ -104,7 +104,7 @@
      "label": "Warranty terms",
      "value": null,
      "source": [
-      "S39"
+      "S40"
      ],
      "unverified": "The brand's own product tiles state a lifetime warranty for one model and 1.5-year warranties for others, which is not a warranty for this listing. The brand's warranty policy page was not read in this pass. To close: read https://www.thermomaven.com/warranty against the model code once the model is confirmed."
     },
@@ -130,7 +130,7 @@
      "issue": "The listing's headline says 1 second; the brand's own instant-read model is advertised at 0.5 seconds.",
      "sources": [
       "S36",
-      "S39"
+      "S40"
      ],
      "action": "Unresolved because the two documents may describe different products. Do not average them, and do not sell the faster figure."
     },
@@ -139,11 +139,13 @@
      "issue": "No manufacturer document in this pass states a model code for the ASIN, so no brand specification may be attached to it.",
      "sources": [
       "S36",
-      "S39"
+      "S40"
      ],
      "action": "Read the listing's Product information block in a browser (the fetch used here reached only the first chunk of the page), then fill the Model / SKU row from that reading alone."
     }
-   ]
+   ],
+   "link_source": "S41",
+   "link_source_note": "Registered as S40 on 2026-11-17 by this pass; renumbered to S41 when main's S38 (a GitHub Pages document) and this pass's two brand pages occupied S38-S40 in the merged register."
   },
   {
    "slug": "chef-iq-sense-gen3",
@@ -156,7 +158,7 @@
    "asin": {
     "v": "B0DZFD6R9Z",
     "s": [
-     "S41",
+     "S42",
      "S37"
     ]
    },
@@ -171,7 +173,7 @@
    "model_number": {
     "v": "CQ60-1C-Z1-E is the code the brand page shows for its default selection (1 Probe, Dark Smoke); the page offers 1, 2, 3 and 4-probe variants",
     "s": [
-     "S38"
+     "S39"
     ],
     "caveat": "Do not read this as the ASIN's model. The listing is titled for 3 probes; which variant string that ASIN ships is stated by neither document read in this pass."
    },
@@ -180,7 +182,7 @@
      "label": "Sensors (brand page, feature list)",
      "value": "4 internal temperature sensors plus 1 ambient temperature sensor",
      "source": [
-      "S38"
+      "S39"
      ]
     },
     {
@@ -195,14 +197,14 @@
      "label": "Accuracy (brand page)",
      "value": "within 1°F",
      "source": [
-      "S38"
+      "S39"
      ]
     },
     {
      "label": "Heat resistance",
      "value": "up to 1,000ºF (537ºC)",
      "source": [
-      "S38",
+      "S39",
       "S37"
      ],
      "note": "Stated by the brand page and, as \"1000°F Heat Safe\", in the listing title."
@@ -211,7 +213,7 @@
      "label": "Connectivity",
      "value": "Wi-Fi and Bluetooth",
      "source": [
-      "S38",
+      "S39",
       "S37"
      ]
     },
@@ -227,7 +229,7 @@
      "label": "Appliances the brand says it works with",
      "value": "oven, stovetop, gas and charcoal grills, smoker, air fryer, deep fryer, and sous vide",
      "source": [
-      "S38"
+      "S39"
      ],
      "note": "The air-fryer compatibility this whole cluster rests on is stated on the brand's own page and repeated in the listing title."
     },
@@ -243,14 +245,14 @@
      "label": "Battery life",
      "value": "Multiple days of probe battery life per charge",
      "source": [
-      "S38"
+      "S39"
      ]
     },
     {
      "label": "Internal and ambient temperature ranges",
      "value": null,
      "source": [
-      "S38"
+      "S39"
      ],
      "unverified": "Not read. These figures sit below the feature list on the brand page, and the fetch used in this pass returned only the first of three chunks. To close: re-read the brand page's specification block, or the manual, and fill the row from that text alone."
     },
@@ -275,7 +277,7 @@
      "id": "T-F3",
      "issue": "The brand page says \"Five internal sensors\" in its description and \"4 internal temperature sensors\" plus \"1 ambient temperature sensor\" in its own feature list.",
      "sources": [
-      "S38"
+      "S39"
      ],
      "action": "Published as a wording conflict on one document, not resolved. The reading that reconciles them - five sensors per probe, four of them internal - is an inference, so no article states a sensor count without quoting both lines."
     },
@@ -287,7 +289,9 @@
      ],
      "action": "Left as the listing's own wording. A per-probe reading is plausible and is labelled as a reading, not a fact."
     }
-   ]
+   ],
+   "link_source": "S42",
+   "link_source_note": "Registered as S41 on 2026-11-17 by this pass; renumbered to S42 by the same collision fix. The two renumbered brand sources are S39 (CHEF iQ) and S40 (ThermoMaven)."
   }
  ],
  "commission_note": {
@@ -306,5 +310,12 @@
   ]
  },
  "intent_ledger_file": "data/product-intent.json",
- "intent_ledger_note": "This pass first appended its 2026-11-17 observations to data/product-intent-confirmations.json. Flag F80, merged from main the same day, had retired that file in favour of data/product-intent.json, so the append was reverted and the substance moved to the canonical record. One published ledger, no third copy."
+ "intent_ledger_note": "This pass first appended its 2026-11-17 observations to data/product-intent-confirmations.json. Flag F80, merged from main the same day, had retired that file in favour of data/product-intent.json, so the append was reverted and the substance moved to the canonical record. One published ledger, no third copy.",
+ "source_id_note": "Citations use this repository's merged source ids. This pass registered its four new sources as S38-S41; main had taken S38 for a GitHub Pages document while the branch was open, so they became S39-S42 on the merge and every citation in this file, in data/articles.json and in flags F83-F87 was rewritten with them. S36/S37 needed no move: both passes registered the same two listing URLs and main's records stand, with this pass's first-chunk read caveat appended to their page_version.",
+ "contradicts": {
+  "flag": "F78 on flagged.html, as merged from main on 2026-11-17",
+  "their_instruction": "Keep them unmapped and do not publish thermometer specifications unless product intent and scope are confirmed.",
+  "this_passes_position": "Publish what the official record supports and leave the rest blank, because the brief supplied these two links as products to build marketing for and withholding them entirely is how they went unrecorded for twelve passes. Intent is still unconfirmed and says so on the page; only the specification rows are published, each linked to the document it was read from.",
+  "how_it_is_held": "Both positions are published instead of one being merged away. The cluster is registered as a shelf with an unpublish trigger (SG-36 option A + C): if the owner answers Q-27 with 'neither', or Q-31 with 'air fryers only', the page and its two articles come down and the rows stay in the dataset as the record. That trigger is printed here, in the dataset, and in the suggestion that governs it, so a reader who never opens the registers still sees the condition on which the page stands."
+ }
 }

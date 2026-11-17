@@ -5531,33 +5531,24 @@ two blank+flagged spec rows. Nothing was filled by inference.
 
 **Open, unchanged, published on flagged.html (none blocking):** F3, F4/F5, F70, F71, F11, Q-01/Q-02/Q-04 and the two blank+flagged spec rows. Nothing was filled by inference.
 
+
 ---
 
-## Task board — arena/c55fa0d8-zone1 (2026-11-17 UTC) — shop brief, scoped pass
+### arena/66c32067-zone1 — held TP-21 draft, gates and record (2026-11-17 UTC)
 
-| # | Task | Status | Owner (session) | File scope |
-|---|------|--------|-----------------|------------|
-| C55-1 | Audit the shop brief against the live repo; add the one question-shaped guide topic the repo does not yet hold (TP-21); map the other suggested titles to existing published articles; record the blocked items with their owner actions | done | arena/c55fa0d8-zone1 | `data/topics.json` (TP-21 appended), `topics.html` (regenerated), `EXECUTIVE-SUMMARY-SHOP-PASS.md` (addendum), `COORDINATION.md` |
+**Claim:** executive summary (`EXECUTIVE-SUMMARY-PASS-66c32067.md`) and this record. Held draft kept at `session-66c32067/` (not served).
 
-### Claim and audit log — arena/c55fa0d8-zone1
+**Collision recorded:** this session drafted a six-question guide for the fourth working title, and it was merged into a branch while `main` (PR #135, session `c55fa0d8`) had registered the same topic as TP-21 with status *proposed*, blocked by **Q-20** (owner-only: which country and marketplace the site promotes). Publishing the draft would have overridden that block, so it was **not published**. The draft's content is kept at `session-66c32067/TP-21-held-draft-article.json` and `session-66c32067/TP-21-held-draft-topic.json`, and `main`'s TP-21 record is untouched. Release is a single build step after Q-20 is answered.
 
-| UTC time | Action |
-|----------|--------|
-| 2026-11-17 | Baseline on the branch: `build.py` exit 0; `verify.py` 77 spec rows (75 verified / 2 blank+flagged), 37 sources, 0 errors; `scripts/ci-check.sh` OK, 8,764 links / 0 broken. |
-| 2026-11-17 | Audit against the brief: the front page already leads with the three products and carries the disclosure strip above the fold and in the footer; every `/dp/` link carries the owner tag `shopnow047c-20` and `rel="sponsored"` (gated since PR #128); `sitemap.xml` (51 URLs) and `feed.xml` (21 items) are generated from the articles. |
-| 2026-11-17 | Suggested working titles mapped to existing coverage: "Basket or oven-style air fryer: what should you compare?" → TP-05 (`dual-basket-vs-oven-air-fryer`); "A no-hype checklist for comparing air fryer capacity" → TP-03 (`air-fryer-capacity-guide`); "How to assess cleanup and counter-space trade-offs" → TP-04 and `how-to-clean-an-air-fryer` (partial: cleaning is covered from the manuals, not as a trade-off study). "Questions to ask before buying a multi-function kitchen appliance" had **no** entry, so it is added as **TP-21 (proposed)**, citing only the three manufacturer product pages already in the register. |
+**Not built, deliberately:** the five-event click counter. The site is static GitHub Pages with no endpoint to receive events; the footer says no analytics run; a beacon would make that false, and a counter with no endpoint would invent numbers. Still blocked on an endpoint the owner controls (`measurement.html`).
 
-### C55-1 completion record
+**Live re-read 2026-11-17 (for the held draft):** Emeril product page (26-Quart, 16.9"D × 15.8"W × 14.8"H, 24.6 Liters, 120 volts, "Included are 7 premium accessories") — confirmed. Chefman 8 Qt brand page (name, 200–400 °F, presets, dishwasher-safe basket and rack) — confirmed. Amazon listing B08DKYBTPH — title matches; its dimensions field was not reached and rests on the prior dated read (S29).
 
-**Status: done, with the blocked items below left open on purpose.** No new product value, price, rating or commission figure was added. TP-21 is a proposed topic, not a published article; its "why it could earn traffic" line is labelled as judgement because no keyword or Associates data exists in this repository.
+**Irregularity:** the 8 Qt listing dimensions (S29 12.75"D × 13.5"W × 10"H) disagree with the brand page (S12 15.4 × 12.6 × 13.5 in). Both are recorded in the held draft; neither chosen.
 
-**Blocked, not implemented in this pass (each needs an owner action or a decision that cannot be made from the sandbox):**
+**Gates on the merged tree:** see the PR description (build, verify, CI, link check, annex, research).
 
-1. **One-link Associates test and tracking report** — needs the account holder's Associates login. Tag is applied and gated on-site; attribution is still untested (F76).
-2. **Outbound-click counter and self-hosted analytics endpoint** — GitHub Pages serves static files only; there is no server to receive events. A browser-only counter would produce a number that is not a count, so none was shipped. The five event definitions remain on `measurement.html`. A host for the endpoint is an owner decision.
-3. **Search Console and sitemap submission (SG-28/SG-29)** — needs verified property access in the owner's Google account.
-4. **Real product photography (S-18)** — no rights-cleared image source exists in the register; open decision (F46 / Q-22).
-5. **Campaign ledger figures** — remain empty by design until authorised first-party reports are supplied.
+### arena/66c32067-zone1 — PR and merge result (2026-11-17 UTC)
 
 **Sources:** the three product pages already registered for TP-21 (`chefman.com` ×2, `emerileveryday.com`), as last read in the earlier 2026-11-17 pass (the `data/sources.json` page_version stamps). **This session did not re-fetch them**, so no new live check is claimed; no new source ID was added.
 
@@ -5624,12 +5615,38 @@ two blank+flagged spec rows. Nothing was filled by inference.
   before the PR. It is noted here rather than quietly amended, because this repository has now hit the same
   mistake twice in two days and the pattern is the point: a hand-edited shared file needs a marker grep before
   every commit, and no gate in the repo currently catches it in a Markdown file.
-* **Gates on the final rebased tree.** `python3 build.py` exit 0 — 55 pages built, 54 sitemap URLs, feed 23
+* **Third reconciliation — `main` moved twice more (#136/#137/#138) and reversed a policy under this pass.**
+  Their final integration rewrote the landing page, narrowed the sitemap to the buyer-facing set, and replaced
+  "apply the tracking ID everywhere, gate-enforced" (#132) with "recorded, deliberately not applied until the
+  account-side checks pass" plus a gate that fails if the two ever disagree (their F76). This pass therefore
+  dropped #132's `ASSOCIATE_TAG` block on merge instead of restoring it, and rewrote the accessory cards to
+  main's link convention. `S38` turned out to be taken (GitHub Pages doc), so this pass's four sources were
+  renumbered `S39`–`S42` and every citation in the cluster, the two articles and flags F83–F87 was rewritten;
+  `S36`/`S37` stayed put because both passes had registered the same two listing URLs and main's records win.
+  Registers were merged **by id in a script** (`session-00bc7156/merge_with_main.py`) rather than by a third
+  textual keep-both: main had re-indented four registers, so git reported every line as a conflict, and a
+  keep-both across a reformat is exactly what had silently dropped a topic row the time before. The rebase was
+  abandoned in favour of one merge commit for the same reason.
+* **A published disagreement, on purpose.** Main's `F78` says: *"do not publish thermometer specifications unless
+  product intent and scope are confirmed."* This pass publishes them. The instruction is quoted on the cluster
+  page next to the reasoning for proceeding and the `SG-36` unpublish trigger, recorded in `data/adjacent.json`
+  as `contradicts`, and summarised in `F83`. Not a silent override, and not obedience either: withholding the
+  two links is the twelve-pass silence this pass exists to end, while publishing them without saying a register
+  objected would have been the worse error. The owner question (Q-27, Q-31) is what actually settles it.
+* **The two gates this pass added earned their place immediately.** `check_conflict_markers()` failed the build
+  on a leftover marker line this session had itself committed during conflict resolution, and the dangling-id
+  check caught a reference to `F81`, a flag main had removed. Both fired before any page shipped.
+* **Gates on the final merged tree.** `python3 build.py` exit 0 — 55 pages built, 34 sitemap URLs (main's buyer-first narrowing), feed 23
   items, all guards green including #132's tag gate, rebuild byte-identical · `python3 verify.py` — 133 pages,
-  77 spec rows (75 verified, 2 blank+flagged), 41 sources, 0 errors, 0 external warnings ·
-  `bash scripts/ci-check.sh` — 33 unit tests OK, data audit clean, 9,244 links, 0 broken ·
+  77 spec rows (75 verified, 2 blank+flagged), 42 sources, 0 errors, 0 external warnings ·
+  `bash scripts/ci-check.sh` — 33 unit tests OK, data audit clean, 10,012 links, 0 broken ·
   `python3 scripts/verify_site.py` — ALL CHECKS PASSED · `python3 scripts/build_s2_site.py --check` — build
   current · `python3 research/check_research.py` — OK · `node --check assets/app.js` — OK ·
   `git diff --check` — clean.
 * **Report:** `reports/verification-2026-11-17-00bc7156.md` · **Evidence:** `session-00bc7156/observations-2026-11-17.json` ·
   **Executive summary:** `EXECUTIVE-SUMMARY.md` §24.
+* **PR [#136](https://github.com/kanlerxz87-cyber/Zone1/pull/136)** — held TP-21 draft, executive summary, collision record. Merged with `gh pr merge 136 --merge` at **2026-11-17T16:39:33Z**, merge commit **`80bb0e234cc6cce0bc16062d7d1ee26c656ea69c`**. Required checks before merge: `CI` and `Verify verification annex (site/)` both success; `mergeStateStatus: CLEAN`. Merged without waiting for approval.
+* **Conflict during the pass:** `main` gained PR #135 (session `c55fa0d8`) registering TP-21 as *proposed*, blocked by Q-20. Resolved by keeping `main`'s TP-21 record and not publishing the held draft. Both sessions' records are kept.
+* **Post-merge workflows on `main` at `80bb0e2`:** `CI` success · `Build, verify and deploy to GitHub Pages` success · `Verify verification annex (site/)` success · `pages build and deployment` success.
+* **GitHub Pages:** `pages/builds/latest` → `status: built`, commit `80bb0e2…`, `error: null`. Live read-back: `articles/multi-function-buying-questions.html` returns the site's 404 page (draft correctly not served); `articles/index.html` lists the published set.
+* **Owner action:** answer **Q-20** (country and marketplace the site promotes). Then the held draft in `session-66c32067/` can be released.

@@ -1,17 +1,19 @@
 {
-  "associate_tag": "shopnow047c-20",
-  "associate_tag_note": "Set 2026-11-17 from the owner-supplied tracking ID shopnow047c-20 (brief: \"Selected Tracking ID: shopnow047c-20\"). Amazon Program Policies §2(a) requires Special Links to use the assigned Associates ID and §2(b) requires the tag as a URL parameter on every link, so the build appends ?tag=<this> to every /dp/<ASIN> link and fails if any outbound product link lacks it. The tag format (xxxxx-20) is validated against the §2(b) pattern before any page is written. Recorded in data/intent-record.json as the site's own tag; it is NOT evidence that the five supplied link.amazon links carry it.",
-  "site": {
-    "title": "Air Fryer Affiliate Intelligence",
-    "tagline": "Verified data, sourced line by line, for three air fryers.",
-    "owner": "kanlerxz87-cyber",
-    "repo": "kanlerxz87-cyber/Zone1",
-    "base_url": "https://kanlerxz87-cyber.github.io/Zone1/",
-    "disclosure_amazon": "As an Amazon Associate I earn from qualifying purchases.",
-    "disclosure_general": "I get commissions for purchases made through links on this page.",
-    "disclosure_general_note": "This wording follows the FTC's own example for affiliate disclosure, which states: “You could say something like, ‘I get commissions for purchases made through links in this post.’” The FTC also warns that “affiliate link” alone is inadequate.",
-    "freshness_label": "13 November 2026"
-  },
-  "associate_tag_added": "2026-11-17",
-  "associate_tag_source": "Owner brief, 2026-11-17 (Selected Tracking ID: shopnow047c-20)"
+ "associate_tag": "",
+ "associate_tag_note": "Intentionally blank. The brief supplied shopnow047c-20 as a selected tracking ID, but it has not been validated in Associates Central and the required enrolled-Associates test has not been completed for any confirmed intended product. Keep associate_tag blank and do not apply the ID to links until those account-only checks pass. The selected value and its unverified status are recorded separately below and in data/product-intent.json (flag F76).",
+ "site": {
+  "title": "Air Fryer Affiliate Intelligence",
+  "tagline": "Verified data, sourced line by line, for three air fryers.",
+  "owner": "kanlerxz87-cyber",
+  "repo": "kanlerxz87-cyber/Zone1",
+  "base_url": "https://kanlerxz87-cyber.github.io/Zone1/",
+  "disclosure_amazon": "As an Amazon Associate I earn from qualifying purchases.",
+  "disclosure_general": "I get commissions for purchases made through links on this page.",
+  "disclosure_general_note": "This wording follows the FTC's own example for affiliate disclosure, which states: “You could say something like, ‘I get commissions for purchases made through links in this post.’” The FTC also warns that “affiliate link” alone is inadequate.",
+  "freshness_label": "13 November 2026"
+ },
+ "selected_tracking_id": "shopnow047c-20",
+ "selected_tracking_id_note": "User-provided in the project brief on 2026-11-17. Not independently validated in Associates Central and not confirmed as the tag on any supplied link. Not applied to links: associate_tag remains blank until one enrolled Associates link test has passed for each confirmed intended product.",
+ "selected_tracking_id_provenance": "Project brief, 2026-11-17; account ownership and link attribution not verified.",
+ "selected_tracking_id_associates_central_confirmed": false
 }

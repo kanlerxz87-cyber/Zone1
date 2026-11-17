@@ -415,9 +415,10 @@
     "S17",
     "S36",
     "S37",
-    "S40",
-    "S41"
-   ]
+    "S41",
+    "S42"
+   ],
+   "note": "Both passes edited this row on 2026-11-17. The count and the parameter spelling are this pass's correction; the status stays blocked because the correction does not resolve identity, which only the account holder can do."
   },
   {
    "id": "C-02",
@@ -746,30 +747,28 @@
    "scope": "Publishing",
    "requirement": "Attach the owner's Associate tag to every link",
    "clause": "publish and manage affiliate links",
-   "status": "delivered",
+   "status": "blocked",
    "where": [
     "data/config.json",
-    "build.py",
     "data/product-intent.json",
+    "build.py",
     "product-intent.html"
    ],
    "evidence": [
     {
-     "label": "data/config.json",
-     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/config.json"
-    },
-    {
-     "label": "build.py",
-     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py"
-    },
-    {
-     "label": "product-intent.html",
+     "label": "Tracking-ID status and explicit no-apply gate",
      "url": "product-intent.html"
+    },
+    {
+     "label": "Build contract",
+     "url": "build.py"
     }
    ],
-   "why": "Resolved 2026-11-17 by session 5b17c077. Until this pass no tag existed in data/config.json and the root build never read the field, so no link could earn. Program Policies §2(a) requires Special Links to use the assigned Associates ID and §2(b) requires the tag as a URL parameter on every link to an Amazon Site. The tag shopnow047c-20 is now on every outbound product link and check_associate_tagging() fails the build without it. What remains open is not the attachment (gate-enforced) but two owner-side facts: that shopnow047c-20 is the right tag for the account, and that the account is approved (F6, Q-03).",
+   "why": "Blocked by the brief’s required account-holder test. shopnow047c-20 is recorded as user-provided but is not validated in Associates Central, is not applied to links, and has not passed an enrolled-Associates test for any confirmed intended product. The build keeps associate_tag blank and fails if a tag is configured before all intended-link confirmation and test fields are complete. Do not mark attachment delivered before the required tests.",
    "sources": [
-    "S2"
+    "S2",
+    "S5",
+    "S6"
    ]
   },
   {
@@ -777,11 +776,29 @@
    "scope": "Publishing",
    "requirement": "Track clicks",
    "clause": "track clicks and conversions",
-   "status": "not_delivered",
-   "where": [],
-   "evidence": [],
-   "why": "There is no analytics on the site at all — no script, no beacon, no server-side log the owner can read. The footer says so precisely, because Program Policies §3(e) requires an accurate statement of cookie and third-party technology use, and adding a tracker without rewriting that statement would make the footer false.",
-   "sources": []
+   "status": "partial",
+   "where": [
+    "data/analytics-plan.json",
+    "analytics/collector.py",
+    "assets/analytics.js",
+    "tests/test_analytics.py",
+    "measurement.html"
+   ],
+   "evidence": [
+    {
+     "label": "Disabled measurement plan",
+     "url": "measurement.html"
+    },
+    {
+     "label": "Collector reference",
+     "url": "analytics/collector.py"
+    }
+   ],
+   "why": "The five-event schema and privacy-minimizing reference collector/client are defined and locally tested, but the client is disabled and the collector is not deployed. The current GitHub Pages publication has no verified same-origin runtime; collection remains off until the host, proxy logs, privacy notice and endpoint tests are approved.",
+   "sources": [
+    "S38",
+    "S2"
+   ]
   },
   {
    "id": "E-04",
