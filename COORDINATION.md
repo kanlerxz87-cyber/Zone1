@@ -5530,3 +5530,35 @@ two blank+flagged spec rows. Nothing was filled by inference.
 **Net effect of X-4618f77b on main:** the claim/completion records, the verification evidence report (`reports/verification-2026-11-17-4618f77b.md`), the `dashboard/products.html` `rel="sponsored"` repair, and the 6 Qt review-counter refresh (1,307 → 1,310, both read dates kept) with the S9/S10 source stamps. All gates green on the merged tree: build.py exit 0 (51 sitemap URLs, 21 feed items) · verify.py 130 pages / 77 spec rows (75 verified, 2 blank+flagged) / 37 sources / 0 errors · ci-check.sh 8,763 links / 0 broken · research + site-annex + platform audit gates all passing.
 
 **Open, unchanged, published on flagged.html (none blocking):** F3, F4/F5, F70, F71, F11, Q-01/Q-02/Q-04 and the two blank+flagged spec rows. Nothing was filled by inference.
+
+---
+
+## Task board — arena/c55fa0d8-zone1 (2026-11-17 UTC) — shop brief, scoped pass
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| C55-1 | Audit the shop brief against the live repo; add the one question-shaped guide topic the repo does not yet hold (TP-21); map the other suggested titles to existing published articles; record the blocked items with their owner actions | done | arena/c55fa0d8-zone1 | `data/topics.json` (TP-21 appended), `topics.html` (regenerated), `EXECUTIVE-SUMMARY-SHOP-PASS.md` (addendum), `COORDINATION.md` |
+
+### Claim and audit log — arena/c55fa0d8-zone1
+
+| UTC time | Action |
+|----------|--------|
+| 2026-11-17 | Baseline on the branch: `build.py` exit 0; `verify.py` 77 spec rows (75 verified / 2 blank+flagged), 37 sources, 0 errors; `scripts/ci-check.sh` OK, 8,764 links / 0 broken. |
+| 2026-11-17 | Audit against the brief: the front page already leads with the three products and carries the disclosure strip above the fold and in the footer; every `/dp/` link carries the owner tag `shopnow047c-20` and `rel="sponsored"` (gated since PR #128); `sitemap.xml` (51 URLs) and `feed.xml` (21 items) are generated from the articles. |
+| 2026-11-17 | Suggested working titles mapped to existing coverage: "Basket or oven-style air fryer: what should you compare?" → TP-05 (`dual-basket-vs-oven-air-fryer`); "A no-hype checklist for comparing air fryer capacity" → TP-03 (`air-fryer-capacity-guide`); "How to assess cleanup and counter-space trade-offs" → TP-04 and `how-to-clean-an-air-fryer` (partial: cleaning is covered from the manuals, not as a trade-off study). "Questions to ask before buying a multi-function kitchen appliance" had **no** entry, so it is added as **TP-21 (proposed)**, citing only the three manufacturer product pages already in the register. |
+
+### C55-1 completion record
+
+**Status: done, with the blocked items below left open on purpose.** No new product value, price, rating or commission figure was added. TP-21 is a proposed topic, not a published article; its "why it could earn traffic" line is labelled as judgement because no keyword or Associates data exists in this repository.
+
+**Blocked, not implemented in this pass (each needs an owner action or a decision that cannot be made from the sandbox):**
+
+1. **One-link Associates test and tracking report** — needs the account holder's Associates login. Tag is applied and gated on-site; attribution is still untested (F76).
+2. **Outbound-click counter and self-hosted analytics endpoint** — GitHub Pages serves static files only; there is no server to receive events. A browser-only counter would produce a number that is not a count, so none was shipped. The five event definitions remain on `measurement.html`. A host for the endpoint is an owner decision.
+3. **Search Console and sitemap submission (SG-28/SG-29)** — needs verified property access in the owner's Google account.
+4. **Real product photography (S-18)** — no rights-cleared image source exists in the register; open decision (F46 / Q-22).
+5. **Campaign ledger figures** — remain empty by design until authorised first-party reports are supplied.
+
+**Sources:** the three product pages already registered for TP-21 (`chefman.com` ×2, `emerileveryday.com`), re-read in the 2026-11-17 pass recorded above; no new source ID was added.
+
+**Gates:** `python3 build.py` exit 0 · `python3 verify.py` 77 spec rows, 37 sources, 0 errors, 0 external warnings · `bash scripts/ci-check.sh` OK, 8,769 links / 0 broken.
