@@ -5732,3 +5732,58 @@ Flagged for review page with source links.
 | UTC time | Session | Action |
 |----------|---------|--------|
 | 2026-11-17 | arena/c9e97e02-zone1 (session c9e97e02) | Read the board top to bottom and the current tree (`e5fc007` = origin/main; `python3 build.py` + `python3 verify.py` green: 51 sitemap URLs, 21 feed items, 130 pages, 0 errors). Every prior row is `done` or `needs review`; no task is claimed elsewhere. Arena pins this session to `arena/c9e97e02-zone1`, which stands in for the protocol's `session-<id>/<task>` branch. Scope is deliberately additive: the parallel-build directories (`site/`, `s2/`, `research/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*`, other `session-*`) are not edited. Taking the integration role for the shared outputs named above since no other session is active. Measurement is implemented before the article writing, per the brief's "Turn on click and conversion measurement before writing anything else". |
+
+### C9 completion record — arena/c9e97e02-zone1 (2026-11-17 UTC)
+
+**Status: done** (PR, merge and Pages result appended below after the merge). Full evidence
+table: `reports/verification-2026-11-17-c9e97e02.md`. Briefing: `EXECUTIVE-SUMMARY.md` §24.
+
+**What shipped, in the brief's order ("turn on click and conversion measurement before
+writing anything else"):**
+
+| # | Deliverable | Where |
+|---|---|---|
+| 1 | Privacy-preserving outbound-click counter — EV-01…EV-04 exactly per `data/measurement.json`; cookie-free, identifier-free, skips automation and prefetch (§3(s)); inert while unconfigured | `assets/app.js` (emitted from `build.py`'s JS block), `data/config.json` → `analytics_endpoint` |
+| 2 | Self-hosted analytics endpoint — stdlib-only receiver, strict schema (EV-05 rejected by design), never reads client address/User-Agent/Referer, prefetch beacons dropped unrecorded, per-day aggregates at `GET /report`; 21 test assertions; wired into `scripts/ci-check.sh` and `.github/workflows/ci.yml` | `platform/analytics/server.py`, `test_server.py`, `README.md` |
+| 3 | Footer §3(e) statement kept truthful in the same commit as the counter, generated from the same config value, enforced by new build guard `check_analytics_disclosure()` (proven to fire in both directions: inert-state phrase removed → fail; configured endpoint with stale meta → fail; both reverted, build green) | `build.py` layout + guard |
+| 4 | S-07 question-shaped guides — one page per buyer question from the brief's editorial hypotheses (working titles, labelled as such): basket-vs-oven comparison, no-hype capacity checklist, cleanup/counter-space trade-offs, questions before a multi-function appliance. Every `{{placeholder}}` spliced from `data/products.json`; the article guards caught and corrected 8 mid-sentence splice violations while writing. Sitemap 51→55 URLs, feed 21→25 items, both generated from the same register | `data/articles.json`, `articles/*.html`, `data/topics.json` (TP-21…TP-24) |
+| 5 | Publishing cadence + growth-on-the-verification-angle plan (S-25): one question guide per week; next topic from measured queries once the endpoint and the Search Console report exist — judgement labelled judgement until then | `data/topics.json` → `topics.html` §cadence / §growth-angle |
+| 6 | S-20 mobile-first pass — fluid type scale, 44px tap targets on controls and wayfinding, sticky comparison bar on compare.html with real per-product anchors (`#p-<slug>`) | `build.py` CSS block → `assets/style.css` |
+| 7 | "One site to index" — robots.txt now Disallows the seven parallel annex builds; sitemap lists only canonical URLs | `build.py` robots generator |
+| 8 | Registers updated line by line: E-03 → partial (shipped, gap named: deploy the endpoint); F-04 → delivered (via the guard); B-06 → partial with the F83 gap named; B-07/B-08/D-01 dated evidence; SG-36 (deploy the endpoint), SG-37 (validate one Special Link per product + read the tracking report — the brief's scaling gate), SG-38 (noindex the annexes / root-domain decision); Q-27/Q-28 + a dated answer added to Q-08 | `data/requirements.json`, `data/suggestions.json`, `data/questions.json` |
+
+**Verification performed this pass (live reads 2026-11-17 UTC via server-side fetch):** the
+three supplied short links re-resolved to **B0CDY277D3 / B09B7SB46R / B08DKYBTPH** with listing
+titles matching `data/products.json` character-for-character (fallback parameters `lv=shuf`/
+`plpRedirect=mhFallback` again, `gaOptInStatus=true` observed, **no `tag=` on any final URL** —
+F82 unchanged); **S2** heading "Updated: April 14, 2026" unchanged; **S3** Table 1 read with no
+login — Kitchen 4.50%, All Other 4.00%, bounties $12.00/$5.00/$0.25, unchanged. **Two new
+sources registered from live reads**: S38 (RFC 9309 §2.3 verbatim: the file MUST be at the
+top-level path) and S39 (Google robots intro verbatim: robots.txt "is not a mechanism for
+keeping a web page out of Google"; noindex is). S1/S4/S5/S8/S9–S15 were re-read earlier the
+same day by session 4618f77b (their report linked from mine); no value this pass publishes
+depends on anything those pages say that the named report does not carry.
+
+**Irregularity raised (published on flagged.html, non-blocking):** **F83** — robots.txt on a
+GitHub project-pages subpath is not where RFC 9309 §2.3 places the file, and Google's guidance
+says robots.txt is no exclusion mechanism at all. The Disallow lines ship as documented intent;
+meta robots noindex on the annex builds is the mechanism that works. **Requests logged below
+for the annex owners' generators** (their files were not edited).
+
+**Requests to other sessions' scopes (not edited):** `s2/`, `site/`, `research/`, `docs/`,
+`dashboard/`, `session-3740f69d/`, `annex-88769516/` — please add `<meta name="robots"
+content="noindex">` at template level in each build's generator and regenerate with your own
+gates, for the one-site-to-index goal (F83/SG-38).
+
+**Gates, all green on the final tree:** `build.py` → 55 pages / 55 sitemap URLs / feed 25 items,
+rebuild byte-identical · `verify.py` → 134 pages, 77 spec rows (75 verified / 2 blank+flagged),
+39 sources, 0 errors, 0 external warnings · `ci-check.sh` → unit tests + analytics endpoint
+tests (21) + data audit clean + annex current + link check 9,259 links / 0 broken ·
+`research/check_research.py` OK · `scripts/verify_site.py` ALL CHECKS PASSED ·
+`platform/audit/report.py` AUDIT PASSED · `node --check assets/app.js` OK · `git diff --check`
+clean.
+
+**Not resolved, unchanged and published as such:** F3, F4/F5, F70, F71, F11, F76, F81,
+Q-01/Q-02/Q-04 and the two blank+flagged spec rows. No conversion score or revenue forecast
+was added anywhere; the campaign ledger remains empty on purpose. Nothing was filled by
+inference.
