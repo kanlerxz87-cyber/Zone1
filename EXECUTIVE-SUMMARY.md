@@ -1467,7 +1467,7 @@ on `product-intent.html` rather than left as an orphan block.
 
 **State at the end of this pass:** `build.py` exit 0 (55 pages built, 54 sitemap URLs, feed 23 items, every
 guard green including the new one plus #132's tag gate, rebuild byte-identical) · `verify.py` **133 pages,
-41 sources, 0 errors, 0 external warnings** · `ci-check.sh` 33 tests OK, audit clean, **9,239 links,
+41 sources, 0 errors, 0 external warnings** · `ci-check.sh` 33 tests OK, audit clean, **9,244 links,
 0 broken** ·
 `scripts/verify_site.py` 393 assertions passed · `build_s2_site.py --check`, `research/check_research.py`,
 `node --check assets/app.js` and `git diff --check` all clean. Open owner items this pass added, none

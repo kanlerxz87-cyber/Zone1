@@ -5592,6 +5592,21 @@ two blank+flagged spec rows. Nothing was filled by inference.
   `product-intent.html` covering all five links, which is the page my claim row proposed to write. Duplicating
   it would have created the fourth parallel intent record this repository has now retired twice, so this pass
   publishes the cluster page only and links to theirs.
+* **Topic ids renumbered against #135.** Main merged session `c55fa0d8`'s `TP-21` (a *proposed* buyer-questions
+  topic) while this branch was open, and this pass had used `TP-21`, `TP-22`, `TP-23` for its own three rows. The
+  merged id belongs to whoever published it, so this pass's rows moved to `TP-22`, `TP-23`, `TP-24`. The first
+  merge of the two registers dropped the probe topic outright — a keep-both script that filters incoming rows by
+  id silently discards a colliding one — and the row was restored with a `renumbered_note` recording how it was
+  caught: the expected topic count (24) against the written count (23). `data/topics.json` is now 24 rows, with
+  `TP-21` theirs and `TP-24` deliberately left `proposed`.
+* **New gate, from a defect this session committed twice.** `check_conflict_markers()` now runs first in
+  `build.py` and fails the build if any tracked `.md`/`.json`/`.py`/`.html`/`.yml`/`.txt`/`.css`/`.js`/`.sh`
+  carries a `<<<<<<< ` or `>>>>>>> ` line (a bare `=======` counts only alongside one, so a Markdown setext
+  underline cannot trip it). It exists because this exact defect shipped twice in two days — `7c6806f` repaired
+  by `3e4859f`, then twice in this file during this pass's own keep-both resolutions, each time found by reading
+  rather than by a gate. Proven in both directions: it fires on an injected marker file and passes on the tree.
+  It deliberately covers other sessions' files: a marker in someone else's register is still a marker in a
+  published artefact, and every session runs this build before merging.
 * **Ledger reconciliation.** This pass first appended its dated observations to
   `data/product-intent-confirmations.json`. Flag `F80`, merged with #132, had retired that file in favour of
   `data/product-intent.json` the same day, so on rebase the append was **reverted** and the substance
@@ -5612,7 +5627,7 @@ two blank+flagged spec rows. Nothing was filled by inference.
 * **Gates on the final rebased tree.** `python3 build.py` exit 0 — 55 pages built, 54 sitemap URLs, feed 23
   items, all guards green including #132's tag gate, rebuild byte-identical · `python3 verify.py` — 133 pages,
   77 spec rows (75 verified, 2 blank+flagged), 41 sources, 0 errors, 0 external warnings ·
-  `bash scripts/ci-check.sh` — 33 unit tests OK, data audit clean, 9,239 links, 0 broken ·
+  `bash scripts/ci-check.sh` — 33 unit tests OK, data audit clean, 9,244 links, 0 broken ·
   `python3 scripts/verify_site.py` — ALL CHECKS PASSED · `python3 scripts/build_s2_site.py --check` — build
   current · `python3 research/check_research.py` — OK · `node --check assets/app.js` — OK ·
   `git diff --check` — clean.
