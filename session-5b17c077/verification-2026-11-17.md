@@ -147,3 +147,54 @@ All reads on 2026-11-17, from the sandbox with `fetch_page`.
   parameters), F-71 (listing self-contradictions), 2 blank+flagged spec rows.
 - **Measurement is specified, not shipped** — blocked on the owner choosing an endpoint
   and approving the §3(e) disclosure update in the same commit.
+
+---
+
+## Integration note — three parallel intent records, consolidated to one
+
+While this branch was open, `main` received **two** other product-intent registers built
+the same day by different sessions:
+
+| File | Session | Status after this pass |
+|---|---|---|
+| `data/product-intent.json` → `product-intent.html` | 1c97a25f (merged #125) | **canonical** — kept, updated |
+| `data/product-intent-confirmations.json` | 02b4e9c7 (merged #126) | retired, not deleted (dated artefact, read by nothing) |
+| `data/intent-record.json` → `intent-record.html` | **this session** | retired for the same reason |
+
+Flag **F80** (raised by 1c97a25f) assigned the integration session the decision to keep one
+record and retire the other. This pass is that integration session, so it made the call
+rather than adding a third register to the pile.
+
+**Why `product-intent.json` wins:** it is the one the build actually renders, it covers all
+five supplied links including the two thermometers, and its schema already enforces the
+separation the brief asked for (`intended_*` fields are never copied from `observed_*`).
+
+**What was not lost.** This session's own record carried two findings the others did not.
+Both are now flags rather than an orphaned page:
+
+- **F81** — `B0c8moW59` and `B0f3GKalj` appear in no other file in the repository and
+  resolve to a different product category (meat thermometers). Intended product unknown.
+- **F82** — none of the five supplied `link.amazon` URLs carried an Associates tag on
+  2026-11-17; this site no longer routes readers through them.
+
+**Renumbering.** This session's flags were renumbered `F76/F77 → F81/F82`, because
+1c97a25f had already published F76–F80. The register-integrity gate caught the duplicate
+IDs and refused to build — the gate did its job.
+
+**The tag status was reconciled, not overwritten.** `product-intent.json` recorded
+`tracking_id_applied_to_links: false`. That was true when written and is now stale, so it
+was updated in place to `true` with the gate named as the mechanism, while explicitly
+keeping the distinction between "the tag is attached and well-formed" (proved by the gate)
+and "Amazon attributes a commission to it" (still untested — needs the owner's Associates
+Central login).
+
+## Final gates on the integrated tree
+
+| Gate | Result |
+|---|---|
+| `build.py` | 51 sitemap URLs, feed 21 items, exit 0, rebuild leaves the tree unchanged |
+| `verify.py` | 130 pages, 77 spec rows (75 verified / 2 blank+flagged), **37** sources, 0 errors |
+| `ci-check.sh` | 33 tests OK, audit clean, **8,763 links / 0 broken** |
+| `check_associate_tagging()` | fires on untagged link (2 problems), fires on blank tag, clean on tagged+sponsored |
+| Tagged `/dp/` links | 100%, `rel="sponsored"` on every one |
+| Disclosure above `<main>` | every root page |
