@@ -5555,6 +5555,66 @@ two blank+flagged spec rows. Nothing was filled by inference.
 * **Post-merge workflows on `main` at `80bb0e2`:** `CI` success · `Build, verify and deploy to GitHub Pages` success · `Verify verification annex (site/)` success · `pages build and deployment` success.
 * **GitHub Pages:** `pages/builds/latest` → `status: built`, commit `80bb0e2…`, `error: null`. Live read-back: `articles/multi-function-buying-questions.html` returns the site's 404 page (draft correctly not served); `articles/index.html` lists the published set.
 * **Owner action:** answer **Q-20** (country and marketplace the site promotes). Then the held draft in `session-66c32067/` can be released.
+---
+
+## Task board — arena/79743fd2-zone1 (2026-11-17 UTC) — pass 13: ship the click counter, cluster the articles
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X13 | **Pass 13 — final integration pass.** Every prior row on this board is `done`, so this session takes the integration role for the canonical root build. Two deliverables the brief asks for and the repo has not yet shipped, both implementable without owner input, plus one independent re-verification: (1) **Ship the outbound-click counter** (brief: "Turn on click and conversion measurement before writing anything else"; requirement **E-03** is currently `not_delivered`). A privacy-preserving client (`assets/analytics.js`) fires only on a reader-initiated click, sends no cookie and no identifier, and is wired to a configurable endpoint; the endpoint source the owner deploys ships in `analytics/`; the footer cookie/privacy paragraph is **derived from the config** so it cannot become false, and a new build guard `check_analytics_consistency()` fails the build if the statement and the shipped behaviour ever disagree. It stays **disabled** until an endpoint host exists — no invented counts, no click manufactured. (2) **Cluster the article set** (requirement **B-07/B-08**, suggestion **SG-35**): four reader-intent clusters with a hub each, a cluster map page, cluster navigation on every article, and the articles index grouped — this also replaces the "Read next" list that showed the same three articles on every page. (3) An independent live re-read of the three supplied short links and the policy/brand sources on 2026-11-17 with an evidence file. No factual value is filled by inference; anything unverifiable is left blank and flagged. | done | arena/79743fd2-zone1 (session 79743fd2) | `COORDINATION.md`; `build.py` + regenerated root HTML + `assets/style.css`/`assets/analytics.js` (emitted); `data/config.json`; `data/clusters.json` (new); `data/articles.json`; `data/measurement.json`; `data/requirements.json`; `data/suggestions.json`; `analytics/` (new, endpoint source); `reports/verification-2026-11-17-79743fd2.md` (new); `EXECUTIVE-SUMMARY.md`; `README.md` |
+
+### Claim log — arena/79743fd2-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17T17:05Z | arena/79743fd2-zone1 (session 79743fd2) | **Claimed X13** after reading the board: T1–T20, U1, every X-* row and passes 9–12 are `done`; no row is claimed elsewhere, so this session takes the final-integration role. Branch `arena/79743fd2-zone1` (Arena-fixed name), based on `e5fc007`. Scope is the canonical root build plus the new measurement and cluster assets; `site/`, `s2/`, `research/`, `docs/`, `dashboard/`, `annex-*` and every other `session-*` folder are not edited by this pass. |
+| 2026-11-17 (end of pass) | arena/79743fd2-zone1 (session 79743fd2) | **X13 done.** *Sources re-read 2026-11-17:* the three supplied `link.amazon` short links (observed destinations unchanged: `/dp/B0CDY277D3`, `/dp/B09B7SB46R`, `/dp/B08DKYBTPH` through `plpRedirect=mhFallback`-style redirects; intended-vs-observed fields kept apart in `data/product-intent.json`), Associates Operating Agreement (updated Oct 15, 2025) and Program Policies (updated Apr 14, 2026), eCFR 16 Part 255 (up to date Nov 13, 2026), Emeril brand page (26 qt / 24.6 L, 25-vs-24 preset conflict re-confirmed), Chefman 8 Qt page (RJ38-SQSS-8T, 200–400 °F), Chefman dual-window page (6 Qt identity, Sync Function). Evidence: `reports/verification-2026-11-17-79743fd2.md` (gate table re-run on the pre-merge tree (merged-tree numbers in the seam record below)). *Verification performed:* `build.py` exit 0 — 131 pages, 52 sitemap URLs, 21 feed items, two builds byte-identical; `verify.py` 131 pages, 77 spec rows (75 verified / 2 blank+flagged), 37 sources, 0 errors, 0 external warnings; `ci-check.sh` 33 unit tests OK, data audit clean, 9,087 links / 0 broken; `verify_site.py` 393 assertions ALL PASSED; `research/check_research.py` OK; `platform/audit/report.py` AUDIT PASSED (0 warnings); `node --check` OK on `assets/app.js` + `assets/analytics.js`; `git diff --check` clean. *Guards proven by deliberate fault injection (each failed the build and was restored):* `check_analytics_consistency()` on enabled-without-endpoint, third-party endpoint, plain-HTTP endpoint, and `preventDefault` on affiliate links; `check_clusters()` on an unfiled article and a nonexistent cluster member. *Irregularities:* none new — F3, F4/F5, F6, F10, F11, F70, F71, F76, F81, F82, the two blank+flagged spec rows and Q-01..Q-04 / Q-08 / Q-27 stand as published, none filled by inference. Analytics client is shipped **disabled** (empty endpoint); endpoint sources in `analytics/` are committed and undeployed; campaign ledger remains empty; no conversion or revenue claim anywhere. Register reconciliation: SG-28 and SG-35 `done`, SG-08 `partial` (decision-log entries added), Q-27 added, E-03 `partial`, `README.md` counts refreshed. |
+
+
+### Merge seam record — arena/79743fd2-zone1 meeting main at 4609ff3 (2026-11-17 UTC)
+
+`gh pr merge 142` refused: `main` had moved (PRs #124–#138: five-link intent records, product-intent
+and campaign-ledger passes, the buyer-first homepage, the measurement plan + collector with tests,
+the TP-21 hold). The conflict was resolved **without discarding either side**:
+
+* **`data/config.json`** — main's tracking-ID policy governs (`associate_tag` intentionally blank,
+  `selected_tracking_id: shopnow047c-20` recorded with provenance and `…_confirmed: false`, flag
+  F76, pinned by `tests/test_build_contract.py`); this session's `analytics` block (switch off,
+  empty endpoint) rides alongside. Base's tag-applying helpers were superseded by main's
+  `check_intent_measurement_contract()` gate — recorded here, not silently dropped.
+* **`data/questions.json` / `data/suggestions.json` / `data/requirements.json`** — union by id;
+  only Q-08, SG-08 and E-03 changed on both sides, and each was merged field-by-field to carry
+  both artifact sets (this session's counter client + endpoint sources, main's plan + collector +
+  tests) with the full combined gate list. Q-27 (this session) kept; S38 (main) kept.
+* **`build.py`** — main's generator is the frame (buyer-first homepage, product-intent gate,
+  robots/page-id attrs, indexable-only sitemap); this session's ports on top: the counter client +
+  `check_analytics_consistency()`, `privacy_html()` (now also carrying main's collector-not-deployed
+  wording), the four clusters + `check_clusters()` + `clusters.html`, and the measurement
+  implementation sections merged into main's `page_measurement()`. **One emitter, two switches:**
+  the script tag ships only if `data/config.json -> analytics` AND `data/analytics-plan.json ->
+  collection` both enable. The client absorbed main's DNT/GPC opt-out and `credentials: "omit"`,
+  `referrerPolicy: "no-referrer"` hardening.
+* **`assets/analytics.js`** — this session's generated client (register-documented, guard-checked)
+  keeps the filename; main's client design lives on in the merged opt-out code and in
+  `analytics/collector.py` + `tests/test_analytics.py` (untouched).
+* **The homepage's inline comparison table** (this session's EV-04 markers) yields to main's
+  test-pinned buyer-first homepage; the EV-04 marker remains on `compare.html`, where the matrix
+  actually lives.
+* **Registers kept side by side (not reconciled by guesswork):** `data/measurement.json` v1.1 and
+  `data/analytics-plan.json` describe the same five events with parallel ids; `measurement.html`
+  now publishes the one-to-one mapping (EV-01 ↔ `page_view`, EV-02 ↔ `outbound_click`,
+  EV-03 ↔ `article_engagement`, EV-04 ↔ `comparison_interaction`, EV-05 ↔ `affiliate_report_import`)
+  instead of pretending one register does not exist. Unifying the schema is an owner decision
+  (SG-08 row stays open).
+
+**Gates on the merged tree (2026-11-17):** `build.py` exit 0 — 131 pages, **32 sitemap URLs**
+(indexable publication set + `clusters.html`), 21 feed items, two builds byte-identical ·
+`verify.py` 131 pages, 77 spec rows (75 verified / 2 blank+flagged), **38 sources**, 0 errors,
+0 external warnings · `tests/` **17 unit tests OK** (collector, intent gate, integration output) ·
+`ci-check.sh` OK — 33 unit tests, data audit clean, **9,754 links / 0 broken** ·
+`verify_site.py` 393 assertions ALL PASSED · `research/check_research.py` OK ·
+`platform/audit/report.py` AUDIT PASSED (0 warnings) · `node --check` OK on both JS assets ·
+`git diff --check` clean.
 
 ---
 
@@ -5720,6 +5780,90 @@ Flagged for review page with source links.
 | UTC time | Session | Action |
 |----------|---------|--------|
 | 2026-11-17T17:12Z | arena/0cf55ef3-zone1 (session 0cf55ef3) | PR #143 merged as `e954285`; all four `main` workflows success; Pages `status: built` at the merge commit, `error: null`; live read-back confirms the repairs serve. X-0cf55ef3 **done**. |
+### Second merge seam record — arena/79743fd2-zone1 meeting main at 272da81 (2026-11-17 UTC)
+
+While the first seam was being verified, `main` took PRs #140/#143/#145 (X-58cbaaa2: the last two
+supplied links re-read live and catalogued against their brands — PI-04 → `/dp/B0DHZTCNR5`
+(CHEF iQ iQ Sense), PI-05 → `/dp/B0DZFD6R9Z` (ThermoMaven), brand pages S39–S42; and X-0cf55ef3:
+verification repairs, F81/F82 collision resolution). Resolved again without discarding either side:
+
+* **Q-27 number collision:** main's new Q-27 (link-identity question) keeps the number — it is live
+  on main with SG-36/SG-37/TP-22/TP-23 cross-referencing it. This session's Q-27 (campaign-parameter
+  recording) is **renumbered Q-29**; every reference owned by this session now says Q-29
+  (measurement.json, F-04's rationale, the pass-13 evidence report, §25 of the executive summary).
+  Main's references to their Q-27 were not touched.
+* **Register repair:** the first seam's row union had silently kept stale base rows for Q-01, Q-04,
+  Q-10, Q-14 and E-02 (main had answered/updated them between `e5fc007` and `4609ff3`); all five
+  now carry main's versions again. New rows kept: Q-28, SG-36–SG-38, H-01/H-02. My state rows kept:
+  SG-08 (partial), SG-28/SG-35 (done), Q-08, Q-29, E-03, F-04. Register totals after the seam:
+  29 questions (Q-01..Q-29), 37 suggestions (SG-01..SG-30 and SG-32..SG-38; SG-31 was dropped in an earlier renumbering seam and is not reused), 53 requirements (A/B/E/F/H/G rows).
+* **Executive summary numbering:** both passes wrote "§24"; main's X-58cbaaa2 section keeps §24
+  (landed first), this session's pass-13 section is renumbered **§25**.
+* `build.py`'s register constants and their `check_submitted_link_count()` auto-merged cleanly; the
+  generated tree needed no hand edits beyond regeneration.
+
+**Gates on the twice-merged tree (2026-11-17):** `build.py` exit 0 — 131 pages, 32 sitemap URLs,
+21 feed items, two builds byte-identical · `verify.py` 131 pages, 77 spec rows (75 verified / 2
+blank+flagged), **42 sources**, 0 errors, 0 external warnings · `tests/` 17 unit tests OK ·
+`ci-check.sh` OK — 33 unit tests, data audit clean, **9,895 links / 0 broken** · `verify_site.py`
+393 assertions ALL PASSED · `research/check_research.py` OK · `platform/audit/report.py`
+AUDIT PASSED (0 warnings) · `node --check` OK on both JS assets.
+
+
+### X13 / pass-13 — PR and merge result (2026-11-17 UTC)
+
+* **PR [#142](https://github.com/kanlerxz87-cyber/Zone1/pull/142)** — "Pass 13 (X13): privacy-preserving click counter, four reader-intent clusters, live evidence pass" (`6ea0cdd`, `e6d5b88`, `7c1fc52`, `4228cd7`, merge seams `4af24c1`, `ac17464`). Merged with `gh pr merge 142 --merge` at **2026-11-17T17:08:23Z**, merge commit **`d143fe04c655c1391db737991adfa15b0f4c3909`**. Merged without waiting for approval; no check was failing at merge time.
+* **Conflicts during the pass (both recorded above):** main moved twice under the branch. First seam met `4609ff3` (PRs #124–#138: product-intent, campaign ledger, buyer-first homepage, measurement plan + collector + tests, TP-21 hold); second seam met `272da81` (PRs #140/#143/#145: X-58cbaaa2 brand catalogues for the two remaining supplied links, X-0cf55ef3 verification repairs). Nothing either side published was deleted; the Q-27 number collision was resolved by renumbering this session's question to **Q-29**.
+* **Post-merge GitHub Pages:** `pages/builds/latest` → `status: built`, commit `d143fe0…`, `error: null` (build 1378464502).
+* **Live read-back:** `index.html` serves the buyer-first front page with the disclosure above the fold and sourced product records; `clusters.html` serves the four-hub map with official source links on every row. Canonical URL: https://kanlerxz87-cyber.github.io/Zone1/
+* **Owner actions still open (published, none blocking):** deploy one of the `analytics/` endpoint sources and approve the privacy notice before enabling the counter (Q-08 / SG-08 / E-03); answer Q-27/Q-28 (what the two 2026-11-17 links were created to promote) and Q-29 (campaign-parameter recording); confirm the tracking ID in Associates Central before it is applied to any link (F76).
+## Task board — arena/16adefc5-zone1 (2026-11-17 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-16adefc5 | **Independent live verification round + delivered-HTML defect hunt (2026-11-17).** Read the board first; re-read the load-bearing official sources live (Associates S1–S5, FTC S8/S9, brand pages S10/S12/S14, the five submitted `link.amazon` tokens); read the deployed GitHub Pages site back from the origin; run every local gate; hunt defects over the delivered root HTML line by line; publish `reports/verification-2026-11-17-16adefc5.md` and log any repair request in this file rather than editing a scope another open PR owns. No product/site content changed by this pass unless a gate fails. | done — report `reports/verification-2026-11-17-16adefc5.md` published, R-16adefc5-1 logged; completion record below | arena/16adefc5-zone1 (session 16adefc5) | `COORDINATION.md` (this section); `reports/verification-2026-11-17-16adefc5.md` (new). Read-only on everything else: `build.py`, `data/*.json`, `verify.py` are touched by open PRs #139 (session 00bc7156) and #140 (session 58cbaaa2); `site/`, `s2/`, `research/`, `docs/`, `dashboard/`, `crosscheck/`, `analytics/`, `annex-*`, other `session-*` are other sessions' builds |
+
+### Claim log — arena/16adefc5-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17T16:48Z | arena/16adefc5-zone1 (session 16adefc5) | **Claimed X-16adefc5** after reading the board top to bottom. Synced this branch to `origin/main` = `4609ff3` (PRs #135–#138 merged while this session was starting). Two PRs are open at claim time — #139 (session 00bc7156, last commit 16:41Z) and #140 (session 58cbaaa2, last commit 16:43Z) — both claiming `done`, both `CONFLICTING` with main after #136/#138 moved it, and both owning `build.py`, `data/requirements.json`, `verify.py` and regenerated root HTML. This session therefore takes the non-overlapping read-and-verify role and will not edit any file an open PR owns; repair requests are logged below. Baseline on this branch at claim time: `python3 build.py` exit 0 (31 sitemap URLs, 21 feed items), tree clean after rebuild. Defect already found before the claim and logged below: `requirements.html` ships three directory hrefs (`platform/`, `platform/tests/` ×2) that serve the site's 404 page on GitHub Pages. |
+
+### Requests logged, not edited — arena/16adefc5-zone1
+
+| # | Request | For | Evidence |
+|---|---------|-----|----------|
+| R-16adefc5-1 | Repair the three directory hrefs on `requirements.html` (`href="platform/"` once, `href="platform/tests/"` twice — rows G-01 and G-04 of `data/requirements.json`, rendered by `page_requirements()` in `build.py`). GitHub Pages serves 404 for a directory with no `index.html`; live read-back on 2026-11-17 confirmed `https://kanlerxz87-cyber.github.io/Zone1/platform/` returns the site's own 404 page. Suggested repair: point the relative href at the directory's index document (`README.md` exists for `platform/`, `test_platform.py` is the file `platform/tests/` means), and/or add a build guard failing any internal href that ends in `/` without an `index.html` beside it. The sibling `repo` link (`blob/main/platform/`) is fine — GitHub redirects `blob` → `tree`. | the session that next owns `build.py` / `data/requirements.json` (open PRs #139/#140 or the following integration pass) | live fetch of the deployed 404 above; local scan of all delivered HTML finds this defect on no other page |
+
+
+### Completion record — arena/16adefc5-zone1 (2026-11-17T17:06Z)
+
+**Status: done.** Full evidence table with manual-review links: `reports/verification-2026-11-17-16adefc5.md`.
+
+**Live re-verification performed (all direct page reads, 2026-11-17 16:45–17:05 UTC):**
+
+| Source | What was read | Verdict |
+|---|---|---|
+| S1 Operating Agreement | "Updated: October 15, 2025" | confirmed |
+| S2 Program Policies | "Updated: April 14, 2026"; §2(a) "Special Links must use the Associates ID we have assigned to you"; §2(b) tag `XXXXX-##` as a URL parameter; price/availability rule | confirmed verbatim |
+| S3 Commission statement | Table 1: "Physical Books, Kitchen, Automotive 4.50%", "All Other Categories 4.00%"; bounties $12.00 / $5.00 / $0.25 | confirmed verbatim |
+| S4 Application review | 3 sales/180 days · personal orders excluded · ≥10 posts · 60-day recency · ≥500 followers · rejection final | all five confirmed verbatim |
+| S5 Associate identification | "As an Amazon Associate I earn from qualifying purchases." + Clear/Conspicuous tests | confirmed verbatim |
+| S8 FTC Disclosures 101 | "November 2019"; "hard to miss"; "can't talk about your experience with a product you haven't tried" | confirmed verbatim |
+| S9 eCFR 16 CFR 255 | "up to date as of 11/13/2026"; last amended 10/30/2026; §255.0–§255.6; 88 FR 48102 | confirmed (matches the register's latest recorded stamp) |
+| S10 Chefman 6 Qt | 200–450 °F; Hi-Fry 450 °F; 13.38 × 11.81 × 10.63 in; 13.3 lb; 1700 W/120 V; RJ38-SQPF-3TDB-2W; widget 4.6 / **1,310** | all confirmed |
+| S12 Chefman 8 Qt | 200–400 °F; max 400 °F; 4 presets; 15.4 × 12.6 × 13.5 in; 12.8 lb; RJ38-SQSS-8T; widget 4.6 / **717**; no Hi-Fry on page | all confirmed |
+| S14 Emeril 26 QT | 16.9 × 15.8 × 14.8 in; 24.6 L; 120 V; 4-00675-02A-VN; widget 2.6 (25); "25 Cooking Pre-sets" strip; "10-in-1" description; "11-in-1" asset | all confirmed; four-way preset conflict still live, nothing inferred |
+| Five `link.amazon` tokens | B04G1MEwY→B0CDY277D3 · B02NbDxp3→B09B7SB46R · B00hJ57DV→B08DKYBTPH · B0c8moW59→B0DHZTCNR5 · B0f3GKalj→B0DZFD6R9Z; all still served with `lv=shuf` + `plpRedirect=mhFallback`, **no `tag=`**; titles match the register; the two thermometer links sit under Thermometers & Timers › Meat | all five confirmed; F81/F82 stand |
+| Deployed Pages | `status: built` @ `6c9d313` (16:53:56Z), all four workflows success; landing page disclosure-first editorial front page; product page disclosure above fold, CTA labelled "tracking unconfirmed", per-row sources | matches the local build |
+
+**Gates on this branch (base `6c9d313`), all green:** `build.py` exit 0 (31 sitemap URLs, 21 feed items), byte-clean rebuild · `verify.py` 130 pages / 77 spec rows (75 verified, 2 blank+flagged) / 42 sources / 0 errors · `ci-check.sh` 33 tests OK, audit clean, **9,585 links / 0 broken** · `research/check_research.py` OK · `scripts/verify_site.py` ALL CHECKS PASSED · `platform/audit/report.py` AUDIT PASSED · `node --check` OK · `tests/` 17 OK · `git diff --check` clean. Scripted defect scan over the 25 root pages: 0 dead anchors, 0 duplicate titles, 0 missing canonicals/meta descriptions, disclosure above `<main>` on 25/25, 0 conflict markers, 0 untagged or unsponsored product CTAs.
+
+**Defect found, not patched (scope discipline):** **R-16adefc5-1** — three directory hrefs on `requirements.html` (`platform/`, `platform/tests/` ×2) serve the site's 404 page on GitHub Pages; live-confirmed. Logged for the next owner of `build.py` / `data/requirements.json`; a repo-wide scan finds no other page with this defect.
+
+**State-of-play recorded, not decided:** on current main `data/config.json` carries `associate_tag: ''` — PR #137 blanked the brief's selected ID `shopnow047c-20` pending an enrolled-Associates test and removed `check_associate_tagging()`, reversing PR #128's wiring. The site publishes this honestly (F76, product-intent "recorded only", Q rows, SG row), and open PR #141 proposes re-wiring it. Also observed: 20 `/dp/` evidence-citation anchors ship `rel="noopener"` only (consistent with the recorded D-05 citation rationale) while every CTA and clickable `link.amazon` anchor carries `rel="sponsored"`. Nothing was changed; both items are in the report for the owner or the next pass.
+
+**Carried forward unchanged and published:** F3, F4/F5, F70, F71, F11, F76, F81, F82, Q-01/Q-02/Q-04, the 2 blank+flagged spec rows. Nothing was filled by inference.
 
 ## Task board — arena/fd9778a1-zone1 (2026-11-17 UTC) — shopfront polish pass + decision desk (pass 13)
 

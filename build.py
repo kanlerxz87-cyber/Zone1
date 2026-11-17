@@ -81,8 +81,22 @@ MARKETING = load("marketing.json")
 PLATFORM = load("platform.json")
 ANALYTICS_PLAN = load("analytics-plan.json")
 CAMPAIGN_LEDGER = load("campaign-ledger.json")
+MEASUREMENT = load("measurement.json")
 PRODUCT_INTENT = load("product-intent.json")
 SITE_CONFIG = load("config.json")
+
+# Outbound-click counter switch (added 2026-11-17, session 79743fd2). The switch lives in
+# data/config.json so that the footer's cookie/third-party statement and the
+# behaviour the page actually ships are generated from one source and cannot
+# drift apart. Program Policies section 3(e) requires that statement to be
+# accurate; a hand-typed sentence is how it goes stale.
+ANALYTICS = SITE_CONFIG.get("analytics") or {}
+ANALYTICS_ENABLED = bool(ANALYTICS.get("enabled"))
+ANALYTICS_ENDPOINT = (ANALYTICS.get("endpoint") or "").strip()
+ANALYTICS_EVENTS = [x.strip() for x in (ANALYTICS.get("events") or []) if x.strip()]
+# The counter only runs when it has somewhere to send to. An enabled flag with
+# no endpoint is a configuration error, not a mode: the build guard refuses it.
+ANALYTICS_ON = ANALYTICS_ENABLED and bool(ANALYTICS_ENDPOINT)
 # Additive re-verification ledger (2026-11-14 pass, sess-81495d2d). Rendered as its own
 # page; nothing else in the build depends on it, so a future pass can replace the file
 # without touching the generators below.
@@ -142,6 +156,7 @@ SUG_BY_ID = {s["id"]: s for s in SUGGESTIONS["suggestions"]}
 # The paste-ready design prompt plus the D/A/T/V/R registers, generated from JSON so the
 # owner reviews data, never a template. Statuses describe the repository as built.
 DESIGN_PROMPT = load("design-prompt.json")
+
 
 SRC_BY_ID = {s["id"]: s for s in SOURCES["sources"]}
 ACCESSED = SOURCES["accessed"]
@@ -374,6 +389,7 @@ NAV = [
     ("compare.html", "Comparison", "Verified-only side-by-side matrix"),
     ("guides/buying-guide-air-fryers.html", "Buying guide", "How to choose a form factor"),
     ("articles/index.html", "Articles", "Sourced reads — comparisons, explainers, policy"),
+    ("clusters.html", "Article clusters", "The four questions the set is filed under"),
     ("data.html", "Full dataset", "Every field, value, source and gap"),
     ("platform.html", "Platform blueprint", "The automation and compliance design"),
     ("compliance.html", "Compliance", "Program rules, quoted, with sources"),
@@ -529,6 +545,17 @@ html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
 body{
   margin:0; background:var(--paper); color:var(--ink);
   font:16px/1.65 var(--sans);
+}
+
+/* ------------------------------------------------- article clusters */
+.cluster-group{margin:2.2rem 0 0}
+.cluster-head{border-left:3px solid var(--brand); padding:.1rem 0 .1rem .9rem; margin-bottom:1rem}
+.cluster-head h2{margin:.1rem 0 .35rem; font-size:1.35rem}
+.cluster-head p{margin:.25rem 0}
+.cluster-group .cardgrid{margin-top:.4rem}
+@media (max-width:760px){
+  .cluster-head{padding-left:.7rem}
+  .cluster-head h2{font-size:1.18rem}
 }
 
 /* ---------------------------------------------------------------- links */
@@ -1362,6 +1389,212 @@ document.addEventListener('click', function (ev) {
 """
 
 
+# --------------------------------------------------------------------------- #
+# The outbound-click counter (2026-11-17, session 79743fd2).
+#
+# The brief asks for click and conversion measurement "before writing anything
+# else", and requirement E-03 was still `not_delivered`: data/measurement.json
+# defined five events precisely and shipped no code at all. This file is that
+# code. It is deliberately small, dependency-free and inert unless the build
+# writes a script tag carrying a data-endpoint attribute.
+#
+# What it must never do, and how each rule is enforced:
+#   - Set a cookie or a persistent identifier  -> it never writes to
+#     document.cookie, localStorage, sessionStorage or indexedDB. The build
+#     guard check_analytics_consistency() greps this file for those tokens and
+#     fails the build if one appears.
+#   - Record an IP address, a user agent or a referrer -> the payload is built
+#     from four or five named fields and nothing else. The guard greps for
+#     navigator.userAgent and document.referrer for the same reason.
+#   - Manufacture a click (Program Policies 3(s)) -> an event is sent only
+#     inside a `click` listener that requires event.isTrusted, a primary
+#     button, and a target that is an Amazon product link. Nothing fires on
+#     load, on scroll alone, or from a synthetic dispatchEvent.
+#   - Get in the way of the reader -> the handler never calls
+#     preventDefault(), never stops propagation and never rewrites the href.
+#     The click goes to Amazon whether or not the beacon was accepted.
+#
+# Why it is disabled by default: a counter with no sink behind it would report
+# a number this site cannot source. data/config.json -> analytics holds the
+# switch, and the footer's cookie sentence is generated from the same block, so
+# the sentence can never describe a behaviour the page does not have (Program
+# Policies 3(e)).
+# --------------------------------------------------------------------------- #
+
+ANALYTICS_JS = r"""
+/* Zone1 Kitchen - privacy-preserving outbound-click counter.
+   Shipped by build.py. Behaviour is driven entirely by the data attributes on
+   the script tag: with no data-endpoint the file does nothing at all.
+   No cookie, no identifier, no IP, no user agent, no referrer. */
+(function () {
+  "use strict";
+
+  var tag = document.currentScript;
+  if (!tag) { return; }
+  var endpoint = (tag.getAttribute("data-endpoint") || "").trim();
+  if (!endpoint) { return; }                 // no sink -> the counter is inert
+  var wanted = (tag.getAttribute("data-events") || "EV-01,EV-02,EV-03,EV-04")
+                 .split(",").map(function (s) { return s.trim(); })
+                 .filter(function (s) { return s.length > 0; });
+
+  function enabled(id) { return wanted.indexOf(id) !== -1; }
+  function utcDate() { return new Date().toISOString().slice(0, 10); }
+  function slug() {
+    var p = window.location.pathname;
+    var i = p.indexOf("/Zone1/");
+    if (i !== -1) { p = p.slice(i + 7); }
+    return p.replace(/index\.html$/, "") || "index.html";
+  }
+  function asinFrom(href) {
+    var m = /\/dp\/([A-Z0-9]{10})/.exec(href || "");
+    return m ? m[1] : "";
+  }
+  function tagFrom(href) {
+    var m = /[?&]tag=([^&]+)/.exec(href || "");
+    return m ? decodeURIComponent(m[1]) : "";
+  }
+
+  // The whole payload. Five named fields, no more. If a field is not known it
+  // is omitted rather than filled with a guess.
+  function optedOut() {
+    // Do Not Track / Global Privacy Control honoured (collector-plan client).
+    return navigator.doNotTrack === "1" || window.doNotTrack === "1" ||
+           navigator.globalPrivacyControl === true;
+  }
+
+  function send(id, extra) {
+    if (!enabled(id)) { return; }
+    if (optedOut()) { return; }
+    var body = { event: id, page: slug(), date: utcDate() };
+    if (extra) {
+      for (var k in extra) {
+        if (Object.prototype.hasOwnProperty.call(extra, k) && extra[k]) {
+          body[k] = extra[k];
+        }
+      }
+    }
+    var payload = JSON.stringify(body);
+    try {
+      if (navigator.sendBeacon) {
+        // text/plain keeps this a simple request: no CORS preflight, and the
+        // body is never sent as a form post.
+        var blob = new Blob([payload], { type: "text/plain;charset=UTF-8" });
+        if (navigator.sendBeacon(endpoint, blob)) { return; }
+      }
+    } catch (err) { /* fall through to fetch */ }
+    try {
+      fetch(endpoint, {
+        method: "POST",
+        mode: "no-cors",
+        keepalive: true,
+        credentials: "omit",
+        referrerPolicy: "no-referrer",
+        headers: { "Content-Type": "text/plain;charset=UTF-8" },
+        body: payload
+      }).catch(function () { /* a lost beacon must never break the page */ });
+    } catch (err) { /* ignore */ }
+  }
+
+  // EV-02: only a real click on an Amazon product link.
+  document.addEventListener("click", function (ev) {
+    if (!ev.isTrusted || ev.button !== 0) { return; }
+    var el = ev.target;
+    while (el && el !== document.body) {
+      if (el.tagName === "A" && el.href) { break; }
+      el = el.parentNode;
+    }
+    if (!el || el.tagName !== "A") { return; }
+    var asin = asinFrom(el.href);
+    if (!asin) { return; }
+    send("EV-02", { asin: asin, tag: tagFrom(el.href) });
+  }, { passive: true });
+
+  // EV-01: one page view, on the pages the measurement spec names.
+  var pageType = document.documentElement.getAttribute("data-zone1-page-type");
+  if (pageType) {
+    var q = window.location.search || "";
+    var hasUtm = /(^|[?&])utm_(source|campaign)=/.test(q);
+    send("EV-01", { page_type: pageType, utm: hasUtm ? "1" : "" });
+  }
+
+  // EV-03 and EV-04: an element becomes visible. Observed, not polled.
+  if (typeof IntersectionObserver === "function") {
+    var fired = {};
+    var marks = document.querySelectorAll("[data-zone1-track]");
+    for (var i = 0; i < marks.length; i++) {
+      (function (node) {
+        var kind = node.getAttribute("data-zone1-track");
+        var obs = new IntersectionObserver(function (entries) {
+          for (var j = 0; j < entries.length; j++) {
+            if (entries[j].isIntersecting && !fired[kind]) {
+              fired[kind] = true;
+              send(kind, {});
+              obs.disconnect();
+            }
+          }
+        }, { threshold: 0.6 });
+        obs.observe(node);
+      })(marks[i]);
+    }
+  }
+})();
+"""
+
+
+def privacy_html():
+    """The footer's cookie / third-party statement, generated from data/config.json.
+
+    Amazon Program Policies section 3(e) requires an Associate site to state
+    accurately its use of cookies and third-party technologies. This paragraph
+    used to be hand-typed, which is precisely how such a statement goes stale:
+    a counter is added, the sentence is forgotten, and the site is both
+    non-compliant and inaccurate in the same breath.
+
+    Generating the paragraph from the same block that decides whether the
+    counter ships removes the possibility of the two disagreeing. The build
+    guard check_analytics_consistency() then checks the rendered pages against
+    the same two wordings, so a later edit that breaks the link fails the build
+    rather than the reader's trust.
+    """
+    if ANALYTICS_ON:
+        return (
+            "<p>This site sets no cookies, runs no third-party analytics, and has no "
+            "comment forms or accounts. It loads one small script of its own, which "
+            "sends a single request when \u2014 and only when \u2014 you click a product "
+            "link to Amazon. That request carries the page you were reading, the "
+            "product's ASIN, the date and this site's tracking ID, and nothing else. "
+            "The script never reads or sends your IP address, your browser details or "
+            "the page you arrived from, and it sets no identifier of any kind. The "
+            "server that receives the request necessarily sees the connection's IP "
+            "address; the endpoint shipped in <code>analytics/</code> drops it without "
+            "writing it to disk. Following an Amazon link takes you to Amazon, whose "
+            "own privacy notice and cookie practices apply from that point.</p>"
+            "<p class=\"tiny\">Amazon's Program Policies \u00a73(e) require an accurate "
+            "statement of cookie and third-party technology use on Associate sites. "
+            "This notice describes exactly what this build does, and it is regenerated "
+            "from the same configuration that turns the counter on \u2014 so the two "
+            "cannot disagree.</p>"
+        )
+    return (
+        "<p>This site sets no cookies itself, runs no analytics, and has no comment "
+        "forms or accounts. This GitHub Pages build sends no analytics events: the "
+        "proposed first-party collector is not deployed and browser collection "
+        "remains disabled. Following an Amazon link takes you to Amazon, whose own "
+        "privacy notice and cookie practices apply from that point. No data you enter "
+        "here is collected, because there is nowhere to enter it.</p>"
+        "<p class=\"tiny\">Amazon's Program Policies \u00a73(e) require an accurate "
+        "statement of cookie and third-party technology use on Associate sites. This "
+        "notice satisfies that requirement for the current build; it must be updated "
+        "the moment any analytics, embeds or affiliate-network script is added. The "
+        "outbound-click counter for this site is written and shipped in "
+        "<code>assets/analytics.js</code> but is switched off, because no endpoint "
+        "host has been chosen \u2014 so nothing is sent from your browser to anyone. "
+        "The paragraph above is generated from that switch, so it cannot describe a "
+        "behaviour the page does not have.</p>"
+    )
+
+
+
 PUBLIC_INDEX_PAGES = {
     "index.html",
     "picks.html",
@@ -1370,6 +1603,7 @@ PUBLIC_INDEX_PAGES = {
     "guides/buying-guide-air-fryers.html",
     "articles/index.html",
     "compliance.html",
+    "clusters.html",
 }
 
 
@@ -1487,23 +1721,47 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     # so that https://…/Zone1/ and https://…/Zone1/index.html are one URL, not two.
     canonical = SITE_URL + "/" if page_rel == "index.html" else page_url(page_rel)
     full_title = f"{title} · {SITE_NAME}"
+    # Which kind of page this is, for the measurement client (EV-01 fires only on
+    # the page types data/measurement.json names). Derived from the path so a new
+    # page is classified by where it lives rather than by a second hand-set flag.
+    _pt = ""
+    if page_rel.startswith("articles/") and page_rel != "articles/index.html":
+        _pt = "article"
+    elif page_rel.startswith("products/"):
+        _pt = "product"
+    elif page_rel == "compare.html":
+        _pt = "comparison"
+    elif page_rel.startswith("guides/"):
+        _pt = "guide"
+    # The counter script is only written into the page when it has an endpoint.
+    # With no sink there is nothing to count into, and a page that says it runs
+    # no analytics must not quietly load a tracker.
+    # One emitter, two switches: data/config.json -> analytics (the counter's own
+    # switch, guarded by check_analytics_consistency) AND data/analytics-plan.json ->
+    # collection (the collector-side plan gate). Both are off today; enabling the
+    # counter takes both, deliberately. The plan's indexable-page condition is not
+    # applied here because the guard requires every rendered page to match the
+    # switch state; admin pages are already noindex.
+    _analytics_tag = ""
+    if ANALYTICS_ON and ANALYTICS_PLAN["collection"].get("enabled"):
+        _analytics_tag = (
+            f'<script src="{prefix}assets/analytics.js" '
+            f'data-endpoint="{e(ANALYTICS_ENDPOINT)}" '
+            f'data-events="{e(",".join(ANALYTICS_EVENTS) or "EV-01,EV-02,EV-03,EV-04")}" '
+            f'defer></script>')
     # Fall back to the page's own description for the social card; a link shared with
     # no text still gets a readable preview rather than an empty one.
     social_desc = description or f"{SITE_NAME} — {SITE_TAGLINE}."
     social_alt = og_image_alt or f"{SITE_NAME} — {SITE_TAGLINE}"
     ld = jsonld(jsonld_blocks)
+    _pt_attr = f' data-zone1-page-type="{e(_pt)}"' if _pt else ""
     robots_directive = ("index,follow,max-image-preview:large" if is_indexable_page(page_rel)
                         else "noindex,follow")
     page_id = page_rel[:-5] if page_rel.endswith(".html") else page_rel
     page_type = analytics_page_type(page_rel)
-    analytics_script = ""
-    if ANALYTICS_PLAN["collection"].get("enabled") and is_indexable_page(page_rel):
-        endpoint_path = ANALYTICS_PLAN["collection"]["endpoint_path"].lstrip("/")
-        analytics_endpoint = prefix + endpoint_path
-        analytics_script = (f'<script defer src="{prefix}assets/analytics.js" '
-                            f'data-endpoint="{e(analytics_endpoint)}"></script>')
+
     html = f"""<!doctype html>
-<html lang="en">
+<html lang="en"{_pt_attr}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1634,8 +1892,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     </div>
     <div>
       <h5>Cookies &amp; privacy</h5>
-      <p>This GitHub Pages build sets no cookies and sends no analytics events. The proposed first-party collector is not deployed and browser collection remains disabled. Following an Amazon link takes you to Amazon, where Amazon's own privacy practices apply.</p>
-      <p class="tiny">The site will keep collection off until a same-origin endpoint is deployed, its privacy and retention notice is approved, and the event flow is tested. The current statement reflects the live build. {src_link('S2')}</p>
+      {privacy_html()}
     </div>
     <div>
       <h5>Sources</h5>
@@ -1653,7 +1910,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
   </div>
 </footer>
 <script src="{prefix}assets/app.js"></script>
-{analytics_script}
+{_analytics_tag}
 </body>
 </html>
 """
@@ -2213,7 +2470,7 @@ PROGRAMME_FLAGS = [
      ["S30"]),
     ("F86", "chefman.com publishes two different weights for the 8 Qt TurboFry Touch (RJ38-SQSS-8T) on the same product, read on the same day.",
      "Chefman 8 Qt TurboFry — product weight",
-     "Read 2026-11-17: the product page's specification block states 'Weight: (8 Qt Model) 12.8 lbs / 5.8 kg'; the store product record behind the same page (…/turbofry-touch-air-fryer-1.json, updated_at 2026-11-17T11:41:54-05:00) carries variant weight 13.4 lb. 0.6 lb apart, and neither document says which figure is the appliance and which is the carton — which matters because this site's small-kitchen article and the new buyer's checklist both tell readers to check a shelf or cupboard load. Nothing was averaged and no weight figure was invented: the published row stays the specification block, and no weight claim is made in advice. Settled by a statement from Chefman or a scale reading (Q-37).",
+     "Read 2026-11-17: the product page's specification block states 'Weight: (8 Qt Model) 12.8 lbs / 5.8 kg'; the store product record behind the same page (…/turbofry-touch-air-fryer-1.json, updated_at 2026-11-17T11:41:54-05:00) carries variant weight 13.4 lb. 0.6 lb apart, and neither document says which figure is the appliance and which is the carton — which matters because this site's small-kitchen article and the new buyer's checklist both tell readers to check a shelf or cupboard load. Nothing was averaged and no weight figure was invented: the published row stays the specification block, and no weight claim is made in advice. Settled by a statement from Chefman or a scale reading (Q-38).",
      ["S12", "S33"]),
     ("F87", "The shopfront polish of pass 13 lands in the canonical root build only; six parallel builds on the same origin keep their own stylesheets and their own look.",
      "s2/, site/, research/, docs/, dashboard/, annex-88769516/",
@@ -2221,7 +2478,7 @@ PROGRAMME_FLAGS = [
      ["S31"]),
     ("F88", "No accessibility standard can currently be cited on this site, so the mobile pass states a 44 px tap-target minimum as a usability choice and claims no conformance.",
      "verify.py OFFICIAL_HOSTS vs the design rows in data/design-prompt.json",
-     "The pass-13 stylesheet widens interactive chrome to a 44 px minimum and the code comment names WCAG 2.2 SC 2.5.8 — but verify.py's official-host allow list contains no accessibility body, so no published row could link the standard it satisfies and the site must not print a conformance claim without a registered source. Recorded rather than silently fixed: adding a host to the verifier is a policy change to the checking machinery, and the two must arrive in the same commit with the decision attached (Q-39). Note also that 44 px is larger than the 24 CSS px minimum in that success criterion; the figure chosen here comes from platform interface guidance, not from the standard, and is described that way on D-16.",
+     "The pass-13 stylesheet widens interactive chrome to a 44 px minimum and the code comment names WCAG 2.2 SC 2.5.8 — but verify.py's official-host allow list contains no accessibility body, so no published row could link the standard it satisfies and the site must not print a conformance claim without a registered source. Recorded rather than silently fixed: adding a host to the verifier is a policy change to the checking machinery, and the two must arrive in the same commit with the decision attached (Q-40). Note also that 44 px is larger than the 24 CSS px minimum in that success criterion; the figure chosen here comes from platform interface guidance, not from the standard, and is described that way on D-16.",
      ["S43"]),
     ("F89", "The suggestions queue asserted in its own lede that nothing on the page had been implemented, while the decision log already recorded a shipped row — a typed claim that outlived the fact.",
      "data/suggestions.json (lede and how_to_read) vs data/decision-log.json (implemented)",
@@ -2766,7 +3023,7 @@ def page_compare():
 <h1>Side-by-side, blanks included</h1>
 <p class="lede">Most comparison tables hide gaps by quietly dropping the row. This one keeps every row and marks the gaps, because "we don't know" is a different statement from "it doesn't have it". Every filled cell links to the official page it came from.</p>
 
-<div class="tablewrap">
+<div class="tablewrap" data-zone1-track="EV-04">
 <table>
   <caption>Verified-only comparison matrix</caption>
   <thead><tr><th style="min-width:170px">Field</th>{head}</tr></thead>
@@ -6037,6 +6294,16 @@ def page_404():
 # --------------------------------------------------------------------------- #
 
 ARTICLES = load("articles.json")
+# The article cluster map (added 2026-11-17, session 79743fd2). The article set
+# had no map: "Read next" on every page showed the same three articles because
+# it was the first three rows of the file, and internal linking was whatever a
+# reader happened to click. A small site earns a commercial query by owning one
+# cluster completely rather than by publishing one page per idea, so the
+# articles are grouped by the question a reader actually arrives with, each
+# group has a named hub, and the build draws the links.
+CLUSTERS = load("clusters.json")
+CLUSTER_BY_ID = {c["id"]: c for c in CLUSTERS["clusters"]}
+ARTICLE_BY_SLUG = {a["slug"]: a for a in ARTICLES["articles"]}
 
 _PRODUCT_VALUES = None
 
@@ -6342,8 +6609,13 @@ def check_article_voice():
 
 def article_body(article, prefix="../"):
     parts = []
-    for sec in article["sections"]:
-        parts.append(f"<h2>{e(sec['h'])}</h2>")
+    last = len(article["sections"]) - 1
+    for i, sec in enumerate(article["sections"]):
+        # EV-03 (guide_completed) is measured at the last heading, not at the
+        # footer: reaching the end of the article is the event, and the footer
+        # is visible on a page the reader scrolled past without reading.
+        mark = ' data-zone1-track="EV-03"' if i == last and last >= 0 else ""
+        parts.append(f"<h2{mark}>{e(sec['h'])}</h2>")
         parts.append(_article_text(sec["paras"]))
         if sec.get("cite"):
             parts.append(
@@ -6361,43 +6633,109 @@ def _n_words(n):
     return _NUM_WORDS.get(n, f"{n} pieces")
 
 
+def cluster_of(article):
+    """The cluster an article belongs to, or None when it has none."""
+    cid = article.get("cluster")
+    return CLUSTER_BY_ID.get(cid)
+
+
+def cluster_href(hub, prefix="../"):
+    """A link to a cluster's hub page, relative to wherever the reader is."""
+    return prefix + hub
+
+
+def cluster_siblings(article):
+    """The other articles in the same cluster, in the order the map lists them."""
+    c = cluster_of(article)
+    if not c:
+        return []
+    return [ARTICLE_BY_SLUG[s] for s in c["members"]
+            if s in ARTICLE_BY_SLUG and s != article["slug"]]
+
+
+def _article_card(a, prefix="../"):
+    """One article card. Shared by the articles index and the cluster map, so a
+    card looks the same wherever a reader meets it."""
+    prods = ""
+    if a["products"]:
+        links = []
+        for slug in a["products"]:
+            p = next((x for x in PRODUCT_LIST if x["slug"] == slug), None)
+            if p:
+                links.append(f'<a href="{prefix}products/{slug}.html">{e(p["short_name"])}</a>')
+        if links:
+            prods = ('<p class="tiny muted" style="margin:.4rem 0 0">About: '
+                     + " \u00b7 ".join(links) + "</p>")
+    # An article that serves no single product (site-level pieces) leaves prods
+    # empty; emitting the slot anyway would publish a trailing-whitespace line.
+    prods_html = (prods + "\n") if prods else ""
+    cluster = cluster_of(a)
+    badge = ""
+    if cluster:
+        badge = (f'<p class="tiny muted" style="margin:.5rem 0 0">In the cluster: '
+                 f'<a href="{prefix}clusters.html#{e(cluster["id"])}">{e(cluster["label"])}</a></p>\n')
+    return f"""<article class="card article-card">
+  <span class="kicker">{e(a["kicker"])}</span>
+  <a class="cardtitle" href="{prefix}articles/{a["slug"]}.html">{e(a["title"])}</a>
+  <span class="cardtext">{e(a["standfirst"])}</span>
+  <span class="tiny muted">{e(a["kind"])} \u00b7 {a["reading_minutes"]} min read</span>
+{badge}{prods_html}</article>"""
+
+
 def page_articles_index():
-    cards = []
-    for a in ARTICLES["articles"]:
-        prods = ""
-        if a["products"]:
-            links = []
-            for slug in a["products"]:
-                p = next((x for x in PRODUCT_LIST if x["slug"] == slug), None)
-                if p:
-                    links.append(f'<a href="../products/{slug}.html">{e(p["short_name"])}</a>')
-            if links:
-                prods = ('<p class="tiny muted" style="margin:.4rem 0 0">About: '
-                         + " · ".join(links) + "</p>")
-        # An article that serves no single product (site-level pieces) leaves prods
-        # empty; emitting the slot anyway would publish a trailing-whitespace line.
-        prods_html = (prods + "\n") if prods else ""
-        cards.append(f"""<article class="card article-card">
-  <span class="kicker">{e(a['kicker'])}</span>
-  <a class="cardtitle" href="../articles/{a['slug']}.html">{e(a['title'])}</a>
-  <span class="cardtext">{e(a['standfirst'])}</span>
-  <span class="tiny muted">{e(a['kind'])} · {a['reading_minutes']} min read</span>
-{prods_html}</article>""")
+    """The articles hub, grouped by the question a reader arrives with.
+
+    The order used to be the order of the file, and the "Read next" list on
+    every article was simply the first three rows of that file - so every
+    article on the site pointed at the same three articles. The groups below
+    replace that: each cluster names the question it answers, links to its hub,
+    and lists the articles that answer it.
+    """
+    groups = []
+    for c in CLUSTERS["clusters"]:
+        members = [ARTICLE_BY_SLUG[s] for s in c["members"] if s in ARTICLE_BY_SLUG]
+        if not members:
+            continue
+        cards = "\n".join(_article_card(a, prefix="../") for a in members)
+        groups.append(f"""<section class="cluster-group">
+  <div class="cluster-head">
+    <h2>{e(c["label"])}</h2>
+    <p class="small muted">{e(c["summary"])}</p>
+    <p class="tiny">Hub: <a href="../{e(c["hub"])}">{e(c["hub_label"])}</a> \u00b7
+    <a href="../clusters.html#{e(c["id"])}">the full map</a></p>
+  </div>
+  <div class="cardgrid">
+{cards}
+  </div>
+</section>""")
+    # Any article that is not in the map still has to be reachable, or the index
+    # would quietly lose a page.
+    orphans = [a for a in ARTICLES["articles"] if not cluster_of(a)]
+    if orphans:
+        cards = "\n".join(_article_card(a, prefix="../") for a in orphans)
+        groups.append(f"""<section class="cluster-group">
+  <div class="cluster-head"><h2>Not yet filed</h2></div>
+  <div class="cardgrid">
+{cards}
+  </div>
+</section>""")
+
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Articles</p>
 <h1>Articles</h1>
-<p class="lede">{_n_words(len(ARTICLES["articles"]))} written for this product set. Each one states what the manufacturer's own pages and manuals establish, links to the page it came from, and names the places where the official record contradicts itself rather than tidying them away.</p>
+<p class="lede">{_n_words(len(ARTICLES["articles"]))} written for this product set, filed under the
+four questions a shopper actually arrives with. Each one states what the manufacturer's own
+pages and manuals establish, links to the page it came from, and names the places where the
+official record contradicts itself rather than tidying them away.</p>
 
 <div class="callout info">
   <strong>How to read these articles</strong>
   <p class="small">A <code class="specval">highlighted number</code> is a value published in this site's verified dataset and is a quotation from a manufacturer page or owner's manual. An ordinary number in prose is a date or a page reference. Anything marked <em>judgement</em> or written as a decision rule is the site's opinion, not a sourced fact. <strong>No product in this set was tested by anyone here</strong>, so no article claims a cooking result, a measured time or a hands-on comparison.</p>
 </div>
 
-<p class="small" style="margin:0 0 1.2rem">New pieces land here as the manuals and the topic register produce them. Subscribe without an account: <a href="../feed.xml">RSS feed</a>.</p>
+<p class="small" style="margin:0 0 1.2rem">New pieces land here as the manuals and the topic register produce them. Subscribe without an account: <a href="../feed.xml">RSS feed</a>. The <a href="../clusters.html">cluster map</a> shows how the set fits together.</p>
 
-<div class="cardgrid">
-{chr(10).join(cards)}
-</div>
+{"".join(groups)}
 
 <h2>What these articles deliberately do not contain</h2>
 <div class="tablewrap">
@@ -6405,16 +6743,16 @@ def page_articles_index():
   <caption>Editorial rules this section is built to</caption>
   <thead><tr><th>Rule</th><th>Why</th><th>Source</th></tr></thead>
   <tbody>
-    <tr><td>No hands-on testing is claimed</td><td>A first-person testing claim that never happened is a deceptive endorsement, not a style choice.</td><td>{src_links(['S8', 'S2'])}</td></tr>
-    <tr><td>No Amazon price, star rating or review count</td><td>Both may only be displayed when Amazon serves the link or the data comes from Creators/PA API.</td><td>{src_links(['S2'])}</td></tr>
-    <tr><td>No superlative asserted as fact</td><td>"Best", "quietest" and "fastest" are measurements. None were taken.</td><td>{src_links(['S2'])}</td></tr>
-    <tr><td>A conflict is published, not resolved</td><td>Picking a winner between two official sources without evidence would be a fabrication with a citation attached.</td><td>{src_links(['S14', 'S12'])}</td></tr>
-    <tr><td>Disclosure on every page</td><td>Operating Agreement §5 and 16 CFR §255.5(a) both require it, in a place a reader will actually see.</td><td>{src_links(['S1', 'S9'])}</td></tr>
+    <tr><td>No hands-on testing is claimed</td><td>A first-person testing claim that never happened is a deceptive endorsement, not a style choice.</td><td>{src_links(["S8", "S2"])}</td></tr>
+    <tr><td>No Amazon price, star rating or review count</td><td>Both may only be displayed when Amazon serves the link or the data comes from Creators/PA API.</td><td>{src_links(["S2"])}</td></tr>
+    <tr><td>No superlative asserted as fact</td><td>"Best", "quietest" and "fastest" are measurements. None were taken.</td><td>{src_links(["S2"])}</td></tr>
+    <tr><td>A conflict is published, not resolved</td><td>Picking a winner between two official sources without evidence would be a fabrication with a citation attached.</td><td>{src_links(["S14", "S12"])}</td></tr>
+    <tr><td>Disclosure on every page</td><td>Operating Agreement \u00a75 and 16 CFR \u00a7255.5(a) both require it, in a place a reader will actually see.</td><td>{src_links(["S1", "S9"])}</td></tr>
   </tbody>
 </table>
 </div>
 
-<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../guides/buying-guide-air-fryers.html">Buying guide →</a> <a class="btn btn-ghost" href="../compare.html">Comparison matrix →</a> <a class="btn btn-ghost" href="../flagged.html">Flagged for review →</a></p>
+<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../guides/buying-guide-air-fryers.html">Buying guide \u2192</a> <a class="btn btn-ghost" href="../compare.html">Comparison matrix \u2192</a> <a class="btn btn-ghost" href="../flagged.html">Flagged for review \u2192</a></p>
 """
     aurl = page_url("articles/index.html")
     ld = [
@@ -6447,7 +6785,101 @@ def page_articles_index():
         },
     ]
     return layout("articles/index.html", "Articles", body, active="articles/index.html",
-                  description="Eight sourced articles on dual-basket vs oven air fryers, what a 450 F badge means, preset-count conflicts, capacity from published numbers, and why this site publishes no Amazon prices.",
+                  description="Sourced air-fryer articles filed under four questions a shopper actually arrives with: which machine to buy, what the numbers mean, what it is like to live with, and whether this page can be trusted.",
+                  jsonld_blocks=ld)
+
+
+def page_clusters():
+    """The cluster map: one page that shows how the article set fits together.
+
+    Added 2026-11-17 (session 79743fd2). Twenty-one articles with no map is
+    twenty-one pages a search engine has to work out the relationship between,
+    and a reader who wants a second answer to the question they just read has
+    to go back to a flat list. The map gives both of them the shape.
+    """
+    sections = []
+    for c in CLUSTERS["clusters"]:
+        members = [ARTICLE_BY_SLUG[s] for s in c["members"] if s in ARTICLE_BY_SLUG]
+        rows = ""
+        for a in members:
+            # The official documents this article rests on, so the row states
+            # where its facts came from rather than only what it says.
+            cites = []
+            for sec in a.get("sections") or []:
+                for sid in sec.get("cite") or []:
+                    if sid not in cites:
+                        cites.append(sid)
+            cite_cell = src_links(cites) if cites else (
+                '<span class="tiny muted">site-level piece: no product specification is quoted</span>')
+            rows += (
+                f'<tr><td class="small"><a href="articles/{e(a["slug"])}.html">{e(a["title"])}</a>'
+                f'<div class="tiny muted">{e(a["kind"])} \u00b7 {a["reading_minutes"]} min read</div></td>'
+                f'<td class="small">{e(a["standfirst"])}</td>'
+                f'<td class="small muted">{e(a["target_query"])}</td>'
+                f'<td class="small">{cite_cell}</td></tr>')
+        sections.append(f"""
+<section id="{e(c["id"])}" class="cluster-group">
+  <div class="cluster-head">
+    <p class="kicker">{e(c["intent"])}</p>
+    <h2>{e(c["label"])}</h2>
+    <p class="small muted">{e(c["summary"])}</p>
+    <p class="tiny">Hub: <a href="{e(c["hub"])}">{e(c["hub_label"])}</a></p>
+  </div>
+  <div class="tablewrap">
+  <table>
+    <caption>Articles in this cluster, with the query each one targets</caption>
+    <thead><tr><th style="width:26%">Article</th><th style="width:36%">What it answers</th><th style="width:18%">Query it targets</th><th style="width:20%">Official sources it rests on</th></tr></thead>
+    <tbody>{rows}</tbody>
+  </table>
+  </div>
+</section>""")
+
+    body = f"""
+<p class="crumbs"><a href="index.html">Home</a> / Article clusters</p>
+<h1>Four clusters, {len(ARTICLES["articles"])} articles</h1>
+<p class="lede">A small site earns a query by answering it completely rather than by publishing
+one page per idea. This is the shape of the set: the four questions a shopper brings here, the
+hub that answers each one, and the articles underneath it. Every link on this page is generated
+from <code>data/clusters.json</code>, so the map and the articles cannot drift apart.</p>
+
+<div class="callout info">
+  <strong>Why this is not a taxonomy exercise</strong>
+  <p class="small">The clusters are not tags. Each one is a question a reader arrives with, and
+  each article is filed under the question it actually answers. A piece about cleaning sits with
+  ownership questions, not with the format comparisons, even when it mentions the same three
+  products.</p>
+</div>
+
+{"".join(sections)}
+
+<div class="callout warn">
+  <strong>What a cluster is not</strong>
+  <p class="small">It is not a claim that these pages rank, or will rank, or that the search terms
+  in the last column have any volume behind them. The query each article targets is the
+  question it is written to answer, recorded so the set can be judged for overlap. No traffic
+  figure appears here because none has been measured.</p>
+</div>
+
+<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="articles/index.html">All articles →</a> <a class="btn btn-ghost" href="guides/buying-guide-air-fryers.html">Buying guide →</a> <a class="btn btn-ghost" href="compare.html">Comparison matrix →</a></p>
+"""
+    url = page_url("clusters.html")
+    ld = [
+        {
+            "@type": "CollectionPage",
+            "@id": url + "#webpage",
+            "url": url,
+            "name": "Article clusters",
+            "isPartOf": {"@id": SITE_URL + "/#website"},
+            "about": {"@id": SITE_URL + "/#organization"},
+            "inLanguage": "en-US",
+        },
+        breadcrumbs_jsonld([
+            ("Home", SITE_URL + "/"),
+            ("Article clusters", url),
+        ]),
+    ]
+    return layout("clusters.html", "Article clusters", body, active="articles/index.html",
+                  description="The article set filed under the four questions a shopper actually arrives with: which machine to buy, what the numbers mean, what it is like to live with, and whether the page can be trusted.",
                   jsonld_blocks=ld)
 
 
@@ -6464,10 +6896,44 @@ def page_article(a):
         if items:
             prods = ('<div class="callout"><strong>Products covered</strong>'
                      f'<ul class="tight small" style="margin:.4rem 0 0">{"".join(items)}</ul></div>')
-    related = [x for x in ARTICLES["articles"] if x["slug"] != a["slug"]][:3]
-    rel_html = "".join(
-        f'<li><a href="../articles/{x["slug"]}.html">{e(x["title"])}</a> '
-        f'<span class="tiny muted">— {e(x["kind"])}</span></li>' for x in related)
+    # "Read next" used to be the first three rows of data/articles.json minus
+    # this article, so every article on the site pointed at the same three
+    # articles. It is now the rest of this article's own cluster - the group
+    # that answers the same question - with the cluster hub above it.
+    _cluster = cluster_of(a)
+    _sibs = cluster_siblings(a)
+    rel_html = ""
+    if _sibs:
+        rel_html = "".join(
+            f'<li><a href="../articles/{x["slug"]}.html">{e(x["title"])}</a> '
+            f'<span class="tiny muted">— {e(x["kind"])}</span></li>' for x in _sibs)
+    cluster_badge = ""
+    if _cluster:
+        cluster_badge = (
+            f'<span class="pill pill-info">Cluster: <a href="../clusters.html#'
+            f'{e(_cluster["id"])}">{e(_cluster["label"])}</a></span>')
+    cluster_hub_html = ""
+    if _cluster:
+        cluster_hub_html = (
+            f'<p class="small" style="margin:.6rem 0 0">Hub for this cluster: '
+            f'<a href="../{e(_cluster["hub"])}">{e(_cluster["hub_label"])}</a></p>')
+    if rel_html:
+        read_next_html = (
+            "<h2>More in this cluster</h2>" + cluster_hub_html + "\n"
+            + '<ul class="tight small">' + rel_html + "</ul>")
+    elif _cluster:
+        read_next_html = (
+            "<h2>More in this cluster</h2>" + cluster_hub_html + "\n"
+            + '<p class="small">This is the only article filed under this cluster so far.</p>')
+    else:
+        read_next_html = (
+            "<h2>Read next</h2>"
+            + '<ul class="tight small">'
+            + "".join(
+                f'<li><a href="../articles/{x["slug"]}.html">{e(x["title"])}</a> '
+                f'<span class="tiny muted">— {e(x["kind"])}</span></li>'
+                for x in ARTICLES["articles"][:3] if x["slug"] != a["slug"])
+            + "</ul>")
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / <a href="../articles/index.html">Articles</a> / {e(a['kind'])}</p>
 <header class="article-head">
@@ -6479,6 +6945,7 @@ def page_article(a):
     <span>{a['reading_minutes']} min read</span><span aria-hidden="true">·</span>
     <span>sources read {e(a.get('sources_read') or ARTICLES['accessed'])}</span><span aria-hidden="true">·</span>
     <span class="pill pill-info">Documentation-based — no hands-on testing</span>
+    {cluster_badge}
   </div>
 </header>
 
@@ -6493,8 +6960,7 @@ def page_article(a):
 
 <p class="small" style="margin-top:1.5rem"><em>{e(a['closing_note'])}</em></p>
 
-<h2>Read next</h2>
-<ul class="tight small">{rel_html}</ul>
+{read_next_html}
 
 <p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="../articles/index.html">← All articles</a> <a class="btn btn-ghost" href="../flagged.html">What is unresolved →</a></p>
 """
@@ -6852,6 +7318,54 @@ def page_measurement():
         f'<tr><td><strong>{e(name)}</strong></td><td class="small">{e(status)}</td><td>{sources}</td></tr>'
         for name, status, sources in gate_rows
     )
+    # -- Sections from data/measurement.json (session 79743fd2): what actually ships
+    # in this repository, the client-side event cards, the empty campaign ledger and
+    # the prerequisites. The two event registers above and below were written by
+    # different sessions; both are published and the mapping note keeps them honest.
+    m = MEASUREMENT
+
+    def ev_card(ev):
+        nots = "".join(f'<li>{e(x)}</li>' for x in ev["explicitly_not_recorded"])
+        recs = "".join(f'<li>{e(x)}</li>' for x in ev["records"])
+        return f"""
+<div class="card" style="margin:.7rem 0">
+  <p class="section-eyebrow">{e(ev['id'])} \u00b7 <code>{e(ev['name'])}</code></p>
+  <p class="small"><strong>Fires when:</strong> {e(ev['fires_when'])}</p>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:1rem">
+    <div><p class="tiny muted" style="margin:0">Records</p><ul class="tight small">{recs}</ul></div>
+    <div><p class="tiny muted" style="margin:0">Never records</p><ul class="tight small">{nots}</ul></div>
+  </div>
+  <p class="tiny muted" style="margin-bottom:0">{e(ev['note'])}</p>
+</div>"""
+
+    events = "".join(ev_card(ev) for ev in m["events"])
+    why = "".join(f"<li>{e(x)}</li>" for x in m["why_nothing_is_sending"])
+    priv = "".join(f"<li>{e(x)}</li>" for x in m["privacy_rules"])
+    SRC_S2 = src_links(['S2'])
+    pre = "".join(
+        f'<tr><td class="num">{e(x["step"])}</td><td class="small">{e(x["owner_action"])}</td>'
+        f'<td class="small">{e(x["blocks"])}</td><td class="small">{e(x["why"])} {SRC_S2}</td></tr>'
+        for x in m["prerequisites"]
+    )
+    led = m["campaign_ledger"]
+    impl = m.get("implementation") or {}
+    REPO_BLOB = "https://github.com/kanlerxz87-cyber/Zone1/blob/main/"
+    impl_where = {
+        "client": REPO_BLOB + "assets/analytics.js",
+        "switch": REPO_BLOB + "data/config.json",
+        "endpoint_source": REPO_BLOB + "analytics/README.md",
+        "guard": REPO_BLOB + "build.py",
+        "verification": REPO_BLOB + "reports/verification-2026-11-17-79743fd2.md",
+        "what_is_not_shipped": REPO_BLOB + "data/measurement.json",
+    }
+    impl_rows = ""
+    for k, v in impl.items():
+        where = impl_where.get(k, REPO_BLOB)
+        impl_rows += (
+            f'<tr><td class="small"><strong>{e(k.replace("_", " "))}</strong></td>'
+            f'<td class="small">{e(v)}</td>'
+            f'<td class="small"><a href="{e(where)}" target="_blank" rel="noopener">'
+            f'in this repository \u2197</a></td></tr>')
     body = f"""
 <section class="hero-lite">
   <p class="kicker">Owner workspace · measurement</p>
@@ -6890,6 +7404,54 @@ def page_measurement():
   <caption>What must be verified before measurement is enabled</caption>
   <thead><tr><th>Gate</th><th>Current evidence and missing step</th><th>Source</th></tr></thead>
   <tbody>{gates_html}</tbody>
+</table>
+</div>
+
+<h2>What actually ships in this repository</h2>
+<p class="small">Two event registers exist and both are published: <code>data/analytics-plan.json</code>
+(the table above &mdash; what the reference collector accepts) and <code>data/measurement.json</code>
+(the cards below &mdash; what the shipped browser counter sends). They are parallel descriptions of
+the same five events written by different sessions; nothing is collected by either until every gate
+above passes. The client-side IDs map one-to-one: EV-01 page_view, EV-02 outbound_product_click
+(the plan's <code>outbound_click</code>), EV-03 guide_completed (<code>article_engagement</code>),
+EV-04 comparison_table_viewed (<code>comparison_interaction</code>), EV-05 reported_order
+(<code>affiliate_report_import</code>, operator-entered).</p>
+<div class="tablewrap">
+<table>
+  <caption>What ships, and what does not</caption>
+  <thead><tr><th style="width:18%">Part</th><th style="width:62%">State</th><th style="width:20%">Where to look</th></tr></thead>
+  <tbody>{impl_rows}</tbody>
+</table>
+</div>
+
+<h2>The client-side events, in detail</h2>
+{events}
+
+<div class="callout info">
+  <strong>Privacy rules the counter must keep</strong>
+  <ul class="tight small" style="margin-bottom:0">{priv}</ul>
+</div>
+
+<h2>Why nothing is sending yet</h2>
+<ul class="tight small">{why}</ul>
+
+<h2>Campaign ledger</h2>
+<p class="small">{e(led['note'])}</p>
+<div class="tablewrap">
+<table>
+  <caption>Empty on purpose. Columns: {e(', '.join(led['columns']))}</caption>
+  <thead><tr>{''.join(f'<th>{e(c)}</th>' for c in led['columns'])}</tr></thead>
+  <tbody><tr><td colspan="{len(led['columns'])}" class="small muted">No rows. {e(led['why_empty'])} {SRC_S2}</td></tr></tbody>
+</table>
+</div>
+
+<h2>What has to be true before a single event sends</h2>
+<div class="tablewrap">
+<table>
+  <caption>Prerequisites, in order</caption>
+  <thead><tr><th style="width:6%">Step</th><th style="width:34%">Owner action</th>
+  <th style="width:16%">Blocks</th><th style="width:44%">Why</th></tr></thead>
+  <tbody>{pre}</tbody>
 </table>
 </div>
 
@@ -7469,6 +8031,190 @@ def check_no_price_tracking(pages):
                 problems.append(f"{rel}: price-tracking class/id/attribute (6(y)): {value!r}")
     return problems
 
+# --------------------------------------------------------------------------- #
+# The measurement guard (2026-11-17, session 79743fd2).
+# --------------------------------------------------------------------------- #
+
+# Tokens the counter must never contain. The counter is allowed to know the
+# page it is on, the ASIN the reader clicked and the date; it is not allowed to
+# know who the reader is. Each token below is a way of doing that, so the file
+# is checked for them rather than trusted to have avoided them.
+BANNED_IN_COUNTER = [
+    "document.cookie", "localStorage", "sessionStorage", "indexedDB",
+    "navigator.userAgent", "document.referrer", "window.name",
+    "navigator.geolocation", "navigator.credentials",
+]
+
+# Third-party hosts that would need their own disclosure and their own review.
+# The counter must point at an endpoint the owner controls, not at a hosted
+# analytics product that quietly sets its own cookies.
+BANNED_ANALYTICS_HOSTS = [
+    "google-analytics.com", "googletagmanager.com", "analytics.google.com",
+    "segment.io", "segment.com", "hotjar.com", "mixpanel.com", "plausible.io",
+    "amplitude.com", "matomo.cloud", "statcounter.com",
+]
+
+
+def check_analytics_consistency(pages):
+    """Build guard: the footer's privacy statement must describe what the page does.
+
+    Program Policies section 3(e) requires an accurate statement of cookie and
+    third-party technology use on an Associate site. The failure mode is not a
+    missing sentence, it is a sentence that is wrong: a counter ships, the
+    paragraph is not updated, and the site states it runs no analytics while
+    its own script is sending events.
+
+    The paragraph and the behaviour are both generated from
+    data/config.json -> analytics, so they cannot drift inside one build. This
+    guard then checks the *rendered* pages against the same two wordings, so a
+    hand-edit of either one, or a config change that was only half applied,
+    fails the build rather than shipping.
+
+    It also checks the counter's own source for the ways it could become a
+    tracker: a cookie, a storage API, a user agent, a referrer.
+    """
+    problems = []
+    # The two footers, identified by a phrase that appears only in them.
+    enabled_text = "It loads one small script of its own"
+    disabled_text = "This site sets no cookies itself, runs no analytics"
+    # Any published sentence that claims the site runs no analytics. When the
+    # counter is switched on, every one of those sentences becomes false - and
+    # some of them live in the registers (data/measurement.json,
+    # data/questions.json, data/requirements.json) rather than in the footer.
+    # Catching them here is the whole point of the guard: the prose is quoted
+    # from data files, so a template edit alone cannot fix it.
+    no_analytics_claim = re.compile(r"\bno analytics\b", re.I)
+
+    if ANALYTICS_ENABLED and not ANALYTICS_ENDPOINT:
+        problems.append(
+            "data/config.json -> analytics.enabled is true but analytics.endpoint is "
+            "empty: a counter with no sink would report a number this site cannot "
+            "source. Either give it an endpoint or set enabled to false.")
+    if ANALYTICS_ENDPOINT:
+        if not ANALYTICS_ENDPOINT.startswith("https://"):
+            problems.append(
+                f"analytics.endpoint {ANALYTICS_ENDPOINT!r} is not https:// - an "
+                "event about a reader's click must not cross the wire in clear.")
+        for host in BANNED_ANALYTICS_HOSTS:
+            if host in ANALYTICS_ENDPOINT:
+                problems.append(
+                    f"analytics.endpoint points at {host!r}: a hosted analytics product "
+                    "needs its own cookie disclosure and its own review. Point the "
+                    "counter at an endpoint you control.")
+        if "?" in ANALYTICS_ENDPOINT or "#" in ANALYTICS_ENDPOINT:
+            problems.append(
+                "analytics.endpoint must not carry a query string or fragment: the "
+                "beacon appends its own payload to the path.")
+
+    # The counter source must not be able to identify a reader.
+    counter_src = ANALYTICS_JS
+    for token in BANNED_IN_COUNTER:
+        if token in counter_src:
+            problems.append(
+                f"assets/analytics.js contains {token!r}: the counter must not be "
+                "able to identify or persist a reader.")
+    if "preventDefault" in counter_src:
+        problems.append(
+            "assets/analytics.js calls preventDefault(): the counter must never "
+            "delay or block the reader's own click.")
+    if "isTrusted" not in counter_src:
+        problems.append(
+            "assets/analytics.js does not check event.isTrusted: a synthetic "
+            "dispatchEvent could manufacture a click (Program Policies 3(s)).")
+
+    for rel, html_text in pages.items():
+        if not rel.endswith(".html"):
+            continue
+        # Match the script *tag*, not the file name: the footer's privacy
+        # paragraph names assets/analytics.js in prose, and a page that merely
+        # mentions the file is not a page that loads it.
+        has_script = re.search(r'<script[^>]+src="[^"]*assets/analytics\.js"', html_text) is not None
+        says_enabled = enabled_text in html_text
+        says_disabled = disabled_text in html_text
+        if ANALYTICS_ON:
+            if not has_script:
+                problems.append(f"{rel}: the counter is enabled but this page does not load it")
+            if not says_enabled:
+                problems.append(
+                    f"{rel}: the counter is enabled but the footer does not state that "
+                    "an analytics request is sent (Program Policies 3(e))")
+            if says_disabled:
+                problems.append(
+                    f"{rel}: the counter is enabled but the footer still says the site "
+                    "\"runs no analytics\"")
+            for m in no_analytics_claim.finditer(html_text):
+                around = re.sub(r"\s+", " ", html_text[max(0, m.start() - 90):m.end() + 40])
+                problems.append(
+                    f"{rel}: a published sentence would be false once the counter is "
+                    f"enabled - \"...{around}...\" - update it and the register "
+                    "it is quoted from in the same commit")
+        else:
+            if has_script:
+                problems.append(
+                    f"{rel}: the counter is disabled but this page loads it")
+            if not says_disabled:
+                problems.append(
+                    f"{rel}: the footer does not carry the no-analytics statement")
+            if says_enabled:
+                problems.append(
+                    f"{rel}: the footer claims an analytics request is sent, but the "
+                    "counter is disabled")
+    return problems
+
+
+def check_clusters(generated=()):
+    """Build guard: the cluster map and the article set must agree.
+
+    The map is a second copy of a fact - which article belongs to which group -
+    and a second copy of a fact is where the two drift apart. When a new
+    article is added and nobody files it, it becomes invisible in the cluster
+    navigation and reachable only from the flat list; when an article is
+    renamed, the map points at a page that no longer exists. Both are the kind
+    of defect no link checker sees, because every link in the map is a valid
+    link to *something*.
+
+    This guard fails the build if an article is unfiled, if an article is filed
+    twice, if a cluster names an article that does not exist, if a cluster is
+    empty, or if a cluster's hub is not a page this build actually generates.
+    """
+    problems = []
+    ids = [c["id"] for c in CLUSTERS["clusters"]]
+    if len(ids) != len(set(ids)):
+        problems.append("two clusters share an id")
+    slugs = {a["slug"] for a in ARTICLES["articles"]}
+    filed = {}
+    for c in CLUSTERS["clusters"]:
+        if not c.get("members"):
+            problems.append(f'cluster {c["id"]} has no members')
+        for slug in c.get("members") or []:
+            if slug not in slugs:
+                problems.append(f'cluster {c["id"]} lists "{slug}", which is not an article')
+            if slug in filed:
+                problems.append(
+                    f'"{slug}" is in both cluster {filed[slug]} and cluster {c["id"]}')
+            filed[slug] = c["id"]
+    for a in ARTICLES["articles"]:
+        cid = a.get("cluster")
+        if not cid:
+            problems.append(f'article "{a["slug"]}" is not filed in a cluster')
+        elif cid not in CLUSTER_BY_ID:
+            problems.append(f'article "{a["slug"]}" names cluster "{cid}", which does not exist')
+        elif filed.get(a["slug"]) != cid:
+            problems.append(
+                f'article "{a["slug"]}" says cluster "{cid}" but the map files it under '
+                f'{filed.get(a["slug"])}')
+    known = set(generated) if generated else set()
+    for c in CLUSTERS["clusters"]:
+        hub = c.get("hub") or ""
+        if not hub:
+            problems.append(f'cluster {c["id"]} has no hub')
+        elif known and hub not in known:
+            problems.append(
+                f'cluster {c["id"]} points its hub at "{hub}", which this build does not '
+                "generate")
+    return problems
+
+
 def check_rows_have_sources():
     """Build-time guard: an asserted value with no source id is a hard failure."""
     problems = []
@@ -7794,6 +8540,10 @@ def main():
     assets.mkdir(exist_ok=True)
     (assets / "style.css").write_text(CSS, encoding="utf-8")
     (assets / "app.js").write_text(JS, encoding="utf-8")
+    # The counter is always written to disk, so the code that would run is
+    # reviewable in the repository. It is only *referenced* by a page when
+    # data/config.json gives it an endpoint to send to.
+    (assets / "analytics.js").write_text(ANALYTICS_JS, encoding="utf-8")
     build_figures()
 
     for d in ("products", "categories", "guides", "articles"):
@@ -7807,6 +8557,7 @@ def main():
     pages["compare.html"] = page_compare()
     pages["guides/buying-guide-air-fryers.html"] = page_guide()
     pages["articles/index.html"] = page_articles_index()
+    pages["clusters.html"] = page_clusters()
     for _a in ARTICLES["articles"]:
         pages[f"articles/{_a['slug']}.html"] = page_article(_a)
     pages["data.html"] = page_data()
@@ -7893,6 +8644,12 @@ def main():
     if duplicate_problems:
         raise SystemExit("BUILD FAILED — register carries duplicated content (flag F64):\n  "
                          + "\n  ".join(duplicate_problems))
+    cluster_problems = check_clusters(generated=pages.keys())
+    if cluster_problems:
+        raise SystemExit("BUILD FAILED - the cluster map and the article set disagree:\n  " + "\n  ".join(cluster_problems))
+    analytics_problems = check_analytics_consistency(pages)
+    if analytics_problems:
+        raise SystemExit("BUILD FAILED - measurement/privacy consistency:\n  " + "\n  ".join(analytics_problems))
     price_problems = check_no_price_tracking(pages)
     if price_problems:
         raise SystemExit("BUILD FAILED — Prohibited feature (Program Policies 6(y)):\n  "

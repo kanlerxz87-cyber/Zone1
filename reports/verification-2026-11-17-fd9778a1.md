@@ -27,7 +27,7 @@ no inferred values, and a live GitHub Pages deploy.
 2. **Three question-shaped guides published** (24 articles now), each added to the topic
    register so the sitemap (34 URLs after the merge with `main`) and RSS feed (24 items) regenerated from data.
 3. **Decision desk extended**: ten suggestions (SG-39…SG-48), a seventh path (P7), eleven
-   questions (Q-29…Q-39), five design rows, three traffic tactics, two voice rules and four
+   questions (Q-30…Q-40), five design rows, three traffic tactics, two voice rules and four
    decision rows, plus the paste-ready design prompt extended with what the build now does and
    what still needs a human.
 4. **Registers repaired where they were stale** and three new irregularities published on the
@@ -80,7 +80,7 @@ corrected (a re-worded "prose form" and three capitalised product names spliced 
 | `articles/ninety-eight-percent-less-oil-claim.html` | The brand's sentence quoted verbatim (`extra-crispy meals with 98% less oil…`), the register's labelled claim row, the 8 Qt temperature range, the dual-window manual's aerosol caution | Any health or diet position; any statement that the claim is true or false; extending the 6 Qt manual's caution to the 8 Qt, which has no such row |
 | `articles/questions-before-buying-a-multifunction-appliance.html` | The eight questions, each answered or marked unanswerable from the same published rows; the model-number check, tied to F2/F3/F4/F70 | Ranking of any product; any price claim; any "expert recommends" framing |
 
-No article names an author, because no author identity exists in this repository (Q-31). Each
+No article names an author, because no author identity exists in this repository (Q-32). Each
 page carries the site-level statement that the analysis is documentation-based.
 
 ---
@@ -93,9 +93,9 @@ decision a human has to make.
 | Flag | What was found | Why it is a flag rather than a fix |
 |---|---|---|
 | **F85** | The topic queue (`data/topics.json`) and the design-prompt topic register (`data/design-prompt.json`) are two hand-maintained lists of the same article set. The pass-13 read found both wrong in opposite directions: A-9 was marked `not-written` for two days after its article shipped, and `articles/associates-disclosure-explained.html` had **no** row in the canonical queue at all. | The two data rows are now corrected (A-9 → published; queue row TP-26 added), but the duplication that produced them is still in the build. Decide: generate the design-prompt topic list from `data/topics.json`, or retire the duplicate. |
-| **F86** | For `RJ38-SQSS-8T`, chefman.com published `Weight: (8 Qt Model) 12.8 lbs / 5.8 kg` in its specification block and `weight: 13.4` (lb) in the store variant record **on the same day**. Nothing on either document says which is the appliance and which is the package. | Averaging or choosing silently would turn a documented disagreement into an invented fact. The site publishes the specification block and states the gap. Settled by a statement from Chefman or a scale reading (Q-37). |
-| **F87** | The shopfront pass lands in the canonical root build only. `s2/`, `site/`, `research/`, `docs/`, `dashboard/` and `annex-88769516/` each carry their own stylesheet and their own copy of the navigation, so a reader arriving at a parallel build still sees the pre-2026-11-17 look — and those builds' own reproducibility gates (`scripts/build_s2_site.py --check`, `scripts/verify_site.py`, `research/check_research.py`) fail if anyone hand-edits their HTML. | Hand-editing five other sessions' generated output is the one action this repository's protocol forbids. The request is logged for their generator owners; SG-44 / Q-32 is the owner-level decision that ends it. |
-| **F88** | The mobile pass widened tap targets to a 44 px minimum and the stylesheet says so in a code comment. No page on this site may state that as conformance to a standard, because `verify.py`'s official-host list contains no accessibility body — a WCAG citation could not be added to a source register without editing the verifier. | The claim and the citation have to arrive in the same commit, and registering a new source host is a policy change, not a style change. Q-39 puts that decision in front of the owner instead of letting a later pass quietly add `w3.org` to the allow list. |
+| **F86** | For `RJ38-SQSS-8T`, chefman.com published `Weight: (8 Qt Model) 12.8 lbs / 5.8 kg` in its specification block and `weight: 13.4` (lb) in the store variant record **on the same day**. Nothing on either document says which is the appliance and which is the package. | Averaging or choosing silently would turn a documented disagreement into an invented fact. The site publishes the specification block and states the gap. Settled by a statement from Chefman or a scale reading (Q-38). |
+| **F87** | The shopfront pass lands in the canonical root build only. `s2/`, `site/`, `research/`, `docs/`, `dashboard/` and `annex-88769516/` each carry their own stylesheet and their own copy of the navigation, so a reader arriving at a parallel build still sees the pre-2026-11-17 look — and those builds' own reproducibility gates (`scripts/build_s2_site.py --check`, `scripts/verify_site.py`, `research/check_research.py`) fail if anyone hand-edits their HTML. | Hand-editing five other sessions' generated output is the one action this repository's protocol forbids. The request is logged for their generator owners; SG-44 / Q-33 is the owner-level decision that ends it. |
+| **F88** | The mobile pass widened tap targets to a 44 px minimum and the stylesheet says so in a code comment. No page on this site may state that as conformance to a standard, because `verify.py`'s official-host list contains no accessibility body — a WCAG citation could not be added to a source register without editing the verifier. | The claim and the citation have to arrive in the same commit, and registering a new source host is a policy change, not a style change. Q-40 puts that decision in front of the owner instead of letting a later pass quietly add `w3.org` to the allow list. |
 | **F89** | The suggestions queue's own lede said "Nothing on this page has been implemented" while `data/decision-log.json` had already recorded SG-26 path A as shipped. The same class turned up in evidence-link labels on `requirements.html` (`21 suggestions`, `20 questions`, `12 articles` against registers of 44, 37 and 24 at the time). | A typed status sentence is a snapshot published in the present tense. Repaired structurally: `suggestions.html` now counts the decision log at build time (the decision desk), and the three link labels no longer carry counts. The general guard for the class is proposed as SG-48. |
 
 Carried, unchanged, still open from earlier passes: **F3** (8 Qt temperature), **F4/F5**
@@ -132,9 +132,9 @@ mapping is recorded here rather than inventing `S-nn` ids inside this build.
 |---|---|---|
 | Lead with the products, not the verification process | Implemented — product rail first, metrics below the table | `index.html`, SG-39, D-13 |
 | S-20 mobile-first pass: type scale, tap targets, sticky comparison bar | Implemented | CSS `shopfront pass` block, D-16, SG-41 |
-| S-07 one page per question, then measure whether anyone arrives | Articles: implemented (24 live, 3 this pass). Measurement: **not** implemented — no host for an endpoint, five events defined and none sending | `articles/index.html`, `topics.html`, `measurement.html`, Q-29/Q-30 |
-| S-06 "what the appliance is like to live with" | Still not adopted, and unchanged by this pass: it needs handling the product, which nobody here has done | SG-40 option B, Q-31, Q-33 |
-| S-18 real product photography, never generated or copied | Still blocked on the rights decision; generated likenesses recorded as rejected in writing | SG-42, Q-33, D-22 precedent in the decision log |
+| S-07 one page per question, then measure whether anyone arrives | Articles: implemented (24 live, 3 this pass). Measurement: **not** implemented — no host for an endpoint, five events defined and none sending | `articles/index.html`, `topics.html`, `measurement.html`, Q-30/Q-31 |
+| S-06 "what the appliance is like to live with" | Still not adopted, and unchanged by this pass: it needs handling the product, which nobody here has done | SG-40 option B, Q-32, Q-34 |
+| S-18 real product photography, never generated or copied | Still blocked on the rights decision; generated likenesses recorded as rejected in writing | SG-42, Q-34, D-22 precedent in the decision log |
 | S-05 sponsored marking without breaking disclosure | Unchanged and still gated; the new front-page CTA carries it too | `check_affiliate_link_qualification` |
 | Keep the disclosure above the fold on every page | Unchanged; the sticky bar additionally repeats the paid-link fact where a reader is about to act | header band in `layout()`, footer, `compliance.html` |
 | Priority 4 — measure before automating optimisation | Ledger still empty by design, now with a dated implementation record for the three rows this pass was allowed to ship | `data/campaign-ledger.json`, `data/decision-log.json` |
@@ -156,7 +156,7 @@ register resolves to a row that exists.
 |---|---|---|
 | SG-39 … SG-48 | SG-36 … SG-45 | `main` took SG-36, SG-37 and SG-38 for three rows of its own (the two non-air-fryer links, the one-link attribution test, and the measurement layer's permitted scope) |
 | path **P7** | path P6 | `main` published a P6, "Make the money path real" |
-| Q-29 … Q-39 | Q-27 … Q-37 | `main` added Q-27 and Q-28 |
+| Q-30 … Q-40 | Q-27 … Q-37 | `main` added Q-27 and Q-28 in the first merge and Q-29 in the second; see the note below |
 | source **S43** | source S38 | `main` registered S38 (GitHub Pages documentation) and S39–S42 (Chfiq, ThermoMaven, two Associates help topics) |
 | topics TP-24, TP-25, TP-26 | TP-22, TP-23, TP-24 | `main` published TP-22 and TP-23 as two thermometer guides |
 | flags F85 … F89 | F83 … F87 | `main` added F83 (handover flag pointers) and F84 (stale typed counts) |
@@ -175,6 +175,23 @@ draft had built a `/dp/<ASIN>` button, and `main`'s F81/F82 rows explain why an 
 the wrong thing to publish. The mobile changes, the sticky comparison bar and the `check_*` guards are
 unaffected by the merge.
 
-**Counts after the merge** (these replace the numbers in §5 if the two disagree, because §5 was
-written before `main`'s registers were folded in): 47 suggestions and 7 paths, 39 questions, 43
-sources, 26 topics, 24 articles, 53 requirement rows, and 89 programme flag rows on `flagged.html`.
+**A second round, the same afternoon.** Two more PRs reached `main` before this one (`arena/79743fd2`,
+`arena/16adefc5`), and the second of them took **Q-29** for a measurement question. This pass's eleven
+question rows therefore moved once more, Q-29…Q-39 → **Q-30…Q-40**, and nothing else did: SG-39…SG-48,
+S43, TP-24/25/26, F85…F89 and path P7 were still unclaimed. The register now runs Q-01…Q-40 with no gap.
+The second merge was resolved row by row rather than textually, because those PRs re-serialised the
+register files and a line-based merge of a reformatted 4,000-line JSON file is not reviewable: for each
+row, if `main` had changed it since the common ancestor its version was kept, if only this branch had
+changed it this branch's version was kept, and if both had the merge takes `main`'s and says so. Zero
+rows ended in that third state, and the cross-reference check was re-run after the shift.
+
+**The shift itself is a hazard worth recording.** A renumbering must substitute every identifier in one
+pass, not one identifier after another: applying `Q-29 → Q-30`, then `Q-30 → Q-31`, … re-hits the values
+it just wrote, so a row can end up two or three places along the register and still resolve to a real
+row - which is how a mechanical repair silently becomes a wrong citation. Both shifts in this file were
+produced from `git show HEAD:` copies rather than from the working tree, for the same reason: an
+idempotent script may be run twice while it is being debugged, and a file edited in place cannot be.
+
+**Counts after both merges** (these replace the numbers in §5 if the two disagree): 47 suggestions and 7
+paths, 40 questions, 43 sources, 26 topics, 24 articles, 53 requirement rows, 89 programme flag rows on
+`flagged.html`, 34 sitemap URLs, 24 feed items, 10,3xx links checked.

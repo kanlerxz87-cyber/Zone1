@@ -234,15 +234,20 @@
       "group": "Measurement",
       "question": "What may this site measure, and whose consent does that require?",
       "state": "missing",
-      "why_it_matters": "The footer currently states the site sets no cookies and runs no analytics, which satisfies Program Policies section 3(e) as written. Adding any analytics makes that statement false immediately and triggers a privacy-notice update plus, for EU and UK visitors, consent requirements.",
+      "why_it_matters": "The footer currently states the site sets no cookies and runs no analytics, which satisfies Program Policies section 3(e) as written. Adding any analytics makes that statement false immediately and triggers a privacy-notice update plus, for EU and UK visitors, consent requirements. The footer's cookie statement is generated from the same configuration block that decides whether the counter ships, so it cannot drift out of date by accident.",
       "what_we_know": [
         "The current build loads no analytics client and sends no visitor events; its footer says so.",
         "The brief requests privacy-preserving measurement. A reference collector and disabled browser client exist in this branch, but neither is deployed or collecting.",
         "The repository configuration points the canonical site at a GitHub Pages URL; this checkout has no configured or verified same-origin analytics endpoint. The S38 documentation URL is a reference and was not fetched in this integration.",
-        "Amazon Associates Program Policies §3(e) require an accurate cookie/technology statement; collection remains disabled."
+        "Amazon Associates Program Policies §3(e) require an accurate cookie/technology statement; collection remains disabled.",
+        "The site is fully static and runs no client-side tracking of any kind today.",
+        "The counter client now exists and ships (assets/analytics.js) but is switched off, because no endpoint host has been chosen. It sets no cookie and reads no identifier.",
+        "Amazon reports clicks and orders per tracking ID without any on-site script, so a cookieless, script-free option exists that needs no disclosure change.",
+        "Section 2(b) permits additional sub-tag IDs to separate traffic sources.",
+        "The endpoint source for a self-hosted sink ships in analytics/ (a PHP file and a Cloudflare Worker); deploying it is the owner's decision."
       ],
-      "what_is_missing": "A verified first-party runtime and same-origin route; approved visitor-facing privacy and retention notice; host/proxy log configuration review; a successful end-to-end test; and authorized Associates reports for order/conversion figures.",
-      "how_to_discover": "Choose and deploy an owner-controlled runtime for /api/analytics/events on the publication origin. Review application, host and proxy logging/retention, update and approve the privacy notice, then test the disabled-by-default collector end to end. Only after all gates pass may the owner explicitly enable collection. Obtain conversion/order totals only from authorized Associates Central reports.",
+      "what_is_missing": "Both readings of the gap are true and both stand: (a) Whether the owner wants a first-party click counter at all, and if so whose host runs it - plus, if it is ever switched on, the lawful basis for EU and UK visitors, which this site's US-only framing does not currently cover. (b) A verified first-party runtime and same-origin route; approved visitor-facing privacy and retention notice; host/proxy log configuration review; a successful end-to-end test; and authorized Associates reports for order/conversion figures.",
+      "how_to_discover": "Choose and deploy an owner-controlled runtime for /api/analytics/events on the publication origin. Review application, host and proxy logging/retention, update and approve the privacy notice, then test the disabled-by-default collector end to end. Only after all gates pass may the owner explicitly enable collection. Obtain conversion/order totals only from authorized Associates Central reports. On top of those deployment gates, the owner still chooses between Associates sub-tags alone (no script) and the self-hosted cookieless counter whose client already ships; the choice is recorded in SG-08.",
       "blocks": [
         "SG-08"
       ],
@@ -257,6 +262,14 @@
         },
         {
           "label": "Tracking IDs and reporting",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA"
+        },
+        {
+          "label": "Program Policies, section 3(e)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Tracking IDs and sub-tags",
           "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA"
         }
       ]
@@ -853,6 +866,32 @@
     {
       "id": "Q-29",
       "group": "Measurement",
+      "question": "Should the counter record which campaign a visit came from, or only that one did?",
+      "state": "missing",
+      "why_it_matters": "The traffic plan in the brief is written around measured queries and measured channels, and a click that cannot be tied to a channel cannot be compared between channels. The counter as built records the campaign parameter as a yes/no, which answers 'did this arrival carry a campaign tag' but not 'which one'. That is the more useful half of the answer and the more revealing half, so the question has to be answered deliberately rather than inherited from the first draft of the spec.",
+      "what_we_know": [
+        "The shipped client records `utm: \"1\"` when the arrival carried a utm_source or utm_campaign parameter, and records nothing about its value.",
+        "The value would have to be read from the page's own URL, so it is data the visitor's browser already holds; it is not a reader identifier.",
+        "Whatever the answer, the footer's privacy paragraph is regenerated from the same configuration block, so it can describe the wider payload rather than the narrower one.",
+        "Amazon's own reporting already attributes clicks and orders to a tracking ID and sub-tag, so a site-side copy of the channel is a convenience for the editorial calendar, not a source of truth."
+      ],
+      "what_is_missing": "Whether the value of the campaign parameter may be recorded, and if it may, which parameter names are in scope (utm_source only, or also utm_campaign, utm_medium and utm_term). The narrower the set, the less the site learns about the traffic it bought.",
+      "how_to_discover": "One decision, then one edit in assets/analytics.js (read the named parameter off window.location.search and cap its length) and one line in data/measurement.json to widen the EV-01 record. The build guard check_analytics_consistency() will then require the footer paragraph to be re-read against what is actually sent, because that is the sentence a reader and Program Policies section 3(e) both rely on.",
+      "blocks": [],
+      "sources": [
+        {
+          "label": "Program Policies, section 3(e) - cookie and third-party technology disclosure",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Tracking IDs and sub-tags (how Amazon already attributes a click)",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA"
+        }
+      ]
+    },
+    {
+      "id": "Q-30",
+      "group": "Measurement",
       "question": "Is there any host on this project that can receive a click event, and who operates it?",
       "state": "missing",
       "why_it_matters": "Three of the four decisions in the shopfront path (SG-41, SG-46, SG-47) are placement decisions. Placement can only be judged with a click counter, and a static GitHub Pages site has no server to count on. Until this is answered, every 'this will convert better' claim about the design - including the ones on this repository's own pages - is unfalsifiable.",
@@ -885,7 +924,7 @@
       "answer": null
     },
     {
-      "id": "Q-30",
+      "id": "Q-31",
       "group": "Content strategy",
       "question": "Which search queries does the site already appear for, and at what position?",
       "state": "missing",
@@ -918,7 +957,7 @@
       "answer": null
     },
     {
-      "id": "Q-31",
+      "id": "Q-32",
       "group": "Authorship",
       "question": "Whose name is on this publication, and what does that person actually have?",
       "state": "missing",
@@ -950,7 +989,7 @@
       "answer": null
     },
     {
-      "id": "Q-32",
+      "id": "Q-33",
       "group": "Site ownership",
       "question": "Is this a subpath of a GitHub Pages domain, or a domain of its own?",
       "state": "missing",
@@ -960,7 +999,7 @@
         "GitHub Pages supports a custom domain with a DNS record and a settings change, documented by GitHub.",
         "The site name shown to readers is 'Zone1 Kitchen', which is a repository label adapted rather than a brand."
       ],
-      "what_is_missing": "A decision on the domain, and the brand name that goes with it. Then a mechanical change: SITE_URL in data/config.json, the footer masthead, the og:image card and the Search Console property in Q-30.",
+      "what_is_missing": "A decision on the domain, and the brand name that goes with it. Then a mechanical change: SITE_URL in data/config.json, the footer masthead, the og:image card and the Search Console property in Q-31.",
       "how_to_discover": "Pick a name, buy or point a domain, set it in Pages settings, then have an agent pass change base_url in data/config.json and re-run the build: the guard that compares committed HTML to a rebuild will surface every place the old URL was hardcoded.",
       "blocks": [
         "SG-44",
@@ -987,7 +1026,7 @@
       "answer": null
     },
     {
-      "id": "Q-33",
+      "id": "Q-34",
       "group": "Product photography",
       "question": "Who owns the rights to any image of these three products, and is a photo of your own kitchen allowed to appear?",
       "state": "not_stated",
@@ -1020,7 +1059,7 @@
       "answer": null
     },
     {
-      "id": "Q-34",
+      "id": "Q-35",
       "group": "Brand",
       "question": "What is this site for, in one sentence a shopper would repeat: a buying guide, a deals page, or a verification service?",
       "state": "missing",
@@ -1054,7 +1093,7 @@
       "answer": null
     },
     {
-      "id": "Q-35",
+      "id": "Q-36",
       "group": "Content operations",
       "question": "Who writes the next article, on what schedule, and who checks it before it publishes?",
       "state": "missing",
@@ -1064,7 +1103,7 @@
         "The voice rules on design-prompt.html are the editorial standard currently enforced, and they were adopted on 2026-11-16.",
         "The kill rule proposed in SG-43 is the only published performance commitment in the content plan."
       ],
-      "what_is_missing": "A cadence (SG-43), an editor - is a human reading each piece before it ships, or is the guard the only check? - and a byline policy, which is Q-31. Answering the editor question alone changes what 'published' means on this site.",
+      "what_is_missing": "A cadence (SG-43), an editor - is a human reading each piece before it ships, or is the guard the only check? - and a byline policy, which is Q-32. Answering the editor question alone changes what 'published' means on this site.",
       "how_to_discover": "Owner decision, then recorded in data/topics.json as a cadence field and on the decisions register as a status change.",
       "blocks": [
         "SG-43"
@@ -1086,7 +1125,7 @@
       "answer": null
     },
     {
-      "id": "Q-36",
+      "id": "Q-37",
       "group": "Attribution",
       "question": "Did the one-link test produce a tracked click in the Associates earnings report?",
       "state": "unknowable",
@@ -1119,7 +1158,7 @@
       "answer": null
     },
     {
-      "id": "Q-37",
+      "id": "Q-38",
       "group": "Evidence base",
       "question": "Which figure is the appliance's weight, and which is the boxed figure, for the 8 Qt?",
       "state": "not_stated",
@@ -1149,7 +1188,7 @@
       "answer": null
     },
     {
-      "id": "Q-38",
+      "id": "Q-39",
       "group": "Platform compliance",
       "question": "May the site use a brand's own marketing sentence as content, and with what framing?",
       "state": "not_stated",
@@ -1179,7 +1218,7 @@
       "answer": null
     },
     {
-      "id": "Q-39",
+      "id": "Q-40",
       "group": "Governance",
       "question": "Which accessibility and mobile standard is the design required to meet, and can this site cite it?",
       "state": "missing",

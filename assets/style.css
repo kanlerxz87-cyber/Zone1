@@ -51,6 +51,17 @@ body{
   font:16px/1.65 var(--sans);
 }
 
+/* ------------------------------------------------- article clusters */
+.cluster-group{margin:2.2rem 0 0}
+.cluster-head{border-left:3px solid var(--brand); padding:.1rem 0 .1rem .9rem; margin-bottom:1rem}
+.cluster-head h2{margin:.1rem 0 .35rem; font-size:1.35rem}
+.cluster-head p{margin:.25rem 0}
+.cluster-group .cardgrid{margin-top:.4rem}
+@media (max-width:760px){
+  .cluster-head{padding-left:.7rem}
+  .cluster-head h2{font-size:1.18rem}
+}
+
 /* ---------------------------------------------------------------- links */
 a{color:var(--brand); text-decoration:none; text-underline-offset:.18em}
 a:hover{color:#173f32; text-decoration:underline}

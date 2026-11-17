@@ -1,29 +1,38 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "compiled": "2026-11-17",
-  "session": "arena/5b17c077-zone1",
-  "status": "defined_not_shipped",
-  "purpose": "The five measurement events this site will record, defined precisely enough that whoever wires them cannot guess, plus the honest reason none of them is sending yet. Defining an event is not collecting it: this file is a specification, and every count in it is empty on purpose.",
+  "session": "arena/79743fd2-zone1",
+  "status": "client_shipped_endpoint_not_deployed",
+  "purpose": "The five measurement events this site will record, defined precisely enough that whoever wires them cannot guess, plus an honest account of what is built, what is not, and why. Defining an event is not collecting it, and shipping a client is not collecting it either: the counter is written and shipped, the sink it would post to is not deployed, and every count in this file is empty on purpose.",
   "why_nothing_is_sending": [
-    "The site is static files on GitHub Pages. There is no server to receive a beacon, so a 'self-hosted analytics endpoint' cannot be built inside this repository — it needs a host the owner controls.",
-    "The footer states, truthfully today, that the site sets no cookies and runs no analytics. Program Policies §3(e) requires an accurate statement of cookie and third-party technology use, so the moment a beacon ships that sentence is false unless it is updated in the same commit.",
-    "A click counter that reported a number without a real endpoint behind it would be an invented number on a page that promises every value is sourced. Nothing here reports a count it did not measure.",
+    "The site is static files on GitHub Pages. There is no server to receive a beacon, so the 'self-hosted analytics endpoint' has to live on a host the account holder controls. The endpoint source now ships in analytics/ (a PHP file and a Cloudflare Worker), but this repository cannot deploy it and does not pretend to have.",
+    "A click counter that reported a number without a real endpoint behind it would be an invented number on a page that promises every value is sourced. The counter therefore ships with the switch off, and no count appears anywhere on this site.",
+    "The footer's cookie and third-party-technology statement is now GENERATED from the same configuration block that decides whether the counter ships, so it cannot describe a behaviour the page does not have. Program Policies §3(e) is satisfied by construction rather than by a sentence somebody has to remember to update.",
     "Amazon's own conversion reporting lives in Associates Central and is not available to a third-party static site, so reported orders must come from the owner's first-party report, not from this site."
   ],
+  "implementation": {
+    "client": "assets/analytics.js — written by build.py, always present on disk, referenced by a page only when analytics.enabled is true and analytics.endpoint is set.",
+    "switch": "data/config.json → analytics. One block decides the behaviour and the footer's wording.",
+    "endpoint_source": "analytics/endpoint.php (any PHP host) and analytics/worker.js (Cloudflare Workers). Both store the seven allowed fields and nothing else; neither writes the client IP address, the user agent, the referrer or any reader identifier.",
+    "guard": "build.py → check_analytics_consistency(). Fails the build if the footer's statement and the shipped behaviour disagree, if the counter could identify a reader (cookie, storage API, user agent, referrer), if it could block the reader's click, if it does not require event.isTrusted, or if the endpoint is not https, is a known hosted analytics product, or carries a query string.",
+    "verification": "The guard was proven to fail by injecting each of those violations in turn, and each failure was reverted. The four passing conditions were verified with the same injection method: enabled-without-endpoint, third-party tracker host, plain-http endpoint, and a preventDefault call.",
+    "what_is_not_shipped": "The endpoint is not deployed. The counter is not enabled. No event has been sent and no count has been observed. Nothing in this repository should be read as a measurement."
+  },
   "privacy_rules": [
-    "No cookies are set by the counter. If a cookie is ever added, the footer statement and the §3(e) disclosure change in the same commit.",
+    "No cookies are set by the counter. If a cookie is ever added, the footer statement and the §3(e) disclosure change in the same commit — and the build guard fails if the counter file grows a cookie or storage call.",
     "No persistent identifier per reader and no cross-site profile. Program Policies §2(b) separately forbids associating a sub-tag with a specific end user.",
-    "The counter records the event, the page slug and the product ASIN — never an IP address, user agent string or referrer.",
-    "Program Policies §3(s) forbids artificially generating clicks; the counter must never be fired by a bot, prefetch or crawler, so it is attached to a real click only."
+    "The counter records the event, the page slug, the product ASIN, the date and the tracking ID present on the link — never an IP address, user agent string or referrer. The client never reads those three values at all, which is checked by the build guard rather than promised in prose.",
+    "Program Policies §3(s) forbids artificially generating clicks; the counter fires only inside a click listener that requires event.isTrusted and a primary button, on a link whose href contains /dp/<ASIN>. Nothing fires on load, on scroll alone, or from a synthetic dispatchEvent, and the handler never calls preventDefault, so the reader's click always reaches Amazon.",
+    "The request itself necessarily exposes the reader's IP address to the server that receives it. That is a property of HTTP, not something the client can prevent. The shipped endpoints drop the address without writing it to disk; the host's own web-server access log is outside this site's control and is stated here rather than glossed over."
   ],
   "events": [
     {
       "id": "EV-01",
       "name": "page_view",
-      "fires_when": "A human opens any article, product, comparison or guide page.",
+      "fires_when": "A human opens any article, product, comparison or guide page. The page type is derived from the URL by the build, so a new page is classified by where it lives.",
       "records": ["page slug", "UTC date", "whether the arrival carried a utm_source/campaign parameter"],
       "explicitly_not_recorded": ["IP address", "user agent", "referrer URL", "reader identifier"],
-      "note": "Slug and date only. A per-reader identifier would turn this into behavioural tracking and break the no-cookie statement."
+      "note": "Slug and date only. A per-reader identifier would turn this into behavioural tracking and break the no-cookie statement. The utm parameter is recorded as a yes/no, not as its value: the value is what would let one page tell which channel sent it, and that is a wider question for the owner, not a detail this pass may settle (Q-29)."
     },
     {
       "id": "EV-02",
@@ -31,7 +40,7 @@
       "fires_when": "A reader clicks any link whose href points at www.amazon.com/dp/<ASIN>.",
       "records": ["ASIN", "page slug the click came from", "UTC date", "the Associates tag present on the link"],
       "explicitly_not_recorded": ["order value", "what the reader bought", "any Amazon session data"],
-      "note": "This is the earliest point at which this site can observe intent without Amazon's data. It counts interest, not revenue, and must never be labelled a conversion."
+      "note": "This is the earliest point at which this site can observe intent without Amazon's data. It counts interest, not revenue, and must never be labelled a conversion. The ASIN is read from the link the reader actually clicked, so it is the destination they were sent to, not the one the site would have preferred."
     },
     {
       "id": "EV-03",
@@ -39,12 +48,12 @@
       "fires_when": "A reader scrolls a sourced article to its final section, measured at the last heading, not at the footer.",
       "records": ["page slug", "UTC date"],
       "explicitly_not_recorded": ["time on page", "scroll depth histogram", "reader identifier"],
-      "note": "A single completion flag is enough to answer 'did anyone read this'. A depth histogram costs a cookie-free session id and buys nothing the editorial calendar uses."
+      "note": "A single completion flag is enough to answer 'did anyone read this'. A depth histogram costs a cookie-free session id and buys nothing the editorial calendar uses. The last heading of every article carries the marker attribute the observer watches."
     },
     {
       "id": "EV-04",
       "name": "comparison_table_viewed",
-      "fires_when": "The comparison table becomes visible in the viewport on compare.html or a product page.",
+      "fires_when": "The comparison table becomes visible in the viewport on compare.html or on the landing page's side-by-side table.",
       "records": ["page slug", "UTC date"],
       "explicitly_not_recorded": ["which rows were expanded", "reader identifier"],
       "note": "Exists to test one editorial hypothesis: whether the comparison surface is the thing that earns clicks, or whether the articles do."
@@ -62,26 +71,26 @@
     "note": "Started empty on purpose, per the brief's 'empty but well-defined campaign ledger'. A row may only be added from an authorised first-party report. No conversion score and no revenue forecast is presented anywhere in this repository.",
     "columns": ["date", "source", "channel", "eligible_sessions", "clicks", "reported_orders", "provenance"],
     "rows": [],
-    "why_empty": "No first-party analytics exist yet, the site has no endpoint, and no Associates report has been read into this repository. An empty ledger is a true statement; a filled one would not be."
+    "why_empty": "No first-party analytics exist yet: the endpoint is not deployed and the counter is off, so the site has measured nothing. No Associates report has been read into this repository either. An empty ledger is a true statement; a filled one would not be. When the counter is switched on, the clicks it records are first-party click measurements, and they still do not fill this table — the table takes rows from the Associates report."
   },
   "prerequisites": [
     {
       "step": "1",
-      "owner_action": "Decide where the endpoint lives (a small host the owner controls, or a hosted privacy-first service).",
+      "owner_action": "Deploy one of the two endpoints in analytics/ on a host you control, over https.",
       "blocks": "EV-01 to EV-04",
-      "why": "A static GitHub Pages repo cannot receive a beacon."
+      "why": "A static GitHub Pages repo cannot receive a beacon. The source is written; the hosting decision and the deployment are the account holder's."
     },
     {
       "step": "2",
-      "owner_action": "Update the footer cookie/analytics sentence and the §3(e) disclosure in the same commit that adds the beacon.",
+      "owner_action": "Set analytics.enabled and analytics.endpoint in data/config.json, rebuild, and update the published sentences the build guard names.",
       "blocks": "Any shipped measurement",
-      "why": "Program Policies §3(e); the current footer would otherwise become false."
+      "why": "Program Policies §3(e). The footer's paragraph is generated from the switch, so it changes by itself; what the guard catches is the rest of the site — the registers quote sentences about a site that runs no analytics, and those quotes become false the moment the counter sends. The build names each one and where it comes from."
     },
     {
       "step": "3",
       "owner_action": "Report the Associates tracking ID in use and confirm the account is approved, then read the first order report.",
       "blocks": "EV-05",
-      "why": "Without an approved account there is no report to enter and no commission to attribute."
+      "why": "Without an approved account there is no report to enter and no commission to attribute. The tracking ID itself is already applied to every outbound product link; what is unconfirmed is whether the account is approved and whether the ASINs are the models intended."
     }
   ]
 }

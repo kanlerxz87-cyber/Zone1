@@ -12,7 +12,7 @@ The brief asked for an AI-powered Amazon affiliate platform that automates produ
 
 It asked for that to be built around three supplied links, with no manual input, line-by-line verification against official sources, a GitHub Pages site, and a "Flagged for Review" page for anything unverified.
 
-**What exists now:** a live, dependency-free static site of **23 pages** generated from a verified JSON dataset — the dashboard and verification set, plus a **7-article editorial layer** — with a platform blueprint, a compliance register, and a flagged list that every unresolved item is published on. Every asserted value carries a link to the official page it came from. Nothing is estimated. *(Page count corrected 2026-11-14 at integration pass 7: the long-standing "13 pages" figure was stale by several passes; the root build is now 23 pages and `verify.py` checks 101 HTML files across the repo.)*
+**What exists now:** a live, dependency-free static site of **23 pages** generated from a verified JSON dataset — the dashboard and verification set, plus a **7-article editorial layer** — with a platform blueprint, a compliance register, and a flagged list that every unresolved item is published on. Every asserted value carries a link to the official page it came from. Nothing is estimated. *(Page count corrected 2026-11-14 at integration pass 7: the long-standing "13 pages" figure was stale by several passes; the root build is now 23 pages and `verify.py` checks 101 HTML files across the repo.)* *(Refreshed 2026-11-17 by session `arena/79743fd2` — pass 13, §24: the root build is now **131 pages** / 32 sitemap URLs (the indexable publication set) with a **21-article** editorial set filed into four reader-intent clusters, `verify.py` reports 0 errors over 77 specification rows and 37 sources.)*
 
 ## 2. The three products
 
@@ -1464,3 +1464,79 @@ byte-identical, rebuild leaves the working tree clean · `verify.py` 130 pages, 
 `ci-check.sh` 33 platform tests, data audit clean, s2 annex current, 9,585 links / 0 broken ·
 `python3 -m unittest discover -s tests` 17 tests OK (the intent/analytics contract included) ·
 `scripts/verify_site.py` 393 assertions PASSED · `research/check_research.py` 834 checks OK.
+## 25. Pass 13 — measurement client, four reader-intent clusters, live evidence (2026-11-17, session `arena/79743fd2`, branch `arena/79743fd2-zone1`)
+
+X13, claimed in `COORDINATION.md` before editing. Three deliverables, each with a build-enforced
+guard and a deliberate fault test behind it:
+
+### 25.1 Privacy-preserving outbound-click counter — shipped, intentionally OFF
+
+* **Client** (`assets/analytics.js`, generated from `build.py`): records the defined events only —
+  EV-01 page_view, EV-02 outbound_product_click, EV-03 guide_completed, EV-04
+  comparison_table_viewed, EV-05 reported_order (entered by hand from an authorized
+  Associates report). No IP, no user agent, no referrer, no identifier, no cookie.
+* **Configuration** (`data/config.json`): analytics `enabled: false`, `endpoint: ""` — the script
+  is emitted but sends nothing. `check_analytics_consistency()` fails the build on any unsafe
+  state (enabled without endpoint, third-party endpoint, plain-HTTP endpoint, `preventDefault`
+  on affiliate links); all four fault injections failed the build as designed and were restored.
+* **Endpoint sources, committed and undeployed** (`analytics/endpoint.php`,
+  `analytics/worker.js`, `analytics/README.md`): allowlisted fields only; deployment and
+  enablement are owner steps with a documented procedure. Enabling the counter also requires
+  updating the register sentences that currently state the site runs no analytics — the build
+  guard enforces that coupling.
+* **Registers:** `data/measurement.json` v1.1 (`client_shipped_endpoint_not_deployed`);
+  `measurement.html` carries the implementation table; the **campaign ledger stays empty** and
+  no conversion or revenue figure is claimed anywhere. Q-08 refreshed to the shipped-but-disabled
+  state; **Q-27** added (may campaign parameter values be recorded?); E-03 → `partial`; F-04's
+  rationale rewritten to the current state. Decision-log entry **SG-08** (path B, disabled).
+
+### 25.2 Four reader-intent clusters — all 21 articles filed one-to-one
+
+* `data/clusters.json`: **Choose** (7 articles), **Spec** (6), **Live with it** (4),
+  **Trust & policy** (4) — named hubs, exact membership, every article exactly once.
+* `clusters.html` maps the four hubs with official source links on every row; the articles index
+  groups by cluster; every article's "Read next" shows cluster siblings plus a hub link (verified
+  live on the canonical article page); the map is in the footer navigation and the sitemap.
+* `check_clusters()` fails the build on unfiled, duplicated, missing, empty or invalid-hub
+  records; two deliberate fault injections (unfiled article; nonexistent member) each failed the
+  build and were restored. Decision-log entry **SG-35** (done).
+
+### 25.3 Live evidence pass
+
+Re-read as a reader on 2026-11-17 and recorded in
+[`reports/verification-2026-11-17-79743fd2.md`](reports/verification-2026-11-17-79743fd2.md):
+the three supplied `link.amazon` links (same observed ASIN destinations B0CDY277D3 /
+B09B7SB46R / B08DKYBTPH through fallback-parameter redirects — nothing silently changed), the
+Associates Operating Agreement (updated Oct 15, 2025) and Program Policies (updated Apr 14,
+2026), eCFR 16 Part 255 (up to date Nov 13, 2026), the Emeril brand page (26 qt / 24.6 L,
+25-vs-24 preset conflict preserved), the Chefman 8 Qt page (RJ38-SQSS-8T, 8/5 qt variants,
+200–400 °F), and the live canonical article's cluster links. No published value changed; no
+irregularity resolved by inference. F3 · F4/F5 · F6 · F10 · F11 · F70 · F71 · F76 · F81 · F82 and
+Q-01..Q-04, Q-08, Q-27 stand as published.
+
+### 25.4 Register reconciliation and gates (final tree)
+
+SG-28 (RSS feed) and SG-35 marked done with decision-log entries; SG-08 marked partial (client
+shipped disabled). `README.md` counts refreshed (21 articles · 34 suggestions · 27 questions).
+Gates re-run after the cluster pass and **again on the final merged tree**: `build.py` exit 0 —
+**131 pages, 32 sitemap URLs** (the indexable publication set plus `clusters.html`), **21 feed
+items**, two builds byte-identical · `verify.py` 131 pages, 77 spec rows (75 verified / 2
+blank+flagged), **42 sources**, 0 errors, 0 external warnings · `tests/` **17 unit tests OK**
+(collector, intent gate, integration output) · `ci-check.sh` OK — 33 unit tests, data audit clean,
+**9,895 links / 0 broken** · `verify_site.py` **393 assertions, ALL PASSED** ·
+`research/check_research.py` OK · `platform/audit/report.py` AUDIT PASSED (0 warnings) ·
+`node --check` OK on `assets/app.js` and `assets/analytics.js` · `git diff --check` clean.
+
+### 25.5 Merge seam — this branch met main at `4609ff3` (PRs #124–#138)
+
+`gh pr merge 142` first refused: `main` had taken the five-link intent records, the
+product-intent/campaign-ledger passes, the buyer-first homepage (test-pinned), a measurement plan
+with a reference collector and 17 unit tests, and the TP-21 hold. The conflict was resolved keeping
+both sides (full record in `COORDINATION.md`): main's blank-tag policy governs the tracking ID
+(`selected_tracking_id: shopnow047c-20` recorded with provenance, applied nowhere, flag F76 —
+pinned by `tests/test_build_contract.py`), this session's analytics block and cluster system ride
+on top of main's generator, the script tag now has **two switches** (both must enable:
+`data/config.json -> analytics` and `data/analytics-plan.json -> collection`), and the two parallel
+five-event registers are published with a one-to-one mapping on `measurement.html` instead of one
+being hidden. The homepage's inline comparison table yielded to main's buyer-first front page;
+EV-04 marking stays on `compare.html`. Nothing either session published was deleted.

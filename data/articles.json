@@ -6,6 +6,7 @@
     {
       "slug": "dual-basket-vs-oven-air-fryer",
       "kind": "Comparison",
+      "cluster": "choose",
       "kicker": "Decision guide",
       "title": "Dual-basket or countertop oven? The 8-quart question nobody answers",
       "standfirst": "Two 3-quart drawers and one 26-quart cavity solve opposite problems. Here is the documented difference, and the one measurement that decides it for your kitchen.",
@@ -70,6 +71,7 @@
     {
       "slug": "what-450f-actually-means",
       "kind": "Explainer",
+      "cluster": "spec",
       "kicker": "Spec literacy",
       "title": "What \"450 °F\" actually means on an air fryer listing",
       "standfirst": "On one Chefman model it is a two-minute finishing blast. On another it is a setting the manual never mentions. The badge is the same. The feature is not.",
@@ -131,6 +133,7 @@
     {
       "slug": "25-or-24-presets",
       "kind": "Investigation",
+      "cluster": "spec",
       "kicker": "Source forensics",
       "title": "25 presets, 24 presets, or 10-in-1? One brand page says all three",
       "standfirst": "A single official product page contradicts itself four ways. That is not a scandal; it is what an unmaintained product page looks like. Here is how to read it.",
@@ -189,6 +192,7 @@
     {
       "slug": "no-amazon-prices",
       "kind": "Policy explainer",
+      "cluster": "trust",
       "kicker": "Why this site looks like this",
       "title": "Why this affiliate site shows no Amazon prices, ratings or review counts",
       "standfirst": "It is not an oversight and it is not humility. Amazon's Program Policies only permit those numbers under two specific conditions, and this site meets neither.",
@@ -248,6 +252,7 @@
     {
       "slug": "dual-basket-vs-single-basket",
       "kind": "Head-to-head",
+      "cluster": "choose",
       "kicker": "Two-basket or one",
       "title": "Two 3-quart drawers or one 8-quart basket: which actually feeds four people?",
       "standfirst": "The total volume is nearly identical. The cooking is not, and the difference is what you do when the first batch finishes.",
@@ -306,6 +311,7 @@
     {
       "slug": "chefman-6qt-documented-review",
       "kind": "Product review",
+      "cluster": "spec",
       "kicker": "Document-based review",
       "title": "Chefman 6 Qt Dual Basket: a review of the documents, not the machine",
       "standfirst": "No unit was bought, unboxed or cooked in. What follows is a reading of Chefman's own page and manual for the TurboFry Touch 6 Qt triple-verified SKU — what it promises, what it does not, and the one number the manufacturer withholds.",
@@ -415,6 +421,7 @@
     {
       "slug": "how-to-read-an-air-fryer-spec-sheet",
       "kind": "Buying guide",
+      "cluster": "spec",
       "kicker": "Spec literacy",
       "title": "How to read an air fryer spec sheet: the eight lines that actually decide it",
       "standfirst": "Listings are long on adjectives and short on the eight lines that determine whether a machine fits your kitchen. Walk them in this order and most of the market falls away before you look at a price.",
@@ -544,6 +551,7 @@
     {
       "slug": "air-fryer-capacity-guide",
       "kind": "Guide",
+      "cluster": "choose",
       "kicker": "Capacity, explained",
       "title": "26 quarts, 1,519 cubic inches: an honest air fryer capacity guide",
       "standfirst": "Quart capacity is a cavity measurement, not a food measurement. So this guide uses the numbers the manufacturers print, shows the arithmetic they imply, and is explicit about the one thing none of them publishes: usable food volume.",
@@ -628,6 +636,7 @@
     {
       "slug": "small-kitchen-air-fryer-dimensions",
       "kind": "Guide",
+      "cluster": "choose",
       "kicker": "Fit check",
       "title": "Will it actually fit? Three air fryers, measured against your counter",
       "standfirst": "Every manufacturer on this site publishes outer dimensions. That turns 'will it fit' from a guess into arithmetic — and it is the one buying question a spec sheet can answer completely.",
@@ -694,6 +703,7 @@
     {
       "slug": "who-actually-pays-for-air-fryer-reviews",
       "kind": "Explainer",
+      "cluster": "trust",
       "kicker": "How the money works",
       "title": "Who pays for the air-fryer review you are reading?",
       "standfirst": "Affiliate links are not a scandal and they are not invisible. Here is exactly how this site earns, what Amazon requires it to say, and the three claims it is not allowed to make.",
@@ -754,6 +764,7 @@
     {
       "slug": "energy-cost-of-an-air-fryer",
       "kind": "Explainer",
+      "cluster": "live",
       "kicker": "Running costs",
       "title": "The 1,700-watt question: what an air fryer actually asks of your kitchen",
       "standfirst": "All three units are documented at 1,700 watts on 120 volts. That number decides more than browning — it decides whether the appliance can share a circuit.",
@@ -808,6 +819,7 @@
     {
       "slug": "chefman-8qt-two-models",
       "kind": "Explainer",
+      "cluster": "spec",
       "kicker": "Model watch",
       "title": "The 8-quart Chefman is sold as two different machines — and the listing describes both",
       "standfirst": "One SKU tops out at 400°F. Another reaches 450°F for the final two minutes. The supplied Amazon link's title names the feature of one and the finish of the other.",
@@ -859,6 +871,7 @@
     {
       "slug": "sync-finish-explained",
       "kind": "Explainer",
+      "cluster": "choose",
       "kicker": "Feature, documented",
       "title": "Sync Finish, explained by the manual that ships with it",
       "standfirst": "One button promises two baskets that end at the same time. The owner's manual spells out exactly how that works, exactly when it breaks, and what the other sync button does instead.",
@@ -920,6 +933,7 @@
     {
       "slug": "aerosol-oil-warning",
       "kind": "Explainer",
+      "cluster": "live",
       "kicker": "Care, documented",
       "title": "The aerosol-oil caution nobody reads, quoted instead of paraphrased",
       "standfirst": "Chefman's dual-window manual carries one CAUTION about spray cans that decides whether a nonstick basket keeps its coating. The sentence is short enough to quote whole, so this page does.",
@@ -969,6 +983,7 @@
     {
       "slug": "extension-cord-rules-in-the-manuals",
       "kind": "Explainer",
+      "cluster": "live",
       "kicker": "Power, documented",
       "title": "1700 watts, three manuals, and one extension-cord rule that is not the same",
       "standfirst": "All three appliances in this set carry the same wattage rating from their manufacturers. Their manuals do not agree on how to power them, and one of the three rules is absolute.",
@@ -1033,6 +1048,7 @@
     {
       "slug": "whats-in-the-box",
       "kind": "Document check",
+      "cluster": "spec",
       "kicker": "What ships in the box",
       "title": "Seven accessories, a six-accessory title, and one honest caveat",
       "standfirst": "Two of Emeril's own documents say 7 accessories. Amazon's title for the same listing says six. The owner's manual settles the count and then takes it back — here is what each document actually says.",
@@ -1087,6 +1103,7 @@
     {
       "slug": "rotisserie-at-home",
       "kind": "Feature explainer",
+      "cluster": "choose",
       "kicker": "Manual walkthrough",
       "title": "Rotisserie at home: what the 26 QT's manual actually documents",
       "standfirst": "The preset and the spit set are in the manual. What the manual never claims — cooked weights, times, doneness — is the part worth reading before you plan a chicken dinner.",
@@ -1137,6 +1154,7 @@
     {
       "slug": "associates-disclosure-explained",
       "kind": "Policy explainer",
+      "cluster": "trust",
       "kicker": "Compliance, in plain words",
       "title": "What 'As an Amazon Associate I earn from qualifying purchases' actually obliges",
       "standfirst": "The sentence in this site's header is a contract clause with a mandated wording and a placement rule. Who requires it, what it must look like, and the things it does not do.",
@@ -1196,6 +1214,7 @@
     {
       "slug": "air-fryer-gift-guide-2026",
       "kind": "Buying guide",
+      "cluster": "choose",
       "kicker": "Seasonal",
       "title": "Air fryer gift guide 2026: match the format to the person",
       "standfirst": "Two small baskets, one large basket, or a French-door countertop oven — the three formats in this guide are documented by their manufacturers, not tested by anyone here. Pick the format first; the model questions can wait until the box is open.",
@@ -1286,6 +1305,7 @@
     {
       "slug": "black-friday-model-number-switch",
       "kind": "Investigation",
+      "cluster": "trust",
       "kicker": "Seasonal / deal safety",
       "title": "The Black Friday model-number switch, and the three-minute check that catches it",
       "standfirst": "Discount badges stack up in November. The listings underneath them do not always describe the same machine - including the three this site tracks. Here is the documented version, and the check to run before the deal timer wins.",
@@ -1355,6 +1375,7 @@
     {
       "slug": "how-to-clean-an-air-fryer",
       "kind": "Guide",
+      "cluster": "live",
       "kicker": "Care and upkeep",
       "title": "How to clean an air fryer, according to the people who made it",
       "standfirst": "Three manuals in this set carry cleaning sections. Quoted side by side, they agree on the big rules and split on the details. No vinegar hacks and no life tricks - just the instructions in the box.",
@@ -1538,7 +1559,8 @@
           ]
         }
       ],
-      "closing_note": "No appliance in this comparison was cooked in, owned or handled. Every figure above is quoted from the manufacturer product pages, owner's manuals and store records linked per section, re-read on 2026-11-17, or from the Amazon listing pages cited by number. Where two official documents disagree, both readings are published and the disagreement is listed on the review register."
+      "closing_note": "No appliance in this comparison was cooked in, owned or handled. Every figure above is quoted from the manufacturer product pages, owner's manuals and store records linked per section, re-read on 2026-11-17, or from the Amazon listing pages cited by number. Where two official documents disagree, both readings are published and the disagreement is listed on the review register.",
+      "cluster": "choose"
     },
     {
       "slug": "ninety-eight-percent-less-oil-claim",
@@ -1607,7 +1629,8 @@
           ]
         }
       ],
-      "closing_note": "Nothing in this article was cooked, measured or tested. The quoted sentence is reproduced from Chefman's own product page and its store product record, both read on 2026-11-17. This site takes no position on whether the claim is true; it states what the document does and does not say."
+      "closing_note": "Nothing in this article was cooked, measured or tested. The quoted sentence is reproduced from Chefman's own product page and its store product record, both read on 2026-11-17. This site takes no position on whether the claim is true; it states what the document does and does not say.",
+      "cluster": "spec"
     },
     {
       "slug": "questions-before-buying-a-multifunction-appliance",
@@ -1702,8 +1725,9 @@
           ]
         }
       ],
-      "closing_note": "This checklist was written from the manufacturer pages, manuals and listing documents cited per section, re-read on 2026-11-17. No appliance was purchased, tested or handled for it, and no ranking is implied by the order of the questions."
+      "closing_note": "This checklist was written from the manufacturer pages, manuals and listing documents cited per section, re-read on 2026-11-17. No appliance was purchased, tested or handled for it, and no ranking is implied by the order of the questions.",
+      "cluster": "choose"
     }
   ],
-  "updated": "2026-11-16"
+  "updated": "2026-11-17"
 }

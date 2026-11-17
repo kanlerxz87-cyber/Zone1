@@ -98,3 +98,29 @@ GitHub Pages, no host for an endpoint — Q-27/Q-28); no Amazon price or star-ra
 counts read during the re-read; no byline (Q-29); no photography (Q-31); no hands-on-testing language (S-06 stays
 not adopted); the three `campaign-ledger.json` blanks stay blank, and `G-01…G-03` stay `blocked` with the reason in
 the register; Search Console, Associates approval and the one-link click test stay with the account holder.
+
+## Addendum — merged with `main` at `272da81`, and this PR's row ids moved
+
+Another session ran its own "pass 13" from the same base and merged first (`arena/58cbaaa2`, `arena/0cf55ef3`), so
+ids collided. Their numbering is now the published one and **this pass's rows were shifted upward** instead of
+overwriting theirs: SG-36…SG-45 → **SG-39…SG-48**; path P6 → **P7**; Q-27…Q-37 → **Q-29…Q-39**; source S38 → **S43**;
+TP-22/23/24 → **TP-24/25/26**; flags F83…F87 → **F85…F89**. TP-21 was the same topic in both, and moves
+`proposed → published` because this pass wrote its article. References were rewritten everywhere they appear —
+inside prose, `blocks`/`blocked_by`, `paths[].contains`, the requirements `why` cells, the decision log and
+`reports/verification-2026-11-17-fd9778a1.md` — with a **single-pass** substitution, because substituting id-by-id
+re-hits an id just produced (`Q-27 → Q-29 → Q-31`) and invents a third row. A cross-reference check over every
+register confirms no dangling token; §7 of the report carries the mapping.
+
+**One design concession, recorded rather than argued.** `main` restructured `page_index()` into a publication layout
+— cards naming the job each format does, capacity/dimensions per card, three featured guides, one CTA into
+`compare.html` — dropping the inline comparison table and the metric strip this pass had *moved* below that table.
+Both passes were implementing "lead with the products, not the audit trail"; `main`'s goes further, so the table was
+not re-added. This pass's merchandising rows and dated brand-price line were folded **into** `main`'s card, and its
+draft `/dp/<ASIN>` button was dropped in favour of `main`'s supplied short link with the "tracking unconfirmed" label
+— `main`'s F81/F82 rows explain why an inferred identifier is the wrong thing to publish. Mobile, sticky bar, table
+hint and all guards unaffected.
+
+**Counts after the merge:** 47 suggestions / 7 paths, 39 questions, 26 topics, 24 articles, 43 sources, 53
+requirement rows, 89 programme flags · sitemap 34 URLs (main's 31 + this pass's three articles), feed 24 items ·
+verify 77 spec rows (75/2), 0 errors · ci-check 33 tests, link check OK 10,318 links · second build changed 0 of
+55 generated pages.

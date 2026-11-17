@@ -1,7 +1,7 @@
 {
   "version": "1.1",
   "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped); SG-36..SG-38 and path P6 by arena/58cbaaa2 (2026-11-17) — written twice, and shortened the second time: the first draft's parallel intent register, measurement register and flags were dropped when main's merged registers and collection-disabled contract were found. The withdrawn draft is published at session-58cbaaa2/artifacts/. | pass 13 shopfront + decision desk (arena/fd9778a1-zone1): SG-39…SG-48, path P7, numbered after the merged 2026-11-17 rows so no id collides.",
-  "compiled": "2026-11-16",
+  "compiled": "2026-11-17",
   "how_to_read": [
     "This is a decision queue, not a changelog. Rows the build's decision desk counts as implemented were shipped in the canonical root build under the standing pre-authorisation rule and are recorded, row by row, in data/decision-log.json; everything else is a proposal awaiting a path from you.",
     "Each suggestion names the problem it fixes, the official document or repository evidence behind it, two or more paths you could take, and which path this pass would pick and why.",
@@ -406,6 +406,14 @@
         {
           "label": "GitHub Pages static hosting documentation",
           "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages"
+        },
+        {
+          "label": "Program Policies, section 3(e) - cookie and third-party technology disclosure",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Current footer, which asserts no analytics are used",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/"
         }
       ],
       "options": [
@@ -432,15 +440,16 @@
         }
       ],
       "recommendation": "A until the intended products, endpoint host and privacy notice are verified; then review B before enabling collection.",
-      "why": "The code is ready for a deployment review, not for live collection. Associates reports are the authority for affiliate clicks and orders; the local endpoint can add page-level context only after it is actually hosted and disclosed.",
+      "why": "The code is ready for a deployment review, not for live collection. Associates reports are the authority for affiliate clicks and orders; the local endpoint can add page-level context only after it is actually hosted and disclosed. Partially implemented 2026-11-17 (sessions arena/5b17c077 + arena/79743fd2): a five-event measurement plan, a privacy-minimising reference collector with tests (analytics/collector.py), a counter client (assets/analytics.js) and self-hosted endpoint sources (analytics/endpoint.php, analytics/worker.js) all ship — but every one of them is disabled: no endpoint is deployed, the privacy notice is not approved, and the campaign ledger stays empty. This row stays open for the enable decision; no conversion or revenue figure is claimed anywhere.",
       "impact": 4,
       "confidence": 4,
-      "effort": "M",
+      "effort": "partial",
       "risk_of_not_doing": "Medium. Without measurement, every content decision stays a guess.",
       "blocks": [],
       "blocked_by": [
         "Q-08"
-      ]
+      ],
+      "resolved_on": "2026-11-17"
     },
     {
       "id": "SG-09",
@@ -1410,13 +1419,14 @@
         }
       ],
       "recommendation": "A. The feed is shipped and reproducible; the Search Console submission is the one unclaimed owner action with direct organic-traffic value (see handover.html).",
-      "why": "It is the only traffic mechanism that works with this site's no-cookie, no-script, no-account posture, and it costs a static file.",
+      "why": "It is the only traffic mechanism that works with this site's no-cookie, no-script, no-account posture, and it costs a static file. Reconciled 2026-11-17: the feed shipped in pass 12 as feed.xml with 21 items, is regenerated on every build, and is linked from every page footer and the sitemap surface.",
       "impact": 3,
       "confidence": 4,
-      "effort": "S",
+      "effort": "done",
       "risk_of_not_doing": "Readers who would follow the set have no mechanism to; discovery stays purely search-driven.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "resolved_on": "2026-11-17"
     },
     {
       "id": "SG-29",
@@ -1704,13 +1714,14 @@
         }
       ],
       "recommendation": "A, built in the generator so the links cannot rot.",
-      "why": "The articles are already written around four themes; the map is the missing half. Generator-built links stay true as the set grows, unlike hand-placed ones.",
+      "why": "The articles are already written around four themes; the map is the missing half. Generator-built links stay true as the set grows, unlike hand-placed ones. Implemented 2026-11-17 by session arena/79743fd2: data/clusters.json files all 21 articles into four reader-intent hubs (choose, spec, live, trust) with one-to-one membership; clusters.html maps them, every article page shows cluster siblings and a hub link, check_clusters() makes unfiled or unowned articles a build failure, and deliberate fault tests proved both failure modes.",
       "impact": 4,
       "confidence": 3,
-      "effort": "M",
+      "effort": "done",
       "risk_of_not_doing": "Low now, compounding: every article added without a map makes the next one worth less.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "resolved_on": "2026-11-17"
     },
     {
       "id": "SG-36",
@@ -2039,7 +2050,7 @@
           "reversible": true
         }
       ],
-      "recommendation": "Keep A now. Decide B only alongside the click measurement (SG-47 / Q-29): a placement change without a click counter is a guess about what persuades.",
+      "recommendation": "Keep A now. Decide B only alongside the click measurement (SG-47 / Q-30): a placement change without a click counter is a guess about what persuades.",
       "why": "A keeps the sticky surface informational, which is the safest reading of the rule against obscuring where a link goes, and it is the version that cannot be mistaken for an interstitial by the search engine's own guidance.",
       "impact": 3,
       "confidence": 4,
@@ -2143,7 +2154,7 @@
         },
         {
           "label": "C. Let measured queries decide, once Search Console has data",
-          "what": "Zero new articles until the property has 4-8 weeks of query data, then write to the queries that already show the site. Requires the owner action in Q-30.",
+          "what": "Zero new articles until the property has 4-8 weeks of query data, then write to the queries that already show the site. Requires the owner action in Q-31.",
           "effort": "S",
           "risk": "low",
           "reversible": true
@@ -2309,7 +2320,7 @@
           "reversible": true
         }
       ],
-      "recommendation": "C until the analytics question (Q-29) is settled, then A. The band is worth building when there is someone to notice it.",
+      "recommendation": "C until the analytics question (Q-30) is settled, then A. The band is worth building when there is someone to notice it.",
       "why": "Seasonality is the one marketing lever this site can pull without touching a claim: it changes what is surfaced, never what is asserted.",
       "impact": 2,
       "confidence": 3,
@@ -2380,7 +2391,7 @@
       "id": "SG-48",
       "title": "Make the row-source gate test the link a reader actually sees, not any link in the row",
       "area": "Verification machinery",
-      "problem": "The build refuses a table row that cites no official source, which is the strongest guarantee on this site. It is enforced by scanning the row's raw HTML for a href on a registered host — while several register templates render only the first entry of a row's sources or links array in the summary table. A row that lists the live site first and the official page second therefore passes the gate while showing the reader the uncheckable citation. Pass 13 met this five times in one hour: Q-29, Q-30, Q-32, D-17 and R-9 each failed the build until a repository link was moved to the front of the array, which fixes the symptom by reordering data rather than by correcting the rule.",
+      "problem": "The build refuses a table row that cites no official source, which is the strongest guarantee on this site. It is enforced by scanning the row's raw HTML for a href on a registered host — while several register templates render only the first entry of a row's sources or links array in the summary table. A row that lists the live site first and the official page second therefore passes the gate while showing the reader the uncheckable citation. Pass 13 met this five times in one hour: Q-30, Q-31, Q-33, D-17 and R-9 each failed the build until a repository link was moved to the front of the array, which fixes the symptom by reordering data rather than by correcting the rule.",
       "evidence": [
         {
           "label": "The gate itself (row_is_sourced / check_row_sources)",
@@ -2560,7 +2571,7 @@
       "effort": "Three quarters of it shipped on 2026-11-17 (SG-39, SG-40, SG-41, and SG-44/SG-45/SG-47 as decisions). What is left is two owner actions: the photography route (SG-42) and the measurement host (SG-47).",
       "must_be_true_first": "You accept that no picture, no price guarantee and no popularity claim appears on this site unless its source is on the page. That is the constraint the design has to live inside; it is why SG-42 is the highest-leverage row in the path.",
       "delivers": "A front page that opens with goods, product pages that answer the two buyer questions in order, a mobile reader who is never stuck, and a design record an owner can review without reading the build.",
-      "does_not_fix": "Traffic, indexing of the parallel builds, and the fact that the site cannot yet see a single click. SG-44, SG-47 and Q-30 are the rows that fix those.",
+      "does_not_fix": "Traffic, indexing of the parallel builds, and the fact that the site cannot yet see a single click. SG-44, SG-47 and Q-31 are the rows that fix those.",
       "pick_this_if": "You want the site to look like a publication someone runs, and you will supply one of the two decisions.",
       "why_first": "It sits last in the order on purpose: the compliance floor (P1) and findability (P3) are what make a polished page worth polishing. If you want the visual change before the indexing work, put P7 ahead of P3 - nothing in P7 depends on P3, and nothing in P3 depends on it."
     }
