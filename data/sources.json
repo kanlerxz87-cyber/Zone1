@@ -199,7 +199,7 @@
    "covers": "Tracking IDs / sub-tag reporting model",
    "kind": "Help article",
    "directness": "Primary",
-   "page_version": "Live page, 2026-11-13"
+   "page_version": "Live page, 2026-11-13 Re-read verbatim 2026-11-17 (arena/58cbaaa2-zone1) because the account holder supplied a tracking ID that day: the worked example remains 'storeid-20' with sub-tag 'storeid-1-20'; each ID can be reported individually; new IDs are created at Associates Central > 'Manage your Tracking ID'. The node states no validation rule and publishes no per-account list, so it can confirm the shape of an ID and nothing more."
   },
   {
    "id": "S7",
@@ -534,6 +534,46 @@
    "kind": "Platform documentation",
    "directness": "Primary — GitHub documentation for its Pages hosting product",
    "page_version": "Reference URL recorded 2026-11-17; page content not fetched in this integration."
+  },
+  {
+   "id": "S39",
+   "org": "CHEF iQ (brand)",
+   "url": "https://chefiq.com/products/iq-sense",
+   "title": "CHEF iQ iQ Sense wireless meat thermometer — official product page",
+   "covers": "The brand's own model designation, probe configuration and ambient rating for the iQ Sense, checked against the listing observed at /dp/B0DZFD6R9Z",
+   "kind": "Brand product page",
+   "directness": "Primary",
+   "page_version": "Read 2026-11-17 (arena/58cbaaa2-zone1). The brand page states model CQ60-3C-Z3-E, the Gen3 probe configuration and an ambient rating the observed Amazon listing does not repeat, and lists air-fryer use among the product's heat environments. It does not mention an Amazon ASIN. Registered because it is what the manufacturer states, not because it confirms a listing identity — see flag F80. Evidence: reports/verification-2026-11-17-58cbaaa2.md."
+  },
+  {
+   "id": "S40",
+   "org": "ThermoMaven (brand)",
+   "url": "https://www.thermomaven.com/",
+   "title": "ThermoMaven official site — instant-read and wireless thermometer line-up",
+   "covers": "The brand's own instant-read model names, checked against the '1 Sec' title on the listing observed at /dp/B0DHZTCNR5",
+   "kind": "Brand site",
+   "directness": "Primary",
+   "page_version": "Read 2026-11-17 (arena/58cbaaa2-zone1). The brand's instant-read line is named F1 Pro / F1 Turbo with a sub-second read; the site does not use '1 Sec' as a model name. Recorded as a divergence, not resolved: this site makes no claim about which product the submitted short code was created to promote (flag F80, Q-27). Evidence: reports/verification-2026-11-17-58cbaaa2.md."
+  },
+  {
+   "id": "S41",
+   "org": "Amazon.com Associates Central",
+   "url": "https://affiliate-program.amazon.com/help/node/topic/GF4RJEQNXSMR7SP3",
+   "title": "Why doesn't my tracking ID appear in your URL after a visitor clicks through to Amazon from my Web site?",
+   "covers": "Whether an absent tag= parameter on a landing URL can be read as evidence about attribution",
+   "kind": "Help article",
+   "directness": "Primary",
+   "page_version": "Read 2026-11-17 (arena/58cbaaa2-zone1), from the linked-topic list on S6. Full answer, verbatim: “We understand your concern, but rest assured that it is not necessary for your unique ID to appear in order for us to track sales made after the initial click through. The individual shopping session will be tagged in a way that allows us to track the items purchased and credit you with the appropriate commission.” This is the official statement that a landing URL without a visible tag is not evidence either way; it says nothing about whether a particular link carries a particular ID. Flag F81."
+  },
+  {
+   "id": "S42",
+   "org": "Amazon.com Associates Central",
+   "url": "https://affiliate-program.amazon.com/help/node/topic/GJDYPQZK6E37RLPU",
+   "title": "How do I request multiple tracking IDs?",
+   "covers": "Where additional tracking IDs are created, the 100-per-account limit, and the report where each ID's data is read",
+   "kind": "Help article",
+   "directness": "Primary",
+   "page_version": "Read 2026-11-17 (arena/58cbaaa2-zone1), from the linked-topic list on S6. Verbatim: to create multiple IDs, “visit your account and click on ‘Manage your Tracking ID’” (linked as https://affiliate-program.amazon.com/home/account/tag/manage); “Once they have been created, you will be able to see data on each ID in your Tracking ID Summary Report”; “there is a limit of 100 Tracking IDs per associate account”, with Associates Customer Service named for further requirements. This is where the enrolled-Associates test result this site waits for is actually read, and it is the second official page naming that screen."
   }
  ],
  "reverified_scope": "Pass 11 (arena/2e346d24-zone1) re-read live on 2026-11-16: S1, S2, S3, S4, S5, S8, S9, S10, S17, S28, S29, then S12, S14 and S18 later in the same session — fourteen sources in total. NOT re-read in pass 11 and therefore not restated: S6, S7, S11, S13, S15, S16, S19-S27, S30-S34, and the 8 Qt owner's-manual PDF. F3 (450 °F) was re-established live against S12 and the listing title; F4/F5 (Emeril presets) against S14. S15, the Emeril owner's manual, was NOT re-read, so the 24-preset count is carried forward and not re-asserted. Evidence: reports/verification-2026-11-16-2e346d24.md",
@@ -646,5 +686,37 @@
   "method": "Registered S38 as a documentation reference; did not fetch the page content.",
   "read_live": [],
   "what": "The repository config points to a GitHub Pages public origin. No first-party analytics runtime or endpoint was verified in this integration."
+ },
+ "reverified_2026_11_17_0cf55ef3": {
+  "session": "arena/0cf55ef3-zone1",
+  "date": "2026-11-17",
+  "method": "server-side fetch (fetch_page) of each URL below; every value was read from the live response body in this session, not copied from an earlier session's record",
+  "read": [
+   "S1",
+   "S2",
+   "S3",
+   "S4",
+   "S8",
+   "S9",
+   "S10",
+   "S12",
+   "S14",
+   "S17",
+   "S28",
+   "S29",
+   "S36",
+   "S37"
+  ],
+  "observations": {
+   "short_links": "All five supplied link.amazon tokens were re-opened: B04G1MEwY -> /dp/B0CDY277D3, B02NbDxp3 -> /dp/B09B7SB46R, B00hJ57DV -> /dp/B08DKYBTPH, B0c8moW59 -> /dp/B0DHZTCNR5, B0f3GKalj -> /dp/B0DZFD6R9Z. Every target is unchanged from the register; all five still resolve through lv=shuf / plpRedirect=mhFallback-style parameters with no visible tag=, so F17/F24 and Q-04 remain open exactly as recorded.",
+   "s1_s2_stamps": "S1 Operating Agreement still reads 'Updated: October 15, 2025'; S2 Program Policies still reads 'Updated: April 14, 2026'. Both match the register.",
+   "s3_commission": "S3 fee table unchanged: Table 1 Kitchen 4.50%, All Other 4.00%; bounty rates $12.00 (Prime), $5.00 (Prime Video First Stream), $0.25 (Stream).",
+   "s4_eligibility": "S4 eligibility thresholds unchanged: 3 qualifying sales in 180 days, ~10 posts, 500+ organic followers.",
+   "s8_ftc": "S8 Disclosures 101 still dated November 2019 and still uses 'hard to miss' and the 'can't talk about a product you haven't tried' rule.",
+   "s9_ecfr": "S9 eCFR Part 255 renders 'up to date as of 11/13/2026'; last amended 10/30/2026 (88 FR 48102). The register carries 11/12/2026; eCFR re-stamps daily and no substantive text changed, so this is a benign one-day roll, recorded rather than repaired.",
+   "s10_s12_s14": "Brand pages unchanged: Chefman 6 Qt RJ38-SQPF-3TDB-2W (1310 reviews line, 450 F Hi-Fry, Sync Finish); Chefman 8 Qt RJ38-SQSS-8T (717 reviews line, 200-400 F); Emeril FAFO-001 (25 Presets icon, $199.99, 2.6/25, 10-in-1). The live 25-vs-24 preset conflict is still present on the vendor page, so F4/F5 stay open by design."
+  },
+  "not_read_by_this_pass": "S5, S6, S7, S11, S13, S15, S16, S18-S27, S30-S35 were not re-fetched by this pass and nothing about them is restated as current here. The Emeril and Chefman owner's-manual PDFs (S15 and the 8 Qt manual) were also not re-opened, so the 24-preset count and the manual-only claims are carried forward from the records that read them.",
+  "deliberately_not_used": "Prices, star ratings, review counts and Best Sellers Rank values visible in the live responses were read and excluded from every published surface, per S2 and this repository's no-price/no-rating rule. Review-count figures are cited only as date-stamped vendor-page readings inside the source register, never on reader-facing pages."
  }
 }

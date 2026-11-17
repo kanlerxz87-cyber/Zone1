@@ -32,7 +32,7 @@
       "fires_when": "A human opens any article, product, comparison or guide page. The page type is derived from the URL by the build, so a new page is classified by where it lives.",
       "records": ["page slug", "UTC date", "whether the arrival carried a utm_source/campaign parameter"],
       "explicitly_not_recorded": ["IP address", "user agent", "referrer URL", "reader identifier"],
-      "note": "Slug and date only. A per-reader identifier would turn this into behavioural tracking and break the no-cookie statement. The utm parameter is recorded as a yes/no, not as its value: the value is what would let one page tell which channel sent it, and that is a wider question for the owner, not a detail this pass may settle (Q-27)."
+      "note": "Slug and date only. A per-reader identifier would turn this into behavioural tracking and break the no-cookie statement. The utm parameter is recorded as a yes/no, not as its value: the value is what would let one page tell which channel sent it, and that is a wider question for the owner, not a detail this pass may settle (Q-29)."
     },
     {
       "id": "EV-02",

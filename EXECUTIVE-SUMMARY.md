@@ -1389,12 +1389,87 @@ class — repaired within the session (`3e4859f`) and logged.
 `verify.py` 128 pages, 46 spec rows (44 verified, 2 blank+flagged), 35 sources, 0 errors ·
 `ci-check.sh` 7,958 links, 0 broken.
 
-## 24. Pass 13 — measurement client, four reader-intent clusters, live evidence (2026-11-17, session `arena/79743fd2`, branch `arena/79743fd2-zone1`)
+---
+
+## 24. Pass 13 — the pass that deleted its own work, twice (2026-11-17, session `arena/58cbaaa2-zone1`)
+
+**Branch** `arena/58cbaaa2-zone1`, built on `9c6e3f0`, landed on `4609ff3`.
+**Evidence:** [`reports/verification-2026-11-17-58cbaaa2.md`](reports/verification-2026-11-17-58cbaaa2.md) ·
+**Withdrawn draft:** [`session-58cbaaa2/artifacts/`](session-58cbaaa2/artifacts/README.md)
+
+### 24.1 The finding worth more than the feature list
+
+Ten PRs merged while this pass worked, and the most useful thing it did was notice that its own
+deliverables already existed, in better form, with tests attached. It had built a second product-intent
+register (retired by the consolidation in `arena/5b17c077`), a second measurement register (superseded by
+main's five-event file and the fail-closed `analytics/collector.py`), and a gate refusing to emit a tagged
+link until the account holder confirmed the ID — then main's own `check_intent_measurement_contract()`
+arrived and took the harder line: `associate_tag` stays blank, collection stays off, and
+`tests/test_build_contract.py` fails if anyone flips either. Each duplicate was dropped rather than
+merged, and the drop list is published with the draft so the work stays auditable. A browser click counter
+that was working and shipped-as-code got the same treatment: it would have made the footer's
+"browser collection remains disabled" sentence false, so it became **SG-38 path C** with the reason
+written on the row. The rule this session learned, recorded for whoever is next: **fetch before you
+build.**
+
+### 24.2 What is new, and why it could not be derived from what main had
+
+All five submitted links were re-resolved on 2026-11-17; PI-04 → `/dp/B0DHZTCNR5` and PI-05 →
+`/dp/B0DZFD6R9Z`, both under *Thermometers & Timers › Meat*, all five through the same `mhFallback` form
+with no `asin=` parameter. The increment is the second opinion: both candidates were read against their
+manufacturers' own catalogues rather than their listings (**S39** CHEF iQ, **S40** ThermoMaven), and
+neither reconciles — ThermoMaven's instant-read line is F1 Pro / F1 Turbo and does not use the "1 Sec"
+label the listing carries; CHEF iQ states CQ60-3C-Z3-E where the listing gives a product name. So the
+rows cannot be closed by a pass reading harder, which is why no product page exists for either and why
+the decision is put to the owner as **SG-36 / Q-27** with three named paths (**F80**). The brand-catalogue
+table on `product-intent.html` is generated from the register's own fields: a new row needs no template
+edit, and each verdict cell links to the flag rather than reading as a closed item.
+
+### 24.3 The correction, and the discipline around it
+
+**F81.** Two help nodes reachable from `S6`, read the same day, narrow what a landing URL can show.
+Amazon states that a tracking ID "is not necessary … to appear in order for us to track sales made after
+the initial click through" (**S41**) — so the missing `tag=` parameter that several passes cited beside
+their caution about attribution is a *null* observation, not a negative one, and it can never satisfy the
+per-row `associates_link_test_*` fields. **S42** names where the real confirmation is read (Tracking ID
+Summary Report), the screen that creates IDs and the 100-per-account limit — the material for
+**SG-37 / Q-28**, which is the only item on the queue that unblocks revenue and the only one whose
+bottleneck is a login. The correction is applied where the inference is drawn in the present tense and in
+dated brackets on the two `decision.json` rows; the historical rows are untouched, because they are
+records of what those passes saw and editing them backwards would remove the audit trail that makes them
+evidence.
+
+### 24.4 The count defect, now with a guard that can actually fail
+
+**F82.** The category lede still opened "The three supplied links were observed landing…" two days after
+the register grew to five: the same class as F73/F77/F79, one step up, because every number inside the
+sentence was fine and nothing read the narrative. It now computes its counts from `len(rows)` and the
+register's `observed_listing_category`, and `check_submitted_link_count()` fails the build on a
+mismatch — scoped to the shopper surfaces and the two registers, so a dated row that truthfully says
+"all three supplied links" about 2026-11-14 can never be "fixed" by rewriting history. Both directions
+were proven, and the proof is what caught the interesting bug: the first pattern required a lead-in word
+(`all`, `none of`) and matched nothing at all. **A guard that cannot fail is a comment with a name**, and
+it is recorded that way in the flag rather than tidied out of it.
+
+### 24.5 Not done, and gates
+
+No prices, ratings, review counts or rankings; no photography; no analytics endpoint, and no browser
+collection while main's contract keeps it off; no ledger row, conversion score or revenue forecast; no
+claim that the supplied links are invalid; no unilateral edit to a merged decision or to another
+session's annex.
+
+`build.py` exit 0 — 52 pages, 31 sitemap URLs, `feed.xml` 21 items, two consecutive builds
+byte-identical, rebuild leaves the working tree clean · `verify.py` 130 pages, 77 spec rows
+(75 verified / 2 blank+flagged), 42 sources, 0 warnings, 0 errors, one pre-existing NOTE ·
+`ci-check.sh` 33 platform tests, data audit clean, s2 annex current, 9,585 links / 0 broken ·
+`python3 -m unittest discover -s tests` 17 tests OK (the intent/analytics contract included) ·
+`scripts/verify_site.py` 393 assertions PASSED · `research/check_research.py` 834 checks OK.
+## 25. Pass 13 — measurement client, four reader-intent clusters, live evidence (2026-11-17, session `arena/79743fd2`, branch `arena/79743fd2-zone1`)
 
 X13, claimed in `COORDINATION.md` before editing. Three deliverables, each with a build-enforced
 guard and a deliberate fault test behind it:
 
-### 24.1 Privacy-preserving outbound-click counter — shipped, intentionally OFF
+### 25.1 Privacy-preserving outbound-click counter — shipped, intentionally OFF
 
 * **Client** (`assets/analytics.js`, generated from `build.py`): records the defined events only —
   EV-01 page_view, EV-02 outbound_product_click, EV-03 guide_completed, EV-04
@@ -1415,7 +1490,7 @@ guard and a deliberate fault test behind it:
   state; **Q-27** added (may campaign parameter values be recorded?); E-03 → `partial`; F-04's
   rationale rewritten to the current state. Decision-log entry **SG-08** (path B, disabled).
 
-### 24.2 Four reader-intent clusters — all 21 articles filed one-to-one
+### 25.2 Four reader-intent clusters — all 21 articles filed one-to-one
 
 * `data/clusters.json`: **Choose** (7 articles), **Spec** (6), **Live with it** (4),
   **Trust & policy** (4) — named hubs, exact membership, every article exactly once.
@@ -1426,7 +1501,7 @@ guard and a deliberate fault test behind it:
   records; two deliberate fault injections (unfiled article; nonexistent member) each failed the
   build and were restored. Decision-log entry **SG-35** (done).
 
-### 24.3 Live evidence pass
+### 25.3 Live evidence pass
 
 Re-read as a reader on 2026-11-17 and recorded in
 [`reports/verification-2026-11-17-79743fd2.md`](reports/verification-2026-11-17-79743fd2.md):
@@ -1439,20 +1514,20 @@ Associates Operating Agreement (updated Oct 15, 2025) and Program Policies (upda
 irregularity resolved by inference. F3 · F4/F5 · F6 · F10 · F11 · F70 · F71 · F76 · F81 · F82 and
 Q-01..Q-04, Q-08, Q-27 stand as published.
 
-### 24.4 Register reconciliation and gates (final tree)
+### 25.4 Register reconciliation and gates (final tree)
 
 SG-28 (RSS feed) and SG-35 marked done with decision-log entries; SG-08 marked partial (client
 shipped disabled). `README.md` counts refreshed (21 articles · 34 suggestions · 27 questions).
 Gates re-run after the cluster pass and **again on the final merged tree**: `build.py` exit 0 —
 **131 pages, 32 sitemap URLs** (the indexable publication set plus `clusters.html`), **21 feed
 items**, two builds byte-identical · `verify.py` 131 pages, 77 spec rows (75 verified / 2
-blank+flagged), **38 sources**, 0 errors, 0 external warnings · `tests/` **17 unit tests OK**
+blank+flagged), **42 sources**, 0 errors, 0 external warnings · `tests/` **17 unit tests OK**
 (collector, intent gate, integration output) · `ci-check.sh` OK — 33 unit tests, data audit clean,
-**9,754 links / 0 broken** · `verify_site.py` **393 assertions, ALL PASSED** ·
+**9,895 links / 0 broken** · `verify_site.py` **393 assertions, ALL PASSED** ·
 `research/check_research.py` OK · `platform/audit/report.py` AUDIT PASSED (0 warnings) ·
 `node --check` OK on `assets/app.js` and `assets/analytics.js` · `git diff --check` clean.
 
-### 24.5 Merge seam — this branch met main at `4609ff3` (PRs #124–#138)
+### 25.5 Merge seam — this branch met main at `4609ff3` (PRs #124–#138)
 
 `gh pr merge 142` first refused: `main` had taken the five-link intent records, the
 product-intent/campaign-ledger passes, the buyer-first homepage (test-pinned), a measurement plan
