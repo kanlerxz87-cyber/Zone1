@@ -5609,3 +5609,21 @@ whether TP-22/TP-23 get written. (4) When the owner submits another link, add a 
 **PRs and merges.** Recorded in the follow-up commit on this branch once the merge and the Pages read-back
 are known, per the house pattern (this row ships inside the PR it describes, so the merge sha cannot be
 in it).
+
+**Sources:** the three product pages already registered for TP-21 (`chefman.com` ×2, `emerileveryday.com`), as last read in the earlier 2026-11-17 pass (the `data/sources.json` page_version stamps). **This session did not re-fetch them**, so no new live check is claimed; no new source ID was added.
+
+**Gates:** `python3 build.py` exit 0 · `python3 verify.py` 77 spec rows, 37 sources, 0 errors, 0 external warnings · `bash scripts/ci-check.sh` OK, 8,769 links / 0 broken.
+
+---
+
+## Task board — arena/0cf55ef3-zone1 (2026-11-17 UTC) — verification & decision-support pass
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-0cf55ef3 | Independent pass per the standing brief: line-by-line repo review; live re-verification of the five supplied `link.amazon` links and the key official sources; defect hunt over the newest additions (TP-21 / shop-pass copy, PR #135); review of the suggestions register and the decision gate against the "review suggestions before implementing" brief; all gates green; PR → merge → Pages confirm → record | in progress | arena/0cf55ef3-zone1 (session 0cf55ef3) | `COORDINATION.md`; `reports/verification-2026-11-17-0cf55ef3.md` (new); regenerated root HTML if a defect is repaired; whole tree at integration |
+
+### Claim log — arena/0cf55ef3-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17T17:05Z | arena/0cf55ef3-zone1 (session 0cf55ef3) | Claimed X-0cf55ef3. Rebased to `origin/main` @ `913d0ab` (includes PR #135). No open claim from another session; the blocked items recorded by C55-1 (Associates test, analytics host, Search Console, photography, ledger figures) are owner actions and are not re-claimed here. This session edits only the files in its claimed scope; `data/topics.json` / `EXECUTIVE-SUMMARY-SHOP-PASS.md` (C55 scope) are read-only for this pass. |
