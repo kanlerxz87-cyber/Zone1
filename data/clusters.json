@@ -1,0 +1,70 @@
+{
+  "version": "1.0",
+  "compiled": "2026-11-17",
+  "session": "arena/79743fd2-zone1",
+  "purpose": "The article set had twenty-one pieces and no map. Internal linking was whatever a reader happened to click next, and the 'Read next' list on every article showed the same three articles because it was simply the first three rows of the file. A small site earns a commercial query by owning one cluster completely rather than by publishing one page per idea, so this file groups the articles by the question a reader actually arrives with, names a hub for each group, and lets the build draw the links instead of a person guessing them.",
+  "rule": "Every article belongs to exactly one cluster. The clusters are editorial, not topical: they are the four questions a shopper brings to a page like this one. Membership is a judgement about what a reader is trying to decide, and it is recorded here so the judgement can be reviewed rather than re-made at every link.",
+  "clusters": [
+    {
+      "id": "choose",
+      "label": "Which machine should I buy?",
+      "hub": "guides/buying-guide-air-fryers.html",
+      "hub_label": "The buying guide",
+      "intent": "Commercial investigation",
+      "summary": "The reader has not settled on a form factor yet, or has two in mind and wants the difference in plain numbers. This cluster compares shapes: two baskets against one, basket against countertop oven, and the counter-space and capacity arithmetic that decides between them before any brand is considered.",
+      "members": [
+        "dual-basket-vs-oven-air-fryer",
+        "dual-basket-vs-single-basket",
+        "air-fryer-capacity-guide",
+        "small-kitchen-air-fryer-dimensions",
+        "sync-finish-explained",
+        "rotisserie-at-home",
+        "air-fryer-gift-guide-2026"
+      ]
+    },
+    {
+      "id": "spec",
+      "label": "What do the numbers actually mean?",
+      "hub": "compare.html",
+      "hub_label": "The side-by-side matrix",
+      "intent": "Comprehension",
+      "summary": "The reader has a machine in mind and wants to read its specification sheet without being sold to. This cluster takes the published numbers one at a time: what a temperature badge means, how many presets a listing actually has, what the box contains, and which of two models carries a given name.",
+      "members": [
+        "how-to-read-an-air-fryer-spec-sheet",
+        "what-450f-actually-means",
+        "25-or-24-presets",
+        "whats-in-the-box",
+        "chefman-8qt-two-models",
+        "chefman-6qt-documented-review"
+      ]
+    },
+    {
+      "id": "live",
+      "label": "What is it like to live with?",
+      "hub": "articles/how-to-clean-an-air-fryer.html",
+      "hub_label": "Start here: cleaning",
+      "intent": "Ownership",
+      "summary": "The reader has bought, or is about to buy, and the questions are no longer about features. Cleaning, the coating that must not be sprayed, whether the lead will reach the socket, and what the running cost looks like on one circuit. Everything here comes out of the owner's manuals, because the manuals are where the answers actually are.",
+      "members": [
+        "how-to-clean-an-air-fryer",
+        "aerosol-oil-warning",
+        "extension-cord-rules-in-the-manuals",
+        "energy-cost-of-an-air-fryer"
+      ]
+    },
+    {
+      "id": "trust",
+      "label": "Can this page be trusted with my money?",
+      "hub": "compliance.html",
+      "hub_label": "The rules, quoted",
+      "intent": "Trust",
+      "summary": "The reader suspects the page is an advert wearing the costume of advice. This cluster is where the site answers that suspicion in the open: why there is no price on this site, what the disclosure obligation actually is, who pays for a review, and what happened to a model's number during a sale.",
+      "members": [
+        "associates-disclosure-explained",
+        "no-amazon-prices",
+        "who-actually-pays-for-air-fryer-reviews",
+        "black-friday-model-number-switch"
+      ]
+    }
+  ]
+}
