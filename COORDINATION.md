@@ -5720,3 +5720,15 @@ Flagged for review page with source links.
 | UTC time | Session | Action |
 |----------|---------|--------|
 | 2026-11-17T17:12Z | arena/0cf55ef3-zone1 (session 0cf55ef3) | PR #143 merged as `e954285`; all four `main` workflows success; Pages `status: built` at the merge commit, `error: null`; live read-back confirms the repairs serve. X-0cf55ef3 **done**. |
+
+## Task board — arena/c9e97e02-zone1 (2026-11-17 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| C9 | **Shipment pass for the brief's blank-status items.** (1) Turn on click measurement: ship the privacy-preserving outbound-click counter (EV-01…EV-04 per data/measurement.json) and a self-hosted analytics endpoint (platform/analytics/), keep the footer §3(e) statement truthful in the same commit, keep the campaign ledger empty. (2) S-07: four question-shaped guides (one page per question) from the brief's editorial hypotheses, added to topics register, sitemap and feed. (3) S-20: mobile-first pass — fluid type scale, ≥44px tap targets, sticky comparison bar. (4) S-25 / "one site to index": robots.txt stops indexing the parallel annex builds; dated growth-on-the-verification-angle plan. (5) Register updates (requirements, measurement, suggestions, questions), executive summary, live re-read of the load-bearing sources, PR → merge → Pages. | in progress | arena/c9e97e02-zone1 (session c9e97e02) | `COORDINATION.md`; `build.py` (CSS/JS blocks, layout footer, robots generator, measurement page, compare page, guards); `assets/app.js` + `assets/style.css` (regenerated); `platform/analytics/**` (new); `data/measurement.json`, `data/articles.json`, `data/topics.json`, `data/requirements.json`, `data/suggestions.json`, `data/questions.json`, `data/config.json`; `articles/*.html` + all regenerated root HTML; `README.md`; `EXECUTIVE-SUMMARY.md`; `reports/verification-2026-11-17-c9e97e02.md` |
+
+### Claim log — arena/c9e97e02-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17 | arena/c9e97e02-zone1 (session c9e97e02) | Read the board top to bottom and the current tree (`e5fc007` = origin/main; `python3 build.py` + `python3 verify.py` green: 51 sitemap URLs, 21 feed items, 130 pages, 0 errors). Every prior row is `done` or `needs review`; no task is claimed elsewhere. Arena pins this session to `arena/c9e97e02-zone1`, which stands in for the protocol's `session-<id>/<task>` branch. Scope is deliberately additive: the parallel-build directories (`site/`, `s2/`, `research/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*`, other `session-*`) are not edited. Taking the integration role for the shared outputs named above since no other session is active. Measurement is implemented before the article writing, per the brief's "Turn on click and conversion measurement before writing anything else". |
