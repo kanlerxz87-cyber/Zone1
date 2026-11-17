@@ -557,8 +557,94 @@ footer.site strong{color:#f4f1e2}
   table{font-size:.8rem}
   footer.site{padding:1.8rem 1rem 1.5rem}
 }
+/* =====================================================================
+   Shopfront pass — arena/fd9778a1-zone1 (2026-11-17), brief row S-20
+   ("mobile-first pass: type scale, tap targets, sticky comparison bar")
+   and SG-04/SG-15 (make it read like a shop).
+   Presentation only: nothing below generates a product value, price,
+   rating or claim. The figures a card shows are read from
+   data/products.json by the page function; this block only decides
+   where and how big they appear.
+   ===================================================================== */
+
+/* Fluid type scale. One clamp() per level so a 320 px phone and a 1600 px
+   desktop share a rhythm instead of the desktop scale being shrunk whole. */
+h1{font-size:clamp(1.85rem,1.1rem + 3.0vw,2.95rem)}
+h2{font-size:clamp(1.32rem,.95rem + 1.6vw,2.02rem)}
+h3{font-size:clamp(1.07rem,.99rem + .38vw,1.28rem)}
+h1.hero-title{font-size:clamp(2.3rem,1.35rem + 4.2vw,4.1rem)}
+
+/* Tap targets. The interactive chrome — nav, buttons, footer links, the
+   comparison bar — meets the 44 px minimum (WCAG 2.5.8 target size). Inline
+   links inside prose and table cells keep their density on purpose: widening
+   those would break the tables the site exists to show. */
+.btn,footer.site a,.sidebar a,.navtoggle,.topnav a,.shopbar a{min-height:44px}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:.4rem;
+  padding:.6rem 1.05rem; line-height:1.2}
+.sidebar a{display:flex; flex-direction:column; justify-content:center; padding:.5rem .6rem}
+.navtoggle{min-width:62px; padding:.3rem .8rem}
+.topnav a{display:inline-flex; align-items:center; padding:.35rem .7rem}
+footer.site a{display:inline-flex; align-items:center}
+
+/* A wide table on a narrow screen must stay readable. The wrap already scrolls;
+   assets/app.js reveals the one-line hint under it only when there really is
+   content hidden to the right, and hides it again at the last column. The hint is
+   a sibling of the scroller rather than an overlay, so it cannot drift as the
+   table moves. */
+.tablewrap-hint{display:none; font-size:.74rem; color:var(--muted); margin:.3rem 0 .55rem}
+.tablewrap-hint.show{display:block}
+
+/* The sticky comparison bar: one persistent route to the two pages a buyer who
+   is undecided needs. Mobile and tablet only, sits above the home indicator,
+   and steps out of the way once the footer is on screen (.at-page-end, JS). */
+.shopbar{position:fixed; left:0; right:0; bottom:0; z-index:40; display:none;
+  align-items:stretch; gap:.4rem; padding:.5rem .6rem;
+  padding-bottom:calc(.5rem + env(safe-area-inset-bottom));
+  background:rgba(255,253,247,.97); border-top:1px solid var(--line-strong);
+  box-shadow:0 -6px 18px rgba(33,40,33,.09);
+  transition:transform .18s ease}
+.shopbar.hide{transform:translateY(115%)}
+.shopbar .sb-label{display:flex; flex-direction:column; justify-content:center;
+  padding:0 .45rem 0 .1rem; min-width:0; max-width:36%}
+.shopbar .sb-label strong{font-family:var(--serif); font-size:.9rem; color:var(--brand-ink); line-height:1.25}
+.shopbar .sb-label small{font-size:.66rem; color:var(--muted); line-height:1.3}
+.shopbar a{flex:1 1 0; display:inline-flex; align-items:center; justify-content:center;
+  border-radius:11px; font-size:.84rem; font-weight:650; text-decoration:none;
+  padding:.4rem .5rem; text-align:center; line-height:1.2}
+.shopbar .sb-primary{background:var(--brand); color:#fff}
+.shopbar .sb-primary:hover{background:var(--brand-deep); color:#fff}
+.shopbar .sb-ghost{border:1px solid var(--brand-line); color:var(--brand-deep); background:var(--brand-soft)}
+@media (max-width:880px){
+  .shopbar{display:flex}
+  main{padding-bottom:5.4rem}
+}
+
+/* Merchandising rows on the product cards and the product page. The label is
+   editorial framing; both cells are quoted from the sourced spec and flag rows
+   that appear on the same page, with their own source chips. */
+.pcard{display:flex; flex-direction:column}
+.pcard dl.merch{margin:.65rem 0 .2rem; padding:0; border-top:1px solid var(--line)}
+.pcard dl.merch>div{display:grid; grid-template-columns:6.4rem 1fr; gap:.55rem;
+  padding:.5rem 0; border-bottom:1px dashed var(--line)}
+.pcard dl.merch dt{font-size:.66rem; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--accent); font-weight:700; padding-top:.12rem}
+.pcard dl.merch dd{margin:0; font-size:.82rem; line-height:1.45; color:var(--ink)}
+.pcard dl.merch dd a{white-space:nowrap}
+.pcard .price-line{display:flex; align-items:baseline; flex-wrap:wrap; gap:.4rem;
+  margin:.55rem 0 0; padding:.5rem 0 0; border-top:1px solid var(--line)}
+.pcard .price-line b{font-family:var(--serif); font-size:1.35rem; color:var(--brand-ink); letter-spacing:-.01em}
+.pcard .price-line .pl-note{font-size:.68rem; color:var(--muted); flex:1 1 100%}
+.pcard .pcard-cta{margin-top:auto; padding-top:.7rem}
+.verdict-strip{display:grid; gap:.55rem; margin:.9rem 0 0}
+@media (min-width:760px){.verdict-strip{grid-template-columns:1fr 1fr}}
+.verdict-strip .vs{border:1px solid var(--line); border-left:3px solid var(--accent);
+  border-radius:12px; background:var(--panel); padding:.65rem .8rem; box-shadow:var(--shadow)}
+.verdict-strip .vs dt{font-size:.66rem; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--accent); font-weight:700; margin-bottom:.2rem}
+.verdict-strip .vs dd{margin:0; font-size:.87rem; line-height:1.5}
+
 @media print{
-  .topbar,.sidebar,.navtoggle,.topnav,.cta-row,.share{display:none}
+  .topbar,.sidebar,.navtoggle,.topnav,.cta-row,.share,.shopbar{display:none}
   body{background:#fff}
   .card,.tablewrap,.stat,.sug,.qcard{box-shadow:none}
   .editorial-hero{border:1px solid #ddd}

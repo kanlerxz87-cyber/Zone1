@@ -5864,3 +5864,118 @@ AUDIT PASSED (0 warnings) · `node --check` OK on both JS assets.
 **State-of-play recorded, not decided:** on current main `data/config.json` carries `associate_tag: ''` — PR #137 blanked the brief's selected ID `shopnow047c-20` pending an enrolled-Associates test and removed `check_associate_tagging()`, reversing PR #128's wiring. The site publishes this honestly (F76, product-intent "recorded only", Q rows, SG row), and open PR #141 proposes re-wiring it. Also observed: 20 `/dp/` evidence-citation anchors ship `rel="noopener"` only (consistent with the recorded D-05 citation rationale) while every CTA and clickable `link.amazon` anchor carries `rel="sponsored"`. Nothing was changed; both items are in the report for the owner or the next pass.
 
 **Carried forward unchanged and published:** F3, F4/F5, F70, F71, F11, F76, F81, F82, Q-01/Q-02/Q-04, the 2 blank+flagged spec rows. Nothing was filled by inference.
+
+## Task board — arena/fd9778a1-zone1 (2026-11-17 UTC) — shopfront polish pass + decision desk (pass 13)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| T13-1 | Shopfront polish: mobile-first pass (fluid type scale, ≥44 px tap targets, sticky comparison bar) and merchandising layer on the front page and product pages — presentation only, no new product values | in progress | arena/fd9778a1-zone1 | `build.py` (CSS constant, `page_index`, `page_product`, `page_compare`, layout chrome), regenerated HTML |
+| T13-2 | Decision desk: extend the canonical registers additively — design/marketing suggestions with a recommended path, and the questions + discovery steps that must be answered before a design decision can be made | in progress | arena/fd9778a1-zone1 | `data/suggestions.json`, `data/questions.json`, `data/design-prompt.json`, `data/requirements.json`, regenerated `suggestions.html`/`questions.html`/`design-prompt.html`/`requirements.html` |
+| T13-3 | Publish the two question-shaped guides the topic queue left unwritten (A-8 brand-vs-brand comparison, TP-21 questions-to-ask checklist), sourced only from registered official pages | in progress | arena/fd9778a1-zone1 | `data/articles.json`, `data/topics.json`, regenerated `articles/*`, `sitemap.xml`, `feed.xml` |
+| T13-4 | Line-by-line re-read of every source the new copy relies on, with dated observation stamps and any irregularity published on the flagged register | in progress | arena/fd9778a1-zone1 | `data/sources.json`, `build.py` (flag rows), regenerated `flagged.html`, `reports/verification-2026-11-17-fd9778a1.md` |
+
+### Claim log — arena/fd9778a1-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17 | arena/fd9778a1-zone1 | Read the board before starting. Rebased onto `origin/main` at `913d0ab` (session c55fa0d8's shop brief, PR #135, merged 16:35Z) — their scope was `data/topics.json` + `topics.html` + the shop-pass briefing; mine is additive on top of it and I will not rewrite TP-21's row, only mark it published. No open claims from any other session in `build.py`, `data/articles.json`, `data/suggestions.json`, `data/questions.json`, `data/design-prompt.json`, `data/requirements.json` or `data/sources.json`; the parallel builds (`s2/`, `site/`, `research/`, `docs/`, `dashboard/`, `annex-*/`, `session-*/`) are not in scope and will not be edited. |
+| 2026-11-17 | arena/fd9778a1-zone1 | Baseline recorded before any edit: `python3 build.py` exit 0 (51 sitemap URLs, 21 feed items) · `python3 verify.py` 130 pages, 77 spec rows (75 verified / 2 blank+flagged), 37 sources, 0 errors, 0 external warnings. |
+| 2026-11-17 | arena/fd9778a1-zone1 | Overlap note: `data/topics.json` was last written by c55fa0d8 (done, merged). My edit appends status only to rows A-8 and TP-21 and touches no other row; if that session reopens the file, keep-both applies and their rows win. |
+
+### T13-1 / T13-2 / T13-3 / T13-4 completion record — arena/fd9778a1-zone1 (2026-11-17 UTC)
+
+**Status: all four claimed tasks done on this branch; one PR to `main`.** Nothing in this pass filled a value by
+inference, and nothing was called verified without a link checked in this session.
+
+| Task | Outcome | Where it is published |
+|------|---------|-----------------------|
+| T13-1 shopfront polish + merchandising | `commit 98f4e92`. Front page leads with the three machines (capacity, the brand's own list price and the policy reason no Amazon price appears, a `Best for` and a `Check first` row); product pages carry the same decision block above the fold via `merch_pair()`; mobile got a `clamp()` type scale, a 44 px minimum hit area on interactive chrome, a bottom-anchored comparison bar on reader pages only (hidden on desktop/print and while the footer is on screen) and a hint under any table genuinely wider than the viewport. No value changed, disclosure band and `rel="sponsored nofollow noopener"` marking untouched. | `index.html`, `products/*.html`, `assets/style.css`, `assets/app.js`, `build.py` |
+| T13-2 decision desk | Registers extended **additively**: SG-36…SG-45 (10 rows), path **P6 "Make it read like a shop"** (9 members, entry condition and "does not fix" stated), Q-27…Q-37 (11 rows, each with `how_to_discover` and who can settle it), design-prompt D-13…D-17, T-12…T-14, V-8/V-9, R-9…R-12, and a computed **decision desk** panel on `suggestions.html` (queue size, rows recorded as implemented, rows blocked on a question, path count, plus the two shortlists "unanswered questions that free most" and "highest priority with no path recorded"). `page_article()` now prints each article's own read date so a new re-read cannot back-date older guides. | `data/suggestions.json` (44 rows / 6 paths), `data/questions.json` (37 rows), `data/design-prompt.json` (17 design, 14 tactics, 9 voice rules, 12 owner decisions), `build.py` |
+| T13-3 question-shaped guides | Three articles published from registered official sources only — `articles/chefman-vs-emeril-air-fryer.html` (TP-22), `articles/questions-before-buying-a-multifunction-appliance.html` (TP-21), `articles/ninety-eight-percent-less-oil-claim.html` (TP-23) — and the topic register repaired: TP-21/22/23 published, TP-24 added for the orphan `associates-disclosure-explained.html`, A-8/A-9/A-10 statuses corrected. `commit c914f02`. Feed 21 → **24** items, sitemap 51 → **54** URLs. No byline invented (Q-29), no hands-on claim (S-06 still not adopted), no price or star-rating copy. | `data/articles.json`, `data/topics.json`, `articles/*.html` |
+| T13-4 re-read stamps + irregularities | **S10, S12, S14 and S33 re-fetched live in this session** on 2026-11-17, with dated observation stamps appended inside each `page_version` (spec-block quotes, price/SKU/barcode, review-widget counts, and the explicit statement that no Hi-Fry/450 °F figure appears on the 8 Qt page). **S38** (Google Search Central, page-experience self-assessment) registered as the basis for keeping the sticky bar out of the way of content. Every value on the three new articles matched. Prior sources were **not** re-fetched and this record does not claim they were. | `data/sources.json`, `reports/verification-2026-11-17-fd9778a1.md` |
+
+**Irregularities published instead of quietly fixed** — `flagged.html` F83…F87:
+**F83** the article set is tracked in two hand-maintained registers that were wrong in opposite directions (fix the
+duplication, not just the rows); **F84** chefman.com publishes `12.8 lbs / 5.8 kg` in the 8 Qt spec block and
+`weight 13.4 lb` in the store variant record, same product, same day — published figure stays the spec block, no
+average taken; **F85** the shopfront pass lands in the canonical root build only, six parallel builds keep their own
+CSS and their own reproducibility gates (their generator owners must port it — request logged here, no edits to
+` s2/`, `site/`, `research/`, `docs/`, `dashboard/`, `annex-88769516/`); **F86** no accessibility standard can be
+cited, because `verify.py`'s `OFFICIAL_HOSTS` contains no accessibility body, so the 44 px minimum is stated as a
+usability choice and no conformance claim appears (registering the host and making the claim must be one commit with
+a decision attached — Q-37); **F87** the suggestions lede asserted "nothing on this page has been implemented" while
+the decision log already recorded a shipped row — repaired structurally by computing that sentence at build time, and
+the same class was found in evidence-link labels (`21 suggestions`, `20 questions`, `12 articles` against registers
+of 44, 37 and 24) which are now count-free.
+
+**Left open on purpose:** any conversion, traffic, popularity or revenue claim (no first-party data exists — Q-27,
+Q-28); the outbound-click counter (static GitHub Pages, no host for an endpoint, and a browser-only counter would
+publish a number that is not a count); real product photography (rights decision, Q-31); Search Console property
+verification and sitemap submission (owner account); Associates approval status and one-link click test (owner
+account, SG-44/Q-34); the three blanks in `data/campaign-ledger.json` (G-01…G-03, waiting on authorised reports);
+no byline until an identity exists (Q-29); S-06 hands-on language, excluded by the voice rules and the build guard.
+
+**Gates on the final tree:** `python3 build.py` exit 0 — 133 pages, 54 sitemap URLs, 24 feed items ·
+`python3 verify.py` 77 spec rows (75 verified / 2 blank+flagged), 38 sources, 0 errors, 0 external warnings ·
+`bash scripts/ci-check.sh` 33 unit tests OK, data audit clean, annex build current (16 files), link check OK 9,429
+links · rebuild reproducibility proven: 55 generated pages compared before/after a second build, 0 changed ·
+requirements register: 51 rows (29 delivered / 12 partial / 7 blocked / 3 not delivered).
+
+**Note for the next session (mechanics, not content).** `check_register_duplicates` fails the build on a repeated
+`id`/`title` **or** a >40-character sentence repeated inside one register — so do not lift a `path.delivers` string
+into a suggestion's `why`. `row_is_sourced` accepts any href on a host that appears anywhere in `data/sources.json`
+(or `github.com`), while the questions/design-prompt summary tables render `sources[0]` / `links[0]` only: a row can
+pass the gate while showing the reader an unverifiable citation, which is what this pass hit five times in one hour
+and what SG-45 proposes to close — read that row before reordering data again to satisfy the gate. The register
+preambles (`lede`, `how_to_read`) are frozen for repeated-sentence checks, so a lede edit that copies a `why` from
+another row fails; a status sentence in a register is safer computed than typed, and typed row counts are now
+scrutinised as F87 (see `check_requirement_tokens()` for the `{n_*}` tokens the requirements register does allow).
+
+### Merge record — arena/fd9778a1-zone1 onto `main` as of `272da81` (2026-11-17 UTC)
+
+**Why this section exists.** This session and `arena/58cbaaa2` + `arena/0cf55ef3` were working in parallel from the
+same base (`913d0ab`) and both called their work "pass 13". Their PRs merged first, so their numbering is the
+published one and **this session's rows were renumbered upward** rather than the other way round. No row of theirs
+was edited, moved or deleted; none of ours was dropped.
+
+| This pass drafted | Published as | Collision |
+|---|---|---|
+| SG-36 … SG-45 | **SG-39 … SG-48** | `main` took SG-36/37/38 |
+| path P6 "Make the shop look bought-in" | **path P7** | `main` published P6 "Make the money path real" |
+| Q-27 … Q-37 | **Q-29 … Q-39** | `main` added Q-27/28 |
+| source S38 (Google page experience) | **S43** | `main` registered S38 (GitHub Pages) and S39–S42 |
+| TP-22/23/24 | **TP-24/25/26** | `main` published TP-22/23 as the two thermometer guides |
+| flags F83 … F87 | **F85 … F89** | `main` added F83/F84 |
+| TP-21 (its own row) | **TP-21, shared** | both sessions meant the same topic; this pass supplied its published article, so the row moved `proposed → published` |
+
+References were rewritten in the same operation — inside prose, in `blocks` / `blocked_by`, in `paths[].contains`, in
+the requirements register's `why` cells, in the decision log's `implemented` rows and in
+`reports/verification-2026-11-17-fd9778a1.md` — with one single-pass substitution, because applying the shift
+rule id-by-id in sequence re-hit ids it had just produced (`Q-27 → Q-29 → Q-31`) and invents a third row. A
+cross-reference check over every register confirms no `SG-`/`Q-`/`TP-`/`F`/`S` token in any data file points at a
+row that does not exist. **Process note, in the tradition of the F81/F82 note above: renumbering is cheap while a
+PR is open and confusing after it merges, so a future session that finds a same-day collision should record the
+mapping here and in its verification report, as done here.**
+
+**One design concession, recorded rather than argued.** `main` restructured `page_index()` into a publication
+layout whose product cards name the job each format does and whose only onward step is a CTA into `compare.html` —
+dropping the inline side-by-side table and the verification-metric strip this pass had *moved* below that table.
+Both passes were implementing the same requirement ("lead with the products, not the audit trail"), and `main`'s
+version goes further, so this pass's table was not re-added. Its merchandising rows (`Best for` / `Check first`,
+and `price_line()` with the manufacturer's own list price) were kept inside `main`'s card. The card's outbound link
+stays `main`'s supplied short link with the "tracking unconfirmed" label; this pass's draft had built a
+`/dp/<ASIN>` button, and `main`'s F81/F82 rows explain why an inferred identifier is the wrong thing to publish.
+The mobile-first pass (type scale, 44 px hit areas, sticky comparison bar, table hint) and every `check_*` guard are
+unchanged by the merge.
+
+**Gates after the merge, on this branch:** `python3 build.py` exit 0 · 133 pages, **34** sitemap URLs (31 on
+`main` + this pass's three articles), **24** feed items · `python3 verify.py` 77 spec rows (75 verified /
+2 blank+flagged), **43** sources, 0 errors, 0 external warnings · `bash scripts/ci-check.sh` 33 unit tests OK,
+data audit clean, annex build current (16 files), link check OK **10,318** links · rebuild reproducibility: 55
+generated pages hashed before and after a second build, 0 changed. Registers now: 47 suggestions / 7 paths,
+39 questions, 26 topics, 24 articles, 53 requirement rows, 89 programme flags.
+
+**Request to the owners of the parallel builds (unchanged, and not edited by this session):** F87 (was F85) —
+`s2/`, `site/`, `research/`, `docs/`, `dashboard/` and `annex-88769516/` keep their own stylesheets and their own
+navigation, so the shopfront and mobile work lands only in the canonical root build. Port the tokens in each
+generator, or label those builds as archives; no HTML in those directories was touched by this pass.

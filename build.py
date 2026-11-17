@@ -1053,8 +1053,94 @@ footer.site strong{color:#f4f1e2}
   table{font-size:.8rem}
   footer.site{padding:1.8rem 1rem 1.5rem}
 }
+/* =====================================================================
+   Shopfront pass — arena/fd9778a1-zone1 (2026-11-17), brief row S-20
+   ("mobile-first pass: type scale, tap targets, sticky comparison bar")
+   and SG-04/SG-15 (make it read like a shop).
+   Presentation only: nothing below generates a product value, price,
+   rating or claim. The figures a card shows are read from
+   data/products.json by the page function; this block only decides
+   where and how big they appear.
+   ===================================================================== */
+
+/* Fluid type scale. One clamp() per level so a 320 px phone and a 1600 px
+   desktop share a rhythm instead of the desktop scale being shrunk whole. */
+h1{font-size:clamp(1.85rem,1.1rem + 3.0vw,2.95rem)}
+h2{font-size:clamp(1.32rem,.95rem + 1.6vw,2.02rem)}
+h3{font-size:clamp(1.07rem,.99rem + .38vw,1.28rem)}
+h1.hero-title{font-size:clamp(2.3rem,1.35rem + 4.2vw,4.1rem)}
+
+/* Tap targets. The interactive chrome — nav, buttons, footer links, the
+   comparison bar — meets the 44 px minimum (WCAG 2.5.8 target size). Inline
+   links inside prose and table cells keep their density on purpose: widening
+   those would break the tables the site exists to show. */
+.btn,footer.site a,.sidebar a,.navtoggle,.topnav a,.shopbar a{min-height:44px}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:.4rem;
+  padding:.6rem 1.05rem; line-height:1.2}
+.sidebar a{display:flex; flex-direction:column; justify-content:center; padding:.5rem .6rem}
+.navtoggle{min-width:62px; padding:.3rem .8rem}
+.topnav a{display:inline-flex; align-items:center; padding:.35rem .7rem}
+footer.site a{display:inline-flex; align-items:center}
+
+/* A wide table on a narrow screen must stay readable. The wrap already scrolls;
+   assets/app.js reveals the one-line hint under it only when there really is
+   content hidden to the right, and hides it again at the last column. The hint is
+   a sibling of the scroller rather than an overlay, so it cannot drift as the
+   table moves. */
+.tablewrap-hint{display:none; font-size:.74rem; color:var(--muted); margin:.3rem 0 .55rem}
+.tablewrap-hint.show{display:block}
+
+/* The sticky comparison bar: one persistent route to the two pages a buyer who
+   is undecided needs. Mobile and tablet only, sits above the home indicator,
+   and steps out of the way once the footer is on screen (.at-page-end, JS). */
+.shopbar{position:fixed; left:0; right:0; bottom:0; z-index:40; display:none;
+  align-items:stretch; gap:.4rem; padding:.5rem .6rem;
+  padding-bottom:calc(.5rem + env(safe-area-inset-bottom));
+  background:rgba(255,253,247,.97); border-top:1px solid var(--line-strong);
+  box-shadow:0 -6px 18px rgba(33,40,33,.09);
+  transition:transform .18s ease}
+.shopbar.hide{transform:translateY(115%)}
+.shopbar .sb-label{display:flex; flex-direction:column; justify-content:center;
+  padding:0 .45rem 0 .1rem; min-width:0; max-width:36%}
+.shopbar .sb-label strong{font-family:var(--serif); font-size:.9rem; color:var(--brand-ink); line-height:1.25}
+.shopbar .sb-label small{font-size:.66rem; color:var(--muted); line-height:1.3}
+.shopbar a{flex:1 1 0; display:inline-flex; align-items:center; justify-content:center;
+  border-radius:11px; font-size:.84rem; font-weight:650; text-decoration:none;
+  padding:.4rem .5rem; text-align:center; line-height:1.2}
+.shopbar .sb-primary{background:var(--brand); color:#fff}
+.shopbar .sb-primary:hover{background:var(--brand-deep); color:#fff}
+.shopbar .sb-ghost{border:1px solid var(--brand-line); color:var(--brand-deep); background:var(--brand-soft)}
+@media (max-width:880px){
+  .shopbar{display:flex}
+  main{padding-bottom:5.4rem}
+}
+
+/* Merchandising rows on the product cards and the product page. The label is
+   editorial framing; both cells are quoted from the sourced spec and flag rows
+   that appear on the same page, with their own source chips. */
+.pcard{display:flex; flex-direction:column}
+.pcard dl.merch{margin:.65rem 0 .2rem; padding:0; border-top:1px solid var(--line)}
+.pcard dl.merch>div{display:grid; grid-template-columns:6.4rem 1fr; gap:.55rem;
+  padding:.5rem 0; border-bottom:1px dashed var(--line)}
+.pcard dl.merch dt{font-size:.66rem; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--accent); font-weight:700; padding-top:.12rem}
+.pcard dl.merch dd{margin:0; font-size:.82rem; line-height:1.45; color:var(--ink)}
+.pcard dl.merch dd a{white-space:nowrap}
+.pcard .price-line{display:flex; align-items:baseline; flex-wrap:wrap; gap:.4rem;
+  margin:.55rem 0 0; padding:.5rem 0 0; border-top:1px solid var(--line)}
+.pcard .price-line b{font-family:var(--serif); font-size:1.35rem; color:var(--brand-ink); letter-spacing:-.01em}
+.pcard .price-line .pl-note{font-size:.68rem; color:var(--muted); flex:1 1 100%}
+.pcard .pcard-cta{margin-top:auto; padding-top:.7rem}
+.verdict-strip{display:grid; gap:.55rem; margin:.9rem 0 0}
+@media (min-width:760px){.verdict-strip{grid-template-columns:1fr 1fr}}
+.verdict-strip .vs{border:1px solid var(--line); border-left:3px solid var(--accent);
+  border-radius:12px; background:var(--panel); padding:.65rem .8rem; box-shadow:var(--shadow)}
+.verdict-strip .vs dt{font-size:.66rem; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--accent); font-weight:700; margin-bottom:.2rem}
+.verdict-strip .vs dd{margin:0; font-size:.87rem; line-height:1.5}
+
 @media print{
-  .topbar,.sidebar,.navtoggle,.topnav,.cta-row,.share{display:none}
+  .topbar,.sidebar,.navtoggle,.topnav,.cta-row,.share,.shopbar{display:none}
   body{background:#fff}
   .card,.tablewrap,.stat,.sug,.qcard{box-shadow:none}
   .editorial-hero{border:1px solid #ddd}
@@ -1265,6 +1351,40 @@ document.addEventListener('click', function (ev) {
     if (t && v.note) t.value = v.note;
   });
   paint();
+})();
+
+// Shopfront pass (2026-11-17, arena/fd9778a1-zone1) — two presentation behaviours.
+// Both are progressive: with JavaScript off the tables still scroll (the fade is the
+// only thing missing), the comparison bar stays visible, and no content is hidden.
+// No network call, no storage, no measurement — this site records nothing (see the
+// cookies notice in the footer and measurement.html).
+(function () {
+  // Tell the reader a wide table continues past the right edge. The hint element
+  // lives outside the scroller, so it stays put while the table moves.
+  var wraps = Array.prototype.slice.call(document.querySelectorAll('.tablewrap'));
+  function paint() {
+    wraps.forEach(function (w) {
+      var hint = w.nextElementSibling;
+      if (!hint || !hint.classList.contains('tablewrap-hint')) return;
+      var past = w.scrollWidth - w.clientWidth - w.scrollLeft;
+      hint.classList.toggle('show', w.scrollWidth - w.clientWidth > 4 && past > 4);
+    });
+  }
+  if (wraps.length) {
+    wraps.forEach(function (w) { w.addEventListener('scroll', paint, { passive: true }); });
+    window.addEventListener('resize', paint);
+    paint();
+  }
+
+  // Step the sticky bar out of the way once the footer is on screen, so it never
+  // covers the disclosure text or the source list.
+  var bar = document.querySelector('.shopbar');
+  var foot = document.querySelector('footer.site');
+  if (bar && foot && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { bar.classList.toggle('hide', en.isIntersecting); });
+    }, { rootMargin: '0px 0px -8px 0px' }).observe(foot);
+  }
 })();
 """
 
@@ -1578,6 +1698,23 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
         cls = ' class="active"' if href == active else ""
         return f'<a href="{prefix}{href}"{cls}>{e(label)}</a>'
     topnav = "".join(_topnav_link(href, label) for href, label in topnav_items)
+
+    # Sticky comparison bar (brief S-20, added 2026-11-17 by arena/fd9778a1-zone1).
+    # Reader surfaces only — the owner-workspace pages get no bar, because a buyer
+    # route is not what those pages are for. The links are internal on purpose: this
+    # bar never adds a second outbound affiliate surface to police, and its second
+    # line restates the paid-link fact where the reader is about to act on it.
+    _READER_DIRS = ("products/", "categories/", "guides/", "articles/")
+    _READER_PAGES = ("index.html", "picks.html", "compare.html")
+    if page_rel in _READER_PAGES or page_rel.startswith(_READER_DIRS):
+        shopbar = f"""
+<div class="shopbar" aria-label="Keep comparing">
+  <span class="sb-label"><strong>Still deciding?</strong><small>Sponsored links · we may earn a commission</small></span>
+  <a class="sb-ghost" href="{prefix}picks.html">Which one fits</a>
+  <a class="sb-primary" href="{prefix}compare.html">Compare all {len(PRODUCT_LIST)} <span aria-hidden="true">→</span></a>
+</div>"""
+    else:
+        shopbar = ""
     desc = f'<meta name="description" content="{e(description)}">' if description else ""
 
     # Absolute URL of this page. The landing page canonicalises to the directory form
@@ -1713,6 +1850,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     {body}
   </main>
 </div>
+{shopbar}
 <footer class="site">
   <div class="inner">
     <div class="foot-brand">
@@ -1808,6 +1946,84 @@ def product_cta(p, prefix=""):
 """
 
 
+
+# --------------------------------------------------------------------------- #
+# shopfront merchandising (added 2026-11-17, arena/fd9778a1-zone1)
+# --------------------------------------------------------------------------- #
+# Two cells per product, and both are quotations of rows this site already
+# publishes about that product: "Best for" names a feature the manufacturer's
+# own document states, "Check first" names the open conflict on the same page.
+# No performance, comfort, durability or taste claim appears here — not because
+# copywriting forbids it, but because no such fact exists in the register: a
+# hands-on claim would need a test, and no test was run (S8).
+MERCH = {
+    "chefman-6qt-dual-basket": {
+        "best_for": ("Cooking two dishes at two settings on one appliance. The manual documents two "
+                     "independent 3-quart baskets, each with its own time and temperature, and a "
+                     "Sync Finish function that starts the shorter cook late so both baskets land together.",
+                     ["S10", "S18"], "articles/sync-finish-explained.html", "How Sync Finish works →"),
+        "check_first": ("Chefman sells more than one 6-quart dual-basket SKU with near-identical "
+                        "specifications, and the model this page describes is the dual-window one. "
+                        "Read the model number on the appliance before treating any figure here as yours.",
+                        ["S10", "S11", "S27"], "flagged.html#f2", "Flag F2 →"),
+    },
+    "emeril-26qt-french-door": {
+        "best_for": ("A whole chicken, a 26-quart cavity and a mode list that reaches below 200 °F. "
+                     "The manual documents a 75–500 °F range, a rotisserie spit set and seven "
+                     "accessories, which is what separates it from a basket unit with a bigger box.",
+                     ["S14", "S15"], "articles/rotisserie-at-home.html", "What the rotisserie claim covers →"),
+        "check_first": ("The brand's own page disagrees with itself on the preset count (25 in its "
+                        "specification block, 24 in its description and in the Amazon listing title), "
+                        "and the listing's model code differs from the brand page by one character.",
+                        ["S14", "S15", "S28"], "flagged.html#f4", "Flags F4 and F5 →"),
+    },
+    "chefman-8qt-turbofry": {
+        "best_for": ("One large single basket for everyday batches. The brand page lists an 8 qt "
+                     "basket, four one-touch presets, an LED shake reminder and a top-rack "
+                     "dishwasher-safe basket and rack.",
+                     ["S12", "S13"], "articles/air-fryer-capacity-guide.html", "Is 8 qt the right size? →"),
+        "check_first": ("The Amazon listing title advertises a 450 °F Hi-Fry mode; the brand page for "
+                        "the model this site maps it to documents 200–400 °F. Those are probably two "
+                        "machines, and which one the ASIN ships is unresolved.",
+                        ["S12", "S29", "S26"], "flagged.html#f3", "Flag F3 →"),
+    },
+}
+
+
+def merch_pair(p, prefix="", mode="card"):
+    """The two merchandising cells for one product, built from MERCH + the register.
+
+    mode="card" renders one definition list with two rows (the front-page product card);
+    mode="strip" renders two separate boxes (the product page, which has the room).
+    """
+    m = MERCH.get(p["slug"])
+    if not m:
+        return ""
+    cells = []
+    for key, label in (("best_for", "Best for"), ("check_first", "Check first")):
+        text, srcs, link, link_label = m[key]
+        inner = (f'{e(text)}<span class="tiny"> {src_links(srcs)} '
+                 f'<a href="{prefix}{link}">{e(link_label)}</a></span>')
+        if mode == "strip":
+            cells.append(f'<dl class="vs"><dt>{label}</dt><dd>{inner}</dd></dl>')
+        else:
+            cells.append(f'<div><dt>{label}</dt><dd>{inner}</dd></div>')
+    if mode == "strip":
+        return "".join(cells)
+    return f'<dl class="merch">{"".join(cells)}</dl>'
+
+
+def price_line(p, prefix=""):
+    """Brand-published list price, with the reason no Amazon price appears next to it."""
+    blp = p["pricing"]["brand_list_price"]
+    return (
+        f'<p class="price-line"><b>{e(blp["v"])}</b>'
+        f'<span class="tiny">manufacturer list price {src_links(blp["s"])}</span>'
+        f'<span class="pl-note">Amazon\'s price is not shown here: Program Policies §2(b) and §6(t) '
+        f'bar an Associate site from displaying it, so the number above is the brand\'s own list price, '
+        f'not what a retailer charges today. Check the live price on the listing. '
+        f'<a href="{prefix}compliance.html">Why →</a></span></p>'
+    )
 def spec_table(p, prefix=""):
     rows = []
     for s in p["specs"]:
@@ -1833,6 +2049,7 @@ def spec_table(p, prefix=""):
   <tbody>{''.join(rows)}</tbody>
 </table>
 </div>
+<p class="tablewrap-hint">The table is wider than the screen — scroll it sideways to reach the source column.</p>
 """
 
 
@@ -2006,10 +2223,12 @@ def page_index():
     <div><dt>Documented capacity</dt><dd>{e(cap_value)} {cap_sources}</dd></div>
     <div><dt>Published dimensions</dt><dd>{e(dimension_value)} {dimension_sources}</dd></div>
   </dl>
-  <p class="tiny muted">Candidate product record. The matching supplied link and intended listing remain unconfirmed.</p>
+  {price_line(p)}
+  {merch_pair(p)}
+  <p class="tiny muted"><span class="pill pill-warn">Amazon model match unconfirmed</span>
+    Candidate product record. The matching supplied link and intended listing remain unconfirmed.</p>
   <a class="pick-cta" href="products/{e(slug)}.html">Read the sourced product guide →</a>
 </article>""")
-
     article_by_slug = {a["slug"]: a for a in ARTICLES["articles"]}
     featured_slugs = [
         "dual-basket-vs-single-basket",
@@ -2028,7 +2247,6 @@ def page_index():
   <span class="cardtext">{e(article['standfirst'])}</span>
   <span class="tiny muted">{e(article.get('reading_minutes', ''))} min · documentation-based</span>
 </a>""")
-
     body = f"""
 <div class="editorial-hero publication-hero">
   <div class="hero-copy">
@@ -2136,6 +2354,10 @@ def page_product(p):
 
 {product_cta(p, prefix="../")}
 
+<div class="verdict-strip" aria-label="What this machine is for, and what to check first">
+  {merch_pair(p, prefix="../", mode="strip")}
+</div>
+
 <div class="callout ok">
   <strong>How this review was produced</strong>
   <p class="small">This is a documentation-based review. No unit was tested, owned or handled. That matters legally as well as ethically: the FTC's disclosure guidance says an endorser cannot describe an experience with a product they have not tried {src_links(['S8'])}, so this page describes published specifications and what they imply — nothing else.</p>
@@ -2242,7 +2464,26 @@ PROGRAMME_FLAGS = [
      "build.py (homepage callout, handover heading), data/decision.json handover.summary, data/requirements.json rows A-04 and B-08",
      "Found and repaired 2026-11-17 by arena/0cf55ef3 (X-0cf55ef3), fifth occurrence of the class F14, F38, F52 and F63 record. (1) handover.html's headline read 'Five actions, about an hour, eighteen flags' and the homepage repeated 'closes eighteen flags' twice, while data/decision.json holds five handover items and the three that close flags close five flag rows between them - 18 matched neither the item count nor the flag count. (2) index.html said 'Eight reads written for this product set' directly above a grid rendering 21 articles. (3) data/requirements.json row B-08 said 'Twelve articles are published and three more are specified but unwritten' (now 21 and 4) and row A-04 said 'Twenty questions' (now 26). Repaired at source: the article count is now computed from data/articles.json at build time, both requirements rows now use the register's existing computed-count tokens (n_articles, n_questions) and a new n_topics_minus_articles token derived from data/topics.json, and the handover headline and summary state the five-row figure that the register actually supports. An unknown token still fails the build. Re-rendered and re-checked: requirements.html reads '21 articles' and '26 questions', index.html reads '21 reads' and 'five flag rows closed'.",
      []),
-
+    ("F85", "The article set is tracked in two hand-maintained registers, and both were wrong in opposite directions on 2026-11-17.",
+     "data/topics.json vs data/design-prompt.json (topics)",
+     "Found by the pass-13 read. The design-prompt register still marked A-9 'not-written' two days after its article shipped (articles/associates-disclosure-explained.html, published 2026-11-16 in the pass-10 set), while the canonical topic queue carried no row for that published article at all — the orphan defect of F74 in reverse: a page every reader could reach, absent from the list that says what the site covers. Both data rows are corrected in place by this pass (A-9 status fixed; queue row TP-26 added) and the new rows TP-21/TP-24/TP-25 keep the two lists aligned for now. The machinery gap is what stays open: nothing in the build compares the two registers, so the next article that touches one and not the other reproduces this. Decision needed: generate the design-prompt topic list from data/topics.json, or retire the duplicate list.",
+     ["S30"]),
+    ("F86", "chefman.com publishes two different weights for the 8 Qt TurboFry Touch (RJ38-SQSS-8T) on the same product, read on the same day.",
+     "Chefman 8 Qt TurboFry — product weight",
+     "Read 2026-11-17: the product page's specification block states 'Weight: (8 Qt Model) 12.8 lbs / 5.8 kg'; the store product record behind the same page (…/turbofry-touch-air-fryer-1.json, updated_at 2026-11-17T11:41:54-05:00) carries variant weight 13.4 lb. 0.6 lb apart, and neither document says which figure is the appliance and which is the carton — which matters because this site's small-kitchen article and the new buyer's checklist both tell readers to check a shelf or cupboard load. Nothing was averaged and no weight figure was invented: the published row stays the specification block, and no weight claim is made in advice. Settled by a statement from Chefman or a scale reading (Q-38).",
+     ["S12", "S33"]),
+    ("F87", "The shopfront polish of pass 13 lands in the canonical root build only; six parallel builds on the same origin keep their own stylesheets and their own look.",
+     "s2/, site/, research/, docs/, dashboard/, annex-88769516/",
+     "Found while implementing SG-44. Every design change in this pass (front-page order, merchandising rows, mobile type scale, the sticky comparison bar) is generated by build.py for the root site. The parallel builds are separate generators with their own reproducibility gates — scripts/build_s2_site.py --check, scripts/verify_site.py, research/check_research.py — so hand-editing their HTML or CSS would break the gate that proves their output matches their data, which is the reason earlier passes logged requests instead of edits and this pass does the same. A reader who reaches a parallel build from the footer's archive links sees a pre-2026-11-17 page and a second brand voice. Decision needed (SG-44): declare the root build canonical and label the annexes archives, port the tokens into each generator, or stop serving the annexes from the published site.",
+     ["S31"]),
+    ("F88", "No accessibility standard can currently be cited on this site, so the mobile pass states a 44 px tap-target minimum as a usability choice and claims no conformance.",
+     "verify.py OFFICIAL_HOSTS vs the design rows in data/design-prompt.json",
+     "The pass-13 stylesheet widens interactive chrome to a 44 px minimum and the code comment names WCAG 2.2 SC 2.5.8 — but verify.py's official-host allow list contains no accessibility body, so no published row could link the standard it satisfies and the site must not print a conformance claim without a registered source. Recorded rather than silently fixed: adding a host to the verifier is a policy change to the checking machinery, and the two must arrive in the same commit with the decision attached (Q-40). Note also that 44 px is larger than the 24 CSS px minimum in that success criterion; the figure chosen here comes from platform interface guidance, not from the standard, and is described that way on D-16.",
+     ["S43"]),
+    ("F89", "The suggestions queue asserted in its own lede that nothing on the page had been implemented, while the decision log already recorded a shipped row — a typed claim that outlived the fact.",
+     "data/suggestions.json (lede and how_to_read) vs data/decision-log.json (implemented)",
+     "Found 2026-11-17 by the pass-13 read while adding rows to that register: the page's first sentence and its how_to_read[0] both stated 'Nothing on this page has been implemented', which had been untrue since 2026-11-16, when data/decision-log.json recorded SG-26 path A as implemented under the queue's own pre-authorisation rule. Same class as F52, F63 and F14 — a register cell written as a snapshot and rendered as a live fact. Repaired in the generator: the lede and the new decision desk now count the log's rows at build time (so the sentence moves when the log does), and how_to_read[0] was rewritten to describe the mechanism instead of asserting a status. What remains open is the general fix: check_register_preambles() compares repeated sentences, not claims about other registers, so no guard stops the next typed status sentence from going stale the same way. Decision needed: extend the register-preamble guard to reject declarative status claims ('nothing has been implemented', 'N rows are done') in prose that has a computed equivalent. The pass-13 scan found the same class in a place no guard looks at — evidence-link labels: 'A-02: 21 suggestions', 'A-04: 20 questions' and 'B-08: 12 articles' were printed as link text beside a register that had grown to 44, 37 and 24. All three were rewritten to point at the page that computes its own count, and B-08's typed count became a build-time computed count instead. A label is prose, and prose about a row count is exactly what drifts.",
+     ["S30"]),
     ("F8", "IP License §2(e) forbids aggregating, analysing or repurposing Program Content and training models on it.",
      "Platform design", "Any AI research or trend scoring therefore runs only on first-party data and public manufacturer data. Documented as guardrail G6 in the blueprint.", ["S2"]),
     ("F9", "No Amazon price, star rating or review count is available to this build.",
@@ -2605,6 +2846,15 @@ REPO_EVIDENCE = {
     "F82": ["build.py", "data/product-intent.json", "reports/verification-2026-11-17-58cbaaa2.md"],
     "F83": ["data/decision.json", "data/flags.json", "handover.html", "decisions.html", "build.py"],
     "F84": ["build.py", "data/decision.json", "data/requirements.json", "data/articles.json"],
+    # arena/fd9778a1-zone1 (2026-11-17): pass 13's five rows, whose evidence is this
+    # repository's own data files plus the dated re-read report.
+    "F85": ["data/topics.json", "data/design-prompt.json", "build.py",
+            "reports/verification-2026-11-17-fd9778a1.md"],
+    "F86": ["data/products.json", "data/sources.json", "reports/verification-2026-11-17-fd9778a1.md"],
+    "F87": ["data/suggestions.json", "data/questions.json", "reports/verification-2026-11-17-fd9778a1.md"],
+    "F88": ["verify.py", "data/design-prompt.json", "assets/style.css"],
+    "F89": ["data/suggestions.json", "data/decision-log.json", "build.py",
+            "reports/verification-2026-11-17-fd9778a1.md"],
     "F74": ["build.py", "data/articles.json", "data/topics.json",
             "reports/verification-2026-11-16-19d92a81.md"],
     "F75": ["build.py", "404.html"],
@@ -4736,14 +4986,74 @@ def page_suggestions():
             f'<td class="small">{ev_links}</td></tr>'
         )
 
+    # ---- the decision desk (added 2026-11-17, arena/fd9778a1-zone1) ---------------- #
+    # Four figures and two shortlists, all counted from the two decision registers rather
+    # than typed. It exists because the page's own lede asserted in prose that "Nothing on
+    # this page has been implemented" while data/decision-log.json had already recorded SG-26
+    # as shipped — the typed-snapshot-read-as-a-live-fact class this repository keeps finding
+    # (F52, F63), and now flag F87. A computed sentence cannot go stale in the same way: when a
+    # pass ships a row it appends to the log, and this panel moves with it.
+    impl = DECISION_LOG.get("implemented") or []
+    impl_ids = sorted({str(x.get("id", "")) for x in impl if x.get("id")})
+    shipped = [i for i in impl_ids if i in known_sg]
+    still_open = [x for x in s["suggestions"]
+                  if (x.get("effort") or "").strip().lower() not in ("done", "shipped", "complete")]
+    gated = [x for x in still_open if x.get("blocked_by")]
+    unblock = {}
+    for qq in QUESTIONS["questions"]:
+        if qq.get("state") in ("known", "answered"):
+            continue
+        n = sum(1 for x in s["suggestions"] if qq["id"] in (x.get("blocked_by") or []))
+        if n:
+            unblock[qq["id"]] = (n, qq)
+    top_unblock = sorted(unblock.values(), key=lambda kv: (-kv[0], kv[1]["id"]))[:4]
+    qstate = {x["id"]: x.get("state", "missing") for x in QUESTIONS["questions"]}
+    decided = set(shipped) | {x["id"] for x in s["suggestions"] if x.get("resolved_on")}
+    undecided = [x for x in s["suggestions"] if x["id"] not in decided]
+    top_undecided = undecided[:4]
+    desk = f"""
+<section class="desk" id="decision-desk" aria-label="Decision desk">
+  <p class="section-eyebrow">The decision desk · counted from the registers at build time</p>
+  <div class="grid grid-4" style="margin:.5rem 0 .9rem">
+    <div class="stat"><div class="n">{len(s["suggestions"])}</div><div class="l">Rows in the queue</div><div class="h">{len(still_open)} still ask you for a path</div></div>
+    <div class="stat ok"><div class="n">{len(shipped)}</div><div class="l">Recorded as implemented</div><div class="h"><a href="decision-log.html">In the decision log &#8594;</a></div></div>
+    <div class="stat warn"><div class="n">{len(gated)}</div><div class="l">Blocked on a question</div><div class="h"><a href="questions.html">The open questions &#8594;</a></div></div>
+    <div class="stat"><div class="n">{len(s.get("paths") or [])}</div><div class="l">Paths through the queue</div><div class="h">Pick one instead of {len(s["suggestions"])} rows</div></div>
+  </div>
+  <div class="grid grid-2">
+    <div class="card tight">
+      <p class="tiny muted" style="margin:0 0 .3rem">Unanswered questions that unblock the most</p>
+      <ul class="tight small" style="margin:0">
+        {"".join(f'<li><a href="questions.html#{e(qq["id"].lower())}">{e(qq["id"])}</a> — {e(qq["question"][:112])}{"…" if len(qq["question"]) > 112 else ""} <span class="tiny muted">frees {n} · state {e(qq["state"])}</span></li>' for n, qq in top_unblock) or '<li>No question in the register currently gates a suggestion.</li>'}
+      </ul>
+    </div>
+    <div class="card tight">
+      <p class="tiny muted" style="margin:0 0 .3rem">Highest priority with no path recorded yet</p>
+      <ul class="tight small" style="margin:0">
+        {"".join(f'<li><a href="#{e(x["id"].lower())}">{e(x["id"])}</a> — {e(x["title"][:96])}{"…" if len(x["title"]) > 96 else ""} <span class="tiny muted">score {x["impact"] * x["confidence"]}</span></li>' for x in top_undecided)}
+      </ul>
+      <p class="tiny muted" style="margin:.45rem 0 0">Recording a path is one click on
+        <a href="decision-log.html">the decision log</a>; its export is the file the next pass reads.</p>
+    </div>
+  </div>
+  <p class="tiny muted">Implemented here means shipped in the canonical root build and recorded in
+    <code>data/decision-log.json</code> {("with these rows: " + ", ".join(e(i) for i in shipped) + ".") if shipped else "(no rows yet)."}
+    Questions already settled by an official source are left out of the shortlist on the left, because a settled
+    question unblocks nothing; the state each row carries is its own answer about who can settle it.
+  </p>
+</section>
+"""
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Suggestions</p>
 <h1>Suggestions, and a place to choose between them</h1>
 <p class="lede">{len(items)} reviewed, evidence-backed suggestions, in priority order. Each one would materially change something on this site.
-Nothing on this page has been implemented. Each entry names the problem it fixes, the official
-document or repository evidence behind it, two or three paths you could take, and the path this
-pass would pick if it were your call. Read the one you care about, choose a path, and the work is
-a short story rather than an open-ended project.</p>
+{len(shipped)} {"" if len(shipped) == 1 else ""}of them {"is" if len(shipped) == 1 else "are"} recorded as implemented in the
+decision log — reversible, low-risk paths an agent pass was pre-authorised to ship — and the rest wait for you. Each
+entry names the problem it fixes, the official document or repository evidence behind it, two or three paths you could
+take, and the path this pass would pick if it were your call. Read the one you care about, choose a path, and the work
+is a short story rather than an open-ended project.</p>
+
+{desk}
 
 <div class="callout note">
   <strong>How to use this page.</strong> {e(s["how_to_read"][0])}
@@ -6633,7 +6943,7 @@ def page_article(a):
   <div class="article-meta">
     <span>{e(a['kind'])}</span><span aria-hidden="true">·</span>
     <span>{a['reading_minutes']} min read</span><span aria-hidden="true">·</span>
-    <span>sources read {ARTICLES['accessed']}</span><span aria-hidden="true">·</span>
+    <span>sources read {e(a.get('sources_read') or ARTICLES['accessed'])}</span><span aria-hidden="true">·</span>
     <span class="pill pill-info">Documentation-based — no hands-on testing</span>
     {cluster_badge}
   </div>

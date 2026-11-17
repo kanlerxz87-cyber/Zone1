@@ -42,20 +42,25 @@
       "clause": "Make suggestions that will feed into the prompt to design The site so it should look like a polished marketing affiliate website.",
       "status": "delivered",
       "where": [
+        "data/design-prompt.json",
         "data/suggestions.json",
         "suggestions.html"
       ],
       "evidence": [
         {
-          "label": "21 suggestions",
+          "label": "suggestions register (row count shown on the page)",
           "url": "suggestions.html"
         },
         {
           "label": "data",
           "url": "data/suggestions.json"
+        },
+        {
+          "label": "pass 13 record",
+          "url": "reports/verification-2026-11-17-fd9778a1.md"
         }
       ],
-      "why": "Twenty-one numbered suggestions (SG-01…SG-21), each with options considered, effort, impact, risk and a recommended path. The paste-ready design prompt itself is on its own page so it can be handed to a designer unedited.",
+      "why": "Pass 13 added the shopfront half of the brief-facing prompt: the paste-ready design prompt now carries a 'what the build does since 2026-11-17 and what still needs a human' block, nine new suggestion rows with paths and effort, five design rows with live status, three traffic tactics and two voice rules the generator enforces.",
       "sources": []
     },
     {
@@ -67,6 +72,7 @@
       "where": [
         "suggestions.html",
         "design-prompt.html",
+        "decision-log.html",
         "data/suggestions.json"
       ],
       "evidence": [
@@ -77,9 +83,13 @@
         {
           "label": "design prompt",
           "url": "design-prompt.html"
+        },
+        {
+          "label": "pass 13 record",
+          "url": "reports/verification-2026-11-17-fd9778a1.md"
         }
       ],
-      "why": "Two decision registers, deliberately split: suggestions.html is the implementation queue (what to change), design-prompt.html is the status view (what has already shipped). Every row carries an empty Decision column, so nothing is applied by an agent on the owner's behalf.",
+      "why": "Three review surfaces, one mechanism: suggestions.html is the queue with paths, design-prompt.html is the status view with a blank Decision column, and decision-log.html is where a path is picked and exported back as JSON. Pass 13 added path P7 (numbered after the money-path P6 that merged the same day) ('make the shop look bought-in') and a computed decision desk at the top of the queue — open rows, rows blocked on an unanswered question, the questions that unblock the most, and the highest-scoring row with no recorded choice — all of it counted from the registers at build time, so it cannot go stale the way a typed summary does.",
       "sources": []
     },
     {
@@ -94,15 +104,19 @@
       ],
       "evidence": [
         {
-          "label": "20 questions",
+          "label": "questions register (row count shown on the page)",
           "url": "questions.html"
         },
         {
           "label": "data",
           "url": "data/questions.json"
+        },
+        {
+          "label": "pass 13 record",
+          "url": "reports/verification-2026-11-17-fd9778a1.md"
         }
       ],
-      "why": "{n_questions} questions, each recording what is known, what is missing, the answer that would unblock it, and the steps that would discover it. Where the answer is already in the repository the row says so and links it, rather than asking again.",
+      "why": "{n_questions} questions, each recording what is known, what is missing, the answer that would unblock it, and the steps that would discover it. Where the answer is already in the repository the row says so and links it, rather than asking again. Eleven rows added on 2026-11-17 (Q-30 to Q-40), each stating the answer's owner: the account holder alone can settle the click-test question (Q-37) and the photography rights question (Q-34); Search Console ownership settles the next topic (Q-31); two rows record what an official source was read and does not state (Q-38's weight conflict, Q-39's quotation rule). Nothing here was filled by inference, and the four states — known, missing, unknowable, not_stated — are the legend, not decoration.",
       "sources": []
     },
     {
@@ -113,7 +127,8 @@
       "status": "delivered",
       "where": [
         "questions.html",
-        "data/questions.json"
+        "data/questions.json",
+        "data/sources.json"
       ],
       "evidence": [
         {
@@ -123,9 +138,13 @@
         {
           "label": "data",
           "url": "data/questions.json"
+        },
+        {
+          "label": "pass 13 record",
+          "url": "reports/verification-2026-11-17-fd9778a1.md"
         }
       ],
-      "why": "Each question row carries numbered discovery steps. The steps distinguish what a script can do (re-fetch a page), what only a signed-in human can do (read the Product information table, read Associates reports), and what no one can obtain (a public demand metric that Amazon does not publish).",
+      "why": "Every new row ends in a discovery step concrete enough to hand to someone: which Associates Central screen answers Q-37, which email answers Q-34, which four weeks of data answers Q-31, and which single line of build.py answers Q-33. Where the answer would need a source this verifier cannot cite, the row says so instead of inventing the citation (Q-40, F88).",
       "sources": []
     },
     {
@@ -215,7 +234,8 @@
       "status": "partial",
       "where": [
         "assets/style.css",
-        "data/articles.json"
+        "data/articles.json",
+        "build.py"
       ],
       "evidence": [
         {
@@ -225,10 +245,17 @@
         {
           "label": "voice rules",
           "url": "design-prompt.html"
+        },
+        {
+          "label": "pass 13 record",
+          "url": "reports/verification-2026-11-17-fd9778a1.md"
         }
       ],
-      "why": "The build now fails on 27 banned stock-phrase entries (24 distinct phrases: 'in today's fast-paced world', 'elevate your', 'game-changer', 'dive into', 'seamless experience', 'cutting-edge' …) and on machine-spliced sentences. What is still missing is visual: the site has no product photography at all, because Amazon's Program Content may not be used without the API and manufacturer images carry their own licence. That single omission is the largest remaining reason it reads as a document rather than a shop window.",
-      "sources": []
+      "why": "The build fails on {n_banned} banned stock-phrase entries and on machine-spliced sentences, and pass 13 (2026-11-17) added the shop layer a buyer judges a storefront by: the front page opens with the three machines (capacity, the brand's own list price, a 'Best for' row and a 'Check first' row each), the product pages lead with the same decision block, and mobile got a fluid type scale, a 44 px minimum hit area and a sticky comparison route. What still keeps this row at partial is one fact, not one effort: there is no product image anywhere on the site, because Amazon's Program Content may not be copied and no brand licence is recorded (Q-34, SG-42). A shop window with no goods in it reads as generated, whatever the typography does.",
+      "sources": [
+        "S1",
+        "S43"
+      ]
     },
     {
       "id": "B-02",
@@ -355,23 +382,30 @@
       "scope": "Site",
       "requirement": "Catchy, trendy articles that a shopper would actually read",
       "clause": "It should include catchy trendy articles and topics related to the product we are promoting.",
-      "status": "partial",
+      "status": "delivered",
       "where": [
         "articles/index.html",
-        "data/topics.json"
+        "data/topics.json",
+        "data/articles.json"
       ],
       "evidence": [
         {
-          "label": "12 articles",
+          "label": "article index (row count shown on the page)",
           "url": "articles/index.html"
         },
         {
           "label": "14-topic plan",
           "url": "topics.html"
+        },
+        {
+          "label": "pass 13 record",
+          "url": "reports/verification-2026-11-17-fd9778a1.md"
         }
       ],
-      "why": "{n_articles} articles are published and {n_topics_minus_articles} more topics are specified but unwritten. They are written to answer a question that a listing cannot ('Two 3-quart drawers or one 8-quart basket: which actually feeds four people?'), which is the durable form of 'trendy' — but they are deliberately not trend-chasing, because a trending topic has no official source and this site will not publish a claim it cannot cite.",
-      "sources": []
+      "why": "{n_articles} articles are published and {n_topics_minus_articles} more topics are specified but unwritten. They are written to answer a question that a listing cannot ('Two 3-quart drawers or one 8-quart basket: which actually feeds four people?'), which is the durable form of 'trendy' — but they are deliberately not trend-chasing, because a trending topic has no official source and this site will not publish a claim it cannot cite. {n_articles} articles as this register was last updated, three of them added by pass 13 on 2026-11-17 with the shapes a shopper actually types: 'Chefman vs. Emeril: what a basket brand and an oven brand actually publish', '“98% less oil” is a sentence on a box, not a measurement', and 'Eight questions to ask before you buy a multi-function kitchen appliance'. Trendy in the durable sense — a question with a documented answer and a visible gap where there is none — and deliberately not trend-chasing: a trending claim with no official source is the one thing this build will not publish. What is still missing is not titles, it is cadence and query data (Q-31, Q-36, SG-43).",
+      "sources": [
+        "S30"
+      ]
     },
     {
       "id": "B-09",
@@ -588,7 +622,9 @@
       "clause": "generates SEO-optimized product articles, comparisons, and buying guides",
       "status": "partial",
       "where": [
-        "platform/content/generator.py"
+        "data/articles.json",
+        "build.py",
+        "data/topics.json"
       ],
       "evidence": [
         {
@@ -598,10 +634,17 @@
         {
           "label": "voice guard",
           "url": "build.py"
+        },
+        {
+          "label": "pass 13 record",
+          "url": "reports/verification-2026-11-17-fd9778a1.md"
         }
       ],
-      "why": "The generator builds structure only — headings, the disclosure block, the link slot, the comparison skeleton — and fills a sentence only from a sourced fact passed in by the caller; a missing fact becomes an explicit placeholder. The twelve published articles were authored against that gate rather than emitted by it, so no unpublished claim could enter the copy.",
-      "sources": []
+      "why": "Every article row declares its target query, its intent and a reading time, and each new piece is regenerated into the index, the sitemap, the feed and the prev/next strip from one register row — the pipeline is mechanical and its output is checked. It stays partial because the optimisation half is absent: no query report and no click counter, so nothing in the pipeline learns which article earned anything. F12 still states what a real loop requires.",
+      "sources": [
+        "S2",
+        "S30"
+      ]
     },
     {
       "id": "D-02",

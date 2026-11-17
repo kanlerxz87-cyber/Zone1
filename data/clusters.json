@@ -19,7 +19,9 @@
         "small-kitchen-air-fryer-dimensions",
         "sync-finish-explained",
         "rotisserie-at-home",
-        "air-fryer-gift-guide-2026"
+        "air-fryer-gift-guide-2026",
+        "chefman-vs-emeril-air-fryer",
+        "questions-before-buying-a-multifunction-appliance"
       ]
     },
     {
@@ -35,7 +37,8 @@
         "25-or-24-presets",
         "whats-in-the-box",
         "chefman-8qt-two-models",
-        "chefman-6qt-documented-review"
+        "chefman-6qt-documented-review",
+        "ninety-eight-percent-less-oil-claim"
       ]
     },
     {
@@ -66,5 +69,6 @@
         "black-friday-model-number-switch"
       ]
     }
-  ]
+  ],
+  "note": "Pass 13 (arena/fd9778a1-zone1, 2026-11-17) filed its three guides here rather than leaving them reachable only from the flat list: two brand-and-format decision pieces under 'choose', and the oil-claim reading piece under 'spec', because the reader arrives with a number on a box and wants to know what it means."
 }

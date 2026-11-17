@@ -137,7 +137,7 @@
   among them two decision pages that had each other's canonical URL and title, a page that stated
   16 suggestions while rendering 12, a buyer-facing link to a raw markdown file, and the complete
   absence of canonical URLs, social cards and structured data on every page. The site now ships a
-  canonical URL, Open Graph and Twitter card tags and JSON-LD on all 53 root pages, and
+  canonical URL, Open Graph and Twitter card tags and JSON-LD on all 56 root pages, and
   two new build guards fail the build on a nested anchor. The full evidence, including what this
   pass could <em>not</em> establish, is in
   <code>session-88bb2db6/EVIDENCE-2026-11-15.md</code> in the repository.</p>
@@ -165,8 +165,8 @@
 
 <div class="grid grid-4" style="margin-bottom:1rem">
   <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">3 candidate ASINs, mapping unconfirmed (F14–F16)</div></div>
-  <div class="stat ok"><div class="n">42</div><div class="l">Sources</div><div class="h">All official, all linked</div></div>
-  <div class="stat warn"><div class="n">84</div><div class="l">Open flag rows</div><div class="h">Counted the way the Flagged page lists them — none hidden, none blocking</div></div>
+  <div class="stat ok"><div class="n">43</div><div class="l">Sources</div><div class="h">All official, all linked</div></div>
+  <div class="stat warn"><div class="n">89</div><div class="l">Open flag rows</div><div class="h">Counted the way the Flagged page lists them — none hidden, none blocking</div></div>
   <div class="stat"><div class="n">0</div><div class="l">Numbers invented</div></div>
 </div>
 
@@ -181,7 +181,7 @@
 <h2>Findings</h2>
 <div class="callout ok">
   <strong>1 · The product side is verifiable, and was verified</strong>
-  <p class="small">Every specification asserted on the site was read from the manufacturer's own product page or owner's manual on 2026-11-13, and each one carries a clickable link to it. 42 sources are registered; none is a retailer, a review aggregator or an affiliate blog. Values that could not be confirmed are blank and listed, which is the only honest way to publish a comparison table.</p>
+  <p class="small">Every specification asserted on the site was read from the manufacturer's own product page or owner's manual on 2026-11-13, and each one carries a clickable link to it. 43 sources are registered; none is a retailer, a review aggregator or an affiliate blog. Values that could not be confirmed are blank and listed, which is the only honest way to publish a comparison table.</p>
 </div>
 <div class="callout bad">
   <strong>2 · One official source contradicts another, and it is not cosmetic</strong>
@@ -218,7 +218,7 @@
 <h2>Coverage against the brief</h2>
 <div class="callout note">
   <strong>Every requirement in the brief, and what is actually done about it</strong>
-  <p class="small" style="margin-bottom:0"><strong>28</strong> delivered · <strong>15</strong> partial · <strong>8</strong> blocked · <strong>2</strong> not built. The <a href="requirements.html">Requirements and
+  <p class="small" style="margin-bottom:0"><strong>29</strong> delivered · <strong>14</strong> partial · <strong>8</strong> blocked · <strong>2</strong> not built. The <a href="requirements.html">Requirements and
   status</a> page lists all 53 rows individually, each with the path that
   implements it and the official source that settles it. A row is marked <em>blocked</em> only where the input
   exists solely inside Amazon's own systems — the Associate tag, the account's approval status, per-ASIN
@@ -242,6 +242,7 @@ them sit at the repository root and at least one contradicts the position publis
 this page. See <a href="flagged.html#f59">F59</a>.</p>
   </main>
 </div>
+
 <footer class="site">
   <div class="inner">
     <div class="foot-brand">

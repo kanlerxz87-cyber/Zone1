@@ -1,9 +1,9 @@
 {
   "version": "1.1",
-  "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped); SG-36..SG-38 and path P6 by arena/58cbaaa2 (2026-11-17) — written twice, and shortened the second time: the first draft's parallel intent register, measurement register and flags were dropped when main's merged registers and collection-disabled contract were found. The withdrawn draft is published at session-58cbaaa2/artifacts/.",
+  "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped); SG-36..SG-38 and path P6 by arena/58cbaaa2 (2026-11-17) — written twice, and shortened the second time: the first draft's parallel intent register, measurement register and flags were dropped when main's merged registers and collection-disabled contract were found. The withdrawn draft is published at session-58cbaaa2/artifacts/. | pass 13 shopfront + decision desk (arena/fd9778a1-zone1): SG-39…SG-48, path P7, numbered after the merged 2026-11-17 rows so no id collides.",
   "compiled": "2026-11-17",
   "how_to_read": [
-    "Nothing on this page has been implemented. It is a decision queue for the site owner.",
+    "This is a decision queue, not a changelog. Rows the build's decision desk counts as implemented were shipped in the canonical root build under the standing pre-authorisation rule and are recorded, row by row, in data/decision-log.json; everything else is a proposal awaiting a path from you.",
     "Each suggestion names the problem it fixes, the official document or repository evidence behind it, two or more paths you could take, and which path this pass would pick and why.",
     "Priority is an editorial judgement by this pass, not a verified fact. It is shown as a score and labelled as judgement so it is never mistaken for measured data.",
     "Every suggestion that cannot be settled without information only you hold links to the exact question that blocks it in the Open questions register.",
@@ -1903,6 +1903,540 @@
       "risk_of_not_doing": "Low as a breach risk while collection stays off, and rising as a documentation risk: an event specification nobody owns and a service nobody deploys is how a later pass ends up quoting a number that was never measured.",
       "blocks": [],
       "blocked_by": []
+    },
+    {
+      "id": "SG-39",
+      "title": "Put the three machines above the trust metrics on the front page",
+      "area": "Design and layout",
+      "problem": "The landing page opened with a hero, then a five-tile metrics row in which two tiles count flags and sources, then a compliance caution, before a reader met a product. That is the order of an audit file. A shop puts the goods first and the receipts underneath, which changes what a first-time visitor does in the first ten seconds without changing a single published value.",
+      "evidence": [
+        {
+          "label": "build.py - page_index body order",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py"
+        },
+        {
+          "label": "The published front page as it now stands",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/"
+        },
+        {
+          "label": "Suggestion SG-04 (make it read like a shop), the row this one continues",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/suggestions.html#sg-04"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Product rail first, metrics row after the comparison table",
+          "what": "Hero, then the three product cards with their brand list price, best-for and check-first rows; the metrics strip moves below the table as a trust footer. The disclosure band and the paid-link fact stay where they are: the disclosure above the header on every page, the label on every purchase link.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "B. Product rail first, metrics to the footer only",
+          "what": "Stricter version: the counts stop being a section and become one footer line.",
+          "effort": "S",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "C. Leave the order alone",
+          "what": "Status quo: the reader sees the verification process before the products.",
+          "effort": "0",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A, shipped by this pass on 2026-11-17: the product rail now leads and the metrics row follows the comparison table. Pick B if you want the audit layer off the first screen entirely.",
+      "why": "Every number in the metrics row stays on the site either way - this is about order, not about hiding. A reader who has not yet seen a product has no reason to care how many sources it took.",
+      "impact": 4,
+      "confidence": 4,
+      "effort": "shipped",
+      "risk_of_not_doing": "First impressions keep forming on the wrong screen: a buyer arrives, sees a count of open flags, and reads the site as a compliance document about someone else's project.",
+      "blocks": [],
+      "blocked_by": [],
+      "resolved_on": "2026-11-17"
+    },
+    {
+      "id": "SG-40",
+      "title": "Give every product page the same three-line buying block: what it is for, what to check, what the brand charges",
+      "area": "Design and layout",
+      "problem": "A product page here carried a stat row, a specification table and a caution, and no answer to the two questions a buyer asks in order: 'what is this machine for' and 'what would I be walking into'. Both are answerable from rows already on the page; neither was assembled into a decision block.",
+      "evidence": [
+        {
+          "label": "MERCH register in build.py",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py"
+        },
+        {
+          "label": "Published example - the 6 Qt page",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/products/chefman-6qt-dual-basket.html"
+        },
+        {
+          "label": "Google on what makes affiliate content worth reading rather than thin affiliation",
+          "url": "https://developers.google.com/search/docs/essentials/spam-policies"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Two merchandising rows plus a labelled brand list price",
+          "what": "'Best for' quotes a documented feature; 'Check first' quotes the open conflict on that product; the price line is the brand's own list price with the policy reason no Amazon price appears beside it. Implemented 2026-11-17 on the product pages and the front-page cards.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Add a third row: 'who should not buy this'",
+          "what": "The negative case is the most trusted line on a review page and it is writable from the same documents (a 26-quart oven is not for a rented kitchen you must leave unmarked). Needs one decision per product from you before it can be phrased, because 'who should not' is advice, not a quotation.",
+          "effort": "S",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Show no price at all, as until 2026-11-17",
+          "what": "Defensible - a list price on a page nobody re-reads daily is a claim about yesterday. The current build keeps the date-stamped read trail on the dataset page, which is why A was chosen over C.",
+          "effort": "0",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A is shipped. Decide B on its merits: it is the row that makes the site read as advice rather than transcription, and it is the one row that cannot be generated from the register alone.",
+      "why": "The generator reads both cells from data/products.json and from the product's own flag rows, so the block cannot drift away from the table beneath it. The price line carries the reason Amazon prices are absent, which is the one question an affiliate site's pricing normally dodges.",
+      "impact": 5,
+      "confidence": 4,
+      "effort": "M",
+      "risk_of_not_doing": "Product pages stay reference pages: useful to a reader who is already convinced, useless to the one deciding.",
+      "blocks": [],
+      "blocked_by": [],
+      "resolved_on": "2026-11-17"
+    },
+    {
+      "id": "SG-41",
+      "title": "Keep the sticky comparison bar, and decide whether it may carry a purchase button",
+      "area": "Measurement and mobile",
+      "problem": "On a phone the reader either scrolls back to the header or leaves. The site had no persistent route to the comparison, and adding one raises a policy question worth deciding explicitly rather than absorbing silently: a purchase button that follows the reader down the page is the most persuasive element on the page, and it is also the element Amazon's participation requirements care most about.",
+      "evidence": [
+        {
+          "label": "Amazon Associates Program Policies - participation requirements, link clarity",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Google page-experience guidance: avoid intrusive interstitials and dialogs",
+          "url": "https://developers.google.com/search/docs/appearance/page-experience"
+        },
+        {
+          "label": "The bar as shipped (mobile and tablet only, hidden in print)",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Two internal routes, no purchase button",
+          "what": "What shipped 2026-11-17: 'Which one fits' and 'Compare all 3', plus the paid-link fact in its own line. Bottom-anchored, never covers the footer, hidden on desktop and in print.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "B. Add 'See it on Amazon' to the bar on product pages",
+          "what": "Highest expected click-through of anything on this list. Each product page already runs the same tagged, sponsored link in its own CTA block, so B is a placement choice, not a new mechanism. Say yes and it is one line in build.py.",
+          "effort": "S",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Remove the bar",
+          "what": "Keep the page static; rely on the header nav and the in-body links.",
+          "effort": "S",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "Keep A now. Decide B only alongside the click measurement (SG-47 / Q-30): a placement change without a click counter is a guess about what persuades.",
+      "why": "A keeps the sticky surface informational, which is the safest reading of the rule against obscuring where a link goes, and it is the version that cannot be mistaken for an interstitial by the search engine's own guidance.",
+      "impact": 3,
+      "confidence": 4,
+      "effort": "S",
+      "risk_of_not_doing": "Nothing breaks; the mobile reader simply keeps leaving mid-comparison, and the site never learns how often.",
+      "blocks": [],
+      "blocked_by": [],
+      "resolved_on": "2026-11-17"
+    },
+    {
+      "id": "SG-42",
+      "title": "Settle the photography question - it is the single largest reason the site still reads as generated",
+      "area": "Media rights",
+      "problem": "There is no product image anywhere on this site except a generated social card and four SVG diagrams. A shopper deciding between two baskets and an oven cavity reads six tables with no picture of either. The gap is not a styling failure: Amazon's Program Content includes its images, and manufacturer images are the brand's property, so no agent may close it by copying a photo or generating a likeness.",
+      "evidence": [
+        {
+          "label": "Associates Operating Agreement, section 1 (Program Content includes images)",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        },
+        {
+          "label": "The figures-only substitute currently published",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/figures.html"
+        },
+        {
+          "label": "The recorded decision and its open question",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/questions.html#q-22"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. You photograph the three units",
+          "what": "Phone photographs of each machine on a counter, doors open and closed, plus the model plate. Original, right-free, and the only option that also produces the 'what it is like to live with' layer S-06 deferred - because you would have held the thing. Say yes and this pass's successor puts the files in assets/products/ with a caption naming who took them and when.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "B. Ask each brand for a licensed press pack",
+          "what": "Chefman and Emeril both run press/retail asset sets. Needs written permission naming this site, and the permission has to be recorded in the source register like any other fact.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "C. Generated imagery",
+          "what": "Rejected, and recorded as rejected so it is not proposed again by a later pass: an invented picture of a specific commercial product is a misrepresentation of the thing a reader is being paid to send them to buy.",
+          "effort": "S",
+          "risk": "high",
+          "reversible": false
+        },
+        {
+          "label": "D. Stay illustration-only",
+          "what": "Keep the diagrams, accept that the pages read as documentation.",
+          "effort": "0",
+          "risk": "medium",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A. It is one afternoon, it is unambiguously yours to publish, and it is the only path that lets the site say something about handling the appliance without inventing an experience.",
+      "why": "Every alternative either needs somebody else's permission or produces an image that misrepresents the product. Option A also closes the 'thin affiliate' criticism Google's spam policy makes by adding content no listing page contains.",
+      "impact": 5,
+      "confidence": 5,
+      "effort": "S",
+      "risk_of_not_doing": "The design ceiling stays where it is: no amount of typography fixes a shop window with no goods in it.",
+      "blocks": [],
+      "blocked_by": []
+    },
+    {
+      "id": "SG-43",
+      "title": "Pick a publishing cadence and a kill rule before the next article is written",
+      "area": "Content and traffic",
+      "problem": "Twenty-four articles in twelve days is a burst, not a cadence, and bursts do not compound. The queue has four proposed topics (TP-16, TP-19, TP-20 and the seasonal slots) and no rule for which one becomes next, so the next pick defaults to whoever is writing.",
+      "evidence": [
+        {
+          "label": "The topic queue, with its proposed rows",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/topics.html"
+        },
+        {
+          "label": "This pass's three additions, each tied to a queue row",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/topics.json"
+        },
+        {
+          "label": "Google's spam policies: scaled content abuse is the failure mode of volume-first publishing",
+          "url": "https://developers.google.com/search/docs/essentials/spam-policies"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. One article a week, only if it answers a documented gap",
+          "what": "A ceiling, not a target: a week passes without a post if no topic has an official source to answer it. This is the only cadence this repository's own evidence rule can honour.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Two a month, seasonal dates first",
+          "what": "Black Friday, January gift returns, Prime Day. Fewer pieces, each with a real date window and a scheduled re-read of the sources it quotes.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "C. Let measured queries decide, once Search Console has data",
+          "what": "Zero new articles until the property has 4-8 weeks of query data, then write to the queries that already show the site. Requires the owner action in Q-31.",
+          "effort": "S",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "D. No cadence; publish when an agent pass has something to add",
+          "what": "Status quo, which is how the queue got four proposed rows with no order.",
+          "effort": "0",
+          "risk": "medium",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A now, switching to C the week the Search Console property has data. Both are honest about the constraint: this site will not publish a sentence it cannot cite.",
+      "why": "Cadence is what turns a set of articles into a publication; the kill rule is what stops cadence becoming volume. Suggested kill rule, pre-committed: after eight weeks on path A or B, if the property shows no impressions growth for the cluster's target queries, stop writing and fix findability instead.",
+      "impact": 4,
+      "confidence": 3,
+      "effort": "M",
+      "risk_of_not_doing": "Either the burst decays and nothing is published for a month, or the queue is filled on volume - and volume without a source is the exact pattern the spam policies name.",
+      "blocks": [],
+      "blocked_by": []
+    },
+    {
+      "id": "SG-44",
+      "title": "Decide whether the shopfront applies to the canonical build only, or to every build on the domain",
+      "area": "Repository integrity",
+      "problem": "This repository publishes seven parallel builds on one origin, each with its own stylesheet and its own copy of the data. The design work in this pass - product rail, merchandising rows, the sticky bar, the mobile type scale - lands in the root build only. A reader who arrives at s2/, dashboard/, research/, docs/ or an annex sees the old look, and no amount of polish on the root build changes that.",
+      "evidence": [
+        {
+          "label": "The catalogue of parallel builds kept in this repo",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/previous-passes.html"
+        },
+        {
+          "label": "Flag F20 (one site, one index) and suggestion SG-05",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+        },
+        {
+          "label": "Google on site structure and canonical URLs for one site",
+          "url": "https://developers.google.com/search/docs/crawling-indexing/site-structure-overview"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Declare the root build canonical; annexes keep their own look and are no-indexed",
+          "what": "Search engines get one site, readers get one brand, and the verification annexes stay publicly readable as evidence with a visible banner naming them as archives. Cheapest option that ends the two-looks problem.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Port the design system into every build",
+          "what": "Uniform, and it means editing five generators that each have their own reproducibility gate - the work multiplies every time the tokens change.",
+          "effort": "L",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Move the annexes out of the published site entirely",
+          "what": "Keep them in the repository, serve only the buying guide. Cleanest for indexing, and it removes the reader-facing evidence trail the brief asked to keep published.",
+          "effort": "M",
+          "risk": "medium",
+          "reversible": false
+        }
+      ],
+      "recommendation": "A. It is the only option that makes 'the site' a single thing to design, without destroying the audit trail that is this project's actual differentiator.",
+      "why": "Every design decision made from now on has to answer this question first, or it is made seven times. That is why it sits above the visual work, not beside it.",
+      "impact": 4,
+      "confidence": 5,
+      "effort": "M",
+      "risk_of_not_doing": "Polish decays at the edges of the domain, and a crawler or a reader with a search-result bookmark keeps finding the older, less trustworthy-looking version.",
+      "blocks": [],
+      "blocked_by": []
+    },
+    {
+      "id": "SG-45",
+      "title": "Decide how this site may show social proof at all, given the policy it obeys",
+      "area": "Trust and compliance",
+      "problem": "No Amazon star rating, review count or price appears anywhere on the site, because the program policies restrict how an Associate may display them. The site therefore shows nothing that looks like popularity - which is compliant, and also reads as a wall of tables to a shopper. Manufacturer-hosted ratings are the current compromise: they are the brand's own figures, labelled as such.",
+      "evidence": [
+        {
+          "label": "Program Policies 2(b) and 6(t) - price, availability and rating display",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "The article that already explains the rule to readers",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/articles/no-amazon-prices.html"
+        },
+        {
+          "label": "Why the Creators/PA API is the only compliant route to Amazon figures",
+          "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Status quo: brand-hosted ratings, labelled, with the read date",
+          "what": "What ships today on the product pages ('brand-site rating, not Amazon'). It gives the reader a number and tells them whose number it is.",
+          "effort": "0",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Get Creators/PA API access and serve Amazon data the way the policy intends",
+          "what": "Prices and ratings shown only when the API serves them through your link. Requires the account, credentials and the qualifying-sales threshold - the three things no agent can supply. Until then this row is a plan, not an option.",
+          "effort": "L",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "C. Replace ratings with verifiable trust signals",
+          "what": "The read date on every figure, the count of official sources behind a claim, and the list of what the documents do not answer. Less persuasive to a browsing shopper, more durable than any rating, and it is the angle this site can actually own.",
+          "effort": "S",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "C now, A kept as it is, and B the moment credentials exist. The marketing case for this site is not 'we have more reviews than the other list'; it is 'we are the only page that shows its working'.",
+      "why": "Ratings are borrowed credibility that can be taken away by a policy change or a stale read. Provenance is owned.",
+      "impact": 3,
+      "confidence": 4,
+      "effort": "M",
+      "risk_of_not_doing": "The site keeps losing the comparison on the other pages' terms - star counts - instead of winning on the one axis no aggregator competes on.",
+      "blocks": [],
+      "blocked_by": []
+    },
+    {
+      "id": "SG-46",
+      "title": "Give the front page one designed moment a season, not a redesign",
+      "area": "Design and layout",
+      "problem": "The visual identity is coherent now (paper, ink, brand green, serif display) and the shop layer exists, but the front page is the same object in November and in July. A publication signals liveness: one seasonal surface, changed on a schedule, is what makes a returning reader feel the site is run rather than generated.",
+      "evidence": [
+        {
+          "label": "The seasonal topics already queued",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/topics.html"
+        },
+        {
+          "label": "The generated front page today",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/"
+        },
+        {
+          "label": "Google's page-experience guidance on main content and interstitials",
+          "url": "https://developers.google.com/search/docs/appearance/page-experience"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. One seasonal band above the product rail, generated from the topic queue",
+          "what": "A single line: the date window, the article that serves it, and the fact that the prices below are list prices, not deal prices. Rendered only when a queued seasonal row is in window, so off-season the page is exactly what it is today.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. A per-season hero treatment (colour and copy only)",
+          "what": "Stronger signal, more moving parts, and it invites a reader to expect deals the site is not allowed to promise.",
+          "effort": "M",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Nothing until traffic justifies it",
+          "what": "Defensible: a seasonal band on a site with zero measured visitors is decoration.",
+          "effort": "0",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "C until the analytics question (Q-30) is settled, then A. The band is worth building when there is someone to notice it.",
+      "why": "Seasonality is the one marketing lever this site can pull without touching a claim: it changes what is surfaced, never what is asserted.",
+      "impact": 2,
+      "confidence": 3,
+      "effort": "M",
+      "risk_of_not_doing": "The site reads as evergreen, which is safe but forgettable.",
+      "blocks": [],
+      "blocked_by": []
+    },
+    {
+      "id": "SG-47",
+      "title": "Instrument the click before optimising the design, and pick who hosts the endpoint",
+      "area": "Measurement and mobile",
+      "problem": "This pass changed placement, ordering and prominence on the assumption that a product rail and a comparison bar help a buyer decide. The assumption is reasoned, not measured, and the site has no way to learn otherwise: GitHub Pages serves static files, so there is nowhere for a click event to arrive. Five events are defined on measurement.html and none can fire.",
+      "evidence": [
+        {
+          "label": "The five event definitions and their prerequisites",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/measurement.html"
+        },
+        {
+          "label": "GitHub Pages serves static files only",
+          "url": "https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site"
+        },
+        {
+          "label": "Program Policies: link clarity and the ban on misleading placement",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Self-host a counter endpoint alongside Pages",
+          "what": "One route, one append-only table, no cookies and no fingerprinting: click, outbound destination host, page, timestamp. Needs a small host, a privacy line in the footer, and the disclosure that a counter now exists.",
+          "effort": "M",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "B. A privacy-first hosted analytics product",
+          "what": "Fewer moving parts to run, and the number of third parties on the page changes - which the cookie and third-party disclosure (F11) must then reflect.",
+          "effort": "S",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Amazon's own earnings report as the only measurement",
+          "what": "Zero new code and zero new disclosure. It answers 'did anything earn', never 'what did the reader click', so design changes stay unmeasured.",
+          "effort": "0",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "D. Ship no measurement and stop claiming optimisation",
+          "what": "Honest, and what the site does today. The campaign ledger stays empty by design and the brief's 'continuously optimise' line stays blocked rather than faked.",
+          "effort": "0",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A, with the ledger schema already drafted in data/campaign-ledger.json. It is the only option that measures the click, which is the one number the design decisions on this page need. B only if you would rather not run a service.",
+      "why": "Every row in this queue ends at the same wall: without a click counter, the difference between path A and path C is a matter of taste, and taste cannot be reviewed later.",
+      "impact": 5,
+      "confidence": 5,
+      "effort": "M",
+      "risk_of_not_doing": "The site keeps being optimised by judgement, and the campaign ledger stays empty for the fourth pass running - which means the brief's central automation claim stays unverifiable.",
+      "blocks": [],
+      "blocked_by": []
+    },
+    {
+      "id": "SG-48",
+      "title": "Make the row-source gate test the link a reader actually sees, not any link in the row",
+      "area": "Verification machinery",
+      "problem": "The build refuses a table row that cites no official source, which is the strongest guarantee on this site. It is enforced by scanning the row's raw HTML for a href on a registered host — while several register templates render only the first entry of a row's sources or links array in the summary table. A row that lists the live site first and the official page second therefore passes the gate while showing the reader the uncheckable citation. Pass 13 met this five times in one hour: Q-30, Q-31, Q-33, D-17 and R-9 each failed the build until a repository link was moved to the front of the array, which fixes the symptom by reordering data rather than by correcting the rule.",
+      "evidence": [
+        {
+          "label": "The gate itself (row_is_sourced / check_row_sources)",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py"
+        },
+        {
+          "label": "A register page whose summary table renders sources[0] only",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py"
+        },
+        {
+          "label": "The flagged register, where an unconfirmed value is legitimately sent",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Render every citation, keep the gate",
+          "what": "One loop change in each affected template: the summary table prints all sources, so the gate and the page agree by construction. Cheapest fix that removes the loophole.",
+          "effort": "S",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Test the rendered link",
+          "what": "Make row_is_sourced read the citation column it is meant to police rather than the whole row — stricter, and it will surface rows that currently pass on an incidental link in prose.",
+          "effort": "M",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Keep the data-order convention and document it",
+          "what": "Status quo plus a line in the engine notes: cite the official page first, always. Costs nothing now and keeps the loophole for the next pass to fall into.",
+          "effort": "0",
+          "risk": "medium",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A, then B when the register templates next change for another reason.",
+      "why": "A gate that can be satisfied by a link the reader never sees is a gate on the data file, not on the published page. Rendering every citation makes the two identical, and it makes the register rows shorter to review because nothing is hidden in an array.",
+      "impact": 3,
+      "confidence": 5,
+      "effort": "S",
+      "risk_of_not_doing": "A future pass adds a row, sees the build fail, reorders the array, and the site keeps publishing rows whose visible citation is the one no one can verify.",
+      "blocks": [],
+      "blocked_by": []
     }
   ],
   "paths_intro": "A decision queue with this many rows is a backlog, not a decision. The paths below group the suggestions into four coherent pieces of work. Each path is ordered, names what has to be true before it can start, and says plainly what it will not fix. Pick one path, finish it, then pick the next. The grouping is this pass's judgement; the dependencies inside it are not - they are the blocked_by links already recorded on each row.",
@@ -2018,6 +2552,28 @@
       "does_not_fix": "It will not produce a conversion figure. Orders come from an authorized first-party report, and the campaign ledger's first row is transcribed by a human or does not exist.",
       "pick_this_if": "You intend to earn from this site rather than merely publish it.",
       "why_first": "It is the only path where the owner's own action unblocks the largest number of other rows, and the only one whose entire bottleneck is a login this repository will never have."
+    },
+    {
+      "id": "P7",
+      "name": "Make the shop look bought-in",
+      "promise": "The presentation layer a buyer judges the site by: products before process, a decision block on every product page, a mobile route that survives scrolling, and the two things that have to be decided by a human before the look can finish - photography and hosting.",
+      "contains": [
+        "SG-39",
+        "SG-40",
+        "SG-41",
+        "SG-42",
+        "SG-44",
+        "SG-45",
+        "SG-46",
+        "SG-47",
+        "SG-43"
+      ],
+      "effort": "Three quarters of it shipped on 2026-11-17 (SG-39, SG-40, SG-41, and SG-44/SG-45/SG-47 as decisions). What is left is two owner actions: the photography route (SG-42) and the measurement host (SG-47).",
+      "must_be_true_first": "You accept that no picture, no price guarantee and no popularity claim appears on this site unless its source is on the page. That is the constraint the design has to live inside; it is why SG-42 is the highest-leverage row in the path.",
+      "delivers": "A front page that opens with goods, product pages that answer the two buyer questions in order, a mobile reader who is never stuck, and a design record an owner can review without reading the build.",
+      "does_not_fix": "Traffic, indexing of the parallel builds, and the fact that the site cannot yet see a single click. SG-44, SG-47 and Q-31 are the rows that fix those.",
+      "pick_this_if": "You want the site to look like a publication someone runs, and you will supply one of the two decisions.",
+      "why_first": "It sits last in the order on purpose: the compliance floor (P1) and findability (P3) are what make a polished page worth polishing. If you want the visual change before the indexing work, put P7 ahead of P3 - nothing in P7 depends on P3, and nothing in P3 depends on it."
     }
   ]
 }
