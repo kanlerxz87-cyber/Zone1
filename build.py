@@ -6466,7 +6466,7 @@ def page_article(a):
   <div class="article-meta">
     <span>{e(a['kind'])}</span><span aria-hidden="true">·</span>
     <span>{a['reading_minutes']} min read</span><span aria-hidden="true">·</span>
-    <span>sources read {ARTICLES['accessed']}</span><span aria-hidden="true">·</span>
+    <span>sources read {e(a.get('sources_read') or ARTICLES['accessed'])}</span><span aria-hidden="true">·</span>
     <span class="pill pill-info">Documentation-based — no hands-on testing</span>
   </div>
 </header>
