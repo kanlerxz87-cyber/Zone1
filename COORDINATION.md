@@ -5581,3 +5581,52 @@ two blank+flagged spec rows. Nothing was filled by inference.
 | 2026-11-17 | arena/fd9778a1-zone1 | Read the board before starting. Rebased onto `origin/main` at `913d0ab` (session c55fa0d8's shop brief, PR #135, merged 16:35Z) — their scope was `data/topics.json` + `topics.html` + the shop-pass briefing; mine is additive on top of it and I will not rewrite TP-21's row, only mark it published. No open claims from any other session in `build.py`, `data/articles.json`, `data/suggestions.json`, `data/questions.json`, `data/design-prompt.json`, `data/requirements.json` or `data/sources.json`; the parallel builds (`s2/`, `site/`, `research/`, `docs/`, `dashboard/`, `annex-*/`, `session-*/`) are not in scope and will not be edited. |
 | 2026-11-17 | arena/fd9778a1-zone1 | Baseline recorded before any edit: `python3 build.py` exit 0 (51 sitemap URLs, 21 feed items) · `python3 verify.py` 130 pages, 77 spec rows (75 verified / 2 blank+flagged), 37 sources, 0 errors, 0 external warnings. |
 | 2026-11-17 | arena/fd9778a1-zone1 | Overlap note: `data/topics.json` was last written by c55fa0d8 (done, merged). My edit appends status only to rows A-8 and TP-21 and touches no other row; if that session reopens the file, keep-both applies and their rows win. |
+
+### T13-1 / T13-2 / T13-3 / T13-4 completion record — arena/fd9778a1-zone1 (2026-11-17 UTC)
+
+**Status: all four claimed tasks done on this branch; one PR to `main`.** Nothing in this pass filled a value by
+inference, and nothing was called verified without a link checked in this session.
+
+| Task | Outcome | Where it is published |
+|------|---------|-----------------------|
+| T13-1 shopfront polish + merchandising | `commit 98f4e92`. Front page leads with the three machines (capacity, the brand's own list price and the policy reason no Amazon price appears, a `Best for` and a `Check first` row); product pages carry the same decision block above the fold via `merch_pair()`; mobile got a `clamp()` type scale, a 44 px minimum hit area on interactive chrome, a bottom-anchored comparison bar on reader pages only (hidden on desktop/print and while the footer is on screen) and a hint under any table genuinely wider than the viewport. No value changed, disclosure band and `rel="sponsored nofollow noopener"` marking untouched. | `index.html`, `products/*.html`, `assets/style.css`, `assets/app.js`, `build.py` |
+| T13-2 decision desk | Registers extended **additively**: SG-36…SG-45 (10 rows), path **P6 "Make it read like a shop"** (9 members, entry condition and "does not fix" stated), Q-27…Q-37 (11 rows, each with `how_to_discover` and who can settle it), design-prompt D-13…D-17, T-12…T-14, V-8/V-9, R-9…R-12, and a computed **decision desk** panel on `suggestions.html` (queue size, rows recorded as implemented, rows blocked on a question, path count, plus the two shortlists "unanswered questions that free most" and "highest priority with no path recorded"). `page_article()` now prints each article's own read date so a new re-read cannot back-date older guides. | `data/suggestions.json` (44 rows / 6 paths), `data/questions.json` (37 rows), `data/design-prompt.json` (17 design, 14 tactics, 9 voice rules, 12 owner decisions), `build.py` |
+| T13-3 question-shaped guides | Three articles published from registered official sources only — `articles/chefman-vs-emeril-air-fryer.html` (TP-22), `articles/questions-before-buying-a-multifunction-appliance.html` (TP-21), `articles/ninety-eight-percent-less-oil-claim.html` (TP-23) — and the topic register repaired: TP-21/22/23 published, TP-24 added for the orphan `associates-disclosure-explained.html`, A-8/A-9/A-10 statuses corrected. `commit c914f02`. Feed 21 → **24** items, sitemap 51 → **54** URLs. No byline invented (Q-29), no hands-on claim (S-06 still not adopted), no price or star-rating copy. | `data/articles.json`, `data/topics.json`, `articles/*.html` |
+| T13-4 re-read stamps + irregularities | **S10, S12, S14 and S33 re-fetched live in this session** on 2026-11-17, with dated observation stamps appended inside each `page_version` (spec-block quotes, price/SKU/barcode, review-widget counts, and the explicit statement that no Hi-Fry/450 °F figure appears on the 8 Qt page). **S38** (Google Search Central, page-experience self-assessment) registered as the basis for keeping the sticky bar out of the way of content. Every value on the three new articles matched. Prior sources were **not** re-fetched and this record does not claim they were. | `data/sources.json`, `reports/verification-2026-11-17-fd9778a1.md` |
+
+**Irregularities published instead of quietly fixed** — `flagged.html` F83…F87:
+**F83** the article set is tracked in two hand-maintained registers that were wrong in opposite directions (fix the
+duplication, not just the rows); **F84** chefman.com publishes `12.8 lbs / 5.8 kg` in the 8 Qt spec block and
+`weight 13.4 lb` in the store variant record, same product, same day — published figure stays the spec block, no
+average taken; **F85** the shopfront pass lands in the canonical root build only, six parallel builds keep their own
+CSS and their own reproducibility gates (their generator owners must port it — request logged here, no edits to
+` s2/`, `site/`, `research/`, `docs/`, `dashboard/`, `annex-88769516/`); **F86** no accessibility standard can be
+cited, because `verify.py`'s `OFFICIAL_HOSTS` contains no accessibility body, so the 44 px minimum is stated as a
+usability choice and no conformance claim appears (registering the host and making the claim must be one commit with
+a decision attached — Q-37); **F87** the suggestions lede asserted "nothing on this page has been implemented" while
+the decision log already recorded a shipped row — repaired structurally by computing that sentence at build time, and
+the same class was found in evidence-link labels (`21 suggestions`, `20 questions`, `12 articles` against registers
+of 44, 37 and 24) which are now count-free.
+
+**Left open on purpose:** any conversion, traffic, popularity or revenue claim (no first-party data exists — Q-27,
+Q-28); the outbound-click counter (static GitHub Pages, no host for an endpoint, and a browser-only counter would
+publish a number that is not a count); real product photography (rights decision, Q-31); Search Console property
+verification and sitemap submission (owner account); Associates approval status and one-link click test (owner
+account, SG-44/Q-34); the three blanks in `data/campaign-ledger.json` (G-01…G-03, waiting on authorised reports);
+no byline until an identity exists (Q-29); S-06 hands-on language, excluded by the voice rules and the build guard.
+
+**Gates on the final tree:** `python3 build.py` exit 0 — 133 pages, 54 sitemap URLs, 24 feed items ·
+`python3 verify.py` 77 spec rows (75 verified / 2 blank+flagged), 38 sources, 0 errors, 0 external warnings ·
+`bash scripts/ci-check.sh` 33 unit tests OK, data audit clean, annex build current (16 files), link check OK 9,429
+links · rebuild reproducibility proven: 55 generated pages compared before/after a second build, 0 changed ·
+requirements register: 51 rows (29 delivered / 12 partial / 7 blocked / 3 not delivered).
+
+**Note for the next session (mechanics, not content).** `check_register_duplicates` fails the build on a repeated
+`id`/`title` **or** a >40-character sentence repeated inside one register — so do not lift a `path.delivers` string
+into a suggestion's `why`. `row_is_sourced` accepts any href on a host that appears anywhere in `data/sources.json`
+(or `github.com`), while the questions/design-prompt summary tables render `sources[0]` / `links[0]` only: a row can
+pass the gate while showing the reader an unverifiable citation, which is what this pass hit five times in one hour
+and what SG-45 proposes to close — read that row before reordering data again to satisfy the gate. The register
+preambles (`lede`, `how_to_read`) are frozen for repeated-sentence checks, so a lede edit that copies a `why` from
+another row fails; a status sentence in a register is safer computed than typed, and typed row counts are now
+scrutinised as F87 (see `check_requirement_tokens()` for the `{n_*}` tokens the requirements register does allow).

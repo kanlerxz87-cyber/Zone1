@@ -1,37 +1,79 @@
 {
- "version": "1.1",
- "compiled": "2026-11-16",
- "session": "arena/ba29c641-zone1",
- "title": "Owner decision log",
- "purpose": "The suggestion queue on suggestions.html is 21 entries long, and a queue nobody closes becomes a backlog. This register is the single place an owner's choice is recorded so that a later agent pass can implement the chosen path without re-asking. It is the write-side of the review step: every suggestion gets a path picked, or an explicit hold.",
- "policy": {
-  "name": "adopt-after-silence",
-  "text": "A suggestion whose recommended path is reversible, low-risk, and does not depend on a fact only an Amazon account holder can supply is treated as pre-approved: the next agent pass implements it and records what it did on this page. Everything else holds until the owner picks. This exists because the brief says no manual input is required of the owner, while also requiring that a human reviews suggestions before changes - so the review has a default outcome rather than a veto that blocks the work.",
-  "scope_limit": "Silence never authorises: spending money, registering a domain, contacting Amazon or a brand on the owner's behalf, publishing an Amazon-served price or star rating, changing a compliance posture, deleting another session's committed evidence, or asserting any product fact the repository has flagged as unverified. Anything in that class waits, on this page, with its reason.",
-  "rule_applied": "auto-adopt requires: an option letter the suggestion recommends; that option marked reversible; that option's risk 'none' or 'low'; and no blocking question in state 'unknowable'. The four tests are computed from data/suggestions.json and data/questions.json at build time, so the table on the page cannot claim a default its own data does not support.",
-  "recording": "An executed default is recorded in `implemented`, never in `choices`. A pass that adds a row to `choices` is inventing an owner instruction; a pass that changes data without recording it in `implemented` is the same failure in the other direction."
- },
- "how_to_return_a_choice": [
-  "Pick the path on decision-log.html. The page stores it in this browser so a second visit shows the same answer.",
-  "Press 'Copy decision record' (or 'Download decision-log.json') and send the text back in any session, or commit it over this file.",
-  "The next agent pass reads data/decision-log.json before it reads suggestions.html's defaults, records what it implemented, and marks the row. Anything you did not pick keeps the default this page shows today."
- ],
- "choices": [],
- "choices_note": "Empty at publication, deliberately. An owner decision is a fact about a person's intent, and no agent session may record one on their behalf - that is the difference between a default and a fabricated instruction. Rows appear here only after a choice is actually made, and each one carries its date.",
- "implemented": [
-  {
-   "id": "SG-26",
-   "session": "arena/ba29c641-zone1",
-   "date": "2026-11-16",
-   "path": "A",
-   "what": "Computed the 'start here' triage from the registers' own blocker fields and published it on decision-log.html, above the register: each row's downstream count is the transitive size of its 'blocks' arrays across data/suggestions.json and data/questions.json, so the ranking regenerates with the registers instead of going stale (the F63/F52 defect class this repository keeps finding).",
-   "why_allowed": "SG-26's own default: option A, reversible, risk low, blocked only by questions in state 'missing' rather than 'unknowable'. The standing rule on this page authorises exactly that.",
-   "evidence": [
-    "data/suggestions.json",
-    "data/questions.json",
-    "build.py"
-   ]
-  }
- ],
- "implemented_note": "Rows a pass implemented without waiting for the owner, under the adopt-after-silence rule, each naming the path it took and why the rule allowed it. This is not the owner's decision list — choices[] stays owner-only and empty until a person fills it — and it exists so a default never looks like an instruction from someone who never gave one. A pass that implements something and does not record it here has broken the rule it used."
+  "version": "1.1",
+  "compiled": "2026-11-16",
+  "session": "arena/ba29c641-zone1",
+  "title": "Owner decision log",
+  "purpose": "The suggestion queue on suggestions.html is 21 entries long, and a queue nobody closes becomes a backlog. This register is the single place an owner's choice is recorded so that a later agent pass can implement the chosen path without re-asking. It is the write-side of the review step: every suggestion gets a path picked, or an explicit hold.",
+  "policy": {
+    "name": "adopt-after-silence",
+    "text": "A suggestion whose recommended path is reversible, low-risk, and does not depend on a fact only an Amazon account holder can supply is treated as pre-approved: the next agent pass implements it and records what it did on this page. Everything else holds until the owner picks. This exists because the brief says no manual input is required of the owner, while also requiring that a human reviews suggestions before changes - so the review has a default outcome rather than a veto that blocks the work.",
+    "scope_limit": "Silence never authorises: spending money, registering a domain, contacting Amazon or a brand on the owner's behalf, publishing an Amazon-served price or star rating, changing a compliance posture, deleting another session's committed evidence, or asserting any product fact the repository has flagged as unverified. Anything in that class waits, on this page, with its reason.",
+    "rule_applied": "auto-adopt requires: an option letter the suggestion recommends; that option marked reversible; that option's risk 'none' or 'low'; and no blocking question in state 'unknowable'. The four tests are computed from data/suggestions.json and data/questions.json at build time, so the table on the page cannot claim a default its own data does not support.",
+    "recording": "An executed default is recorded in `implemented`, never in `choices`. A pass that adds a row to `choices` is inventing an owner instruction; a pass that changes data without recording it in `implemented` is the same failure in the other direction."
+  },
+  "how_to_return_a_choice": [
+    "Pick the path on decision-log.html. The page stores it in this browser so a second visit shows the same answer.",
+    "Press 'Copy decision record' (or 'Download decision-log.json') and send the text back in any session, or commit it over this file.",
+    "The next agent pass reads data/decision-log.json before it reads suggestions.html's defaults, records what it implemented, and marks the row. Anything you did not pick keeps the default this page shows today."
+  ],
+  "choices": [],
+  "choices_note": "Empty at publication, deliberately. An owner decision is a fact about a person's intent, and no agent session may record one on their behalf - that is the difference between a default and a fabricated instruction. Rows appear here only after a choice is actually made, and each one carries its date. 2026-11-17: path P6 added to the queue (SG-36..SG-44) with three rows implemented under the standing rule and six left for the owner — session arena/fd9778a1-zone1.",
+  "implemented": [
+    {
+      "id": "SG-26",
+      "session": "arena/ba29c641-zone1",
+      "date": "2026-11-16",
+      "path": "A",
+      "what": "Computed the 'start here' triage from the registers' own blocker fields and published it on decision-log.html, above the register: each row's downstream count is the transitive size of its 'blocks' arrays across data/suggestions.json and data/questions.json, so the ranking regenerates with the registers instead of going stale (the F63/F52 defect class this repository keeps finding).",
+      "why_allowed": "SG-26's own default: option A, reversible, risk low, blocked only by questions in state 'missing' rather than 'unknowable'. The standing rule on this page authorises exactly that.",
+      "evidence": [
+        "data/suggestions.json",
+        "data/questions.json",
+        "build.py"
+      ]
+    },
+    {
+      "id": "SG-36",
+      "session": "arena/fd9778a1-zone1",
+      "date": "2026-11-17",
+      "path": "A",
+      "what": "The front page now opens with the three product cards — capacity, the brand's own list price with the policy reason no Amazon price appears beside it, a 'Best for' row and a 'Check first' row — and the metric tiles moved under the comparison table. Order only: no value changed, and the disclosure band and the paid-link labels stayed where the compliance guards expect them.",
+      "why_allowed": "The row's own recommendation is option A: effort S-M, risk low or none, reversible, and blocked by nothing in state 'unknowable'. The standing rule on this page authorises implementing that and recording it here. No claim about conversion is made anywhere in the change, because no click data exists (Q-27).",
+      "evidence": [
+        "build.py",
+        "assets/style.css",
+        "data/suggestions.json",
+        "reports/verification-2026-11-17-fd9778a1.md"
+      ]
+    },
+    {
+      "id": "SG-37",
+      "session": "arena/fd9778a1-zone1",
+      "date": "2026-11-17",
+      "path": "A",
+      "what": "Every product page gained the same two merchandising rows as a decision block above the fold, generated by merch_pair() from the product's own sourced spec and flag rows, plus a compact sponsored CTA on the front-page card. Option B of that row ('who should not buy this') is deliberately NOT implemented: it is advice rather than a quotation, so it waits for you.",
+      "why_allowed": "The row's own recommendation is option A: effort S-M, risk low or none, reversible, and blocked by nothing in state 'unknowable'. The standing rule on this page authorises implementing that and recording it here. No claim about conversion is made anywhere in the change, because no click data exists (Q-27).",
+      "evidence": [
+        "build.py",
+        "assets/style.css",
+        "data/suggestions.json",
+        "reports/verification-2026-11-17-fd9778a1.md"
+      ]
+    },
+    {
+      "id": "SG-38",
+      "session": "arena/fd9778a1-zone1",
+      "date": "2026-11-17",
+      "path": "A",
+      "what": "Mobile-first chrome: one clamp() type scale per heading level, a 44 px minimum hit area on every interactive control, a bottom-anchored comparison bar on reader pages only (hidden on desktop, in print and while the footer is on screen), and a hint under any table genuinely wider than the viewport. The bar carries no purchase button — option B of that row stays open until a click counter exists.",
+      "why_allowed": "The row's own recommendation is option A: effort S-M, risk low or none, reversible, and blocked by nothing in state 'unknowable'. The standing rule on this page authorises implementing that and recording it here. No claim about conversion is made anywhere in the change, because no click data exists (Q-27).",
+      "evidence": [
+        "build.py",
+        "assets/style.css",
+        "data/suggestions.json",
+        "reports/verification-2026-11-17-fd9778a1.md"
+      ]
+    }
+  ],
+  "implemented_note": "Rows a pass implemented without waiting for the owner, under the adopt-after-silence rule, each naming the path it took and why the rule allowed it. This is not the owner's decision list — choices[] stays owner-only and empty until a person fills it — and it exists so a default never looks like an instruction from someone who never gave one. A pass that implements something and does not record it here has broken the rule it used."
 }
