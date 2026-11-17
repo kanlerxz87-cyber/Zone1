@@ -5440,3 +5440,16 @@ Live re-verification for this pass was done from the sandbox with `fetch_page` b
 * **Measurement specified, not faked** (`data/measurement.json` → `measurement.html`). EV-01…EV-05 defined with what each records and what it must never record; campaign ledger **empty on purpose**; three prerequisites listed. **No count, rate or revenue forecast published** — GitHub Pages has no endpoint to receive a beacon, and the footer's §3(e) "no analytics" statement must change in the same commit that adds one.
 * **Requirements:** E-02 `blocked` → `delivered` with evidence (tag attached and gate-enforced). E-03/E-04 stay `not_delivered` — measurement is specified, not shipped.
 * **Gates:** `build.py` 52 pages / 51 sitemap URLs / feed 21, idempotent · `verify.py` 130 pages, 77 spec rows (75 verified / 2 blank+flagged), 0 errors · `ci-check.sh` 33 tests, audit clean, **8,683 links / 0 broken** · disclosure above the fold on **52/52** root pages (computed `<main>` position).
+---
+
+## Task board — arena/4618f77b-zone1 (2026-11-17 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-4618f77b | **Final verification & integration pass (2026-11-17)** — line-by-line repo review; live re-verification of the load-bearing official sources (3 `link.amazon` short links, Associates S1–S5, FTC S8/S9, brand pages S10/S12/S14) and the live deployed site; defect hunt over the delivered HTML; fix defects found + add guards; rebuild, run every gate, PR → merge → confirm GitHub Pages deploy → record. No factual value changes unless a defect demands it. | done | arena/4618f77b-zone1 (session 4618f77b) | `COORDINATION.md`; `reports/verification-2026-11-17-4618f77b.md` (new); `build.py`, `verify.py` (only if a defect requires it); regenerated root HTML; `data/*.json` (defect repairs only); `EXECUTIVE-SUMMARY.md` (append-only). Not touching: `site/`, `s2/`, `data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*`, other `session-*` dirs |
+
+### Claim log — arena/4618f77b-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17T (session start) | arena/4618f77b-zone1 (session 4618f77b) | **Claimed X-4618f77b** after reading the board top to bottom. Branch `arena/4618f77b-zone1` is a fresh branch at `9c6e3f0` (= `origin/main`, PR #124 merge, session 5ac82b1d). All prior rows (T1–T20, U1–U2, every X-* row) are `done`; no row is claimed elsewhere. No open PRs at claim time. Baseline gates re-run green before claim: `build.py` exit 0 (49 sitemap URLs, 21 feed items), `verify.py` 128 pages / 77 spec rows (75 verified, 2 blank+flagged) / 35 sources / 0 errors, `scripts/ci-check.sh` 33 tests OK / data audit clean / 8,518 links / 0 broken. GitHub Pages `status: built` (last deploy 2026-11-16T20:27:31Z). Arena pins this session to this branch, which therefore acts as the protocol's `session-<id>/<task>` branch. |
