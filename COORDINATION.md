@@ -5534,14 +5534,16 @@ two blank+flagged spec rows. Nothing was filled by inference.
 
 ---
 
-### arena/66c32067-zone1 — buyer-questions guide and gap register (2026-11-17 UTC)
+### arena/66c32067-zone1 — held TP-21 draft, gates and record (2026-11-17 UTC)
 
-**Claim:** one new guide (TP-21, the fourth working title in the brief), the sitemap and feed refresh that the build does automatically, and an executive summary (`EXECUTIVE-SUMMARY-PASS-66c32067.md`). Scope: `data/articles.json`, `data/topics.json`, regenerated root HTML/XML, the new article file, this record.
+**Claim:** executive summary (`EXECUTIVE-SUMMARY-PASS-66c32067.md`) and this record. Held draft kept at `session-66c32067/` (not served).
 
-**Not built, deliberately:** the five-event click counter. The site is static GitHub Pages with no endpoint to receive events; the footer says no analytics run; a beacon would make that false, and a counter with no endpoint would invent numbers. Remains blocked on an endpoint the owner controls (see `measurement.html`). Search Console, reader capture, cadence and photography are owner decisions and are listed in the executive summary, not implemented.
+**Collision recorded:** this session drafted a six-question guide for the fourth working title, and it was merged into a branch while `main` (PR #135, session `c55fa0d8`) had registered the same topic as TP-21 with status *proposed*, blocked by **Q-20** (owner-only: which country and marketplace the site promotes). Publishing the draft would have overridden that block, so it was **not published**. The draft's content is kept at `session-66c32067/TP-21-held-draft-article.json` and `session-66c32067/TP-21-held-draft-topic.json`, and `main`'s TP-21 record is untouched. Release is a single build step after Q-20 is answered.
 
-**Sources and checks:** every value quoted in the new article is an existing published value in `data/products.json` (guard `check_articles()` passes). Live re-read on 2026-11-17 of the Emeril product page (26-Quart, 16.9"D × 15.8"W × 14.8"H, 24.6 Liters, 120 volts, "Included are 7 premium accessories") and the Chefman 8 Qt brand page (product name, 200–400°F, presets, dishwasher-safe basket and rack). Amazon listing B08DKYBTPH: title matches; its dimensions field was not reached in this pass and rests on the prior dated read (S29).
+**Not built, deliberately:** the five-event click counter. The site is static GitHub Pages with no endpoint to receive events; the footer says no analytics run; a beacon would make that false, and a counter with no endpoint would invent numbers. Still blocked on an endpoint the owner controls (`measurement.html`).
 
-**Irregularity recorded:** the 8 Qt listing dimensions (S29 12.75"D × 13.5"W × 10"H) disagree with the brand page (S12 15.4 × 12.6 × 13.5 in); both are published in the new article and neither is chosen.
+**Live re-read 2026-11-17 (for the held draft):** Emeril product page (26-Quart, 16.9"D × 15.8"W × 14.8"H, 24.6 Liters, 120 volts, "Included are 7 premium accessories") — confirmed. Chefman 8 Qt brand page (name, 200–400 °F, presets, dishwasher-safe basket and rack) — confirmed. Amazon listing B08DKYBTPH — title matches; its dimensions field was not reached and rests on the prior dated read (S29).
 
-**Gates, all green:** `python3 build.py` exit 0 (52 sitemap URLs, 22 feed items); `python3 verify.py` 0 errors (77 spec rows, 75 verified, 2 blank and flagged; 37 sources); `bash scripts/ci-check.sh` OK (8,856 links, 0 broken); `research/check_research.py` OK; `scripts/verify_site.py` OK.
+**Irregularity:** the 8 Qt listing dimensions (S29 12.75"D × 13.5"W × 10"H) disagree with the brand page (S12 15.4 × 12.6 × 13.5 in). Both are recorded in the held draft; neither chosen.
+
+**Gates on the merged tree:** see the PR description (build, verify, CI, link check, annex, research).
