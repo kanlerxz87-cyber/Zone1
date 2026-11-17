@@ -13,5 +13,25 @@
     "freshness_label": "13 November 2026"
   },
   "associate_tag_added": "2026-11-17",
-  "associate_tag_source": "Owner brief, 2026-11-17 (Selected Tracking ID: shopnow047c-20)"
+  "associate_tag_source": "Owner brief, 2026-11-17 (Selected Tracking ID: shopnow047c-20)",
+  "analytics": {
+    "enabled": false,
+    "endpoint": "",
+    "events": ["EV-01", "EV-02", "EV-03", "EV-04"],
+    "disabled_reason": "No endpoint host exists yet. The site is static files on GitHub Pages, which cannot receive a POST, so a counter that reported a number without a sink behind it would be an invented number on a page that promises every value is sourced. The client is shipped (assets/analytics.js) and is completely inert until an endpoint is configured here and in the same commit the footer sentence changes.",
+    "enable_procedure": [
+      "1. Deploy the endpoint source in analytics/ to a host you control (analytics/endpoint.php for any PHP host, analytics/worker.js for Cloudflare Workers). The source is not deployed by this repository.",
+      "2. Set analytics.enabled to true and analytics.endpoint to the absolute https:// URL of that endpoint.",
+      "3. Rebuild and deploy. The footer cookie/privacy paragraph is generated from this block, so it changes in the same commit and cannot go stale.",
+      "4. Confirm one request arrives, then confirm the sink's stored rows contain no IP address, no user agent and no reader identifier."
+    ],
+    "never_recorded": [
+      "IP address",
+      "user agent string",
+      "referrer URL",
+      "cookie or any persistent reader identifier",
+      "order value or anything about what the reader bought"
+    ],
+    "policy_basis": "Amazon Program Policies section 3(e) requires an accurate statement of cookie and third-party technology use on an Associate site, and section 3(s) forbids artificially generating clicks. The counter therefore fires only on a reader-initiated click (event.isTrusted) and never on load, on scroll alone or from a synthetic event."
+  }
 }

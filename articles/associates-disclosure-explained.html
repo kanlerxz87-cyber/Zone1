@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-zone1-page-type="article">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -117,7 +117,7 @@
 <p>It does not make the site Amazon&#x27;s voice. The same section 5 forbids misrepresenting the relationship, &#x27;including by expressing or implying that we support, sponsor, or endorse you&#x27;.</p>
 <p>And it does not vary by page. A review, a comparison or a buying guide carries the same obligation as the homepage — the disclosure travels with the endorsement, per the FTC&#x27;s placement rule.</p>
 <p class="tiny muted">Sources for this section: <a class="src" href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" title="U.S. Federal Trade Commission — Disclosures 101 for Social Media Influencers" rel="noopener" target="_blank">S8</a> <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a> <a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" title="Amazon.com Associates Central — Associates Program Operating Agreement" rel="noopener" target="_blank">S1</a></p>
-<h2>How this site implements it</h2>
+<h2 data-zone1-track="EV-03">How this site implements it</h2>
 <p>The sentence is emitted into the header of every page this site generates, above the first paragraph, and the site builder fails the build if a page ships without it. That is the practical answer to &#x27;clearly and prominently&#x27;: one fixed sentence, one fixed place, on every page, with the underlying documents linked from the compliance page.</p>
 <p class="tiny muted">Sources for this section: <a class="src" href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" title="U.S. Federal Trade Commission — Disclosures 101 for Social Media Influencers" rel="noopener" target="_blank">S8</a> <a class="src" href="https://affiliate-program.amazon.com/help/operating/agreement" title="Amazon.com Associates Central — Associates Program Operating Agreement" rel="noopener" target="_blank">S1</a></p>
 
@@ -166,8 +166,7 @@
     </div>
     <div>
       <h5>Cookies &amp; privacy</h5>
-      <p>This site sets no cookies itself, runs no analytics, and has no comment forms or accounts. Following an Amazon link takes you to Amazon, whose own privacy notice and cookie practices apply from that point. No data you enter here is collected, because there is nowhere to enter it.</p>
-      <p class="tiny">Amazon's Program Policies §3(e) require an accurate statement of cookie and third-party technology use on Associate sites. This notice satisfies that requirement for the current build; it must be updated the moment any analytics, embeds or affiliate-network script is added.</p>
+      <p>This site sets no cookies itself, runs no analytics, and has no comment forms or accounts. Following an Amazon link takes you to Amazon, whose own privacy notice and cookie practices apply from that point. No data you enter here is collected, because there is nowhere to enter it.</p><p class="tiny">Amazon's Program Policies §3(e) require an accurate statement of cookie and third-party technology use on Associate sites. This notice satisfies that requirement for the current build; it must be updated the moment any analytics, embeds or affiliate-network script is added. The outbound-click counter for this site is written and shipped in <code>assets/analytics.js</code> but is switched off, because no endpoint host has been chosen — so nothing is sent from your browser to anyone. The paragraph above is generated from that switch, so it cannot describe a behaviour the page does not have.</p>
     </div>
     <div>
       <h5>Sources</h5>
@@ -185,5 +184,6 @@
   </div>
 </footer>
 <script src="../assets/app.js"></script>
+
 </body>
 </html>
