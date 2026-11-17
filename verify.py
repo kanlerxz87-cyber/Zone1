@@ -70,6 +70,12 @@ OFFICIAL_HOSTS = {
     "developers.google.com",
     # Support documentation referenced by S30 (a policy cross-link, not a data source).
     "support.google.com",
+    # The RFC Editor is the official publisher of IETF Internet Standards. Added
+    # 2026-11-17 (arena/c9e97e02) to source S38 (RFC 9309, Robots Exclusion Protocol:
+    # where a /robots.txt must live for compliant crawlers to honour it). Official for
+    # Internet standards only: it verifies nothing about the products or the Amazon
+    # Associates program, and no product fact may cite it.
+    "www.rfc-editor.org",
 }
 
 errors = []

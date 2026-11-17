@@ -6,3 +6,6 @@ __pycache__/
 # python bytecode from the local test runs
 __pycache__/
 *.pyc
+
+# runtime data of the self-hosted analytics endpoint (measured data is not repo content)
+platform/analytics/data/

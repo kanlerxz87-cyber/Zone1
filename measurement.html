@@ -28,6 +28,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23245746'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='%23fff' text-anchor='middle'%3EZ1%3C/text%3E%3C/svg%3E">
 <link rel="alternate" type="application/rss+xml" title="Zone1 Kitchen — sourced articles" href="feed.xml">
 <meta name="theme-color" content="#245746">
+<meta name="analytics-endpoint" content="">
 </head>
 <body data-page-id="measurement" data-page-type="page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -125,6 +126,44 @@
 </table>
 </div>
 
+<h2>What shipped on 2026-11-17 (and what still does not exist)</h2>
+<div class="callout ok">
+  <strong>The machinery is in the repository; the counts are not.</strong>
+  A cookie-free outbound-click counter ships with the site
+  (<a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/assets/app.js" target="_blank" rel="noopener">assets/app.js ↗</a>, four browser events, no cookies, no IP,
+  no user agent, no referrer) and a self-hosted receiver with its own tests ships beside it
+  (<a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/analytics/server.py" target="_blank" rel="noopener">platform/analytics/server.py ↗</a> +
+  <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/analytics/test_server.py" target="_blank" rel="noopener">21 assertions ↗</a>). The counter is
+  <em>inert</em> in this deployment: it records nothing until the owner deploys the receiver
+  on a host of their choosing and puts its URL in
+  <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/config.json" target="_blank" rel="noopener">data/config.json ↗</a> (<code>analytics_endpoint</code>).
+  A build guard (<a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py" target="_blank" rel="noopener">build.py → check_analytics_disclosure ↗</a>) keeps the
+  footer's §3(e) sentence and the counter's state identical in every build. No count, rate
+  or forecast appears anywhere on this site, because none has been measured.
+</div>
+<h3>The two event vocabularies, mapped</h3>
+<p class="small">This repository holds two measurement documents written by parallel passes.
+<a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/measurement.json" target="_blank" rel="noopener">data/measurement.json ↗</a> (EV-01…EV-05) is the brief's
+five events and the schema the shipped counter speaks; <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/analytics-plan.json" target="_blank" rel="noopener">data/analytics-plan.json ↗</a> is the reference design for a same-origin
+<code>/api/analytics/events</code> collector (<a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/analytics/collector.py" target="_blank" rel="noopener">analytics/collector.py ↗</a>, fail-closed, SQLite daily aggregates) whose HTTP client
+(<code>assets/analytics.js</code>) the layout loads only when the plan's collection gate is
+enabled. They describe the same five events under different names. <strong>Enable exactly one
+path</strong> — the shipped counter via <code>analytics_endpoint</code>, or the same-origin
+collector via the plan's deployment gates — never both, or every click is counted twice.</p>
+<div class="tablewrap">
+<table>
+  <caption>The five events: EV id · the name the shipped counter sends · the plan's name · origin</caption>
+  <thead><tr><th>EV id</th><th>Counter name (measurement.json)</th><th>Plan name (analytics-plan.json)</th><th>Who fires it</th><th>Source / definition</th></tr></thead>
+  <tbody>
+    <tr><td>EV-01</td><td><code>page_view</code></td><td><code>page_view</code></td><td>browser</td><td><a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/measurement.json" target="_blank" rel="noopener">measurement.json ↗</a> · <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/analytics-plan.json" target="_blank" rel="noopener">analytics-plan.json ↗</a></td></tr>
+    <tr><td>EV-02</td><td><code>outbound_click</code></td><td><code>outbound_click</code></td><td>browser, on a real product-link click</td><td><a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/measurement.json" target="_blank" rel="noopener">measurement.json ↗</a> · <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/analytics-plan.json" target="_blank" rel="noopener">analytics-plan.json ↗</a></td></tr>
+    <tr><td>EV-03</td><td><code>article_engagement</code></td><td><code>article_engagement</code></td><td>browser, at the guide's final heading</td><td><a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/measurement.json" target="_blank" rel="noopener">measurement.json ↗</a> · <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/analytics-plan.json" target="_blank" rel="noopener">analytics-plan.json ↗</a></td></tr>
+    <tr><td>EV-04</td><td><code>comparison_interaction</code></td><td><code>comparison_interaction</code></td><td>browser, when the comparison table is seen</td><td><a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/measurement.json" target="_blank" rel="noopener">measurement.json ↗</a> · <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/analytics-plan.json" target="_blank" rel="noopener">analytics-plan.json ↗</a></td></tr>
+    <tr><td>EV-05</td><td><code>affiliate_report_import</code></td><td><code>affiliate_report_import</code></td><td>operator only — entered by hand from the owner's Associates report; the receiver rejects it with 400 by design</td><td><a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/measurement.json" target="_blank" rel="noopener">measurement.json ↗</a> · <a href="https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/analytics-plan.json" target="_blank" rel="noopener">analytics-plan.json ↗</a></td></tr>
+  </tbody>
+</table>
+</div>
+
 <h2>Choose future topics from measured queries</h2>
 <p class="small">The topic register contains editorial hypotheses, not demand estimates. Verify the site's Search Console property, submit the generated sitemap, and wait for real query/page data before describing a topic as popular or trending. The build regenerates the sitemap from indexable publication pages and the feed from registered articles; include a guide in the appropriate register before publishing so those outputs update together.</p>
 <p class="small">References: <a href="topics.html">Content and traffic plan</a> · <a href="questions.html">Questions and discovery steps</a> · <a href="product-intent.html">Product-link records and campaign ledger</a> · <a class="src" href="https://developers.google.com/search/docs/essentials/spam-policies" title="Google Search Central — Spam policies for Google web search" rel="noopener" target="_blank">S30</a> <a class="src" href="https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links" title="Google Search Central — Qualify your outbound links to Google" rel="noopener" target="_blank">S31</a> <a class="src" href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages" title="GitHub — What is GitHub Pages?" rel="noopener" target="_blank">S38</a></p>
@@ -171,8 +210,8 @@
     </div>
     <div>
       <h5>Cookies &amp; privacy</h5>
-      <p>This GitHub Pages build sets no cookies and sends no analytics events. The proposed first-party collector is not deployed and browser collection remains disabled. Following an Amazon link takes you to Amazon, where Amazon's own privacy practices apply.</p>
-      <p class="tiny">The site will keep collection off until a same-origin endpoint is deployed, its privacy and retention notice is approved, and the event flow is tested. The current statement reflects the live build. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></p>
+      <p>This GitHub Pages build sets no cookies and runs no analytics. A first-party click counter ships with the site but records nothing until its self-hosted endpoint is deployed and configured; see the measurement plan. Following an Amazon link takes you to Amazon, where Amazon's own privacy practices apply.</p>
+      <p class="tiny">Third parties (Amazon and its service providers) may place or recognise cookies when you follow outbound links; this site does not control those. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></p>
     </div>
     <div>
       <h5>Sources</h5>

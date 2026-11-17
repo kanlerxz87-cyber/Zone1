@@ -1892,6 +1892,62 @@
    "risk_of_not_doing": "Low as a breach risk while collection stays off, and rising as a documentation risk: an event specification nobody owns and a service nobody deploys is how a later pass ends up quoting a number that was never measured.",
    "blocks": [],
    "blocked_by": []
+  },
+  {
+   "id": "SG-41",
+   "title": "Ask the annex builds to noindex themselves (or host everything at a root domain), so \"one site to index\" stops being half a lever",
+   "area": "Indexing / platform",
+   "problem": "The brief wants one site to index, but the repository publishes seven parallel annex builds under the same project-pages subpath. The generated robots.txt now Disallows them, yet the standards say that file is not where robots.txt lives on a subpath (RFC 9309 §2.3, S43) and not what excludes a page from Google anyway (S44, flag F85). The mechanism that works — meta robots noindex at template level in each annex generator — is outside this session's claimed files.",
+   "evidence": [
+    {
+     "label": "Flag F85 (flagged.html) — RFC 9309 §2.3 and Google robots guidance, quoted verbatim",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html"
+    },
+    {
+     "label": "RFC 9309 §2.3 (S43) — robots.txt MUST be at the top-level path of the service",
+     "url": "https://www.rfc-editor.org/rfc/rfc9309.html"
+    },
+    {
+     "label": "Google Search Central (S44) — robots.txt is not an exclusion mechanism; use noindex",
+     "url": "https://developers.google.com/search/docs/crawling-indexing/robots/intro"
+    },
+    {
+     "label": "Requests to the annex owners logged in COORDINATION.md (C9 completion record)",
+     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/COORDINATION.md"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Host the whole set at a root domain",
+     "what": "Move the publication to a root domain (pairs with the S16 self-hosting decision), where robots.txt sits at the top-level path the standard names and Search Console can drop the annexes from the index.",
+     "effort": "L",
+     "risk": "URL migration needs its own redirect/canonical plan",
+     "reversible": false
+    },
+    {
+     "label": "B. Each annex build noindexes itself at template level",
+     "what": "The owners of s2/, site/, research/, docs/, dashboard/, crosscheck/ and annex-88769516/ add meta robots noindex at template level and regenerate with their own gates. Works today on GitHub Pages; no infra decision needed.",
+     "effort": "S",
+     "risk": "relies on other sessions acting on the logged requests",
+     "reversible": true
+    },
+    {
+     "label": "C. Both: B now, A with the platform move",
+     "what": "Take B immediately; fold A into the hosting move the project already contemplates.",
+     "effort": "S",
+     "risk": "none",
+     "reversible": true
+    }
+   ],
+   "recommendation": "C",
+   "why": "B is the only mechanism the cited sources say actually removes pages from Google's index, and it needs no infra decision. A is the durable fix and pairs with the hosting move the project already contemplates (S16).",
+   "impact": 4,
+   "confidence": 5,
+   "effort": "S",
+   "risk_of_not_doing": "Search results for the brand can keep surfacing annex builds and duplicate versions of the same tables; the brief's one-site goal stays unmet no matter what this build publishes.",
+   "blocks": [],
+   "blocked_by": [],
+   "resolved_on": null
   }
  ],
  "paths_intro": "A decision queue with this many rows is a backlog, not a decision. The paths below group the suggestions into four coherent pieces of work. Each path is ordered, names what has to be true before it can start, and says plainly what it will not fix. Pick one path, finish it, then pick the next. The grouping is this pass's judgement; the dependencies inside it are not - they are the blocked_by links already recorded on each row.",

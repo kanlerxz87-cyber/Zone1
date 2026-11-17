@@ -181,3 +181,99 @@ document.addEventListener('click', function (ev) {
   });
   paint();
 })();
+
+/* Outbound click + completion counter (C9, 2026-11-17): EV-01 page_view, EV-02
+   outbound_click, EV-03 article_engagement, EV-04 comparison_interaction — the four browser
+   events of data/measurement.json v1, using the canonical names of data/analytics-plan.json.
+   Cookie-free and identifier-free: the payload carries only the event, page slug/type, UTC
+   minute, arrival medium and (for EV-02) the ASIN and the Associates tag the link actually
+   carries — never an IP, user agent or referrer, per Program Policies and the site's own
+   measurement plan. Events go to the self-hosted endpoint in
+   <meta name="analytics-endpoint"> (data/config.json -> analytics_endpoint); while that value
+   is empty this is an inert stub that records nothing, exactly as the footer states.
+   EV-05 affiliate_report_import is operator-only and is never sent from the browser.
+   Skips the event when an automation framework or a prefetched page is driving the browser,
+   per Program Policies §3(s) (no artificially generated clicks). */
+(function () {
+  var meta = document.querySelector('meta[name="analytics-endpoint"]');
+  var endpoint = meta ? (meta.getAttribute('content') || '') : '';
+  var hostKnown = /^(https?:\/\/|[\w.-]+\/)/.test(endpoint) ||
+                  endpoint.charAt(0) === '/' ||
+                  endpoint.indexOf('http') === 0;
+  function send(ev) {
+    if (!endpoint) return;
+    try {
+      if (navigator.webdriver || (document.visibilityState === 'prerender')) return;
+    } catch (err) { return; }
+    try {
+      var blob = new Blob([JSON.stringify(ev)], {type: 'text/plain'});
+      if (window.navigator && navigator.sendBeacon) {
+        navigator.sendBeacon(endpoint, blob);
+      } else {
+        fetch(endpoint, {method: 'POST', mode: 'cors', keepalive: true,
+          headers: {'Content-Type': 'text/plain'}, body: JSON.stringify(ev)});
+      }
+    } catch (err) { /* stay silent: measurement must never break a reader's page */ }
+  }
+  function base(name) {
+    var slug = document.body.getAttribute('data-page-id') || '';
+    if (slug && slug.slice(-5) !== '.html') slug = slug + '.html';
+    return {
+      event: name,
+      page: slug,
+      d: new Date().toISOString().slice(0, 10),
+      from_campaign: false
+    };
+  }
+  // EV-01 page_view: one per real page load.
+  var pv = base('page_view');
+  try {
+    var qp = new URLSearchParams(location.search);
+    pv.from_campaign = qp.get('utm_source') ? true : false;
+  } catch (err) { pv.from_campaign = false; }
+  send(pv);
+  // EV-02 outbound_click: real clicks on validated product links only (whole-card links
+  // included). Prefetch/prerender hover can open a URL but cannot produce a click.
+  document.addEventListener('click', function (evt) {
+    var link = evt.target && evt.target.closest ? evt.target.closest('a[href*="amazon.com/dp/"]') : null;
+    if (!link) return;
+    var m = (link.getAttribute('href') || '').match(/\/dp\/([A-Z0-9]{10})/);
+    var ev = base('outbound_click');
+    ev.asin = m ? m[1] : '';
+    ev.tag = link.searchParams ? (link.searchParams.get('tag') || '') : '';
+    if (!ev.asin) return;
+    send(ev);
+  }, true);
+  // EV-03 article_engagement: a guide finished at its final section heading (not the
+  // footer, which is the disclosure every page carries and which would count every load).
+  var finalH2 = document.querySelector('main h2:last-of-type');
+  if (finalH2 && window.IntersectionObserver) {
+    var done = false;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !done) {
+          done = true;
+          send(base('article_engagement'));
+          io.disconnect();
+        }
+      });
+    });
+    io.observe(finalH2);
+  }
+  // EV-04 comparison_interaction: the comparison table visible on compare.html or a product
+  // page — the one editorial hypothesis the site owner wants measured.
+  var cmp = document.querySelector('[data-analytics-event="comparison_interaction"], .compare-table');
+  if (cmp && window.IntersectionObserver) {
+    var seen = false;
+    var io2 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !seen) {
+          seen = true;
+          send(base('comparison_interaction'));
+          io2.disconnect();
+        }
+      });
+    });
+    io2.observe(cmp);
+  }
+})();

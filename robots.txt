@@ -1,4 +1,12 @@
 User-agent: *
 Allow: /
+# Annex builds below are parallel passes kept in this repository for audit only.
+# They are not part of the canonical site; please do not index them (flag F85).
+Disallow: /research/
+Disallow: /session-3740f69d/
+Disallow: /s2/
+Disallow: /dashboard/
+Disallow: /docs/
+Disallow: /annex-88769516/
 
 Sitemap: https://kanlerxz87-cyber.github.io/Zone1/sitemap.xml

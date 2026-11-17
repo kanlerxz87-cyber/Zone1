@@ -1054,6 +1054,48 @@ footer.site strong{color:#f4f1e2}
 .article-meta .pill{font-size:.68rem; white-space:nowrap}
 .foot-brand h5{font-family:var(--serif); font-size:.95rem; text-transform:none; letter-spacing:0; color:var(--brand-ink)}
 .foot-brand p:first-of-type{font-family:var(--serif); font-size:.94rem; line-height:1.55}
+
+/* ================== MOBILE-FIRST TYPE + TOUCH TARGETS (S-20, 2026-11-17) ==================
+   Fluid type scale and 44px-minimum tap targets on controls and wayfinding, per the brief's
+   mobile pass. Values reuse the existing palette and spacing tokens; no color changes, so the
+   WCAG AA contrast measurements recorded by session 492acddc remain valid. The comparison
+   table keeps its full data density (explicitly NOT a card reflow: T-19); what changes is the
+   reading scale and the size of things a thumb must hit. */
+@media (max-width: 900px){
+  html{font-size:17px}
+  .lede, .hero-lite .lede, .hero .lede{font-size:1.16rem; line-height:1.6}
+  h1{font-size:clamp(1.55rem, 5.2vw, 2.15rem)}
+  h2{font-size:clamp(1.28rem, 4.4vw, 1.75rem)}
+  .skip-link, .share-row button, .share-row a, .topnav a, .side a, .spec-tabs button{
+    min-height:44px; display:flex; align-items:center}
+  .topnav a{padding:.65rem .85rem}
+}
+@media (max-width: 760px){
+  .lede, .hero-lite .lede, .hero .lede{font-size:1.08rem}
+}
+
+/* ================== STICKY COMPARISON BAR (S-20, 2026-11-17) ==================
+   On compare.html only, the three product links stay reachable while the long specification
+   table scrolls: position:sticky on the existing stats-grid. Every cell is a real link to the
+   full product page, so the bar is navigation, not a call to action, and it hides itself when
+   the reader reaches the decisions section below (the natural end of the comparison task). */
+.compare-bar{position:sticky; top:0; z-index:30; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; padding:.55rem .75rem; margin:0 0 1.15rem;
+  box-shadow:0 2px 12px rgba(20,30,25,.06)}
+.compare-bar .stats-grid{margin:0; grid-template-columns:repeat(auto-fit, minmax(190px, 1fr))}
+.compare-bar .stat{padding:.55rem .85rem}
+.compare-bar .stat .v{font-size:1.02rem}
+.compare-bar .stat a{min-height:44px; display:inline-flex; align-items:center; font-weight:700}
+@media (max-width:900px){ .compare-bar .stat .v{font-size:.95rem} }
+/* The comparison header row stays visible while the long specification table scrolls
+   (S-20: "sticky comparison headers on long tables"). On mobile the header cells become
+   compact while keeping the full data grid — explicitly not a card reflow (T-19). */
+.tablewrap thead th{position:sticky; top:0; z-index:15; background:var(--card)}
+@media (max-width:760px){ .tablewrap thead th{font-size:.72rem; padding:.5rem .35rem} }
+
+/* ================== SKIP-LINK TARGETS (S-20, 2026-11-17) ==================
+   #main-content, #products and #decisions are real tab/scroll targets now. */
+#main-content, .product-anchor, section[id], [id].decision-anchor{scroll-margin-top:5.5rem}
 """
 
 JS = r"""
@@ -1239,6 +1281,102 @@ document.addEventListener('click', function (ev) {
   });
   paint();
 })();
+
+/* Outbound click + completion counter (C9, 2026-11-17): EV-01 page_view, EV-02
+   outbound_click, EV-03 article_engagement, EV-04 comparison_interaction — the four browser
+   events of data/measurement.json v1, using the canonical names of data/analytics-plan.json.
+   Cookie-free and identifier-free: the payload carries only the event, page slug/type, UTC
+   minute, arrival medium and (for EV-02) the ASIN and the Associates tag the link actually
+   carries — never an IP, user agent or referrer, per Program Policies and the site's own
+   measurement plan. Events go to the self-hosted endpoint in
+   <meta name="analytics-endpoint"> (data/config.json -> analytics_endpoint); while that value
+   is empty this is an inert stub that records nothing, exactly as the footer states.
+   EV-05 affiliate_report_import is operator-only and is never sent from the browser.
+   Skips the event when an automation framework or a prefetched page is driving the browser,
+   per Program Policies §3(s) (no artificially generated clicks). */
+(function () {
+  var meta = document.querySelector('meta[name="analytics-endpoint"]');
+  var endpoint = meta ? (meta.getAttribute('content') || '') : '';
+  var hostKnown = /^(https?:\/\/|[\w.-]+\/)/.test(endpoint) ||
+                  endpoint.charAt(0) === '/' ||
+                  endpoint.indexOf('http') === 0;
+  function send(ev) {
+    if (!endpoint) return;
+    try {
+      if (navigator.webdriver || (document.visibilityState === 'prerender')) return;
+    } catch (err) { return; }
+    try {
+      var blob = new Blob([JSON.stringify(ev)], {type: 'text/plain'});
+      if (window.navigator && navigator.sendBeacon) {
+        navigator.sendBeacon(endpoint, blob);
+      } else {
+        fetch(endpoint, {method: 'POST', mode: 'cors', keepalive: true,
+          headers: {'Content-Type': 'text/plain'}, body: JSON.stringify(ev)});
+      }
+    } catch (err) { /* stay silent: measurement must never break a reader's page */ }
+  }
+  function base(name) {
+    var slug = document.body.getAttribute('data-page-id') || '';
+    if (slug && slug.slice(-5) !== '.html') slug = slug + '.html';
+    return {
+      event: name,
+      page: slug,
+      d: new Date().toISOString().slice(0, 10),
+      from_campaign: false
+    };
+  }
+  // EV-01 page_view: one per real page load.
+  var pv = base('page_view');
+  try {
+    var qp = new URLSearchParams(location.search);
+    pv.from_campaign = qp.get('utm_source') ? true : false;
+  } catch (err) { pv.from_campaign = false; }
+  send(pv);
+  // EV-02 outbound_click: real clicks on validated product links only (whole-card links
+  // included). Prefetch/prerender hover can open a URL but cannot produce a click.
+  document.addEventListener('click', function (evt) {
+    var link = evt.target && evt.target.closest ? evt.target.closest('a[href*="amazon.com/dp/"]') : null;
+    if (!link) return;
+    var m = (link.getAttribute('href') || '').match(/\/dp\/([A-Z0-9]{10})/);
+    var ev = base('outbound_click');
+    ev.asin = m ? m[1] : '';
+    ev.tag = link.searchParams ? (link.searchParams.get('tag') || '') : '';
+    if (!ev.asin) return;
+    send(ev);
+  }, true);
+  // EV-03 article_engagement: a guide finished at its final section heading (not the
+  // footer, which is the disclosure every page carries and which would count every load).
+  var finalH2 = document.querySelector('main h2:last-of-type');
+  if (finalH2 && window.IntersectionObserver) {
+    var done = false;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !done) {
+          done = true;
+          send(base('article_engagement'));
+          io.disconnect();
+        }
+      });
+    });
+    io.observe(finalH2);
+  }
+  // EV-04 comparison_interaction: the comparison table visible on compare.html or a product
+  // page — the one editorial hypothesis the site owner wants measured.
+  var cmp = document.querySelector('[data-analytics-event="comparison_interaction"], .compare-table');
+  if (cmp && window.IntersectionObserver) {
+    var seen = false;
+    var io2 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !seen) {
+          seen = true;
+          send(base('comparison_interaction'));
+          io2.disconnect();
+        }
+      });
+    });
+    io2.observe(cmp);
+  }
+})();
 """
 
 
@@ -1359,6 +1497,37 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
                         else "noindex,follow")
     page_id = page_rel[:-5] if page_rel.endswith(".html") else page_rel
     page_type = analytics_page_type(page_rel)
+    # The single configuration surface for the click counter: the footer sentence below and
+    # this meta tag are generated from the SAME value (data/config.json -> analytics_endpoint),
+    # and check_analytics_disclosure() fails the build if they ever disagree. Empty endpoint
+    # => inert counter + the footer's "records nothing until" state.
+    _ae = (SITE_CONFIG.get("analytics_endpoint") or "").strip()
+    # §3(e) statement, generated from the counter's actual state in this build.
+    _plan = ANALYTICS_PLAN.get("collection", {})
+    if _ae:
+        footer_privacy = (
+            f'This GitHub Pages build sets no cookies. This page loads a first-party, '
+            f'cookie-free click counter that sends only the events listed on '
+            f'<a href="{prefix}measurement.html">the measurement page</a> (no IP address, '
+            f'no user agent, no referrer) to a self-hosted endpoint; it records page views and '
+            f'clicks on product links, and nothing about you. Following an Amazon link takes you '
+            f'to Amazon, where Amazon\'s own privacy practices apply.')
+        footer_privacy_tiny = (
+            f'The counter\'s endpoint is configured in this build (data/config.json). '
+            f'Amazon and its third parties may place or recognise cookies when you follow '
+            f'outbound links, which this site does not control. {src_link("S2")}')
+    else:
+        footer_privacy = (
+            'This GitHub Pages build sets no cookies and runs no analytics. A first-party '
+            'click counter ships with the site but records nothing until its self-hosted '
+            'endpoint is deployed and configured; see the measurement plan. Following an '
+            'Amazon link takes you to Amazon, where Amazon\'s own privacy practices apply.')
+        footer_privacy_tiny = (
+            'Third parties (Amazon and its service providers) may place or recognise cookies '
+            'when you follow outbound links; this site does not control those. '
+            f'{src_link("S2")}')
+    analytics_state = (f'<meta name="analytics-endpoint" content="{e(_ae)}">' if _ae
+                       else '<meta name="analytics-endpoint" content="">')
     analytics_script = ""
     if ANALYTICS_PLAN["collection"].get("enabled") and is_indexable_page(page_rel):
         endpoint_path = ANALYTICS_PLAN["collection"]["endpoint_path"].lstrip("/")
@@ -1395,6 +1564,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23245746'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='15' font-weight='700' fill='%23fff' text-anchor='middle'%3EZ1%3C/text%3E%3C/svg%3E">
 <link rel="alternate" type="application/rss+xml" title="{e(SITE_NAME)} — sourced articles" href="{prefix}feed.xml">
 <meta name="theme-color" content="#245746">
+{analytics_state}
 </head>
 <body data-page-id="{e(page_id)}" data-page-type="{e(page_type)}">
 <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -1496,8 +1666,8 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     </div>
     <div>
       <h5>Cookies &amp; privacy</h5>
-      <p>This GitHub Pages build sets no cookies and sends no analytics events. The proposed first-party collector is not deployed and browser collection remains disabled. Following an Amazon link takes you to Amazon, where Amazon's own privacy practices apply.</p>
-      <p class="tiny">The site will keep collection off until a same-origin endpoint is deployed, its privacy and retention notice is approved, and the event flow is tested. The current statement reflects the live build. {src_link('S2')}</p>
+      <p>{footer_privacy}</p>
+      <p class="tiny">{footer_privacy_tiny}</p>
     </div>
     <div>
       <h5>Sources</h5>
@@ -1993,7 +2163,7 @@ PROGRAMME_FLAGS = [
     ("F10", "The short links are generated redirects with fallback parameters, not plain product links.",
      "All three links", "Logged redirect observations carried lv=shuf and plpRedirect=mhFallback. The candidate ASIN/title destinations were consistent across the recorded checks, but the btn_ref/srctok value changed between repeat or cache-busted requests (see F41 and the linked session evidence). These are observations of redirect responses, not confirmation that the candidate ASINs are the products intended by the account holder or that the links carry an Associates tag. Confirm both before publishing.", ["S17", "S16"]),
     ("F11", "The site does not disclose cookies, pixels and third-party technologies as Participation Requirements §3(e) requires.",
-     "Whole site", "The site itself sets no cookies and runs no analytics, but §3(e) requires an accurate disclosure of cookie and third-party technology use, including that third parties may place or recognise cookies. Only a minimal notice is in the footer; a proper privacy/cookie statement is needed before launch. Legal review recommended.", ["S2"]),
+     "Whole site", "The site itself sets no cookies and runs no analytics, but §3(e) requires an accurate disclosure of cookie and third-party technology use, including that third parties may place or recognise cookies. Only a minimal notice is in the footer; a proper privacy/cookie statement is needed before launch. Legal review recommended. The privacy/cookie wording is now generated from the counter's actual state in every build (the click counter shipped 2026-11-17 inert; the counter and the sentence share one config value and a build guard keeps them in step), and the third-parties clause of §3(e) is stated in the footer; the standalone privacy page and the recommended legal review remain open.", ["S2"]),
     ("F12", "The automated platform functions in the brief are not running — by design, not by omission.",
      "Platform", "Automated trend detection, competition scoring and conversion optimisation need an Associates account, Creators/PA API credentials and sales reports. PA API access is registered through Associates Central and credentials are tied to the primary account holder, with request rate scaled to account sales performance. None of that exists in this repository, and inventing the data to fill the gap would defeat the point of the project.", ["S2", "S19", "S20"]),
     ("F13", "Product listing titles are reproduced from Amazon; §6(a) restricts altering Program Content.",
@@ -2336,6 +2506,9 @@ PROGRAMME_FLAGS = [
      "categories/kitchen-appliances.html lede",
      "Found 2026-11-17 while re-scoping this session against main, in the same class main's F77/F79 lineage describes but with the narrative rather than a value out of date: the category lede opened 'The three supplied links were observed landing on air fryer or air fryer-oven listings on 2026-11-13/14', which was true at the time and is now a partial description of a five-row register whose two newest rows sit under Thermometers & Timers. The sentence is repaired where the tense is present — the lede reads its counts from len(rows) and from the register's own observed_listing_category field — and check_submitted_link_count() fails the build if a present-tense surface asserts a different count in its own words — both directions proven on 2026-11-17: the current tree builds silently, and injecting the old phrase back into the lede exited non-zero with the register's own row count named in the message. (A first version of the pattern required a lead-in word like 'all' and matched nothing, which is how a guard that cannot fail gets shipped: the negative test is the guard.) The scope is narrowed to the shopper surfaces and the two registers: a dated verification row that says 'all three supplied links' is a true statement about 2026-11-14, and a check that could only be satisfied by rewriting history is worse than no check. Process note for whoever next receives a link: add a row to data/product-intent.json — never a sentence.",
      ["S17", "S2"]),
+    ("F85", "The one-site lever this build owns is only half a lever: robots.txt at a project-pages subpath is not the file robots.txt the standards describe.",
+     "robots.txt (generated), sitemap.xml (generated), the seven annex builds named in the Disallow block, and any deployment at the root domain",
+     "Found 2026-11-17 by arena/c9e97e02 (C9) while implementing the brief's demand for one site to index. RFC 9309 §2.3: the rules \"MUST be accessible in a file named '/robots.txt' ... in the top-level path of the service\" — at https://kanlerxz87-cyber.github.io/Zone1/robots.txt this file is at the top-level path of the project-pages *subpath*, not of the service; a crawler looking for the host-root file at https://kanlerxz87-cyber.github.io/robots.txt never sees it. And Google's own guidance (S44): robots.txt \"is not a mechanism for keeping a web page out of Google\" — \"it is used mainly to avoid overloading your site with requests\"; blocking a URL \"can still appear in search results\" without the page content. The Disallow block now generated ships as documented intent for standards-respecting crawlers that do reach it (S43), and the sitemap lists only canonical URLs. The mechanism that actually works — meta robots noindex at template level in each annex build — is logged as requests to the owners of those builds' generators in COORDINATION.md (none of their files were touched; they are other sessions' claimed scopes). Decision for the owner: host the whole set at a root domain (option A) where robots.txt and Search Console controls meet the standard, or accept the annexes noindexed at template level (option B, works today). Tracked as SG-41 and S-43/S-44.", ["S43", "S44"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -6583,6 +6756,46 @@ def page_measurement():
 </table>
 </div>
 
+<h2>What shipped on 2026-11-17 (and what still does not exist)</h2>
+<div class="callout ok">
+  <strong>The machinery is in the repository; the counts are not.</strong>
+  A cookie-free outbound-click counter ships with the site
+  ({repo_link("assets/app.js", "assets/app.js")}, four browser events, no cookies, no IP,
+  no user agent, no referrer) and a self-hosted receiver with its own tests ships beside it
+  ({repo_link("platform/analytics/server.py", "platform/analytics/server.py")} +
+  {repo_link("platform/analytics/test_server.py", "21 assertions")}). The counter is
+  <em>inert</em> in this deployment: it records nothing until the owner deploys the receiver
+  on a host of their choosing and puts its URL in
+  {repo_link("data/config.json", "data/config.json")} (<code>analytics_endpoint</code>).
+  A build guard ({repo_link("build.py", "build.py → check_analytics_disclosure")}) keeps the
+  footer's §3(e) sentence and the counter's state identical in every build. No count, rate
+  or forecast appears anywhere on this site, because none has been measured.
+</div>
+<h3>The two event vocabularies, mapped</h3>
+<p class="small">This repository holds two measurement documents written by parallel passes.
+{repo_link("data/measurement.json", "data/measurement.json")} (EV-01…EV-05) is the brief's
+five events and the schema the shipped counter speaks; {repo_link("data/analytics-plan.json",
+"data/analytics-plan.json")} is the reference design for a same-origin
+<code>/api/analytics/events</code> collector ({repo_link("analytics/collector.py",
+"analytics/collector.py")}, fail-closed, SQLite daily aggregates) whose HTTP client
+(<code>assets/analytics.js</code>) the layout loads only when the plan's collection gate is
+enabled. They describe the same five events under different names. <strong>Enable exactly one
+path</strong> — the shipped counter via <code>analytics_endpoint</code>, or the same-origin
+collector via the plan's deployment gates — never both, or every click is counted twice.</p>
+<div class="tablewrap">
+<table>
+  <caption>The five events: EV id · the name the shipped counter sends · the plan's name · origin</caption>
+  <thead><tr><th>EV id</th><th>Counter name (measurement.json)</th><th>Plan name (analytics-plan.json)</th><th>Who fires it</th><th>Source / definition</th></tr></thead>
+  <tbody>
+    <tr><td>EV-01</td><td><code>page_view</code></td><td><code>page_view</code></td><td>browser</td><td>{repo_link("data/measurement.json", "measurement.json")} · {repo_link("data/analytics-plan.json", "analytics-plan.json")}</td></tr>
+    <tr><td>EV-02</td><td><code>outbound_click</code></td><td><code>outbound_click</code></td><td>browser, on a real product-link click</td><td>{repo_link("data/measurement.json", "measurement.json")} · {repo_link("data/analytics-plan.json", "analytics-plan.json")}</td></tr>
+    <tr><td>EV-03</td><td><code>article_engagement</code></td><td><code>article_engagement</code></td><td>browser, at the guide's final heading</td><td>{repo_link("data/measurement.json", "measurement.json")} · {repo_link("data/analytics-plan.json", "analytics-plan.json")}</td></tr>
+    <tr><td>EV-04</td><td><code>comparison_interaction</code></td><td><code>comparison_interaction</code></td><td>browser, when the comparison table is seen</td><td>{repo_link("data/measurement.json", "measurement.json")} · {repo_link("data/analytics-plan.json", "analytics-plan.json")}</td></tr>
+    <tr><td>EV-05</td><td><code>affiliate_report_import</code></td><td><code>affiliate_report_import</code></td><td>operator only — entered by hand from the owner's Associates report; the receiver rejects it with 400 by design</td><td>{repo_link("data/measurement.json", "measurement.json")} · {repo_link("data/analytics-plan.json", "analytics-plan.json")}</td></tr>
+  </tbody>
+</table>
+</div>
+
 <h2>Choose future topics from measured queries</h2>
 <p class="small">The topic register contains editorial hypotheses, not demand estimates. Verify the site's Search Console property, submit the generated sitemap, and wait for real query/page data before describing a topic as popular or trending. The build regenerates the sitemap from indexable publication pages and the feed from registered articles; include a guide in the appropriate register before publishing so those outputs update together.</p>
 <p class="small">References: <a href="topics.html">Content and traffic plan</a> · <a href="questions.html">Questions and discovery steps</a> · <a href="product-intent.html">Product-link records and campaign ledger</a> · {src_links(["S30", "S31", "S38"])}</p>
@@ -7159,6 +7372,36 @@ def check_no_price_tracking(pages):
                 problems.append(f"{rel}: price-tracking class/id/attribute (6(y)): {value!r}")
     return problems
 
+def check_analytics_disclosure():
+    """Build guard: the footer's §3(e) cookie/analytics sentence and the counter must state
+    the same thing, in the same build.
+
+    Why: Program Policies §3(e) requires an accurate disclosure of cookie and third-party
+    technology use. When the click counter shipped (2026-11-17), the sentence that says
+    "runs no analytics" became the one sentence on every page that could silently go false.
+    Both the sentence and the counter's meta tag are generated from data/config.json ->
+    analytics_endpoint; this guard is the third leg that refuses to render a build where
+    they disagree (proven in both directions when written — empty endpoint with an active
+    sentence, and a configured endpoint with the inert sentence).
+
+    While the endpoint is configured, the guard also requires the analytics plan's own
+    deployment gates (data/analytics-plan.json: runtime, endpoint deployed, privacy notice
+    approved) to be passed, so the two measurement designs in this repository cannot be
+    enabled at cross purposes. """
+    state = (SITE_CONFIG.get("analytics_endpoint") or "").strip()
+    problems = []
+    if state:
+        gates = ANALYTICS_PLAN.get("collection", {})
+        missing = [k for k in ("endpoint_deployed", "runtime_selected", "privacy_notice_approved")
+                   if not gates.get(k)]
+        if missing:
+            problems.append(
+                f"analytics_endpoint is configured but data/analytics-plan.json gates "
+                f"{missing} have not passed — configure the endpoint only after the plan's "
+                f"deployment gates are all true")
+    return problems
+
+
 def check_rows_have_sources():
     """Build-time guard: an asserted value with no source id is a hard failure."""
     problems = []
@@ -7537,6 +7780,10 @@ def main():
     missing = check_disclosure(list(pages.items()))
     if missing:
         raise SystemExit("BUILD FAILED — pages missing the required disclosure: " + ", ".join(missing))
+    analytics_state_problems = check_analytics_disclosure()
+    if analytics_state_problems:
+        raise SystemExit("BUILD FAILED — measurement state mismatch:\n  "
+                         + "\n  ".join(analytics_state_problems))
     article_problems = check_articles()
     if article_problems:
         raise SystemExit("BUILD FAILED — article cites an unregistered source or states an "
@@ -7651,8 +7898,27 @@ def main():
     # generated into this sitemap.
     base = "https://kanlerxz87-cyber.github.io/Zone1/"
     indexable = sorted(rel for rel in pages if is_indexable_page(rel))
+    # One site to index (brief, C9 2026-11-17): this repository hosts parallel annex
+    # builds — the sibling directories catalogued in PARALLEL_BUILDS. Each is its own
+    # directory tree under this
+    # site's URL, and this robots.txt asks crawlers not to index any of them. Two honest
+    # caveats are recorded as flag F85 in the register: RFC 9309 §2.3 places the file at the
+    # top-level path of the *service* (S43), which a GitHub project-pages subpath is not, and
+    # Google states that robots.txt is not an exclusion mechanism at all (S44) — the working
+    # fix is meta robots noindex at template level in each annex generator, logged as requests
+    # in COORDINATION.md for the owners of those builds. These Disallow lines are intent,
+    # stated where a standards-respecting crawler that reaches this file can honour it.
+    disallow_lines = [
+        "# Annex builds below are parallel passes kept in this repository for audit only.",
+        "# They are not part of the canonical site; please do not index them (flag F85).",
+    ]
+    for annex in PARALLEL_BUILDS:
+        slug = annex[1].strip("/").split("/")[0]  # (href, dir, title, ...) tuple
+        if not any(slug in line for line in disallow_lines):
+            disallow_lines.append(f"Disallow: /{slug}/")
     (ROOT / "robots.txt").write_text(
-        "User-agent: *\nAllow: /\n\nSitemap: " + base + "sitemap.xml\n",
+        "User-agent: *\nAllow: /\n" + "\n".join(disallow_lines) + "\n\nSitemap: "
+        + base + "sitemap.xml\n",
         encoding="utf-8")
     # <lastmod> carries the date the published values were last re-read against their
     # official sources (REVERIFIED), not the date the file was written. Added

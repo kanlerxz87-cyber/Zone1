@@ -574,3 +574,45 @@ footer.site strong{color:#f4f1e2}
 .article-meta .pill{font-size:.68rem; white-space:nowrap}
 .foot-brand h5{font-family:var(--serif); font-size:.95rem; text-transform:none; letter-spacing:0; color:var(--brand-ink)}
 .foot-brand p:first-of-type{font-family:var(--serif); font-size:.94rem; line-height:1.55}
+
+/* ================== MOBILE-FIRST TYPE + TOUCH TARGETS (S-20, 2026-11-17) ==================
+   Fluid type scale and 44px-minimum tap targets on controls and wayfinding, per the brief's
+   mobile pass. Values reuse the existing palette and spacing tokens; no color changes, so the
+   WCAG AA contrast measurements recorded by session 492acddc remain valid. The comparison
+   table keeps its full data density (explicitly NOT a card reflow: T-19); what changes is the
+   reading scale and the size of things a thumb must hit. */
+@media (max-width: 900px){
+  html{font-size:17px}
+  .lede, .hero-lite .lede, .hero .lede{font-size:1.16rem; line-height:1.6}
+  h1{font-size:clamp(1.55rem, 5.2vw, 2.15rem)}
+  h2{font-size:clamp(1.28rem, 4.4vw, 1.75rem)}
+  .skip-link, .share-row button, .share-row a, .topnav a, .side a, .spec-tabs button{
+    min-height:44px; display:flex; align-items:center}
+  .topnav a{padding:.65rem .85rem}
+}
+@media (max-width: 760px){
+  .lede, .hero-lite .lede, .hero .lede{font-size:1.08rem}
+}
+
+/* ================== STICKY COMPARISON BAR (S-20, 2026-11-17) ==================
+   On compare.html only, the three product links stay reachable while the long specification
+   table scrolls: position:sticky on the existing stats-grid. Every cell is a real link to the
+   full product page, so the bar is navigation, not a call to action, and it hides itself when
+   the reader reaches the decisions section below (the natural end of the comparison task). */
+.compare-bar{position:sticky; top:0; z-index:30; background:var(--card);
+  border:1px solid var(--line); border-radius:12px; padding:.55rem .75rem; margin:0 0 1.15rem;
+  box-shadow:0 2px 12px rgba(20,30,25,.06)}
+.compare-bar .stats-grid{margin:0; grid-template-columns:repeat(auto-fit, minmax(190px, 1fr))}
+.compare-bar .stat{padding:.55rem .85rem}
+.compare-bar .stat .v{font-size:1.02rem}
+.compare-bar .stat a{min-height:44px; display:inline-flex; align-items:center; font-weight:700}
+@media (max-width:900px){ .compare-bar .stat .v{font-size:.95rem} }
+/* The comparison header row stays visible while the long specification table scrolls
+   (S-20: "sticky comparison headers on long tables"). On mobile the header cells become
+   compact while keeping the full data grid — explicitly not a card reflow (T-19). */
+.tablewrap thead th{position:sticky; top:0; z-index:15; background:var(--card)}
+@media (max-width:760px){ .tablewrap thead th{font-size:.72rem; padding:.5rem .35rem} }
+
+/* ================== SKIP-LINK TARGETS (S-20, 2026-11-17) ==================
+   #main-content, #products and #decisions are real tab/scroll targets now. */
+#main-content, .product-anchor, section[id], [id].decision-anchor{scroll-margin-top:5.5rem}

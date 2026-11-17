@@ -15,5 +15,7 @@
  "selected_tracking_id": "shopnow047c-20",
  "selected_tracking_id_note": "User-provided in the project brief on 2026-11-17. Not independently validated in Associates Central and not confirmed as the tag on any supplied link. Not applied to links: associate_tag remains blank until one enrolled Associates link test has passed for each confirmed intended product.",
  "selected_tracking_id_provenance": "Project brief, 2026-11-17; account ownership and link attribution not verified.",
- "selected_tracking_id_associates_central_confirmed": false
+ "selected_tracking_id_associates_central_confirmed": false,
+ "analytics_endpoint": "",
+ "analytics_endpoint_note": "The click counter's self-hosted receiver URL (C9, 2026-11-17, arena/c9e97e02). Empty => the counter in assets/app.js is an inert stub and the footer states exactly that. Set it only after platform/analytics/server.py is deployed on a host the owner controls AND the data/analytics-plan.json deployment gates (runtime, endpoint deployed, privacy notice) are all true; build.py -> check_analytics_disclosure() fails the build otherwise. The footer §3(e) sentence is generated from this same value in the same build."
 }

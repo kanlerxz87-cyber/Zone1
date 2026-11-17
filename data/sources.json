@@ -574,6 +574,26 @@
    "kind": "Help article",
    "directness": "Primary",
    "page_version": "Read 2026-11-17 (arena/58cbaaa2-zone1), from the linked-topic list on S6. Verbatim: to create multiple IDs, “visit your account and click on ‘Manage your Tracking ID’” (linked as https://affiliate-program.amazon.com/home/account/tag/manage); “Once they have been created, you will be able to see data on each ID in your Tracking ID Summary Report”; “there is a limit of 100 Tracking IDs per associate account”, with Associates Customer Service named for further requirements. This is where the enrolled-Associates test result this site waits for is actually read, and it is the second official page naming that screen."
+  },
+  {
+   "id": "S43",
+   "kind": "standard",
+   "org": "IETF / RFC Editor",
+   "title": "RFC 9309 — Robots Exclusion Protocol (Standards Track, September 2022)",
+   "url": "https://www.rfc-editor.org/rfc/rfc9309.html",
+   "covers": "The robots.txt standard. §2.3 states verbatim that the rules MUST be accessible in a file named /robots.txt in the top-level path of the service, which a GitHub project-pages subpath is not; §2.2.4 permits a Sitemap line. Quoted in flag F85 and in the generated robots.txt comment. Fetched live 2026-11-17.",
+   "directness": "Primary — the standards-track RFC itself, from the RFC Editor's canonical HTML rendering",
+   "page_version": "RFC 9309, Standards Track, September 2022; §2.3 and §2.2.4 quoted verbatim (fetched 2026-11-17)."
+  },
+  {
+   "id": "S44",
+   "kind": "official-doc",
+   "org": "Google Search Central",
+   "title": "Introduction to robots.txt (Google Search Central documentation)",
+   "url": "https://developers.google.com/search/docs/crawling-indexing/robots/intro",
+   "covers": "Google's statement of what robots.txt does and does not do: it 'is not a mechanism for keeping a web page out of Google' (it is used to avoid overloading a site with requests); block indexing with noindex instead, and a blocked URL can still appear in search results without its content. Quoted in flag F85 and SG-41. Fetched live 2026-11-17.",
+   "directness": "Primary — Google's own crawler documentation, the publisher of the search results in question",
+   "page_version": "Google Search Central crawling/indexing documentation, robots.txt introduction (fetched 2026-11-17)."
   }
  ],
  "reverified_scope": "Pass 11 (arena/2e346d24-zone1) re-read live on 2026-11-16: S1, S2, S3, S4, S5, S8, S9, S10, S17, S28, S29, then S12, S14 and S18 later in the same session — fourteen sources in total. NOT re-read in pass 11 and therefore not restated: S6, S7, S11, S13, S15, S16, S19-S27, S30-S34, and the 8 Qt owner's-manual PDF. F3 (450 °F) was re-established live against S12 and the listing title; F4/F5 (Emeril presets) against S14. S15, the Emeril owner's manual, was NOT re-read, so the 24-preset count is carried forward and not re-asserted. Evidence: reports/verification-2026-11-16-2e346d24.md",
@@ -718,5 +738,6 @@
   },
   "not_read_by_this_pass": "S5, S6, S7, S11, S13, S15, S16, S18-S27, S30-S35 were not re-fetched by this pass and nothing about them is restated as current here. The Emeril and Chefman owner's-manual PDFs (S15 and the 8 Qt manual) were also not re-opened, so the 24-preset count and the manual-only claims are carried forward from the records that read them.",
   "deliberately_not_used": "Prices, star ratings, review counts and Best Sellers Rank values visible in the live responses were read and excluded from every published surface, per S2 and this repository's no-price/no-rating rule. Review-count figures are cited only as date-stamped vendor-page readings inside the source register, never on reader-facing pages."
- }
+ },
+ "next_id": "S45"
 }
