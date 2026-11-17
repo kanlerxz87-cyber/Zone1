@@ -5462,6 +5462,52 @@ def page_topics():
             if qid not in _qids:
                 raise SystemExit(f"BUILD FAILED — topic {it['id']} blocked by unknown question {qid}")
 
+    # Publishing cadence (added 2026-11-17, arena/9fe0b6b3). Slots 3 and 4 are left
+    # deliberately open: filling them now would be choosing by instinct, which is the
+    # thing this cadence exists to stop.
+    # These rows state what this repository has decided, so the defining file is the
+    # source: a row with no source fails the build.
+    repo_topics = repo_link("data/topics.json")
+    _cad = TOPICS.get("cadence") or {}
+    if _cad:
+        slots = "".join(
+            f"""<tr><td>{e(x['slot'])}</td><td>{e(x['when'])}</td><td class="small">{e(x['topic'])}</td>
+          <td class="small">{e(x['state'])}</td><td class="small muted">{e(x['decided_by'])}<div class="tiny">{repo_topics}</div></td></tr>"""
+            for x in _cad.get("first_four_slots", []))
+        done = "".join(f"<li>{e(x)}</li>" for x in _cad.get("definition_of_done", []))
+        cadence_block = f"""
+<h2>Publishing cadence</h2>
+<p class="small"><strong>{e(_cad.get('rhythm', ''))}</strong></p>
+<p class="small">{e(_cad.get('why_this_rhythm', ''))}</p>
+<div class="tablewrap"><table>
+  <caption>First four slots &mdash; adopted {e(_cad.get('adopted_on', ''))}</caption>
+  <thead><tr><th>#</th><th>When</th><th>Topic</th><th>State</th><th>Decided by</th></tr></thead>
+  <tbody>{slots}</tbody>
+</table></div>
+<div class="callout warn"><strong>What counts as done.</strong><ul class="tight small">{done}</ul><p class="tiny" style="margin:.5rem 0 0">{repo_topics}</p></div>
+<p class="small muted"><strong>Blocking condition.</strong> {e(_cad.get('blocking_condition', ''))}</p>"""
+    else:
+        cadence_block = ""
+
+    # The four working titles supplied with the brief, and what this site has for each.
+    _wt = TOPICS.get("supplied_working_titles") or []
+    if _wt:
+        wt_rows = "".join(
+            f"""<tr><td class="small">{e(x['title'])}</td><td class="small">{e(x['status'])}</td>
+          <td class="small">{"<a href='" + "articles/" + x['answered_by'] + ".html'>" + e(x['answered_by']) + "</a>" if x.get('answered_by') else "&mdash;"}</td>
+          <td class="small muted">{e(x['note'])}<div class="tiny">{repo_topics}</div></td></tr>"""
+            for x in _wt)
+        working_title_block = f"""
+<h2>The four supplied working titles</h2>
+<p class="small muted">These were supplied as editorial hypotheses, not as claims about popularity. Two of them were already answered by articles on this site, so they were not published twice; the mapping is recorded here so the decision is visible rather than silent.</p>
+<div class="tablewrap"><table>
+  <caption>Supplied working titles and what this site has for each</caption>
+  <thead><tr><th>Working title</th><th>Status</th><th>Answered by</th><th>Why</th></tr></thead>
+  <tbody>{wt_rows}</tbody>
+</table></div>"""
+    else:
+        working_title_block = ""
+
     rows = []
     for it in items:
         cls, label = _TOPIC_STATUS.get(it["status"], ("warn", it["status"]))
@@ -5583,6 +5629,10 @@ version must cite, and what blocks it.</p>
 </table></div>
 <p class="tiny muted">{e(t['channels_note'])}</p>
 
+{cadence_block}
+
+{working_title_block}
+
 <div class="callout note" style="margin-top:1.5rem">
   <strong>Where this fits.</strong>
   The topics above are the editorial half of <a href="suggestions.html#sg-09">SG-09</a> and
@@ -5592,7 +5642,7 @@ version must cite, and what blocks it.</p>
 </div>
 """
     return layout("topics.html", "Content and traffic plan", body, active="topics.html",
-                  description="Article topics for three air fryers, each tied to an official source, and the "
+                  description=f"Article topics for {len(PRODUCT_LIST)} tracked kitchen products, each tied to an official source, and the "
                               "distribution channels Amazon's policies permit or forbid.",
                   jsonld_blocks=[breadcrumbs_jsonld([
         ("Home", SITE_URL + "/"),
