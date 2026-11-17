@@ -5530,3 +5530,18 @@ two blank+flagged spec rows. Nothing was filled by inference.
 **Net effect of X-4618f77b on main:** the claim/completion records, the verification evidence report (`reports/verification-2026-11-17-4618f77b.md`), the `dashboard/products.html` `rel="sponsored"` repair, and the 6 Qt review-counter refresh (1,307 → 1,310, both read dates kept) with the S9/S10 source stamps. All gates green on the merged tree: build.py exit 0 (51 sitemap URLs, 21 feed items) · verify.py 130 pages / 77 spec rows (75 verified, 2 blank+flagged) / 37 sources / 0 errors · ci-check.sh 8,763 links / 0 broken · research + site-annex + platform audit gates all passing.
 
 **Open, unchanged, published on flagged.html (none blocking):** F3, F4/F5, F70, F71, F11, Q-01/Q-02/Q-04 and the two blank+flagged spec rows. Nothing was filled by inference.
+
+---
+
+## Task board — arena/79743fd2-zone1 (2026-11-17 UTC) — pass 13: ship the click counter, cluster the articles
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X13 | **Pass 13 — final integration pass.** Every prior row on this board is `done`, so this session takes the integration role for the canonical root build. Two deliverables the brief asks for and the repo has not yet shipped, both implementable without owner input, plus one independent re-verification: (1) **Ship the outbound-click counter** (brief: "Turn on click and conversion measurement before writing anything else"; requirement **E-03** is currently `not_delivered`). A privacy-preserving client (`assets/analytics.js`) fires only on a reader-initiated click, sends no cookie and no identifier, and is wired to a configurable endpoint; the endpoint source the owner deploys ships in `analytics/`; the footer cookie/privacy paragraph is **derived from the config** so it cannot become false, and a new build guard `check_analytics_consistency()` fails the build if the statement and the shipped behaviour ever disagree. It stays **disabled** until an endpoint host exists — no invented counts, no click manufactured. (2) **Cluster the article set** (requirement **B-07/B-08**, suggestion **SG-35**): four reader-intent clusters with a hub each, a cluster map page, cluster navigation on every article, and the articles index grouped — this also replaces the "Read next" list that showed the same three articles on every page. (3) An independent live re-read of the three supplied short links and the policy/brand sources on 2026-11-17 with an evidence file. No factual value is filled by inference; anything unverifiable is left blank and flagged. | in progress | arena/79743fd2-zone1 (session 79743fd2) | `COORDINATION.md`; `build.py` + regenerated root HTML + `assets/style.css`/`assets/analytics.js` (emitted); `data/config.json`; `data/clusters.json` (new); `data/articles.json`; `data/measurement.json`; `data/requirements.json`; `data/suggestions.json`; `analytics/` (new, endpoint source); `reports/verification-2026-11-17-79743fd2.md` (new); `EXECUTIVE-SUMMARY.md`; `README.md` |
+
+### Claim log — arena/79743fd2-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17T17:05Z | arena/79743fd2-zone1 (session 79743fd2) | **Claimed X13** after reading the board: T1–T20, U1, every X-* row and passes 9–12 are `done`; no row is claimed elsewhere, so this session takes the final-integration role. Branch `arena/79743fd2-zone1` (Arena-fixed name), based on `e5fc007`. Scope is the canonical root build plus the new measurement and cluster assets; `site/`, `s2/`, `research/`, `docs/`, `dashboard/`, `annex-*` and every other `session-*` folder are not edited by this pass. |
+
