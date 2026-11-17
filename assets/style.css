@@ -558,3 +558,33 @@ footer.site strong{color:#f4f1e2}
 .article-meta .pill{font-size:.68rem; white-space:nowrap}
 .foot-brand h5{font-family:var(--serif); font-size:.95rem; text-transform:none; letter-spacing:0; color:var(--brand-ink)}
 .foot-brand p:first-of-type{font-family:var(--serif); font-size:.94rem; line-height:1.55}
+
+/* ===== additive: arena/9fe0b6b3-zone1 (2026-11-17) — the footer index and the
+   publication front page. The footer index is what keeps every dashboard surface
+   reachable after the sidebar collapses them into one group; the front-page rules
+   exist so the shop-facing home page does not read like a verification report. */
+.foot-nav{list-style:none; margin:.5rem 0 0; padding:0; columns:2; column-gap:1.1rem}
+.foot-nav li{margin:0 0 .3rem; break-inside:avoid; font-size:.82rem; line-height:1.35}
+.foot-nav a{color:#cfe3d7; text-decoration:none; border-bottom:1px solid transparent}
+.foot-nav a:hover{border-bottom-color:#7fb79c}
+@media (max-width:640px){ .foot-nav{columns:1} }
+
+.front-hero{border:1px solid var(--line); border-radius:var(--radius); background:var(--panel);
+  padding:1.35rem 1.4rem 1.2rem; margin:0 0 1.25rem}
+.front-hero h1{font-family:var(--serif); font-size:1.72rem; line-height:1.22; margin:0 0 .5rem; color:var(--brand-ink)}
+.front-hero .lede{margin:0 0 .9rem; font-size:1rem; line-height:1.6}
+.front-questions{display:flex; flex-wrap:wrap; gap:.45rem; margin:.85rem 0 0; padding:0; list-style:none}
+.front-questions a{display:inline-block; border:1px solid var(--line); border-radius:999px;
+  padding:.28rem .7rem; font-size:.83rem; background:#fff; text-decoration:none}
+.front-questions a:hover{border-color:var(--brand)}
+.front-strip{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:.7rem; margin:1.15rem 0 0}
+.front-strip .tile{border:1px solid var(--line); border-radius:var(--radius); background:var(--panel);
+  padding:.8rem .9rem}
+.front-strip .tile b{display:block; font-family:var(--serif); font-size:1.35rem; color:var(--brand-ink)}
+.front-strip .tile span{display:block; font-size:.79rem; color:var(--muted); margin-top:.15rem}
+.front-strip .tile a{font-size:.8rem}
+.front-section{margin:1.6rem 0 0}
+.front-section h2{font-family:var(--serif); font-size:1.22rem; margin:0 0 .15rem; color:var(--brand-ink)}
+.front-section .sub{font-size:.86rem; color:var(--muted); margin:0 0 .7rem}
+.measure-note{border-left:3px solid var(--brand); background:var(--panel); padding:.6rem .8rem;
+  font-size:.85rem; line-height:1.55; margin:1rem 0 0}

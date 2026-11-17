@@ -154,6 +154,7 @@ ASSOCIATE_TAG = (CONFIG.get("associate_tag") or "").strip()
 ANALYTICS_ENDPOINT = ((ANALYTICS.get("endpoint") or {}).get("url") or "").strip()
 ANALYTICS_EVENTS = ANALYTICS.get("events") or []
 LINK_ROWS = LINK_INTENT.get("links") or []
+LI_BY_LINK = {r["submitted_link"]: r["id"] for r in LINK_ROWS}
 
 SRC_BY_ID = {s["id"]: s for s in SOURCES["sources"]}
 ACCESSED = SOURCES["accessed"]
@@ -376,8 +377,8 @@ def depth_prefix(page_path):
 # --------------------------------------------------------------------------- #
 
 NAV = [
-    ("index.html", "Home", "A clear guide to three air-fryer formats"),
-    ("picks.html", "This week's picks", "Three products, three jobs, one decision rule"),
+    ("index.html", "Home", "Sourced answers to the questions buyers actually ask"),
+    ("picks.html", "Which one is for you", "Each product wins a different job — pick by the job"),
     ("decisions.html", "Decisions & handover", "Niche, traffic, measurement, and the five things only you can do"),
     ("categories/kitchen-appliances.html", "Category: Kitchen", "All tracked products in one category"),
     ("compare.html", "Comparison", "Verified-only side-by-side matrix"),
@@ -1053,6 +1054,36 @@ footer.site strong{color:#f4f1e2}
 .article-meta .pill{font-size:.68rem; white-space:nowrap}
 .foot-brand h5{font-family:var(--serif); font-size:.95rem; text-transform:none; letter-spacing:0; color:var(--brand-ink)}
 .foot-brand p:first-of-type{font-family:var(--serif); font-size:.94rem; line-height:1.55}
+
+/* ===== additive: arena/9fe0b6b3-zone1 (2026-11-17) — the footer index and the
+   publication front page. The footer index is what keeps every dashboard surface
+   reachable after the sidebar collapses them into one group; the front-page rules
+   exist so the shop-facing home page does not read like a verification report. */
+.foot-nav{list-style:none; margin:.5rem 0 0; padding:0; columns:2; column-gap:1.1rem}
+.foot-nav li{margin:0 0 .3rem; break-inside:avoid; font-size:.82rem; line-height:1.35}
+.foot-nav a{color:#cfe3d7; text-decoration:none; border-bottom:1px solid transparent}
+.foot-nav a:hover{border-bottom-color:#7fb79c}
+@media (max-width:640px){ .foot-nav{columns:1} }
+
+.front-hero{border:1px solid var(--line); border-radius:var(--radius); background:var(--panel);
+  padding:1.35rem 1.4rem 1.2rem; margin:0 0 1.25rem}
+.front-hero h1{font-family:var(--serif); font-size:1.72rem; line-height:1.22; margin:0 0 .5rem; color:var(--brand-ink)}
+.front-hero .lede{margin:0 0 .9rem; font-size:1rem; line-height:1.6}
+.front-questions{display:flex; flex-wrap:wrap; gap:.45rem; margin:.85rem 0 0; padding:0; list-style:none}
+.front-questions a{display:inline-block; border:1px solid var(--line); border-radius:999px;
+  padding:.28rem .7rem; font-size:.83rem; background:#fff; text-decoration:none}
+.front-questions a:hover{border-color:var(--brand)}
+.front-strip{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:.7rem; margin:1.15rem 0 0}
+.front-strip .tile{border:1px solid var(--line); border-radius:var(--radius); background:var(--panel);
+  padding:.8rem .9rem}
+.front-strip .tile b{display:block; font-family:var(--serif); font-size:1.35rem; color:var(--brand-ink)}
+.front-strip .tile span{display:block; font-size:.79rem; color:var(--muted); margin-top:.15rem}
+.front-strip .tile a{font-size:.8rem}
+.front-section{margin:1.6rem 0 0}
+.front-section h2{font-family:var(--serif); font-size:1.22rem; margin:0 0 .15rem; color:var(--brand-ink)}
+.front-section .sub{font-size:.86rem; color:var(--muted); margin:0 0 .7rem}
+.measure-note{border-left:3px solid var(--brand); background:var(--panel); padding:.6rem .8rem;
+  font-size:.85rem; line-height:1.55; margin:1rem 0 0}
 """
 
 JS = r"""
@@ -1459,7 +1490,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     <div>
       <h5>Disclosure</h5>
       <p><strong>{e(DISCLOSURE)}</strong></p>
-      <p>We may earn a commission from a qualifying purchase made through an eligible link. The three supplied Amazon short links have not been confirmed to match the named models or carry this site's Associates tracking ID. Amazon prices, availability and ratings are not published here.</p>
+      <p>We may earn a commission from a qualifying purchase made through an eligible link. The {len(LINK_ROWS)} supplied Amazon short links have not been confirmed to match the named models or to carry this site's Associates tracking ID; the intended destination and the observed destination of each are recorded separately on the <a href="{prefix}links.html" style="color:inherit;text-decoration:underline">product link register</a>. Amazon prices, availability and ratings are not published here.</p>
     </div>
     <div>
       <h5>Verification</h5>
@@ -1523,7 +1554,8 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
 def product_cta(p, prefix=""):
     return f"""
 <div class="cta-row">
-  <a class="btn" href="{e(p['link'])}" target="_blank" rel="nofollow sponsored noopener">Open supplied Amazon link — verify model <span aria-hidden="true">↗</span></a>
+  <a class="btn" href="{e(p['link'])}" target="_blank" rel="nofollow sponsored noopener"
+     data-z1-asin="{e(p['asin']['v'])}" data-z1-link="{e(LI_BY_LINK.get(p['link'], ''))}">Open supplied Amazon link — verify model <span aria-hidden="true">↗</span></a>
   <span class="paid-tag">Affiliate link · tracking unconfirmed</span>
 </div>
 <p class="cta-note">Affiliate disclosure: we may earn a commission if Amazon credits a qualifying purchase to this site, but this short link's Associates tag has not been verified. The model identity is also unconfirmed; check the product title and model number on Amazon before buying. See <a href="{prefix}flagged.html">Flagged for review</a> and <a href="{prefix}questions.html#q-01">the open questions</a>. {src_links(['S17', 'S2'])}</p>
@@ -1722,10 +1754,32 @@ def page_index():
         1 for p in PRODUCT_LIST for f in p["flags"] if f["id"] not in ("F1", "F6"))
     verified = sum(1 for p in PRODUCT_LIST for s in p["specs"] if s["value"] is not None)
     unverified = sum(1 for p in PRODUCT_LIST for s in p["specs"] if s["value"] is None)
+    # Two categories now exist: air fryers, and the thermometers that two of the
+    # supplied links resolve to. Counting them from the data keeps the front page
+    # honest the next time the product set changes.
+    n_categories = len({p["category"] for p in PRODUCT_LIST})
+    # The buyer questions this site exists to answer. They are editorial hypotheses
+    # supplied with the brief - working titles, not claims about search volume or
+    # about how many people ask them.
+    BUYER_QUESTIONS = (
+        ("Basket or oven-style air fryer: what should you compare?",
+         "guides/buying-guide-air-fryers.html"),
+        ("How do I compare air-fryer capacity without the hype?", "compare.html"),
+        ("What are the cleanup and counter-space trade-offs?",
+         "articles/how-to-clean-an-air-fryer.html"),
+        ("What should I ask before buying a multi-function appliance?", "picks.html"),
+    )
+    question_chips = "".join(
+        f'<li><a href="{href}">{e(q)}</a></li>' for q, href in BUYER_QUESTIONS)
     format_labels = {
         "chefman-6qt-dual-basket": "Two-basket air fryer",
         "emeril-26qt-french-door": "French-door countertop oven",
         "chefman-8qt-turbofry": "Single-basket air fryer",
+        # The two links added on 2026-11-17 resolve to thermometers, not air fryers.
+        # They are labelled by what the listing actually is, and F77/F78 publish the
+        # category mismatch rather than letting the label paper over it (SG-31).
+        "thermomaven-1-sec-thermometer": "Instant-read thermometer",
+        "chef-iq-sense-gen3-thermometer": "Wireless probe thermometer",
     }
     cards = "".join(
         f"""
@@ -1749,14 +1803,17 @@ def page_index():
   <div class="hero-copy">
     <p class="hero-eyebrow">Zone1 Kitchen <span aria-hidden="true">/</span> Air-fryer field guide</p>
     <h1 class="hero-title">Choose the shape before the model.</h1>
-    <p class="lede">Two baskets, one 8 Qt basket, or a countertop oven? Compare three formats using manufacturer pages and owner's manuals—without pretending we tested them.</p>
+    <p class="lede">Two baskets, one 8 Qt basket, or a countertop oven &mdash; and a thermometer for when the answer is &ldquo;cook to temperature, not to time&rdquo;. Compare {len(PRODUCT_LIST)} tracked products across {n_categories} categories using manufacturer pages and owner's manuals—without pretending we tested them.</p>
     <div class="hero-actions">
       <a class="btn" href="#quick-guide">Find your fit <span aria-hidden="true">↓</span></a>
       <a class="btn btn-ghost" href="articles/index.html">Read the guides <span aria-hidden="true">→</span></a>
     </div>
     <p class="hero-footnote">Sourced specifications · visible gaps · no hands-on testing claimed</p>
+    <ul class="front-questions" aria-label="Questions this site answers">
+      {question_chips}
+    </ul>
   </div>
-  <aside class="hero-panel" aria-label="Three air-fryer formats">
+  <aside class="hero-panel" aria-label="{len(PRODUCT_LIST)} tracked products across {n_categories} categories">
     <p class="hero-panel-kicker">The format guide <span>03 products</span></p>
     <h2>Start with how you cook.</h2>
     <div class="hero-choice">
@@ -1775,7 +1832,7 @@ def page_index():
 
 <div class="callout bad link-status" id="link-status">
   <div class="link-status-heading"><span class="pill pill-warn">Before shopping</span><strong>Product identity, account approval and affiliate tracking are not confirmed.</strong></div>
-  <p class="small">A targeted live re-check on 2026-11-16 again observed fallback-style redirects for all three supplied short links. We cannot confirm that any link reaches the product the account holder intended, carries the correct Associates tag, or that the Associates account is approved. Verify the model and account status in Amazon before relying on a purchase link. {src_links(['S17', 'S2'])} <a href="reverification.html">Read the redirect evidence</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html#q-01">Product-link question</a> · <a href="questions.html#q-03">Account-status question</a>.</p>
+  <p class="small">A targeted live re-check on 2026-11-17 observed fallback-style redirects for all {len(LINK_ROWS)} supplied short links. We cannot confirm that any link reaches the product the account holder intended, carries the correct Associates tag, or that the Associates account is approved. Verify the model and account status in Amazon before relying on a purchase link. {src_links(['S17', 'S2'])} <a href="reverification.html">Read the redirect evidence</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html#q-01">Product-link question</a> · <a href="questions.html#q-03">Account-status question</a>.</p>
 </div>
 
 <div class="method-strip" id="how-we-work" aria-label="How this guide is made">
@@ -1788,7 +1845,7 @@ def page_index():
   <div class="section-heading">
     <p class="section-eyebrow">A practical starting point</p>
     <h2>Start with the shape that suits your kitchen.</h2>
-    <p class="small muted">These are product formats—not a ranked top-three list. Follow a link for the full sourced breakdown.</p>
+    <p class="small muted">These are product formats—not a ranked list. Follow a link for the full sourced breakdown. Two of the five supplied links land in a different Amazon category from the rest; that mismatch is published rather than smoothed over (<a href="flagged.html#f77">F77</a>, <a href="flagged.html#f78">F78</a>).</p>
   </div>
   <div class="grid grid-3 decision-grid">
     <article class="card decision-card">
@@ -1815,7 +1872,8 @@ def page_index():
   </div>
 </section>
 
-<h2>The three, side by side</h2>
+<h2>{len(PRODUCT_LIST)} tracked products, side by side</h2>
+<p class="small muted">{verified} specification rows confirmed from official sources, {unverified} left blank and <a href="flagged.html">flagged</a>. The product rows are the answer; everything behind them is the proof, and every dashboard that holds it is one click away.</p>
 <p class="small muted">Every populated fact has its own official source link. A dash means we could not confirm it; conflicts are shown as conflicts rather than resolved by guesswork.</p>
 <div class="tablewrap comparison-table">
 <table>
@@ -1870,7 +1928,7 @@ def page_index():
 <h2>This week's picks &mdash; and what one sale is worth</h2>
 <p class="small muted">A picks page is usually a ranking. The one on this site is a decision rule: each product wins a different job, and the job you have decides the product. It also shows what Amazon actually pays per sale at each candidate rate, with the table row it came from.</p>
 <div class="grid grid-2">
-  <a class="card" href="picks.html"><span class="kicker">Commercial front door</span><span class="cardtitle">Three air fryers, three jobs &#8594;</span><span class="cardtext">The honest version of a picks page: a rule, the specification behind each match, and the commission arithmetic in the open.</span></a>
+  <a class="card" href="picks.html"><span class="kicker">Commercial front door</span><span class="cardtitle">Each product, the job it wins &#8594;</span><span class="cardtext">The honest version of a picks page: a rule, the specification behind each match, and the commission arithmetic in the open.</span></a>
   <a class="card" href="decisions.html"><span class="kicker">Strategy</span><span class="cardtitle">Niche, traffic and measurement &#8594;</span><span class="cardtext">Three decisions with scored options, six channels ordered by what they depend on, and a pre-committed kill rule.</span></a>
 </div>
 
@@ -1898,7 +1956,7 @@ much to trust a number, not required reading before buying. The same material, i
   <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">Supplied links reach Amazon fallback pages — see <a href="reverification.html">link checks through 2026-11-16</a></div></div>
   <div class="stat ok"><div class="n">{verified}</div><div class="l">Verified spec values</div><div class="h">Each with a link to the manufacturer page or manual</div></div>
   <div class="stat warn"><div class="n">{unverified}</div><div class="l">Unconfirmed values</div><div class="h">Left blank, listed on Flagged for review</div></div>
-  <div class="stat bad"><div class="n">{n_open_flags}</div><div class="l">Open irregularities</div><div class="h">{n_total_flags} recorded across the three products and the programme; the Flagged page lists them as {n_open_flags} distinct rows</div></div>
+  <div class="stat bad"><div class="n">{n_open_flags}</div><div class="l">Open irregularities</div><div class="h">{n_total_flags} recorded across {len(PRODUCT_LIST)} products and the programme; the Flagged page lists them as {n_open_flags} distinct rows</div></div>
 </div>
 
 <div class="callout info">
@@ -1919,7 +1977,7 @@ much to trust a number, not required reading before buying. The same material, i
   and which Associates tag rides on the link, still cannot be confirmed from outside Associates Central, and a
   parallel pass reads the same fallback marker as grounds for withholding the "resolved" label entirely. Both
   readings are published side by side (flag F21). Full ledger:
-  <a href="reverification.html">Full line-by-line re-read: {REVERIFIED}</a>. A targeted follow-up on 2026-11-16 rechecked all three link destinations and refreshed two dated manufacturer review counters; it was not a full re-read. See the <a href="reverification.html">combined verification ledger</a>.</p>
+  <a href="reverification.html">Full line-by-line re-read: {REVERIFIED}</a>. A targeted follow-up on 2026-11-17 rechecked all {len(LINK_ROWS)} supplied link destinations, two of them for the first time; it was not a full re-read. Each link's intended destination and its observed destination are recorded as two separate fields on the <a href="links.html">product link register</a>. See the <a href="reverification.html">combined verification ledger</a>.</p>
 </div>
 
 <h2>Articles</h2>
@@ -1985,7 +2043,7 @@ much to trust a number, not required reading before buying. The same material, i
         {
             "@type": "ItemList",
             "@id": SITE_URL + "/#formats",
-            "name": "Three air-fryer formats compared",
+            "name": f"{len(PRODUCT_LIST)} tracked kitchen products compared",
             "itemListElement": [
                 {
                     "@type": "ListItem",
@@ -1998,7 +2056,7 @@ much to trust a number, not required reading before buying. The same material, i
         },
     ]
     return layout("index.html", "Air fryer buying guide", body, active="index.html",
-                  description="A source-led comparison of three air-fryer formats, with manufacturer specifications, visible gaps and the status of the supplied Amazon links.",
+                  description=f"A source-led comparison of {len(PRODUCT_LIST)} tracked kitchen products, with manufacturer specifications, visible gaps and the status of the supplied Amazon links.",
                   jsonld_blocks=ld)
 
 
@@ -2468,7 +2526,7 @@ PROGRAMME_FLAGS = [
     ("F76", "The intended ASIN is blank for all five supplied links. Only the account holder can fill it in.",
      "All five supplied links", "A reproducible redirect destination is not an intention. Every recorded read since 2026-11-13 has observed where these links go; nothing observed anywhere states which product they were created to promote. The product-link register therefore keeps two separate blocks per link: 'intent' (intended ASIN, official listing URL, confirmation date, source) and 'observation' (what the link actually did). Both blocks are published, the intent block is empty, and copying an observed ASIN into it is a build failure - see check_link_intent(). This pass deliberately does not assert that the supplied short links are invalid; their compliance status is unresolved.", ["S17", "S40", "S36"]),
     ("F79", "A Selected Tracking ID was supplied; its format matches Amazon's documented convention but its ownership is unconfirmed.",
-     "All five supplied links", "The account holder supplied a Selected Tracking ID on 2026-11-17 and it is recorded in data/config.json and on the product-link register. Amazon's own help states that its software 'automatically adds \"-20\" to the end of all Associate IDs', so the string has the documented shape of a US Associates Store/Tracking ID (S36). That is a statement about format only: it is not evidence that the ID belongs to this account, that the account is approved, or that the ID is attached to these five links. No resolved URL observed across eight rounds has carried a visible tag= parameter (F6). Confirm in Manage your Tracking IDs, then validate one link per product (SG-38).", ["S36", "S2"]),
+     "All five supplied links", "The account holder supplied a Selected Tracking ID on 2026-11-17. It is recorded in data/link-intent.json and published on the product-link register, and it has deliberately NOT been written to data/config.json, because setting that field makes the site/ generator append it to every outbound link at once - scaling five unvalidated links before one has been confirmed (SG-38). Amazon's own help states that its software 'automatically adds \"-20\" to the end of all Associate IDs', so the string has the documented shape of a US Associates Store/Tracking ID (S36). That is a statement about format only: it is not evidence that the ID belongs to this account, that the account is approved, or that the ID is attached to these five links. No resolved URL observed across eight rounds has carried a visible tag= parameter (F6). Confirm in Manage your Tracking IDs, then validate one link per product (SG-38).", ["S36", "S2"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -2538,7 +2596,7 @@ def page_category():
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Kitchen appliances</p>
 <h1>Category: kitchen appliances — air fryers</h1>
-<p class="lede">The three supplied links were observed landing on air fryer or air fryer-oven listings on 2026-11-13/14; product identity from the tokens is still unconfirmed (F14–F16), so this category label is provisional. The table below lists every tracked product with its verified capacity, the manufacturer's list price and its open flags. Amazon price is blank on every row by policy, not by oversight.</p>
+<p class="lede">Three of the {len(LINK_ROWS)} supplied links were observed landing on air fryer or air fryer-oven listings on 2026-11-13/14; the two added on 2026-11-17 land on meat thermometers instead. Product identity from the tokens is still unconfirmed (F14&ndash;F16), so every category label here is provisional and the two thermometers carry a published mismatch (<a href="../flagged.html#f77">F77</a>, <a href="../flagged.html#f78">F78</a>). The table below lists every tracked product with its verified capacity, the manufacturer's list price and its open flags. Amazon price is blank on every row by policy, not by oversight.</p>
 
 <div class="tablewrap">
 <table>
@@ -2793,7 +2851,7 @@ def page_data():
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Full dataset</p>
 <h1>Full dataset — every field, every source, every gap</h1>
-<p class="lede">This is the machine-readable table the site is generated from, rendered for humans. {total} specification rows across three products. Each row shows the value, whether it is verified, and a clickable link to the official page it came from. Rows with no official source are blank on purpose.</p>
+<p class="lede">This is the machine-readable table the site is generated from, rendered for humans. {total} specification rows across {len(PRODUCT_LIST)} tracked products. Each row shows the value, whether it is verified, and a clickable link to the official page it came from. Rows with no official source are blank on purpose.</p>
 
 <div class="callout info">
   <strong>Every row carries a source link, by design</strong>
@@ -4891,7 +4949,7 @@ QUESTIONS_ALT = [
     ("Q-02", "Which Associates account and tracking ID will the site use?",
      "Amazon defines tracking IDs and sub-tags in its help topic.",
      "The account name, tracking ID and sub-tag plan are not in the repository.",
-     "Associates Central → tracking IDs (see the help topic). Record the chosen ID in data/config.json.",
+     "Associates Central → tracking IDs (see the help topic). A Selected Tracking ID was supplied on 2026-11-17 and is published on the product-link register; it is held out of data/config.json until one link has been generated with it, opened, and confirmed in the tracking report (SG-38, F79).",
      "SG-07, SG-08", ["S6"]),
     ("Q-03", "Is the Associates account approved and active, and does it meet the Application Review requirements?",
      "Application Review lists qualifying-sales and content requirements, including a time window for the sales.",
@@ -5670,6 +5728,7 @@ def req_interp(text):
 
 def page_requirements():
     reqs = REQUIREMENTS["requirements"]
+    n_categories = len({p["category"] for p in PRODUCT_LIST})
     legend = REQUIREMENTS["status_legend"]
     counts = {}
     for r in reqs:
@@ -5767,7 +5826,7 @@ def page_requirements():
 
 <h2>What this register does not claim</h2>
 <p class="small">A status here is a statement about this repository, not about the affiliate business.
-This site has three products, one category, no traffic and no confirmed affiliate tag, so no row on this
+This site has {len(PRODUCT_LIST)} products, {n_categories} categories, no traffic and no confirmed affiliate tag, so no row on this
 page should be read as evidence of revenue potential. The rows that would answer that —
 <a href="requirements.html#c-07">C-07</a>, <a href="requirements.html#c-08">C-08</a>,
 <a href="requirements.html#e-04">E-04</a> — are exactly the ones blocked.</p>
@@ -6382,11 +6441,26 @@ def page_picks():
          "One 26-quart cavity with French doors, a dual-speed fan and a rotisserie documented in the owner's manual."),
         ("chefman-8qt-turbofry", "Feed four to six people from one basket",
          "A single large basket with a documented 4\u20136 person household size and a shake reminder."),
+        # The two thermometers registered on 2026-11-17. Their rows are blank by
+        # design - no brand page or manual for them has been read - so the card
+        # states that instead of a capacity figure.
+        ("thermomaven-1-sec-thermometer", "Know the temperature in about a second",
+         "An instant-read thermometer for cooking to temperature rather than to time. No manufacturer specification has been confirmed for this unit yet: every cell on its page is blank and flagged."),
+        ("chef-iq-sense-gen3-thermometer", "Watch a cook without opening the door",
+         "A wireless probe thermometer for long cooks where opening the oven loses heat. As with the other thermometer, no specification is confirmed yet - the listing title's claims are recorded as claims, not as specifications."),
     ]
     by_slug = {p["slug"]: p for p in PRODUCT_LIST}
     for slug, job, why in jobs:
         p = by_slug[slug]
-        cap = next(s for s in p["specs"] if s["label"] in ("Capacity",))
+        # Not every tracked product has a capacity - a thermometer does not - so the
+        # fact shown is the product's own first confirmed row, or an honest blank.
+        cap = next((s for s in p["specs"] if s["label"] == "Capacity"), None)
+        if cap is None or cap.get("value") is None:
+            cap = next((s for s in p["specs"] if s["value"] is not None), None)
+        cap_label = cap["label"] if cap else "Key specification"
+        cap_value = (e(cap["value"]) if cap and cap.get("value")
+                     else '<span class="blank">&mdash; not confirmed &mdash;</span>')
+        cap_src = src_links(cap.get("source", [])) if cap else ""
         model = p.get("model_number") or {}
         cards.append(f"""
 <article class="card pcard pick">
@@ -6394,9 +6468,9 @@ def page_picks():
   <h3>{e(job)}</h3>
   <p class="small muted product-name">{e(p['short_name'])} \u2014 {e(p['name'])}</p>
   <div class="product-fact">
-    <span>Manufacturer-stated capacity</span>
-    <strong>{e(cap['value'])}</strong>
-    <span class="tiny">{src_links(cap['source'])}</span>
+    <span>{cap_label}</span>
+    <strong>{cap_value}</strong>
+    <span class="tiny">{cap_src}</span>
   </div>
   <p class="small">{e(why)}</p>
   <p class="product-match"><span class="pill pill-warn">Model match unconfirmed</span>
@@ -6422,7 +6496,7 @@ def page_picks():
   <div class="hero-copy">
     <p class="hero-eyebrow">This week's picks <span aria-hidden="true">/</span> updated {e(d['compiled'])}</p>
     <h1 class="hero-title">Three air fryers, three different jobs.</h1>
-    <p class="lede">A picks page is usually a ranking. This one is a decision rule: each of the three products wins a different job, and the job you have decides the product. Every claim below is a manufacturer specification you can check in one click.</p>
+    <p class="lede">A picks page is usually a ranking. This one is a decision rule: each product wins a different job, and the job you have decides the product. Every claim below is a manufacturer specification you can check in one click &mdash; and where no specification has been confirmed, the card says so instead of filling the gap.</p>
     <div class="hero-actions">
       <a class="btn" href="#pick-rule">See the rule <span aria-hidden="true">\u2193</span></a>
       <a class="btn btn-ghost" href="decisions.html">How the money works <span aria-hidden="true">\u2192</span></a>
