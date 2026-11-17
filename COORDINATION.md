@@ -5703,3 +5703,20 @@ Flagged for review page with source links.
 | UTC time | Session | Action |
 |----------|---------|--------|
 | 2026-11-17T18:40Z | arena/0cf55ef3-zone1 (session 0cf55ef3) | X-0cf55ef3 marked **done**. 5 short links + 14 sources re-read live (no drift). Repaired F83 (handover → non-existent flag ids), F84 (three stale typed counts), topic-table citation truncation; added `check_legacy_flag_pointers()` and proved it fires. All gates green. |
+
+### arena/0cf55ef3-zone1 — PR and merge result (2026-11-17 UTC)
+
+* **PR [#143](https://github.com/kanlerxz87-cyber/Zone1/pull/143)** — verification pass X-0cf55ef3. Merged with `gh pr merge 143 --merge` at **2026-11-17T16:58:08Z**, merge commit **`e9542859aeca557b4624e17ba83146141ecedf38`**. Required checks before merge: `verify` and `Rebuild site/ from data/verified and assert every guarantee` both **success**; `mergeStateStatus: CLEAN`. Merged without waiting for approval.
+* **Workflows on `main` at `e954285`:** `CI` success · `Build, verify and deploy to GitHub Pages` success · `Verify verification annex (site/)` success · `pages-build-deployment` success.
+* **GitHub Pages:** `pages/builds/latest` → `status: built`, commit `e954285…`, `error: null`. Live read-back (cache-busted): `handover.html` renders the repaired heading and every *Closes* cell resolves to a real anchor (`F1`, `F32`, `F33` / `F6`, `F76`), disclosure present; `requirements.html` renders its counts from the register tokens (`28 questions`, `21 articles`), not from typed prose.
+* **Two rebases and one real collision during the pass.** `main` advanced twice while this pass was running (PR #136 → #138 → #140, sessions `66c32067` / `58cbaaa2`). Each conflict was resolved without discarding another session's work:
+  - `build.py` — main's `publication-compare-cta` block and pass-13 register constants kept from main; this pass's F83/F84 rows and `check_legacy_flag_pointers()` layered on top.
+  - `data/requirements.json` — main's newer semantic status/`where`/`why` content kept for the tag and analytics rows (another session's decisions, not this pass's to reverse); this pass's count tokens applied only to A-04 and B-08.
+  - `data/sources.json` — both sessions' independent re-verification blocks kept side by side.
+  - `COORDINATION.md` — main's PR #136/#138 records and this pass's task board both kept.
+* **Flag-id collision caught by the existing guard, and fixed in this pass's own merge.** The first resolution left two rows numbered `F81` and two numbered `F82` in the working tree — this pass's branch still carried pass-12's `F81` ("two of the five links never examined") and `F82` ("no Associates tag on any of the five"), which pass 13 had **superseded** with its own F80/F81/F82 on `main`. `check_flag_ids_unique()` failed the build with `flag id(s) rendered more than once on flagged.html: F81, F82` — exactly the guard F40/F62 exist for. Those two stale rows are **not on `origin/main` at all** (`git log -S` finds them only in this pass's commit), so they were dropped rather than renumbered, and the surviving `F81`/`F82` remain pass 13's. The knock-on was also fixed: `H2`'s `closes` now points at `F6` + **`F76`** (the tracking-ID status row), not `F82`, because `F82` on `main` is a stale-count row, and F83's prose says so.
+* **Owner actions recorded, not re-attempted:** F6/F76/Q-04 and Q-28/SG-37 (Associates tag + one-link test), F1/F32/F33 (intended product), F4/F5/F45 (Emeril presets/accessories), F3/F33 (450 °F), Q-03/SG-11 (account threshold), SG-16/Q-07 (domain), SG-29 (Search Console/Bing), SG-23/F46/Q-22 (photography), SG-08 (analytics endpoint), Q-20 (country/marketplace), Q-27/SG-36 (the two thermometer links). None blocks a merge; all are published on the Flagged for review page with source links.
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17T17:12Z | arena/0cf55ef3-zone1 (session 0cf55ef3) | PR #143 merged as `e954285`; all four `main` workflows success; Pages `status: built` at the merge commit, `error: null`; live read-back confirms the repairs serve. X-0cf55ef3 **done**. |
