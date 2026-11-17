@@ -102,7 +102,7 @@
      "url": "data/questions.json"
     }
    ],
-   "why": "Twenty questions, each recording what is known, what is missing, the answer that would unblock it, and the steps that would discover it. Where the answer is already in the repository the row says so and links it, rather than asking again.",
+   "why": "{n_questions} questions, each recording what is known, what is missing, the answer that would unblock it, and the steps that would discover it. Where the answer is already in the repository the row says so and links it, rather than asking again.",
    "sources": []
   },
   {
@@ -370,7 +370,7 @@
      "url": "topics.html"
     }
    ],
-   "why": "Twelve articles are published and three more are specified but unwritten. They are written to answer a question that a listing cannot ('Two 3-quart drawers or one 8-quart basket: which actually feeds four people?'), which is the durable form of 'trendy' — but they are deliberately not trend-chasing, because a trending topic has no official source and this site will not publish a claim it cannot cite.",
+   "why": "{n_articles} articles are published and {n_topics_minus_articles} more topics are specified but unwritten. They are written to answer a question that a listing cannot ('Two 3-quart drawers or one 8-quart basket: which actually feeds four people?'), which is the durable form of 'trendy' — but they are deliberately not trend-chasing, because a trending topic has no official source and this site will not publish a claim it cannot cite.",
    "sources": []
   },
   {

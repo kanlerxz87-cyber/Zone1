@@ -373,15 +373,14 @@
  },
  "handover": {
   "heading": "What only you can do, and exactly how long it takes",
-  "summary": "Everything else in this repository is done as far as it can be done without your accounts. Four actions close eighteen of the open flags. They are ordered by 'minutes per flag closed'.",
+  "summary": "Everything else in this repository is done as far as it can be done without your accounts. Five actions; the first three close 5 flag rows in the reader-facing register (F1, F6, F32, F33, F76) between them, and the last two close no flag at all - they unblock the domain question and the decision layer. They are ordered by 'minutes per flag closed'.",
   "items": [
    {
     "id": "H1",
     "owner_action": "Open each of the three supplied links on a desktop browser and read the **Model number** line in the listing's “Product information” section.",
     "time": "3 minutes",
     "closes": [
-     "F01",
-     "F02",
+     "F1",
      "F32",
      "F33"
     ],
@@ -398,9 +397,8 @@
     "owner_action": "In Associates Central, open **Manage Tracking IDs** and read the tracking ID, then confirm that the three supplied links carry it. If they do not, rebuild each link from the Product Linking tool. [Updated 2026-11-17: the confirmation that counts is a row in the Tracking ID Summary Report (S42), not a look at a link's destination — see Q-28 and SG-37 for the exact five minutes, and F76 for why the tag stays unapplied until they pass.]",
     "time": "5 minutes",
     "closes": [
-     "F03",
-     "F06",
-     "F07"
+     "F6",
+     "F76"
     ],
     "why_now": "As supplied, none of the three landing URLs shows a `tag=` parameter. A purchase through an untagged link does not credit the account. Tagging is also a requirement for the application review, which is final once rejected (S4).",
     "what_to_paste_back": "The tracking ID (it is public data — it appears in every link on a live site) and whether it was present in the supplied links.",
@@ -415,7 +413,7 @@
     "owner_action": "Check the status of the Associates application in the account dashboard.",
     "time": "2 minutes",
     "closes": [
-     "account-approval question (Q-03 on questions.html)"
+     "Q-03"
     ],
     "why_now": "If the account is not approved, Article 5 of the Operating Agreement permits no commission income at all, and the 180-day clock for three qualifying sales is the constraint the content plan has to meet (S4).",
     "what_to_paste_back": "Approved / pending / rejected, and the date of application.",
@@ -429,7 +427,7 @@
     "owner_action": "Decide the domain and hosting, then register Google Search Console for it.",
     "time": "20 minutes, plus registrar time",
     "closes": [
-     "the measurement loop (M1–M4)"
+     "M1-M4 (measurement rows on the measurement table, not flags)"
     ],
     "why_now": "GitHub Pages serves the site today and the canonical URL is baked into `sitemap.xml` and `robots.txt`. Moving to a real domain is a five-line change in `build.py`, but the Search Console property is yours alone.",
     "what_to_paste_back": "The domain, once registered — the build will point sitemap, robots and canonical links at it.",
@@ -441,7 +439,7 @@
     "owner_action": "Read the flagged list and the suggestions queue and pick the paths you want.",
     "time": "30 minutes",
     "closes": [
-     "the whole decision layer"
+     "the owner decision log (owner-facing, not a flag)"
     ],
     "why_now": "The site is designed to stop at this point rather than guess. Nothing on it has been implemented from the suggestions — they are options, each with effort, risk and reversibility.",
     "what_to_paste_back": "The IDs you accept or reject (SG-##, Q-##).",

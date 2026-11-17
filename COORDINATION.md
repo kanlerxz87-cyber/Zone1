@@ -5627,3 +5627,79 @@ in it).
 | UTC time | Session | Action |
 |----------|---------|--------|
 | 2026-11-17T17:05Z | arena/0cf55ef3-zone1 (session 0cf55ef3) | Claimed X-0cf55ef3. Rebased to `origin/main` @ `913d0ab` (includes PR #135). No open claim from another session; the blocked items recorded by C55-1 (Associates test, analytics host, Search Console, photography, ledger figures) are owner actions and are not re-claimed here. This session edits only the files in its claimed scope; `data/topics.json` / `EXECUTIVE-SUMMARY-SHOP-PASS.md` (C55 scope) are read-only for this pass. |
+
+### Completion record — arena/0cf55ef3-zone1 — X-0cf55ef3 (2026-11-17 UTC)
+
+**Status: done.** Independent verification & decision-support pass. Report:
+`reports/verification-2026-11-17-0cf55ef3.md`.
+
+**Live re-verification (server-side fetch, this session).** All five supplied short links
+re-opened and re-resolved to the same five destination ASINs the register records
+(B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DHZTCNR5, B0DZFD6R9Z); all still land through
+`lv=shuf` / `plpRedirect=mhFallback` with no visible `tag=`, so F6 / F82 / Q-04 stay open.
+Sources re-read live: S1, S2, S3, S4, S8, S9, S10, S12, S14, S17, S28, S29, S36, S37.
+No source drift required repair. One benign delta: the eCFR "up to date as of" stamp rolled
+11/12 → 11/13/2026 with no substantive change — recorded in `data/sources.json` as
+`reverified_2026_11_17_0cf55ef3`, not rewritten. Prices, ratings, review counts and rank
+values seen in those responses were read and deliberately excluded from every published
+surface. Sources S5, S6, S7, S11, S13, S15, S16, S18–S27, S30–S35 and both owner's-manual
+PDFs were **not** re-read and nothing about them is restated.
+
+**Defects found and repaired (all at source, all re-verified after):**
+
+1. **F83 — handover pointed at flag ids that do not exist where the reader is sent.**
+   `data/decision.json` `handover.items[*].closes` carried `F01/F02/F03/F06/F07` (ids from the
+   older annex register `data/flags.json`, F01–F27) while `handover.html` / `decisions.html`
+   sit beside a Flagged page that renders the canonical register (F1, F6, …), where the same
+   numbers mean different things. Re-pointed: H1 → F1/F32/F33, H2 → F6/F82, H3 → Q-03
+   (labelled a question), H4 → M1–M4 (labelled measurement rows), H5 → the owner decision log.
+   Both renderers now link an id only when it matches `F\d{1,2}`.
+2. **New guard, proven to fire.** `check_legacy_flag_pointers(pages)` fails the build when a
+   zero-padded id is printed in a block that never names the legacy register. Injected
+   `<p>closes F01 today</p>` into `handover.html`: build failed with the expected message;
+   tree restored and rebuilt clean. (First draft used a character window and false-positived on
+   F83's own row; rewritten to check per block — table row / article / list item / paragraph.)
+3. **F84 — three typed counts had gone stale.** `handover.html` headline said "…eighteen
+   flags" and the homepage repeated it twice, against five handover items closing five flag
+   rows; `index.html` said "Eight reads" above a 21-article grid; `data/requirements.json`
+   B-08 said "Twelve articles … three more" (now 21 and 4) and A-04 said "Twenty questions"
+   (now 26). Repaired: article count computed at build time, requirements rows use the
+   existing `{n_articles}` / `{n_questions}` tokens plus a new `{n_topics_minus_articles}`
+   (unknown tokens still fail the build), handover headline/summary state the five-row figure.
+4. **Citation truncation on the topic plan table (TP-21 / shop pass).** Seven topic rows
+   (TP-02, TP-03, TP-04, TP-15, TP-16, TP-17, TP-21) showed two must-cite links with no
+   indication that more were required — TP-21's row showed 2 of its 3. Rows now append
+   `+N more in the brief ↓` linking to the detail card that lists every source.
+
+**Reviewed, no change needed.** TP-21 as committed (status `proposed`, `published_as: null`,
+three manufacturer must-cites, demand line labelled judgement) — sound; `data/topics.json`
+and `EXECUTIVE-SUMMARY-SHOP-PASS.md` were not edited (C55 scope). `decision-gate.html` is a
+deliberately frozen 14-question parallel register whose lede renders its own register's
+length — internally consistent, cleared previously and re-confirmed here. Suggestions register
+(34 rows, five paths P1–P5 with effort / prerequisites / what-it-does-not-fix / pick-this-if)
+satisfies the "review suggestions before implementing" brief; seasonal coverage already exists
+(SG-24 + published TP-15 gift guide and TP-17 Black Friday row), so no duplicate row was added.
+
+**Structural sweep.** 52 root pages checked for the Associates disclosure, canonical, single
+H1, JSON-LD parse, unique title/meta description, and `/dp/` links carrying
+`tag=shopnow047c-20` + `rel="sponsored"`: clean (the 404 correctly carries no canonical).
+Stale-count grep over every generated page: remaining hits are historical recounts on
+`flagged.html`/`reverification.html` and dated snapshots — not live claims.
+
+**Gates after repair (all exit 0).** `build.py` — 52 pages, sitemap 51 URLs, feed 21 items,
+84 flag rows; `research/build_research.py` + `check_research.py` — 393 assertions,
+ALL CHECKS PASSED; `verify.py` — 130 pages, 77 spec rows (75 verified / 2 blank+flagged),
+37 sources, 0 external warnings, 0 errors; `scripts/build_site.py` + `verify_site.py` — no
+broken links, disclosures present; `platform/audit/report.py` — AUDIT PASSED, 0 warnings;
+`scripts/ci-check.sh` — 33 unit tests OK, data audit clean, 8,788 links / 0 broken.
+Reproducibility: a clean rebuild leaves only the intended edits.
+
+**Owner-blocked items left open (not re-attempted, per C55-1).** Associates one-link test
+(F6/F82/Q-04, F1/F32/F33/F77), analytics endpoint (SG-08), Search Console / Bing (SG-29),
+product photography (SG-23/F46/Q-22), campaign ledger figures (SG-08), domain decision
+(Q-07/SG-16), account threshold (Q-03/SG-11). None blocks a merge; all are published on the
+Flagged for review page with source links.
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17T18:40Z | arena/0cf55ef3-zone1 (session 0cf55ef3) | X-0cf55ef3 marked **done**. 5 short links + 14 sources re-read live (no drift). Repaired F83 (handover → non-existent flag ids), F84 (three stale typed counts), topic-table citation truncation; added `check_legacy_flag_pointers()` and proved it fires. All gates green. |

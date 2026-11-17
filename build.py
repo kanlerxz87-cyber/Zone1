@@ -1977,6 +1977,15 @@ PROGRAMME_FLAGS = [
      "All three links", "The shortener hides the tag. Attribution cannot be verified from outside Associates Central, so 'associates_tag_confirmed' is false for all three links. Needs the account holder to open Manage Tracking IDs.", ["S2", "S17"]),
     ("F7", "Program Policies §6(w) (Content on your Site) prohibits link shortening that makes it unclear you are linking to an Amazon Site.",
      "All three links", "link.amazon keeps the Amazon name visible, so the risk is low, but the landing URL is generated and temporary. Recorded so the account holder can confirm current guidance before publishing.", ["S2"]),
+    ("F83", "The owner handover told a reader to see F01, F02, F03, F06 and F07, and the Flagged page renders no such rows.",
+     "data/decision.json handover.items, handover.html, decisions.html",
+     "Found and repaired 2026-11-17 by arena/0cf55ef3 (X-0cf55ef3). The handover register names the flags each owner action closes. Five of those entries were zero-padded ids (F01, F02, F03, F06, F07) belonging to the older annex register data/flags.json, which runs F01-F27. The page that prints them is rendered next to flagged.html, and that page renders the canonical register (F1, F6, ...), where the same numbers mean different things: legacy F01 is 'price, rating and review count are blank', canonical F1 is 'ASIN to manufacturer model number'. A reader who followed one landed on the wrong row or on nothing, which is the F46/F59 defect class that check_register_cross_references() was written to stop - but that guard accepts legacy ids on purpose because F47 documents two registers, so these slipped through. Repaired at source: H1 now closes F1, F32 and F33; H2 closes F6 and F76; H3 cites Q-03 as a question; H4 and H5 are labelled as measurement rows and a decision log rather than dressed up as flags. Both renderers link an id only when it matches F plus one or two digits. New guard check_legacy_flag_pointers() now fails the build when a zero-padded id is printed without the surrounding sentence naming the legacy register, and it was proven to fire on an injected 'closes F01' before being committed.",
+     []),
+    ("F84", "Three published counts were typed into prose and had already gone stale, including the headline on the handover page.",
+     "build.py (homepage callout, handover heading), data/decision.json handover.summary, data/requirements.json rows A-04 and B-08",
+     "Found and repaired 2026-11-17 by arena/0cf55ef3 (X-0cf55ef3), fifth occurrence of the class F14, F38, F52 and F63 record. (1) handover.html's headline read 'Five actions, about an hour, eighteen flags' and the homepage repeated 'closes eighteen flags' twice, while data/decision.json holds five handover items and the three that close flags close five flag rows between them - 18 matched neither the item count nor the flag count. (2) index.html said 'Eight reads written for this product set' directly above a grid rendering 21 articles. (3) data/requirements.json row B-08 said 'Twelve articles are published and three more are specified but unwritten' (now 21 and 4) and row A-04 said 'Twenty questions' (now 26). Repaired at source: the article count is now computed from data/articles.json at build time, both requirements rows now use the register's existing computed-count tokens (n_articles, n_questions) and a new n_topics_minus_articles token derived from data/topics.json, and the handover headline and summary state the five-row figure that the register actually supports. An unknown token still fails the build. Re-rendered and re-checked: requirements.html reads '21 articles' and '26 questions', index.html reads '21 reads' and 'five flag rows closed'.",
+     []),
+
     ("F8", "IP License §2(e) forbids aggregating, analysing or repurposing Program Content and training models on it.",
      "Platform design", "Any AI research or trend scoring therefore runs only on first-party data and public manufacturer data. Documented as guardrail G6 in the blueprint.", ["S2"]),
     ("F9", "No Amazon price, star rating or review count is available to this build.",
@@ -2337,6 +2346,8 @@ REPO_EVIDENCE = {
     "F80": ["data/product-intent.json", "product-intent.html", "session-58cbaaa2/artifacts/README.md"],
     "F81": ["product-intent.html", "data/product-intent.json", "reports/verification-2026-11-17-58cbaaa2.md"],
     "F82": ["build.py", "data/product-intent.json", "reports/verification-2026-11-17-58cbaaa2.md"],
+    "F83": ["data/decision.json", "data/flags.json", "handover.html", "decisions.html", "build.py"],
+    "F84": ["build.py", "data/decision.json", "data/requirements.json", "data/articles.json"],
     "F74": ["build.py", "data/articles.json", "data/topics.json",
             "reports/verification-2026-11-16-19d92a81.md"],
     "F75": ["build.py", "404.html"],
@@ -5270,10 +5281,17 @@ def page_topics():
         cls, label = _TOPIC_STATUS.get(it["status"], ("warn", it["status"]))
         serves = ", ".join(prod_by_slug[s]["short_name"] for s in (it.get("serves") or [])) \
             or '<span class="muted">Site-level — serves no single product</span>'
+        # The plan table keeps two citation links per row for compactness. When the brief
+        # requires more, an explicit "+N more in the brief" link points at the row's detail
+        # card, so a reader can never mistake two links for the full citation set (found
+        # 2026-11-17 by arena/0cf55ef3: TP-21's row showed 2 of its 3 required sources).
         cites = " ".join(
             f'<a href="{e(c["url"])}" target="_blank" rel="noopener">{e(c["label"][:40])} ↗</a>'
             for c in it["must_cite"][:2]
         )
+        _more = len(it["must_cite"]) - 2
+        if _more > 0:
+            cites += f' <a class="tiny muted" href="#{e(it["id"].lower())}">+{_more} more in the brief ↓</a>'
         title_html = e(it["title"])
         if it["status"] == "published" and it.get("published_as"):
             title_html = f'<a href="../{e(it["published_as"])}">{title_html}</a>'
@@ -5513,6 +5531,8 @@ def req_counts():
         "n_questions": len(QUESTIONS["questions"]),
         "n_articles": len(ARTICLES["articles"]),
         "n_topics": len(TOPICS["topics"]),
+        # topics that are specified but not yet written (status "proposed")
+        "n_topics_minus_articles": sum(1 for t in TOPICS["topics"] if t.get("status") != "published"),
         "n_banned": len(BANNED_PHRASES),
         "n_banned_distinct": len({p.lower() for p in BANNED_PHRASES}),
         "n_guards": len(re.findall(r"^def check_", open(__file__).read(), re.M)),
@@ -6629,7 +6649,20 @@ def page_decisions():
     rules = "".join(f"<li>{e(r)}</li>" for r in d["traffic"]["anti_slop_rules"])
 
     def _closes(h):
-        return e(", ".join(h["closes"])) if h["closes"] else "not a flag \u2014 unblocks measurement"
+        """Render 'closes' as flag links where the entry is a real register id, plain text otherwise.
+
+        Found 2026-11-17 (arena/0cf55ef3): the handover rows carried F01/F02/F03/F06/F07, which are
+        ids in the legacy data/flags.json register but not rows of the reader-facing Flagged page,
+        so a reader who followed one landed on nothing. The entries were re-pointed at canonical
+        rows in data/decision.json, and anything that is not a flag is now labelled as such here
+        rather than dressed up as one.
+        """
+        if not h["closes"]:
+            return "not a flag \u2014 unblocks measurement"
+        out = []
+        for c in h["closes"]:
+            out.append(f'<a href="flagged.html#f{c[1:]}">{e(c)}</a>' if re.fullmatch(r"F\d{1,2}", c) else e(c))
+        return ", ".join(out)
     def _hsrc(h):
         if h.get("source"):
             return src_links(h["source"])
@@ -6737,7 +6770,12 @@ def page_handover():
     d = DECISION["handover"]
     items = ""
     for h in d["items"]:
-        closes = ", ".join(h["closes"]) if h["closes"] else "no flag \u2014 unblocks measurement"
+        if h["closes"]:
+            closes = ", ".join(
+                f'<a href="flagged.html#f{c[1:]}">{e(c)}</a>' if re.fullmatch(r"F\d{1,2}", c) else e(c)
+                for c in h["closes"])
+        else:
+            closes = "no flag \u2014 unblocks measurement"
         src = src_links(h["source"]) if h["source"] else ""
         items += f"""
 <article class="card handover-item">
@@ -6748,7 +6786,7 @@ def page_handover():
   </div>
   <p class="small">{_md(h['why_now'])}</p>
   <div class="handover-meta">
-    <div><span class="tiny muted">Closes</span><div class="small">{e(closes)}</div></div>
+    <div><span class="tiny muted">Closes</span><div class="small">{closes}</div></div>
     <div><span class="tiny muted">Paste back</span><div class="small">{_md(h['what_to_paste_back'])} {src}</div></div>
   </div>
 </article>"""
@@ -6756,7 +6794,7 @@ def page_handover():
     not_possible = "".join(f"<li>{e(x)}</li>" for x in d["not_possible_here"])
     body = f"""
 <p class="section-eyebrow">Handover</p>
-<h1>Five actions, about an hour, eighteen flags</h1>
+<h1>Five actions, about an hour, a handful of flags</h1>
 <p class="lede">Everything in this repository is done as far as it can be done without the account holder's own logins. These five actions are the shortest path from "unverified" to "confirmed". Each shows the time it takes and the flags it closes.</p>
 <div class="callout bad">
   <strong>H1 is done — by a fetch, not by hand.</strong> All three listings' Product information blocks were read on 2026-11-16 (<a href="flagged.html#f68">F68</a>, <a href="flagged.html#f49">F49</a>): B0CDY277D3 = RJ38-SQPF-3TDB-2W, B08DKYBTPH = RJ38-SQSS-8T (in its <em>Part Number</em> row), B09B7SB46R = 4-00675-02X-VN, which is one character from the brand page's string and is the remaining conflict (F70). What H1 was going to settle is settled for the model step; what it could never settle is the intent behind the three supplied short links, your Associates tag and your account data — those are still the top of the list here.
@@ -6784,6 +6822,41 @@ def page_handover():
 # --------------------------------------------------------------------------- #
 # build
 # --------------------------------------------------------------------------- #
+
+def check_legacy_flag_pointers(pages):
+    """Build guard: a zero-padded flag id (F01, F06, ...) must sit in a block that names the
+    legacy register, never in a bare pointer a reader is expected to follow.
+
+    Found 2026-11-17 (arena/0cf55ef3-zone1). decisions.html and handover.html said the owner's
+    actions close "F01", "F02", "F03", "F06" and "F07". Those ids exist in data/flags.json, the
+    older annex register, so check_register_cross_references() accepted them; but the page they
+    are printed on is the root Flagged page, which renders the canonical register (F1, F6, ...).
+    A reader who followed one landed on the wrong row or on nothing. The entries were re-pointed
+    at canonical rows in data/decision.json.
+
+    This guard keeps the distinction executable. It works block by block - a table row, an
+    article card or a paragraph - rather than on a character window, because a register row may
+    legitimately list the legacy ids first and explain them in the next sentence (F83 does).
+    A block that mentions data/flags.json, "legacy" or the annex register may print them; any
+    other block may not.
+    """
+    problems = []
+    legacy_tell = re.compile(r"data/flags\.json|legacy|annex register", re.I)
+    block_split = re.compile(r"</tr>|</article>|</li>|</p>", re.I)
+    for rel, html_text in pages.items():
+        for block in block_split.split(html_text):
+            plain = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", block))
+            hits = re.findall(r"\bF0\d\b", plain)
+            if not hits or legacy_tell.search(plain):
+                continue
+            for hit in sorted(set(hits)):
+                at = plain.find(hit)
+                problems.append(
+                    f"{rel}: bare legacy flag id {hit} in a block that never names the legacy "
+                    f"register (near: ...{plain[max(0, at - 90):at + 90].strip()}...)"
+                )
+    return problems
+
 
 def check_flag_ids_unique():
     """Build guard: a flag number must mean exactly one thing.
@@ -7480,6 +7553,11 @@ def main():
     if article_page_problems:
         raise SystemExit("BUILD FAILED — article page violated a disclosure/claims rule:\n  "
                          + "\n  ".join(article_page_problems))
+    legacy_pointer_problems = check_legacy_flag_pointers(pages)
+    if legacy_pointer_problems:
+        raise SystemExit("BUILD FAILED — a page points a reader at a legacy-register flag id "
+                         "that the Flagged page does not render:\n  "
+                         + "\n  ".join(legacy_pointer_problems))
     flag_id_problems = check_flag_ids_unique()
     if flag_id_problems:
         raise SystemExit("BUILD FAILED — flag register integrity:\n  " + "\n  ".join(flag_id_problems))
