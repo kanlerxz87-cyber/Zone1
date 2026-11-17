@@ -10,7 +10,7 @@ The brief asked for an AI-powered Amazon affiliate platform that automates produ
 
 It asked for that to be built around three supplied links, with no manual input, line-by-line verification against official sources, a GitHub Pages site, and a "Flagged for Review" page for anything unverified.
 
-**What exists now:** a live, dependency-free static site of **23 pages** generated from a verified JSON dataset — the dashboard and verification set, plus a **7-article editorial layer** — with a platform blueprint, a compliance register, and a flagged list that every unresolved item is published on. Every asserted value carries a link to the official page it came from. Nothing is estimated. *(Page count corrected 2026-11-14 at integration pass 7: the long-standing "13 pages" figure was stale by several passes; the root build is now 23 pages and `verify.py` checks 101 HTML files across the repo.)*
+**What exists now:** a live, dependency-free static site of **23 pages** generated from a verified JSON dataset — the dashboard and verification set, plus a **7-article editorial layer** — with a platform blueprint, a compliance register, and a flagged list that every unresolved item is published on. Every asserted value carries a link to the official page it came from. Nothing is estimated. *(Page count corrected 2026-11-14 at integration pass 7: the long-standing "13 pages" figure was stale by several passes; the root build is now 23 pages and `verify.py` checks 101 HTML files across the repo.)* *(Refreshed 2026-11-17 by session `arena/79743fd2` — pass 13, §24: the root build is now **131 pages** / 52 sitemap URLs with a **21-article** editorial set filed into four reader-intent clusters, `verify.py` reports 0 errors over 77 specification rows and 37 sources.)*
 
 ## 2. The three products
 
@@ -1389,3 +1389,63 @@ class — repaired within the session (`3e4859f`) and logged.
 **State at the end of this pass:** `build.py` exit 0 (48 sitemap URLs, every guard green) ·
 `verify.py` 128 pages, 46 spec rows (44 verified, 2 blank+flagged), 35 sources, 0 errors ·
 `ci-check.sh` 7,958 links, 0 broken.
+
+## 24. Pass 13 — measurement client, four reader-intent clusters, live evidence (2026-11-17, session `arena/79743fd2`, branch `arena/79743fd2-zone1`)
+
+X13, claimed in `COORDINATION.md` before editing. Three deliverables, each with a build-enforced
+guard and a deliberate fault test behind it:
+
+### 24.1 Privacy-preserving outbound-click counter — shipped, intentionally OFF
+
+* **Client** (`assets/analytics.js`, generated from `build.py`): records the defined events only —
+  EV-01 outbound click, EV-02 outbound destination (path only, no query), EV-03 UTM campaign
+  context, EV-04 zero PII. No IP, no user agent, no referrer, no identifier, no cookie.
+* **Configuration** (`data/config.json`): analytics `enabled: false`, `endpoint: ""` — the script
+  is emitted but sends nothing. `check_analytics_consistency()` fails the build on any unsafe
+  state (enabled without endpoint, third-party endpoint, plain-HTTP endpoint, `preventDefault`
+  on affiliate links); all four fault injections failed the build as designed and were restored.
+* **Endpoint sources, committed and undeployed** (`analytics/endpoint.php`,
+  `analytics/worker.js`, `analytics/README.md`): allowlisted fields only; deployment and
+  enablement are owner steps with a documented procedure. Enabling the counter also requires
+  updating the register sentences that currently state the site runs no analytics — the build
+  guard enforces that coupling.
+* **Registers:** `data/measurement.json` v1.1 (`client_shipped_endpoint_not_deployed`);
+  `measurement.html` carries the implementation table; the **campaign ledger stays empty** and
+  no conversion or revenue figure is claimed anywhere. Q-08 refreshed to the shipped-but-disabled
+  state; **Q-27** added (may campaign parameter values be recorded?); E-03 → `partial`; F-04's
+  rationale rewritten to the current state. Decision-log entry **SG-08** (path B, disabled).
+
+### 24.2 Four reader-intent clusters — all 21 articles filed one-to-one
+
+* `data/clusters.json`: **Choose** (7 articles), **Spec** (6), **Live with it** (4),
+  **Trust & policy** (4) — named hubs, exact membership, every article exactly once.
+* `clusters.html` maps the four hubs with official source links on every row; the articles index
+  groups by cluster; every article's "Read next" shows cluster siblings plus a hub link (verified
+  live on the canonical article page); the map is in the footer navigation and the sitemap.
+* `check_clusters()` fails the build on unfiled, duplicated, missing, empty or invalid-hub
+  records; two deliberate fault injections (unfiled article; nonexistent member) each failed the
+  build and were restored. Decision-log entry **SG-35** (done).
+
+### 24.3 Live evidence pass
+
+Re-read as a reader on 2026-11-17 and recorded in
+[`reports/verification-2026-11-17-79743fd2.md`](reports/verification-2026-11-17-79743fd2.md):
+the three supplied `link.amazon` links (same observed ASIN destinations B0CDY277D3 /
+B09B7SB46R / B08DKYBTPH through fallback-parameter redirects — nothing silently changed), the
+Associates Operating Agreement (updated Oct 15, 2025) and Program Policies (updated Apr 14,
+2026), eCFR 16 Part 255 (up to date Nov 13, 2026), the Emeril brand page (26 qt / 24.6 L,
+25-vs-24 preset conflict preserved), the Chefman 8 Qt page (RJ38-SQSS-8T, 8/5 qt variants,
+200–400 °F), and the live canonical article's cluster links. No published value changed; no
+irregularity resolved by inference. F3 · F4/F5 · F6 · F10 · F11 · F70 · F71 · F76 · F81 · F82 and
+Q-01..Q-04, Q-08, Q-27 stand as published.
+
+### 24.4 Register reconciliation and gates (final tree)
+
+SG-28 (RSS feed) and SG-35 marked done with decision-log entries; SG-08 marked partial (client
+shipped disabled). `README.md` counts refreshed (21 articles · 34 suggestions · 27 questions).
+Gates re-run after the cluster pass: `build.py` exit 0 — **131 pages, 52 sitemap URLs, 21 feed
+items**, two builds byte-identical · `verify.py` 131 pages, 77 spec rows (75 verified / 2
+blank+flagged), 37 sources, 0 errors, 0 external warnings · `ci-check.sh` 33 unit tests OK,
+data audit clean, **9,087 links / 0 broken** · `verify_site.py` **393 assertions, ALL PASSED** ·
+`research/check_research.py` OK · `platform/audit/report.py` AUDIT PASSED (0 warnings) ·
+`node --check` OK on `assets/app.js` and `assets/analytics.js` · `git diff --check` clean.
