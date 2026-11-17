@@ -1,1122 +1,1468 @@
 {
- "accessed": "2026-11-13",
- "discipline": "Each field is either {v: value, s: source_id(s)} where the value was read verbatim from that official source, or null with 'u' explaining why it could not be confirmed. Nothing is estimated, averaged or inferred.",
- "amazon_price_policy": "Amazon prices, availability and star ratings are intentionally NOT shown. Per S2 §2(b), prices/availability may only be displayed when Amazon serves the link or when obtained via Creators API/PA API; per S2 §6(t) customer reviews and star ratings may only be used when obtained via those APIs. This project holds neither, so those fields are blank and flagged.",
- "products": [
-  {
-   "slug": "chefman-6qt-dual-basket",
-   "rank": 1,
-   "brand": "Chefman",
-   "name": "TurboFry Touch 6 Qt. Dual-Basket / Dual-Window Air Fryer",
-   "short_name": "Chefman 6 Qt Dual Basket",
-   "category": "Kitchen appliances → Air fryers",
-   "link": "https://link.amazon/B04G1MEwY",
-   "asin": {
-    "v": "B0CDY277D3",
-    "s": [
-     "S17",
-     "S16"
-    ]
-   },
-   "asin_evidence": "Following the supplied short link returned the Amazon detail page whose <title> reads: \"CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black\"",
-   "amazon_listing_title": {
-    "v": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
-    "s": [
-     "S16"
-    ],
-    "read": "2026-11-15"
-   },
-   "model_number": {
-    "v": "RJ38-SQPF-3TDB-2W",
-    "s": [
-     "S10",
-     "S18",
-     "S16"
-    ],
-    "caveat": "Closed on 2026-11-16 for the ASIN-to-model step. The listing's own Product information block for B0CDY277D3 reads 'Model Number: RJ38-SQPF-3TDB-2W' and 'Part Number: RJ38-SQPF-3TDB-2W' - the string the brand page and the owner's manual publish, so this mapping now has three official documents instead of two. The earlier caveat on this row said Amazon does not publish the model number on the ASIN; that premise was tested and found false (F49, F64). What remains unconfirmed is the supplied short link to ASIN attribution (F6, F10), not the model behind the ASIN."
-   },
-   "sibling_sku": {
-    "v": "RJ38-SQPF-3TDB-2 (labelled 'Dual-Basket' on chefman.com)",
-    "s": [
-     "S11"
-    ]
-   },
-   "specs": [
+  "accessed": "2026-11-13",
+  "discipline": "Each field is either {v: value, s: source_id(s)} where the value was read verbatim from that official source, or null with 'u' explaining why it could not be confirmed. Nothing is estimated, averaged or inferred.",
+  "amazon_price_policy": "Amazon prices, availability and star ratings are intentionally NOT shown. Per S2 §2(b), prices/availability may only be displayed when Amazon serves the link or when obtained via Creators API/PA API; per S2 §6(t) customer reviews and star ratings may only be used when obtained via those APIs. This project holds neither, so those fields are blank and flagged.",
+  "products": [
     {
-     "label": "Capacity",
-     "value": "6 Qt / 5.67 L",
-     "source": [
-      "S10"
-     ]
+      "slug": "chefman-6qt-dual-basket",
+      "rank": 1,
+      "brand": "Chefman",
+      "name": "TurboFry Touch 6 Qt. Dual-Basket / Dual-Window Air Fryer",
+      "short_name": "Chefman 6 Qt Dual Basket",
+      "category": "Kitchen appliances → Air fryers",
+      "link": "https://link.amazon/B04G1MEwY",
+      "asin": {
+        "v": "B0CDY277D3",
+        "s": [
+          "S17",
+          "S16"
+        ]
+      },
+      "asin_evidence": "Following the supplied short link returned the Amazon detail page whose <title> reads: \"CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black\"",
+      "amazon_listing_title": {
+        "v": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
+        "s": [
+          "S16"
+        ],
+        "read": "2026-11-15"
+      },
+      "model_number": {
+        "v": "RJ38-SQPF-3TDB-2W",
+        "s": [
+          "S10",
+          "S18",
+          "S16"
+        ],
+        "caveat": "Closed on 2026-11-16 for the ASIN-to-model step. The listing's own Product information block for B0CDY277D3 reads 'Model Number: RJ38-SQPF-3TDB-2W' and 'Part Number: RJ38-SQPF-3TDB-2W' - the string the brand page and the owner's manual publish, so this mapping now has three official documents instead of two. The earlier caveat on this row said Amazon does not publish the model number on the ASIN; that premise was tested and found false (F49, F64). What remains unconfirmed is the supplied short link to ASIN attribution (F6, F10), not the model behind the ASIN."
+      },
+      "sibling_sku": {
+        "v": "RJ38-SQPF-3TDB-2 (labelled 'Dual-Basket' on chefman.com)",
+        "s": [
+          "S11"
+        ]
+      },
+      "specs": [
+        {
+          "label": "Capacity",
+          "value": "6 Qt / 5.67 L",
+          "source": [
+            "S10"
+          ]
+        },
+        {
+          "label": "Per-basket capacity",
+          "value": "Two 3-quart baskets",
+          "source": [
+            "S18",
+            "S16"
+          ],
+          "note": "The owner's manual states \"two 3-quart baskets\" outright, and the Amazon listing title says \"2 Independent 3Qt\". This upgrades the earlier blank row — the brand page only publishes the 6 Qt total."
+        },
+        {
+          "label": "Temperature range",
+          "value": "200–450 °F / 95–235 °C",
+          "source": [
+            "S10"
+          ]
+        },
+        {
+          "label": "Hi-Fry maximum",
+          "value": "450 °F / 235 °C, held for 2 minutes, for extra browning",
+          "source": [
+            "S10",
+            "S18"
+          ],
+          "note": "The manual is more precise than the product page: HI-FRY \"Raises temperature to 450°F/235°C for 2 minutes\". A buyer should read that as a finish mode, not a full-cycle 450 °F setting."
+        },
+        {
+          "label": "Sync Finish",
+          "value": "Yes — delays the start of the shorter cook so both baskets finish together; a separate Sync Baskets function copies time and temperature to the second basket",
+          "source": [
+            "S10",
+            "S18"
+          ]
+        },
+        {
+          "label": "Independent baskets",
+          "value": "2",
+          "source": [
+            "S10"
+          ]
+        },
+        {
+          "label": "Viewing windows",
+          "value": "Dual viewing windows",
+          "source": [
+            "S10"
+          ]
+        },
+        {
+          "label": "Interior light",
+          "value": "Yes",
+          "source": [
+            "S10"
+          ]
+        },
+        {
+          "label": "Basket coating / care",
+          "value": "Nonstick, dishwasher-safe baskets. Manual caution: never spray with aerosol cooking oil — use a non-aerosol mister instead",
+          "source": [
+            "S10",
+            "S18"
+          ]
+        },
+        {
+          "label": "Dimensions",
+          "value": "13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm",
+          "source": [
+            "S10"
+          ]
+        },
+        {
+          "label": "Product weight",
+          "value": "13.3 lb / 6.03 kg",
+          "source": [
+            "S10"
+          ]
+        },
+        {
+          "label": "Power",
+          "value": "1700 W / 120 V",
+          "source": [
+            "S10"
+          ]
+        },
+        {
+          "label": "Safety approval",
+          "value": "cETL approved",
+          "source": [
+            "S10"
+          ]
+        },
+        {
+          "label": "Warranty",
+          "value": "1-year Chefman assurance",
+          "source": [
+            "S10"
+          ]
+        },
+        {
+          "label": "Colour / finish",
+          "value": "Matte black",
+          "source": [
+            "S10"
+          ]
+        },
+        {
+          "label": "Number of presets",
+          "value": null,
+          "source": [
+            "S18"
+          ],
+          "status": "unverified",
+          "unverified": "No official source states a preset count for this model. The RJ38-SQPF-3TDB-2W user guide was re-read end to end on 2026-11-14: it refers once to 'a preset function' but publishes no preset chart and names no food presets, and the brand product page's feature list does not mention presets either. The four food presets published for the 8 Qt model (fries, chicken, fish, meat) belong to a different model and are not transferred here. The count is left blank rather than inferred. See flag F36 Re-read 2026-11-16: the listing's own Product information block was captured in full for the first time and it carries no preset row either, so no official document in this repository states a preset count for this model. Still blank rather than inferred."
+        },
+        {
+          "label": "Amazon browse node",
+          "value": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+          "source": [
+            "S16"
+          ],
+          "note": "Read from the listing's own breadcrumb trail on 2026-11-15. This is Amazon's browse path for the ASIN, not a commission category: the Commission Income Statement (S3) lists 'Kitchen' at 4.50% and 'Home' at 3.00% as separate commission categories, and Amazon does not publish which one an ASIN is assigned to. See flag F53."
+        },
+        {
+          "label": "Model name (as listed by Amazon)",
+          "value": "Turbo Fry® Touch",
+          "source": [
+            "S16"
+          ],
+          "note": "Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        },
+        {
+          "label": "Part number (as listed by Amazon)",
+          "value": "RJ38-SQPF-3TDB-2W",
+          "source": [
+            "S16"
+          ],
+          "note": "A second official document stating the same code as the brand page (S10) and the owner's manual (S18), and the field that carries the code on the sibling 8 Qt listing. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
+        },
+        {
+          "label": "UPC (as listed by Amazon)",
+          "value": "810087845025",
+          "source": [
+            "S16"
+          ],
+          "note": "Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        },
+        {
+          "label": "Included components (as listed by Amazon)",
+          "value": "User Guide",
+          "source": [
+            "S16"
+          ],
+          "note": "The listing's Included Components row names only the user guide; basket counts and the divider are stated elsewhere on the page, so this row is quoted rather than expanded. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        },
+        {
+          "label": "Special features (as listed by Amazon)",
+          "value": "+ 2Min Button, Automatic Shut-Off, Dual Zone Features, Hi-Fry, Mute",
+          "source": [
+            "S16"
+          ],
+          "note": "Third official document for Hi-Fry and auto shutoff, after the title and the brand page; '+ 2Min Button' is the listing's own phrasing for the two-minute Hi-Fry hold the manual documents. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        },
+        {
+          "label": "Recommended uses (as listed by Amazon)",
+          "value": "Air Fry, Cook, Defrost, Reheat, Roast",
+          "source": [
+            "S16"
+          ],
+          "note": "Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        },
+        {
+          "label": "Listing temperature settings",
+          "value": "Max 450 °F · Min 93 °C",
+          "source": [
+            "S16"
+          ],
+          "note": "The listing's Features & Specs table gives the maximum in °F and the minimum in °C. The brand page (S10) publishes 200–450 °F / 95–235 °C: the 450 °F ceiling matches, while 93 °C is 199.4 °F against the brand's 95 °C floor. Two degrees, in the same direction as the 8 Qt's equivalent pair, so this reads as rounding between documents rather than two machines - recorded as published and not reconciled (F72). Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
+        },
+        {
+          "label": "Listing item weight",
+          "value": "13.3 pounds",
+          "source": [
+            "S16"
+          ],
+          "note": "Independent corroboration of the brand page's 13.3 lb / 6.03 kg from a second official document. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
+        },
+        {
+          "label": "Listing dimensions",
+          "value": "13.38\"D × 11.81\"W × 10.63\"H",
+          "source": [
+            "S16"
+          ],
+          "note": "The same three figures as the brand page's Specification block (S10), quoted in the listing's own depth-width-height order; unlike the 8 Qt, this pair agrees (F69 covers the product where they do not). Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
+        },
+        {
+          "label": "Listing capacity field",
+          "value": "6 liters",
+          "source": [
+            "S16"
+          ],
+          "note": "The listing's Capacity field says 6 liters while the same page's title, its Size field and the brand page all say 6 quarts (5.67 L) - 0.33 L apart, purely because a unit label moved between fields. Quoted so a reader who checks the page finds the same words; the site's published capacity stays 6 Qt / 5.67 L (F69). Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
+        },
+        {
+          "label": "Listing colour / finish",
+          "value": "Black, Gray",
+          "source": [
+            "S16"
+          ],
+          "note": "The title says Black; the spec field says Black, Gray. Recorded as a variant label the page carries, not resolved. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        }
+      ],
+      "pricing": {
+        "brand_list_price": {
+          "v": "$119.99 USD",
+          "s": [
+            "S10"
+          ],
+          "note": "Chefman.com list price. The same page displayed several promotional prices on the access date; only the list price is recorded here because it is the stable figure."
+        },
+        "amazon_price": null,
+        "amazon_price_reason": "Not displayed by policy (S2 §2(b)); unavailable without Associates access.",
+        "msrp_confirmed": "Not confirmed: the brand page shows a list price but does not label it as a manufacturer's suggested retail price. Chefman.com list price. The same page displayed several promotional prices on the access date; only the list price is recorded here because it is the stable figure."
+      },
+      "reviews": {
+        "amazon_stars": null,
+        "amazon_review_count": null,
+        "amazon_reason": "Not displayed by policy (S2 §6(t); S2 §2(b)).",
+        "brand_site_rating": {
+          "v": "4.6 / 5 from 1,307 reviews",
+          "s": [
+            "S10"
+          ],
+          "note": "Ratings collected by Chefman's own on-site review widget (4.6 average; 5★ 928 · 4★ 258 · 3★ 85 · 2★ 12 · 1★ 24). Read 1,302 reviews on 2026-11-13, 1,305 on 2026-11-14 and 1,307 on 2026-11-16 — the count moves daily, so it is stamped. Brand-hosted figure, not Amazon's. The 2026-11-16 read is the one published here; a second, independent session read the same page the same day and saw the same count, which corroborates it."
+        }
+      },
+      "commission": {
+        "rate_confirmed": null,
+        "candidate_rows": [
+          {
+            "category": "Kitchen",
+            "rate": "4.50%",
+            "source": [
+              "S3"
+            ]
+          },
+          {
+            "category": "All Other Categories (fallback row)",
+            "rate": "4.00%",
+            "source": [
+              "S3"
+            ]
+          }
+        ],
+        "why_unverified": "Amazon's published rate table (S3) lists rates by product category. It does not publish which category a given ASIN is assigned to, and air fryers are not named in the table. Choosing between the Kitchen row and the fallback row would be inference, so the rate is left blank. Re-read 2026-11-16 (pass 10, session 121929a5): the Standard Commission Income Statement page (S3) is now publicly readable without sign-in; its Table 1 states 'Physical Books, Kitchen, Automotive — 4.50%' and 'All Other Categories — 4.00%', matching the candidate rows above. What remains unconfirmed is the mapping from this ASIN to the schedule's category for commission purposes — Amazon's own assignment is authoritative only inside Associates reporting.",
+        "rate_source_note": "Only S3 is authoritative. Several well-ranked third-party blogs claimed 3%, 4.5% or 5% for kitchen appliances on the same day; those were discarded as non-official and mutually contradictory."
+      },
+      "competition": {
+        "amazon_result_count": null,
+        "amazon_bestseller_rank": null,
+        "reason": "Amazon does not publish these as stable, quotable facts, and scraping them into a published table would breach the aggregation restriction in S2 (IP License)."
+      },
+      "flags": [
+        {
+          "id": "F2",
+          "issue": "Two near-identical Chefman SKUs exist (RJ38-SQPF-3TDB-2 and RJ38-SQPF-3TDB-2W), and a third, RJ38-3DBW-V2, is published on the same brand store. The -2W owner's manual matches this listing's features exactly, but the mapping used to rest on feature wording alone.",
+          "action": "Closed for the ASIN-to-model step on 2026-11-16 by session arena/ba29c641: the listing for B0CDY277D3 publishes 'Model Number: RJ38-SQPF-3TDB-2W' and 'Part Number: RJ38-SQPF-3TDB-2W' in its Product information block, matching the -2W manual and the brand page, so the mapping is no longer an inference from feature wording (F68). Open part: the supplied short link to ASIN attribution (F6, F10) is the account holder's to state, and whether the seller ships a -2 unit against the ASIN is answerable only from the box.",
+          "sources": [
+            "S18",
+            "S11",
+            "S16"
+          ]
+        },
+        {
+          "id": "F6",
+          "issue": "The Associates tag inside the link.amazon short link is not observable, so attribution cannot be confirmed.",
+          "action": "Flagged for the account holder to confirm in Associates Central → Manage Tracking IDs.",
+          "sources": [
+            "S2",
+            "S17"
+          ]
+        },
+        {
+          "id": "F36",
+          "issue": "The preset count published for this model was not stated by the source it cited. The value \"Four one-touch food presets: French fries, chicken, meat, fish\" was attributed to the RJ38-SQPF-3TDB-2W user guide, but that guide contains no preset chart and names no food presets. The same four food types belong to the different 8 Qt model (RJ38-SQSS-8T), whose guide does carry a PRESET FUNCTION CHART. The value appears to have been carried across from the 8 Qt.",
+          "action": "The count is now blank and flagged as unverified. Re-read on 2026-11-14 by sess-7111e2b6: the guide was checked end to end (features, control panel, operating instructions, special functions, cooking tips, troubleshooting, cleaning, terms) and the brand product page's feature list was checked; neither states a preset count. Nothing was inferred to fill the gap.",
+          "sources": [
+            "S18",
+            "S10",
+            "S13"
+          ]
+        }
+      ],
+      "list_price_confirmation": {
+        "v": "$119.99 USD list price; compare-at price also $119.99 (i.e. not on offer at the brand's own store on 2026-11-15)",
+        "s": [
+          "S32"
+        ],
+        "caveat": "The brand product page's own price widget rendered six discounted figures at once ($108.00/$90.00/$84.00/$102.00/$96.00/$72.00/$119.99), which is a site-wide promotional module identical on every Chefman page and not this product's price. The figure published here is taken from the store's own product record instead."
+      }
     },
     {
-     "label": "Per-basket capacity",
-     "value": "Two 3-quart baskets",
-     "source": [
-      "S18",
-      "S16"
-     ],
-     "note": "The owner's manual states \"two 3-quart baskets\" outright, and the Amazon listing title says \"2 Independent 3Qt\". This upgrades the earlier blank row — the brand page only publishes the 6 Qt total."
-    },
-    {
-     "label": "Temperature range",
-     "value": "200–450 °F / 95–235 °C",
-     "source": [
-      "S10"
-     ]
-    },
-    {
-     "label": "Hi-Fry maximum",
-     "value": "450 °F / 235 °C, held for 2 minutes, for extra browning",
-     "source": [
-      "S10",
-      "S18"
-     ],
-     "note": "The manual is more precise than the product page: HI-FRY \"Raises temperature to 450°F/235°C for 2 minutes\". A buyer should read that as a finish mode, not a full-cycle 450 °F setting."
-    },
-    {
-     "label": "Sync Finish",
-     "value": "Yes — delays the start of the shorter cook so both baskets finish together; a separate Sync Baskets function copies time and temperature to the second basket",
-     "source": [
-      "S10",
-      "S18"
-     ]
-    },
-    {
-     "label": "Independent baskets",
-     "value": "2",
-     "source": [
-      "S10"
-     ]
-    },
-    {
-     "label": "Viewing windows",
-     "value": "Dual viewing windows",
-     "source": [
-      "S10"
-     ]
-    },
-    {
-     "label": "Interior light",
-     "value": "Yes",
-     "source": [
-      "S10"
-     ]
-    },
-    {
-     "label": "Basket coating / care",
-     "value": "Nonstick, dishwasher-safe baskets. Manual caution: never spray with aerosol cooking oil — use a non-aerosol mister instead",
-     "source": [
-      "S10",
-      "S18"
-     ]
-    },
-    {
-     "label": "Dimensions",
-     "value": "13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm",
-     "source": [
-      "S10"
-     ]
-    },
-    {
-     "label": "Product weight",
-     "value": "13.3 lb / 6.03 kg",
-     "source": [
-      "S10"
-     ]
-    },
-    {
-     "label": "Power",
-     "value": "1700 W / 120 V",
-     "source": [
-      "S10"
-     ]
-    },
-    {
-     "label": "Safety approval",
-     "value": "cETL approved",
-     "source": [
-      "S10"
-     ]
-    },
-    {
-     "label": "Warranty",
-     "value": "1-year Chefman assurance",
-     "source": [
-      "S10"
-     ]
-    },
-    {
-     "label": "Colour / finish",
-     "value": "Matte black",
-     "source": [
-      "S10"
-     ]
-    },
-    {
-     "label": "Number of presets",
-     "value": null,
-     "source": [
-      "S18"
-     ],
-     "status": "unverified",
-     "unverified": "No official source states a preset count for this model. The RJ38-SQPF-3TDB-2W user guide was re-read end to end on 2026-11-14: it refers once to 'a preset function' but publishes no preset chart and names no food presets, and the brand product page's feature list does not mention presets either. The four food presets published for the 8 Qt model (fries, chicken, fish, meat) belong to a different model and are not transferred here. The count is left blank rather than inferred. See flag F36 Re-read 2026-11-16: the listing's own Product information block was captured in full for the first time and it carries no preset row either, so no official document in this repository states a preset count for this model. Still blank rather than inferred."
-    },
-    {
-     "label": "Amazon browse node",
-     "value": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
-     "source": [
-      "S16"
-     ],
-     "note": "Read from the listing's own breadcrumb trail on 2026-11-15. This is Amazon's browse path for the ASIN, not a commission category: the Commission Income Statement (S3) lists 'Kitchen' at 4.50% and 'Home' at 3.00% as separate commission categories, and Amazon does not publish which one an ASIN is assigned to. See flag F53."
-    },
-    {
-     "label": "Model name (as listed by Amazon)",
-     "value": "Turbo Fry® Touch",
-     "source": [
-      "S16"
-     ],
-     "note": "Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    },
-    {
-     "label": "Part number (as listed by Amazon)",
-     "value": "RJ38-SQPF-3TDB-2W",
-     "source": [
-      "S16"
-     ],
-     "note": "A second official document stating the same code as the brand page (S10) and the owner's manual (S18), and the field that carries the code on the sibling 8 Qt listing. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
-    },
-    {
-     "label": "UPC (as listed by Amazon)",
-     "value": "810087845025",
-     "source": [
-      "S16"
-     ],
-     "note": "Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    },
-    {
-     "label": "Included components (as listed by Amazon)",
-     "value": "User Guide",
-     "source": [
-      "S16"
-     ],
-     "note": "The listing's Included Components row names only the user guide; basket counts and the divider are stated elsewhere on the page, so this row is quoted rather than expanded. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    },
-    {
-     "label": "Special features (as listed by Amazon)",
-     "value": "+ 2Min Button, Automatic Shut-Off, Dual Zone Features, Hi-Fry, Mute",
-     "source": [
-      "S16"
-     ],
-     "note": "Third official document for Hi-Fry and auto shutoff, after the title and the brand page; '+ 2Min Button' is the listing's own phrasing for the two-minute Hi-Fry hold the manual documents. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    },
-    {
-     "label": "Recommended uses (as listed by Amazon)",
-     "value": "Air Fry, Cook, Defrost, Reheat, Roast",
-     "source": [
-      "S16"
-     ],
-     "note": "Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    },
-    {
-     "label": "Listing temperature settings",
-     "value": "Max 450 °F · Min 93 °C",
-     "source": [
-      "S16"
-     ],
-     "note": "The listing's Features & Specs table gives the maximum in °F and the minimum in °C. The brand page (S10) publishes 200–450 °F / 95–235 °C: the 450 °F ceiling matches, while 93 °C is 199.4 °F against the brand's 95 °C floor. Two degrees, in the same direction as the 8 Qt's equivalent pair, so this reads as rounding between documents rather than two machines - recorded as published and not reconciled (F72). Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
-    },
-    {
-     "label": "Listing item weight",
-     "value": "13.3 pounds",
-     "source": [
-      "S16"
-     ],
-     "note": "Independent corroboration of the brand page's 13.3 lb / 6.03 kg from a second official document. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
-    },
-    {
-     "label": "Listing dimensions",
-     "value": "13.38\"D × 11.81\"W × 10.63\"H",
-     "source": [
-      "S16"
-     ],
-     "note": "The same three figures as the brand page's Specification block (S10), quoted in the listing's own depth-width-height order; unlike the 8 Qt, this pair agrees (F69 covers the product where they do not). Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
-    },
-    {
-     "label": "Listing capacity field",
-     "value": "6 liters",
-     "source": [
-      "S16"
-     ],
-     "note": "The listing's Capacity field says 6 liters while the same page's title, its Size field and the brand page all say 6 quarts (5.67 L) - 0.33 L apart, purely because a unit label moved between fields. Quoted so a reader who checks the page finds the same words; the site's published capacity stays 6 Qt / 5.67 L (F69). Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
-    },
-    {
-     "label": "Listing colour / finish",
-     "value": "Black, Gray",
-     "source": [
-      "S16"
-     ],
-     "note": "The title says Black; the spec field says Black, Gray. Recorded as a variant label the page carries, not resolved. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    }
-   ],
-   "pricing": {
-    "brand_list_price": {
-     "v": "$119.99 USD",
-     "s": [
-      "S10"
-     ],
-     "note": "Chefman.com list price. The same page displayed several promotional prices on the access date; only the list price is recorded here because it is the stable figure."
-    },
-    "amazon_price": null,
-    "amazon_price_reason": "Not displayed by policy (S2 §2(b)); unavailable without Associates access.",
-    "msrp_confirmed": "Not confirmed: the brand page shows a list price but does not label it as a manufacturer's suggested retail price. Chefman.com list price. The same page displayed several promotional prices on the access date; only the list price is recorded here because it is the stable figure."
-   },
-   "reviews": {
-    "amazon_stars": null,
-    "amazon_review_count": null,
-    "amazon_reason": "Not displayed by policy (S2 §6(t); S2 §2(b)).",
-    "brand_site_rating": {
-     "v": "4.6 / 5 from 1,307 reviews",
-     "s": [
-      "S10"
-     ],
-     "note": "Ratings collected by Chefman's own on-site review widget (4.6 average; 5★ 928 · 4★ 258 · 3★ 85 · 2★ 12 · 1★ 24). Read 1,302 reviews on 2026-11-13, 1,305 on 2026-11-14 and 1,307 on 2026-11-16 — the count moves daily, so it is stamped. Brand-hosted figure, not Amazon's. The 2026-11-16 read is the one published here; a second, independent session read the same page the same day and saw the same count, which corroborates it."
-    }
-   },
-   "commission": {
-    "rate_confirmed": null,
-    "candidate_rows": [
-     {
-      "category": "Kitchen",
-      "rate": "4.50%",
-      "source": [
-       "S3"
+      "slug": "emeril-26qt-french-door",
+      "rank": 2,
+      "brand": "Emeril Lagasse (Emeril Everyday)",
+      "name": "French Door AirFryer 360 Toaster Oven Combo, 26 QT",
+      "short_name": "Emeril 26 QT French Door",
+      "category": "Kitchen appliances → Air fryer toaster ovens",
+      "link": "https://link.amazon/B02NbDxp3",
+      "asin": {
+        "v": "B09B7SB46R",
+        "s": [
+          "S28"
+        ]
+      },
+      "asin_evidence": "Following the supplied short link returned the Amazon detail page whose <title> reads: \"Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.\"",
+      "amazon_listing_title": {
+        "v": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
+        "s": [
+          "S28"
+        ],
+        "v_observed": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
+        "v_previous": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.",
+        "note": "Read 2026-11-15 from https://link.amazon/B02NbDxp3. The title has changed since the 2026-11-14 read: the earlier value ended '| 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.' and the current title ends '| Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included'. Both say 24; the wording differs. The date of this read is part of the value (flag F38).",
+        "read": "2026-11-15"
+      },
+      "model_number": {
+        "v": "FAFO-001 (manual); brand page lists 4-00675-02A-VN",
+        "s": [
+          "S15",
+          "S14",
+          "S28"
+        ],
+        "caveat": "Three official documents give three different strings for the same appliance and this pass did not reconcile them: the owner's manual is headed FAFO-001 (S15), the brand page lists 4-00675-02A-VN (S14), and the listing's Product information block read on 2026-11-16 states 'Model Number: 4-00675-02X-VN' with the same string in its Part Number row - the brand SKU with X where the brand page has A (S28). All three are quoted; none is asserted as the model printed on the unit. This is the one product where reading the listing did not settle the mapping. See F66.",
+        "amazon_listing_string": "4-00675-02X-VN"
+      },
+      "specs": [
+        {
+          "label": "Capacity",
+          "value": "26 qt / 24.6 L (manual: 1,519 cu in)",
+          "source": [
+            "S14",
+            "S15"
+          ]
+        },
+        {
+          "label": "Supply power",
+          "value": "120 V / 60 Hz",
+          "source": [
+            "S15"
+          ]
+        },
+        {
+          "label": "Rated power",
+          "value": "1700 W",
+          "source": [
+            "S15"
+          ]
+        },
+        {
+          "label": "Temperature range",
+          "value": "75–500 °F / 25–260 °C",
+          "source": [
+            "S15"
+          ]
+        },
+        {
+          "label": "Dimensions",
+          "value": "16.9 D × 15.8 W × 14.8 H in",
+          "source": [
+            "S14"
+          ]
+        },
+        {
+          "label": "Cooking functions / presets",
+          "value": "24 presets are named in the owner's manual for model FAFO-001: Airfry, Fries, Bacon, Grill, Eggs, Fish, Ribs, Defrost, Steak, Vegetables, Wings, Bake, Rotisserie, Toast, Chicken, Pizza, Pastry, Proof, Broil, Slow Cook, Roast, Dehydrate, Reheat, Warm",
+          "source": [
+            "S15"
+          ],
+          "note": "This resolves the count using the manual rather than the marketing page: the manual's preset chart lists exactly 24 named presets. The brand page's own two claims (\"25 Cooking Pre-sets\" in the spec block, \"24 one-touch cooking presets\" in the description) still disagree with each other, and the page markets the unit simultaneously as \"10-in-1\". The manual is treated as the controlling document."
+        },
+        {
+          "label": "Door type",
+          "value": "French doors, single-pull opening",
+          "source": [
+            "S14"
+          ]
+        },
+        {
+          "label": "Fan",
+          "value": "Dual-speed fan, 360° air circulation",
+          "source": [
+            "S14"
+          ]
+        },
+        {
+          "label": "Rotisserie",
+          "value": "Yes (manual documents a rotisserie preset and spit set)",
+          "source": [
+            "S14",
+            "S15"
+          ]
+        },
+        {
+          "label": "Included accessories",
+          "value": "7",
+          "source": [
+            "S14",
+            "S15"
+          ],
+          "note": "Two official documents state 7: the Emeril product page says \"Included are 7 premium accessories\", and the owner's manual enumerates 13 numbered parts, of which 6 are built into the appliance (main unit, door handle, glass door, LED display, control panel, control knob), leaving 7 removable accessories (drip tray, wire rack, baking pan, rotisserie spit, crisper tray, rotisserie fetch tool, plate handle). The Amazon listing title for the supplied link instead says \"Six Cooking Accessories Included\"; that conflicting document is in the flag register, not here, because a row's source list is read as the evidence for the value and that title does not support 7. The manual adds that \"Some accessories may not be included with purchase\", so count the box before relying on this Addendum 2026-11-16: the listing is not a single 'six' to weigh against the manual's seven - inside one table it says '7 Accessories' in its Configuration field, enumerates six named parts in its Included Components row, and says 'Six Cooking Accessories Included' in its title. F48 asked which count is right; F67 records that the page holds both, and the site keeps 7 on the strength of the brand page and the manual."
+        },
+        {
+          "label": "Interior light",
+          "value": "Yes",
+          "source": [
+            "S15"
+          ],
+          "note": "Documented in the owner's manual's control-panel section: \"F. LIGHT BUTTON: May be selected at any time during the cooking process to light the appliance's interior.\" The brand product page does not list an interior light, so the manual is the source of record. Re-sourced 2026-11-14 (see flag F33)."
+        },
+        {
+          "label": "Warranty",
+          "value": "1-year warranty",
+          "source": [
+            "S14"
+          ]
+        },
+        {
+          "label": "Display",
+          "value": "LED",
+          "source": [
+            "S15"
+          ]
+        },
+        {
+          "label": "Amazon browse node",
+          "value": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+          "source": [
+            "S28",
+            "S17"
+          ],
+          "note": "Filled 2026-11-16 by pass 10 (arena/121929a5), which reached the listing through the supplied short link, and re-read the same day by arena/a746a9f2 and arena/b23f12f0 (round 11, flag F65: the 2026-11-15 \"Continue shopping\" checkpoint is intermittent per request, not a property of the ASIN, so this row is no longer described as blocked by it). Corroborated independently by arena/ba29c641, which fetched the /dp/ URL directly and found the same classification in the Best Sellers Rank line: \"#214 in Kitchen & Dining\" and \"#6 in Air Fryers\" (node 17659096011). A browse path, not a commission category (F53)."
+        },
+        {
+          "label": "Model name (as listed by Amazon)",
+          "value": "Extra Large 26 QT French Door Air Fryer Oven",
+          "source": [
+            "S28"
+          ],
+          "note": "Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        },
+        {
+          "label": "Listing model / part number",
+          "value": "4-00675-02X-VN",
+          "source": [
+            "S28"
+          ],
+          "note": "Stated identically in the listing's Model Number and Part Number rows. The brand page's string differs by one character (02A where the listing reads 02X); neither is overwritten and the difference is F70. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        },
+        {
+          "label": "Listing temperature settings",
+          "value": "Min 75 °F · Max 500 °F",
+          "source": [
+            "S28"
+          ],
+          "note": "Corroborates the owner's manual's 75–500 °F range (S15), which is the source the site's 'Temperature range' row cites; the brand product page publishes no range. Two official documents, not one, now state it. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
+        },
+        {
+          "label": "Listing power",
+          "value": "1700 watts · 120 volts",
+          "source": [
+            "S28"
+          ],
+          "note": "Corroborates the manual's 1700 W rating and the brand page's 120 V. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
+        },
+        {
+          "label": "Listing configuration",
+          "value": "Air Fryer Toaster Oven Combo with 24 Functions and 7 Accessories",
+          "source": [
+            "S28"
+          ],
+          "note": "A third official document for the function count, agreeing with the owner's manual's 24 named presets against the brand page's '25 Cooking Pre-sets' (F4). Its '7 Accessories' half agrees with the site's published accessory count while the same table's Included Components row enumerates six - see F71. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        },
+        {
+          "label": "Listing included components",
+          "value": "Rack, Bake Pan, Drip Tray, Crisper Basket, Rotisserie Spit, Fetch Tool",
+          "source": [
+            "S28"
+          ],
+          "note": "Quoted as the field reads: six entries. How that squares with the Configuration field's '7 Accessories' in the same table, and with the manual's thirteen numbered parts of which six are built into the appliance, is recorded as F71 rather than averaged away. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        },
+        {
+          "label": "Listing materials",
+          "value": "Stainless Steel · outer and inner",
+          "source": [
+            "S28"
+          ],
+          "note": "Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        },
+        {
+          "label": "Listing recommended uses",
+          "value": "Air Fry, Bake, Broil, Dehydrate, Roast",
+          "source": [
+            "S28"
+          ],
+          "note": "Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        },
+        {
+          "label": "Listing UPC",
+          "value": "752356835682",
+          "source": [
+            "S28"
+          ],
+          "note": "Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        }
+      ],
+      "pricing": {
+        "brand_list_price": {
+          "v": "$199.99 USD",
+          "s": [
+            "S14"
+          ],
+          "note": "Price shown on emerileveryday.com on the access date. Not labelled as MSRP by the brand."
+        },
+        "amazon_price": null,
+        "amazon_price_reason": "Not displayed by policy (S2 §2(b)).",
+        "msrp_confirmed": "Not confirmed: the brand page shows a list price but does not label it as a manufacturer's suggested retail price. Price shown on emerileveryday.com on the access date. Not labelled as MSRP by the brand."
+      },
+      "reviews": {
+        "amazon_stars": null,
+        "amazon_review_count": null,
+        "amazon_reason": "Not displayed by policy.",
+        "brand_site_rating": {
+          "v": "2.6 / 5 from 25 reviews",
+          "s": [
+            "S14"
+          ],
+          "note": "Brand-hosted rating, quoted exactly as displayed (including the unusually low score). Shown for transparency; it is not Amazon's rating."
+        }
+      },
+      "commission": {
+        "rate_confirmed": null,
+        "candidate_rows": [
+          {
+            "category": "Kitchen",
+            "rate": "4.50%",
+            "source": [
+              "S3"
+            ]
+          },
+          {
+            "category": "Home",
+            "rate": "3.00%",
+            "source": [
+              "S3"
+            ]
+          },
+          {
+            "category": "All Other Categories (fallback row)",
+            "rate": "4.00%",
+            "source": [
+              "S3"
+            ]
+          }
+        ],
+        "why_unverified": "A French-door air fryer toaster oven could plausibly sit in Kitchen, Home or the fallback row. Amazon does not publish the ASIN's category, so the rate is blank. Note this product also spans multiple categories, which is exactly the case where guessing goes wrong. Re-read 2026-11-16 (pass 10, session 121929a5): the Standard Commission Income Statement page (S3) is now publicly readable without sign-in; its Table 1 states 'Physical Books, Kitchen, Automotive — 4.50%' and 'All Other Categories — 4.00%', matching the candidate rows above. What remains unconfirmed is the mapping from this ASIN to the schedule's category for commission purposes — Amazon's own assignment is authoritative only inside Associates reporting.",
+        "rate_source_note": "Only the official Standard Commission Income Statement (S3) is used for rates. Third-party blogs claiming 3%, 4.5% or 5% for kitchen appliances were discarded: they disagreed with each other and with the published table on the day of verification."
+      },
+      "competition": {
+        "amazon_result_count": null,
+        "amazon_bestseller_rank": null,
+        "reason": "Not published as a stable quotable fact; aggregation is restricted by S2."
+      },
+      "flags": [
+        {
+          "id": "F4",
+          "issue": "The brand page states \"25 Cooking Pre-sets\" in its specification block but \"24 one-touch cooking presets\" in the description text on the same page; the Amazon title says 24. Re-read 2026-11-15: the brand page still states 25, so the conflict is live.",
+          "action": "Resolved in favour of the owner's manual, which lists 24 presets by name - the Preset Mode Chart and the Recommended Accessory Positions table each carry the same 24 rows (Airfry, Fries, Bacon, Grill, Eggs, Fish, Ribs, Defrost, Steak, Vegetables, Wings, Bake, Rotisserie, Toast, Chicken, Pizza, Pastry, Proof, Broil, Slow Cook, Roast, Dehydrate, Reheat, Warm). The manual does not state the numeral 24 itself. The page's \"25\" is treated as a marketing error and is not repeated as fact. Re-read 2026-11-15 Addendum 2026-11-16: the listing's own Configuration field states '24 Functions', so a third document joins the manual against the brand page's '25'. The conflict is now one official page out of step with two others, and the site's wording is unchanged.",
+          "sources": [
+            "S14",
+            "S15",
+            "S28"
+          ]
+        },
+        {
+          "id": "F5",
+          "issue": "The brand page markets the unit as \"10-in-1\" while separately claiming 24–25 cooking presets. The two counting systems are not defined anywhere official.",
+          "action": "Neither label is presented as a specification. The site reports the 24 named presets from the manual instead.",
+          "sources": [
+            "S14",
+            "S15"
+          ]
+        },
+        {
+          "id": "F6",
+          "issue": "Associates tag inside the short link not observable.",
+          "action": "Flagged.",
+          "sources": [
+            "S2",
+            "S17"
+          ]
+        },
+        {
+          "id": "F50",
+          "issue": "The number of included accessories differs between the two official documents: the Emeril brand page says \"Included are 7 premium accessories to maximize versatility\", while the Amazon listing title for the supplied link says \"Six Cooking Accessories Included\". Found independently on 2026-11-15 by arena/88bb2db6; the programme-level row F48 records the same conflict from arena/792c279e's pass. Both are kept.",
+          "action": "The site publishes 7, which two official documents support: the Emeril product page (\"Included are 7 premium accessories\") and the owner's manual, whose Parts & Accessories section enumerates 13 numbered items of which 6 are built into the appliance, leaving 7 removable accessories. The listing's \"Six\" is not repeated as fact and is not silently dropped either - it is recorded here as the conflicting document, because a specification row's source list is read as the evidence for its value and the listing title does not support 7. Which count matches the delivered box still has to be checked physically, because the manual says \"Some accessories may not be included with purchase\", marks the wire rack \"Quantity may vary\" and marks the plate handle \"May be sold separately\".",
+          "sources": [
+            "S14",
+            "S15",
+            "S28"
+          ]
+        }
       ]
-     },
-     {
-      "category": "All Other Categories (fallback row)",
-      "rate": "4.00%",
-      "source": [
-       "S3"
-      ]
-     }
-    ],
-    "why_unverified": "Amazon's published rate table (S3) lists rates by product category. It does not publish which category a given ASIN is assigned to, and air fryers are not named in the table. Choosing between the Kitchen row and the fallback row would be inference, so the rate is left blank. Re-read 2026-11-16 (pass 10, session 121929a5): the Standard Commission Income Statement page (S3) is now publicly readable without sign-in; its Table 1 states 'Physical Books, Kitchen, Automotive — 4.50%' and 'All Other Categories — 4.00%', matching the candidate rows above. What remains unconfirmed is the mapping from this ASIN to the schedule's category for commission purposes — Amazon's own assignment is authoritative only inside Associates reporting.",
-    "rate_source_note": "Only S3 is authoritative. Several well-ranked third-party blogs claimed 3%, 4.5% or 5% for kitchen appliances on the same day; those were discarded as non-official and mutually contradictory."
-   },
-   "competition": {
-    "amazon_result_count": null,
-    "amazon_bestseller_rank": null,
-    "reason": "Amazon does not publish these as stable, quotable facts, and scraping them into a published table would breach the aggregation restriction in S2 (IP License)."
-   },
-   "flags": [
-    {
-     "id": "F2",
-     "issue": "Two near-identical Chefman SKUs exist (RJ38-SQPF-3TDB-2 and RJ38-SQPF-3TDB-2W), and a third, RJ38-3DBW-V2, is published on the same brand store. The -2W owner's manual matches this listing's features exactly, but the mapping used to rest on feature wording alone.",
-     "action": "Closed for the ASIN-to-model step on 2026-11-16 by session arena/ba29c641: the listing for B0CDY277D3 publishes 'Model Number: RJ38-SQPF-3TDB-2W' and 'Part Number: RJ38-SQPF-3TDB-2W' in its Product information block, matching the -2W manual and the brand page, so the mapping is no longer an inference from feature wording (F68). Open part: the supplied short link to ASIN attribution (F6, F10) is the account holder's to state, and whether the seller ships a -2 unit against the ASIN is answerable only from the box.",
-     "sources": [
-      "S18",
-      "S11",
-      "S16"
-     ]
     },
     {
-     "id": "F6",
-     "issue": "The Associates tag inside the link.amazon short link is not observable, so attribution cannot be confirmed.",
-     "action": "Flagged for the account holder to confirm in Associates Central → Manage Tracking IDs.",
-     "sources": [
-      "S2",
-      "S17"
-     ]
-    },
-    {
-     "id": "F36",
-     "issue": "The preset count published for this model was not stated by the source it cited. The value \"Four one-touch food presets: French fries, chicken, meat, fish\" was attributed to the RJ38-SQPF-3TDB-2W user guide, but that guide contains no preset chart and names no food presets. The same four food types belong to the different 8 Qt model (RJ38-SQSS-8T), whose guide does carry a PRESET FUNCTION CHART. The value appears to have been carried across from the 8 Qt.",
-     "action": "The count is now blank and flagged as unverified. Re-read on 2026-11-14 by sess-7111e2b6: the guide was checked end to end (features, control panel, operating instructions, special functions, cooking tips, troubleshooting, cleaning, terms) and the brand product page's feature list was checked; neither states a preset count. Nothing was inferred to fill the gap.",
-     "sources": [
-      "S18",
-      "S10",
-      "S13"
-     ]
+      "slug": "chefman-8qt-turbofry",
+      "rank": 3,
+      "brand": "Chefman",
+      "name": "Air Fryer 8 Qt — TurboFry 4-in-1 (stainless steel)",
+      "short_name": "Chefman 8 Qt TurboFry",
+      "category": "Kitchen appliances → Air fryers",
+      "link": "https://link.amazon/B00hJ57DV",
+      "asin": {
+        "v": "B08DKYBTPH",
+        "s": [
+          "S29"
+        ]
+      },
+      "asin_evidence": "Following the supplied short link returned the Amazon detail page whose <title> reads: \"Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel\"",
+      "amazon_listing_title": {
+        "v": "Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
+        "s": [
+          "S29"
+        ],
+        "read": "2026-11-15"
+      },
+      "model_number": {
+        "v": "RJ38-SQSS-8T (brand page + owner's manual)",
+        "s": [
+          "S12",
+          "S13",
+          "S29"
+        ],
+        "caveat": "The code is published by the listing - but not in the field its name suggests. The Product information block read on 2026-11-16 states 'Part Number: RJ38-SQSS-8T', while the row labelled 'Model Number' holds the marketing string 'Large Air Fryer' (S29). So the ASIN-to-model step is sourced from the listing's Part Number row together with the brand page and the manual, and a procedure that reads only the 'Model Number' row - the procedure SG-01 told the owner to follow - would have returned a non-code. See F64. Note this identifies what the listing claims, not what ships in the box: the 450 °F wording in the same listing's title still matches a second 8 Qt SKU (F3, F33)."
+      },
+      "specs": [
+        {
+          "label": "Capacity",
+          "value": "8 qt (brand also sells a 5 qt version of the same product page)",
+          "source": [
+            "S12",
+            "S13"
+          ]
+        },
+        {
+          "label": "Temperature range",
+          "value": "200–400 °F",
+          "source": [
+            "S12"
+          ]
+        },
+        {
+          "label": "Presets",
+          "value": "Fries, Chicken, Fish, Meat (one-touch)",
+          "source": [
+            "S12",
+            "S13"
+          ]
+        },
+        {
+          "label": "Preset defaults",
+          "value": "Default 400 °F / 15 min · Meat 375 °F / 18 min · Chicken 375 °F / 22 min · Fish 350 °F / 10 min · Fries 400 °F / 20 min",
+          "source": [
+            "S13"
+          ]
+        },
+        {
+          "label": "Basket coating / care",
+          "value": "Nonstick basket and rack; top-rack dishwasher safe",
+          "source": [
+            "S12",
+            "S13"
+          ]
+        },
+        {
+          "label": "Shake reminder",
+          "value": "LED shake reminder",
+          "source": [
+            "S12",
+            "S13"
+          ]
+        },
+        {
+          "label": "Auto shutoff",
+          "value": "Yes — stops when the timer ends or the basket is opened",
+          "source": [
+            "S12"
+          ]
+        },
+        {
+          "label": "Stated household size",
+          "value": "Designed for 4–6 people",
+          "source": [
+            "S12"
+          ]
+        },
+        {
+          "label": "Oil-reduction claim",
+          "value": "Brand claim: meals with '98% less oil'",
+          "source": [
+            "S12"
+          ],
+          "note": "Vendor marketing claim, reproduced as a claim only — not independently tested or endorsed by this project."
+        },
+        {
+          "label": "Basket divider",
+          "value": "Not documented for RJ38-SQSS-8T on the brand page or in its manual",
+          "source": [
+            "S12",
+            "S13"
+          ],
+          "status": "unverified",
+          "note": "A divider is documented for a different Chefman model (RJ38-SQSS-8T-D), not for this product page or its manual. Absence of a mention is not proof of absence, so it is marked unverified rather than as a verified \"no\"."
+        },
+        {
+          "label": "Hi-Fry / 450 °F mode",
+          "value": null,
+          "unverified": "The Amazon listing title advertises a '450°F Hi-Fry Option' and Bake/Dehydrate/Frozen functions, while the brand page for RJ38-SQSS-8T and its owner's manual document 200–400 °F with four food-type presets. Read again 2026-11-16 and sharpened rather than settled: the listing's own Features & Specs table states 'Max Temperature Setting: 400 °F', so the 450 °F claim and the 400 °F figure sit inside one official page, and that page's Part Number row identifies the 400 °F model. Because Chefman separately publishes RJ38-8T-BLACK at 450 °F Hi-Fry (S26, re-read live 2026-11-16), the second-SKU explanation remains live alongside the stale-title one. All four statements are published; none is asserted as the machine's capability.",
+          "source": [
+            "S29"
+          ]
+        },
+        {
+          "label": "Wattage",
+          "value": "1700 W / 120 V",
+          "source": [
+            "S12"
+          ],
+          "note": "Filled on 2026-11-14 after re-reading the brand page: its Specifications block states 'Power: 1700W/120V' outright. This row was blank on 2026-11-13 because the page had not been read down to the Specifications block — the value is the manufacturer's own, not a retailer's."
+        },
+        {
+          "label": "Dimensions / weight",
+          "value": "8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg",
+          "source": [
+            "S12"
+          ],
+          "note": "Filled on 2026-11-14 from the same Specifications block, which separates the 5 Qt and 8 Qt figures: 'Dimensions: (8 Qt Model) 15.4 in x 12.6 in x 13.5 in' and 'Weight: (8 Qt Model) 12.8 lbs / 5.8 kg'. The 8 Qt column applies to RJ38-SQSS-8T, the model on this product page Cross-check 2026-11-16: the listing's own Measurements table gives 12.75\"D × 13.5\"W × 10\"H for the same ASIN - three different numbers, two of them transposed, from two official documents that agree on the weight (12.8 lb). The brand page is the published value because it separates the 5 Qt and 8 Qt columns and names the model; the listing's figures are recorded on their own row and the disagreement is F65."
+        },
+        {
+          "label": "Warranty",
+          "value": "Limited 1-year warranty from date of retail purchase (non-transferable, original purchaser)",
+          "source": [
+            "S13"
+          ],
+          "note": "Terms as printed in the owner's manual; the brand product page does not state a warranty period."
+        },
+        {
+          "label": "Amazon browse node",
+          "value": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+          "source": [
+            "S29"
+          ],
+          "note": "Read from the listing's own breadcrumb trail on 2026-11-15. Browse path only — see flag F53."
+        },
+        {
+          "label": "Part number (as listed by Amazon)",
+          "value": "RJ38-SQSS-8T",
+          "source": [
+            "S29"
+          ],
+          "note": "The field that carries the code on this ASIN: its Model Number row reads 'Large Air Fryer' instead. Two other documents (the brand page and the manual) already published this string. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        },
+        {
+          "label": "Model name (as listed by Amazon)",
+          "value": "Square Air Fryer",
+          "source": [
+            "S29"
+          ],
+          "note": "Quoted as the row reads; it is not a model code, which is the point recorded in F68. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        },
+        {
+          "label": "Listing temperature settings",
+          "value": "Max 400 °F · Min 94 °C",
+          "source": [
+            "S29"
+          ],
+          "note": "The maximum matches the brand page's 400 °F (S12) and contradicts the 450 °F Hi-Fry claim in this same listing's title; the minimum (94 °C = 201.2 °F) does not convert exactly to the brand page's 200 °F floor (F72). Recorded as published - see F3, F33 and F69 for what this does and does not decide. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
+        },
+        {
+          "label": "Listing special features",
+          "value": "Automatic Shut-Off, LED Shake Reminder, Programmable",
+          "source": [
+            "S29"
+          ],
+          "note": "Two of the three corroborate rows the site already sourced to the brand page ('Shake reminder', 'Auto shutoff'); 'Programmable' is the listing's word for the four one-touch presets. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        },
+        {
+          "label": "Listing product care",
+          "value": "Dishwasher Safe",
+          "source": [
+            "S29"
+          ],
+          "note": "Stated without saying which parts; the brand page's wording is the one the site publishes on the 'Basket coating / care' row. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        },
+        {
+          "label": "Listing recommended uses",
+          "value": "Air Fry, Bake, Dehydrate, Reheat, Roast",
+          "source": [
+            "S29"
+          ],
+          "note": "The functions a shopper reads about in the title ('4-in-1 … Bake, Dehydrate, Frozen') appear here in the spec table without 'Frozen' and with 'Roast'. Quoted as each field reads. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        },
+        {
+          "label": "Warranty description (as listed by Amazon)",
+          "value": "1-Year Limited Warranty",
+          "source": [
+            "S29"
+          ],
+          "note": "A third official document for the one-year term, after the owner's manual (S13) and the brand page's warranty statement. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
+        },
+        {
+          "label": "Listing dimensions",
+          "value": "12.75\"D × 13.5\"W × 10\"H",
+          "source": [
+            "S29"
+          ],
+          "note": "Does not agree with the brand page's 15.4 × 12.6 × 13.5 in for the 8 Qt model. Both are published; neither is corrected. A shopper measuring a shelf should read both - F69. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
+        },
+        {
+          "label": "Listing item weight",
+          "value": "12.8 pounds",
+          "source": [
+            "S29"
+          ],
+          "note": "Matches the brand page's 12.8 lb / 5.8 kg figure, which is why the two documents' disagreement is about footprint and not about which object is being described. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
+        },
+        {
+          "label": "Listing capacity field",
+          "value": "8 quarts · Size: 8 quarts",
+          "source": [
+            "S29"
+          ],
+          "note": "Capacity and Size both read 8 quarts, agreeing with the brand page and the title; unlike the 6 Qt, no unit label moves here. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
+        },
+        {
+          "label": "Listing UPC",
+          "value": "816458024518",
+          "source": [
+            "S29"
+          ],
+          "note": "Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+        }
+      ],
+      "pricing": {
+        "brand_list_price": {
+          "v": "$119.99 USD",
+          "s": [
+            "S12"
+          ],
+          "note": "List price on chefman.com; a sale price of $79.99 was also displayed for the variant on the access date."
+        },
+        "amazon_price": null,
+        "amazon_price_reason": "Not displayed by policy (S2 §2(b)).",
+        "msrp_confirmed": "Not confirmed: the brand page shows a list price but does not label it as a manufacturer's suggested retail price. List price on chefman.com; a sale price of $79.99 was also displayed for the variant on the access date."
+      },
+      "reviews": {
+        "amazon_stars": null,
+        "amazon_review_count": null,
+        "amazon_reason": "Not displayed by policy.",
+        "brand_site_rating": {
+          "v": "4.6 / 5 from 717 reviews",
+          "s": [
+            "S12"
+          ],
+          "note": "Brand-hosted rating for the RJ38-SQSS-8T product page (5★ 523 · 4★ 131 · 3★ 42 · 2★ 10 · 1★ 11). Read 715 reviews on 2026-11-13, 716 on 2026-11-14 and 717 on 2026-11-16. The average held at 4.6 on all three reads; only the count moves. Not Amazon's rating. A second, independent session read the same page the same day and saw the same count, which corroborates it."
+        }
+      },
+      "commission": {
+        "rate_confirmed": null,
+        "candidate_rows": [
+          {
+            "category": "Kitchen",
+            "rate": "4.50%",
+            "source": [
+              "S3"
+            ]
+          },
+          {
+            "category": "All Other Categories (fallback row)",
+            "rate": "4.00%",
+            "source": [
+              "S3"
+            ]
+          }
+        ],
+        "why_unverified": "Category assignment per ASIN is not published by Amazon (S3). Re-read 2026-11-16 (pass 10, session 121929a5): the Standard Commission Income Statement page (S3) is now publicly readable without sign-in; its Table 1 states 'Physical Books, Kitchen, Automotive — 4.50%' and 'All Other Categories — 4.00%', matching the candidate rows above. What remains unconfirmed is the mapping from this ASIN to the schedule's category for commission purposes — Amazon's own assignment is authoritative only inside Associates reporting.",
+        "rate_source_note": "Only the official Standard Commission Income Statement (S3) is used for rates. Third-party blogs claiming 3%, 4.5% or 5% for kitchen appliances were discarded: they disagreed with each other and with the published table on the day of verification."
+      },
+      "competition": {
+        "amazon_result_count": null,
+        "amazon_bestseller_rank": null,
+        "reason": "Not published as a stable quotable fact; aggregation is restricted by S2. Read 2026-11-16: the listing page does carry a Best Sellers Rank line - it was seen, and it is not put in a table. This repository's adopted reading of IP License §2(e) keeps Amazon-served ranking figures out of the site's tables, so the field stays empty by decision rather than by absence, and the distinction matters (F8, and the s2 register's R-03)."
+      },
+      "flags": [
+        {
+          "id": "F3",
+          "issue": "Serious spec conflict about maximum temperature, and the brand side disagrees with itself. The Amazon listing (S29, re-read 2026-11-16 through the supplied short link) says 450 °F Hi-Fry, 4-in-1 (bake/dehydrate/frozen). One brand page and its manual — the TurboFry Touch Stainless (RJ38-SQSS-8T, S12/S13) — document 200–400 °F with four food-type presets. But Chefman's other 8 Qt page, TurboFry 8 Qt w/ High Fry (RJ38-8T-BLACK, S26, re-read live 2026-11-16), states a 450 °F Hi-Fry button and a 450 °F / 232 °C Hi-Fry temperature, matching the listing. Two different Chefman 8 Qt models are therefore in play; which model the ASIN maps to is unconfirmed (question Q-01).",
+          "action": "Conflicting claims shown side by side; no value asserted. Narrowed 2026-11-16 by session arena/ba29c641: the listing's own spec table states a 400 °F maximum and its Part Number identifies RJ38-SQSS-8T, so the 450 °F wording now conflicts with the page it appears on as well as with the brand documents - and because a second Chefman 8 Qt page does document 450 °F Hi-Fry (S26), the two-models explanation stays open alongside the stale-title one. Neither is asserted. What a buyer should do is read the manual in the box; what would settle it is a statement from Chefman about which SKU sits behind the ASIN. See F33 and F68.",
+          "sources": [
+            "S12",
+            "S13",
+            "S29",
+            "S26"
+          ]
+        },
+        {
+          "id": "F6",
+          "issue": "Associates tag inside the short link not observable.",
+          "action": "Flagged.",
+          "sources": [
+            "S2",
+            "S17"
+          ]
+        }
+      ],
+      "list_price_confirmation": {
+        "v": "8 Quart: $119.99 USD list price, compare-at $119.99. (The same page sells a 5 Quart variant at $79.99, compare-at $99.99.)",
+        "s": [
+          "S33"
+        ],
+        "caveat": "Taken from the store's own product record, not the page's promotional widget."
+      }
     }
-   ],
-   "list_price_confirmation": {
-    "v": "$119.99 USD list price; compare-at price also $119.99 (i.e. not on offer at the brand's own store on 2026-11-15)",
-    "s": [
-     "S32"
-    ],
-    "caveat": "The brand product page's own price widget rendered six discounted figures at once ($108.00/$90.00/$84.00/$102.00/$96.00/$72.00/$119.99), which is a site-wide promotional module identical on every Chefman page and not this product's price. The figure published here is taken from the store's own product record instead."
-   }
+  ],
+  "reverified": "2026-11-16",
+  "reverified_by": "arena/a746a9f2-zone1 (X-a746a9f2 live re-verification pass; see reports/verification-2026-11-16-a746a9f2.md. One blank cell filled from a verbatim read: the Emeril Amazon browse node, previously unrendered behind a bot checkpoint.)",
+  "source_conflicts": {
+    "note": "Official documents that contradict a published specification value. Each entry names a row and the source id that contradicts it. The build fails if that source id appears in the row's source list, because a row's source list is read as the evidence for its value. The contradicting document belongs in the flag register, where it is the evidence of the conflict. Added 2026-11-15 by arena/88bb2db6.",
+    "entries": [
+      {
+        "slug": "emeril-26qt-french-door",
+        "label": "Included accessories",
+        "value": "7",
+        "conflicting_source": "S28",
+        "reason": "The Amazon listing title for the supplied link ends 'Six Cooking Accessories Included'. It contradicts the published 7. The brand page (S14) and the owner's manual (S15) both support 7 - the manual by enumerating 13 numbered parts of which 6 are built into the appliance, leaving 7 removable accessories - so the row cites those two and the listing is recorded in the flag register instead (F48, F50)."
+      }
+    ]
   },
-  {
-   "slug": "emeril-26qt-french-door",
-   "rank": 2,
-   "brand": "Emeril Lagasse (Emeril Everyday)",
-   "name": "French Door AirFryer 360 Toaster Oven Combo, 26 QT",
-   "short_name": "Emeril 26 QT French Door",
-   "category": "Kitchen appliances → Air fryer toaster ovens",
-   "link": "https://link.amazon/B02NbDxp3",
-   "asin": {
-    "v": "B09B7SB46R",
-    "s": [
-     "S28"
+  "figures": {
+    "note": "All numbers in this block are inputs to build.py's figure generator (assets/figures/*.svg). A figure can therefore never state a number this dataset does not hold; changing a figure requires changing data/products.json and rebuilding. Sources are cited per entry and carried into each SVG's metadata.",
+    "scale_px_per_inch": 16,
+    "footprint": [
+      {
+        "product": "chefman-6qt-dual-basket",
+        "label": "Chefman 6 Qt Dual Basket",
+        "w": 13.38,
+        "d": 11.81,
+        "h": 10.63,
+        "source": "S10"
+      },
+      {
+        "product": "emeril-26qt-french-door",
+        "label": "Emeril 26 QT French Door",
+        "w": 15.8,
+        "d": 16.9,
+        "h": 14.8,
+        "source": "S14"
+      },
+      {
+        "product": "chefman-8qt-turbofry",
+        "label": "Chefman 8 Qt TurboFry",
+        "w": 15.4,
+        "d": 12.6,
+        "h": 13.5,
+        "source": "S12"
+      }
+    ],
+    "temperature": [
+      {
+        "product": "chefman-6qt-dual-basket",
+        "label": "Chefman 6 Qt",
+        "min": 200,
+        "max": 450,
+        "unit": "°F",
+        "note": "Hi-Fry holds 450 °F for 2 minutes (finish mode, not full-cycle)",
+        "source": "S10",
+        "support": "S18"
+      },
+      {
+        "product": "emeril-26qt-french-door",
+        "label": "Emeril 26 QT",
+        "min": 75,
+        "max": 500,
+        "unit": "°F",
+        "note": "Owner's manual",
+        "source": "S15"
+      },
+      {
+        "product": "chefman-8qt-turbofry",
+        "label": "Chefman 8 Qt",
+        "min": 200,
+        "max": 400,
+        "unit": "°F",
+        "note": "Listing title advertises 450 °F Hi-Fry — conflict with brand page and manual, not asserted (F3)",
+        "source": "S12",
+        "conflict_source": "S29"
+      }
+    ],
+    "presets": [
+      {
+        "product": "emeril-26qt-french-door",
+        "document": "Owner's manual (FAFO-001), Preset Mode Chart",
+        "source": "S15",
+        "count": 24,
+        "note": "Names 24 presets by name; the controlling document"
+      },
+      {
+        "product": "emeril-26qt-french-door",
+        "document": "Brand page specification block",
+        "source": "S14",
+        "count": 25,
+        "note": "Contradicts the same page's description (24) — conflict, not resolved (F29)",
+        "conflict": true
+      },
+      {
+        "product": "emeril-26qt-french-door",
+        "document": "Amazon listing title (B09B7SB46R)",
+        "source": "S28",
+        "count": 24,
+        "note": "\"24 One-Touch Preset Options\""
+      },
+      {
+        "product": "chefman-8qt-turbofry",
+        "document": "Brand page product features",
+        "source": "S12",
+        "count": 4,
+        "note": "Fries, Chicken, Fish, Meat"
+      },
+      {
+        "product": "chefman-8qt-turbofry",
+        "document": "Owner's manual RJ38-SQSS-8T",
+        "source": "S13",
+        "count": 4,
+        "note": "Preset Function Chart, same four functions"
+      },
+      {
+        "product": "chefman-6qt-dual-basket",
+        "document": "Owner's manual RJ38-SQPF-3TDB-2W",
+        "source": "S18",
+        "count": null,
+        "note": "No preset chart published; count left blank, not inferred (F36)"
+      }
+    ],
+    "decision_tree": [
+      {
+        "question": "Cooking two different foods at once, on separate settings?",
+        "yes": "chefman-6qt-dual-basket",
+        "no_question": "Replacing a toaster oven as well — toast, bake, rotisserie?"
+      },
+      {
+        "question": "Replacing a toaster oven as well — toast, bake, rotisserie?",
+        "yes": "emeril-26qt-french-door",
+        "no_question": "Cooking for 4–6 people from one basket?"
+      },
+      {
+        "question": "Cooking for 4–6 people from one basket?",
+        "yes": "chefman-8qt-turbofry",
+        "no": "Reconsider capacity before choosing a model."
+      }
     ]
-   },
-   "asin_evidence": "Following the supplied short link returned the Amazon detail page whose <title> reads: \"Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.\"",
-   "amazon_listing_title": {
-    "v": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
-    "s": [
-     "S28"
-    ],
-    "v_observed": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
-    "v_previous": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.",
-    "note": "Read 2026-11-15 from https://link.amazon/B02NbDxp3. The title has changed since the 2026-11-14 read: the earlier value ended '| 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.' and the current title ends '| Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included'. Both say 24; the wording differs. The date of this read is part of the value (flag F38).",
-    "read": "2026-11-15"
-   },
-   "model_number": {
-    "v": "FAFO-001 (manual); brand page lists 4-00675-02A-VN",
-    "s": [
-     "S15",
-     "S14",
-     "S28"
-    ],
-    "caveat": "Three official documents give three different strings for the same appliance and this pass did not reconcile them: the owner's manual is headed FAFO-001 (S15), the brand page lists 4-00675-02A-VN (S14), and the listing's Product information block read on 2026-11-16 states 'Model Number: 4-00675-02X-VN' with the same string in its Part Number row - the brand SKU with X where the brand page has A (S28). All three are quoted; none is asserted as the model printed on the unit. This is the one product where reading the listing did not settle the mapping. See F66.",
-    "amazon_listing_string": "4-00675-02X-VN"
-   },
-   "specs": [
-    {
-     "label": "Capacity",
-     "value": "26 qt / 24.6 L (manual: 1,519 cu in)",
-     "source": [
-      "S14",
-      "S15"
-     ]
-    },
-    {
-     "label": "Supply power",
-     "value": "120 V / 60 Hz",
-     "source": [
-      "S15"
-     ]
-    },
-    {
-     "label": "Rated power",
-     "value": "1700 W",
-     "source": [
-      "S15"
-     ]
-    },
-    {
-     "label": "Temperature range",
-     "value": "75–500 °F / 25–260 °C",
-     "source": [
-      "S15"
-     ]
-    },
-    {
-     "label": "Dimensions",
-     "value": "16.9 D × 15.8 W × 14.8 H in",
-     "source": [
-      "S14"
-     ]
-    },
-    {
-     "label": "Cooking functions / presets",
-     "value": "24 presets are named in the owner's manual for model FAFO-001: Airfry, Fries, Bacon, Grill, Eggs, Fish, Ribs, Defrost, Steak, Vegetables, Wings, Bake, Rotisserie, Toast, Chicken, Pizza, Pastry, Proof, Broil, Slow Cook, Roast, Dehydrate, Reheat, Warm",
-     "source": [
-      "S15"
-     ],
-     "note": "This resolves the count using the manual rather than the marketing page: the manual's preset chart lists exactly 24 named presets. The brand page's own two claims (\"25 Cooking Pre-sets\" in the spec block, \"24 one-touch cooking presets\" in the description) still disagree with each other, and the page markets the unit simultaneously as \"10-in-1\". The manual is treated as the controlling document."
-    },
-    {
-     "label": "Door type",
-     "value": "French doors, single-pull opening",
-     "source": [
-      "S14"
-     ]
-    },
-    {
-     "label": "Fan",
-     "value": "Dual-speed fan, 360° air circulation",
-     "source": [
-      "S14"
-     ]
-    },
-    {
-     "label": "Rotisserie",
-     "value": "Yes (manual documents a rotisserie preset and spit set)",
-     "source": [
-      "S14",
-      "S15"
-     ]
-    },
-    {
-     "label": "Included accessories",
-     "value": "7",
-     "source": [
-      "S14",
-      "S15"
-     ],
-     "note": "Two official documents state 7: the Emeril product page says \"Included are 7 premium accessories\", and the owner's manual enumerates 13 numbered parts, of which 6 are built into the appliance (main unit, door handle, glass door, LED display, control panel, control knob), leaving 7 removable accessories (drip tray, wire rack, baking pan, rotisserie spit, crisper tray, rotisserie fetch tool, plate handle). The Amazon listing title for the supplied link instead says \"Six Cooking Accessories Included\"; that conflicting document is in the flag register, not here, because a row's source list is read as the evidence for the value and that title does not support 7. The manual adds that \"Some accessories may not be included with purchase\", so count the box before relying on this Addendum 2026-11-16: the listing is not a single 'six' to weigh against the manual's seven - inside one table it says '7 Accessories' in its Configuration field, enumerates six named parts in its Included Components row, and says 'Six Cooking Accessories Included' in its title. F48 asked which count is right; F67 records that the page holds both, and the site keeps 7 on the strength of the brand page and the manual."
-    },
-    {
-     "label": "Interior light",
-     "value": "Yes",
-     "source": [
-      "S15"
-     ],
-     "note": "Documented in the owner's manual's control-panel section: \"F. LIGHT BUTTON: May be selected at any time during the cooking process to light the appliance's interior.\" The brand product page does not list an interior light, so the manual is the source of record. Re-sourced 2026-11-14 (see flag F33)."
-    },
-    {
-     "label": "Warranty",
-     "value": "1-year warranty",
-     "source": [
-      "S14"
-     ]
-    },
-    {
-     "label": "Display",
-     "value": "LED",
-     "source": [
-      "S15"
-     ]
-    },
-    {
-     "label": "Amazon browse node",
-     "value": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
-     "source": [
-      "S28",
-      "S17"
-     ],
-     "note": "Filled 2026-11-16 by pass 10 (arena/121929a5), which reached the listing through the supplied short link, and re-read the same day by arena/a746a9f2 and arena/b23f12f0 (round 11, flag F65: the 2026-11-15 \"Continue shopping\" checkpoint is intermittent per request, not a property of the ASIN, so this row is no longer described as blocked by it). Corroborated independently by arena/ba29c641, which fetched the /dp/ URL directly and found the same classification in the Best Sellers Rank line: \"#214 in Kitchen & Dining\" and \"#6 in Air Fryers\" (node 17659096011). A browse path, not a commission category (F53)."
-    },
-    {
-     "label": "Model name (as listed by Amazon)",
-     "value": "Extra Large 26 QT French Door Air Fryer Oven",
-     "source": [
-      "S28"
-     ],
-     "note": "Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    },
-    {
-     "label": "Listing model / part number",
-     "value": "4-00675-02X-VN",
-     "source": [
-      "S28"
-     ],
-     "note": "Stated identically in the listing's Model Number and Part Number rows. The brand page's string differs by one character (02A where the listing reads 02X); neither is overwritten and the difference is F70. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    },
-    {
-     "label": "Listing temperature settings",
-     "value": "Min 75 °F · Max 500 °F",
-     "source": [
-      "S28"
-     ],
-     "note": "Corroborates the owner's manual's 75–500 °F range (S15), which is the source the site's 'Temperature range' row cites; the brand product page publishes no range. Two official documents, not one, now state it. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
-    },
-    {
-     "label": "Listing power",
-     "value": "1700 watts · 120 volts",
-     "source": [
-      "S28"
-     ],
-     "note": "Corroborates the manual's 1700 W rating and the brand page's 120 V. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
-    },
-    {
-     "label": "Listing configuration",
-     "value": "Air Fryer Toaster Oven Combo with 24 Functions and 7 Accessories",
-     "source": [
-      "S28"
-     ],
-     "note": "A third official document for the function count, agreeing with the owner's manual's 24 named presets against the brand page's '25 Cooking Pre-sets' (F4). Its '7 Accessories' half agrees with the site's published accessory count while the same table's Included Components row enumerates six - see F71. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    },
-    {
-     "label": "Listing included components",
-     "value": "Rack, Bake Pan, Drip Tray, Crisper Basket, Rotisserie Spit, Fetch Tool",
-     "source": [
-      "S28"
-     ],
-     "note": "Quoted as the field reads: six entries. How that squares with the Configuration field's '7 Accessories' in the same table, and with the manual's thirteen numbered parts of which six are built into the appliance, is recorded as F71 rather than averaged away. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    },
-    {
-     "label": "Listing materials",
-     "value": "Stainless Steel · outer and inner",
-     "source": [
-      "S28"
-     ],
-     "note": "Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    },
-    {
-     "label": "Listing recommended uses",
-     "value": "Air Fry, Bake, Broil, Dehydrate, Roast",
-     "source": [
-      "S28"
-     ],
-     "note": "Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    },
-    {
-     "label": "Listing UPC",
-     "value": "752356835682",
-     "source": [
-      "S28"
-     ],
-     "note": "Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    }
-   ],
-   "pricing": {
-    "brand_list_price": {
-     "v": "$199.99 USD",
-     "s": [
-      "S14"
-     ],
-     "note": "Price shown on emerileveryday.com on the access date. Not labelled as MSRP by the brand."
-    },
-    "amazon_price": null,
-    "amazon_price_reason": "Not displayed by policy (S2 §2(b)).",
-    "msrp_confirmed": "Not confirmed: the brand page shows a list price but does not label it as a manufacturer's suggested retail price. Price shown on emerileveryday.com on the access date. Not labelled as MSRP by the brand."
-   },
-   "reviews": {
-    "amazon_stars": null,
-    "amazon_review_count": null,
-    "amazon_reason": "Not displayed by policy.",
-    "brand_site_rating": {
-     "v": "2.6 / 5 from 25 reviews",
-     "s": [
-      "S14"
-     ],
-     "note": "Brand-hosted rating, quoted exactly as displayed (including the unusually low score). Shown for transparency; it is not Amazon's rating."
-    }
-   },
-   "commission": {
-    "rate_confirmed": null,
-    "candidate_rows": [
-     {
-      "category": "Kitchen",
-      "rate": "4.50%",
-      "source": [
-       "S3"
-      ]
-     },
-     {
-      "category": "Home",
-      "rate": "3.00%",
-      "source": [
-       "S3"
-      ]
-     },
-     {
-      "category": "All Other Categories (fallback row)",
-      "rate": "4.00%",
-      "source": [
-       "S3"
-      ]
-     }
-    ],
-    "why_unverified": "A French-door air fryer toaster oven could plausibly sit in Kitchen, Home or the fallback row. Amazon does not publish the ASIN's category, so the rate is blank. Note this product also spans multiple categories, which is exactly the case where guessing goes wrong. Re-read 2026-11-16 (pass 10, session 121929a5): the Standard Commission Income Statement page (S3) is now publicly readable without sign-in; its Table 1 states 'Physical Books, Kitchen, Automotive — 4.50%' and 'All Other Categories — 4.00%', matching the candidate rows above. What remains unconfirmed is the mapping from this ASIN to the schedule's category for commission purposes — Amazon's own assignment is authoritative only inside Associates reporting.",
-    "rate_source_note": "Only the official Standard Commission Income Statement (S3) is used for rates. Third-party blogs claiming 3%, 4.5% or 5% for kitchen appliances were discarded: they disagreed with each other and with the published table on the day of verification."
-   },
-   "competition": {
-    "amazon_result_count": null,
-    "amazon_bestseller_rank": null,
-    "reason": "Not published as a stable quotable fact; aggregation is restricted by S2."
-   },
-   "flags": [
-    {
-     "id": "F4",
-     "issue": "The brand page states \"25 Cooking Pre-sets\" in its specification block but \"24 one-touch cooking presets\" in the description text on the same page; the Amazon title says 24. Re-read 2026-11-15: the brand page still states 25, so the conflict is live.",
-     "action": "Resolved in favour of the owner's manual, which lists 24 presets by name - the Preset Mode Chart and the Recommended Accessory Positions table each carry the same 24 rows (Airfry, Fries, Bacon, Grill, Eggs, Fish, Ribs, Defrost, Steak, Vegetables, Wings, Bake, Rotisserie, Toast, Chicken, Pizza, Pastry, Proof, Broil, Slow Cook, Roast, Dehydrate, Reheat, Warm). The manual does not state the numeral 24 itself. The page's \"25\" is treated as a marketing error and is not repeated as fact. Re-read 2026-11-15 Addendum 2026-11-16: the listing's own Configuration field states '24 Functions', so a third document joins the manual against the brand page's '25'. The conflict is now one official page out of step with two others, and the site's wording is unchanged.",
-     "sources": [
-      "S14",
-      "S15",
-      "S28"
-     ]
-    },
-    {
-     "id": "F5",
-     "issue": "The brand page markets the unit as \"10-in-1\" while separately claiming 24–25 cooking presets. The two counting systems are not defined anywhere official.",
-     "action": "Neither label is presented as a specification. The site reports the 24 named presets from the manual instead.",
-     "sources": [
-      "S14",
-      "S15"
-     ]
-    },
-    {
-     "id": "F6",
-     "issue": "Associates tag inside the short link not observable.",
-     "action": "Flagged.",
-     "sources": [
-      "S2",
-      "S17"
-     ]
-    },
-    {
-     "id": "F50",
-     "issue": "The number of included accessories differs between the two official documents: the Emeril brand page says \"Included are 7 premium accessories to maximize versatility\", while the Amazon listing title for the supplied link says \"Six Cooking Accessories Included\". Found independently on 2026-11-15 by arena/88bb2db6; the programme-level row F48 records the same conflict from arena/792c279e's pass. Both are kept.",
-     "action": "The site publishes 7, which two official documents support: the Emeril product page (\"Included are 7 premium accessories\") and the owner's manual, whose Parts & Accessories section enumerates 13 numbered items of which 6 are built into the appliance, leaving 7 removable accessories. The listing's \"Six\" is not repeated as fact and is not silently dropped either - it is recorded here as the conflicting document, because a specification row's source list is read as the evidence for its value and the listing title does not support 7. Which count matches the delivered box still has to be checked physically, because the manual says \"Some accessories may not be included with purchase\", marks the wire rack \"Quantity may vary\" and marks the plate handle \"May be sold separately\".",
-     "sources": [
-      "S14",
-      "S15",
-      "S28"
-     ]
-    }
-   ]
   },
-  {
-   "slug": "chefman-8qt-turbofry",
-   "rank": 3,
-   "brand": "Chefman",
-   "name": "Air Fryer 8 Qt — TurboFry 4-in-1 (stainless steel)",
-   "short_name": "Chefman 8 Qt TurboFry",
-   "category": "Kitchen appliances → Air fryers",
-   "link": "https://link.amazon/B00hJ57DV",
-   "asin": {
-    "v": "B08DKYBTPH",
-    "s": [
-     "S29"
-    ]
-   },
-   "asin_evidence": "Following the supplied short link returned the Amazon detail page whose <title> reads: \"Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel\"",
-   "amazon_listing_title": {
-    "v": "Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
-    "s": [
-     "S29"
-    ],
-    "read": "2026-11-15"
-   },
-   "model_number": {
-    "v": "RJ38-SQSS-8T (brand page + owner's manual)",
-    "s": [
-     "S12",
-     "S13",
-     "S29"
-    ],
-    "caveat": "The code is published by the listing - but not in the field its name suggests. The Product information block read on 2026-11-16 states 'Part Number: RJ38-SQSS-8T', while the row labelled 'Model Number' holds the marketing string 'Large Air Fryer' (S29). So the ASIN-to-model step is sourced from the listing's Part Number row together with the brand page and the manual, and a procedure that reads only the 'Model Number' row - the procedure SG-01 told the owner to follow - would have returned a non-code. See F64. Note this identifies what the listing claims, not what ships in the box: the 450 °F wording in the same listing's title still matches a second 8 Qt SKU (F3, F33)."
-   },
-   "specs": [
+  "accessed_disclosure_note": "Every row added on 2026-11-16 by session arena/ba29c641 is sourced to the ASIN's own Product information block (S16, S28, S29) and labelled 'as listed by Amazon' or 'Listing …' so that a listing claim is never read as a manufacturer specification. Prices, availability, star ratings, review counts and ranking positions were visible in the same fetches and are not reproduced anywhere on this site: S2 §2(b) and §6(t) for the first three, and this repository's own reading of IP License §2(e) for rank data.",
+  "candidates_note": "Added 2026-11-17 by arena/3093e674-zone1. The project brief of that date names five product links, not three; the two new ones point outside the air-fryer set, so they are recorded here as candidates rather than folded into the comparison, the category page or the figures. A candidate publishes only what its own listing page or the brand's own product page states, each with the source id and the date it was read. Anything the sources do not say is absent, not estimated. check_rows_have_sources() and the row-source gate apply to these rows exactly as they apply to the three products above; _published_values() includes them so article prose can only quote a value that is already in this register.",
+  "candidates": [
     {
-     "label": "Capacity",
-     "value": "8 qt (brand also sells a 5 qt version of the same product page)",
-     "source": [
-      "S12",
-      "S13"
-     ]
+      "slug": "thermomaven-f1-instant-read",
+      "rank": 99,
+      "brand": "ThermoMaven",
+      "name": "ThermoMaven instant-read digital meat thermometer (candidate: F1 line)",
+      "short_name": "ThermoMaven instant-read (candidate)",
+      "category": "Kitchen appliances → Cooking thermometers",
+      "link": "https://link.amazon/B0c8moW59",
+      "listing_url": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "asin": {
+        "v": "B0DHZTCNR5",
+        "s": [
+          "S36"
+        ]
+      },
+      "asin_evidence": "Read on 2026-11-17 from the submitted short link https://link.amazon/B0c8moW59: the response's own product-summary link is amazon.com/dp/B0DHZTCNR5. That is the destination, not a confirmation of owner intent (see links.html LI-04).",
+      "amazon_listing_title": {
+        "v": "ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black",
+        "s": [
+          "S36"
+        ],
+        "read": "2026-11-17"
+      },
+      "model_number": {
+        "v": null,
+        "s": [],
+        "caveat": "Not published. The brand's own shop lists an F1, an F1 Stealth and an F1 Ace; the listing's '1 Sec' wording does not match the F1 page's '0.7 seconds' figure, so no SKU can be attached to this ASIN without the brand or the seller saying which one it is. Flagged as F76."
+      },
+      "spec_label": "Candidate facts, from the brand's own F1 page — which model this ASIN is remains unconfirmed",
+      "specs": [
+        {
+          "label": "Accuracy claim in the listing title",
+          "value": "±0.5℉",
+          "source": [
+            "S36"
+          ],
+          "status": "verified",
+          "note": "Stated in the Amazon listing title. The brand page states the same tolerance for its F1."
+        },
+        {
+          "label": "Brand-page reading time",
+          "value": "0.7 seconds",
+          "source": [
+            "S39"
+          ],
+          "status": "verified",
+          "note": "Published as the F1's figure, not as this listing's: the listing says '1 Sec'. Both numbers are shown because the two sources have not been reconciled to one product."
+        },
+        {
+          "label": "Brand-page ingress rating",
+          "value": "IP67 waterproof",
+          "source": [
+            "S39"
+          ],
+          "status": "verified"
+        },
+        {
+          "label": "Brand-page warranty",
+          "value": "Lifetime warranty, no expiration, free replacements",
+          "source": [
+            "S39"
+          ],
+          "status": "verified"
+        },
+        {
+          "label": "Marks shown on the brand page",
+          "value": "NIST, NSF, CE, RoHS, BPA-free",
+          "source": [
+            "S39"
+          ],
+          "status": "verified",
+          "note": "Described as the logos and calibration statement the brand page renders. This site has not seen the certificates."
+        },
+        {
+          "label": "Brand-page list price",
+          "value": null,
+          "source": [
+            "S39"
+          ],
+          "status": "unverified",
+          "unverified": "The brand page displayed $12.99 against a struck-through $19.99 on 2026-11-17. A promotional figure on a shop's own page is the kind of value that is untrue within a week, so it is recorded in pricing below with its reading date and not promoted to a specification row."
+        },
+        {
+          "label": "Amazon price",
+          "value": null,
+          "source": [
+            "S36"
+          ],
+          "status": "unverified",
+          "unverified": "Not displayed by policy (S2 §2(b)); unavailable without Associates API access."
+        },
+        {
+          "label": "Star rating / review count",
+          "value": null,
+          "source": [
+            "S36"
+          ],
+          "status": "unverified",
+          "unverified": "Not displayed by policy (S2 §6(t))."
+        }
+      ],
+      "commission": {
+        "rate_confirmed": null,
+        "candidate_rows": [
+          {
+            "category": "Kitchen",
+            "rate": "4.50%",
+            "source": [
+              "S3"
+            ]
+          }
+        ],
+        "why_unverified": "Amazon's published table is keyed to categories, not ASINs. The browse node for this listing is Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat, which is a browse path, not a commission category (see F56).",
+        "rate_source_note": "Only S3 is authoritative."
+      },
+      "pricing": {
+        "brand_list_price": {
+          "v": "$12.99 USD against a struck-through $19.99 on the brand's F1 page",
+          "s": [
+            "S39"
+          ],
+          "note": "The brand's own figure on its own product page, read 2026-11-17. It is not Amazon's price and it moves; the reading date is the only warranty on it."
+        },
+        "amazon_price": null,
+        "amazon_price_reason": "Not displayed by policy (S2 §2(b)).",
+        "msrp_confirmed": "Not confirmed: the brand page shows a price and a struck-through figure but does not label either as an MSRP."
+      },
+      "reviews": {
+        "amazon_stars": null,
+        "amazon_review_count": null,
+        "amazon_reason": "Not displayed by policy (S2 §6(t); S2 §2(b)).",
+        "brand_site_rating": null
+      },
+      "competition": {
+        "amazon_result_count": null,
+        "amazon_bestseller_rank": null,
+        "reason": "Not read in this pass. This candidate is not part of the air-fryer comparison set, and no competitor analysis was performed on the thermometer category."
+      },
+      "flags": [
+        {
+          "id": "F76",
+          "issue": "Which brand SKU this ASIN is cannot be pinned: the listing says '1 Sec', the brand's F1 page says 0.7 seconds, and the brand sells three F1 variants.",
+          "action": "Read the listing's own Product information block in a logged-in browser, or take the SKU from the seller, before any specification row is attached to B0DHZTCNR5.",
+          "sources": [
+            "S36",
+            "S39"
+          ]
+        }
+      ],
+      "identity_status": "candidate — listed, sourced, not yet marketed"
     },
     {
-     "label": "Temperature range",
-     "value": "200–400 °F",
-     "source": [
-      "S12"
-     ]
-    },
-    {
-     "label": "Presets",
-     "value": "Fries, Chicken, Fish, Meat (one-touch)",
-     "source": [
-      "S12",
-      "S13"
-     ]
-    },
-    {
-     "label": "Preset defaults",
-     "value": "Default 400 °F / 15 min · Meat 375 °F / 18 min · Chicken 375 °F / 22 min · Fish 350 °F / 10 min · Fries 400 °F / 20 min",
-     "source": [
-      "S13"
-     ]
-    },
-    {
-     "label": "Basket coating / care",
-     "value": "Nonstick basket and rack; top-rack dishwasher safe",
-     "source": [
-      "S12",
-      "S13"
-     ]
-    },
-    {
-     "label": "Shake reminder",
-     "value": "LED shake reminder",
-     "source": [
-      "S12",
-      "S13"
-     ]
-    },
-    {
-     "label": "Auto shutoff",
-     "value": "Yes — stops when the timer ends or the basket is opened",
-     "source": [
-      "S12"
-     ]
-    },
-    {
-     "label": "Stated household size",
-     "value": "Designed for 4–6 people",
-     "source": [
-      "S12"
-     ]
-    },
-    {
-     "label": "Oil-reduction claim",
-     "value": "Brand claim: meals with '98% less oil'",
-     "source": [
-      "S12"
-     ],
-     "note": "Vendor marketing claim, reproduced as a claim only — not independently tested or endorsed by this project."
-    },
-    {
-     "label": "Basket divider",
-     "value": "Not documented for RJ38-SQSS-8T on the brand page or in its manual",
-     "source": [
-      "S12",
-      "S13"
-     ],
-     "status": "unverified",
-     "note": "A divider is documented for a different Chefman model (RJ38-SQSS-8T-D), not for this product page or its manual. Absence of a mention is not proof of absence, so it is marked unverified rather than as a verified \"no\"."
-    },
-    {
-     "label": "Hi-Fry / 450 °F mode",
-     "value": null,
-     "unverified": "The Amazon listing title advertises a '450°F Hi-Fry Option' and Bake/Dehydrate/Frozen functions, while the brand page for RJ38-SQSS-8T and its owner's manual document 200–400 °F with four food-type presets. Read again 2026-11-16 and sharpened rather than settled: the listing's own Features & Specs table states 'Max Temperature Setting: 400 °F', so the 450 °F claim and the 400 °F figure sit inside one official page, and that page's Part Number row identifies the 400 °F model. Because Chefman separately publishes RJ38-8T-BLACK at 450 °F Hi-Fry (S26, re-read live 2026-11-16), the second-SKU explanation remains live alongside the stale-title one. All four statements are published; none is asserted as the machine's capability.",
-     "source": [
-      "S29"
-     ]
-    },
-    {
-     "label": "Wattage",
-     "value": "1700 W / 120 V",
-     "source": [
-      "S12"
-     ],
-     "note": "Filled on 2026-11-14 after re-reading the brand page: its Specifications block states 'Power: 1700W/120V' outright. This row was blank on 2026-11-13 because the page had not been read down to the Specifications block — the value is the manufacturer's own, not a retailer's."
-    },
-    {
-     "label": "Dimensions / weight",
-     "value": "8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg",
-     "source": [
-      "S12"
-     ],
-     "note": "Filled on 2026-11-14 from the same Specifications block, which separates the 5 Qt and 8 Qt figures: 'Dimensions: (8 Qt Model) 15.4 in x 12.6 in x 13.5 in' and 'Weight: (8 Qt Model) 12.8 lbs / 5.8 kg'. The 8 Qt column applies to RJ38-SQSS-8T, the model on this product page Cross-check 2026-11-16: the listing's own Measurements table gives 12.75\"D × 13.5\"W × 10\"H for the same ASIN - three different numbers, two of them transposed, from two official documents that agree on the weight (12.8 lb). The brand page is the published value because it separates the 5 Qt and 8 Qt columns and names the model; the listing's figures are recorded on their own row and the disagreement is F65."
-    },
-    {
-     "label": "Warranty",
-     "value": "Limited 1-year warranty from date of retail purchase (non-transferable, original purchaser)",
-     "source": [
-      "S13"
-     ],
-     "note": "Terms as printed in the owner's manual; the brand product page does not state a warranty period."
-    },
-    {
-     "label": "Amazon browse node",
-     "value": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
-     "source": [
-      "S29"
-     ],
-     "note": "Read from the listing's own breadcrumb trail on 2026-11-15. Browse path only — see flag F53."
-    },
-    {
-     "label": "Part number (as listed by Amazon)",
-     "value": "RJ38-SQSS-8T",
-     "source": [
-      "S29"
-     ],
-     "note": "The field that carries the code on this ASIN: its Model Number row reads 'Large Air Fryer' instead. Two other documents (the brand page and the manual) already published this string. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    },
-    {
-     "label": "Model name (as listed by Amazon)",
-     "value": "Square Air Fryer",
-     "source": [
-      "S29"
-     ],
-     "note": "Quoted as the row reads; it is not a model code, which is the point recorded in F68. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    },
-    {
-     "label": "Listing temperature settings",
-     "value": "Max 400 °F · Min 94 °C",
-     "source": [
-      "S29"
-     ],
-     "note": "The maximum matches the brand page's 400 °F (S12) and contradicts the 450 °F Hi-Fry claim in this same listing's title; the minimum (94 °C = 201.2 °F) does not convert exactly to the brand page's 200 °F floor (F72). Recorded as published - see F3, F33 and F69 for what this does and does not decide. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
-    },
-    {
-     "label": "Listing special features",
-     "value": "Automatic Shut-Off, LED Shake Reminder, Programmable",
-     "source": [
-      "S29"
-     ],
-     "note": "Two of the three corroborate rows the site already sourced to the brand page ('Shake reminder', 'Auto shutoff'); 'Programmable' is the listing's word for the four one-touch presets. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    },
-    {
-     "label": "Listing product care",
-     "value": "Dishwasher Safe",
-     "source": [
-      "S29"
-     ],
-     "note": "Stated without saying which parts; the brand page's wording is the one the site publishes on the 'Basket coating / care' row. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    },
-    {
-     "label": "Listing recommended uses",
-     "value": "Air Fry, Bake, Dehydrate, Reheat, Roast",
-     "source": [
-      "S29"
-     ],
-     "note": "The functions a shopper reads about in the title ('4-in-1 … Bake, Dehydrate, Frozen') appear here in the spec table without 'Frozen' and with 'Roast'. Quoted as each field reads. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
-    },
-    {
-     "label": "Warranty description (as listed by Amazon)",
-     "value": "1-Year Limited Warranty",
-     "source": [
-      "S29"
-     ],
-     "note": "A third official document for the one-year term, after the owner's manual (S13) and the brand page's warranty statement. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
-    },
-    {
-     "label": "Listing dimensions",
-     "value": "12.75\"D × 13.5\"W × 10\"H",
-     "source": [
-      "S29"
-     ],
-     "note": "Does not agree with the brand page's 15.4 × 12.6 × 13.5 in for the 8 Qt model. Both are published; neither is corrected. A shopper measuring a shelf should read both - F69. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
-    },
-    {
-     "label": "Listing item weight",
-     "value": "12.8 pounds",
-     "source": [
-      "S29"
-     ],
-     "note": "Matches the brand page's 12.8 lb / 5.8 kg figure, which is why the two documents' disagreement is about footprint and not about which object is being described. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
-    },
-    {
-     "label": "Listing capacity field",
-     "value": "8 quarts · Size: 8 quarts",
-     "source": [
-      "S29"
-     ],
-     "note": "Capacity and Size both read 8 quarts, agreeing with the brand page and the title; unlike the 6 Qt, no unit label moves here. Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641)."
-    },
-    {
-     "label": "Listing UPC",
-     "value": "816458024518",
-     "source": [
-      "S29"
-     ],
-     "note": "Read from this ASIN's own Product information block on 2026-11-16 (session arena/ba29c641). Quoted for verification, not as marketing copy: whether an ordinary public listing page is “Program Content” is the open question recorded as Q-21, and this pass does not settle it."
+      "slug": "chef-iq-sense-gen3",
+      "rank": 98,
+      "brand": "CHEF iQ",
+      "name": "CHEF iQ iQ Sense Gen 3 smart wireless meat thermometer",
+      "short_name": "CHEF iQ Sense (Gen 3)",
+      "category": "Kitchen appliances → Cooking thermometers",
+      "link": "https://link.amazon/B0f3GKalj",
+      "listing_url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "asin": {
+        "v": "B0DZFD6R9Z",
+        "s": [
+          "S37"
+        ]
+      },
+      "asin_evidence": "Read on 2026-11-17 from the submitted short link https://link.amazon/B0f3GKalj: the response's own product-summary link is amazon.com/dp/B0DZFD6R9Z. That is the destination, not a confirmation of owner intent (see links.html LI-05).",
+      "amazon_listing_title": {
+        "v": "CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3",
+        "s": [
+          "S37"
+        ],
+        "read": "2026-11-17"
+      },
+      "model_number": {
+        "v": "CQ60-1C-Z1-E, printed on the brand page's 1-probe Dark Smoke variant",
+        "s": [
+          "S38"
+        ],
+        "caveat": "The brand sells this line in 1 to 4 probes and two colours, each with its own variant code, and the Amazon listing sells a 3-probe bundle. Only the 1-probe code was read on the brand page, so no other bundle code is asserted here (F76)."
+      },
+      "spec_label": "Verified specifications — from the brand's own product page",
+      "specs": [
+        {
+          "label": "Sensor count",
+          "value": "5 sensors: 4 internal temperature sensors and 1 ambient sensor",
+          "source": [
+            "S38"
+          ],
+          "status": "verified",
+          "note": "The listing title says '5 Sensors'; the brand page breaks it down as four internal plus one ambient. The two agree."
+        },
+        {
+          "label": "Stated internal accuracy",
+          "value": "accuracy within 1°F",
+          "source": [
+            "S38"
+          ],
+          "status": "verified"
+        },
+        {
+          "label": "Maximum ambient heat",
+          "value": "up to 1,000°F (537°C)",
+          "source": [
+            "S38"
+          ],
+          "status": "verified"
+        },
+        {
+          "label": "Appliances the brand lists it for",
+          "value": "oven, stovetop, gas and charcoal grills, smoker, air fryer, deep fryer, sous vide",
+          "source": [
+            "S38"
+          ],
+          "status": "verified",
+          "note": "The row that connects this product to the rest of the site: an air fryer is on the maker's own compatibility list, which is why the pairing guide quotes it rather than inferring it."
+        },
+        {
+          "label": "Connectivity",
+          "value": "Wi-Fi and Bluetooth; unlimited range through the brand's Smart Hub",
+          "source": [
+            "S38"
+          ],
+          "status": "verified"
+        },
+        {
+          "label": "Battery, per the brand page",
+          "value": "70+ hours of battery; the Smart Hub charges via USB-C",
+          "source": [
+            "S38"
+          ],
+          "status": "verified"
+        },
+        {
+          "label": "Probe build",
+          "value": "stainless steel and zirconia; ultra-thin; waterproof and easy to clean",
+          "source": [
+            "S38"
+          ],
+          "status": "verified"
+        },
+        {
+          "label": "Probe limit, food end",
+          "value": "212˚F for the portion inserted into the food",
+          "source": [
+            "S40"
+          ],
+          "status": "verified",
+          "note": "The figure the marketing headline does not carry. The product page's 1,000°F is the ambient end; this is the part that sits inside the dinner, and the two are different numbers by design (S38 vs S40)."
+        },
+        {
+          "label": "Probe limit, ambient end",
+          "value": "752˚F at the ceramic end; Gen 3 maximum ambient limit 1,000ºF",
+          "source": [
+            "S40"
+          ],
+          "status": "verified"
+        },
+        {
+          "label": "App requirement",
+          "value": "a smart device and the free brand app are required to see any data",
+          "source": [
+            "S40"
+          ],
+          "status": "verified"
+        },
+        {
+          "label": "Cleaning, per the brand",
+          "value": "probe waterproof and 'technically top-rack dishwasher safe' (not advised); hub not waterproof",
+          "source": [
+            "S40"
+          ],
+          "status": "verified"
+        },
+        {
+          "label": "Amazon price",
+          "value": null,
+          "source": [
+            "S37"
+          ],
+          "status": "unverified",
+          "unverified": "Not displayed by policy (S2 §2(b))."
+        },
+        {
+          "label": "Star rating / review count",
+          "value": null,
+          "source": [
+            "S37"
+          ],
+          "status": "unverified",
+          "unverified": "Not displayed by policy (S2 §6(t))."
+        }
+      ],
+      "commission": {
+        "rate_confirmed": null,
+        "candidate_rows": [
+          {
+            "category": "Kitchen",
+            "rate": "4.50%",
+            "source": [
+              "S3"
+            ]
+          }
+        ],
+        "why_unverified": "The same open question as the other four products: the published table is keyed to categories and this repository cannot read which category Amazon has assigned to an ASIN (Q-11).",
+        "rate_source_note": "Only S3 is authoritative."
+      },
+      "pricing": {
+        "brand_list_price": {
+          "v": "$129.99 USD for the 1-probe Dark Smoke variant on the brand page",
+          "s": [
+            "S38"
+          ],
+          "note": "The brand's own figure for one specific variant, read 2026-11-17. The 3-probe bundle the Amazon listing sells is not priced by the row cited here."
+        },
+        "amazon_price": null,
+        "amazon_price_reason": "Not displayed by policy (S2 §2(b)).",
+        "msrp_confirmed": "Not confirmed: no source in this register labels any figure an MSRP."
+      },
+      "reviews": {
+        "amazon_stars": null,
+        "amazon_review_count": null,
+        "amazon_reason": "Not displayed by policy (S2 §6(t)).",
+        "brand_site_rating": null
+      },
+      "competition": {
+        "amazon_result_count": null,
+        "amazon_bestseller_rank": null,
+        "reason": "Not read in this pass."
+      },
+      "flags": [
+        {
+          "id": "F76",
+          "issue": "The listing's 3-probe bundle could not be matched to a single brand variant code, because the brand page's codes run per variant.",
+          "action": "Read the listing's own Product information block in a logged-in browser before publishing a model number for this ASIN.",
+          "sources": [
+            "S37",
+            "S38"
+          ]
+        }
+      ],
+      "identity_status": "candidate — mapped to the brand line by stated features, SKU variant unsettled"
     }
-   ],
-   "pricing": {
-    "brand_list_price": {
-     "v": "$119.99 USD",
-     "s": [
-      "S12"
-     ],
-     "note": "List price on chefman.com; a sale price of $79.99 was also displayed for the variant on the access date."
-    },
-    "amazon_price": null,
-    "amazon_price_reason": "Not displayed by policy (S2 §2(b)).",
-    "msrp_confirmed": "Not confirmed: the brand page shows a list price but does not label it as a manufacturer's suggested retail price. List price on chefman.com; a sale price of $79.99 was also displayed for the variant on the access date."
-   },
-   "reviews": {
-    "amazon_stars": null,
-    "amazon_review_count": null,
-    "amazon_reason": "Not displayed by policy.",
-    "brand_site_rating": {
-     "v": "4.6 / 5 from 717 reviews",
-     "s": [
-      "S12"
-     ],
-     "note": "Brand-hosted rating for the RJ38-SQSS-8T product page (5★ 523 · 4★ 131 · 3★ 42 · 2★ 10 · 1★ 11). Read 715 reviews on 2026-11-13, 716 on 2026-11-14 and 717 on 2026-11-16. The average held at 4.6 on all three reads; only the count moves. Not Amazon's rating. A second, independent session read the same page the same day and saw the same count, which corroborates it."
-    }
-   },
-   "commission": {
-    "rate_confirmed": null,
-    "candidate_rows": [
-     {
-      "category": "Kitchen",
-      "rate": "4.50%",
-      "source": [
-       "S3"
-      ]
-     },
-     {
-      "category": "All Other Categories (fallback row)",
-      "rate": "4.00%",
-      "source": [
-       "S3"
-      ]
-     }
-    ],
-    "why_unverified": "Category assignment per ASIN is not published by Amazon (S3). Re-read 2026-11-16 (pass 10, session 121929a5): the Standard Commission Income Statement page (S3) is now publicly readable without sign-in; its Table 1 states 'Physical Books, Kitchen, Automotive — 4.50%' and 'All Other Categories — 4.00%', matching the candidate rows above. What remains unconfirmed is the mapping from this ASIN to the schedule's category for commission purposes — Amazon's own assignment is authoritative only inside Associates reporting.",
-    "rate_source_note": "Only the official Standard Commission Income Statement (S3) is used for rates. Third-party blogs claiming 3%, 4.5% or 5% for kitchen appliances were discarded: they disagreed with each other and with the published table on the day of verification."
-   },
-   "competition": {
-    "amazon_result_count": null,
-    "amazon_bestseller_rank": null,
-    "reason": "Not published as a stable quotable fact; aggregation is restricted by S2. Read 2026-11-16: the listing page does carry a Best Sellers Rank line - it was seen, and it is not put in a table. This repository's adopted reading of IP License §2(e) keeps Amazon-served ranking figures out of the site's tables, so the field stays empty by decision rather than by absence, and the distinction matters (F8, and the s2 register's R-03)."
-   },
-   "flags": [
-    {
-     "id": "F3",
-     "issue": "Serious spec conflict about maximum temperature, and the brand side disagrees with itself. The Amazon listing (S29, re-read 2026-11-16 through the supplied short link) says 450 °F Hi-Fry, 4-in-1 (bake/dehydrate/frozen). One brand page and its manual — the TurboFry Touch Stainless (RJ38-SQSS-8T, S12/S13) — document 200–400 °F with four food-type presets. But Chefman's other 8 Qt page, TurboFry 8 Qt w/ High Fry (RJ38-8T-BLACK, S26, re-read live 2026-11-16), states a 450 °F Hi-Fry button and a 450 °F / 232 °C Hi-Fry temperature, matching the listing. Two different Chefman 8 Qt models are therefore in play; which model the ASIN maps to is unconfirmed (question Q-01).",
-     "action": "Conflicting claims shown side by side; no value asserted. Narrowed 2026-11-16 by session arena/ba29c641: the listing's own spec table states a 400 °F maximum and its Part Number identifies RJ38-SQSS-8T, so the 450 °F wording now conflicts with the page it appears on as well as with the brand documents - and because a second Chefman 8 Qt page does document 450 °F Hi-Fry (S26), the two-models explanation stays open alongside the stale-title one. Neither is asserted. What a buyer should do is read the manual in the box; what would settle it is a statement from Chefman about which SKU sits behind the ASIN. See F33 and F68.",
-     "sources": [
-      "S12",
-      "S13",
-      "S29",
-      "S26"
-     ]
-    },
-    {
-     "id": "F6",
-     "issue": "Associates tag inside the short link not observable.",
-     "action": "Flagged.",
-     "sources": [
-      "S2",
-      "S17"
-     ]
-    }
-   ],
-   "list_price_confirmation": {
-    "v": "8 Quart: $119.99 USD list price, compare-at $119.99. (The same page sells a 5 Quart variant at $79.99, compare-at $99.99.)",
-    "s": [
-     "S33"
-    ],
-    "caveat": "Taken from the store's own product record, not the page's promotional widget."
-   }
-  }
- ],
- "reverified": "2026-11-16",
- "reverified_by": "arena/a746a9f2-zone1 (X-a746a9f2 live re-verification pass; see reports/verification-2026-11-16-a746a9f2.md. One blank cell filled from a verbatim read: the Emeril Amazon browse node, previously unrendered behind a bot checkpoint.)",
- "source_conflicts": {
-  "note": "Official documents that contradict a published specification value. Each entry names a row and the source id that contradicts it. The build fails if that source id appears in the row's source list, because a row's source list is read as the evidence for its value. The contradicting document belongs in the flag register, where it is the evidence of the conflict. Added 2026-11-15 by arena/88bb2db6.",
-  "entries": [
-   {
-    "slug": "emeril-26qt-french-door",
-    "label": "Included accessories",
-    "value": "7",
-    "conflicting_source": "S28",
-    "reason": "The Amazon listing title for the supplied link ends 'Six Cooking Accessories Included'. It contradicts the published 7. The brand page (S14) and the owner's manual (S15) both support 7 - the manual by enumerating 13 numbered parts of which 6 are built into the appliance, leaving 7 removable accessories - so the row cites those two and the listing is recorded in the flag register instead (F48, F50)."
-   }
   ]
- },
- "figures": {
-  "note": "All numbers in this block are inputs to build.py's figure generator (assets/figures/*.svg). A figure can therefore never state a number this dataset does not hold; changing a figure requires changing data/products.json and rebuilding. Sources are cited per entry and carried into each SVG's metadata.",
-  "scale_px_per_inch": 16,
-  "footprint": [
-   {
-    "product": "chefman-6qt-dual-basket",
-    "label": "Chefman 6 Qt Dual Basket",
-    "w": 13.38,
-    "d": 11.81,
-    "h": 10.63,
-    "source": "S10"
-   },
-   {
-    "product": "emeril-26qt-french-door",
-    "label": "Emeril 26 QT French Door",
-    "w": 15.8,
-    "d": 16.9,
-    "h": 14.8,
-    "source": "S14"
-   },
-   {
-    "product": "chefman-8qt-turbofry",
-    "label": "Chefman 8 Qt TurboFry",
-    "w": 15.4,
-    "d": 12.6,
-    "h": 13.5,
-    "source": "S12"
-   }
-  ],
-  "temperature": [
-   {
-    "product": "chefman-6qt-dual-basket",
-    "label": "Chefman 6 Qt",
-    "min": 200,
-    "max": 450,
-    "unit": "°F",
-    "note": "Hi-Fry holds 450 °F for 2 minutes (finish mode, not full-cycle)",
-    "source": "S10",
-    "support": "S18"
-   },
-   {
-    "product": "emeril-26qt-french-door",
-    "label": "Emeril 26 QT",
-    "min": 75,
-    "max": 500,
-    "unit": "°F",
-    "note": "Owner's manual",
-    "source": "S15"
-   },
-   {
-    "product": "chefman-8qt-turbofry",
-    "label": "Chefman 8 Qt",
-    "min": 200,
-    "max": 400,
-    "unit": "°F",
-    "note": "Listing title advertises 450 °F Hi-Fry — conflict with brand page and manual, not asserted (F3)",
-    "source": "S12",
-    "conflict_source": "S29"
-   }
-  ],
-  "presets": [
-   {
-    "product": "emeril-26qt-french-door",
-    "document": "Owner's manual (FAFO-001), Preset Mode Chart",
-    "source": "S15",
-    "count": 24,
-    "note": "Names 24 presets by name; the controlling document"
-   },
-   {
-    "product": "emeril-26qt-french-door",
-    "document": "Brand page specification block",
-    "source": "S14",
-    "count": 25,
-    "note": "Contradicts the same page's description (24) — conflict, not resolved (F29)",
-    "conflict": true
-   },
-   {
-    "product": "emeril-26qt-french-door",
-    "document": "Amazon listing title (B09B7SB46R)",
-    "source": "S28",
-    "count": 24,
-    "note": "\"24 One-Touch Preset Options\""
-   },
-   {
-    "product": "chefman-8qt-turbofry",
-    "document": "Brand page product features",
-    "source": "S12",
-    "count": 4,
-    "note": "Fries, Chicken, Fish, Meat"
-   },
-   {
-    "product": "chefman-8qt-turbofry",
-    "document": "Owner's manual RJ38-SQSS-8T",
-    "source": "S13",
-    "count": 4,
-    "note": "Preset Function Chart, same four functions"
-   },
-   {
-    "product": "chefman-6qt-dual-basket",
-    "document": "Owner's manual RJ38-SQPF-3TDB-2W",
-    "source": "S18",
-    "count": null,
-    "note": "No preset chart published; count left blank, not inferred (F36)"
-   }
-  ],
-  "decision_tree": [
-   {
-    "question": "Cooking two different foods at once, on separate settings?",
-    "yes": "chefman-6qt-dual-basket",
-    "no_question": "Replacing a toaster oven as well — toast, bake, rotisserie?"
-   },
-   {
-    "question": "Replacing a toaster oven as well — toast, bake, rotisserie?",
-    "yes": "emeril-26qt-french-door",
-    "no_question": "Cooking for 4–6 people from one basket?"
-   },
-   {
-    "question": "Cooking for 4–6 people from one basket?",
-    "yes": "chefman-8qt-turbofry",
-    "no": "Reconsider capacity before choosing a model."
-   }
-  ]
- },
- "accessed_disclosure_note": "Every row added on 2026-11-16 by session arena/ba29c641 is sourced to the ASIN's own Product information block (S16, S28, S29) and labelled 'as listed by Amazon' or 'Listing …' so that a listing claim is never read as a manufacturer specification. Prices, availability, star ratings, review counts and ranking positions were visible in the same fetches and are not reproduced anywhere on this site: S2 §2(b) and §6(t) for the first three, and this repository's own reading of IP License §2(e) for rank data."
 }

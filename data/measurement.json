@@ -1,0 +1,85 @@
+{
+  "id": "measurement-2026-11-17",
+  "title": "Click and conversion measurement",
+  "compiled": "2026-11-17",
+  "session": "arena/3093e674-zone1",
+  "brief_clause": "Turn on click and conversion measurement before writing anything else: add a privacy-preserving outbound-click counter and a self-hosted analytics endpoint; record the five defined events.",
+  "what_this_page_is": "The measurement layer, split into the part that can be built on a static host and the part that cannot. The counter is built. The endpoint is not, because there is no server here to host one, and pretending otherwise would mean either shipping a form that posts to nothing or inviting a third-party script onto a site whose footer currently states that it runs no analytics. Both of those are worse than an honest gap, so the gap is named and the shape of the endpoint is specified instead.",
+  "events_note": "The brief names 'the five defined events' without defining them, and no earlier register in this repository enumerates a set of five. The set below is therefore this pass's proposal, written against the two questions the site can actually answer with data it is allowed to hold. It is a register entry, not a claim that the owner asked for these five.",
+  "storage_model": {
+    "where": "The visiting browser only - one localStorage key, 'z1k.ledger.v1'. Nothing is sent anywhere: no image pixel, no fetch(), no beacon, no script from another domain.",
+    "cookies": "None set. Nothing is read from a cookie.",
+    "identifiers": "No user, device, session or browser identifier of any kind is generated or stored. Counts are totals on the device that made them.",
+    "why_not_a_real_analytics_stack": "The site's privacy position today is a stated fact: the footer says no analytics run, and Program Policies 3(e) makes the accuracy of that kind of statement a compliance matter, not a style one. An on-device counter keeps that statement true. A hosted endpoint or a third-party script would make it false on the same commit that adds it, so it needs an owner decision and a rewritten disclosure first - which is what the disabled endpoint contract below is waiting for.",
+    "amazon_rule_respected": "Program Policies 2(b): 'Under no circumstances may you associate any sub-tag, other ID or reporting provided in connection with the Associates Program with a specific end user of your Site.' Nothing in this layer can be joined to a person, so nothing in it can breach that rule; and no sub-tag is derived from anything a visitor does.",
+    "what_a_reader_sees": "Nothing. The ledger is written silently and is only ever displayed on measurement.html, which the reader has to open deliberately. There is no banner, because there is nothing to consent to beyond the reader's own browser."
+  },
+  "events": [
+    {
+      "id": "EVT-1",
+      "name": "outbound_click",
+      "fires_on": "A click or tap on any anchor whose host is an Amazon Site. One record per click, including repeat clicks.",
+      "fields": ["page path", "link destination host", "ASIN if the URL carries /dp/<id>", "tag present yes/no", "timestamp"],
+      "feeds": "The only number the site can earn against. Click-through per page is outbound_clicks / page_view; a money page with views and no clicks is a page whose CTA is not doing its job.",
+      "not_recorded": "The URL query string is dropped after the ASIN and tag-presence flag are read, so no owner-supplied tracking value is copied into a reader's browser storage, and no visitor-specific data is retained."
+    },
+    {
+      "id": "EVT-2",
+      "name": "cta_impression",
+      "fires_on": "A product CTA block entering the viewport for at least half a second, once per page view.",
+      "fields": ["page path", "product slug if the block names one", "timestamp"],
+      "feeds": "The denominator that makes EVT-1 honest. A click rate against page views flatters a page people bounce from; a click rate against CTAs actually seen is the number a layout change can be judged on."
+    },
+    {
+      "id": "EVT-3",
+      "name": "article_read",
+      "fires_on": "An article page scrolled past 75% of its own height, once per page view.",
+      "fields": ["article path", "elapsed seconds from first paint to that point", "timestamp"],
+      "feeds": "Whether a question-shaped guide is answered in a length people sit through. If an article draws clicks but no reads, the CTA is above the argument and the structure needs changing, not the copy.",
+      "honesty_note": "A scroll depth is not attention. It is a cheap proxy and is labelled as one wherever it is rendered; it is not a dwell-time claim."
+    },
+    {
+      "id": "EVT-4",
+      "name": "no_click_exit",
+      "fires_on": "A money page losing focus or being unloaded with zero outbound clicks recorded for that view.",
+      "fields": ["page path", "seconds on page", "timestamp"],
+      "feeds": "Which page is failing, as opposed to which page is merely quiet. This is the event that turns 'write another article' into 'fix this article'."
+    },
+    {
+      "id": "EVT-5",
+      "name": "link_health_failure",
+      "fires_on": "An outbound link on the page that is missing its required tag, or that points at a host this site should not be linking to, as judged by the same rule check_special_links() applies at build time.",
+      "fields": ["page path", "reason", "timestamp"],
+      "feeds": "The reader-side half of dead-link detection. The build can only see the links it generated; this sees the page a reader actually loaded, including after someone edits a page by hand."
+    }
+  ],
+  "endpoint_contract": {
+    "status": "not built - specified and disabled",
+    "why_it_cannot_be_faked": "A self-hosted endpoint needs a server that receives, stores and can be shown to delete data. GitHub Pages serves static files. There is no place in this repository to put that server, and pointing the client at somebody else's collector would be the third-party analytics the site currently and truthfully says it does not run.",
+    "shape_when_enabled": {
+      "method": "POST",
+      "path": "/collect",
+      "content_type": "application/json",
+      "body": {"events": ["array of the per-event objects above"], "site": "zone1-kitchen", "schema": "1", "sent_at": "ISO-8601 UTC"},
+      "auth": "none for anonymous counts; a shared secret header if the owner ever wants write-restriction",
+      "response": "204 No Content, always, including on malformed input, so the endpoint cannot be used to probe the server"
+    },
+    "required_before_enabling": [
+      "An owner decision to host something, and where the data lives (Q-08).",
+      "A rewrite of the footer's no-analytics statement and the privacy page in the same commit that turns collection on, against Program Policies 3(e).",
+      "A retention and deletion answer. Without a server that can delete, an endpoint is an accumulation point.",
+      "A decision on whether readers must be told: consent requirements depend on the visitors' country, which this repository has never had a verified statement for (Q-20)."
+    ],
+    "flip_switch": "Set data/config.json -> analytics_endpoint to the absolute URL and set data/measurement.json -> endpoint_contract.status to 'enabled'. The client stays off while the URL is empty, so a half-configured state is impossible by construction."
+  },
+  "authoritative_source_for_money": {
+    "text": "Clicks and orders that pay are counted by Amazon, not by this site. The Associates reports are the only authorised source for the numbers in campaign-ledger.json, and this repository's rule is that a row enters that ledger only with a dated provenance line naming the report it came from.",
+    "sources": ["S2", "S3", "S6"]
+  },
+  "what_this_cannot_tell_you": [
+    "How many people clicked. Everyone's counter lives on their own device; there is no aggregate of EVT-1 across visitors until an endpoint exists. That is the honest limit of a static host, and it is why the aggregate plan routes through Associates Central instead.",
+    "Whether a click became a sale. Order attribution belongs to Amazon's report; the site never sees it.",
+    "Anything about a person. By construction, not by policy.",
+    "Whether the site ranks. Search performance comes from Search Console, which is SG-29 and an owner action."
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "campaign-ledger-2026-11-17",
+  "title": "Campaign ledger",
+  "compiled": "2026-11-17",
+  "session": "arena/3093e674-zone1",
+  "brief_clause": "Start with an empty but well-defined campaign ledger; add timestamp, source, channel, eligible sessions, clicks and reported orders only when obtained from authorized first-party reports. Keep a dated provenance trail. No conversion score or revenue forecast is presented here.",
+  "why_it_is_empty": "Every field in this ledger describes something that only exists inside an Amazon Associates account or a webmaster tool. Nothing in this repository has read either. A row typed here by an agent pass would be a fabricated number wearing a provenance costume, which is the failure this whole project has spent thirteen passes trying not to have.",
+  "columns": [
+    {"key": "period_start", "label": "Period start", "rule": "ISO date, the first day of the reporting period as Amazon labels it."},
+    {"key": "period_end", "label": "Period end", "rule": "ISO date."},
+    {"key": "source", "label": "Source", "rule": "The exact report the numbers came from, named and linked. 'Associates Central > Reports > Tracking ID Summary' or 'Search Console > Performance'. Not 'analytics'."},
+    {"key": "channel", "label": "Channel", "rule": "The tracking ID or sub-tag the period covers, if the report is broken down that way. Blank until sub-tag IDs are confirmed to exist (Q-28)."},
+    {"key": "eligible_sessions", "label": "Eligible sessions", "rule": "Only as the report states it. Amazon defines a session as beginning at the click through a Special Link; the site does not compute it."},
+    {"key": "clicks", "label": "Clicks", "rule": "Only as the report states it. Never derived from the on-device ledger, which is per-visitor and cannot aggregate."},
+    {"key": "reported_orders", "label": "Reported orders", "rule": "Only as the report states it, in the units the report uses."},
+    {"key": "obtained_on", "label": "Recorded on", "rule": "ISO date the human read the report and typed the row."},
+    {"key": "obtained_by", "label": "Recorded by", "rule": "Who read it. For any number that will drive a decision, a session id is not enough - the report was read in a logged-in account."},
+    {"key": "notes", "label": "Notes", "rule": "Anything that changes how the row should be read: a promotion that ended, a period with no outbound links live, a tracking ID created mid-period."}
+  ],
+  "derivation_rules": [
+    "Conversion rate is not stored. It is clicks over sessions or orders over clicks, and which one is defensible depends on the report's own definitions; if the site ever shows one it will be computed at build time from the two stored columns and labelled with its denominator.",
+    "Revenue is not stored and no forecast is computed here. The published commission table gives rates by category, and no row in this register establishes which category Amazon assigned to a given ASIN (Q-11 stays open).",
+    "A row is never edited. If a number is corrected, the correction is a new row with its own obtained_on, and the superseded row keeps a pointer to it."
+  ],
+  "rows": [],
+  "provenance_gate": "check_campaign_ledger() in build.py fails the build if any row lacks source, obtained_on or period_start, or if a row cites a source host that is not in data/sources.json. The gate is the point of the file: without it, the ledger is a place to put a number you liked.",
+  "first_rows_expected_from": [
+    "Associates Central > Reports, once the account passes review (Q-03) and one tagged link has been live long enough to register.",
+    "Search Console query data, once the site is verified (SG-29), which is also what chooses the next topic instead of a hunch."
+  ],
+  "rows_note": "0 rows at publication. This count is computed by the build, not typed."
+}

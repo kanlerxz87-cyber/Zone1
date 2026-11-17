@@ -1,6 +1,6 @@
 {
-  "associate_tag": "",
-  "associate_tag_note": "Left blank on purpose. No Amazon Associates tag was supplied with this project. Amazon requires the tag as a URL parameter on every Special Link (Program Policies, Participation Requirements §2(b)). While this is blank, build_site.py renders every outbound link as a plain untagged /dp/<ASIN> URL and stamps a visible 'tag pending' warning on the site. Set it to your real tag (format XXXXX-20) and re-run the build. See flagged item F-10.",
+  "associate_tag": "shopnow047c-20",
+  "associate_tag_note": "Supplied by the project owner on 2026-11-17 and recorded here with that provenance. Before that date no tag existed in this repository, so build_site.py (the s2 annex) and the root build rendered every outbound link as a plain untagged URL. The root build now reads this value and emits tagged canonical Special Links from it; the s2 annex is another session's build and was not edited, so it still renders untagged links; that divergence is published as F77 rather than repaired silently. Amazon requires the tag as a URL parameter on every link to an Amazon Site (Program Policies, Participation Requirements 2(b)); while this field is blank the site is compliant but earns nothing. Set it to your real tag (format XXXXX-##) and re-run the build. See flagged item F10 and links.html.",
   "site": {
     "title": "Air Fryer Affiliate Intelligence",
     "tagline": "Verified data, sourced line by line, for three air fryers.",
@@ -9,7 +9,24 @@
     "base_url": "https://kanlerxz87-cyber.github.io/Zone1/",
     "disclosure_amazon": "As an Amazon Associate I earn from qualifying purchases.",
     "disclosure_general": "I get commissions for purchases made through links on this page.",
-    "disclosure_general_note": "This wording follows the FTC's own example for affiliate disclosure, which states: \u201cYou could say something like, \u2018I get commissions for purchases made through links in this post.\u2019\u201d The FTC also warns that \u201caffiliate link\u201d alone is inadequate.",
-    "freshness_label": "13 November 2026"
-  }
+    "disclosure_general_note": "This wording follows the FTC's own example for affiliate disclosure, which states: “You could say something like, ‘I get commissions for purchases made through links in this post.’” The FTC also warns that “affiliate link” alone is inadequate.",
+    "freshness_label": "17 November 2026"
+  },
+  "associate_tag_provenance": {
+    "stated_on": "2026-11-17",
+    "stated_by": "the project owner",
+    "where": "the project brief of 2026-11-17: \"Selected Tracking ID:shopnow047c-20\"",
+    "verified_in_associates_central": false,
+    "verification_note": "The value is first-party input from the owner, not an inference. What remains unverified is whether this tracking ID exists in an enrolled Associates account and whether the five submitted short links already carry it - only a logged-in read of Manage your Tracking IDs and one test click can confirm that (see questions.html Q-04 and links.html)."
+  },
+  "associate_tag_format_rule": "Amazon's Program Policies 2(b) state the tag appears 'as XXXXX-##, or such other format as we may designate'. The supplied value shopnow047c-20 matches that shape; the shape is not evidence the ID is active, and check_special_links() only checks the shape plus its presence on every Amazon-bound product link.",
+  "sub_tags": {
+    "status": "not in use",
+    "why": "Sub-tag attribution means a different Associates ID, and Amazon issues them only 'upon your request but subject to our approval' (Program Policies 2(b)); the tracking-ID help page gives the model - storeid-20 issues storeid-1-20 for a site and storeid-2-21 for a newsletter. This repository cannot see which sub-tag IDs exist in the owner's account, so no page invents one.",
+    "what_would_change": "If the owner confirms sub-tag IDs exist, set data/config.json -> sub_tags.assigned (page key -> ID) and build.py appends that ID to the tag on that page's links, which is how page-level click attribution works without any third-party analytics.",
+    "assigned": {},
+    "hard_limit": "Amazon: 'Under no circumstances may you associate any sub-tag, other ID or reporting provided in connection with the Associates Program with a specific end user of your Site.' No per-visitor sub-tag assignment anywhere in this build, and check_special_links() fails the build on a dynamic tag."
+  },
+  "analytics_endpoint": "",
+  "analytics_endpoint_note": "The one place a measurement endpoint would be configured. Empty means nothing is collected off the device, which is what measurement.html and the footer both claim. check_measurement_contract() fails the build if a non-empty endpoint ever coexists with those sentences, so turning collection on is a data edit plus a disclosure rewrite - never a silent script."
 }

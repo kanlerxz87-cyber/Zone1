@@ -12,6 +12,7 @@ Out:  index.html, products/*.html, categories/*.html, guides/*.html,
       flagged.html, executive-summary.html, 404.html, assets/style.css
 """
 
+import datetime
 import html
 import json
 import os
@@ -138,6 +139,22 @@ SUG_BY_ID = {s["id"]: s for s in SUGGESTIONS["suggestions"]}
 # The paste-ready design prompt plus the D/A/T/V/R registers, generated from JSON so the
 # owner reviews data, never a template. Statuses describe the repository as built.
 DESIGN_PROMPT = load("design-prompt.json")
+
+# Link and measurement layer (added 2026-11-17, arena/3093e674-zone1). The owner's brief of
+# that date supplied the one fact fifteen passes recorded as unknown - the Associates tracking
+# ID - so the outbound-link format stopped being a placeholder and became a build input.
+# CONFIG drives it; nothing here hard-codes the tag, which is what lets the same code publish
+# an honest untagged site if the value is ever removed.
+CONFIG = load("config.json")
+ASSOCIATE_TAG = (CONFIG.get("associate_tag") or "").strip()
+SUB_TAGS = ((CONFIG.get("sub_tags") or {}).get("assigned") or {})
+LINK_INTENT = load("link-intent.json")
+MEASUREMENT = load("measurement.json")
+LEDGER = load("campaign-ledger.json")
+# Candidate products from links the brief added after the air-fryer set was fixed. They share
+# the row schema and the row-source gate, and they are kept out of PRODUCT_LIST so the
+# comparison, the category page and the figures stay the three-product set they were built as.
+CANDIDATE_LIST = PRODUCTS.get("candidates") or []
 
 SRC_BY_ID = {s["id"]: s for s in SOURCES["sources"]}
 ACCESSED = SOURCES["accessed"]
@@ -375,6 +392,10 @@ NAV = [
     # Added 2026-11-16 (arena/ba29c641): the queue had 21 rows and no way to close one.
     ("decision-log.html", "Owner decision log", "Pick a path per suggestion, or let the stated default stand"),
     ("design-prompt.html", "Design prompt pack", "Design, topics and tactics — review before changes"),
+    # Added 2026-11-17 (arena/3093e674-zone1): the two trust surfaces the owner's brief of
+    # that date asked for - what each submitted link is meant to point at, and what is counted.
+    ("links.html", "Link record", "Intended product vs observed destination, and the tag we publish"),
+    ("measurement.html", "Measurement", "Five events, counted on your device, sent nowhere"),
     ("questions.html", "Questions and gaps", "Known facts, missing answers and discovery steps"),
     ("requirements.html", "Requirements and status", "Every requirement in the brief, and whether this repo meets it"),
     # Added 2026-11-15 by arena/63a2c638: the editorial and traffic plan. It sits with the
@@ -1031,6 +1052,32 @@ footer.site strong{color:#f4f1e2}
 .article-meta .pill{font-size:.68rem; white-space:nowrap}
 .foot-brand h5{font-family:var(--serif); font-size:.95rem; text-transform:none; letter-spacing:0; color:var(--brand-ink)}
 .foot-brand p:first-of-type{font-family:var(--serif); font-size:.94rem; line-height:1.55}
+
+/* ---- pass 13 (2026-11-17, arena/3093e674-zone1): the buy block, the link record, the
+   local ledger. Additive only - every value here reuses the shipped palette's own
+   variables, so a change to the brand tokens moves these with it instead of forking. */
+.btn-sm{padding:.42rem .7rem; font-size:.86rem; border-radius:8px; white-space:nowrap}
+.affiliate-tag{display:inline-block; margin-left:.4rem; font-size:.7rem; text-transform:uppercase;
+  letter-spacing:.06em; color:var(--muted, #66707a); border:1px solid rgba(0,0,0,.12);
+  border-radius:999px; padding:.08rem .4rem; vertical-align:middle}
+.cta-alt{display:inline-block; margin:.15rem 0 .1rem; font-size:.92rem}
+.cta-row .tiny.muted{flex:1 1 14rem; min-width:12rem}
+.qband{padding:1.6rem 0 .4rem;border-top:1px solid var(--line)}
+.qgrid{align-items:stretch}
+.qcard{padding:1rem 1.1rem}
+.qcard h3{font-size:1.02rem;margin:.25rem 0 .45rem;line-height:1.3}
+.qcard a{font-size:.86rem}
+.qnum{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0}
+.li-cell-blank{color:var(--muted, #66707a); font-style:italic}
+.ledger-panel{border:1px solid rgba(0,0,0,.1); border-radius:12px; padding:.9rem 1rem;
+  background:rgba(36,87,70,.045); margin:1rem 0}
+.ledger-panel h3{margin:.2rem 0 .5rem}
+.ledger-panel table{margin:.4rem 0}
+.ledger-panel .z1k-actions{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.7rem}
+.ledger-panel button{font:inherit; font-size:.85rem; padding:.34rem .7rem; border-radius:8px;
+  border:1px solid rgba(0,0,0,.18); background:#fff; cursor:pointer}
+.ledger-panel button:hover{border-color:var(--brand, #245746); color:var(--brand, #245746)}
+.ledger-empty{font-size:.9rem; color:var(--muted, #66707a); margin:.2rem 0 0}
 """
 
 JS = r"""
@@ -1216,6 +1263,148 @@ document.addEventListener('click', function (ev) {
   });
   paint();
 })();
+
+// Pass 13 (2026-11-17, arena/3093e674-zone1): the five defined events, counted on the reader's
+// own device. The contract is deliberately small and it is checked by the build
+// (check_measurement_contract): no network call of any kind, no cookie, no generated identifier,
+// and the whole ledger is one key in this browser's localStorage. data/measurement.json is the
+// specification; this is its only implementation. With JavaScript disabled nothing is counted and
+// measurement.html still reads end to end, which is the point of putting the viewer on its own page
+// rather than in a banner on somebody's buying decision.
+(function () {
+  var KEY = 'z1k.ledger.v1';
+  var MAX = 500;            // ring buffer: the newest MAX records on the device, nothing more
+  var panel = document.getElementById('z1k-panel');
+  var isOutboundAmazon = function (host) {
+    return /(^|\.)amazon\.(com|co\.uk|de|fr|ca|co\.jp|in|com\.au|sg|com\.br|ca)$/i.test(host || '');
+  };
+  function read() {
+    try { return JSON.parse(window.localStorage.getItem(KEY) || '{"events":[]}') || {events: []}; }
+    catch (err) { return {events: []}; }
+  }
+  function write(b) {
+    try { window.localStorage.setItem(KEY, JSON.stringify(b)); } catch (err) { /* private mode: no-op */ }
+  }
+  function push(name, data) {
+    var b = read();
+    b.events.push({t: name, at: new Date().toISOString(), p: location.pathname.split('/').pop() || 'index.html', d: data || {}});
+    if (b.events.length > MAX) b.events = b.events.slice(b.events.length - MAX);
+    write(b);
+    return b;
+  }
+  function totals(b) {
+    var t = {outbound_click: 0, cta_impression: 0, article_read: 0, no_click_exit: 0, link_health_failure: 0};
+    var byPage = {};
+    (b.events || []).forEach(function (ev) {
+      if (t[ev.t] === undefined) return;
+      t[ev.t] += 1;
+      byPage[ev.p] = byPage[ev.p] || {};
+      byPage[ev.p][ev.t] = (byPage[ev.p][ev.t] || 0) + 1;
+    });
+    return {t: t, byPage: byPage};
+  }
+  function esc(v) {
+    return String(v).replace(/[&<>"]/g, function (c) {
+      return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c];
+    });
+  }
+  function render() {
+    if (!panel) return;
+    var b = read(), tt = totals(b), rows = '';
+    Object.keys(tt.byPage).sort().forEach(function (page) {
+      var c = tt.byPage[page];
+      rows += '<tr><td><code>' + esc(page) + '</code></td><td>' + (c.outbound_click || 0) + '</td><td>' +
+              (c.cta_impression || 0) + '</td><td>' + (c.article_read || 0) + '</td><td>' +
+              (c.no_click_exit || 0) + '</td><td>' + (c.link_health_failure || 0) + '</td></tr>';
+    });
+    var total = (b.events || []).length;
+    panel.innerHTML =
+      '<h3>' + (total ? total + ' event' + (total === 1 ? '' : 's') + ' on this device' : 'Nothing counted on this device yet') + '</h3>' +
+      (total
+        ? '<div class="tablewrap"><table><caption>Local ledger, newest ' + Math.min(total, MAX) + ' records only</caption>' +
+          '<thead><tr><th>Page</th><th>Outbound clicks</th><th>CTA impressions</th><th>Reads</th>' +
+          '<th>No-click exits</th><th>Link faults</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
+          '<div class="z1k-actions"><button type="button" class="z1k-export">Copy this device\u2019s JSON</button>' +
+          '<button type="button" class="z1k-reset">Erase this device\u2019s ledger</button></div>' +
+          '<p class="tiny muted">Latest record: ' + esc((b.events[b.events.length - 1] || {}).at || '') + '. ' +
+          'Nothing here leaves your browser, so nothing here is a site-wide number.</p>'
+        : '<p class="ledger-empty">Zero events stored. The counter only records an outbound click, a CTA in view, ' +
+          'a scroll past 75% of an article, a no-click exit or a link fault - all of them on this device.</p>');
+    var ex = panel.querySelector('.z1k-export');
+    if (ex) ex.addEventListener('click', function () {
+      var txt = JSON.stringify({site: 'zone1-kitchen', schema: '1', exported_at: new Date().toISOString(),
+                                events: b.events}, null, 1);
+      var done = function () { ex.textContent = 'Copied'; setTimeout(function () { ex.textContent = 'Copy this device\u2019s JSON'; }, 1800); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, done);
+      else done();
+    });
+    var rs = panel.querySelector('.z1k-reset');
+    if (rs) rs.addEventListener('click', function () {
+      try { window.localStorage.removeItem(KEY); } catch (err) {}
+      render();
+    });
+  }
+  // EVT-1, and the EVT-5 audit of the link that was just clicked.
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest && ev.target.closest('a[href]');
+    if (!a) return;
+    var host = a.host || '';
+    if (!isOutboundAmazon(host)) return;
+    var href = a.getAttribute('href') || '';
+    var asin = (href.match(/\/dp\/([A-Z0-9]{10})/) || [])[1] || '';
+    var tagged = /(^|[?&])tag=/.test(href) || !!a.getAttribute('data-tagged');
+    push('outbound_click', {asin: asin, tagged: tagged, kind: a.getAttribute('data-z1k') || 'link'});
+    if (a.getAttribute('data-z1k') === 'outlink' && !tagged) {
+      push('link_health_failure', {reason: 'a product CTA reached a reader without the configured tag', href: href.slice(0, 120)});
+    }
+    render();
+  }, true);
+  // EVT-2 and EVT-3: what a reader actually saw, not what a page served.
+  var seen = {}, t0 = Date.now();
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (ents) {
+      ents.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var el = en.target, k = el.getAttribute('data-z1k');
+        if (k === 'cta' && !seen['cta:' + location.pathname]) {
+          seen['cta:' + location.pathname] = 1;
+          push('cta_impression', {product: el.getAttribute('data-asin') || ''});
+          io.unobserve(el);
+          render();
+        }
+      });
+    }, {threshold: 0.5});
+    document.querySelectorAll('[data-z1k="cta"]').forEach(function (el) { io.observe(el); });
+  }
+  function depth() {
+    var de = document.documentElement;
+    var scrolled = (window.scrollY || de.scrollTop) + window.innerHeight;
+    var full = de.scrollHeight || 1;
+    if (scrolled / full >= 0.75) {
+      var art = /\/articles\//.test(location.pathname);
+      if (art && !seen['read:' + location.pathname]) {
+        seen['read:' + location.pathname] = 1;
+        push('article_read', {seconds: Math.round((Date.now() - t0) / 1000)});
+        render();
+      }
+    }
+  }
+  document.addEventListener('scroll', depth, {passive: true});
+  // EVT-4: the page a reader left without touching a buy link.
+  function exitCheck() {
+    if (!/\/(products|compare|picks)|buying-guide|^index\.html/.test(location.pathname)) return;
+    var b = read();
+    var mine = b.events.filter(function (e) { return e.p === (location.pathname.split('/').pop() || 'index.html'); });
+    var clicked = mine.some(function (e) { return e.t === 'outbound_click'; });
+    if (!clicked && !seen['exit:' + location.pathname]) {
+      seen['exit:' + location.pathname] = 1;
+      push('no_click_exit', {seconds: Math.round((Date.now() - t0) / 1000)});
+      render();
+    }
+  }
+  window.addEventListener('pagehide', exitCheck);
+  render();
+})();
 """
 
 
@@ -1359,6 +1548,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
       <h4>Trust &amp; evidence</h4>
       {N("compliance.html")}
       {N("flagged.html")}
+      {N("links.html")}
       {N("data.html")}
       {N("reverification.html")}
     </div>
@@ -1368,6 +1558,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
       {N("suggestions.html")}
       {N("design-prompt.html")}
       {N("questions.html")}
+      {N("measurement.html")}
       {N("requirements.html")}
       {N("topics.html")}
       {N("executive-summary.html")}
@@ -1447,14 +1638,95 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
 # reusable fragments
 # --------------------------------------------------------------------------- #
 
-def product_cta(p, prefix=""):
+# --------------------------------------------------------------------------- #
+# the outbound-link builder (2026-11-17, arena/3093e674-zone1)
+# --------------------------------------------------------------------------- #
+# Amazon's rule is not a formatting preference: Participation Requirements 2(a) says
+# "Special Links must use the Associates ID we have assigned to you" and 2(b) requires the tag
+# "as a parameter in the URL of each link you place on your Site to an Amazon Site", while the
+# Operating Agreement says Amazon has "no obligation to pay you advertising fees if you fail to
+# properly format the links". A site that markets products through untagged links is a site that
+# works for nothing. So the link is composed here, from data/config.json, once - so that no
+# template can forget the tag and no page can invent one. Sourced to S2 and S1.
+AFFILIATE_HOSTS = ("link.amazon", "amazon.com", "amzn.to", "a.co")
+# A tag is `XXXXX-##` "or such other format as we may designate" (S2 §2(b)). The shape check is
+# deliberately permissive about the stem and strict about the country suffix, because a typo in
+# the suffix silently sends every commission somewhere else.
+TAG_SHAPE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]*-\d{2}$")
+
+
+def tag_is_wellformed(tag):
+    return bool(TAG_SHAPE.match(tag or ""))
+
+
+def amazon_out_link(asin, page_key=None):
+    """The URL this site sends a buyer to for `asin`, plus a state word for the copy.
+
+    `page_key` selects a sub-tag ID when the owner has been issued one and has recorded it in
+    data/config.json. A sub-tag is a separate, complete Associates ID (S6: storeid-20 issues
+    storeid-1-20 for a site and storeid-2-21 for a newsletter), so it replaces the tag rather
+    than being appended to it - and nothing here derives one from a visitor, which §2(b) forbids.
+    """
+    base = f"https://www.amazon.com/dp/{asin}"
+    if not ASSOCIATE_TAG:
+        return base, "untagged"
+    if page_key and page_key in SUB_TAGS:
+        return f"{base}?tag={SUB_TAGS[page_key]}", "tagged-per-page"
+    return f"{base}?tag={ASSOCIATE_TAG}", "tagged"
+
+
+def cta_state_note(state, prefix=""):
+    """The disclosure sentence that belongs next to a CTA, given the link's build state."""
+    if state == "untagged":
+        return ("This site has no Associates tag configured, so following this link earns nothing here. "
+                "Set <code>data/config.json → associate_tag</code> and rebuild.")
+    if state == "tagged-per-page":
+        return (f"Carries the per-page Associates tracking ID configured in <code>data/config.json → sub_tags</code>, "
+                f"which is how this page can be read separately inside Associates Central\u2019s own report.")
+    return ("Carries the site\u2019s Associates tracking ID, so a purchase can be credited to this site. The ID was "
+            "supplied by the owner and has not been confirmed inside Associates Central by any machine-readable check; "
+            "the one-click test that confirms it is recorded on the handover page.")
+
+
+def product_cta(p, prefix="", page_key=None):
+    """The buy block on a product page. The canonical tagged link leads; the supplied short
+    link stays visible underneath, because it is the artefact the owner handed over and the only
+    thing a human can compare against their own account."""
+    url, state = amazon_out_link(p["asin"]["v"], page_key)
+    supplied = p.get("link")
+    extra = ""
+    if supplied and supplied != url:
+        extra = (f'<a class="cta-alt" href="{e(supplied)}" target="_blank" rel="nofollow sponsored noopener" '
+                 f'data-z1k="supplied-shortlink">Open the short link exactly as supplied <span aria-hidden="true">↗</span></a>'
+                 f'<span class="tiny muted">Kept so the destination can be checked against the account \u2014 it is a '
+                 f'redirector, not a product link. {src_links(["S17"])}</span>')
     return f"""
 <div class="cta-row">
-  <a class="btn" href="{e(p['link'])}" target="_blank" rel="nofollow sponsored noopener">Open supplied Amazon link — verify model <span aria-hidden="true">↗</span></a>
-  <span class="paid-tag">Affiliate link · tracking unconfirmed</span>
+  <div class="cta-block" data-z1k="cta" data-asin="{e(p['asin']['v'])}"><a class="btn" href="{e(url)}" target="_blank" rel="nofollow sponsored noopener" data-z1k="outlink" data-tagged="{e('1' if state != 'untagged' else '')}" data-asin="{e(p['asin']['v'])}">See this model on Amazon <span aria-hidden="true">↗</span></a></div>
+  <span class="paid-tag">Affiliate link</span>
+  <span class="tiny muted">Check the model number on the listing before you buy \u2014 this site maps products from documents, not from handling them.</span>
 </div>
-<p class="cta-note">Affiliate disclosure: we may earn a commission if Amazon credits a qualifying purchase to this site, but this short link's Associates tag has not been verified. The model identity is also unconfirmed; check the product title and model number on Amazon before buying. See <a href="{prefix}flagged.html">Flagged for review</a> and <a href="{prefix}questions.html#q-01">the open questions</a>. {src_links(['S17', 'S2'])}</p>
+<p class="cta-note"><strong>Affiliate disclosure:</strong> {e(DISCLOSURE)} {e(cta_state_note(state, prefix))} The product identity is still recorded as a candidate (see <a href="{prefix}links.html">the intent record</a> and <a href="{prefix}flagged.html">Flagged for review</a>). {src_links(['S16', 'S2'])}</p>
+{extra}
 """
+
+
+def cta_inline(p, prefix="", page_key=None):
+    """The one-line version of the buy block, for tables and cards.
+
+    Money pages that make a reader decide should let a reader act on the decision. Until
+    2026-11-17 the only outbound link on the whole site sat on the three product pages, which
+    is why the comparison and the category table read like a report: SG-25 proposed one CTA
+    pattern on every money page, and this is that pattern in its compact form. The link is the
+    same tagged canonical URL the product page uses, built by the same function.
+    """
+    url, state = amazon_out_link(p["asin"]["v"], page_key)
+    label = "Open on Amazon" if state != "untagged" else "Open on Amazon (earns nothing yet)"
+    return (f'<span data-z1k="cta" data-asin="{e(p["asin"]["v"])}">'
+            f'<a class="btn btn-sm" href="{e(url)}" target="_blank" rel="nofollow sponsored noopener" '
+            f'data-z1k="outlink" data-tagged="{e("1" if state != "untagged" else "")}" '
+            f'data-asin="{e(p["asin"]["v"])}">{e(label)} <span aria-hidden="true">↗</span></a></span>'
+            f'<span class="tiny muted affiliate-tag">Affiliate link</span>')
 
 
 def spec_table(p, prefix=""):
@@ -1684,7 +1956,8 @@ def page_index():
 
 <div class="callout bad link-status" id="link-status">
   <div class="link-status-heading"><span class="pill pill-warn">Before shopping</span><strong>Product identity, account approval and affiliate tracking are not confirmed.</strong></div>
-  <p class="small">A targeted live re-check on 2026-11-16 again observed fallback-style redirects for all three supplied short links. We cannot confirm that any link reaches the product the account holder intended, carries the correct Associates tag, or that the Associates account is approved. Verify the model and account status in Amazon before relying on a purchase link. {src_links(['S17', 'S2'])} <a href="reverification.html">Read the redirect evidence</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html#q-01">Product-link question</a> · <a href="questions.html#q-03">Account-status question</a>.</p>
+  <p class="small">A targeted live re-check on 2026-11-16 again observed fallback-style redirects for all three supplied short links. We cannot confirm that any link reaches the product the account holder intended, carries the correct Associates tag, or that the Associates account is approved. Verify the model and account status in Amazon before relying on a purchase link. {src_links(['S17', 'S2'])} <a href="reverification.html">Read the redirect evidence</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html#q-01">Product-link question</a> · <a href="questions.html#q-03">Account-status question</a> · <a href="links.html">Full link record</a>.</p>
+  <p class="small"><strong>Scope, as at 2026-11-17.</strong> The project brief names five product links and this guide markets three of them: the other two resolve to meat thermometers, are recorded with their sources on the <a href="links.html">link record</a>, and are <strong>not</strong> marketed or recommended by these pages until the owner settles <a href="questions.html#q-27">the scope question</a>.</p>
 </div>
 
 <div class="method-strip" id="how-we-work" aria-label="How this guide is made">
@@ -1692,6 +1965,29 @@ def page_index():
   <div><span class="method-number">02</span><strong>Unknowns stay visible</strong><p>Unconfirmed values are left blank and sent to the review register.</p></div>
   <div><span class="method-number">03</span><strong>No test claims</strong><p>This is a document-based comparison, not a hands-on review. {src_links(['S8'])}</p></div>
 </div>
+
+
+<section id="start-with-a-question" class="qband" aria-label="Four questions worth asking first">
+  <div class="section-heading">
+    <p class="section-eyebrow">Start with the question, not the model</p>
+    <h2>Four things a shopper asks before they narrow it down.</h2>
+    <p class="small muted">Each one is an article that answers it from manufacturer documents and manuals — no tester, no video, no invented hands-on verdict.</p>
+  </div>
+  <div class="grid grid-4 qgrid">
+    <article class="card qcard"><p class="qnum">Q1</p>
+      <h3>Basket or countertop oven?</h3>
+      <a href="articles/dual-basket-vs-oven-air-fryer.html">Two formats, on their documented differences →</a></article>
+    <article class="card qcard"><p class="qnum">Q2</p>
+      <h3>How much capacity do I actually need?</h3>
+      <a href="articles/air-fryer-capacity-guide.html">What a quart is a measurement of →</a></article>
+    <article class="card qcard"><p class="qnum">Q3</p>
+      <h3>Will it be a pain to clean and store?</h3>
+      <a href="articles/small-kitchen-air-fryer-dimensions.html">The footprint numbers, then the clearance →</a></article>
+    <article class="card qcard"><p class="qnum">Q4</p>
+      <h3>What should I ask before a multi-function machine?</h3>
+      <a href="articles/questions-before-a-multi-function-appliance.html">Seven questions, in order →</a></article>
+  </div>
+</section>
 
 <section id="quick-guide" class="quick-guide">
   <div class="section-heading">
@@ -1940,7 +2236,7 @@ def page_product(p):
   <div class="stat warn"><div class="n" style="font-size:1.15rem">{len(p['flags'])}</div><div class="l">Open flags</div><div class="h"><a href="../flagged.html">Review all flags →</a></div></div>
 </div>
 
-{product_cta(p, prefix="../")}
+{product_cta(p, prefix="../", page_key=f"product/{p['slug']}")}
 
 <div class="callout ok">
   <strong>How this review was produced</strong>
@@ -2361,11 +2657,23 @@ PROGRAMME_FLAGS = [
      "404.html (all href/src values)",
      "Found 2026-11-16 by arena/5ac82b1d while reading back the deleted orphan article's URL on the live site: /articles/sync-finish-two-buttons.html correctly served the 404 page, but its nav, card and stylesheet links resolved against /articles/ (e.g. products/chefman-6qt-dual-basket.html became /articles/products/...), so the error page it served was itself unstyled and full of dead links — the one page whose whole job is to recover a lost reader. Root-relative links (/Zone1/...) were rejected as a fix because verify.py and scripts/check_links.py resolve internal hrefs against the file on disk, where they do not exist. Fixed instead by rewriting every relative href/src on 404.html to its absolute SITE_URL form in layout(), leaving fragment-only links (#anchor) alone since they address the displayed document. check_seo_metadata() now fails the build if any non-absolute, non-fragment URL survives on the 404 page. Note for later: this defect can only be observed by fetching a missing nested URL from the deployed site — no local gate sees the serving path.",
      []),
+
+    # ---- arena/3093e674, pass 13, 2026-11-17 -------------------------------------------- #
+    ("F76", "The brief names five product links; the site has only ever been built for three, and two of the five cannot be mapped to a model at all.",
+     "data/products.json (new candidates[]), data/link-intent.json rows LI-04 and LI-05, links.html",
+     "Recorded 2026-11-17 by arena/3093e674-zone1. The project brief of that date lists link.amazon/B0c8moW59 and link.amazon/B0f3GKalj alongside the three original tokens; sixteen passes resolved and published against three only. Both new tokens resolve - on the first read ever taken of them - to ThermoMaven instant-read ASIN B0DHZTCNR5 and CHEF iQ iQ Sense Gen 3 ASIN B0DZFD6R9Z, both under Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat, i.e. outside the air-fryer set the site's comparison, category page and figures were built around. They are published as candidates, not folded into that set: a three-way air-fryer comparison that silently gained two thermometers would be a worse buying guide than an incomplete one. The ThermoMaven row is deliberately almost empty. Its listing title claims \"1 Sec\" while the brand's own F1 page states 0.7 seconds for the F1, and the brand sells an F1, an F1 Stealth and an F1 Ace - so the listing cannot be attached to any one of them, and no accuracy, ingress or warranty figure is published as \"this product's\" (the brand figures are shown attributed to the F1 page, with the mismatch named). The CHEF iQ row can carry more because the brand page states the sensor count, the 1,000°F limit and the appliance list, and the listing agrees with all three; its variant code stays partial because the codes run per probe count and colour while the Amazon listing sells a 3-probe bundle. Decision needed from the owner: confirm which product each new link is meant to promote, then either build the thermometer category properly (product pages, verification rows, cluster) or drop the two links from the brief's scope. Until then these two links are recorded, disclosed and tagged, and not recommended. Evidence: reports/verification-2026-11-17-3093e674.md, S36, S37, S38, S39.",
+     ["S36", "S37", "S38", "S39"]),
+    ("F77", "The root build now tags its outbound links; the s2 annex still publishes untagged ones, and both are served.",
+     "build.py amazon_out_link() vs scripts/build_s2_site.py",
+     "Recorded 2026-11-17 by arena/3093e674-zone1. From this date the canonical build composes every product CTA as https://www.amazon.com/dp/<ASIN>?tag=<data/config.json associate_tag>, and check_special_links() fails the build if a CTA lacks the configured tag. The s2 annex is another session's generator, outside this pass's declared scope, and it still renders plain untagged /dp/ URLs per its own data/config.json reading. Concretely: a reader or crawler following an s2 page's product link reaches Amazon with no Associates ID, so the referral cannot be credited, and the annex's pages claim the same products the root build claims. Nothing published in the annex was edited or deleted here, because its rows are cited as evidence by its own verifier (393 assertions). Decision needed: adopt the root link builder in scripts/build_s2_site.py, or label every annex page \"dated evidence, no commercial links\" and remove its CTAs. The root build is the one to fix first if only one is fixed, since it is what the site's index, feed and sitemap present to search.",
+     ["S2"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
 # fact about this repository, so the repository itself (on GitHub) is the source.
 REPO_EVIDENCE = {
+    "F76": ["data/link-intent.json", "data/products.json", "reports/verification-2026-11-17-3093e674.md"],
+    "F77": ["build.py", "scripts/build_s2_site.py", "data/config.json"],
     "F74": ["build.py", "data/articles.json", "data/topics.json",
             "reports/verification-2026-11-16-19d92a81.md"],
     "F75": ["build.py", "404.html"],
@@ -2413,6 +2721,241 @@ VERDICTS = {
 }
 
 
+# --------------------------------------------------------------------------- #
+# pass 13 pages (2026-11-17, arena/3093e674-zone1): the link record and the
+# measurement layer. Both are owner/reader trust surfaces, so they are rendered
+# from their registers rather than authored: a reviewer edits data, never HTML.
+# --------------------------------------------------------------------------- #
+
+def page_links():
+    li = LINK_INTENT
+    recs = li["records"]
+    rows = []
+    for r in recs:
+        ob, it = r["observed"], r["intended"]
+        rows.append(f"""<tr>
+          <td class="num"><strong>{e(r['id'])}</strong></td>
+          <td><code>{e(r['submitted_link'])}</code><div class="tiny muted">received {e(r['received_on'])} · token {e(r['submitted_token'])} ({r['token_length']} characters)</div></td>
+          <td><strong>{e(it['asin'] or '— blank —')}</strong><div class="tiny muted">{e(it['status'])}. {e(it['source'])}</div><div class="tiny muted">Official listing URL: {e(it['official_listing_url'] or 'not stated')}. Confirmed: {e(it['confirmed_on'] or 'no date yet')}.</div></td>
+          <td><a href="{e(ob['final_url'])}" target="_blank" rel="noopener">{e(ob['final_asin'])}</a><div class="tiny muted">{e(ob['listing_title'])}</div><div class="tiny muted">{e(ob['browse_node'])}</div></td>
+          <td>{e(ob['observed_on'])}<div class="tiny muted">{e(ob['stability'])}</div></td>
+          <td>{flag_pill('unverified')}<div class="tiny muted">{e(r['identity_status'])}</div><div class="tiny muted">{repo_link('data/link-intent.json', 'record ' + r['id'])}</div></td>
+        </tr>""")
+    obs_cols = "".join(
+        f'<tr><td>{e(r["id"])}</td><td><code>{e(r["observed"]["redirect_params"])}</code></td>'
+        f'<td>{e(r["site_treats_it_as"])}</td><td>{src_links(["S17"])}</td></tr>'
+        for r in recs)
+    why = "".join(f"<li>{e(x)}</li>" for x in li["rules"])
+    not_claimed = "".join(f"<li>{e(x)}</li>" for x in li["not_claimed"])
+    reading = "".join(f"<li>{e(x)}</li>" for x in li["reading_order"])
+    fmt = li["asin_format_check"]
+    lf = li["link_format"]
+    body = f"""
+<p class="crumbs"><a href="index.html">Home</a> / Trust &amp; evidence / Link record</p>
+<h1>Where the links you sent actually go</h1>
+<p class="lede">Five Amazon links were supplied to this project, and every buying decision on this
+site rests on knowing which product each one points at. This page keeps two answers side by side and
+deliberately apart: <strong>what the account holder intended</strong>, and <strong>where a fetch
+landed</strong>. A reader following a link gets the second; only the first can justify a
+recommendation, and it has not been given to us yet.</p>
+
+<div class="callout note">
+  <p><strong>Why the two columns are never merged.</strong> {e(li['why_two_fields'])}</p>
+</div>
+
+<div class="tablewrap">
+<table>
+  <caption>Product-intent confirmation record — {len(recs)} submitted links, read {e(li['compiled'])}. Every row carries the Unverified pill because the pill is about intent, and intent is not readable off a redirect.</caption>
+  <thead><tr>
+    <th>Row</th><th>Submitted link</th><th>Intended (owner statement only)</th>
+    <th>Observed destination (fetch only)</th><th>Read on</th><th>Status and evidence</th>
+  </tr></thead>
+  <tbody>{''.join(rows)}</tbody>
+</table>
+</div>
+
+<h2>Rules this register is held to</h2>
+<ul>{why}</ul>
+
+<h2>Observed redirect behaviour, one row per link</h2>
+<p class="small">The redirect parameters are published because they are the reason identity stays
+"candidate": a landing URL produced by a fallback redirector is evidence about the redirector, not
+about the product someone chose. Read on {e(li['compiled'])}.</p>
+<div class="tablewrap">
+<table>
+  <caption>What each fetch saw</caption>
+  <thead><tr><th>Row</th><th>Redirect parameters on the landing URL</th><th>How this site treats it</th><th>Source</th></tr></thead>
+  <tbody>{obs_cols}</tbody>
+</table>
+</div>
+
+<h2>The ASIN check, before anything else</h2>
+<p>{e(fmt['claim'])}</p>
+<p class="small">{e(fmt['why_it_matters'])} {src_link(fmt['source'])}</p>
+
+<h2>What changed on {e(li['compiled'])}: the links now carry the Associates tag</h2>
+<p>{e(lf['rule'])} {src_links(lf['sources'])}</p>
+<div class="callout note">
+  <p><strong>{e(lf['what_this_site_does'])}</strong></p>
+</div>
+<div class="tablewrap">
+<table>
+  <caption>Tag configuration, read from {repo_link('data/config.json')}</caption>
+  <thead><tr><th>Field</th><th>Value</th><th>Provenance</th></tr></thead>
+  <tbody>
+    <tr><td>Tracking ID this site publishes with</td>
+        <td><code>{e(ASSOCIATE_TAG or '(blank — the site earns nothing)')}</code></td>
+        <td>{e(CONFIG.get('associate_tag_provenance', {}).get('where', 'not stated'))}. Shape check:
+            {"matches Amazon's XXXXX-## pattern" if tag_is_wellformed(ASSOCIATE_TAG) else "does not match the published shape"};
+            confirmed inside Associates Central: <strong>{'yes' if CONFIG.get('associate_tag_provenance', {}).get('verified_in_associates_central') else 'no'}</strong>.
+            {src_links(['S2'])}</td></tr>
+    <tr><td>Per-page sub-tag IDs</td>
+        <td>{len(SUB_TAGS) and e(', '.join(f'{k} → {v}' for k, v in SUB_TAGS.items())) or 'none assigned'}</td>
+        <td>{e(CONFIG.get('sub_tags', {}).get('why', ''))} {src_links(['S6'])}</td></tr>
+    <tr><td>Hard limit on sub-tags</td>
+        <td>No per-visitor tagging anywhere in this build</td>
+        <td>{e(CONFIG.get('sub_tags', {}).get('hard_limit', ''))} {src_links(['S2'])}</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="small">{e(lf['unresolved'])}</p>
+
+<h2>How the link was checked, in order</h2>
+<ol>
+  <li>The submitted URL was fetched on {e(li['compiled'])}; its own landing link and document title were read.
+      {src_links(['S17'])}</li>
+  <li>The destination ASIN was compared against the ASIN this site already markets, so a moved redirect
+      would be visible instead of quiet. {src_links(['S16', 'S28', 'S29', 'S36', 'S37'])}</li>
+  <li>The tag parameter was looked for on the landing URL. It is not observable from outside an Associates
+      account, which is why that half stays an owner action rather than a green tick. {src_links(['S6'])}</li>
+  <li>The composed Special Link is published from data/config.json by one function, so no page can carry a
+      product link that forgot the tag — and the build fails if one does.</li>
+</ol>
+
+<h2>What this page does not claim</h2>
+<ul>{not_claimed}</ul>
+<h2>If you are the account holder</h2>
+<ol>{reading}</ol>
+"""
+    return layout("links.html", "Link record — where the supplied links go", body,
+                  active="links.html",
+                  description=("Every submitted Amazon link, its intended product and its observed destination, kept as "
+                               "separate fields, plus the Associates tag the site now publishes with each buy link."),
+                  jsonld_blocks=[json_ld("links.html", "Link record — where the supplied links go",
+                                          "Five submitted Amazon links, their observed destinations and their unconfirmed "
+                                          "intents, each row sourced to the live page it was read from.")])
+
+
+def page_measurement():
+    m = MEASUREMENT
+    ev = "".join(
+        f"<tr><td class='num'><strong>{e(x['id'])}</strong></td><td><code>{e(x['name'])}</code></td>"
+        f"<td>{e(x['fires_on'])}</td><td>{e(x['feeds'])}</td>"
+        f"<td>{repo_link('data/measurement.json', 'event spec')}</td></tr>"
+        + (f"<tr><td></td><td colspan='3' class='tiny muted'>{e(x.get('honesty_note') or x.get('not_recorded') or '')}</td>"
+           f"<td>{repo_link('data/measurement.json', 'limit recorded')}</td></tr>"
+           if (x.get('honesty_note') or x.get('not_recorded')) else "")
+        for x in m["events"])
+    cols = "".join(f"<tr><td><code>{e(c['key'])}</code></td><td>{e(c['label'])}</td><td>{e(c['rule'])}</td>"
+                   f"<td>{repo_link('data/campaign-ledger.json', 'ledger schema')}</td></tr>" for c in LEDGER["columns"])
+    storage = "".join(f"<tr><td>{e(k.replace('_', ' '))}</td><td>{e(v)}</td>"
+                      f"<td>{src_links(['S2'])}</td></tr>" for k, v in m["storage_model"].items() if k != "where")
+    cannot = "".join(f"<li>{e(x)}</li>" for x in m["what_this_cannot_tell_you"])
+    rules = "".join(f"<li>{e(x)}</li>" for x in LEDGER["derivation_rules"])
+    first = "".join(f"<li>{e(x)}</li>" for x in LEDGER["first_rows_expected_from"])
+    req = "".join(f"<li>{e(x)}</li>" for x in m["endpoint_contract"]["required_before_enabling"])
+    ec = m["endpoint_contract"]["shape_when_enabled"]
+    body = f"""
+<p class="crumbs"><a href="index.html">Home</a> / Trust &amp; evidence / Measurement</p>
+<h1>What this site counts, and what it refuses to count</h1>
+<p class="lede">A shop that cannot see which shelf people walk past is guessing. This page is the
+instrument panel: five defined events, recorded on your own device, sent nowhere — and the two
+numbers that only Amazon's own reports are allowed to produce.</p>
+
+<div class="callout note">
+  <p><strong>{e(m['what_this_page_is'])}</strong></p>
+</div>
+
+<h2>The five events</h2>
+<p class="small">{e(m['events_note'])}</p>
+<div class="tablewrap">
+<table>
+  <caption>Event definitions, from {repo_link('data/measurement.json')}</caption>
+  <thead><tr><th>Event</th><th>Name</th><th>Fires on</th><th>What it decides</th><th>Spec</th></tr></thead>
+  <tbody>{ev}</tbody>
+</table>
+</div>
+
+<h2>Where the data lives</h2>
+<div class="tablewrap">
+<table>
+  <caption>The privacy model, in the same terms a disclosure has to state it</caption>
+  <thead><tr><th>Aspect</th><th>What is true of this build</th><th>Rule it answers</th></tr></thead>
+  <tbody>{storage}</tbody>
+</table>
+</div>
+
+<h2 id="your-device">Your own counts on this device</h2>
+<p class="small">Rendered from the one place those numbers exist: this browser. No row here was sent
+anywhere, and no other visitor's counts can appear on it.</p>
+<div id="z1k-panel" class="ledger-panel">
+  <p class="tiny muted">Reading the local ledger…</p>
+</div>
+<noscript><p class="callout note">JavaScript is off, so nothing is counted and nothing is displayed. That is
+the intended fallback: the ledger is optional, every claim on this page is readable without it, and the
+build-time link audit runs whether or not a reader executes anything.</p></noscript>
+
+<h2 id="ledger">Campaign ledger — {len(LEDGER['rows'])} rows</h2>
+<p class="small">{e(LEDGER['why_it_is_empty'])}</p>
+<div class="tablewrap">
+<table>
+  <caption>Ledger columns and their admission rules, from {repo_link('data/campaign-ledger.json')}</caption>
+  <thead><tr><th>Field</th><th>Label</th><th>Rule for filling it</th><th>Register</th></tr></thead>
+  <tbody>{cols}</tbody>
+</table>
+</div>
+<h3>Derivation rules</h3>
+<ul>{rules}</ul>
+<h3>Where the first rows will come from</h3>
+<ul>{first}</ul>
+<p class="small">{e(LEDGER['provenance_gate'])}</p>
+
+<h2>The endpoint that is not switched on</h2>
+<p>{e(m['endpoint_contract']['why_it_cannot_be_faked'])}</p>
+<div class="tablewrap">
+<table>
+  <caption>The contract, ready for whoever hosts it</caption>
+  <thead><tr><th>Part</th><th>Specification</th><th>Source</th></tr></thead>
+  <tbody>
+    <tr><td>status</td><td><code>{e(m['endpoint_contract']['status'])}</code></td><td>{repo_link('data/measurement.json', 'decision recorded')}</td></tr>
+    <tr><td>method and path</td><td><code>{e(ec['method'])} {e(ec['path'])}</code></td><td>{repo_link('data/measurement.json', 'contract')}</td></tr>
+    <tr><td>body</td><td><code>{e(json.dumps(ec['body'], ensure_ascii=False))}</code></td><td>{repo_link('data/measurement.json', 'contract')}</td></tr>
+    <tr><td>auth</td><td>{e(ec['auth'])}</td><td>{repo_link('data/measurement.json', 'contract')}</td></tr>
+    <tr><td>response</td><td>{e(ec['response'])}</td><td>{repo_link('data/measurement.json', 'contract')}</td></tr>
+  </tbody>
+</table>
+</div>
+<h3>Required before it can be enabled</h3>
+<ul>{req}</ul>
+<p class="small">{e(m['endpoint_contract']['flip_switch'])}</p>
+
+<h2>The only report that pays</h2>
+<p>{e(m['authoritative_source_for_money']['text'])} {src_links(m['authoritative_source_for_money']['sources'])}</p>
+
+<h2>What none of this can tell you</h2>
+<ul>{cannot}</ul>
+"""
+    return layout("measurement.html", "Measurement — events, privacy and the empty ledger", body,
+                  active="measurement.html",
+                  description=("The five events this site counts on your own device, why nothing is sent "
+                               "anywhere, and the campaign ledger that stays empty until Amazon's own reports "
+                               "supply a dated number."),
+                  jsonld_blocks=[json_ld("measurement.html", "Measurement — events, privacy and the empty ledger",
+                                         "Five defined measurement events, a no-cookie on-device counter, and an "
+                                         "empty campaign ledger gated on dated provenance from authorised reports.")])
+
+
+
 def page_category():
     rows = "".join(
         f"""<tr>
@@ -2424,6 +2967,7 @@ def page_category():
           <td>{e(p['pricing']['brand_list_price']['v'])} {src_links(p['pricing']['brand_list_price']['s'])}</td>
           <td class="blank">not displayed {src_link("S2")}</td>
           <td>{len(p['flags'])}</td>
+          <td>{cta_inline(p, "../", f"category/{p['slug']}")}</td>
         </tr>"""
         for p in PRODUCT_LIST
     )
@@ -2437,7 +2981,7 @@ def page_category():
   <caption>Tracked products in this category</caption>
   <thead><tr>
     <th>#</th><th>Product</th><th>Brand</th><th>ASIN</th><th>Capacity (verified)</th>
-    <th>Brand list price</th><th>Amazon price</th><th>Flags</th>
+    <th>Brand list price</th><th>Amazon price</th><th>Flags</th><th>Go to the listing</th>
   </tr></thead>
   <tbody>{rows}</tbody>
 </table>
@@ -2524,6 +3068,16 @@ def page_compare():
             else:
                 cells.append(f'<td>{e(match["value"])}<div class="tiny">{src_links(match["source"])}</div></td>')
         rows.append(f'<tr><td><strong>{e(label)}</strong></td>{"".join(cells)}</tr>')
+    # The last row is the only one allowed to be an action rather than a field. A reader who has
+    # just worked through the blanks should not have to navigate back to a product page to act on
+    # the decision - and the link must be the same tagged URL the product page uses, so it cannot
+    # drift out of compliance. Candidate specs never appear here: this table is PRODUCT_LIST only.
+    rows.append('<tr class="cta-footrow"><td><strong>Open the model on Amazon</strong>'
+                '<div class="tiny muted">Same tagged link as the product page; the listing is the '
+                'place that states a price.</div></td>'
+                + "".join('<td>' + cta_inline(p, "../", "compare/" + p["slug"]) + '</td>'
+                          for p in PRODUCT_LIST)
+                + '</tr>')
 
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Comparison</p>
@@ -5536,6 +6090,9 @@ def req_counts():
         "n_topics": len(TOPICS["topics"]),
         "n_banned": len(BANNED_PHRASES),
         "n_banned_distinct": len({p.lower() for p in BANNED_PHRASES}),
+        "n_link_rows": len(LINK_INTENT.get("records") or []),
+        "n_ledger_rows": len(LEDGER.get("rows") or []),
+        "n_measure_events": len(MEASUREMENT.get("events") or []),
         "n_guards": len(re.findall(r"^def check_", open(__file__).read(), re.M)),
         "n_tests": tests,
         "n_stale_briefings": len(stale),
@@ -5733,12 +6290,17 @@ _PRODUCT_VALUES = None
 
 
 def _published_values():
-    """Every value string this build publishes for a product, for placeholder checks."""
+    """Every value string this build publishes for a product, for placeholder checks.
+
+    Candidates (the two products the brief added on 2026-11-17) are included on purpose: an
+    article may only quote a number this register already publishes, and that rule has to hold
+    for the new rows too or the anti-drift guard becomes a three-product guard again.
+    """
     global _PRODUCT_VALUES
     if _PRODUCT_VALUES is not None:
         return _PRODUCT_VALUES
     vals = set()
-    for p in PRODUCT_LIST:
+    for p in list(PRODUCT_LIST) + list(CANDIDATE_LIST):
         for spec in p["specs"]:
             vals.add(spec["value"])
             vals.add(spec["label"])
@@ -5753,7 +6315,7 @@ def _published_values():
                 vals.add(f)
     # Values the dataset states inside an evidence/note string are still published;
     # scan those too so a quoted dimension can be cited without re-typing it.
-    for p in PRODUCT_LIST:
+    for p in list(PRODUCT_LIST) + list(CANDIDATE_LIST):
         for k, v in p.items():
             if isinstance(v, str):
                 vals.add(v)
@@ -5911,6 +6473,253 @@ def check_article_pages(rendered):
         for bad in ("out of 5 stars", "a-icon-alt", "Amazon price:"):
             if bad in text:
                 problems.append(f"{rel}: prohibited Amazon price/rating pattern {bad!r}")
+    return problems
+
+
+# --------------------------------------------------------------------------- #
+# pass 13 guards (2026-11-17, arena/3093e674-zone1): the link builder, the intent
+# register and the measurement layer each get one executable rule, so the promises
+# those pages make are properties of the build rather than sentences in a document.
+# --------------------------------------------------------------------------- #
+
+def check_special_links(pages):
+    """Build guard: every money-page CTA to Amazon carries the configured Associates tag.
+
+    Why this is a build failure and not a note: Participation Requirements 2(b) requires the tag
+    "as a parameter in the URL of each link you place on your Site to an Amazon Site", and the
+    Operating Agreement releases Amazon from any obligation to pay where links are not properly
+    formatted (S2, S1 - both re-read 2026-11-17). For a site whose whole output is these links, a
+    forgotten tag is not a style defect; it is the site working for nothing. Before 2026-11-17 the
+    CTAs were the raw short links and the tag was unknown, so nothing could be checked. Now the tag
+    is a build input, which makes both the link and its absence checkable.
+
+    Four things are asserted, on the rendered HTML rather than on the templates:
+      1. a CTA (data-z1k="outlink") points at a /dp/<ASIN> and carries the configured tag;
+      2. no CTA still points at the short-link redirector, which cannot be audited from here;
+      3. the tag, if any, matches the declared shape and comes from config - never from a template;
+      5. the absence of a tag is a decision, not a default: with nothing configured, any published
+         product CTA fails the build until data/config.json opts out in writing.
+    """
+    problems = []
+    anchor = re.compile(r'<a\b[^>]*data-z1k="outlink"[^>]*>', re.I)
+    for rel, html_text in pages.items():
+        for tag in anchor.findall(html_text):
+            href = re.search(r'href="([^"]+)"', tag)
+            href = href.group(1) if href else ""
+            if "link.amazon" in href:
+                problems.append(f"{rel}: a product CTA still points at the supplied short link ({href[:80]})")
+                continue
+            if not re.search(r"amazon\.com/dp/[A-Z0-9]{10}$", href) and not re.search(
+                    r"amazon\.com/dp/[A-Z0-9]{10}\?", href):
+                problems.append(f"{rel}: CTA is not a canonical /dp/<ASIN> URL: {href[:90]}")
+            if ASSOCIATE_TAG:
+                allowed = [ASSOCIATE_TAG] + list(SUB_TAGS.values())
+                m = re.search(r"[?&]tag=([^&]+)", href)
+                if not m:
+                    problems.append(f"{rel}: CTA carries no Associates tag although data/config.json declares one: {href[:90]}")
+                elif m.group(1) not in allowed:
+                    problems.append(f"{rel}: CTA tag {m.group(1)!r} is not the configured tag or an assigned sub-tag")
+            elif "tag=" in href:
+                problems.append(f"{rel}: a tag appeared in a CTA while data/config.json declares none - "
+                                f"links and configuration have diverged")
+    if not ASSOCIATE_TAG and not CONFIG.get("affiliate_tag_optout"):
+        # Silence about the tag is the failure mode this whole pass exists to end: for sixteen sessions
+        # the site published money links with no tag attached and every gate stayed green, because no
+        # rule distinguished "the owner has not given us a tag yet" from "the builder lost it". With a
+        # tag supplied, an untagged CTA is now an error; without one, it is only allowed if the config
+        # says so on purpose, and the reason becomes a published fact rather than an absence.
+        n_open = sum(len(anchor.findall(t)) for t in pages.values())
+        if n_open:
+            problems.append(
+                f"data/config.json declares no associate_tag while {n_open} product CTAs are published, so "
+                f"every one of them earns nothing - Program Policies 2(a): \"Special Links must use the "
+                f"Associates ID we have assigned to you\". Supply the tag, or set "
+                f"affiliate_tag_optout with the owner's reason if an untagged site is the deliberate choice "
+                f"(requirement E-02, question Q-04)")
+    if ASSOCIATE_TAG and not tag_is_wellformed(ASSOCIATE_TAG):
+        problems.append(f"data/config.json: associate_tag {ASSOCIATE_TAG!r} does not match the published "
+                        f"XXXXX-## shape (Program Policies 2(b))")
+    for key, val in SUB_TAGS.items():
+        if not tag_is_wellformed(val):
+            problems.append(f"data/config.json: sub-tag {key!r} = {val!r} does not match the published tag shape")
+    return problems
+
+
+def check_link_intent():
+    """Build guard: the intent register keeps intended and observed apart, and covers every link.
+
+    The brief's instruction was structural - "Keep observed redirect targets in a separate field.
+    Do not merge the two fields." - and a rule that only exists in prose is a rule an impatient
+    later pass can merge in one edit. So the merge is what this checks for: an `intended.asin`
+    filled from an `observed.final_asin` is the exact shape of the mistake, and it is a failure.
+    """
+    problems = []
+    recs = LINK_INTENT.get("records") or []
+    seen = set()
+    for r in recs:
+        rid = r.get("id", "?")
+        if rid in seen:
+            problems.append(f"{rid}: duplicate row id in data/link-intent.json (the F67 defect class)")
+        seen.add(rid)
+        for key in ("submitted_link", "intended", "observed", "identity_status", "site_treats_it_as"):
+            if key not in r:
+                problems.append(f"{rid}: missing required field {key!r}")
+        it, ob = r.get("intended", {}), r.get("observed", {})
+        if not ob.get("final_asin") or not re.fullmatch(r"[A-Z0-9]{10}", str(ob.get("final_asin", ""))):
+            problems.append(f"{rid}: observed.final_asin is absent or is not a 10-character ASIN, so it is not an observation of a listing")
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(ob.get("observed_on", ""))):
+            problems.append(f"{rid}: observed.observed_on must be the date the fetch happened")
+        if it.get("asin"):
+            if not re.fullmatch(r"[A-Z0-9]{10}", str(it["asin"])):
+                problems.append(f"{rid}: intended.asin {it['asin']!r} is not an ASIN")
+            if it["asin"] == ob.get("final_asin") and not str(it.get("status", "")).lower().startswith("confirmed by the account holder"):
+                problems.append(
+                    f"{rid}: intended.asin equals the observed destination without an owner statement behind it. "
+                    f"An intent may only be recorded from the account holder; copying the fetch result is the merge this register exists to prevent.")
+        if it.get("asin") is None and it.get("confirmed_on"):
+            problems.append(f"{rid}: intended.confirmed_on is set with no intended ASIN - nothing was confirmed")
+        for fid in r.get("open_items", []):
+            if fid.startswith("F"):
+                # "A flag register" means the set a reader can actually reach on flagged.html:
+                # the programme rows plus every product-level row, which is how page_flagged()
+                # assembles them. Legacy zero-padded ids (data/flags.json, F01-F28) count too.
+                known = ({f[0] for f in PROGRAMME_FLAGS}
+                         | {pf["id"] for pr in list(PRODUCT_LIST) + list(CANDIDATE_LIST) for pf in pr.get("flags", [])}
+                         | {f"F{n:02d}" for n in range(1, 40)})
+                if fid not in known:
+                    problems.append(f"{rid}: open_items points at {fid}, which no flag register carries")
+            elif fid.startswith("Q"):
+                if fid not in {q["id"] for q in QUESTIONS["questions"]}:
+                    problems.append(f"{rid}: open_items points at {fid}, which is not in the questions register")
+    # Coverage: every link this site markets must have a row. The reverse (a row with no product)
+    # is allowed and expected - those are the links that are recorded but not yet marketed.
+    for prod in list(PRODUCT_LIST) + list(CANDIDATE_LIST):
+        link = prod.get("link")
+        if link and not any(r.get("submitted_link") == link for r in recs):
+            problems.append(f'{prod["slug"]}: marketed through {link} with no intent row in data/link-intent.json')
+        asin = (prod.get("asin") or {}).get("v")
+        if asin and not any(r.get("observed", {}).get("final_asin") == asin for r in recs):
+            problems.append(f'{prod["slug"]}: marketed as {asin} but no intent row records that destination being read live')
+    return problems
+
+
+def check_seasonal_expiry():
+    """A seasonal article must carry a validity window, and the build stops the day after it closes.
+
+    Program Policies 2(b), read live 2026-11-17: "You must remove from your Site any links and
+    related references to limited time promotions as soon as that promotion on the relevant Amazon
+    Site ends." This site publishes a Black Friday investigation and a holiday gift guide, so the
+    duty is real and it is dated. Enforcing it in the generator is the only version that survives a
+    busy owner: the failure is loud, and it names the two permitted remedies instead of tempting
+    anyone to ship a stale page quietly.
+
+    Rules: a season block needs all five fields; the dates must parse; expires must fall after the
+    window opens; and today must still be inside the window. The gate reads the calendar, which is
+    the one place this generator looks at a date - so the check can fail on a day, while the
+    rendered output never depends on one and stays reproducible.
+    """
+    problems = []
+    today = datetime.date.today().isoformat()
+    for a in ARTICLES["articles"]:
+        sd = a.get("season")
+        if not sd:
+            continue
+        slug = a["slug"]
+        missing = [k for k in ("label", "window", "expires", "scope", "no_price_claims") if not sd.get(k)]
+        if missing:
+            problems.append(f'{slug}: season block is missing {", ".join(missing)}')
+            continue
+        try:
+            w0 = datetime.date.fromisoformat(sd["window"].split(" to ")[0])
+            exp = datetime.date.fromisoformat(sd["expires"])
+        except ValueError as exc:
+            problems.append(f'{slug}: season dates must be ISO dates ({exc})')
+            continue
+        if exp <= w0:
+            problems.append(f'{slug}: season expires {sd["expires"]} on or before its window opens ({sd["window"]})')
+        if today > sd["expires"]:
+            problems.append(
+                f'{slug}: its seasonal window closed on {sd["expires"]} and the page is still live. Decide, '
+                f'do not defer: re-date window/expires against a fresh read of the sources and record the '
+                f'choice on decision-log.html, or take the article row out of data/articles.json so the page '
+                f'leaves the sitemap, the feed and the nav (its URL then 404s, so add the removal to '
+                f'flagged-entries-style disclosure rather than doing it silently)')
+    return problems
+
+
+def check_campaign_ledger():
+    """Build guard: a ledger row may only exist with a dated, attributable provenance trail.
+
+    The brief asked for "an empty but well-defined campaign ledger" with each field added "only when
+    obtained from authorized first-party reports". An empty register is easy to publish; the part
+    that has to be built now is the thing that refuses a bad row later, before there is a number to
+    argue about. This also blocks the two fields the brief explicitly excludes - a conversion score
+    and a revenue forecast - because they are arithmetic a reader will mistake for measurement.
+    """
+    problems = []
+    rows = LEDGER.get("rows") or []
+    allowed = {c["key"] for c in LEDGER["columns"]}
+    for n, row in enumerate(rows):
+        rid = row.get("id", f"row {n + 1}")
+        for req in ("period_start", "period_end", "source", "obtained_on"):
+            if not row.get(req):
+                problems.append(f"campaign ledger {rid}: {req} is required on every row")
+        for key in row:
+            if key not in allowed and key != "id":
+                problems.append(f"campaign ledger {rid}: field {key!r} is not in the declared column set")
+            if key in ("revenue", "forecast", "conversion_rate", "expected_earnings"):
+                problems.append(f"campaign ledger {rid}: {key} may not be stored; the brief excludes a "
+                                f"conversion score and a revenue forecast, and it is derived arithmetic anyway")
+        for f in ("period_start", "period_end", "obtained_on"):
+            if row.get(f) and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(row[f])):
+                problems.append(f"campaign ledger {rid}: {f} must be an ISO date")
+        src = str(row.get("source", ""))
+        if src and not (">" in src or "Search Console" in src or "Associates" in src):
+            problems.append(f"campaign ledger {rid}: source {src!r} does not name a report this site is allowed to quote")
+        for url in re.findall(r'''https?://([^\s"'<>]+)''', src):
+            host = url.split("/")[0].lower()
+            if host not in REGISTERED_HOSTS:
+                problems.append(f"campaign ledger {rid}: source cites {host}, which is not a registered official host")
+    starts = [r.get("period_start") for r in rows if r.get("period_start")]
+    if starts != sorted(starts):
+        problems.append("campaign ledger: rows must stay in period order so a reader sees the trail, not a pile")
+    return problems
+
+
+def check_measurement_contract(pages):
+    """Build guard: the privacy promise on measurement.html is a property of the shipped script.
+
+    The site's whole disclosure position is that it watches nothing. That made adding the brief's
+    click counter a real decision rather than a free one: a sentence saying "runs no analytics" in
+    the footer and a script posting to a collector cannot both be true on the same commit. So the
+    boundary is asserted in code - the shipped JS makes no network call and sets no cookie, the
+    endpoint stays switched off while no endpoint URL is configured, and the moment an endpoint is
+    configured the footer's sentence is required to stop claiming there is no analytics.
+    """
+    problems = []
+    for bad in ("fetch(", "XMLHttpRequest", "sendBeacon", "document.cookie =", "import(", "@import"):
+        if bad in JS:
+            problems.append(f"assets/app.js: {bad!r} breaks the no-network promise measurement.html makes")
+    endpoint = (CONFIG.get("analytics_endpoint") or "").strip()
+    status = str(MEASUREMENT.get("endpoint_contract", {}).get("status", ""))
+    if not endpoint and status.strip().lower().startswith("enabled"):
+        problems.append("data/measurement.json says the endpoint is enabled while data/config.json has no URL to send to")
+    if endpoint and status.strip().lower().startswith("not built"):
+        problems.append("data/config.json sets an analytics endpoint but data/measurement.json still says it is not built")
+    if endpoint:
+        for rel in ("index.html", "measurement.html"):
+            text = pages.get(rel, "")
+            if "runs no analytics" in text:
+                problems.append(f"{rel}: the footer still states that the site runs no analytics while an endpoint is configured")
+    if not endpoint and "z1k.ledger.v1" not in JS:
+        problems.append("the on-device ledger key disappeared from assets/app.js while measurement.html still documents it")
+    # The five events the page promises must be the five events the script can emit.
+    spec_names = {e["name"] for e in MEASUREMENT.get("events", [])}
+    if len(spec_names) != 5:
+        problems.append(f"data/measurement.json defines {len(spec_names)} events; the brief asked for five defined events")
+    for name in spec_names:
+        if f"'{name}'" not in JS:
+            problems.append(f"measurement.html documents event {name!r} but assets/app.js never records it")
     return problems
 
 
@@ -6143,6 +6952,24 @@ def page_articles_index():
 
 
 def page_article(a):
+    # A seasonal page carries its validity window in the register so the page itself states what it
+    # was written for and when it stops being true. Program Policies 2(b) requires that references
+    # to limited-time promotions come down "as soon as that promotion on the relevant Amazon Site
+    # ends", so the date is data rather than somebody's memory: check_seasonal_expiry() stops the
+    # build the day after it passes. Nothing here branches on today's date - the rendered page is
+    # the same on every build of the same input, which is what keeps the generator deterministic.
+    season = ""
+    if a.get("season"):
+        sd = a["season"]
+        season = (f'<div class="callout info" id="season-scope">'
+                  f'<div class="link-status-heading"><span class="pill pill-warn">Seasonal</span>'
+                  f'<strong>{e(sd["scope"])}</strong></div>'
+                  f'<p class="small">Validity recorded in the article register: written for '
+                  f'{e(sd["window"])}, and this page stops being true on <strong>{e(sd["expires"])}</strong>. '
+                  f'Past that date the generator refuses to build until someone re-dates it with a fresh read '
+                  f'or takes the row out of the register. What is not claimed here: any price, discount or '
+                  f'stock figure — '
+                  f'{e(sd["no_price_claims"])}. Removal duty on this page: {e(sd["removal_rule"])}</p></div>')
     prods = ""
     if a["products"]:
         items = []
@@ -6178,6 +7005,7 @@ def page_article(a):
   <p class="small">Nobody here cooked with these appliances. Every specification below is quoted from the manufacturer's own product page or owner's manual and links to it. No Amazon price, star rating or review count appears, because Amazon's Program Policies only permit those when Amazon serves the link or via Creators/PA API {src_links(['S2'])}.</p>
 </div>
 
+{season}
 {prods}
 
 {article_body(a)}
@@ -6288,6 +7116,7 @@ def page_picks():
   <p class="product-match"><span class="pill pill-warn">Model match unconfirmed</span>
     <a class="tiny" href="flagged.html">Why</a></p>
   <a class="pick-cta" href="products/{e(p['slug'])}.html">Read the sourced breakdown \u2192</a>
+  {cta_inline(p, "", f"picks/{p['slug']}")}
 </article>""")
 
     rate_rows = "".join(
@@ -6606,10 +7435,23 @@ def page_handover():
 </article>"""
 
     not_possible = "".join(f"<li>{e(x)}</li>" for x in d["not_possible_here"])
+    # The heading used to type its own totals ("Five actions, about an hour, eighteen flags"), which
+    # is the same drift this repository keeps finding and fixing in every other register: an add or a
+    # removal changes the rows and the sentence silently becomes a historical document. Counted here
+    # instead, from the rows the page is about to render. Minutes are parsed out of the `time` field
+    # because that field is the only place an action's cost is recorded; a row whose time is not a
+    # number (none today) contributes zero rather than a guess.
+    acts = d["items"]
+    n_actions = len(acts)
+    n_minutes = sum(int(m) for t in (a.get("time") or "" for a in acts) for m in re.findall(r"^(\d+)", t))
+    closes_flags = [f for a in acts for f in (a.get("closes") or []) if re.fullmatch(r"F\d+", f)]
+    n_flags_closed = len(set(closes_flags))
+    hours = (f"{round(n_minutes / 60)} hours" if n_minutes >= 90 else
+             f"{n_minutes} minutes" if n_minutes < 60 else "about an hour")
     body = f"""
 <p class="section-eyebrow">Handover</p>
-<h1>Five actions, about an hour, eighteen flags</h1>
-<p class="lede">Everything in this repository is done as far as it can be done without the account holder's own logins. These five actions are the shortest path from "unverified" to "confirmed". Each shows the time it takes and the flags it closes.</p>
+<h1>{n_actions} actions, {hours}, {n_flags_closed} flags</h1>
+<p class="lede">Everything in this repository is done as far as it can be done without the account holder's own logins. These {n_actions} actions are the shortest path from "unverified" to "confirmed". Each shows the time it takes and the flags it closes.</p>
 <div class="callout bad">
   <strong>H1 is done — by a fetch, not by hand.</strong> All three listings' Product information blocks were read on 2026-11-16 (<a href="flagged.html#f68">F68</a>, <a href="flagged.html#f49">F49</a>): B0CDY277D3 = RJ38-SQPF-3TDB-2W, B08DKYBTPH = RJ38-SQSS-8T (in its <em>Part Number</em> row), B09B7SB46R = 4-00675-02X-VN, which is one character from the brand page's string and is the remaining conflict (F70). What H1 was going to settle is settled for the model step; what it could never settle is the intent behind the three supplied short links, your Associates tag and your account data — those are still the top of the list here.
 </div>
@@ -6950,7 +7792,7 @@ def check_no_price_tracking(pages):
 def check_rows_have_sources():
     """Build-time guard: an asserted value with no source id is a hard failure."""
     problems = []
-    for p in PRODUCT_LIST:
+    for p in list(PRODUCT_LIST) + list(CANDIDATE_LIST):
         for s in p["specs"]:
             if s["value"] is not None and not s["source"]:
                 problems.append(f'{p["slug"]}: "{s["label"]}" has a value but no source')
@@ -7065,10 +7907,18 @@ def qualify_affiliate_links(html_text):
             values = ["sponsored"] + values
         new_tag = re.sub(r'\srel="[^"]*"', "", tag, count=1, flags=re.I)
         return new_tag[:-1].rstrip() + f' rel="{" ".join(values)}">'
-    return re.sub(r'<a\b[^>]*' + AFFILIATE_HOST + r'[^>]*>', fix, html_text, flags=re.I)
+    return re.sub(AFFILIATE_ANCHOR, fix, html_text)  # compiled above with re.I already
 
 
 AFFILIATE_HOST = "link.amazon"
+# Extended 2026-11-17 (arena/3093e674-zone1). The site's product CTAs used to be the short
+# links only, so matching `link.amazon` covered every clickable affiliate anchor. Now that the
+# CTAs are tagged canonical detail pages, a guard that looks at only the shortener would let an
+# unqualified sponsored link through unnoticed - and Google's rule is about the paid link, not
+# about which Amazon domain it happens to sit on. amazon.com/dp/ is matched rather than the
+# whole host so that a citation to a department or category page keeps its plain rel.
+AFFILIATE_HOSTS_RE = r"(?:" + AFFILIATE_HOST + r"|www\.amazon\.com/dp/|amazon\.com/dp/)"
+AFFILIATE_ANCHOR = re.compile(r'<a\b[^>]*' + AFFILIATE_HOSTS_RE + r'[^>]*>', re.I)
 
 
 def check_affiliate_link_qualification(pages):
@@ -7091,7 +7941,7 @@ def check_affiliate_link_qualification(pages):
     rel="noopener" only. Refusing to qualify a link that is the site's entire commercial
     purpose is a silent revenue and compliance defect, so it is a build failure now.
     """
-    anchor = re.compile(r'<a\b[^>]*' + AFFILIATE_HOST + r'[^>]*>', re.I)
+    anchor = AFFILIATE_ANCHOR
     problems = []
     for rel, html_text in pages.items():
         for tag in anchor.findall(html_text):
@@ -7191,6 +8041,9 @@ def main():
     pages["decision-log.html"] = page_decision_log()
     pages["design-prompt.html"] = page_design_prompt()
     pages["questions.html"] = page_questions()
+    # Pass 13 (2026-11-17): the link record and the measurement layer.
+    pages["links.html"] = page_links()
+    pages["measurement.html"] = page_measurement()
     pages["requirements.html"] = page_requirements()
     pages["topics.html"] = page_topics()
     pages["decision-gate.html"] = page_questions_alt()
@@ -7282,6 +8135,28 @@ def main():
     if dangling_ids:
         raise SystemExit("BUILD FAILED — a published page points at an id that does not exist in any "
                          "register:\n  " + "\n  ".join(dangling_ids))
+
+    link_problems = check_special_links(pages)
+    if link_problems:
+        raise SystemExit("BUILD FAILED - outbound links are not Special Links as Amazon defines them "
+                         "(Program Policies 2(b), Operating Agreement 3):\n  " + "\n  ".join(link_problems))
+    intent_problems = check_link_intent()
+    if intent_problems:
+        raise SystemExit("BUILD FAILED - the product-intent record is incomplete or has merged its two fields:\n  "
+                         + "\n  ".join(intent_problems))
+    season_problems = check_seasonal_expiry()
+    if season_problems:
+        raise SystemExit("BUILD FAILED - a seasonal page has outlived the promotion it describes (Amazon "
+                         "Program Policies 2(b) requires those references to come down when the promotion ends):\n  "
+                         + "\n  ".join(season_problems))
+    ledger_problems = check_campaign_ledger()
+    if ledger_problems:
+        raise SystemExit("BUILD FAILED - campaign ledger row without a dated provenance trail:\n  "
+                         + "\n  ".join(ledger_problems))
+    measure_problems = check_measurement_contract(pages)
+    if measure_problems:
+        raise SystemExit("BUILD FAILED - measurement layer contradicts its own privacy contract:\n  "
+                         + "\n  ".join(measure_problems))
 
     orphan_pages = check_no_orphan_pages(pages)
     if orphan_pages:

@@ -1,613 +1,675 @@
 {
- "accessed": "2026-11-13",
- "note": "Every entry below was fetched live on the access date. 'official' means the page is published by the party that owns the fact (Amazon, the FTC, the brand). No secondary blogs, retailer resellers or review aggregators are used anywhere in this project. Re-verification pass 2026-11-14 (sess-81495d2d) re-read S3, S5, S9, S10, S12, S14, S15, S16, S17 and S18 and added the two control lookups S21 and S22; see the Re-verification page. The same day's sess-cb2cfa7c pass additionally re-read S1–S5, S8–S10, S12, S14, S16, S17, S19 and added S23 (official ASIN definition) and S24 (PA-API 5 deprecation notice). Re-verification pass 2026-11-14 (session arena/6b2eddeb) added S25–S27: three further Chefman SKUs found live on the brand's own store while re-checking the model mapping for products 1 and 3. They are recorded because their existence changes what flags F3 and F2 can claim, not because any published value changed. Added 2026-11-15 by session 22f43836 (pass 9): S30 and S31 are Google Search Central's own published policy and guidance pages, added because the brief asks for organic traffic and link qualification is the search engine's stated requirement for affiliate links. They verify search-engine policy only; they verify nothing about the products or about Amazon's program. Re-verification pass 2026-11-16 (arena/a746a9f2) re-read S1–S5, S8–S10, S12, S14, S17, S26, S28 and S29 live; the full evidence table is reports/verification-2026-11-16-a746a9f2.md. The 2026-11-15 bot checkpoint on S28 cleared; no published value changed and no open conflict was closed. | Round 11 (2026-11-16, arena/b23f12f0) re-read S1, S3, S4, S8, S9, S10, S12, S14, S16, S17, S28, S29, S32 and S33, and added S35 (Emeril commerce endpoint). Round 10 the same day (session c334fb1c) had covered the three short links and S2; round 11 closes the sources round 10 recorded as not re-read.",
- "reverified": "2026-11-16",
- "reverified_2026_11_16": {
-  "performed_by": "arena/ad8105b3-zone1 (session ad8105b3)",
-  "method": "Each page listed as re-read was fetched server-side on 2026-11-16 and the quoted text read from that response. This sandbox has no direct outbound network, so nothing below is asserted from memory or from an earlier session's record.",
-  "re_read_live": [
-   {
-    "id": "S1",
-    "what": "Operating Agreement — header still reads 'Updated: October 15, 2025'."
-   },
-   {
-    "id": "S2",
-    "what": "Program Policies — header reads 'Updated: April 14, 2026'. Read verbatim: §2(b) price and availability rule, §3(e) cookie and third-party technology disclosure, §5 no-model-training clause, §6(t) reviews and star ratings, §6(y) no price tracking, and the Prohibited Paid Search Placement definition."
-   },
-   {
-    "id": "S3",
-    "what": "Standard Commission Income Statement Table 1, read without a login: 'Physical Books, Kitchen, Automotive 4.50%', 'Home 3.00%', 'All Other Categories 4.00%'."
-   },
-   {
-    "id": "S8",
-    "what": "Disclosures 101 for Social Media Influencers — 'When to Disclose' and 'How to Disclose' read verbatim."
-   },
-   {
-    "id": "S10",
-    "what": "Chefman 6 Qt Dual-Window product page — model RJ38-SQPF-3TDB-2W printed on the page, 1,307 reviews, Sync Finish and Hi-Fry feature text present."
-   },
-   {
-    "id": "S17",
-    "what": "The supplied short link B04G1MEwY resolved through plpRedirect=mhFallback to ASIN B0CDY277D3, whose title matched the stored value character for character."
-   }
+  "accessed": "2026-11-13",
+  "note": "Every entry below was fetched live on the access date. 'official' means the page is published by the party that owns the fact (Amazon, the FTC, the brand). No secondary blogs, retailer resellers or review aggregators are used anywhere in this project. Re-verification pass 2026-11-14 (sess-81495d2d) re-read S3, S5, S9, S10, S12, S14, S15, S16, S17 and S18 and added the two control lookups S21 and S22; see the Re-verification page. The same day's sess-cb2cfa7c pass additionally re-read S1–S5, S8–S10, S12, S14, S16, S17, S19 and added S23 (official ASIN definition) and S24 (PA-API 5 deprecation notice). Re-verification pass 2026-11-14 (session arena/6b2eddeb) added S25–S27: three further Chefman SKUs found live on the brand's own store while re-checking the model mapping for products 1 and 3. They are recorded because their existence changes what flags F3 and F2 can claim, not because any published value changed. Added 2026-11-15 by session 22f43836 (pass 9): S30 and S31 are Google Search Central's own published policy and guidance pages, added because the brief asks for organic traffic and link qualification is the search engine's stated requirement for affiliate links. They verify search-engine policy only; they verify nothing about the products or about Amazon's program. Re-verification pass 2026-11-16 (arena/a746a9f2) re-read S1–S5, S8–S10, S12, S14, S17, S26, S28 and S29 live; the full evidence table is reports/verification-2026-11-16-a746a9f2.md. The 2026-11-15 bot checkpoint on S28 cleared; no published value changed and no open conflict was closed. | Round 11 (2026-11-16, arena/b23f12f0) re-read S1, S3, S4, S8, S9, S10, S12, S14, S16, S17, S28, S29, S32 and S33, and added S35 (Emeril commerce endpoint). Round 10 the same day (session c334fb1c) had covered the three short links and S2; round 11 closes the sources round 10 recorded as not re-read.",
+  "reverified": "2026-11-17",
+  "reverified_2026_11_16": {
+    "performed_by": "arena/ad8105b3-zone1 (session ad8105b3)",
+    "method": "Each page listed as re-read was fetched server-side on 2026-11-16 and the quoted text read from that response. This sandbox has no direct outbound network, so nothing below is asserted from memory or from an earlier session's record.",
+    "re_read_live": [
+      {
+        "id": "S1",
+        "what": "Operating Agreement — header still reads 'Updated: October 15, 2025'."
+      },
+      {
+        "id": "S2",
+        "what": "Program Policies — header reads 'Updated: April 14, 2026'. Read verbatim: §2(b) price and availability rule, §3(e) cookie and third-party technology disclosure, §5 no-model-training clause, §6(t) reviews and star ratings, §6(y) no price tracking, and the Prohibited Paid Search Placement definition."
+      },
+      {
+        "id": "S3",
+        "what": "Standard Commission Income Statement Table 1, read without a login: 'Physical Books, Kitchen, Automotive 4.50%', 'Home 3.00%', 'All Other Categories 4.00%'."
+      },
+      {
+        "id": "S8",
+        "what": "Disclosures 101 for Social Media Influencers — 'When to Disclose' and 'How to Disclose' read verbatim."
+      },
+      {
+        "id": "S10",
+        "what": "Chefman 6 Qt Dual-Window product page — model RJ38-SQPF-3TDB-2W printed on the page, 1,307 reviews, Sync Finish and Hi-Fry feature text present."
+      },
+      {
+        "id": "S17",
+        "what": "The supplied short link B04G1MEwY resolved through plpRedirect=mhFallback to ASIN B0CDY277D3, whose title matched the stored value character for character."
+      }
+    ],
+    "not_re_read_in_this_pass": {
+      "ids": [
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "S9",
+        "S11",
+        "S12",
+        "S13",
+        "S14",
+        "S15",
+        "S16",
+        "S18",
+        "S19",
+        "S20",
+        "S21",
+        "S22",
+        "S23",
+        "S24",
+        "S25",
+        "S26",
+        "S27",
+        "S28",
+        "S29",
+        "S30",
+        "S31",
+        "S32",
+        "S33",
+        "S34"
+      ],
+      "note": "Their recorded reads stand as dated evidence and are not restated as current by this pass. S7's content in particular was not fetched: it was reached only as a link from S8. Nothing on the site depends on a claim only S7 makes, and flag F60 records the scope limit."
+    }
+  },
+  "reverified_2026_11_16_round11": {
+    "performed_by": "arena/3dfe4b45-zone1 (session 3dfe4b45)",
+    "method": "Direct page reads on 2026-11-16 (round 11); this session's fetch path differs from the server-side fetch used elsewhere, and every quoted string below was read from the fetched page itself. Evidence table: reports/verification-round11-2026-11-16.md.",
+    "re_read_live": [
+      {
+        "id": "S3",
+        "what": "Standard Commission Income Statement Table 1 re-read without a login: 'Physical Books, Kitchen, Automotive 4.50%', 'All Other Categories 4.00%' — matches."
+      },
+      {
+        "id": "S8",
+        "what": "FTC Disclosures 101 — 'November 2019' stamp; the no-experience sentence and hard-to-miss placement rule read verbatim."
+      },
+      {
+        "id": "S9",
+        "what": "eCFR 16 CFR Part 255 — title 16 'up to date as of 11/12/2026', last amended 10/30/2026; §255.0–255.6; source 88 FR 48102 (July 26, 2023)."
+      },
+      {
+        "id": "S10",
+        "what": "Chefman 6 Qt page — full Specifications block re-read: RJ38-SQPF-3TDB-2W, 6 Qt / 5.67 L, 200–450 °F, 13.38 x 11.81 x 10.63 in / 33.98 x 30 x 27 cm, 13.3 lbs / 6.03 kg, 1700W/120V, cETL + 1-year assurance. Review widget 4.6 / 1,307 — matches the counter refreshed this day."
+      },
+      {
+        "id": "S12",
+        "what": "Chefman 8 Qt page — full Features and Specifications re-read: RJ38-SQSS-8T, 5 or 8 Qt, 200–400 °F (max temp still 400 °F; F3 stands), 1700W/120V, (8 Qt) 15.4 x 12.6 x 13.5 in, 12.8 lbs. Review widget 4.6 / 717 — matches."
+      },
+      {
+        "id": "S13",
+        "what": "Chefman RJ38-SQSS-8T manual — one basket in the features list, preset defaults (15/400, 18/375, 22/375, 10/350), extension-cord rating clause verbatim."
+      },
+      {
+        "id": "S14",
+        "what": "Emeril page — spec icons re-read: 26-Quart, 24.6 L, 16.9\"D x 15.8\"W x 14.8\"H, 120 volts, 1-year warranty; 25 (icon) vs 24 (description) vs 10-in-1 (heading) all still present; no weight row (Q-06 open)."
+      },
+      {
+        "id": "S15",
+        "what": "Emeril FAFO-001 manual — spec table (FAFO-001, 120 V/1700 W/60 Hz, 26 quarts / 1519 cubic inches, 75–500 °F, LED); 24 named presets; Rotisserie Spit and Forks; 'never use with an extension cord' safeguard."
+      },
+      {
+        "id": "S18",
+        "what": "Chefman RJ38-SQPF-3TDB-2W manual — 'two 3-quart baskets', Sync Finish/Sync Baskets mechanics, HI-FRY 450 °F/235 °C for 2 minutes, and the aerosol CAUTION sentence verbatim."
+      }
+    ],
+    "not_re_read_in_this_pass": {
+      "ids": [
+        "S1",
+        "S2",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "S11",
+        "S16",
+        "S17",
+        "S19",
+        "S20",
+        "S21",
+        "S22",
+        "S23",
+        "S24",
+        "S25",
+        "S26",
+        "S27",
+        "S28",
+        "S29",
+        "S30",
+        "S31",
+        "S32",
+        "S33",
+        "S34"
+      ],
+      "note": "S1/S2/S17 were re-read by the ad8105b3 and c334fb1c passes the same day; the remainder stand on their dated reads. See reports/verification-round11-2026-11-16.md §5."
+    }
+  },
+  "sources": [
+    {
+      "id": "S1",
+      "org": "Amazon.com Associates Central",
+      "title": "Associates Program Operating Agreement",
+      "url": "https://affiliate-program.amazon.com/help/operating/agreement",
+      "covers": "Disclosure wording (§5), term and termination (§6), governing law and schedules",
+      "kind": "Policy",
+      "directness": "Primary — the contract itself",
+      "page_version": "Updated: October 15, 2025 (confirmed 2026-11-15) | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Header still reads “Updated: October 15, 2025.” | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; version stamp \"Updated: October 15, 2025\" unchanged. | Pass 13 (2026-11-17, arena/3093e674-zone1): re-read live; §5 still requires the site to state clearly and prominently “As an Amazon Associate I earn from qualifying purchases.”, which is the sentence the disclosure bar on every generated page carries.",
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): page version stamp re-read — \"Updated: October 15, 2025\", unchanged."
+    },
+    {
+      "id": "S2",
+      "org": "Amazon.com Associates Central",
+      "title": "Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)",
+      "url": "https://affiliate-program.amazon.com/help/operating/policies",
+      "covers": "Link rules, price and review display limits, Prohibited Paid Search Placement, sub-tag limits, API restrictions, session/attribution windows",
+      "kind": "Policy",
+      "directness": "Primary — the policy corpus incorporated into the Agreement",
+      "page_version": "Updated: April 14, 2026 | Re-read round 9, 2026-11-15 (arena/63a2c638). | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. The page heading still reads “Updated: April 14, 2026.” Re-read and quoted verbatim from the live page: Participation Requirements §3(e) (cookie / third-party technology disclosure), §6(t) (reviews and star ratings only via Creators API or PA API), §6(w) (link shorteners), §6(y) (no price tracking or price alerting), §6(s) (no artificially generated clicks or Sessions), §5 (no Special Links or Program Content used to develop machine learning models without express prior written approval); IP License §1 (no third party may use Program Content to develop or improve large language, multimodal or machine learning models), §2(e) (no aggregation, analysis, repurposing or fine-tuning of Product Advertising Content without express prior written approval) and §4 “Agents” (Agent Terms — an Agent must identify itself as “Agent/[agent name]” in the User-Agent string, must not obfuscate that it is an agent, must not complete or circumvent CAPTCHAs, and must answer truthfully about whether interactions are human). The Agent Terms and §5 were not previously in this register; they are now requirements C17 and C18. Evidence: reports/verification-2026-11-16.md rows V4–V11. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Header still reads “Updated: April 14, 2026.” | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; version stamp \"Updated: April 14, 2026\" unchanged; 24h / 89-day / 180-day session rules read verbatim again. | Pass 13 (2026-11-17, arena/3093e674-zone1): header still reads 'Updated: April 14, 2026'. Participation Requirements 2(a) and 2(b) re-read and quoted verbatim for the Special Link work: 'Special Links must use the Associates ID we have assigned to you'; 'you must include your Associates ID or “tag” (appearing as XXXXX-##, or such other format as we may designate) as a parameter in the URL of each link you place on your Site to an Amazon Site'; 'Special Links may be created by you or made available to you by us'; the sub-tag clause 'Upon your request but subject to our approval, we may issue you additional “sub-tag” Associate IDs' with its prohibition on associating any sub-tag or reporting with a specific end user; “Special Links must link to Products (as defined in the Products Statement)”; and the limited-time-promotion removal duty, which is the clause the seasonal rows are held to."
+    },
+    {
+      "id": "S3",
+      "org": "Amazon.com Associates Central",
+      "title": "Associates Program Standard Commission Income Statement (Table 1 & Bounty Events)",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+      "covers": "Published fixed commission rates by product category; bounty amounts",
+      "kind": "Rate card",
+      "directness": "Primary — the only official rate table",
+      "page_version": "Standard Commission Income Statement, re-read live 2026-11-14 (first read 2026-11-13) — Table 1 and Bounty Events read without a login | Re-read round 9, 2026-11-15 (arena/63a2c638). | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live, without a login. Table 1 read verbatim: “Physical Books, Kitchen, Automotive | 4.50%”, “Toys, Furniture, Home, Home Improvement, … | 3.00%”, “PC, PC Components, DVD & Blu-Ray | 2.50%”, “All Other Categories | 4.00%”. There is still no air-fryer row and still no published ASIN→category mapping, so the per-product rate stays blank on the site. Evidence: reports/verification-2026-11-16.md rows V1–V2. | Round 11 (2026-11-16, arena/3dfe4b45): Table 1 re-read live with no login — Kitchen 4.50% (grouped row 'Physical Books, Kitchen, Automotive'), All Other Categories 4.00%. Matches the stored table row for row. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Table 1 re-read without a login: “Physical Books, Kitchen, Automotive | 4.50%”, “Toys, Furniture, Home, Home Improvement, … | 3.00%”, “All Other Categories | 4.00%”. Bounty rows: Prime Free Trial $12.00, Prime Video Free Trial $2.00, Prime Video First Stream $5.00. No air-fryer row, so the per-product rate stays blank. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; Table 1 read in full with no login: \"Physical Books, Kitchen, Automotive | 4.50%\", \"All Other Categories | 4.00%\"; bounty table present.",
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): Table 1 re-read in full with no login. 'Physical Books, Kitchen, Automotive' 4.50% and 'All Other Categories' 4.00% both confirmed as published."
+    },
+    {
+      "id": "S4",
+      "org": "Amazon.com Associates Central",
+      "title": "Application Review Process",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM",
+      "covers": "Three qualifying sales within 180 days; ~10 posts; content recent within ~60 days; social follower floor ~500",
+      "kind": "Help article",
+      "directness": "Primary — Amazon's own review criteria",
+      "page_version": "Live page, 2026-11-13 | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live, without a login, and the four figures this register carried forward are confirmed verbatim — “we require at least three within the first 180 days”, “a good rule of thumb is at least 10 posts”, “Content on your website must be recent (generally within the last 60 days)” and “in most cases, at least 500” organic followers/likes. Also read: “personal orders do not qualify” and “we aren’t able to reassess an application once it’s been rejected”. This closes the “not re-read” part of flag F56. Evidence: reports/verification-2026-11-16.md row V3. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Six clauses re-read verbatim: “at least three within the first 180 days”, “personal orders do not qualify”, “a good rule of thumb is at least 10 posts”, “generally within the last 60 days”, “in most cases, at least 500”, “we aren’t able to reassess an application once it’s been rejected”. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; 3 qualifying sales / 180 days; ~10 posts; 60-day recency; 500 followers; rejection final — all verbatim again.",
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): re-read in full: at least 3 qualifying sales within the first 180 days, personal orders do not qualify, at least 10 posts, content recent within 60 days, at least 500 followers, and 'we aren't able to reassess an application once it's been rejected'."
+    },
+    {
+      "id": "S5",
+      "org": "Amazon.com Associates Central",
+      "title": "Why do I have to identify myself as an Associate? How should I do this on social media?",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98",
+      "covers": "Required Associate statement; clear + conspicuous link-level disclosure",
+      "kind": "Help article",
+      "directness": "Primary — Amazon's own compliance guidance",
+      "page_version": "Associate identification / disclosure help node, re-read live 2026-11-14 (first read 2026-11-13) | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Required sentence “As an Amazon Associate I earn from qualifying purchases.” re-read verbatim, with the “Clear.” / “Conspicuous.” link-level test. The site’s disclosure string matches character for character. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; required sentence \"As an Amazon Associate I earn from qualifying purchases.\" verbatim; link-level disclosure \"(paid link)\" / \"#ad\" / \"#CommissionsEarned\" examples present."
+    },
+    {
+      "id": "S6",
+      "org": "Amazon.com Associates Central",
+      "title": "What are tracking IDs, and how does the new site help Associates use them?",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA",
+      "covers": "Tracking IDs / sub-tag reporting model",
+      "kind": "Help article",
+      "directness": "Primary",
+      "page_version": "Live page, re-read 2026-11-17 (arena/3093e674-zone1). Confirmed verbatim: 'With tracking IDs, Associates can analyse the performance of various Web sites or merchandising strategies while accumulating earnings under a single Associates ID. For example, Associate storeid-20 might use the tracking ID storeid-1-20 to track referrals from his Web site, and storeid-2-21 to track referrals from his newsletter. Each ID would generate earnings for his Associates account storeid-20.' This is the source for the rule that a sub-tag is a separate issued ID created in the account, not a suffix an article or a build can invent. Earlier read: live page, 2026-11-13."
+    },
+    {
+      "id": "S7",
+      "org": "U.S. Federal Trade Commission",
+      "title": "FTC's Endorsement Guides: What People Are Asking",
+      "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
+      "covers": "Material connection, affiliate/network marketing disclosures, monitoring duties, substantiation",
+      "kind": "Regulatory guidance",
+      "directness": "Primary — the regulator",
+      "page_version": "June 2023"
+    },
+    {
+      "id": "S8",
+      "org": "U.S. Federal Trade Commission",
+      "title": "Disclosures 101 for Social Media Influencers",
+      "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+      "covers": "When and how to disclose; placement; wording; the prohibition on describing an experience with a product you have not tried",
+      "kind": "Regulatory guidance",
+      "directness": "Primary — the regulator",
+      "page_version": "November 2019 | Round 11 (2026-11-16, arena/3dfe4b45): page re-read live — 'November 2019' stamp present; 'You can't talk about your experience with a product you haven't tried.' and the hard-to-miss placement rule read verbatim. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.“Place it so it’s hard to miss” and “You can’t talk about your experience with a product you haven’t tried” re-read verbatim. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; \"You can't talk about your experience with a product you haven't tried.\" verbatim.",
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): re-read in full. Confirms: place the disclosure where it is hard to miss; \"You can't talk about your experience with a product you haven't tried\"; page dated November 2019."
+    },
+    {
+      "id": "S9",
+      "org": "U.S. Government (eCFR / Federal Trade Commission)",
+      "title": "16 CFR Part 255 — Guides Concerning Use of Endorsements and Testimonials in Advertising",
+      "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255",
+      "covers": "Binding rule text, including §255.5 Disclosure of material connections",
+      "kind": "Regulation",
+      "directness": "Primary — codified rule",
+      "page_version": "eCFR Title 16 shown as \"up to date as of 11/12/2026\"; Title 16 last amended 10/30/2026; Part 255 source note 88 FR 48102 (Jul 26 2023), no later amendment on its timeline — re-read 2026-11-14 | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. The page still reads “Displaying title 16, up to date as of 11/12/2026. Title 16 was last amended 10/30/2026.” and the Part 255 source note is still “88 FR 48102, July 26, 2023, unless otherwise noted.” §255.5 is still titled “Disclosure of material connections.” Evidence: reports/verification-2026-11-16.md row V25. | Round 11 (2026-11-16, arena/3dfe4b45): re-read live — title 16 'up to date as of 11/12/2026', last amended 10/30/2026; §§ 255.0–255.6 present; source note 88 FR 48102 (July 26, 2023). Unchanged from the 2026-11-14 read. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Header re-read: “Displaying title 16, up to date as of 11/12/2026.” §255.0–§255.6 listed, incl. §255.5. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; \"up to date as of 11/12/2026. Title 16 was last amended 10/30/2026\"; §255.0–§255.6 incl. §255.5 present.",
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): re-read. eCFR shows 'Displaying title 16, up to date as of 11/12/2026. Title 16 was last amended 10/30/2026.' Source note still 88 FR 48102, July 26 2023. §255.0–§255.6 present including §255.5 Disclosure of material connections."
+    },
+    {
+      "id": "S10",
+      "org": "Chefman (brand)",
+      "title": "Chefman TurboFry Touch 6 Qt. Dual-Window Air Fryer — product page",
+      "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer",
+      "covers": "Model RJ38-SQPF-3TDB-2W capacity, temperature range, dimensions, weight, power, approvals, list price, brand-site rating",
+      "kind": "Manufacturer product page",
+      "directness": "Primary — brand owning the specification",
+      "page_version": "Chefman 6 Qt Dual-Window product page, re-read live 2026-11-14 (first read 2026-11-13) — spec block, price and review widget all re-read | Re-read round 9, 2026-11-15 (arena/63a2c638). | Targeted re-read 2026-11-16 (arena/9f0e6668): product-page review counter displayed 1,307 Reviews. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. Specifications block read verbatim: “Capacity: 6 Qt / 5.67 L”, “200–450°F / 95º-235°C temperature range”, “Dimensions: 13.38 in x 11.81 in x 10.63 in”, “Weight: 13.3 lbs / 6.03 kg”, “Power: 1700W/120V”, “Model Number: RJ38-SQPF-3TDB-2W”. Brand-hosted review widget read 4.6 from 1,307 total reviews (5★ 928 · 4★ 258 · 3★ 85 · 2★ 12 · 1★ 24) — the count moved from 1,305, the average held at 4.6. Evidence: reports/verification-2026-11-16-9fccce0c.md rows V17–V18. | Round 11 (2026-11-16, arena/3dfe4b45): Specifications block re-read live — model RJ38-SQPF-3TDB-2W, 6 Qt / 5.67 L, 200–450 °F, 13.38 x 11.81 x 10.63 in / 33.98 x 30 x 27 cm, 13.3 lbs / 6.03 kg, 1700W/120V, cETL + 1-year assurance all confirmed. Review widget read 4.6 with 1307 total reviews (was 1305 on 2026-11-15) — volatile-count pattern, F14. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Chefman 6 Qt page re-read: model RJ38-SQPF-3TDB-2W, “1307 Reviews”, list price $119.99, “Max temp: 450ºF/ 235ºC with Hi-Fry function”, Sync Finish. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; model RJ38-SQPF-3TDB-2W on page; \"Max temp: 450ºF/ 235ºC with Hi-Fry function\"; Sync Function; review widget 1,307 (was 1,305 — F19 drift, no published value uses it).",
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): brand page live; the storefront endpoint (S32) reports price 119.99, compare-at 119.99, SKU RJ38-SQPF-3TDB-2W, 6,582 g / 14.51 lb, both records updated 2026-11-16T13:25:53-05:00. Every published 6 Qt value still matches."
+    },
+    {
+      "id": "S11",
+      "org": "Chefman (brand)",
+      "title": "Chefman TurboFry Touch 6 Qt. Dual-Basket Air Fryer — product page",
+      "url": "https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer",
+      "covers": "Sister SKU RJ38-SQPF-3TDB-2: list price, brand-site rating (used to show the two-SKU ambiguity)",
+      "kind": "Manufacturer product page",
+      "directness": "Primary",
+      "page_version": "Live page, 2026-11-13"
+    },
+    {
+      "id": "S12",
+      "org": "Chefman (brand)",
+      "title": "Chefman 8 Qt. TurboFry Touch Stainless-Steel Air Fryer — product page",
+      "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+      "covers": "Model RJ38-SQSS-8T: sizes, preset set, 200–400 °F range, dishwasher-safe parts, auto shutoff, list price, brand-site rating",
+      "kind": "Manufacturer product page",
+      "directness": "Primary",
+      "page_version": "Chefman 8 Qt TurboFry product page, re-read live 2026-11-14 (first read 2026-11-13) — Features and Specifications blocks re-read (the block that fills the former Wattage and Dimensions blanks) | Re-read round 9, 2026-11-15 (arena/63a2c638). | Targeted re-read 2026-11-16 (arena/9f0e6668): product-page review counter displayed 717 Reviews. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. Specifications block read verbatim: “Capacity: 5 Qt or 8 Qt / 4.73 L or 7.57 L”, “200–400°F / 95º-205°C temperature range”, “Power: 1700W/120V”, “Dimensions: (8 Qt Model) 15.4 in x 12.6 in x 13.5 in”, “Weight: (8 Qt Model) 12.8 lbs / 5.8 kg”, “Model Number: RJ38-SQSS-8T (8 Qt model)”. Brand-hosted review widget read 4.6 from 717 total reviews (5★ 523 · 4★ 131 · 3★ 42 · 2★ 10 · 1★ 11) — the count moved from 716, the average held at 4.6. Evidence: reports/verification-2026-11-16-9fccce0c.md rows V19–V20. | Round 11 (2026-11-16, arena/3dfe4b45): Features and Specifications re-read live — RJ38-SQSS-8T, 5 or 8 Qt, 200–400 °F, 1700W/120V, (8 Qt) 15.4 x 12.6 x 13.5 in / 12.8 lbs / 5.8 kg confirmed; max temp still 400 °F (F3 conflict stands). Review widget read 4.6 with 717 total reviews (was 716) — F14 pattern. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.RJ38-SQSS-8T, “717 Reviews”, 200–400°F, presets fries/chicken/fish/meat, 98% less oil, 4-6 people, auto shutoff, dishwasher-safe basket and rack, $119.99, size selector 8/5 Quart. F3 (450 °F) re-established as still open. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; model RJ38-SQSS-8T; \"200–400°F\"; \"Designed for 4-6 people\"; presets fries/chicken/fish/meat; review widget 717 (was 716). 400 °F ceiling confirmed — F3 conflict live.",
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): brand page live; the storefront endpoint (S33) reports 8 Quart price 119.99 / compare-at 119.99, SKU RJ38-SQSS-8T, 6,078 g / 13.4 lb, and 5 Quart 79.99 / compare-at 99.99, SKU RJ38-SQSS-5T, both updated 2026-11-16T13:25:53-05:00. Every published 8 Qt value still matches."
+    },
+    {
+      "id": "S13",
+      "org": "Chefman (brand)",
+      "title": "TurboFry Touch Air Fryer RJ38-SQSS-8T User Guide (PDF)",
+      "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf",
+      "covers": "Owner's manual: 8-quart basket, preset chart and default temperatures, shake reminder, safety instructions",
+      "kind": "Manufacturer owner's manual",
+      "directness": "Primary",
+      "page_version": "Document live, 2026-11-13 | Round 11 (2026-11-16, arena/3dfe4b45): safety-instructions and features sections re-read live — RJ38-SQSS-8T, extra-large 8-quart basket, preset defaults (Default 15 min/400 °F; Meat 18/375; Chicken 22/375; Fish 10/350) match the dataset rows; one basket in the features list; extension-cord clause read verbatim."
+    },
+    {
+      "id": "S14",
+      "org": "Emeril Everyday (brand)",
+      "title": "Emeril Lagasse French Door AirFryer 360 Toaster Oven Combo, 26 QT — product page",
+      "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+      "covers": "Capacity, dimensions, voltage, price, accessory count, warranty, preset-count claims, brand-site rating",
+      "kind": "Manufacturer product page",
+      "directness": "Primary",
+      "page_version": "Emeril 26QT French Door product page, re-read live 2026-11-14 (first read 2026-11-13) — price, spec icons, model number and 2.6/25 review widget re-read | Re-read round 9, 2026-11-15 (arena/63a2c638). | Targeted re-read 2026-11-16 (arena/9f0e6668): page still displayed 2.6 (25); conflicting 25 pre-sets / 10-in-1 copy and an 11-in-1 image remain visible. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. Price $199.99, model 4-00675-02A-VN and the brand-hosted rating 2.6 (25) all read unchanged. Specification icons read: “26-Quart Capacity — preparing food for 4–6 people”, “Dual-Speed Fan”, “25 Cooking Pre-sets”, “16.9”D x 15.8”W x 14.8”H Product Dimensions”, “24.6 Liters Capacity”, “120 volts Product Voltage”; body copy still reads “enviously versatile 10-in-1 air fry convection oven”. The four-way preset / in-1 conflict is still live on official pages and the site still asserts none of the four figures. Evidence: reports/verification-2026-11-16-9fccce0c.md row V21. | Round 11 (2026-11-16, arena/3dfe4b45): spec icons re-read live — 26-Quart, 24.6 Liters, 16.9\"D x 15.8\"W x 14.8\"H, 120 volts, 1-year warranty confirmed; the page still carries both '25 Cooking Pre-sets' (icon) and '24 one-touch cooking presets' (description) plus a 10-in-1 heading — preset conflict re-confirmed; still no weight row (Q-06 open). | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.$199.99; model line 4-00675-02A-VN; 2.6 from (25); “25 Cooking Pre-sets”; 16.9\"D x 15.8\"W x 14.8\"H; 24.6 Liters; 120 volts; body copy “10-in-1”; carousel asset named 11-in-1. The preset conflict is four-way and remains open. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; SKU 4-00675-02A-VN; \"25 Cooking Pre-sets\" widget vs \"10-in-1\" description vs 11-in-1 asset name; 26-Quart / 24.6 Liters; 16.9\"D x 15.8\"W x 14.8\"H; 120 volts; 2.6 (25) widget. F4/F5 conflicts live.",
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): brand page live. **New evidence:** the page's own product description (updated 2026-11-16T12:27:19-06:00) states \"24 one-touch cooking presets\" and \"Included are 7 premium accessories\". The separate specification block still states \"25 Cooking Pre-sets\". So the brand now documents both numbers on the same page — see flags F4 and F63."
+    },
+    {
+      "id": "S15",
+      "org": "Emeril Everyday (brand)",
+      "title": "Emeril Lagasse French Door AirFryer 360 Owner's Manual, model FAFO-001 (PDF)",
+      "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf",
+      "covers": "Rated power 1700 W, 120 V/60 Hz, 26 qt (1519 cu in), temperature range 75–500 °F / 25–260 °C",
+      "kind": "Manufacturer owner's manual",
+      "directness": "Primary",
+      "page_version": "Emeril FAFO-001 owner's manual (PDF) — safety, Parts & Accessories and control-panel pages re-read 2026-11-14; the temperature/preset chart was not re-read in this pass | Round 11 (2026-11-16, arena/3dfe4b45): Appliance Specifications table re-read live — FAFO-001, 120 V/1700 W/60 Hz, 1700 W, 26 quarts (1519 cubic inches), 75° F - 500° F/25° C - 260° C, LED — all match; Preset Information re-read: 24 named presets, Rotisserie preset with 'Rotisserie Spit and Forks', safeguards include 'never use with an extension cord'."
+    },
+    {
+      "id": "S16",
+      "org": "Amazon.com (product listings)",
+      "title": "Amazon detail page for ASIN B0CDY277D3 (Chefman 6 Qt Dual Basket)",
+      "url": "https://www.amazon.com/dp/B0CDY277D3",
+      "covers": "Listing title for ASIN B0CDY277D3 only. Registered as a single-ASIN URL because a source link must point at the page that states the value it supports: S16 was previously cited for all three listing titles while resolving to this one ASIN. The other two ASINs now have S28 and S29, and every citation of S16 outside this product was repointed on 2026-11-15 (flag F39). Amazon prices, star ratings and availability are deliberately not reproduced on this site (see S2 §2(b) and §6(t)).",
+      "kind": "Retail listing",
+      "directness": "Primary for 'what does this short link point to'; not used for specification claims",
+      "page_version": "Amazon listing detail page B0CDY277D3 — fetched 2026-11-15 from the supplied short link https://link.amazon/B04G1MEwY; <title> matched the stored value character for character | Round 9 (2026-11-15, arena/63a2c638): re-fetched standalone. <title> matched the stored value character for character. The page also rendered its browse-node breadcrumb: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. That breadcrumb is recorded as a published value; it is a browse path, NOT an Amazon commission category (see flag F56). | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live through the supplied short link https://link.amazon/B04G1MEwY, which redirected to www.amazon.com/dp/B0CDY277D3?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-68884e8aa630b24a&channelId=704&plpRedirect=mhFallback. The page <title> read “Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen” — the stored title, character for character. Browse-node breadcrumb re-read: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. Evidence: reports/verification-2026-11-16.md row V12. | Pass 11 (2026-11-16, arena/ba29c641-zone1): fetched directly and the Product information block was present in the response, which is the block F49 recorded as unreachable to an automated read. Captured: Item details (Model Number RJ38-SQPF-3TDB-2W, Part Number RJ38-SQPF-3TDB-2W, Model Name 'Turbo Fry® Touch', UPC 810087845025, Configuration 'Dual Basket', Included Components 'User Guide'), Features & Specs (1700 W, 120 V, Max 450 °F, Min 93 °C, Touch control), Measurements (13.38\" × 11.81\" × 10.63\", Capacity field '6 liters', 13.3 pounds) and the Warranty & Support line. This is the read that closes the ASIN-to-model caveat on F1/F2 and falsifies F49's premise. Prices and star ratings were visible and are not reproduced.",
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): re-fetched standalone. <title> matched the stored value character for character. Browse-node breadcrumb rendered again: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. One first attempt was answered by the automated 'Continue shopping' checkpoint; a retry returned the listing.",
+      "read_by_2026_11_16": "session arena/ba29c641-zone1 (direct /dp/ fetch, Product information block read)"
+    },
+    {
+      "id": "S17",
+      "org": "Amazon.com",
+      "title": "link.amazon short links supplied by the account holder (B04G1MEwY, B02NbDxp3, B00hJ57DV, and from 2026-11-17 B0c8moW59 and B0f3GKalj)",
+      "url": "https://link.amazon/B04G1MEwY",
+      "covers": "The five redirect links themselves and their resolved destinations. The set grew from three to five when the project brief of 2026-11-17 listed two further links; the two new tokens had never been read by this repository before that date.",
+      "kind": "Short link",
+      "directness": "Primary for the redirect target; the Associates tag inside is not observable",
+      "page_version": "Supplied link.amazon short link — re-resolved 2026-11-14, same target ASIN, still served with lv=shuf&plpRedirect=mhFallback | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Short link B04G1MEwY re-read: resolves to /dp/B0CDY277D3 via plpRedirect=mhFallback with no visible tag=. Destination stable; attribution and model identity still unconfirmed. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; all three short links re-resolved to the same destinations (B0CDY277D3, B09B7SB46R, B08DKYBTPH) with plpRedirect=mhFallback-style parameters; tokens still 9 characters (F17/F24 unchanged); tag still unobservable (Q-04). | Pass 13 (2026-11-17, arena/3093e674-zone1): all five tokens re-read. The three originals resolved to the same destinations (B0CDY277D3, B09B7SB46R, B08DKYBTPH) with the same fallback parameters and still no visible tag=. The two new tokens resolved to B0DHZTCNR5 (ThermoMaven instant-read, Black) and B0DZFD6R9Z (CHEF iQ Sense Gen3) with the same fallback shape on channelId=500. All five tokens are 9 characters, so none is an ASIN.",
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): all three tokens re-resolved. B04G1MEwY -> /dp/B0CDY277D3, B02NbDxp3 -> /dp/B09B7SB46R, B00hJ57DV -> /dp/B08DKYBTPH. Destinations unchanged; each landing URL still carries plpRedirect=mhFallback and no tag= parameter. | Pass 13 (2026-11-17, arena/3093e674-zone1): the same three destinations unchanged, plus B0c8moW59 -> /dp/B0DHZTCNR5 and B0f3GKalj -> /dp/B0DZFD6R9Z read for the first time. Every landing URL still shows no tag= parameter to a fetcher."
+    },
+    {
+      "id": "S18",
+      "org": "Chefman (brand)",
+      "title": "TurboFry Touch Dual Window Air Fryer RJ38-SQPF-3TDB-2W User Guide (PDF)",
+      "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf",
+      "covers": "Owner's manual: explicit statement of 'two 3-quart baskets', HI-FRY definition (450 °F/235 °C for 2 minutes), Sync Finish, Sync Baskets, aerosol-spray caution",
+      "kind": "Manufacturer owner's manual",
+      "directness": "Primary",
+      "page_version": "Chefman RJ38-SQPF-3TDB-2W owner's manual (PDF) — control panel and operating instructions re-read 2026-11-14; the cooking chart was not re-read in this pass | Round 11 (2026-11-16, arena/3dfe4b45): control-panel, operating-instructions and special-functions sections re-read live — 'two 3-quart baskets', Sync Finish delay behaviour with HOLD, Sync Baskets copy behaviour, HI-FRY 450 °F/235 °C for 2 minutes, and the aerosol CAUTION sentence read verbatim. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.RJ38-SQPF-3TDB-2W user guide: “two 3-quart baskets”; Sync Finish and Sync Baskets defined in the manual’s own words. The guide contains no preset chart, which is why the 6 Qt preset row stays blank (F36)."
+    },
+    {
+      "id": "S19",
+      "org": "Amazon.com Associates Central",
+      "title": "New Product Advertising API (PA API) Registration",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GBRCD467W33NMWLD",
+      "covers": "PA API registration is merged into Associates Central; credentials are linked to the primary account holder; request rate scales with account sales performance",
+      "kind": "Help article",
+      "directness": "Primary",
+      "page_version": "Live page, 2026-11-13"
+    },
+    {
+      "id": "S20",
+      "org": "Amazon.com Associates Central",
+      "title": "About the Product Advertising API (topic index)",
+      "url": "https://affiliate-program.amazon.com/help/node/topic/GMEDADBTCJ9KD8DQ",
+      "covers": "Current PA API help topics — used to confirm the API is still the documented route, not that it is deprecated",
+      "kind": "Help article",
+      "directness": "Primary",
+      "page_version": "Live page, 2026-11-13"
+    },
+    {
+      "id": "S21",
+      "org": "Amazon.com",
+      "title": "Product-detail lookup for the supplied 9-character token (negative control)",
+      "url": "https://www.amazon.com/dp/B04G1MEwY",
+      "covers": "Returned Amazon's \"Page Not Found\" error page on 2026-11-13 and again on 2026-11-14, i.e. the supplied token is not itself an ASIN and cannot be opened as one",
+      "kind": "Negative finding",
+      "directness": "Primary — Amazon's own response to the request",
+      "page_version": "Fetched 2026-11-14"
+    },
+    {
+      "id": "S22",
+      "org": "Amazon.com",
+      "title": "link.amazon resolver, nonsense-token control request",
+      "url": "https://link.amazon/ZZZ9ZZZZZ",
+      "covers": "A made-up 9-character token returns 403 Forbidden rather than a shuffled featured product, which is how the resolver distinguishes a recognised token from an unrecognised one",
+      "kind": "Negative finding",
+      "directness": "Primary — Amazon's own response to the request",
+      "page_version": "Fetched 2026-11-14"
+    },
+    {
+      "id": "S23",
+      "org": "Amazon.com Kindle Direct Publishing (help centre)",
+      "title": "Linking from Your Website (KDP Help G200652190)",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G200652190",
+      "covers": "Official Amazon definition: the ASIN is a 10-character Amazon Standard Identification Number, and the canonical product URL format is http://www.amazon.com/dp/ASIN. Used to source the ASIN-length and URL-format rows in the dashboard annex, which previously cited only third-party sites.",
+      "kind": "Help article",
+      "directness": "Primary (published by Amazon)",
+      "page_version": "Live page, re-verified 2026-11-14 (sess-cb2cfa7c) | Pass 13 (2026-11-17, arena/3093e674-zone1): page re-read; it remains the official Amazon-published description of linking to a detail page by ASIN in the /dp/<ASIN> form, which is the format the product-intent register checks a token against."
+    },
+    {
+      "id": "S24",
+      "org": "Amazon.com Associates Central — Creators API documentation",
+      "title": "PA-API 5 Deprecation Notice",
+      "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation",
+      "covers": "Official notice that PA-API 5 has been deprecated and is replaced by the Creators API; PA-API 5 calls return 403 AccessDeniedException with a migration message. The former PA-API 5 documentation URL (webservices.amazon.com/paapi5/documentation/get-items.html) now serves this notice. Re-verified 2026-11-14 (sess-cb2cfa7c).",
+      "kind": "Deprecation notice",
+      "directness": "Primary (published by Amazon)",
+      "page_version": "Live page, re-verified 2026-11-14 (sess-cb2cfa7c)"
+    },
+    {
+      "id": "S25",
+      "org": "Chefman (brand)",
+      "title": "TurboFry 6 Qt. Double Basket Air Fryer with Easy View Windows (RJ38-3DBW-V2) — product page",
+      "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-6-qt-double-basket-air-fryer-with-easy-view-windows",
+      "covers": "A third 6-quart dual-basket Chefman SKU: model RJ38-3DBW-V2, 6 Qt / 5.68 L (two 3 Qt / 2.84 L baskets), 90–400 °F / 32–204 °C, 1700 W, five functions (air fry, bake, reheat, dehydrate, frozen), easy-view windows, interior lights, shake notifications, cETL, 1-year assurance, $99.99 list",
+      "kind": "Product page",
+      "directness": "Primary — the manufacturer's own page",
+      "page_version": "Read live 2026-11-14"
+    },
+    {
+      "id": "S26",
+      "org": "Chefman (brand)",
+      "title": "TurboFry 8 Qt. Air Fryer w/ High Fry (RJ38-8T-BLACK) — product page",
+      "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-8-qt-air-fryer-w-high-fry",
+      "covers": "A second 8-quart Chefman SKU: model RJ38-8T-BLACK, 8 Qt / 7.57 L, Hi-Fry 450 °F / 232 °C for the final two minutes, four functions (air fry, bake, dehydrate, frozen), automatic shake notifications, matte-black finish, 1700 W / 120 V, cETL, 1-year assurance",
+      "kind": "Product page",
+      "directness": "Primary — the manufacturer's own page",
+      "page_version": "Read live 2026-11-14 | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; model RJ38-8T-BLACK; \"Capacity: 8 Qt / 7.57 L\"; \"Hi-Fry Temperature: 450°F / 232°C\"; 4 functions air fry/bake/dehydrate/frozen; 1700W/120V; cETL + 1-year assurance. Confirms the second 8 Qt SKU in F3/Q-02."
+    },
+    {
+      "id": "S27",
+      "org": "Chefman (brand)",
+      "title": "TurboFry® Touch 6 Qt. Dual-Basket Air Fryer (RJ38-SQPF-3TDB-2) — product page",
+      "url": "https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer",
+      "covers": "The sister 6-quart dual-basket SKU already recorded as the sibling: model RJ38-SQPF-3TDB-2, 4.6 from 194 reviews. This page publishes no specification block — the absence is itself the finding behind flag F30.",
+      "kind": "Product page",
+      "directness": "Primary — the manufacturer's own page",
+      "page_version": "Read live 2026-11-14"
+    },
+    {
+      "id": "S28",
+      "org": "Amazon.com (product listings)",
+      "title": "Amazon detail page for ASIN B09B7SB46R (Emeril 26QT French Door)",
+      "url": "https://www.amazon.com/dp/B09B7SB46R",
+      "covers": "Listing title for ASIN B09B7SB46R only.",
+      "kind": "Retail listing",
+      "directness": "Primary for 'what does this short link point to'; not used for specification claims",
+      "page_version": "Amazon listing detail page B09B7SB46R — fetched 2026-11-15 from the supplied short link https://link.amazon/B02NbDxp3. <title> read: 'Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen' | Round 9 (2026-11-15, arena/63a2c638): NOT re-fetched successfully. Three attempts (https://www.amazon.com/dp/B09B7SB46R and the same URL with plpRedirect=mhFallback) were each answered with Amazon's automated 'To continue, please click the Continue shopping button' checkpoint rather than the product page. The stored title is therefore carried forward unverified for this date and the Emeril browse node is recorded as unknown rather than guessed. The two Chefman ASINs fetched cleanly in the same window, so this is a per-ASIN block, not a site-wide one. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live through the supplied short link https://link.amazon/B02NbDxp3, which redirected to www.amazon.com/dp/B09B7SB46R?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-662480f5bd825c83&channelId=704&plpRedirect=mhFallback. The page <title> read “Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen” — the stored title, character for character, including the wording that changed on 2026-11-15 (flag F38). Browse-node breadcrumb re-read: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. A direct request to the /dp/ URL was answered with Amazon's bot checkpoint on this date, exactly as recorded for this source on 2026-11-15. Evidence: reports/verification-2026-11-16.md rows V13 and V15. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Short link B02NbDxp3 re-read: resolves to /dp/B09B7SB46R. Listing title still says “24 One-Touch Preset Options” and “Six Cooking Accessories Included” — the latter is the open F45 conflict against the manual’s 7. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; BLOCKPOINT CLEARED: fetched successfully via the supplied short link after the 2026-11-15 bot checkpoint; <title> matched the stored value character for character, incl. \"24 One-Touch Preset Options\" and \"Six Cooking Accessories Included\". | Amazon listing detail page B09B7SB46R — fetched 2026-11-15 from the supplied short link https://link.amazon/B02NbDxp3. <title> read: 'Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen' | Round 9 (2026-11-15, arena/63a2c638): NOT re-fetched successfully. Three attempts (https://www.amazon.com/dp/B09B7SB46R and the same URL with plpRedirect=mhFallback) were each answered with Amazon's automated 'To continue, please click the Continue shopping button' checkpoint rather than the product page. The stored title is therefore carried forward unverified for this date and the Emeril browse node is recorded as unknown rather than guessed. The two Chefman ASINs fetched cleanly in the same window, so this is a per-ASIN block, not a site-wide one. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live through the supplied short link https://link.amazon/B02NbDxp3, which redirected to www.amazon.com/dp/B09B7SB46R?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-662480f5bd825c83&channelId=704&plpRedirect=mhFallback. The page <title> read “Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen” — the stored title, character for character, including the wording that changed on 2026-11-15 (flag F38). Browse-node breadcrumb re-read: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. A direct request to the /dp/ URL was answered with Amazon's bot checkpoint on this date, exactly as recorded for this source on 2026-11-15. Evidence: reports/verification-2026-11-16.md rows V13 and V15. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Short link B02NbDxp3 re-read: resolves to /dp/B09B7SB46R. Listing title still says “24 One-Touch Preset Options” and “Six Cooking Accessories Included” — the latter is the open F45 conflict against the manual’s 7. | Pass 11 (2026-11-16, arena/ba29c641-zone1): the /dp/ URL fetched directly and rendered the product page, so the 2026-11-15 per-ASIN checkpoint block no longer describes this date. Captured the Product information block: Item details (Model Number and Part Number 4-00675-02X-VN, Model Name 'Extra Large 26 QT French Door Air Fryer Oven', Configuration 'Air Fryer Toaster Oven Combo with 24 Functions and 7 Accessories', Included Components enumerating six named parts, UPC 752356835682), Features & Specs (1700 W, 120 V, Min 75 °F, Max 500 °F) and Measurements (16.9\" × 15.8\" × 14.8\", 24.6 liters, Size 'Extra Large'). The Best Sellers Rank line agrees with the browse classification pass 10 recorded through the short link. Two internal contradictions in the page are published as flags F70 and F71. No weight row exists on this page — recorded as absent.",
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): **fetched successfully** — the block recorded on 2026-11-15 is cleared. <title> read 'Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen', matching the stored value. The breadcrumb rendered and the Emeril browse-node cell is now filled from it.",
+      "read_by_2026_11_16": "session arena/ba29c641-zone1 (direct /dp/ fetch, Product information block read)"
+    },
+    {
+      "id": "S29",
+      "org": "Amazon.com (product listings)",
+      "title": "Amazon detail page for ASIN B08DKYBTPH (Chefman 8 Qt TurboFry)",
+      "url": "https://www.amazon.com/dp/B08DKYBTPH",
+      "covers": "Listing title for ASIN B08DKYBTPH only.",
+      "kind": "Retail listing",
+      "directness": "Primary for 'what does this short link point to'; not used for specification claims",
+      "page_version": "Amazon listing detail page B08DKYBTPH — fetched 2026-11-15 from the supplied short link https://link.amazon/B00hJ57DV; <title> matched the stored value character for character | Round 9 (2026-11-15, arena/63a2c638): re-fetched standalone. <title> matched the stored value character for character. Browse-node breadcrumb rendered identically to S16: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. Recorded as a value; it is a browse path, not a commission category (flag F56). | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live through the supplied short link https://link.amazon/B00hJ57DV, which redirected to www.amazon.com/dp/B08DKYBTPH?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-38bef00eb1e962ef&channelId=704&plpRedirect=mhFallback. The page <title> read “Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel : Home & Kitchen” — the stored title, character for character. Browse-node breadcrumb re-read: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. Evidence: reports/verification-2026-11-16.md row V14. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Short link B00hJ57DV re-read: resolves to /dp/B08DKYBTPH. Listing title still advertises “450°F Hi-Fry Option” — the open F3 conflict against the brand page’s 200–400 °F. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; <title> matched the stored value character for character; same browse-node breadcrumb. | Amazon listing detail page B08DKYBTPH — fetched 2026-11-15 from the supplied short link https://link.amazon/B00hJ57DV; <title> matched the stored value character for character | Round 9 (2026-11-15, arena/63a2c638): re-fetched standalone. <title> matched the stored value character for character. Browse-node breadcrumb rendered identically to S16: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. Recorded as a value; it is a browse path, not a commission category (flag F56). | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live through the supplied short link https://link.amazon/B00hJ57DV, which redirected to www.amazon.com/dp/B08DKYBTPH?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-38bef00eb1e962ef&channelId=704&plpRedirect=mhFallback. The page <title> read “Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel : Home & Kitchen” — the stored title, character for character. Browse-node breadcrumb re-read: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. Evidence: reports/verification-2026-11-16.md row V14. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Short link B00hJ57DV re-read: resolves to /dp/B08DKYBTPH. Listing title still advertises “450°F Hi-Fry Option” — the open F3 conflict against the brand page’s 200–400 °F. | Pass 11 (2026-11-16, arena/ba29c641-zone1): Product information block captured. Part Number RJ38-SQSS-8T — the row that carries the code here, because this listing's Model Number row holds the marketing string 'Large Air Fryer' (F68) — plus Model Name 'Square Air Fryer', UPC 816458024518, Warranty Description '1-Year Limited Warranty', Features & Specs (1700 W, 120 V, Max 400 °F, Min 94 °C, LED Shake Reminder) and Measurements (12.75\" × 13.5\" × 10\", 8 quarts, 12.8 pounds). The listing's own 400 °F maximum contradicts its title's 450 °F Hi-Fry claim, and its dimensions contradict the brand page's. Both recorded, neither resolved (F69, F72).",
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): re-fetched standalone. <title> matched the stored value character for character. Browse-node breadcrumb rendered identically: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers.",
+      "read_by_2026_11_16": "session arena/ba29c641-zone1 (direct /dp/ fetch, Product information block read)"
+    },
+    {
+      "id": "S30",
+      "org": "Google Search Central",
+      "title": "Spam policies for Google web search",
+      "url": "https://developers.google.com/search/docs/essentials/spam-policies",
+      "covers": "Scaled content abuse; thin affiliation; the qualification rule for affiliate links (rel=sponsored / rel=nofollow); site reputation policy. Used to assess whether this repository's parallel published builds and its affiliate link markup meet the search engine's published requirements for affiliate pages",
+      "kind": "Policy",
+      "directness": "Primary — the search engine's own published policy text",
+      "page_version": "Live page, re-read 2026-11-15"
+    },
+    {
+      "id": "S31",
+      "org": "Google Search Central",
+      "title": "Qualify your outbound links to Google",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+      "covers": "Which rel values apply to which outbound links — rel=sponsored for advertising, affiliate and other paid placements; rel=nofollow as the general fallback; rel=ugc for user-generated content",
+      "kind": "Guidance",
+      "directness": "Primary — the search engine's own documentation",
+      "page_version": "Live page, 2026-11-15"
+    },
+    {
+      "id": "S32",
+      "org": "Chefman (brand)",
+      "title": "Chefman product endpoint for RJ38-SQPF-3TDB-2W (6 Qt Dual-Window) — machine-readable record served by chefman.com",
+      "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer.json",
+      "covers": "Confirms the list price ($119.99) and compare-at price ($119.99) for SKU RJ38-SQPF-3TDB-2W, and records a shipping weight of 14.51 lb / 6,582 g that differs from the 13.3 lb printed in the page's own Specifications block (flag F44).",
+      "kind": "Manufacturer commerce endpoint",
+      "directness": "Primary — served by the brand's own storefront",
+      "page_version": "Read live 2026-11-15 (arena/63a2c638). variant price 119.99, compare_at_price 119.99, sku RJ38-SQPF-3TDB-2W, grams 6582, weight 14.51 lb. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. sku RJ38-SQPF-3TDB-2W, price 119.99, compare_at_price 119.99, grams 6582, weight 14.51 lb, barcode 810087845025, updated_at 2026-11-16T13:25:53-05:00. Evidence: reports/verification-2026-11-16.md row V22.",
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): re-read: price 119.99, compare_at_price 119.99, sku RJ38-SQPF-3TDB-2W, grams 6582, weight 14.51 lb — unchanged."
+    },
+    {
+      "id": "S33",
+      "org": "Chefman (brand)",
+      "title": "Chefman product endpoint for RJ38-SQSS-8T / RJ38-SQSS-5T (8 Qt and 5 Qt TurboFry Touch)",
+      "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1.json",
+      "covers": "Confirms the 8 Quart list price ($119.99, compare-at $119.99) for SKU RJ38-SQSS-8T, separates the 5 Quart variant ($79.99, compare-at $99.99), and records a shipping weight of 13.4 lb / 6,078 g against the 12.8 lb printed in the Specifications block (flag F44).",
+      "kind": "Manufacturer commerce endpoint",
+      "directness": "Primary — served by the brand's own storefront",
+      "page_version": "Read live 2026-11-15 (arena/63a2c638). 8 Quart: price 119.99, compare_at_price 119.99, sku RJ38-SQSS-8T, grams 6078, weight 13.4 lb. 5 Quart: price 79.99, compare_at_price 99.99, sku RJ38-SQSS-5T. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. 8 Quart: sku RJ38-SQSS-8T, price 119.99, compare_at_price 119.99, grams 6078, weight 13.4 lb, barcode 816458024518. 5 Quart: sku RJ38-SQSS-5T, price 79.99, compare_at_price 99.99, grams 4999, weight 11.02 lb. Evidence: reports/verification-2026-11-16.md row V23.",
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): re-read: 8 Quart price 119.99 / compare_at 119.99, sku RJ38-SQSS-8T, grams 6078, weight 13.4 lb; 5 Quart 79.99 / compare_at 99.99, sku RJ38-SQSS-5T — unchanged."
+    },
+    {
+      "id": "S34",
+      "org": "Chefman (brand)",
+      "title": "Chefman product endpoint for RJ38-SQPF-3TDB-2 (6 Qt Dual-Basket, the sister SKU)",
+      "url": "https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer.json",
+      "covers": "Confirms the sister SKU's list price ($119.99, compare-at $119.99) for RJ38-SQPF-3TDB-2 — evidence that the two-SKU ambiguity recorded in flag F2 cannot be resolved by price, since both carry the identical list price.",
+      "kind": "Manufacturer commerce endpoint",
+      "directness": "Primary — served by the brand's own storefront",
+      "page_version": "Read live 2026-11-15 (arena/63a2c638). variant price 119.99, compare_at_price 119.99, sku RJ38-SQPF-3TDB-2, grams 6509, weight 14.35 lb. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. sku RJ38-SQPF-3TDB-2, price 119.99, compare_at_price 119.99, grams 6509, weight 14.35 lb, barcode 810087842956. Evidence: reports/verification-2026-11-16.md row V24."
+    },
+    {
+      "id": "S35",
+      "org": "Emeril Everyday (brand)",
+      "title": "Emeril product endpoint for the French Door AirFryer 360 (SKU 4-00675-02A-VN)",
+      "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360.json",
+      "covers": "The brand storefront's own machine-readable record for the 26 QT model. Read 2026-11-16 it reports price 199.99 USD, SKU 4-00675-02A-VN, variant weight 27.04 lb / 12,265 g, and a product description stating \"24 one-touch cooking presets\" and \"Included are 7 premium accessories\". Used as evidence on Q-06 (weight) and on the Emeril preset/accessory conflicts — never converted into a published product weight, because the endpoint does not say whether the figure is the product or the packaged weight.",
+      "kind": "Manufacturer commerce endpoint",
+      "directness": "Primary — served by the brand's own storefront",
+      "page_version": "Read live 2026-11-16 (arena/b23f12f0). price 199.99, sku 4-00675-02A-VN, grams 12265, weight 27.04 lb, vendor 'Emeril Lagasse', product updated_at 2026-11-16T12:27:19-06:00."
+    },
+    {
+      "id": "S36",
+      "org": "Amazon.com (product listings)",
+      "title": "Amazon detail page for ASIN B0DHZTCNR5 (ThermoMaven instant-read meat thermometer, Black)",
+      "url": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "covers": "The listing title, the browse-node breadcrumb and the destination of the supplied short link https://link.amazon/B0c8moW59. Registered as a single-ASIN URL on the same rule as S16/S28/S29: a source link must point at the page that states the value it supports. Not used for any specification claim - the brand-model mapping for this ASIN is unresolved (F76).",
+      "kind": "Retail listing",
+      "directness": "Primary for 'where does this short link land'; not used for specification claims",
+      "page_version": "Fetched 2026-11-17 from the supplied short link https://link.amazon/B0c8moW59, which resolved through its fallback redirector (lv=shuf, plpRedirect=mhFallback, channelId=500). Document title read in full: 'Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black : Home & Kitchen'. Breadcrumb: Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat. First read of this token - there is no second read to compare stability against.",
+      "verified": "Read live 2026-11-17 by session arena/3093e674-zone1 through the submitted short link; recorded in reports/verification-2026-11-17-3093e674.md."
+    },
+    {
+      "id": "S37",
+      "org": "Amazon.com (product listings)",
+      "title": "Amazon detail page for ASIN B0DZFD6R9Z (CHEF iQ Sense smart wireless meat thermometer, Gen3)",
+      "url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "covers": "The listing title, the browse-node breadcrumb and the destination of the supplied short link https://link.amazon/B0f3GKalj. Used for identity-of-destination only; the specification rows it supports are sourced to the brand's own page (S38), which is where the numbers live.",
+      "kind": "Retail listing",
+      "directness": "Primary for 'where does this short link land'",
+      "page_version": "Fetched 2026-11-17 from the supplied short link https://link.amazon/B0f3GKalj, which resolved through its fallback redirector (lv=shuf, plpRedirect=mhFallback, channelId=500). Document title read in full: 'Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen'. Breadcrumb: Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat.",
+      "verified": "Read live 2026-11-17 by session arena/3093e674-zone1 through the submitted short link; recorded in reports/verification-2026-11-17-3093e674.md."
+    },
+    {
+      "id": "S38",
+      "org": "CHEF iQ (the brand's own store)",
+      "title": "iQ Sense - CHEF iQ product page (Gen 3 wireless meat thermometer)",
+      "url": "https://chefiq.com/products/iq-sense",
+      "covers": "The only official source this repository holds for the iQ Sense's own published figures: five sensors (four internal plus one ambient), accuracy within 1°F, heat resistance to 1,000°F (537°C), the appliance compatibility list that includes 'air fryer', Wi-Fi/Bluetooth via the Smart Hub, 70+ hours of battery, USB-C charging, probe materials, and the 1-probe Dark Smoke variant code CQ60-1C-Z1-E with its brand-page price.",
+      "kind": "Brand product page",
+      "directness": "Primary - the manufacturer's own page for the product",
+      "page_version": "Fetched 2026-11-17. Variant selector offers 1 to 4 probes in Dark Smoke or Sea Salt, so the page is one product line with several SKUs; only the displayed 1-probe Dark Smoke code and price are read from it. Feature list read verbatim: 'Compatible with the oven, stovetop, gas and charcoal grills, smoker, air fryer, deep fryer, and sous vide' and 'Heat resistant up to 1,000ºF (537ºC)'.",
+      "verified": "Read live 2026-11-17 by session arena/3093e674-zone1; recorded in reports/verification-2026-11-17-3093e674.md."
+    },
+    {
+      "id": "S39",
+      "org": "ThermoMaven (the brand's own store)",
+      "title": "ThermoMaven F1 Instant-Read Meat Thermometer - product page",
+      "url": "https://www.thermomaven.com/products/f1",
+      "covers": "The F1's published figures - accuracy within ±0.5℉, a 0.7-second reading, IP67 waterproofing, lift-to-wake with 30-second auto-off, 180° rotating backlit display, magnetic storage, NIST calibration statement, NSF/CE/RoHS/BPA-free marks, lifetime warranty with free replacements, and the brand-page price of $12.99 against a struck-through $19.99. Also the reason the Amazon listing cannot be mapped to a SKU on the strength of its title: the brand sells an F1, an F1 Stealth and an F1 Ace.",
+      "kind": "Brand product page",
+      "directness": "Primary for the F1 line; not proof that ASIN B0DHZTCNR5 is the F1 (see F76)",
+      "page_version": "Fetched 2026-11-17. The page links its own user guide PDF (ThermoMaven_F1_User_Manual_v1_202408_Web.pdf); the PDF was not opened by this pass, so no fact is sourced to it.",
+      "verified": "Read live 2026-11-17 by session arena/3093e674-zone1; recorded in reports/verification-2026-11-17-3093e674.md."
+    },
+    {
+      "id": "S40",
+      "org": "CHEF iQ (the brand's own support page)",
+      "title": "iQ Sense FAQ — CHEF iQ (probe temperature limits, app requirement, cleaning)",
+      "url": "https://chefiq.com/pages/new-iq-sense-faq",
+      "covers": "The limits that the product page does not break down: the portion of the probe inserted into food is rated to 212˚F, the ambient sensor at the ceramic end to 752˚F, and Gen 3's maximum ambient limit to 1,000ºF; the probe is waterproof and 'technically top-rack dishwasher safe' though the brand advises against it; the hub is not waterproof; the app is required to see any data; up to 4 probes pair to a Gen 3 hub; the hub holds a charge for 20 hours and a Gen 3 probe for up to 60.",
+      "kind": "Brand support page",
+      "directness": "Primary — the manufacturer's own answers about its own product",
+      "page_version": "Fetched 2026-11-17. Quoted verbatim where this register or an article uses the wording. The page is dated in no visible way, so every value taken from it is labelled with this reading date rather than a publication date.",
+      "verified": "Read live 2026-11-17 by session arena/3093e674-zone1; see reports/verification-2026-11-17-3093e674.md."
+    }
   ],
-  "not_re_read_in_this_pass": {
-   "ids": [
-    "S4",
-    "S5",
-    "S6",
-    "S7",
-    "S9",
-    "S11",
-    "S12",
-    "S13",
-    "S14",
-    "S15",
-    "S16",
-    "S18",
-    "S19",
-    "S20",
-    "S21",
-    "S22",
-    "S23",
-    "S24",
-    "S25",
-    "S26",
-    "S27",
-    "S28",
-    "S29",
-    "S30",
-    "S31",
-    "S32",
-    "S33",
-    "S34"
-   ],
-   "note": "Their recorded reads stand as dated evidence and are not restated as current by this pass. S7's content in particular was not fetched: it was reached only as a link from S8. Nothing on the site depends on a claim only S7 makes, and flag F60 records the scope limit."
+  "reverified_scope": "Pass 11 (arena/2e346d24-zone1) re-read live on 2026-11-16: S1, S2, S3, S4, S5, S8, S9, S10, S17, S28, S29, then S12, S14 and S18 later in the same session — fourteen sources in total. NOT re-read in pass 11 and therefore not restated: S6, S7, S11, S13, S15, S16, S19-S27, S30-S34, and the 8 Qt owner's-manual PDF. F3 (450 °F) was re-established live against S12 and the listing title; F4/F5 (Emeril presets) against S14. S15, the Emeril owner's manual, was NOT re-read, so the 24-preset count is carried forward and not re-asserted. Evidence: reports/verification-2026-11-16-2e346d24.md",
+  "reverified_2026_11_16_b23f12f0": {
+    "performed_by": "arena/b23f12f0-zone1 (session b23f12f0)",
+    "method": "Each source below was fetched server-side on 2026-11-16 and the quoted string read from that response. This sandbox has no direct outbound network, so nothing is asserted from memory or from an earlier session's record.",
+    "re_read_live": [
+      {
+        "id": "S1",
+        "what": "Operating Agreement - header reads 'Updated: October 15, 2025'."
+      },
+      {
+        "id": "S3",
+        "what": "Commission Income Statement Table 1 read in full with no login: 'Physical Books, Kitchen, Automotive 4.50%' and 'All Other Categories 4.00%'."
+      },
+      {
+        "id": "S4",
+        "what": "Application Review Process - at least 3 qualifying sales in the first 180 days, personal orders excluded, at least 10 posts, content recent within 60 days, at least 500 followers, rejection is final."
+      },
+      {
+        "id": "S8",
+        "what": "FTC Disclosures 101 - 'Place it so it is hard to miss' and 'You can't talk about your experience with a product you haven't tried'; page dated November 2019."
+      },
+      {
+        "id": "S9",
+        "what": "16 CFR Part 255 - eCFR banner 'Displaying title 16, up to date as of 11/12/2026. Title 16 was last amended 10/30/2026.' Source note still 88 FR 48102, July 26 2023; §255.0-§255.6 present including §255.5."
+      },
+      {
+        "id": "S10",
+        "what": "Chefman 6 Qt page live; storefront endpoint (S32) reports price 119.99, compare-at 119.99, SKU RJ38-SQPF-3TDB-2W, 6582 g / 14.51 lb, record updated 2026-11-16T13:25:53-05:00."
+      },
+      {
+        "id": "S12",
+        "what": "Chefman 8 Qt page live; storefront endpoint (S33) reports 8 Quart 119.99 / compare-at 119.99, SKU RJ38-SQSS-8T, 6078 g / 13.4 lb and 5 Quart 79.99 / compare-at 99.99, SKU RJ38-SQSS-5T."
+      },
+      {
+        "id": "S14",
+        "what": "Emeril page live, price 199.99, SKU 4-00675-02A-VN. New evidence: the page's own description (updated 2026-11-16T12:27:19-06:00) states 24 one-touch cooking presets and 7 premium accessories, while the specification block still states 25 Cooking Pre-sets. See flag F66."
+      },
+      {
+        "id": "S16",
+        "what": "/dp/B0CDY277D3 - <title> matched the stored value character for character; browse-node breadcrumb rendered. One first attempt was served the automated 'Continue shopping' checkpoint; a retry returned the listing."
+      },
+      {
+        "id": "S17",
+        "what": "All three tokens re-resolved to B0CDY277D3, B09B7SB46R and B08DKYBTPH. Destinations unchanged; landing URLs carry plpRedirect=mhFallback and no tag= parameter."
+      },
+      {
+        "id": "S28",
+        "what": "/dp/B09B7SB46R - FETCHED SUCCESSFULLY, clearing the 2026-11-15 block. <title> matched the stored value character for character and the breadcrumb rendered, which is what allowed the Emeril browse-node cell to be filled. See flag F65."
+      },
+      {
+        "id": "S29",
+        "what": "/dp/B08DKYBTPH - <title> matched the stored value character for character; browse-node breadcrumb rendered."
+      },
+      {
+        "id": "S32",
+        "what": "Re-read: price 119.99, compare_at_price 119.99, sku RJ38-SQPF-3TDB-2W, grams 6582, weight 14.51 lb - unchanged."
+      },
+      {
+        "id": "S33",
+        "what": "Re-read: 8 Quart 119.99 / 119.99, sku RJ38-SQSS-8T, grams 6078, weight 13.4 lb; 5 Quart 79.99 / 99.99, sku RJ38-SQSS-5T - unchanged."
+      },
+      {
+        "id": "S35",
+        "what": "NEW source. Emeril commerce endpoint: price 199.99, sku 4-00675-02A-VN, grams 12265, weight 27.04 lb. Registered for the Q-06 weight candidate and the F63 preset/accessory evidence."
+      }
+    ],
+    "not_re_read_in_this_pass": {
+      "ids": [
+        "S2",
+        "S5",
+        "S6",
+        "S7",
+        "S11",
+        "S13",
+        "S15",
+        "S18",
+        "S19",
+        "S20",
+        "S21",
+        "S22",
+        "S23",
+        "S24",
+        "S25",
+        "S26",
+        "S27",
+        "S30",
+        "S31",
+        "S34"
+      ],
+      "note": "S2 was read today by session c334fb1c (round 10) and again by session ad8105b3; this pass did not re-open it. The owner's manuals (S13, S15, S18) were not re-opened, so their last read stands at 2026-11-14/15. Nothing on the site depends on a claim only S7 makes."
+    }
+  },
+  "reverified_2026_11_16_ba29c641": {
+    "session": "arena/ba29c641-zone1",
+    "date": "2026-11-16",
+    "method": "server-side fetch of the three /dp/ URLs; each value below was read from the response body's Product information block, not from an earlier session's record",
+    "read": [
+      "S16",
+      "S28",
+      "S29"
+    ],
+    "not_read_by_this_pass": "Every other registered source (S1-S15, S17-S27, S30-S34) was not re-fetched by this session, so nothing else is restated as current here. The same three short links, the policy pages, the commission table, the manuals and both brand pages were re-read the same day by sessions 9fccce0c, 121929a5, 2e346d24 and 695f03b7, and their records stand on their own dates; where this pass agrees with one of them it says which read produced which value.",
+    "deliberately_not_used": "Prices, discounts, delivery dates, star ratings, review counts and Best Sellers Rank positions seen in the same responses: S2 §2(b) and §6(t) for the first three, and this repository's reading of IP License §2(e) for rank data. Recorded in reports/asin-model-mapping-2026-11-16.md §4 as read-and-excluded rather than silently dropped."
+  },
+  "reverified_2026_11_17_3093e674": {
+    "session": "arena/3093e674-zone1",
+    "date": "2026-11-17",
+    "scope": "S1, S2, S6, S17, S23 re-read for the link and tag rules implemented this pass; S36-S39 registered from live reads made the same day (the two new Amazon destinations, and the two brand product pages that carry their published figures).",
+    "result": "Policies header unchanged at 'Updated: April 14, 2026'; Operating Agreement §5 wording unchanged; all five short links resolved as recorded, with the two new destinations added; no previously published value was contradicted by any read in this pass.",
+    "evidence": "reports/verification-2026-11-17-3093e674.md"
   }
- },
- "reverified_2026_11_16_round11": {
-  "performed_by": "arena/3dfe4b45-zone1 (session 3dfe4b45)",
-  "method": "Direct page reads on 2026-11-16 (round 11); this session's fetch path differs from the server-side fetch used elsewhere, and every quoted string below was read from the fetched page itself. Evidence table: reports/verification-round11-2026-11-16.md.",
-  "re_read_live": [
-   {
-    "id": "S3",
-    "what": "Standard Commission Income Statement Table 1 re-read without a login: 'Physical Books, Kitchen, Automotive 4.50%', 'All Other Categories 4.00%' — matches."
-   },
-   {
-    "id": "S8",
-    "what": "FTC Disclosures 101 — 'November 2019' stamp; the no-experience sentence and hard-to-miss placement rule read verbatim."
-   },
-   {
-    "id": "S9",
-    "what": "eCFR 16 CFR Part 255 — title 16 'up to date as of 11/12/2026', last amended 10/30/2026; §255.0–255.6; source 88 FR 48102 (July 26, 2023)."
-   },
-   {
-    "id": "S10",
-    "what": "Chefman 6 Qt page — full Specifications block re-read: RJ38-SQPF-3TDB-2W, 6 Qt / 5.67 L, 200–450 °F, 13.38 x 11.81 x 10.63 in / 33.98 x 30 x 27 cm, 13.3 lbs / 6.03 kg, 1700W/120V, cETL + 1-year assurance. Review widget 4.6 / 1,307 — matches the counter refreshed this day."
-   },
-   {
-    "id": "S12",
-    "what": "Chefman 8 Qt page — full Features and Specifications re-read: RJ38-SQSS-8T, 5 or 8 Qt, 200–400 °F (max temp still 400 °F; F3 stands), 1700W/120V, (8 Qt) 15.4 x 12.6 x 13.5 in, 12.8 lbs. Review widget 4.6 / 717 — matches."
-   },
-   {
-    "id": "S13",
-    "what": "Chefman RJ38-SQSS-8T manual — one basket in the features list, preset defaults (15/400, 18/375, 22/375, 10/350), extension-cord rating clause verbatim."
-   },
-   {
-    "id": "S14",
-    "what": "Emeril page — spec icons re-read: 26-Quart, 24.6 L, 16.9\"D x 15.8\"W x 14.8\"H, 120 volts, 1-year warranty; 25 (icon) vs 24 (description) vs 10-in-1 (heading) all still present; no weight row (Q-06 open)."
-   },
-   {
-    "id": "S15",
-    "what": "Emeril FAFO-001 manual — spec table (FAFO-001, 120 V/1700 W/60 Hz, 26 quarts / 1519 cubic inches, 75–500 °F, LED); 24 named presets; Rotisserie Spit and Forks; 'never use with an extension cord' safeguard."
-   },
-   {
-    "id": "S18",
-    "what": "Chefman RJ38-SQPF-3TDB-2W manual — 'two 3-quart baskets', Sync Finish/Sync Baskets mechanics, HI-FRY 450 °F/235 °C for 2 minutes, and the aerosol CAUTION sentence verbatim."
-   }
-  ],
-  "not_re_read_in_this_pass": {
-   "ids": [
-    "S1",
-    "S2",
-    "S4",
-    "S5",
-    "S6",
-    "S7",
-    "S11",
-    "S16",
-    "S17",
-    "S19",
-    "S20",
-    "S21",
-    "S22",
-    "S23",
-    "S24",
-    "S25",
-    "S26",
-    "S27",
-    "S28",
-    "S29",
-    "S30",
-    "S31",
-    "S32",
-    "S33",
-    "S34"
-   ],
-   "note": "S1/S2/S17 were re-read by the ad8105b3 and c334fb1c passes the same day; the remainder stand on their dated reads. See reports/verification-round11-2026-11-16.md §5."
-  }
- },
- "sources": [
-  {
-   "id": "S1",
-   "org": "Amazon.com Associates Central",
-   "title": "Associates Program Operating Agreement",
-   "url": "https://affiliate-program.amazon.com/help/operating/agreement",
-   "covers": "Disclosure wording (§5), term and termination (§6), governing law and schedules",
-   "kind": "Policy",
-   "directness": "Primary — the contract itself",
-   "page_version": "Updated: October 15, 2025 (confirmed 2026-11-15) | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Header still reads “Updated: October 15, 2025.” | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; version stamp \"Updated: October 15, 2025\" unchanged.",
-   "verified": "Round 11 (2026-11-16, arena/b23f12f0): page version stamp re-read — \"Updated: October 15, 2025\", unchanged."
-  },
-  {
-   "id": "S2",
-   "org": "Amazon.com Associates Central",
-   "title": "Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)",
-   "url": "https://affiliate-program.amazon.com/help/operating/policies",
-   "covers": "Link rules, price and review display limits, Prohibited Paid Search Placement, sub-tag limits, API restrictions, session/attribution windows",
-   "kind": "Policy",
-   "directness": "Primary — the policy corpus incorporated into the Agreement",
-   "page_version": "Updated: April 14, 2026 | Re-read round 9, 2026-11-15 (arena/63a2c638). | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. The page heading still reads “Updated: April 14, 2026.” Re-read and quoted verbatim from the live page: Participation Requirements §3(e) (cookie / third-party technology disclosure), §6(t) (reviews and star ratings only via Creators API or PA API), §6(w) (link shorteners), §6(y) (no price tracking or price alerting), §6(s) (no artificially generated clicks or Sessions), §5 (no Special Links or Program Content used to develop machine learning models without express prior written approval); IP License §1 (no third party may use Program Content to develop or improve large language, multimodal or machine learning models), §2(e) (no aggregation, analysis, repurposing or fine-tuning of Product Advertising Content without express prior written approval) and §4 “Agents” (Agent Terms — an Agent must identify itself as “Agent/[agent name]” in the User-Agent string, must not obfuscate that it is an agent, must not complete or circumvent CAPTCHAs, and must answer truthfully about whether interactions are human). The Agent Terms and §5 were not previously in this register; they are now requirements C17 and C18. Evidence: reports/verification-2026-11-16.md rows V4–V11. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Header still reads “Updated: April 14, 2026.” | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; version stamp \"Updated: April 14, 2026\" unchanged; 24h / 89-day / 180-day session rules read verbatim again."
-  },
-  {
-   "id": "S3",
-   "org": "Amazon.com Associates Central",
-   "title": "Associates Program Standard Commission Income Statement (Table 1 & Bounty Events)",
-   "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
-   "covers": "Published fixed commission rates by product category; bounty amounts",
-   "kind": "Rate card",
-   "directness": "Primary — the only official rate table",
-   "page_version": "Standard Commission Income Statement, re-read live 2026-11-14 (first read 2026-11-13) — Table 1 and Bounty Events read without a login | Re-read round 9, 2026-11-15 (arena/63a2c638). | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live, without a login. Table 1 read verbatim: “Physical Books, Kitchen, Automotive | 4.50%”, “Toys, Furniture, Home, Home Improvement, … | 3.00%”, “PC, PC Components, DVD & Blu-Ray | 2.50%”, “All Other Categories | 4.00%”. There is still no air-fryer row and still no published ASIN→category mapping, so the per-product rate stays blank on the site. Evidence: reports/verification-2026-11-16.md rows V1–V2. | Round 11 (2026-11-16, arena/3dfe4b45): Table 1 re-read live with no login — Kitchen 4.50% (grouped row 'Physical Books, Kitchen, Automotive'), All Other Categories 4.00%. Matches the stored table row for row. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Table 1 re-read without a login: “Physical Books, Kitchen, Automotive | 4.50%”, “Toys, Furniture, Home, Home Improvement, … | 3.00%”, “All Other Categories | 4.00%”. Bounty rows: Prime Free Trial $12.00, Prime Video Free Trial $2.00, Prime Video First Stream $5.00. No air-fryer row, so the per-product rate stays blank. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; Table 1 read in full with no login: \"Physical Books, Kitchen, Automotive | 4.50%\", \"All Other Categories | 4.00%\"; bounty table present.",
-   "verified": "Round 11 (2026-11-16, arena/b23f12f0): Table 1 re-read in full with no login. 'Physical Books, Kitchen, Automotive' 4.50% and 'All Other Categories' 4.00% both confirmed as published."
-  },
-  {
-   "id": "S4",
-   "org": "Amazon.com Associates Central",
-   "title": "Application Review Process",
-   "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM",
-   "covers": "Three qualifying sales within 180 days; ~10 posts; content recent within ~60 days; social follower floor ~500",
-   "kind": "Help article",
-   "directness": "Primary — Amazon's own review criteria",
-   "page_version": "Live page, 2026-11-13 | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live, without a login, and the four figures this register carried forward are confirmed verbatim — “we require at least three within the first 180 days”, “a good rule of thumb is at least 10 posts”, “Content on your website must be recent (generally within the last 60 days)” and “in most cases, at least 500” organic followers/likes. Also read: “personal orders do not qualify” and “we aren’t able to reassess an application once it’s been rejected”. This closes the “not re-read” part of flag F56. Evidence: reports/verification-2026-11-16.md row V3. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Six clauses re-read verbatim: “at least three within the first 180 days”, “personal orders do not qualify”, “a good rule of thumb is at least 10 posts”, “generally within the last 60 days”, “in most cases, at least 500”, “we aren’t able to reassess an application once it’s been rejected”. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; 3 qualifying sales / 180 days; ~10 posts; 60-day recency; 500 followers; rejection final — all verbatim again.",
-   "verified": "Round 11 (2026-11-16, arena/b23f12f0): re-read in full: at least 3 qualifying sales within the first 180 days, personal orders do not qualify, at least 10 posts, content recent within 60 days, at least 500 followers, and 'we aren't able to reassess an application once it's been rejected'."
-  },
-  {
-   "id": "S5",
-   "org": "Amazon.com Associates Central",
-   "title": "Why do I have to identify myself as an Associate? How should I do this on social media?",
-   "url": "https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98",
-   "covers": "Required Associate statement; clear + conspicuous link-level disclosure",
-   "kind": "Help article",
-   "directness": "Primary — Amazon's own compliance guidance",
-   "page_version": "Associate identification / disclosure help node, re-read live 2026-11-14 (first read 2026-11-13) | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Required sentence “As an Amazon Associate I earn from qualifying purchases.” re-read verbatim, with the “Clear.” / “Conspicuous.” link-level test. The site’s disclosure string matches character for character. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; required sentence \"As an Amazon Associate I earn from qualifying purchases.\" verbatim; link-level disclosure \"(paid link)\" / \"#ad\" / \"#CommissionsEarned\" examples present."
-  },
-  {
-   "id": "S6",
-   "org": "Amazon.com Associates Central",
-   "title": "What are tracking IDs, and how does the new site help Associates use them?",
-   "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA",
-   "covers": "Tracking IDs / sub-tag reporting model",
-   "kind": "Help article",
-   "directness": "Primary",
-   "page_version": "Live page, 2026-11-13"
-  },
-  {
-   "id": "S7",
-   "org": "U.S. Federal Trade Commission",
-   "title": "FTC's Endorsement Guides: What People Are Asking",
-   "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
-   "covers": "Material connection, affiliate/network marketing disclosures, monitoring duties, substantiation",
-   "kind": "Regulatory guidance",
-   "directness": "Primary — the regulator",
-   "page_version": "June 2023"
-  },
-  {
-   "id": "S8",
-   "org": "U.S. Federal Trade Commission",
-   "title": "Disclosures 101 for Social Media Influencers",
-   "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
-   "covers": "When and how to disclose; placement; wording; the prohibition on describing an experience with a product you have not tried",
-   "kind": "Regulatory guidance",
-   "directness": "Primary — the regulator",
-   "page_version": "November 2019 | Round 11 (2026-11-16, arena/3dfe4b45): page re-read live — 'November 2019' stamp present; 'You can't talk about your experience with a product you haven't tried.' and the hard-to-miss placement rule read verbatim. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.“Place it so it’s hard to miss” and “You can’t talk about your experience with a product you haven’t tried” re-read verbatim. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; \"You can't talk about your experience with a product you haven't tried.\" verbatim.",
-   "verified": "Round 11 (2026-11-16, arena/b23f12f0): re-read in full. Confirms: place the disclosure where it is hard to miss; \"You can't talk about your experience with a product you haven't tried\"; page dated November 2019."
-  },
-  {
-   "id": "S9",
-   "org": "U.S. Government (eCFR / Federal Trade Commission)",
-   "title": "16 CFR Part 255 — Guides Concerning Use of Endorsements and Testimonials in Advertising",
-   "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255",
-   "covers": "Binding rule text, including §255.5 Disclosure of material connections",
-   "kind": "Regulation",
-   "directness": "Primary — codified rule",
-   "page_version": "eCFR Title 16 shown as \"up to date as of 11/12/2026\"; Title 16 last amended 10/30/2026; Part 255 source note 88 FR 48102 (Jul 26 2023), no later amendment on its timeline — re-read 2026-11-14 | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. The page still reads “Displaying title 16, up to date as of 11/12/2026. Title 16 was last amended 10/30/2026.” and the Part 255 source note is still “88 FR 48102, July 26, 2023, unless otherwise noted.” §255.5 is still titled “Disclosure of material connections.” Evidence: reports/verification-2026-11-16.md row V25. | Round 11 (2026-11-16, arena/3dfe4b45): re-read live — title 16 'up to date as of 11/12/2026', last amended 10/30/2026; §§ 255.0–255.6 present; source note 88 FR 48102 (July 26, 2023). Unchanged from the 2026-11-14 read. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Header re-read: “Displaying title 16, up to date as of 11/12/2026.” §255.0–§255.6 listed, incl. §255.5. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; \"up to date as of 11/12/2026. Title 16 was last amended 10/30/2026\"; §255.0–§255.6 incl. §255.5 present.",
-   "verified": "Round 11 (2026-11-16, arena/b23f12f0): re-read. eCFR shows 'Displaying title 16, up to date as of 11/12/2026. Title 16 was last amended 10/30/2026.' Source note still 88 FR 48102, July 26 2023. §255.0–§255.6 present including §255.5 Disclosure of material connections."
-  },
-  {
-   "id": "S10",
-   "org": "Chefman (brand)",
-   "title": "Chefman TurboFry Touch 6 Qt. Dual-Window Air Fryer — product page",
-   "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer",
-   "covers": "Model RJ38-SQPF-3TDB-2W capacity, temperature range, dimensions, weight, power, approvals, list price, brand-site rating",
-   "kind": "Manufacturer product page",
-   "directness": "Primary — brand owning the specification",
-   "page_version": "Chefman 6 Qt Dual-Window product page, re-read live 2026-11-14 (first read 2026-11-13) — spec block, price and review widget all re-read | Re-read round 9, 2026-11-15 (arena/63a2c638). | Targeted re-read 2026-11-16 (arena/9f0e6668): product-page review counter displayed 1,307 Reviews. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. Specifications block read verbatim: “Capacity: 6 Qt / 5.67 L”, “200–450°F / 95º-235°C temperature range”, “Dimensions: 13.38 in x 11.81 in x 10.63 in”, “Weight: 13.3 lbs / 6.03 kg”, “Power: 1700W/120V”, “Model Number: RJ38-SQPF-3TDB-2W”. Brand-hosted review widget read 4.6 from 1,307 total reviews (5★ 928 · 4★ 258 · 3★ 85 · 2★ 12 · 1★ 24) — the count moved from 1,305, the average held at 4.6. Evidence: reports/verification-2026-11-16-9fccce0c.md rows V17–V18. | Round 11 (2026-11-16, arena/3dfe4b45): Specifications block re-read live — model RJ38-SQPF-3TDB-2W, 6 Qt / 5.67 L, 200–450 °F, 13.38 x 11.81 x 10.63 in / 33.98 x 30 x 27 cm, 13.3 lbs / 6.03 kg, 1700W/120V, cETL + 1-year assurance all confirmed. Review widget read 4.6 with 1307 total reviews (was 1305 on 2026-11-15) — volatile-count pattern, F14. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Chefman 6 Qt page re-read: model RJ38-SQPF-3TDB-2W, “1307 Reviews”, list price $119.99, “Max temp: 450ºF/ 235ºC with Hi-Fry function”, Sync Finish. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; model RJ38-SQPF-3TDB-2W on page; \"Max temp: 450ºF/ 235ºC with Hi-Fry function\"; Sync Function; review widget 1,307 (was 1,305 — F19 drift, no published value uses it).",
-   "verified": "Round 11 (2026-11-16, arena/b23f12f0): brand page live; the storefront endpoint (S32) reports price 119.99, compare-at 119.99, SKU RJ38-SQPF-3TDB-2W, 6,582 g / 14.51 lb, both records updated 2026-11-16T13:25:53-05:00. Every published 6 Qt value still matches."
-  },
-  {
-   "id": "S11",
-   "org": "Chefman (brand)",
-   "title": "Chefman TurboFry Touch 6 Qt. Dual-Basket Air Fryer — product page",
-   "url": "https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer",
-   "covers": "Sister SKU RJ38-SQPF-3TDB-2: list price, brand-site rating (used to show the two-SKU ambiguity)",
-   "kind": "Manufacturer product page",
-   "directness": "Primary",
-   "page_version": "Live page, 2026-11-13"
-  },
-  {
-   "id": "S12",
-   "org": "Chefman (brand)",
-   "title": "Chefman 8 Qt. TurboFry Touch Stainless-Steel Air Fryer — product page",
-   "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
-   "covers": "Model RJ38-SQSS-8T: sizes, preset set, 200–400 °F range, dishwasher-safe parts, auto shutoff, list price, brand-site rating",
-   "kind": "Manufacturer product page",
-   "directness": "Primary",
-   "page_version": "Chefman 8 Qt TurboFry product page, re-read live 2026-11-14 (first read 2026-11-13) — Features and Specifications blocks re-read (the block that fills the former Wattage and Dimensions blanks) | Re-read round 9, 2026-11-15 (arena/63a2c638). | Targeted re-read 2026-11-16 (arena/9f0e6668): product-page review counter displayed 717 Reviews. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. Specifications block read verbatim: “Capacity: 5 Qt or 8 Qt / 4.73 L or 7.57 L”, “200–400°F / 95º-205°C temperature range”, “Power: 1700W/120V”, “Dimensions: (8 Qt Model) 15.4 in x 12.6 in x 13.5 in”, “Weight: (8 Qt Model) 12.8 lbs / 5.8 kg”, “Model Number: RJ38-SQSS-8T (8 Qt model)”. Brand-hosted review widget read 4.6 from 717 total reviews (5★ 523 · 4★ 131 · 3★ 42 · 2★ 10 · 1★ 11) — the count moved from 716, the average held at 4.6. Evidence: reports/verification-2026-11-16-9fccce0c.md rows V19–V20. | Round 11 (2026-11-16, arena/3dfe4b45): Features and Specifications re-read live — RJ38-SQSS-8T, 5 or 8 Qt, 200–400 °F, 1700W/120V, (8 Qt) 15.4 x 12.6 x 13.5 in / 12.8 lbs / 5.8 kg confirmed; max temp still 400 °F (F3 conflict stands). Review widget read 4.6 with 717 total reviews (was 716) — F14 pattern. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.RJ38-SQSS-8T, “717 Reviews”, 200–400°F, presets fries/chicken/fish/meat, 98% less oil, 4-6 people, auto shutoff, dishwasher-safe basket and rack, $119.99, size selector 8/5 Quart. F3 (450 °F) re-established as still open. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; model RJ38-SQSS-8T; \"200–400°F\"; \"Designed for 4-6 people\"; presets fries/chicken/fish/meat; review widget 717 (was 716). 400 °F ceiling confirmed — F3 conflict live.",
-   "verified": "Round 11 (2026-11-16, arena/b23f12f0): brand page live; the storefront endpoint (S33) reports 8 Quart price 119.99 / compare-at 119.99, SKU RJ38-SQSS-8T, 6,078 g / 13.4 lb, and 5 Quart 79.99 / compare-at 99.99, SKU RJ38-SQSS-5T, both updated 2026-11-16T13:25:53-05:00. Every published 8 Qt value still matches."
-  },
-  {
-   "id": "S13",
-   "org": "Chefman (brand)",
-   "title": "TurboFry Touch Air Fryer RJ38-SQSS-8T User Guide (PDF)",
-   "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf",
-   "covers": "Owner's manual: 8-quart basket, preset chart and default temperatures, shake reminder, safety instructions",
-   "kind": "Manufacturer owner's manual",
-   "directness": "Primary",
-   "page_version": "Document live, 2026-11-13 | Round 11 (2026-11-16, arena/3dfe4b45): safety-instructions and features sections re-read live — RJ38-SQSS-8T, extra-large 8-quart basket, preset defaults (Default 15 min/400 °F; Meat 18/375; Chicken 22/375; Fish 10/350) match the dataset rows; one basket in the features list; extension-cord clause read verbatim."
-  },
-  {
-   "id": "S14",
-   "org": "Emeril Everyday (brand)",
-   "title": "Emeril Lagasse French Door AirFryer 360 Toaster Oven Combo, 26 QT — product page",
-   "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
-   "covers": "Capacity, dimensions, voltage, price, accessory count, warranty, preset-count claims, brand-site rating",
-   "kind": "Manufacturer product page",
-   "directness": "Primary",
-   "page_version": "Emeril 26QT French Door product page, re-read live 2026-11-14 (first read 2026-11-13) — price, spec icons, model number and 2.6/25 review widget re-read | Re-read round 9, 2026-11-15 (arena/63a2c638). | Targeted re-read 2026-11-16 (arena/9f0e6668): page still displayed 2.6 (25); conflicting 25 pre-sets / 10-in-1 copy and an 11-in-1 image remain visible. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. Price $199.99, model 4-00675-02A-VN and the brand-hosted rating 2.6 (25) all read unchanged. Specification icons read: “26-Quart Capacity — preparing food for 4–6 people”, “Dual-Speed Fan”, “25 Cooking Pre-sets”, “16.9”D x 15.8”W x 14.8”H Product Dimensions”, “24.6 Liters Capacity”, “120 volts Product Voltage”; body copy still reads “enviously versatile 10-in-1 air fry convection oven”. The four-way preset / in-1 conflict is still live on official pages and the site still asserts none of the four figures. Evidence: reports/verification-2026-11-16-9fccce0c.md row V21. | Round 11 (2026-11-16, arena/3dfe4b45): spec icons re-read live — 26-Quart, 24.6 Liters, 16.9\"D x 15.8\"W x 14.8\"H, 120 volts, 1-year warranty confirmed; the page still carries both '25 Cooking Pre-sets' (icon) and '24 one-touch cooking presets' (description) plus a 10-in-1 heading — preset conflict re-confirmed; still no weight row (Q-06 open). | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.$199.99; model line 4-00675-02A-VN; 2.6 from (25); “25 Cooking Pre-sets”; 16.9\"D x 15.8\"W x 14.8\"H; 24.6 Liters; 120 volts; body copy “10-in-1”; carousel asset named 11-in-1. The preset conflict is four-way and remains open. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; SKU 4-00675-02A-VN; \"25 Cooking Pre-sets\" widget vs \"10-in-1\" description vs 11-in-1 asset name; 26-Quart / 24.6 Liters; 16.9\"D x 15.8\"W x 14.8\"H; 120 volts; 2.6 (25) widget. F4/F5 conflicts live.",
-   "verified": "Round 11 (2026-11-16, arena/b23f12f0): brand page live. **New evidence:** the page's own product description (updated 2026-11-16T12:27:19-06:00) states \"24 one-touch cooking presets\" and \"Included are 7 premium accessories\". The separate specification block still states \"25 Cooking Pre-sets\". So the brand now documents both numbers on the same page — see flags F4 and F63."
-  },
-  {
-   "id": "S15",
-   "org": "Emeril Everyday (brand)",
-   "title": "Emeril Lagasse French Door AirFryer 360 Owner's Manual, model FAFO-001 (PDF)",
-   "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf",
-   "covers": "Rated power 1700 W, 120 V/60 Hz, 26 qt (1519 cu in), temperature range 75–500 °F / 25–260 °C",
-   "kind": "Manufacturer owner's manual",
-   "directness": "Primary",
-   "page_version": "Emeril FAFO-001 owner's manual (PDF) — safety, Parts & Accessories and control-panel pages re-read 2026-11-14; the temperature/preset chart was not re-read in this pass | Round 11 (2026-11-16, arena/3dfe4b45): Appliance Specifications table re-read live — FAFO-001, 120 V/1700 W/60 Hz, 1700 W, 26 quarts (1519 cubic inches), 75° F - 500° F/25° C - 260° C, LED — all match; Preset Information re-read: 24 named presets, Rotisserie preset with 'Rotisserie Spit and Forks', safeguards include 'never use with an extension cord'."
-  },
-  {
-   "id": "S16",
-   "org": "Amazon.com (product listings)",
-   "title": "Amazon detail page for ASIN B0CDY277D3 (Chefman 6 Qt Dual Basket)",
-   "url": "https://www.amazon.com/dp/B0CDY277D3",
-   "covers": "Listing title for ASIN B0CDY277D3 only. Registered as a single-ASIN URL because a source link must point at the page that states the value it supports: S16 was previously cited for all three listing titles while resolving to this one ASIN. The other two ASINs now have S28 and S29, and every citation of S16 outside this product was repointed on 2026-11-15 (flag F39). Amazon prices, star ratings and availability are deliberately not reproduced on this site (see S2 §2(b) and §6(t)).",
-   "kind": "Retail listing",
-   "directness": "Primary for 'what does this short link point to'; not used for specification claims",
-   "page_version": "Amazon listing detail page B0CDY277D3 — fetched 2026-11-15 from the supplied short link https://link.amazon/B04G1MEwY; <title> matched the stored value character for character | Round 9 (2026-11-15, arena/63a2c638): re-fetched standalone. <title> matched the stored value character for character. The page also rendered its browse-node breadcrumb: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. That breadcrumb is recorded as a published value; it is a browse path, NOT an Amazon commission category (see flag F56). | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live through the supplied short link https://link.amazon/B04G1MEwY, which redirected to www.amazon.com/dp/B0CDY277D3?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-68884e8aa630b24a&channelId=704&plpRedirect=mhFallback. The page <title> read “Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black : Home & Kitchen” — the stored title, character for character. Browse-node breadcrumb re-read: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. Evidence: reports/verification-2026-11-16.md row V12. | Pass 11 (2026-11-16, arena/ba29c641-zone1): fetched directly and the Product information block was present in the response, which is the block F49 recorded as unreachable to an automated read. Captured: Item details (Model Number RJ38-SQPF-3TDB-2W, Part Number RJ38-SQPF-3TDB-2W, Model Name 'Turbo Fry® Touch', UPC 810087845025, Configuration 'Dual Basket', Included Components 'User Guide'), Features & Specs (1700 W, 120 V, Max 450 °F, Min 93 °C, Touch control), Measurements (13.38\" × 11.81\" × 10.63\", Capacity field '6 liters', 13.3 pounds) and the Warranty & Support line. This is the read that closes the ASIN-to-model caveat on F1/F2 and falsifies F49's premise. Prices and star ratings were visible and are not reproduced.",
-   "verified": "Round 11 (2026-11-16, arena/b23f12f0): re-fetched standalone. <title> matched the stored value character for character. Browse-node breadcrumb rendered again: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. One first attempt was answered by the automated 'Continue shopping' checkpoint; a retry returned the listing.",
-   "read_by_2026_11_16": "session arena/ba29c641-zone1 (direct /dp/ fetch, Product information block read)"
-  },
-  {
-   "id": "S17",
-   "org": "Amazon.com",
-   "title": "link.amazon short links supplied by the account holder (B04G1MEwY, B02NbDxp3, B00hJ57DV)",
-   "url": "https://link.amazon/B04G1MEwY",
-   "covers": "The three redirect links themselves and their resolved destinations",
-   "kind": "Short link",
-   "directness": "Primary for the redirect target; the Associates tag inside is not observable",
-   "page_version": "Supplied link.amazon short link — re-resolved 2026-11-14, same target ASIN, still served with lv=shuf&plpRedirect=mhFallback | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Short link B04G1MEwY re-read: resolves to /dp/B0CDY277D3 via plpRedirect=mhFallback with no visible tag=. Destination stable; attribution and model identity still unconfirmed. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; all three short links re-resolved to the same destinations (B0CDY277D3, B09B7SB46R, B08DKYBTPH) with plpRedirect=mhFallback-style parameters; tokens still 9 characters (F17/F24 unchanged); tag still unobservable (Q-04).",
-   "verified": "Round 11 (2026-11-16, arena/b23f12f0): all three tokens re-resolved. B04G1MEwY -> /dp/B0CDY277D3, B02NbDxp3 -> /dp/B09B7SB46R, B00hJ57DV -> /dp/B08DKYBTPH. Destinations unchanged; each landing URL still carries plpRedirect=mhFallback and no tag= parameter."
-  },
-  {
-   "id": "S18",
-   "org": "Chefman (brand)",
-   "title": "TurboFry Touch Dual Window Air Fryer RJ38-SQPF-3TDB-2W User Guide (PDF)",
-   "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf",
-   "covers": "Owner's manual: explicit statement of 'two 3-quart baskets', HI-FRY definition (450 °F/235 °C for 2 minutes), Sync Finish, Sync Baskets, aerosol-spray caution",
-   "kind": "Manufacturer owner's manual",
-   "directness": "Primary",
-   "page_version": "Chefman RJ38-SQPF-3TDB-2W owner's manual (PDF) — control panel and operating instructions re-read 2026-11-14; the cooking chart was not re-read in this pass | Round 11 (2026-11-16, arena/3dfe4b45): control-panel, operating-instructions and special-functions sections re-read live — 'two 3-quart baskets', Sync Finish delay behaviour with HOLD, Sync Baskets copy behaviour, HI-FRY 450 °F/235 °C for 2 minutes, and the aerosol CAUTION sentence read verbatim. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.RJ38-SQPF-3TDB-2W user guide: “two 3-quart baskets”; Sync Finish and Sync Baskets defined in the manual’s own words. The guide contains no preset chart, which is why the 6 Qt preset row stays blank (F36)."
-  },
-  {
-   "id": "S19",
-   "org": "Amazon.com Associates Central",
-   "title": "New Product Advertising API (PA API) Registration",
-   "url": "https://affiliate-program.amazon.com/help/node/topic/GBRCD467W33NMWLD",
-   "covers": "PA API registration is merged into Associates Central; credentials are linked to the primary account holder; request rate scales with account sales performance",
-   "kind": "Help article",
-   "directness": "Primary",
-   "page_version": "Live page, 2026-11-13"
-  },
-  {
-   "id": "S20",
-   "org": "Amazon.com Associates Central",
-   "title": "About the Product Advertising API (topic index)",
-   "url": "https://affiliate-program.amazon.com/help/node/topic/GMEDADBTCJ9KD8DQ",
-   "covers": "Current PA API help topics — used to confirm the API is still the documented route, not that it is deprecated",
-   "kind": "Help article",
-   "directness": "Primary",
-   "page_version": "Live page, 2026-11-13"
-  },
-  {
-   "id": "S21",
-   "org": "Amazon.com",
-   "title": "Product-detail lookup for the supplied 9-character token (negative control)",
-   "url": "https://www.amazon.com/dp/B04G1MEwY",
-   "covers": "Returned Amazon's \"Page Not Found\" error page on 2026-11-13 and again on 2026-11-14, i.e. the supplied token is not itself an ASIN and cannot be opened as one",
-   "kind": "Negative finding",
-   "directness": "Primary — Amazon's own response to the request",
-   "page_version": "Fetched 2026-11-14"
-  },
-  {
-   "id": "S22",
-   "org": "Amazon.com",
-   "title": "link.amazon resolver, nonsense-token control request",
-   "url": "https://link.amazon/ZZZ9ZZZZZ",
-   "covers": "A made-up 9-character token returns 403 Forbidden rather than a shuffled featured product, which is how the resolver distinguishes a recognised token from an unrecognised one",
-   "kind": "Negative finding",
-   "directness": "Primary — Amazon's own response to the request",
-   "page_version": "Fetched 2026-11-14"
-  },
-  {
-   "id": "S23",
-   "org": "Amazon.com Kindle Direct Publishing (help centre)",
-   "title": "Linking from Your Website (KDP Help G200652190)",
-   "url": "https://kdp.amazon.com/en_US/help/topic/G200652190",
-   "covers": "Official Amazon definition: the ASIN is a 10-character Amazon Standard Identification Number, and the canonical product URL format is http://www.amazon.com/dp/ASIN. Used to source the ASIN-length and URL-format rows in the dashboard annex, which previously cited only third-party sites.",
-   "kind": "Help article",
-   "directness": "Primary (published by Amazon)",
-   "page_version": "Live page, re-verified 2026-11-14 (sess-cb2cfa7c)"
-  },
-  {
-   "id": "S24",
-   "org": "Amazon.com Associates Central — Creators API documentation",
-   "title": "PA-API 5 Deprecation Notice",
-   "url": "https://affiliate-program.amazon.com/creatorsapi/docs/en-us/paapiv5-deprecation",
-   "covers": "Official notice that PA-API 5 has been deprecated and is replaced by the Creators API; PA-API 5 calls return 403 AccessDeniedException with a migration message. The former PA-API 5 documentation URL (webservices.amazon.com/paapi5/documentation/get-items.html) now serves this notice. Re-verified 2026-11-14 (sess-cb2cfa7c).",
-   "kind": "Deprecation notice",
-   "directness": "Primary (published by Amazon)",
-   "page_version": "Live page, re-verified 2026-11-14 (sess-cb2cfa7c)"
-  },
-  {
-   "id": "S25",
-   "org": "Chefman (brand)",
-   "title": "TurboFry 6 Qt. Double Basket Air Fryer with Easy View Windows (RJ38-3DBW-V2) — product page",
-   "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-6-qt-double-basket-air-fryer-with-easy-view-windows",
-   "covers": "A third 6-quart dual-basket Chefman SKU: model RJ38-3DBW-V2, 6 Qt / 5.68 L (two 3 Qt / 2.84 L baskets), 90–400 °F / 32–204 °C, 1700 W, five functions (air fry, bake, reheat, dehydrate, frozen), easy-view windows, interior lights, shake notifications, cETL, 1-year assurance, $99.99 list",
-   "kind": "Product page",
-   "directness": "Primary — the manufacturer's own page",
-   "page_version": "Read live 2026-11-14"
-  },
-  {
-   "id": "S26",
-   "org": "Chefman (brand)",
-   "title": "TurboFry 8 Qt. Air Fryer w/ High Fry (RJ38-8T-BLACK) — product page",
-   "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-8-qt-air-fryer-w-high-fry",
-   "covers": "A second 8-quart Chefman SKU: model RJ38-8T-BLACK, 8 Qt / 7.57 L, Hi-Fry 450 °F / 232 °C for the final two minutes, four functions (air fry, bake, dehydrate, frozen), automatic shake notifications, matte-black finish, 1700 W / 120 V, cETL, 1-year assurance",
-   "kind": "Product page",
-   "directness": "Primary — the manufacturer's own page",
-   "page_version": "Read live 2026-11-14 | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; model RJ38-8T-BLACK; \"Capacity: 8 Qt / 7.57 L\"; \"Hi-Fry Temperature: 450°F / 232°C\"; 4 functions air fry/bake/dehydrate/frozen; 1700W/120V; cETL + 1-year assurance. Confirms the second 8 Qt SKU in F3/Q-02."
-  },
-  {
-   "id": "S27",
-   "org": "Chefman (brand)",
-   "title": "TurboFry® Touch 6 Qt. Dual-Basket Air Fryer (RJ38-SQPF-3TDB-2) — product page",
-   "url": "https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer",
-   "covers": "The sister 6-quart dual-basket SKU already recorded as the sibling: model RJ38-SQPF-3TDB-2, 4.6 from 194 reviews. This page publishes no specification block — the absence is itself the finding behind flag F30.",
-   "kind": "Product page",
-   "directness": "Primary — the manufacturer's own page",
-   "page_version": "Read live 2026-11-14"
-  },
-  {
-   "id": "S28",
-   "org": "Amazon.com (product listings)",
-   "title": "Amazon detail page for ASIN B09B7SB46R (Emeril 26QT French Door)",
-   "url": "https://www.amazon.com/dp/B09B7SB46R",
-   "covers": "Listing title for ASIN B09B7SB46R only.",
-   "kind": "Retail listing",
-   "directness": "Primary for 'what does this short link point to'; not used for specification claims",
-   "page_version": "Amazon listing detail page B09B7SB46R — fetched 2026-11-15 from the supplied short link https://link.amazon/B02NbDxp3. <title> read: 'Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen' | Round 9 (2026-11-15, arena/63a2c638): NOT re-fetched successfully. Three attempts (https://www.amazon.com/dp/B09B7SB46R and the same URL with plpRedirect=mhFallback) were each answered with Amazon's automated 'To continue, please click the Continue shopping button' checkpoint rather than the product page. The stored title is therefore carried forward unverified for this date and the Emeril browse node is recorded as unknown rather than guessed. The two Chefman ASINs fetched cleanly in the same window, so this is a per-ASIN block, not a site-wide one. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live through the supplied short link https://link.amazon/B02NbDxp3, which redirected to www.amazon.com/dp/B09B7SB46R?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-662480f5bd825c83&channelId=704&plpRedirect=mhFallback. The page <title> read “Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen” — the stored title, character for character, including the wording that changed on 2026-11-15 (flag F38). Browse-node breadcrumb re-read: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. A direct request to the /dp/ URL was answered with Amazon's bot checkpoint on this date, exactly as recorded for this source on 2026-11-15. Evidence: reports/verification-2026-11-16.md rows V13 and V15. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Short link B02NbDxp3 re-read: resolves to /dp/B09B7SB46R. Listing title still says “24 One-Touch Preset Options” and “Six Cooking Accessories Included” — the latter is the open F45 conflict against the manual’s 7. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; BLOCKPOINT CLEARED: fetched successfully via the supplied short link after the 2026-11-15 bot checkpoint; <title> matched the stored value character for character, incl. \"24 One-Touch Preset Options\" and \"Six Cooking Accessories Included\". | Amazon listing detail page B09B7SB46R — fetched 2026-11-15 from the supplied short link https://link.amazon/B02NbDxp3. <title> read: 'Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen' | Round 9 (2026-11-15, arena/63a2c638): NOT re-fetched successfully. Three attempts (https://www.amazon.com/dp/B09B7SB46R and the same URL with plpRedirect=mhFallback) were each answered with Amazon's automated 'To continue, please click the Continue shopping button' checkpoint rather than the product page. The stored title is therefore carried forward unverified for this date and the Emeril browse node is recorded as unknown rather than guessed. The two Chefman ASINs fetched cleanly in the same window, so this is a per-ASIN block, not a site-wide one. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live through the supplied short link https://link.amazon/B02NbDxp3, which redirected to www.amazon.com/dp/B09B7SB46R?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-662480f5bd825c83&channelId=704&plpRedirect=mhFallback. The page <title> read “Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen” — the stored title, character for character, including the wording that changed on 2026-11-15 (flag F38). Browse-node breadcrumb re-read: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. A direct request to the /dp/ URL was answered with Amazon's bot checkpoint on this date, exactly as recorded for this source on 2026-11-15. Evidence: reports/verification-2026-11-16.md rows V13 and V15. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Short link B02NbDxp3 re-read: resolves to /dp/B09B7SB46R. Listing title still says “24 One-Touch Preset Options” and “Six Cooking Accessories Included” — the latter is the open F45 conflict against the manual’s 7. | Pass 11 (2026-11-16, arena/ba29c641-zone1): the /dp/ URL fetched directly and rendered the product page, so the 2026-11-15 per-ASIN checkpoint block no longer describes this date. Captured the Product information block: Item details (Model Number and Part Number 4-00675-02X-VN, Model Name 'Extra Large 26 QT French Door Air Fryer Oven', Configuration 'Air Fryer Toaster Oven Combo with 24 Functions and 7 Accessories', Included Components enumerating six named parts, UPC 752356835682), Features & Specs (1700 W, 120 V, Min 75 °F, Max 500 °F) and Measurements (16.9\" × 15.8\" × 14.8\", 24.6 liters, Size 'Extra Large'). The Best Sellers Rank line agrees with the browse classification pass 10 recorded through the short link. Two internal contradictions in the page are published as flags F70 and F71. No weight row exists on this page — recorded as absent.",
-   "verified": "Round 11 (2026-11-16, arena/b23f12f0): **fetched successfully** — the block recorded on 2026-11-15 is cleared. <title> read 'Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included : Home & Kitchen', matching the stored value. The breadcrumb rendered and the Emeril browse-node cell is now filled from it.",
-   "read_by_2026_11_16": "session arena/ba29c641-zone1 (direct /dp/ fetch, Product information block read)"
-  },
-  {
-   "id": "S29",
-   "org": "Amazon.com (product listings)",
-   "title": "Amazon detail page for ASIN B08DKYBTPH (Chefman 8 Qt TurboFry)",
-   "url": "https://www.amazon.com/dp/B08DKYBTPH",
-   "covers": "Listing title for ASIN B08DKYBTPH only.",
-   "kind": "Retail listing",
-   "directness": "Primary for 'what does this short link point to'; not used for specification claims",
-   "page_version": "Amazon listing detail page B08DKYBTPH — fetched 2026-11-15 from the supplied short link https://link.amazon/B00hJ57DV; <title> matched the stored value character for character | Round 9 (2026-11-15, arena/63a2c638): re-fetched standalone. <title> matched the stored value character for character. Browse-node breadcrumb rendered identically to S16: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. Recorded as a value; it is a browse path, not a commission category (flag F56). | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live through the supplied short link https://link.amazon/B00hJ57DV, which redirected to www.amazon.com/dp/B08DKYBTPH?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-38bef00eb1e962ef&channelId=704&plpRedirect=mhFallback. The page <title> read “Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel : Home & Kitchen” — the stored title, character for character. Browse-node breadcrumb re-read: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. Evidence: reports/verification-2026-11-16.md row V14. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Short link B00hJ57DV re-read: resolves to /dp/B08DKYBTPH. Listing title still advertises “450°F Hi-Fry Option” — the open F3 conflict against the brand page’s 200–400 °F. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; <title> matched the stored value character for character; same browse-node breadcrumb. | Amazon listing detail page B08DKYBTPH — fetched 2026-11-15 from the supplied short link https://link.amazon/B00hJ57DV; <title> matched the stored value character for character | Round 9 (2026-11-15, arena/63a2c638): re-fetched standalone. <title> matched the stored value character for character. Browse-node breadcrumb rendered identically to S16: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. Recorded as a value; it is a browse path, not a commission category (flag F56). | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live through the supplied short link https://link.amazon/B00hJ57DV, which redirected to www.amazon.com/dp/B08DKYBTPH?lv=shuf&btn_type=ss&gaOptInStatus=true&btn_ref=srctok-38bef00eb1e962ef&channelId=704&plpRedirect=mhFallback. The page <title> read “Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel : Home & Kitchen” — the stored title, character for character. Browse-node breadcrumb re-read: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers. Evidence: reports/verification-2026-11-16.md row V14. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Short link B00hJ57DV re-read: resolves to /dp/B08DKYBTPH. Listing title still advertises “450°F Hi-Fry Option” — the open F3 conflict against the brand page’s 200–400 °F. | Pass 11 (2026-11-16, arena/ba29c641-zone1): Product information block captured. Part Number RJ38-SQSS-8T — the row that carries the code here, because this listing's Model Number row holds the marketing string 'Large Air Fryer' (F68) — plus Model Name 'Square Air Fryer', UPC 816458024518, Warranty Description '1-Year Limited Warranty', Features & Specs (1700 W, 120 V, Max 400 °F, Min 94 °C, LED Shake Reminder) and Measurements (12.75\" × 13.5\" × 10\", 8 quarts, 12.8 pounds). The listing's own 400 °F maximum contradicts its title's 450 °F Hi-Fry claim, and its dimensions contradict the brand page's. Both recorded, neither resolved (F69, F72).",
-   "verified": "Round 11 (2026-11-16, arena/b23f12f0): re-fetched standalone. <title> matched the stored value character for character. Browse-node breadcrumb rendered identically: Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers.",
-   "read_by_2026_11_16": "session arena/ba29c641-zone1 (direct /dp/ fetch, Product information block read)"
-  },
-  {
-   "id": "S30",
-   "org": "Google Search Central",
-   "title": "Spam policies for Google web search",
-   "url": "https://developers.google.com/search/docs/essentials/spam-policies",
-   "covers": "Scaled content abuse; thin affiliation; the qualification rule for affiliate links (rel=sponsored / rel=nofollow); site reputation policy. Used to assess whether this repository's parallel published builds and its affiliate link markup meet the search engine's published requirements for affiliate pages",
-   "kind": "Policy",
-   "directness": "Primary — the search engine's own published policy text",
-   "page_version": "Live page, re-read 2026-11-15"
-  },
-  {
-   "id": "S31",
-   "org": "Google Search Central",
-   "title": "Qualify your outbound links to Google",
-   "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
-   "covers": "Which rel values apply to which outbound links — rel=sponsored for advertising, affiliate and other paid placements; rel=nofollow as the general fallback; rel=ugc for user-generated content",
-   "kind": "Guidance",
-   "directness": "Primary — the search engine's own documentation",
-   "page_version": "Live page, 2026-11-15"
-  },
-  {
-   "id": "S32",
-   "org": "Chefman (brand)",
-   "title": "Chefman product endpoint for RJ38-SQPF-3TDB-2W (6 Qt Dual-Window) — machine-readable record served by chefman.com",
-   "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer.json",
-   "covers": "Confirms the list price ($119.99) and compare-at price ($119.99) for SKU RJ38-SQPF-3TDB-2W, and records a shipping weight of 14.51 lb / 6,582 g that differs from the 13.3 lb printed in the page's own Specifications block (flag F44).",
-   "kind": "Manufacturer commerce endpoint",
-   "directness": "Primary — served by the brand's own storefront",
-   "page_version": "Read live 2026-11-15 (arena/63a2c638). variant price 119.99, compare_at_price 119.99, sku RJ38-SQPF-3TDB-2W, grams 6582, weight 14.51 lb. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. sku RJ38-SQPF-3TDB-2W, price 119.99, compare_at_price 119.99, grams 6582, weight 14.51 lb, barcode 810087845025, updated_at 2026-11-16T13:25:53-05:00. Evidence: reports/verification-2026-11-16.md row V22.",
-   "verified": "Round 11 (2026-11-16, arena/b23f12f0): re-read: price 119.99, compare_at_price 119.99, sku RJ38-SQPF-3TDB-2W, grams 6582, weight 14.51 lb — unchanged."
-  },
-  {
-   "id": "S33",
-   "org": "Chefman (brand)",
-   "title": "Chefman product endpoint for RJ38-SQSS-8T / RJ38-SQSS-5T (8 Qt and 5 Qt TurboFry Touch)",
-   "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1.json",
-   "covers": "Confirms the 8 Quart list price ($119.99, compare-at $119.99) for SKU RJ38-SQSS-8T, separates the 5 Quart variant ($79.99, compare-at $99.99), and records a shipping weight of 13.4 lb / 6,078 g against the 12.8 lb printed in the Specifications block (flag F44).",
-   "kind": "Manufacturer commerce endpoint",
-   "directness": "Primary — served by the brand's own storefront",
-   "page_version": "Read live 2026-11-15 (arena/63a2c638). 8 Quart: price 119.99, compare_at_price 119.99, sku RJ38-SQSS-8T, grams 6078, weight 13.4 lb. 5 Quart: price 79.99, compare_at_price 99.99, sku RJ38-SQSS-5T. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. 8 Quart: sku RJ38-SQSS-8T, price 119.99, compare_at_price 119.99, grams 6078, weight 13.4 lb, barcode 816458024518. 5 Quart: sku RJ38-SQSS-5T, price 79.99, compare_at_price 99.99, grams 4999, weight 11.02 lb. Evidence: reports/verification-2026-11-16.md row V23.",
-   "verified": "Round 11 (2026-11-16, arena/b23f12f0): re-read: 8 Quart price 119.99 / compare_at 119.99, sku RJ38-SQSS-8T, grams 6078, weight 13.4 lb; 5 Quart 79.99 / compare_at 99.99, sku RJ38-SQSS-5T — unchanged."
-  },
-  {
-   "id": "S34",
-   "org": "Chefman (brand)",
-   "title": "Chefman product endpoint for RJ38-SQPF-3TDB-2 (6 Qt Dual-Basket, the sister SKU)",
-   "url": "https://chefman.com/products/turbofry-touch-6-qt-dual-basket-air-fryer.json",
-   "covers": "Confirms the sister SKU's list price ($119.99, compare-at $119.99) for RJ38-SQPF-3TDB-2 — evidence that the two-SKU ambiguity recorded in flag F2 cannot be resolved by price, since both carry the identical list price.",
-   "kind": "Manufacturer commerce endpoint",
-   "directness": "Primary — served by the brand's own storefront",
-   "page_version": "Read live 2026-11-15 (arena/63a2c638). variant price 119.99, compare_at_price 119.99, sku RJ38-SQPF-3TDB-2, grams 6509, weight 14.35 lb. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. sku RJ38-SQPF-3TDB-2, price 119.99, compare_at_price 119.99, grams 6509, weight 14.35 lb, barcode 810087842956. Evidence: reports/verification-2026-11-16.md row V24."
-  },
-  {
-   "id": "S35",
-   "org": "Emeril Everyday (brand)",
-   "title": "Emeril product endpoint for the French Door AirFryer 360 (SKU 4-00675-02A-VN)",
-   "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360.json",
-   "covers": "The brand storefront's own machine-readable record for the 26 QT model. Read 2026-11-16 it reports price 199.99 USD, SKU 4-00675-02A-VN, variant weight 27.04 lb / 12,265 g, and a product description stating \"24 one-touch cooking presets\" and \"Included are 7 premium accessories\". Used as evidence on Q-06 (weight) and on the Emeril preset/accessory conflicts — never converted into a published product weight, because the endpoint does not say whether the figure is the product or the packaged weight.",
-   "kind": "Manufacturer commerce endpoint",
-   "directness": "Primary — served by the brand's own storefront",
-   "page_version": "Read live 2026-11-16 (arena/b23f12f0). price 199.99, sku 4-00675-02A-VN, grams 12265, weight 27.04 lb, vendor 'Emeril Lagasse', product updated_at 2026-11-16T12:27:19-06:00."
-  }
- ],
- "reverified_scope": "Pass 11 (arena/2e346d24-zone1) re-read live on 2026-11-16: S1, S2, S3, S4, S5, S8, S9, S10, S17, S28, S29, then S12, S14 and S18 later in the same session — fourteen sources in total. NOT re-read in pass 11 and therefore not restated: S6, S7, S11, S13, S15, S16, S19-S27, S30-S34, and the 8 Qt owner's-manual PDF. F3 (450 °F) was re-established live against S12 and the listing title; F4/F5 (Emeril presets) against S14. S15, the Emeril owner's manual, was NOT re-read, so the 24-preset count is carried forward and not re-asserted. Evidence: reports/verification-2026-11-16-2e346d24.md",
- "reverified_2026_11_16_b23f12f0": {
-  "performed_by": "arena/b23f12f0-zone1 (session b23f12f0)",
-  "method": "Each source below was fetched server-side on 2026-11-16 and the quoted string read from that response. This sandbox has no direct outbound network, so nothing is asserted from memory or from an earlier session's record.",
-  "re_read_live": [
-   {
-    "id": "S1",
-    "what": "Operating Agreement - header reads 'Updated: October 15, 2025'."
-   },
-   {
-    "id": "S3",
-    "what": "Commission Income Statement Table 1 read in full with no login: 'Physical Books, Kitchen, Automotive 4.50%' and 'All Other Categories 4.00%'."
-   },
-   {
-    "id": "S4",
-    "what": "Application Review Process - at least 3 qualifying sales in the first 180 days, personal orders excluded, at least 10 posts, content recent within 60 days, at least 500 followers, rejection is final."
-   },
-   {
-    "id": "S8",
-    "what": "FTC Disclosures 101 - 'Place it so it is hard to miss' and 'You can't talk about your experience with a product you haven't tried'; page dated November 2019."
-   },
-   {
-    "id": "S9",
-    "what": "16 CFR Part 255 - eCFR banner 'Displaying title 16, up to date as of 11/12/2026. Title 16 was last amended 10/30/2026.' Source note still 88 FR 48102, July 26 2023; §255.0-§255.6 present including §255.5."
-   },
-   {
-    "id": "S10",
-    "what": "Chefman 6 Qt page live; storefront endpoint (S32) reports price 119.99, compare-at 119.99, SKU RJ38-SQPF-3TDB-2W, 6582 g / 14.51 lb, record updated 2026-11-16T13:25:53-05:00."
-   },
-   {
-    "id": "S12",
-    "what": "Chefman 8 Qt page live; storefront endpoint (S33) reports 8 Quart 119.99 / compare-at 119.99, SKU RJ38-SQSS-8T, 6078 g / 13.4 lb and 5 Quart 79.99 / compare-at 99.99, SKU RJ38-SQSS-5T."
-   },
-   {
-    "id": "S14",
-    "what": "Emeril page live, price 199.99, SKU 4-00675-02A-VN. New evidence: the page's own description (updated 2026-11-16T12:27:19-06:00) states 24 one-touch cooking presets and 7 premium accessories, while the specification block still states 25 Cooking Pre-sets. See flag F66."
-   },
-   {
-    "id": "S16",
-    "what": "/dp/B0CDY277D3 - <title> matched the stored value character for character; browse-node breadcrumb rendered. One first attempt was served the automated 'Continue shopping' checkpoint; a retry returned the listing."
-   },
-   {
-    "id": "S17",
-    "what": "All three tokens re-resolved to B0CDY277D3, B09B7SB46R and B08DKYBTPH. Destinations unchanged; landing URLs carry plpRedirect=mhFallback and no tag= parameter."
-   },
-   {
-    "id": "S28",
-    "what": "/dp/B09B7SB46R - FETCHED SUCCESSFULLY, clearing the 2026-11-15 block. <title> matched the stored value character for character and the breadcrumb rendered, which is what allowed the Emeril browse-node cell to be filled. See flag F65."
-   },
-   {
-    "id": "S29",
-    "what": "/dp/B08DKYBTPH - <title> matched the stored value character for character; browse-node breadcrumb rendered."
-   },
-   {
-    "id": "S32",
-    "what": "Re-read: price 119.99, compare_at_price 119.99, sku RJ38-SQPF-3TDB-2W, grams 6582, weight 14.51 lb - unchanged."
-   },
-   {
-    "id": "S33",
-    "what": "Re-read: 8 Quart 119.99 / 119.99, sku RJ38-SQSS-8T, grams 6078, weight 13.4 lb; 5 Quart 79.99 / 99.99, sku RJ38-SQSS-5T - unchanged."
-   },
-   {
-    "id": "S35",
-    "what": "NEW source. Emeril commerce endpoint: price 199.99, sku 4-00675-02A-VN, grams 12265, weight 27.04 lb. Registered for the Q-06 weight candidate and the F63 preset/accessory evidence."
-   }
-  ],
-  "not_re_read_in_this_pass": {
-   "ids": [
-    "S2",
-    "S5",
-    "S6",
-    "S7",
-    "S11",
-    "S13",
-    "S15",
-    "S18",
-    "S19",
-    "S20",
-    "S21",
-    "S22",
-    "S23",
-    "S24",
-    "S25",
-    "S26",
-    "S27",
-    "S30",
-    "S31",
-    "S34"
-   ],
-   "note": "S2 was read today by session c334fb1c (round 10) and again by session ad8105b3; this pass did not re-open it. The owner's manuals (S13, S15, S18) were not re-opened, so their last read stands at 2026-11-14/15. Nothing on the site depends on a claim only S7 makes."
-  }
- },
- "reverified_2026_11_16_ba29c641": {
-  "session": "arena/ba29c641-zone1",
-  "date": "2026-11-16",
-  "method": "server-side fetch of the three /dp/ URLs; each value below was read from the response body's Product information block, not from an earlier session's record",
-  "read": [
-   "S16",
-   "S28",
-   "S29"
-  ],
-  "not_read_by_this_pass": "Every other registered source (S1-S15, S17-S27, S30-S34) was not re-fetched by this session, so nothing else is restated as current here. The same three short links, the policy pages, the commission table, the manuals and both brand pages were re-read the same day by sessions 9fccce0c, 121929a5, 2e346d24 and 695f03b7, and their records stand on their own dates; where this pass agrees with one of them it says which read produced which value.",
-  "deliberately_not_used": "Prices, discounts, delivery dates, star ratings, review counts and Best Sellers Rank positions seen in the same responses: S2 §2(b) and §6(t) for the first three, and this repository's reading of IP License §2(e) for rank data. Recorded in reports/asin-model-mapping-2026-11-16.md §4 as read-and-excluded rather than silently dropped."
- }
 }

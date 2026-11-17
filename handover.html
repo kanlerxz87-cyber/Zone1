@@ -42,7 +42,7 @@
   </a>
   <nav class="topnav" aria-label="Primary"><a href="picks.html">Picks</a><a href="guides/buying-guide-air-fryers.html">Buying guide</a><a href="articles/index.html">Articles</a><a href="compare.html">Compare</a></nav>
   <span class="spacer"></span>
-  <span class="meta">data verified 2026-11-13 · re-verified 2026-11-16</span>
+  <span class="meta">data verified 2026-11-13 · re-verified 2026-11-17</span>
   <button class="navtoggle" type="button" aria-controls="site-nav" aria-expanded="false">Menu</button>
 </header>
 <div class="shell">
@@ -64,6 +64,7 @@
       <h4>Trust &amp; evidence</h4>
       <a href="compliance.html">Compliance<span class="sub">Program rules, quoted, with sources</span></a>
       <a href="flagged.html">Flagged for review<span class="sub">Unverified values and irregularities</span></a>
+      <a href="links.html">Link record<span class="sub">Intended product vs observed destination, and the tag we publish</span></a>
       <a href="data.html">Full dataset<span class="sub">Every field, value, source and gap</span></a>
       <a href="reverification.html">Re-verification<span class="sub">Published values re-read against their official sources</span></a>
     </div>
@@ -73,6 +74,7 @@
       <a href="suggestions.html">Suggestions<span class="sub">Review site improvements before implementation</span></a>
       <a href="design-prompt.html">Design prompt pack<span class="sub">Design, topics and tactics — review before changes</span></a>
       <a href="questions.html">Questions and gaps<span class="sub">Known facts, missing answers and discovery steps</span></a>
+      <a href="measurement.html">Measurement<span class="sub">Five events, counted on your device, sent nowhere</span></a>
       <a href="requirements.html">Requirements and status<span class="sub">Every requirement in the brief, and whether this repo meets it</span></a>
       <a href="topics.html">Content and traffic plan<span class="sub">Article topics and the channels allowed to promote them</span></a>
       <a href="executive-summary.html">Executive summary<span class="sub">Decision-ready briefing</span></a>
@@ -83,8 +85,8 @@
   <main id="main-content">
     
 <p class="section-eyebrow">Handover</p>
-<h1>Five actions, about an hour, eighteen flags</h1>
-<p class="lede">Everything in this repository is done as far as it can be done without the account holder's own logins. These five actions are the shortest path from "unverified" to "confirmed". Each shows the time it takes and the flags it closes.</p>
+<h1>6 actions, about an hour, 7 flags</h1>
+<p class="lede">Everything in this repository is done as far as it can be done without the account holder's own logins. These 6 actions are the shortest path from "unverified" to "confirmed". Each shows the time it takes and the flags it closes.</p>
 <div class="callout bad">
   <strong>H1 is done — by a fetch, not by hand.</strong> All three listings' Product information blocks were read on 2026-11-16 (<a href="flagged.html#f68">F68</a>, <a href="flagged.html#f49">F49</a>): B0CDY277D3 = RJ38-SQPF-3TDB-2W, B08DKYBTPH = RJ38-SQSS-8T (in its <em>Part Number</em> row), B09B7SB46R = 4-00675-02X-VN, which is one character from the brand page's string and is the remaining conflict (F70). What H1 was going to settle is settled for the model step; what it could never settle is the intent behind the three supplied short links, your Associates tag and your account data — those are still the top of the list here.
 </div>
@@ -92,10 +94,10 @@
 <article class="card handover-item">
   <div class="handover-head">
     <span class="handover-num">H1</span>
-    <h3>Open each of the three supplied links on a desktop browser and read the <strong>Model number</strong> line in the listing&#x27;s “Product information” section.</h3>
+    <h3>Open the three air-fryer listings this site markets on a desktop browser and read the <strong>Model number</strong> line in each listing&#x27;s “Product information” section.</h3>
     <span class="pill pill-info">3 minutes</span>
   </div>
-  <p class="small">This is the single highest-value action in the project. The site currently shows a candidate ASIN and a “believed” manufacturer SKU; this line makes the mapping a fact instead of a match. It cannot be done by a headless fetch, which is why it is still open after seven sessions.</p>
+  <p class="small">This is the single highest-value action in the project. The site currently shows a candidate ASIN and a “believed” manufacturer SKU; this line makes the mapping a fact instead of a match. It cannot be done by a headless fetch, which is why it is still open after seven sessions. The two thermometer listings the brief added on 2026-11-17 are recorded as candidates on links.html and their model lines have not been read at all - if the product set widens, they join this list.</p>
   <div class="handover-meta">
     <div><span class="tiny muted">Closes</span><div class="small">F01, F02, F32, F33</div></div>
     <div><span class="tiny muted">Paste back</span><div class="small">Three model numbers, one per link. <a class="src" href="https://www.amazon.com/dp/B0CDY277D3" title="Amazon.com (product listings) — Amazon detail page for ASIN B0CDY277D3 (Chefman 6 Qt Dual Basket)" rel="noopener" target="_blank">S16</a> <a class="src" href="https://www.amazon.com/dp/B09B7SB46R" title="Amazon.com (product listings) — Amazon detail page for ASIN B09B7SB46R (Emeril 26QT French Door)" rel="noopener" target="_blank">S28</a> <a class="src" href="https://www.amazon.com/dp/B08DKYBTPH" title="Amazon.com (product listings) — Amazon detail page for ASIN B08DKYBTPH (Chefman 8 Qt TurboFry)" rel="noopener" target="_blank">S29</a></div></div>
@@ -104,13 +106,13 @@
 <article class="card handover-item">
   <div class="handover-head">
     <span class="handover-num">H2</span>
-    <h3>In Associates Central, open <strong>Manage Tracking IDs</strong> and read the tracking ID, then confirm that the three supplied links carry it. If they do not, rebuild each link from the Product Linking tool.</h3>
+    <h3>In Associates Central, open <strong>Manage your Tracking ID</strong> and confirm that <strong>shopnow047c-20</strong> is listed. Then click one published link on this site, complete a visit, and check the Summary Report for a click against that ID in the last 24 hours.</h3>
     <span class="pill pill-info">5 minutes</span>
   </div>
-  <p class="small">As supplied, none of the three landing URLs shows a <code>tag=</code> parameter. A purchase through an untagged link does not credit the account. Tagging is also a requirement for the application review, which is final once rejected (S4).</p>
+  <p class="small">What changed on 2026-11-17: the site stopped waiting for the short links and now composes the Special Link itself - every buy CTA is amazon.com/dp/&lt;ASIN&gt; with <code>tag=</code> appended from data/config.json, and the build refuses to publish one that forgets it. So the question is no longer &#x27;does the short link carry the tag&#x27; (it did not: none of the five showed <code>tag=</code> when re-read that day) but &#x27;is this ID live in an approved account, and does Amazon credit a link we composed rather than generated&#x27;. The single click answers both. Tagging is also a condition of the application review, which is final once rejected (S4).</p>
   <div class="handover-meta">
     <div><span class="tiny muted">Closes</span><div class="small">F03, F06, F07</div></div>
-    <div><span class="tiny muted">Paste back</span><div class="small">The tracking ID (it is public data — it appears in every link on a live site) and whether it was present in the supplied links. <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA" title="Amazon.com Associates Central — What are tracking IDs, and how does the new site help Associates use them?" rel="noopener" target="_blank">S6</a> <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a> <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM" title="Amazon.com Associates Central — Application Review Process" rel="noopener" target="_blank">S4</a></div></div>
+    <div><span class="tiny muted">Paste back</span><div class="small">Whether the ID appears in your tracking-ID list, and whether a click showed up against it within 24 hours. Two words each: &#x27;listed / not listed&#x27;, &#x27;seen / not seen&#x27;. If it is &#x27;not seen&#x27;, say so and the site will switch to regenerating those links from the Product Linking tool rather than keep guessing. <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA" title="Amazon.com Associates Central — What are tracking IDs, and how does the new site help Associates use them?" rel="noopener" target="_blank">S6</a> <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a> <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM" title="Amazon.com Associates Central — Application Review Process" rel="noopener" target="_blank">S4</a> <a class="src" href="https://link.amazon/B04G1MEwY" title="Amazon.com — link.amazon short links supplied by the account holder (B04G1MEwY, B02NbDxp3, B00hJ57DV, and from 2026-11-17 B0c8moW59 and B0f3GKalj)" rel="noopener" target="_blank">S17</a></div></div>
   </div>
 </article>
 <article class="card handover-item">
@@ -149,10 +151,22 @@
     <div><span class="tiny muted">Paste back</span><div class="small">The IDs you accept or reject (SG-##, Q-##). </div></div>
   </div>
 </article>
+<article class="card handover-item">
+  <div class="handover-head">
+    <span class="handover-num">H6</span>
+    <h3>Create one tracking ID per money page in the same screen, and paste them in the format <code>picks.html: shopnow047c-1-20</code> — the site reads that mapping from data/config.json and rebuilds every link with the right ID.</h3>
+    <span class="pill pill-info">10 minutes</span>
+  </div>
+  <p class="small">This is the only way to learn which pages earn clicks without putting a tracker on a site whose privacy statement says it runs none. Amazon splits reporting by tracking ID by design, and the policy forbids tying a sub-tag to an individual visitor — a per-page constant is the version that is allowed. Nothing in this repository can create the IDs, and nothing will invent an identifier: the build validates the shape and refuses a tag the config never declared.</p>
+  <div class="handover-meta">
+    <div><span class="tiny muted">Closes</span><div class="small">no flag — unblocks measurement</div></div>
+    <div><span class="tiny muted">Paste back</span><div class="small">The list of IDs and which page each one is for. Empty is also an answer, and it closes Q-28 as &#x27;not in use&#x27;. <a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a> <a class="src" href="https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA" title="Amazon.com Associates Central — What are tracking IDs, and how does the new site help Associates use them?" rel="noopener" target="_blank">S6</a></div></div>
+  </div>
+</article>
 
 <h2>What cannot be done from here</h2>
 <div class="card">
-  <ul class="tight small"><li>Auto-approval of an Associates account, or viewing its reports.</li><li>Reading an ASIN&#x27;s Product-information block reliably (the listing pages render it client-side).</li><li>Publishing a real Amazon price, availability, star rating or review count (S2 §2(b), §6(t)).</li><li>Calling Creators API / PA-API without credentials tied to the account (F12).</li><li>Registering a domain or a Search Console property.</li></ul>
+  <ul class="tight small"><li>Auto-approval of an Associates account, or viewing its reports.</li><li>Reading an ASIN&#x27;s Product-information block reliably (the listing pages render it client-side).</li><li>Publishing a real Amazon price, availability, star rating or review count (S2 §2(b), §6(t)).</li><li>Calling Creators API / PA-API without credentials tied to the account (F12).</li><li>Registering a domain or a Search Console property.</li><li>Whether a hand-composed tagged /dp/ link is credited by Amazon (Q-30). One click through one published link settles it inside 24 hours; nobody outside the account can observe the result.</li><li>Which brand SKU the new thermometer ASIN is (Q-29) — the listing&#x27;s Product information block is rendered client-side, and the brand sells three near-identical F1 variants, so no figure from any of them may be published as this product&#x27;s until someone reads it.</li></ul>
 </div>
 <p class="small muted">When the answers come back, they are recorded in <a href="flagged.html">the flag register</a> with their source and the date read, not inferred from an earlier pass. Every published value on this site carries that same discipline.</p>
 

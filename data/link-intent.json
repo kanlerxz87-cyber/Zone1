@@ -1,0 +1,177 @@
+{
+  "id": "link-intent-2026-11-17",
+  "title": "Product-intent confirmation record",
+  "compiled": "2026-11-17",
+  "session": "arena/3093e674-zone1",
+  "purpose": "For every outbound product link this project was handed, this register keeps two things apart: what the account holder said they meant to send readers to, and where the link actually went when it was fetched. The brief asked for exactly this record - intended ASIN, official listing URL, confirmation date and source, with observed redirect targets held in a separate field - because the two are different kinds of fact and only one of them can be checked from outside an Associates account.",
+  "why_two_fields": "An observed redirect is a machine-readable fact: a fetch either landed on amazon.com/dp/B0CDY277D3 or it did not. An intended ASIN is a fact about a person's decision, and the only source for it is the account holder. Merging them is how a verification register turns into a story: the site would publish 'the owner meant this product' on the strength of where a redirector happened to land on one afternoon. The three original links were adopted as the site's product set on the strength of their destinations alone, which is why F6, F7 and F10 have stayed open for four days and why this page exists.",
+  "rules": [
+    "The 'intended' object is filled only from a statement by the account holder. A fetch never fills it.",
+    "The 'observed' object is filled only from a live fetch of the submitted URL, with the date and the method. A human statement never fills it.",
+    "No row may present the two as one value, and no page renders intended_asin from observed_final_asin.",
+    "A destination that is stable across repeat reads is recorded as 'stable'; it is never recorded as 'confirmed', because stability of a redirector says nothing about intent.",
+    "If the two disagree, the link is removed from the money pages first and the row is corrected afterwards, not the other way round."
+  ],
+  "asin_format_check": {
+    "claim": "Every submitted token in this register is 9 characters long. An Amazon ASIN is a 10-character identifier and the canonical detail-page URL is amazon.com/dp/ASIN, so none of these tokens is an ASIN: each is a short-link slug that resolves to one.",
+    "why_it_matters": "Reading the token as an ASIN is the single most likely way this project could have published a wrong product. amazon.com/dp/B04G1MEwY returns 404, which is what proves the point rather than asserting it.",
+    "source": "S23"
+  },
+  "link_format": {
+    "rule": "A link from this site to Amazon is only a Special Link if it carries the Associates ID: 'Special Links must use the Associates ID we have assigned to you', and the tag must appear 'as a parameter in the URL of each link you place on your Site to an Amazon Site'. Amazon also states it has no obligation to pay fees if the links are not properly formatted.",
+    "sources": ["S2", "S1"],
+    "what_this_site_does": "build.py composes every product link as https://www.amazon.com/dp/<ASIN>?tag=<tag from data/config.json>, and check_special_links() fails the build if any Amazon-bound product link on a generated page lacks the configured tag while a tag is configured. The supplied short link is still shown, labelled as what it is, because it is the artefact the owner handed over and the only thing that can be checked against their account.",
+    "unresolved": "Whether a hand-composed tagged /dp/ URL is accepted in place of a link built by the Product Linking tool is not stated in the policy text this repository can read; the policy says Special Links 'may be created by you or made available to you by us', which reads as permission to compose them, and the only proof that matters is whether a click through one shows up in the Associates report. That single test is an owner action (Q-04, handover.html)."
+  },
+  "records": [
+    {
+      "id": "LI-01",
+      "submitted_link": "https://link.amazon/B04G1MEwY",
+      "submitted_token": "B04G1MEwY",
+      "token_length": 9,
+      "received_on": "2026-11-13",
+      "intended": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmed_on": null,
+        "source": "Not stated. The project brief of 2026-11-13 and again on 2026-11-17 lists the short link and no product name, model or ASIN.",
+        "status": "awaiting the account holder"
+      },
+      "observed": {
+        "final_url": "https://www.amazon.com/dp/B0CDY277D3",
+        "final_asin": "B0CDY277D3",
+        "observed_on": "2026-11-17",
+        "method": "Server-side fetch of the submitted URL; the response's own product-summary link and document title were read.",
+        "redirect_params": "lv=shuf, btn_type=ss, btn_ref=srctok-<rotating>, channelId=704, plpRedirect=mhFallback",
+        "listing_title": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
+        "browse_node": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+        "stability": "stable across the reads recorded on 2026-11-14, 2026-11-15 (twice), 2026-11-16 (four sessions) and 2026-11-17"
+      },
+      "site_treats_it_as": "chefman-6qt-dual-basket (data/products.json, rank 1)",
+      "identity_status": "candidate - destination stable, owner intent unconfirmed",
+      "open_items": ["F6", "F7", "F10", "Q-01"]
+    },
+    {
+      "id": "LI-02",
+      "submitted_link": "https://link.amazon/B02NbDxp3",
+      "submitted_token": "B02NbDxp3",
+      "token_length": 9,
+      "received_on": "2026-11-13",
+      "intended": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmed_on": null,
+        "source": "Not stated. Same as LI-01: a link and nothing else.",
+        "status": "awaiting the account holder"
+      },
+      "observed": {
+        "final_url": "https://www.amazon.com/dp/B09B7SB46R",
+        "final_asin": "B09B7SB46R",
+        "observed_on": "2026-11-17",
+        "method": "Server-side fetch of the submitted URL; the response's own product-summary link and document title were read.",
+        "redirect_params": "lv=shuf, btn_type=ss, btn_ref=srctok-<rotating>, channelId=704, plpRedirect=mhFallback",
+        "listing_title": "Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
+        "browse_node": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+        "stability": "stable across the same reads as LI-01",
+        "note": "The title says 24 presets and six accessories; the brand's own page says 25 cooking pre-sets and the site's row records a seven-accessory figure from the manual. Those conflicts are published as F30 and F45, not resolved here."
+      },
+      "site_treats_it_as": "emeril-26qt-french-door (data/products.json, rank 2)",
+      "identity_status": "candidate - destination stable, owner intent unconfirmed",
+      "open_items": ["F6", "F7", "F10", "F30", "F45"]
+    },
+    {
+      "id": "LI-03",
+      "submitted_link": "https://link.amazon/B00hJ57DV",
+      "submitted_token": "B00hJ57DV",
+      "token_length": 9,
+      "received_on": "2026-11-13",
+      "intended": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmed_on": null,
+        "source": "Not stated. Same as LI-01.",
+        "status": "awaiting the account holder"
+      },
+      "observed": {
+        "final_url": "https://www.amazon.com/dp/B08DKYBTPH",
+        "final_asin": "B08DKYBTPH",
+        "observed_on": "2026-11-17",
+        "method": "Server-side fetch of the submitted URL; the response's own product-summary link and document title were read.",
+        "redirect_params": "lv=shuf, btn_type=ss, btn_ref=srctok-<rotating>, channelId=704, plpRedirect=mhFallback, th=1",
+        "listing_title": "Chefman Air Fryer 8 Qt | TurboFry 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
+        "browse_node": "Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers",
+        "stability": "stable across the same reads as LI-01",
+        "note": "The 8 Qt TurboFry line covers more than one SKU; which one this listing is stays open as F3 and F33."
+      },
+      "site_treats_it_as": "chefman-8qt-turbofry (data/products.json, rank 3)",
+      "identity_status": "candidate - destination stable, owner intent unconfirmed",
+      "open_items": ["F3", "F33", "F72"]
+    },
+    {
+      "id": "LI-04",
+      "submitted_link": "https://link.amazon/B0c8moW59",
+      "submitted_token": "B0c8moW59",
+      "token_length": 9,
+      "received_on": "2026-11-17",
+      "intended": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmed_on": null,
+        "source": "Not stated. This link first appears in the project brief of 2026-11-17, which names no product either.",
+        "status": "awaiting the account holder"
+      },
+      "observed": {
+        "final_url": "https://www.amazon.com/dp/B0DHZTCNR5",
+        "final_asin": "B0DHZTCNR5",
+        "observed_on": "2026-11-17",
+        "method": "Server-side fetch of the submitted URL; the response's own product-summary link and document title were read.",
+        "redirect_params": "lv=shuf, btn_type=ss, btn_ref=srctok-<rotating>, channelId=500, plpRedirect=mhFallback, sp_csd=<base64 widget name>, language=en_US",
+        "listing_title": "ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black",
+        "browse_node": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+        "stability": "first read of this token; no second read to compare it against"
+      },
+      "site_treats_it_as": "candidate product 'thermomaven-f1-instant-read' - published as a candidate only, never in the air-fryer comparison set",
+      "identity_status": "unmapped - the listing's '1 Sec' claim does not match the brand page's 0.7-second figure for the F1, and the brand sells three near-identical F1 variants",
+      "open_items": ["F76", "F77", "Q-29"],
+      "why_no_specs": "The brand's own F1 page states accuracy within ±0.5°F, a 0.7-second reading time, IP67 waterproofing and a lifetime warranty, and it lists an F1, an F1 Stealth and an F1 Ace. The Amazon title says '1 Sec'. Nothing links that title to one of those three SKUs, so no specification row is published against this ASIN: the numbers would be borrowed from a model the listing does not name. This is the same rule that left the Emeril weight blank (F30) rather than estimated."
+    },
+    {
+      "id": "LI-05",
+      "submitted_link": "https://link.amazon/B0f3GKalj",
+      "submitted_token": "B0f3GKalj",
+      "token_length": 9,
+      "received_on": "2026-11-17",
+      "intended": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmed_on": null,
+        "source": "Not stated. First appears in the project brief of 2026-11-17.",
+        "status": "awaiting the account holder"
+      },
+      "observed": {
+        "final_url": "https://www.amazon.com/dp/B0DZFD6R9Z",
+        "final_asin": "B0DZFD6R9Z",
+        "observed_on": "2026-11-17",
+        "method": "Server-side fetch of the submitted URL; the response's own product-summary link and document title were read.",
+        "redirect_params": "lv=shuf, sbo=<encoded>, btn_type=ss, btn_ref=srctok-<rotating>, channelId=500, plpRedirect=mhFallback, th=1",
+        "listing_title": "CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3",
+        "browse_node": "Home & Kitchen > Kitchen & Dining > Kitchen Utensils & Gadgets > Thermometers & Timers > Meat",
+        "stability": "first read of this token; no second read to compare it against"
+      },
+      "site_treats_it_as": "candidate product 'chef-iq-sense-gen3' - published as a candidate only, never in the air-fryer comparison set",
+      "identity_status": "mapped to the brand's current iQ Sense page on stated features (Gen3, 1,000°F, five sensors, air-fryer compatibility); the listing sells a 3-probe bundle and the brand page sells 1 to 4 probes, so the SKU is not settled",
+      "open_items": ["F76", "Q-29"],
+      "why_partial_specs": "chefiq.com/products/iq-sense states the sensor count, the 1,000°F heat resistance, the appliance list including 'air fryer', and the probe materials. Those are published against this candidate with the brand page as their source. The probe count in the bundle, the app's cook-time behaviour and anything price-related stay out: the first is a listing configuration Amazon sells and the brand page sells separately, the second is a claim the brand page does not quantify, and the third is not Amazon's price to publish here."
+    }
+  ],
+  "reading_order": [
+    "If the owner confirms an intended ASIN for a row, the site's product mapping changes to match and this row records the confirmation with its date and wording.",
+    "If the owner says the intended ASIN differs from the observed one, the affected page's CTA is pulled in the same commit that records the row, per rule 5.",
+    "A row never moves to 'confirmed' because a fetch was repeated. Only a statement from the account holder moves it."
+  ],
+  "not_claimed": [
+    "This register does not claim the supplied short links are invalid or non-compliant. Their exact compliance status is unresolved and is recorded as F7 and F10.",
+    "It does not claim that tagging a canonical /dp/ URL produces a paid attribution. That is what the one-link test in handover.html is for.",
+    "It does not record any click, order or revenue figure. See campaign-ledger.html for the register that is deliberately empty."
+  ]
+}

@@ -50,6 +50,13 @@ OFFICIAL_HOSTS = {
     "chefman.com",
     "cdn.shopify.com",
     "www.emerileveryday.com",
+    # The two brands added to the product set by the project brief of 2026-11-17. Same basis as
+    # chefman.com and emerileveryday.com above: each domain is the manufacturer's own store, so it
+    # is official for the facts it publishes about its own product and for nothing else. Registered
+    # 2026-11-17 (arena/3093e674-zone1) alongside sources S38/S39/S40, each read live that day; see
+    # reports/verification-2026-11-17-3093e674.md.
+    "chefiq.com",
+    "www.thermomaven.com",
     "www.ftc.gov",
     "www.ecfr.gov",
     "docs.github.com",
