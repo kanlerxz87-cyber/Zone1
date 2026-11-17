@@ -581,6 +581,36 @@
    "blocked_by": []
   },
   {
+   "id": "TP-22",
+   "title": "Do you need a probe thermometer with an air fryer?",
+   "hook": "The appliance cannot see the middle of your dinner.",
+   "intent": "Commercial investigation",
+   "serves": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "angle": "Answer the buyer question with what the manufacturers state, and say plainly that no appliance manual requires a probe. The pairing claim rests on a brand page that lists air fryer among compatible appliances, not on a testing result.",
+   "why_it_could_earn_traffic": "Judgement: a question a buyer types after the appliance is chosen, so it sits downstream of the comparison pages this site already has, where a reader is closest to a decision.",
+   "must_cite": [
+    {
+     "label": "CHEF iQ iQ Sense brand product page (compatibility list)",
+     "url": "https://chefiq.com/products/iq-sense"
+    },
+    {
+     "label": "Amazon listing read 2026-11-17 for the second supplied link",
+     "url": "https://www.amazon.com/dp/B0DHZTCNR5"
+    }
+   ],
+   "status": "published",
+   "published_as": "articles/probe-thermometer-with-an-air-fryer.html",
+   "blocked_by": [],
+   "published_on": "2026-11-17",
+   "published_by": "arena/00bc7156-zone1",
+   "registered_by": "arena/00bc7156-zone1 (pass 13, 2026-11-17)",
+   "renumbered_note": "Renumbered from TP-21 on 2026-11-17: session c55fa0d8 merged its own TP-21 while this branch was open, and a merged id belongs to whoever published it first. Restored after the first merge of the two registers dropped this row by id collision — caught by diffing the topic count, 24 expected against 23 written, which is the check that should have run before the write."
+  },
+  {
    "id": "TP-23",
    "title": "A thermometer says ±0.5°F. What is that number actually promising?",
    "hook": "Two documents, two tolerances, no comparable conditions.",

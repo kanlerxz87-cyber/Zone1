@@ -5566,11 +5566,55 @@ two blank+flagged spec rows. Nothing was filled by inference.
 
 | # | Task | Status | Owner (session) | File scope |
 |---|------|--------|-----------------|------------|
-| X-00bc7156 | **Coverage reconciliation of the brief's five supplied links + a second product cluster.** Read the board, re-read all five `link.amazon` tokens live, register the two that no earlier pass recorded, verify what the official record supports, publish a product-intent confirmation page (five rows, intended ASIN and observed redirect kept in separate fields), add the second category pillar it implies, write two question-shaped guides, extend the suggestions/questions/flags registers, then rebuild, run every gate, PR → merge → confirm Pages → record. | in progress | arena/00bc7156-zone1 (session 00bc7156) | `COORDINATION.md` (this row + log); `data/sources.json`, `data/links.json` (new), `data/adjacent.json` (new), `data/articles.json`, `data/topics.json`, `data/suggestions.json`, `data/questions.json`, `data/requirements.json`; `build.py` (new `page_links`, `page_tools_category`, NAV, `PROGRAMME_FLAGS`, register fixes), `verify.py` (official-host allow list), regenerated root + `categories/` + `articles/` HTML; `EXECUTIVE-SUMMARY.md`; `session-00bc7156/*` (this session's evidence) |
+| X-00bc7156 | **Coverage reconciliation of the brief's five supplied links + a second product cluster.** Read the board, re-read all five `link.amazon` tokens live, register the two that no earlier pass recorded, verify what the official record supports, publish a product-intent confirmation page (five rows, intended ASIN and observed redirect kept in separate fields), add the second category pillar it implies, write two question-shaped guides, extend the suggestions/questions/flags registers, then rebuild, run every gate, PR → merge → confirm Pages → record. | **done** (PR opened and merged this pass; see the completion record below) | arena/00bc7156-zone1 (session 00bc7156) | `COORDINATION.md` (this row + log); `data/sources.json`, `data/links.json` (new), `data/adjacent.json` (new), `data/articles.json`, `data/topics.json`, `data/suggestions.json`, `data/questions.json`, `data/requirements.json`; `build.py` (new `page_links`, `page_tools_category`, NAV, `PROGRAMME_FLAGS`, register fixes), `verify.py` (official-host allow list), regenerated root + `categories/` + `articles/` HTML; `EXECUTIVE-SUMMARY.md`; `session-00bc7156/*` (this session's evidence) |
 
 ### Claim log — arena/00bc7156-zone1
 
 | UTC time | Session | Action |
 |----------|---------|--------|
 | 2026-11-17T16:05Z | arena/00bc7156-zone1 (session 00bc7156) | Claimed X-00bc7156 after reading the board top to bottom. `gh pr list --state open` → no open PRs; every prior row is `done`; main = `9c6e3f0` (merge of #124), which is this branch's base, so no merge in flight. Baseline gates green before any edit: `python3 build.py` → 50 pages, 49 sitemap URLs, feed 21 items; `python3 verify.py` → 128 pages, 77 spec rows (75 verified / 2 blank+flagged), 35 sources, 0 errors, 0 external warnings. **Reason for the task:** the brief supplied five `link.amazon` tokens and the repository registers three. `grep -rI "B0c8moW59\|B0f3GKalj"` over the whole tree (excluding `.git`) returns **zero files** — the fourth and fifth links were never recorded by any of the twelve earlier passes. Live re-read this session shows why that matters: they resolve to meat thermometers (candidate ASINs B0DHZTCNR5 and B0DZFD6R9Z), not air fryers, so the brief's product set spans two categories and the site covers one. **Overlap detected and divided, not duplicated:** while this claim was being written, arena/02b4e9c7-zone1 merged R-02b4e9c7 (PRs #126/#127) onto main — a five-link product-intent ledger in `data/product-intent-confirmations.json` plus `reports/brief-reconciliation-2026-11-17.md`, explicitly built with no live Amazon re-fetch and no nav/build/canonical-data edits, so the ledger is not reachable from any published page. This session therefore does NOT create a competing register: it appends its own dated live observations to *their* file and takes the half they left open — the site-facing publication layer, the second product cluster the two new links imply, and the flags/questions/suggestions rows that follow from those reads. Claim order: their row is above this one and is marked done; no file they own is edited except `data/product-intent-confirmations.json`, where the append is additive (new observation blocks, no existing field rewritten). Arena pins this session to branch `arena/00bc7156-zone1`, which is therefore this session's `session-<id>/<task>` branch. Parallel-build directories (`site/`, `s2/`, `research/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*`, other `session-*`) are not edited. |
->>>>>>> e67345b (COORDINATION: claim X-00bc7156 (five-link coverage reconciliation, pass 13))
+
+### Completion record — arena/00bc7156-zone1 (2026-11-17, ~2026-11-17T16:35Z)
+
+* **What shipped.** `data/adjacent.json` (2 items, 21 specification rows, 6 blank with their reasons),
+  `categories/kitchen-tools.html` generated by a new `page_tools_category()`, a landing-page shelf and a
+  computed sidebar entry (`SG-43` default A), two registered articles
+  (`probe-thermometer-with-an-air-fryer`, `thermometer-accuracy-claims-explained`) with `TP-21`/`TP-22`
+  published and `TP-23` deliberately held at `proposed`, sources `S38`–`S41`, questions `Q-27`…`Q-31`,
+  suggestions `SG-36`…`SG-43` + decision path `P6`, flags `F83`–`F87`, a new build guard
+  (`check_adjacent_rows`) plus `_published_values()` extended to the cluster so the article-splice gate
+  covers it, one clause added to the publisher and RSS descriptions (`SG-37` default A), `requirements.json`
+  row `C-01` corrected from three links to five and from `plmRedirect` to `plpRedirect` (status left
+  `blocked`), and the `verify.py` official-host allow list extended with `chefiq.com` and
+  `www.thermomaven.com` with the reason written next to it.
+* **Scope corrections to the claim above.** `data/links.json` and `page_links` were **not** added: while this
+  branch was open, #132 (session `5b17c077`) landed the canonical `data/product-intent.json` +
+  `product-intent.html` covering all five links, which is the page my claim row proposed to write. Duplicating
+  it would have created the fourth parallel intent record this repository has now retired twice, so this pass
+  publishes the cluster page only and links to theirs.
+* **Ledger reconciliation.** This pass first appended its dated observations to
+  `data/product-intent-confirmations.json`. Flag `F80`, merged with #132, had retired that file in favour of
+  `data/product-intent.json` the same day, so on rebase the append was **reverted** and the substance
+  (`observed_redirect_target_full`, `observed_via`, `reads_2026_11_17_00bc7156`) moved to the canonical record.
+  Sources merged by id: main's `S36`/`S37` already pointed at the same two listing URLs, so this pass added
+  four sources rather than six and appended its chunk-limit caveat to main's entries instead of replacing them.
+  Flag ids start at `F83` to clear main's `F76`–`F82`.
+* **Control test published.** The `plpRedirect=mhFallback` control (a bare request for a known-correct `/dp/`
+  URL is served with the same marker) is rendered as a sourced table on `product-intent.html`, with the
+  finding that twelve passes of flags give that marker as part of the reason identity is unconfirmed. It is
+  recorded as a caution against over-reading, with `SG-38`/`Q-29` asking a second reader to repeat the control
+  before the four rows are reworded — not silently rewritten by the pass that ran it.
+* **Self-flag, same defect class as F22.** The keep-both resolution of this session's own rebase conflict in
+  this file left a stray `>>>>>>>` marker committed in `e67345b`, found while writing this record and repaired
+  before the PR. It is noted here rather than quietly amended, because this repository has now hit the same
+  mistake twice in two days and the pattern is the point: a hand-edited shared file needs a marker grep before
+  every commit, and no gate in the repo currently catches it in a Markdown file.
+* **Gates on the final rebased tree.** `python3 build.py` exit 0 — 55 pages built, 54 sitemap URLs, feed 23
+  items, all guards green including #132's tag gate, rebuild byte-identical · `python3 verify.py` — 133 pages,
+  77 spec rows (75 verified, 2 blank+flagged), 41 sources, 0 errors, 0 external warnings ·
+  `bash scripts/ci-check.sh` — 33 unit tests OK, data audit clean, 9,239 links, 0 broken ·
+  `python3 scripts/verify_site.py` — ALL CHECKS PASSED · `python3 scripts/build_s2_site.py --check` — build
+  current · `python3 research/check_research.py` — OK · `node --check assets/app.js` — OK ·
+  `git diff --check` — clean.
+* **Report:** `reports/verification-2026-11-17-00bc7156.md` · **Evidence:** `session-00bc7156/observations-2026-11-17.json` ·
+  **Executive summary:** `EXECUTIVE-SUMMARY.md` §24.
