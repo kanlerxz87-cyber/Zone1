@@ -12,8 +12,8 @@ decision and keeps the verification layer one click behind it.
 **Strategy:** [`decisions.html`](https://kanlerxz87-cyber.github.io/Zone1/decisions.html) — niche scorecard, traffic plan, measurement plan, kill rule
 **Decision queue:** [`suggestions.html`](https://kanlerxz87-cyber.github.io/Zone1/suggestions.html) — review and choose before anything is built
 **Open questions:** [`questions.html`](https://kanlerxz87-cyber.github.io/Zone1/questions.html) — what must be answered first
-**Briefing:** [`EXECUTIVE-SUMMARY-PASS8.md`](EXECUTIVE-SUMMARY-PASS8.md) (pass 9 addendum at the end) · [`EXECUTIVE-SUMMARY-PASS9.md`](EXECUTIVE-SUMMARY-PASS9.md) (search plumbing and duplicate builds) · [`EXECUTIVE-SUMMARY-PASS9-42CA97AD.md`](EXECUTIVE-SUMMARY-PASS9-42CA97AD.md) (verification pass 9) · [`EXECUTIVE-SUMMARY.md`](EXECUTIVE-SUMMARY.md) §19 (design-coherence pass 12) · §20 (seasonal content pass) · §21/§22 (verification round 11 + RSS syndication passes) · §23 (marketing & decision-support pass, session arena/19d92a81)
-**Today's live re-verification:** [`reports/verification-2026-11-16-19d92a81.md`](reports/verification-2026-11-16-19d92a81.md) (marketing pass: short links, S15 manual, S26, line-by-line review) · [`reports/verification-2026-11-16-8874422b.md`](reports/verification-2026-11-16-8874422b.md) (second-reader spot re-read, this session) · [`reports/verification-2026-11-16-492acddc.md`](reports/verification-2026-11-16-492acddc.md) (pass 12: policies, commission table, FTC, brand pages + WCAG audit) · [`reports/verification-round11-2026-11-16.md`](reports/verification-round11-2026-11-16.md) (round 11, session 3dfe4b45) · [`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md) (full pass 10) · [`reports/verification-2026-11-15.md`](reports/verification-2026-11-15.md) (pass 9)
+**Briefing:** [`EXECUTIVE-SUMMARY-PASS8.md`](EXECUTIVE-SUMMARY-PASS8.md) (pass 9 addendum at the end) · [`EXECUTIVE-SUMMARY-PASS9.md`](EXECUTIVE-SUMMARY-PASS9.md) (search plumbing and duplicate builds) · [`EXECUTIVE-SUMMARY-PASS9-42CA97AD.md`](EXECUTIVE-SUMMARY-PASS9-42CA97AD.md) (verification pass 9) · [`EXECUTIVE-SUMMARY.md`](EXECUTIVE-SUMMARY.md) §19 (design-coherence pass 12) · §20 (seasonal content pass) · §21/§22 (verification round 11 + RSS syndication passes) · §23 (marketing & decision-support pass, session arena/19d92a81) · §24 (measurement shipped + question guides + the one-site finding, session arena/c9e97e02)
+**Today's live re-verification:** [`reports/verification-2026-11-16-19d92a81.md`](reports/verification-2026-11-16-19d92a81.md) (marketing pass: short links, S15 manual, S26, line-by-line review) · [`reports/verification-2026-11-16-8874422b.md`](reports/verification-2026-11-16-8874422b.md) (second-reader spot re-read, this session) · [`reports/verification-2026-11-16-492acddc.md`](reports/verification-2026-11-16-492acddc.md) (pass 12: policies, commission table, FTC, brand pages + WCAG audit) · [`reports/verification-round11-2026-11-16.md`](reports/verification-round11-2026-11-16.md) (round 11, session 3dfe4b45) · [`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md) (full pass 10) · [`reports/verification-2026-11-15.md`](reports/verification-2026-11-15.md) (pass 9) · [`reports/verification-2026-11-17-c9e97e02.md`](reports/verification-2026-11-17-c9e97e02.md) (measurement + question-guides pass: short links, S2, S3, S43/S44)
 ## What is in here
 
 | Path | What it is |
@@ -22,7 +22,8 @@ decision and keeps the verification layer one click behind it.
 | `picks.html` | **This week's picks** — a decision rule instead of a ranking, with the commission arithmetic and the table rows it came from |
 | `decisions.html` | **Decisions** — four niches scored on five criteria, six traffic channels with their prerequisites, six metrics, and a pre-committed kill rule |
 | `handover.html` | **Handover** — the five things only the account holder can do, each with the time it takes and the flags it closes |
-| `articles/` | **Twenty-one sourced articles (counted 2026-11-16)** — comparisons, explainers, feature and care walkthroughs, a source-forensics piece and two policy explainers. Every highlighted value in them must appear verbatim in `data/products.json` or the build fails. The set also ships as an RSS feed (`feed.xml`). |
+| `measurement.html` | **Measurement plan** — the five defined events; the cookie-free counter and self-hosted endpoint shipped 2026-11-17 (`assets/app.js`, `platform/analytics/`); counts stay empty until the owner deploys a receiver (SG-39/Q-29) |
+| `articles/` | **Twenty-five sourced articles (counted 2026-11-17)** — comparisons, explainers, feature and care walkthroughs, a source-forensics piece, two policy explainers and four question-shaped guides (one page per buyer question, S-07). Every highlighted value in them must appear verbatim in `data/products.json` or the build fails. The set also ships as an RSS feed (`feed.xml`). |
 | `categories/` | Category pages (currently: kitchen appliances / air fryers) |
 | `products/` | One documentation-based review per product |
 | `compare.html` | Verified-only comparison matrix, gaps left visible |
@@ -82,6 +83,7 @@ relationship between the two sites.
 ```bash
 python3 build.py     # regenerate every page from data/*.json
 python3 verify.py    # exit 0 = no broken links, no unsourced values, disclosure on every page
+python3 platform/analytics/test_server.py   # 21 assertions: event schema + no-identifier guarantee
 ```
 
 The presentation layer (pass 12, 2026-11-16, session 492acddc) is one coherent stylesheet
