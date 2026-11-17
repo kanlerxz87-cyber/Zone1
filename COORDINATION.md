@@ -5440,3 +5440,69 @@ Live re-verification for this pass was done from the sandbox with `fetch_page` b
 * **Measurement specified, not faked** (`data/measurement.json` → `measurement.html`). EV-01…EV-05 defined with what each records and what it must never record; campaign ledger **empty on purpose**; three prerequisites listed. **No count, rate or revenue forecast published** — GitHub Pages has no endpoint to receive a beacon, and the footer's §3(e) "no analytics" statement must change in the same commit that adds one.
 * **Requirements:** E-02 `blocked` → `delivered` with evidence (tag attached and gate-enforced). E-03/E-04 stay `not_delivered` — measurement is specified, not shipped.
 * **Gates:** `build.py` 52 pages / 51 sitemap URLs / feed 21, idempotent · `verify.py` 130 pages, 77 spec rows (75 verified / 2 blank+flagged), 0 errors · `ci-check.sh` 33 tests, audit clean, **8,683 links / 0 broken** · disclosure above the fold on **52/52** root pages (computed `<main>` position).
+---
+
+## Task board — arena/4618f77b-zone1 (2026-11-17 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-4618f77b | **Final verification & integration pass (2026-11-17)** — line-by-line repo review; live re-verification of the load-bearing official sources (3 `link.amazon` short links, Associates S1–S5, FTC S8/S9, brand pages S10/S12/S14) and the live deployed site; defect hunt over the delivered HTML; fix defects found + add guards; rebuild, run every gate, PR → merge → confirm GitHub Pages deploy → record. No factual value changes unless a defect demands it. | done | arena/4618f77b-zone1 (session 4618f77b) | `COORDINATION.md`; `reports/verification-2026-11-17-4618f77b.md` (new); `build.py`, `verify.py` (only if a defect requires it); regenerated root HTML; `data/*.json` (defect repairs only); `EXECUTIVE-SUMMARY.md` (append-only). Not touching: `site/`, `s2/`, `data/s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*`, other `session-*` dirs |
+
+### Claim log — arena/4618f77b-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17T (session start) | arena/4618f77b-zone1 (session 4618f77b) | **Claimed X-4618f77b** after reading the board top to bottom. Branch `arena/4618f77b-zone1` is a fresh branch at `9c6e3f0` (= `origin/main`, PR #124 merge, session 5ac82b1d). All prior rows (T1–T20, U1–U2, every X-* row) are `done`; no row is claimed elsewhere. No open PRs at claim time. Baseline gates re-run green before claim: `build.py` exit 0 (49 sitemap URLs, 21 feed items), `verify.py` 128 pages / 77 spec rows (75 verified, 2 blank+flagged) / 35 sources / 0 errors, `scripts/ci-check.sh` 33 tests OK / data audit clean / 8,518 links / 0 broken. GitHub Pages `status: built` (last deploy 2026-11-16T20:27:31Z). Arena pins this session to this branch, which therefore acts as the protocol's `session-<id>/<task>` branch. |
+
+### X-4618f77b completion record — arena/4618f77b-zone1 (2026-11-17 UTC)
+
+**Status: done.** Full evidence table: `reports/verification-2026-11-17-4618f77b.md`.
+
+**Live re-verification performed (all direct page reads, 2026-11-17 UTC, server-side fetch):**
+
+| Source | What was read | Verdict |
+|---|---|---|
+| link.amazon/B04G1MEwY → `/dp/B0CDY277D3` | listing `<title>` "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry…" | destination + title match `data/products.json`; redirect again carries `lv=shuf`, `plpRedirect=mhFallback` and a new `gaOptInStatus=true` parameter (F10/F15 unchanged) |
+| link.amazon/B02NbDxp3 → `/dp/B09B7SB46R` | title "Emeril Lagasse 26QT French Door… 24 One-Touch Preset Options… Six Cooking Accessories Included" | match; F4/F5/F71 conflicts live |
+| link.amazon/B00hJ57DV → `/dp/B08DKYBTPH` | title "Chefman Air Fryer 8 Qt… 450°F Hi-Fry Option…" | match; F3 conflict live |
+| S1 Operating Agreement | "Updated: October 15, 2025" | confirmed |
+| S2 Program Policies | "Updated: April 14, 2026"; all eight policy sections present | confirmed |
+| S3 Commission Income Statement | Table 1 read with no login: Kitchen 4.50%, All Other 4.00%; bounties $12.00/$5.00/$0.25 | confirmed; per-product rate still blank (no ASIN→category mapping) |
+| S4 Application Review | 3 sales/180 days, 10 posts, 60-day recency, 500 followers, rejection final | confirmed verbatim |
+| S5 Associate identification | required sentence verbatim; clear + conspicuous | confirmed |
+| S8 FTC Disclosures 101 | "November 2019"; "hard to miss"; "can't talk about… you haven't tried" | confirmed |
+| S9 eCFR 16 CFR 255 | "up to date as of **11/13/2026**" (moved from 11/12/2026 on the 2026-11-16 reads); §255.0–§255.6 | confirmed; the moving point-in-time stamp recorded on S9's `page_version` |
+| S10 Chefman 6 Qt | all spec rows match; review widget **1,310** (4.6) — moved from 1,307 | value refreshed, both read dates kept (F19) |
+| S12 Chefman 8 Qt | 200–400 °F, RJ38-SQSS-8T, 717 reviews | confirmed; F3 stands |
+| S14 Emeril | 26 Qt / 24.6 L / 16.9×15.8×14.8 in / 120 V / 4-00675-02A-VN / 2.6 (25); 25-icon vs 10-in-1 vs 11-in-1 asset | confirmed; four-way preset conflict stands |
+| Live deployed site (`/`, `/flagged.html`, `/feed.xml`, Pages API) | disclosure above the fold; tiles 3/21/35/75/0; flagged register 75 rows; feed 21 items; `status: built` | matches the local build |
+
+**Line-by-line defect hunt (delivered HTML):** 0 dead in-page anchors, 0 missing canonicals, 0 conflict
+markers, 0 orphan pages. One defect found and repaired: **`dashboard/products.html`** (parallel build,
+hand-authored) emitted its three clickable `link.amazon` links with `rel="noopener"` while the same
+build's `dashboard/links.html` emitted `rel="noopener nofollow sponsored"` — an internal contradiction
+on a compliance-relevant attribute (brief S-05). Fixed to match `links.html`. The canonical root build
+was already compliant under its `check_affiliate_link_qualification` guard (documented decision D-05:
+`/dp/` citations are source badges; the `link.amazon` host and CTAs carry `sponsored`).
+
+**Requests logged, not edited (other sessions' generated scopes):** `s2/`, `site/`, `research/` and the
+retired `docs/` carry `link.amazon` anchors with inconsistent `rel` values (`noopener`,
+`noopener nofollow`, `noopener noreferrer`, and correctly `sponsored` variants). Hand-editing those
+generated files would break their own reproducibility gates (`scripts/build_s2_site.py --check`,
+`scripts/verify_site.py`, `research/check_research.py`), so the request is logged here for their
+generator owners to align the `rel` values at the template level.
+
+**Files this pass wrote:** `dashboard/products.html` (3 rel fixes) · `data/products.json` (6 Qt review
+count 1,307 → 1,310, note updated, both read dates kept) · `data/sources.json` (S9, S10 `page_version`
+stamps) · regenerated `index.html`, `data.html` · `reports/verification-2026-11-17-4618f77b.md` (new) ·
+`COORDINATION.md` (this record).
+
+**Gates, all green after the final edit:** `python3 build.py` exit 0 (49 sitemap URLs, 21 feed items) ·
+`python3 verify.py` 128 pages, 77 spec rows (75 verified / 2 blank+flagged), 35 sources, 0 errors,
+0 external warnings · `bash scripts/ci-check.sh` 33 tests OK, data audit clean, 8,518 links / 0 broken ·
+`python3 research/check_research.py` OK · `python3 scripts/verify_site.py` ALL CHECKS PASSED ·
+`python3 platform/audit/report.py` AUDIT PASSED (0 warnings) · `node --check assets/app.js` OK ·
+`git diff --check` clean · a second `build.py` run reproduces the tree byte-for-byte.
+
+**Not resolved, unchanged and published as such:** F3, F4/F5, F70, F71, F11, Q-01/Q-02/Q-04 and the
+two blank+flagged spec rows. Nothing was filled by inference.
