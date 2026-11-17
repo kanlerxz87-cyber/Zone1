@@ -31,3 +31,5 @@ collection stays off), main renumbered its flags to F76–F79, registered S36–
 | Sources S38–S41 | Renumbered to **S39–S42**, because main had taken S38 for its GitHub Pages reference. |
 | Topics TP-21/TP-22 | Renumbered to **TP-22/TP-23**; main's TP-21 (66c32067) is a different guide, and this pass did not renumber anyone else's row. |
 | `check_special_link_gate()` | Dropped for the second time: main's equivalent is `check_intent_measurement_contract()` plus the per-row `associates_link_test_*` fields, which are stronger than the gate this pass had designed. |
+
+Individual draft files are not kept alongside the diff: `pass13-original.patch` contains them in full, and a second 483 KB copy of `build.py` in the repository would be exactly the duplicate-build clutter this project logs as F59. The patch applies to `9c6e3f0`.
