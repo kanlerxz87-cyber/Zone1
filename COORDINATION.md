@@ -5531,34 +5531,19 @@ two blank+flagged spec rows. Nothing was filled by inference.
 
 **Open, unchanged, published on flagged.html (none blocking):** F3, F4/F5, F70, F71, F11, Q-01/Q-02/Q-04 and the two blank+flagged spec rows. Nothing was filled by inference.
 
+
 ---
 
-## Task board — arena/c55fa0d8-zone1 (2026-11-17 UTC) — shop brief, scoped pass
+### arena/66c32067-zone1 — held TP-21 draft, gates and record (2026-11-17 UTC)
 
-| # | Task | Status | Owner (session) | File scope |
-|---|------|--------|-----------------|------------|
-| C55-1 | Audit the shop brief against the live repo; add the one question-shaped guide topic the repo does not yet hold (TP-21); map the other suggested titles to existing published articles; record the blocked items with their owner actions | done | arena/c55fa0d8-zone1 | `data/topics.json` (TP-21 appended), `topics.html` (regenerated), `EXECUTIVE-SUMMARY-SHOP-PASS.md` (addendum), `COORDINATION.md` |
+**Claim:** executive summary (`EXECUTIVE-SUMMARY-PASS-66c32067.md`) and this record. Held draft kept at `session-66c32067/` (not served).
 
-### Claim and audit log — arena/c55fa0d8-zone1
+**Collision recorded:** this session drafted a six-question guide for the fourth working title, and it was merged into a branch while `main` (PR #135, session `c55fa0d8`) had registered the same topic as TP-21 with status *proposed*, blocked by **Q-20** (owner-only: which country and marketplace the site promotes). Publishing the draft would have overridden that block, so it was **not published**. The draft's content is kept at `session-66c32067/TP-21-held-draft-article.json` and `session-66c32067/TP-21-held-draft-topic.json`, and `main`'s TP-21 record is untouched. Release is a single build step after Q-20 is answered.
 
-| UTC time | Action |
-|----------|--------|
-| 2026-11-17 | Baseline on the branch: `build.py` exit 0; `verify.py` 77 spec rows (75 verified / 2 blank+flagged), 37 sources, 0 errors; `scripts/ci-check.sh` OK, 8,764 links / 0 broken. |
-| 2026-11-17 | Audit against the brief: the front page already leads with the three products and carries the disclosure strip above the fold and in the footer; every `/dp/` link carries the owner tag `shopnow047c-20` and `rel="sponsored"` (gated since PR #128); `sitemap.xml` (51 URLs) and `feed.xml` (21 items) are generated from the articles. |
-| 2026-11-17 | Suggested working titles mapped to existing coverage: "Basket or oven-style air fryer: what should you compare?" → TP-05 (`dual-basket-vs-oven-air-fryer`); "A no-hype checklist for comparing air fryer capacity" → TP-03 (`air-fryer-capacity-guide`); "How to assess cleanup and counter-space trade-offs" → TP-04 and `how-to-clean-an-air-fryer` (partial: cleaning is covered from the manuals, not as a trade-off study). "Questions to ask before buying a multi-function kitchen appliance" had **no** entry, so it is added as **TP-21 (proposed)**, citing only the three manufacturer product pages already in the register. |
+**Not built, deliberately:** the five-event click counter. The site is static GitHub Pages with no endpoint to receive events; the footer says no analytics run; a beacon would make that false, and a counter with no endpoint would invent numbers. Still blocked on an endpoint the owner controls (`measurement.html`).
 
-### C55-1 completion record
+**Live re-read 2026-11-17 (for the held draft):** Emeril product page (26-Quart, 16.9"D × 15.8"W × 14.8"H, 24.6 Liters, 120 volts, "Included are 7 premium accessories") — confirmed. Chefman 8 Qt brand page (name, 200–400 °F, presets, dishwasher-safe basket and rack) — confirmed. Amazon listing B08DKYBTPH — title matches; its dimensions field was not reached and rests on the prior dated read (S29).
 
-**Status: done, with the blocked items below left open on purpose.** No new product value, price, rating or commission figure was added. TP-21 is a proposed topic, not a published article; its "why it could earn traffic" line is labelled as judgement because no keyword or Associates data exists in this repository.
+**Irregularity:** the 8 Qt listing dimensions (S29 12.75"D × 13.5"W × 10"H) disagree with the brand page (S12 15.4 × 12.6 × 13.5 in). Both are recorded in the held draft; neither chosen.
 
-**Blocked, not implemented in this pass (each needs an owner action or a decision that cannot be made from the sandbox):**
-
-1. **One-link Associates test and tracking report** — needs the account holder's Associates login. Tag is applied and gated on-site; attribution is still untested (F76).
-2. **Outbound-click counter and self-hosted analytics endpoint** — GitHub Pages serves static files only; there is no server to receive events. A browser-only counter would produce a number that is not a count, so none was shipped. The five event definitions remain on `measurement.html`. A host for the endpoint is an owner decision.
-3. **Search Console and sitemap submission (SG-28/SG-29)** — needs verified property access in the owner's Google account.
-4. **Real product photography (S-18)** — no rights-cleared image source exists in the register; open decision (F46 / Q-22).
-5. **Campaign ledger figures** — remain empty by design until authorised first-party reports are supplied.
-
-**Sources:** the three product pages already registered for TP-21 (`chefman.com` ×2, `emerileveryday.com`), as last read in the earlier 2026-11-17 pass (the `data/sources.json` page_version stamps). **This session did not re-fetch them**, so no new live check is claimed; no new source ID was added.
-
-**Gates:** `python3 build.py` exit 0 · `python3 verify.py` 77 spec rows, 37 sources, 0 errors, 0 external warnings · `bash scripts/ci-check.sh` OK, 8,769 links / 0 broken.
+**Gates on the merged tree:** see the PR description (build, verify, CI, link check, annex, research).
