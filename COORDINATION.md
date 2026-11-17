@@ -5506,3 +5506,13 @@ stamps) · regenerated `index.html`, `data.html` · `reports/verification-2026-1
 
 **Not resolved, unchanged and published as such:** F3, F4/F5, F70, F71, F11, Q-01/Q-02/Q-04 and the
 two blank+flagged spec rows. Nothing was filled by inference.
+
+### I-5b17c077 — PR, merge and Pages result (2026-11-17 UTC)
+
+* **PR [#128](https://github.com/kanlerxz87-cyber/Zone1/pull/128)** — "owner tracking ID wired + gated, intent records consolidated (F80 resolved), honest measurement spec". Merged with `gh pr merge 128 --merge` at **16:12:07Z**, merge commit **`5cd111d0d2a915637dbd7581f71c36ed07354bf0`**, without waiting for approval per the brief. Required checks before merge: `verify` pass, `Rebuild site/ from data/verified and assert every guarantee` pass; `mergeStateStatus: CLEAN`.
+* **PR [#131](https://github.com/kanlerxz87-cyber/Zone1/pull/131)** — follow-up fixing stale tag-status copy that the *live read-back* of #128 exposed (the intent page still said "not yet applied" while the footer said every link carries it). Merged at **16:15:22Z**, merge commit **`66a76c3e9a0a6bdadab8361e4e7d424c86186699`**, checks pass, `CLEAN`.
+* **Conflicts during the pass:** main advanced four times (#125, #126, #127, #129). `COORDINATION.md` conflicted twice (both resolved keep-both, nothing from the other session removed) and `data/config.json` once (kept this session's tagged version — the other side still had the tag blank). Generated HTML conflicts were regenerated rather than hand-merged. No `--force` push was needed on a shared branch.
+* **Post-merge workflows on `main` at `66a76c3`, all success:** `CI` · `Build, verify and deploy to GitHub Pages` · `Verify verification annex (site/)` · `pages build and deployment`.
+* **GitHub Pages:** `pages/builds/latest` → `status: built`, commit `66a76c3…`, `error: null`.
+* **Live read-back from the deployed origin (cache-busted, 2026-11-17):** `product-intent.html` renders the disclosure strip, the corrected "applied and gate-enforced / attribution still open" tracking status, all five rows with 2026-11-17 observation dates, and the empty ledger; its citation links carry `?tag=shopnow047c-20`. `measurement.html` renders the five event definitions, the empty ledger and the three prerequisites, with **no count, rate or forecast anywhere**.
+* **Irregularities left open (published, none blocking):** **F81** (two supplied links resolve to meat thermometers — different category; intended product unknown), **F82** (no supplied URL carried a tag; site no longer routes through them), **F76** (tag attached and gated, but attribution untested — needs the owner's Associates report), F3/F15/F71 and the 2 blank+flagged spec rows unchanged. **F80 resolved** by consolidating three parallel intent records into one.
