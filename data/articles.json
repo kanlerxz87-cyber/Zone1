@@ -1427,6 +1427,108 @@
     }
    ],
    "closing_note": "No product was cleaned for this article. Every instruction above is quoted or condensed from the manufacturer manuals linked per section, read on 2026-11-16."
+  },
+  {
+   "slug": "multi-function-buying-questions",
+   "kind": "Guide",
+   "kicker": "Buying questions",
+   "title": "Questions to ask before buying a multi-function kitchen appliance",
+   "standfirst": "A multi-function machine promises several jobs in one box. Six questions, answered from the manufacturers' own documents for the three air fryers and ovens this site covers, show where the promise is specific and where it is vague.",
+   "target_query": "questions to ask before buying a multi-function kitchen appliance",
+   "intent": "Informational",
+   "reading_minutes": 5,
+   "products": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "sections": [
+    {
+     "h": "Does the capacity figure use the same unit on every page?",
+     "paras": [
+      "Start with capacity, and expect the units to differ. The 6 Qt dual-basket unit is published as {{6 Qt / 5.67 L}}. The 26 QT oven's product page gives {{26 qt / 24.6 L (manual: 1,519 cu in)}}, so its owner's manual reports a volume in cubic inches that the product page does not repeat.",
+      "Put the litre figure and the cubic-inch figure side by side before you compare a basket with an oven. Quarts describe a basket well; they describe a cavity less well."
+     ],
+     "cite": [
+      "S10",
+      "S14",
+      "S15"
+     ]
+    },
+    {
+     "h": "What does the wattage tell you, and what does it not?",
+     "paras": [
+      "Two of the three machines publish {{1700 W / 120 V}} on the manufacturer's page, and the oven's manual gives its rated power as {{1700 W}} with a separate supply line of {{120 V / 60 Hz}}.",
+      "Equal wattage means wattage does not separate these three. The circuit, the cord and the outlet decide whether the machine runs safely next to the kettle. The extension-cord article on this site quotes what the manuals say about that."
+     ],
+     "cite": [
+      "S10",
+      "S15",
+      "S12"
+     ]
+    },
+    {
+     "h": "Will it fit where you actually need it?",
+     "paras": [
+      "Measure height first. The 6 Qt dual-basket unit is published as {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}}, and the 26 QT oven as {{16.9 D × 15.8 W × 14.8 H in}}. The 8 Qt model's brand page gives {{8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg}}.",
+      "**Judgement:** the height is the figure that decides a cabinet, and a depth figure decides whether a machine can sit against a wall. Measure the space you have, then compare it with those published numbers."
+     ],
+     "cite": [
+      "S10",
+      "S14",
+      "S12"
+     ]
+    },
+    {
+     "h": "Do the brand page and the Amazon listing agree on the size?",
+     "paras": [
+      "Not always. For the 8 Qt model, the Amazon listing's dimensions field reads {{12.75\"D × 13.5\"W × 10\"H}}, which does not match the brand page's figures above. This site publishes both and does not choose between them.",
+      "Ask the seller for the dimensions printed on the carton, and measure on arrival if the figure matters to you. A listing disagreement is worth a minute of your attention before you buy."
+     ],
+     "cite": [
+      "S12",
+      "S29"
+     ]
+    },
+    {
+     "h": "How many functions are named, and by whom?",
+     "paras": [
+      "A function count is a claim, so ask who makes it. The 8 Qt's brand page lists {{Fries, Chicken, Fish, Meat (one-touch)::fries, chicken, fish, meat (one-touch)}} as its presets. The 6 Qt has no preset count in any official source this site has read, so that cell is left blank rather than estimated.",
+      "Ask for the count in the manual, then check whether the number refers to named programmes or to buttons. Those are different counts, and a listing rarely says which one it means."
+     ],
+     "cite": [
+      "S12",
+      "S13",
+      "S10",
+      "S18"
+     ]
+    },
+    {
+     "h": "What does cleaning ask of you every week?",
+     "paras": [
+      "Cleaning rules are where the models differ most. The 8 Qt's care row reads {{Nonstick basket and rack; top-rack dishwasher safe::nonstick basket and rack; top-rack dishwasher safe}}. The oven's manual says its body may not be soaked, submerged or washed in the dishwasher, and its accessories are hand-wash.",
+      "The cleaning article quotes the three manuals side by side. Read it before you decide the appliance is easy to keep clean."
+     ],
+     "cite": [
+      "S12",
+      "S13",
+      "S15"
+     ]
+    },
+    {
+     "h": "Do the extras match the accessories that come in the box?",
+     "paras": [
+      "The oven's product page states its accessory count as {{7}}. Its owner's manual numbers more items than that, and its Amazon listing's included-components field names six entries. This site records each count against its own source and does not pick one as correct.",
+      "**Judgement:** a multi-function machine is only as useful as the one or two functions you use every week. Name those two before you compare, and treat the rest as a bonus you have not paid for."
+     ],
+     "cite": [
+      "S14",
+      "S15",
+      "S28"
+     ]
+    }
+   ],
+   "closing_note": "No product was tested for this article. Every figure in it is quoted from a manufacturer page, an owner's manual or an Amazon listing already registered on this site, and the reading dates are recorded in data/products.json."
   }
  ],
  "updated": "2026-11-16"

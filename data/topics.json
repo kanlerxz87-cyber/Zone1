@@ -549,6 +549,32 @@
    "blocked_by": [
     "Q-20"
    ]
+  },
+  {
+   "id": "TP-21",
+   "title": "Questions to ask before buying a multi-function kitchen appliance",
+   "hook": "Six questions, answered from the manufacturers' own documents, before you compare any feature list.",
+   "intent": "Informational",
+   "serves": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "angle": "A checklist built from the published numbers the site already holds: capacity units, wattage, dimensions, preset counts, care rules and accessory counts, with the disagreements left visible.",
+   "why_it_could_earn_traffic": "Judgement: a buyer who is comparing multi-function machines needs a list of questions before a list of models. The working title came from the editorial hypotheses in the brief; it is not evidence of search demand, which this site has not measured.",
+   "must_cite": [
+    {
+     "label": "Chefman RJ38-SQPF-3TDB-2W owner's manual (care and cleaning)",
+     "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf"
+    },
+    {
+     "label": "Emeril FAFO-001 owner's manual (Cleaning & Storage)",
+     "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"
+    }
+   ],
+   "status": "published",
+   "published_as": "articles/multi-function-buying-questions.html",
+   "blocked_by": []
   }
  ],
  "channels": [
