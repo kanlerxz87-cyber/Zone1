@@ -5375,3 +5375,65 @@ mis-read once, caught immediately, and the rebase was aborted and redone correct
 | UTC time | Session | Action |
 |----------|---------|--------|
 | 2026-11-17T16:05Z | arena/9fe0b6b3-zone1 (session 9fe0b6b3) | Read the board top to bottom first. Every prior row reads `done` except `I-5ac82b1d`, whose own completion record below it states **done** (PRs #122 → `62a2393`, #123 → `f741559`, Pages built) — treated as closed, not taken over. No open PRs at claim time (`gh pr list` → empty). Base commit `9c6e3f0`; `python3 build.py` green at claim time → 50 pages, 49 sitemap URLs, 21 feed items. Branch is Arena-pinned (`arena/9fe0b6b3-zone1`) = this session's `session-<id>/<task>` branch. **Non-overlapping scope:** `site/`, `s2/`, `research/`, `platform/`, `docs/`, `dashboard/`, `crosscheck/`, `annex-*`, `reports/`, and every other `session-*` folder are **not** edited by this pass. |
+
+### P13 completion record — arena/9fe0b6b3-zone1 (2026-11-17 UTC)
+
+**Status: done.**
+
+**Live source reads this pass (fetch_page, 2026-11-17):**
+
+| What | Result |
+|---|---|
+| `link.amazon/B04G1MEwY` → B0CDY277D3 | Unchanged; listing title matches `data/products.json` character for character |
+| `link.amazon/B02NbDxp3` → B09B7SB46R | Unchanged; title matches character for character |
+| `link.amazon/B00hJ57DV` → B08DKYBTPH | Unchanged; title matches character for character |
+| `link.amazon/B0c8moW59` → **B0DHZTCNR5** | **NEW.** ThermoMaven 1 Sec Digital Meat Thermometer. Confirmed twice (short link + direct `/dp/`). Browse path *Thermometers & Timers > Meat*. → F77 |
+| `link.amazon/B0f3GKalj` → **B0DZFD6R9Z** | **NEW.** CHEF iQ Sense Gen3 Wireless Meat Thermometer. Confirmed twice. Same browse path; title contains "Air Fryer" → F78 |
+| S2 Program Policies | Re-read: "Updated: April 14, 2026" (unchanged) |
+| **S36** (new) Associates help, tracking-ID format | Live. Verbatim: "our software automatically adds \"-20\" to the end of all Associate IDs" |
+| **S37** (new) FTC Endorsements, Influencers, and Reviews | Live (the page the brief cites as S24) |
+| **S38/S39/S40** (new) | The two new listings and the two new short links |
+
+**New files:** `data/link-intent.json`, `data/analytics.json`, `data/ledger.json`,
+`analytics/collect.js`, `session-9fe0b6b3/` (this pass's scripts + this record).
+**Changed:** `build.py`, `data/*.json` as claimed, `EXECUTIVE-SUMMARY.md` (§23),
+regenerated root HTML.
+
+**Delivered against the brief:**
+* Tracking ID `shopnow047c-20` recorded and published, with format-only status (F79).
+* Product-intent confirmation record: intent block and observation block as two separate
+  published tables; guard `check_link_intent()` fails the build if they are merged or if
+  an intended ASIN appears without a confirmation date and source.
+* Validated-Special-Link gate published with a five-step procedure (SG-38).
+* Landing page as publication front page; all dashboard surfaces in one nav group
+  **and** a generated footer index built from NAV.
+* Disclosure above the fold on every page and repeated in the footer — enforced by
+  `check_disclosure_above_fold()`, proven to fire when the strip moves below `<main>`
+  and when the footer repeat is removed.
+* Privacy-preserving outbound-click counter (`assets/measure.js`), five events, no
+  cookies; endpoint blank so nothing leaves the browser, and the footer says so.
+* Campaign ledger empty by design; no conversion score or revenue forecast published.
+* Two new question-shaped guides, both automatically in the sitemap (55 URLs) and feed
+  (23 items). Cadence: one a fortnight; slots 3–4 left open pending measurement.
+
+**Two decisions taken deliberately (both published, neither silent):**
+1. **The tracking ID was NOT written to `data/config.json`.** Setting that field makes
+   `scripts/build_site.py` append it to every outbound link in `site/` at once — scaling
+   five unvalidated links before one has been confirmed. Recorded in `data/link-intent.json`
+   instead. `site/` was therefore not regenerated and this pass touched no file in it.
+2. **Only two of the four supplied working titles were published.** The other two are
+   already answered by `dual-basket-vs-oven-air-fryer` and `air-fryer-capacity-guide`;
+   republishing them would be near-duplicate affiliate content. The mapping for all four
+   is published on `topics.html`.
+
+**Three new guards, each proven to fire in both directions:** `check_link_intent`,
+`check_disclosure_above_fold`, `check_analytics_disclosure_realism`.
+
+**Gates on the final tree, all green:** `build.py` exit 0 → 55 sitemap URLs, 23 feed items,
+two consecutive runs byte-identical · `verify.py` → 134 pages, 88 spec rows (75 verified /
+13 blank+flagged), 40 sources, **0 errors, 0 external warnings** · `ci-check.sh` → 33 unit
+tests OK, data audit clean, s2 build current, **11,603 links / 0 broken** ·
+`node --check` not needed (new JS is generated; `ast.parse` clean).
+
+**Irregularities left open (published on flagged.html, none blocking):** F76, F77, F78, F79
+new this pass; F6/F7/F10, F11, F3, F71 unchanged; 13 blank+flagged specification rows.
