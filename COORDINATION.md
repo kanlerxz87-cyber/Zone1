@@ -5361,3 +5361,15 @@ mis-read once, caught immediately, and the rebase was aborted and redone correct
 * **GitHub Pages:** `pages/builds/latest` → `status: built`, commit `f741559…`, `error: null`.
 * **Live read-back from the deployed origin:** the deleted orphan's URL now serves the 404 page **with absolute links** (every href resolves to `/Zone1/...`, fixing F75); canonical `articles/sync-finish-explained.html` renders with disclosure, per-section source chips and prev/next; `flagged.html` renders **75 open items** including F74 and F75; landing tile reads 75.
 * **Irregularities left open (published, none blocking):** F1–F73 unchanged owner decisions — short-link attribution (F6/F7/F10), Associates tag observability (F6), cookie disclosure (F11), 8 Qt temperature conflict (F3), listing self-contradictions (F71), 2 blank+flagged spec rows. All on `flagged.html` with sources.
+
+## Task board — arena/02b4e9c7-zone1 (2026-11-17 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| R-02b4e9c7 | Reconcile the latest five submitted product links against the existing three-product register; create a separate product-intent confirmation ledger that never conflates intended ASIN/listing confirmation with observed redirect targets; document the selected tracking ID's unverified state, executive summary, decision questions and discovery steps. No canonical data/build/nav edits. | in progress | arena/02b4e9c7-zone1 | `COORDINATION.md`; new `data/product-intent-confirmations.json`; new `reports/brief-reconciliation-2026-11-17.md` |
+
+### Claim log — arena/02b4e9c7-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17 | arena/02b4e9c7-zone1 | Read the existing coordination board and repository status before starting. Canonical build, navigation and shared product/question/suggestion registers are not in scope; the output is additive and isolated to a new machine-readable ledger and report. The five links in the latest brief exceed the three links in the existing product register; preserve this discrepancy explicitly rather than guessing product identities. |
