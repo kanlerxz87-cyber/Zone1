@@ -124,3 +124,33 @@ hint and all guards unaffected.
 requirement rows, 89 programme flags · sitemap 34 URLs (main's 31 + this pass's three articles), feed 24 items ·
 verify 77 spec rows (75/2), 0 errors · ci-check 33 tests, link check OK 10,318 links · second build changed 0 of
 55 generated pages.
+
+## Addendum 2 — a second collision the same afternoon, resolved the same way
+
+Two more PRs reached `main` while this one was open (`arena/79743fd2`'s cluster map, `arena/16adefc5`'s verification
+round), and the second took **Q-29**. So this pass's eleven question rows moved again: Q-29…Q-39 → **Q-30…Q-40**, and
+nothing else did — SG-39…SG-48, path P7, S43, TP-24/25/26 and flags F85…F89 were still unclaimed. The register runs
+Q-01…Q-40 with no gap.
+
+That merge was done **row by row against the common ancestor**, not textually: `main`'s PRs re-serialised the register
+files, and a line-based merge of a reformatted 4,000-line JSON file cannot be reviewed. `main` wins any row it changed;
+this branch keeps any row `main` left alone; if both had changed one row, `main`'s version would be kept **and
+printed for a human** rather than blended. No row reached that third state.
+
+Two consequences of `main`'s new machinery, handled rather than worked around: this pass's three articles are now
+filed in `data/clusters.json` (the cluster map merged in this round requires every article in exactly one cluster,
+and `check_clusters()` fails the build otherwise) — `choose` for the two decision pieces, `spec` for the oil-claim
+reading. And `main`'s reformat had dropped this pass's path **P7** from `paths[]`, which the row-level merge restored
+after re-checking the `contains` ids.
+
+**Why the renumbering is worth reading before you review the diff.** A shift like this must substitute every
+identifier in one pass. Applying `Q-29 → Q-30`, then `Q-30 → Q-31`, re-hits values the previous rule just produced,
+so a reference can land two rows away and still resolve to a row that exists — a mechanical repair that turns into a
+wrong citation. Both shifts here were generated from `git show HEAD:` copies rather than edited in place, so the
+resolution script is idempotent and can be re-run while it is being debugged. `session-fd9778a1/resolve_merge.py`,
+`resolve_merge2.py` and `resolve_build.py` are the three scripts, kept in the branch for audit; §7 of
+`reports/verification-2026-11-17-fd9778a1.md` carries the full mapping table for both rounds.
+
+**Counts now:** 47 suggestions / 7 paths, 40 questions, 26 topics, 24 articles, 43 sources, 53 requirement rows, 89
+programme flags · 134 pages, 35 sitemap URLs, 24 feed items · verify 0 errors, 0 external warnings · ci-check 33
+tests OK, link check OK 10,688 links · second build changed 0 of 56 generated pages.
