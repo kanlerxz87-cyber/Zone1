@@ -5366,10 +5366,18 @@ mis-read once, caught immediately, and the rebase was aborted and redone correct
 
 | # | Task | Status | Owner (session) | File scope |
 |---|------|--------|-----------------|------------|
-| R-02b4e9c7 | Reconcile the latest five submitted product links against the existing three-product register; create a separate product-intent confirmation ledger that never conflates intended ASIN/listing confirmation with observed redirect targets; document the selected tracking ID's unverified state, executive summary, decision questions and discovery steps. No canonical data/build/nav edits. | in progress | arena/02b4e9c7-zone1 | `COORDINATION.md`; new `data/product-intent-confirmations.json`; new `reports/brief-reconciliation-2026-11-17.md` |
+| R-02b4e9c7 | Reconcile the latest five submitted product links against the existing three-product register; create a separate product-intent confirmation ledger that never conflates intended ASIN/listing confirmation with observed redirect targets; document the selected tracking ID's unverified state, executive summary, decision questions and discovery steps. No canonical data/build/nav edits. | done | arena/02b4e9c7-zone1 | `COORDINATION.md`; `data/product-intent-confirmations.json`; `reports/brief-reconciliation-2026-11-17.md` |
 
 ### Claim log — arena/02b4e9c7-zone1
 
 | UTC time | Session | Action |
 |----------|---------|--------|
 | 2026-11-17 | arena/02b4e9c7-zone1 | Read the existing coordination board and repository status before starting. Canonical build, navigation and shared product/question/suggestion registers are not in scope; the output is additive and isolated to a new machine-readable ledger and report. The five links in the latest brief exceed the three links in the existing product register; preserve this discrepancy explicitly rather than guessing product identities. |
+
+### R-02b4e9c7 completion record — 2026-11-17 UTC
+
+**Status: done.** Added `data/product-intent-confirmations.json` and `reports/brief-reconciliation-2026-11-17.md`. The ledger preserves all five submitted URLs exactly, leaves intended ASIN, official listing URL, confirmation date and confirmation source blank for every row, and stores the three previously recorded 2026-11-16 redirect destinations in a separate `observed_redirect_target` field. The two new URLs have no recorded redirect observation. The selected tracking ID is recorded as user-provided but not verified in Associates Central or against any link. No unsupported claims that a short link is invalid or compliant were made.
+
+**Sources / verification:** prior redirect observations for the first three links are quoted from `reports/verification-2026-11-16-19d92a81.md` (S17, S16, S28, S29). Official manual-review references: Associates Operating Agreement (`https://affiliate-program.amazon.com/help/operating/agreement`), Program Policies (`https://affiliate-program.amazon.com/help/operating/policies`), and Amazon's identifier help page (`https://kdp.amazon.com/en_US/help/topic/G200652190`). No live Amazon re-fetch was performed in this pass; no new product fact is marked verified.
+
+**Gates:** ledger JSON parsed and a custom check confirmed five rows, blank confirmation fields, and separation of intended vs observed targets; `python3 build.py` passed (50 pages, 49 sitemap URLs, RSS 21 items); `python3 verify.py` passed (128 pages, 77 specification rows, 35 sources, 0 errors); `bash scripts/ci-check.sh` passed (33 tests, audit clean, 8,518 links, 0 broken); `git diff --check` clean. The canonical generator/navigation/shared product register were intentionally not changed because concurrent scopes own those shared files. Analytics remains unimplemented: the static Pages site has no server-side event endpoint or Associates report access; the report defines a proposed five-event set and an explicit pre-deployment decision gate rather than shipping a nonfunctional browser-only counter.
