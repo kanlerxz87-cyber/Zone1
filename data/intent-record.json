@@ -38,7 +38,10 @@
       "intended_matches_observed": true,
       "confirmation_date": null,
       "confirmation_note": "The ASIN in the observation equals the intended ASIN, which is strong evidence of a match. It is still not owner-confirmed: the fetch cannot show the page a logged-in buyer sees, and the redirect carried fallback parameters on every read since 2026-11-14 (flag F15). Confirmation stays null until a human checks it.",
-      "sources": ["S16", "S17"]
+      "sources": [
+        "S16",
+        "S17"
+      ]
     },
     {
       "id": "IR-02",
@@ -57,7 +60,10 @@
       "intended_matches_observed": true,
       "confirmation_date": null,
       "confirmation_note": "Observer note, not a confirmation: the live title states 26QT and 24 presets. Flag F3 records an unresolved 8 Qt temperature conflict in the manuals; neither is evidence that this is the model the owner meant.",
-      "sources": ["S28", "S17"]
+      "sources": [
+        "S28",
+        "S17"
+      ]
     },
     {
       "id": "IR-03",
@@ -76,7 +82,10 @@
       "intended_matches_observed": true,
       "confirmation_date": null,
       "confirmation_note": "Not owner-confirmed. Same fallback-parameter caveat as IR-01/IR-02.",
-      "sources": ["S29", "S17"]
+      "sources": [
+        "S29",
+        "S17"
+      ]
     },
     {
       "id": "IR-04",
@@ -127,5 +136,6 @@
     "observed_asin_contradicts_intended": 0,
     "owner_confirmed": 0
   },
-  "open_item": "Three of five intended ASINs match what the links resolve to, two supplied links land on a different product category, and ZERO rows carry an owner confirmation. The next step is an owner action, not an agent one: open each of the five links while logged in to Amazon and record the confirmation date for the rows that are right, and say what the last two were meant to be."
+  "open_item": "Three of five intended ASINs match what the links resolve to, two supplied links land on a different product category, and ZERO rows carry an owner confirmation. The next step is an owner action, not an agent one: open each of the five links while logged in to Amazon and record the confirmation date for the rows that are right, and say what the last two were meant to be.",
+  "provenance_note": "IMPORTANT — the strength of the 'intended' column varies by row and the difference matters. For IR-01 to IR-03 the intended ASIN is the repository's existing candidate, which earlier passes derived by *following the same short links this pass observed*. So 'intended matches observed' on those three rows is not independent corroboration: it says the register agrees with a fetch, not that the owner has ever confirmed the model. That is exactly why confirmation_date is null on every row. For IR-04 and IR-05 the owner named no product at all, so the intended field is genuinely empty rather than merely unconfirmed."
 }

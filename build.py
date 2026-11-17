@@ -7364,6 +7364,11 @@ product category entirely. <strong>No row has been confirmed by the owner.</stro
   guessed. This is a question for the owner, not a defect a session can repair.</p>
 </div>
 
+<div class="callout bad">
+  <strong>Read the "matches" column carefully — three of them are not independent</strong>
+  <p class="small">{e(INTENT['provenance_note'])}</p>
+</div>
+
 <div class="callout info">
   <strong>Why intent and observation are two fields</strong>
   <p class="small">Amazon defines an ASIN as the unique identifier of a listing, which is

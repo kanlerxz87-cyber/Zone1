@@ -102,6 +102,11 @@ product category entirely. <strong>No row has been confirmed by the owner.</stro
   guessed. This is a question for the owner, not a defect a session can repair.</p>
 </div>
 
+<div class="callout bad">
+  <strong>Read the "matches" column carefully — three of them are not independent</strong>
+  <p class="small">IMPORTANT — the strength of the &#x27;intended&#x27; column varies by row and the difference matters. For IR-01 to IR-03 the intended ASIN is the repository&#x27;s existing candidate, which earlier passes derived by *following the same short links this pass observed*. So &#x27;intended matches observed&#x27; on those three rows is not independent corroboration: it says the register agrees with a fetch, not that the owner has ever confirmed the model. That is exactly why confirmation_date is null on every row. For IR-04 and IR-05 the owner named no product at all, so the intended field is genuinely empty rather than merely unconfirmed.</p>
+</div>
+
 <div class="callout info">
   <strong>Why intent and observation are two fields</strong>
   <p class="small">Amazon defines an ASIN as the unique identifier of a listing, which is
