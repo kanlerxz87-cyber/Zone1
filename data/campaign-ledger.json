@@ -1,5 +1,5 @@
 {
- "schema_note": "Empty on purpose. A row is added only from an authorized first-party report (Associates Central or the site's own analytics), with its timestamp, source report and date range. No conversion score, revenue forecast or estimate is stored here.",
+ "schema_note": "Empty on purpose. Add a row only after an authorized first-party analytics aggregate or Associates Central report has actually been obtained. Preserve the report timestamp, source, channel, date range, eligible sessions, clicks, and reported orders. The current GitHub Pages site has no deployed analytics endpoint; do not estimate conversions or revenue from clicks.",
  "columns": [
   "timestamp_utc",
   "source_report",

@@ -1,5 +1,7 @@
 # Executive summary — Zone1 Amazon affiliate platform
 
+> **Historical briefing, superseded for the 2026-11-17 link-intent and measurement status.** Use [`data/product-intent.json`](data/product-intent.json), [`data/analytics-plan.json`](data/analytics-plan.json), and [`reports/brief-reconciliation-2026-11-17.md`](reports/brief-reconciliation-2026-11-17.md) for the current record. The five submitted URLs, observed destinations and owner-confirmed intent must remain separate; no intended listing or Associates attribution is confirmed by this historical summary.
+
 **Prepared:** 2026-11-13 (UTC) · **Branch:** `arena/105bc29e-zone1` · **Live site:** https://kanlerxz87-cyber.github.io/Zone1/
 
 ---
@@ -10,7 +12,7 @@ The brief asked for an AI-powered Amazon affiliate platform that automates produ
 
 It asked for that to be built around three supplied links, with no manual input, line-by-line verification against official sources, a GitHub Pages site, and a "Flagged for Review" page for anything unverified.
 
-**What exists now:** a live, dependency-free static site of **23 pages** generated from a verified JSON dataset — the dashboard and verification set, plus a **7-article editorial layer** — with a platform blueprint, a compliance register, and a flagged list that every unresolved item is published on. Every asserted value carries a link to the official page it came from. Nothing is estimated. *(Page count corrected 2026-11-14 at integration pass 7: the long-standing "13 pages" figure was stale by several passes; the root build is now 23 pages and `verify.py` checks 101 HTML files across the repo.)* *(Refreshed 2026-11-17 by session `arena/79743fd2` — pass 13, §24: the root build is now **131 pages** / 52 sitemap URLs with a **21-article** editorial set filed into four reader-intent clusters, `verify.py` reports 0 errors over 77 specification rows and 37 sources.)*
+**What exists now:** a live, dependency-free static site of **23 pages** generated from a verified JSON dataset — the dashboard and verification set, plus a **7-article editorial layer** — with a platform blueprint, a compliance register, and a flagged list that every unresolved item is published on. Every asserted value carries a link to the official page it came from. Nothing is estimated. *(Page count corrected 2026-11-14 at integration pass 7: the long-standing "13 pages" figure was stale by several passes; the root build is now 23 pages and `verify.py` checks 101 HTML files across the repo.)* *(Refreshed 2026-11-17 by session `arena/79743fd2` — pass 13, §24: the root build is now **131 pages** / 32 sitemap URLs (the indexable publication set) with a **21-article** editorial set filed into four reader-intent clusters, `verify.py` reports 0 errors over 77 specification rows and 37 sources.)*
 
 ## 2. The three products
 
@@ -167,7 +169,7 @@ This settles a disagreement between earlier sessions in favour of the cross-chec
 
 ### 10.3 Citation-quality fixes in the dashboard annex (flag **F15**)
 
-Some rows in the separately-built `dashboard/` annex cited third-party sites (barcode.graphics, keywordseverywhere.com, manuals.plus, aruljohn.com, u2l.ai) instead of official sources. Where an official source exists it has been added — Amazon's own [KDP Help G200652190](https://kdp.amazon.com/en_US/help/topic/G200652190) ("your 10-character Amazon Standard Identification Number"; canonical `amazon.com/dp/ASIN` format), verified live and added as **S23**. Where no official source exists (the short-domain list), the row is now explicitly marked **unverified**. No original claim was deleted.
+Some rows in the separately-built `dashboard/` annex cited third-party sites (barcode.graphics, keywordseverywhere.com, manuals.plus, aruljohn.com, u2l.ai) instead of official sources. S23 was added from Amazon KDP Help G200652190, registered as “Linking from Your Website.” **Correction (2026-11-17, F79):** the source record does not substantiate the earlier general-ASIN-definition or `/dp/` format claim; do not rely on S23 for that claim. Where no official source exists (the short-domain list), the row is marked unverified.
 
 ### 10.4 Preserved disagreements (flag **F16**)
 
@@ -606,8 +608,8 @@ session live under `session-3b99448e/` so they cannot overwrite another session'
 Re-reviewed the three supplied `link.amazon` short links against the official evidence already
 recorded in this repo (no live Amazon fetch was possible from this session):
 
-- The tokens are 9 characters; an ASIN is 10 characters (S23 — Amazon KDP Help).
-- `amazon.com/dp/<token>` returns "Page Not Found" (S21); an unrecognised short-link token returns
+- The submitted path tokens are preserved as supplied and are not used as evidence of intended product identity. The earlier S23 citation for a general ASIN definition is withdrawn under F79; no token-format or link-validity conclusion is needed here.
+- Earlier `/dp/<token>` checks returned "Page Not Found" for a tested path (S21), while an unrecognised short-link token returned
   403 (S22).
 - The short links resolve through Amazon's `plpRedirect=mhFallback` handler to air-fryer listings
   (candidate ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH — S17/S16), but destination is not identity:
@@ -628,9 +630,7 @@ recorded in this repo (no live Amazon fetch was possible from this session):
   pages; sitemap.xml + robots.txt already ship; compete on transparency ("shows its gaps"); Pinterest/
   TikTok/YouTube Shorts for visuals; double-opt-in email; quarterly re-verification against official
   sources.
-- **Compliance:** disclosure wording per OA §5 (S1) and FTC (S7/S8/S9); replace `link.amazon/` short
-  links with canonical tagged `/dp/<ASIN>` URLs only after Q-1/Q-2 are answered; PA-API 5 is
-  deprecated — Creators API only (S24); IP License §2(e) bars training models on Program Content.
+- **Compliance (historical note updated 2026-11-17):** keep each submitted URL, observed destination and owner-confirmed intent separate. Do not replace a link or attach `shopnow047c-20` until the intended listing is confirmed and the account holder completes the required Associates test for that product. The ID remains unapplied and unverified here. Other historical policy notes in this section are not a substitute for current account checks.
 
 ### 14.3 T15 — decision gate (`session-3b99448e/decisions.md`)
 
@@ -719,7 +719,7 @@ None of these changed a sourced value. All ten are fixed on this branch.
 
 ### 15.8 The recommendation is unchanged
 
-Verify the three model numbers and the Associates tag in a logged-in browser, then replace the three `link.amazon` short links with canonical tagged `/dp/<ASIN>?tag=<tracking-id>` URLs built inside Associates Central, then re-run the re-verification pass. Until then the site publishes candidate mappings, leaves every unconfirmed value blank, and flags the rest. Nothing was invented to fill a gap.
+**Historical recommendation, superseded 2026-11-17:** the current integration does not treat the three observed destinations as proof of the intended products. The account holder must first confirm each intended listing separately, verify the user-provided `shopnow047c-20` in Associates Central, and complete the required enrolled-Associates test per confirmed product. Until those checks are recorded, keep the ID unapplied, the intended fields blank, and the campaign ledger empty. Do not replace the supplied links based only on redirect observations.
 
 ---
 
@@ -1205,8 +1205,7 @@ and each page's **Product information** block rendered, model rows included:
 
 Read in full: **F68** (`flagged.html#f68`). The correction is narrower than it looks and worth
 stating twice. What closed is the ASIN-to-model step, for all three products. What did **not** close
-is the supplied-link-to-ASIN attribution: the three `link.amazon` tokens are still nine characters,
-still not ASINs, and still arrive through `plpRedirect=mhFallback` (F6, F7, F10 stand). No sentence
+is the supplied-link-to-ASIN attribution: the three `link.amazon` URLs have recorded redirect observations, but the path tokens are not used as proof of intended ASINs or products (F6, F7, F10 stand). No sentence
 on this site now says the listing hides its model number; the register's F1 was corrected rather
 than deleted, so the wrong premise stays visible in the file that carried it.
 
@@ -1398,8 +1397,9 @@ guard and a deliberate fault test behind it:
 ### 24.1 Privacy-preserving outbound-click counter — shipped, intentionally OFF
 
 * **Client** (`assets/analytics.js`, generated from `build.py`): records the defined events only —
-  EV-01 outbound click, EV-02 outbound destination (path only, no query), EV-03 UTM campaign
-  context, EV-04 zero PII. No IP, no user agent, no referrer, no identifier, no cookie.
+  EV-01 page_view, EV-02 outbound_product_click, EV-03 guide_completed, EV-04
+  comparison_table_viewed, EV-05 reported_order (entered by hand from an authorized
+  Associates report). No IP, no user agent, no referrer, no identifier, no cookie.
 * **Configuration** (`data/config.json`): analytics `enabled: false`, `endpoint: ""` — the script
   is emitted but sends nothing. `check_analytics_consistency()` fails the build on any unsafe
   state (enabled without endpoint, third-party endpoint, plain-HTTP endpoint, `preventDefault`
@@ -1443,9 +1443,25 @@ Q-01..Q-04, Q-08, Q-27 stand as published.
 
 SG-28 (RSS feed) and SG-35 marked done with decision-log entries; SG-08 marked partial (client
 shipped disabled). `README.md` counts refreshed (21 articles · 34 suggestions · 27 questions).
-Gates re-run after the cluster pass: `build.py` exit 0 — **131 pages, 52 sitemap URLs, 21 feed
+Gates re-run after the cluster pass and **again on the final merged tree**: `build.py` exit 0 —
+**131 pages, 32 sitemap URLs** (the indexable publication set plus `clusters.html`), **21 feed
 items**, two builds byte-identical · `verify.py` 131 pages, 77 spec rows (75 verified / 2
-blank+flagged), 37 sources, 0 errors, 0 external warnings · `ci-check.sh` 33 unit tests OK,
-data audit clean, **9,087 links / 0 broken** · `verify_site.py` **393 assertions, ALL PASSED** ·
+blank+flagged), **38 sources**, 0 errors, 0 external warnings · `tests/` **17 unit tests OK**
+(collector, intent gate, integration output) · `ci-check.sh` OK — 33 unit tests, data audit clean,
+**9,754 links / 0 broken** · `verify_site.py` **393 assertions, ALL PASSED** ·
 `research/check_research.py` OK · `platform/audit/report.py` AUDIT PASSED (0 warnings) ·
 `node --check` OK on `assets/app.js` and `assets/analytics.js` · `git diff --check` clean.
+
+### 24.5 Merge seam — this branch met main at `4609ff3` (PRs #124–#138)
+
+`gh pr merge 142` first refused: `main` had taken the five-link intent records, the
+product-intent/campaign-ledger passes, the buyer-first homepage (test-pinned), a measurement plan
+with a reference collector and 17 unit tests, and the TP-21 hold. The conflict was resolved keeping
+both sides (full record in `COORDINATION.md`): main's blank-tag policy governs the tracking ID
+(`selected_tracking_id: shopnow047c-20` recorded with provenance, applied nowhere, flag F76 —
+pinned by `tests/test_build_contract.py`), this session's analytics block and cluster system ride
+on top of main's generator, the script tag now has **two switches** (both must enable:
+`data/config.json -> analytics` and `data/analytics-plan.json -> collection`), and the two parallel
+five-event registers are published with a one-to-one mapping on `measurement.html` instead of one
+being hidden. The homepage's inline comparison table yielded to main's buyer-first front page;
+EV-04 marking stays on `compare.html`. Nothing either session published was deleted.

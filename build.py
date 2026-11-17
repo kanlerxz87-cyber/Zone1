@@ -25,7 +25,7 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 DATA = ROOT / "data"
 SITE_NAME = "Zone1 Kitchen"
-SITE_TAGLINE = "Air-fryer decisions, backed by sources"
+SITE_TAGLINE = "Air-fryer buying guides, grounded in the product documentation"
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
 
 # Public origin of the canonical site (GitHub Pages, branch main, root). The sitemap and
@@ -76,33 +76,27 @@ def load(name):
 
 SOURCES = load("sources.json")
 PRODUCTS = load("products.json")
-# Associates tracking ID (added 2026-11-17, session 5b17c077). The owner supplied
-# `shopnow047c-20` in the brief; until this pass no tag existed anywhere in the repo,
-# which is flag F10 and the only absolute blocker between this site and a commission.
-# Program Policies §2(a): "Special Links must use the Associates ID we have assigned to
-# you." §2(b): "you must include your Associates ID or 'tag' … as a parameter in the URL
-# of each link you place on your Site to an Amazon Site."
-CONFIG = load("config.json")
-ASSOCIATE_TAG = (CONFIG.get("associate_tag") or "").strip()
-# §2(b) publishes the format as "XXXXX-##". Accept a letter/digit lead and a `-20`/`-21`
-# style suffix, and refuse anything else rather than emit a link that cannot track.
-ASSOCIATE_TAG_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9\-]{2,}-(20|21|22)$")
+COMPLIANCE = load("compliance.json")
+MARKETING = load("marketing.json")
+PLATFORM = load("platform.json")
+ANALYTICS_PLAN = load("analytics-plan.json")
+CAMPAIGN_LEDGER = load("campaign-ledger.json")
+MEASUREMENT = load("measurement.json")
+PRODUCT_INTENT = load("product-intent.json")
+SITE_CONFIG = load("config.json")
 
-# Outbound-click counter (2026-11-17, session 79743fd2). The switch lives in
+# Outbound-click counter switch (added 2026-11-17, session 79743fd2). The switch lives in
 # data/config.json so that the footer's cookie/third-party statement and the
 # behaviour the page actually ships are generated from one source and cannot
 # drift apart. Program Policies section 3(e) requires that statement to be
 # accurate; a hand-typed sentence is how it goes stale.
-ANALYTICS = CONFIG.get("analytics") or {}
+ANALYTICS = SITE_CONFIG.get("analytics") or {}
 ANALYTICS_ENABLED = bool(ANALYTICS.get("enabled"))
 ANALYTICS_ENDPOINT = (ANALYTICS.get("endpoint") or "").strip()
 ANALYTICS_EVENTS = [x.strip() for x in (ANALYTICS.get("events") or []) if x.strip()]
 # The counter only runs when it has somewhere to send to. An enabled flag with
 # no endpoint is a configuration error, not a mode: the build guard refuses it.
 ANALYTICS_ON = ANALYTICS_ENABLED and bool(ANALYTICS_ENDPOINT)
-COMPLIANCE = load("compliance.json")
-MARKETING = load("marketing.json")
-PLATFORM = load("platform.json")
 # Additive re-verification ledger (2026-11-14 pass, sess-81495d2d). Rendered as its own
 # page; nothing else in the build depends on it, so a future pass can replace the file
 # without touching the generators below.
@@ -191,21 +185,6 @@ def src_links(ids):
     if not ids:
         return '<span class="src src-none">no official source</span>'
     return " ".join(src_link(i) for i in ids)
-
-
-def amazon_product_url(asin):
-    """The canonical, tagged product URL for one ASIN.
-
-    Added 2026-11-17 (session 5b17c077). Every outbound product link on this site is
-    built here so the Associates tag cannot be forgotten by a template edit. Program
-    Policies §2(b) requires the tag as a URL parameter; §3(v) forbids cloaking,
-    redirects and link shorteners, so this points straight at /dp/<ASIN> with nothing
-    between the reader and Amazon, and §3(w) wants it unambiguous that the destination
-    is Amazon. When no tag is configured the URL is still plain /dp/<ASIN> and
-    check_associate_tagging() reports it, rather than the build inventing a tag.
-    """
-    base = f"https://www.amazon.com/dp/{asin}"
-    return f"{base}?tag={ASSOCIATE_TAG}" if ASSOCIATE_TAG else base
 
 
 def format_glyph(kind):
@@ -401,9 +380,11 @@ def depth_prefix(page_path):
 
 NAV = [
     ("index.html", "Home", "A clear guide to three air-fryer formats"),
-    ("picks.html", "This week's picks", "Three products, three jobs, one decision rule"),
-    ("product-intent.html", "Product intent & ledger", "Link records, tracking ID status, and the empty campaign ledger"),
+    ("picks.html", "Format guide", "Three documented formats, with their trade-offs"),
+    ("product-intent.html", "Product intent & ledger", "Intended listings kept apart from observed redirects; empty campaign ledger"),
+    ("measurement.html", "Measurement plan", "Five event definitions, reporting cadence, and deployment gate"),
     ("decisions.html", "Decisions & handover", "Niche, traffic, measurement, and the five things only you can do"),
+    ("handover.html", "Account-holder handover", "Account-only actions, with exact discovery steps"),
     ("categories/kitchen-appliances.html", "Category: Kitchen", "All tracked products in one category"),
     ("compare.html", "Comparison", "Verified-only side-by-side matrix"),
     ("guides/buying-guide-air-fryers.html", "Buying guide", "How to choose a form factor"),
@@ -413,7 +394,6 @@ NAV = [
     ("platform.html", "Platform blueprint", "The automation and compliance design"),
     ("compliance.html", "Compliance", "Program rules, quoted, with sources"),
     ("flagged.html", "Flagged for review", "Unverified values and irregularities"),
-    ("measurement.html", "Measurement plan", "Five events, defined — and why none is sending yet"),
     ("suggestions.html", "Suggestions", "Review site improvements before implementation"),
     # Added 2026-11-16 (arena/ba29c641): the queue had 21 rows and no way to close one.
     ("decision-log.html", "Owner decision log", "Pick a path per suggestion, or let the stated default stand"),
@@ -951,6 +931,20 @@ td.num{font-variant-numeric:tabular-nums; white-space:nowrap}
 .buyer-toc a:hover{border-color:var(--accent); background:var(--accent-soft); color:var(--brand-deep);
   text-decoration:none}
 .quick-guide{margin:2rem 0 .5rem}
+.publication-hero{margin-bottom:.9rem}
+.publication-product{display:flex;flex-direction:column;min-height:100%;}
+.publication-job{font-family:var(--serif);font-size:1.02rem;color:var(--brand-deep);margin:.4rem 0}
+.publication-facts{display:grid;grid-template-columns:1fr;gap:.45rem;margin:.8rem 0;padding:.75rem .85rem;background:var(--panel-deep);border-radius:10px}
+.publication-facts div{display:grid;grid-template-columns:minmax(105px,.7fr) 1.3fr;gap:.5rem;align-items:start;border-bottom:1px solid var(--line);padding:.3rem 0}
+.publication-facts div:last-child{border-bottom:0}
+.publication-facts dt{font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:800}
+.publication-facts dd{margin:0;font-size:.82rem;font-weight:650}
+.publication-facts .src{margin-left:.15rem}
+.publication-product .pick-cta{margin-top:auto;padding-top:.45rem}
+.publication-compare-cta{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin:2rem 0;padding:1.25rem 1.45rem;border-radius:16px;background:var(--panel-deep);border:1px solid var(--line-strong)}
+.publication-compare-cta h2{margin:.15rem 0 .35rem;font-family:var(--serif);font-size:1.45rem}
+.publication-compare-cta p{margin:.15rem 0}
+.publication-method{margin-top:2rem}
 .section-heading{max-width:700px; margin:2.5rem 0 1rem}
 .section-heading .section-eyebrow{margin-bottom:.3rem}
 .section-heading h2{margin:.1rem 0 .4rem}
@@ -1044,6 +1038,8 @@ footer.site strong{color:#f4f1e2}
   .hero-title{font-size:clamp(2.7rem,11vw,3.6rem)}
   .method-strip{grid-template-columns:1fr; gap:.9rem}
   .twocol{grid-template-columns:1fr}
+  .publication-compare-cta{align-items:flex-start;flex-direction:column}
+  .publication-compare-cta .btn{width:100%;justify-content:center}
 }
 @media (max-width:560px){
   .topbar{padding:.6rem .85rem}
@@ -1340,8 +1336,15 @@ ANALYTICS_JS = r"""
 
   // The whole payload. Five named fields, no more. If a field is not known it
   // is omitted rather than filled with a guess.
+  function optedOut() {
+    // Do Not Track / Global Privacy Control honoured (collector-plan client).
+    return navigator.doNotTrack === "1" || window.doNotTrack === "1" ||
+           navigator.globalPrivacyControl === true;
+  }
+
   function send(id, extra) {
     if (!enabled(id)) { return; }
+    if (optedOut()) { return; }
     var body = { event: id, page: slug(), date: utcDate() };
     if (extra) {
       for (var k in extra) {
@@ -1364,6 +1367,8 @@ ANALYTICS_JS = r"""
         method: "POST",
         mode: "no-cors",
         keepalive: true,
+        credentials: "omit",
+        referrerPolicy: "no-referrer",
         headers: { "Content-Type": "text/plain;charset=UTF-8" },
         body: payload
       }).catch(function () { /* a lost beacon must never break the page */ });
@@ -1452,7 +1457,9 @@ def privacy_html():
         )
     return (
         "<p>This site sets no cookies itself, runs no analytics, and has no comment "
-        "forms or accounts. Following an Amazon link takes you to Amazon, whose own "
+        "forms or accounts. This GitHub Pages build sends no analytics events: the "
+        "proposed first-party collector is not deployed and browser collection "
+        "remains disabled. Following an Amazon link takes you to Amazon, whose own "
         "privacy notice and cookie practices apply from that point. No data you enter "
         "here is collected, because there is nowhere to enter it.</p>"
         "<p class=\"tiny\">Amazon's Program Policies \u00a73(e) require an accurate "
@@ -1467,8 +1474,49 @@ def privacy_html():
     )
 
 
+
+PUBLIC_INDEX_PAGES = {
+    "index.html",
+    "picks.html",
+    "compare.html",
+    "categories/kitchen-appliances.html",
+    "guides/buying-guide-air-fryers.html",
+    "articles/index.html",
+    "compliance.html",
+    "clusters.html",
+}
+
+
+def is_indexable_page(page_rel):
+    """Only buyer-facing canonical publication pages enter the root sitemap."""
+    if page_rel == "404.html":
+        return False
+    return (
+        page_rel in PUBLIC_INDEX_PAGES
+        or page_rel.startswith("products/") and page_rel.endswith(".html")
+        or page_rel.startswith("articles/") and page_rel.endswith(".html")
+        or page_rel.startswith("guides/") and page_rel.endswith(".html")
+        or page_rel.startswith("categories/") and page_rel.endswith(".html")
+    )
+
+
+def analytics_page_type(page_rel):
+    if page_rel == "articles/index.html":
+        return "listing"
+    if page_rel.startswith("articles/"):
+        return "article"
+    if page_rel.startswith("guides/"):
+        return "guide"
+    if page_rel.startswith("products/"):
+        return "product"
+    return "page"
+
+
 def layout(page_rel, title, body, active=None, description="", og_type="website",
            jsonld_blocks=None, og_image_alt=None):
+    # Triple-quoted page bodies often begin with a formatting newline. Strip that before
+    # nesting it so generated HTML never starts its main content with a whitespace-only line.
+    body = body.strip()
     prefix = depth_prefix(page_rel)
     # Keyed by href, not by position: the sidebar used to index this list, so inserting a nav
     # entry silently moved every later group (caught 2026-11-15 when Suggestions and Open
@@ -1551,8 +1599,14 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     # The counter script is only written into the page when it has an endpoint.
     # With no sink there is nothing to count into, and a page that says it runs
     # no analytics must not quietly load a tracker.
+    # One emitter, two switches: data/config.json -> analytics (the counter's own
+    # switch, guarded by check_analytics_consistency) AND data/analytics-plan.json ->
+    # collection (the collector-side plan gate). Both are off today; enabling the
+    # counter takes both, deliberately. The plan's indexable-page condition is not
+    # applied here because the guard requires every rendered page to match the
+    # switch state; admin pages are already noindex.
     _analytics_tag = ""
-    if ANALYTICS_ON:
+    if ANALYTICS_ON and ANALYTICS_PLAN["collection"].get("enabled"):
         _analytics_tag = (
             f'<script src="{prefix}assets/analytics.js" '
             f'data-endpoint="{e(ANALYTICS_ENDPOINT)}" '
@@ -1564,6 +1618,11 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     social_alt = og_image_alt or f"{SITE_NAME} — {SITE_TAGLINE}"
     ld = jsonld(jsonld_blocks)
     _pt_attr = f' data-zone1-page-type="{e(_pt)}"' if _pt else ""
+    robots_directive = ("index,follow,max-image-preview:large" if is_indexable_page(page_rel)
+                        else "noindex,follow")
+    page_id = page_rel[:-5] if page_rel.endswith(".html") else page_rel
+    page_type = analytics_page_type(page_rel)
+
     html = f"""<!doctype html>
 <html lang="en"{_pt_attr}>
 <head>
@@ -1573,7 +1632,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
 {desc}
 
 {"" if page_rel == "404.html" else f'<link rel="canonical" href="{e(canonical)}">'}
-<meta name="robots" content="{e("noindex" if page_rel == "404.html" else "index,follow,max-image-preview:large")}">
+<meta name="robots" content="{e(robots_directive)}">
 <meta property="og:type" content="{e(og_type)}">
 <meta property="og:site_name" content="{e(SITE_NAME)}">
 <meta property="og:title" content="{e(full_title)}">
@@ -1595,7 +1654,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
 <link rel="alternate" type="application/rss+xml" title="{e(SITE_NAME)} — sourced articles" href="{prefix}feed.xml">
 <meta name="theme-color" content="#245746">
 </head>
-<body>
+<body data-page-id="{e(page_id)}" data-page-type="{e(page_type)}">
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <div class="disclosure-bar">
   <strong>Affiliate disclosure:</strong> {e(DISCLOSURE)}
@@ -1625,7 +1684,6 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
       <a href="{prefix}categories/kitchen-appliances.html"{' class="active"' if active=='categories/kitchen-appliances.html' else ''}>Category: Kitchen<span class="sub">3 tracked products</span></a>
       {prod_nav}
       {N("compare.html")}
-      {N("product-intent.html")}
     </div>
     <div class="group">
       <h4>Trust &amp; evidence</h4>
@@ -1636,12 +1694,16 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     </div>
     <div class="group">
       <h4>Owner workspace</h4>
-      {N("decisions.html")}
-      {N("suggestions.html")}
-      {N("design-prompt.html")}
+      {N("product-intent.html")}
+      {N("measurement.html")}
+      {N("decision-log.html")}
       {N("questions.html")}
+      {N("suggestions.html")}
+      {N("decisions.html")}
+      {N("handover.html")}
       {N("requirements.html")}
       {N("topics.html")}
+      {N("design-prompt.html")}
       {N("executive-summary.html")}
       {N("platform.html")}
       {more_nav}
@@ -1663,10 +1725,27 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
       <p>Older verification builds and supporting reports are kept separate from the main buying guide.</p>
       <p><a href="{prefix}previous-passes.html">Browse prior passes and annexes →</a></p>
     </div>
+    <div class="foot-owner">
+      <h5>Owner &amp; dashboard index</h5>
+      <ul>
+        <li><a href="{prefix}product-intent.html">Product-link records &amp; campaign ledger</a></li>
+        <li><a href="{prefix}measurement.html">Measurement plan</a></li>
+        <li><a href="{prefix}questions.html">Questions and gaps</a></li>
+        <li><a href="{prefix}suggestions.html">Reviewable suggestions</a></li>
+        <li><a href="{prefix}decision-log.html">Decision log</a></li>
+        <li><a href="{prefix}decisions.html">Decision overview</a></li>
+        <li><a href="{prefix}handover.html">Account-holder handover</a></li>
+        <li><a href="{prefix}requirements.html">Requirements and status</a></li>
+        <li><a href="{prefix}topics.html">Content and traffic plan</a></li>
+        <li><a href="{prefix}design-prompt.html">Design prompt pack</a></li>
+        <li><a href="{prefix}executive-summary.html">Executive summary</a></li>
+        <li><a href="{prefix}platform.html">Platform blueprint</a></li>
+      </ul>
+    </div>
     <div>
       <h5>Disclosure</h5>
       <p><strong>{e(DISCLOSURE)}</strong></p>
-      <p>We may earn a commission from a qualifying purchase made through an eligible link. Every outbound product link carries this site's Associates tracking ID ({e(ASSOCIATE_TAG or "not configured")}) and is marked <code>rel="sponsored"</code>. Whether each ASIN matches the model you intended to promote is recorded, link by link, in the <a href="{prefix}product-intent.html">product-intent record</a>. Amazon prices, availability and ratings are not published here.</p>
+      <p>We may earn a commission from a qualifying purchase made through an eligible link. The five links in the project brief are recorded separately; intended products, account approval, and Associates attribution are not verified. Amazon prices, availability and ratings are not published here.</p>
     </div>
     <div>
       <h5>Verification</h5>
@@ -1720,27 +1799,13 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
 # --------------------------------------------------------------------------- #
 
 def product_cta(p, prefix=""):
-    """The primary call to action on every product and comparison surface.
-
-    Rewritten 2026-11-17 (session 5b17c077) for two verified reasons:
-      1. The button pointed at the supplied `link.amazon/…` shortener, which carries no
-         Associates tag. Program Policies §2(a) makes an untagged link not a Special
-         Link at all, so that button could not earn by construction. It now points at
-         the tagged /dp/<ASIN> URL built by amazon_product_url().
-      2. §3(w) bars link-shortening "in a manner that makes it unclear that you are
-         linking to an Amazon Site". A /dp/ URL says Amazon in the link itself.
-
-    The model-identity caveat stays, because it is still true and still unresolved.
-    """
-    asin = p["asin"]["v"]
     return f"""
 <div class="cta-row">
-  <a class="btn" href="{e(amazon_product_url(asin))}" target="_blank" rel="sponsored nofollow noopener">Check the {e(p['short_name'])} on Amazon <span aria-hidden="true">↗</span></a>
-  <span class="paid-tag">Sponsored link · tag {e(ASSOCIATE_TAG or 'not set')}</span>
+  <a class="btn" href="{e(p['link'])}" target="_blank" rel="nofollow sponsored noopener" data-analytics-event="outbound_click" data-analytics-target-id="{e(p['slug'])}">Open supplied Amazon link — verify model <span aria-hidden="true">↗</span></a>
+  <span class="paid-tag">Affiliate link · tracking unconfirmed</span>
 </div>
-<p class="cta-note">Affiliate disclosure: we may earn a commission if Amazon credits a qualifying purchase made through this link. This link carries this site's Associates tag. Amazon's model identity for ASIN {e(asin)} is still unconfirmed against the supplied short link — check the product title and model number on Amazon before buying. See <a href="{prefix}flagged.html">Flagged for review</a> and <a href="{prefix}questions.html#q-01">the open questions</a>. {src_links(['S17', 'S2'])}</p>
+<p class="cta-note">Affiliate disclosure: we may earn a commission if Amazon credits a qualifying purchase to this site, but this short link's Associates tag has not been verified. The model identity is also unconfirmed; check the product title and model number on Amazon before buying. See <a href="{prefix}flagged.html">Flagged for review</a> and <a href="{prefix}questions.html#q-01">the open questions</a>. {src_links(['S17', 'S2'])}</p>
 """
-
 
 
 def spec_table(p, prefix=""):
@@ -1899,288 +1964,131 @@ def pulse_strip():
 
 
 def page_index():
-    _article_cards = _dashboard_article_cards()
-    rev = REVERIFICATION["tests"]
-    rev_total = len(rev)
-    def _v(*keys):
-        return sum(1 for t in rev if any(t["verdict"].startswith(k) for k in keys))
-    rev_conf = _v("confirmed")
-    rev_part = _v("partially-confirmed")
-    rev_moved = _v("moved")
-    rev_conflict = _v("conflict-live")
-    rev_new = _v("not-rechecked")
-    n_flags = sum(len(p["flags"]) for p in PRODUCT_LIST)
-    n_total_flags = n_flags + len(PROGRAMME_FLAGS)
-    # The Flagged page collapses each product's F1/F6 rows into the programme-level rows, so the
-    # number of rows a reader actually finds there is smaller than the number recorded per product.
-    n_open_flags = len(PROGRAMME_FLAGS) + sum(
-        1 for p in PRODUCT_LIST for f in p["flags"] if f["id"] not in ("F1", "F6"))
-    verified = sum(1 for p in PRODUCT_LIST for s in p["specs"] if s["value"] is not None)
-    unverified = sum(1 for p in PRODUCT_LIST for s in p["specs"] if s["value"] is None)
-    format_labels = {
-        "chefman-6qt-dual-basket": "Two-basket air fryer",
-        "emeril-26qt-french-door": "French-door countertop oven",
-        "chefman-8qt-turbofry": "Single-basket air fryer",
-    }
-    cards = "".join(
-        f"""
-<article class="card pcard">
-  <p class="product-type">{e(format_labels.get(p['slug'], 'Air fryer'))}</p>
-  <h3><a href="products/{p['slug']}.html">{e(p['short_name'])}</a></h3>
+    """Buyer-first front page: start with the product decision, not the audit trail."""
+    product_by_slug = {p["slug"]: p for p in PRODUCT_LIST}
+    jobs = [
+        (
+            "chefman-6qt-dual-basket",
+            "Two foods, separate settings",
+            "The owner's manual documents two independent 3-quart baskets and a Sync Finish function. This is the format to compare when separate cooking zones matter.",
+            ["S18"],
+        ),
+        (
+            "emeril-26qt-french-door",
+            "An oven-style appliance",
+            "The 26-quart French-door format adds a rotisserie documented in the manual. Check its published footprint against your counter before deciding.",
+            ["S14", "S15"],
+        ),
+        (
+            "chefman-8qt-turbofry",
+            "One larger basket",
+            "A single 8-quart basket is the simple-batch option. The manufacturer documents a 400 °F maximum; the supplied listing title also says 450 °F, so that conflict stays visible.",
+            ["S12", "S13", "S29"],
+        ),
+    ]
+    cards = []
+    for slug, job, detail, job_sources in jobs:
+        p = product_by_slug[slug]
+        capacity = next((s for s in p["specs"] if s["label"] == "Capacity"), None)
+        dimensions = next((s for s in p["specs"] if s["label"] == "Dimensions"), None)
+        cap_value = capacity["value"] if capacity and capacity["value"] else "Not confirmed"
+        cap_sources = src_links(capacity["source"]) if capacity else ""
+        dimension_value = dimensions["value"] if dimensions and dimensions["value"] else "Not confirmed"
+        dimension_sources = src_links(dimensions["source"]) if dimensions else ""
+        cards.append(f"""
+<article class="card pcard publication-product">
+  <p class="product-type">{e(p['brand'])} · {e(p['category'])}</p>
+  <h3><a href="products/{e(slug)}.html">{e(p['short_name'])}</a></h3>
   <p class="small muted product-name">{e(p['name'])}</p>
-  <div class="product-fact">
-    <span>Manufacturer-stated capacity</span>
-    <strong>{e(next((s['value'] for s in p['specs'] if s['label'] == 'Capacity' and s['value']), '— not confirmed —'))}</strong>
-    <span class="tiny">{src_links(next((s['source'] for s in p['specs'] if s['label'] == 'Capacity'), []))}</span>
-  </div>
-  <p class="product-match"><span class="pill pill-warn">Amazon model match unconfirmed</span>
-    <a class="tiny" href="flagged.html">Review link status</a></p>
-  <p class="small" style="margin:.2rem 0 0"><a href="products/{p['slug']}.html">Read the sourced product notes →</a></p>
-</article>"""
-        for p in PRODUCT_LIST
-    )
+  <p class="publication-job"><strong>{e(job)}</strong></p>
+  <p class="small">{e(detail)} {src_links(job_sources)}</p>
+  <dl class="publication-facts">
+    <div><dt>Documented capacity</dt><dd>{e(cap_value)} {cap_sources}</dd></div>
+    <div><dt>Published dimensions</dt><dd>{e(dimension_value)} {dimension_sources}</dd></div>
+  </dl>
+  <p class="tiny muted">Candidate product record. The matching supplied link and intended listing remain unconfirmed.</p>
+  <a class="pick-cta" href="products/{e(slug)}.html">Read the sourced product guide →</a>
+</article>""")
+
+    article_by_slug = {a["slug"]: a for a in ARTICLES["articles"]}
+    featured_slugs = [
+        "dual-basket-vs-single-basket",
+        "small-kitchen-air-fryer-dimensions",
+        "25-or-24-presets",
+    ]
+    article_cards = []
+    for slug in featured_slugs:
+        article = article_by_slug.get(slug)
+        if not article:
+            continue
+        article_cards.append(f"""
+<a class="card article-card" href="articles/{e(slug)}.html">
+  <span class="kicker">{e(article.get('kicker', 'Guide'))}</span>
+  <span class="cardtitle">{e(article['title'])}</span>
+  <span class="cardtext">{e(article['standfirst'])}</span>
+  <span class="tiny muted">{e(article.get('reading_minutes', ''))} min · documentation-based</span>
+</a>""")
+
     body = f"""
-<div class="editorial-hero">
+<div class="editorial-hero publication-hero">
   <div class="hero-copy">
-    <p class="hero-eyebrow">Zone1 Kitchen <span aria-hidden="true">/</span> Air-fryer field guide</p>
-    <h1 class="hero-title">Choose the shape before the model.</h1>
-    <p class="lede">Two baskets, one 8 Qt basket, or a countertop oven? Compare three formats using manufacturer pages and owner's manuals—without pretending we tested them.</p>
+    <p class="hero-eyebrow">Zone1 Kitchen <span aria-hidden="true">/</span> The air-fryer buying guide</p>
+    <h1 class="hero-title">Choose the shape that fits your kitchen.</h1>
+    <p class="lede">Dual basket, one large basket, or a countertop oven? Start with how you cook, then compare the manufacturer documents. We separate what the manuals say from what remains uncertain—no hands-on test is claimed.</p>
     <div class="hero-actions">
-      <a class="btn" href="#quick-guide">Find your fit <span aria-hidden="true">↓</span></a>
-      <a class="btn btn-ghost" href="articles/index.html">Read the guides <span aria-hidden="true">→</span></a>
+      <a class="btn" href="#choose-a-format">Choose a format <span aria-hidden="true">↓</span></a>
+      <a class="btn btn-ghost" href="compare.html">Compare the details <span aria-hidden="true">→</span></a>
     </div>
-    <p class="hero-footnote">Sourced specifications · visible gaps · no hands-on testing claimed</p>
+    <p class="hero-footnote">Documentation-based guides · visible conflicts · no Amazon price or rating claims</p>
   </div>
-  <aside class="hero-panel" aria-label="Three air-fryer formats">
-    <p class="hero-panel-kicker">The format guide <span>03 products</span></p>
-    <h2>Start with how you cook.</h2>
-    <div class="hero-choice">
-      <span class="hero-index">01</span><span class="hero-choice-copy"><a href="products/chefman-6qt-dual-basket.html"><strong>Two independent baskets</strong></a><small>Chefman · 6 Qt {src_link('S10')} {src_link('S18')}</small></span><span class="hero-arrow" aria-hidden="true">↗</span>
-    </div>
-    <div class="hero-choice">
-      <span class="hero-index">02</span><span class="hero-choice-copy"><a href="products/emeril-26qt-french-door.html"><strong>French-door countertop oven</strong></a><small>Emeril · 26 QT {src_link('S14')}</small></span><span class="hero-arrow" aria-hidden="true">↗</span>
-    </div>
-    <div class="hero-choice">
-      <span class="hero-index">03</span><span class="hero-choice-copy"><a href="products/chefman-8qt-turbofry.html"><strong>One large basket</strong></a><small>Chefman · 8 Qt {src_link('S12')}</small></span><span class="hero-arrow" aria-hidden="true">↗</span>
-    </div>
+  <aside class="hero-panel" aria-label="Quick format guide">
+    <p class="hero-panel-kicker">A quick starting point <span>not a ranking</span></p>
+    <h2>What do you need it to do?</h2>
+    <p><strong>Two cooking zones?</strong> Compare the dual-basket guide. {src_link('S18')}</p>
+    <p><strong>More than a basket?</strong> Compare oven-style functions and footprint. {src_links(['S14', 'S15'])}</p>
+    <p><strong>One bigger batch?</strong> Check the single-basket capacity and temperature conflict. {src_links(['S12', 'S29'])}</p>
   </aside>
 </div>
 
-{pulse_strip()}
-
-<div class="callout bad link-status" id="link-status">
-  <div class="link-status-heading"><span class="pill pill-warn">Before shopping</span><strong>Product identity, account approval and affiliate tracking are not confirmed.</strong></div>
-  <p class="small">A live re-check on 2026-11-17 again observed fallback-style redirects for all three supplied short links, and none of them carried an Associates tag. <strong>This site no longer sends readers through those short links.</strong> Every outbound product link here now points straight at the tagged <code>/dp/</code> listing for the ASIN in the product-intent record, so the click is trackable and the destination is visible before you click it. What is still open is whether those ASINs are the models you intended to promote, and whether your Associates account is approved. Verify both before relying on a purchase link. {src_links(['S17', 'S2'])} <a href="product-intent.html">Read the intent record</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html#q-01">Product-link question</a> · <a href="questions.html#q-03">Account-status question</a>.</p>
-</div>
-
-<div class="method-strip" id="how-we-work" aria-label="How this guide is made">
-  <div><span class="method-number">01</span><strong>Manufacturer sources</strong><p>Specs link to brand product pages or owner's manuals.</p></div>
-  <div><span class="method-number">02</span><strong>Unknowns stay visible</strong><p>Unconfirmed values are left blank and sent to the review register.</p></div>
-  <div><span class="method-number">03</span><strong>No test claims</strong><p>This is a document-based comparison, not a hands-on review. {src_links(['S8'])}</p></div>
-</div>
-
-<section id="quick-guide" class="quick-guide">
+<section class="quick-guide" id="choose-a-format">
   <div class="section-heading">
-    <p class="section-eyebrow">A practical starting point</p>
-    <h2>Start with the shape that suits your kitchen.</h2>
-    <p class="small muted">These are product formats—not a ranked top-three list. Follow a link for the full sourced breakdown.</p>
+    <p class="section-eyebrow">Compare by cooking style</p>
+    <h2>Three formats. Three different trade-offs.</h2>
+    <p class="small muted">These are candidate product records, not winners. Capacity and dimensions are quoted from manufacturer pages or manuals, with a source beside each value.</p>
   </div>
-  <div class="grid grid-3 decision-grid">
-    <article class="card decision-card">
-      <p class="decision-label">Two baskets</p>
-      {format_glyph('dual')}
-      <h3>Two foods, separate settings</h3>
-      <p class="small">The 6 Qt Chefman manual documents two 3-quart baskets and a Sync Finish function. That is the documented difference; we have not tested the cooking result. {src_links(['S18'])}</p>
-      <a href="articles/dual-basket-vs-single-basket.html">Two baskets or one? →</a>
-    </article>
-    <article class="card decision-card">
-      <p class="decision-label">Oven-style</p>
-      {format_glyph('oven')}
-      <h3>More than a basket</h3>
-      <p class="small">The Emeril is described as a 26 QT French-door toaster-oven combo, and the manual documents a rotisserie. Its owner's manual lists 24 presets and the supplied listing title agrees; the brand page's specification block says 25, so the flag stays open. {src_links(['S14', 'S15'])}</p>
-      <a href="articles/dual-basket-vs-oven-air-fryer.html">Basket or countertop oven? →</a>
-    </article>
-    <article class="card decision-card">
-      <p class="decision-label">Single basket</p>
-      {format_glyph('single')}
-      <h3>One 8 Qt cooking space</h3>
-      <p class="small">Chefman's product page lists an 8 Qt basket and four named presets. The supplied listing title and the manufacturer's specification set contain a temperature discrepancy, so the exact model mapping remains open. {src_links(['S12', 'S13', 'S29'])}</p>
-      <a href="articles/what-450f-actually-means.html">What the temperature label means →</a>
-    </article>
-  </div>
+  <div class="grid grid-3">{''.join(cards)}</div>
 </section>
 
-<h2>The three, side by side</h2>
-<p class="small muted">Every populated fact has its own official source link. A dash means we could not confirm it; conflicts are shown as conflicts rather than resolved by guesswork.</p>
-<div class="tablewrap comparison-table" data-zone1-track="EV-04">
-<table>
-  <caption>Quick comparison — manufacturer-backed specifications and open gaps</caption>
-  <thead><tr><th>What to compare</th><th>Chefman 6 Qt Dual Basket</th><th>Emeril 26 QT French Door</th><th>Chefman 8 Qt TurboFry</th></tr></thead>
-  <tbody>
-    <tr><td class="small"><strong>Format</strong></td>
-      <td class="small">Dual-basket air fryer<div class="tiny">{src_links(['S10'])}</div></td>
-      <td class="small">French-door countertop oven<div class="tiny">{src_links(['S14'])}</div></td>
-      <td class="small">Single-basket air fryer<div class="tiny">{src_links(['S12'])}</div></td></tr>
-    <tr><td class="small"><strong>Capacity</strong></td>
-      <td class="small">6 Qt / 5.67 L; two 3-qt baskets<div class="tiny">{src_links(['S10', 'S18'])}</div></td>
-      <td class="small">26 qt / 24.6 L<div class="tiny">{src_links(['S14', 'S15'])}</div></td>
-      <td class="small">8 qt<div class="tiny">{src_links(['S12', 'S13'])}</div></td></tr>
-    <tr><td class="small"><strong>Temperature</strong></td>
-      <td class="small">200–450 °F; Hi-Fry holds 450 °F for 2 minutes<div class="tiny">{src_links(['S10', 'S18'])}</div></td>
-      <td class="small">75–500 °F<div class="tiny">{src_links(['S15'])}</div></td>
-      <td class="small"><span class="pill pill-warn">Conflicting claims</span><div class="tiny">Brand page: 200–400 °F; supplied listing title advertises 450 °F. Model match is unconfirmed.</div><div class="tiny">{src_links(['S12', 'S29'])} <a href="flagged.html">Flagged</a></div></td></tr>
-    <tr><td class="small"><strong>Preset information</strong></td>
-      <td class="small blank">— not confirmed —<div class="tiny">{src_links(['S18'])} <a href="flagged.html">Flagged</a></div></td>
-      <td class="small">24 presets named in the owner's manual<div class="tiny">Airfry, Fries, Bacon, Grill, Eggs, Fish, Ribs, Defrost, Steak, Vegetables, Wings, Bake, Rotisserie, Toast, Chicken, Pizza, Pastry, Proof, Broil, Slow Cook, Roast, Dehydrate, Reheat, Warm.</div><div class="tiny"><span class="pill pill-warn">One page disagrees</span> The brand page's specification block says "25 Cooking Pre-sets"; its own description and the Amazon listing title both say 24.</div><div class="tiny">{src_links(['S15', 'S14', 'S28'])} <a href="flagged.html">Flagged</a></div></td>
-      <td class="small">Fries, Chicken, Fish, Meat<div class="tiny">{src_links(['S12', 'S13'])}</div></td></tr>
-    <tr><td class="small"><strong>Rotisserie</strong></td>
-      <td class="small blank">— not confirmed —<div class="tiny">{src_links(['S10', 'S18'])} <a href="flagged.html">Flagged</a></div></td>
-      <td class="small">Yes<div class="tiny">{src_links(['S14', 'S15'])}</div></td>
-      <td class="small blank">— not confirmed —<div class="tiny">{src_links(['S12', 'S13'])} <a href="flagged.html">Flagged</a></div></td></tr>
-    <tr><td class="small"><strong>Outer dimensions</strong></td>
-      <td class="small">13.38 × 11.81 × 10.63 in<div class="tiny">{src_links(['S10'])}</div></td>
-      <td class="small">16.9 D × 15.8 W × 14.8 H in<div class="tiny">{src_links(['S14'])}</div></td>
-      <td class="small">15.4 × 12.6 × 13.5 in<div class="tiny">{src_links(['S12'])}</div></td></tr>
-    <tr><td class="small"><strong>Rated power</strong></td>
-      <td class="small">1700 W / 120 V<div class="tiny">{src_links(['S10'])}</div></td>
-      <td class="small">1700 W / 120 V<div class="tiny">{src_links(['S15'])}</div></td>
-      <td class="small">1700 W / 120 V<div class="tiny">{src_links(['S12'])}</div></td></tr>
-    <tr><td class="small"><strong>Warranty</strong></td>
-      <td class="small">1 year<div class="tiny">{src_links(['S10'])}</div></td>
-      <td class="small">1 year<div class="tiny">{src_links(['S14'])}</div></td>
-      <td class="small">Limited 1 year<div class="tiny">{src_links(['S13'])}</div></td></tr>
-    <tr><td class="small"><strong>Full product record</strong></td>
-      <td class="small"><a href="products/chefman-6qt-dual-basket.html">Read the sourced product notes →</a> {src_links(['S10', 'S18'])}</td>
-      <td class="small"><a href="products/emeril-26qt-french-door.html">Read the sourced product notes →</a> {src_links(['S14', 'S15'])}</td>
-      <td class="small"><a href="products/chefman-8qt-turbofry.html">Read the sourced product notes →</a> {src_links(['S12', 'S13'])}</td></tr>
-  </tbody>
-</table>
-</div>
-<p class="small muted">Measure your counter and cabinet clearance against the dimensions above. Noise level and real-world preheat time are not confirmed in the cited manufacturer materials. <a href="questions.html#q-06">See the open information gaps →</a></p>
-
-<h2>Product notes, not rankings</h2>
-<p class="small muted">The Amazon model match remains unconfirmed for every item. These pages separate manufacturer specifications from what is known about the supplied links.</p>
-<div class="grid grid-3">{cards}</div>
-
-<h2>This week's picks &mdash; and what one sale is worth</h2>
-<p class="small muted">A picks page is usually a ranking. The one on this site is a decision rule: each product wins a different job, and the job you have decides the product. It also shows what Amazon actually pays per sale at each candidate rate, with the table row it came from.</p>
-<div class="grid grid-2">
-  <a class="card" href="picks.html"><span class="kicker">Commercial front door</span><span class="cardtitle">Three air fryers, three jobs &#8594;</span><span class="cardtext">The honest version of a picks page: a rule, the specification behind each match, and the commission arithmetic in the open.</span></a>
-  <a class="card" href="decisions.html"><span class="kicker">Strategy</span><span class="cardtitle">Niche, traffic and measurement &#8594;</span><span class="cardtext">Three decisions with scored options, six channels ordered by what they depend on, and a pre-committed kill rule.</span></a>
-</div>
-
-<div class="grid grid-3" style="margin:1.1rem 0">
-  <a class="card" href="picks.html"><span class="kicker">Buyer</span><span class="cardtitle">This week's picks &#8594;</span><span class="cardtext">A decision rule, not a ranking, plus what one sale pays at each official rate.</span></a>
-  <a class="card" href="decisions.html"><span class="kicker">Owner</span><span class="cardtitle">Niche, traffic, measurement &#8594;</span><span class="cardtext">Scored options, six channels with their prerequisites, and a kill rule.</span></a>
-  <a class="card" href="handover.html"><span class="kicker">Owner</span><span class="cardtitle">Handover: five actions &#8594;</span><span class="cardtext">About an hour of owner time closes eighteen flags. Start with three minutes.</span></a>
-</div>
-
-<h2>Commercial summary</h2>
-{commercial_table()}
-
-<div class="callout bad">
-  <strong>Five actions, about an hour, eighteen flags.</strong>
-  <p class="small" style="margin:.35rem 0 0">Everything in this repository is done as far as it can be done without your accounts. One item on the old list is finished: the model numbers have been read off all three listings' own Product information blocks (<a href="flagged.html#f68">F68</a>), which closes the ASIN-to-model step for the two Chefman products and narrows the third. What still waits for you is the part no public page can answer — what the three short links were created to point at, your Associates tag, and your account. The full list, with exact steps and time estimates, is on <a href="handover.html">the handover sheet</a>; the queue of changes, with the default each one falls back to if nobody answers, is on the <a href="decision-log.html">owner decision log</a>.</p>
-</div>
-
-<h2 id="evidence">Under the hood: how much of this is actually confirmed</h2>
-<p class="small muted">Everything from here down is the verification layer — useful if you want to know how
-much to trust a number, not required reading before buying. The same material, in full, is on
-<a href="data.html">the dataset</a>, <a href="reverification.html">the re-verification ledger</a> and
-<a href="flagged.html">Flagged for review</a>.</p>
-
-<div class="grid grid-4" style="margin:1rem 0 1.25rem">
-  <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">Supplied links reach Amazon fallback pages — see <a href="reverification.html">link checks through 2026-11-16</a></div></div>
-  <div class="stat ok"><div class="n">{verified}</div><div class="l">Verified spec values</div><div class="h">Each with a link to the manufacturer page or manual</div></div>
-  <div class="stat warn"><div class="n">{unverified}</div><div class="l">Unconfirmed values</div><div class="h">Left blank, listed on Flagged for review</div></div>
-  <div class="stat bad"><div class="n">{n_open_flags}</div><div class="l">Open irregularities</div><div class="h">{n_total_flags} recorded across the three products and the programme; the Flagged page lists them as {n_open_flags} distinct rows</div></div>
-</div>
-
-<div class="callout info">
-  <strong>Read this before you use any number on this site</strong>
-  <p class="small">No Amazon price, star rating or review count appears anywhere on this site. That is deliberate. Amazon's Program Policies §2(b) allow price and availability to be shown only when Amazon serves the link or when the data comes from Creators/PA API, and §6(t) restricts customer reviews and star ratings to API-served content {src_links(['S2'])}. Manufacturer list prices are shown instead, in their own column, with their own source links.</p>
-</div>
-
-<div class="callout ok">
-  <strong>Re-verified {REVERIFIED} — line by line</strong>
-  <p class="small">Every value below was re-read on {REVERIFIED} against the official source the site cites for it: the
-  manufacturer's own product page, its owner's manual, Amazon's Associates Central documents and the FTC's rule text.
-  Of the {rev_total} rows in that ledger, {rev_conf} matched, {rev_part} matched in part, {rev_moved} moved because they
-  are live counters, {rev_conflict} are still contradicted between official pages, and {rev_new} rows could not be re-opened
-  in that pass. Two rows that were blank are now filled from the manufacturer's own specification block, and the open
-  question of where the supplied links point has been tested twice more, with a control: four sessions over two days
-  reached the same three destination ASINs, and an unrecognised token is refused (403) rather than shuffled. That
-  settles the <em>destination</em>, not the <em>identity</em> — whether these are the products you meant to market,
-  and which Associates tag rides on the link, still cannot be confirmed from outside Associates Central, and a
-  parallel pass reads the same fallback marker as grounds for withholding the "resolved" label entirely. Both
-  readings are published side by side (flag F21). Full ledger:
-  <a href="reverification.html">Full line-by-line re-read: {REVERIFIED}</a>. A targeted follow-up on 2026-11-16 rechecked all three link destinations and refreshed two dated manufacturer review counters; it was not a full re-read. See the <a href="reverification.html">combined verification ledger</a>.</p>
-</div>
-
-<h2>Articles</h2>
-<p class="small muted">Eight reads written for this product set. Each one quotes the manufacturer's own pages or manuals, links every number to the page it came from, and names the places where the official record contradicts itself instead of smoothing them over. No first-hand testing is claimed anywhere.</p>
-<div class="cardgrid">
-{_article_cards}
-</div>
-<p class="small"><a class="btn btn-ghost" href="articles/index.html">All articles →</a></p>
-
-<h2>Where to go next</h2>
-<div class="grid grid-2">
-  <div class="card">
-    <h3 style="margin-top:0">Judge the products</h3>
-    <ul class="tight small">
-      <li><a href="compare.html">Comparison matrix</a> — verified fields only, blanks kept visible.</li>
-      <li><a href="guides/buying-guide-air-fryers.html">Buying guide</a> — dual-basket vs single-basket vs oven-style.</li>
-      <li><a href="data.html">Full dataset</a> — every field, value, source and gap in one table.</li>
-    </ul>
+<div class="publication-compare-cta">
+  <div>
+    <p class="section-eyebrow">Need the side-by-side version?</p>
+    <h2>Compare the dimensions, capacity and documented features.</h2>
+    <p class="small">The full matrix keeps blank fields blank and links populated rows to the official product page or owner's manual.</p>
   </div>
-  <div class="card">
-    <h3 style="margin-top:0">Judge the operation</h3>
-    <ul class="tight small">
-      <li><a href="platform.html">Platform blueprint</a> — the automation, the data model, the guardrails.</li>
-      <li><a href="compliance.html">Compliance</a> — {len(COMPLIANCE['requirements'])} requirements, each quoted with a source link.</li>
-      <li><a href="flagged.html">Flagged for review</a> — everything that still needs a human decision.</li>
-      <li><a href="executive-summary.html">Executive summary</a> — the one-page version.</li>
-    </ul>
-  </div>
+  <a class="btn" href="compare.html">Open the comparison <span aria-hidden="true">→</span></a>
 </div>
 
-<h2>How a value earns its place on this site</h2>
-<div class="tablewrap">
-<table>
-  <caption>Verification standard applied to every row</caption>
-  <thead><tr><th>State</th><th>Meaning</th><th>How it renders</th></tr></thead>
-  <tbody>
-    <tr><td>{flag_pill('verified')}</td><td>The value was read on an official page — the party that owns the fact published it — on {e(ACCESSED)}.</td><td>Value shown, with a clickable source badge (e.g. {src_link('S10')}).</td></tr>
-    <tr><td>{flag_pill('unverified')}</td><td>No official source states the value, or official sources disagree.</td><td>Value left blank, reason written out, and the item repeated on <a href="flagged.html">Flagged for review</a>.</td></tr>
-    <tr><td>{flag_pill('conflict')}</td><td>Two official sources state different things and neither can be preferred.</td><td>Both claims quoted side by side; no single value asserted. Examples listed on <a href="flagged.html">Flagged for review</a> (F3, F4, F5).</td></tr>
-  </tbody>
-</table>
+<section class="quick-guide" aria-labelledby="read-guides-heading">
+  <div class="section-heading">
+    <p class="section-eyebrow">Read before you buy</p>
+    <h2 id="read-guides-heading">Useful answers, not a top-ten list.</h2>
+    <p class="small muted">Question-led guides drawn from the published product documents. No search-volume or popularity claim is implied.</p>
+  </div>
+  <div class="grid grid-3">{''.join(article_cards)}</div>
+  <p class="small"><a href="articles/index.html">Browse all sourced articles →</a> · <a href="guides/buying-guide-air-fryers.html">Read the buying guide →</a></p>
+</section>
+
+<div class="callout note publication-method">
+  <strong>How to use these pages.</strong>
+  Product specifications link to the manufacturer or owner's manual. If the official documents disagree, the conflict is shown instead of guessed away. The five project links have separate observed-redirect and intended-product records; the identity of each intended listing and Associates attribution remain unconfirmed. <a href="product-intent.html">See the link record</a> · <a href="flagged.html">See unresolved product questions</a>.
 </div>
-<div class="archive-panel">
-  <p class="section-eyebrow">For the detail-minded</p>
-  <h3>Want the full evidence trail?</h3>
-  <p class="small">The complete dataset, source register, open flags and previous research builds are available for review.</p>
-  <p class="small"><a href="data.html">Full dataset →</a> · <a href="flagged.html">Flagged for review →</a> · <a href="previous-passes.html">Research archive →</a></p>
-</div>
-<p class="tiny muted">Evidence standard: Amazon sources support Amazon program and listing facts; manufacturers support product specifications; US government sources support legal requirements. The <a href="data.html">source register</a> lists each reference and what it can verify.</p>
 """
+    purl = page_url("index.html")
     ld = [
-        PUBLISHER,
-        {
-            "@type": "WebSite",
-            "@id": SITE_URL + "/#website",
-            "url": SITE_URL + "/",
-            "name": SITE_NAME,
-            "description": SITE_TAGLINE,
-            "inLanguage": "en-US",
-            "publisher": {"@id": SITE_URL + "/#organization"},
-        },
-        breadcrumbs_jsonld([("Home", SITE_URL + "/")]),
         {
             "@type": "ItemList",
-            "@id": SITE_URL + "/#formats",
-            "name": "Three air-fryer formats compared",
+            "@id": purl + "#formats",
+            "name": "Three air-fryer formats in the Zone1 buying guide",
             "itemListElement": [
                 {
                     "@type": "ListItem",
@@ -2191,11 +2099,11 @@ much to trust a number, not required reading before buying. The same material, i
                 for i, pr in enumerate(PRODUCT_LIST, start=1)
             ],
         },
+        breadcrumbs_jsonld([("Home", SITE_BASE)]),
     ]
-    return layout("index.html", "Air fryer buying guide", body, active="index.html",
-                  description="A source-led comparison of three air-fryer formats, with manufacturer specifications, visible gaps and the status of the supplied Amazon links.",
+    return layout("index.html", "Air-fryer buying guide", body, active="index.html",
+                  description="A buyer-first air-fryer publication comparing three documented formats, with practical guides, official sources and unresolved product identity shown clearly.",
                   jsonld_blocks=ld)
-
 
 def page_product(p):
     tag = p["slug"]
@@ -2326,12 +2234,6 @@ PROGRAMME_FLAGS = [
      "All three links", "The shortener hides the tag. Attribution cannot be verified from outside Associates Central, so 'associates_tag_confirmed' is false for all three links. Needs the account holder to open Manage Tracking IDs.", ["S2", "S17"]),
     ("F7", "Program Policies §6(w) (Content on your Site) prohibits link shortening that makes it unclear you are linking to an Amazon Site.",
      "All three links", "link.amazon keeps the Amazon name visible, so the risk is low, but the landing URL is generated and temporary. Recorded so the account holder can confirm current guidance before publishing.", ["S2"]),
-    ("F81", "Two of the five supplied product links were never examined in any pass, and both resolve to a different product category.",
-     "link.amazon/B0c8moW59 and /B0f3GKalj",
-     "The brief lists five product links. Every earlier pass tracked three. B0c8moW59 and B0f3GKalj appear in no other file in this repository. Read live on 2026-11-17: B0c8moW59 resolves to B0DHZTCNR5 (ThermoMaven digital meat thermometer) and B0f3GKalj resolves to B0DZFD6R9Z (CHEF iQ Sense wireless meat thermometer) — both in a different Amazon category from the three air fryers on this site. The brief names no product for either link, so the intended product is recorded as UNKNOWN in data/product-intent.json (PI-04, PI-05); it is not inferred. This site publishes no product page for either and makes no claim about them. Owner decision needed: say what these two links were meant to promote, or drop them.", ["S17"]),
-    ("F82", "None of the five supplied link.amazon URLs carried an Associates tag when read on 2026-11-17.",
-     "All five supplied links",
-     "Program Policies §2(a) requires Special Links to use the assigned Associates ID and §2(b) requires the tag as a parameter in the URL of each link. Each supplied short link was fetched on 2026-11-17 with redirects followed and the final URL carried no tag= parameter, so as supplied they are not Special Links and cannot earn. This is now REPAIRED ON THIS SITE rather than merely flagged: session 5b17c077 wired the owner's tracking ID shopnow047c-20 into data/config.json, every outbound product link on this site is built as /dp/<ASIN>?tag=shopnow047c-20, and check_associate_tagging() fails the build if any outbound Amazon link ships without it or without rel=\"sponsored\". What remains open is a human check that this tag is the right one for the account and that the account is approved (F6, Q-03).", ["S2", "S17"]),
     ("F8", "IP License §2(e) forbids aggregating, analysing or repurposing Program Content and training models on it.",
      "Platform design", "Any AI research or trend scoring therefore runs only on first-party data and public manufacturer data. Documented as guardrail G6 in the blueprint.", ["S2"]),
     ("F9", "No Amazon price, star rating or review count is available to this build.",
@@ -2654,26 +2556,22 @@ PROGRAMME_FLAGS = [
      "Found 2026-11-16 by arena/5ac82b1d while reading back the deleted orphan article's URL on the live site: /articles/sync-finish-two-buttons.html correctly served the 404 page, but its nav, card and stylesheet links resolved against /articles/ (e.g. products/chefman-6qt-dual-basket.html became /articles/products/...), so the error page it served was itself unstyled and full of dead links — the one page whose whole job is to recover a lost reader. Root-relative links (/Zone1/...) were rejected as a fix because verify.py and scripts/check_links.py resolve internal hrefs against the file on disk, where they do not exist. Fixed instead by rewriting every relative href/src on 404.html to its absolute SITE_URL form in layout(), leaving fragment-only links (#anchor) alone since they address the displayed document. check_seo_metadata() now fails the build if any non-absolute, non-fragment URL survives on the 404 page. Note for later: this defect can only be observed by fetching a missing nested URL from the deployed site — no local gate sees the serving path.",
      []),
     # ---- arena/1c97a25f, product-intent pass, 2026-11-17 ----------------------------- #
-    ("F76", "The selected tracking ID shopnow047c-20 is applied to every outbound link but has not been tested in Associates Central.",
-     "data/config.json (associate_tag = shopnow047c-20); data/product-intent.json (tracking_id_status); build.py check_associate_tagging()",
-     "The attachment half is DONE and gate-enforced (2026-11-17, session 5b17c077): associate_tag is set, every outbound product link is /dp/<ASIN>?tag=shopnow047c-20, and the build fails if any link ships untagged or without rel=\"sponsored\". The ATTRIBUTION half is what stays open, because it needs the account holder's login. Run the one-link test the brief requires: in Associates Central confirm shopnow047c-20 is an active tracking ID on the account, create one Special Link for one product, click it, and confirm the destination and that the click appears in the tracking report. A well-formed tag and a credited tag are not the same claim, and only the report establishes the second.",
+    ("F76", "The tracking ID shopnow047c-20 is user-provided but is not validated in Associates Central, applied to links, or confirmed by a test.",
+     "data/config.json (selected_tracking_id); data/product-intent.json (tracking_id_status); associate_tag left blank",
+     "For each product the account holder confirms as intended, verify that the ID is active in Associates Central, create or select one enrolled Special Link, follow it, and verify that the click appears under that ID in the report. Apply no tag broadly until every intended product's test passes. No account login was available in this pass.",
      ["S5", "S6", "S2"]),
-    ("F77", "No intended ASIN or official listing URL was supplied for any of the five short links, so none is recorded as confirmed. The short codes are 9 characters; the ASINs in this register are 10.",
+    ("F77", "No intended ASIN or official listing URL is confirmed for any of the five supplied short links; each intended-product field remains blank.",
      "data/product-intent.json rows PI-01 to PI-05 (intended_asin, official_listing_url)",
-     "The account holder confirms which listing each short link is meant to reach. The observed redirect targets (2026-11-17) are recorded in their own fields and match the register for the three air fryers. Until confirmed, the intended fields stay blank.",
-     ["S17", "S16", "S28", "S29", "S36", "S37"]),
-    ("F78", "Two of the five supplied links (PI-04, PI-05) lead to meat thermometers on Amazon, outside the air-fryer scope this site publishes.",
-     "https://link.amazon/B0c8moW59 -> amazon.com/dp/B0DHZTCNR5 ; https://link.amazon/B0f3GKalj -> amazon.com/dp/B0DZFD6R9Z",
-     "Decide whether the site should cover a second category. If yes, each product needs its own sourced specification rows before a page is published. If no, the owner removes these two links. No thermometer page or specification has been published.",
-     ["S36", "S37", "S17"]),
-    ("F79", "The coordination notes cite S23 as the official Amazon ASIN definition, but data/sources.json registers S23 as the KDP 'Linking from Your Website' help page. No official Amazon ASIN definition is registered.",
-     "data/sources.json (S23) vs COORDINATION.md and the S-register note",
-     "Register an official Amazon page that defines ASIN, or drop the claim. Until then the site does not rely on a definition of ASIN; it only reports the ASINs observed in /dp/ URLs. The search results used during this pass were third-party pages and were not used as sources.",
-     ["S23", "S16"]),
-    ("F80", "Two product-intent records were written in parallel the same day and disagreed on observation dates and coverage. RESOLVED 2026-11-17.",
-     "data/product-intent.json (17 Nov observations) vs data/product-intent-confirmations.json (session 02b4e9c7, 16 Nov observations; PI-04/PI-05 not researched)",
-     "RESOLVED 2026-11-17 by the integration session (arena/5b17c077), which the original row itself assigned the decision to. data/product-intent.json is the single canonical record: the build renders it as product-intent.html, it covers all five supplied links, and it now records that the tracking ID is applied to every outbound link. data/product-intent-confirmations.json is retired, not deleted, so its 16 Nov observations remain on disk and in git history as a dated artefact; nothing in the build reads it. The disagreement was about dates and coverage, not about any published value: neither file ever asserted a confirmed intended ASIN. A THIRD parallel record (data/intent-record.json with page intent-record.html) was created by this same integration session and retired in the same pass for the same reason; the two findings it alone carried were promoted to flags F81 and F82 rather than lost, which is why this row points at three files and only one page.",
-     ["S17", "S16", "S28", "S29", "S36", "S37"]),
+     "The submitted URL strings, observed destinations and owner-confirmed intent are kept separate. No claim is made here about a short link's validity, compliance or intended product. Confirm the official listing separately for each link before filling intended fields.",
+     ["S16", "S28", "S29", "S36", "S37"]),
+    ("F78", "Two new short-link fetches returned fallback-style Amazon pages whose titles identify meat thermometers, outside the current air-fryer publication scope.",
+     "PI-04 and PI-05 in data/product-intent.json; observed targets B0DHZTCNR5 and B0DZFD6R9Z",
+     "These are observed redirect destinations only; they do not establish the operator's intended products, invalidate the links, or establish compliance. Keep them unmapped and do not publish thermometer specifications unless product intent and scope are confirmed.",
+     ["S36", "S37"]),
+    ("F79", "S23 is registered as KDP's 'Linking from Your Website' help page, but earlier notes cited it as a general Amazon ASIN definition.",
+     "data/sources.json S23; prior ASIN-format claims; data/product-intent.json",
+     "Corrected in the final integration: the current product-intent page no longer cites S23 for ASIN length or /dp/ format. Do not use the supplied short-link tokens or observed redirects to infer intent. Verify a suitable first-party source before restoring an identifier-format claim.",
+     ["S23"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -2682,6 +2580,10 @@ REPO_EVIDENCE = {
     "F74": ["build.py", "data/articles.json", "data/topics.json",
             "reports/verification-2026-11-16-19d92a81.md"],
     "F75": ["build.py", "404.html"],
+    "F76": ["data/config.json", "data/product-intent.json"],
+    "F77": ["data/product-intent.json"],
+    "F78": ["data/product-intent.json"],
+    "F79": ["data/sources.json", "build.py"],
     "F63": ["data/questions.json", "data/suggestions.json", "data/decision.json"],
     "F20": ["s2/", "site/", "dashboard/", "research/", "session-3740f69d/", "docs/"],
     "F22": ["EXECUTIVE_SUMMARY.md"],
@@ -2820,7 +2722,7 @@ def page_compare():
                 fields.append(s["label"])
 
     head = "".join(
-        f'<th><a href="../products/{p["slug"]}.html">{e(p["short_name"])}</a><div class="tiny muted" style="font-weight:400">candidate ASIN {e(p["asin"]["v"])} (unconfirmed)</div></th>'
+        f'<th><a href="../products/{p["slug"]}.html" data-analytics-event="comparison_interaction" data-analytics-target-id="{e(p["slug"])}">{e(p["short_name"])}</a><div class="tiny muted" style="font-weight:400">candidate ASIN {e(p["asin"]["v"])} (unconfirmed)</div></th>'
         for p in PRODUCT_LIST
     )
     rows = []
@@ -6780,154 +6682,80 @@ def _decision_rows():
 
 
 def page_picks():
-    """Commercial front door: the honest version of a 'top picks' page."""
-    d = DECISION
-    cards = []
+    """A buyer-facing format selector, not an earnings or popularity ranking."""
+    product_by_slug = {p["slug"]: p for p in PRODUCT_LIST}
     jobs = [
-        ("chefman-6qt-dual-basket", "Cook two different things at once",
-         "Two independent 3-quart baskets and a Sync Finish function that delays the shorter cook to land with the longer one."),
-        ("emeril-26qt-french-door", "Replace a toaster oven as well as a fryer",
-         "One 26-quart cavity with French doors, a dual-speed fan and a rotisserie documented in the owner's manual."),
-        ("chefman-8qt-turbofry", "Feed four to six people from one basket",
-         "A single large basket with a documented 4\u20136 person household size and a shake reminder."),
+        ("chefman-6qt-dual-basket", "Choose two cooking zones", "Two independent 3-quart baskets and Sync Finish are documented in the owner's manual.", ["S18"]),
+        ("emeril-26qt-french-door", "Choose an oven-style format", "The 26-quart French-door unit includes documented rotisserie functions; the manual names 24 presets while the brand spec block says 25.", ["S14", "S15"]),
+        ("chefman-8qt-turbofry", "Choose one larger basket", "The manufacturer documents an 8-quart basket and a 400 °F ceiling; the supplied listing title advertises 450 °F, so check the model detail before deciding.", ["S12", "S13", "S29"]),
     ]
-    by_slug = {p["slug"]: p for p in PRODUCT_LIST}
-    for slug, job, why in jobs:
-        p = by_slug[slug]
-        cap = next(s for s in p["specs"] if s["label"] in ("Capacity",))
-        model = p.get("model_number") or {}
+    cards = []
+    for slug, heading, detail, sources in jobs:
+        p = product_by_slug[slug]
+        capacity = next((s for s in p["specs"] if s["label"] == "Capacity"), None)
+        capacity_html = (f'{e(capacity["value"])} {src_links(capacity["source"])}'
+                         if capacity and capacity.get("value") else f'Not confirmed {src_links(capacity["source"] if capacity else [])}')
+        dimensions = next((s for s in p["specs"] if s["label"] == "Dimensions"), None)
+        dims_html = (f'{e(dimensions["value"])} {src_links(dimensions["source"])}'
+                     if dimensions and dimensions.get("value") else "Not confirmed")
         cards.append(f"""
-<article class="card pcard pick">
-  <p class="product-type">Pick if you want to</p>
-  <h3>{e(job)}</h3>
-  <p class="small muted product-name">{e(p['short_name'])} \u2014 {e(p['name'])}</p>
-  <div class="product-fact">
-    <span>Manufacturer-stated capacity</span>
-    <strong>{e(cap['value'])}</strong>
-    <span class="tiny">{src_links(cap['source'])}</span>
-  </div>
-  <p class="small">{e(why)}</p>
-  <p class="product-match"><span class="pill pill-warn">Model match unconfirmed</span>
-    <a class="tiny" href="flagged.html">Why</a></p>
-  <a class="pick-cta" href="products/{e(p['slug'])}.html">Read the sourced breakdown \u2192</a>
+<article class="card pcard publication-product">
+  <p class="product-type">{e(p['brand'])} · {e(p['category'])}</p>
+  <h2><a href="products/{e(slug)}.html">{e(p['short_name'])}</a></h2>
+  <p class="publication-job"><strong>{e(heading)}</strong></p>
+  <p class="small">{e(detail)} {src_links(sources)}</p>
+  <dl class="publication-facts">
+    <div><dt>Capacity</dt><dd>{capacity_html}</dd></div>
+    <div><dt>Dimensions</dt><dd>{dims_html}</dd></div>
+  </dl>
+  <p class="tiny muted">Candidate product record; its matching supplied link and intended listing are not confirmed.</p>
+  <a class="pick-cta" href="products/{e(slug)}.html">Read the product guide →</a>
 </article>""")
-
-    rate_rows = "".join(
-        f'<tr><td>{e(r["label"])}</td><td class="num">{e(r["rate"])}</td>'
-        f'<td class="small">{e(r["row_quoted"])} {src_links(r["source"])}</td></tr>'
-        for r in _decision_rows())
-
-    examples = "".join(
-        f'<tr><td>{e(x["product"])}</td><td class="num">{e(x["list_price"])}</td>'
-        f'<td class="num">{e(x["at_4_5"])}</td><td class="num">{e(x["at_4_0"])}</td>'
-        f'<td>{src_links(x["source"])}</td></tr>'
-        for x in d["commission"]["per_sale_examples"])
-
-    caveats = "".join(f"<li>{e(c)}</li>" for c in d["commission"]["caveats"])
 
     body = f"""
 <div class="editorial-hero picks-hero">
   <div class="hero-copy">
-    <p class="hero-eyebrow">This week's picks <span aria-hidden="true">/</span> updated {e(d['compiled'])}</p>
-    <h1 class="hero-title">Three air fryers, three different jobs.</h1>
-    <p class="lede">A picks page is usually a ranking. This one is a decision rule: each of the three products wins a different job, and the job you have decides the product. Every claim below is a manufacturer specification you can check in one click.</p>
+    <p class="hero-eyebrow">A practical format guide <span aria-hidden="true">/</span> three documented options</p>
+    <h1 class="hero-title">Match the appliance to the way you cook.</h1>
+    <p class="lede">No overall winner, no price leaderboard. Compare a dual-basket air fryer, an oven-style appliance and a single large basket by their published capacity, footprint and documented trade-offs.</p>
     <div class="hero-actions">
-      <a class="btn" href="#pick-rule">See the rule <span aria-hidden="true">\u2193</span></a>
-      <a class="btn btn-ghost" href="decisions.html">How the money works <span aria-hidden="true">\u2192</span></a>
+      <a class="btn" href="#format-guides">Compare the formats <span aria-hidden="true">↓</span></a>
+      <a class="btn btn-ghost" href="guides/buying-guide-air-fryers.html">Read the buying guide <span aria-hidden="true">→</span></a>
     </div>
-    <p class="hero-footnote">No hands-on testing claimed \u00b7 no Amazon price or rating published \u00b7 model identity still open</p>
+    <p class="hero-footnote">Every factual specification links to a manufacturer page or owner's manual. No hands-on testing is claimed.</p>
   </div>
-  <aside class="hero-panel" aria-label="What this page is">
-    <p class="hero-panel-kicker">Before you click <span>read this</span></p>
-    <h2>The link is not the product.</h2>
-    <p class="small">Each product below links to a supplied Amazon short link. All three land on a listing, but Amazon does not publish a model number a fetch can read, so this site cannot confirm which manufacturer SKU each listing is. Check the model number on the listing before you buy. <a href="flagged.html">Flagged for review</a>.</p>
+  <aside class="hero-panel" aria-label="Shopping note">
+    <p class="hero-panel-kicker">Before you shop <span>important</span></p>
+    <h2>Verify the exact listing.</h2>
+    <p class="small">The five links in the project brief have observed redirect records, but none is confirmed as the product its owner intended or as carrying the selected Associates ID. Compare the model/part number on the listing before buying. <a href="product-intent.html">Read the separate link record</a>.</p>
   </aside>
 </div>
 
-<nav class="buyer-toc" aria-label="On this page">
-  <a href="#pick-rule">The rule</a>
-  <a href="#the-picks">The three picks</a>
-  <a href="#commission">What one sale is worth</a>
-  <a href="#not-a-top-ten">Why not a top ten</a>
-  <a href="#read-next">Read next</a>
-</nav>
-
-<div class="callout trust" id="pick-rule">
-  <strong>The rule.</strong> Buy the format, not the brand: two baskets if you cook two different things at once, a French-door oven if you also want to replace a toaster oven, one big basket if you are cooking for four to six people from a single batch. Everything else on this page is a consequence of that rule.
-</div>
-
-<section class="quick-guide" id="the-picks">
+<section class="quick-guide" id="format-guides">
   <div class="section-heading">
-    <p class="section-eyebrow">The three picks</p>
-    <h2>Each one wins a different job</h2>
-    <p class="small muted">Capacity is quoted from each manufacturer's own product page. The links to Amazon are the supplied affiliate links.</p>
+    <p class="section-eyebrow">Three ways to cook</p>
+    <h2>Start with the trade-off you care about.</h2>
+    <p class="small muted">Capacity and dimensions come from official product documentation. Conflicts stay visible.</p>
   </div>
-  <div class="grid grid-3 decision-grid">{''.join(cards)}</div>
+  <div class="grid grid-3">{''.join(cards)}</div>
 </section>
 
-<h2 id="commission">What one sale is actually worth</h2>
-<p class="lede">Amazon pays a fixed percentage by category, not by product. Two rows of its published table are plausible for these appliances, and it does not publish which row a given ASIN falls into, so the honest answer is a range.</p>
-<div class="tablewrap">
-<table>
-  <caption>Official Standard Commission Income rates that could apply</caption>
-  <thead><tr><th>Category as published</th><th>Fixed rate</th><th>Row quoted from the official table</th></tr></thead>
-  <tbody>{rate_rows}</tbody>
-</table>
-</div>
-<div class="tablewrap" style="margin-top:1rem">
-<table>
-  <caption>What that is worth per sale, at each candidate rate (arithmetic on manufacturer list prices)</caption>
-  <thead><tr><th>Product</th><th>Brand list price</th><th>At 4.50%</th><th>At 4.00%</th><th>Sources</th></tr></thead>
-  <tbody>{examples}</tbody>
-</table>
-</div>
-<ul class="tight small" style="margin-top:.8rem">{caveats}</ul>
-<p class="small muted">Per-product mapping is deliberately not asserted: see <a href="flagged.html">Flagged for review</a> and the measurement section of <a href="decisions.html">Decisions &amp; handover</a>.</p>
-
-<h2 id="not-a-top-ten">Why this page is not a top-ten list</h2>
-<div class="grid grid-2">
-  <div class="card">
-    <h3 style="margin-top:0">Because "best" needs evidence this site does not have</h3>
-    <p class="small">A ranking implies comparison testing. The FTC's own guidance says you cannot talk about experience with a product you have not tried, and Amazon's policies restrict republishing customer reviews and star ratings. So this page ranks <em>jobs</em>, not products, and shows the specification that supports each match.</p>
-    <p class="small">{src_links(['S8', 'S2'])}</p>
+<div class="publication-compare-cta">
+  <div>
+    <p class="section-eyebrow">A buyer's checklist</p>
+    <h2>Measure your counter, then compare the details.</h2>
+    <p class="small">Open the side-by-side table for capacity, dimensions, power, temperature and documented gaps.</p>
   </div>
-  <div class="card">
-    <h3 style="margin-top:0">Because the reader can check every line</h3>
-    <p class="small">Every capacity, dimension and temperature on the product pages links to the manufacturer's page or the owner's manual PDF. If a value is missing from the source, the row stays blank and appears on the flagged page instead of being filled in.</p>
-    <p class="small"><a href="compare.html">See the verified-only comparison matrix \u2192</a></p>
-  </div>
+  <a class="btn" href="compare.html">Open the comparison →</a>
 </div>
-
-<h2 id="read-next">Read next</h2>
-<div class="cardgrid">
-  <a class="card" href="articles/small-kitchen-air-fryer-dimensions.html">
-    <span class="kicker">Fit check</span>
-    <span class="cardtitle">Will it actually fit? Three air fryers, measured against your counter</span>
-    <span class="cardtext">Depth, height and weight, from the manufacturers' own figures.</span>
-  </a>
-  <a class="card" href="articles/chefman-8qt-two-models.html">
-    <span class="kicker">Model watch</span>
-    <span class="cardtitle">The 8-quart Chefman is sold as two different machines</span>
-    <span class="cardtext">One tops out at 400\u00b0F, one reaches 450\u00b0F. The listing describes both.</span>
-  </a>
-  <a class="card" href="articles/energy-cost-of-an-air-fryer.html">
-    <span class="kicker">Running costs</span>
-    <span class="cardtitle">The 1,700-watt question</span>
-    <span class="cardtext">All three units draw the same load. What that means for a kitchen circuit.</span>
-  </a>
-  <a class="card" href="articles/who-actually-pays-for-air-fryer-reviews.html">
-    <span class="kicker">How the money works</span>
-    <span class="cardtitle">Who pays for the air-fryer review you are reading?</span>
-    <span class="cardtext">The disclosure rule, the law behind it, and the three claims an affiliate may not make.</span>
-  </a>
-</div>
+<p class="small muted">Amazon prices, ratings and sales performance are not used to rank these options. <a href="articles/who-actually-pays-for-air-fryer-reviews.html">How affiliate links work</a> · <a href="flagged.html">Unresolved product questions</a>.</p>
 """
     purl = page_url("picks.html")
     ld = [
         {
             "@type": "ItemList",
-            "@id": purl + "#picks",
-            "name": "This week's picks - three air fryers, three jobs",
+            "@id": purl + "#formats",
+            "name": "Three documented air-fryer formats",
             "itemListElement": [
                 {
                     "@type": "ListItem",
@@ -6938,85 +6766,272 @@ def page_picks():
                 for i, pr in enumerate(PRODUCT_LIST, start=1)
             ],
         },
-        breadcrumbs_jsonld([
-            ("Home", SITE_URL + "/"),
-            ("This week's picks", purl),
-        ]),
+        breadcrumbs_jsonld([("Home", SITE_BASE), ("Format guide", purl)]),
     ]
-    return layout("picks.html", "This week's picks \u2014 three air fryers, three jobs", body,
+    return layout("picks.html", "Air-fryer formats and product guides", body,
                   active="picks.html",
-                  description="A decision-rule picks page: which of three sourced air fryers wins which job, what one sale pays at each official commission rate, and what remains unconfirmed.",
+                  description="A buyer-first comparison of three air-fryer formats, using sourced capacity, dimensions and documented conflicts instead of popularity or commission rankings.",
                   jsonld_blocks=ld)
 
-
 def page_intent():
-    """Product-intent confirmation record and the campaign ledger (2026-11-17)."""
-    intent = load("product-intent.json")
-    ledger = load("campaign-ledger.json")
-    dash = '<span class="tiny muted">not confirmed</span>'
+    """Operator-only link-intent record and campaign ledger."""
+    intent = PRODUCT_INTENT
+    ledger = CAMPAIGN_LEDGER
+    dash = '<span class="tiny muted">Not confirmed</span>'
     body_rows = []
-    for r in intent["rows"]:
-        intended = e(r["intended_asin"]) if r["intended_asin"] else dash
-        official = e(r["official_listing_url"]) if r["official_listing_url"] else dash
-        confirmed = (f'{e(r["confirmation_date"])} {src_links([r["confirmation_source"]])}'
-                     if r["confirmation_date"] and r["confirmation_source"] else dash)
-        srcs = src_links(r["observed_source_ids"])
+    for row in intent["rows"]:
+        intended = e(row["intended_asin"]) if row["intended_asin"] else dash
+        official = e(row["official_listing_url"]) if row["official_listing_url"] else dash
+        confirmed = (f'{e(row["confirmation_date"])} {src_links([row["confirmation_source"]])}'
+                     if row["confirmation_date"] and row["confirmation_source"] else dash)
+        target = e(row["observed_redirect_target"]) if row.get("observed_redirect_target") else "No observation recorded"
+        observed_date = e(row["observed_on"]) if row.get("observed_on") else "—"
+        sources = src_links(row.get("observed_source_ids") or []) or dash
         body_rows.append(
-            f'<tr><td>{e(r["id"])}</td>'
-            f'<td><code>{e(r["supplied_link"])}</code></td>'
-            f'<td>{e(r["category_fit"])}</td>'
-            f'<td>{intended}</td>'
-            f'<td>{official}</td>'
-            f'<td>{confirmed}</td>'
-            f'<td><code>{e(r["observed_redirect_target"])}</code><br><span class="tiny muted">observed {e(r["observed_on"])}</span></td>'
-            f'<td>{e(r["observed_title"])}</td>'
-            f'<td>{srcs}<br><span class="tiny muted">{e(r["note"])}</span></td></tr>'
+            f'<tr><td>{e(row["id"])}</td>'
+            f'<td><code>{e(row["supplied_link"])}</code></td>'
+            f'<td>{e(row["observed_listing_category"])}</td>'
+            f'<td>{intended}</td><td>{official}</td><td>{confirmed}</td>'
+            f'<td><code>{target}</code><br><span class="tiny muted">observed {observed_date}; destination only</span></td>'
+            f'<td>{e(row.get("observed_title") or "No title observation recorded")}</td>'
+            f'<td>{sources}<br><span class="tiny muted">{e(row["note"])}</span></td></tr>'
         )
-    ledger_cols = "".join(f"<th>{e(c)}</th>" for c in ledger["columns"])
+    ledger_cols = "".join(f"<th>{e(column)}</th>" for column in ledger["columns"])
+    ledger_rows = "".join(
+        "<tr>" + "".join(f"<td>{e(row.get(column, ''))}</td>" for column in ledger["columns"]) + "</tr>"
+        for row in ledger["rows"]
+    )
+    ledger_empty = "" if ledger["rows"] else '<p class="small blank">No authorized report rows recorded.</p>'
     tag = intent["tracking_id_selected"]
     body = f"""
 <section class="hero-lite">
-  <p class="kicker">Measure before optimising</p>
-  <h1>Product intent and campaign ledger</h1>
-  <p class="lede">Each link you supplied is recorded here with the product it is meant to reach and what the link actually led to on the day it was checked. The two are kept apart on purpose. The campaign ledger starts empty: no click, order or revenue figure appears until it comes from an authorised first-party report.</p>
+  <p class="kicker">Owner workspace · product links and measurement</p>
+  <h1>Link intent and campaign ledger</h1>
+  <p class="lede">Observed redirect destinations and intended products are separate records. No intended ASIN or listing is filled in until the account holder confirms it. The campaign ledger stays empty until an authorized first-party report supplies real numbers.</p>
 </section>
 
-<div class="card">
-  <h2 style="margin-top:0">Tracking ID</h2>
-  <p><strong><code>{e(tag)}</code></strong> is the tracking ID you selected, and as of <strong>2026-11-17 it is applied</strong> to every outbound product link this site renders. Each one is built as <code>/dp/&lt;ASIN&gt;?tag={e(tag)}</code>, and a build gate fails the build if any outbound Amazon link ships without it or without <code>rel="sponsored"</code>.</p>
-  <p class="small">What that does <em>not</em> prove: that Amazon attributes a commission to it. Your brief asks for one Special Link to be tested in the Associates workflow before the ID is trusted everywhere, and that test needs an Associates Central login, which this build cannot use. The gate proves the tag is attached and well-formed; only the tracking report proves it is credited.</p>
-  <p class="small">The five supplied <code>link.amazon</code> URLs remain untagged and are no longer used as purchase links. Sources: {src_links(['S6', 'S5', 'S2'])}. Open: {'<a href="flagged.html#f76">F76</a>'} · {'<a href="flagged.html#f82">F82</a>'}.</p>
+<div class="callout warn">
+  <strong>Account and link status are not verified.</strong>
+  The tracking ID below is user-provided, not confirmed as active or as the tag on any supplied link. No tracking test or order report has been run. Do not read an observed fallback page as the product the account holder meant to promote.
 </div>
 
-<h2>Product-intent confirmation record</h2>
-<p class="small">Intended ASIN and listing URL are filled only from an official listing the account holder confirms. Observed fields are what the supplied link returned on the date shown. The short codes are not ASINs, so no intended ASIN is inferred. Open flags: <a href="flagged.html#f77">F77</a>, <a href="flagged.html#f78">F78</a>.</p>
+<div class="card">
+  <h2 style="margin-top:0">Selected tracking ID</h2>
+  <p><strong><code>{e(tag)}</code></strong> — {e(intent["tracking_id_status"])}</p>
+  <p class="small">The brief calls for one enrolled-Associates link test <strong>per confirmed intended product</strong> before scaling. Once each intended listing is confirmed, test its Special Link and verify the click in Associates Central. Keep <code>associate_tag</code> blank until those account-only checks pass. Sources: {src_links(['S5', 'S6', 'S2'])}. Open flag: <a href="flagged.html#f76">F76</a>.</p>
+</div>
+
+<h2>Five supplied links: intended identity is unconfirmed</h2>
+<p class="small">The five submitted URL strings, the observed destination/title for each, and any owner-confirmed intended listing are separate records. The observed pages are not evidence of intent. No conclusion is made here about whether a supplied short link is valid or compliant, or what its path token denotes. Intended fields stay blank until the account holder confirms each listing. Open flags: <a href="flagged.html#f77">F77</a>, <a href="flagged.html#f78">F78</a>, and <a href="flagged.html#f79">F79</a> (source-record correction).</p>
 <div class="tablewrap">
 <table>
-  <caption>One row per supplied link (5 links, observed 2026-11-17)</caption>
-  <thead><tr><th>Row</th><th>Supplied link</th><th>Category fit</th><th>Intended ASIN</th><th>Official listing URL</th><th>Confirmed (date, source)</th><th>Observed redirect target</th><th>Observed listing title</th><th>Source</th></tr></thead>
+  <caption>Five link records — observed 2026-11-17; intended product not confirmed</caption>
+  <thead><tr><th>Record</th><th>Supplied link</th><th>Observed page title suggests (not intended identity)</th><th>Intended ASIN</th><th>Official listing URL confirmed by operator</th><th>Confirmation date / source</th><th>Observed redirect target</th><th>Observed listing title</th><th>Evidence / note</th></tr></thead>
   <tbody>{"".join(body_rows)}</tbody>
 </table>
 </div>
 
 <h2>Campaign ledger</h2>
-<p class="small">Empty by design. A row is added only from an authorised first-party report and keeps its timestamp, source report and date range. No conversion score, revenue forecast or estimate is stored or shown.</p>
+<p class="small">No rows have been added. The ledger accepts timestamp, source report, channel, date range, eligible sessions, clicks and <em>reported</em> orders. It does not estimate conversion or revenue from click counts. The required fields and import gate are recorded in <a href="measurement.html">the measurement plan</a>. Sources for the program/reporting rules: {src_links(['S1', 'S2', 'S6'])}.</p>
 <div class="tablewrap">
 <table>
-  <caption>Campaign ledger (0 rows)</caption>
+  <caption>Authorized report totals only ({len(ledger['rows'])} rows recorded)</caption>
   <thead><tr>{ledger_cols}</tr></thead>
-  <tbody></tbody>
+  <tbody>{ledger_rows}</tbody>
 </table>
 </div>
-<p class="tiny muted">No rows. No authorised first-party report has been added. Sources for the ledger rules: {src_links(['S1', 'S2'])}</p>
+{ledger_empty}
+<p class="small"><a href="measurement.html">See the five event definitions, cadence and deployment gate →</a></p>
 """
-    return layout("product-intent.html", "Product intent and campaign ledger", body,
+    return layout("product-intent.html", "Product-link records and campaign ledger", body,
                   active="product-intent.html",
-                  description="Each supplied Amazon link recorded with its intended product and the observed redirect target, kept in separate fields, plus an empty campaign ledger.",
+                  description="Owner record keeping supplied-link observations separate from intended listings, plus an empty campaign ledger for authorized report data.",
                   jsonld_blocks=[breadcrumbs_jsonld([
-                      ("Home", SITE_URL + "/"),
-                      ("Product intent and campaign ledger", page_url("product-intent.html")),
+                      ("Home", SITE_BASE),
+                      ("Product-link records and campaign ledger", page_url("product-intent.html")),
                   ])])
 
+
+def page_measurement():
+    plan = ANALYTICS_PLAN
+    project_schema = repo_link("data/analytics-plan.json", "Project event schema")
+    event_rows = []
+    for event in plan["events"]:
+        evidence = (src_links(["S6", "S2"]) if event["name"] == "affiliate_report_import" else project_schema)
+        event_rows.append(
+            f'<tr><td><code>{e(event["name"])}</code></td>'
+            f'<td>{e(event["origin"])}</td>'
+            f'<td class="small">{e(event["when"])}</td>'
+            f'<td class="small">{e(", ".join(event["properties"]))}</td>'
+            f'<td class="small">{e("Not active" if not plan["collection"]["enabled"] else "Enabled only after deployment gates")}</td>'
+            f'<td>{evidence}</td></tr>'
+        )
+    cadence_rows = "".join(
+        f'<tr><td><strong>{e(item["frequency"])}</strong></td>'
+        f'<td class="small">{e(item["action"])}</td>'
+        f'<td>{repo_link("data/analytics-plan.json", "Project cadence")}</td></tr>'
+        for item in plan["cadence"]
+    )
+    gate_rows = [
+        ("Runtime and route", "Not configured or verified. The repository's canonical origin is a GitHub Pages URL; no same-origin /api/analytics/events runtime is configured in this checkout. S38 is a documentation reference, not a page fetched in this integration.", src_links(["S38"])),
+        ("Privacy and retention notice", "Not approved. Keep the client disabled until the actual deployment and visitor-facing notice are reviewed together.", src_links(["S2"])),
+        ("Host and proxy logs", "Not reviewed. Before collection, verify whether the hosting platform, CDN or reverse proxy retains IP addresses, user agents, request URLs or access logs; set an approved retention policy.", repo_link("data/analytics-plan.json", "Privacy and deployment gate")),
+        ("Event collector", "Reference implementation and tests are in analytics/collector.py and tests/test_analytics.py; not deployed or reachable from the published site.", repo_link("analytics/collector.py", "Reference collector")),
+        ("Associates attribution", "Not tested. The selected tracking ID is user-provided and the Associates Central account is not accessible here.", src_links(["S5", "S6"])),
+        ("Conversion reporting", "Blocked on an authorized Associates Central report. No conversion, order or revenue estimate is generated.", src_links(["S2", "S6"])),
+    ]
+    gates_html = "".join(
+        f'<tr><td><strong>{e(name)}</strong></td><td class="small">{e(status)}</td><td>{sources}</td></tr>'
+        for name, status, sources in gate_rows
+    )
+    # -- Sections from data/measurement.json (session 79743fd2): what actually ships
+    # in this repository, the client-side event cards, the empty campaign ledger and
+    # the prerequisites. The two event registers above and below were written by
+    # different sessions; both are published and the mapping note keeps them honest.
+    m = MEASUREMENT
+
+    def ev_card(ev):
+        nots = "".join(f'<li>{e(x)}</li>' for x in ev["explicitly_not_recorded"])
+        recs = "".join(f'<li>{e(x)}</li>' for x in ev["records"])
+        return f"""
+<div class="card" style="margin:.7rem 0">
+  <p class="section-eyebrow">{e(ev['id'])} \u00b7 <code>{e(ev['name'])}</code></p>
+  <p class="small"><strong>Fires when:</strong> {e(ev['fires_when'])}</p>
+  <div class="grid" style="grid-template-columns:1fr 1fr;gap:1rem">
+    <div><p class="tiny muted" style="margin:0">Records</p><ul class="tight small">{recs}</ul></div>
+    <div><p class="tiny muted" style="margin:0">Never records</p><ul class="tight small">{nots}</ul></div>
+  </div>
+  <p class="tiny muted" style="margin-bottom:0">{e(ev['note'])}</p>
+</div>"""
+
+    events = "".join(ev_card(ev) for ev in m["events"])
+    why = "".join(f"<li>{e(x)}</li>" for x in m["why_nothing_is_sending"])
+    priv = "".join(f"<li>{e(x)}</li>" for x in m["privacy_rules"])
+    SRC_S2 = src_links(['S2'])
+    pre = "".join(
+        f'<tr><td class="num">{e(x["step"])}</td><td class="small">{e(x["owner_action"])}</td>'
+        f'<td class="small">{e(x["blocks"])}</td><td class="small">{e(x["why"])} {SRC_S2}</td></tr>'
+        for x in m["prerequisites"]
+    )
+    led = m["campaign_ledger"]
+    impl = m.get("implementation") or {}
+    REPO_BLOB = "https://github.com/kanlerxz87-cyber/Zone1/blob/main/"
+    impl_where = {
+        "client": REPO_BLOB + "assets/analytics.js",
+        "switch": REPO_BLOB + "data/config.json",
+        "endpoint_source": REPO_BLOB + "analytics/README.md",
+        "guard": REPO_BLOB + "build.py",
+        "verification": REPO_BLOB + "reports/verification-2026-11-17-79743fd2.md",
+        "what_is_not_shipped": REPO_BLOB + "data/measurement.json",
+    }
+    impl_rows = ""
+    for k, v in impl.items():
+        where = impl_where.get(k, REPO_BLOB)
+        impl_rows += (
+            f'<tr><td class="small"><strong>{e(k.replace("_", " "))}</strong></td>'
+            f'<td class="small">{e(v)}</td>'
+            f'<td class="small"><a href="{e(where)}" target="_blank" rel="noopener">'
+            f'in this repository \u2197</a></td></tr>')
+    body = f"""
+<section class="hero-lite">
+  <p class="kicker">Owner workspace · measurement</p>
+  <h1>Measure only what the system can verify.</h1>
+  <p class="lede">Five event definitions and a reporting cadence are ready for review. Collection is deliberately disabled: the current GitHub Pages publication has no server endpoint, no verified account connection and no approved analytics privacy notice.</p>
+</section>
+
+<div class="callout warn">
+  <strong>Prepared, not live.</strong>
+  The source-controlled collector is a deployment reference, not a live service. This publication currently sends no analytics events. No click totals, conversions, traffic sources or revenue are claimed.
+</div>
+
+<h2>Event definitions</h2>
+<p class="small">In the reference design, browser payloads contain only allow-listed page/product IDs or a fixed engagement bucket, and the application stores daily aggregates rather than raw event rows. The client reads no cookies, persistent IDs, referrers, query strings or destination URLs. The collector disables its own HTTP access log; host and proxy logging must also be reviewed before deployment. <code>affiliate_report_import</code> is an operator-only aggregate from an authorized report, not a browser event.</p>
+<div class="tablewrap">
+<table>
+  <caption>Five event types in the project-owned measurement schema</caption>
+  <thead><tr><th>Event</th><th>Origin</th><th>When it is recorded</th><th>Allowed data</th><th>Current state</th><th>Source / definition</th></tr></thead>
+  <tbody>{"".join(event_rows)}</tbody>
+</table>
+</div>
+
+<h2>Cadence</h2>
+<p class="small">These are operating rules for the project, not evidence that any event or search query has been recorded.</p>
+<div class="tablewrap">
+<table>
+  <caption>Measurement and publication cadence</caption>
+  <thead><tr><th>When</th><th>Action</th><th>Definition</th></tr></thead>
+  <tbody>{cadence_rows}</tbody>
+</table>
+</div>
+
+<h2>Deployment and access gates</h2>
+<div class="tablewrap">
+<table>
+  <caption>What must be verified before measurement is enabled</caption>
+  <thead><tr><th>Gate</th><th>Current evidence and missing step</th><th>Source</th></tr></thead>
+  <tbody>{gates_html}</tbody>
+</table>
+</div>
+
+<h2>What actually ships in this repository</h2>
+<p class="small">Two event registers exist and both are published: <code>data/analytics-plan.json</code>
+(the table above &mdash; what the reference collector accepts) and <code>data/measurement.json</code>
+(the cards below &mdash; what the shipped browser counter sends). They are parallel descriptions of
+the same five events written by different sessions; nothing is collected by either until every gate
+above passes. The client-side IDs map one-to-one: EV-01 page_view, EV-02 outbound_product_click
+(the plan's <code>outbound_click</code>), EV-03 guide_completed (<code>article_engagement</code>),
+EV-04 comparison_table_viewed (<code>comparison_interaction</code>), EV-05 reported_order
+(<code>affiliate_report_import</code>, operator-entered).</p>
+<div class="tablewrap">
+<table>
+  <caption>What ships, and what does not</caption>
+  <thead><tr><th style="width:18%">Part</th><th style="width:62%">State</th><th style="width:20%">Where to look</th></tr></thead>
+  <tbody>{impl_rows}</tbody>
+</table>
+</div>
+
+<h2>The client-side events, in detail</h2>
+{events}
+
+<div class="callout info">
+  <strong>Privacy rules the counter must keep</strong>
+  <ul class="tight small" style="margin-bottom:0">{priv}</ul>
+</div>
+
+<h2>Why nothing is sending yet</h2>
+<ul class="tight small">{why}</ul>
+
+<h2>Campaign ledger</h2>
+<p class="small">{e(led['note'])}</p>
+<div class="tablewrap">
+<table>
+  <caption>Empty on purpose. Columns: {e(', '.join(led['columns']))}</caption>
+  <thead><tr>{''.join(f'<th>{e(c)}</th>' for c in led['columns'])}</tr></thead>
+  <tbody><tr><td colspan="{len(led['columns'])}" class="small muted">No rows. {e(led['why_empty'])} {SRC_S2}</td></tr></tbody>
+</table>
+</div>
+
+<h2>What has to be true before a single event sends</h2>
+<div class="tablewrap">
+<table>
+  <caption>Prerequisites, in order</caption>
+  <thead><tr><th style="width:6%">Step</th><th style="width:34%">Owner action</th>
+  <th style="width:16%">Blocks</th><th style="width:44%">Why</th></tr></thead>
+  <tbody>{pre}</tbody>
+</table>
+</div>
+
+<h2>Choose future topics from measured queries</h2>
+<p class="small">The topic register contains editorial hypotheses, not demand estimates. Verify the site's Search Console property, submit the generated sitemap, and wait for real query/page data before describing a topic as popular or trending. The build regenerates the sitemap from indexable publication pages and the feed from registered articles; include a guide in the appropriate register before publishing so those outputs update together.</p>
+<p class="small">References: <a href="topics.html">Content and traffic plan</a> · <a href="questions.html">Questions and discovery steps</a> · <a href="product-intent.html">Product-link records and campaign ledger</a> · {src_links(["S30", "S31", "S38"])}</p>
+"""
+    return layout("measurement.html", "Measurement plan and deployment gate", body,
+                  active="measurement.html",
+                  description="Five privacy-minimizing event definitions, a publication/report cadence, and explicit unverified hosting and account blockers. Collection remains disabled.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+                      ("Home", SITE_BASE),
+                      ("Measurement plan", page_url("measurement.html")),
+                  ])])
 
 def page_decisions():
     d = DECISION
@@ -7249,13 +7264,11 @@ def check_flag_ids_unique():
 
 
 def check_flag_count_matches_page():
-    """Build guard: the landing page's "Flags open" tile must equal the register it links to.
+    """Build guard: the review register's rendered rows must match its computed count.
 
-    The defect this prevents was live on main at 9c6deab: `_flag_count()` matched
-    `<tr><td class="num">` while `page_flagged()` had emitted `<tr id="fNN">` since the
-    per-row anchors landed, so the front page advertised "0 Flags open" beside a 61-row
-    register. A typed total is what passes 9 and 10 both caught themselves getting wrong;
-    a computed total is only better if something checks the computation. This does.
+    The buyer-first front page intentionally no longer carries an audit-count tile; the
+    detailed count belongs on flagged.html, not in the shopping decision path. Keep checking
+    that the register's own rows and count agree so the redesign cannot hide a drift.
     """
     rendered = len(re.findall(r'<tr id="f\d+"><td class="num"><strong>F\d+</strong>',
                               page_flagged()))
@@ -7265,13 +7278,6 @@ def check_flag_count_matches_page():
     if rendered != computed:
         return [f"landing-page flag count ({computed}) disagrees with the rendered "
                 f"register ({rendered} rows)"]
-    # The tile on index.html must publish that same number, not a literal of its own.
-    idx = page_index()
-    m = re.search(r'<div class="tile"><b>(\d+)</b><span>Flags open', idx)
-    if not m:
-        return ["index.html no longer renders the Flags open tile"]
-    if int(m.group(1)) != rendered:
-        return [f"index.html publishes {m.group(1)} flags, register holds {rendered}"]
     return []
 
 
@@ -7846,75 +7852,6 @@ def qualify_affiliate_links(html_text):
 AFFILIATE_HOST = "link.amazon"
 
 
-# --------------------------------------------------------------------------- #
-# Associates tag + sponsored marking (added 2026-11-17, session 5b17c077)
-# --------------------------------------------------------------------------- #
-# Program Policies §2(b), read live 2026-11-17: "you must include your Associates ID or
-# 'tag' (appearing as XXXXX-## …) as a parameter in the URL of each link you place on
-# your Site to an Amazon Site." That is *each* link, not only the call to action, so the
-# citation badges that prove a spec (S16/S28/S29 point at /dp/ listing pages) are in scope
-# too. Google's "Qualify your outbound links" guidance asks that advertisements and paid
-# placements carry rel="sponsored"; the brief asks for every outbound product link to be
-# marked, which is the stricter of the two, so this pass applies it to all of them.
-
-AMAZON_DP_RE = re.compile(r'<a\b[^>]*href="(https://www\.amazon\.com/dp/[^"]+)"[^>]*>', re.I)
-
-
-def tag_and_qualify_amazon_links(html_text):
-    """Give every outbound Amazon product anchor the tag and rel="sponsored".
-
-    One post-render pass, for the reason qualify_affiliate_links() already documents: a
-    future template that prints a product URL cannot reintroduce an untagged or
-    unqualified link. Query strings already present are preserved and the tag is
-    replaced, never duplicated, so rebuilding is idempotent.
-    """
-    def fix(match):
-        tag = match.group(0)
-        href = match.group(1)
-        # Split off any existing tag= and rebuild it, so a second run is a no-op.
-        base, _, query = href.partition("?")
-        params = [p for p in query.split("&") if p and not p.startswith("tag=")]
-        if ASSOCIATE_TAG:
-            params.insert(0, f"tag={ASSOCIATE_TAG}")
-        new_href = base + (("?" + "&".join(params)) if params else "")
-
-        rel_attr = re.search(r'rel="([^"]*)"', tag, re.I)
-        values = [v for v in (rel_attr.group(1).split() if rel_attr else []) if v]
-        if "sponsored" not in values:
-            values = ["sponsored"] + values
-        new_tag = re.sub(r'\srel="[^"]*"', "", tag, count=1, flags=re.I)
-        new_tag = re.sub(r'\shref="[^"]*"', f' href="{new_href}"', new_tag, count=1, flags=re.I)
-        return new_tag[:-1].rstrip() + f' rel="{" ".join(values)}">'
-    return AMAZON_DP_RE.sub(fix, html_text)
-
-
-def check_associate_tagging(pages):
-    """Build gate: no outbound Amazon product link may ship untagged or unqualified.
-
-    This is the executable form of §2(a)/(b). Without it the tag lives in one config
-    field and the next template edit can silently drop it — which is exactly how flag F10
-    survived ten passes. Fails, rather than warns, because an untagged link earns nothing
-    and the site can never observe that it stopped earning.
-    """
-    problems = []
-    for rel, html_text in pages.items():
-        if not rel.endswith(".html"):
-            continue
-        for tag in re.findall(r'<a\b[^>]*href="https://www\.amazon\.com/dp/[^"]*"[^>]*>', html_text, re.I):
-            href = re.search(r'href="([^"]+)"', tag).group(1)
-            params = href.partition("?")[2].split("&")
-            if not ASSOCIATE_TAG:
-                problems.append(f"{rel}: no Associates tag configured, link ships untagged: {href[:70]}")
-                continue
-            if f"tag={ASSOCIATE_TAG}" not in params:
-                problems.append(f"{rel}: product link without the Associates tag: {href[:70]}")
-            rel_attr = re.search(r'rel="([^"]*)"', tag, re.I)
-            values = (rel_attr.group(1) if rel_attr else "").split()
-            if "sponsored" not in values:
-                problems.append(f"{rel}: product link without rel=\"sponsored\": {href[:70]}")
-    return problems
-
-
 def check_affiliate_link_qualification(pages):
     """Build guard: every clickable affiliate link must be qualified.
 
@@ -7965,8 +7902,12 @@ def check_seo_metadata(pages):
     for rel, html_text in pages.items():
         if not rel.endswith(".html"):
             continue
+        expected_robots = ("index,follow,max-image-preview:large" if is_indexable_page(rel)
+                           else "noindex,follow")
+        if f'<meta name="robots" content="{expected_robots}">' not in html_text:
+            problems.append(f"{rel}: robots directive must be {expected_robots!r}")
         if rel == "404.html":
-            if not re.search(r'<meta name="robots" content="noindex"', html_text):
+            if '<meta name="robots" content="noindex,follow">' not in html_text:
                 problems.append(f"{rel}: 404 page must carry a noindex robots meta")
             if 'rel="canonical"' in html_text:
                 problems.append(f"{rel}: 404 page must not declare a canonical URL")
@@ -8000,139 +7941,73 @@ def check_seo_metadata(pages):
     return problems
 
 
-# --------------------------------------------------------------------------- #
-# measurement specification (added 2026-11-17, session 5b17c077)
-# --------------------------------------------------------------------------- #
-# The brief asks for click and conversion measurement. This page defines the five
-# events precisely and states, per prerequisite, what is missing before any of them
-# can send. It reports no numbers, because there are none to report yet.
-
-MEASUREMENT = load("measurement.json")
-
-
-def page_measurement():
-    m = MEASUREMENT
-
-    def ev_card(ev):
-        nots = "".join(f'<li>{e(x)}</li>' for x in ev["explicitly_not_recorded"])
-        recs = "".join(f'<li>{e(x)}</li>' for x in ev["records"])
-        return f"""
-<div class="card" style="margin:.7rem 0">
-  <p class="section-eyebrow">{e(ev['id'])} · <code>{e(ev['name'])}</code></p>
-  <p class="small"><strong>Fires when:</strong> {e(ev['fires_when'])}</p>
-  <div class="grid" style="grid-template-columns:1fr 1fr;gap:1rem">
-    <div><p class="tiny muted" style="margin:0">Records</p><ul class="tight small">{recs}</ul></div>
-    <div><p class="tiny muted" style="margin:0">Never records</p><ul class="tight small">{nots}</ul></div>
-  </div>
-  <p class="tiny muted" style="margin-bottom:0">{e(ev['note'])}</p>
-</div>"""
-
-    events = "".join(ev_card(ev) for ev in m["events"])
-    why = "".join(f"<li>{e(x)}</li>" for x in m["why_nothing_is_sending"])
-    priv = "".join(f"<li>{e(x)}</li>" for x in m["privacy_rules"])
-    SRC_S2 = src_links(['S2'])
-    pre = "".join(
-        f'<tr><td class="num">{e(x["step"])}</td><td class="small">{e(x["owner_action"])}</td>'
-        f'<td class="small">{e(x["blocks"])}</td><td class="small">{e(x["why"])} {SRC_S2}</td></tr>'
-        for x in m["prerequisites"]
-    )
-    led = m["campaign_ledger"]
-    impl = m.get("implementation") or {}
-    # Every row of this table states where the thing described actually lives, so
-    # the reader can check the claim rather than take it. The row-source build
-    # guard requires a link in every data row, which is the right rule: a table
-    # of statements about this repository should point at this repository.
-    REPO_BLOB = "https://github.com/kanlerxz87-cyber/Zone1/blob/main/"
-    impl_where = {
-        "client": REPO_BLOB + "assets/analytics.js",
-        "switch": REPO_BLOB + "data/config.json",
-        "endpoint_source": REPO_BLOB + "analytics/README.md",
-        "guard": REPO_BLOB + "build.py",
-        "verification": REPO_BLOB + "reports/verification-2026-11-17-79743fd2.md",
-        "what_is_not_shipped": REPO_BLOB + "data/measurement.json",
+def check_intent_measurement_contract(pages=None):
+    """Guard the five link records and the disabled-by-default analytics gate."""
+    problems = []
+    expected_links = {
+        "https://link.amazon/B04G1MEwY",
+        "https://link.amazon/B02NbDxp3",
+        "https://link.amazon/B00hJ57DV",
+        "https://link.amazon/B0c8moW59",
+        "https://link.amazon/B0f3GKalj",
     }
-    impl_rows = ""
-    for k, v in impl.items():
-        where = impl_where.get(k, REPO_BLOB)
-        impl_rows += (
-            f'<tr><td class="small"><strong>{e(k.replace("_", " "))}</strong></td>'
-            f'<td class="small">{e(v)}</td>'
-            f'<td class="small"><a href="{e(where)}" target="_blank" rel="noopener">'
-            f'in this repository \u2197</a></td></tr>')
+    rows = PRODUCT_INTENT.get("rows", [])
+    if len(rows) != 5 or {row.get("supplied_link") for row in rows} != expected_links:
+        problems.append("product-intent register must preserve the five supplied link strings exactly")
+    for row in rows:
+        confirmed = all(row.get(field) for field in (
+            "intended_asin", "official_listing_url", "confirmation_date", "confirmation_source"))
+        if any(row.get(field) for field in (
+            "intended_asin", "official_listing_url", "confirmation_date", "confirmation_source")) and not confirmed:
+            problems.append(f"{row.get('id')}: intended listing fields must be confirmed together or remain blank")
+    selected = SITE_CONFIG.get("selected_tracking_id")
+    if selected != PRODUCT_INTENT.get("tracking_id_selected"):
+        problems.append("selected tracking ID differs between config.json and product-intent.json")
+    associate_tag = (SITE_CONFIG.get("associate_tag") or "").strip()
+    applied = bool(PRODUCT_INTENT.get("tracking_id_applied_to_links"))
+    if bool(associate_tag) != applied:
+        problems.append("associate_tag and tracking_id_applied_to_links must agree")
+    if associate_tag or applied:
+        if associate_tag != selected:
+            problems.append("configured associate_tag must match the separately recorded tracking ID")
+        if not SITE_CONFIG.get("selected_tracking_id_associates_central_confirmed") or not PRODUCT_INTENT.get("tracking_id_associates_central_confirmed"):
+            problems.append("associate_tag cannot be applied before the tracking ID is confirmed in Associates Central")
+        for row in rows:
+            intended_fields = ("intended_asin", "official_listing_url", "confirmation_date", "confirmation_source")
+            if not all(row.get(field) for field in intended_fields):
+                problems.append(f"{row.get('id')}: associate_tag cannot be applied before intended listing confirmation")
+            if not (row.get("associates_link_test_passed") and row.get("associates_link_test_date") and row.get("associates_link_test_source")):
+                problems.append(f"{row.get('id')}: associate_tag cannot be applied before its enrolled-Associates test is recorded")
 
-    body = f"""
-<h1>Measurement: five events, defined and not yet sending</h1>
-<p class="lede">The brief asks for click and conversion measurement. This page is the
-specification for exactly what would be recorded and what is deliberately excluded — and
-the honest reason none of it is running. <strong>No count, rate or revenue figure appears
-on this page, because none has been measured.</strong> An empty ledger is a true statement;
-a filled one here would not be.</p>
+    names = [event.get("name") for event in ANALYTICS_PLAN.get("events", [])]
+    required_events = {
+        "page_view", "outbound_click", "article_engagement",
+        "comparison_interaction", "affiliate_report_import",
+    }
+    if len(names) != 5 or set(names) != required_events:
+        problems.append("analytics plan must define the five agreed event types exactly once")
+    collection = ANALYTICS_PLAN.get("collection", {})
+    if collection.get("enabled") and not all(collection.get(key) for key in (
+        "endpoint_deployed", "runtime_selected", "privacy_notice_approved")):
+        problems.append("analytics cannot be enabled before runtime, endpoint and privacy gates pass")
+    if pages is not None and not collection.get("enabled"):
+        for rel, text in pages.items():
+            if re.search(r'<script\b[^>]+src="[^"]*assets/analytics\.js"', text):
+                problems.append(f"{rel}: analytics client must not load while collection is disabled")
+    ledger_required = {
+        "timestamp_utc", "source_report", "channel", "date_range",
+        "eligible_sessions", "clicks", "reported_orders",
+    }
+    if not ledger_required.issubset(set(CAMPAIGN_LEDGER.get("columns", []))):
+        problems.append("campaign ledger is missing one or more required report fields")
+    return problems
 
-<div class="callout bad">
-  <strong>Status: {e(m['status'].replace('_', ' '))}</strong>
-  <p class="small">Four of the five events need a server endpoint this repository does not
-  have: the client that would send them now ships, but there is nowhere for it to send to and
-  the switch is off. The fifth, reported orders, can only be entered by hand from the owner's
-  Associates report. Neither is something a session can invent.</p>
-</div>
 
-<div class="callout warn">
-  <strong>What is built, and what is not</strong>
-  <p class="small">The counter is written and shipped. The sink it would post to is not
-  deployed, and the switch is off. These are different things, and only the first one is
-  this repository's to do.</p>
-</div>
-
-<div class="tablewrap">
-<table>
-  <caption>What ships, and what does not</caption>
-  <thead><tr><th style="width:18%">Part</th><th style="width:62%">State</th><th style="width:20%">Where to look</th></tr></thead>
-  <tbody>{impl_rows}</tbody>
-</table>
-</div>
-
-<h2>Why nothing is sending yet</h2>
-<ul class="tight small">{why}</ul>
-
-<h2>The five events</h2>
-{events}
-
-<div class="callout info">
-  <strong>Privacy rules the counter must keep</strong>
-  <ul class="tight small" style="margin-bottom:0">{priv}</ul>
-</div>
-
-<h2>Campaign ledger</h2>
-<p class="small">{e(led['note'])}</p>
-<div class="tablewrap">
-<table>
-  <caption>Empty on purpose. Columns: {e(', '.join(led['columns']))}</caption>
-  <thead><tr>{''.join(f'<th>{e(c)}</th>' for c in led['columns'])}</tr></thead>
-  <tbody><tr><td colspan="{len(led['columns'])}" class="small muted">No rows. {e(led['why_empty'])} {src_links(['S2'])}</td></tr></tbody>
-</table>
-</div>
-
-<h2>What has to be true before a single event sends</h2>
-<div class="tablewrap">
-<table>
-  <caption>Prerequisites, in order</caption>
-  <thead><tr><th style="width:6%">Step</th><th style="width:34%">Owner action</th>
-  <th style="width:16%">Blocks</th><th style="width:44%">Why</th></tr></thead>
-  <tbody>{pre}</tbody>
-</table>
-</div>
-
-<p class="tiny muted">Specification: <code>data/measurement.json</code>. Program Policies
-§3(e) governs the disclosure an analytics script triggers; §3(s) bars artificially
-generating clicks; §2(b) bars associating a sub-tag with an end user.</p>
-"""
-    return layout("measurement.html", "Measurement: five events, the counter shipped, none sending", body,
-                  active="measurement.html",
-                  description="The five measurement events this site will record, what each excludes, the privacy-preserving counter that now ships with the switch off, and the prerequisites before any of them can send. No counts are reported because none has been measured.",
-                  jsonld_blocks=[breadcrumbs_jsonld([
-        ("Home", SITE_URL + "/"),
-        ("Measurement", page_url("measurement.html")),
-    ])])
+def check_sitemap_membership(pages):
+    """The buyer-facing publication set must exist; admin pages are a separate surface."""
+    required = set(PUBLIC_INDEX_PAGES)
+    missing = sorted(required - set(pages))
+    return [f"missing canonical buyer page: {rel}" for rel in missing]
 
 
 def main():
@@ -8172,6 +8047,7 @@ def main():
     pages["decisions.html"] = page_decisions()
     pages["handover.html"] = page_handover()
     pages["product-intent.html"] = page_intent()
+    pages["measurement.html"] = page_measurement()
     pages["suggestions.html"] = page_suggestions()
     pages["decision-log.html"] = page_decision_log()
     pages["design-prompt.html"] = page_design_prompt()
@@ -8182,13 +8058,9 @@ def main():
     pages["marketing-directions.html"] = page_suggestions_alt()
     pages["previous-passes.html"] = page_previous_passes()
     pages["404.html"] = page_404()
-    pages["measurement.html"] = page_measurement()
 
     # Qualify affiliate anchors before the guards see them, and before anything is written.
-    # Added 2026-11-17 (session 5b17c077): the tag/rel pass runs first so the guards below
-    # inspect exactly what a reader will receive, not a pre-transform version of it.
-    pages = {rel: qualify_affiliate_links(tag_and_qualify_amazon_links(text))
-             for rel, text in pages.items()}
+    pages = {rel: qualify_affiliate_links(text) for rel, text in pages.items()}
 
     # build guards
     problems = check_rows_have_sources()
@@ -8201,10 +8073,6 @@ def main():
     missing = check_disclosure(list(pages.items()))
     if missing:
         raise SystemExit("BUILD FAILED — pages missing the required disclosure: " + ", ".join(missing))
-    tag_problems = check_associate_tagging(pages)
-    if tag_problems:
-        raise SystemExit("BUILD FAILED — outbound Amazon link that is not a compliant Special Link:\n  "
-                         + "\n  ".join(tag_problems[:20]))
     article_problems = check_articles()
     if article_problems:
         raise SystemExit("BUILD FAILED — article cites an unregistered source or states an "
@@ -8263,6 +8131,14 @@ def main():
     if affiliate_problems:
         raise SystemExit("BUILD FAILED - unqualified affiliate links (Google spam policies, "
                          "S30/S31):\n  " + "\n  ".join(affiliate_problems))
+    contract_problems = check_intent_measurement_contract(pages)
+    if contract_problems:
+        raise SystemExit("BUILD FAILED - product-intent or analytics contract:\n  "
+                         + "\n  ".join(contract_problems))
+    sitemap_problems = check_sitemap_membership(pages)
+    if sitemap_problems:
+        raise SystemExit("BUILD FAILED - canonical sitemap membership:\n  "
+                         + "\n  ".join(sitemap_problems))
     req_path_problems = check_requirement_paths(generated=pages.keys())
     if req_path_problems:
         raise SystemExit("BUILD FAILED - requirements register cites paths that do not exist:\n  "
@@ -8301,18 +8177,13 @@ def main():
     for rel in sorted(pages):
         print(f"  {rel}")
 
-    # ---- pass 7 additive (sess-ce4070ad, T25): SEO plumbing -----------------
-    # The brief calls for an SEO-optimized site; until this pass the root build
-    # shipped neither robots.txt nor a sitemap. Both are generated here from the
-    # same page list the HTML is generated from, so they cannot drift from it.
-    # 404.html is excluded (not an indexable page). The annex builds (docs/,
-    # research/, s2/, site/, dashboard/, session-*/) are separate sub-sites owned
-    # by other sessions and deliberately stay out of the root sitemap.
+    # ---- SEO plumbing: one canonical buyer publication ---------------------
+    # The root sitemap contains only buyer-facing publication pages. Owner workspaces,
+    # verification registers, dashboards and the 404 page remain reachable by direct
+    # navigation but are noindex and excluded. The separate historical annexes are not
+    # generated into this sitemap.
     base = "https://kanlerxz87-cyber.github.io/Zone1/"
-    indexable = sorted(
-        rel for rel in pages
-        if rel.endswith(".html") and rel != "404.html"
-    )
+    indexable = sorted(rel for rel in pages if is_indexable_page(rel))
     (ROOT / "robots.txt").write_text(
         "User-agent: *\nAllow: /\n\nSitemap: " + base + "sitemap.xml\n",
         encoding="utf-8")

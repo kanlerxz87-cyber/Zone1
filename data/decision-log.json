@@ -64,7 +64,7 @@
       "session": "arena/79743fd2-zone1",
       "date": "2026-11-17",
       "path": "B, shipped disabled (partial)",
-      "what": "A privacy-preserving outbound-click counter (EV-01 click, EV-02 outbound destination only, EV-03 UTM context, EV-04 zero PII) ships with its client committed and emitted on every page, but data/config.json holds no endpoint so the script sends nothing; self-hosted endpoint sources (PHP and Cloudflare Worker) are committed and undeployed, and check_analytics_consistency() fails the build on any unsafe configuration.",
+      "what": "A privacy-preserving outbound-click counter (EV-01 page_view, EV-02 outbound_product_click, EV-03 guide_completed, EV-04 comparison_table_viewed, EV-05 reported_order) ships with its client committed and emitted on every page, but data/config.json holds no endpoint and data/analytics-plan.json keeps collection disabled, so the script sends nothing; self-hosted endpoint sources (PHP and Cloudflare Worker) are committed and undeployed, and check_analytics_consistency() fails the build on any unsafe configuration.",
       "why_allowed": "SG-08 allowed option B only with an updated disclosure on the same commit - done (privacy_html() and measurement.html state exactly what is and is not collected). The campaign ledger stays empty; no conversion or revenue figure is published.",
       "evidence": [
         "data/config.json",

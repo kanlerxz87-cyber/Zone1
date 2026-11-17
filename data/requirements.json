@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "compiled": "2026-11-16",
+  "compiled": "2026-11-17",
   "session": "arena/ad8105b3-zone1",
   "purpose": "Every requirement in the brief, one row each, with the status judged against what is actually in this repository and published on this site on 2026-11-16 - not against what the plan says. Where a requirement cannot be met, the row names the exact missing input and the clause that makes it missing.",
   "rule": "Status is a claim about this repository, so each one is checkable: the 'where' paths must exist in the tree (the build fails if one does not), the evidence links open the file or the official page that settles it, and a row with no evidence must be a row whose honest answer is that nothing exists yet.",
@@ -773,14 +773,25 @@
       "clause": "track clicks and conversions",
       "status": "partial",
       "where": [
+        "data/analytics-plan.json",
+        "analytics/collector.py",
         "assets/analytics.js",
+        "tests/test_analytics.py",
+        "measurement.html",
         "analytics/endpoint.php",
         "analytics/worker.js",
         "data/config.json",
-        "data/measurement.json",
-        "measurement.html"
+        "data/measurement.json"
       ],
       "evidence": [
+        {
+          "label": "Disabled measurement plan",
+          "url": "measurement.html"
+        },
+        {
+          "label": "Collector reference",
+          "url": "analytics/collector.py"
+        },
         {
           "label": "the counter that ships (switched off)",
           "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/assets/analytics.js"
@@ -794,8 +805,9 @@
           "url": "https://affiliate-program.amazon.com/help/operating/policies"
         }
       ],
-      "why": "The counter is written and shipped: assets/analytics.js records a reader-initiated click on an Amazon product link (and a page view, an article completion, a comparison view) with no cookie, no identifier, no IP address, no user agent and no referrer, and the endpoint source for a self-hosted sink ships in analytics/. It stays switched off because there is no endpoint host, and a counter with no sink behind it would report a number this site cannot source. The footer's cookie statement is now generated from the same configuration that switches the counter on, and a build guard fails the build if the statement and the shipped behaviour ever disagree — so the §3(e) exposure that used to sit under this row is closed. What is still missing is the owner's decision on where the endpoint runs, which no session can make.",
+      "why": "Both halves ship and neither collects: the five-event schema and a privacy-minimising reference collector with tests (data/analytics-plan.json, analytics/collector.py, tests/test_analytics.py) and a counter client with self-hosted endpoint sources (assets/analytics.js, analytics/endpoint.php, analytics/worker.js, data/config.json, data/measurement.json). The client is disabled, the collector is not deployed, and the footer's cookie statement is generated from the same configuration block so it cannot go stale. Collection stays off until the host, proxy logs, privacy notice and endpoint tests are approved; order and conversion figures come only from authorized Associates Central reports into the empty campaign ledger.",
       "sources": [
+        "S38",
         "S2"
       ]
     },

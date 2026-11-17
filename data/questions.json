@@ -226,20 +226,36 @@
       "group": "Measurement",
       "question": "What may this site measure, and whose consent does that require?",
       "state": "missing",
-      "why_it_matters": "The footer's cookie statement is now generated from the same configuration block that decides whether the counter ships, so it can no longer drift out of date by accident. Adding any analytics still makes the statement change, and for EU and UK visitors it also raises consent requirements that this site's US-only framing does not address.",
+      "why_it_matters": "The footer currently states the site sets no cookies and runs no analytics, which satisfies Program Policies section 3(e) as written. Adding any analytics makes that statement false immediately and triggers a privacy-notice update plus, for EU and UK visitors, consent requirements. The footer's cookie statement is generated from the same configuration block that decides whether the counter ships, so it cannot drift out of date by accident.",
       "what_we_know": [
+        "The current build loads no analytics client and sends no visitor events; its footer says so.",
+        "The brief requests privacy-preserving measurement. A reference collector and disabled browser client exist in this branch, but neither is deployed or collecting.",
+        "The repository configuration points the canonical site at a GitHub Pages URL; this checkout has no configured or verified same-origin analytics endpoint. The S38 documentation URL is a reference and was not fetched in this integration.",
+        "Amazon Associates Program Policies §3(e) require an accurate cookie/technology statement; collection remains disabled.",
         "The site is fully static and runs no client-side tracking of any kind today.",
         "The counter client now exists and ships (assets/analytics.js) but is switched off, because no endpoint host has been chosen. It sets no cookie and reads no identifier.",
         "Amazon reports clicks and orders per tracking ID without any on-site script, so a cookieless, script-free option exists that needs no disclosure change.",
         "Section 2(b) permits additional sub-tag IDs to separate traffic sources.",
         "The endpoint source for a self-hosted sink ships in analytics/ (a PHP file and a Cloudflare Worker); deploying it is the owner's decision."
       ],
-      "what_is_missing": "Whether the owner wants a first-party click counter at all, and if so whose host runs it - plus, if it is ever switched on, the lawful basis for EU and UK visitors, which this site's US-only framing does not currently cover.",
-      "how_to_discover": "Decide between Associates sub-tags alone (no disclosure change, no script) and the self-hosted cookieless counter whose source already ships (small disclosure update, handled by regenerating the footer). The choice is in the Suggestions page, SG-08, and the register row for it is the place to record the answer.",
+      "what_is_missing": "Both readings of the gap are true and both stand: (a) Whether the owner wants a first-party click counter at all, and if so whose host runs it - plus, if it is ever switched on, the lawful basis for EU and UK visitors, which this site's US-only framing does not currently cover. (b) A verified first-party runtime and same-origin route; approved visitor-facing privacy and retention notice; host/proxy log configuration review; a successful end-to-end test; and authorized Associates reports for order/conversion figures.",
+      "how_to_discover": "Choose and deploy an owner-controlled runtime for /api/analytics/events on the publication origin. Review application, host and proxy logging/retention, update and approve the privacy notice, then test the disabled-by-default collector end to end. Only after all gates pass may the owner explicitly enable collection. Obtain conversion/order totals only from authorized Associates Central reports. On top of those deployment gates, the owner still chooses between Associates sub-tags alone (no script) and the self-hosted cookieless counter whose client already ships; the choice is recorded in SG-08.",
       "blocks": [
         "SG-08"
       ],
       "sources": [
+        {
+          "label": "GitHub Pages documentation reference (not fetched in this integration)",
+          "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages"
+        },
+        {
+          "label": "Amazon Associates Program Policies §3(e)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Tracking IDs and reporting",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA"
+        },
         {
           "label": "Program Policies, section 3(e)",
           "url": "https://affiliate-program.amazon.com/help/operating/policies"

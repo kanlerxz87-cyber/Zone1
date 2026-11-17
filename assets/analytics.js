@@ -33,8 +33,15 @@
 
   // The whole payload. Five named fields, no more. If a field is not known it
   // is omitted rather than filled with a guess.
+  function optedOut() {
+    // Do Not Track / Global Privacy Control honoured (collector-plan client).
+    return navigator.doNotTrack === "1" || window.doNotTrack === "1" ||
+           navigator.globalPrivacyControl === true;
+  }
+
   function send(id, extra) {
     if (!enabled(id)) { return; }
+    if (optedOut()) { return; }
     var body = { event: id, page: slug(), date: utcDate() };
     if (extra) {
       for (var k in extra) {
@@ -57,6 +64,8 @@
         method: "POST",
         mode: "no-cors",
         keepalive: true,
+        credentials: "omit",
+        referrerPolicy: "no-referrer",
         headers: { "Content-Type": "text/plain;charset=UTF-8" },
         body: payload
       }).catch(function () { /* a lost beacon must never break the page */ });

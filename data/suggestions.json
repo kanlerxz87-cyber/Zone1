@@ -1,7 +1,7 @@
 {
   "version": "1.1",
   "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped)",
-  "compiled": "2026-11-16",
+  "compiled": "2026-11-17",
   "how_to_read": [
     "Nothing on this page has been implemented. It is a decision queue for the site owner.",
     "Each suggestion names the problem it fixes, the official document or repository evidence behind it, two or more paths you could take, and which path this pass would pick and why.",
@@ -393,8 +393,20 @@
       "id": "SG-08",
       "title": "Add click and conversion measurement that does not breach the privacy disclosure",
       "area": "Measurement",
-      "problem": "The site currently has no analytics at all - the footer states it sets no cookies and runs no analytics, which is honest and satisfies Program Policies section 3(e) as written. The consequence is that no claim about which page converts can be tested. Any analytics added must be accompanied by an updated section 3(e) disclosure on the same commit.",
+      "problem": "The current GitHub Pages publication has no event collection, and its footer accurately says so. This project now has a disabled-by-default first-party aggregate collector and a five-event measurement plan, but the endpoint is not deployed and the privacy notice has not been approved. Enabling collection before those gates pass would be misleading and could make the footer inaccurate.",
       "evidence": [
+        {
+          "label": "Amazon Program Policies §3(e) — cookie and third-party technology disclosure",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Current measurement plan and deployment gate",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/measurement.html"
+        },
+        {
+          "label": "GitHub Pages static hosting documentation",
+          "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages"
+        },
         {
           "label": "Program Policies, section 3(e) - cookie and third-party technology disclosure",
           "url": "https://affiliate-program.amazon.com/help/operating/policies"
@@ -406,29 +418,29 @@
       ],
       "options": [
         {
-          "label": "A. Associates Central reporting only",
-          "what": "Amazon already reports clicks and orders per tracking ID. Use sub-tags (section 2(b) permits additional sub-tag IDs) to separate traffic sources. No third-party script, no cookie, no disclosure change needed.",
+          "label": "A. Keep collection disabled; use authorized Associates reports only",
+          "what": "Preserves the current no-tracking publication while account access and link attribution remain unverified. Import only real report totals into the empty campaign ledger.",
           "effort": "S",
           "risk": "none",
           "reversible": true
         },
         {
-          "label": "B. Add a cookieless, privacy-first analytics script",
-          "what": "Server-side or cookieless page-view counts, no cross-site tracking, DNT respected. Requires a cookie/privacy disclosure update and a GDPR/PECR review for EU visitors.",
+          "label": "B. Deploy the prepared self-hosted collector after the privacy and hosting gates pass",
+          "what": "Use a same-origin server runtime, confirm the privacy notice and retention, test the endpoint, then enable the five allow-listed aggregate events. No visitor IDs or full URLs are stored.",
           "effort": "M",
           "risk": "medium",
           "reversible": true
         },
         {
-          "label": "C. Add full GA4 with goal events",
-          "what": "Richest data. Also the largest disclosure burden, sets cookies, and triggers consent-banner requirements in the EU and UK.",
-          "effort": "M",
-          "risk": "medium",
+          "label": "C. Leave the site without on-page analytics",
+          "what": "Use only authorized Amazon reporting when available; query demand remains a Search Console action.",
+          "effort": "0",
+          "risk": "low",
           "reversible": true
         }
       ],
-      "recommendation": "A first - it is free, requires no disclosure change, and answers 'which page gets clicks' for the only metric that pays. Move to B only if you need on-site behaviour.",
-      "why": "Option A uses a mechanism Amazon already provides and explicitly permits. It also keeps the site's strongest trust claim - no tracking at all - true for longer, and that claim is worth more on a page whose whole pitch is that it does not mess with you. Implemented in part 2026-11-17 by session arena/79743fd2: a privacy-preserving outbound-click counter (EV-01..EV-04) shipped with its client committed and generated, but intentionally OFF because data/config.json has no endpoint; self-hosted endpoint sources (analytics/endpoint.php, analytics/worker.js) are committed and undeployed. Enabling the counter is an owner deployment step documented in analytics/README.md; Associates Central reporting (option A) remains available in parallel. No conversion or revenue figure is claimed anywhere.",
+      "recommendation": "A until the intended products, endpoint host and privacy notice are verified; then review B before enabling collection.",
+      "why": "The code is ready for a deployment review, not for live collection. Associates reports are the authority for affiliate clicks and orders; the local endpoint can add page-level context only after it is actually hosted and disclosed. Partially implemented 2026-11-17 (sessions arena/5b17c077 + arena/79743fd2): a five-event measurement plan, a privacy-minimising reference collector with tests (analytics/collector.py), a counter client (assets/analytics.js) and self-hosted endpoint sources (analytics/endpoint.php, analytics/worker.js) all ship — but every one of them is disabled: no endpoint is deployed, the privacy notice is not approved, and the campaign ledger stays empty. This row stays open for the enable decision; no conversion or revenue figure is claimed anywhere.",
       "impact": 4,
       "confidence": 4,
       "effort": "partial",
