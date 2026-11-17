@@ -5817,3 +5817,21 @@ AUDIT PASSED (0 warnings) · `node --check` OK on both JS assets.
 * **Post-merge GitHub Pages:** `pages/builds/latest` → `status: built`, commit `d143fe0…`, `error: null` (build 1378464502).
 * **Live read-back:** `index.html` serves the buyer-first front page with the disclosure above the fold and sourced product records; `clusters.html` serves the four-hub map with official source links on every row. Canonical URL: https://kanlerxz87-cyber.github.io/Zone1/
 * **Owner actions still open (published, none blocking):** deploy one of the `analytics/` endpoint sources and approve the privacy notice before enabling the counter (Q-08 / SG-08 / E-03); answer Q-27/Q-28 (what the two 2026-11-17 links were created to promote) and Q-29 (campaign-parameter recording); confirm the tracking ID in Associates Central before it is applied to any link (F76).
+## Task board — arena/16adefc5-zone1 (2026-11-17 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-16adefc5 | **Independent live verification round + delivered-HTML defect hunt (2026-11-17).** Read the board first; re-read the load-bearing official sources live (Associates S1–S5, FTC S8/S9, brand pages S10/S12/S14, the five submitted `link.amazon` tokens); read the deployed GitHub Pages site back from the origin; run every local gate; hunt defects over the delivered root HTML line by line; publish `reports/verification-2026-11-17-16adefc5.md` and log any repair request in this file rather than editing a scope another open PR owns. No product/site content changed by this pass unless a gate fails. | in progress | arena/16adefc5-zone1 (session 16adefc5) | `COORDINATION.md` (this section); `reports/verification-2026-11-17-16adefc5.md` (new). Read-only on everything else: `build.py`, `data/*.json`, `verify.py` are touched by open PRs #139 (session 00bc7156) and #140 (session 58cbaaa2); `site/`, `s2/`, `research/`, `docs/`, `dashboard/`, `crosscheck/`, `analytics/`, `annex-*`, other `session-*` are other sessions' builds |
+
+### Claim log — arena/16adefc5-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17T16:48Z | arena/16adefc5-zone1 (session 16adefc5) | **Claimed X-16adefc5** after reading the board top to bottom. Synced this branch to `origin/main` = `4609ff3` (PRs #135–#138 merged while this session was starting). Two PRs are open at claim time — #139 (session 00bc7156, last commit 16:41Z) and #140 (session 58cbaaa2, last commit 16:43Z) — both claiming `done`, both `CONFLICTING` with main after #136/#138 moved it, and both owning `build.py`, `data/requirements.json`, `verify.py` and regenerated root HTML. This session therefore takes the non-overlapping read-and-verify role and will not edit any file an open PR owns; repair requests are logged below. Baseline on this branch at claim time: `python3 build.py` exit 0 (31 sitemap URLs, 21 feed items), tree clean after rebuild. Defect already found before the claim and logged below: `requirements.html` ships three directory hrefs (`platform/`, `platform/tests/` ×2) that serve the site's 404 page on GitHub Pages. |
+
+### Requests logged, not edited — arena/16adefc5-zone1
+
+| # | Request | For | Evidence |
+|---|---------|-----|----------|
+| R-16adefc5-1 | Repair the three directory hrefs on `requirements.html` (`href="platform/"` once, `href="platform/tests/"` twice — rows G-01 and G-04 of `data/requirements.json`, rendered by `page_requirements()` in `build.py`). GitHub Pages serves 404 for a directory with no `index.html`; live read-back on 2026-11-17 confirmed `https://kanlerxz87-cyber.github.io/Zone1/platform/` returns the site's own 404 page. Suggested repair: point the relative href at the directory's index document (`README.md` exists for `platform/`, `test_platform.py` is the file `platform/tests/` means), and/or add a build guard failing any internal href that ends in `/` without an `index.html` beside it. The sibling `repo` link (`blob/main/platform/`) is fine — GitHub redirects `blob` → `tree`. | the session that next owns `build.py` / `data/requirements.json` (open PRs #139/#140 or the following integration pass) | live fetch of the deployed 404 above; local scan of all delivered HTML finds this defect on no other page |
+
