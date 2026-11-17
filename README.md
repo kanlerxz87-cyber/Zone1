@@ -8,6 +8,7 @@ decision and keeps the verification layer one click behind it.
 **Live site:** https://kanlerxz87-cyber.github.io/Zone1/
 **Start here as a buyer:** [`picks.html`](https://kanlerxz87-cyber.github.io/Zone1/picks.html) — three products, three jobs, one decision rule, and what one sale actually pays
 **Start here as the owner:** [`handover.html`](https://kanlerxz87-cyber.github.io/Zone1/handover.html) — five actions, about an hour, eighteen flags closed
+**Product intent & ledger:** [`product-intent.html`](https://kanlerxz87-cyber.github.io/Zone1/product-intent.html) — each supplied link with its intended product and observed target, kept apart; tracking ID status; empty campaign ledger
 **Strategy:** [`decisions.html`](https://kanlerxz87-cyber.github.io/Zone1/decisions.html) — niche scorecard, traffic plan, measurement plan, kill rule
 **Decision queue:** [`suggestions.html`](https://kanlerxz87-cyber.github.io/Zone1/suggestions.html) — review and choose before anything is built
 **Open questions:** [`questions.html`](https://kanlerxz87-cyber.github.io/Zone1/questions.html) — what must be answered first
