@@ -5398,3 +5398,10 @@ mis-read once, caught immediately, and the rebase was aborted and redone correct
 
 
 **X-1c97a25f handoff note (2026-11-17, same-day overlap):** while this branch was open, `main` received `data/product-intent-confirmations.json` and `reports/brief-reconciliation-2026-11-17.md` from session `02b4e9c7` (merged as #126). Both records are kept; neither file was edited or removed by this session. Differences for the integration session to reconcile: (a) that file dates the PI-01–PI-03 observations 2026-11-16 and does not observe PI-04/PI-05, while `product-intent.html` records fresh fetches of all five on 2026-11-17; (b) both state no intended ASIN is confirmed, so they agree on the central point. Flagged as **F80** on `flagged.html`. Also added in this pass: `build.py` now emits `product-intent.html` with flags F76–F79 and F80; sources S36/S37 added to `data/sources.json`.
+
+### X-1c97a25f — PR and merge result — arena/1c97a25f-zone1 (2026-11-17)
+
+* **PR #125:** https://github.com/kanlerxz87-cyber/Zone1/pull/125 — "Product-intent record, tracking-ID status and empty campaign ledger (1c97a25f)". Merged with `gh pr merge 125 --merge` at **2026-11-17T16:06:19Z**, merge commit **`bfe7e58c35957cdee64ba1856024347ed9a2f1a0`**, without waiting for approval (per the brief). Required checks before merge: `verify` pass, `Rebuild site/ from data/verified and assert every guarantee` pass; `mergeStateStatus: CLEAN`.
+* **Conflicts during the pass:** main advanced twice (#126, #127, both from session 02b4e9c7). Each time `COORDINATION.md` conflicted and was resolved keep-both (nothing from the other session was removed). The parallel record `data/product-intent-confirmations.json` was kept untouched and is flagged as F80.
+* **Post-merge:** GitHub Pages build for `bfe7e58` → `status: built`, `error: null`. Workflows on main: `Build, verify and deploy to GitHub Pages`, `CI`, `Verify verification annex (site/)`, `pages build and deployment` → all success.
+* **Live read-back:** https://kanlerxz87-cyber.github.io/Zone1/product-intent.html renders the disclosure strip, all five sourced rows, the tracking-ID "not yet applied" status and the empty ledger.
