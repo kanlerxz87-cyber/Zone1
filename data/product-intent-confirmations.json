@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "prepared_on": "2026-11-17",
+  "purpose": "Keep operator-confirmed product intent separate from observed Amazon redirect destinations. A redirect observation is not confirmation of the product the operator meant to promote.",
+  "selected_tracking_id": {
+    "value": "shopnow047c-20",
+    "provenance": "Supplied in the project brief on 2026-11-17.",
+    "status": "user-provided; not independently validated in Associates Central and not confirmed as the tag on any submitted short link",
+    "associates_central_confirmation_date": null,
+    "source": null
+  },
+  "records": [
+    {
+      "record_id": "PI-01",
+      "submitted_link": "https://link.amazon/B04G1MEwY",
+      "intended_product": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmed_on": null,
+        "confirmation_source": null,
+        "status": "not confirmed"
+      },
+      "observed_redirect_target": {
+        "url": "https://www.amazon.com/dp/B0CDY277D3",
+        "observed_on": "2026-11-16",
+        "observation_status": "recorded redirect destination only; does not confirm operator intent or Associates attribution",
+        "evidence": [
+          "reports/verification-2026-11-16-19d92a81.md",
+          "https://link.amazon/B04G1MEwY",
+          "https://www.amazon.com/dp/B0CDY277D3"
+        ]
+      }
+    },
+    {
+      "record_id": "PI-02",
+      "submitted_link": "https://link.amazon/B02NbDxp3",
+      "intended_product": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmed_on": null,
+        "confirmation_source": null,
+        "status": "not confirmed"
+      },
+      "observed_redirect_target": {
+        "url": "https://www.amazon.com/dp/B09B7SB46R",
+        "observed_on": "2026-11-16",
+        "observation_status": "recorded redirect destination only; does not confirm operator intent or Associates attribution",
+        "evidence": [
+          "reports/verification-2026-11-16-19d92a81.md",
+          "https://link.amazon/B02NbDxp3",
+          "https://www.amazon.com/dp/B09B7SB46R"
+        ]
+      }
+    },
+    {
+      "record_id": "PI-03",
+      "submitted_link": "https://link.amazon/B00hJ57DV",
+      "intended_product": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmed_on": null,
+        "confirmation_source": null,
+        "status": "not confirmed"
+      },
+      "observed_redirect_target": {
+        "url": "https://www.amazon.com/dp/B08DKYBTPH",
+        "observed_on": "2026-11-16",
+        "observation_status": "recorded redirect destination only; does not confirm operator intent or Associates attribution",
+        "evidence": [
+          "reports/verification-2026-11-16-19d92a81.md",
+          "https://link.amazon/B00hJ57DV",
+          "https://www.amazon.com/dp/B08DKYBTPH"
+        ]
+      }
+    },
+    {
+      "record_id": "PI-04",
+      "submitted_link": "https://link.amazon/B0c8moW59",
+      "intended_product": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmed_on": null,
+        "confirmation_source": null,
+        "status": "not confirmed"
+      },
+      "observed_redirect_target": {
+        "url": null,
+        "observed_on": null,
+        "observation_status": "no redirect observation recorded in the repository",
+        "evidence": []
+      }
+    },
+    {
+      "record_id": "PI-05",
+      "submitted_link": "https://link.amazon/B0f3GKalj",
+      "intended_product": {
+        "asin": null,
+        "official_listing_url": null,
+        "confirmed_on": null,
+        "confirmation_source": null,
+        "status": "not confirmed"
+      },
+      "observed_redirect_target": {
+        "url": null,
+        "observed_on": null,
+        "observation_status": "no redirect observation recorded in the repository",
+        "evidence": []
+      }
+    }
+  ],
+  "source_notes": {
+    "associates_special_links": "https://affiliate-program.amazon.com/help/operating/policies",
+    "associates_operating_agreement": "https://affiliate-program.amazon.com/help/operating/agreement",
+    "amazon_asin_help": "https://kdp.amazon.com/en_US/help/topic/G200652190",
+    "source_use_rule": "Amazon policy links are official policy references, not evidence that a particular short link is compliant. Each intended ASIN/listing field remains blank until the operator's product intent is confirmed and the official listing is recorded."
+  }
+}

@@ -1,0 +1,13 @@
+{
+ "schema_note": "Empty on purpose. A row is added only from an authorized first-party report (Associates Central or the site's own analytics), with its timestamp, source report and date range. No conversion score, revenue forecast or estimate is stored here.",
+ "columns": [
+  "timestamp_utc",
+  "source_report",
+  "channel",
+  "date_range",
+  "eligible_sessions",
+  "clicks",
+  "reported_orders"
+ ],
+ "rows": []
+}

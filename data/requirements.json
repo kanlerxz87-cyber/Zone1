@@ -744,8 +744,8 @@
       "where": [
         "data/config.json",
         "build.py",
-        "data/intent-record.json",
-        "intent-record.html"
+        "data/product-intent.json",
+        "product-intent.html"
       ],
       "evidence": [
         {
@@ -757,11 +757,11 @@
           "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py"
         },
         {
-          "label": "intent-record.html",
-          "url": "intent-record.html"
+          "label": "product-intent.html",
+          "url": "product-intent.html"
         }
       ],
-      "why": "Resolved 2026-11-17 by session 5b17c077. Until this pass no tag existed anywhere in the repository, so no link could earn. Program Policies §2(a) requires Special Links to use the assigned Associates ID and §2(b) requires the tag as a URL parameter on every link to an Amazon Site. What remains open is not the attachment (now enforced by a gate) but two owner-side facts: that shopnow047c-20 is the right tag for the account, and that the Associates account is approved (F6, Q-03).",
+      "why": "Resolved 2026-11-17 by session 5b17c077. Until this pass no tag existed in data/config.json and the root build never read the field, so no link could earn. Program Policies §2(a) requires Special Links to use the assigned Associates ID and §2(b) requires the tag as a URL parameter on every link to an Amazon Site. The tag shopnow047c-20 is now on every outbound product link and check_associate_tagging() fails the build without it. What remains open is not the attachment (gate-enforced) but two owner-side facts: that shopnow047c-20 is the right tag for the account, and that the account is approved (F6, Q-03).",
       "sources": [
         "S2"
       ]

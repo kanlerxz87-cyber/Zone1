@@ -388,6 +388,7 @@ def depth_prefix(page_path):
 NAV = [
     ("index.html", "Home", "A clear guide to three air-fryer formats"),
     ("picks.html", "This week's picks", "Three products, three jobs, one decision rule"),
+    ("product-intent.html", "Product intent & ledger", "Link records, tracking ID status, and the empty campaign ledger"),
     ("decisions.html", "Decisions & handover", "Niche, traffic, measurement, and the five things only you can do"),
     ("categories/kitchen-appliances.html", "Category: Kitchen", "All tracked products in one category"),
     ("compare.html", "Comparison", "Verified-only side-by-side matrix"),
@@ -397,8 +398,6 @@ NAV = [
     ("platform.html", "Platform blueprint", "The automation and compliance design"),
     ("compliance.html", "Compliance", "Program rules, quoted, with sources"),
     ("flagged.html", "Flagged for review", "Unverified values and irregularities"),
-    # Added 2026-11-17 (session 5b17c077): intended vs observed, per supplied link.
-    ("intent-record.html", "Product-intent record", "Intended ASIN vs observed target, per supplied link"),
     ("measurement.html", "Measurement plan", "Five events, defined — and why none is sending yet"),
     ("suggestions.html", "Suggestions", "Review site improvements before implementation"),
     # Added 2026-11-16 (arena/ba29c641): the queue had 21 rows and no way to close one.
@@ -1383,6 +1382,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
       <a href="{prefix}categories/kitchen-appliances.html"{' class="active"' if active=='categories/kitchen-appliances.html' else ''}>Category: Kitchen<span class="sub">3 tracked products</span></a>
       {prod_nav}
       {N("compare.html")}
+      {N("product-intent.html")}
     </div>
     <div class="group">
       <h4>Trust &amp; evidence</h4>
@@ -1423,7 +1423,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     <div>
       <h5>Disclosure</h5>
       <p><strong>{e(DISCLOSURE)}</strong></p>
-      <p>We may earn a commission from a qualifying purchase made through an eligible link. Every outbound product link carries this site's Associates tracking ID ({e(ASSOCIATE_TAG or "not configured")}) and is marked <code>rel="sponsored"</code>. Whether each ASIN matches the model you intended to promote is recorded, link by link, in the <a href="{prefix}intent-record.html">product-intent record</a>. Amazon prices, availability and ratings are not published here.</p>
+      <p>We may earn a commission from a qualifying purchase made through an eligible link. Every outbound product link carries this site's Associates tracking ID ({e(ASSOCIATE_TAG or "not configured")}) and is marked <code>rel="sponsored"</code>. Whether each ASIN matches the model you intended to promote is recorded, link by link, in the <a href="{prefix}product-intent.html">product-intent record</a>. Amazon prices, availability and ratings are not published here.</p>
     </div>
     <div>
       <h5>Verification</h5>
@@ -1727,7 +1727,7 @@ def page_index():
 
 <div class="callout bad link-status" id="link-status">
   <div class="link-status-heading"><span class="pill pill-warn">Before shopping</span><strong>Product identity, account approval and affiliate tracking are not confirmed.</strong></div>
-  <p class="small">A live re-check on 2026-11-17 again observed fallback-style redirects for all three supplied short links, and none of them carried an Associates tag. <strong>This site no longer sends readers through those short links.</strong> Every outbound product link here now points straight at the tagged <code>/dp/</code> listing for the ASIN in the product-intent record, so the click is trackable and the destination is visible before you click it. What is still open is whether those ASINs are the models you intended to promote, and whether your Associates account is approved. Verify both before relying on a purchase link. {src_links(['S17', 'S2'])} <a href="intent-record.html">Read the intent record</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html#q-01">Product-link question</a> · <a href="questions.html#q-03">Account-status question</a>.</p>
+  <p class="small">A live re-check on 2026-11-17 again observed fallback-style redirects for all three supplied short links, and none of them carried an Associates tag. <strong>This site no longer sends readers through those short links.</strong> Every outbound product link here now points straight at the tagged <code>/dp/</code> listing for the ASIN in the product-intent record, so the click is trackable and the destination is visible before you click it. What is still open is whether those ASINs are the models you intended to promote, and whether your Associates account is approved. Verify both before relying on a purchase link. {src_links(['S17', 'S2'])} <a href="product-intent.html">Read the intent record</a> · <a href="flagged.html">Flagged for review</a> · <a href="questions.html#q-01">Product-link question</a> · <a href="questions.html#q-03">Account-status question</a>.</p>
 </div>
 
 <div class="method-strip" id="how-we-work" aria-label="How this guide is made">
@@ -2083,10 +2083,10 @@ PROGRAMME_FLAGS = [
      "All three links", "The shortener hides the tag. Attribution cannot be verified from outside Associates Central, so 'associates_tag_confirmed' is false for all three links. Needs the account holder to open Manage Tracking IDs.", ["S2", "S17"]),
     ("F7", "Program Policies §6(w) (Content on your Site) prohibits link shortening that makes it unclear you are linking to an Amazon Site.",
      "All three links", "link.amazon keeps the Amazon name visible, so the risk is low, but the landing URL is generated and temporary. Recorded so the account holder can confirm current guidance before publishing.", ["S2"]),
-    ("F76", "Two of the five supplied product links were never examined in any pass, and both resolve to a different product category.",
+    ("F81", "Two of the five supplied product links were never examined in any pass, and both resolve to a different product category.",
      "link.amazon/B0c8moW59 and /B0f3GKalj",
-     "The brief lists five product links. Every earlier pass tracked three. B0c8moW59 and B0f3GKalj appear in no other file in this repository. Read live on 2026-11-17: B0c8moW59 resolves to B0DHZTCNR5 (ThermoMaven digital meat thermometer) and B0f3GKalj resolves to B0DZFD6R9Z (CHEF iQ Sense wireless meat thermometer) — both in a different Amazon category from the three air fryers on this site. The brief names no product for either link, so the intended product is recorded as UNKNOWN in data/intent-record.json (IR-04, IR-05); it is not inferred. This site publishes no product page for either and makes no claim about them. Owner decision needed: say what these two links were meant to promote, or drop them.", ["S17"]),
-    ("F77", "None of the five supplied link.amazon URLs carried an Associates tag when read on 2026-11-17.",
+     "The brief lists five product links. Every earlier pass tracked three. B0c8moW59 and B0f3GKalj appear in no other file in this repository. Read live on 2026-11-17: B0c8moW59 resolves to B0DHZTCNR5 (ThermoMaven digital meat thermometer) and B0f3GKalj resolves to B0DZFD6R9Z (CHEF iQ Sense wireless meat thermometer) — both in a different Amazon category from the three air fryers on this site. The brief names no product for either link, so the intended product is recorded as UNKNOWN in data/product-intent.json (PI-04, PI-05); it is not inferred. This site publishes no product page for either and makes no claim about them. Owner decision needed: say what these two links were meant to promote, or drop them.", ["S17"]),
+    ("F82", "None of the five supplied link.amazon URLs carried an Associates tag when read on 2026-11-17.",
      "All five supplied links",
      "Program Policies §2(a) requires Special Links to use the assigned Associates ID and §2(b) requires the tag as a parameter in the URL of each link. Each supplied short link was fetched on 2026-11-17 with redirects followed and the final URL carried no tag= parameter, so as supplied they are not Special Links and cannot earn. This is now REPAIRED ON THIS SITE rather than merely flagged: session 5b17c077 wired the owner's tracking ID shopnow047c-20 into data/config.json, every outbound product link on this site is built as /dp/<ASIN>?tag=shopnow047c-20, and check_associate_tagging() fails the build if any outbound Amazon link ships without it or without rel=\"sponsored\". What remains open is a human check that this tag is the right one for the account and that the account is approved (F6, Q-03).", ["S2", "S17"]),
     ("F8", "IP License §2(e) forbids aggregating, analysing or repurposing Program Content and training models on it.",
@@ -2410,6 +2410,27 @@ PROGRAMME_FLAGS = [
      "404.html (all href/src values)",
      "Found 2026-11-16 by arena/5ac82b1d while reading back the deleted orphan article's URL on the live site: /articles/sync-finish-two-buttons.html correctly served the 404 page, but its nav, card and stylesheet links resolved against /articles/ (e.g. products/chefman-6qt-dual-basket.html became /articles/products/...), so the error page it served was itself unstyled and full of dead links — the one page whose whole job is to recover a lost reader. Root-relative links (/Zone1/...) were rejected as a fix because verify.py and scripts/check_links.py resolve internal hrefs against the file on disk, where they do not exist. Fixed instead by rewriting every relative href/src on 404.html to its absolute SITE_URL form in layout(), leaving fragment-only links (#anchor) alone since they address the displayed document. check_seo_metadata() now fails the build if any non-absolute, non-fragment URL survives on the 404 page. Note for later: this defect can only be observed by fetching a missing nested URL from the deployed site — no local gate sees the serving path.",
      []),
+    # ---- arena/1c97a25f, product-intent pass, 2026-11-17 ----------------------------- #
+    ("F76", "The owner selected tracking ID shopnow047c-20, but it is not applied to any outbound link and has not been tested in Associates Central.",
+     "data/config.json (selected_tracking_id); data/product-intent.json (tracking_id_status); associate_tag left blank",
+     "Run the one-link test the brief requires: in Associates Central, confirm shopnow047c-20 is an active tracking ID on the account, create one Special Link for one product, click it, and confirm the destination and the tracking report. Only then set associate_tag and rebuild. The site was not tagged in this pass because the test needs the account holder's login.",
+     ["S5", "S6", "S2"]),
+    ("F77", "No intended ASIN or official listing URL was supplied for any of the five short links, so none is recorded as confirmed. The short codes are 9 characters; the ASINs in this register are 10.",
+     "data/product-intent.json rows PI-01 to PI-05 (intended_asin, official_listing_url)",
+     "The account holder confirms which listing each short link is meant to reach. The observed redirect targets (2026-11-17) are recorded in their own fields and match the register for the three air fryers. Until confirmed, the intended fields stay blank.",
+     ["S17", "S16", "S28", "S29", "S36", "S37"]),
+    ("F78", "Two of the five supplied links (PI-04, PI-05) lead to meat thermometers on Amazon, outside the air-fryer scope this site publishes.",
+     "https://link.amazon/B0c8moW59 -> amazon.com/dp/B0DHZTCNR5 ; https://link.amazon/B0f3GKalj -> amazon.com/dp/B0DZFD6R9Z",
+     "Decide whether the site should cover a second category. If yes, each product needs its own sourced specification rows before a page is published. If no, the owner removes these two links. No thermometer page or specification has been published.",
+     ["S36", "S37", "S17"]),
+    ("F79", "The coordination notes cite S23 as the official Amazon ASIN definition, but data/sources.json registers S23 as the KDP 'Linking from Your Website' help page. No official Amazon ASIN definition is registered.",
+     "data/sources.json (S23) vs COORDINATION.md and the S-register note",
+     "Register an official Amazon page that defines ASIN, or drop the claim. Until then the site does not rely on a definition of ASIN; it only reports the ASINs observed in /dp/ URLs. The search results used during this pass were third-party pages and were not used as sources.",
+     ["S23", "S16"]),
+    ("F80", "Two product-intent records were written in parallel the same day and disagreed on observation dates and coverage. RESOLVED 2026-11-17.",
+     "data/product-intent.json (17 Nov observations) vs data/product-intent-confirmations.json (session 02b4e9c7, 16 Nov observations; PI-04/PI-05 not researched)",
+     "RESOLVED 2026-11-17 by the integration session (arena/5b17c077), which the original row itself assigned the decision to. data/product-intent.json is the single canonical record: the build renders it as product-intent.html, it covers all five supplied links, and it now records that the tracking ID is applied to every outbound link. data/product-intent-confirmations.json is retired, not deleted, so its 16 Nov observations remain on disk and in git history as a dated artefact; nothing in the build reads it. The disagreement was about dates and coverage, not about any published value: neither file ever asserted a confirmed intended ASIN. A THIRD parallel record (data/intent-record.json with page intent-record.html) was created by this same integration session and retired in the same pass for the same reason; the two findings it alone carried were promoted to flags F81 and F82 rather than lost, which is why this row points at three files and only one page.",
+     ["S17", "S16", "S28", "S29", "S36", "S37"]),
 ]
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
@@ -6476,6 +6497,74 @@ def page_picks():
                   jsonld_blocks=ld)
 
 
+def page_intent():
+    """Product-intent confirmation record and the campaign ledger (2026-11-17)."""
+    intent = load("product-intent.json")
+    ledger = load("campaign-ledger.json")
+    dash = '<span class="tiny muted">not confirmed</span>'
+    body_rows = []
+    for r in intent["rows"]:
+        intended = e(r["intended_asin"]) if r["intended_asin"] else dash
+        official = e(r["official_listing_url"]) if r["official_listing_url"] else dash
+        confirmed = (f'{e(r["confirmation_date"])} {src_links([r["confirmation_source"]])}'
+                     if r["confirmation_date"] and r["confirmation_source"] else dash)
+        srcs = src_links(r["observed_source_ids"])
+        body_rows.append(
+            f'<tr><td>{e(r["id"])}</td>'
+            f'<td><code>{e(r["supplied_link"])}</code></td>'
+            f'<td>{e(r["category_fit"])}</td>'
+            f'<td>{intended}</td>'
+            f'<td>{official}</td>'
+            f'<td>{confirmed}</td>'
+            f'<td><code>{e(r["observed_redirect_target"])}</code><br><span class="tiny muted">observed {e(r["observed_on"])}</span></td>'
+            f'<td>{e(r["observed_title"])}</td>'
+            f'<td>{srcs}<br><span class="tiny muted">{e(r["note"])}</span></td></tr>'
+        )
+    ledger_cols = "".join(f"<th>{e(c)}</th>" for c in ledger["columns"])
+    tag = intent["tracking_id_selected"]
+    body = f"""
+<section class="hero-lite">
+  <p class="kicker">Measure before optimising</p>
+  <h1>Product intent and campaign ledger</h1>
+  <p class="lede">Each link you supplied is recorded here with the product it is meant to reach and what the link actually led to on the day it was checked. The two are kept apart on purpose. The campaign ledger starts empty: no click, order or revenue figure appears until it comes from an authorised first-party report.</p>
+</section>
+
+<div class="card">
+  <h2 style="margin-top:0">Tracking ID</h2>
+  <p><strong><code>{e(tag)}</code></strong> is the tracking ID you selected. It is <strong>not yet applied</strong> to any outbound link. Your brief asks for one Special Link per product to be tested in the Associates workflow before the ID is used anywhere else, and that test needs an Associates Central login, which this build cannot use. Until it passes, every product link keeps the form you supplied.</p>
+  <p class="tiny muted">Test to run: create one Special Link with this ID for one product, follow it, confirm the destination, and confirm the click appears in the tracking report. Sources: {src_links(['S6', 'S5', 'S2'])}. Open flag: {'<a href="flagged.html#f76">F76</a>'}.</p>
+</div>
+
+<h2>Product-intent confirmation record</h2>
+<p class="small">Intended ASIN and listing URL are filled only from an official listing the account holder confirms. Observed fields are what the supplied link returned on the date shown. The short codes are not ASINs, so no intended ASIN is inferred. Open flags: <a href="flagged.html#f77">F77</a>, <a href="flagged.html#f78">F78</a>.</p>
+<div class="tablewrap">
+<table>
+  <caption>One row per supplied link (5 links, observed 2026-11-17)</caption>
+  <thead><tr><th>Row</th><th>Supplied link</th><th>Category fit</th><th>Intended ASIN</th><th>Official listing URL</th><th>Confirmed (date, source)</th><th>Observed redirect target</th><th>Observed listing title</th><th>Source</th></tr></thead>
+  <tbody>{"".join(body_rows)}</tbody>
+</table>
+</div>
+
+<h2>Campaign ledger</h2>
+<p class="small">Empty by design. A row is added only from an authorised first-party report and keeps its timestamp, source report and date range. No conversion score, revenue forecast or estimate is stored or shown.</p>
+<div class="tablewrap">
+<table>
+  <caption>Campaign ledger (0 rows)</caption>
+  <thead><tr>{ledger_cols}</tr></thead>
+  <tbody></tbody>
+</table>
+</div>
+<p class="tiny muted">No rows. No authorised first-party report has been added. Sources for the ledger rules: {src_links(['S1', 'S2'])}</p>
+"""
+    return layout("product-intent.html", "Product intent and campaign ledger", body,
+                  active="product-intent.html",
+                  description="Each supplied Amazon link recorded with its intended product and the observed redirect target, kept in separate fields, plus an empty campaign ledger.",
+                  jsonld_blocks=[breadcrumbs_jsonld([
+                      ("Home", SITE_URL + "/"),
+                      ("Product intent and campaign ledger", page_url("product-intent.html")),
+                  ])])
+
+
 def page_decisions():
     d = DECISION
     def crit_table():
@@ -7275,144 +7364,6 @@ def check_seo_metadata(pages):
 
 
 # --------------------------------------------------------------------------- #
-# product-intent confirmation record (added 2026-11-17, session 5b17c077)
-# --------------------------------------------------------------------------- #
-# The brief asks for one record per submitted link holding the intended ASIN, the
-# official listing URL, a confirmation date and a source, with the observed redirect
-# target in a SEPARATE field that is never merged into the intent. That separation is
-# the point: an intent is what the owner meant, an observation is what a fetch returned,
-# and only a human can say the two are the same product. data/intent-record.json holds
-# the rows; this page renders them. Nothing here is inferred — a blank stays blank.
-
-INTENT = load("intent-record.json")
-
-
-def page_intent():
-    recs = INTENT["records"]
-    c = INTENT["counts"]
-
-    def blank(v):
-        return f'<span class="tiny muted">not recorded</span>' if not v else e(v)
-
-    def src_html(ids):
-        return src_links(ids) if ids else '<span class="tiny muted">no official source</span>'
-
-    def match_pill(v):
-        if v is True:
-            return '<span class="pill pill-ok">ASIN matches</span>'
-        if v is False:
-            return '<span class="pill pill-bad">contradicts intent</span>'
-        return '<span class="pill pill-warn">intent unknown</span>'
-
-    def row(r):
-        confirmed = (
-            f'<span class="pill pill-ok">{e(r["confirmation_date"])}</span>'
-            if r.get("confirmation_date")
-            else '<span class="pill pill-warn">not confirmed</span>'
-        )
-        return f"""
-<tr>
-  <td class="num">{e(r['id'])}<br><span class="tiny muted">{"in brief" if r['supplied_in_brief'] else ""}</span></td>
-  <td class="small"><code class="tiny">{e(r['supplied_link'])}</code>
-      <br><span class="tiny muted">{e(r['role_in_brief'])}</span>
-      <br>{'<span class="pill pill-bad">no tag in link</span>' if not r['tag_seen_in_supplied_link'] else '<span class="pill pill-ok">tag present</span>'}</td>
-  <td class="small"><strong>Intended (what the owner meant)</strong>
-      <br>{blank(r['intended_asin'])}
-      <br>{('<a href="' + e(r['intended_listing_url']) + f'" rel="sponsored noopener" target="_blank">official listing ' + e(r['intended_asin']) + ' &#8599;</a>') if r['intended_listing_url'] else ''}
-      <br><span class="tiny muted">{e(r['intended_source'])}</span></td>
-  <td class="small"><strong>Observed (what the link returned)</strong>
-      <br>{e(r['observed_asin'])}
-      <br><span class="tiny">{e(r['observed_listing_title'])}</span>
-      <br><span class="tiny muted">read {e(r['observed_on'])}</span>
-      <br><a class="tiny" href="{e(r['observed_redirect_target'])}" rel="sponsored noopener" target="_blank">final URL &#8599;</a></td>
-  <td class="small">{match_pill(r['intended_matches_observed'])}<br>{confirmed}</td>
-  <td class="small">{src_html(r.get('sources', []))}
-      <br><span class="tiny muted">{e(r['confirmation_note'])}</span></td>
-</tr>"""
-
-    rows = "".join(row(r) for r in recs)
-    stats = [
-        ("warn", c["links_supplied_in_brief"], "Links supplied in the brief"),
-        ("bad", c["links_first_examined_this_pass"], "First examined in this pass"),
-        ("ok", c["observed_asin_matches_intended"], "Observed ASIN matches the intended ASIN"),
-        ("bad", c["owner_confirmed"], "Owner-confirmed rows"),
-    ]
-    stat_html = "".join(
-        f'<div class="stat {cls}"><div class="n">{n}</div><div class="l">{e(lbl)}</div></div>'
-        for cls, n, lbl in stats
-    )
-    rules = "".join(f"<li>{e(x)}</li>" for x in INTENT["rules"])
-
-    body = f"""
-<h1>Product-intent confirmation record</h1>
-<p class="lede">Five product links were supplied. This page records, for each one, the
-product the owner <em>intended</em> to promote and — in a separate column, never merged into
-it — the product the link was <em>observed</em> to open. Three intended ASINs match what the
-links resolve to. Two links had never been examined in any pass and resolve to a different
-product category entirely. <strong>No row has been confirmed by the owner.</strong></p>
-
-<div class="grid grid-4" style="margin:1rem 0 1.25rem">{stat_html}</div>
-
-<div class="callout bad">
-  <strong>Two supplied links were never examined before this pass</strong>
-  <p class="small">The brief lists five links; every earlier pass tracked three.
-  <code>B0c8moW59</code> and <code>B0f3GKalj</code> appear in no other file in this
-  repository. Read live on {e(INTENT['observed_on'])}, they resolve to a ThermoMaven meat
-  thermometer (B0DHZTCNR5) and a CHEF iQ Sense meat thermometer (B0DZFD6R9Z) — both in a
-  different Amazon category from the three air fryers this site covers. The brief names no
-  product for either link, so the intended product is recorded as unknown rather than
-  guessed. This is a question for the owner, not a defect a session can repair.</p>
-</div>
-
-<div class="callout bad">
-  <strong>Read the "matches" column carefully — three of them are not independent</strong>
-  <p class="small">{e(INTENT['provenance_note'])}</p>
-</div>
-
-<div class="callout info">
-  <strong>Why intent and observation are two fields</strong>
-  <p class="small">Amazon defines an ASIN as the unique identifier of a listing, which is
-  what makes an intended product checkable rather than remembered. If the observed target
-  were written into the intended field, the record would assert a match nobody checked. A
-  blank field below means unknown; it is never filled from a neighbouring field.</p>
-  <p class="small">Tracking ID <strong>{e(INTENT['associates_tag']['tag'])}</strong> —
-  {e(INTENT['associates_tag']['note'])}</p>
-</div>
-
-<div class="tablewrap">
-<table>
-  <caption>One row per supplied link. Intended and observed are separate columns on purpose.</caption>
-  <thead><tr>
-    <th style="width:8%">Record</th>
-    <th style="width:16%">Supplied link</th>
-    <th style="width:24%">Intended</th>
-    <th style="width:24%">Observed</th>
-    <th style="width:11%">Match / confirmation</th>
-    <th style="width:17%">Source and note</th>
-  </tr></thead>
-  <tbody>{rows}</tbody>
-</table>
-</div>
-
-<h2>Rules this record follows</h2>
-<ul class="tight small">{rules}</ul>
-
-<h2>What the owner needs to do</h2>
-<p class="small">{e(INTENT['open_item'])}</p>
-
-<p class="tiny muted">Raw record: <code>data/intent-record.json</code>. Observation method:
-{e(INTENT['observation_method'])}</p>
-"""
-    return layout("intent-record.html", "Product-intent confirmation record", body,
-                  active="intent-record.html",
-                  description="For each of the five supplied Amazon links: the intended ASIN and listing URL, kept separate from the observed redirect target, with confirmation status and source links.",
-                  jsonld_blocks=[breadcrumbs_jsonld([
-        ("Home", SITE_URL + "/"),
-        ("Product-intent record", page_url("intent-record.html")),
-    ])])
-
-
-# --------------------------------------------------------------------------- #
 # measurement specification (added 2026-11-17, session 5b17c077)
 # --------------------------------------------------------------------------- #
 # The brief asks for click and conversion measurement. This page defines the five
@@ -7540,6 +7491,7 @@ def main():
     pages["picks.html"] = page_picks()
     pages["decisions.html"] = page_decisions()
     pages["handover.html"] = page_handover()
+    pages["product-intent.html"] = page_intent()
     pages["suggestions.html"] = page_suggestions()
     pages["decision-log.html"] = page_decision_log()
     pages["design-prompt.html"] = page_design_prompt()
@@ -7550,8 +7502,6 @@ def main():
     pages["marketing-directions.html"] = page_suggestions_alt()
     pages["previous-passes.html"] = page_previous_passes()
     pages["404.html"] = page_404()
-    # Added 2026-11-17 (session 5b17c077): the product-intent confirmation record.
-    pages["intent-record.html"] = page_intent()
     pages["measurement.html"] = page_measurement()
 
     # Qualify affiliate anchors before the guards see them, and before anything is written.

@@ -5362,6 +5362,7 @@ mis-read once, caught immediately, and the rebase was aborted and redone correct
 * **Live read-back from the deployed origin:** the deleted orphan's URL now serves the 404 page **with absolute links** (every href resolves to `/Zone1/...`, fixing F75); canonical `articles/sync-finish-explained.html` renders with disclosure, per-section source chips and prev/next; `flagged.html` renders **75 open items** including F74 and F75; landing tile reads 75.
 * **Irregularities left open (published, none blocking):** F1–F73 unchanged owner decisions — short-link attribution (F6/F7/F10), Associates tag observability (F6), cookie disclosure (F11), 8 Qt temperature conflict (F3), listing self-contradictions (F71), 2 blank+flagged spec rows. All on `flagged.html` with sources.
 
+<<<<<<< HEAD
 ---
 
 ## Task board — arena/5b17c077-zone1 (2026-11-17 UTC) — tracking ID + product-intent record + disclosure/analytics
@@ -5396,3 +5397,41 @@ Live re-verification for this pass was done from the sandbox with `fetch_page` b
 * **Measurement specified, not faked** (`data/measurement.json` → `measurement.html`). EV-01…EV-05 defined with what each records and what it must never record; campaign ledger **empty on purpose**; three prerequisites listed. **No count, rate or revenue forecast published** — GitHub Pages has no endpoint to receive a beacon, and the footer's §3(e) "no analytics" statement must change in the same commit that adds one.
 * **Requirements:** E-02 `blocked` → `delivered` with evidence (tag attached and gate-enforced). E-03/E-04 stay `not_delivered` — measurement is specified, not shipped.
 * **Gates:** `build.py` 52 pages / 51 sitemap URLs / feed 21, idempotent · `verify.py` 130 pages, 77 spec rows (75 verified / 2 blank+flagged), 0 errors · `ci-check.sh` 33 tests, audit clean, **8,683 links / 0 broken** · disclosure above the fold on **52/52** root pages (computed `<main>` position).
+=======
+## Task board — arena/02b4e9c7-zone1 (2026-11-17 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| R-02b4e9c7 | Reconcile the latest five submitted product links against the existing three-product register; create a separate product-intent confirmation ledger that never conflates intended ASIN/listing confirmation with observed redirect targets; document the selected tracking ID's unverified state, executive summary, decision questions and discovery steps. No canonical data/build/nav edits. | done | arena/02b4e9c7-zone1 | `COORDINATION.md`; `data/product-intent-confirmations.json`; `reports/brief-reconciliation-2026-11-17.md` |
+
+### Claim log — arena/02b4e9c7-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17 | arena/02b4e9c7-zone1 | Read the existing coordination board and repository status before starting. Canonical build, navigation and shared product/question/suggestion registers are not in scope; the output is additive and isolated to a new machine-readable ledger and report. The five links in the latest brief exceed the three links in the existing product register; preserve this discrepancy explicitly rather than guessing product identities. |
+
+### R-02b4e9c7 completion record — 2026-11-17 UTC
+
+**Status: done.** Added `data/product-intent-confirmations.json` and `reports/brief-reconciliation-2026-11-17.md`. The ledger preserves all five submitted URLs exactly, leaves intended ASIN, official listing URL, confirmation date and confirmation source blank for every row, and stores the three previously recorded 2026-11-16 redirect destinations in a separate `observed_redirect_target` field. The two new URLs have no recorded redirect observation. The selected tracking ID is recorded as user-provided but not verified in Associates Central or against any link. No unsupported claims that a short link is invalid or compliant were made.
+
+**Sources / verification:** prior redirect observations for the first three links are quoted from `reports/verification-2026-11-16-19d92a81.md` (S17, S16, S28, S29). Official manual-review references: Associates Operating Agreement (`https://affiliate-program.amazon.com/help/operating/agreement`), Program Policies (`https://affiliate-program.amazon.com/help/operating/policies`), and Amazon's identifier help page (`https://kdp.amazon.com/en_US/help/topic/G200652190`). No live Amazon re-fetch was performed in this pass; no new product fact is marked verified.
+
+**Gates:** ledger JSON parsed and a custom check confirmed five rows, blank confirmation fields, and separation of intended vs observed targets; `python3 build.py` passed (50 pages, 49 sitemap URLs, RSS 21 items); `python3 verify.py` passed (128 pages, 77 specification rows, 35 sources, 0 errors); `bash scripts/ci-check.sh` passed (33 tests, audit clean, 8,518 links, 0 broken); `git diff --check` clean. The canonical generator/navigation/shared product register were intentionally not changed because concurrent scopes own those shared files. Analytics remains unimplemented: the static Pages site has no server-side event endpoint or Associates report access; the report defines a proposed five-event set and an explicit pre-deployment decision gate rather than shipping a nonfunctional browser-only counter.
+
+**PR / merge / Pages record:** [PR #126](https://github.com/kanlerxz87-cyber/Zone1/pull/126) merged 2026-11-17 as `c6a143a62db471f2e9a16f69051bdc3d298f3468`. Post-merge `CI`, `Build, verify and deploy to GitHub Pages`, and `Verify verification annex (site/)` all succeeded; `pages/builds/latest` reports `status: built`, commit `c6a143a…`, `error: null`. No separate live read-back was done for these markdown/JSON-only additions, which are not linked into generated site navigation.
+### X-1c97a25f — product-intent, tracking-ID record and campaign ledger — arena/1c97a25f-zone1 (2026-11-17)
+
+**Claimed and completed by session 1c97a25f.** File scope: `data/config.json`, `data/sources.json` (S36, S37 added), `data/product-intent.json` (new), `data/campaign-ledger.json` (new), `build.py` (new `page_intent`, nav entry, F76–F79), regenerated HTML, `EXECUTIVE-SUMMARY-SHOP-PASS.md` (new), this log.
+
+* **Tracking ID `shopnow047c-20`:** recorded in `config.json` as `selected_tracking_id`. **Not applied** to any link: the brief requires a one-link Associates test first, and that needs the account holder's login. Flag **F76**.
+* **Product-intent record:** all five supplied links on `product-intent.html`. Intended ASIN and official URL left blank (short codes are 9 characters, not ASINs; no owner confirmation). Observed targets recorded in separate fields on 2026-11-17. Flag **F77**.
+* **Off-scope links:** PI-04 (B0c8moW59 → B0DHZTCNR5) and PI-05 (B0f3GKalj → B0DZFD6R9Z) are meat thermometers, not air fryers. Registered as S36 and S37. No specification rows published. Flag **F78**.
+* **S23 mismatch:** the coordination notes call S23 the official ASIN definition; `sources.json` registers S23 as the KDP linking page. Flag **F79**.
+* **Campaign ledger:** empty by design. No click, order or revenue figure exists in the repo.
+* **Sources used:** S2, S5, S6, S16, S17, S28, S29, S36, S37 (Amazon listing pages, fetched 2026-11-17). The search results used to look for an ASIN definition were third-party and were **not** used as sources.
+* **Verification:** every gate in the Pages and CI workflows passed on the final tree (see `EXECUTIVE-SUMMARY-SHOP-PASS.md`). The `site/` annex was regenerated with no change, because its tag is still blank.
+* **Not done in this pass:** product-led landing page redesign, outbound-click counter and self-hosted analytics endpoint, Search Console and RSS submission (SG-27..30), new guides, real product photography. These are listed in the executive summary as open.
+
+
+**X-1c97a25f handoff note (2026-11-17, same-day overlap):** while this branch was open, `main` received `data/product-intent-confirmations.json` and `reports/brief-reconciliation-2026-11-17.md` from session `02b4e9c7` (merged as #126). Both records are kept; neither file was edited or removed by this session. Differences for the integration session to reconcile: (a) that file dates the PI-01–PI-03 observations 2026-11-16 and does not observe PI-04/PI-05, while `product-intent.html` records fresh fetches of all five on 2026-11-17; (b) both state no intended ASIN is confirmed, so they agree on the central point. Flagged as **F80** on `flagged.html`. Also added in this pass: `build.py` now emits `product-intent.html` with flags F76–F79 and F80; sources S36/S37 added to `data/sources.json`.
+>>>>>>> origin/main
