@@ -849,6 +849,33 @@
      "url": "https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA"
     }
    ]
+  },
+  {
+   "id": "Q-29",
+   "group": "Measurement",
+   "question": "Which receiver does the owner actually want running, and on whose host: the shipped platform/analytics endpoint or the fail-closed same-origin collector — and what is the URL?",
+   "state": "missing",
+   "why_it_matters": "The repository now holds two tested receivers for the same five events (platform/analytics/server.py — a standalone stdlib endpoint with /report and /health; analytics/collector.py — the fail-closed same-origin service). The counter sends nothing until one of them is deployed and its URL is recorded in data/config.json (analytics_endpoint), so this is the single decision standing between the site and its first real measurement. It also decides the retention question SG-38 and Q-08 leave open, because the host's logging policy is part of the choice.",
+   "what_we_know": "Both receivers are code-complete with passing tests (21 assertions each family: platform/analytics/test_server.py; tests/test_analytics.py) and both refuse EV-05 by design. Neither is deployed: a static GitHub Pages site cannot receive a beacon. data/config.json carries the empty analytics_endpoint and a build guard (check_analytics_disclosure) keeps the footer §3(e) sentence tied to whatever the owner records there.",
+   "what_is_missing": "The host (owner VPS, a privacy-first hosted service, or a same-origin runtime behind the domain) and the URL; the host/proxy logging and retention policy; the approved privacy notice the plan requires before enabling collection (Q-08).",
+   "how_to_discover": "Owner decision, one line: pick platform/analytics/server.py or analytics/collector.py, deploy it (platform/analytics/README.md has the one-command run), put the URL in data/config.json, flip the data/analytics-plan.json gates after the privacy notice is approved. The build then emits the counter state and the footer statement together.",
+   "blocks": [
+    "SG-39"
+   ],
+   "sources": [
+    {
+     "label": "The shipped receiver and its contract (this repository)",
+     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/platform/analytics/README.md"
+    },
+    {
+     "label": "The fail-closed same-origin collector (this repository)",
+     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/analytics/collector.py"
+    },
+    {
+     "label": "Amazon — how and where conversion is actually reported (first-party only)",
+     "url": "https://affiliate-program.amazon.com/help/node/topic/GJDYPQZK6E37RLPU"
+    }
+   ]
   }
  ]
 }

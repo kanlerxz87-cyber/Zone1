@@ -344,8 +344,14 @@
    "clause": "it should be able to generate organic traffic to the website so real people can click the links and buy it",
    "status": "not_delivered",
    "where": [],
-   "evidence": [],
-   "why": "This is the honest gap. The site is technically indexable but nothing has been submitted to any search engine, no page has an inbound link, the domain is a github.io project subpath rather than a domain the owner controls, and there is no analytics to tell whether a single visitor arrives. Publishing a sitemap is a precondition for organic traffic, not a cause of it.",
+   "evidence": [
+    {
+     "label": "Measurement machinery shipped (counter + receiver + tests, 2026-11-17) but no counts exist yet; the question guides target long-tail queries per the cadence plan on topics.html.",
+     "kind": "evidence",
+     "url": "topics.html"
+    }
+   ],
+   "why": "This is the honest gap. The site is technically indexable but nothing has been submitted to any search engine, no page has an inbound link, the domain is a github.io project subpath rather than a domain the owner controls, and there is no analytics to tell whether a single visitor arrives. Publishing a sitemap is a precondition for organic traffic, not a cause of it. Traffic is a measured outcome; nothing is claimed before the endpoint and the Search Console report exist.",
    "sources": [
     "S30"
    ]
@@ -368,9 +374,14 @@
     {
      "label": "14-topic plan",
      "url": "topics.html"
+    },
+    {
+     "label": "Four question-shaped guides published 2026-11-17 from the brief's editorial hypotheses (working titles, labelled as such; feed.xml 25 items).",
+     "kind": "evidence",
+     "url": "articles/index.html"
     }
    ],
-   "why": "{n_articles} articles are published and {n_topics_minus_articles} more topics are specified but unwritten. They are written to answer a question that a listing cannot ('Two 3-quart drawers or one 8-quart basket: which actually feeds four people?'), which is the durable form of 'trendy' — but they are deliberately not trend-chasing, because a trending topic has no official source and this site will not publish a claim it cannot cite.",
+   "why": "{n_articles} articles are published and {n_topics_minus_articles} more topics are specified but unwritten. They are written to answer a question that a listing cannot ('Two 3-quart drawers or one 8-quart basket: which actually feeds four people?'), which is the durable form of 'trendy' — but they are deliberately not trend-chasing, because a trending topic has no official source and this site will not publish a claim it cannot cite. Voice checked by the house-voice guard; no popularity claims anywhere.",
    "sources": []
   },
   {
@@ -598,9 +609,14 @@
     {
      "label": "voice guard",
      "url": "build.py"
+    },
+    {
+     "label": "Four question guides generated through the article guards (25 articles, every value spliced from data/products.json), 2026-11-17.",
+     "kind": "evidence",
+     "url": "articles/index.html"
     }
    ],
-   "why": "The generator builds structure only — headings, the disclosure block, the link slot, the comparison skeleton — and fills a sentence only from a sourced fact passed in by the caller; a missing fact becomes an explicit placeholder. The twelve published articles were authored against that gate rather than emitted by it, so no unpublished claim could enter the copy.",
+   "why": "The generator builds structure only — headings, the disclosure block, the link slot, the comparison skeleton — and fills a sentence only from a sourced fact passed in by the caller; a missing fact becomes an explicit placeholder. The twelve published articles were authored against that gate rather than emitted by it, so no unpublished claim could enter the copy. Question-shaped pages are one page per question, not verdicts.",
    "sources": []
   },
   {
@@ -785,9 +801,14 @@
     {
      "label": "Collector reference",
      "url": "analytics/collector.py"
+    },
+    {
+     "label": "Counter + self-hosted receiver shipped 2026-11-17 (assets/app.js EV-01…EV-04; platform/analytics/server.py + 21 assertions; see measurement.html). Remaining gap: deploy the receiver on an owner host and record its URL in data/config.json (Q-29/SG-39).",
+     "kind": "evidence",
+     "url": "measurement.html"
     }
    ],
-   "why": "The five-event schema and privacy-minimizing reference collector/client are defined and locally tested, but the client is disabled and the collector is not deployed. The current GitHub Pages publication has no verified same-origin runtime; collection remains off until the host, proxy logs, privacy notice and endpoint tests are approved.",
+   "why": "The five-event schema and privacy-minimizing reference collector/client are defined and locally tested, but the client is disabled and the collector is not deployed. The current GitHub Pages publication has no verified same-origin runtime; collection remains off until the host, proxy logs, privacy notice and endpoint tests are approved. Shipped machinery, no counts: the endpoint has no host and the ledger is empty by design.",
    "sources": [
     "S38",
     "S2"
@@ -932,9 +953,14 @@
     {
      "label": "flag",
      "url": "flagged.html"
+    },
+    {
+     "label": "The footer §3(e) statement is now generated from the counter's actual config state and enforced by the build guard check_analytics_disclosure() (2026-11-17), so the sentence cannot drift from the technology it describes.",
+     "kind": "evidence",
+     "url": "measurement.html"
     }
    ],
-   "why": "Program Policies §3(e). The current statement is accurate for what the site does — it sets no cookies and runs no analytics — but it is a sentence in the footer, not a drafted privacy policy, and it must be rewritten the moment a tracker is added (E-03).",
+   "why": "Program Policies §3(e). The current statement is accurate for what the site does — it sets no cookies and runs no analytics — but it is a sentence in the footer, not a drafted privacy policy, and it must be rewritten the moment a tracker is added (E-03). Guard proven in both directions; the standalone privacy/cookie page and legal review remain open (flag F11), so this stays partial.",
    "sources": [
     "S2"
    ]

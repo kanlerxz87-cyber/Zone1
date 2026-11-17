@@ -17,6 +17,9 @@ jobs:
       - name: Engine tests
         run: python3 -m unittest discover -s platform/tests -t platform -p "test_*.py"
 
+      - name: Analytics endpoint tests — EV-01…EV-04 schema, no-identifier guarantee
+        run: python3 platform/analytics/test_server.py
+
       - name: Data audit — every row sourced, no inferred values
         run: python3 platform/audit/report.py
 

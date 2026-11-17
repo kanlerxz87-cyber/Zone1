@@ -4,6 +4,8 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 echo "· unit tests"
 python3 -m unittest discover -s platform/tests -t platform -p 'test_*.py' 2>&1 | tail -3
+echo "· analytics endpoint (EV-01…EV-04 schema, no-identifier guarantee)"
+python3 platform/analytics/test_server.py 2>/dev/null | tail -1
 echo "· data audit"
 python3 -c "
 import sys; sys.path.insert(0,'platform')

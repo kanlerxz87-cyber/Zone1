@@ -1948,6 +1948,60 @@
    "blocks": [],
    "blocked_by": [],
    "resolved_on": null
+  },
+  {
+   "id": "SG-39",
+   "title": "Deploy one receiver and give the counter its URL — the concrete step behind SG-38's option B",
+   "area": "Measurement",
+   "problem": "SG-38 asks what the measurement layer is allowed to become; its option B needs a named receiver and a host. The repository now ships two tested, not-deployed receivers speaking the same five events (platform/analytics/server.py with /report and /health; analytics/collector.py, fail-closed and same-origin), and the counter in assets/app.js stays inert until data/config.json carries a URL. Nothing else blocks measurement.",
+   "evidence": [
+    {
+     "label": "The standalone receiver and its 21 assertions (platform/analytics/)",
+     "url": "https://github.com/kanlerxz87-cyber/Zone1/tree/main/platform/analytics"
+    },
+    {
+     "label": "The fail-closed same-origin collector (analytics/collector.py)",
+     "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/analytics/collector.py"
+    },
+    {
+     "label": "The deployment gate and the empty endpoint (measurement.html)",
+     "url": "https://kanlerxz87-cyber.github.io/Zone1/measurement.html"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. platform/analytics/server.py on a small owner VPS",
+     "what": "One command (python3 platform/analytics/server.py) behind HTTPS; JSONL + /report daily aggregates; never reads address/UA/Referer. The URL goes in data/config.json and the footer statement updates itself in the same build.",
+     "effort": "S",
+     "risk": "host logs must be configured not to retain identifying data",
+     "reversible": true
+    },
+    {
+     "label": "B. A privacy-first hosted collector",
+     "what": "Third-party static/edge function hosting the same schema; the guard requires the analytics-plan gates (privacy notice approved) before the endpoint can be configured.",
+     "effort": "M",
+     "risk": "a host's own logging policy becomes part of the §3(e) disclosure",
+     "reversible": true
+    },
+    {
+     "label": "C. Keep it inert",
+     "what": "No host, no counts; the footer keeps saying exactly that. Measurement stays defined-not-collected and the ledger stays empty.",
+     "effort": "S",
+     "risk": "the brief's Priority 3 remains unmet in effect",
+     "reversible": true
+    }
+   ],
+   "recommendation": "A",
+   "why": "The owner already runs infrastructure (the brief's five links and the Associates account); a small VPS keeps the data first-party and the disclosure simple. B is fine if the owner has no server; C is honest but leaves the brief's measurement goal unmet.",
+   "impact": 5,
+   "confidence": 5,
+   "effort": "S",
+   "risk_of_not_doing": "The click counter ships inert forever: no click data, no measured query inputs for the topic engine, and the campaign ledger can never be populated from anything this site observed.",
+   "blocks": [],
+   "blocked_by": [
+    "Q-29"
+   ],
+   "resolved_on": null
   }
  ],
  "paths_intro": "A decision queue with this many rows is a backlog, not a decision. The paths below group the suggestions into four coherent pieces of work. Each path is ordered, names what has to be true before it can start, and says plainly what it will not fix. Pick one path, finish it, then pick the next. The grouping is this pass's judgement; the dependencies inside it are not - they are the blocked_by links already recorded on each row.",
