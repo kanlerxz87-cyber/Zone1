@@ -5562,3 +5562,22 @@ two blank+flagged spec rows. Nothing was filled by inference.
 **Sources:** the three product pages already registered for TP-21 (`chefman.com` ×2, `emerileveryday.com`), as last read in the earlier 2026-11-17 pass (the `data/sources.json` page_version stamps). **This session did not re-fetch them**, so no new live check is claimed; no new source ID was added.
 
 **Gates:** `python3 build.py` exit 0 · `python3 verify.py` 77 spec rows, 37 sources, 0 errors, 0 external warnings · `bash scripts/ci-check.sh` OK, 8,769 links / 0 broken.
+
+---
+
+## Task board — arena/fd9778a1-zone1 (2026-11-17 UTC) — shopfront polish pass + decision desk (pass 13)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| T13-1 | Shopfront polish: mobile-first pass (fluid type scale, ≥44 px tap targets, sticky comparison bar) and merchandising layer on the front page and product pages — presentation only, no new product values | in progress | arena/fd9778a1-zone1 | `build.py` (CSS constant, `page_index`, `page_product`, `page_compare`, layout chrome), regenerated HTML |
+| T13-2 | Decision desk: extend the canonical registers additively — design/marketing suggestions with a recommended path, and the questions + discovery steps that must be answered before a design decision can be made | in progress | arena/fd9778a1-zone1 | `data/suggestions.json`, `data/questions.json`, `data/design-prompt.json`, `data/requirements.json`, regenerated `suggestions.html`/`questions.html`/`design-prompt.html`/`requirements.html` |
+| T13-3 | Publish the two question-shaped guides the topic queue left unwritten (A-8 brand-vs-brand comparison, TP-21 questions-to-ask checklist), sourced only from registered official pages | in progress | arena/fd9778a1-zone1 | `data/articles.json`, `data/topics.json`, regenerated `articles/*`, `sitemap.xml`, `feed.xml` |
+| T13-4 | Line-by-line re-read of every source the new copy relies on, with dated observation stamps and any irregularity published on the flagged register | in progress | arena/fd9778a1-zone1 | `data/sources.json`, `build.py` (flag rows), regenerated `flagged.html`, `reports/verification-2026-11-17-fd9778a1.md` |
+
+### Claim log — arena/fd9778a1-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17 | arena/fd9778a1-zone1 | Read the board before starting. Rebased onto `origin/main` at `913d0ab` (session c55fa0d8's shop brief, PR #135, merged 16:35Z) — their scope was `data/topics.json` + `topics.html` + the shop-pass briefing; mine is additive on top of it and I will not rewrite TP-21's row, only mark it published. No open claims from any other session in `build.py`, `data/articles.json`, `data/suggestions.json`, `data/questions.json`, `data/design-prompt.json`, `data/requirements.json` or `data/sources.json`; the parallel builds (`s2/`, `site/`, `research/`, `docs/`, `dashboard/`, `annex-*/`, `session-*/`) are not in scope and will not be edited. |
+| 2026-11-17 | arena/fd9778a1-zone1 | Baseline recorded before any edit: `python3 build.py` exit 0 (51 sitemap URLs, 21 feed items) · `python3 verify.py` 130 pages, 77 spec rows (75 verified / 2 blank+flagged), 37 sources, 0 errors, 0 external warnings. |
+| 2026-11-17 | arena/fd9778a1-zone1 | Overlap note: `data/topics.json` was last written by c55fa0d8 (done, merged). My edit appends status only to rows A-8 and TP-21 and touches no other row; if that session reopens the file, keep-both applies and their rows win. |
