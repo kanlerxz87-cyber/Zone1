@@ -53,3 +53,29 @@ The brief is much wider than this pass. These items are **not** built here and r
 
 - **F76–F79** on `flagged.html`, each with its source links.
 - Two flag registers still disagree (existing F44/F47): unchanged in this pass.
+
+---
+
+## Addendum — 2026-11-17, arena/c55fa0d8-zone1
+
+**What changed.** One proposed guide topic was added: **TP-21, "Questions to ask before buying a multi-function kitchen appliance"** (`topics.html`, `data/topics.json`). It is a checklist drawn only from the manufacturer pages already in the register, and it is not yet published as an article.
+
+**Suggested titles, checked against what already exists:**
+
+| Suggested working title | Existing coverage |
+|---|---|
+| Basket or oven-style air fryer: what should you compare? | Published as TP-05 (`dual-basket-vs-oven-air-fryer`) |
+| A no-hype checklist for comparing air fryer capacity | Published as TP-03 (`air-fryer-capacity-guide`) |
+| How to assess cleanup and counter-space trade-offs | Counter space published (TP-04); cleaning published from the manuals. A combined trade-off study is not published |
+| Questions to ask before buying a multi-function kitchen appliance | New: TP-21, proposed |
+
+**Already in place (checked, not changed):** product-first front page; disclosure strip under the masthead and in the footer; every outbound product link carries the owner tag and `rel="sponsored"`; sitemap (51 URLs) and RSS feed (21 items) generated from the articles.
+
+**Blocked, and why (no value was invented to fill these):**
+- Associates one-link test and tracking report: needs the account holder's login (F76).
+- Outbound-click counter and analytics endpoint: the site is static on GitHub Pages and has no server to receive events. A host is a decision for the owner.
+- Search Console submission: needs the owner's verified Google property.
+- Real product photography: no rights-cleared source is registered (open decision).
+- Campaign ledger: stays empty until authorised first-party reports exist.
+
+**Gates:** build, verify (0 errors) and CI link check (0 broken) all pass on this branch.

@@ -549,6 +549,36 @@
    "blocked_by": [
     "Q-20"
    ]
+  },
+  {
+   "id": "TP-21",
+   "title": "Questions to ask before buying a multi-function kitchen appliance",
+   "hook": "A question list built only from the fields the manufacturers actually publish, with a gap marked wherever they publish nothing.",
+   "intent": "Commercial investigation",
+   "serves": [
+    "chefman-6qt-dual-basket",
+    "chefman-8qt-turbofry",
+    "emeril-26qt-french-door"
+   ],
+   "angle": "Working title from the owner brief, reframed as a checklist: capacity, footprint, wattage, temperature range, preset count, accessories, and what the owner's manual says about care. Each question is answered by a named manufacturer source or left visibly open. No product is ranked and no performance result is claimed.",
+   "why_it_could_earn_traffic": "Judgement only: buyers comparing multi-function appliances ask these questions in roughly this order. No search-volume data was used.",
+   "must_cite": [
+    {
+     "label": "Chefman 6 Qt product page",
+     "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+    },
+    {
+     "label": "Chefman 8 Qt product page",
+     "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+    },
+    {
+     "label": "Emeril product page",
+     "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+    }
+   ],
+   "status": "proposed",
+   "published_as": null,
+   "blocked_by": []
   }
  ],
  "channels": [
