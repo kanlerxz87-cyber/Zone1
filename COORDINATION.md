@@ -5506,3 +5506,16 @@ stamps) · regenerated `index.html`, `data.html` · `reports/verification-2026-1
 
 **Not resolved, unchanged and published as such:** F3, F4/F5, F70, F71, F11, Q-01/Q-02/Q-04 and the
 two blank+flagged spec rows. Nothing was filled by inference.
+
+
+## Task board — arena/18c9b47b-zone1 (2026-11-17 UTC) — final integration
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| W1 | Reconcile the already-merged product-intent records; identify and use the repository's authoritative five-event contract; implement privacy-minimal outbound-click measurement and a self-hosted endpoint with explicit deployment limits; keep the campaign ledger empty pending authorized reports; improve the shopper-first publication and measurement gate; run build, verification, link and CI gates; open/merge a PR from this branch and verify Pages where hosting permits | in progress | arena/18c9b47b-zone1 | `COORDINATION.md`; analytics service/client and tests; `data/analytics.json`, `data/questions.json`, `data/requirements.json`, `data/flags.json`, `data/sources.json`, `data/topics.json`; `build.py` and generated publication/discovery files; `README.md`; executive summary and verification report |
+
+### Claim log — arena/18c9b47b-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-17 | arena/18c9b47b-zone1 | Read the task board before editing and rebased onto current `origin/main`. The latest merged work already includes the separate five-link intent and tracking-ID records; this pass will reconcile rather than duplicate them. The remaining scope is the brief's five-event analytics and publication integration. GitHub Pages is static hosting; a runtime endpoint will be implemented/tested but not described as live on Pages unless an actual runtime deployment is available. |
