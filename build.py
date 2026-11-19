@@ -2448,7 +2448,24 @@ PROGRAMME_FLAGS = [('F1',
   'Editorial/implementation rows now link their authoritative repository record. Coverage and link identity '
   'are machine-checked; whether a source supports arbitrary prose still requires an actual scoped read. SG-48 '
   'records that boundary.',
-  ['S2'])]
+  ['S2']),
+ ('F103',
+  'Found 2026-11-19: public historical builds in the Pages artifact publish Amazon product links without '
+  'rel="sponsored" and describe the supplied short-link tokens as "invalid".',
+  'Pages artifact (.github/workflows/pages.yml uploads the whole repository root); s2/pages/products.html; '
+  'dashboard/, research/, site/, annex-88769516/, session-3740f69d/',
+  'Checked 2026-11-19. The Pages workflow uploads the repository root, and a live read of '
+  'https://kanlerxz87-cyber.github.io/Zone1/s2/pages/products.html returned the historical page. That page '
+  'labels each supplied token "invalid" because it has 9 characters. This site does not draw that conclusion: '
+  'token length does not establish that a link is invalid, and the brief forbids the claim. A static scan of the '
+  'published HTML found product-type Amazon anchors without a sponsored token in s2 (68 of 68), '
+  'session-3740f69d (118 of 118), annex-88769516 (9 of 9), dashboard (47 of 56), research (43 of 55) and site '
+  '(20 of 26). The canonical root has 8 such anchors, all the deliberate nonsense-token resolver control '
+  'ZZZ9ZZZZZ, which build.py does not classify as a product link; its other 235 product anchors are qualified. '
+  'No change was made in this pass: the historical generators are declared read-only, and their own '
+  'reproducibility gates compare committed HTML.',
+  ['S1', 'S2', 'S31', 'S38']),
+ ]
 
 REPO_EVIDENCE = {'F80': ['data/product-intent.json', 'product-intent.html', 'session-58cbaaa2/artifacts/README.md'],
  'F81': ['product-intent.html', 'data/product-intent.json', 'reports/verification-2026-11-17-58cbaaa2.md'],
@@ -2555,7 +2572,8 @@ REPO_EVIDENCE = {'F80': ['data/product-intent.json', 'product-intent.html', 'ses
           'analytics/collector.py',
           'tests/test_analytics.py'],
  'F101': ['reports/verification-2026-11-19-1f9e7d52.md', 'build.py'],
- 'F102': ['reports/verification-2026-11-19-1f9e7d52.md', 'build.py', 'tests/test_publication.py']}
+ 'F102': ['reports/verification-2026-11-19-1f9e7d52.md', 'build.py', 'tests/test_publication.py'],
+ 'F103': ['reports/verification-2026-11-19-1970a80b.md', 'build.py', '.github/workflows/pages.yml']}
 
 VERDICTS = {
     "chefman-6qt-dual-basket":
