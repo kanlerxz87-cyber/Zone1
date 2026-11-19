@@ -115,6 +115,33 @@
         "data/suggestions.json",
         "reports/verification-2026-11-17-fd9778a1.md"
       ]
+    },
+    {
+      "id": "SG-04",
+      "session": "arena/9b3365c7-zone1",
+      "date": "2026-11-19",
+      "path": "A",
+      "what": "The front page is now a buying guide: a hero that asks which shape fits the reader's kitchen, the three machines with capacity, footprint, temperature, the brand's list price and one thing to check, a sponsored Amazon button beside a disclosure line on each card, the season pair, and six buyer-question guides. The working pages sit behind one link group, 'Behind the site', in the sidebar and the footer.",
+      "why_allowed": "Option A is the row's recommendation, marked reversible with low risk, and its only blocking question (Q-01) is in state 'missing', not 'unknowable'. No price from Amazon, no rating and no popularity claim was added: the list price is the brand's own, cited per card.",
+      "evidence": [
+        "build.py",
+        "index.html",
+        "tests/test_integration_output.py",
+        "reports/verification-2026-11-19-9b3365c7.md"
+      ]
+    },
+    {
+      "id": "SG-27",
+      "session": "arena/9b3365c7-zone1",
+      "date": "2026-11-19",
+      "path": "A",
+      "what": "Navigation labels reviewed and reduced to three sidebar groups: Shop, The three machines, and a collapsed 'Behind the site' group that opens on working pages. The footer repeats Shop and Behind the site on every page. check_desk_nav() fails the build if a working page drops out of both.",
+      "why_allowed": "Option A is the row's recommendation, reversible, low risk, and blocked by nothing. Where the working pages should finally live is left open as SG-49.",
+      "evidence": [
+        "build.py",
+        "tests/test_integration_output.py",
+        "reports/verification-2026-11-19-9b3365c7.md"
+      ]
     }
   ],
   "implemented_note": "Rows a pass implemented without waiting for the owner, under the adopt-after-silence rule, each naming the path it took and why the rule allowed it. This is not the owner's decision list — choices[] stays owner-only and empty until a person fills it — and it exists so a default never looks like an instruction from someone who never gave one. A pass that implements something and does not record it here has broken the rule it used."

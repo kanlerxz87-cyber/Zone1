@@ -10,10 +10,49 @@ class PublishedIntegrationOutputTests(unittest.TestCase):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         self.assertIn("Choose the shape that fits your kitchen.", html)
         self.assertLess(html.index("publication-hero"), html.index("publication-product"))
-        self.assertIn("<h4>Owner workspace</h4>", html)
-        self.assertIn("<h5>Owner &amp; dashboard index</h5>", html)
-        for page in ("product-intent.html", "measurement.html", "questions.html", "decision-log.html"):
-            self.assertIn(f'href="{page}"', html)
+        # Pass 14 (arena/9b3365c7-zone1): the brief asks for every dashboard surface to be
+        # reachable "from the footer and a single navigation group". Both are asserted here.
+        self.assertIn("<h4>Behind the site</h4>", html)
+        self.assertIn("<h5>Behind the site</h5>", html)
+        self.assertEqual(1, html.count("<h4>Behind the site</h4>"))
+        self.assertNotIn("<h4>Owner workspace</h4>", html)
+        self.assertNotIn("<h4>Trust &amp; evidence</h4>", html)
+        nav = html[html.index('<nav id="site-nav"'):html.index("</nav>", html.index('<nav id="site-nav"'))]
+        foot = html[html.index('<footer class="site">'):html.index("</footer>")]
+        for page in ("product-intent.html", "measurement.html", "questions.html", "decision-log.html",
+                     "suggestions.html", "executive-summary.html", "flagged.html", "compliance.html"):
+            self.assertIn(f'href="{page}"', nav)
+            self.assertIn(f'href="{page}"', foot)
+
+    def test_homepage_leads_with_products_and_keeps_disclosure_beside_every_cta(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+        main = html[html.index("<main"):html.index("</main>")]
+        # Disclosure strip under the masthead, above the main content, and again in the footer.
+        self.assertLess(html.index('class="disclosure-bar"'), html.index("<main"))
+        self.assertGreater(html.index("As an Amazon Associate I earn from qualifying purchases.",
+                                      html.index('<footer class="site">')), 0)
+        ctas = [m for m in main.split("<a ") if "link.amazon/" in m and 'class="src"' not in m]
+        self.assertEqual(3, len(ctas))
+        for tag in ctas:
+            self.assertIn("sponsored", tag.split(">")[0])
+            self.assertIn("Amazon", tag)            # Program Policies 6(w): clear it goes to Amazon
+        self.assertEqual(3, main.count("Sponsored link — we may earn a commission"))
+
+    def test_price_note_cites_the_clause_that_governs_prices(self):
+        # F90: the note used to say 2(b) *and* 6(t) bar Amazon prices; 6(t) is about reviews.
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+        self.assertNotIn("§2(b) and §6(t) bar", html)
+        self.assertIn("Associates Program Policies §2(b) allow", html)
+
+    def test_category_count_reads_the_recorded_browse_path(self):
+        # F91: the category lede published "0 of the five links" while three landed on air fryers.
+        intent = json.loads((ROOT / "data/product-intent.json").read_text(encoding="utf-8"))
+        n = sum(1 for r in intent["rows"]
+                if r["observed_browse_path"].split("›")[-1].strip() == "Air Fryers")
+        self.assertEqual(3, n)
+        html = (ROOT / "categories/kitchen-appliances.html").read_text(encoding="utf-8")
+        self.assertIn("Three of the five links submitted", html)
+        self.assertNotIn("0 of the five links", html)
 
     def test_link_intent_and_tracking_status_remain_unconfirmed(self):
         config = json.loads((ROOT / "data/config.json").read_text(encoding="utf-8"))

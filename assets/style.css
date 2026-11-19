@@ -671,3 +671,83 @@ footer.site a{display:inline-flex; align-items:center}
 .article-meta .pill{font-size:.68rem; white-space:nowrap}
 .foot-brand h5{font-family:var(--serif); font-size:.95rem; text-transform:none; letter-spacing:0; color:var(--brand-ink)}
 .foot-brand p:first-of-type{font-family:var(--serif); font-size:.94rem; line-height:1.55}
+
+/* ===== pass 14 — arena/9b3365c7-zone1 (2026-11-19): reader-first chrome =========
+   1. Reader pages (front page, picks, compare, products, categories, guides, articles)
+      drop the always-open sidebar: the menu becomes a drawer behind the "Menu" button.
+      Desk pages (registers, dashboards) keep the sidebar as before.
+   2. Every dashboard surface sits in ONE collapsible "Behind the site" group.
+   3. Citation tags on reader pages become small grey superscript tags — still links to
+      the official page, no longer the loudest thing in a sentence.                     */
+.is-reader .shell{grid-template-columns:minmax(0,1fr); max-width:1200px}
+.is-reader .navtoggle{display:inline-block}
+.is-reader .sidebar{
+  display:none; position:fixed; z-index:40; top:64px; right:1rem; width:min(340px,calc(100vw - 2rem));
+  max-height:calc(100vh - 84px); overflow:auto; background:var(--panel);
+  border:1px solid var(--line-strong); border-radius:16px; padding:.9rem 1rem;
+  box-shadow:var(--shadow-lift);
+}
+.is-reader .sidebar.open{display:block}
+.sidebar details.group > summary{list-style:none; cursor:pointer}
+.sidebar details.group > summary::-webkit-details-marker{display:none}
+.sidebar details.group > summary h4{margin-bottom:.35rem}
+.sidebar details.group > summary h4::before{content:"\25B8"; font-size:.8rem; color:var(--faint)}
+.sidebar details.group[open] > summary h4::before{content:"\25BE"}
+.sidebar .group-note{font-size:.74rem; color:var(--faint); margin:.1rem .2rem .5rem; line-height:1.4}
+.is-reader main .src{
+  font-size:.62rem; padding:0 .22rem; margin:0 .05rem; vertical-align:super; line-height:1;
+  background:transparent; border:0; color:var(--faint); font-weight:600; letter-spacing:.02em;
+}
+.is-reader main .src:hover{color:var(--brand); text-decoration:underline; background:transparent}
+.fp-src{white-space:nowrap}
+
+/* front page */
+.fp-hero{margin-bottom:2.2rem}
+.fp-quickpick .qp-row{
+  display:grid; grid-template-columns:58px minmax(0,1fr) 18px; gap:.75rem; align-items:center;
+  padding:.8rem .2rem; border-top:1px solid rgba(239,244,231,.2); color:#f4f1e2;
+  text-decoration:none; border-radius:10px;
+}
+.fp-quickpick .qp-row:first-of-type{border-top:0}
+.fp-quickpick .qp-row:hover{background:rgba(255,255,255,.06); color:#fff; text-decoration:none}
+.fp-quickpick .qp-row .glyph{width:58px; height:auto; color:#e8b88a}
+.fp-quickpick .qp-row strong{display:block; font-family:var(--serif); font-weight:500; font-size:1.08rem; color:#fffdf6}
+.fp-quickpick .qp-row small{display:block; color:#cbd6c4; font-size:.78rem; margin-top:.1rem}
+.fp-quickpick .qp-arrow{color:#e8b88a; font-weight:700}
+.fp-section{margin-top:2.6rem}
+.fp-card{display:flex; flex-direction:column; gap:.2rem; padding:1.3rem 1.3rem 1.1rem}
+.fp-card-top{display:flex; align-items:center; gap:.7rem; margin-bottom:.2rem}
+.fp-card-top .glyph{width:52px; height:auto; color:var(--brand)}
+.fp-card-top .product-type{margin:0; font-size:.68rem; font-weight:800; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--accent)}
+.fp-card h3{margin:.2rem 0 .35rem; font-size:1.42rem; line-height:1.15}
+.fp-card h3 a{color:var(--brand-ink)}
+.fp-job{margin:0 0 .6rem; font-size:.95rem; color:#343c34}
+.fp-facts{display:grid; gap:0; margin:.2rem 0 .7rem; border-top:1px solid var(--line)}
+.fp-facts > div{display:grid; grid-template-columns:96px minmax(0,1fr); gap:.6rem;
+  padding:.45rem 0; border-bottom:1px solid var(--line); font-size:.86rem}
+.fp-facts dt{color:var(--faint); font-size:.72rem; font-weight:700; letter-spacing:.06em;
+  text-transform:uppercase; padding-top:.12rem}
+.fp-facts dd{margin:0; color:var(--ink)}
+.fp-blank{color:var(--faint); font-style:italic}
+.fp-card .price-line{margin:.3rem 0 .5rem}
+.fp-check{margin:.2rem 0 .3rem; padding:.55rem .7rem; font-size:.83rem; line-height:1.5;
+  background:var(--warn-soft); border:1px solid var(--warn-line); border-radius:10px; color:#4d3a1d}
+.fp-check strong{color:#74440f}
+.fp-card .cta-compact{margin-top:auto; padding-top:.6rem}
+.fp-card .cta-compact .btn{flex:1 1 auto; justify-content:center}
+.fp-card .cta-note{font-size:.74rem; margin:.15rem 0 0}
+.fp-season{margin-top:2.6rem}
+.season-card{border-left:4px solid var(--accent)}
+.fp-promise{margin:3rem 0 1rem; padding:1.6rem 1.7rem; background:var(--panel-deep);
+  border:1px solid var(--line); border-radius:var(--radius-lg)}
+.fp-promise-title{margin:0 0 1rem; font-size:1.5rem}
+.fp-promise-grid{display:grid; gap:1.2rem; grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.fp-promise-grid h3{margin:0 0 .3rem; font-size:1.05rem}
+.fp-promise-grid p{margin:0; font-size:.88rem; color:#3e463d}
+@media (max-width:760px){
+  .fp-card{padding:1.1rem}
+  .fp-facts > div{grid-template-columns:84px minmax(0,1fr)}
+  .fp-promise{padding:1.2rem}
+}
+@media print{ .is-reader .sidebar{display:none !important} }

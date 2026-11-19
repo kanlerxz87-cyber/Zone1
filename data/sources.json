@@ -729,5 +729,33 @@
     },
     "not_read_by_this_pass": "S5, S6, S7, S11, S13, S15, S16, S18-S27, S30-S35 were not re-fetched by this pass and nothing about them is restated as current here. The Emeril and Chefman owner's-manual PDFs (S15 and the 8 Qt manual) were also not re-opened, so the 24-preset count and the manual-only claims are carried forward from the records that read them.",
     "deliberately_not_used": "Prices, star ratings, review counts and Best Sellers Rank values visible in the live responses were read and excluded from every published surface, per S2 and this repository's no-price/no-rating rule. Review-count figures are cited only as date-stamped vendor-page readings inside the source register, never on reader-facing pages."
+  },
+  "reverified_2026_11_19_9b3365c7": {
+    "session": "arena/9b3365c7-zone1",
+    "date": "2026-11-19",
+    "method": "server-side fetch (fetch_page) of each URL below; every value was read from the live response body in this session, not copied from an earlier session's record",
+    "read": [
+      "S2",
+      "S8",
+      "S16",
+      "S17",
+      "S28",
+      "S29",
+      "S32",
+      "S33",
+      "S35",
+      "S36",
+      "S37"
+    ],
+    "observations": {
+      "short_links": "All five link.amazon tokens re-opened: B04G1MEwY -> /dp/B0CDY277D3, B02NbDxp3 -> /dp/B09B7SB46R, B00hJ57DV -> /dp/B08DKYBTPH, B0c8moW59 -> /dp/B0DHZTCNR5, B0f3GKalj -> /dp/B0DZFD6R9Z. Targets unchanged; every landing URL still carries plpRedirect=mhFallback and no visible tag=. channelId varied by request (F95) and is not read as evidence.",
+      "browse_paths": "Direct /dp/ reads of S16, S28, S29 printed 'Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers' (leaf node 17659096011); S36 and S37 printed 'Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat' (leaf node 289810). Recorded on PI-01..05 as observed_browse_path; this corrects F91.",
+      "listing_titles": "S28's title still ends 'Six Cooking Accessories Included' while S35's description still says 'Included are 7 premium accessories' — F48/F66/F71 remain open as recorded; no new flag.",
+      "s2_policies": "S2 still reads 'Updated: April 14, 2026'. Price and availability display is Participation Requirements §2(b) (conditional: Amazon-served link, or Creators API / PA API data); §6(t) covers customer reviews and star ratings. The front-page price note mis-cited both (F90), fixed.",
+      "s8_ftc": "S8 still dated November 2019; 'What Else to Know' still says 'You can't talk about your experience with a product you haven't tried.' The front-page promise now quotes that wording instead of paraphrasing it.",
+      "s32_s33_s35_brand_json": "Live Shopify product JSON, updated_at 2026-11-19: S32 RJ38-SQPF-3TDB-2W $119.99, 14.51 lb; S33 RJ38-SQSS-8T $119.99, 13.4 lb (the 5 Qt variant shows $79.99 against a compare-at $99.99 — not published, a limited-time figure); S35 4-00675-02A-VN $199.99, 27.04 lb. All match the register."
+    },
+    "not_read_by_this_pass": "S1 (the agreement's version stamp was not re-read; its §5 and §6 text was), S3-S7, S9-S15, S18-S27, S30, S31, S34, S38-S43. Nothing about them is restated as current here.",
+    "deliberately_not_used": "Prices, star ratings, review counts and 'customers also viewed' items visible on the live Amazon pages were seen and not recorded, per S2 §2(b) and §6(t)."
   }
 }

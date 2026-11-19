@@ -2437,6 +2437,108 @@
       "risk_of_not_doing": "A future pass adds a row, sees the build fail, reorders the array, and the site keeps publishing rows whose visible citation is the one no one can verify.",
       "blocks": [],
       "blocked_by": []
+    },
+    {
+      "id": "SG-49",
+      "title": "Decide where the working pages live once the shop leads: a collapsed group in the sidebar, the footer only, or their own section",
+      "area": "Site design",
+      "problem": "Pass 14 moved nineteen working pages (registers, decision tools, evidence) out of the reader's way into one collapsed 'Behind the site' group in the sidebar plus the footer, as the brief asks. A shopper who opens the sidebar on a phone still sees that group as the third heading, and the working pages still share the shop's URL space, sitemap and masthead. Whether that is the end state is a design decision, not a fix.",
+      "evidence": [
+        {
+          "label": "The navigation constants (NAV_LABEL, DESK_NAV) and the guard that keeps every working page reachable",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py"
+        },
+        {
+          "label": "The front page as it now ships",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/"
+        },
+        {
+          "label": "Google: build a site people find helpful, including easy navigation",
+          "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Keep the collapsed group in the sidebar and the footer list (current)",
+          "what": "No change. Every working page stays one click from anywhere and check_desk_nav() keeps it that way. The group stays closed on reader pages and opens on working pages.",
+          "effort": "0",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Footer only on reader pages",
+          "what": "Drop the group from the sidebar on index, picks, compare, products, categories, guides and articles; keep it on working pages. One condition in layout(). Shoppers see only shop links; reviewers lose one shortcut.",
+          "effort": "S",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "C. Give the working pages their own section",
+          "what": "Move them under a /desk/ path with their own index and a noindex robots meta, so the shop and the working record are separate sites in practice. Every internal link and the requirement register's paths change, so it needs a full link-check pass.",
+          "effort": "M",
+          "risk": "medium",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A now; B if the owner wants the shop to read with no visible trace of the working pages.",
+      "why": "A already meets the brief (one nav group plus the footer) and is guarded by the build. B is the cheapest further step and costs reviewers almost nothing because the footer list is on every page. C is the clean end state but touches every path the registers cite, so it should wait until a domain decision (SG-16, Q-33) means paths are changing anyway.",
+      "impact": 2,
+      "confidence": 4,
+      "effort": "S",
+      "risk_of_not_doing": "None urgent: the current state is guarded. The cost is a shopper on a phone scrolling past a third sidebar heading they do not need.",
+      "blocks": [],
+      "blocked_by": []
+    },
+    {
+      "id": "SG-50",
+      "title": "Settle the five stale pull requests from 2026-11-17, and port the thermometer data only after a fresh read",
+      "area": "Repository integrity",
+      "problem": "Pull requests #139, #141, #144, #146 and #150 have been open and conflicting since 2026-11-17. #144 held the fix for a false sentence that stayed live for two days (F91). #139 holds a sourced page for the two thermometer links (PI-04, PI-05) that main has never published. #141 applies the selected tracking ID to links, which main deliberately does not do yet. Open PRs that cannot merge look like pending work to the next pass and hide whatever is still useful in them.",
+      "evidence": [
+        {
+          "label": "Open pull requests on the repository",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/pulls"
+        },
+        {
+          "label": "Flag F93: the disposition of each PR",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f93"
+        },
+        {
+          "label": "Program Policies: Special Links must carry the assigned ID",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Close the four that are superseded or records only, keep #139 open as a source for a port",
+          "what": "Close #144, #146 and #150 with a comment naming the commit on main that supersedes each. Close #141 with a pointer to SG-47. Leave #139 open until a pass re-reads every thermometer row live and ports what still holds.",
+          "effort": "S",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Leave them all open",
+          "what": "Status quo. Costs nothing, and each new pass re-reviews the same five.",
+          "effort": "0",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "C. Port #139 now",
+          "what": "Rebase #139 onto main and publish the thermometer page. Its rows were read on 2026-11-17 and would need re-reading anyway, and it widens the shop beyond air fryers, which SG-36 has not decided.",
+          "effort": "M",
+          "risk": "medium",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A. Closing someone else's pull request is an owner action under the coordination protocol, so this pass recorded the disposition and closed none.",
+      "why": "Every one of the five has either been superseded on main or depends on a decision that is still open (SG-36 for #139, SG-47 for #141). Recording that once is cheaper than re-reviewing it every pass.",
+      "impact": 2,
+      "confidence": 5,
+      "effort": "S",
+      "risk_of_not_doing": "The next useful fix in an unmergeable PR stays unpublished as long as #144's did.",
+      "blocks": [],
+      "blocked_by": []
     }
   ],
   "paths_intro": "A decision queue with this many rows is a backlog, not a decision. The paths below group the suggestions into four coherent pieces of work. Each path is ordered, names what has to be true before it can start, and says plainly what it will not fix. Pick one path, finish it, then pick the next. The grouping is this pass's judgement; the dependencies inside it are not - they are the blocked_by links already recorded on each row.",
@@ -2468,7 +2570,8 @@
         "SG-03",
         "SG-09",
         "SG-15",
-        "SG-18"
+        "SG-18",
+        "SG-49"
       ],
       "effort": "M (a day or two of writing and one round of design)",
       "must_be_true_first": "Path 1, or at least SG-01 - the landing page cannot be rebuilt around a buyer's question while the answer to 'which model is this?' is still blank.",
@@ -2504,7 +2607,8 @@
         "SG-12",
         "SG-13",
         "SG-06",
-        "SG-22"
+        "SG-22",
+        "SG-50"
       ],
       "effort": "M (mostly engineering, some policy)",
       "must_be_true_first": "Path 1 for SG-06 (it depends on whether Creators API access exists - Q-05), and Q-08 for SG-08.",
@@ -2575,5 +2679,32 @@
       "pick_this_if": "You want the site to look like a publication someone runs, and you will supply one of the two decisions.",
       "why_first": "It sits last in the order on purpose: the compliance floor (P1) and findability (P3) are what make a polished page worth polishing. If you want the visual change before the indexing work, put P7 ahead of P3 - nothing in P7 depends on P3, and nothing in P3 depends on it."
     }
-  ]
+  ],
+  "decision_brief": {
+    "date": "2026-11-19",
+    "session": "arena/9b3365c7-zone1",
+    "intro": "If you read nothing else on this page, read these four. They are the choices that change what a shopper sees or what the site can earn, in the order this pass would take them. Each links to the full row with its paths.",
+    "items": [
+      {
+        "id": "SG-47",
+        "ask": "Run the one-link test and pick who hosts the click counter.",
+        "why": "Until one click appears in the Tracking ID Summary, nothing on the site can say a link earns anything (Q-37, Q-30)."
+      },
+      {
+        "id": "SG-42",
+        "ask": "Choose the photography route.",
+        "why": "Brand-supplied, your own, or none: the front page now has a slot per product and no picture to put in it (Q-34)."
+      },
+      {
+        "id": "SG-36",
+        "ask": "Decide whether the two thermometer links get a shelf.",
+        "why": "Two of the five submitted links point at products the shop does not cover; #139 has a draft page to port if the answer is yes (SG-50)."
+      },
+      {
+        "id": "SG-49",
+        "ask": "Confirm where the working pages live.",
+        "why": "The current layout meets the brief and is guarded; this only matters if you want them out of the shopper's sidebar entirely."
+      }
+    ]
+  }
 }
