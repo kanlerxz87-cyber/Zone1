@@ -96,10 +96,15 @@ class _NestedAnchorParser(HTMLParser):
 
 
 def pages():
-    for p in sorted(ROOT.rglob("*.html")):
-        if any(part.startswith(".") for part in p.relative_to(ROOT).parts):
-            continue
-        yield p
+    # Development dependencies and browser artifacts are not publication pages.
+    # Prune them before traversal; do not weaken coverage of any canonical/annex HTML.
+    import os
+    excluded = {"node_modules", "test-results", "playwright-report"}
+    for base, directories, filenames in os.walk(ROOT):
+        directories[:] = sorted(d for d in directories if not d.startswith(".") and d not in excluded)
+        for filename in sorted(filenames):
+            if filename.endswith(".html"):
+                yield Path(base) / filename
 
 
 def rel(p):

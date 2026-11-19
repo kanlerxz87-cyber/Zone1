@@ -37,7 +37,7 @@
   <div class="header-inner">
     <a class="brand" href="index.html" aria-label="Zone1 Kitchen home">
       <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M5 23h30c0 8-6 13-15 13S5 31 5 23Z" stroke="currentColor" stroke-width="1.6"/><path d="M10 18h20M16 12c-3-4 1-5 0-9M24 14c-3-4 2-6 1-10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-      <span class="brand-wordmark">zone1<small>Kitchen</small></span>
+      <span class="brand-wordmark">zone1 <small>Kitchen</small></span>
     </a>
     <nav class="topnav" aria-label="Primary"><a href="categories/kitchen-appliances.html">Air fryers</a><a href="categories/thermometers.html">Thermometers</a><a href="articles/index.html">Buying guides</a><a href="compare.html">Compare</a></nav>
     <span class="header-note">A little clarity for<br>your countertop.</span>
@@ -71,7 +71,7 @@
 
 <h2>Event definitions</h2>
 <p class="small">In the reference design, browser payloads contain only allow-listed page/product IDs or a fixed engagement bucket, and the application stores daily aggregates rather than raw event rows. The client reads no cookies, persistent IDs, referrers, query strings or destination URLs. The collector disables its own HTTP access log; host and proxy logging must also be reviewed before deployment. <code>affiliate_report_import</code> is an operator-only aggregate from an authorized report, not a browser event.</p>
-<div class="tablewrap">
+<div class="tablewrap" tabindex="0" role="region" aria-label="Scrollable data table">
 <table>
   <caption>Five event types in the project-owned measurement schema</caption>
   <thead><tr><th>Event</th><th>Origin</th><th>When it is recorded</th><th>Allowed data</th><th>Current state</th><th>Source / definition</th></tr></thead>
@@ -81,7 +81,7 @@
 
 <h2>Cadence</h2>
 <p class="small">These are operating rules for the project, not evidence that any event or search query has been recorded.</p>
-<div class="tablewrap">
+<div class="tablewrap" tabindex="0" role="region" aria-label="Scrollable data table">
 <table>
   <caption>Measurement and publication cadence</caption>
   <thead><tr><th>When</th><th>Action</th><th>Definition</th></tr></thead>
@@ -90,7 +90,7 @@
 </div>
 
 <h2>Deployment and access gates</h2>
-<div class="tablewrap">
+<div class="tablewrap" tabindex="0" role="region" aria-label="Scrollable data table">
 <table>
   <caption>What must be verified before measurement is enabled</caption>
   <thead><tr><th>Gate</th><th>Current evidence and missing step</th><th>Source</th></tr></thead>
@@ -103,7 +103,7 @@
 The EV-01…EV-05 labels below refer to those exact event names, not a separate protocol.
 The browser client and supported Python collector are integration-tested together;
 a synthetic test is not live traffic. No production endpoint is deployed.</p>
-<div class="tablewrap">
+<div class="tablewrap" tabindex="0" role="region" aria-label="Scrollable data table">
 <table>
   <caption>What ships, and what does not</caption>
   <thead><tr><th style="width:18%">Part</th><th style="width:62%">State</th><th style="width:20%">Where to look</th></tr></thead>
@@ -169,7 +169,7 @@ a synthetic test is not live traffic. No production endpoint is deployed.</p>
 
 <h2 id="campaign-ledger">Campaign ledger</h2>
 <p class="small">Started empty on purpose, per the brief&#x27;s &#x27;empty but well-defined campaign ledger&#x27;. A row may only be added from an authorised first-party report. No conversion score and no revenue forecast is presented anywhere in this repository.</p>
-<div class="tablewrap">
+<div class="tablewrap" tabindex="0" role="region" aria-label="Scrollable data table">
 <table>
   <caption>Empty on purpose. Columns: timestamp_utc, source_report, channel, date_range, eligible_sessions, clicks, reported_orders</caption>
   <thead><tr><th>timestamp_utc</th><th>source_report</th><th>channel</th><th>date_range</th><th>eligible_sessions</th><th>clicks</th><th>reported_orders</th></tr></thead>
@@ -178,7 +178,7 @@ a synthetic test is not live traffic. No production endpoint is deployed.</p>
 </div>
 
 <h2>What has to be true before a single event sends</h2>
-<div class="tablewrap">
+<div class="tablewrap" tabindex="0" role="region" aria-label="Scrollable data table">
 <table>
   <caption>Prerequisites, in order</caption>
   <thead><tr><th style="width:6%">Step</th><th style="width:34%">Owner action</th>
@@ -195,12 +195,12 @@ a synthetic test is not live traffic. No production endpoint is deployed.</p>
 <footer class="site">
   <div class="inner">
     <div class="foot-brand">
-      <span class="brand-wordmark">zone1<small>Kitchen</small></span>
+      <span class="brand-wordmark">zone1 <small>Kitchen</small></span>
       <p>Less guesswork. More room for dinner. Practical kitchen buying guides, grounded in the manuals—not hands-on tests.</p>
       <a class="text-link" href="feed.xml">Follow new guides via RSS <svg class="icon-arrow" width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="transform:rotate(-45deg)"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
     <div>
-      <h5>Find your fit</h5>
+      <h2>Find your fit</h2>
       <ul>
         <li><a href="categories/kitchen-appliances.html">Air fryers &amp; ovens</a></li>
         <li><a href="categories/thermometers.html">Thermometer link notes</a></li>
@@ -209,7 +209,7 @@ a synthetic test is not live traffic. No production endpoint is deployed.</p>
       </ul>
     </div>
     <div>
-      <h5>A closer look</h5>
+      <h2>A closer look</h2>
       <ul>
         <li><a href="about.html">Our approach &amp; authorship</a></li>
         <li><a href="compliance.html">Disclosure &amp; link policy</a></li>
@@ -218,7 +218,7 @@ a synthetic test is not live traffic. No production endpoint is deployed.</p>
       </ul>
     </div>
     <div class="foot-owner">
-      <h5>Owner workspace</h5>
+      <h2>Owner workspace</h2>
       <ul>
         <li><a href="executive-summary.html">Executive summary &amp; index</a></li>
         <li><a href="suggestions.html">Suggestions decision queue</a></li>

@@ -74,3 +74,27 @@ reproducibility/link gates and the browser checks described in the dated review
 report before publication. The measurements in browser tests are synthetic test
 fixtures, not campaign traffic. See `analytics/README.md` for the separate
 production deployment and privacy gates.
+
+
+## Rendered development checks
+
+`npm ci --ignore-scripts`, `npx playwright install --with-deps chromium`, then
+`npm run test:browser`. The server exists only for the run, with a temporary TLS
+certificate and aggregate fixture database outside the checkout. Neither endpoint
+routes nor enabled-fixture settings are deployed by Pages. The 404 page’s absolute
+canonical asset URLs are mapped to the local checkout during the offline test.
+
+All canonical HTML is tested at 320, 390, 768 and 1440 px for disclosure order and
+visibility, horizontal containment, local asset decoding and disabled collection.
+A separate no-JS reader flow checks native Workspace, source/details access and
+keyboard scrolling. Browser-local decision drafts can be exported/cleared without
+a server; malformed/denied storage is handled without a false persistence claim.
+The scoped axe run covers representative reader/critical workspace routes, not a
+full accessibility certification. The real-client reading-bucket test explicitly
+uses controlled focus/visibility and a virtual clock, while actual click trust,
+keyboard activation, middle clicks and HTTP privacy headers are native browser
+behaviour. No synthetic event ever enters the campaign ledger.
+
+`publication/social-card.html.tpl` and `npm run render:social` are the local-only
+share-card source/renderer. The reviewed 1200×630 PNG is committed; it is not
+re-rendered on every build because browser font rasterisation is platform-specific.

@@ -168,3 +168,79 @@ At this checkpoint, build and verifier pass (58 canonical pages / 37 sitemap URL
 **43-test root suite passes**, including explicit source-gate/header bypass,
 state-partition, disclosure-order, asset-drift, unknown-date and known-correction
 regressions. Full browser/annex/CI/deployment results still follow.
+
+
+## Local final acceptance — executed, before PR CI/merge
+
+- `bash scripts/ci-check.sh`: canonical build/source/link/privacy gates, root
+  contract tests, **33 platform tests**, clean data audit, 16-file annex current
+  check and **11,230 links** passed at the browser-ready checkpoint.
+- `research/check_research.py`: **834 checks** passed, with its original source
+  generator/data unchanged.
+- `scripts/verify_site.py`: **393 assertions** passed; historical annex unchanged.
+- `verify.py`: **136 published HTML pages**, 77 spec rows (75 populated / 2
+  blank+flagged), 45 registered sources, **0 errors / 0 external warnings**.
+  Optional `node_modules` and browser artifacts are pruned, not mistaken for
+  publication HTML; every canonical/historical page remains in scope.
+- JavaScript syntax checks and `git diff --check` passed.
+- **10 Playwright tests passed** in Chromium (3.4 minutes): all **58 canonical
+  pages × 320/390/768/1440 px**, disclosure immediately below masthead and fully
+  above fold, no document overflow, decoded local images/fonts, no publisher
+  analytics/cookies/storage writes on reader visits, one Workspace group, and
+  no unexpected external runtime dependency. The absolute canonical asset URLs
+  on the production 404 are mapped to the local checkout for this offline test.
+- Separate no-JavaScript navigation, native Workspace, expanded product evidence,
+  keyboard table scrolling, menu Escape/focus return, outside closing and local
+  decision export/reload/clear passed. Malformed/denied storage does not break the
+  workspace or claim a saved draft when storage is unavailable.
+- Scoped axe checks on **12 representative reader/critical workspace routes at
+  390 and 1440 px** reported **0 violations** for the selected WCAG A/AA tags.
+  The audit found and repaired a visible-label/accessibility-name mismatch in
+  the wordmark. This is not full WCAG certification or a user-assistive-tech study.
+- Actual trusted primary, keyboard and middle activations reached the real Python
+  HTTP handler over same-origin test HTTPS with **202** responses. Synthetic
+  dispatch/right-click did not inflate counts. Cookie and Referer headers were
+  absent from event requests even with a synthetic cookie installed; query/tag/
+  ASIN/full-URL strings were absent from payloads. DNT/GPC suppression passed.
+  A comparison view alone did not become an interaction.
+- The browser reading bucket used a **virtual clock and explicitly controlled
+  focus/visibility inputs**. It verified 59 active ticks, exclusion of hidden or
+  unfocused ticks, then one fixed 60s bucket, with no repeat. Headless Playwright
+  normally emulates focused tabs; no native OS-focus/real reading-time claim is
+  made from this fixture. The Node VM tests separately cover the same state cases.
+- All browser metrics live in a TemporaryDirectory database outside Git. The
+  production switches stay false, active tag blank, per-product tests false and
+  campaign ledger empty. No synthetic values were imported as campaign evidence.
+
+### Final browser findings and bounded test-harness repairs
+
+Visual inspection shortened product pages: a concise essentials table now leads,
+with full dated listing/specification evidence in a native expandable section.
+The mobile comparison row-label width was fixed so labels do not wrap one letter
+per line. The redesigned sharing card uses the same local fonts and clearly
+labelled conceptual scene. Current desktop/mobile screenshots were inspected.
+
+The first headless run used a serverless single-process flag that prevented a
+second browser context; ordinary sandboxed-test process settings fixed the harness.
+A `networkidle` wait was inappropriate for the enabled keepalive event fixture:
+requests were already accepted, while the wait did not finish. The tests now
+assert actual collector/HTTP outcomes rather than idle timing. No acceptance
+criterion was replaced by a delay or a fabricated successful response. A no-JS
+text selector also intentionally ignored NOSCRIPT; the test checks the actual
+visible notice element and DOM text instead.
+
+The full browser run exposed a genuine privacy hardening issue in the stdlib
+server’s fallback error path: an interrupted TLS request printed the client
+address despite disabled request access logs. **F98 update:** the production
+`AggregateHTTPServer` now suppresses expected disconnect diagnostics and emits
+only a fixed nonidentifying message for unexpected errors—never request/exception
+text or a traceback. Two negative log tests were added; the **45-test root suite**
+passes and the five actual-browser measurement tests were re-run successfully on
+that server. Proxy/host logs still require their own real deployment review.
+
+Compliance implementation notes were also reconciled: no assigned sub-tags,
+running paid-acquisition workflow, human sign-off, account-review clock or blanket
+Agent-Term exemption is invented. Original notes remain dated history. The policy
+quotes were not silently edited or blanket-stamped newly verified.
+
+**PR CI, merge and actual Pages read-back remain pending at this checkpoint.**

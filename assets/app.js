@@ -1,3 +1,5 @@
+// Progressive controls are hidden in the HTML until their handlers can run.
+document.querySelectorAll('[data-js-required]').forEach(function (node) { node.hidden = false; });
 
 // copy-to-clipboard for article share rows (2026-11-15, arena/792c279e).
 // Progressive: without JS the button does nothing and the URL is still in the address bar,
@@ -45,11 +47,13 @@ document.addEventListener('click', function (event) {
 (function () {
   var root = document.getElementById('decision-picker');
   if (!root) return;
-  var KEY = 'zone1-***';
+  var KEY = 'zone1.decision-drafts.v2';
   var counter = document.getElementById('decision-counter');
   var out = document.getElementById('decision-output');
   var store = {};
-  try { store = JSON.parse(window.localStorage.getItem(KEY) || '{}') || {}; } catch (err) { store = {}; }
+  var storageReady = true;
+  try { store = JSON.parse(window.localStorage.getItem(KEY) || '{}') || {}; } catch (err) { store = {}; storageReady = false; }
+  if (typeof store !== 'object' || Array.isArray(store)) store = {};
 
   function panels() {
     return Array.prototype.slice.call(root.querySelectorAll('fieldset[data-sg]'));
@@ -95,10 +99,10 @@ document.addEventListener('click', function (event) {
     if (!counter) return;
     var n = collect().length;
     counter.textContent = n + ' of ' + panels().length + ' picked in this browser' +
-      (n ? ' — copy or download to hand it back' : ' — nothing picked yet');
+      (storageReady ? (n ? ' — copy or download to hand it back' : ' — nothing picked yet') : ' — storage unavailable; copy/download to retain');
   }
   function persist() {
-    try { window.localStorage.setItem(KEY, JSON.stringify(store)); } catch (err) {}
+    try { window.localStorage.setItem(KEY, JSON.stringify(store)); } catch (err) { storageReady = false; }
   }
   function record(target) {
     var fs = target.closest ? target.closest('fieldset[data-sg]') : null;
@@ -156,20 +160,20 @@ document.addEventListener('click', function (event) {
   });
   panels().forEach(function (fs) {
     var v = store[fs.getAttribute('data-sg')];
-    if (!v) return;
-    if (v.path) {
+    if (!v || typeof v !== 'object') return;
+    if (typeof v.path === 'string' && /^(?:[A-Z]|HOLD)$/.test(v.path)) {
       var i = fs.querySelector('input[value="' + v.path + '"]');
       if (i) i.checked = true;
     }
     var t = fs.querySelector('textarea.dec-note');
-    if (t && v.note) t.value = v.note;
+    if (t && typeof v.note === 'string') t.value = v.note;
   });
   paint();
 })();
 
 // Shopfront pass (2026-11-17, arena/fd9778a1-zone1) — two presentation behaviours.
-// Both are progressive: with JavaScript off the tables still scroll (the fade is the
-// only thing missing), the comparison bar stays visible, and no content is hidden.
+// Wide tables remain keyboard-scrollable without JavaScript. Dynamic edge hints and
+// removing unnecessary tab stops on non-overflowing tables are progressive enhancements.
 // These presentation behaviours make no network call or storage write. The separate
 // measurement client has its own deployment and privacy gates; see measurement.html.
 (function () {
@@ -179,11 +183,11 @@ document.addEventListener('click', function (event) {
   function paint() {
     wraps.forEach(function (w) {
       var hint = w.nextElementSibling;
-      if (!hint || !hint.classList.contains('tablewrap-hint')) return;
       var wide = w.scrollWidth - w.clientWidth > 4;
       w.tabIndex = wide ? 0 : -1;
       var caption = w.querySelector('caption');
       if (wide && caption) w.setAttribute('aria-label', caption.textContent + ' — scroll horizontally for more columns');
+      if (!hint || !hint.classList.contains('tablewrap-hint')) return;
       var past = w.scrollWidth - w.clientWidth - w.scrollLeft;
       hint.classList.toggle('show', w.scrollWidth - w.clientWidth > 4 && past > 4);
     });
@@ -194,13 +198,4 @@ document.addEventListener('click', function (event) {
     paint();
   }
 
-  // Step the sticky bar out of the way once the footer is on screen, so it never
-  // covers the disclosure text or the source list.
-  var bar = document.querySelector('.shopbar');
-  var foot = document.querySelector('footer.site');
-  if (bar && foot && 'IntersectionObserver' in window) {
-    new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { bar.classList.toggle('hide', en.isIntersecting); });
-    }, { rootMargin: '0px 0px -8px 0px' }).observe(foot);
-  }
 })();

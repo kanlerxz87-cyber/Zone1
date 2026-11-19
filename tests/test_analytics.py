@@ -1,18 +1,45 @@
 from __future__ import annotations
 
 import json
+import io
+from contextlib import redirect_stderr
 import sqlite3
 import tempfile
 import threading
 import unittest
 from datetime import datetime, timezone
-from http.server import ThreadingHTTPServer
 from pathlib import Path
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
-from analytics.collector import ENDPOINT_PATH, allowed_product_ids, make_handler, record_event, validate_payload
+from analytics.collector import AggregateHTTPServer, ENDPOINT_PATH, allowed_product_ids, make_handler, record_event, validate_payload
+
+ThreadingHTTPServer = AggregateHTTPServer
 from analytics.report_import import append_report_row, normalize_row
+
+
+class CollectorErrorLogTests(unittest.TestCase):
+    def test_expected_transport_failures_do_not_log_client_addresses(self):
+        server = object.__new__(AggregateHTTPServer)
+        output = io.StringIO()
+        with redirect_stderr(output):
+            try:
+                raise BrokenPipeError("synthetic private request context")
+            except BrokenPipeError:
+                server.handle_error(None, ("198.51.100.7", 4321))
+        self.assertEqual("", output.getvalue())
+
+    def test_unexpected_server_error_logs_only_a_fixed_nonidentifying_diagnostic(self):
+        server = object.__new__(AggregateHTTPServer)
+        output = io.StringIO()
+        with redirect_stderr(output):
+            try:
+                raise RuntimeError("synthetic private payload must not be logged")
+            except RuntimeError:
+                server.handle_error(None, ("198.51.100.7", 4321))
+        self.assertEqual("Aggregate collector request failed.\n", output.getvalue())
+        self.assertNotIn("198.51.100.7", output.getvalue())
+        self.assertNotIn("private", output.getvalue())
 
 
 class CollectorValidationTests(unittest.TestCase):

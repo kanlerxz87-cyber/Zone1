@@ -252,6 +252,24 @@ def make_handler(environ: Mapping[str, str] | None = None):
     return CollectorHandler
 
 
+class AggregateHTTPServer(ThreadingHTTPServer):
+    """Do not let socketserver's fallback traceback log a client address.
+
+    Disabling BaseHTTPRequestHandler.log_message is not sufficient: a dropped
+    connection can reach handle_error(), whose stdlib implementation prints the
+    address plus a traceback. Expected transport failures are silent; unexpected
+    failures emit only a fixed operator diagnostic, never exception/request text.
+    """
+
+    daemon_threads = True
+
+    def handle_error(self, request, client_address) -> None:
+        error = sys.exc_info()[1]
+        if isinstance(error, (ConnectionError, TimeoutError, OSError)):
+            return
+        print("Aggregate collector request failed.", file=sys.stderr)
+
+
 def serve(host: str | None = None, port: int | None = None) -> None:
     config = environment_config()
     if not config["ready"]:
@@ -262,7 +280,7 @@ def serve(host: str | None = None, port: int | None = None) -> None:
         )
     bind_host = host or os.environ.get("ZONE1_ANALYTICS_BIND", "0.0.0.0")
     bind_port = port or int(os.environ.get("ZONE1_ANALYTICS_PORT", "8078"))
-    server = ThreadingHTTPServer((bind_host, bind_port), make_handler())
+    server = AggregateHTTPServer((bind_host, bind_port), make_handler())
     print(f"Zone1 analytics collector listening on {bind_host}:{bind_port} (no access log)", flush=True)
     try:
         server.serve_forever()

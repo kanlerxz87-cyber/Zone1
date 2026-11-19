@@ -1,0 +1,14 @@
+{
+  "name": "zone1-publication-checks",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Development-only rendered publication, accessibility and actual-browser contract checks.",
+  "scripts": {
+    "test:browser": "playwright test",
+    "render:social": "node scripts/render-social-card.cjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1",
+    "axe-core": "4.14.1"
+  }
+}

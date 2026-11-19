@@ -37,7 +37,7 @@
   <div class="header-inner">
     <a class="brand" href="index.html" aria-label="Zone1 Kitchen home">
       <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M5 23h30c0 8-6 13-15 13S5 31 5 23Z" stroke="currentColor" stroke-width="1.6"/><path d="M10 18h20M16 12c-3-4 1-5 0-9M24 14c-3-4 2-6 1-10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-      <span class="brand-wordmark">zone1<small>Kitchen</small></span>
+      <span class="brand-wordmark">zone1 <small>Kitchen</small></span>
     </a>
     <nav class="topnav" aria-label="Primary"><a href="categories/kitchen-appliances.html">Air fryers</a><a href="categories/thermometers.html">Thermometers</a><a href="articles/index.html">Buying guides</a><a href="compare.html">Compare</a></nav>
     <span class="header-note">A little clarity for<br>your countertop.</span>
@@ -103,7 +103,7 @@ Run build.py, verify.py, root/platform tests, annex reproducibility and link/sou
 
 <h2>Design suggestions</h2>
 <p class="small muted">Reconciled 19 November 2026 against the canonical source/templates. Implemented means repository presentation or plan, not production measurement, account approval, WCAG certification or search performance. Partial rows name the remaining boundary.</p>
-<div class="tablewrap">
+<div class="tablewrap" tabindex="0" role="region" aria-label="Scrollable data table">
 <table>
   <caption>Design suggestions — current canonical implementation</caption>
   <thead><tr><th>#</th><th>Suggestion · why · path</th><th>Status</th><th>Evidence</th></tr></thead>
@@ -113,7 +113,7 @@ Run build.py, verify.py, root/platform tests, annex reproducibility and link/sou
 
 <h2>Article topic queue</h2>
 <p class="small">Catchy, reader-shaped topics for this product set, in the order they were proposed. Titles are working titles; each one names the format and the hook it leads with. Published rows link to the article they became. Nothing here may claim hands-on testing or state an Amazon price — those rules are inside the prompt above. <strong>Relationship to <a href="topics.html">topics.html</a>:</strong> that page is the proposal view (intent, serving product, citation each topic must carry); this table is the status view — which of the original working titles actually became articles, and which are still open.</p>
-<div class="tablewrap">
+<div class="tablewrap" tabindex="0" role="region" aria-label="Scrollable data table">
 <table>
   <caption>Topic queue — publication state derived from the article register</caption>
   <thead><tr><th>#</th><th>Working title · format · hook</th><th>Status</th><th>Sources it would cite</th></tr></thead>
@@ -123,7 +123,7 @@ Run build.py, verify.py, root/platform tests, annex reproducibility and link/sou
 
 <h2>Organic-traffic tactics</h2>
 <p class="small">Channel strategy — which niche to build, which channels to run, what to measure — is decided on <a href="decisions.html">decisions.html</a>, with the per-topic promotion channels listed on <a href="topics.html">topics.html</a>. This table is the operational checklist behind them: what has already shipped, what is half-done and what has not started.</p>
-<div class="tablewrap">
+<div class="tablewrap" tabindex="0" role="region" aria-label="Scrollable data table">
 <table>
   <caption>Organic-traffic tactics — implemented versus planned</caption>
   <thead><tr><th>#</th><th>Tactic · how · status note</th><th>Status</th><th>Evidence</th></tr></thead>
@@ -133,7 +133,7 @@ Run build.py, verify.py, root/platform tests, annex reproducibility and link/sou
 
 <h2>Editorial voice rules</h2>
 <p class="small">The voice half of the anti-slop rules. The enforcement half — the banned openers, the arithmetic guard, the claim checks — lives on <a href="decisions.html">decisions.html</a> and in <code>build.py</code>, where the build fails if a rule is broken.</p>
-<div class="tablewrap">
+<div class="tablewrap" tabindex="0" role="region" aria-label="Scrollable data table">
 <table>
   <caption>Current editorial voice rules</caption>
   <thead><tr><th>#</th><th>Rule</th><th>Why</th><th>Evidence</th></tr></thead>
@@ -143,7 +143,7 @@ Run build.py, verify.py, root/platform tests, annex reproducibility and link/sou
 
 <h2>Decision register</h2>
 <p class="small">How to use this register: for each row choose <strong>Approved</strong>, <strong>Rejected</strong> or <strong>Needs more info</strong>, write the choice and the date in the last column, then implement only approved rows. Rejected rows stay on the register so they are not proposed again. Rows that are blocked name the question that unblocks them.</p>
-<div class="tablewrap">
+<div class="tablewrap" tabindex="0" role="region" aria-label="Scrollable data table">
 <table>
   <caption>Design choices — implementation state is not an owner approval</caption>
   <thead><tr><th>#</th><th>Suggestion</th><th>Options considered</th><th>Recommended path</th><th>Status today</th><th>Evidence</th><th>Decision</th></tr></thead>
@@ -164,12 +164,12 @@ Run build.py, verify.py, root/platform tests, annex reproducibility and link/sou
 <footer class="site">
   <div class="inner">
     <div class="foot-brand">
-      <span class="brand-wordmark">zone1<small>Kitchen</small></span>
+      <span class="brand-wordmark">zone1 <small>Kitchen</small></span>
       <p>Less guesswork. More room for dinner. Practical kitchen buying guides, grounded in the manuals—not hands-on tests.</p>
       <a class="text-link" href="feed.xml">Follow new guides via RSS <svg class="icon-arrow" width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="transform:rotate(-45deg)"><path d="M3 10h13m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
     <div>
-      <h5>Find your fit</h5>
+      <h2>Find your fit</h2>
       <ul>
         <li><a href="categories/kitchen-appliances.html">Air fryers &amp; ovens</a></li>
         <li><a href="categories/thermometers.html">Thermometer link notes</a></li>
@@ -178,7 +178,7 @@ Run build.py, verify.py, root/platform tests, annex reproducibility and link/sou
       </ul>
     </div>
     <div>
-      <h5>A closer look</h5>
+      <h2>A closer look</h2>
       <ul>
         <li><a href="about.html">Our approach &amp; authorship</a></li>
         <li><a href="compliance.html">Disclosure &amp; link policy</a></li>
@@ -187,7 +187,7 @@ Run build.py, verify.py, root/platform tests, annex reproducibility and link/sou
       </ul>
     </div>
     <div class="foot-owner">
-      <h5>Owner workspace</h5>
+      <h2>Owner workspace</h2>
       <ul>
         <li><a href="executive-summary.html">Executive summary &amp; index</a></li>
         <li><a href="suggestions.html">Suggestions decision queue</a></li>

@@ -37,7 +37,7 @@ $search_console_tag
   <div class="header-inner">
     <a class="brand" href="${prefix}index.html" aria-label="Zone1 Kitchen home">
       <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M5 23h30c0 8-6 13-15 13S5 31 5 23Z" stroke="currentColor" stroke-width="1.6"/><path d="M10 18h20M16 12c-3-4 1-5 0-9M24 14c-3-4 2-6 1-10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-      <span class="brand-wordmark">zone1<small>Kitchen</small></span>
+      <span class="brand-wordmark">zone1 <small>Kitchen</small></span>
     </a>
     <nav class="topnav" aria-label="Primary">$topnav</nav>
     <span class="header-note">A little clarity for<br>your countertop.</span>
@@ -64,12 +64,12 @@ $search_console_tag
 <footer class="site">
   <div class="inner">
     <div class="foot-brand">
-      <span class="brand-wordmark">zone1<small>Kitchen</small></span>
+      <span class="brand-wordmark">zone1 <small>Kitchen</small></span>
       <p>Less guesswork. More room for dinner. Practical kitchen buying guides, grounded in the manuals—not hands-on tests.</p>
       <a class="text-link" href="${prefix}feed.xml">Follow new guides via RSS <span aria-hidden="true">↗</span></a>
     </div>
     <div>
-      <h5>Find your fit</h5>
+      <h2>Find your fit</h2>
       <ul>
         <li><a href="${prefix}categories/kitchen-appliances.html">Air fryers &amp; ovens</a></li>
         <li><a href="${prefix}categories/thermometers.html">Thermometer link notes</a></li>
@@ -78,7 +78,7 @@ $search_console_tag
       </ul>
     </div>
     <div>
-      <h5>A closer look</h5>
+      <h2>A closer look</h2>
       <ul>
         <li><a href="${prefix}about.html">Our approach &amp; authorship</a></li>
         <li><a href="${prefix}compliance.html">Disclosure &amp; link policy</a></li>
@@ -87,7 +87,7 @@ $search_console_tag
       </ul>
     </div>
     <div class="foot-owner">
-      <h5>Owner workspace</h5>
+      <h2>Owner workspace</h2>
       <ul>
         <li><a href="${prefix}executive-summary.html">Executive summary &amp; index</a></li>
         <li><a href="${prefix}suggestions.html">Suggestions decision queue</a></li>

@@ -641,6 +641,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     """One publication masthead, below-masthead disclosure and native workspace menu."""
     from string import Template
     prefix = depth_prefix(page_rel)
+    body = body.replace('<div class="tablewrap">', '<div class="tablewrap" tabindex="0" role="region" aria-label="Scrollable data table">')
     canonical = SITE_BASE if page_rel == "index.html" else page_url(page_rel)
     def navlink(href, label):
         current = ' class="active" aria-current="page"' if active == href else ""
@@ -1060,18 +1061,31 @@ def page_product(p):
     record = next(r for r in PRODUCT_INTENT["rows"] if r["supplied_link"] == p["link"])
     flag_rows = "".join(f'<tr><td>{e(f["id"])}</td><td>{e(f["issue"])}</td><td>{e(f["action"])}</td><td>{src_links(f.get("sources",[]))}</td></tr>' for f in p["flags"])
     related = ARTICLE_BY_SLUG[row["related_guide"]]
+    labels = {"Capacity", "Dimensions", "Dimensions / weight", "Temperature range", "Power", "Rated power", "Wattage"}
+    brief = spec_table({**p, "specs": [r for r in p["specs"] if r["label"] in labels]})
+    brief = brief.replace("Verified specifications", "Documented essentials")
+    care_source = {"chefman-6qt-dual-basket":"S18", "chefman-8qt-turbofry":"S13", "emeril-26qt-french-door":"S15"}[p['slug']]
+    care = {
+        'emeril-26qt-french-door': 'Hand-washing accessories is recommended. Never soak or dishwash the main appliance.',
+        'chefman-6qt-dual-basket': 'The removable baskets and racks may go on the dishwasher top rack. Never immerse or dishwash the main unit.',
+        'chefman-8qt-turbofry': 'The removable basket and rack may go on the dishwasher top rack. Never immerse or dishwash the main unit.',
+    }[p['slug']]
+    temperature_note = ('<p class="small"><strong>Temperature note:</strong> the manual describes 450 °F as a two-minute Hi-Fry boost, not an unrestricted full-cycle setting. ' + src_link('S18') + '</p>'
+                        if p['slug'] == 'chefman-6qt-dual-basket' else '')
     body = f"""<p class="crumbs"><a href="../index.html">Home</a> / <a href="../categories/kitchen-appliances.html">Air fryers</a> / {e(row['title'])}</p>
 <section class="product-hero">{format_art(row)}<div><p class="section-eyebrow">{e(row['eyebrow'])} · a document-based guide</p><h1>{e(row['title'])}</h1><p class="lede">{e(row['dek'])} {src_links(row['sources'])}</p><p class="small"><strong>Capacity:</strong> {e(row['capacity'])} {src_links(row['sources'])}</p><p class="small"><strong>Check first:</strong> {e(row['check'])} {src_links(row['check_sources'])}</p>{product_cta(p,'../')}</div></section>
 {publication_byline('../')}
 <div class="product-verdict"><p class="section-eyebrow">The short version · editorial guidance</p><p>{e(row['verdict'])} {src_links(row['sources']+row['check_sources'])}</p></div>
 <nav class="buyer-toc" aria-label="On this product page"><a href="#specifications">Specifications</a><a href="#before-buying">Before buying</a><a href="#source-record">Sources &amp; listing record</a></nav>
-<h2 id="specifications">What the documents say.</h2><p class="small muted">Manufacturer specifications and recorded listing observations are labelled separately below. They are not proof that the submitted link is the intended product. Individual source dates and conflicts remain in the <a href="../data.html">dataset</a>; a refreshed page layout does not re-verify every value.</p>
-{spec_table(p)}
+<h2 id="specifications">What the documents say.</h2><p class="small muted">The essentials for the documented model—not a serving or performance test. A refreshed layout does not re-verify every field; individual dates and conflicts stay in the <a href="../data.html">full record</a>.</p>
+{brief}
+{temperature_note}
+<p class="small"><strong>Care:</strong> {e(care)} {src_link(care_source)} <a href="../articles/how-to-clean-an-air-fryer.html">Read the care guide →</a></p>
 <h2 id="before-buying">What to check before buying.</h2><p>{e(row['check'])} {src_links(row['check_sources'])}</p><p class="small">The model string in this record is <code>{e(p['model_number']['v'])}</code>. {src_links(p['model_number']['s'])} Compare it with the listing and the documentation for the unit you would receive. No opinion here establishes cooking performance, noise, durability or how many portions your meal will make.</p>
-<p class="small"><a href="../articles/{e(related['slug'])}.html">Read next: {e(related['title'])} →</a> · <a href="../compare.html">Compare all three formats →</a></p>
+<div class="grid grid-2">{article_teaser(related["slug"],"../")}{article_teaser("how-to-clean-an-air-fryer","../")}</div><p class="small"><a href="../compare.html">Compare all three formats →</a></p>
 <details class="source-detail" id="source-record"><summary>Official sources, listing observations &amp; open questions</summary>
 <p class="small">Observed {e(record['observed_on'])}: <code>{e(record['observed_asin'])}</code>. This is a dated redirect observation, not the intended ASIN. Intended ASIN, official listing confirmation and per-product enrolled Associates test remain blank. The selected tracking ID is recorded but not applied. {src_links(record['observed_source_ids'])}</p>
-<p class="small">{e(p['model_number']['caveat'])}</p>
+<p class="small">{e(p['model_number']['caveat'])}</p><h3>The full specification record</h3><p class="small muted">Manufacturer statements and dated Amazon listing observations are labelled separately; neither confirms this account holder’s intended listing. Older field-specific notes remain dated evidence, not a fresh claim about every value.</p>{spec_table(p)}
 <div class="tablewrap"><table><caption>Recorded product questions</caption><thead><tr><th>ID</th><th>Issue</th><th>Next step</th><th>Official evidence</th></tr></thead><tbody>{flag_rows}</tbody></table></div>
 <p class="small"><a href="../flagged.html">Full public review register</a> · <a href="../product-intent.html">Separate intent and attribution fields</a></p>
 </details>
@@ -1502,7 +1516,7 @@ PROGRAMME_FLAGS += [
      "One named-event contract now covers the actual browser source, collector, deployment gates and privacy notice. Synthetic client payloads are posted to the real HTTP handler in an isolated database. The old raw-event PHP/Worker endpoints return 410. No production endpoint or traffic is claimed; hosting and privacy approval remain open.", ["S2", "S38"]),
     ("F98", "Repaired 2026-11-19: blanket no-data privacy wording omitted hosting IP logs and local decision drafts.",
      "Canonical footer, about page, measurement notices",
-     "The site-specific notice now distinguishes no publisher analytics from GitHub Pages security IP logs and browser-only localStorage decision drafts. Enabled notices describe page views and engagement as well as clicks. Infrastructure logging and the production notice still require a separate deployment review.", ["S38", "S2"]),
+     "The site-specific notice now distinguishes no publisher analytics from GitHub Pages security IP logs and browser-only localStorage decision drafts. Enabled notices describe page views and engagement as well as clicks. The browser run also exposed socketserver’s fallback transport-error traceback, which can print a client address even with request access logs disabled. The production server now suppresses expected disconnects and emits only a fixed nonidentifying diagnostic for unexpected errors, with negative log tests. Proxy/hosting infrastructure logging and the production notice still require a separate deployment review.", ["S38", "S2"]),
     ("F99", "Repaired 2026-11-19: old buying guidance misdescribed cleanup and capacity and omitted known dimensions.",
      "Canonical buying route and six revised articles; previous revisions remain in Git history",
      "The previous buying guide called all three appliances dishwasher-safe and left the 8 Qt dimensions blank after they were sourced. The capacity article also called 6 qt and 8 qt the same nominal total. The revised guides distinguish removable parts from the main unit, Emeril's hand-wash recommendation, model-specific dimensions and divided vs undivided capacity. An unsupported most-common-return assertion was removed. The full prose review also removed unsupported serving-load ratios, cooking/durability claims, electrical-circuit assumptions, exact-energy-cost implications, guessed model explanations and a nutrition-regulatory classification. It corrected the 8 Qt aerosol caution and the disclosure placement. All 24 existing guides were revised without adding duplicate slugs. These are content corrections, not evidence of better conversion.", ["S10", "S12", "S13", "S14", "S15", "S18"]),
@@ -1736,8 +1750,8 @@ def page_compliance():
     )
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Compliance</p>
-<h1>Compliance, quoted rather than summarised</h1>
-<p class="lede">{len(COMPLIANCE['requirements'])} requirements that govern this site, each with the source text, a link to the official document, and a plain statement of how the build satisfies it. Where a rule is inconvenient, the rule wins and the feature is dropped.</p>
+<h1>Policy text and implementation boundaries</h1><p class="small muted">This is a cited policy register, not Amazon approval or legal certification. Implementation notes were reconciled on 19 November; quotes retain their recorded source dates. Only the named sections in the scoped report were freshly re-read.</p>
+<p class="lede">{len(COMPLIANCE['requirements'])} requirements that govern this site, each with the source text, a link to the official document, and a bounded statement of what this repository does about it. Where a rule is inconvenient, the rule wins and the feature is dropped.</p>
 
 <div class="callout">
   <strong>The three rules that shape everything else</strong>
@@ -3602,7 +3616,7 @@ def page_decision_log():
             f'{opts_html}'
             f'<label class="hold-row"><input type="radio" name="dec-{e(sg["id"])}" value="HOLD" '
             f'data-sg="{e(sg["id"])}"><span>Hold this one — change nothing</span></label>'
-            f'<textarea class="dec-note" rows="2" data-sg="{e(sg["id"])}" '
+            f'<textarea class="dec-note" rows="2" aria-label="Optional note for {e(sg["id"])}" data-sg="{e(sg["id"])}" '
             f'placeholder="Optional: a condition, a date, or why. This travels with your choice."></textarea>'
             f'</fieldset>')
 
@@ -3763,13 +3777,13 @@ column is the fact.</p>
 between visits, and nothing leaves the page until you press copy or download. The <em>default</em>
 tag marks the path this register would take if you said nothing — picking it explicitly still matters,
 because a recorded choice outranks a default and carries a reason.</p>
-<div class="decision-actions">
+<noscript><p class="callout note">Decision drafting/export needs JavaScript. The full current-state table and the source JSON remain readable; nothing is submitted from this page.</p></noscript><div class="decision-actions" data-js-required hidden>
   <span id="decision-counter" class="tiny muted">0 of {len(order)} picked in this browser</span>
   <button type="button" class="btn" data-decision-action="download">Download decision-log.json</button>
   <button type="button" class="btn btn-ghost" data-decision-action="copy">Copy decision record</button>
   <button type="button" class="btn btn-ghost" data-decision-action="clear">Clear this browser&rsquo;s picks</button>
 </div>
-<div class="decision-picker" id="decision-picker">
+<div class="decision-picker" id="decision-picker" data-js-required hidden>
 {"".join(fields)}
 </div>
 <pre class="decision-out" id="decision-output" hidden></pre>
@@ -4976,7 +4990,7 @@ def page_article(a):
   <a href="https://www.linkedin.com/sharing/share-offsite/?url={quote_plus(_url)}" target="_blank" rel="noopener">LinkedIn</a>
   <a href="https://www.facebook.com/sharer/sharer.php?u={quote_plus(_url)}" target="_blank" rel="noopener">Facebook</a>
   <a href="mailto:?subject={quote_plus(a['title'])}&amp;body={quote_plus(_url)}">Email</a>
-  <button type="button" class="copylink" data-link="{e(_url)}">Copy link</button>
+  <button type="button" class="copylink" data-js-required hidden data-link="{e(_url)}">Copy link</button>
 </div>
 <div class="article-nav">
   <a class="card tight" href="{e(_prev['slug'])}.html"><span class="tiny muted">Previous</span><br><strong>{e(_prev['title'])}</strong></a>

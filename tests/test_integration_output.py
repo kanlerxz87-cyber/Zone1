@@ -12,7 +12,7 @@ class PublishedIntegrationOutputTests(unittest.TestCase):
         self.assertLess(html.index("publication-hero"), html.index("publication-product"))
         self.assertIn('<details class="workspace-menu">', html)
         self.assertEqual(1, html.count('class="workspace-menu"'))
-        self.assertIn('<h5>Owner workspace</h5>', html)
+        self.assertIn('<h2>Owner workspace</h2>', html)
         self.assertNotIn('class="sidebar"', html)
         self.assertLess(html.index('</header>'), html.index('class="disclosure-bar"'))
         self.assertLess(html.index('class="disclosure-bar"'), html.index('<main'))

@@ -78,6 +78,26 @@ python3 research/check_research.py
 python3 scripts/verify_site.py
 ```
 
+The optional development-only browser suite is also a separate PR CI job:
+
+```sh
+npm ci --ignore-scripts
+npx playwright install --with-deps chromium
+npm run test:browser
+# Optional after changing the reviewed share-card source/assets:
+npm run render:social
+```
+
+It serves the committed pages locally over temporary HTTPS and uses an isolated,
+explicitly synthetic collector fixture outside Git. Real primary/keyboard/middle
+activations, privacy transport, opt-outs and the client/collector connection are
+exercised. The reading-bucket test uses a virtual clock with controlled
+focus/visibility inputs; it is not an OS-focus study or measured reading time.
+All static pages are checked at 320, 390, 768 and 1440 px, with separate no-JS,
+keyboard and scoped axe checks. This is not full WCAG certification or production
+measurement. Development dependencies/artifacts are excluded from publication
+crawls, not from any canonical or historical-build checks.
+
 The generator reads:
 
 - `data/products.json`, `data/articles.json`, `data/sources.json` and related

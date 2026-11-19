@@ -96,3 +96,13 @@ Policy references: [Amazon Program Policies](https://affiliate-program.amazon.co
 (technology disclosures, no artificial clicks, no end-user sub-tags),
 [tracking-ID reporting](https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA).
 This is a technical implementation, not legal certification.
+
+
+### Server error diagnostics
+
+The production CLI uses `AggregateHTTPServer`, not the stdlib server’s default
+`handle_error`. Request access logging alone is insufficient: an expected client
+disconnect can otherwise print a client address in a fallback traceback. Expected
+transport errors are silent; unexpected errors emit only a fixed diagnostic, with
+no exception text, traceback, request, address or payload. Tests assert both paths.
+This does not control reverse-proxy/host logs, which still need their own review.
