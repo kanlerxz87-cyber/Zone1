@@ -162,6 +162,6 @@
       ]
     }
   ],
-  "implemented_note": "Rows a pass implemented without waiting for the owner, under the adopt-after-silence rule, each naming the path it took and why the rule allowed it. This is not the owner's decision list — choices[] stays owner-only and empty until a person fills it — and it exists so a default never looks like an instruction from someone who never gave one. A pass that implements something and does not record it here has broken the rule it used.",
+  "implemented_note": "Dated execution history, not a live readiness checklist. Earlier rows retain the implementation and assumptions recorded at the time; later rows correct or supersede them. Current per-suggestion states are in data/suggestions.json. In particular the 2026-11-17 analytics event names/endpoint examples and universal touch-target claim are superseded by the 2026-11-19 protocol, privacy and presentation corrections. No entry here is an invented owner choice.",
   "updated": "2026-11-19"
 }

@@ -255,6 +255,10 @@ document.addEventListener('click', function (ev) {
   if (wraps.length) {
     wraps.forEach(function (wrap) { wrap.addEventListener('scroll', paint, { passive: true }); });
     window.addEventListener('resize', paint);
+    document.addEventListener('toggle', paint, true);
+    if ('ResizeObserver' in window) {
+      var observer = new ResizeObserver(paint); wraps.forEach(function (wrap) { observer.observe(wrap); });
+    }
     if (document.fonts) document.fonts.ready.then(paint);
     paint();
   }
@@ -298,10 +302,14 @@ document.addEventListener('click', function (ev) {
   }
   field.addEventListener('input', filter); filter();
   // Following an ID anchor should always reveal the target, even after a search.
-  window.addEventListener('hashchange', function () {
+  function revealAnchor() {
     var target = document.getElementById(location.hash.slice(1));
-    if (target && target.hasAttribute('data-suggestion') && target.hidden) {
-      field.value = ''; filter(); target.scrollIntoView();
+    if (target && target.hasAttribute('data-suggestion')) {
+      if (target.hidden) { field.value = ''; filter(); }
+      var detail = target.querySelector('details');
+      if (detail) detail.open = true;
+      target.scrollIntoView();
     }
-  });
+  }
+  window.addEventListener('hashchange', revealAnchor); revealAnchor();
 })();

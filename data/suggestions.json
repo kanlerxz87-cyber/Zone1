@@ -1,11 +1,11 @@
 {
   "version": "1.1",
   "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped); SG-36..SG-38 and path P6 by arena/58cbaaa2 (2026-11-17) — written twice, and shortened the second time: the first draft's parallel intent register, measurement register and flags were dropped when main's merged registers and collection-disabled contract were found. The withdrawn draft is published at session-58cbaaa2/artifacts/. | pass 13 shopfront + decision desk (arena/fd9778a1-zone1): SG-39…SG-48, path P7, numbered after the merged 2026-11-17 rows so no id collides.",
-  "compiled": "2026-11-17",
+  "compiled": "2026-11-19",
   "how_to_read": [
-    "This is a decision queue, not a changelog. Rows the build's decision desk counts as implemented were shipped in the canonical root build under the standing pre-authorisation rule and are recorded, row by row, in data/decision-log.json; everything else is a proposal awaiting a path from you.",
+    "Current implementation state is recorded on each card, separately from the alternatives and recommendations. An implemented local change is not an owner decision, and a partial implementation is not production readiness. Dated execution history remains in the decision log; choices stay empty unless actually supplied.",
     "Each suggestion names the problem it fixes, the official document or repository evidence behind it, two or more paths you could take, and which path this pass would pick and why.",
-    "Priority is an editorial judgement by this pass, not a verified fact. It is shown as a score and labelled as judgement so it is never mistaken for measured data.",
+    "Historical impact/confidence numbers remain in the source register as earlier editorial opinions. The current decision desk does not publish or sort by those invented numeric priorities; no traffic, conversion or financial performance is inferred.",
     "Every suggestion that cannot be settled without information only you hold links to the exact question that blocks it in the Open questions register.",
     "Effort is estimated in agent-hours of work, not your time: S = under 1 hour, M = 1-4 hours, L = a day or more."
   ],
@@ -61,7 +61,7 @@
       "why": "Recorded for the file's history: this was option A, and the fetcher reached the same page a browser would. The lesson is in flag F64 - a premise that 'this can only be done by hand' survived ten passes because no one re-tested it, and the option list here was written around the false premise.",
       "impact": 5,
       "confidence": 5,
-      "effort": "done",
+      "effort": "S",
       "risk_of_not_doing": "High. A wrong spec table is a factual misstatement about a product you are paid to recommend, and it is the kind of error that attracts both refunds and FTC attention.",
       "blocks": [
         "SG-06",
@@ -71,11 +71,19 @@
         "Q-01",
         "Q-02"
       ],
-      "resolved_on": "2026-11-16"
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "A five-link intent register exists, but intended ASINs, official listing URLs and confirmations remain blank. An observed redirect does not settle intent.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-02",
-      "title": "Confirm the Associates tag is actually inside the three supplied links",
+      "title": "Confirm Associates attribution separately for all five supplied links",
       "area": "Attribution and revenue",
       "problem": "The three links are link.amazon short links. The Associates tag (the 'tag=xxxxx-20' parameter) is inside the redirect and cannot be observed from outside. If the tag is missing, wrong, or belongs to a different account, every click on this site earns nothing, and nothing on the site would reveal it.",
       "evidence": [
@@ -127,7 +135,16 @@
       "blocked_by": [
         "Q-03",
         "Q-04"
-      ]
+      ],
+      "implementation": {
+        "state": "proposed",
+        "checked_on": "2026-11-19",
+        "note": "The selected tracking ID is recorded, not confirmed active or applied. Every enrolled-link/report confirmation remains false.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-03",
@@ -180,7 +197,16 @@
       "blocks": [],
       "blocked_by": [
         "Q-09"
-      ]
+      ],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "The root site now names its AI-assisted documentation method and explicitly disclaims hands-on testing. No human editor or legal publisher identity was invented.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-04",
@@ -233,7 +259,16 @@
       "blocks": [],
       "blocked_by": [
         "Q-01"
-      ]
+      ],
+      "implementation": {
+        "state": "implemented",
+        "checked_on": "2026-11-19",
+        "note": "The root now leads with a reader question, three formats and the journal. Evidence/dashboard routes remain in one Workspace menu and the footer.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-05",
@@ -286,7 +321,16 @@
       "blocks": [],
       "blocked_by": [
         "Q-07"
-      ]
+      ],
+      "implementation": {
+        "state": "proposed",
+        "checked_on": "2026-11-19",
+        "note": "The canonical root is explicit, but independent builds and their generators remain preserved. No owner-approved domain-wide retirement or redirect plan is recorded.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-06",
@@ -340,7 +384,16 @@
       "blocked_by": [
         "Q-05",
         "Q-06"
-      ]
+      ],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "Buyer pages show no Amazon prices or ratings. No API permission, credentials, live feed or product-photography licence is assumed.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-07",
@@ -387,7 +440,16 @@
       "effort": "S",
       "risk_of_not_doing": "High. Price tracking is the most commonly requested affiliate feature and the most clearly prohibited one here.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation": {
+        "state": "implemented",
+        "checked_on": "2026-11-19",
+        "note": "No price tracker or alert was added. The policy restriction remains documented; this is not a legal-compliance certification.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-08",
@@ -440,7 +502,7 @@
         }
       ],
       "recommendation": "A until the intended products, endpoint host and privacy notice are verified; then review B before enabling collection.",
-      "why": "The code is ready for a deployment review, not for live collection. Associates reports are the authority for affiliate clicks and orders; the local endpoint can add page-level context only after it is actually hosted and disclosed. Partially implemented 2026-11-17 (sessions arena/5b17c077 + arena/79743fd2): a five-event measurement plan, a privacy-minimising reference collector with tests (analytics/collector.py), a counter client (assets/analytics.js) and self-hosted endpoint sources (analytics/endpoint.php, analytics/worker.js) all ship — but every one of them is disabled: no endpoint is deployed, the privacy notice is not approved, and the campaign ledger stays empty. This row stays open for the enable decision; no conversion or revenue figure is claimed anywhere.",
+      "why": "The Python client/collector contract is now tested, but no production runtime, logging review or approved privacy notice is established. Browser engagement and clicks cannot establish orders. Earlier PHP/Worker examples were incompatible and now return HTTP 410; the dated execution history is retained with this correction.",
       "impact": 4,
       "confidence": 4,
       "effort": "partial",
@@ -449,7 +511,16 @@
       "blocked_by": [
         "Q-08"
       ],
-      "resolved_on": "2026-11-17"
+      "resolved_on": "2026-11-17",
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "The named browser/collector protocol and tests are repaired. The self-hosted Python runtime is not deployed; both production switches remain off.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-09",
@@ -502,7 +573,16 @@
       "blocks": [],
       "blocked_by": [
         "Q-10"
-      ]
+      ],
+      "implementation": {
+        "state": "implemented",
+        "checked_on": "2026-11-19",
+        "note": "The existing article collection is filed into four one-to-one question clusters, with hubs and related-reading links.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-10",
@@ -551,7 +631,16 @@
       "blocks": [],
       "blocked_by": [
         "Q-11"
-      ]
+      ],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "The official category table is available. An exact product/category assignment and a qualifying commission for an unconfirmed listing are still not established.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-11",
@@ -602,7 +691,16 @@
       ],
       "blocked_by": [
         "Q-03"
-      ]
+      ],
+      "implementation": {
+        "state": "proposed",
+        "checked_on": "2026-11-19",
+        "note": "No enrolled-account status, application deadline or qualifying-sale report is available to this session.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-12",
@@ -649,7 +747,16 @@
       "effort": "S",
       "risk_of_not_doing": "Low commercially, high for credibility - the page promises exact citations.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation": {
+        "state": "proposed",
+        "checked_on": "2026-11-19",
+        "note": "The canonical and legacy flag registers still differ. Existing annex IDs were not silently rewritten.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-13",
@@ -693,7 +800,16 @@
       "effort": "S",
       "risk_of_not_doing": "Low. Opportunity cost.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "A dated scoped correction report and new Flagged rows explain this pass’s fixes. Historical reports remain; no global corrections service was invented.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-14",
@@ -746,7 +862,16 @@
       "blocks": [],
       "blocked_by": [
         "Q-09"
-      ]
+      ],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "Build/schema/source-presence tests are stronger, but they cannot validate every prose inference. The manual review found substantive errors despite earlier green gates.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-15",
@@ -799,7 +924,16 @@
       "blocks": [],
       "blocked_by": [
         "Q-06"
-      ]
+      ],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "Documented model, size and care details are accessible. Conflicting dimensions/weights and exact listing matches remain visible rather than averaged.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-16",
@@ -845,7 +979,16 @@
       "blocks": [],
       "blocked_by": [
         "Q-07"
-      ]
+      ],
+      "implementation": {
+        "state": "proposed",
+        "checked_on": "2026-11-19",
+        "note": "The current /Zone1/ canonical origin is preserved. No new domain was bought, verified or selected on the owner’s behalf.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-17",
@@ -905,7 +1048,16 @@
       "risk_of_not_doing": "Nine near-identical copies compete for the same queries while the canonical build carries the only complete verification layer, and at least one published copy shows prices the maintained build refuses to display.",
       "blocks": [],
       "blocked_by": [],
-      "confidence_note": "high on the duplicate-content and price-display defect; medium on how much the canonical tags alone recover in search"
+      "confidence_note": "high on the duplicate-content and price-display defect; medium on how much the canonical tags alone recover in search",
+      "implementation": {
+        "state": "proposed",
+        "checked_on": "2026-11-19",
+        "note": "Parallel builds are labelled on the canonical previous-passes page. Their retirement/indexability is not settled by this redesign.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-18",
@@ -952,7 +1104,16 @@
       "effort": "L",
       "risk_of_not_doing": "High. A pipeline built on scraped listing content that later turns out to be the prohibited use means discarding the pipeline, and potentially the account, at the point where the most has been spent.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation": {
+        "state": "proposed",
+        "checked_on": "2026-11-19",
+        "note": "No unauthorised external research/API pipeline was activated. Account permissions and applicable agent terms remain prerequisites.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-19",
@@ -999,7 +1160,16 @@
       "effort": "M",
       "risk_of_not_doing": "Medium. The failure is slow and invisible: a manufacturer revises a specification, the site keeps publishing the old one, and the first person to notice is a reader.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "Historical source dates are preserved and the revised articles list scoped document checks. No automatic freshness service or blanket November 19 re-verification is claimed.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-20",
@@ -1048,7 +1218,16 @@
       "blocks": [],
       "blocked_by": [
         "Q-01"
-      ]
+      ],
+      "implementation": {
+        "state": "proposed",
+        "checked_on": "2026-11-19",
+        "note": "The supplied-link intent set is unconfirmed. No new product niche or sponsored inventory has been invented.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-21",
@@ -1095,7 +1274,16 @@
       "effort": "S",
       "risk_of_not_doing": "Medium. Nothing breaks and no rule is breached; the site simply fails to get credit for the thing it does better than a typical affiliate page.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation": {
+        "state": "implemented",
+        "checked_on": "2026-11-19",
+        "note": "The home shelf, product guides, comparison and link notes retain prominent model/attribution caveats and sponsored link labels.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-22",
@@ -1146,7 +1334,16 @@
       "effort": "S",
       "risk_of_not_doing": "High, and rising. The site currently makes no automated request against an Amazon listing page in its build; the moment a research agent is switched on, the Agent Terms apply, and an agent that does not identify itself is outside the licence. The cost of doing this later is a rewrite of the fetcher rather than a header change.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation": {
+        "state": "proposed",
+        "checked_on": "2026-11-19",
+        "note": "No scheduled Amazon scraping or undeclared production research agent was launched. Agent identity/permission questions remain documented.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-23",
@@ -1195,7 +1392,16 @@
       "blocks": [],
       "blocked_by": [
         "Q-22"
-      ]
+      ],
+      "implementation": {
+        "state": "proposed",
+        "checked_on": "2026-11-19",
+        "note": "No commercial-product photo or generated product likeness is published. Generic labelled editorial scenes do not settle product-photography rights.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-24",
@@ -1244,7 +1450,16 @@
       "blocks": [],
       "blocked_by": [
         "Q-23"
-      ]
+      ],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "Existing seasonal articles are retained and corrected; a dated November model-check note is surfaced. No live deal, urgency, demand trend or recurring publishing job is asserted.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-25",
@@ -1297,7 +1512,16 @@
       "blocks": [],
       "blocked_by": [
         "Q-04"
-      ]
+      ],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "Product CTAs use one explicit affiliate pattern and every outbound product anchor is commercially qualified. Unverified account attribution is not described as ready.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-26",
@@ -1345,7 +1569,16 @@
       "risk_of_not_doing": "Low. The evidence all exists; the cost is the owner's time spent re-deriving priorities from a register that already contains them.",
       "blocks": [],
       "blocked_by": [],
-      "resolved_on": "2026-11-16"
+      "resolved_on": "2026-11-16",
+      "implementation": {
+        "state": "implemented",
+        "checked_on": "2026-11-19",
+        "note": "The existing decision-log triage is computed from blocker references. It counts dependencies, not expected revenue or conversion impact.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-27",
@@ -1385,7 +1618,16 @@
       "effort": "S",
       "risk_of_not_doing": "The site keeps presenting a compliance workbench to shoppers; bounce from search visitors stays unmeasured but structural.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation": {
+        "state": "implemented",
+        "checked_on": "2026-11-19",
+        "note": "The canonical buyer labels and Workspace grouping have been simplified. Their effect on readers has not been measured.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-28",
@@ -1426,7 +1668,16 @@
       "risk_of_not_doing": "Readers who would follow the set have no mechanism to; discovery stays purely search-driven.",
       "blocks": [],
       "blocked_by": [],
-      "resolved_on": "2026-11-17"
+      "resolved_on": "2026-11-17",
+      "implementation": {
+        "state": "implemented",
+        "checked_on": "2026-11-19",
+        "note": "RSS is linked throughout and generated from the 24-article register. Unknown publication timestamps are omitted rather than inherited from source-read dates.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-29",
@@ -1468,7 +1719,16 @@
       "blocks": [],
       "blocked_by": [
         "Q-03"
-      ]
+      ],
+      "implementation": {
+        "state": "proposed",
+        "checked_on": "2026-11-19",
+        "note": "No Search Console/Bing property access or ownership proof exists here. Submission and query measurement are not claimed.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-30",
@@ -1508,7 +1768,16 @@
       "effort": "—",
       "risk_of_not_doing": "Someone ships an embed later without rewriting the privacy statement, and the §3(e) statement becomes inaccurate - a real compliance breach rather than a style issue.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "RSS is the actual no-account reader loop. There is no email form, subscriber list or hidden collection mechanism.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-32",
@@ -1561,7 +1830,16 @@
       "blocks": [],
       "blocked_by": [
         "Q-09"
-      ]
+      ],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "Every canonical page discloses the AI/document method; About explains authorship and imagery. A named human editor remains unfilled.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-33",
@@ -1615,7 +1893,16 @@
       "blocked_by": [
         "Q-07",
         "Q-25"
-      ]
+      ],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "Zone1 Kitchen is consistent across the canonical reader surface. Historical annex branding is preserved, not represented as a completed domain-wide migration.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-34",
@@ -1669,7 +1956,16 @@
       "blocked_by": [
         "Q-05",
         "Q-26"
-      ]
+      ],
+      "implementation": {
+        "state": "proposed",
+        "checked_on": "2026-11-19",
+        "note": "No API access is assumed. The repository does not claim a production Creators API integration.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-35",
@@ -1721,7 +2017,16 @@
       "risk_of_not_doing": "Low now, compounding: every article added without a map makes the next one worth less.",
       "blocks": [],
       "blocked_by": [],
-      "resolved_on": "2026-11-17"
+      "resolved_on": "2026-11-17",
+      "implementation": {
+        "state": "implemented",
+        "checked_on": "2026-11-19",
+        "note": "Four question clusters organise all 24 existing articles. No new article was added to inflate the count.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-36",
@@ -1782,7 +2087,16 @@
       "blocks": [],
       "blocked_by": [
         "Q-27"
-      ]
+      ],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "The two observed thermometer records have a noindex notes page, not product recommendations. Exact intended variants, account attribution and expansion scope remain open.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-37",
@@ -1843,7 +2157,16 @@
       "blocks": [],
       "blocked_by": [
         "Q-28"
-      ]
+      ],
+      "implementation": {
+        "state": "proposed",
+        "checked_on": "2026-11-19",
+        "note": "No account-reported attributed click is available. A clean landing URL alone neither proves nor disproves attribution.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-38",
@@ -1902,7 +2225,16 @@
       "effort": "S",
       "risk_of_not_doing": "Low as a breach risk while collection stays off, and rising as a documentation risk: an event specification nobody owns and a service nobody deploys is how a later pass ends up quoting a number that was never measured.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "Five named event definitions are unified. The fifth is operator-only report import; host/privacy/report gates remain unresolved.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-39",
@@ -1926,7 +2258,7 @@
       "options": [
         {
           "label": "A. Product rail first, metrics row after the comparison table",
-          "what": "Hero, then the three product cards with their brand list price, best-for and check-first rows; the metrics strip moves below the table as a trust footer. The disclosure band and the paid-link fact stay where they are: the disclosure above the header on every page, the label on every purchase link.",
+          "what": "A format-led shelf leads the home page. Full audit metrics remain on owner/evidence routes. The disclosure sits beneath the masthead and repeats in the footer.",
           "effort": "S",
           "risk": "none",
           "reversible": true
@@ -1946,7 +2278,7 @@
           "reversible": true
         }
       ],
-      "recommendation": "A, shipped by this pass on 2026-11-17: the product rail now leads and the metrics row follows the comparison table. Pick B if you want the audit layer off the first screen entirely.",
+      "recommendation": "Retain the implemented reader-first shelf, journal and workspace separation; revisit presentation only on evidence, not assumed conversion lift.",
       "why": "Every number in the metrics row stays on the site either way - this is about order, not about hiding. A reader who has not yet seen a product has no reason to care how many sources it took.",
       "impact": 4,
       "confidence": 4,
@@ -1954,7 +2286,16 @@
       "risk_of_not_doing": "First impressions keep forming on the wrong screen: a buyer arrives, sees a count of open flags, and reads the site as a compliance document about someone else's project.",
       "blocks": [],
       "blocked_by": [],
-      "resolved_on": "2026-11-17"
+      "resolved_on": "2026-11-17",
+      "implementation": {
+        "state": "implemented",
+        "checked_on": "2026-11-19",
+        "note": "The format shelf and journal lead the root publication; audit metrics no longer precede the products.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-40",
@@ -1998,7 +2339,7 @@
           "reversible": true
         }
       ],
-      "recommendation": "A is shipped. Decide B on its merits: it is the row that makes the site read as advice rather than transcription, and it is the one row that cannot be generated from the register alone.",
+      "recommendation": "Retain the documented-use and caveat block. Keep dated price/commission snapshots in publisher evidence rather than giving them the appearance of current offers.",
       "why": "The generator reads both cells from data/products.json and from the product's own flag rows, so the block cannot drift away from the table beneath it. The price line carries the reason Amazon prices are absent, which is the one question an affiliate site's pricing normally dodges.",
       "impact": 5,
       "confidence": 4,
@@ -2006,7 +2347,16 @@
       "risk_of_not_doing": "Product pages stay reference pages: useful to a reader who is already convinced, useless to the one deciding.",
       "blocks": [],
       "blocked_by": [],
-      "resolved_on": "2026-11-17"
+      "resolved_on": "2026-11-17",
+      "implementation": {
+        "state": "implemented",
+        "checked_on": "2026-11-19",
+        "note": "Documented use and caveats lead product guides. Dated list-price and commission records are retained in publisher evidence, not framed as current offers.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-41",
@@ -2037,7 +2387,7 @@
         },
         {
           "label": "B. Add 'See it on Amazon' to the bar on product pages",
-          "what": "Highest expected click-through of anything on this list. Each product page already runs the same tagged, sponsored link in its own CTA block, so B is a placement choice, not a new mechanism. Say yes and it is one line in build.py.",
+          "what": "An additional sponsored placement would require its own review of link identity, attribution, disclosure and measurement. No higher click-through rate is established.",
           "effort": "S",
           "risk": "medium",
           "reversible": true
@@ -2055,14 +2405,23 @@
       "impact": 3,
       "confidence": 4,
       "effort": "S",
-      "risk_of_not_doing": "Nothing breaks; the mobile reader simply keeps leaving mid-comparison, and the site never learns how often.",
+      "risk_of_not_doing": "The effect of keeping or removing the mobile bar is unknown without suitable first-party evidence.",
       "blocks": [],
       "blocked_by": [],
-      "resolved_on": "2026-11-17"
+      "resolved_on": "2026-11-17",
+      "implementation": {
+        "state": "implemented",
+        "checked_on": "2026-11-19",
+        "note": "The mobile bar offers internal comparison routes only and hides at the home hero and footer. No sticky Amazon purchase link or universal 44 px conformance claim is made.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-42",
-      "title": "Settle the photography question - it is the single largest reason the site still reads as generated",
+      "title": "Settle product-photography provenance without inventing an appliance",
       "area": "Media rights",
       "problem": "There is no product image anywhere on this site except a generated social card and four SVG diagrams. A shopper deciding between two baskets and an oven cavity reads six tables with no picture of either. The gap is not a styling failure: Amazon's Program Content includes its images, and manufacturer images are the brand's property, so no agent may close it by copying a photo or generating a likeness.",
       "evidence": [
@@ -2116,7 +2475,16 @@
       "effort": "S",
       "risk_of_not_doing": "The design ceiling stays where it is: no amount of typography fixes a shop window with no goods in it.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation": {
+        "state": "proposed",
+        "checked_on": "2026-11-19",
+        "note": "Product-photo provenance/permission remains open. The two generic, captioned AI editorial scenes are not promoted products, tests or recipes.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-43",
@@ -2174,7 +2542,16 @@
       "effort": "M",
       "risk_of_not_doing": "Either the burst decays and nothing is published for a month, or the queue is filled on volume - and volume without a source is the exact pattern the spam policies name.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation": {
+        "state": "proposed",
+        "checked_on": "2026-11-19",
+        "note": "The existing collection was corrected before adding volume. No named human reviewer, continuing cadence or performance-based kill rule was fabricated.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-44",
@@ -2225,7 +2602,16 @@
       "effort": "M",
       "risk_of_not_doing": "Polish decays at the edges of the domain, and a crawler or a reader with a search-result bookmark keeps finding the older, less trustworthy-looking version.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "The redesign applies to the canonical root generator only. Porting it to independent builds needs a separate coordinated decision.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-45",
@@ -2276,7 +2662,16 @@
       "effort": "M",
       "risk_of_not_doing": "The site keeps losing the comparison on the other pages' terms - star counts - instead of winning on the one axis no aggregator competes on.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation": {
+        "state": "proposed",
+        "checked_on": "2026-11-19",
+        "note": "No customer testimonials, unsupported popularity or rating-based winner was added. Buyer surfaces do not use brand review widgets as independent social proof.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-46",
@@ -2314,20 +2709,29 @@
         },
         {
           "label": "C. Nothing until traffic justifies it",
-          "what": "Defensible: a seasonal band on a site with zero measured visitors is decoration.",
+          "what": "Keep the layout evergreen. No measured visitor count is available; absence of analytics does not establish zero readers.",
           "effort": "0",
           "risk": "low",
           "reversible": true
         }
       ],
-      "recommendation": "C until the analytics question (Q-30) is settled, then A. The band is worth building when there is someone to notice it.",
+      "recommendation": "Keep the dated editorial note while it is relevant; do not imply a live deal or measured demand. Review a recurring schedule only after assigning an editor and collecting appropriate evidence.",
       "why": "Seasonality is the one marketing lever this site can pull without touching a claim: it changes what is surfaced, never what is asserted.",
       "impact": 2,
       "confidence": 3,
       "effort": "M",
       "risk_of_not_doing": "The site reads as evergreen, which is safe but forgettable.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "A dated November 2026 model-check treatment exists. It is an editorial placement, not a live trend, promotion or automatic seasonal programme.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-47",
@@ -2385,7 +2789,16 @@
       "effort": "M",
       "risk_of_not_doing": "The site keeps being optimised by judgement, and the campaign ledger stays empty for the fourth pass running - which means the brief's central automation claim stays unverifiable.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "The canonical browser payloads pass the Python collector, including real local HTTP tests. This is deployment-ready code for review, not a live production endpoint.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     },
     {
       "id": "SG-48",
@@ -2436,10 +2849,19 @@
       "effort": "S",
       "risk_of_not_doing": "A future pass adds a row, sees the build fail, reorders the array, and the site keeps publishing rows whose visible citation is the one no one can verify.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation": {
+        "state": "partial",
+        "checked_on": "2026-11-19",
+        "note": "Question and decision summaries now render their full citation arrays. The existing whole-row official-host gate remains; it is not falsely described as semantic verification of a dedicated citation cell.",
+        "evidence": [
+          "build.py",
+          "reports/publication-2026-11-19.md"
+        ]
+      }
     }
   ],
-  "paths_intro": "A decision queue with this many rows is a backlog, not a decision. The paths below group the suggestions into four coherent pieces of work. Each path is ordered, names what has to be true before it can start, and says plainly what it will not fix. Pick one path, finish it, then pick the next. The grouping is this pass's judgement; the dependencies inside it are not - they are the blocked_by links already recorded on each row.",
+  "paths_intro": "The seven paths group related work and show their prerequisites. They are alternatives for planning, not campaigns already running. Read each card’s current implementation state and unanswered questions before treating a path as ready.",
   "paths_note": "Suggested order: P1, then P3, then P2, then P4. P3 is placed second because the domain and canonical-build decisions are cheap and everything published afterwards inherits them; if you would rather see the site convince a human before it meets a search engine, swap P2 and P3. The order is judgement. The dependencies are not. P5 is independent: it is the reader-facing polish path and can run in parallel with any of the four above.",
   "paths": [
     {

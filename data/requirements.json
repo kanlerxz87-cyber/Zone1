@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "compiled": "2026-11-17",
-  "session": "arena/ad8105b3-zone1",
+  "compiled": "2026-11-19",
+  "session": "arena/7d42af7c-zone1",
   "purpose": "Every requirement in the brief, one row each, with the status judged against what is actually in this repository and published on this site on 2026-11-16 - not against what the plan says. Where a requirement cannot be met, the row names the exact missing input and the clause that makes it missing.",
   "rule": "Status is a claim about this repository, so each one is checkable: the 'where' paths must exist in the tree (the build fails if one does not), the evidence links open the file or the official page that settles it, and a row with no evidence must be a row whose honest answer is that nothing exists yet.",
   "status_legend": {
@@ -154,8 +154,9 @@
       "clause": "Create an executive summary outlining important details.",
       "status": "delivered",
       "where": [
-        "data/reverification.json",
-        "executive-summary.html"
+        "executive-summary.html",
+        "EXECUTIVE-SUMMARY-2026-11-19.md",
+        "reports/publication-2026-11-19.md"
       ],
       "evidence": [
         {
@@ -163,7 +164,7 @@
           "url": "executive-summary.html"
         }
       ],
-      "why": "The briefing page is generated from data, so it cannot drift from the registers it summarises. Note the repository also carries five stale executive-summary Markdown files at its root, which is a separate defect recorded as flag F59.",
+      "why": "The current dated brief distinguishes implemented code, local tests, unresolved account facts and live deployment evidence. Historical executive summaries remain historical and are not silently claimed as current.",
       "sources": []
     },
     {
@@ -186,7 +187,7 @@
           "url": "data/decision.json"
         }
       ],
-      "why": "Everything a machine can do here has been done. Five items cannot be automated honestly: the Associate tag is only visible inside Associates Central, the Approve/Reject status of the Associates application is only visible there, the model number on each listing is rendered client-side, real sales data requires real sales, and a social account requires a human to own it. They are collected on one page with the exact click-path for each.",
+      "why": "Repository changes, verification and publication proceed autonomously. Unavailable account/hosting facts cannot be fabricated: intended listings, enrolled attribution, authorised reports and a production analytics host remain unconfirmed. The discovery steps are documented without pretending that they ran.",
       "sources": []
     },
     {
@@ -402,7 +403,7 @@
           "url": "reports/verification-2026-11-17-fd9778a1.md"
         }
       ],
-      "why": "{n_articles} articles are published and {n_topics_minus_articles} more topics are specified but unwritten. They are written to answer a question that a listing cannot ('Two 3-quart drawers or one 8-quart basket: which actually feeds four people?'), which is the durable form of 'trendy' — but they are deliberately not trend-chasing, because a trending topic has no official source and this site will not publish a claim it cannot cite. {n_articles} articles as this register was last updated, three of them added by pass 13 on 2026-11-17 with the shapes a shopper actually types: 'Chefman vs. Emeril: what a basket brand and an oven brand actually publish', '“98% less oil” is a sentence on a box, not a measurement', and 'Eight questions to ask before you buy a multi-function kitchen appliance'. Trendy in the durable sense — a question with a documented answer and a visible gap where there is none — and deliberately not trend-chasing: a trending claim with no official source is the one thing this build will not publish. What is still missing is not titles, it is cadence and query data (Q-31, Q-36, SG-43).",
+      "why": "The existing 24 question-led articles were reviewed and corrected in place, including substantive safety and model-inference errors. No search-volume, trend or readership performance is established, and no new volume was added for its own sake.",
       "sources": [
         "S30"
       ]

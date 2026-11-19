@@ -1,7 +1,7 @@
 # Zone1 Kitchen — publication and measurement integration
 
-**Review date:** 19 November 2026 UTC  
-**Working branch:** `arena/7d42af7c-zone1`  
+**Review date:** 19 November 2026 UTC
+**Working branch:** `arena/7d42af7c-zone1`
 **Canonical publication:** <https://kanlerxz87-cyber.github.io/Zone1/>
 
 ## What this pass is, and is not
@@ -61,7 +61,7 @@ pages were read in selected chunks; the table states the facts actually adopted.
 | Source / scope | What the read supports | What it does not establish | Official source |
 |---|---|---|---|
 | Associates Operating Agreement, chunks 0–1 | Provided Special Link formats, the exact Associates statement and no income guarantee; update stamp 15 October 2025 | This site's acceptance, account ownership or attribution | [Agreement](https://affiliate-program.amazon.com/help/operating/agreement) |
-| Program Policies, selected chunks 0, 4, 5, 7, 8, 9 | Privacy accuracy, link clarity, no artificial clicks/incentives, restricted Program Content/price/review/API uses; update stamp 14 April 2026 | A legal opinion or account-specific permission | [Policies](https://affiliate-program.amazon.com/help/operating/policies) |
+| Program Policies, selected chunks 0, 3, 4, 5, 7, 8, 9 | Privacy accuracy, link clarity, no artificial clicks/incentives, restricted Program Content/price/review/API uses; update stamp 14 April 2026 | A legal opinion or account-specific permission | [Policies](https://affiliate-program.amazon.com/help/operating/policies) |
 | FTC disclosure guidance | Clear material-connection disclosure and no invented product experience | A human test or a legal-compliance certification for this site | [FTC](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers) |
 | Chefman dual-window product page and store record | RJ38-SQPF-3TDB-2W; 6 Qt; published 13.38 × 11.81 × 10.63 in dimensions | Intended listing identity or independently tested performance | [Brand page](https://chefman.com/products/turbofry-touch-dual-window-air-fryer), [store record](https://chefman.com/products/turbofry-touch-dual-window-air-fryer.js) |
 | Dual-window owner manual, chunks 0 and 2 | Two 3-quart baskets; Hi-Fry is a two-minute 450 °F boost; removing a basket pauses both; sync exceptions; care instructions | A sustained 450 °F cooking-cycle claim or actual food results | [Manual](https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf) |
@@ -108,16 +108,30 @@ not newly applied by this pass. The campaign ledger remains empty.
 
 ## Review and verification record
 
-Checkpoint already completed: **17 Python tests + 8 JavaScript contract tests**, the root
-build and `verify.py` passed before the visual rebuild. This is not the final integration
-result. Final all-gate, browser and deployment results will be recorded here after they run;
-an incomplete check is not called a pass.
+Local pre-integration gates passed on 19 November 2026:
 
-- Full root build / reproducibility: pending final run.
-- Canonical HTML and strict `/Zone1/` subpath links: pending final run.
-- Platform, annex and research gates: pending final run.
-- Responsive Chromium, keyboard, no-JavaScript and privacy-network checks: pending final run.
-- PR, merge commit, Pages run and live readback: pending final run.
+- `python3 build.py`: 58 canonical pages, 36 sitemap URLs and 24 feed items.
+- A second root build: 64 canonical artifacts hashed, **zero changed**.
+- `python3 verify.py`: 136 pages, 77 specification rows (75 populated/sourced, two blank/flagged),
+  43 registered sources, zero errors and zero external-host warnings. This is a structural check,
+  not a fresh semantic verification of every specification.
+- Canonical Python tests: **30 passed**; JavaScript client tests: **8 passed**.
+- `scripts/ci-check.sh`: **33 platform tests**, clean data audit, 16 current s2 artifacts and
+  11,917 links checked (13 owned pages plus 123 inherited/advisory).
+- Independent `site/`: **393 assertions passed**. Research: **834 checks passed**. Rebuilding
+  either section produced **no diff**; neither independent generator or dataset was rewritten.
+- Browser acceptance: **70 combinations** (14 representative pages × 320/390/768/1024/1440 px),
+  five interaction groups and three no-JS groups; local fonts/images loaded, disclosure above
+  fold, no document overflow, external request or page error. The run caught a real 320 px
+  owner-stat path overflow, now fixed. Filters, native-menu keyboard/outside-click behaviour,
+  table keyboard scrolling, suggestion search/anchor recovery, honest denied clipboard feedback,
+  and an isolated local-only choice/export/clear fixture were exercised. No Amazon link was
+  activated. Screenshots remain ignored development evidence, not product/test photography.
+
+A late fetch found additional main-branch work merged while this pass was running (PRs
+#152–#158). Its data, guards, tests, sources and coordination records are being reconciled before
+the final post-integration gate run. Earlier checkpoints are not substituted for that run.
+PR, merge, actual Pages deployment and live readback remain to be recorded after they occur.
 
 ## What remains outside repository authority
 
@@ -125,3 +139,76 @@ A durable same-origin analytics runtime and host/proxy privacy review; enrolled 
 access and link/report tests; intended listing confirmation; Search Console account access;
 original/licensed product photography; a human reviewer identity and an agreed ongoing
 publishing owner/cadence. These are explicit gates, not missing numbers to estimate.
+
+## Existing-article review and substantive corrections
+
+Read all 24 existing title/standfirst/body sets; rewrote them **in place**, without adding
+another article. This does not retroactively certify every historical table or annex.
+The fresh reads below explain why passing the older value/citation tests was insufficient.
+
+- **S15 — extension-cord conflict (F96).** In the FAFO-001 manual, Important Safeguards item 9
+  says “NEVER use with an extension cord.” The later **Attaching the Power Cord** section says
+  “Longer extension cords are available and may be used if care is exercised in their use” and
+  gives conditions. Both passages were returned by the official PDF on 19 November. The earlier
+  article quoted one and called the rule absolute. The correction reports the conflict, does
+  not select the permissive passage and refers the exact-unit question to the manufacturer.
+  [Official manual](https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf)
+- **S13 — aerosol warning really exists (F97).** Under Operating Instructions, the RJ38-SQSS-8T
+  manual says “Never use aerosol spray on the air fryer's nonstick parts as it can cause the
+  coating to chip” and permits oil from a mister. The aerosol, cleaning and percentage-claim
+  articles had said this rule was absent. Their text is corrected; a short dataset care cell
+  is not evidence that the source contains no additional instructions.
+  [Official manual](https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf)
+- **S15 — rotisserie facts were not absent (F97).** The accessory weight table lists the spit
+  at **6 lb (2721 g)**. The preset table supplies default settings and the document contains an
+  internal-temperature meat chart. Earlier claims that no maximum weight, suggested time or
+  doneness temperature appeared were false. The revised guide names the limit and existence
+  of those sections, without validating or republishing the food-temperature chart as current
+  public-health advice. Exact Amazon SKU/bundle identity remains unconfirmed.
+- **S13/S18 — oil and cleaning.** Both manuals contain practical oil guidance and suggested
+  quantities; the dual manual's troubleshooting mentions a half-teaspoon example. Removed the
+  false claim that no quantities are stated, the invented coating-lifespan outcomes and the
+  implication that Emeril's recommended accessory hand-washing is a universal explicit
+  dishwasher ban. Cooled Chefman baskets/racks are documented top-rack dishwasher-safe.
+- **S18 — sync modes.** Corrected the idea that only Hi-Fry and +2 MIN can break Sync Finish:
+  the manual also says adjusting a timer while both sides are actively cooking breaks sync.
+  Timer coordination is not doneness or food-safety confirmation.
+  [Official dual manual](https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf)
+- **S26 — distinct High Fry model.** Freshly read the exact registered page, not a guessed URL:
+  RJ38-8T-BLACK, matte black, four functions and a two-minute 450 °F finish. This documents a
+  different manufacturer model, **not** its identity behind the submitted link. Removed the
+  articles' probability rankings and assertions about which seller/title error “most likely”
+  occurred. A guessed `/products/turbofry-touch-high-fry-air-fryer` path returned a branded 404;
+  no product fact was adopted from that failed request.
+  [Registered official page](https://chefman.com/collections/air-fryers-1/products/turbofry-8-qt-air-fryer-w-high-fry)
+- **Capacity, energy and seasonality.** Removed the “same nominal total” claim for six versus
+  eight quarts, undocumented usable-volume/footprint and portion conclusions, full-cycle power
+  presented as exact energy cost, unsupported electrical-code assumptions and the alleged
+  November acceleration of seller/stock changes. A dated editorial model-check surface is not
+  a live deal, a verified switch, a trend or proof of audience demand.
+- **Policy accuracy.** Re-read the Operating Agreement sections 5/6, policy sections 2(b),
+  3(e), 6(t)/(y), IP/API conditions and FTC disclosure guidance. Corrected the claim that the
+  required disclosure has no allowed historical alternative; the site still uses the exact
+  prescribed sentence. Removed broad legal/health classifications and guarantees unsupported
+  by those sources. The site makes no certification of legal compliance.
+
+## Date and decision-state repair
+
+The earlier Article/RSS code derived publication from `articles.accessed=2026-11-14` and
+constructed 09:00 UTC without publication evidence. All 24 `published_at` values remain null;
+optional `datePublished`/RSS `pubDate` are omitted. Actual `modified_at` was recorded when the
+articles were revised (19 November 2026), and per-article `source_checks` lists **selected**
+documents read that day. The register's historical access dates are preserved. Sitemap
+`lastmod` now describes actual content edits; running a build does not advance a timestamp.
+Feed GUIDs are unchanged. Repository presence or a source read is not a first-publication
+receipt. No missing date was guessed merely to obtain richer search metadata.
+
+The suggestion desk now renders explicit `implemented`/`partial`/`proposed` states instead of
+inferring completion from an “effort” string or any past execution entry. SG-01 is correctly
+partial while intended listing fields remain null. Current states, alternatives, recommendations,
+questions, missing facts and discovery steps are separately reviewable. The old numeric
+impact/confidence opinions remain in historical source data, not as invented performance or a
+current displayed priority ranking. Search is progressively enhanced; no-JS readers retain
+all cards. Question/decision summaries render full citation arrays instead of hiding all but
+the first source. The existing whole-row official-host gate is **not** misdescribed as semantic
+or dedicated-citation-cell verification. Owner `choices[]` remains empty.
