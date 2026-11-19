@@ -78,6 +78,16 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 
 **No intent, attribution, account or campaign value was filled in.** `intended_asin`, `official_listing_url`, `confirmation_date`, `confirmation_source`, the tracking-ID status and the campaign ledger are exactly as they were: blank and waiting on the owner (DR-01…DR-04).
 
+**Release receipt — 2026-11-19T19:53Z.** [PR #178](https://github.com/kanlerxz87-cyber/Zone1/pull/178)
+merged to `main` as `74fedac0b80f925b9d29fb8066f6b45a909b2fd0` (merge commit, not squash).
+All three PR checks passed before merge: `verify` (build + `verify.py` + reproducibility + 69 unittests + 14 node tests), the `browser` Playwright job (4m03s), and the `site/` annex rebuild (393 assertions).
+Pages **deployed that exact commit**: the latest Pages build reads `status: built`, `commit: 74fedac0`, `2026-11-19T19:54:00Z`.
+Live readback after deploy confirmed:
+- `categories/cooking-thermometers.html` serves "Know when it's done." with both product cards, the USDA safe-temperature section and the separate link record.
+- `products/chef-iq-sense-gen3.html` serves the full manufacturer table including the two published contradictions and one genuinely blank row (price).
+- merged `sitemap.xml` carries **40** URLs, including both new thermometer product pages and the promoted pillar.
+The branch was rebased onto `main` before merging and forced to the remote session branch once with `--force-with-lease` (remote tip verified as this session's own two commits); no other session's work was rewritten.
+
 ## Claim log
 
 | UTC time | Session | Action |
