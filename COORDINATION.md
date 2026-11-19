@@ -6481,3 +6481,27 @@ Claim log: 2026-11-19 · arena/b3ed16c4 · repo read first (`main` @ `2be3bea`, 
 * **Deployment:** main CI **44516187071**, annex **44516188218** and the Pages deploy workflow **44516187308** all succeeded after the merge; legacy Pages build **44516185934** succeeded. Pages API: `built`, no error, source legacy / `main` / `/`, HTTPS enforced.
 * **Live public readback after deployment (actual retrieval, distinct from CI):** root `robots.txt` authoritative (`Allow: /` + Sitemap, no Disallow); the new question-shaped guide *How to assess cleanup and counter-space trade-offs* live with per-section sources and cluster hub/siblings; `compare.html` carrying the chooser note above the sourced comparison table; `requirements.html` rendering all **74 rows** (40 delivered / 22 partial / 11 blocked / 1 not built) including the new S group and the previously-invisible H group.
 * **Boundaries re-stated, not re-earned:** `shopnow047c-20` stays selected/unvalidated/unapplied; intended listing fields stay blank and separate from observed redirects; production analytics stays off (five-event contract tested only); campaign ledger stays empty; no Search Console action; no product photography; the supplied short links' compliance status remains unresolved at Zone3 FLG-003 and is not declared either way. Q-42 (the S-23 ratio decision) stays open for the owner.
+
+## Task board — arena/6eb19d2b-zone1 (2026-11-19 UTC) — narrow live re-read, gate, release
+
+| ID | Task | Status | Owner | File scope |
+|----|------|--------|-------|------------|
+| Z16-1 | Independent live re-read of the five supplied `link.amazon` short links (redirect target, title, ASIN) against the register; dated report; no value changed unless the live read differs | done | arena/6eb19d2b-zone1 (session 6eb19d2b) | `reports/verification-2026-11-19-6eb19d2b.md` (new), `COORDINATION.md` (this section) |
+| Z16-2 | Overlap audit of the six open PRs that touch the same pass work (#139, #141, #144, #146, #150, #159, #168, #173): record, do not merge or close them | done | arena/6eb19d2b-zone1 | `COORDINATION.md` (this section) |
+| Z16-3 | Gates, PR from this branch to `main`, merge with explicit number, Pages deploy confirmation, record | in progress | arena/6eb19d2b-zone1 | whole tree (integration) |
+
+Claim made before any file other than this section was edited. Scope is additive and does not touch `build.py`, `data/*.json` or any other session's files.
+
+### Z16 completion record — arena/6eb19d2b-zone1 (2026-11-19 UTC)
+
+* **Z16-1 — live re-read.** All five supplied short links were fetched on 2026-11-19. All five resolve to the ASIN recorded for that link in `data/product-intent.json` (B0DHZTCNR5, B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DZFD6R9Z). Titles for links 1, 2, 3 and 5 match the stored reads character for character (link 2 keeps flag F45). **Irregularity I-1:** the listing title for B0DHZTCNR5 (supplied link 4) has changed wording since the 2026-11-17 read ("Highly Waterproof for Grill BBQ Camping" → "IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men"); same ASIN and product type. Not re-stamped in `data/sources.json` (outside this pass's scope); flagged for the owner. No landing URL shows a visible `tag=` (F17/F24 unchanged). Prices and ratings were not recorded. Report: `reports/verification-2026-11-19-6eb19d2b.md`.
+* **Z16-2 — overlap audit.** Six open PRs touch the same pass work (#144, #146, #150, #159, #168, #173) and two older ones remain open (#139, #141). None was merged, closed or edited. #168 (indexing) and #173 (probe guide, flags F105–F109) and #159 (measurement) overlap `build.py`; merge order should be the owner's decision.
+* **Gates.** `scripts/ci-check.sh` exit 0 on this branch: build + verify, 33 engine tests, 8 browser-contract tests, data audit clean, `build_s2_site.py --check` current, 11,804 links checked with no broken link.
+* **Not done, and why.** No Associates account, tracking, enrolment or first-party reporting access exists in this sandbox, so the tag test, the Special-Link check and any click or order figure stay blank. Search Console is an owner action. No product photography was added.
+
+### Z16 release record — arena/6eb19d2b-zone1 (2026-11-19 UTC)
+
+* **PR:** [#176](https://github.com/kanlerxz87-cyber/Zone1/pull/176) (arena/6eb19d2b-zone1 → main), merged with `gh pr merge 176 --merge` at **2026-11-19T19:39:40Z**, merge commit **0c7a3e885d556a2202f1b1d912900e6b8a408f1c**. No CI check was attached to the PR; the local gate `scripts/ci-check.sh` was exit 0 before the merge.
+* **Post-merge main CI:** run **44600626861** completed `success`.
+* **Pages:** build/deploy run **44600624668** completed `built`; Pages API status `built`. Live readback (fetch, not sandbox curl): `https://kanlerxz87-cyber.github.io/Zone1/reports/verification-2026-11-19-6eb19d2b.md` serves the report.
+* **Open after this pass:** I-1 (title drift for B0DHZTCNR5, owner decision on re-stamping); the owner-decided merge order for open PRs #168, #173, #159, and the older #139, #141, #144, #146, #150, untouched.
