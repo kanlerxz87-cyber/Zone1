@@ -56,6 +56,11 @@ OFFICIAL_HOSTS = {
     "www.emerileveryday.com",
     "www.ftc.gov",
     "www.ecfr.gov",
+    # The IETF standards archive, added 2026-11-19 (arena/b3ed16c4). RFC 9309 is the
+    # Robots Exclusion Protocol itself; there is no other publisher of the standard, and
+    # "official" here means exactly what it means for the other entries: the party that
+    # owns the fact publishes the page. No third-party blog or mirror is on this list.
+    "www.rfc-editor.org",
     "docs.github.com",
     "github.com",
     # the site's own public origin, used only by the retired docs/ redirects
