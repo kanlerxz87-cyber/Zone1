@@ -2547,32 +2547,38 @@ PROGRAMME_FLAGS = [('F1',
   'records that boundary.',
   ['S2']),
  ('F103',
-  'Found 2026-11-19: public historical builds in the Pages artifact publish Amazon product links without '
-  'rel="sponsored" and describe the supplied short-link tokens as "invalid".',
+  'Repaired 2026-11-19 (arena/e01a0112): public historical builds in the Pages artifact published Amazon '
+  'product links without rel="sponsored" and described the supplied short-link tokens as "invalid".',
   'Pages artifact (.github/workflows/pages.yml uploads the whole repository root); s2/pages/products.html; '
-  'dashboard/, research/, site/, annex-88769516/, session-3740f69d/',
-  'Checked 2026-11-19. The Pages workflow uploads the repository root, and a live read of '
-  'https://kanlerxz87-cyber.github.io/Zone1/s2/pages/products.html returned the historical page. That page '
-  'labels each supplied token "invalid" because it has 9 characters. This site does not draw that conclusion: '
-  'token length does not establish that a link is invalid, and the brief forbids the claim. A static scan of the '
-  'published HTML found product-type Amazon anchors without a sponsored token in s2 (68 of 68), '
-  'session-3740f69d (118 of 118), annex-88769516 (9 of 9), dashboard (47 of 56), research (43 of 55) and site '
-  '(20 of 26). The canonical root has 8 such anchors, all the deliberate nonsense-token resolver control '
-  'ZZZ9ZZZZZ, which build.py does not classify as a product link; its other 235 product anchors are qualified. '
-  'No change was made in this pass: the historical generators are declared read-only, and their own '
-  'reproducibility gates compare committed HTML.',
+  'dashboard/, research/, site/, annex-88769516/, session-3740f69d/, docs/',
+  'The brief settles what the first report left as an owner decision: keep every outbound product link '
+  'marked as sponsored, and do not claim that the supplied short links are invalid. The repair, '
+  '2026-11-19: every product anchor in all seven published trees now carries sponsored nofollow noopener '
+  '(373 anchors measured, 0 unqualified, by scripts/historical_compliance.py); every verdict that the '
+  'supplied links are invalid is rewritten to the register position (status unresolved, Zone3 FLG-003) '
+  'while the underlying observations are kept — the 9-character tokens differ from the 10-character ASIN '
+  'format per KDP G200652190, which is an identifier observation and not a determination of link validity. '
+  'The third-party tracker wording invalid product identifier survives only as attributed output. Trees '
+  'with generators were repaired at the generator and re-emitted; the four frozen trees are repaired by '
+  'the idempotent scripts/historical_compliance.py. Gate: verify.py check 4c fails the build on an '
+  'unqualified product anchor or a published invalid claim in any annex tree. Not established by this '
+  'repair: that any supplied link works, complies or attributes — the enrolled-Associates test fields stay '
+  'blank and the status stays unresolved.',
   ['S1', 'S2', 'S31', 'S38']),
 ('F104',
-  'Found 2026-11-19 by arena/43667e90-zone1 on a read of the live tree, not by any gate: ten inherited annex '
-  'pages publish with no disclosure strip under the masthead and no footer disclosure, and session-3740f69d/index.html '
-  'has no footer disclosure. The sponsored-token gap on the same paths is F103.',
-  'annex-88769516/404.html, compliance.html, content.html, executive-summary.html, flagged-for-review.html, '
-  'index.html, methodology.html, products.html, research.html, tracking.html; session-3740f69d/index.html',
-  'Not edited in this pass. These builds are inherited, owned by other sessions, and their generators are read-only '
-  'for this integration, so the root layout and its guards do not reach them. annex-88769516/products.html carries '
-  'the Associates sentence in the page body, but not as a strip under the masthead. The pages are served by GitHub '
-  'Pages, carry no noindex tag, and are absent from sitemap.xml. Owner choice: regenerate them with the disclosure '
-  'strip, or remove or noindex them. Record the decision in COORDINATION.md.',
+  'Repaired 2026-11-19 (arena/e01a0112): inherited annex pages published without the disclosure strip '
+  'under the masthead and/or without the footer repeat the brief requires on every page.',
+  'annex-88769516/ (10 pages: strip sat above the masthead; no footer repeat); site/ (11 pages: strip '
+  'below the page title); s2/ (13 pages: strip below the page title and no footer repeat); research/ '
+  '(13 pages: no footer repeat); docs/ (7 pages: no footer at all)',
+  'The brief settles the choice the first report left to the owner: keep the disclosure above the fold on '
+  'every page — strip under the masthead, repeated in the footer. The repair, 2026-11-19: annex strips '
+  'relocated under the masthead with their provenance comment intact; the s2/ and site/ generators now '
+  'emit the strip directly under the masthead; every tree footer repeats the exact sentence; the docs/ '
+  'stubs gained a minimal footer. Gate: verify.py check 4c, via the shared disclosure_violations rule, '
+  'requires the sentence after </header> (or at the top of a page with no masthead) and inside <footer> '
+  'on every published page of the seven trees. The original finding also noted that these pages carried '
+  'no noindex directive; that half is F105, repaired by arena/b3ed16c4.',
   ['S1', 'S7']),
  ('F105',
   'Repaired 2026-11-19: six annex trees shipped complete HTML sites with no robots directive, one of them '
@@ -2719,8 +2725,12 @@ REPO_EVIDENCE = {
           'tests/test_analytics.py'],
  'F101': ['reports/verification-2026-11-19-1f9e7d52.md', 'build.py'],
  'F102': ['reports/verification-2026-11-19-1f9e7d52.md', 'build.py', 'tests/test_publication.py'],
- 'F103': ['reports/verification-2026-11-19-1970a80b.md', 'build.py', '.github/workflows/pages.yml'],
- 'F104': ['annex-88769516/products.html', 'annex-88769516/404.html', 'session-3740f69d/index.html']}
+ 'F103': ['reports/verification-2026-11-19-1970a80b.md', 'build.py', '.github/workflows/pages.yml',
+          'scripts/historical_compliance.py', 'scripts/build_s2_site.py', 'scripts/build_site.py',
+          'research/build_research.py', 'verify.py', 'reports/verification-2026-11-19-e01a0112.md'],
+ 'F104': ['annex-88769516/products.html', 'annex-88769516/404.html', 'session-3740f69d/index.html',
+          'scripts/historical_compliance.py', 'scripts/build_s2_site.py', 'scripts/build_site.py',
+          'research/build_research.py', 'verify.py', 'reports/verification-2026-11-19-e01a0112.md']}
 
 VERDICTS = {
     "chefman-6qt-dual-basket":

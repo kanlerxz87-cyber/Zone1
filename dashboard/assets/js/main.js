@@ -12,7 +12,7 @@
       var warn = document.getElementById("builder-warn");
       if (!out) return;
       var problems = [];
-      if (!/^[A-Z0-9]{10}$/.test(asin)) problems.push("ASIN must be exactly 10 letters/digits (the supplied IDs are 9 and invalid).");
+      if (!/^[A-Z0-9]{10}$/.test(asin)) problems.push("ASIN must be exactly 10 letters/digits (the supplied IDs are 9 characters; their status is unresolved).");
       if (!/^[A-Za-z0-9_-]{1,20}-2[0-9]$/.test(tag)) problems.push("Tracking tag should look like yourtag-20 (Associates tracking ID).");
       if (problems.length) {
         warn.innerHTML = problems.map(function (p) { return "⚠ " + p; }).join("<br>");

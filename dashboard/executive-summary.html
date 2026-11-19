@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Executive Summary — Zone1</title>
-<meta name="description" content="Executive summary of the Zone1 Amazon affiliate marketing platform: what was delivered, the critical invalid-link finding, verified data, flagged irregularities and next steps.">
+<meta name="description" content="Executive summary of the Zone1 Amazon affiliate marketing platform: what was delivered, the unresolved link-status finding, verified data, flagged irregularities and next steps.">
 <link rel="canonical" href="https://kanlerxz87-cyber.github.io/Zone1/dashboard/executive-summary.html">
 <link rel="stylesheet" href="assets/css/style.css">
 <!-- annex-publication-boundary — 2026-11-19, arena/b3ed16c4. Independent verification/history
@@ -45,7 +45,7 @@
   <section class="card" id="refresh-2026-11-14">
     <h2>0 · Refresh 2026-11-14 (session arena/6ec3c2da)</h2>
     <ul class="clean">
-      <li><strong>Supplied links re-checked.</strong> All three short links still redirect to Amazon’s fallback URL (<code>plpRedirect=mhFallback</code>, <code>lv=shuf</code>) on <code>/dp/B0CDY277D3</code>, <code>/dp/B09B7SB46R</code> and <code>/dp/B08DKYBTPH</code>. The canonical pages for the three supplied codes return “Page Not Found”: <a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">B04G1MEwY</a> · <a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">B02NbDxp3</a> · <a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">B00hJ57DV</a>. Product identity remains unconfirmed (I-06, H-04). Earlier “random listing” wording is withdrawn (H-08).</li>
+      <li><strong>Supplied links re-checked.</strong> All three short links still redirect to Amazon’s fallback URL (<code>plpRedirect=mhFallback</code>, <code>lv=shuf</code>) on <code>/dp/B0CDY277D3</code>, <code>/dp/B09B7SB46R</code> and <code>/dp/B08DKYBTPH</code>. The canonical pages for the three supplied codes return “Page Not Found”: <a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="sponsored nofollow noopener">B04G1MEwY</a> · <a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="sponsored nofollow noopener">B02NbDxp3</a> · <a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="sponsored nofollow noopener">B00hJ57DV</a>. Product identity remains unconfirmed (I-06, H-04). Earlier “random listing” wording is withdrawn (H-08).</li>
       <li><strong>Commission table re-confirmed.</strong> Amazon’s Standard Commission Income Statement, Table 1: Kitchen 4.50%, Home 3.00%, All Other Categories 4.00%. The category for each ASIN is still not published (MN-11). <a href="https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" target="_blank" rel="noopener">Official source</a></li>
       <li><strong>Data source changed.</strong> PA-API 5 is deprecated (H-01). The Creators API requires at least 10 qualifying sales in the past 30 days (H-06), so automated product data is not available to this project today.</li>
       <li><strong>Source hygiene.</strong> Non-official citations were replaced, and the “not an official link format” overstatement was corrected (H-02, H-03).</li>
@@ -85,13 +85,13 @@
     <div class="table-wrap"><table>
       <thead><tr><th>Supplied</th><th>amazon.com/dp/&lt;id&gt; (official check)</th><th>ID length vs ASIN standard</th><th>Status</th></tr></thead>
       <tbody>
-        <tr><td class="mono">link.amazon/B04G1MEwY</td><td><a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="noopener">“Sorry! We couldn't find that page”</a></td><td>9 vs 10 chars</td><td><span class="badge bad">Unverified / invalid</span></td></tr>
-        <tr><td class="mono">link.amazon/B02NbDxp3</td><td><a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="noopener">“Sorry! We couldn't find that page”</a></td><td>9 vs 10 chars</td><td><span class="badge bad">Unverified / invalid</span></td></tr>
-        <tr><td class="mono">link.amazon/B00hJ57DV</td><td><a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="noopener">“Sorry! We couldn't find that page”</a></td><td>9 vs 10 chars</td><td><span class="badge bad">Unverified / invalid</span></td></tr>
+        <tr><td class="mono">link.amazon/B04G1MEwY</td><td><a href="https://www.amazon.com/dp/B04G1MEwY" target="_blank" rel="sponsored nofollow noopener">“Sorry! We couldn't find that page”</a></td><td>9 vs 10 chars</td><td><span class="badge">Unverified</span></td></tr>
+        <tr><td class="mono">link.amazon/B02NbDxp3</td><td><a href="https://www.amazon.com/dp/B02NbDxp3" target="_blank" rel="sponsored nofollow noopener">“Sorry! We couldn't find that page”</a></td><td>9 vs 10 chars</td><td><span class="badge">Unverified</span></td></tr>
+        <tr><td class="mono">link.amazon/B00hJ57DV</td><td><a href="https://www.amazon.com/dp/B00hJ57DV" target="_blank" rel="sponsored nofollow noopener">“Sorry! We couldn't find that page”</a></td><td>9 vs 10 chars</td><td><span class="badge">Unverified</span></td></tr>
       </tbody>
     </table></div>
     <ul class="clean">
-      <li><strong>Invalid identifiers</strong> — ASINs are 10-character codes; these are 9. Sources: official definition — <a href="https://kdp.amazon.com/en_US/help/topic/G200652190" target="_blank" rel="noopener">Amazon KDP Help G200652190</a> (“10-character Amazon Standard Identification Number”, S23, verified live 2026-11-14); observed 10-character codes on <a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="noopener">amazon.com/dp/B0CDY277D3</a> (H-05). The 9-character count is a direct count of the supplied strings.</li>
+      <li><strong>Identifier-format mismatch</strong> — ASINs are 10-character codes; these are 9. Sources: official definition — <a href="https://kdp.amazon.com/en_US/help/topic/G200652190" target="_blank" rel="noopener">Amazon KDP Help G200652190</a> (“10-character Amazon Standard Identification Number”, S23, verified live 2026-11-14); observed 10-character codes on <a href="https://www.amazon.com/dp/B0CDY277D3" target="_blank" rel="sponsored nofollow noopener">amazon.com/dp/B0CDY277D3</a> (H-05). The 9-character count is a direct count of the supplied strings.</li>
       <li><strong>Unconfirmed link domain</strong> — <code>link.amazon</code> is not named in the Operating Agreement §1 “Special Links” definition; its provenance is unconfirmed (H-03). Canonical product URLs use <code>amazon.com/dp/&lt;ASIN&gt;</code>.</li>
       <li><strong>Resolution unconfirmed</strong> — each supplied URL lands on an existing 10-character Amazon product page, reached through fallback-parameter URLs (<code>plpRedirect=mhFallback</code>, <code>lv=shuf</code>). The mapping from the 9-character token to that ASIN is unconfirmed (H-08).</li>
     </ul>
@@ -123,13 +123,13 @@
       <li><strong>Automation</strong> — link builder generates canonical Associates-format URLs; click tracker logs commerce-link clicks automatically; build-time validation enforces “sourced or blank”.</li>
       <li><strong>Data-driven decisions</strong> — every table cell carries a source link or an explicit unverified badge; niche framework ranks categories by the verified official rate table.</li>
       <li><strong>Scalability</strong> — static, dependency-free site + JSON/CSV data layer; new products slot into the documented schema.</li>
-      <li><strong>Compliance</strong> — disclosure enforced everywhere; invalid links quarantined from live CTAs (OA §5 misrepresentation rule; PR s.2(b) misleading-claims rule).</li>
+      <li><strong>Compliance</strong> — disclosure enforced everywhere; unverified links quarantined from live CTAs (OA §5 misrepresentation rule; PR s.2(b) misleading-claims rule).</li>
     </ul>
   </section>
 
   <section class="card">
     <h2>6 · Flagged irregularities (do not block anything)</h2>
-    <p>22 items with full evidence on <a href="flagged.html">Flagged for Review</a>: invalid ASIN format (I-01), invalid link
+    <p>22 items with full evidence on <a href="flagged.html">Flagged for Review</a>: ASIN-format mismatch (I-01), unconfirmed link
     domain (I-02), broken links (I-03), all product data unverified (I-04), no Associates tag (I-05), disputed identity mapping
     (I-06), plus session d14c5409's F01–F16 with integration notes.</p>
   </section>
@@ -147,8 +147,7 @@
   <section class="card">
     <h2>8 · Bottom line</h2>
     <p>The platform is <strong>built, verified and live</strong>. The verified parts (commission economics, compliance rules,
-    tracking, SEO content framework) are complete and source-linked. The three supplied product links are demonstrably
-    invalid and quarantined with full evidence — the one input needed to unlock product-level marketing is three valid ASINs
+    tracking, SEO content framework) are complete and source-linked. The three supplied product links are unverified and quarantined with full evidence — the one input needed to unlock product-level marketing is three valid ASINs
     and your Associates tag.</p>
     <p><a class="btn" href="index.html">Back to dashboard</a> <a class="btn secondary" href="flagged.html">Review flagged items</a></p>
   </section>
