@@ -6219,3 +6219,25 @@ for its own pass (shared outputs: `index.html`, NAV in `build.py`).
 * **Post-merge pull seam:** plain `pull --rebase origin main` tried to flatten an already integrated two-parent merge; it was aborted intact. Verified merge parents **929a411 / 4ae97f0**, then `git pull --rebase --ff-only origin arena/1f9e7d52-zone1` reported up to date before a normal fast-forward push. No work or other session history was discarded. PR #159 was reviewed only for coordination; a scope/hold request was posted, and it was neither merged nor closed nor represented as tested.
 * **Remaining evidence gates are not fabricated:** shopnow047c-20 stays selected/unvalidated/unapplied; intended fields and per-product enrolled tests stay blank/false; production analytics stays off, endpoint blank, owner choices/campaign ledger empty; Search Console ownership/query data, real collector runtime/privacy/log approval, actual product-photo rights and manufacturer cord clarification remain unconfirmed. The cadence is a plan, not an unattended service. Nonblocking Node-action deprecation warnings are recorded, not claimed repaired. Full source scope, incidents and release proof: `reports/verification-2026-11-19-1f9e7d52.md`.
 * **Final public-read correction in receipt PR #163:** the live Flagged introduction still called all historical/repaired rows open, typed a hard-conflict count and repeated a most-likely model explanation. Replaced only that present-tense introduction/callout with computed recorded/source/blank/populated counts, a no-guessed-explanation model conflict and the explicit F96 safety boundary. Existing flag bodies/IDs/history remain unchanged. Added a negative regression (61 root tests). The receipt PR is therefore a narrow flag-introduction correction plus the release log, not documentation-only; no account/link/collector/campaign data changed.
+
+---
+
+## Task board — arena/0c5c10d0-zone1 (2026-11-19 UTC) — pass 15: two cadence guides, dated source re-read, decision-desk additions
+
+* Session id `0c5c10d0`. Branch `arena/0c5c10d0-zone1`, base `2be3bea` (= `origin/main` at claim time, PR #163 merge). Board read before starting: every prior row is `done`; the only open GitHub PRs are #139 #141 #144 #146 #150 #159, all updated > 60 minutes ago, all dispositioned by the 9b3365c7 and 1f9e7d52 records except #159, which this pass reviews (P15-5). No other session has a live claim, so this session integrates its own pass (shared outputs: `index.html`, `articles/index.html`, `sitemap.xml`, `feed.xml`).
+* Baseline before any edit (recorded so a later reader can tell what this pass changed): `python3 build.py` exit 0 · `python3 verify.py` 136 pages, 77 spec rows (75 verified, 2 blank+flagged), 45 sources, 0 external warnings, 0 errors · tree byte-identical after rebuild.
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| P15-1 | Dated live re-read of the sources the reader copy depends on: the five `link.amazon` strings, Associates Program Policies + Operating Agreement, commission table, FTC Endorsement Guides / 16 CFR 255, brand product pages and owner's-manual PDFs. New irregularities → flag register. | in progress | arena/0c5c10d0-zone1 | `data/sources.json` (dated stamp only), `reports/verification-2026-11-19-0c5c10d0.md`, `data/flags.json` + `build.py` (`PROGRAMME_FLAGS` rows) if a new flag is found |
+| P15-2 | Publish two `proposed` topics from the editorial cadence register with documents re-read for this pass: TP-19 (first-week setup and care after a gift) and TP-22 (probe in an air fryer — what the manuals actually say). Each new guide enters the article index, sitemap and feed by the existing pipeline. | in progress | arena/0c5c10d0-zone1 | `data/articles.json`, `data/topics.json` (status of the two rows), generated `articles/*.html`, `articles/index.html`, `sitemap.xml`, `feed.xml` |
+| P15-3 | Decision desk: new suggestions for the shop-quality design brief and the information that must exist before each decision, with discovery steps. | in progress | arena/0c5c10d0-zone1 | `data/suggestions.json`, `data/questions.json`, `data/requirements.json` (B-07 row text only), `build.py` (`page_suggestions`/`page_questions` only if a guard needs it) |
+| P15-4 | Executive summary: pass-15 section. | pending | arena/0c5c10d0-zone1 | `EXECUTIVE-SUMMARY.md`, `executive-summary.html` |
+| P15-5 | Review open PR #159 against `main` and record a disposition (no merge, no close — that is an owner action, see Q-41). | pending | arena/0c5c10d0-zone1 | `COORDINATION.md` (this section) |
+| P15-6 | Integration: rebuild, all gates, PR → merge → confirm Pages deploy → record. | pending | arena/0c5c10d0-zone1 | whole tree (integration, last) |
+
+### Claim log — arena/0c5c10d0-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-19T10:47Z | arena/0c5c10d0-zone1 | Claimed P15-1…P15-6 as scoped above. Parallel-build directories (`s2/`, `site/`, `research/`, `docs/`, `dashboard/`, `annex-*/`, `session-*/`) are read-only for this pass. |
