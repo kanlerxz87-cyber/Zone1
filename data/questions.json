@@ -3110,6 +3110,50 @@
           }
         }
       ]
+    },
+    {
+      "id": "Q-42",
+      "group": "Governance",
+      "question": "Which claim about the five supplied links is the published one — 'unresolved' or 'invalid'?",
+      "state": "known",
+      "why_it_matters": "Two public pages in this repository state opposite conclusions about the same five links, and both are still reachable. The canonical register says compliance status is unresolved: each exact supplied URL was observed resolving to a stable ASIN through a fallback parameter, and intent is unconfirmed. The retired dashboard says all five are invalid and reports zero verified identities. Noindexing does not settle it. A wrong choice in either direction has a cost: publishing 'invalid' disparages links the owner supplied, while publishing 'valid' claims attribution nobody has confirmed.",
+      "what_we_know": [
+        "Each supplied token is 9 characters; Amazon's KDP help documents ASINs as 10 characters (read 2026-11-19).",
+        "/dp/<token> returns a missing-page response for the token itself (S21).",
+        "Each exact supplied link was observed resolving to a stable 10-character ASIN through plpRedirect=mhFallback.",
+        "Amazon states a tracking ID need not appear in the URL for a click to be tracked (S41, read 2026-11-19).",
+        "Amazon requires the assigned Associates ID as a parameter in each Special Link (Program Policies 2(b)).",
+        "No per-product enrolled-link test, intended ASIN, confirmation date or confirmation source is recorded; all five rows are blank on those fields."
+      ],
+      "what_is_missing": "The owner's answer, or one permitted enrolled-link test that produces it. No external source states that a link.amazon resolver token must itself be a valid ASIN, so the 'invalid' conclusion cannot be established from documentation alone.",
+      "how_to_discover": "In the enrolled Associates account, open one intended listing, create its Special Link, follow it once in a permitted way, and read the click in the Tracking ID Summary Report. Record associates_link_test_passed, _date and _source on that product-intent row. Repeat per product before scaling. Until then keep 'unresolved' as the published position.",
+      "blocks": [
+        "SG-54"
+      ],
+      "sources": [
+        {
+          "label": "Flag F106",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f106"
+        },
+        {
+          "label": "Amazon KDP: 10-character ASIN definition",
+          "url": "https://kdp.amazon.com/en_US/help/topic/G200652190"
+        },
+        {
+          "label": "Amazon: a missing ID in the URL does not prevent tracking",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/GF4RJEQNXSMR7SP3"
+        },
+        {
+          "label": "Amazon Program Policies",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Scoped source review, 2026-11-19",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/reports/verification-2026-11-19-95af246d.md"
+        }
+      ],
+      "answer": "Publish 'unresolved'. That is the canonical register's position, it is what the brief instructs, and it is the only position that does not require a claim no source supports. The contradicting dashboard page is recorded as F106 rather than rewritten.",
+      "history": []
     }
   ],
   "updated": "2026-11-19"
