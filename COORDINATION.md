@@ -6020,3 +6020,49 @@ builds' own generators (F87 / Q-32) which this session deliberately did not touc
 | 2026-11-19T00:00Z | arena/c1706796-zone1 (session c1706796) | **Verification run:** `python3 build.py` (56 canonical pages, 35 sitemap URLs, 24 RSS items); `python3 verify.py` (134 pages, 77 spec rows: 75 sourced values / 2 blank+flagged, 43 declared official-source rows, 0 errors); `python3 research/build_research.py && python3 research/check_research.py` (834 checks); `python3 scripts/verify_site.py` (393 assertions); `bash scripts/ci-check.sh` (33 unit tests, data audit clean, current annex build, 10,688 links, no blocking link finding); `git diff --check` clean. The qualification guard was also negatively tested with an unqualified `/dp/` anchor (rejected) and S22 (accepted exception). GitHub’s API reports Pages `built`, public, from `main` root at `https://kanlerxz87-cyber.github.io/Zone1/`; the latest Pages deployment for current `main` `1eb1e56` succeeded: https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44137462955. |
 | 2026-11-19T00:00Z | arena/c1706796-zone1 (session c1706796) | **Sources and limits:** this pass audited the local 43-row official-source register and retained its links to Associates Central (S1/S2), FTC/eCFR (S7–S9), manufacturer pages/manuals (S10–S15, S25–S27, S39–S40), Amazon listing observations (S16/S28/S29/S36/S37), and Google link guidance (S30/S31). It did **not** represent any of those third-party pages as freshly live-read: the sandbox’s permitted outbound hosts do not include those sites. The five product-intent records retain blank intended-ASIN/listing/confirmation fields, observed redirects separate, and the supplied `shopnow047c-20` ID remains recorded-only until an enrolled-Associates first-party test proves it. Those account-only items remain visibly flagged and do not block publication. |
 | 2026-11-19T05:39Z | arena/c1706796-zone1 (session c1706796) | **Publication complete:** [PR #152](https://github.com/kanlerxz87-cyber/Zone1/pull/152) merged to `main` as `c758b8b09be5b62f3fb47a0e84978d7aa9816eae` at 2026-11-19T05:38:54Z. Its two required PR checks passed (`verify`, 6 s; annex rebuild, 5 s). GitHub Pages then built and deployed that merge successfully in [run 44466604307](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44466604307): root build, research build/check, root verification, reproducibility check and Pages deployment all passed. Public Pages status is `built`; live URL: https://kanlerxz87-cyber.github.io/Zone1/. GitHub emitted a non-blocking Node 20 deprecation advisory for upstream actions; no build or deploy step failed. |
+
+## Task board — arena/62a6f797-zone1 (2026-11-19 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| R-62a6f797 | **Repair the live Requirements-page directory-link defect recorded as R-16adefc5-1, then independently re-run the canonical build and verification gates.** The three affected records created root-relative links to `platform/` and `platform/tests/`; GitHub Pages serves its 404 page for those directories. Preserve the visible repository evidence links, use only valid reader-facing targets, regenerate the canonical root output, and record verification and any remaining irregularities. | done — pending PR merge and post-deploy read-back | arena/62a6f797-zone1 | `COORDINATION.md` (this board and completion record), `build.py` (requirements renderer/path-link rule), generated `requirements.html`, `reports/verification-2026-11-19-62a6f797.md` (new), `tests/test_build_contract.py` |
+
+### Claim log — arena/62a6f797-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-19T05:36Z | arena/62a6f797-zone1 | Read the full shared board before claiming. Its historical `in progress` rows are stale and each has a later completion/merge record; no current task owns this repair. Claimed R-62a6f797 narrowly after confirming the live-HTML defect described in R-16adefc5-1 is still rendered. This branch is fixed by Arena; no branch switch will be made. The claim is committed and pushed before any implementation change. |
+| 2026-11-19T05:39Z | arena/62a6f797-zone1 | Scope extension recorded before implementation: `tests/test_build_contract.py` is added solely to prove the new requirement-path guard rejects a directory reference. No other scope changes. |
+
+### Completion record — arena/62a6f797-zone1 (2026-11-19 UTC)
+
+**R-62a6f797 is complete on this branch, pending integration.** The Requirements register no longer emits
+`platform/` or `platform/tests/` reader links. G-01 now points at `platform/README.md`; G-04 now points at
+`platform/tests/test_platform.py`. Both precise paths were confirmed as `type: file` through the official GitHub
+Contents API. The existing GitHub repository evidence links are preserved.
+
+**Prevention:** `check_requirement_paths()` now treats any local directory reference in a requirement's `where` or
+`evidence` field as a build error. `tests/test_build_contract.py` injects both former directory shapes and proves the
+build guard rejects them. The generated `requirements.html` was rebuilt and a rendered-link audit asserted that both
+former directory hrefs are absent and both exact-file hrefs are present.
+
+**Verification:** `python3 build.py` rebuilt 56 canonical pages; `python3 verify.py` checked 134 pages, 77 spec rows
+(75 verified / 2 blank+flagged), 43 sources and returned 0 errors; `scripts/check_links.py` passed 10,688 links.
+`bash scripts/ci-check.sh` passed its 33 tests and audit; `research/check_research.py` passed 834 checks;
+`scripts/verify_site.py` passed 393 assertions; `scripts/build_s2_site.py --check`, the 18-test root suite, both
+JavaScript syntax checks and `git diff --check` all passed. Full commands, the limited source review, and the explicit
+post-deploy read-back caveat are in `reports/verification-2026-11-19-62a6f797.md`.
+
+**Irregularities:** no product, affiliate, tracking, traffic, conversion, price, review or compliance value was
+changed or newly asserted. R-16adefc5-1 is resolved in the generated branch output. A browser read-back after merge
+remains required because GitHub Pages only deploys `main`; that is a deployment verification step, not an open
+content defect.
+
+**Rebase record:** while opening PR #154, `main` advanced to `c758b8b` (PR #152). The first rebase produced one
+real `COORDINATION.md` tail conflict and one generated `requirements.html` conflict. Both records were retained:
+PR #152's X-c1706796 audit remains above this board, this board remains below it, and `requirements.html` was
+regenerated from the merged generator and register rather than hand-merged. The product-link qualification change
+already on `main` was preserved. All integration gates listed above were then re-run on the rebased tree and passed.
+`main` advanced a second time to `6b4beb1` (PR #155) before this PR could merge; that rebase had only the same
+append-only `COORDINATION.md` tail conflict. PR #155's publication record and this record were both retained, and no
+code or generated output changed in that second rebase.
