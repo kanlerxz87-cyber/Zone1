@@ -2492,11 +2492,38 @@ PROGRAMME_FLAGS = [('F1',
   'three trees with no generator. The annex pages remain published and linked: this bounds what competes in a '
   'search result; it does not conceal evidence. Not verified by this repair: whether any engine has already '
   'indexed an annex URL, and whether the canonical shop ranks for anything at all.',
-  ['S46', 'S47', 'S30'])]
-
+  ['S46', 'S47', 'S30']),
+ ('F106',
+  'The denied indexation exposed a second, separate problem: the historical pages state a conclusion about '
+  'the five supplied links that the canonical register rejects, and nothing now reconciles the two.',
+  'dashboard/index.html, dashboard/products.html, dashboard/compliance.html (2026-11-13 wording)',
+  'This row is deliberately not a duplicate of F103 (unqualified sponsored tokens) or F105 (annex '
+  'indexation and disclosure). It records what those two repairs leave behind. dashboard/ labels all five '
+  'supplied rows "Invalid link" and reports "0 verified product identities"; dashboard/compliance.html says '
+  'visitors are "never sent to unverified product pages". Those statements rest on two facts that are true '
+  'about the token, not about the link: each supplied token is 9 characters where Amazon documents a '
+  '10-character ASIN (S23), and /dp/<token> returns a missing page (S21). The canonical register records '
+  'each exact supplied URL resolving to a stable 10-character ASIN through a plpRedirect=mhFallback '
+  'parameter and holds that compliance status is UNRESOLVED, not invalid, which is also what the project '
+  'brief instructs. Applying noindex (F105) removed those pages from the index but did not remove the '
+  'contradiction: the pages stay published and linked from previous-passes.html, so a reader who follows a '
+  'link from this publication still meets an answer this publication rejects. The historic prose is NOT '
+  'rewritten here on purpose: it is evidence of what that pass actually found, and choosing the published '
+  'position is the owner\'s call (SG-54 / Q-42). What this pass did add is that previous-passes.html now '
+  'names the disagreement in the same row that links the build, instead of describing dashboard/ as '
+  'differing only over F32. Note on scope: this row does not weaken F103 or F105 and does not claim they '
+  'are incomplete - de-indexing is the correct repair for competition, this is the separate question of '
+  'what the page says.',
+  ['S1', 'S2', 'S23', 'S41', 'S42'])]
 REPO_EVIDENCE = {'F105': ['build.py', 'verify.py', 'scripts/add_annex_noindex.py', 'scripts/build_site.py',
           'research/build_research.py', 'scripts/build_s2_site.py',
           'reports/verification-2026-11-19-b3ed16c4.md'],
+ 'F106': ['dashboard/index.html',
+          'dashboard/products.html',
+          'dashboard/compliance.html',
+          'data/product-intent.json',
+          'previous-passes.html',
+          'reports/verification-2026-11-19-95af246d.md'],
  'F80': ['data/product-intent.json', 'product-intent.html', 'session-58cbaaa2/artifacts/README.md'],
  'F81': ['product-intent.html', 'data/product-intent.json', 'reports/verification-2026-11-17-58cbaaa2.md'],
  'F82': ['build.py', 'data/product-intent.json', 'reports/verification-2026-11-17-58cbaaa2.md'],
@@ -3884,7 +3911,10 @@ PARALLEL_BUILDS = [
      "None found against the canonical site at the time of this pass; its citations were spot-checked and matched."),
     ("dashboard/index.html", "dashboard/", "Campaign dashboard",
      "Niches, commissions, links and tracking views for the same three products, built by a separate session.",
-     "Maps the 6 Qt ASIN without the F32 caveat."),
+     "Maps the 6 Qt ASIN without the F32 caveat, and reaches a different conclusion about the supplied "
+     "links: it labels all five \"Invalid link\" and reports \"0 verified product identities\" (F106). "
+     "This publication records the observed fallback resolution and keeps intent unconfirmed; it does not "
+     "call the links invalid."),
     ("docs/index.html", "docs/", "Legacy docs build",
      "The earliest dashboard build. Retired; kept because its evidence files are cited by later passes.",
      "Its build command is already documented as broken against the shared data schema (F23)."),

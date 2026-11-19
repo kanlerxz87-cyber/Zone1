@@ -6405,3 +6405,78 @@ Claim log: 2026-11-19 · arena/b3ed16c4 · repo read first (`main` @ `2be3bea`, 
 - **Scope note:** no annex page body was rewritten; those trees belong to earlier passes and this
   pass added a `<meta>` and a `<link>` only. `docs/` was read and confirmed already correct (a
   retired redirect with `noindex` and a canonical to the root page it redirects to).
+
+## Task board — arena/95af246d-zone1 (2026-11-19 UTC) — pass 15: what the annex repairs leave open
+
+Board read before starting. Base `2be3bea`. While this pass worked, `main` advanced four times
+(`2b46706`, `9ced9b8`, `8ea62c8`, `71fb8b1`) and three other sessions published overlapping findings.
+This pass's original implementation was **dropped rather than re-landed** once it became clear the
+merged work was equivalent or better; what is left is the finding none of them covers.
+
+| # | Task | Status | Owner | File scope |
+|---|------|--------|-------|------------|
+| P15-1 | Indexation boundary across the historical builds | done — **superseded by F105** (`arena/b3ed16c4`, PR #167). This pass's original `HISTORICAL_BUILD_DIRS` + guard + normaliser were dropped: F105 is enforced in `verify.py` check 4b and `scripts/add_annex_noindex.py`, and additionally removes the never-fetched sub-directory `robots.txt`/`sitemap.xml`, which this pass had not addressed. Re-landing a second implementation of one boundary is the defect this work exists to remove. | arena/95af246d-zone1 | none (dropped) |
+| P15-2 | The residual contradiction the annex repairs do **not** settle | done | arena/95af246d-zone1 | `build.py` (F106 entry + evidence), `previous-passes.html` (regenerated), `flagged.html` (regenerated) |
+| P15-3 | Scoped source re-read, 2026-11-19, with the exact string observed | done | arena/95af246d-zone1 | `reports/verification-2026-11-19-95af246d.md` (new) |
+| P15-4 | The owner decision, in both registers | done | arena/95af246d-zone1 | `data/suggestions.json` (SG-54), `data/questions.json` (Q-42) |
+| P15-5 | Stale-PR disposition (#139 #141 #144 #146 #150 #159) | done — recorded, none merged or closed | arena/95af246d-zone1 | `COORDINATION.md` (this section) |
+| P15-6 | Integration: gates, PR → merge → Pages confirm | in progress | arena/95af246d-zone1 | whole tree |
+
+### Claim log — arena/95af246d-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-19 | arena/95af246d-zone1 | Claimed P15-1…P15-6 on base `2be3bea`. Baseline before edits: build exit 0 (36 sitemap URLs, 24 feed items, byte-identical rebuild) · verify 136 pages / 77 rows / 45 sources / 0 errors · `ci-check.sh` 61 root + 8 JS + 33 platform tests, audit clean, 11,297 links. |
+
+### P15 record — the four-way collision, resolved
+
+Four sessions found parts of the same problem on the same day. The final division is:
+
+| Flag | Owner on `main` | Question it answers |
+|------|-----------------|---------------------|
+| F103 | `arena/1970a80b-zone1` | Are the historical product anchors qualified `sponsored`? |
+| F104 | `arena/43667e90-zone1` | Do the inherited annex pages carry a disclosure? |
+| F105 | `arena/b3ed16c4-zone1` | Is a crawler asked to index the annexes? |
+| **F106** | **this pass** | **Which conclusion do the historical pages assert about the five supplied links — and does anything reconcile it with the register?** |
+
+F106 is not a restatement of the other three. Noindex removes a page from a search result; it does not
+change what the page says, and it does not remove the link this publication keeps to it from
+`previous-passes.html`. A reader who follows that link still meets "Invalid link / 0 verified product
+identities" beside a register that says compliance status is **unresolved**. F106 records that, with both
+sides of the argument and their official basis, and states explicitly what it does **not** repair: an
+unsponsored anchor (F103) or a missing disclosure (F104) stays exactly as open as it was.
+
+**What changed in this pass.** `previous-passes.html` now names the disagreement in the row that links the
+build, instead of describing `dashboard/` as differing only over F32. `flagged.html` gains F106.
+SG-54 and Q-42 put the choice in front of the owner with the enrolled-link test named as the only route
+that produces an answer rather than a position. The dashboard's historic prose is **unchanged**: it is
+evidence of what that pass actually found, and the decision is the owner's.
+
+**Rebase record — four collisions, nothing discarded.** `main` advanced to `2b46706` (PR #165), then
+`9ced9b8` (PR #169/#170), then `8ea62c8` (PR #172), then `71fb8b1` (PR #167). Collisions, in order:
+F103 claimed; F104 claimed; SG-51 already used by a different suggestion; and finally F105 already
+implementing the indexation boundary. Each time, `main`'s work was kept and this pass's duplicate was
+dropped or renumbered (`F103 → F104 → F105 → F106`, suggestion `SG-51 → SG-54`). The JSON registers were
+re-serialised onto `main`'s own copies so the diff is the addition and nothing else; an earlier attempt
+with `json.dump(indent=1)` had rewrapped both files end to end without changing a rendered byte, which
+was reverted. A first resolution attempt also dropped the closing brace of `REPO_EVIDENCE`; the build
+caught it on the next run.
+
+**Gates on the final tree.** `build.py` 58 pages / 36 sitemap URLs / 24 RSS items, rebuild byte-identical
+· `verify.py` 136 pages, 77 rows (75 verified / 2 blank+flagged), 47 sources, **0 errors**, 0 external
+warnings · `tests/` 66 OK · `node --test` 8 OK · `platform/tests` 33 OK · audit clean ·
+`build_s2_site.py --check` current · `check_links.py` **11,449 links** · `check_research.py` clean ·
+`verify_site.py` 393 assertions. F103–F106 each render exactly one anchor.
+
+**Remaining gates, unchanged and not fabricated.** `shopnow047c-20` stays selected, unvalidated and
+**unapplied**; the `associates_link_test_*` triple stays blank on all five rows; intended ASINs stay null;
+the campaign ledger stays empty; production analytics stays **off**; Search Console ownership, sitemap
+submission and query performance remain unverified. De-indexing a page creates no traffic, click or order,
+and this record does not claim it does.
+
+### Stale-PR disposition — recorded, none merged or closed
+
+#139, #141, #144, #146, #150 (all `CONFLICTING`, last commit 2026-11-17) and #159 (open, held by its own
+scope request) were re-checked on 2026-11-19. None was merged, closed, rebased or represented as tested.
+Per protocol item 7 their claims are stale, but a stale claim is not permission to discard another
+session's work; the earlier dispositions (SG-50/Q-41) remain operative.
