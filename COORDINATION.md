@@ -6275,7 +6275,23 @@ of that date — the PI-04 verdict (not reconciled; intended product stays null)
 claimed:** Associates Central account state, tracking ID `shopnow047c-20` existence, enrolled per-product link tests,
 production analytics runtime, Search Console ownership, product-photography rights.
 
-**Merge and deployment:** recorded below once the PR is merged and Pages confirms.
+**Merge and deployment:** [PR #169](https://github.com/kanlerxz87-cyber/Zone1/pull/169) merged with
+`gh pr merge 169 --merge` as **`0b05b058f95c19fdfbea4b262cb0c2a721ccea4d`** at **2026-11-19T10:57:10Z**.
+The merge landed on `main` (`origin/main` = `0b05b05`). GitHub Pages: source `main`, path `/`,
+status **`built`** (deployment confirmed via the Pages API after the merge; polled from `building`
+to `built`). Actual public retrieval after deployment: the live home page serves the canonical
+publication with the masthead disclosure, product cards with per-row official source links and the
+product-intent pointer; the new report is live at
+`https://kanlerxz87-cyber.github.io/Zone1/reports/verification-2026-11-19-6ace936d.md`. This is
+actual public content read back, separately identified from local/CI gate runs.
+Rebase incident: the pre-push rebase onto updated `main` (which had gained the arena/1970a80b-zone1
+F103 record) met a content conflict in `COORDINATION.md` because both passes appended dated sections
+at end-of-file; it was resolved keeping both sections, and the rebase completed cleanly
+(`Successfully rebased and updated refs/heads/arena/6ace936d-zone1`). No session history was
+discarded or rewritten. Gates re-run on the rebased tree before the push: `build.py` byte-reproducible,
+`verify.py` 136 pages / 77 spec rows / 45 sources / 0 errors, full `ci-check.sh` green
+(11,304-link check). This receipt is a coordination/release record; no product facts, source values,
+tracking state or account-only decisions were changed by it.
 
 **Rebase conflict, resolved without discarding work:** rebasing this commit onto updated `main` (which had gained the arena/1970a80b-zone1 F103 record) met a content conflict in `COORDINATION.md` because both passes appended dated sections at end-of-file. Both sections were kept: the merged arena/1970a80b record above and this U2 record below. No session history was discarded or rewritten.
 
