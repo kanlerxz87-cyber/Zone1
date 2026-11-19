@@ -46,10 +46,43 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 ---
 | X-633b115f | Add two decision pages to the root build: **Suggestions** (site/design/conversion improvements with options, for the owner to choose before any change) and **Questions & information gaps** (what is known, what is missing, how to discover it, each row linked to an official source). Live re-check of the 3 `link.amazon` tokens and key official sources on 2026-11-15. | done | arena/633b115f (session 633b115f) | `build.py` (new `page_suggestions`, `page_questions`, NAV + pages dict), regenerated root HTML `suggestions.html`, `questions.html`, `robots.txt`, `sitemap.xml`, `COORDINATION.md` (this row + log) |
 
+| X-d154e428 | **Reader/product pass: give the two supplied thermometer products real buyer pages, promote the thermometer shelf to an indexable pillar, fix two published annexes that contradict the live record, and open a decision-review queue.** Live re-verification on 2026-11-19 of all five supplied `link.amazon` links (all five now observed reaching a product title), the FTC Disclosures 101 page, the two brand catalogue pages, and the live Pages homepage. | done | arena/d154e428-zone1 (session d154e428) | `data/thermometers.json` (new), `data/sources.json`, `data/suggestions.json`, `build.py`, `tests/test_publication_output.py`, `categories/cooking-thermometers.html` (regenerated), `products/thermo-*.html` (new), `dashboard/index.html`, `s2/` copy fixes, `reports/verification-2026-11-19-d154e428.md` (new), `reports/suggestions-2026-11-19-d154e428.md` (new), `EXECUTIVE-SUMMARY.md`, `README.md`, `COORDINATION.md` |
+
+### X-d154e428 completion record — arena/d154e428-zone1 (2026-11-19)
+
+**Status: done.** Branch `arena/d154e428-zone1`, rebased onto `main` @ `bdf1b9b` (merge of PR #177) with no conflicts.
+
+**What this pass did.** Two of the five supplied products are thermometers and had no reader page: the shelf was an explicitly noindexed "link notes" surface. This pass gives both a documented buyer page built only from the manufacturer's own page, promotes the thermometer pillar to an indexable category, and opens a 14-row decision queue. It also corrects two annexes that published a conclusion the live record does not support.
+
+**Live re-verification performed on 2026-11-19** — every URL was fetched in this session, not recalled:
+
+| Source | What was read | Result |
+|---|---|---|
+| the five supplied `link.amazon` strings | final URL + landing `<title>` for each | all five reached a product page; matches `data/product-intent.json` |
+| [FTC Disclosures 101](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers) | full page | "You can't talk about your experience with a product you haven't tried"; hard-to-miss placement rule (S8 unchanged) |
+| [CHEF iQ iQ Sense](https://chefiq.com/products/iq-sense) | both chunks of the brand page | 32–212 °F internal, 32–1,000 °F ambient, 0.19 × 4.75 in probe, 70+ h, USB-C, dishwasher-safe, in-the-box list; **sensor count contradicts itself on the same page** |
+| [ThermoMaven F1 Turbo](https://www.thermomaven.com/products/f1-turbo) | brand page | 0.5 s, ±0.5 °F/±0.3 °C, IP67, auto-rotate, magnet, bottle opener, lifetime warranty with a 30-day activation |
+| [USDA FSIS chart](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart) | full page | 145/160/165 °F rows; footer "Last Updated: Apr 14, 2025" → new S48 |
+| [FoodSafety.gov](https://www.foodsafety.gov/food-safety-charts/safe-minimum-internal-temperatures) | full page | "Always use a food thermometer…"; "Date Last Reviewed November 21, 2024" → new S49 |
+| live Pages `executive-summary.html` | published page | matched the local build; its Publication row still described the thermometer links as "unconfirmed link notes" and was corrected | 
+
+**Irregularities found and handled (non-blocking):**
+
+1. **Two annexes published an unsupported conclusion.** `s2/index.html` said the supplied links "do not identify any product" and `dashboard/` labelled each "Invalid link". Live re-read: every supplied link resolves to a product page. The 9-character token failing a *direct* `/dp/` lookup is true but is not the same claim. Both corrected on 2026-11-19 with a dated correction note. The product-identity and attribution questions they were reaching for remain correctly open.
+2. **Listing-title drift, ASIN B0DHZTCNR5.** Independently observed by `arena/6eb19d2b` (I-1) and by this session on the same day: "Highly Waterproof for Grill BBQ Camping" became "IP67 Waterproof…", and "Food Thermometer" was dropped. ASIN unchanged. Recorded as a new `observation_history` entry and a `title_drift_note` in `data/product-intent.json`; S36's original dated read is left intact and a scoped review is appended. No published value depended on the old title, so no page changed.
+3. **Brand page self-contradiction, CHEF iQ.** Same page says "4 internal + 1 ambient" in its feature list and "Five internal sensors" in its summary. Published as written and flagged T-06; resolving it needs the user guide, which was not read.
+
+**Verification of this pass's own output:** `python3 build.py` byte-reproducible; `python3 verify.py` 140 pages / 0 errors / 0 external warnings; `python3 -m unittest discover -s tests` 69 OK; `node --test tests/*.test.cjs` 14 pass (including 6 new behaviour tests that run the real published `publication/site.js` against a DOM stub and assert the decision queue never calls the network); `bash scripts/ci-check.sh` OK; `scripts/build_site.py` + `verify_site.py` 393 assertions passed; `research/check_research.py` clean.
+
+**Files:** `data/thermometers.json` (new), `data/decision-queue.json` (new), `data/sources.json` (S48, S49, scoped review), `data/product-intent.json` (PI-04 observation history only — no intent field filled), `build.py`, `verify.py`, `analytics/collector.py`, `publication/site.js`, `publication/theme.css`, `publication/layout.html.tpl`, `tests/test_publication_output.py`, `tests/decision-review.test.cjs` (new), `categories/cooking-thermometers.html` and `products/thermo*.html` (regenerated/new), `dashboard/` + `s2/` copy corrections, `reports/verification-2026-11-19-d154e428.md` (new), `reports/suggestions-2026-11-19-d154e428.md` (new), `EXECUTIVE-SUMMARY.md`, `README.md`, `COORDINATION.md`.
+
+**No intent, attribution, account or campaign value was filled in.** `intended_asin`, `official_listing_url`, `confirmation_date`, `confirmation_source`, the tracking-ID status and the campaign ledger are exactly as they were: blank and waiting on the owner (DR-01…DR-04).
+
 ## Claim log
 
 | UTC time | Session | Action |
 |----------|---------|--------|
+| 2026-11-19T19:45Z | arena/d154e428-zone1 (session d154e428) | Claimed X-d154e428 after reading the board. Base `main` @ `0bcc272` (merge of PR #175); no task on the board is unclaimed or in progress. Baseline gates were run before any edit: `python3 build.py` byte-reproducible, `python3 verify.py` 137 pages / 0 errors, 68 unittests OK, `scripts/ci-check.sh` OK. Claimed scope is deliberately non-overlapping with the annex trees (`site/`, `s2/`, `dashboard/`, `annex-*`, `session-*`), which this pass edits only to correct published statements that already contradict the live record; those corrections are logged below. |
 | 2026-11-15T00:00Z | arena/633b115f (session 633b115f) | Claimed X-633b115f. Repo state checked: `build.py` + `verify.py` green on `main` @ 8716134; no existing Suggestions or Questions page. |
 | 2026-11-13T22:35Z | sess-105bc29e | Claimed T1–T11 (research, data, site, integration). No other claims present; repo was empty apart from `README.md`. |
 | 2026-11-13T22:35Z | sess-105bc29e | Claimed T12 (PR + merge + Pages verification). |

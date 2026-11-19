@@ -606,6 +606,7 @@ PUBLIC_INDEX_PAGES = {
     "picks.html",
     "compare.html",
     "categories/kitchen-appliances.html",
+    "categories/cooking-thermometers.html",
     "guides/buying-guide-air-fryers.html",
     "articles/index.html",
     "compliance.html",
@@ -616,7 +617,7 @@ PUBLIC_INDEX_PAGES = {
 
 def is_indexable_page(page_rel):
     """Only buyer-facing canonical publication pages enter the root sitemap."""
-    if page_rel in {"404.html", "categories/cooking-thermometers.html"}:
+    if page_rel == "404.html":
         return False
     return (
         page_rel in PUBLIC_INDEX_PAGES
@@ -666,6 +667,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     ))
     workspace_items = (
         ("executive-summary.html", "Executive summary & index"),
+        ("decision-review.html", "Decision review queue"),
         ("suggestions.html", "Suggestions decision queue"),
         ("questions.html", "Questions, known facts & gaps"),
         ("decision-log.html", "Decision drafts & export"),
@@ -990,30 +992,116 @@ def reader_capture(prefix=""):
             f'<a class="btn btn-ghost" href="{prefix}feed.xml">Get the RSS feed <span aria-hidden="true">↗</span></a></section>')
 
 
+THERMOMETERS = json.loads((ROOT / "data" / "thermometers.json").read_text(encoding="utf-8"))
+THERMO_BY_SLUG = {p["slug"]: p for p in THERMOMETERS["products"]}
+SAFE_TEMP_SOURCES = ["S48", "S49"]
+
+
+def thermo_spec_table(p):
+    rows = []
+    for s in p["specs"]:
+        if s["value"] is None:
+            rows.append(
+                f'<tr><td>{e(s["label"])}</td>'
+                f'<td class="blank">— not confirmed —</td>'
+                f'<td>{flag_pill("unverified")}<div class="tiny muted" style="margin-top:.3rem">{e(s["unverified"])}</div>{src_links(s["source"])}</td></tr>'
+            )
+        else:
+            rows.append(
+                f'<tr><td>{e(s["label"])}</td>'
+                f'<td>{e(s["value"])}'
+                + (f'<div class="tiny muted" style="margin-top:.25rem">{e(s["note"])}</div>' if s.get("note") else "")
+                + f'</td>'
+                f'<td>{flag_pill("verified")} {src_links(s["source"])}</td></tr>'
+            )
+    return f"""
+<div class="tablewrap">
+<table>
+  <caption>What the manufacturer states — {e(p['short_name'])}</caption>
+  <thead><tr><th>Specification</th><th>Value, as published</th><th>Status &amp; source</th></tr></thead>
+  <tbody>{''.join(rows)}</tbody>
+</table>
+</div>
+<p class="small muted">A verified row here means the cited document states that value. It is not a test result. Rows with no value are left blank and flagged rather than filled from a secondary listing.</p>"""
+
+
+def thermo_cta(p):
+    return f"""<div class="cta-row"><a class="btn" href="{e(p['link'])}" target="_blank" rel="sponsored nofollow noopener" data-analytics-event="outbound_click" data-analytics-target-id="{e(p['intent_id'])}">View the Amazon listing — check the model <span aria-hidden="true">↗</span></a></div>
+<p class="cta-note"><strong>Paid link — we may earn a commission.</strong> Affiliate link · intended listing and attribution unconfirmed. The submitted short link reaches a product page, but the account holder has not confirmed that this is the intended listing. {e(p['cta_caution'])} <a href="../product-intent.html">Link notes</a>. {src_links(['S2', 'S41'])}</p>"""
+
+
+def page_thermo_product(p):
+    flags = "".join(
+        f'<tr><td>{e(f["id"])}</td><td>{e(f["issue"])}</td><td>{e(f["action"])}</td><td>{src_links(f.get("sources", []))}</td></tr>'
+        for f in p["flags"])
+    others = [q for q in THERMOMETERS["products"] if q["slug"] != p["slug"]]
+    sibling = others[0] if others else None
+    sibling_link = (f'<div class="grid grid-2"><a class="card" href="{e(sibling["slug"])}.html"><strong>{e(sibling["short_name"])}</strong>'
+                    f'<span>{e(sibling["eyebrow"])} · the other thermometer in this set</span></a>'
+                    f'<a class="card" href="../articles/air-fryer-capacity-guide.html"><strong>Using a thermometer with an air fryer</strong>'
+                    f'<span>Why quart capacity and safe internal temperature answer different questions</span></a></div>'
+                    if sibling else "")
+    body = f"""<p class="crumbs"><a href="../index.html">Home</a> / <a href="../categories/cooking-thermometers.html">Thermometers</a> / {e(p['short_name'])}</p>
+<section class="product-hero"><div><p class="section-eyebrow">{e(p['eyebrow'])} · a document-based guide</p><h1>{e(p['name'])}</h1><p class="lede">{e(p['dek'])} {src_links(['S39'] if p['brand'] == 'CHEF iQ' else ['S40'])}</p><p class="small"><strong>What it is for:</strong> {e(p['best_for']['value'])} {src_links(p['best_for']['source'])}</p><p class="small"><strong>Check first:</strong> {e(p['check']['value'])} {src_links(p['check']['source'])}</p>{thermo_cta(p)}</div></section>
+{publication_byline('../')}
+<div class="product-verdict"><p class="section-eyebrow">The short version · editorial guidance</p><p>{e(p['verdict'])} {src_links(['S48', 'S49']) if p['brand'] == 'ThermoMaven' else src_links(['S39'])}</p></div>
+<nav class="buyer-toc" aria-label="On this product page"><a href="#specifications">Specifications</a><a href="#care">Care &amp; ownership</a><a href="#source-record">Sources &amp; listing record</a></nav>
+<h2 id="specifications">What the manufacturer says.</h2><p class="small muted">Read from the brand’s own product page on {e(THERMOMETERS['accessed'])}. Where the brand page contradicts itself, or contradicts the observed Amazon title, both readings are printed rather than one being chosen.</p>
+{thermo_spec_table(p)}
+<h2 id="care">What owning it is like.</h2><p><strong>Care:</strong> {e(p['care']['value'])} {src_links(p['care']['source'])}</p>
+<p class="small">A thermometer answers one question: has the food reached a safe internal temperature. USDA publishes the minimums (145 °F for whole cuts with a three-minute rest, 160 °F for ground meat, 165 °F for poultry and leftovers) and advises cooking to them as measured with a food thermometer. {src_links(SAFE_TEMP_SOURCES)}</p>
+<div class="grid grid-2">{sibling_link}</div>
+<details class="source-detail" id="source-record"><summary>Where each value comes from, and what is still open</summary>
+<p class="small"><strong>Model caveat.</strong> {e(p['model_caveat'])} {src_links(['S39'] if p['brand'] == 'CHEF iQ' else ['S36', 'S40'])}</p>
+<div class="tablewrap"><table><caption>Open questions on this product</caption><thead><tr><th>ID</th><th>Issue</th><th>Next step</th><th>Official evidence</th></tr></thead><tbody>{flags}</tbody></table></div>
+<p class="small"><a href="../flagged.html">Full public review register</a> · <a href="../product-intent.html">Separate intent and attribution fields</a> · <a href="../data.html">Dataset &amp; sources</a></p>
+</details>
+<p class="small muted">No Amazon price, rating or review count is displayed. No authorised live Program Content integration is configured. Brand prices are not republished because they move. {src_link('S2')}</p>
+{reader_capture('../')}"""
+    return layout('products/' + p['slug'] + '.html', p['name'] + ' — what the documents say', body,
+                  active='categories/cooking-thermometers.html',
+                  description=p['dek'][:150] + ' Manufacturer-stated specifications with sources; no hands-on testing.',
+                  jsonld_blocks=[breadcrumbs_jsonld([('Home', SITE_BASE),
+                                                     ('Thermometers', page_url('categories/cooking-thermometers.html')),
+                                                     (p['short_name'], page_url('products/' + p['slug'] + '.html'))])])
+
+
+def thermo_product_card(p):
+    return f"""<article class="card">
+<p class="kicker">{e(p['eyebrow'])}</p><h2 style="font-size:27px;margin-top:5px"><a href="../products/{e(p['slug'])}.html" style="text-decoration:none">{e(p['short_name'])}</a></h2>
+<p class="small">{e(p['dek'])}</p>
+<p class="tiny muted"><strong>Best for:</strong> {e(p['best_for']['value'])} {src_links(p['best_for']['source'])}</p>
+<p class="tiny muted"><strong>Check first:</strong> {e(p['check']['value'])} {src_links(p['check']['source'])}</p>
+<a class="btn btn-ghost" href="../products/{e(p['slug'])}.html">Read the documented guide →</a>
+</article>"""
+
+
 def page_thermometers():
-    cards = []
+    cards = "".join(thermo_product_card(p) for p in THERMOMETERS["products"])
+    notes = []
     for note in PUBLICATION["thermometer_links"]:
         record = next(x for x in PRODUCT_INTENT["rows"] if x["id"] == note["id"])
-        cards.append(f"""<article class="card">
-<p class="kicker">{e(note['eyebrow'])}</p><h2 style="font-size:30px;margin-top:5px">{e(note['title'])}</h2>
-<p class="small">{e(note['note'])} {src_links(note['sources'])}</p>
-<p class="tiny muted">Observed {e(record['observed_on'])}: <code>{e(record['observed_asin'])}</code>. Intended ASIN, official listing confirmation and enrolled-link test remain blank in the separate record.</p>
-<a class="btn" href="{e(record['supplied_link'])}" rel="sponsored nofollow noopener" target="_blank" data-analytics-event="outbound_click" data-analytics-target-id="{e(record['id'])}">View supplied Amazon link <span aria-hidden="true">↗</span></a>
-<p class="tiny muted" style="margin:12px 0 0">Affiliate link · model, intended listing and attribution unconfirmed.</p>
-</article>""")
+        notes.append(f"""<li><strong>{e(note['title'])}</strong> — {e(note['note'])} Observed {e(record['observed_on'])}: <code>{e(record['observed_asin'])}</code>. Intended ASIN and enrolled-link test remain blank. {src_links(note['sources'])} <a href="{e(record['supplied_link'])}" rel="sponsored nofollow noopener" target="_blank" data-analytics-event="outbound_click" data-analytics-target-id="{e(record['id'])}">View the supplied link <span aria-hidden="true">↗</span></a> <span class="tiny muted">(affiliate link; model and attribution unconfirmed)</span></li>""")
     body = f"""<p class="crumbs"><a href="../index.html">Home</a> / Thermometers</p>
-<p class="section-eyebrow">Beyond the air fryer</p><h1>Two thermometer links. A few checks first.</h1>
-<p class="lede">The other kitchen tools submitted for this publication currently open thermometer listings. These are transparent link notes—not tested recommendations, and not confirmation of what their sender intended.</p>
+<p class="section-eyebrow">Kitchen tools</p><h1>Know when it’s done.</h1>
+<p class="lede">A thermometer is the one kitchen tool that answers a safety question, not a taste question: has this food reached a safe internal temperature. Two submitted options, one a pocket instant-read and one a connected wireless probe — different tools for different cooks.</p>
 {publication_byline('../')}
-<div class="grid grid-2">{''.join(cards)}</div>
-<h2>Before choosing a thermometer</h2>
-<p>Check the exact model and probe configuration, its instructions for use and cleaning, and whether any app or hub is required. The CHEF iQ brand page has selectable probe configurations; the ThermoMaven catalogue includes different instant-read and wireless lines. Do not copy a specification from one variant to another. {src_links(['S39','S40'])}</p>
-<p class="small">The observed Amazon titles are retained as dated evidence. No claim about accuracy, certifications, wireless range, heat resistance or food safety is adopted from those titles. A landing URL alone does not prove attribution, and a missing visible tracking ID does not disprove it. {src_links(['S36','S37','S41'])}</p>
-<p class="small"><a href="../product-intent.html">Read all five separate link records →</a> · <a href="../flagged.html#f80">Unresolved model matching →</a></p>
+<div class="grid grid-2">{cards}</div>
+<h2>Start with the safe-temperature question.</h2>
+<p>USDA publishes the minimum internal temperatures — 145 °F for whole cuts with a three-minute rest, 160 °F for ground meat, 165 °F for poultry and leftovers — and advises using a food thermometer to check them. Any thermometer you buy is a way of taking that measurement; the differences between the two below are about how, and where, you want to read it. {src_links(SAFE_TEMP_SOURCES)}</p>
+<h2>Instant-read or wireless probe?</h2>
+<p><strong>Instant-read</strong> suits spot checks: you open the oven or grill, probe the thickest part, read a number and take it out. <strong>A wireless probe</strong> stays in the food for the whole cook and sends readings to a phone, which means you can watch a long roast or know the ambient heat without standing over it. Wireless monitoring depends on a hub and an app; an instant-read works on its own.</p>
+<p class="small">Both pages above state the range the probe reads. Check yours against the temperatures you actually cook to — an internal range that stops at 212 °F is a doneness instrument, not an oil or sugar thermometer. {src_links(['S39', 'S40', 'S48'])}</p>
+<h2>The submitted link record.</h2>
+<p class="small muted">The two supplied strings are short-link tokens, not ASINs. Each reaches an Amazon listing, but the account holder has not confirmed that the listing is the intended product, so intended ASIN, official listing URL and confirmation date stay blank in the separate record. The observations below are dated, not a recommendation.</p>
+<ul class="small">{''.join(notes)}</ul>
+<p class="small"><a href="../product-intent.html">All five separate link records →</a> · <a href="../flagged.html#f80">Unresolved model matching →</a> · <a href="../data.html">Every source used here →</a></p>
 {reader_capture('../')}"""
-    return layout('categories/cooking-thermometers.html','Meat thermometer link notes',body,active='categories/cooking-thermometers.html',
-                  description='Dated notes on the two submitted thermometer links, keeping observed listings separate from intended products and unverified specifications.',
-                  jsonld_blocks=[breadcrumbs_jsonld([('Home',SITE_BASE),('Thermometer link notes',page_url('categories/cooking-thermometers.html'))])])
+    return layout('categories/cooking-thermometers.html',
+                  'Meat thermometers: instant-read or wireless probe',
+                  body, active='categories/cooking-thermometers.html',
+                  description='Compare an instant-read thermometer and a wireless probe thermometer using manufacturer-stated ranges and USDA safe-temperature guidance.',
+                  jsonld_blocks=[breadcrumbs_jsonld([('Home', SITE_BASE), ('Thermometers', page_url('categories/cooking-thermometers.html'))])])
 
 
 def page_about():
@@ -1064,7 +1152,7 @@ def page_index():
 <div class="publication-compare-cta"><div><h2>Prefer everything side by side?</h2><p>Capacity, counter space and care. Official sources beside the details.</p></div><a class="btn btn-ghost" href="compare.html">Compare the three <span aria-hidden="true">→</span></a></div>
 <section class="quick-guide" aria-labelledby="guides-heading"><div class="section-heading"><div><p class="section-eyebrow">A little homework, a better fit</p><h2 id="guides-heading">Read before you make room.</h2></div><a class="text-link" href="articles/index.html">All buying guides <span aria-hidden="true">↗</span></a></div><div class="grid grid-2">{guides}</div></section>
 <section class="season-feature" aria-labelledby="season-heading"><div><p class="section-eyebrow">The November notebook · 2026</p><h2 id="season-heading">Giving an air fryer? Ask about the counter first.</h2><p>A useful gift starts with the way someone cooks—not the biggest number on the box. These seasonal guides help with the questions, without claiming a deal or a bestseller.</p></div><div class="season-links"><a href="articles/air-fryer-gift-guide-2026.html">The thoughtful air-fryer gift guide <span aria-hidden="true">↗</span></a><a href="articles/black-friday-model-number-switch.html">A model-number check before a sale <span aria-hidden="true">↗</span></a><a href="articles/questions-before-buying-a-multifunction-appliance.html">Questions before buying multifunction <span aria-hidden="true">↗</span></a></div></section>
-<section class="reader-note" aria-label="How these guides are made"><span class="note-symbol" aria-hidden="true">“</span><div><h3>The manual is a good place to start.</h3><p>We link the specifications to the manufacturer. When official documents disagree, you’ll see the difference—not a guess. <a href="about.html">How we research</a>.</p></div><div><h3>More kitchen tools, kept in perspective.</h3><p>The other submitted links open thermometer titles. Read the <a href="categories/cooking-thermometers.html">ThermoMaven and CHEF iQ link notes</a>; intended models and specifications remain unconfirmed.</p></div></section>
+<section class="reader-note" aria-label="How these guides are made"><span class="note-symbol" aria-hidden="true">“</span><div><h3>The manual is a good place to start.</h3><p>We link the specifications to the manufacturer. When official documents disagree, you’ll see the difference—not a guess. <a href="about.html">How we research</a>.</p></div><div><h3>Two more kitchen tools.</h3><p>Two of the submitted links open thermometer listings. Both brands publish a specification set, so each now has its own guide: compare them on the <a href="categories/cooking-thermometers.html">thermometers page</a>; which exact listing you would receive is still unconfirmed.</p></div></section>
 {reader_capture()}"""
     ld = [breadcrumbs_jsonld([("Home", SITE_BASE)]), {"@type":"ItemList","name":"Documented air-fryer formats","itemListElement":[{"@type":"ListItem","position":i,"name":r["title"],"url":page_url('products/'+r['slug']+'.html')} for i,r in enumerate(PUBLICATION['products'],1)]}]
     return layout("index.html","Kitchen buying guides for the way you cook",body,active="index.html",description="Find the air-fryer format that fits your kitchen. Compare documented capacity, counter space and care, with useful buying guides and clear affiliate disclosures.",jsonld_blocks=ld)
@@ -3128,7 +3216,8 @@ def _req_counts_html():
 def page_exec():
     counts = {state:sum(r.get("current_state") == state for r in SUGGESTIONS["suggestions"]) for state in ("complete","partial","gated","superseded","open")}
     rows = [
-        ("Publication", 'Buyer-first home, category, comparison and model guides; both thermometer links are acknowledged as unconfirmed link notes. One native Workspace group and footer index hold owner/evidence work.', ['S10','S12','S14'], 'publication/README.md'),
+        ("Publication", 'Buyer-first home, category, comparison and model guides. Both supplied thermometer products now have documented buyer pages of their own, and the thermometer pillar is an indexable category, so all five submitted products lead to a page a reader can act on. One native Workspace group and footer index hold owner/evidence work.', ['S10','S12','S14','S39','S40'], 'publication/README.md'),
+        ("Decisions", 'A 14-row decision review queue orders the choices only the account holder can make - intended listings, tracking-ID validation, the 180-day qualifying clock, analytics deployment and eight editorial questions - each with its official evidence and options. Nothing in it is implemented until the owner picks.', ['S4','S6','S41'], 'data/decision-queue.json'),
         ("Authorship & assets", 'AI-assisted document research is disclosed. No invented human editor, hands-on test or copied/generated branded-product photograph. The conceptual kitchen scene is visibly labelled.', ['S8','S2'], 'publication/README.md'),
         ("Sources & corrections", 'Scoped 19 November reads, not a blanket refresh. F96 flags contradictory Emeril cord instructions; F97 records corrected care, capacity and dimension guidance. Source conflicts stay public.', ['S13','S15','S18'], 'reports/verification-2026-11-19-1f9e7d52.md'),
         ("Five submitted links", 'Original URL strings, dated redirect/title observations and intended listings remain separate. Every intended ASIN/listing confirmation and enrolled test is still unconfirmed.', ['S41','S42'], 'data/product-intent.json'),
@@ -6441,6 +6530,68 @@ a synthetic test is not live traffic. No production endpoint is deployed.</p>
                       ("Measurement plan", page_url("measurement.html")),
                   ])])
 
+DECISION_QUEUE = json.loads((ROOT / "data" / "decision-queue.json").read_text(encoding="utf-8"))
+
+
+def page_decision_review():
+    """Per-row decision queue the account holder can review and pick from.
+
+    Deliberately separate from suggestions.html, which tracks implementation state of past
+    proposals. This page asks forward-looking questions, orders them by what unblocks what,
+    and records a pick in the browser only — the same privacy boundary as the decision log:
+    nothing is submitted from a static Pages site.
+    """
+    rows = DECISION_QUEUE["rows"]
+    state_pill = {
+        "needs your decision": '<span class="pill pill-warn">Needs your decision</span>',
+        "agent can proceed": '<span class="pill pill-info">Agent can proceed</span>',
+    }
+    order = {r["id"]: i for i, r in enumerate(rows)}
+    summary = "".join(
+        f'<tr><td><a href="#{e(r["id"].lower())}">{e(r["id"])}</a></td><td>{e(r["priority"])}</td>'
+        f'<td>{e(r["title"])}</td><td>{state_pill.get(r["state"], e(r["state"]))}</td>'
+        f'<td>{src_links(r.get("sources", [])[:4])}</td></tr>'
+        for r in rows)
+    cards = []
+    for r in rows:
+        opts = "".join(
+            f'<label class="dr-opt"><input type="radio" name="dr-{e(r["id"])}" value="{e(o)}" data-dr-id="{e(r["id"])}"> <span>{e(o)}</span></label>'
+            for o in r["options"])
+        cards.append(f"""<details class="sug dr-row" id="{e(r['id'].lower())}" data-dr-priority="{e(r['priority'])}" data-dr-state="{e(r['state'])}">
+<summary>{e(r['id'])} · {e(r['priority'])} · {e(r['title'])} {state_pill.get(r['state'], '')}</summary>
+<p><strong>The question.</strong> {e(r['question'])}</p>
+<p class="small"><strong>What is already known.</strong> {e(r['known'])} {src_links(r.get('sources', []))}</p>
+<p class="small"><strong>What is still missing.</strong> {e(r['missing'])}</p>
+<p class="small"><strong>Why it matters.</strong> {e(r['why_it_matters'])}</p>
+<div class="dr-pick" data-dr-group="{e(r['id'])}"><p class="small"><strong>Choose a path</strong> <span class="tiny muted">(stored in this browser only; nothing is sent)</span></p>{opts}</div>
+<p class="tiny muted">Cost of deciding: {e(r['cost'])}</p>
+</details>""")
+    shipped = "".join(f'<li><strong>{e(s["id"])}</strong> — {e(s["what"])}. <span class="tiny muted">{e(s["note"])}</span></li>' for s in DECISION_QUEUE.get("shipped", []))
+    howto = "".join(f"<li>{e(x)}</li>" for x in DECISION_QUEUE.get("how_to_use", []))
+    body = f"""<p class="crumbs"><a href="index.html">Home</a> / Decision review</p>
+<p class="section-eyebrow">Owner review queue · {e(DECISION_QUEUE['accessed'])}</p>
+<h1>Decide the {len(rows)} things that actually change the outcome.</h1>
+<p class="lede">This is the review surface the brief asked for: a single list of the decisions that change what the site can earn, what it may publish and what a reader sees. Each row states the question, what is already known from a named official source, what is missing, and the options. Nothing is implemented until you choose.</p>
+<div class="callout note"><strong>How to use it.</strong><ol class="tight">{howto}</ol></div>
+<h2>The queue at a glance</h2>
+<div class="tablewrap"><table><caption>Every open decision, highest priority first</caption><thead><tr><th>ID</th><th>Priority</th><th>Decision</th><th>Who unblocks it</th><th>Official evidence</th></tr></thead><tbody>{summary}</tbody></table></div>
+<div class="suggestion-toolbar" data-dr-toolbar hidden><label for="dr-query">Find a decision</label><input id="dr-query" type="search" placeholder="Search a decision, an option or a fact"><output aria-live="polite"></output></div>
+<div class="decision-actions" data-js-required hidden>
+  <span id="dr-counter" class="tiny muted">0 chosen in this browser</span>
+  <button type="button" class="btn" data-dr-action="download">Download decision-review.json</button>
+  <button type="button" class="btn btn-ghost" data-dr-action="copy">Copy the picks</button>
+  <button type="button" class="btn btn-ghost" data-dr-action="clear">Clear this browser&rsquo;s picks</button>
+</div>
+<h2>Review each decision</h2>
+<p class="small muted">Open a row to read the evidence and choose a path. The radio buttons record your pick in this browser so you can keep your place; use the download button to keep a copy. Nothing on this page submits to a server.</p>
+{''.join(cards)}
+<h2>Already shipped in this pass</h2>
+<ul class="small">{shipped}</ul>
+<p class="section-note"><a href="suggestions.html">Implementation state of past proposals</a> · <a href="questions.html">Known facts &amp; missing answers</a> · <a href="decision-log.html">Draft a choice</a> · <a href="executive-summary.html">Executive summary</a></p>"""
+    return layout('decision-review.html', 'Decision review queue — what to choose before anything changes', body,
+                  description='A prioritised review queue of the decisions that change what the affiliate site can earn and publish, each with its official evidence and options.',
+                  jsonld_blocks=[breadcrumbs_jsonld([('Home', SITE_BASE), ('Decision review', page_url('decision-review.html'))])])
+
 def page_decisions():
     body=f"""<p class="crumbs"><a href="index.html">Home</a> / Publishing strategy</p><p class="section-eyebrow">The operating choices</p><h1>Publish the useful answer. Measure the real result.</h1><p class="lede">A source-led buying publication is implemented. Profitability, popularity and conversion performance are not established by a well-designed page or a weighted score.</p>
 <h2>The scope</h2><p>{e(PUBLICATION['positioning'])}</p><p class="small">Three documented appliance guides and two unconfirmed thermometer link notes reflect the submitted set, not a claim to cover a whole market. Brand/listing/model conflicts remain on <a href="flagged.html">the public review register</a>. {src_links(['S10','S12','S14','S36','S37'])}</p>
@@ -7418,6 +7569,8 @@ def main():
         pages[f"products/{p['slug']}.html"] = page_product(p)
     pages["categories/kitchen-appliances.html"] = page_category()
     pages["categories/cooking-thermometers.html"] = page_thermometers()
+    for _t in THERMOMETERS["products"]:
+        pages[f"products/{_t['slug']}.html"] = page_thermo_product(_t)
     pages["about.html"] = page_about()
     pages["compare.html"] = page_compare()
     pages["guides/buying-guide-air-fryers.html"] = page_guide()
@@ -7435,6 +7588,7 @@ def main():
     pages["figures.html"] = page_figures()
     pages["picks.html"] = page_picks()
     pages["decisions.html"] = page_decisions()
+    pages["decision-review.html"] = page_decision_review()
     pages["handover.html"] = page_handover()
     pages["product-intent.html"] = page_intent()
     pages["measurement.html"] = page_measurement()

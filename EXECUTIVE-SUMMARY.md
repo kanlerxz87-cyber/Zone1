@@ -19,8 +19,20 @@ specific-product photograph. Local fonts carry their included OFL licences.
 ## What is delivered
 
 - Three documentation-based air-fryer/oven guides and a concise comparison.
-- All five exact submitted links preserved. The other two have an honest
-  thermometer-note shelf, not fabricated model specifications.
+- All five exact submitted links preserved and re-read live on 2026-11-19; each
+  reached a product page. **Updated 2026-11-19 (arena/d154e428):** the two
+  thermometer products now have documented buyer pages
+  (`products/thermomaven-f1-turbo.html`, `products/chef-iq-sense-gen3.html`) and the
+  thermometer pillar is an indexable category. Values come only from the
+  manufacturer's own page, read that day; where the brand page contradicts the
+  observed Amazon title the contradiction is published rather than resolved.
+  Intended listings remain unconfirmed (DR-01).
+- A forward-looking **Decision review queue** (`decision-review.html`, 14 rows) and a
+  dated brief (`reports/suggestions-2026-11-19-d154e428.md`). These record what only
+  the account holder can decide and what each choice costs.
+- Two annex pages (`s2/`, `dashboard/`) were publishing a conclusion the live record
+  does not support — that the supplied links "do not identify any product". The links
+  resolve; intent is what is unconfirmed. Both corrected.
 - All 24 existing canonical articles read as prose and substantially revised
   within named primary-source scopes. No duplicate article slugs added.
 - RSS, canonical metadata, appropriate reader/workspace indexing, sitemap/feed
