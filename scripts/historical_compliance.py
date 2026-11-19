@@ -148,27 +148,49 @@ ALLOWED_INVALID_PHRASES = (
     "not proof the requested asins are invalid",
 )
 
+# Verdict synonyms about the supplied links, banned as claims in the same way
+# "invalid" is. The 2026-11-19 re-read (arena/d154e428, recorded in the same
+# files) found each supplied short link reaching a product page, so "broken" or
+# "does not resolve" is not a neutral observation but a claim the site's own
+# record contradicts. Gate-descriptor uses ("no broken links", "internal link is
+# broken") and the identifier-lookup observation ("the token does not resolve to
+# amazon.com/dp/<ASIN>") are deliberately NOT in this list.
+VERDICT_PHRASES = (
+    "the broken links",
+    "urls are broken",
+    "broken links (i-03)",
+    "do not resolve to any product",
+    "resolve to no product",
+    "does not resolve to a product",
+    "do not resolve to products",
+    "product does not resolve",
+    "supplied ids do not resolve",
+)
+
 _STRIP_EMPHASIS = re.compile(r"[*_`]")
 
 
 def claim_violations(text: str) -> list[str]:
-    """Return a problem for every published 'invalid' claim outside the allow list.
+    """Return a problem for every published verdict claim outside the allow list.
 
     Markdown emphasis is stripped first so **invalid product identifier** still
     matches its allow-listed phrase. The check is deliberately blunt on purpose:
-    "invalid" is banned as a verdict word in published files, and every
-    remaining use must name itself in ALLOWED_INVALID_PHRASES.
+    "invalid" and the verdict synonyms in VERDICT_PHRASES are banned as verdict
+    words in published files, and every remaining use must name itself in
+    ALLOWED_INVALID_PHRASES.
     """
     flat = _STRIP_EMPHASIS.sub("", text).lower()
     flat = re.sub(r"\s+", " ", flat)
     for phrase in ALLOWED_INVALID_PHRASES:
         flat = flat.replace(phrase, "")
-    if "invalid" not in flat:
-        return []
     problems = []
     for m in re.finditer(r"invalid", flat):
         ctx = flat[max(0, m.start() - 60):m.start() + 70]
         problems.append(f'published "invalid" claim outside the allow list: …{ctx}…')
+    for phrase in VERDICT_PHRASES:
+        for m in re.finditer(re.escape(phrase), flat):
+            ctx = flat[max(0, m.start() - 60):m.start() + len(phrase) + 60]
+            problems.append(f'published verdict claim ({phrase!r}): …{ctx}…')
     return problems
 
 
@@ -274,6 +296,43 @@ WORDING = [
     # annex-88769516: the tracker-result column becomes attributed wording
     ('result: "No record / invalid identifier"',
      'result: "No record; tracker displayed \'invalid product identifier\'"'),
+    # dashboard: synonym verdicts on the supplied links ("broken", "do not
+    # resolve") — the same claim in different words, contradicted by this
+    # repository's own 2026-11-19 re-read (each short link reaches a product
+    # page; what is unconfirmed is the intended listing, not resolution).
+    ('The three submitted product links do not resolve to any product on Amazon.com '
+     '(verified 2026-11-13), so no product claim can be made',
+     'The three submitted product links have no confirmed product identity on '
+     'Amazon.com (checked 2026-11-13; a 2026-11-19 re-read found each short link '
+     'reaching a product page, with the intended listing still unconfirmed), so no '
+     'product claim can be made'),
+    ('The three submitted product links resolve to no product on Amazon.com '
+     '(verified 2026-11-13 — see',
+     'The three submitted product links have no confirmed product identity on '
+     'Amazon.com (checked 2026-11-13; re-read 2026-11-19: each short link reaches '
+     'a product page, intended listing unconfirmed — see'),
+    ('the submitted link for this product does not resolve to a product page on Amazon.com',
+     'the submitted link for this product has no confirmed product identity on Amazon.com'),
+    ('the submitted link does not resolve to a product page on Amazon.com',
+     'the submitted link has no confirmed product identity on Amazon.com'),
+    ('Link quarantined: the submitted URL does not resolve to a product',
+     'Link quarantined: the submitted URL has no confirmed product identity'),
+    ('Links quarantined: submitted URLs do not resolve to products',
+     'Links quarantined: submitted URLs have no confirmed product identities'),
+    ('Product does not resolve; no category ⇒ no rate row can be matched.',
+     'Product identity unconfirmed; no category ⇒ no rate row can be matched.'),
+    ('Supplied IDs do not resolve — see Flagged I-01…I-05',
+     'Supplied IDs are 9 characters; intended listings unconfirmed — see Flagged I-01…I-05'),
+    ('this site never sends visitors to the broken links — they are quarantined',
+     'this site never sends visitors to unconfirmed destinations — the CTA links are quarantined'),
+    ('3 · Evidence — why the supplied URLs are broken',
+     '3 · Evidence — what was observed about the supplied URLs'),
+    ('broken links (I-03)', 'failed /dp/ lookups (I-03)'),
+    ('The dashboard says the links resolve to no product.',
+     'The dashboard recorded an adverse resolution verdict — superseded by the '
+     '2026-11-19 re-read (links resolve; identities unconfirmed).'),
+    ('they resolve to no product and carry no tracking tag',
+     'they have no confirmed product identity and carry no tracking tag'),
     # dashboard/assets/js/main.js: validator hint
     ('problems.push("ASIN must be exactly 10 letters/digits (the supplied IDs are 9 and invalid).")',
      'problems.push("ASIN must be exactly 10 letters/digits (the supplied IDs are '
@@ -285,6 +344,8 @@ WORDING = [
 WORDING_RE = [
     (re.compile(r"are demonstrably\s+invalid and quarantined"),
      "are unverified and quarantined"),
+    (re.compile(r"the three submitted links resolve to no product", re.I),
+     "the three submitted links have no confirmed product identity"),
 ]
 
 # An annotation inserted under the rewritten dashboard/flagged.html heading, so

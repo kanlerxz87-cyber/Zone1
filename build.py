@@ -2555,13 +2555,16 @@ PROGRAMME_FLAGS = [('F1',
   'marked as sponsored, and do not claim that the supplied short links are invalid. The repair, '
   '2026-11-19: every product anchor in all seven published trees now carries sponsored nofollow noopener '
   '(373 anchors measured, 0 unqualified, by scripts/historical_compliance.py); every verdict that the '
-  'supplied links are invalid is rewritten to the register position (status unresolved, Zone3 FLG-003) '
+  'supplied links are invalid — including the synonym verdicts broken and do not resolve, which this '
+  'repository\u2019s own 2026-11-19 live re-read contradicts — is rewritten to the register position '
+  '(status unresolved, Zone3 FLG-003) '
   'while the underlying observations are kept — the 9-character tokens differ from the 10-character ASIN '
   'format per KDP G200652190, which is an identifier observation and not a determination of link validity. '
   'The third-party tracker wording invalid product identifier survives only as attributed output. Trees '
   'with generators were repaired at the generator and re-emitted; the four frozen trees are repaired by '
   'the idempotent scripts/historical_compliance.py. Gate: verify.py check 4c fails the build on an '
-  'unqualified product anchor or a published invalid claim in any annex tree. Not established by this '
+  'unqualified product anchor or a published verdict claim (invalid or its synonyms) in any annex tree. '
+  'Not established by this '
   'repair: that any supplied link works, complies or attributes — the enrolled-Associates test fields stay '
   'blank and the status stays unresolved.',
   ['S1', 'S2', 'S31', 'S38']),
