@@ -6002,3 +6002,18 @@ Associates approval state and the one-link tracked-click check (Q-37, SG-47) whi
 a byline (Q-31 area) and product photography rights (Q-33) which need a human decision; the accessibility-source
 registration that F88 and Q-40 hold apart from the styling change; the weight discrepancy Q-38; and the parallel
 builds' own generators (F87 / Q-32) which this session deliberately did not touch.
+
+## Task board — arena/7d42af7c-zone1 (2026-11-19 UTC) — publication rebuild and operational gates
+
+| ID | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| Z14-1 | Rebuild the canonical root publication: product-led front page, compact reader navigation, one workspace group and comprehensive footer; original editorial assets; responsive and accessible interactions | in progress | arena/7d42af7c (session 7d42af7c) | `build.py` (layout, reader pages and asset emitters), `assets/`, generated canonical root HTML only |
+| Z14-2 | Review the existing five-link intent record, analytics implementation and policy gates; implement and test safe missing mechanics without inventing account access, product identities, source checks or conversions | in progress | arena/7d42af7c | `analytics/`, `tests/`, `data/config.json`, `data/measurement.json`, `data/analytics-plan.json`, `.github/workflows/` if needed; generated measurement page |
+| Z14-3 | Publish a concise suggestions/decision desk and executive brief: known/missing answers, discovery steps, recommendations held before implementation, exact verification scope and official review links | in progress | arena/7d42af7c | `data/suggestions.json`, `data/questions.json`, `data/design-prompt.json`, `data/requirements.json`, `data/decision-log.json`, `data/flags.json`, `data/articles.json`, `data/topics.json`, `data/sources.json` only if warranted; `README.md`; `reports/publication-2026-11-19.md` (new); `EXECUTIVE-SUMMARY-2026-11-19.md` (new); generated canonical pages/feed/sitemap |
+| Z14-4 | Final integration: all existing gates, new regressions, browser checks, reproducible build; PR from the current Arena branch to main, merge only green checks, confirm GitHub Pages result and record it | in progress | arena/7d42af7c | `COORDINATION.md`; whole tree read-only at integration except fixes within the claimed scope |
+
+### Claim and handoff log — 2026-11-19
+
+- Read the shared board before editing. Its most recent work/merge records are 2026-11-17; earlier still-`in progress` rows have later completion/merge records or are well past the 60-minute takeover threshold. This pass takes over only canonical-root integration and the explicit mechanics above. It does not edit the independent `s2/`, `site/`, `research/`, `docs/`, `dashboard/`, `annex-88769516/` or session archives.
+- Work remains on the fixed Arena branch `arena/7d42af7c-zone1` (base `1eb1e56`); no session branch will be created or switched to. This is the environment's branch constraint, recorded instead of silently following the older branch-naming convention.
+- Preserve all prior evidence and provenance. A historical source observation is not a fresh live verification. An unavailable source/account/deployment host is published as a limitation, never an invented result. The five submitted `link.amazon` tokens are not ASINs and their compliance status is unresolved.
