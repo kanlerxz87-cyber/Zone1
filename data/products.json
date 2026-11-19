@@ -587,11 +587,18 @@
     "amazon_review_count": null,
     "amazon_reason": "Not displayed: no authorised review/rating integration is configured; this site does not scrape or republish Amazon review content.",
     "brand_site_rating": {
-     "v": "2.6 / 5 from 25 reviews",
+     "v": "2.6 / 5 from 26 reviews",
      "s": [
       "S14"
      ],
-     "note": "Brand-hosted rating, quoted exactly as displayed (including the unusually low score). Shown for transparency; it is not Amazon's rating."
+     "note": "Dated snapshot from the manufacturer's own review widget, independently read twice on 2026-11-19 (average 2.6, 26 reviews). Not an Amazon rating, not a test result, and not used to rank these products. Previous snapshots are preserved in history.",
+     "history": [
+      {
+       "value": "2.6 / 5 from 25 reviews",
+       "note": "Brand-hosted rating, quoted exactly as displayed (including the unusually low score). Recorded reads through 2026-11-17 showed 25 reviews; preserved here as the earlier dated snapshot. Shown for transparency; it is not Amazon's rating."
+      }
+     ],
+     "as_of": "2026-11-19"
     }
    },
    "commission": {
