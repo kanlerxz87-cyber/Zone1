@@ -41,6 +41,7 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 | T18 | Final integration: re-verify combined data, build with no broken links, PR → merge → Pages verify → record | done | 3b99448e | whole tree (integration, last) |
 | U1 | **Final integration pass (arena/88bb2db6-zone1)** — line-by-line repo review and defect repair; live re-verification of every official source in the root registry; editorial polish pass against the "must not read like AI slop" brief; rebuild with no broken links; PR → merge → confirm Pages deploy → record | done | arena/88bb2db6 (session 88bb2db6) | `COORDINATION.md`; `build.py` + `assets/style.css` + regenerated root HTML; `data/products.json`; `session-88bb2db6/pass9.json`; `scripts/build_site.py` + regenerated `site/`; `scripts/verify_site.py`; `verify.py`; `EXECUTIVE-SUMMARY.md`; whole tree at integration |
 
+| U2 | **Independent line-by-line review + live re-verification + final integration (arena/6ace936d-zone1)** — re-read the five supplied `link.amazon` links and 20 official sources live on 2026-11-19; structural checks of the generated site against the brief (sponsored-link coverage, disclosure placement, titles/meta, JSON-LD, sitemap/feed, five events, ledger, product-intent separation); full gate suite from a clean tree; PR → merge → confirm Pages deploy → record. No product, account or campaign data changed. | done | arena/6ace936d-zone1 (session 6ace936d) | `COORDINATION.md`; `reports/verification-2026-11-19-6ace936d.md`; `data/sources.json` (dated re-verification record only); whole tree at integration |
 | X-c334fb1c | **Independent live re-verification round 10 + record**: re-read the 3 `link.amazon` short links (final URL, ASIN, title), the Associates policy "Updated" date, and the live Pages landing page; run all gates; publish `reports/verification-2026-11-16.md`; flag any new irregularity. No product/site content changed. | done — 3 short links, S2 date, live landing page re-read; all gates green; no content edited; irregularities F3/F6 + Emeril preset conflict already flagged | arena/c334fb1c-zone1 (session c334fb1c) | `reports/verification-2026-11-16.md`, `COORDINATION.md` (this row + log) |
 ---
 | X-633b115f | Add two decision pages to the root build: **Suggestions** (site/design/conversion improvements with options, for the owner to choose before any change) and **Questions & information gaps** (what is known, what is missing, how to discover it, each row linked to an official source). Live re-check of the 3 `link.amazon` tokens and key official sources on 2026-11-15. | done | arena/633b115f (session 633b115f) | `build.py` (new `page_suggestions`, `page_questions`, NAV + pages dict), regenerated root HTML `suggestions.html`, `questions.html`, `robots.txt`, `sitemap.xml`, `COORDINATION.md` (this row + log) |
@@ -55,6 +56,7 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 | 2026-11-14T18:29Z | arena-6ecdb4e4 | **I8 claim (initially logged as "I6"; renumbered — see the I8 record):** independent line-by-line repo review + re-verification pass on branch `arena/6ecdb4e4-zone1` (base `5ed73c1`). File scope: `COORDINATION.md` (log entry), plus fixes to any gate/dataset/site file only if a gate fails. Runs all local gates, re-checks key facts against official sources, re-checks live Pages, then PR → merge → Pages confirm. |
 | 2026-11-15 | 3b99448e | Claimed T13–T18. T13 link re-review done (`session-3b99448e/link-review.md`): tokens are 9 chars ≠ 10-char ASINs (S23), `/dp/<token>` returns 404 (S21), short links resolve via `plpRedirect=mhFallback` to candidate ASINs but product identity is unconfirmed (S17/S16). T14 suggestions done (`session-3b99448e/suggestions.md`: design D-1…D-10, article topics A-1…A-10, traffic T-1…T-8, anti-slop rules, decision register R-1…R-6). T15 decision gate done (`session-3b99448e/decisions.md`: Q-1…Q-10 with known/missing/suggested-answer/discovery steps M-1…M-8). T16 done: EXECUTIVE-SUMMARY.md §14 appended. T17 done: root build already has landing page, category subpage, dashboard tables with per-row official sources; `build.py` regenerates `suggestions.html` (SG-01…SG-12) and `questions.html` (Q-01…Q-14) from PR #58, both in NAV and `sitemap.xml`. `python3 build.py` → 23 pages + robots.txt/sitemap.xml, exit 0. `python3 verify.py` → 104 pages checked, 0 errors; 43 spec rows (41 verified, 2 blank+flagged); 27 sources; 18 warnings all in `s2/` annex owned by another session. |
 
+| 2026-11-19 | arena/6ace936d-zone1 (session 6ace936d) | Claimed U2 after reading the board. Base `main` @ `2be3bea` (merge of PR #163). No task on the current board is unclaimed or in progress. Scope: verification report, a dated `reverified_2026_11_19_6ace936d` record in `data/sources.json`, and the board/log updates here. Generated HTML is unchanged by this pass (byte-reproducible rebuild confirmed). |
 ---
 
 ## Task board — arena/792c279e-zone1 (2026-11-15 UTC)
@@ -6219,6 +6221,137 @@ for its own pass (shared outputs: `index.html`, NAV in `build.py`).
 * **Post-merge pull seam:** plain `pull --rebase origin main` tried to flatten an already integrated two-parent merge; it was aborted intact. Verified merge parents **929a411 / 4ae97f0**, then `git pull --rebase --ff-only origin arena/1f9e7d52-zone1` reported up to date before a normal fast-forward push. No work or other session history was discarded. PR #159 was reviewed only for coordination; a scope/hold request was posted, and it was neither merged nor closed nor represented as tested.
 * **Remaining evidence gates are not fabricated:** shopnow047c-20 stays selected/unvalidated/unapplied; intended fields and per-product enrolled tests stay blank/false; production analytics stays off, endpoint blank, owner choices/campaign ledger empty; Search Console ownership/query data, real collector runtime/privacy/log approval, actual product-photo rights and manufacturer cord clarification remain unconfirmed. The cadence is a plan, not an unattended service. Nonblocking Node-action deprecation warnings are recorded, not claimed repaired. Full source scope, incidents and release proof: `reports/verification-2026-11-19-1f9e7d52.md`.
 * **Final public-read correction in receipt PR #163:** the live Flagged introduction still called all historical/repaired rows open, typed a hard-conflict count and repeated a most-likely model explanation. Replaced only that present-tense introduction/callout with computed recorded/source/blank/populated counts, a no-guessed-explanation model conflict and the explicit F96 safety boundary. Existing flag bodies/IDs/history remain unchanged. Added a negative regression (61 root tests). The receipt PR is therefore a narrow flag-introduction correction plus the release log, not documentation-only; no account/link/collector/campaign data changed.
+
+### Session arena/1970a80b-zone1 — verification pass and F103 (2026-11-19 UTC)
+
+* **Claim (single branch, per the session branch rule):** `arena/1970a80b-zone1`, from `main` `2be3bea`. Scope: repository and live-site re-verification; publish any new irregularity; no change to accounts, tracking IDs, analytics switches, the campaign ledger, product-intent confirmations or product data.
+* **Files touched:** `build.py` (F103 flag entry and evidence map), `flagged.html` (regenerated), `reports/verification-2026-11-19-1970a80b.md` (full record), this log entry.
+* **Gates on the branch (all pass):** build + verifier (136 pages, 77 rows, 45 sources, 0 errors, 0 external warnings); 61 canonical unit tests; 8 Node client tests; 33 platform tests; audit clean; research check; annex `--check` (16 files current); link check (11,304 links); `verify_site.py` all checks passed; deterministic rebuild. The Playwright browser suite is not run locally; CI runs it on the PR.
+* **Re-read today (2026-11-19):** the five submitted `link.amazon` short links (all final destinations match `data/product-intent.json` PI-01 to PI-05; intent fields stay blank); Associates Operating Agreement (Section 5 wording matches the site's disclosure); FTC *Disclosures 101* (placement guidance); Google *Qualify your outbound links* (`rel="sponsored"`); Zone3 FLG-003 (reachable; unresolved, not declared invalid); the live home page; the GitHub Pages API (`built`, `main` `/`).
+* **New irregularity, published as F103:** the Pages artifact uploads the whole repository root, so the historical folders are public. `s2/pages/products.html` calls the short-link tokens "invalid", and historical folders contain about 300 product-type Amazon anchors without `rel="sponsored"` (`s2` 68/68, `session-3740f69d` 118/118, `annex-88769516` 9/9, `dashboard` 47/56, `research` 43/55, `site` 20/26). The canonical root qualifies 310 of its 318 product anchors; the other 8 are the deliberate `ZZZ9ZZZZZ` resolver control. **Owner decision:** unpublish the historical folders or approve a scoped change to their generators. No change to those generators was made.
+* **Cross-repository wording difference, flagged not resolved:** Zone3 FLG-001 calls the three identifiers "not 10-character ASINs" (critical); Zone1 records them as tokens, "not asserted to be ASINs". Neither declares the links invalid. Owner to choose a shared wording.
+* **Still blocked, not fabricated:** Search Console ownership; production analytics host and privacy/logging approval (`enabled: false`, `endpoint_deployed: false`); enrolled Associates tests and any `shopnow047c-20` application; intended listings for each link; photo rights (S-18); named editor and cadence confirmation. The campaign ledger stays at zero rows.
+* **Pull request and merge — recorded 2026-11-19 (UTC):** [PR #165](https://github.com/kanlerxz87-cyber/Zone1/pull/165) passed CI run 44509177169 (verify, browser and rendered-publication gates) and annex run 44509177211, then merged via explicit `gh pr merge 165 --merge` at **2026-11-19T10:53:21Z** as **2b467061b81f6cfbe5c60b4924a19a4372711021**. Pages workflow 44509800671 succeeded (build, reproducibility and deploy); the Pages API reports `built`, commit 2b46706, updated 10:53:44Z, no error. The live Flagged page reads back 103 recorded findings, the F103 count after this pass. Source stays legacy/main/root.
+
+---
+
+## U2 completion record — arena/6ace936d-zone1 (2026-11-19 UTC)
+
+**Status: done** (verification, gates, PR, merge and Pages confirmation are recorded below after the merge completes).
+
+**What this pass did.** An independent line-by-line review of the repository plus a live re-verification of the official
+sources behind the published values, performed entirely with server-side fetches on 2026-11-19 (the sandbox shell has no
+direct egress to non-GitHub hosts; this is a transport note, not a finding). No product, account, link-test or campaign
+data was changed.
+
+**Live re-verification performed (2026-11-19, this session):**
+
+- **The five supplied links, re-opened live** — `B04G1MEwY → /dp/B0CDY277D3`, `B02NbDxp3 → /dp/B09B7SB46R`,
+  `B00hJ57DV → /dp/B08DKYBTPH`, `B0c8moW59 → /dp/B0DHZTCNR5`, `B0f3GKalj → /dp/B0DZFD6R9Z`. Targets, titles and
+  browse-path breadcrumbs match `data/product-intent.json` PI-01..PI-05 exactly; every landing URL still carries
+  `plpRedirect=mhFallback` and no visible `tag=` (a null observation per S41, not read in either direction).
+- **20 official sources re-read live** — S1 (Agreement, "Updated: October 15, 2025"), S2 (Policies, "Updated: April 14, 2026"),
+  S3 (Commission Income Statement: Kitchen 4.50%, All Other 4.00%), S4 (Application Review: 3 sales/180 days, 10 posts,
+  60-day recency, 500 followers, tagged links), S5 (required Associate sentence, verbatim), S6 (tracking IDs), S8
+  (FTC Disclosures 101), S9 (16 CFR 255, §255.0–§255.6), S10 (Chefman 6 Qt Dual-Window, RJ38-SQPF-3TDB-2W, 450 °F Hi-Fry),
+  S14 (Emeril 26 Qt, 16.9D×15.8W×14.8H in, 24.6 L, 120 V, 25 pre-sets), S16/S28/S29/S36/S37 (the five observed listings),
+  S31 (Google `rel="sponsored"` guidance), S39 (CHEF iQ iQ Sense catalogue), S40 (ThermoMaven catalogue), S41 (tag/attribution
+  correction, verbatim). Full evidence table: `reports/verification-2026-11-19-6ace936d.md`; machine record:
+  `data/sources.json` → `reverified_2026_11_19_6ace936d`.
+- **Structural checks of the generated site** — all 310 outbound `amazon.com` links on canonical pages carry
+  `rel="sponsored nofollow noopener"` (0 unqualified); the Associate disclosure sits above `<main>` on every checked page
+  type and repeats in the footer; unique title + meta description on all checked pages; JSON-LD on 35 canonical pages;
+  sitemap.xml 36 URLs / feed.xml 24 items; the five measurement events are defined with production analytics off; the
+  campaign ledger is empty by design; product-intent intent fields remain blank and separate from observed fields.
+
+**Gates from a clean tree:** `python3 build.py` byte-reproducible; `python3 verify.py` 136 pages / 77 spec rows
+(75 verified, 2 blank+flagged) / 45 sources / 0 errors / 0 external warnings; `bash scripts/ci-check.sh` fully green
+(Python publication tests, 8 Node client-contract tests, 33 engine unit tests, data audit clean, s2 build check,
+11,297-link check).
+
+**Notes, not defects:** the eCFR freshness date advanced 11/12/2026 → 11/17/2026 (Part 255 content unchanged); the
+ThermoMaven homepage leads F1 Turbo today while the 2026-11-17 record's "F1 Pro and F1 Turbo" wording stands as a record
+of that date — the PI-04 verdict (not reconciled; intended product stays null) is unchanged. **Not verified, and not
+claimed:** Associates Central account state, tracking ID `shopnow047c-20` existence, enrolled per-product link tests,
+production analytics runtime, Search Console ownership, product-photography rights.
+
+**Merge and deployment:** [PR #169](https://github.com/kanlerxz87-cyber/Zone1/pull/169) merged with
+`gh pr merge 169 --merge` as **`0b05b058f95c19fdfbea4b262cb0c2a721ccea4d`** at **2026-11-19T10:57:10Z**.
+The merge landed on `main` (`origin/main` = `0b05b05`). GitHub Pages: source `main`, path `/`,
+status **`built`** (deployment confirmed via the Pages API after the merge; polled from `building`
+to `built`). Actual public retrieval after deployment: the live home page serves the canonical
+publication with the masthead disclosure, product cards with per-row official source links and the
+product-intent pointer; the new report is live at
+`https://kanlerxz87-cyber.github.io/Zone1/reports/verification-2026-11-19-6ace936d.md`. This is
+actual public content read back, separately identified from local/CI gate runs.
+Rebase incident: the pre-push rebase onto updated `main` (which had gained the arena/1970a80b-zone1
+F103 record) met a content conflict in `COORDINATION.md` because both passes appended dated sections
+at end-of-file; it was resolved keeping both sections, and the rebase completed cleanly
+(`Successfully rebased and updated refs/heads/arena/6ace936d-zone1`). No session history was
+discarded or rewritten. Gates re-run on the rebased tree before the push: `build.py` byte-reproducible,
+`verify.py` 136 pages / 77 spec rows / 45 sources / 0 errors, full `ci-check.sh` green
+(11,304-link check). This receipt is a coordination/release record; no product facts, source values,
+tracking state or account-only decisions were changed by it.
+
+**Rebase conflict, resolved without discarding work:** rebasing this commit onto updated `main` (which had gained the arena/1970a80b-zone1 F103 record) met a content conflict in `COORDINATION.md` because both passes appended dated sections at end-of-file. Both sections were kept: the merged arena/1970a80b record above and this U2 record below. No session history was discarded or rewritten.
+
+## Task board — arena/43667e90-zone1 (2026-11-19 UTC) — brief re-audit, literal-markdown defect, live link re-read
+
+### Claim log — arena/43667e90-zone1
+
+* **Scope claimed:** a full audit of the brief against the published root site, then only the defects it found. Files touched: `build.py` (one flag-row renderer line, one new build guard, one new flag row F104 with its repo evidence list; main's F103 from PR #165 is kept unchanged), the generated `flagged.html`, and this log. No data register, Associates tag, analytics switch, product-intent field, campaign ledger or historical builds (`site/`, `s2/`, `research/`, `dashboard/`, `docs/`, `annex-*`, `session-*`) were changed.
+* **Not claimed, because they need an account holder or a host:** Associates Special Link validation, intended-ASIN confirmation, applying `shopnow047c-20`, production analytics hosting and privacy approval, Search Console ownership, product-photo rights (S-18), and the campaign ledger.
+
+### Audit result (root publication, read today)
+
+| Brief item | State found | Evidence |
+|---|---|---|
+| Disclosure under the masthead on every page; repeated in footer | Present on all 58 root publication pages, both places. The exceptions are inherited builds (F104) | `publication/layout.html.tpl`; rendered-page scan |
+| Every outbound product link `rel="sponsored"` | Holds on root pages. Build guard `check_affiliate_link_qualification` applies `sponsored nofollow noopener`. The only anchors without it are the deliberate nonsense-token control `link.amazon/ZZZ9ZZZZZ` (a citation, not a product) and historical builds that the README leaves read-only | Scan of Amazon-hosted anchors (product, browse and resolver links, my broader definition): 318 on the 58 root pages; 8 unqualified, all of them the control token `link.amazon/ZZZ9ZZZZZ`. PR #165's F103 counts product-type anchors only, so the two totals are not comparable |
+| Product-intent record (intended ASIN, official listing, confirmation date/source kept apart from observed redirect) | Present. Intended and confirmation fields are null, as they must be. Observed fields are separate | `data/product-intent.json` |
+| Five defined events (EV-01…EV-05) | Defined and contract-tested. Collection is **off**: no same-origin runtime, no privacy approval, no host/proxy logging review | `data/analytics-plan.json`, `analytics/README.md` |
+| Sitemap, RSS, question-shaped guides | 36 sitemap URLs covering every indexable root page; RSS 24 items; 24 articles, including all four editorial hypotheses or close variants | `sitemap.xml`, `feed.xml`, `data/articles.json` |
+| Single nav group plus footer for owner surfaces | Present (`Workspace` menu; footer) | `publication/layout.html.tpl` |
+| SG-27…SG-30 (nav labels, RSS, Search Console, reader capture) | Rows present. RSS shipped. Search Console registration and sitemap submission remain owner actions | `data/suggestions.json`, `data/publication.json` |
+
+### Live re-read of the five supplied links — 2026-11-19 (fetch, not inference)
+
+| Supplied link | Redirect target observed today | Title matches the record? |
+|---|---|---|
+| `link.amazon/B04G1MEwY` | `amazon.com/dp/B0CDY277D3` — CHEFMAN 6 Quart Dual Basket | Yes |
+| `link.amazon/B02NbDxp3` | `amazon.com/dp/B09B7SB46R` — Emeril Lagasse 26QT French Door | Yes |
+| `link.amazon/B00hJ57DV` | `amazon.com/dp/B08DKYBTPH` — Chefman 8 Qt TurboFry 450 °F Hi-Fry | Yes |
+| `link.amazon/B0c8moW59` | `amazon.com/dp/B0DHZTCNR5` — ThermoMaven 1 Sec thermometer | Yes |
+| `link.amazon/B0f3GKalj` | `amazon.com/dp/B0DZFD6R9Z` — CHEF iQ Sense thermometer | Yes |
+
+These are observations of where a redirect landed on one date. They are not intended-listing confirmation, not Associates attribution, and not a price or review check. `intended_asin` stays blank for all five.
+
+### Defect found and fixed — literal markdown in the published flag register
+
+* **Defect.** `flagged.html` printed literal `**CLOSED …**` and `**Addendum …**` pairs (9 instances in build.py strings). The flag-row renderer used `e()`, which escapes but does not convert `**bold**`. Same defect class as the T20 handover fix, in a different template.
+* **Fix.** The flag row now renders issue and action text through `_md()`, the single escape-then-bold helper. `flagged.html` diff: 2 lines; the affected passages now show as bold rather than asterisks.
+* **Guard added.** `check_literal_markdown()` fails the build if a bold-like pair reaches the visible text of any generated root page. It ignores `<script>`/`<style>` and glob paths such as `s2/**` or `session-x/**`. Proven on an injected pair (fails) and on the glob paths (passes).
+* **Not a defect:** a suspected "space before full stop" on the homepage was an artifact of my scan replacing tags with spaces. The source is `record</a>.`.
+
+### Gates on this branch
+
+* `bash scripts/ci-check.sh` — exit 0: build, `verify.py`, 61 Python tests, 8 Node tests, 33 engine tests, data audit clean, `build_s2_site.py --check`, link check (11,297 links, 0 broken).
+* `python3 research/check_research.py` — OK. `python3 scripts/verify_site.py` — 393 assertions passed.
+* `verify.py` — 0 errors (77 spec rows: 75 verified, 2 blank and flagged).
+
+### Remaining blockers (recorded, not fabricated)
+
+1. Associates Special Link validation for each product, in the enrolled account. Owner action.
+2. Intended-listing confirmation for each supplied link (`intended_asin`, `official_listing_url`, date, source). Owner action.
+3. Whether `shopnow047c-20` is registered in Associates Central. Not confirmed; not applied to any link.
+4. Production analytics: a same-origin runtime, privacy-notice approval and host/proxy log review. Until then collection stays off.
+5. Search Console ownership and sitemap submission (SG-29). Owner action.
+6. Product photography rights (S-18): needs a decision first. The site uses labelled AI illustrations and no product photos.
+7. Campaign ledger: remains empty. No authorised first-party report exists in this repo.
+8. **F104 (new, published on `flagged.html`, not edited here):** ten inherited annex pages have no disclosure strip under the masthead and no footer disclosure, and `session-3740f69d/index.html` has no footer disclosure. None of these pages carries `noindex`, and they are absent from `sitemap.xml`. Their sponsored-token gap is in main's F103. Owner choice: regenerate them through their own generators, or remove or noindex them.
+
+
+---
 
 ---
 
