@@ -1050,7 +1050,7 @@ def page_index():
  <div class="section-heading"><div><p class="section-eyebrow">Different kitchens. Different trade-offs.</p><h2 id="formats-title">Find your kind of air fryer.</h2></div><a class="text-link" href="categories/kitchen-appliances.html">Explore air fryers <span aria-hidden="true">↗</span></a></div>
  <div class="format-controls" data-format-controls hidden role="group" aria-label="Filter by appliance format"><button type="button" data-format-filter="all" aria-pressed="true">All formats</button><button type="button" data-format-filter="dual" aria-pressed="false">Two baskets</button><button type="button" data-format-filter="single" aria-pressed="false">One basket</button><button type="button" data-format-filter="oven" aria-pressed="false">Oven-style</button><span class="tiny muted" data-format-status aria-live="polite">3 formats shown.</span></div>
  <div class="grid grid-3">{cards}</div>
- <p class="section-note">These are documented product options, not a ranking. Supplied-link destinations and intended listings are not yet confirmed as a match; check the exact model before buying. <a href="product-intent.html">The separate link record</a>.</p>
+ <p class="section-note">These are documented product options, not a ranking. Supplied-link destinations and intended listings are not yet confirmed as a match; check the exact model before buying. <a href="product-intent.html">The separate link record</a> shows what each supplied link resolved to on the date it was read, and what is still unconfirmed.</p>
 </section>
 <div class="publication-compare-cta"><div><h2>Prefer everything side by side?</h2><p>Capacity, counter space and care. Official sources beside the details.</p></div><a class="btn btn-ghost" href="compare.html">Compare the three <span aria-hidden="true">→</span></a></div>
 <section class="quick-guide" aria-labelledby="guides-heading"><div class="section-heading"><div><p class="section-eyebrow">A little homework, a better fit</p><h2 id="guides-heading">Read before you make room.</h2></div><a class="text-link" href="articles/index.html">All buying guides <span aria-hidden="true">↗</span></a></div><div class="grid grid-2">{guides}</div></section>
@@ -2476,9 +2476,28 @@ PROGRAMME_FLAGS = [('F1',
   'the Associates sentence in the page body, but not as a strip under the masthead. The pages are served by GitHub '
   'Pages, carry no noindex tag, and are absent from sitemap.xml. Owner choice: regenerate them with the disclosure '
   'strip, or remove or noindex them. Record the decision in COORDINATION.md.',
-  ['S1', 'S7'])]
+  ['S1', 'S7']),
+ ('F105',
+  'Repaired 2026-11-19: six annex trees shipped complete HTML sites with no robots directive, one of them '
+  'asking to be indexed, and two publishing robots.txt/sitemap.xml that a crawler never fetches.',
+  'site/, dashboard/, research/, s2/, annex-88769516/, session-3740f69d/ and their generators',
+  'A live audit read every published page on the origin. All six trees were crawlable and indexable, site/ '
+  'explicitly said index,follow on eleven pages, and research/ emitted relative canonicals that resolve '
+  'against whatever URL a crawler fetched. Every annex page now carries noindex,follow plus an absolute '
+  'canonical to its own address; the sub-directory robots.txt and sitemap.xml are removed because RFC 9309 '
+  'section 2.3 defines the file at scheme://authority/robots.txt only, and Google documents that noindex is '
+  'not supported in robots.txt and that a robots.txt block hides the noindex tag. The one authoritative '
+  'robots.txt and sitemap.xml stay at the site root, verify.py check 4b fails the build if a sub-directory '
+  'copy or an indexable annex page returns, and scripts/add_annex_noindex.py is the idempotent repair for the '
+  'three trees with no generator. The annex pages remain published and linked: this bounds what competes in a '
+  'search result; it does not conceal evidence. Not verified by this repair: whether any engine has already '
+  'indexed an annex URL, and whether the canonical shop ranks for anything at all.',
+  ['S46', 'S47', 'S30'])]
 
-REPO_EVIDENCE = {'F80': ['data/product-intent.json', 'product-intent.html', 'session-58cbaaa2/artifacts/README.md'],
+REPO_EVIDENCE = {'F105': ['build.py', 'verify.py', 'scripts/add_annex_noindex.py', 'scripts/build_site.py',
+          'research/build_research.py', 'scripts/build_s2_site.py',
+          'reports/verification-2026-11-19-b3ed16c4.md'],
+ 'F80': ['data/product-intent.json', 'product-intent.html', 'session-58cbaaa2/artifacts/README.md'],
  'F81': ['product-intent.html', 'data/product-intent.json', 'reports/verification-2026-11-17-58cbaaa2.md'],
  'F82': ['build.py', 'data/product-intent.json', 'reports/verification-2026-11-17-58cbaaa2.md'],
  'F83': ['data/decision.json', 'data/flags.json', 'handover.html', 'decisions.html', 'build.py'],
@@ -3904,6 +3923,11 @@ def page_previous_passes():
 </table>
 </div>
 <p class="small muted">Every disagreement above is published, with its source links, on <a href="flagged.html">Flagged for review</a>: the model-number question is <strong>F32</strong>, the policy-label question is <strong>F27</strong>, the number of parallel builds is <strong>F35</strong>.</p>
+
+<div class="callout info">
+  <strong>Six trees on this origin are now explicitly not indexed</strong>
+  <p class="small">Before 19 November 2026 every build on this page was equally visible to a search engine: none of the six carried a robots directive, and <code>site/</code> actively asked to be indexed on all eleven of its pages. Two of them also published a <code>robots.txt</code> and <code>sitemap.xml</code> of their own, which a crawler never fetches at <code>/Zone1/site/</code> or <code>/Zone1/dashboard/</code> — RFC 9309 §2.3 fixes that file at the host root, so they looked protective and protected nothing. Each annex page now carries <code>noindex,follow</code> and an absolute canonical to its own address, the one authoritative <a href="https://kanlerxz87-cyber.github.io/Zone1/robots.txt">robots.txt</a> and <a href="https://kanlerxz87-cyber.github.io/Zone1/sitemap.xml">sitemap.xml</a> sit at the root, and <code>verify.py</code> check 4b fails the build if a sub-directory copy returns. The pages themselves stay published and linked: this is a boundary on what competes in a search result, not concealment. Recorded as <a href="flagged.html#f105">F105</a>.</p>
+</div>
 
 <h2>Why the builds were not merged into one</h2>
 <p class="small">Merging them would mean picking a winner for each disagreement on evidence that does not exist yet. For the model number the listing's product-information block was read on 2026-11-16 and published (F68), which settled the ASIN-to-model step for the two Chefman listings; only the model plate on a physical unit can say what ships against an ASIN, and that is still the account holder's to check. For the policy labels, the live page settles it and the canonical build already matches the live page — but rewriting another session's published pages to match would destroy the record of what that pass actually verified against.</p>

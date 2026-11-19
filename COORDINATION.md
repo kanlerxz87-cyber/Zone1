@@ -6349,6 +6349,7 @@ These are observations of where a redirect landed on one date. They are not inte
 6. Product photography rights (S-18): needs a decision first. The site uses labelled AI illustrations and no product photos.
 7. Campaign ledger: remains empty. No authorised first-party report exists in this repo.
 8. **F104 (new, published on `flagged.html`, not edited here):** ten inherited annex pages have no disclosure strip under the masthead and no footer disclosure, and `session-3740f69d/index.html` has no footer disclosure. None of these pages carries `noindex`, and they are absent from `sitemap.xml`. Their sponsored-token gap is in main's F103. Owner choice: regenerate them through their own generators, or remove or noindex them.
+---
 
 
 ### PR #164 merge, Pages deployment and conflict log — arena/43667e90-zone1 (2026-11-19 UTC)
@@ -6363,4 +6364,44 @@ These are observations of where a redirect landed on one date. They are not inte
   3. `COORDINATION.md` kept both sides: #165's entry first, then this session's section. My section's F103 references were changed to F104.
 * **History note.** The branch was force-pushed with `--force-with-lease` three times, each time after rebasing onto newer `main`, and only to this session's own branch (never to `main`). Each force-push was checked against the expected remote SHA.
 * **Corrections made during the work:** the first audit draft said "69 root pages". The scan's regex did not exclude the `annex-*` and `session-*` folders. The correct count is 58 root publication pages, all with the disclosure strip and footer disclosure. The first draft also said "459 product anchors, 0 unqualified". The correct figure is 318 Amazon-hosted anchors on the 58 root pages, 8 unqualified, all of them the control token `link.amazon/ZZZ9ZZZZZ`. Both corrections are in the audit table above.
-* **Still not done, and not claimed:** Associates Special Link validation per product; intended-ASIN confirmation; applying `shopnow047c-20`; production analytics hosting, privacy approval and log review; Search Console ownership and sitemap submission; product-photo rights (S-18); the campaign ledger. The inherited-page gaps (F103 sponsored tokens, F104 disclosure strip) need an owner decision, because the generators for those builds are read-only in this integration.
+* **Still not done, and not claimed:** Associates Special Link validation per product; intended-ASIN confirmation; applying `shopnow047c-20`; production analytics hosting, privacy approval and log review; Search Console ownership and sitemap submission; product-photo rights (S-18); the campaign ledger. The inherited-page gaps (F103 sponsored tokens, F104 disclosure strip) need an owner decision, because the generators for those builds are read-only in this integration.## Claim — arena/b3ed16c4-zone1 (2026-11-19 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| Y1-b3ed16c4 | **Findability repair: one site to index.** Live audit found every historical annex tree (`site/`, `dashboard/`, `research/`, `s2/`, `annex-88769516/`, `session-3740f69d/`) shipping without a `robots` meta directive while declaring `index,follow` or nothing at all; `site/` and `dashboard/` each ship their own `robots.txt`, which no crawler reads at a project subpath, and `research/` canonicals are relative. Scope: add `noindex,follow` to the annex trees through their generators (`scripts/build_site.py`, `research/build_research.py`, `scripts/build_s2_site.py`) and by hand for the three static trees (`dashboard/`, `annex-88769516/`, `session-3740f69d/`), one authoritative `robots.txt`, a build guard + negative test so it cannot regress, the corrected canonical public URL, a live re-read of all five supplied links, new suggestions and flags, and the release record. | in progress | arena/b3ed16c4 (session b3ed16c4) | `build.py`, `scripts/build_site.py`, `research/build_research.py`, `scripts/build_s2_site.py`, `dashboard/*.html`, `annex-88769516/*.html`, `session-3740f69d/**/*.html`, `site/*.html`, `research/*.html`, `s2/**/*.html`, `data/suggestions.json`, `tests/test_publication.py`, `robots.txt`, `COORDINATION.md` |
+
+Claim log: 2026-11-19 · arena/b3ed16c4 · repo read first (`main` @ `2be3bea`, working tree clean, `python3 build.py` + `python3 verify.py` green: 136 pages, 77 spec rows, 45 sources, 0 errors). No other live claim below is younger than 60 minutes with no commits, so this scope is taken without handoff.
+
+
+### Y1-b3ed16c4 complete — findability and the annex index boundary (2026-11-19)
+
+- **Defect repaired:** six annex trees (`site/`, `dashboard/`, `research/`, `s2/`,
+  `annex-88769516/`, `session-3740f69d/`) shipped complete HTML sites with no robots directive.
+  `site/` said `index,follow` on all eleven pages; `research/` emitted relative canonicals;
+  `site/` and `dashboard/` each published a `robots.txt`+`sitemap.xml` at a sub-path where RFC 9309
+  §2.3 means no crawler fetches them. All 136 published pages now carry exactly one robots
+  directive; the annexes are `noindex,follow` with absolute canonicals; the sub-directory copies
+  are deleted and `scripts/build_site.py` no longer writes one.
+- **Guard, proven to fire:** `verify.py` check 4b, plus four tests in
+  `tests/test_publication.py::AnnexBoundaryTests`. Injected `index,follow` into
+  `dashboard/index.html` → `errors: 1`; restored → `errors: 0`.
+- **Second defect:** `verify.py` contained a loop over every citation badge whose body was `pass`,
+  described in the docstring as verifying source badges. Replaced with check 2b: 1,400 badges
+  parsed, 0 mismatches, now gated.
+- **Sources read live 2026-11-19:** S46 (RFC 9309 §2.3, §2.2.4), S47 (Google block-indexing), S30
+  (Google robots.txt intro), and all five supplied links re-followed. PI-01…PI-05 destinations and
+  titles unchanged from the 2026-11-19 record; intent and attribution still unconfirmed.
+- **No `Sitemap:` line was added or claimed invalid.** RFC 9309 §2.2.4 names Sitemaps as a record
+  crawlers MAY interpret and does not restrict it to the root; the finding rests on §2.3, which
+  does fix the file itself at the authority root. Stated as a limit in the report and in F103.
+- **New rows:** F103; S46, S47; SG-51 (claim the property and read a real report), SG-52 (should the
+  annexes stay published), SG-53 (one decision path per product page). SG-05 refreshed.
+- **Gates:** 58 canonical pages / 36 sitemap URLs / 24 RSS items; verify.py 136 pages, 77 spec rows,
+  47 sources, 0 errors, 0 external warnings; 66 Python + 8 Node + 33 platform tests; 393 annex
+  assertions; s2 `--check` current; research check OK; 11,342 links; deterministic rebuild clean.
+- **Not claimed:** Search Console ownership or query data (SG-51, F101), any ranking, traffic, click
+  or conversion figure, the tracking ID's existence or application (F76), the five links' validity,
+  or product-photo rights. Report: `reports/verification-2026-11-19-b3ed16c4.md`.
+- **Scope note:** no annex page body was rewritten; those trees belong to earlier passes and this
+  pass added a `<meta>` and a `<link>` only. `docs/` was read and confirmed already correct (a
+  retired redirect with `noindex` and a canonical to the root page it redirects to).

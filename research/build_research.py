@@ -118,7 +118,13 @@ def layout(title, body, prefix="", active="", sources=None, meta=None, canonical
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)} &middot; Zone1 Affiliate Research</title>
 <meta name="description" content="Source-verified Amazon affiliate research dashboard: three air fryer SKUs, every value linked to an official source.">
-<link rel="canonical" href="{self_name}">
+<!-- This tree is an independent verification annex, not the publication. It is reachable
+     from the canonical site's footer, but it must not compete with it in search results:
+     the canonical site is the one URL set search engines are asked to index. Added
+     2026-11-19 by arena/b3ed16c4 after a live audit found these pages and the other five
+     annex trees carrying no robots directive at all. -->
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="{SITE}{self_name}">
 <link rel="stylesheet" href="{prefix}assets/style.css">
 </head>
 <body>
@@ -151,7 +157,14 @@ def layout(title, body, prefix="", active="", sources=None, meta=None, canonical
 """
 
 
-SITE = ""  # relative canonicals: the section is served at both / and /docs/ paths
+SITE = "https://kanlerxz87-cyber.github.io/Zone1/research/"
+PROJECT_BASE = "https://kanlerxz87-cyber.github.io/Zone1/"
+# Absolute canonical (2026-11-19, arena/b3ed16c4): the previous value was empty, so every
+# page emitted a bare relative <link rel="canonical" href="analysis.html">. A relative
+# canonical does not identify one URL set; it is interpreted against whatever URL the crawler
+# happened to fetch, so the same page could be canonicalised to two different addresses (the
+# old /docs/ path and this one). The section still resolves from either mount; the canonical
+# now names the one address that actually exists on Pages.
 
 
 # --------------------------------------------------------------------------- #
@@ -253,7 +266,7 @@ def page(title, body, path, **kw):
     active = kw.pop("active", path)
     body = source_rows(body, prefix + "flagged-for-review.html")
     html_out = layout(title, body, prefix=prefix, active=active,
-                      self_name=os.path.basename(path), **kw)
+                      self_name=path.lstrip("/"), **kw)
     with open(out, "w", encoding="utf-8") as fh:
         fh.write(html_out)
     return path
