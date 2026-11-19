@@ -72,7 +72,8 @@
         "assets/analytics.js",
         "analytics/README.md",
         "https://kanlerxz87-cyber.github.io/Zone1/measurement.html"
-      ]
+      ],
+      "superseded_by": "2026-11-19 SG-51: the original adapters and event names were incompatible; current contract is v2, still not deployed."
     },
     {
       "id": "SG-39",
@@ -141,6 +142,72 @@
         "build.py",
         "tests/test_integration_output.py",
         "reports/verification-2026-11-19-9b3365c7.md"
+      ]
+    },
+    {
+      "id": "SG-51",
+      "session": "arena/53d18637-zone1",
+      "date": "2026-11-19",
+      "path": "A",
+      "what": "Reconciled the named five-event contract, maintained client, strict aggregate Python collector and authorized nullable importer. Retired incompatible PHP/Worker adapters. Added disabled/enabled build fixtures, payload, HTTP, concurrency and real-browser tests. All production gates remain off.",
+      "why_allowed": "Standing autonomous instruction for reversible repository work. No account-only permission, intended product, legal approval, owner choice or spend is inferred.",
+      "evidence": [
+        "analytics/README.md",
+        "analytics/client.js",
+        "analytics/collector.py",
+        "tests/test_publication.py",
+        "tests/browser_check.cjs"
+      ]
+    },
+    {
+      "id": "SG-52",
+      "session": "arena/53d18637-zone1",
+      "date": "2026-11-19",
+      "path": "A",
+      "what": "Integrated the buyer-first Zone1 Kitchen front page, labeled generic artwork, native responsive menus, complete owner group/footer index, method page and compact decision brief. Reused sourced guides rather than creating another article batch. No human editor, product test, rights approval or conversion lift is implied.",
+      "why_allowed": "Standing autonomous instruction for reversible repository work. No account-only permission, intended product, legal approval, owner choice or spend is inferred.",
+      "evidence": [
+        "data/publication.json",
+        "publication/style.css",
+        "publication/app.js",
+        "build.py"
+      ]
+    },
+    {
+      "id": "SG-53",
+      "session": "arena/53d18637-zone1",
+      "date": "2026-11-19",
+      "path": "A",
+      "what": "Added a deployment-only archive/noindex/disclosure wrapper for historical HTML and a Git-tracked public-artifact staging rule. Canonical checks compare the pre-build snapshot before regeneration. Independent source files remain untouched; deployment success is recorded only after Actions/live receipt.",
+      "why_allowed": "Standing autonomous instruction for reversible repository work. No account-only permission, intended product, legal approval, owner choice or spend is inferred.",
+      "evidence": [
+        "scripts/stage_pages.py",
+        "scripts/check_canonical.py",
+        "tests/test_publication.py"
+      ]
+    },
+    {
+      "id": "SG-32",
+      "session": "arena/53d18637-zone1",
+      "date": "2026-11-19",
+      "path": "B",
+      "what": "Published a plain production-method byline and about page describing AI assistance, documentation-based work and the absence of hands-on testing. No named person or credential is asserted.",
+      "why_allowed": "Standing autonomous instruction for reversible repository work. No account-only permission, intended product, legal approval, owner choice or spend is inferred.",
+      "evidence": [
+        "about.html",
+        "build.py"
+      ]
+    },
+    {
+      "id": "SG-46",
+      "session": "arena/53d18637-zone1",
+      "date": "2026-11-19",
+      "path": "partial — static existing-guide edit, not the proposed automatic date window",
+      "what": "Added a seasonal editorial gift/sale-day block using the existing sourced guide set, not an automatic offer feed or a new demand claim. New article writing remains paused pending the production measurement/access gate.",
+      "why_allowed": "Standing autonomous instruction for reversible repository work. No account-only permission, intended product, legal approval, owner choice or spend is inferred.",
+      "evidence": [
+        "data/publication.json",
+        "index.html"
       ]
     }
   ],

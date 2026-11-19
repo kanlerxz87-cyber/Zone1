@@ -265,22 +265,25 @@
      "s": [
       "S10"
      ],
-     "note": "Chefman.com list price. The same page displayed several promotional prices on the access date; only the list price is recorded here because it is the stable figure."
+     "note": "Chefman.com list price. The same page displayed several promotional prices on the access date; only the list price is recorded here because it is the stable figure.",
+     "observed_on": "2026-11-13"
     },
     "amazon_price": null,
-    "amazon_price_reason": "Not displayed by policy (S2 §2(b)); unavailable without Associates access.",
+    "amazon_price_reason": "No authorized Amazon-served/API display route is configured for this site; omitted rather than inferred (S2 §2(b)).",
     "msrp_confirmed": "Not confirmed: the brand page shows a list price but does not label it as a manufacturer's suggested retail price. Chefman.com list price. The same page displayed several promotional prices on the access date; only the list price is recorded here because it is the stable figure."
    },
    "reviews": {
     "amazon_stars": null,
     "amazon_review_count": null,
-    "amazon_reason": "Not displayed by policy (S2 §6(t); S2 §2(b)).",
+    "amazon_reason": "No authorized Amazon review/rating feed is configured; Amazon review data is not displayed. Program Policies §6(t) controls authorized routes.",
     "brand_site_rating": {
-     "v": "4.6 / 5 from 1,310 reviews",
+     "v": "4.6 / 5 from 1,312 reviews",
      "s": [
       "S10"
      ],
-     "note": "Ratings collected by Chefman's own on-site review widget (4.6 average; 5★ 930 · 4★ 259 · 3★ 85 · 2★ 12 · 1★ 24). Read 1,302 reviews on 2026-11-13, 1,305 on 2026-11-14 and 1,307 on 2026-11-16 and 1,310 on 2026-11-17 — the count moves daily, so it is stamped. Brand-hosted figure, not Amazon's. The 2026-11-17 read is the one published here; the 2026-11-16 read was corroborated by a second, independent session the same day."
+     "note": "Brand-hosted widget snapshot read 2026-11-19: 4.6 / 5 from 1,312 reviews. Prior published snapshot: 4.6 / 5 from 1,310 reviews (2026-11-17). Not Amazon review data, independent social proof, a site test or proof of the intended listing. Counts can change; a dated snapshot is not a live counter.",
+     "historical_note": "Ratings collected by Chefman's own on-site review widget (4.6 average; 5★ 930 · 4★ 259 · 3★ 85 · 2★ 12 · 1★ 24). Read 1,302 reviews on 2026-11-13, 1,305 on 2026-11-14 and 1,307 on 2026-11-16 and 1,310 on 2026-11-17 — the count moves daily, so it is stamped. Brand-hosted figure, not Amazon's. The 2026-11-17 read is the one published here; the 2026-11-16 read was corroborated by a second, independent session the same day.",
+     "checked_on": "2026-11-19"
     }
    },
    "commission": {
@@ -569,22 +572,25 @@
      "s": [
       "S14"
      ],
-     "note": "Price shown on emerileveryday.com on the access date. Not labelled as MSRP by the brand."
+     "note": "Price shown on emerileveryday.com on the access date. Not labelled as MSRP by the brand.",
+     "observed_on": "2026-11-13"
     },
     "amazon_price": null,
-    "amazon_price_reason": "Not displayed by policy (S2 §2(b)).",
+    "amazon_price_reason": "No authorized Amazon-served/API display route is configured for this site; omitted rather than inferred (S2 §2(b)).",
     "msrp_confirmed": "Not confirmed: the brand page shows a list price but does not label it as a manufacturer's suggested retail price. Price shown on emerileveryday.com on the access date. Not labelled as MSRP by the brand."
    },
    "reviews": {
     "amazon_stars": null,
     "amazon_review_count": null,
-    "amazon_reason": "Not displayed by policy.",
+    "amazon_reason": "No authorized Amazon review/rating feed is configured; Amazon review data is not displayed. Program Policies §6(t) controls authorized routes.",
     "brand_site_rating": {
-     "v": "2.6 / 5 from 25 reviews",
+     "v": "2.6 / 5 from 26 reviews",
      "s": [
       "S14"
      ],
-     "note": "Brand-hosted rating, quoted exactly as displayed (including the unusually low score). Shown for transparency; it is not Amazon's rating."
+     "note": "Brand-hosted widget snapshot read 2026-11-19: 2.6 / 5 from 26 reviews. Prior published snapshot: 2.6 / 5 from 25 reviews (historical register). Not Amazon review data, independent social proof, a site test or proof of the intended listing. Counts can change; a dated snapshot is not a live counter.",
+     "historical_note": "Brand-hosted rating, quoted exactly as displayed (including the unusually low score). Shown for transparency; it is not Amazon's rating.",
+     "checked_on": "2026-11-19"
     }
    },
    "commission": {
@@ -906,22 +912,25 @@
      "s": [
       "S12"
      ],
-     "note": "List price on chefman.com; a sale price of $79.99 was also displayed for the variant on the access date."
+     "note": "List price on chefman.com; a sale price of $79.99 was also displayed for the variant on the access date.",
+     "observed_on": "2026-11-13"
     },
     "amazon_price": null,
-    "amazon_price_reason": "Not displayed by policy (S2 §2(b)).",
+    "amazon_price_reason": "No authorized Amazon-served/API display route is configured for this site; omitted rather than inferred (S2 §2(b)).",
     "msrp_confirmed": "Not confirmed: the brand page shows a list price but does not label it as a manufacturer's suggested retail price. List price on chefman.com; a sale price of $79.99 was also displayed for the variant on the access date."
    },
    "reviews": {
     "amazon_stars": null,
     "amazon_review_count": null,
-    "amazon_reason": "Not displayed by policy.",
+    "amazon_reason": "No authorized Amazon review/rating feed is configured; Amazon review data is not displayed. Program Policies §6(t) controls authorized routes.",
     "brand_site_rating": {
-     "v": "4.6 / 5 from 717 reviews",
+     "v": "4.6 / 5 from 719 reviews",
      "s": [
       "S12"
      ],
-     "note": "Brand-hosted rating for the RJ38-SQSS-8T product page (5★ 523 · 4★ 131 · 3★ 42 · 2★ 10 · 1★ 11). Read 715 reviews on 2026-11-13, 716 on 2026-11-14 and 717 on 2026-11-16. The average held at 4.6 on all three reads; only the count moves. Not Amazon's rating. A second, independent session read the same page the same day and saw the same count, which corroborates it."
+     "note": "Brand-hosted widget snapshot read 2026-11-19: 4.6 / 5 from 719 reviews. Prior published snapshot: 4.6 / 5 from 717 reviews (2026-11-16). Not Amazon review data, independent social proof, a site test or proof of the intended listing. Counts can change; a dated snapshot is not a live counter.",
+     "historical_note": "Brand-hosted rating for the RJ38-SQSS-8T product page (5★ 523 · 4★ 131 · 3★ 42 · 2★ 10 · 1★ 11). Read 715 reviews on 2026-11-13, 716 on 2026-11-14 and 717 on 2026-11-16. The average held at 4.6 on all three reads; only the count moves. Not Amazon's rating. A second, independent session read the same page the same day and saw the same count, which corroborates it.",
+     "checked_on": "2026-11-19"
     }
    },
    "commission": {

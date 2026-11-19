@@ -1,7 +1,7 @@
 {
   "version": "1.1",
   "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped); SG-36..SG-38 and path P6 by arena/58cbaaa2 (2026-11-17) — written twice, and shortened the second time: the first draft's parallel intent register, measurement register and flags were dropped when main's merged registers and collection-disabled contract were found. The withdrawn draft is published at session-58cbaaa2/artifacts/. | pass 13 shopfront + decision desk (arena/fd9778a1-zone1): SG-39…SG-48, path P7, numbered after the merged 2026-11-17 rows so no id collides.",
-  "compiled": "2026-11-17",
+  "compiled": "2026-11-19",
   "how_to_read": [
     "This is a decision queue, not a changelog. Rows the build's decision desk counts as implemented were shipped in the canonical root build under the standing pre-authorisation rule and are recorded, row by row, in data/decision-log.json; everything else is a proposal awaiting a path from you.",
     "Each suggestion names the problem it fixes, the official document or repository evidence behind it, two or more paths you could take, and which path this pass would pick and why.",
@@ -2064,7 +2064,7 @@
       "id": "SG-42",
       "title": "Settle the photography question - it is the single largest reason the site still reads as generated",
       "area": "Media rights",
-      "problem": "There is no product image anywhere on this site except a generated social card and four SVG diagrams. A shopper deciding between two baskets and an oven cavity reads six tables with no picture of either. The gap is not a styling failure: Amazon's Program Content includes its images, and manufacturer images are the brand's property, so no agent may close it by copying a photo or generating a likeness.",
+      "problem": "Rights-cleared model-specific photography is not recorded. The current publication uses a labeled generic kitchen atmosphere and not-to-scale format illustrations; neither is evidence of a particular appliance, package configuration or hands-on test. Real product imagery needs its own rights and provenance.",
       "evidence": [
         {
           "label": "Associates Operating Agreement, section 1 (Program Content includes images)",
@@ -2095,8 +2095,8 @@
           "reversible": true
         },
         {
-          "label": "C. Generated imagery",
-          "what": "Rejected, and recorded as rejected so it is not proposed again by a later pass: an invented picture of a specific commercial product is a misrepresentation of the thing a reader is being paid to send them to buy.",
+          "label": "C. Realistic generated product imagery",
+          "what": "Excluded as product evidence: an invented photograph of a specific commercial model could misrepresent what the reader receives. This does not exclude clearly labeled generic kitchen atmosphere or abstract format diagrams.",
           "effort": "S",
           "risk": "high",
           "reversible": false
@@ -2110,7 +2110,7 @@
         }
       ],
       "recommendation": "A. It is one afternoon, it is unambiguously yours to publish, and it is the only path that lets the site say something about handling the appliance without inventing an experience.",
-      "why": "Every alternative either needs somebody else's permission or produces an image that misrepresents the product. Option A also closes the 'thin affiliate' criticism Google's spam policy makes by adding content no listing page contains.",
+      "why": "A photograph of a specific model can add useful detail only when it has documented rights and an honest caption. Generic editorial artwork can improve presentation, but does not settle model identity or establish first-hand use.",
       "impact": 5,
       "confidence": 5,
       "effort": "S",
@@ -2327,7 +2327,8 @@
       "effort": "M",
       "risk_of_not_doing": "The site reads as evergreen, which is safe but forgettable.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "implementation_note": "19 November: the front page now surfaces an existing seasonal gift/sale-day edit. It is static editorial selection, not the proposed automatic date-window band and not measured demand evidence."
     },
     {
       "id": "SG-47",
@@ -2539,6 +2540,140 @@
       "risk_of_not_doing": "The next useful fix in an unmergeable PR stays unpublished as long as #144's did.",
       "blocks": [],
       "blocked_by": []
+    },
+    {
+      "id": "SG-51",
+      "title": "Treat the analytics contract as one executable specification",
+      "area": "Publication integration",
+      "problem": "The previous browser and Python implementations disagreed on event names, payloads and triggers. The v2 integration reconciles the tested code contract, but does not supply a persistent deployment or account evidence.",
+      "evidence": [
+        {
+          "label": "analytics/README.md",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/analytics/README.md"
+        },
+        {
+          "label": "data/analytics-plan.json",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/analytics-plan.json"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Reconcile and test the aggregate-only contract",
+          "what": "One maintained client source, matching plan/cards, exact server schema, disabled deployment gates and isolated HTTP/browser tests. Retire the incompatible PHP/Worker paths.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Keep only authorized report imports",
+          "what": "Remove browser collection plans and use only first-party reports; this loses on-site guide/interaction evidence.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A. Implement reversible compatibility and test fixes; hold production collection behind runtime, privacy, logging and receipt gates.",
+      "why": "The project can test and document its own behavior, but cannot invent account authority, intent, traffic, legal approval or production hosting.",
+      "impact": 4,
+      "confidence": 4,
+      "effort": "M",
+      "risk_of_not_doing": "An implemented interface could continue to imply evidence or a deployment it does not have.",
+      "blocks": [],
+      "blocked_by": [
+        "Q-08",
+        "Q-30"
+      ]
+    },
+    {
+      "id": "SG-52",
+      "title": "Separate the buyer publication from the owner workspace",
+      "area": "Publication integration",
+      "problem": "A long audit sidebar and redundant trust metrics occupy shopper attention before a useful product question. The brief asks for a publication, a disclosure under the masthead, and every dashboard still reachable.",
+      "evidence": [
+        {
+          "label": "data/publication.json",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/data/publication.json"
+        },
+        {
+          "label": "publication/style.css",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/publication/style.css"
+        },
+        {
+          "label": "build.py",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/build.py"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. One publication front page and one workspace group",
+          "what": "Lead with formats, questions and existing seasonal reading; keep a full native-details workspace menu and footer index. Add authorship/method and a concise decision brief.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Keep the audit-first layout",
+          "what": "Retain the sidebar and current landing-page order, changing only spacing.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A. A reversible editorial/navigation change under the standing brief; no conversion lift is claimed. Keep generic editorial art labeled and purchase CTAs gated.",
+      "why": "The project can test and document its own behavior, but cannot invent account authority, intent, traffic, legal approval or production hosting.",
+      "impact": 4,
+      "confidence": 4,
+      "effort": "M",
+      "risk_of_not_doing": "An implemented interface could continue to imply evidence or a deployment it does not have.",
+      "blocks": [],
+      "blocked_by": [
+        "Q-35"
+      ],
+      "implementation_note": "19 November integration is recorded in decision-log.implemented; owner choices remain empty."
+    },
+    {
+      "id": "SG-53",
+      "title": "Mark historical builds as noindex archives without rewriting their sources",
+      "area": "Publication integration",
+      "problem": "Several prior builds share the public origin. The canonical sitemap excludes them, but sitemap exclusion alone does not noindex their HTML. The user asks for one indexable publication while retaining the dashboards.",
+      "evidence": [
+        {
+          "label": "scripts/stage_pages.py",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/scripts/stage_pages.py"
+        },
+        {
+          "label": ".github/workflows/pages.yml",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/.github/workflows/pages.yml"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Deployment-only archive transform",
+          "what": "Copy the public tree to a staging directory, add noindex,follow and an archive banner to noncanonical HTML, keep every URL reachable, and prove no root HTML is left out.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Modify every independent generator",
+          "what": "Coordinate updates across all annex owners; larger overlap and risk for archived evidence.",
+          "effort": "M",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A. Apply only to the deployment artifact; preserve original annex files and historical source evidence.",
+      "why": "The project can test and document its own behavior, but cannot invent account authority, intent, traffic, legal approval or production hosting.",
+      "impact": 4,
+      "confidence": 4,
+      "effort": "M",
+      "risk_of_not_doing": "An implemented interface could continue to imply evidence or a deployment it does not have.",
+      "blocks": [],
+      "blocked_by": [
+        "Q-07",
+        "Q-33"
+      ],
+      "implementation_note": "Staging code and isolated checks are implemented. The dated report will distinguish a local artifact from an actual Pages deployment."
     }
   ],
   "paths_intro": "A decision queue with this many rows is a backlog, not a decision. The paths below group the suggestions into four coherent pieces of work. Each path is ordered, names what has to be true before it can start, and says plainly what it will not fix. Pick one path, finish it, then pick the next. The grouping is this pass's judgement; the dependencies inside it are not - they are the blocked_by links already recorded on each row.",

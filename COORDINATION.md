@@ -6118,3 +6118,93 @@ for its own pass (shared outputs: `index.html`, NAV in `build.py`).
 | 2026-11-19 | arena/9b3365c7-zone1 | **P14-4 done — stale PR dispositions (none merged, none closed; closing is an owner action, Q-41/SG-50):** #139 thermometer dataset/page: not on main; keep as a port source, re-read every row before porting, depends on SG-36. #141 tagged `/dp/` links: conflicts with main's blank-tag posture (F76) until the one-link test (SG-47); do not merge. #144 "0 of five" fix: superseded by F91 in this pass. #146 `platform/analytics`: overlaps `analytics/` on main; nothing to port without an owner host decision (Q-30). #150 COORDINATION-only record: nothing to port. |
 | 2026-11-19 | arena/9b3365c7-zone1 | **P14-5 done.** `EXECUTIVE-SUMMARY.md` §26. |
 | 2026-11-19 | arena/9b3365c7-zone1 | **P14-6 done — merge and deploy.** Gates before push: `build.py` OK (tree byte-identical after rebuild), `verify.py` 0 errors, unit tests OK, `ci-check.sh` OK (11,464 links). [PR #157](https://github.com/kanlerxz87-cyber/Zone1/pull/157): both checks passed (`verify`, `Rebuild site/ from data/verified and assert every guarantee`). Merged with `gh pr merge 157 --merge` as `0a860d98b5b4c69fb5e8cda5b1be08c548ff4d43` at 2026-11-19T05:53:18Z. On that commit: "Build, verify and deploy to GitHub Pages" run 44468233603 succeeded, as did `pages-build-deployment`, CI and the annex verify. The Pages API reports `status: built`, `error: null`, commit `0a860d9` at 2026-11-19T05:53:42Z. Live: https://kanlerxz87-cyber.github.io/Zone1/ . All pass-14 claims are released. |
+
+## Task board — arena/53d18637-zone1 (2026-11-19 UTC) — publication front page & honest measurement
+
+| Task | Status | Owner | Files / scope |
+|---|---|---|---|
+| Z14-1: Review the current canonical build, official sources and five supplied links; publish a dated evidence report and unresolved findings | in progress | arena/53d18637 | `reports/verification-2026-11-19-53d18637.md`, scoped rows in `data/sources.json`, `data/requirements.json`, `build.py` flags |
+| Z14-2: Canonical publication redesign — product-first front page, compact reader navigation, one owner-workspace navigation group, footer links, accessible mobile layouts and editorial artwork (not product photography) | in progress | arena/53d18637 | `build.py` canonical layout/CSS/page_index/article cards, generated root/category/product/guide/article HTML and canonical assets only |
+| Z14-3: Reconcile the five-event measurement contract, test the self-hosted collector/client, and close reproducibility/PR build gaps without inventing deployed analytics or Amazon conversions | in progress | arena/53d18637 | `analytics/`, `assets/analytics.js` (via builder if generated), `data/config.json`, `data/measurement.json`, `tests/`, `.github/workflows/ci.yml`, `scripts/ci-check.sh`, `.gitignore` |
+| Z14-4: Decision-ready suggestions/questions/design brief + executive summary; final integration, PR from this fixed Arena branch, merge and verify GitHub Pages | in progress | arena/53d18637 | canonical data registers, `README.md`, `EXECUTIVE-SUMMARY-2026-11-19.md`, `COORDINATION.md`; integration only after Z14-1..3 |
+
+### Claim log — 2026-11-19, arena/53d18637
+
+Read the shared board and the most recent integration records before claiming. Current working branch is the Arena-assigned `arena/53d18637-zone1`; the environment requires using that branch rather than creating the older `session-*` naming convention. Base is `1eb1e56` (PR #151); origin/main is the same commit at claim time. No fresh claim on this board (all previous sessions' work is dated 17 November or earlier). Open PRs #139/#141/#144/#146/#150 were last updated 17 November; they will **not** be merged or overwritten by this session. Their scopes overlap historical measurement/register work; after >60 minutes idle this session claims only the current canonical implementation and records the handoff here. The independent builds (`s2/`, `site/`, `docs/`, `research/`, `dashboard/`, `annex-88769516/`, `session-*/`) remain untouched. Their public URLs remain reachable as archives/evidence, not additional indexable publications.
+
+Before new editorial content: inspect and test the existing click/analytics machinery. No new claim of popularity, orders, profit, current price, valid account ownership or deployed persistent analytics will be made without a matching authorized source. The selected ID `shopnow047c-20` is a user-supplied selection, not proof of enrollment. Unconfirmed intended ASINs remain blank; observed redirects stay separate. No generated Special Link will be activated without the per-product enrolled-Associates destination/report gate. Official pages that cannot be reached will be logged as unverified **this session**, not quietly treated as re-verified.
+
+### Integration checkpoint — arena/53d18637, 19 November 2026
+
+Z14-1..3 are locally implemented and tested; Z14-4 integration/release is still in progress.
+Current local gates: 59 canonical pages, 36 sitemap URLs, 24 RSS items; 35 canonical Python
+unit tests, 8 generated-client Node tests, 33 inherited engine tests; verify.py 137 pages,
+77 spec rows (75 populated/two blank+flagged), 48 sources, zero external warnings/errors.
+The staged artifact contains 59 canonical and 78 archived HTML pages, with exactly 36
+indexable HTML URLs matching the sitemap. Real Chromium/local HTTPS: 232 layout checks,
+10 scoped axe scans with zero reported violations, keyboard focus/native menus, no-JS
+navigation and print-disclosure checks passed. Ephemeral fixture receipts are not production
+analytics; there were no external/Amazon requests, and the real campaign ledger remains empty.
+A deliberately stale homepage was rejected by the pre-build hash gate (exit 1), then restored.
+Independent research/site rebuild checks passed without changing their source/output files.
+
+**Concurrent-main handoff:** a fresh fetch found `origin/main=cb33d97` (PRs #152–#158),
+including arena/c1706796's all-product-destination qualification, arena/62a6f797's requirement
+file-link guard and arena/9b3365c7's reader/nav/flag-anchor/decision-brief work. Those completed
+changes landed while this branch was working from `1eb1e56`; none will be silently discarded.
+The implementation checkpoint is committed before rebasing, then the latest checks and data
+will be integrated. Current IDs on main occupy F90–F95, SG-49/50 and Q-41; this branch's new
+IDs were renumbered in a single pass before integration:
+
+| Draft here | Integration ID | Meaning |
+|---|---|---|
+| F90/F91/F92 | F96/F97/F98 | analytics contract / contradictory electrical instructions / evidence boundaries |
+| SG-49/50/51 | SG-51/52/53 | analytics contract / publication-workspace split / staged archives |
+| Q-41/Q-42 | Q-42/Q-43 | electrical contradiction / tests versus deployment |
+
+The publication intentionally goes further than the older sidebar-based front page, but
+retains its underlying requirement that every dashboard remains available. No owner choice,
+intent, account approval, profit/traffic result or persistent analytics host is invented.
+The Pages API currently reports **legacy branch publishing** as well as successful custom
+workflows; final release must select workflow publishing so the verified staged artifact,
+not a parallel whole-checkout build, is the authoritative deployment. That setting and the
+actual PR/merge/Actions/live receipts will be recorded after they happen.
+
+### Rebase completed — arena/53d18637 integration on `cb33d97`
+
+The claim became `fb0684f` and implementation became `e47afb0` on this branch; the initial
+unrebased checkpoint was `3f095e5`. Main's F90–F95 findings/repository evidence, SG-49/50,
+Q-41, four-row decision brief, SG-04/SG-27 action records, source-read record and observed
+browse breadcrumbs were all preserved. JSON records were merged by stable IDs/fields;
+the only same-field resolution was Q-40's sources, keeping the fresh W3C answer **and**
+repairing the named flag anchor. No independent archival source file was modified.
+
+Main's requirement-file-only guard and browse-path category count were retained verbatim.
+Its flag-label/anchor check remains a build gate. The dashboard-coverage guard was adapted
+to the new native Workspace menu/footer index, preserving the prior DESK_NAV inventory;
+negative tests reject both an orphaned dashboard and a mismatched flag link. Tests that
+asserted the superseded sidebar label and three live purchase buttons now assert one
+complete group/footer and **gated** unconfirmed purchase CTAs instead. Main's price-clause
+regression test is retained on the product pricing notes, where the snapshot/policy text
+now lives. Product verdict summaries no longer repeat a stale review count, claim a
+common consumer complaint or choose a convenient preset paragraph over a documented conflict.
+
+**Post-rebase results:** full local gates pass: 40 canonical Python tests + 8 Node client
+tests + 33 engine tests; 69 generated artifacts unchanged across the pre-build snapshot;
+verify.py 137 pages/77 spec rows/48 sources/0 warnings/0 errors; 12,273 inherited links;
+staged public artifact 320 files, 59 canonical HTML + 78 archive HTML, exactly 36 indexable
+HTML URLs matching the sitemap. Real local HTTPS browser checks repeated successfully:
+232 reflow/disclosure/image checks, 10 representative zero-violation scoped axe scans,
+keyboard/no-JS/print checks, four browser event types received only in temporary SQLite,
+zero external requests/JS errors. The production switches, intent fields and ledger remain
+unchanged/off/null/empty. Persistent collection and account attribution are not deployed.
+
+### Remote checks held — PR #159
+
+[PR #159](https://github.com/kanlerxz87-cyber/Zone1/pull/159) is open from this branch.
+The initial remote run `44472993390` failed the canonical `verify` and local-browser jobs;
+the independent annex job passed. The cause is not yet established: local equivalents
+pass, and the signed Actions log download redirects to a host unavailable to this sandbox.
+No merge was attempted. Added a bounded, exit-code-preserving failure annotation wrapper
+(and tests) so the diagnostic is available through the normal GitHub check-runs API.
+This is observability, not a waiver or a claim the remote failures are fixed.

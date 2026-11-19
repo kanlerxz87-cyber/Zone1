@@ -10,15 +10,14 @@ class PublishedIntegrationOutputTests(unittest.TestCase):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         self.assertIn("Choose the shape that fits your kitchen.", html)
         self.assertLess(html.index("publication-hero"), html.index("publication-product"))
-        # Pass 14 (arena/9b3365c7-zone1): the brief asks for every dashboard surface to be
-        # reachable "from the footer and a single navigation group". Both are asserted here.
-        self.assertIn("<h4>Behind the site</h4>", html)
-        self.assertIn("<h5>Behind the site</h5>", html)
-        self.assertEqual(1, html.count("<h4>Behind the site</h4>"))
-        self.assertNotIn("<h4>Owner workspace</h4>", html)
+        # Preserve pass 14's semantic guarantee, not its old sidebar/class labels:
+        # every dashboard is in one native Workspace group AND the footer index.
+        self.assertEqual(1, html.count('<nav class="workspace-dropdown"'))
+        self.assertEqual(1, html.count('aria-label="Footer workspace index"'))
+        self.assertNotIn('id="site-nav"', html)
         self.assertNotIn("<h4>Trust &amp; evidence</h4>", html)
-        nav = html[html.index('<nav id="site-nav"'):html.index("</nav>", html.index('<nav id="site-nav"'))]
-        foot = html[html.index('<footer class="site">'):html.index("</footer>")]
+        nav = html.split('<nav class="workspace-dropdown"', 1)[1].split('</nav>', 1)[0]
+        foot = html.split('<nav aria-label="Footer workspace index">', 1)[1].split('</nav>', 1)[0]
         for page in ("product-intent.html", "measurement.html", "questions.html", "decision-log.html",
                      "suggestions.html", "executive-summary.html", "flagged.html", "compliance.html"):
             self.assertIn(f'href="{page}"', nav)
@@ -30,19 +29,25 @@ class PublishedIntegrationOutputTests(unittest.TestCase):
         # Disclosure strip under the masthead, above the main content, and again in the footer.
         self.assertLess(html.index('class="disclosure-bar"'), html.index("<main"))
         self.assertGreater(html.index("As an Amazon Associate I earn from qualifying purchases.",
-                                      html.index('<footer class="site">')), 0)
-        ctas = [m for m in main.split("<a ") if "link.amazon/" in m and 'class="src"' not in m]
-        self.assertEqual(3, len(ctas))
-        for tag in ctas:
-            self.assertIn("sponsored", tag.split(">")[0])
-            self.assertIn("Amazon", tag)            # Program Policies 6(w): clear it goes to Amazon
-        self.assertEqual(3, main.count("Sponsored link — we may earn a commission"))
+                                      html.index('<footer class="site ')), 0)
+        self.assertEqual(3, main.count('class="format-card publication-product"'))
+        # The newer intent gate intentionally supersedes the three live purchase buttons.
+        # A guide is still useful; an unconfirmed intended destination is not a buy CTA.
+        self.assertNotIn('data-analytics-event="outbound_click"', main)
+        import build
+        self.assertEqual([], build.check_affiliate_link_qualification({'index.html': html}))
+        for product in build.PRODUCT_LIST:
+            guide = (ROOT / 'products' / (product['slug'] + '.html')).read_text()
+            self.assertIn('cta-gated', guide)
+            self.assertNotIn('data-analytics-event="outbound_click"', guide)
 
     def test_price_note_cites_the_clause_that_governs_prices(self):
         # F90: the note used to say 2(b) *and* 6(t) bar Amazon prices; 6(t) is about reviews.
-        html = (ROOT / "index.html").read_text(encoding="utf-8")
-        self.assertNotIn("§2(b) and §6(t) bar", html)
-        self.assertIn("Associates Program Policies §2(b) allow", html)
+        for file in (ROOT / 'products').glob('*.html'):
+            html = file.read_text(encoding='utf-8')
+            self.assertNotIn("§2(b) and §6(t) bar", html)
+            self.assertIn("Program Policies §2(b)", html)
+            self.assertIn("permit specified Amazon-served/API display routes", html)
 
     def test_category_count_reads_the_recorded_browse_path(self):
         # F91: the category lede published "0 of the five links" while three landed on air fryers.

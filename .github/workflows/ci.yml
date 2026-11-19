@@ -5,6 +5,9 @@ on:
     branches: [main]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -13,22 +16,28 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Canonical, analytics, engine, annex and staged-artifact gates
+        run: python3 scripts/annotated_check.py bash scripts/ci-check.sh
 
-      - name: Engine tests
-        run: python3 -m unittest discover -s platform/tests -t platform -p "test_*.py"
-
-      - name: Data audit — every row sourced, no inferred values
-        run: python3 platform/audit/report.py
-
-      - name: Prove the committed annex HTML is current
-        # Was: run the builder, then run --check. The builder writes to the working tree, so
-        # --check compared a rebuild against the files the previous line had just produced and
-        # could not report a difference — a gate that cannot fail. --check alone rebuilds in
-        # memory and compares against what is committed (found 2026-11-16 by arena/ba29c641;
-        # proven to fire by editing one word in s2/pages/sources.html and watching it exit 1).
-        # The header's build date is the single field the check now tolerates, because a
-        # shallow CI checkout cannot see the commit that date is derived from.
-        run: python3 scripts/build_s2_site.py --check
-
-      - name: Link and source coverage on rendered pages
-        run: python3 scripts/check_links.py
+  browser:
+    name: Local HTTPS browser and accessibility fixtures
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: tests/browser-tools/package-lock.json
+      - name: Install pinned test-only browser tools
+        run: npm ci --prefix tests/browser-tools --no-audit --no-fund
+      - name: Reflow, disclosures, keyboard, no-JS, print, accessibility and event receipt
+        # All requests are local; external requests, including Amazon, are blocked.
+        # Fixtures use an ephemeral database and never import campaign data.
+        run: python3 scripts/annotated_check.py node tests/browser_check.cjs
