@@ -6444,3 +6444,30 @@ Claim log: 2026-11-19 · arena/b3ed16c4 · repo read first (`main` @ `2be3bea`, 
 - **Still not claimed:** Search Console ownership or query data (SG-51, F101); any ranking, traffic,
   click or conversion figure; the tracking ID's existence or application (F76); the five links'
   validity; product-photo rights. Report: `reports/verification-2026-11-19-b3ed16c4.md`.
+
+---
+
+---
+
+* **Still not done, and not claimed:** Associates Special Link validation per product; intended-ASIN confirmation; applying `shopnow047c-20`; production analytics hosting, privacy approval and log review; Search Console ownership and sitemap submission; product-photo rights (S-18); the campaign ledger. The inherited-page gaps (F103 sponsored tokens, F104 disclosure strip) need an owner decision, because the generators for those builds are read-only in this integration.
+
+---
+
+---
+
+---
+
+### Claim — arena/ef659798-zone1 (session ef659798) — **done**
+
+* **Task X-ef659798 — "Shop, findable, publication" verification pass.** Scope: `build.py` (REQ_GROUPS + robots.txt + compare chooser + SEO distinctness guard), `data/requirements.json` (S-04…S-25 + Priority 4/5 spec rows), `data/articles.json` + `data/clusters.json` + `data/topics.json` (one new question-shaped guide: cleanup and counter-space trade-offs), `data/suggestions.json` (SG-44 state), `data/questions.json` (Q-42), `tests/` (counts + robots gate + chooser assertions), regenerated root HTML, `reports/verification-2026-11-19-ef659798.md`, `EXECUTIVE-SUMMARY-PASS-ef659798.md`, this file.
+* No other session's files were touched; annex generators (`scripts/`, `research/`, `site/`, `s2/`) unchanged and their gates re-run green. Claimed and completed 2026-11-19.
+* **Sources:** the brief's own clause text; official links per register row (Google Search Central snippet/spam/helpful-content/page-experience/qualify-outbound-links docs; Amazon OA §1 and Program Policies; FTC Disclosures 101 and endorsement guidance; manufacturer product pages and owner's manuals S10–S15/S18; Amazon detail pages S16/S28/S29). Registered ids used: S1, S2, S7, S8, S10, S12, S13, S14, S15, S16, S18, S30, S31, S38, S43.
+* **Verification performed:** `build.py` (all guards incl. new title/description distinctness) · `verify.py` — 137 pages, 77 spec rows (75 verified, 2 blank+flagged), 45 sources, 0 errors, 0 external warnings · 63 root + 8 Node + 33 platform tests · data audit 0 warnings · research rebuild/check no drift · `scripts/build_s2_site.py --check` OK · `scripts/check_links.py` 11,687 links OK · deterministic rebuild zero changed.
+* **Irregularities:** (1) **fixed** — H-01/H-02 existed in `data/requirements.json` but never rendered on `requirements.html` (missing `REQ_GROUPS` entry); register tiles counted 53 rows while tables showed 51. (2) **kept visible (Q-42)** — the brief's S-23 row records a capacity-per-counter-depth ratio as implemented in a parallel build; this repository prints a reasoned refusal of the metric (no official source publishes the dimension order or usable food area). Not merged, not hidden. (3) The brief's blank status cells (S-07, S-20, S-25, Priority 4/5) are now answered by register rows judged against this repository.
+* **Unchanged boundaries:** `shopnow047c-20` selected/unvalidated/unapplied; intended listing fields blank and separate from observed redirects; production analytics off (five-event contract tested only); campaign ledger empty; no Search Console action; no product photography; the supplied short links' compliance status remains unresolved at Zone3 FLG-003 and is not declared either way.
+
+### Merge-conflict log — arena/ef659798-zone1 integrating arena/b3ed16c4 (F105) — 2026-11-19
+
+* The mandatory pull found main advanced by PRs #164/#165/#166/#167/#169/#170/#172 (sessions 1970a80b, 6ace936d/U2, 43667e90, b3ed16c4). Conflicts were in `COORDINATION.md` and `data/suggestions.json`; both were resolved by keeping every side's records and re-applying this pass's one SG-44 note edit in main's serialization (`indent=1`, raw UTF-8). No other session's text was dropped.
+* **Mechanism reconciliation (findability).** b3ed16c4's F105 mechanism supersedes this pass's draft: every annex page carries `noindex,follow` with an absolute canonical, the root `robots.txt`/`sitemap.xml` are the only authoritative copies, and `verify.py` check 4b plus `AnnexBoundaryTests` enforce it. This pass's draft `robots.txt` Disallow lines were **withdrawn** during integration because a robots.txt block hides the noindex directive it would stand in for (RFC 9309 / Google's robots documentation, S46/S47). The one-site-to-index outcome is theirs; this pass keeps the complementary rules (workspace pages crawlable-noindex, distinct per-page titles/descriptions) and **extends the annex boundary to the legacy `docs/` tree**, which neither pass had covered.
+* What survives from this pass: the S-04…S-25 + Priority 4/5 register rows and the H-group render fix, the S-04 distinctness guard, the S-19 compare chooser, the new trade-off guide (TP-27), Q-42, and the extended annex boundary. Everything else on this branch after the merge is main's work, preserved as committed.

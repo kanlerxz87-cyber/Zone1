@@ -133,7 +133,7 @@ class AnnexBoundaryTests(unittest.TestCase):
     touches a published file.
     """
 
-    ANNEX = ("site", "dashboard", "research", "s2", "annex-88769516", "session-3740f69d")
+    ANNEX = ("site", "dashboard", "research", "s2", "annex-88769516", "session-3740f69d", "docs")
 
     def test_every_annex_page_is_noindex(self):
         for tree in self.ANNEX:

@@ -6707,7 +6707,7 @@
    "implementation": {
     "state": "implemented",
     "on": "2026-11-19",
-    "note": "The publication redesign applies to the canonical root build only. Historical source generators remain unchanged and are catalogued as earlier builds.",
+    "note": "Option A, in the mechanism that survives crawler behaviour. The publication redesign applies to the canonical root build only (PUB-1). The one-site-to-index boundary ships as noindex,follow on every annex page behind one root-authoritative robots.txt and sitemap.xml (F105, arena/b3ed16c4); arena/ef659798 extended that boundary to the legacy docs/ tree and kept workspace pages crawlable-noindex. An earlier draft that Disallowed the annex trees in robots.txt was withdrawn during integration: a robots.txt block hides the very noindex directive it would be standing in for. Annex banner wording remains the annexes' own files.",
     "evidence": [
      {
       "label": "PUB-1 scoped verification and boundary record",
@@ -6716,6 +6716,10 @@
      {
       "label": "Current publication data",
       "url": "data/publication.json"
+     },
+     {
+      "label": "X-ef659798 verification and boundary record",
+      "url": "reports/verification-2026-11-19-ef659798.md"
      }
     ]
    },

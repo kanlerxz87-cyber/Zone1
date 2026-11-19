@@ -4086,10 +4086,103 @@
           ]
         }
       ]
+    },
+    {
+      "slug": "cleanup-and-counter-space-trade-offs",
+      "kind": "Decision guide",
+      "cluster": "choose",
+      "kicker": "Decision guide",
+      "title": "How to assess cleanup and counter-space trade-offs",
+      "standfirst": "A small kitchen gives an air fryer two budgets: the counter it may occupy and the cleanup someone will actually keep. Here is how to weigh both from the documents, before the feature list decides for you.",
+      "target_query": "air fryer cleanup and counter space trade off",
+      "intent": "Commercial investigation",
+      "reading_minutes": 3,
+      "products": [
+        "chefman-6qt-dual-basket",
+        "chefman-8qt-turbofry",
+        "emeril-26qt-french-door"
+      ],
+      "sections": [
+        {
+          "h": "Two budgets, not one score",
+          "paras": [
+            "A kitchen gives an air fryer two budgets at once: the counter and clearance it may occupy, and the cleanup routine someone will actually keep. A format that is easy on one can be demanding on the other, so the useful question is which budget is tighter where you live — not which machine has the biggest number on the box.",
+            "This guide shows how to assess both budgets from what the manufacturers publish. It does not rank the three formats. No cleanup was timed and no food capacity was measured here."
+          ],
+          "cite": [
+            "S18",
+            "S13",
+            "S15"
+          ]
+        },
+        {
+          "h": "What the counter budget includes",
+          "paras": [
+            "Start with the published body size, then add the operating space the manual requires. The dual-window Chefman is listed at {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}}. The 8-quart Chefman’s combined row is {{8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg}}. The Emeril page lists {{16.9 D × 15.8 W × 14.8 H in}}.",
+            "Clearance rules are model-specific. The 8-quart Chefman manual calls for at least 6 inches above and behind the unit. The Emeril manual calls for at least 5 inches above, behind and at the sides, and says not to use the appliance under hanging cabinets. Neither rule transfers to another model; read the exact manual for the unit you would receive. Allow for pulling a basket out or opening the doors, and for reaching the outlet."
+          ],
+          "cite": [
+            "S10",
+            "S12",
+            "S14",
+            "S13",
+            "S15"
+          ]
+        },
+        {
+          "h": "What the cleanup budget includes",
+          "paras": [
+            "The two Chefman manuals permit their removable baskets and racks on the top rack of a dishwasher and also describe washing them with warm, soapy water. The Emeril manual recommends hand-washing its accessories and soaking caked-on food in warm, soapy water. That is a different routine, not a variation of the same one.",
+            "None of the three manuals permits immersing or dishwashing the main appliance. Both Chefman manuals also warn against aerosol cooking spray on the nonstick parts and distinguish it from a non-aerosol oil mister — a care rule to weigh alongside anything a listing calls dishwasher-safe."
+          ],
+          "cite": [
+            "S18",
+            "S13",
+            "S15"
+          ]
+        },
+        {
+          "h": "How to weigh the two budgets against each other",
+          "paras": [
+            "Write down where the machine would live, including the clearance its own manual requires, and who would wash the removable parts after dinner, and with what. If counter space is the tighter budget, shortlist by footprint and clearance first. If cleanup is tighter, shortlist by the documented care routine first. Then compare what is left side by side.",
+            "Do not compare 6 quarts and 26 quarts as though capacity settled the trade-off: one figure is a total split between two baskets, the other is an oven cavity. The capacity checklist goes deeper on what fits, and the counter-space guide on what fits where; this page is the place those two questions meet. The final check is always the exact model — the documents disagree in places this publication shows rather than smooths over."
+          ],
+          "cite": [
+            "S18",
+            "S13",
+            "S15",
+            "S10",
+            "S12",
+            "S14"
+          ]
+        }
+      ],
+      "closing_note": "Documentation-based guidance, not a hands-on test. No cleanup was timed and no food capacity was measured. Match the exact model and read the full current instructions before buying or using it.",
+      "published_at": null,
+      "modified_at": "2026-11-19T11:02:32Z",
+      "source_checks": [
+        {
+          "on": "2026-11-19",
+          "ids": [
+            "S10",
+            "S12",
+            "S13",
+            "S14",
+            "S15",
+            "S18"
+          ],
+          "session": "arena/ef659798-zone1",
+          "scope": "Named official sections used to write this new guide: published dimensions and care wording from the two Chefman product pages and owner's manuals and the Emeril product page and owner's manual; not a complete source-register re-read."
+        }
+      ],
+      "source_check_history": [],
+      "parallel_revision_history": [],
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     }
   ],
   "updated": "2026-11-19",
-  "editorial_updated_at": "2026-11-19T07:04:09Z",
+  "editorial_updated_at": "2026-11-19T11:02:32Z",
   "publication_date_policy": "First-publication timestamps are not established; published_at remains null. modified_at is the actual revision timestamp; source_checks are separately scoped.",
   "source_check_policy": "source_checks lists only the selected official documents read on that date. Earlier listing/cross-reference evidence retains its own source-register dates. A source check is not a complete product or legal compliance certification.",
   "editorial_revision_note_2026_11_19": "All 24 existing canonical guides were read as prose and substantially revised within named official-source scopes. Unsupported serving/performance, full-cycle-temperature, durability, electrical/energy, model-resolution and nutrition-regulatory inferences were removed; oil-care, disclosure-placement and permission wording were corrected. Exact pre-change text remains in Git. This is not a full-register or full-document re-verification."

@@ -627,6 +627,15 @@ def is_indexable_page(page_rel):
     )
 
 
+# The parallel builds kept in this repository for the evidence record (see
+# previous-passes.html) are kept out of the index by their own noindex metas plus the
+# root-authoritative robots.txt — the annex boundary recorded as F105 (arena/b3ed16c4).
+# Deliberately NOT done here: Disallow rules for those trees. A robots.txt block hides a
+# page's noindex directive from the crawler that would read it (RFC 9309; Google's robots
+# documentation), so blocking them would undo the boundary. Workspace pages are crawlable
+# for the same reason: their noindex metas must remain readable.
+
+
 def analytics_page_type(page_rel):
     if page_rel == "articles/index.html":
         return "listing"
@@ -2644,6 +2653,8 @@ def page_compare():
     rows.append('<tr><th scope="row">Care instructions</th>'+''.join('<td>'+e(text)+'<div class="tiny">'+src_links(ids)+'</div></td>' for text,ids in care)+'</tr>')
     rows.append('<tr><th scope="row">Check before buying</th>'+''.join('<td>'+e(BUYING_BY_SLUG[p['slug']]['check'])+'<div class="tiny">'+src_links(BUYING_BY_SLUG[p['slug']]['check_sources'])+'</div></td>' for p in ordered)+'</tr>')
     body=f"""<p class="crumbs"><a href="index.html">Home</a> / Compare</p><p class="section-eyebrow">The useful details, together</p><h1>Three formats. Side by side.</h1><p class="lede">Compare the space, capacity and care each documented model asks of you. No winner, no invented performance score—and no assumption that a submitted link is the intended listing.</p>{publication_byline()}
+<nav class="browse-strip" aria-label="Which one is for you"><span>Which one is for you?</span><a href="products/chefman-6qt-dual-basket.html">Two dishes with different settings?</a><a href="products/chefman-8qt-turbofry.html">One batch at a single setting?</a><a href="products/emeril-26qt-french-door.html">Oven layout and a documented rotisserie?</a></nav>
+<p class="tablewrap-hint">Each answer opens that format’s documented page—not a verdict. The table below keeps every detail and its official source.</p>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Air-fryer comparison, scroll horizontally on a small screen"><table class="comparison-table"><caption>Documented model comparison — not a test or a ranking</caption><thead><tr><th scope="col">What to compare</th>{head}</tr></thead><tbody>{''.join(rows)}</tbody></table></div><p class="tablewrap-hint">Scroll sideways for every model and its official sources.</p>
 <p class="small muted">The dual-basket 450 °F maximum is a two-minute Hi-Fry boost, not an unrestricted cook setting. {src_link('S18')} The 8 Qt brand-model range conflicts with the listing title’s 450 °F claim. {src_links(['S12','S29'])} Read the manual for the exact unit you would receive.</p>
 <h2>What matters for your meals?</h2><div class="grid grid-3">{''.join(product_card(p) for p in ordered)}</div>
@@ -5119,6 +5130,14 @@ REQ_GROUPS = [
     ("E", "Publishing, affiliate links and measurement"),
     ("F", "Compliance and disclosure"),
     ("G", "The automation platform"),
+    # H rows (the link record and honest counts) were added to data/requirements.json
+    # without a group entry here, so the register page silently dropped them from its
+    # tables while the header tiles still counted them (found 2026-11-19, arena/ef659798).
+    ("H", "The link record and honest published counts"),
+    # S rows are the specification rows the brief quotes verbatim (S-04…S-25 plus the
+    # Priority 4 and Priority 5 blocks). They are tracked here with the status judged
+    # against this repository, so the brief's own table can be checked line by line.
+    ("S", "Specification rows quoted in the brief"),
 ]
 
 
@@ -7156,6 +7175,27 @@ def check_seo_metadata(pages):
                 problems.append(f"{rel}: structured data is not valid JSON ({exc})")
         if 'name="description"' not in html_text:
             problems.append(f"{rel}: missing meta description")
+    # S-04 asks every page to carry its *own* title and meta description. Presence was
+    # enforced above; distinctness was not checked anywhere, so two pages could share a
+    # description and no gate would notice (found 2026-11-19, arena/ef659798).
+    for what, pattern in (
+        ("title", re.compile(r"<title>(.*?)</title>", re.S)),
+        ("meta description", re.compile(r'<meta name="description" content="(.*?)"')),
+    ):
+        seen = {}
+        for rel in sorted(pages):
+            html_text = pages[rel]
+            if not rel.endswith(".html") or rel == "404.html":
+                continue
+            m = pattern.search(html_text)
+            if not m:
+                continue
+            text = m.group(1).strip()
+            if text in seen:
+                problems.append(
+                    f"{rel}: {what} duplicates {seen[text]} — every page needs its own {what}")
+            else:
+                seen[text] = rel
     return problems
 
 
@@ -7551,8 +7591,12 @@ def main():
     # ---- SEO plumbing: one canonical buyer publication ---------------------
     # The root sitemap contains only buyer-facing publication pages. Owner workspaces,
     # verification registers, dashboards and the 404 page remain reachable by direct
-    # navigation but are noindex and excluded. The separate historical annexes are not
-    # generated into this sitemap.
+    # navigation but are noindex and excluded. The parallel annex builds are kept out of
+    # the index by their own noindex metas (F105, arena/b3ed16c4), enforced by verify.py
+    # check 4b; this root robots.txt stays the single authoritative copy (RFC 9309 §2.3)
+    # and carries no Disallow rules, because a robots.txt block would hide the very
+    # noindex directives the annex boundary relies on. Workspace pages stay crawlable so
+    # their noindex meta can be read.
     base = "https://kanlerxz87-cyber.github.io/Zone1/"
     indexable = sorted(rel for rel in pages if is_indexable_page(rel))
     (ROOT / "robots.txt").write_text(

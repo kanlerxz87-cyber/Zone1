@@ -221,7 +221,7 @@ for page in pages():
 #     other than the root, while Google's own documentation tells a publisher to submit
 #     the sitemap through Search Console or the robots.txt Sitemap line. The result was
 #     six uncovered trees and no way to tell which one a crawler was asked to rank.
-ANNEX_TREES = ("site", "dashboard", "research", "s2", "annex-88769516", "session-3740f69d")
+ANNEX_TREES = ("site", "dashboard", "research", "s2", "annex-88769516", "session-3740f69d", "docs")
 for _tree in ANNEX_TREES:
     _root = ROOT / _tree
     for _f in sorted(_root.rglob("*.html")):
