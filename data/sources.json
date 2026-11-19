@@ -978,6 +978,30 @@
     "deliberately_not_used": "Prices, star ratings, review counts and 'customers also viewed' items visible on the live Amazon pages were seen and not recorded, per S2 participation requirements on price/review display. No Associates Central, enrolled-link-test, Search Console or campaign data exists in this pass; none is claimed.",
     "report": "reports/verification-2026-11-19-6ace936d.md"
   },
+  "reverified_2026_11_19_e9e5ab06": {
+    "session": "arena/e9e5ab06-zone1",
+    "date": "2026-11-19",
+    "method": "server-side fetch (fetch_page) of each URL below; every value was read from the live response body in this session, not copied from an earlier session's record",
+    "read": [
+      "S1",
+      "S2",
+      "S8",
+      "S10",
+      "S12",
+      "S14",
+      "S16",
+      "S17"
+    ],
+    "observations": {
+      "policy_sources": "S1 direct fetch: heading reads 'Updated: October 15, 2025' — unchanged. S2 direct fetch: heading reads 'Updated: April 14, 2026.' — unchanged. S8 direct fetch: page dated November 2019; 'Place it so it's hard to miss' and 'You can't talk about your experience with a product you haven't tried' re-read verbatim.",
+      "brand_sources": "S10 Specifications block re-read verbatim: 'Capacity 6 Qt / 5.67 L', '200–450°F / 95º-235ºC temperature range', 'Dimensions 13.38 in x 11.81 in x 10.63 in', 'Weight 13.3 lbs / 6.03 kg', 'Power 1700W/120V', 'Model Number RJ38-SQPF-3TDB-2W'; widget counter read 1,312 reviews (matches the as_of 2026-11-19 snapshot in data/products.json). S12 Specifications block re-read verbatim: 'Capacity 5 Qt or 8 Qt / 4.73 L or 7.57 L', '200–400°F', '(8 Qt Model) 15.4 in x 12.6 in x 13.5 in', 'Weight (8 Qt Model) 12.8 lbs / 5.8 kg', 'Model Number RJ38-SQSS-8T', 'Max temp: 400ºF/ 205ºC' — the F3 conflict with the 450°F listing title remains live; widget counter read 719 reviews (matches the as_of 2026-11-19 snapshot). S14 spec icons re-read: 26-Quart Capacity, 25 Cooking Pre-sets, 16.9\"D x 15.8\"W x 14.8\"H, 24.6 Liters, 120 volts; price $199.99; SKU 4-00675-02A-VN; body copy '10-in-1' and the 11-in-1 image asset both still present (four-way preset conflict open). Widget counter read 2.6 with 26 reviews on two separate fetches — one more than the 25 recorded through 2026-11-17, so data/products.json was corrected to a dated 26-review snapshot with the 25-review value preserved in history.",
+      "short_links": "All five link.amazon tokens re-fetched live in this session. B0c8moW59 reproduced its recorded landing (/dp/B0DHZTCNR5, ThermoMaven title matches PI-04). The other four (B04G1MEwY twice, B02NbDxp3, B00hJ57DV, B0f3GKalj) landed on the generic https://www.amazon.com/ homepage in this session's reads, not on the detail pages recorded earlier the same day. A direct control fetch of https://www.amazon.com/dp/B0CDY277D3 succeeded and returned the recorded title and Air Fryers breadcrumb. This is unstable fallback behaviour of the fetch path on this date; it neither confirms nor denies link validity, product identity or Associates attribution, and no stored observation was changed.",
+      "structural_checks": "All 37 sitemap pages: disclosure bar between masthead and <main>, footer disclosure present, every www.amazon.com and link.amazon product anchor carries rel=sponsored, unique <title> and meta description, canonical present. Live Pages status 'built' from main; main CI runs green."
+    },
+    "not_read_by_this_pass": "S3-S7, S9, S11, S13, S15, S18-S27, S28-S47 beyond the structural link check. Nothing about them is restated as current here.",
+    "deliberately_not_used": "Prices, star ratings and review counts visible on live Amazon pages were seen and not recorded, per S2 participation requirements. No Associates Central, enrolled-link-test, Search Console or campaign data exists in this pass; none is claimed.",
+    "report": "reports/verification-2026-11-19-e9e5ab06.md"
+  },
   "scoped_review_2026_11_19": {
     "session": "arena/1f9e7d52-zone1",
     "report": "reports/verification-2026-11-19-1f9e7d52.md",
