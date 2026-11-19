@@ -6169,3 +6169,32 @@ The Pages API currently reports **legacy branch publishing** as well as successf
 workflows; final release must select workflow publishing so the verified staged artifact,
 not a parallel whole-checkout build, is the authoritative deployment. That setting and the
 actual PR/merge/Actions/live receipts will be recorded after they happen.
+
+### Rebase completed — arena/53d18637 integration on `cb33d97`
+
+The claim became `fb0684f` and implementation became `e47afb0` on this branch; the initial
+unrebased checkpoint was `3f095e5`. Main's F90–F95 findings/repository evidence, SG-49/50,
+Q-41, four-row decision brief, SG-04/SG-27 action records, source-read record and observed
+browse breadcrumbs were all preserved. JSON records were merged by stable IDs/fields;
+the only same-field resolution was Q-40's sources, keeping the fresh W3C answer **and**
+repairing the named flag anchor. No independent archival source file was modified.
+
+Main's requirement-file-only guard and browse-path category count were retained verbatim.
+Its flag-label/anchor check remains a build gate. The dashboard-coverage guard was adapted
+to the new native Workspace menu/footer index, preserving the prior DESK_NAV inventory;
+negative tests reject both an orphaned dashboard and a mismatched flag link. Tests that
+asserted the superseded sidebar label and three live purchase buttons now assert one
+complete group/footer and **gated** unconfirmed purchase CTAs instead. Main's price-clause
+regression test is retained on the product pricing notes, where the snapshot/policy text
+now lives. Product verdict summaries no longer repeat a stale review count, claim a
+common consumer complaint or choose a convenient preset paragraph over a documented conflict.
+
+**Post-rebase results:** full local gates pass: 40 canonical Python tests + 8 Node client
+tests + 33 engine tests; 69 generated artifacts unchanged across the pre-build snapshot;
+verify.py 137 pages/77 spec rows/48 sources/0 warnings/0 errors; 12,273 inherited links;
+staged public artifact 320 files, 59 canonical HTML + 78 archive HTML, exactly 36 indexable
+HTML URLs matching the sitemap. Real local HTTPS browser checks repeated successfully:
+232 reflow/disclosure/image checks, 10 representative zero-violation scoped axe scans,
+keyboard/no-JS/print checks, four browser event types received only in temporary SQLite,
+zero external requests/JS errors. The production switches, intent fields and ledger remain
+unchanged/off/null/empty. Persistent collection and account attribution are not deployed.
