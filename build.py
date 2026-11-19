@@ -2473,7 +2473,24 @@ PROGRAMME_FLAGS = [('F1',
   'Editorial/implementation rows now link their authoritative repository record. Coverage and link identity '
   'are machine-checked; whether a source supports arbitrary prose still requires an actual scoped read. SG-48 '
   'records that boundary.',
-  ['S2'])]
+  ['S2']),
+ ('F103',
+  'Found 2026-11-19: public historical builds in the Pages artifact publish Amazon product links without '
+  'rel="sponsored" and describe the supplied short-link tokens as "invalid".',
+  'Pages artifact (.github/workflows/pages.yml uploads the whole repository root); s2/pages/products.html; '
+  'dashboard/, research/, site/, annex-88769516/, session-3740f69d/',
+  'Checked 2026-11-19. The Pages workflow uploads the repository root, and a live read of '
+  'https://kanlerxz87-cyber.github.io/Zone1/s2/pages/products.html returned the historical page. That page '
+  'labels each supplied token "invalid" because it has 9 characters. This site does not draw that conclusion: '
+  'token length does not establish that a link is invalid, and the brief forbids the claim. A static scan of the '
+  'published HTML found product-type Amazon anchors without a sponsored token in s2 (68 of 68), '
+  'session-3740f69d (118 of 118), annex-88769516 (9 of 9), dashboard (47 of 56), research (43 of 55) and site '
+  '(20 of 26). The canonical root has 8 such anchors, all the deliberate nonsense-token resolver control '
+  'ZZZ9ZZZZZ, which build.py does not classify as a product link; its other 235 product anchors are qualified. '
+  'No change was made in this pass: the historical generators are declared read-only, and their own '
+  'reproducibility gates compare committed HTML.',
+  ['S1', 'S2', 'S31', 'S38']),
+ ]
 
 REPO_EVIDENCE = {'F80': ['data/product-intent.json', 'product-intent.html', 'session-58cbaaa2/artifacts/README.md'],
  'F81': ['product-intent.html', 'data/product-intent.json', 'reports/verification-2026-11-17-58cbaaa2.md'],
@@ -2581,13 +2598,12 @@ REPO_EVIDENCE = {'F80': ['data/product-intent.json', 'product-intent.html', 'ses
           'tests/test_analytics.py'],
  'F101': ['reports/verification-2026-11-19-1f9e7d52.md', 'build.py'],
  'F102': ['reports/verification-2026-11-19-1f9e7d52.md', 'build.py', 'tests/test_publication.py'],
- 'F102': ['reports/verification-2026-11-19-1f9e7d52.md', 'build.py', 'tests/test_publication.py'],
- 'F107': ['data/compliance.json', 'reports/verification-2026-11-19-0c5c10d0.md', 'data/sources.json'],
- 'F103': ['data/topics.json', 'articles/probe-in-an-air-fryer.html', 'reports/verification-2026-11-19-0c5c10d0.md'],
- 'F104': ['reports/verification-2026-11-19-0c5c10d0.md', 'articles/extension-cord-rules-in-the-manuals.html'],
- 'F105': ['articles/probe-in-an-air-fryer.html', 'reports/verification-2026-11-19-0c5c10d0.md'],
- 'F106': ['reports/verification-2026-11-19-0c5c10d0.md', 'data/topics.json']}
-
+ 'F103': ['reports/verification-2026-11-19-1970a80b.md', 'build.py', '.github/workflows/pages.yml'],
+ 'F104': ['data/topics.json', 'articles/probe-in-an-air-fryer.html', 'reports/verification-2026-11-19-0c5c10d0.md'],
+ 'F105': ['reports/verification-2026-11-19-0c5c10d0.md', 'articles/extension-cord-rules-in-the-manuals.html'],
+ 'F106': ['articles/probe-in-an-air-fryer.html', 'reports/verification-2026-11-19-0c5c10d0.md'],
+ 'F107': ['reports/verification-2026-11-19-0c5c10d0.md', 'data/topics.json'],
+ 'F108': ['data/compliance.json', 'reports/verification-2026-11-19-0c5c10d0.md', 'data/sources.json']}
 VERDICTS = {
     "chefman-6qt-dual-basket":
         "The published specification set is the most complete of the three: capacity, temperature range, dimensions, weight, power draw, safety approval and warranty are all stated by the manufacturer. Two independently controlled baskets with a Sync Finish function and a 450 °F ceiling address the main real-world complaint about single-basket air fryers — that you cannot cook two things at different temperatures at once. The one number a shopper most wants, cost per quart, cannot be computed here because the Amazon price is not available to this site by policy; the brand list price of $119.99 for 6 quarts is the only comparable figure that can be stated.",
@@ -2806,7 +2822,18 @@ def page_compliance():
 
 def page_flagged():
     # cross-product flags from products.json plus programme-level flags
-    prog_flags = PROGRAMME_FLAGS
+    #
+    # Sorted by numeric id on render. PROGRAMME_FLAGS is appended to by whichever pass raises a
+    # flag first, and on 2026-11-19 two sessions added rows at once: the register order became
+    # F101, F108, F104…F107, F102, F103. Renumbering the rows after the fact is the wrong fix —
+    # ids are cited from articles, topics and the question registers, so a renumber would chase
+    # references forever. Sorting at render keeps the published ids stable and the table readable.
+    # (2026-11-19, arena/0c5c10d0-zone1.)
+    def _flag_sort_key(row):
+        fid = str(row[0] or "")
+        return (0, int(fid[1:])) if re.fullmatch(r"F\d+", fid) else (1, 0)
+
+    prog_flags = sorted(PROGRAMME_FLAGS, key=_flag_sort_key)
     prod_flags = []
     for p in PRODUCT_LIST:
         for f in p["flags"]:

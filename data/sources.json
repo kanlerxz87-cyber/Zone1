@@ -934,6 +934,42 @@
     "not_read_by_this_pass": "S1 (the agreement's version stamp was not re-read; its §5 and §6 text was), S3-S7, S9-S15, S18-S27, S30, S31, S34, S38-S43. Nothing about them is restated as current here.",
     "deliberately_not_used": "Prices, star ratings, review counts and 'customers also viewed' items visible on the live Amazon pages were seen and not recorded, per S2 §2(b) and §6(t)."
   },
+  "reverified_2026_11_19_6ace936d": {
+    "session": "arena/6ace936d-zone1",
+    "date": "2026-11-19",
+    "method": "server-side fetch (fetch_page) of each URL below; every value was read from the live response body in this session, not copied from an earlier session's record",
+    "read": [
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S6",
+      "S8",
+      "S9",
+      "S10",
+      "S14",
+      "S16",
+      "S17",
+      "S28",
+      "S29",
+      "S31",
+      "S36",
+      "S37",
+      "S39",
+      "S40",
+      "S41"
+    ],
+    "observations": {
+      "short_links": "All five link.amazon tokens re-opened live: B04G1MEwY -> /dp/B0CDY277D3, B02NbDxp3 -> /dp/B09B7SB46R, B00hJ57DV -> /dp/B08DKYBTPH, B0c8moW59 -> /dp/B0DHZTCNR5, B0f3GKalj -> /dp/B0DZFD6R9Z. Targets and titles match PI-01..PI-05 exactly. Every landing URL carries plpRedirect=mhFallback and no visible tag= (a null observation per S41, not read in either direction). Breadcrumbs: the three air fryers -> Air Fryers (leaf 17659096011); the two thermometers -> Meat (leaf 289810), matching the recorded observed_browse_path values.",
+      "policy_sources": "S1 'Updated: October 15, 2025'; S2 'Updated: April 14, 2026'; S3 Table 1: Kitchen 4.50%, All Other Categories 4.00%; S4: at least 3 qualifying sales within 180 days, 10 posts, 60-day recency, 500 social followers, special tagged links (e.g. abcd-20); S5 verbatim required sentence 'As an Amazon Associate I earn from qualifying purchases.' plus clear-and-conspicuous link-level disclosure; S6 tracking IDs and 'Manage your Tracking ID'; S8 Disclosures 101 (dated November 2019) including 'You can't talk about your experience with a product you haven't tried.'; S9 16 CFR Part 255 up to date as of 11/17/2026 (the eCFR freshness date advanced from 11/12/2026 quoted on 2026-11-15; Part 255 content unchanged, §255.0-§255.6 present); S31 rel=\"sponsored\" guidance, page last updated 2025-12-10 UTC; S41 verbatim confirmation that the tracking ID need not appear in the URL because the shopping session is tagged on Amazon's side.",
+      "brand_sources": "S10 Chefman 6 Qt Dual-Window model RJ38-SQPF-3TDB-2W, 'Max temp: 450ºF/ 235ºC with Hi-Fry function'; S14 Emeril spec block: 26-Quart, 25 Cooking Pre-sets, 16.9D x 15.8W x 14.8H in, 24.6 Liters, 120 volts (the preset-count conflict with the 24-preset listing title remains open exactly as flagged; no value changed); S39 CHEF iQ iQ Sense: current default one-probe CQ60-1C-Z1-E with 1-4 probe options, 1000F heat rating, air fryer named among compatible environments; S40 ThermoMaven: catalogue leads F1 Turbo (0.5s instant read), '1 Sec' is not a brand model name.",
+      "structural_checks": "All outbound amazon.com links on canonical pages carry rel=\"sponsored nofollow noopener\" (310 links, 0 unqualified). The Associate disclosure sits above <main> on every checked page type and repeats in the footer. Unique titles and meta descriptions on all checked pages. JSON-LD on 35 canonical pages. sitemap.xml 36 URLs, feed.xml 24 items. The five measurement events are defined and production analytics stays off; the campaign ledger stays empty; product-intent intent fields stay blank and separate from the observed fields. Build byte-reproducible; verify.py 136 pages / 77 spec rows / 45 sources / 0 errors; full ci-check.sh green (11,297 links)."
+    },
+    "not_read_by_this_pass": "S7, S11-S13, S15, S18-S27, S30, S32-S35, S38, S42-S45. Nothing about them is restated as current here.",
+    "deliberately_not_used": "Prices, star ratings, review counts and 'customers also viewed' items visible on the live Amazon pages were seen and not recorded, per S2 participation requirements on price/review display. No Associates Central, enrolled-link-test, Search Console or campaign data exists in this pass; none is claimed.",
+    "report": "reports/verification-2026-11-19-6ace936d.md"
+  },
   "scoped_review_2026_11_19": {
     "session": "arena/1f9e7d52-zone1",
     "report": "reports/verification-2026-11-19-1f9e7d52.md",

@@ -41,6 +41,7 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 | T18 | Final integration: re-verify combined data, build with no broken links, PR → merge → Pages verify → record | done | 3b99448e | whole tree (integration, last) |
 | U1 | **Final integration pass (arena/88bb2db6-zone1)** — line-by-line repo review and defect repair; live re-verification of every official source in the root registry; editorial polish pass against the "must not read like AI slop" brief; rebuild with no broken links; PR → merge → confirm Pages deploy → record | done | arena/88bb2db6 (session 88bb2db6) | `COORDINATION.md`; `build.py` + `assets/style.css` + regenerated root HTML; `data/products.json`; `session-88bb2db6/pass9.json`; `scripts/build_site.py` + regenerated `site/`; `scripts/verify_site.py`; `verify.py`; `EXECUTIVE-SUMMARY.md`; whole tree at integration |
 
+| U2 | **Independent line-by-line review + live re-verification + final integration (arena/6ace936d-zone1)** — re-read the five supplied `link.amazon` links and 20 official sources live on 2026-11-19; structural checks of the generated site against the brief (sponsored-link coverage, disclosure placement, titles/meta, JSON-LD, sitemap/feed, five events, ledger, product-intent separation); full gate suite from a clean tree; PR → merge → confirm Pages deploy → record. No product, account or campaign data changed. | done | arena/6ace936d-zone1 (session 6ace936d) | `COORDINATION.md`; `reports/verification-2026-11-19-6ace936d.md`; `data/sources.json` (dated re-verification record only); whole tree at integration |
 | X-c334fb1c | **Independent live re-verification round 10 + record**: re-read the 3 `link.amazon` short links (final URL, ASIN, title), the Associates policy "Updated" date, and the live Pages landing page; run all gates; publish `reports/verification-2026-11-16.md`; flag any new irregularity. No product/site content changed. | done — 3 short links, S2 date, live landing page re-read; all gates green; no content edited; irregularities F3/F6 + Emeril preset conflict already flagged | arena/c334fb1c-zone1 (session c334fb1c) | `reports/verification-2026-11-16.md`, `COORDINATION.md` (this row + log) |
 ---
 | X-633b115f | Add two decision pages to the root build: **Suggestions** (site/design/conversion improvements with options, for the owner to choose before any change) and **Questions & information gaps** (what is known, what is missing, how to discover it, each row linked to an official source). Live re-check of the 3 `link.amazon` tokens and key official sources on 2026-11-15. | done | arena/633b115f (session 633b115f) | `build.py` (new `page_suggestions`, `page_questions`, NAV + pages dict), regenerated root HTML `suggestions.html`, `questions.html`, `robots.txt`, `sitemap.xml`, `COORDINATION.md` (this row + log) |
@@ -55,6 +56,7 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 | 2026-11-14T18:29Z | arena-6ecdb4e4 | **I8 claim (initially logged as "I6"; renumbered — see the I8 record):** independent line-by-line repo review + re-verification pass on branch `arena/6ecdb4e4-zone1` (base `5ed73c1`). File scope: `COORDINATION.md` (log entry), plus fixes to any gate/dataset/site file only if a gate fails. Runs all local gates, re-checks key facts against official sources, re-checks live Pages, then PR → merge → Pages confirm. |
 | 2026-11-15 | 3b99448e | Claimed T13–T18. T13 link re-review done (`session-3b99448e/link-review.md`): tokens are 9 chars ≠ 10-char ASINs (S23), `/dp/<token>` returns 404 (S21), short links resolve via `plpRedirect=mhFallback` to candidate ASINs but product identity is unconfirmed (S17/S16). T14 suggestions done (`session-3b99448e/suggestions.md`: design D-1…D-10, article topics A-1…A-10, traffic T-1…T-8, anti-slop rules, decision register R-1…R-6). T15 decision gate done (`session-3b99448e/decisions.md`: Q-1…Q-10 with known/missing/suggested-answer/discovery steps M-1…M-8). T16 done: EXECUTIVE-SUMMARY.md §14 appended. T17 done: root build already has landing page, category subpage, dashboard tables with per-row official sources; `build.py` regenerates `suggestions.html` (SG-01…SG-12) and `questions.html` (Q-01…Q-14) from PR #58, both in NAV and `sitemap.xml`. `python3 build.py` → 23 pages + robots.txt/sitemap.xml, exit 0. `python3 verify.py` → 104 pages checked, 0 errors; 43 spec rows (41 verified, 2 blank+flagged); 27 sources; 18 warnings all in `s2/` annex owned by another session. |
 
+| 2026-11-19 | arena/6ace936d-zone1 (session 6ace936d) | Claimed U2 after reading the board. Base `main` @ `2be3bea` (merge of PR #163). No task on the current board is unclaimed or in progress. Scope: verification report, a dated `reverified_2026_11_19_6ace936d` record in `data/sources.json`, and the board/log updates here. Generated HTML is unchanged by this pass (byte-reproducible rebuild confirmed). |
 ---
 
 ## Task board — arena/792c279e-zone1 (2026-11-15 UTC)
@@ -6220,6 +6222,82 @@ for its own pass (shared outputs: `index.html`, NAV in `build.py`).
 * **Remaining evidence gates are not fabricated:** shopnow047c-20 stays selected/unvalidated/unapplied; intended fields and per-product enrolled tests stay blank/false; production analytics stays off, endpoint blank, owner choices/campaign ledger empty; Search Console ownership/query data, real collector runtime/privacy/log approval, actual product-photo rights and manufacturer cord clarification remain unconfirmed. The cadence is a plan, not an unattended service. Nonblocking Node-action deprecation warnings are recorded, not claimed repaired. Full source scope, incidents and release proof: `reports/verification-2026-11-19-1f9e7d52.md`.
 * **Final public-read correction in receipt PR #163:** the live Flagged introduction still called all historical/repaired rows open, typed a hard-conflict count and repeated a most-likely model explanation. Replaced only that present-tense introduction/callout with computed recorded/source/blank/populated counts, a no-guessed-explanation model conflict and the explicit F96 safety boundary. Existing flag bodies/IDs/history remain unchanged. Added a negative regression (61 root tests). The receipt PR is therefore a narrow flag-introduction correction plus the release log, not documentation-only; no account/link/collector/campaign data changed.
 
+### Session arena/1970a80b-zone1 — verification pass and F103 (2026-11-19 UTC)
+
+* **Claim (single branch, per the session branch rule):** `arena/1970a80b-zone1`, from `main` `2be3bea`. Scope: repository and live-site re-verification; publish any new irregularity; no change to accounts, tracking IDs, analytics switches, the campaign ledger, product-intent confirmations or product data.
+* **Files touched:** `build.py` (F103 flag entry and evidence map), `flagged.html` (regenerated), `reports/verification-2026-11-19-1970a80b.md` (full record), this log entry.
+* **Gates on the branch (all pass):** build + verifier (136 pages, 77 rows, 45 sources, 0 errors, 0 external warnings); 61 canonical unit tests; 8 Node client tests; 33 platform tests; audit clean; research check; annex `--check` (16 files current); link check (11,304 links); `verify_site.py` all checks passed; deterministic rebuild. The Playwright browser suite is not run locally; CI runs it on the PR.
+* **Re-read today (2026-11-19):** the five submitted `link.amazon` short links (all final destinations match `data/product-intent.json` PI-01 to PI-05; intent fields stay blank); Associates Operating Agreement (Section 5 wording matches the site's disclosure); FTC *Disclosures 101* (placement guidance); Google *Qualify your outbound links* (`rel="sponsored"`); Zone3 FLG-003 (reachable; unresolved, not declared invalid); the live home page; the GitHub Pages API (`built`, `main` `/`).
+* **New irregularity, published as F103:** the Pages artifact uploads the whole repository root, so the historical folders are public. `s2/pages/products.html` calls the short-link tokens "invalid", and historical folders contain about 300 product-type Amazon anchors without `rel="sponsored"` (`s2` 68/68, `session-3740f69d` 118/118, `annex-88769516` 9/9, `dashboard` 47/56, `research` 43/55, `site` 20/26). The canonical root qualifies 310 of its 318 product anchors; the other 8 are the deliberate `ZZZ9ZZZZZ` resolver control. **Owner decision:** unpublish the historical folders or approve a scoped change to their generators. No change to those generators was made.
+* **Cross-repository wording difference, flagged not resolved:** Zone3 FLG-001 calls the three identifiers "not 10-character ASINs" (critical); Zone1 records them as tokens, "not asserted to be ASINs". Neither declares the links invalid. Owner to choose a shared wording.
+* **Still blocked, not fabricated:** Search Console ownership; production analytics host and privacy/logging approval (`enabled: false`, `endpoint_deployed: false`); enrolled Associates tests and any `shopnow047c-20` application; intended listings for each link; photo rights (S-18); named editor and cadence confirmation. The campaign ledger stays at zero rows.
+* **Pull request and merge:** recorded in the entry below once `gh pr merge` has run and the Pages deployment has been confirmed.
+
+---
+
+## U2 completion record — arena/6ace936d-zone1 (2026-11-19 UTC)
+
+**Status: done** (verification, gates, PR, merge and Pages confirmation are recorded below after the merge completes).
+
+**What this pass did.** An independent line-by-line review of the repository plus a live re-verification of the official
+sources behind the published values, performed entirely with server-side fetches on 2026-11-19 (the sandbox shell has no
+direct egress to non-GitHub hosts; this is a transport note, not a finding). No product, account, link-test or campaign
+data was changed.
+
+**Live re-verification performed (2026-11-19, this session):**
+
+- **The five supplied links, re-opened live** — `B04G1MEwY → /dp/B0CDY277D3`, `B02NbDxp3 → /dp/B09B7SB46R`,
+  `B00hJ57DV → /dp/B08DKYBTPH`, `B0c8moW59 → /dp/B0DHZTCNR5`, `B0f3GKalj → /dp/B0DZFD6R9Z`. Targets, titles and
+  browse-path breadcrumbs match `data/product-intent.json` PI-01..PI-05 exactly; every landing URL still carries
+  `plpRedirect=mhFallback` and no visible `tag=` (a null observation per S41, not read in either direction).
+- **20 official sources re-read live** — S1 (Agreement, "Updated: October 15, 2025"), S2 (Policies, "Updated: April 14, 2026"),
+  S3 (Commission Income Statement: Kitchen 4.50%, All Other 4.00%), S4 (Application Review: 3 sales/180 days, 10 posts,
+  60-day recency, 500 followers, tagged links), S5 (required Associate sentence, verbatim), S6 (tracking IDs), S8
+  (FTC Disclosures 101), S9 (16 CFR 255, §255.0–§255.6), S10 (Chefman 6 Qt Dual-Window, RJ38-SQPF-3TDB-2W, 450 °F Hi-Fry),
+  S14 (Emeril 26 Qt, 16.9D×15.8W×14.8H in, 24.6 L, 120 V, 25 pre-sets), S16/S28/S29/S36/S37 (the five observed listings),
+  S31 (Google `rel="sponsored"` guidance), S39 (CHEF iQ iQ Sense catalogue), S40 (ThermoMaven catalogue), S41 (tag/attribution
+  correction, verbatim). Full evidence table: `reports/verification-2026-11-19-6ace936d.md`; machine record:
+  `data/sources.json` → `reverified_2026_11_19_6ace936d`.
+- **Structural checks of the generated site** — all 310 outbound `amazon.com` links on canonical pages carry
+  `rel="sponsored nofollow noopener"` (0 unqualified); the Associate disclosure sits above `<main>` on every checked page
+  type and repeats in the footer; unique title + meta description on all checked pages; JSON-LD on 35 canonical pages;
+  sitemap.xml 36 URLs / feed.xml 24 items; the five measurement events are defined with production analytics off; the
+  campaign ledger is empty by design; product-intent intent fields remain blank and separate from observed fields.
+
+**Gates from a clean tree:** `python3 build.py` byte-reproducible; `python3 verify.py` 136 pages / 77 spec rows
+(75 verified, 2 blank+flagged) / 45 sources / 0 errors / 0 external warnings; `bash scripts/ci-check.sh` fully green
+(Python publication tests, 8 Node client-contract tests, 33 engine unit tests, data audit clean, s2 build check,
+11,297-link check).
+
+**Notes, not defects:** the eCFR freshness date advanced 11/12/2026 → 11/17/2026 (Part 255 content unchanged); the
+ThermoMaven homepage leads F1 Turbo today while the 2026-11-17 record's "F1 Pro and F1 Turbo" wording stands as a record
+of that date — the PI-04 verdict (not reconciled; intended product stays null) is unchanged. **Not verified, and not
+claimed:** Associates Central account state, tracking ID `shopnow047c-20` existence, enrolled per-product link tests,
+production analytics runtime, Search Console ownership, product-photography rights.
+
+**Merge and deployment:** [PR #169](https://github.com/kanlerxz87-cyber/Zone1/pull/169) merged with
+`gh pr merge 169 --merge` as **`0b05b058f95c19fdfbea4b262cb0c2a721ccea4d`** at **2026-11-19T10:57:10Z**.
+The merge landed on `main` (`origin/main` = `0b05b05`). GitHub Pages: source `main`, path `/`,
+status **`built`** (deployment confirmed via the Pages API after the merge; polled from `building`
+to `built`). Actual public retrieval after deployment: the live home page serves the canonical
+publication with the masthead disclosure, product cards with per-row official source links and the
+product-intent pointer; the new report is live at
+`https://kanlerxz87-cyber.github.io/Zone1/reports/verification-2026-11-19-6ace936d.md`. This is
+actual public content read back, separately identified from local/CI gate runs.
+Rebase incident: the pre-push rebase onto updated `main` (which had gained the arena/1970a80b-zone1
+F103 record) met a content conflict in `COORDINATION.md` because both passes appended dated sections
+at end-of-file; it was resolved keeping both sections, and the rebase completed cleanly
+(`Successfully rebased and updated refs/heads/arena/6ace936d-zone1`). No session history was
+discarded or rewritten. Gates re-run on the rebased tree before the push: `build.py` byte-reproducible,
+`verify.py` 136 pages / 77 spec rows / 45 sources / 0 errors, full `ci-check.sh` green
+(11,304-link check). This receipt is a coordination/release record; no product facts, source values,
+tracking state or account-only decisions were changed by it.
+
+**Rebase conflict, resolved without discarding work:** rebasing this commit onto updated `main` (which had gained the arena/1970a80b-zone1 F103 record) met a content conflict in `COORDINATION.md` because both passes appended dated sections at end-of-file. Both sections were kept: the merged arena/1970a80b record above and this U2 record below. No session history was discarded or rewritten.
+
+
+---
+
 ---
 
 ## Task board — arena/0c5c10d0-zone1 (2026-11-19 UTC) — pass 15: two cadence guides, dated source re-read, decision-desk additions
@@ -6229,15 +6307,22 @@ for its own pass (shared outputs: `index.html`, NAV in `build.py`).
 
 | # | Task | Status | Owner (session) | File scope |
 |---|------|--------|-----------------|------------|
-| P15-1 | Dated live re-read of the sources the reader copy depends on: the five `link.amazon` strings, Associates Program Policies + Operating Agreement, commission table, FTC Endorsement Guides / 16 CFR 255, brand product pages and owner's-manual PDFs. New irregularities → flag register. | in progress | arena/0c5c10d0-zone1 | `data/sources.json` (dated stamp only), `reports/verification-2026-11-19-0c5c10d0.md`, `data/flags.json` + `build.py` (`PROGRAMME_FLAGS` rows) if a new flag is found |
-| P15-2 | Publish two `proposed` topics from the editorial cadence register with documents re-read for this pass: TP-19 (first-week setup and care after a gift) and TP-22 (probe in an air fryer — what the manuals actually say). Each new guide enters the article index, sitemap and feed by the existing pipeline. | in progress | arena/0c5c10d0-zone1 | `data/articles.json`, `data/topics.json` (status of the two rows), generated `articles/*.html`, `articles/index.html`, `sitemap.xml`, `feed.xml` |
-| P15-3 | Decision desk: new suggestions for the shop-quality design brief and the information that must exist before each decision, with discovery steps. | in progress | arena/0c5c10d0-zone1 | `data/suggestions.json`, `data/questions.json`, `data/requirements.json` (B-07 row text only), `build.py` (`page_suggestions`/`page_questions` only if a guard needs it) |
-| P15-4 | Executive summary: pass-15 section. | pending | arena/0c5c10d0-zone1 | `EXECUTIVE-SUMMARY.md`, `executive-summary.html` |
-| P15-5 | Review open PR #159 against `main` and record a disposition (no merge, no close — that is an owner action, see Q-41). | pending | arena/0c5c10d0-zone1 | `COORDINATION.md` (this section) |
-| P15-6 | Integration: rebuild, all gates, PR → merge → confirm Pages deploy → record. | pending | arena/0c5c10d0-zone1 | whole tree (integration, last) |
+| P15-1 | Dated live re-read of the sources the reader copy depends on: the five `link.amazon` strings, Associates Program Policies + Operating Agreement, commission table, FTC Endorsement Guides / 16 CFR 255, brand product pages and owner's-manual PDFs. New irregularities → flag register. | done | arena/0c5c10d0-zone1 | `data/sources.json` (dated stamp only), `reports/verification-2026-11-19-0c5c10d0.md`, `data/flags.json` + `build.py` (`PROGRAMME_FLAGS` rows) if a new flag is found |
+| P15-2 | Publish a `proposed` topic (one guide per fortnight — the cadence rule; TP-19 held, see claim log) from the editorial cadence register with documents re-read for this pass: TP-19 (first-week setup and care after a gift) and TP-22 (probe in an air fryer — what the manuals actually say). Each new guide enters the article index, sitemap and feed by the existing pipeline. | done | arena/0c5c10d0-zone1 | `data/articles.json`, `data/topics.json` (status of the two rows), generated `articles/*.html`, `articles/index.html`, `sitemap.xml`, `feed.xml` |
+| P15-3 | Decision desk: new suggestions for the shop-quality design brief and the information that must exist before each decision, with discovery steps. | done | arena/0c5c10d0-zone1 | `data/suggestions.json`, `data/questions.json`, `data/requirements.json` (B-07 row text only), `build.py` (`page_suggestions`/`page_questions` only if a guard needs it) |
+| P15-4 | Executive summary: pass-15 section. | done | arena/0c5c10d0-zone1 | `EXECUTIVE-SUMMARY.md`, `executive-summary.html` |
+| P15-5 | Review open PR #159 against `main` and record a disposition (no merge, no close — that is an owner action, see Q-41). | done | arena/0c5c10d0-zone1 | `COORDINATION.md` (this section) |
+| P15-6 | Integration: rebuild, all gates, PR → merge → confirm Pages deploy → record. | done | arena/0c5c10d0-zone1 | whole tree (integration, last) |
 
 ### Claim log — arena/0c5c10d0-zone1
 
 | UTC time | Session | Action |
 |----------|---------|--------|
 | 2026-11-19T10:47Z | arena/0c5c10d0-zone1 | Claimed P15-1…P15-6 as scoped above. Parallel-build directories (`s2/`, `site/`, `research/`, `docs/`, `dashboard/`, `annex-*/`, `session-*/`) are read-only for this pass. |
+| 2026-11-19T11:05Z | arena/0c5c10d0-zone1 | P15-1 and P15-2 executed with one guide, not two: the cadence rule (SG-43) allows one new or refreshed guide per fortnight, so TP-22 was published as `articles/probe-in-an-air-fryer.html` and TP-19 was recorded on its topic row as considered and held (cadence limit + its Q-20 gate). Dated live reads: the five `link.amazon` strings, Emeril FAFO-001, both Chefman manuals, the CHEF iQ iQ Sense page and the Program Policies header. |
+| 2026-11-19T11:20Z | arena/0c5c10d0-zone1 | Flag-id collision handled without touching another session's published ids. This pass drafted F103–F106; `main` gained `arena/1970a80b-zone1`'s F103 while the work was in flight, so this pass's rows were renumbered to F104–F108 and every reference in `data/*.json` (including `#fNN` anchors) was shifted with them. `page_flagged()` now sorts the register by numeric id on render, so a future parallel append cannot scramble the published table. |
+| 2026-11-19T11:22Z | arena/0c5c10d0-zone1 | Integrated `origin/main` (PRs #165, #169, #170: the 1970a80b verification pass, the 6ace936d U2 pass and its receipt). Conflicts in `build.py` (`PROGRAMME_FLAGS` + `REPO_EVIDENCE` tail) and `COORDINATION.md` (both sides appended at end of file) resolved keeping both sides; `flagged.html` and all generated surfaces regenerated by `python3 build.py` rather than hand-merged. `REPO_EVIDENCE` reassembly asserted by `ast.literal_eval` equality against the pre-merge list (102 rows, ids unique). No other session's content was edited or dropped. |
+
+**Status after integration (2026-11-19T11:25Z):** P15-1 … P15-4 and P15-6 executed; P15-5 reviewed with a disposition recorded in the pass report (§7) and no GitHub action taken, because closing another session's PR is an owner call (Q-41). Gates on the merged tree: build exit 0 (137 pages, 37 sitemap URLs, 25 feed items) · verifier 77 spec rows, 46 sources, 0 errors, 0 external warnings · 61 canonical tests OK · 8 Node client tests OK · 33 platform tests OK · audit clean · research check OK · s2 `--check` current (16 files) · link check ok (11,532 links) · `verify_site.py` 393 assertions passed. New: one guide, flags F104–F108, compliance rows C19–C21, source S46 (with its failed-read limitation), Q-42–Q-44, SG-51–SG-54, decision-log execution record. Full record: `reports/verification-2026-11-19-0c5c10d0.md`.
+| 2026-11-19T11:30Z | arena/0c5c10d0-zone1 | Release receipt appended below after `gh pr merge` and a confirmed Pages read-back (P15-6). |
+
