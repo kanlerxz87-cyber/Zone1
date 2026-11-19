@@ -6089,3 +6089,14 @@ and deployed that merge commit successfully: [workflow run 44466873155](https://
 completed with build and deploy jobs `success`; the official Pages API reported `status: built`, `error: null`,
 source `main` `/`, and the same commit at 2026-11-19T05:41:40Z. Live URL:
 https://kanlerxz87-cyber.github.io/Zone1/
+## Task board — arena/89bfab6b-zone1 (2026-11-19 UTC) — pass 14: refreshed-brief integration audit
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-89bfab6b | Final integration audit of the current canonical publication against the 2026-11-19 brief: review the existing buyer-first site, five-link intent record, disclosure/link annotations, measurement and editorial workflow; re-check current official sources for any changed claim; repair material contradictions in the canonical registers/build; publish dated verification and decision-ready executive reports; run all build, verification, test, link and deploy gates. Account-only tests and external endpoint deployment remain explicitly gated; do not infer them or apply an unverified Associates tag. | in progress | arena/89bfab6b-zone1 | `COORDINATION.md`; `reports/verification-2026-11-19-89bfab6b.md`; `reports/executive-summary-2026-11-19.md`; `README.md`; canonical root `build.py`, relevant `data/*.json`, tests and regenerated root HTML as required. No edits to parallel/archived builds (`site/`, `s2/`, `research/`, `docs/`, `dashboard/`, `annex-*`, `session-*`) or to another branch. |
+
+### Claim log — arena/89bfab6b-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-19 | arena/89bfab6b-zone1 | Read the shared coordination board and repository status before starting. Baseline is clean at `1eb1e56` (PR #151 merge); Arena pins this session to `arena/89bfab6b-zone1`, so no other branch or worktree will be used. The board's latest completed pass is 2026-11-17. Open PRs #139, #141, #146 and #150 were inspected: #146's head was last updated 2026-11-17T17:27Z and is `DIRTY`, well beyond the 60-minute handoff threshold. This pass takes only the current-tree integration/review responsibility; it will preserve and review relevant proposal work, not edit another branch. The selected Associates tracking ID, intended product identities, live endpoint host/privacy approval, Search Console ownership and report-derived conversions are account/owner-only; no repository pass can truthfully complete those steps without access. |
