@@ -17,6 +17,11 @@ jobs:
       - name: Engine tests
         run: python3 -m unittest discover -s platform/tests -t platform -p "test_*.py"
 
+      - name: Canonical publication and analytics regression tests
+        run: |
+          python3 -m unittest discover -s tests -v
+          node --test tests/*.test.cjs
+
       - name: Data audit — every row sourced, no inferred values
         run: python3 platform/audit/report.py
 

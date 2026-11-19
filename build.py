@@ -1421,176 +1421,37 @@ document.addEventListener('click', function (ev) {
 # Policies 3(e)).
 # --------------------------------------------------------------------------- #
 
-ANALYTICS_JS = r"""
-/* Zone1 Kitchen - privacy-preserving outbound-click counter.
-   Shipped by build.py. Behaviour is driven entirely by the data attributes on
-   the script tag: with no data-endpoint the file does nothing at all.
-   No cookie, no identifier, no IP, no user agent, no referrer. */
-(function () {
-  "use strict";
-
-  var tag = document.currentScript;
-  if (!tag) { return; }
-  var endpoint = (tag.getAttribute("data-endpoint") || "").trim();
-  if (!endpoint) { return; }                 // no sink -> the counter is inert
-  var wanted = (tag.getAttribute("data-events") || "EV-01,EV-02,EV-03,EV-04")
-                 .split(",").map(function (s) { return s.trim(); })
-                 .filter(function (s) { return s.length > 0; });
-
-  function enabled(id) { return wanted.indexOf(id) !== -1; }
-  function utcDate() { return new Date().toISOString().slice(0, 10); }
-  function slug() {
-    var p = window.location.pathname;
-    var i = p.indexOf("/Zone1/");
-    if (i !== -1) { p = p.slice(i + 7); }
-    return p.replace(/index\.html$/, "") || "index.html";
-  }
-  function asinFrom(href) {
-    var m = /\/dp\/([A-Z0-9]{10})/.exec(href || "");
-    return m ? m[1] : "";
-  }
-  function tagFrom(href) {
-    var m = /[?&]tag=([^&]+)/.exec(href || "");
-    return m ? decodeURIComponent(m[1]) : "";
-  }
-
-  // The whole payload. Five named fields, no more. If a field is not known it
-  // is omitted rather than filled with a guess.
-  function optedOut() {
-    // Do Not Track / Global Privacy Control honoured (collector-plan client).
-    return navigator.doNotTrack === "1" || window.doNotTrack === "1" ||
-           navigator.globalPrivacyControl === true;
-  }
-
-  function send(id, extra) {
-    if (!enabled(id)) { return; }
-    if (optedOut()) { return; }
-    var body = { event: id, page: slug(), date: utcDate() };
-    if (extra) {
-      for (var k in extra) {
-        if (Object.prototype.hasOwnProperty.call(extra, k) && extra[k]) {
-          body[k] = extra[k];
-        }
-      }
-    }
-    var payload = JSON.stringify(body);
-    try {
-      if (navigator.sendBeacon) {
-        // text/plain keeps this a simple request: no CORS preflight, and the
-        // body is never sent as a form post.
-        var blob = new Blob([payload], { type: "text/plain;charset=UTF-8" });
-        if (navigator.sendBeacon(endpoint, blob)) { return; }
-      }
-    } catch (err) { /* fall through to fetch */ }
-    try {
-      fetch(endpoint, {
-        method: "POST",
-        mode: "no-cors",
-        keepalive: true,
-        credentials: "omit",
-        referrerPolicy: "no-referrer",
-        headers: { "Content-Type": "text/plain;charset=UTF-8" },
-        body: payload
-      }).catch(function () { /* a lost beacon must never break the page */ });
-    } catch (err) { /* ignore */ }
-  }
-
-  // EV-02: only a real click on an Amazon product link.
-  document.addEventListener("click", function (ev) {
-    if (!ev.isTrusted || ev.button !== 0) { return; }
-    var el = ev.target;
-    while (el && el !== document.body) {
-      if (el.tagName === "A" && el.href) { break; }
-      el = el.parentNode;
-    }
-    if (!el || el.tagName !== "A") { return; }
-    var asin = asinFrom(el.href);
-    if (!asin) { return; }
-    send("EV-02", { asin: asin, tag: tagFrom(el.href) });
-  }, { passive: true });
-
-  // EV-01: one page view, on the pages the measurement spec names.
-  var pageType = document.documentElement.getAttribute("data-zone1-page-type");
-  if (pageType) {
-    var q = window.location.search || "";
-    var hasUtm = /(^|[?&])utm_(source|campaign)=/.test(q);
-    send("EV-01", { page_type: pageType, utm: hasUtm ? "1" : "" });
-  }
-
-  // EV-03 and EV-04: an element becomes visible. Observed, not polled.
-  if (typeof IntersectionObserver === "function") {
-    var fired = {};
-    var marks = document.querySelectorAll("[data-zone1-track]");
-    for (var i = 0; i < marks.length; i++) {
-      (function (node) {
-        var kind = node.getAttribute("data-zone1-track");
-        var obs = new IntersectionObserver(function (entries) {
-          for (var j = 0; j < entries.length; j++) {
-            if (entries[j].isIntersecting && !fired[kind]) {
-              fired[kind] = true;
-              send(kind, {});
-              obs.disconnect();
-            }
-          }
-        }, { threshold: 0.6 });
-        obs.observe(node);
-      })(marks[i]);
-    }
-  }
-})();
-"""
+# Keep one browser implementation; the build publishes this reviewed source verbatim.
+ANALYTICS_JS = (ROOT / "analytics" / "client.js").read_text(encoding="utf-8")
 
 
 def privacy_html():
-    """The footer's cookie / third-party statement, generated from data/config.json.
-
-    Amazon Program Policies section 3(e) requires an Associate site to state
-    accurately its use of cookies and third-party technologies. This paragraph
-    used to be hand-typed, which is precisely how such a statement goes stale:
-    a counter is added, the sentence is forgotten, and the site is both
-    non-compliant and inaccurate in the same breath.
-
-    Generating the paragraph from the same block that decides whether the
-    counter ships removes the possibility of the two disagreeing. The build
-    guard check_analytics_consistency() then checks the rendered pages against
-    the same two wordings, so a later edit that breaks the link fails the build
-    rather than the reader's trust.
-    """
+    """Describe site code, owner-only storage and hosting logs separately."""
     if ANALYTICS_ON:
-        return (
-            "<p>This site sets no cookies, runs no third-party analytics, and has no "
-            "comment forms or accounts. It loads one small script of its own, which "
-            "sends a single request when \u2014 and only when \u2014 you click a product "
-            "link to Amazon. That request carries the page you were reading, the "
-            "product's ASIN, the date and this site's tracking ID, and nothing else. "
-            "The script never reads or sends your IP address, your browser details or "
-            "the page you arrived from, and it sets no identifier of any kind. The "
-            "server that receives the request necessarily sees the connection's IP "
-            "address; the endpoint shipped in <code>analytics/</code> drops it without "
-            "writing it to disk. Following an Amazon link takes you to Amazon, whose "
-            "own privacy notice and cookie practices apply from that point.</p>"
-            "<p class=\"tiny\">Amazon's Program Policies \u00a73(e) require an accurate "
-            "statement of cookie and third-party technology use on Associate sites. "
-            "This notice describes exactly what this build does, and it is regenerated "
-            "from the same configuration that turns the counter on \u2014 so the two "
-            "cannot disagree.</p>"
-        )
+        notice = ("Reader pages use first-party aggregate analytics. The client sends only a "
+                  "canonical page ID, an event name and, where applicable, an allow-listed link ID "
+                  "or one fixed engagement bucket. It uses no analytics cookies or persistent "
+                  "reader IDs and honors Do Not Track and Global Privacy Control. The collector "
+                  "stores UTC-day counts, not raw event rows; it does not persist IP addresses, "
+                  "user agents, full URLs, referrers or query strings.")
+    else:
+        notice = ("This site sets no cookies itself, runs no analytics, and has no public accounts, "
+                  "comment forms or email-signup form. The analytics client is implemented but is "
+                  "not loaded: no production collector is deployed. No production event counts "
+                  "have been measured by this site.")
     return (
-        "<p>This site sets no cookies itself, runs no analytics, and has no comment "
-        "forms or accounts. This GitHub Pages build sends no analytics events: the "
-        "proposed first-party collector is not deployed and browser collection "
-        "remains disabled. Following an Amazon link takes you to Amazon, whose own "
-        "privacy notice and cookie practices apply from that point. No data you enter "
-        "here is collected, because there is nowhere to enter it.</p>"
-        "<p class=\"tiny\">Amazon's Program Policies \u00a73(e) require an accurate "
-        "statement of cookie and third-party technology use on Associate sites. This "
-        "notice satisfies that requirement for the current build; it must be updated "
-        "the moment any analytics, embeds or affiliate-network script is added. The "
-        "outbound-click counter for this site is written and shipped in "
-        "<code>assets/analytics.js</code> but is switched off, because no endpoint "
-        "host has been chosen \u2014 so nothing is sent from your browser to anyone. "
-        "The paragraph above is generated from that switch, so it cannot describe a "
-        "behaviour the page does not have.</p>"
+        f"<p>{notice}</p>"
+        "<p>The owner-only decision picker stores choices in this browser’s local storage. "
+        "It sends nothing automatically; choices leave the page only when explicitly copied "
+        "or downloaded. Use its clear button to remove the saved choices.</p>"
+        "<p>Hosting is separate: GitHub states that Pages logs visitors’ IP addresses for "
+        "security. Any future analytics host or proxy also needs its own logging and retention "
+        "review. Following an Amazon link takes you to Amazon, where Amazon’s privacy notice "
+        "and cookie practices apply.</p>"
+        '<p><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection" '
+        'target="_blank" rel="noopener">GitHub Pages data collection</a> · '
+        '<a href="https://affiliate-program.amazon.com/help/operating/policies" '
+        'target="_blank" rel="noopener">Associates privacy requirements</a></p>'
     )
 
 
@@ -1743,11 +1604,11 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     # applied here because the guard requires every rendered page to match the
     # switch state; admin pages are already noindex.
     _analytics_tag = ""
-    if ANALYTICS_ON and ANALYTICS_PLAN["collection"].get("enabled"):
+    if ANALYTICS_ON and ANALYTICS_PLAN["collection"].get("enabled") and is_indexable_page(page_rel):
         _analytics_tag = (
             f'<script src="{prefix}assets/analytics.js" '
             f'data-endpoint="{e(ANALYTICS_ENDPOINT)}" '
-            f'data-events="{e(",".join(ANALYTICS_EVENTS) or "EV-01,EV-02,EV-03,EV-04")}" '
+            f'data-events="{e(",".join(ANALYTICS_EVENTS))}" '
             f'defer></script>')
     # Fall back to the page's own description for the social card; a link shared with
     # no text still gets a readable preview rather than an empty one.
@@ -1791,7 +1652,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
 <link rel="alternate" type="application/rss+xml" title="{e(SITE_NAME)} — sourced articles" href="{prefix}feed.xml">
 <meta name="theme-color" content="#245746">
 </head>
-<body data-page-id="{e(page_id)}" data-page-type="{e(page_type)}">
+<body data-page-id="{e(page_id)}" data-page-type="{e(page_type)}" data-analytics-eligible="{str(is_indexable_page(page_rel)).lower()}">
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <div class="disclosure-bar">
   <strong>Affiliate disclosure:</strong> {e(DISCLOSURE)}
@@ -3023,7 +2884,7 @@ def page_compare():
 <h1>Side-by-side, blanks included</h1>
 <p class="lede">Most comparison tables hide gaps by quietly dropping the row. This one keeps every row and marks the gaps, because "we don't know" is a different statement from "it doesn't have it". Every filled cell links to the official page it came from.</p>
 
-<div class="tablewrap" data-zone1-track="EV-04">
+<div class="tablewrap">
 <table>
   <caption>Verified-only comparison matrix</caption>
   <thead><tr><th style="min-width:170px">Field</th>{head}</tr></thead>
@@ -6614,7 +6475,7 @@ def article_body(article, prefix="../"):
         # EV-03 (guide_completed) is measured at the last heading, not at the
         # footer: reaching the end of the article is the event, and the footer
         # is visible on a page the reader scrolled past without reading.
-        mark = ' data-zone1-track="EV-03"' if i == last and last >= 0 else ""
+        mark = ""  # Engagement is the active/visible 60-second bucket, not a scroll claim.
         parts.append(f"<h2{mark}>{e(sec['h'])}</h2>")
         parts.append(_article_text(sec["paras"]))
         if sec.get("cite"):
@@ -7307,7 +7168,7 @@ def page_measurement():
         for item in plan["cadence"]
     )
     gate_rows = [
-        ("Runtime and route", "Not configured or verified. The repository's canonical origin is a GitHub Pages URL; no same-origin /api/analytics/events runtime is configured in this checkout. S38 is a documentation reference, not a page fetched in this integration.", src_links(["S38"])),
+        ("Runtime and route", "Not configured or verified. The repository's canonical origin is a GitHub Pages URL; no same-origin /api/analytics/events runtime is configured in this checkout. The GitHub documentation was re-read on 2026-11-19; it describes static hosting, not a deployed collector.", src_links(["S38"])),
         ("Privacy and retention notice", "Not approved. Keep the client disabled until the actual deployment and visitor-facing notice are reviewed together.", src_links(["S2"])),
         ("Host and proxy logs", "Not reviewed. Before collection, verify whether the hosting platform, CDN or reverse proxy retains IP addresses, user agents, request URLs or access logs; set an approved retention policy.", repo_link("data/analytics-plan.json", "Privacy and deployment gate")),
         ("Event collector", "Reference implementation and tests are in analytics/collector.py and tests/test_analytics.py; not deployed or reachable from the published site.", repo_link("analytics/collector.py", "Reference collector")),
@@ -7355,7 +7216,7 @@ def page_measurement():
         "switch": REPO_BLOB + "data/config.json",
         "endpoint_source": REPO_BLOB + "analytics/README.md",
         "guard": REPO_BLOB + "build.py",
-        "verification": REPO_BLOB + "reports/verification-2026-11-17-79743fd2.md",
+        "verification": REPO_BLOB + "tests/test_analytics.py",
         "what_is_not_shipped": REPO_BLOB + "data/measurement.json",
     }
     impl_rows = ""
@@ -7408,14 +7269,11 @@ def page_measurement():
 </div>
 
 <h2>What actually ships in this repository</h2>
-<p class="small">Two event registers exist and both are published: <code>data/analytics-plan.json</code>
-(the table above &mdash; what the reference collector accepts) and <code>data/measurement.json</code>
-(the cards below &mdash; what the shipped browser counter sends). They are parallel descriptions of
-the same five events written by different sessions; nothing is collected by either until every gate
-above passes. The client-side IDs map one-to-one: EV-01 page_view, EV-02 outbound_product_click
-(the plan's <code>outbound_click</code>), EV-03 guide_completed (<code>article_engagement</code>),
-EV-04 comparison_table_viewed (<code>comparison_interaction</code>), EV-05 reported_order
-(<code>affiliate_report_import</code>, operator-entered).</p>
+<p class="small"><code>data/analytics-plan.json</code> is the canonical schema. The client and
+collector use those exact named events; <code>data/measurement.json</code> supplies the readable
+cards below and is checked against the schema. EV-01 through EV-04 are browser events;
+EV-05 is an explicit authorized-report import. Engagement is not completion, an interaction
+is not an impression, and neither a click nor an import is inferred to be an order.</p>
 <div class="tablewrap">
 <table>
   <caption>What ships, and what does not</caption>
@@ -8056,109 +7914,50 @@ BANNED_ANALYTICS_HOSTS = [
 
 
 def check_analytics_consistency(pages):
-    """Build guard: the footer's privacy statement must describe what the page does.
-
-    Program Policies section 3(e) requires an accurate statement of cookie and
-    third-party technology use on an Associate site. The failure mode is not a
-    missing sentence, it is a sentence that is wrong: a counter ships, the
-    paragraph is not updated, and the site states it runs no analytics while
-    its own script is sending events.
-
-    The paragraph and the behaviour are both generated from
-    data/config.json -> analytics, so they cannot drift inside one build. This
-    guard then checks the *rendered* pages against the same two wordings, so a
-    hand-edit of either one, or a config change that was only half applied,
-    fails the build rather than shipping.
-
-    It also checks the counter's own source for the ways it could become a
-    tracker: a cookie, a storage API, a user agent, a referrer.
-    """
+    """Fail closed on schema drift, partial enablement, or a misleading privacy notice."""
+    from urllib.parse import urlsplit
     problems = []
-    # The two footers, identified by a phrase that appears only in them.
-    enabled_text = "It loads one small script of its own"
-    disabled_text = "This site sets no cookies itself, runs no analytics"
-    # Any published sentence that claims the site runs no analytics. When the
-    # counter is switched on, every one of those sentences becomes false - and
-    # some of them live in the registers (data/measurement.json,
-    # data/questions.json, data/requirements.json) rather than in the footer.
-    # Catching them here is the whole point of the guard: the prose is quoted
-    # from data files, so a template edit alone cannot fix it.
-    no_analytics_claim = re.compile(r"\bno analytics\b", re.I)
-
+    collection = ANALYTICS_PLAN.get("collection", {})
+    plan_pairs = [(x.get("id"), x.get("name")) for x in ANALYTICS_PLAN.get("events", [])]
+    projection = [(x.get("id"), x.get("name")) for x in MEASUREMENT.get("events", [])]
+    browser_names = [x["name"] for x in ANALYTICS_PLAN.get("events", []) if x.get("origin") == "browser"]
+    if plan_pairs != projection:
+        problems.append("measurement.json must project the canonical event IDs/names exactly")
+    if len(ANALYTICS_EVENTS) != len(set(ANALYTICS_EVENTS)) or set(ANALYTICS_EVENTS) != set(browser_names):
+        problems.append("config analytics.events must match the four canonical browser events exactly")
+    if ANALYTICS_ENABLED != bool(collection.get("enabled")):
+        problems.append("analytics.enabled and collection.enabled must change together")
     if ANALYTICS_ENABLED and not ANALYTICS_ENDPOINT:
-        problems.append(
-            "data/config.json -> analytics.enabled is true but analytics.endpoint is "
-            "empty: a counter with no sink would report a number this site cannot "
-            "source. Either give it an endpoint or set enabled to false.")
+        problems.append("enabled analytics requires a deployed same-origin endpoint")
     if ANALYTICS_ENDPOINT:
-        if not ANALYTICS_ENDPOINT.startswith("https://"):
-            problems.append(
-                f"analytics.endpoint {ANALYTICS_ENDPOINT!r} is not https:// - an "
-                "event about a reader's click must not cross the wire in clear.")
-        for host in BANNED_ANALYTICS_HOSTS:
-            if host in ANALYTICS_ENDPOINT:
-                problems.append(
-                    f"analytics.endpoint points at {host!r}: a hosted analytics product "
-                    "needs its own cookie disclosure and its own review. Point the "
-                    "counter at an endpoint you control.")
-        if "?" in ANALYTICS_ENDPOINT or "#" in ANALYTICS_ENDPOINT:
-            problems.append(
-                "analytics.endpoint must not carry a query string or fragment: the "
-                "beacon appends its own payload to the path.")
-
-    # The counter source must not be able to identify a reader.
-    counter_src = ANALYTICS_JS
+        parsed = urlsplit(ANALYTICS_ENDPOINT)
+        site = urlsplit(SITE_URL)
+        if (parsed.scheme and parsed.scheme != "https") or (parsed.netloc and parsed.netloc != site.netloc):
+            problems.append("analytics endpoint must be same-origin HTTPS, never a third-party sink")
+        if (parsed.path != collection.get("endpoint_path") or parsed.query or parsed.fragment or
+                parsed.username or parsed.password or ANALYTICS_ENDPOINT.startswith("//")):
+            problems.append("analytics endpoint must use only the canonical /api/analytics/events route")
+    if ANALYTICS_ENABLED and not all(collection.get(k) for k in (
+            "endpoint_deployed", "runtime_selected", "privacy_notice_approved")):
+        problems.append("analytics cannot run before deployment, runtime and privacy gates pass")
     for token in BANNED_IN_COUNTER:
-        if token in counter_src:
-            problems.append(
-                f"assets/analytics.js contains {token!r}: the counter must not be "
-                "able to identify or persist a reader.")
-    if "preventDefault" in counter_src:
-        problems.append(
-            "assets/analytics.js calls preventDefault(): the counter must never "
-            "delay or block the reader's own click.")
-    if "isTrusted" not in counter_src:
-        problems.append(
-            "assets/analytics.js does not check event.isTrusted: a synthetic "
-            "dispatchEvent could manufacture a click (Program Policies 3(s)).")
-
-    for rel, html_text in pages.items():
+        if token in ANALYTICS_JS:
+            problems.append(f"analytics client contains prohibited reader-identifying API {token}")
+    if "preventDefault" in ANALYTICS_JS:
+        problems.append("analytics client must never block a reader activation")
+    if "isTrusted" not in ANALYTICS_JS:
+        problems.append("analytics client must require trusted link activations")
+    for rel, text in pages.items():
         if not rel.endswith(".html"):
             continue
-        # Match the script *tag*, not the file name: the footer's privacy
-        # paragraph names assets/analytics.js in prose, and a page that merely
-        # mentions the file is not a page that loads it.
-        has_script = re.search(r'<script[^>]+src="[^"]*assets/analytics\.js"', html_text) is not None
-        says_enabled = enabled_text in html_text
-        says_disabled = disabled_text in html_text
-        if ANALYTICS_ON:
-            if not has_script:
-                problems.append(f"{rel}: the counter is enabled but this page does not load it")
-            if not says_enabled:
-                problems.append(
-                    f"{rel}: the counter is enabled but the footer does not state that "
-                    "an analytics request is sent (Program Policies 3(e))")
-            if says_disabled:
-                problems.append(
-                    f"{rel}: the counter is enabled but the footer still says the site "
-                    "\"runs no analytics\"")
-            for m in no_analytics_claim.finditer(html_text):
-                around = re.sub(r"\s+", " ", html_text[max(0, m.start() - 90):m.end() + 40])
-                problems.append(
-                    f"{rel}: a published sentence would be false once the counter is "
-                    f"enabled - \"...{around}...\" - update it and the register "
-                    "it is quoted from in the same commit")
-        else:
-            if has_script:
-                problems.append(
-                    f"{rel}: the counter is disabled but this page loads it")
-            if not says_disabled:
-                problems.append(
-                    f"{rel}: the footer does not carry the no-analytics statement")
-            if says_enabled:
-                problems.append(
-                    f"{rel}: the footer claims an analytics request is sent, but the "
-                    "counter is disabled")
+        has_script = re.search(r'<script[^>]+src="[^"]*assets/analytics\.js"', text) is not None
+        eligible = 'data-analytics-eligible="true"' in text
+        expected_script = bool(ANALYTICS_ON and collection.get("enabled") and eligible)
+        if has_script != expected_script:
+            problems.append(f"{rel}: analytics script does not match the publication/collection gate")
+        expected_notice = "Reader pages use first-party aggregate analytics" if ANALYTICS_ON else "This site sets no cookies itself, runs no analytics"
+        if expected_notice not in text:
+            problems.append(f"{rel}: privacy notice disagrees with the collection state")
     return problems
 
 
