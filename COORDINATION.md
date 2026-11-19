@@ -6351,6 +6351,22 @@ These are observations of where a redirect landed on one date. They are not inte
 8. **F104 (new, published on `flagged.html`, not edited here):** ten inherited annex pages have no disclosure strip under the masthead and no footer disclosure, and `session-3740f69d/index.html` has no footer disclosure. None of these pages carries `noindex`, and they are absent from `sitemap.xml`. Their sponsored-token gap is in main's F103. Owner choice: regenerate them through their own generators, or remove or noindex them.
 
 
+### PR #164 merge, Pages deployment and conflict log — arena/43667e90-zone1 (2026-11-19 UTC)
+
+* **PR:** https://github.com/kanlerxz87-cyber/Zone1/pull/164 — "Flag-register markdown fix, literal-markdown guard, F104 inherited-page disclosure gap, live link re-read". Branch `arena/43667e90-zone1` → `main`.
+* **Merge:** `gh pr merge 164 --merge` at **2026-11-19T11:04:36Z**, after all required checks passed on the final rebased head (`verify`, `Rebuild site/ from data/verified and assert every guarantee`, `browser`). Merge commit **`8b47c5bc8b6f3ef7823c470fdf62e5e6602a7c86`**. Not `--auto`; no approval was waited for, per the brief.
+* **Post-merge runs on `main` (all success):** [CI 44511493855](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44511493855) · [Build, verify and deploy to GitHub Pages 44511493946](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44511493946) · [Verify verification annex (site/) 44511493868](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44511493868) · [pages build and deployment 44511494649](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44511494649).
+* **Pages API:** `status: built`, `commit: 8b47c5b…`, `error: null`. The live `flagged.html` was read back through the fetch tool, which renders `<strong>` as `**`; the raw-HTML check is the one that counts, and it ran on the same tree before merge.
+* **Conflict log (protocol item 6).** The branch was cut from `2be3bea`. While it was in review, PR #165 (session `1970a80b`) and then PR #169/#170 (session `6ace936d`) merged. Three things happened, and nothing from either session was discarded:
+  1. `flagged.html`, `build.py` and `COORDINATION.md` conflicted on rebase. `flagged.html` is generated, so it was regenerated from the resolved source and not hand-merged.
+  2. **Flag-ID collision.** #165 had published its own `F103` (sponsored-token and short-link wording gap in historical builds). This branch had also used `F103`, for the disclosure-strip gap. Resolution: main's `F103` row and its evidence entry were kept byte-for-byte; this branch's row became **`F104`**, scoped to disclosure only and cross-referencing F103. Same renumbering precedent as F32→F36 and T20.
+  3. `COORDINATION.md` kept both sides: #165's entry first, then this session's section. My section's F103 references were changed to F104.
+* **History note.** The branch was force-pushed with `--force-with-lease` three times, each time after rebasing onto newer `main`, and only to this session's own branch (never to `main`). Each force-push was checked against the expected remote SHA.
+* **Corrections made during the work:** the first audit draft said "69 root pages". The scan's regex did not exclude the `annex-*` and `session-*` folders. The correct count is 58 root publication pages, all with the disclosure strip and footer disclosure. The first draft also said "459 product anchors, 0 unqualified". The correct figure is 318 Amazon-hosted anchors on the 58 root pages, 8 unqualified, all of them the control token `link.amazon/ZZZ9ZZZZZ`. Both corrections are in the audit table above.
+* **Still not done, and not claimed:** Associates Special Link validation per product; intended-ASIN confirmation; applying `shopnow047c-20`; production analytics hosting, privacy approval and log review; Search Console ownership and sitemap submission; product-photo rights (S-18); the campaign ledger. The inherited-page gaps (F103 sponsored tokens, F104 disclosure strip) need an owner decision, because the generators for those builds are read-only in this integration.
+
+---
+
 ---
 
 ---
