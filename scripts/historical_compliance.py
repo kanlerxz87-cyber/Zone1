@@ -165,6 +165,10 @@ VERDICT_PHRASES = (
     "do not resolve to products",
     "product does not resolve",
     "supplied ids do not resolve",
+    "resolve to none",
+    "resolve to nothing",
+    "none resolves to a product",
+    "cannot be used for affiliate marketing",
 )
 
 _STRIP_EMPHASIS = re.compile(r"[*_`]")
@@ -333,6 +337,15 @@ WORDING = [
      '2026-11-19 re-read (links resolve; identities unconfirmed).'),
     ('they resolve to no product and carry no tracking tag',
      'they have no confirmed product identity and carry no tracking tag'),
+    ('the three submitted links resolve to none',
+     'the three submitted links have no confirmed product identity'),
+    ('the submitted product links resolve to nothing',
+     'the submitted product links have no confirmed product identity'),
+    ('Replace the three links; they cannot be used for affiliate marketing as-is.',
+     'Replace or confirm the three links; they are not used for affiliate marketing '
+     'as-is (compliance status unresolved, Zone3 FLG-003).'),
+    ('Because none resolves to a product, every product attribute is left',
+     'Because none has a confirmed product identity, every product attribute is left'),
     # dashboard/assets/js/main.js: validator hint
     ('problems.push("ASIN must be exactly 10 letters/digits (the supplied IDs are 9 and invalid).")',
      'problems.push("ASIN must be exactly 10 letters/digits (the supplied IDs are '
@@ -346,6 +359,11 @@ WORDING_RE = [
      "are unverified and quarantined"),
     (re.compile(r"the three submitted links resolve to no product", re.I),
      "the three submitted links have no confirmed product identity"),
+    (re.compile(r"The submitted links cannot be used for affiliate marketing and "
+                r"no product identity can be\s+confirmed from them\.", re.I),
+     "The submitted links are not used for affiliate marketing here: no product "
+     "identity is confirmed from them, and their compliance status is unresolved "
+     "(Zone3 FLG-003)."),
 ]
 
 # An annotation inserted under the rewritten dashboard/flagged.html heading, so

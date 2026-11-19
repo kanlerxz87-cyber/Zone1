@@ -228,6 +228,8 @@ class HistoricalComplianceTests(unittest.TestCase):
             "The three submitted product links do not resolve to any product"))
         self.assertTrue(self.hc.claim_violations("Supplied IDs do not resolve"))
         self.assertTrue(self.hc.claim_violations("they resolve to no product"))
+        self.assertTrue(self.hc.claim_violations("Because none resolves to a product"))
+        self.assertTrue(self.hc.claim_violations("The submitted links cannot be used for affiliate marketing"))
         # gate descriptors and identifier-lookup observations are not verdicts
         self.assertEqual([], self.hc.claim_violations("verify no broken internal links"))
         self.assertEqual([], self.hc.claim_violations(
