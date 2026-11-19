@@ -220,6 +220,20 @@ class HistoricalComplianceTests(unittest.TestCase):
             "NOT proof the requested ASINs are invalid"))
         self.assertEqual([], self.hc.claim_violations("format mismatch (9 chars)"))
 
+    def test_the_rule_rejects_synonym_verdicts_but_keeps_observations(self):
+        # "broken" and "do not resolve" are the same claim as "invalid" about the
+        # supplied links, and the 2026-11-19 re-read contradicts them.
+        self.assertTrue(self.hc.claim_violations("why the supplied URLs are broken"))
+        self.assertTrue(self.hc.claim_violations(
+            "The three submitted product links do not resolve to any product"))
+        self.assertTrue(self.hc.claim_violations("Supplied IDs do not resolve"))
+        self.assertTrue(self.hc.claim_violations("they resolve to no product"))
+        # gate descriptors and identifier-lookup observations are not verdicts
+        self.assertEqual([], self.hc.claim_violations("verify no broken internal links"))
+        self.assertEqual([], self.hc.claim_violations(
+            "Each provided link does NOT resolve to amazon.com/dp/<ASIN>; the 9-character "
+            "token lookup fails and the short link redirects elsewhere"))
+
     def test_the_rule_rejects_a_disclosure_out_of_place(self):
         good = ("<html><body><header>masthead</header>"
                 "<p>As an Amazon Associate I earn from qualifying purchases.</p>"
