@@ -23,10 +23,12 @@ attribution, production analytics and measured results remain unconfirmed, exact
   quoting the brief's clause and recording the repo-judged status. Every row carries an
   official-site evidence link. Where this repository diverges from the brief's tracker
   (S-06, S-23), the divergence is the row's content, not a footnote.
-- **Findable — one site to index.** `robots.txt` disallows the seven parallel annex builds;
-  they stay publicly readable evidence but no longer compete with the shop for the same
-  queries (SG-44 option A). Workspace pages stay crawlable-with-noindex so the directive can
-  be read. A regression test pins this.
+- **Findable — one site to index.** The annex builds are kept out of the index by their own
+  `noindex` directives behind one root-authoritative `robots.txt` (F105, the parallel
+  findability pass's mechanism, merged and adopted during integration — a robots.txt
+  `Disallow` draft from this pass was withdrawn because blocking hides the noindex it would
+  stand in for). This pass kept workspace pages crawlable-noindex, extended the boundary's
+  enforcement to the legacy `docs/` tree, and pinned the design in tests.
 - **S-04 as a gate.** Every page's own title and meta description is now enforced as
   *distinct*, not merely present — the check_seo_metadata guard fails the build on duplicates.
 - **One new question-shaped guide:** *How to assess cleanup and counter-space trade-offs* —

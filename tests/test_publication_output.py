@@ -113,17 +113,17 @@ class PublicationOutputTests(unittest.TestCase):
         self.assertIn(BASE + 'about.html', sitemap)
         self.assertEqual(25, len(json.loads((ROOT / 'data/articles.json').read_text())['articles']))
 
-    def test_robots_gives_search_engines_one_site_to_index(self):
-        # SG-44 option A / the brief's "make it findable" ask: the seven parallel
-        # annex builds stay publicly readable evidence but are not for indexing, and
-        # workspace pages stay crawlable so their noindex meta can be read.
+    def test_root_robots_is_authoritative_and_hides_nothing_the_annex_boundary_needs(self):
+        # SG-44 option A / the brief's "make it findable" ask, implemented as the annex
+        # noindex boundary (F105): one root-authoritative robots.txt that keeps out of the
+        # way. Deliberately NO Disallow rules — a robots.txt block hides the noindex
+        # directive the annex trees rely on (RFC 9309; Google's robots documentation).
         robots = (ROOT / 'robots.txt').read_text(encoding='utf-8')
-        for tree in ('research/', 'site/', 's2/', 'dashboard/', 'docs/',
-                     'annex-88769516/', 'session-3740f69d/'):
-            self.assertIn(f'Disallow: /{tree}\n', robots)
+        self.assertIn('User-agent: *\nAllow: /\n', robots)
         self.assertIn(f'Sitemap: {BASE}sitemap.xml\n', robots)
-        self.assertNotIn('Disallow: /\n', robots)
-        self.assertNotIn('Disallow: /executive-summary.html', robots)
+        self.assertNotIn('Disallow:', robots)
+        self.assertFalse((ROOT / 'site' / 'robots.txt').exists())
+        self.assertFalse((ROOT / 'dashboard' / 'sitemap.xml').exists())
 
     def test_compare_page_opens_with_the_three_question_chooser(self):
         compare = self.pages['compare.html']

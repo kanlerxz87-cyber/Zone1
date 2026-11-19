@@ -749,6 +749,26 @@
       "kind": "Official search documentation",
       "directness": "Primary — search service documentation",
       "page_version": "Scoped public documentation read 2026-11-19, arena/1f9e7d52-zone1; report names sections read."
+    },
+    {
+      "id": "S46",
+      "org": "IETF (RFC Editor)",
+      "title": "RFC 9309 — Robots Exclusion Protocol",
+      "url": "https://www.rfc-editor.org/rfc/rfc9309.html",
+      "covers": "§2.3 fixes the robots.txt URI at scheme://authority/robots.txt in the top-level path of the service. §2.2.4 records that crawlers MAY interpret other records there, naming Sitemaps, and that such parsing MUST NOT interfere with the protocol's own records. Read live 2026-11-19.",
+      "kind": "Standard (Proposed Standard)",
+      "directness": "Primary — the protocol's defining specification, co-authored by Google LLC engineers",
+      "page_version": "RFC 9309, September 2022; read 2026-11-19"
+    },
+    {
+      "id": "S47",
+      "org": "Google Search Central",
+      "title": "Block search indexing with noindex",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/block-indexing",
+      "covers": "How a page states that it must not be indexed: a robots <meta> tag with noindex, or the X-Robots-Tag header. The page also states that “specifying the noindex rule in the robots.txt file is not supported by Google”, and that a robots.txt block prevents the crawler from seeing the noindex tag at all. Read live 2026-11-19; page last updated 2025-12-10 UTC. Cited by F103 for the mechanism chosen for the annex boundary.",
+      "kind": "Documentation",
+      "directness": "Primary — the search engine's own documentation",
+      "page_version": "Live page, last updated 2025-12-10 UTC; read 2026-11-19"
     }
   ],
   "reverified_scope": "Pass 11 (arena/2e346d24-zone1) re-read live on 2026-11-16: S1, S2, S3, S4, S5, S8, S9, S10, S17, S28, S29, then S12, S14 and S18 later in the same session — fourteen sources in total. NOT re-read in pass 11 and therefore not restated: S6, S7, S11, S13, S15, S16, S19-S27, S30-S34, and the 8 Qt owner's-manual PDF. F3 (450 °F) was re-established live against S12 and the listing title; F4/F5 (Emeril presets) against S14. S15, the Emeril owner's manual, was NOT re-read, so the 24-preset count is carried forward and not re-asserted. Evidence: reports/verification-2026-11-16-2e346d24.md",

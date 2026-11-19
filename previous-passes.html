@@ -85,6 +85,11 @@
 </div>
 <p class="small muted">Every disagreement above is published, with its source links, on <a href="flagged.html">Flagged for review</a>: the model-number question is <strong>F32</strong>, the policy-label question is <strong>F27</strong>, the number of parallel builds is <strong>F35</strong>.</p>
 
+<div class="callout info">
+  <strong>Six trees on this origin are now explicitly not indexed</strong>
+  <p class="small">Before 19 November 2026 every build on this page was equally visible to a search engine: none of the six carried a robots directive, and <code>site/</code> actively asked to be indexed on all eleven of its pages. Two of them also published a <code>robots.txt</code> and <code>sitemap.xml</code> of their own, which a crawler never fetches at <code>/Zone1/site/</code> or <code>/Zone1/dashboard/</code> — RFC 9309 §2.3 fixes that file at the host root, so they looked protective and protected nothing. Each annex page now carries <code>noindex,follow</code> and an absolute canonical to its own address, the one authoritative <a href="https://kanlerxz87-cyber.github.io/Zone1/robots.txt">robots.txt</a> and <a href="https://kanlerxz87-cyber.github.io/Zone1/sitemap.xml">sitemap.xml</a> sit at the root, and <code>verify.py</code> check 4b fails the build if a sub-directory copy returns. The pages themselves stay published and linked: this is a boundary on what competes in a search result, not concealment. Recorded as <a href="flagged.html#f105">F105</a>.</p>
+</div>
+
 <h2>Why the builds were not merged into one</h2>
 <p class="small">Merging them would mean picking a winner for each disagreement on evidence that does not exist yet. For the model number the listing's product-information block was read on 2026-11-16 and published (F68), which settled the ASIN-to-model step for the two Chefman listings; only the model plate on a physical unit can say what ships against an ASIN, and that is still the account holder's to check. For the policy labels, the live page settles it and the canonical build already matches the live page — but rewriting another session's published pages to match would destroy the record of what that pass actually verified against.</p>
 

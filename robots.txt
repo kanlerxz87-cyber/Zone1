@@ -1,11 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /research/
-Disallow: /site/
-Disallow: /s2/
-Disallow: /dashboard/
-Disallow: /docs/
-Disallow: /annex-88769516/
-Disallow: /session-3740f69d/
 
 Sitemap: https://kanlerxz87-cyber.github.io/Zone1/sitemap.xml
