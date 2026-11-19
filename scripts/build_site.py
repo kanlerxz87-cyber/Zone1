@@ -19,6 +19,11 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+# F103 repair (arena/e01a0112, 2026-11-19): qualify every product anchor at the
+# output boundary so no template can forget rel="sponsored" (the brief: "Keep
+# every outbound product link marked as sponsored").
+from historical_compliance import qualify_anchors  # noqa: E402
 
 # ---- Path layout in the integrated repo -------------------------------------
 # The parallel session (d14c5409) owns `docs/` (its GitHub Pages output, served
@@ -283,11 +288,13 @@ def page(filename: str, title: str, body: str, subtitle: str = "") -> None:
     <nav class="nav" aria-label="Main">{nav_html}</nav>
   </div>
 </header>
+<div class="wrap">
+  {disclosure_block()}
+</div>
 <main id="main" class="wrap">
   <h1>{e(title)}</h1>
   {sub}
   {tag_warning()}
-  {disclosure_block()}
   {body}
 </main>
 <footer class="footer">
@@ -306,7 +313,7 @@ def page(filename: str, title: str, body: str, subtitle: str = "") -> None:
 </body>
 </html>
 """
-    doc = source_rows(doc, "flagged.html")
+    doc = qualify_anchors(source_rows(doc, "flagged.html"))
     (OUT / filename).write_text(doc, encoding="utf-8")
 
 

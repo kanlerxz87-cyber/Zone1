@@ -177,5 +177,88 @@ class AnnexBoundaryTests(unittest.TestCase):
                                     f"{page}: relative canonical {href!r}")
 
 
+class HistoricalComplianceTests(unittest.TestCase):
+    """F103/F104 repair (arena/e01a0112): the gate must be able to fail.
+
+    The brief settles what earlier passes left as owner decisions: every
+    outbound product link marked sponsored, no published claim that the
+    supplied short links are invalid (their status is unresolved, Zone3
+    FLG-003), and the disclosure strip under the masthead, repeated in the
+    footer. The rules live in scripts/historical_compliance.py — the same
+    module the repair script writes with and verify.py check 4c gates with —
+    so repair and gate cannot drift apart. Injected violations below prove
+    each rule rejects bad input; never touches a published file.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        spec2 = importlib.util.spec_from_file_location(
+            "historical_compliance", ROOT / "scripts" / "historical_compliance.py")
+        cls.hc = importlib.util.module_from_spec(spec2)
+        spec2.loader.exec_module(cls.hc)
+
+    def test_the_rule_rejects_an_unqualified_product_anchor(self):
+        bad = '<a href="https://www.amazon.com/dp/B0CDY277D3" rel="noopener">x</a>'
+        self.assertTrue(self.hc.anchor_violations(bad))
+        ok = ('<a href="https://www.amazon.com/dp/B0CDY277D3" '
+              'rel="sponsored nofollow noopener">x</a>')
+        self.assertEqual([], self.hc.anchor_violations(ok))
+        # help and policy pages are citations, never product links
+        cite = '<a href="https://affiliate-program.amazon.com/help/operating/agreement">OA</a>'
+        self.assertEqual([], self.hc.anchor_violations(cite))
+        # the deliberate nonsense-token resolver control is not a product link
+        ctrl = '<a href="https://link.amazon/ZZZ9ZZZZZ">control</a>'
+        self.assertEqual([], self.hc.anchor_violations(ctrl))
+
+    def test_the_rule_rejects_an_invalid_verdict_but_keeps_attributed_wording(self):
+        self.assertTrue(self.hc.claim_violations('<span class="badge">Invalid link</span>'))
+        self.assertTrue(self.hc.claim_violations('the supplied product links are invalid'))
+        self.assertTrue(self.hc.claim_violations('"provided_id_status": "invalid_asin_9_chars"'))
+        self.assertEqual([], self.hc.claim_violations(
+            "CamelCamelCamel displayed: 'invalid product identifier'"))
+        self.assertEqual([], self.hc.claim_violations(
+            "NOT proof the requested ASINs are invalid"))
+        self.assertEqual([], self.hc.claim_violations("format mismatch (9 chars)"))
+
+    def test_the_rule_rejects_a_disclosure_out_of_place(self):
+        good = ("<html><body><header>masthead</header>"
+                "<p>As an Amazon Associate I earn from qualifying purchases.</p>"
+                "<main><h1>t</h1></main>"
+                "<footer><p>As an Amazon Associate I earn from qualifying purchases.</p>"
+                "</footer></body></html>")
+        self.assertEqual([], self.hc.disclosure_violations(good))
+        above = good.replace("</header><p>As an Amazon", "<p>As an Amazon").replace(
+            "</p><main>", "</p></header><main>")
+        self.assertTrue(self.hc.disclosure_violations(above))
+        no_footer = good[:good.index("<footer>")] + "</body></html>"
+        self.assertTrue(self.hc.disclosure_violations(no_footer))
+        # a mention inside JSON-LD is not a disclosure strip
+        scripted = good.replace(
+            "<p>As an Amazon Associate I earn from qualifying purchases.</p><main>",
+            "<main><script type=\"application/ld+json\">{\"t\":\"As an Amazon Associate "
+            "I earn from qualifying purchases.\"}</script>")
+        self.assertTrue(self.hc.disclosure_violations(scripted))
+
+    def test_every_annex_tree_passes_all_three_rules(self):
+        for tree in self.hc.ANNEX_TREES:
+            for path in sorted((ROOT / tree).rglob("*")):
+                if not path.is_file() or path.suffix not in self.hc.CLAIM_SUFFIXES:
+                    continue
+                text = path.read_text(encoding="utf-8")
+                self.assertEqual([], self.hc.claim_violations(text), path)
+                if path.suffix == ".html":
+                    self.assertEqual([], self.hc.anchor_violations(text), path)
+                    self.assertEqual([], self.hc.disclosure_violations(text), path)
+
+    def test_the_repair_is_idempotent_on_frozen_files(self):
+        for tree in self.hc.FROZEN_TREES:
+            for path in self.hc.iter_files(tree):
+                path = Path(path)
+                text = path.read_text(encoding="utf-8")
+                rel = str(path.relative_to(ROOT))
+                self.assertEqual(text, self.hc.transform(text, rel),
+                                 f"{rel}: transform is not idempotent")
+
+
 if __name__ == "__main__":
     unittest.main()

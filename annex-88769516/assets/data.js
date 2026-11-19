@@ -183,7 +183,7 @@ window.ZONE1_DATA = {
     { item: "ASIN B02NbDxp3 product page", method: "Direct + proxy + archive", result: "UNVERIFIED (blocked / no snapshot)", source: "https://www.amazon.com/dp/B02NbDxp3" },
     { item: "ASIN B00hJ57DV product page", method: "Direct + proxy + archive", result: "UNVERIFIED (blocked / no snapshot)", source: "https://www.amazon.com/dp/B00hJ57DV" },
     { item: "link.amazon redirect chains", method: "HTTP redirect capture", result: "Marketplace fallback to different ASINs", source: "https://link.amazon/B04G1MEwY" },
-    { item: "CamelCamelCamel ASIN records", method: "Third-party tracker", result: "No record / invalid identifier", source: "https://camelcamelcamel.com/product/B04G1MEwY" },
+    { item: "CamelCamelCamel ASIN records", method: "Third-party tracker", result: "No record; tracker displayed 'invalid product identifier'", source: "https://camelcamelcamel.com/product/B04G1MEwY" },
     { item: "Keepa ASIN records", method: "Third-party tracker", result: "Not a valid ASIN", source: "https://keepa.com/product/3-B04G1MEwY" },
     { item: "Commission Income Statement (Table 1)", method: "Official page fetch", result: "VERIFIED", source: "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ" },
     { item: "Operating Agreement", method: "Official page fetch", result: "VERIFIED", source: "https://affiliate-program.amazon.com/help/operating/agreement" },

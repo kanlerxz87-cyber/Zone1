@@ -14,6 +14,10 @@ import shutil
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # repo root
+sys.path.insert(0, os.path.join(ROOT, "scripts"))
+# F103 repair (arena/e01a0112, 2026-11-19): qualify every product anchor at the
+# output boundary (brief: "Keep every outbound product link marked as sponsored").
+from historical_compliance import qualify_anchors  # noqa: E402
 DATA = os.path.join(ROOT, "research")
 DOCS = os.path.join(ROOT, "research")  # additive section, linked from the main docs/ site
 
@@ -147,6 +151,7 @@ def layout(title, body, prefix="", active="", sources=None, meta=None, canonical
 </main>
 <footer class="sitefoot">
   <div class="wrap">
+    <p><strong>{esc(DISCLOSURE)}</strong> Eligible links may earn a commission.</p>
     <p>{esc(TRADEMARK)}</p>
     <p>Independent research site. Not affiliated with, endorsed by, or sponsored by Amazon.com, Inc., Chefman, or Emeril Everyday. Product names and model numbers are used for identification only.</p>
     <p>{esc(NO_HANDS_ON)} Data captured 2026-11-13. Every row links to its official source; anything that could not be confirmed is blank and listed on the <a href="{prefix}flagged-for-review.html">Flagged for Review</a> page.</p>
@@ -265,8 +270,8 @@ def page(title, body, path, **kw):
         body = body.replace('href="products.html#', 'href="../products.html#')
     active = kw.pop("active", path)
     body = source_rows(body, prefix + "flagged-for-review.html")
-    html_out = layout(title, body, prefix=prefix, active=active,
-                      self_name=path.lstrip("/"), **kw)
+    html_out = qualify_anchors(layout(title, body, prefix=prefix, active=active,
+                                      self_name=path.lstrip("/"), **kw))
     with open(out, "w", encoding="utf-8") as fh:
         fh.write(html_out)
     return path

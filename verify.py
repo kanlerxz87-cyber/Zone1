@@ -22,6 +22,11 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).parent
+sys.path.insert(0, str(ROOT / "scripts"))
+# F103/F104 gate (arena/e01a0112, 2026-11-19): the rules that closed those two
+# findings live in one module so the repair script and this verifier can never
+# disagree. See scripts/historical_compliance.py.
+import historical_compliance as _hist  # noqa: E402
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
 
 OFFICIAL_HOSTS = {
@@ -244,6 +249,28 @@ for _stale in sorted(ROOT.glob("*/robots.txt")) + sorted(ROOT.glob("*/sitemap.xm
     if _stale.parent.name in ANNEX_TREES:
         errors.append(f"{rel(_stale)}: a robots.txt/sitemap.xml outside the host root is "
                       f"never fetched at /Zone1/; the root robots.txt is authoritative (F105)")
+
+# 4c. Historical compliance — the repair that closed F103 and F104 (2026-11-19,
+#     arena/e01a0112) is gated here, because a repair without a gate is a
+#     decoration. The owner's brief settles what earlier passes left as owner
+#     decisions: every outbound product link is marked sponsored (F103), no
+#     published page claims the supplied short links are invalid (F103: their
+#     status is unresolved, Zone3 FLG-003), and the disclosure sentence sits
+#     under the masthead and repeats in the footer (F104). Rules imported from
+#     scripts/historical_compliance.py, which also holds the idempotent repair
+#     for the trees that have no generator.
+for _tree in ANNEX_TREES:
+    _root = ROOT / _tree
+    for _f in sorted(_root.rglob("*.html")):
+        _t = _f.read_text(encoding="utf-8")
+        for _p in _hist.anchor_violations(_t):
+            errors.append(f"{rel(_f)}: {_p} (F103)")
+        for _p in _hist.disclosure_violations(_t):
+            errors.append(f"{rel(_f)}: {_p} (F104)")
+    for _f in sorted(_f for _f in _root.rglob("*")
+                     if _f.suffix in _hist.CLAIM_SUFFIXES):
+        for _p in _hist.claim_violations(_f.read_text(encoding="utf-8")):
+            errors.append(f"{rel(_f)}: {_p} (F103)")
 
 # 5. every source id in the JSON appears in the source register and
 #    every source register URL is https + on an official host
