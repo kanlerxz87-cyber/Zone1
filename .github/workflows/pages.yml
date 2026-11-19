@@ -32,7 +32,7 @@ jobs:
       - name: Regenerate the research section from its own data
         run: python3 research/build_research.py
 
-      - name: Verify the research section — 789 checks
+      - name: Verify the research section
         run: python3 research/check_research.py
 
       - name: Verify — no broken links, no unsourced values, disclosure present

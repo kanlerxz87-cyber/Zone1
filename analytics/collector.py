@@ -43,6 +43,8 @@ def allowed_page_ids() -> set[str]:
         "picks",
         "compare",
         "compliance",
+        "clusters",
+        "about",
         "categories/kitchen-appliances",
         "guides/buying-guide-air-fryers",
         "articles/index",
@@ -55,7 +57,8 @@ def allowed_page_ids() -> set[str]:
 
 
 def allowed_product_ids() -> set[str]:
-    return {item["slug"] for item in _json(DATA / "products.json").get("products", [])}
+    return ({item["slug"] for item in _json(DATA / "products.json").get("products", [])}
+            | {item["id"] for item in _json(DATA / "product-intent.json").get("rows", [])})
 
 
 def validate_payload(payload: Any) -> dict[str, str]:
@@ -64,7 +67,7 @@ def validate_payload(payload: Any) -> dict[str, str]:
         raise ValueError("event body must be an object")
     event = payload.get("event")
     page_id = payload.get("page_id")
-    if event not in BROWSER_EVENTS:
+    if not isinstance(event, str) or event not in BROWSER_EVENTS:
         raise ValueError("event is not allowed from a browser")
     if not isinstance(page_id, str) or page_id not in allowed_page_ids():
         raise ValueError("unknown canonical page ID")
@@ -78,7 +81,7 @@ def validate_payload(payload: Any) -> dict[str, str]:
             raise ValueError("outbound link ID is not allow-listed")
         result["target_id"] = target_id
     elif event == "article_engagement":
-        if not (page_id.startswith("articles/") or page_id.startswith("guides/")):
+        if not (page_id.startswith(("articles/", "guides/")) and page_id != "articles/index"):
             raise ValueError("engagement is only defined for articles and guides")
         allowed_keys.add("bucket")
         bucket = payload.get("bucket")
@@ -111,7 +114,8 @@ def _database_path(raw_path: str) -> Path:
 
 def _origin(raw: str) -> str:
     parsed = urlsplit(raw)
-    if parsed.scheme != "https" or not parsed.netloc or parsed.path or parsed.query or parsed.fragment:
+    if (parsed.scheme != "https" or not parsed.hostname or parsed.path or parsed.query or parsed.fragment
+            or parsed.username or parsed.password):
         raise ValueError("public origin must be an HTTPS origin with no path")
     return f"https://{parsed.netloc.lower()}"
 
@@ -223,6 +227,7 @@ def make_handler(environ: Mapping[str, str] | None = None):
                 _json_response(self, 413, {"error": "body_size_not_allowed"})
                 return
             try:
+                self.connection.settimeout(5)
                 raw = self.rfile.read(length)
                 payload = json.loads(raw.decode("utf-8"))
                 record_event(config["db_path"], payload)

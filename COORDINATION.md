@@ -6003,6 +6003,56 @@ a byline (Q-31 area) and product photography rights (Q-33) which need a human de
 registration that F88 and Q-40 hold apart from the styling change; the weight discrepancy Q-38; and the parallel
 builds' own generators (F87 / Q-32) which this session deliberately did not touch.
 
+## Task board — arena/7d42af7c-zone1 (2026-11-19 UTC) — publication rebuild and operational gates
+
+| ID | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| Z14-1 | Rebuild the canonical root publication: product-led front page, compact reader navigation, one workspace group and comprehensive footer; original editorial assets; responsive and accessible interactions | in progress | arena/7d42af7c (session 7d42af7c) | `build.py` (layout, reader pages and asset emitters), `assets/`, generated canonical root HTML only |
+| Z14-2 | Review the existing five-link intent record, analytics implementation and policy gates; implement and test safe missing mechanics without inventing account access, product identities, source checks or conversions | in progress | arena/7d42af7c | `analytics/`, `tests/`, `data/config.json`, `data/measurement.json`, `data/analytics-plan.json`, `.github/workflows/` if needed; generated measurement page |
+| Z14-3 | Publish a concise suggestions/decision desk and executive brief: known/missing answers, discovery steps, recommendations held before implementation, exact verification scope and official review links | in progress | arena/7d42af7c | `data/suggestions.json`, `data/questions.json`, `data/design-prompt.json`, `data/requirements.json`, `data/decision-log.json`, `data/flags.json`, `data/articles.json`, `data/topics.json`, `data/sources.json` only if warranted; `README.md`; `reports/publication-2026-11-19.md` (new); `EXECUTIVE-SUMMARY-2026-11-19.md` (new); generated canonical pages/feed/sitemap |
+| Z14-4 | Final integration: all existing gates, new regressions, browser checks, reproducible build; PR from the current Arena branch to main, merge only green checks, confirm GitHub Pages result and record it | in progress | arena/7d42af7c | `COORDINATION.md`; whole tree read-only at integration except fixes within the claimed scope |
+
+### Claim and handoff log — 2026-11-19
+
+- Read the shared board before editing. Its most recent work/merge records are 2026-11-17; earlier still-`in progress` rows have later completion/merge records or are well past the 60-minute takeover threshold. This pass takes over only canonical-root integration and the explicit mechanics above. It does not edit the independent `s2/`, `site/`, `research/`, `docs/`, `dashboard/`, `annex-88769516/` or session archives.
+- Work remains on the fixed Arena branch `arena/7d42af7c-zone1` (base `1eb1e56`); no session branch will be created or switched to. This is the environment's branch constraint, recorded instead of silently following the older branch-naming convention.
+- Preserve all prior evidence and provenance. A historical source observation is not a fresh live verification. An unavailable source/account/deployment host is published as a limitation, never an invented result. The five submitted `link.amazon` tokens are not ASINs and their compliance status is unresolved.
+
+### Z14-2 checkpoint — 2026-11-19
+
+- First pull targeted the not-yet-created remote Arena branch and correctly failed with “couldn't find remote ref”; pulled/rebased from `origin/main` once, then pushed the claim to the current branch. Subsequent pulls target this branch. No branch switch, remote-main push or conflict occurred.
+- Found and repaired an actual analytics protocol defect: the shipped browser emitted EV-ID/raw-event payloads while the Python collector accepted named aggregate events; engagement/comparison semantics differed as well. The browser now sends exactly the canonical schema, and the readable event register must match it at build time. The old PHP and Worker raw-event examples are retired with HTTP 410 rather than left as misleading deployment choices.
+- Corrected the privacy notice: it now distinguishes no site analytics from GitHub’s documented security IP logging and the owner-only decision picker’s local storage. No production collection was enabled or claimed. A source read is not a hosted endpoint or an Associates test.
+- Checkpoint: 17 Python canonical/HTTP/import tests; 8 JavaScript client tests, including actual generated payloads accepted by the Python validator; root build and `verify.py` pass (134 checked pages, 77 spec rows, 43 sources, zero errors). Root regression tests are now wired into CI instead of existing only as unexecuted files.
+
+### Z14-1 checkpoint — 2026-11-19
+
+- Canonical root now uses a single authored theme and local OFL fonts, a format-led shelf with real filters, reader navigation, one native Workspace menu and a comprehensive evidence/dashboard footer. The Associates statement is directly beneath the masthead and repeated in the footer; no disclosure was hidden to obtain the design.
+- Product/category pages now lead with the documented use, model caveat and sourced details rather than commission/rating tiles. Pricing snapshots and publisher uncertainty remain available. Added an honest editorial-method page and noindex notes for the two unconfirmed thermometer records — not invented product reviews.
+- Read SG-42/Q-34 before image use. Rejected and removed the generated-appliance candidate; published only two captioned generic food/preparation scenes with no promoted appliance, no test/recipe claim and an asset record. Product-photography rights remain open. Owner choices and campaign ledger remain empty.
+- Expanded qualification to *all* outbound product anchors, including Amazon listing citations, not only supplied-link CTA buttons. Added strict browser-style /Zone1/ routing and output/collector allowlist regressions. Those tests exposed real source-directory links without index pages in requirements.html; they now point to GitHub directory views. The comparison template's parent prefixes were cleaned up, but existing final-output normalisation already handled them — no false claim of a live defect.
+- Checkpoint: 24 Python + 8 JavaScript tests and root build/verify pass (58 canonical pages; 136 pages checked across the checkout). Desktop 1440 and mobile 390 Chromium preview: local fonts/images loaded, no document-width overflow, disclosure visible below masthead, no page errors. Broader responsive/no-JS/full CI gates still pending; not represented as complete.
+
+### Z14-3 checkpoint — 2026-11-19
+
+- Read all 24 existing article bodies and rewrote them in place, adding no new article. Fresh manual reads revealed substantive false absence claims and a safety-document conflict, now recorded as F96–F97 with exact official sources in the dated report. The Emeril manual both forbids and later describes extension-cord use; no permission is inferred. Both Chefman manuals contain aerosol cautions. The oven manual contains a rotisserie limit, preset settings and a temperature chart that earlier copy said were absent. Removed unsupported identity probabilities, serving/footprint, full-cycle energy-cost and November stock-switch conclusions.
+- Corrected publication metadata (F98): original publication timestamps are not established, so they remain null and optional RSS/Article fields are omitted. Actual article edits have authored timestamps; selected source reads have separate per-source records. No global source-read date or invented 09:00 time becomes publication evidence. Stable feed GUIDs retained.
+- The suggestions desk now uses explicit current implementation states, alternatives, recommendations, answers where known, missing facts and discovery steps. Search has real rendered hooks and a no-JS fallback. It no longer displays invented numeric priority scores or says nothing was implemented. Question/decision summaries show all their source links. SG-01 is partial, not done merely because its effort label said so. Owner choices remain empty.
+- Current executive, operating-decision and missing-evidence pages now distinguish local implementation from account evidence, avoid fabricated timelines/niche rankings and link the actual dated report. Historical strategy/annex data is preserved. Product-photo and continuing human-editor/cadence questions remain open; the method never pretends a human published this pass.
+- Local checkpoint: root build, verifier and 30 canonical Python tests pass; 8 JavaScript tests pass. Browser acceptance passes 70 page/viewport combinations (14 representative pages at 320/390/768/1024/1440), five interaction groups and three no-JS groups, with no external request or page error. It exposed and fixed a genuine 320 px owner-panel path overflow. Screenshots stay ignored; browser runner and pinned disposable dependencies are documented. Added canonical root/research rebuild/drift and browser gates to PR CI; independent site/ gate remains unchanged. Full platform/independent-section, PR and live Pages acceptance still pending.
+
+### Z14-4 integration seam — 2026-11-19
+
+A final `git fetch origin main` found PRs #152–#158, ending at cb33d97, merged while this session
+worked from its fixed Arena base. They independently repaired sponsored anchors and directory
+links, and added P14 records/guards, SG-49/50, Q-41 and source/redirect observations. Their work
+will be retained, not overwritten by this branch's older snapshot. The root presentation will
+keep the new tested native Workspace rather than reintroduce a second sidebar. New flags from
+this session are renumbered in one pass: F90→F96 (manual cord conflict), F91→F97 (article
+corrections), F92→F98 (dates), F93→F99 (analytics). Upstream F90–F95 keep their IDs. Historical
+records are retained, and final gates will be re-run after source/data/guard reconciliation.
+
+
 ---
 
 ## Task board — arena/c1706796-zone1 (2026-11-19 UTC)
@@ -6118,3 +6168,11 @@ for its own pass (shared outputs: `index.html`, NAV in `build.py`).
 | 2026-11-19 | arena/9b3365c7-zone1 | **P14-4 done — stale PR dispositions (none merged, none closed; closing is an owner action, Q-41/SG-50):** #139 thermometer dataset/page: not on main; keep as a port source, re-read every row before porting, depends on SG-36. #141 tagged `/dp/` links: conflicts with main's blank-tag posture (F76) until the one-link test (SG-47); do not merge. #144 "0 of five" fix: superseded by F91 in this pass. #146 `platform/analytics`: overlaps `analytics/` on main; nothing to port without an owner host decision (Q-30). #150 COORDINATION-only record: nothing to port. |
 | 2026-11-19 | arena/9b3365c7-zone1 | **P14-5 done.** `EXECUTIVE-SUMMARY.md` §26. |
 | 2026-11-19 | arena/9b3365c7-zone1 | **P14-6 done — merge and deploy.** Gates before push: `build.py` OK (tree byte-identical after rebuild), `verify.py` 0 errors, unit tests OK, `ci-check.sh` OK (11,464 links). [PR #157](https://github.com/kanlerxz87-cyber/Zone1/pull/157): both checks passed (`verify`, `Rebuild site/ from data/verified and assert every guarantee`). Merged with `gh pr merge 157 --merge` as `0a860d98b5b4c69fb5e8cda5b1be08c548ff4d43` at 2026-11-19T05:53:18Z. On that commit: "Build, verify and deploy to GitHub Pages" run 44468233603 succeeded, as did `pages-build-deployment`, CI and the annex verify. The Pages API reports `status: built`, `error: null`, commit `0a860d9` at 2026-11-19T05:53:42Z. Live: https://kanlerxz87-cyber.github.io/Zone1/ . All pass-14 claims are released. |
+
+### Z14-4 integration resolution — 2026-11-19
+
+- Merged origin/main cb33d97 into the **current** Arena branch without switching/creating a branch. Source conflicts were reconciled structurally, not by accepting a whole side: kept upstream exact-file requirement targets and check_requirement_paths()/test, F90–F95 + evidence, repaired Q-38/Q-40 anchors, flag-label/anchor guard, all source/redirect stamps, both new SG rows, Q-41, decision_brief data, both executed-history rows, reports and both coordination tails.
+- The tested reader-led theme/native Workspace supersedes the parallel sidebar presentation. Retained the explicit DESK_NAV inventory and strengthened check_desk_nav() to test the rendered native group **and** footer. Updated UI-specific tests without dropping sponsored CTA, nearby paid label, correct policy-clause or category-count assertions. Category count now uses upstream's actual observed_browse_path, not a prose category substring. The unpublished raw registry cannot substitute for an intended-product confirmation.
+- Our four new flags are F96–F99 after the collision map above. The old IDs on upstream rows are unchanged. No unrelated stale PR was merged or closed; their dispositions remain a proposal with Q-41 unresolved. Source histories and account/ledger blanks are preserved. The independently found sponsored/link-directory defects are already repaired by upstream #152/#154 and are not claimed as this session's unique live fixes.
+- Final local post-integration gates: 36 canonical Python + 8 JavaScript + 33 platform tests; root build (58 canonical pages, 36 sitemap URLs, 24 RSS items); verifier (136 checked pages, 77 specification rows, 43 sources, zero errors/external warnings); 393 annex assertions; 834 research checks; 11,987 links; deterministic rebuild of 64 artifacts, zero changed; no site/s2/research drift. Browser suite passes all 70 page/viewport combinations, five interaction groups and three no-JS groups with the 49-suggestion/41-question merged data.
+- PR and actual Pages acceptance are next. Local HTTP/browser tests do not enable production analytics or confirm an enrolled link. No reviewer/permission/account report is fabricated to clear a gate.

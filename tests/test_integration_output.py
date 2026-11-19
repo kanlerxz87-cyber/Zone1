@@ -8,16 +8,15 @@ ROOT = Path(__file__).resolve().parents[1]
 class PublishedIntegrationOutputTests(unittest.TestCase):
     def test_homepage_starts_with_buyer_choices_and_groups_owner_tools(self):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
-        self.assertIn("Choose the shape that fits your kitchen.", html)
+        self.assertIn('id="home-title">Less guesswork.', html)
+        self.assertIn("Three formats. Different jobs.", html)
+        self.assertNotIn('class="sidebar"', html)
         self.assertLess(html.index("publication-hero"), html.index("publication-product"))
         # Pass 14 (arena/9b3365c7-zone1): the brief asks for every dashboard surface to be
         # reachable "from the footer and a single navigation group". Both are asserted here.
-        self.assertIn("<h4>Behind the site</h4>", html)
-        self.assertIn("<h5>Behind the site</h5>", html)
-        self.assertEqual(1, html.count("<h4>Behind the site</h4>"))
-        self.assertNotIn("<h4>Owner workspace</h4>", html)
-        self.assertNotIn("<h4>Trust &amp; evidence</h4>", html)
-        nav = html[html.index('<nav id="site-nav"'):html.index("</nav>", html.index('<nav id="site-nav"'))]
+        self.assertEqual(1, html.count("<h4>Owner workspace</h4>"))
+        self.assertIn("<h5>Owner &amp; dashboard index</h5>", html)
+        nav = html[html.index('<nav class="workspace-panel"'):html.index("</nav>", html.index('<nav class="workspace-panel"'))]
         foot = html[html.index('<footer class="site">'):html.index("</footer>")]
         for page in ("product-intent.html", "measurement.html", "questions.html", "decision-log.html",
                      "suggestions.html", "executive-summary.html", "flagged.html", "compliance.html"):
@@ -36,13 +35,15 @@ class PublishedIntegrationOutputTests(unittest.TestCase):
         for tag in ctas:
             self.assertIn("sponsored", tag.split(">")[0])
             self.assertIn("Amazon", tag)            # Program Policies 6(w): clear it goes to Amazon
-        self.assertEqual(3, main.count("Sponsored link — we may earn a commission"))
+        self.assertEqual(3, main.count("Paid link · check the model"))
 
     def test_price_note_cites_the_clause_that_governs_prices(self):
         # F90: the note used to say 2(b) *and* 6(t) bar Amazon prices; 6(t) is about reviews.
-        html = (ROOT / "index.html").read_text(encoding="utf-8")
+        # The policy explanation now lives in the journal, not a home-page price tile.
+        html = (ROOT / "articles/no-amazon-prices.html").read_text(encoding="utf-8")
         self.assertNotIn("§2(b) and §6(t) bar", html)
-        self.assertIn("Associates Program Policies §2(b) allow", html)
+        self.assertIn("section 2(b)", html)
+        self.assertIn("Section 6(t)", html)
 
     def test_category_count_reads_the_recorded_browse_path(self):
         # F91: the category lede published "0 of the five links" while three landed on air fryers.
