@@ -3160,8 +3160,8 @@
           "url": "https://affiliate-program.amazon.com/help/operating/policies"
         },
         {
-          "label": "Flag F108 on this site",
-          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f108"
+          "label": "Flag F109 on this site",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f109"
         }
       ]
     },
@@ -3174,7 +3174,7 @@
       "what_we_know": [
         "The build fails when a row loses its source, and it fails when a flag id or count drifts; it has never asked whether a load-bearing source has been revised.",
         "The register stores per-source page_version stamps, so drift is detectable from the data alone when someone compares the stamp with the live header.",
-        "Pass 15 re-read the policies page directly on 2026-11-19, confirmed the April stamp, and found that the change notice had never been registered at all (F108, S46)."
+        "Pass 15 re-read the policies page directly on 2026-11-19, confirmed the April stamp, and found that the change notice had never been registered at all (F109, S46)."
       ],
       "what_is_missing": "Nothing to discover — this row records the standing rule the pass adopted: every pass re-reads the Program Policies header and the Operating Agreement header, compares the stamp, and opens a flag when the live date is newer than the registered one.",
       "how_to_discover": "Already answered by adoption. The mechanical half is a future build check that fails when a policy source's registered stamp is older than a stated review window; it belongs to the generator, and no window is claimed to be enforced before that check exists.",

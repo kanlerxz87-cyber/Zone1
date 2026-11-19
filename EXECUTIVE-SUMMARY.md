@@ -1685,13 +1685,13 @@ and the manual's own internal-temperature table, which says "Use this chart and 
 **A topic card is a hypothesis, not a source.** The queued hook for this guide read "The appliance is built to run
 unattended". The manual for that appliance says the opposite, so the premise was dropped before a sentence was
 written, and the hook text stays in Git history rather than being quietly rewritten. Recorded as
-[F104](https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f104). Three further findings from the same reading
+[F105](https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f105). Three further findings from the same reading
 session are published with it: the Emeril cord conflict recurs in the French section, so a reader cannot resolve it
-by switching language ([F105](https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f105), and F96 stays open);
+by switching language ([F106](https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f106), and F96 stays open);
 CHEF iQ's own page describes its sensors two ways, so no probe count is published here as a verified specification
-([F106](https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f106)); and "before first use" is three different
+([F107](https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f107)); and "before first use" is three different
 procedures across three machines, which is why the site will never carry one generic first-week paragraph
-([F107](https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f107)).
+([F108](https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f108)).
 
 **The compliance gap this pass found in itself.** The Program Policies page has read
 "Updated: April 14, 2026" on every pass since 15 November, and the register recorded that date without ever asking
@@ -1701,7 +1701,7 @@ quotes added (C20: a link to a product-list page needs additional relevant origi
 promotion mention must come off the site the moment the promotion ends). The other three items are **not** quoted
 anywhere on this site: two direct fetches of the change notice failed in this pass, so the notice is registered as a
 source with that limitation on the row ([S46](data/sources.json)) and the gap is an open flag
-([F108](https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f108)). The standing rule adopted from it: every pass
+([F109](https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f109)). The standing rule adopted from it: every pass
 re-reads the two governing headers and stamps the read, so a citation ages in the open instead of silently.
 
 **What else moved.** Three questions and four suggestions went onto the decision desk

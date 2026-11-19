@@ -7786,8 +7786,8 @@
           "url": "https://kanlerxz87-cyber.github.io/Zone1/compliance.html"
         },
         {
-          "label": "Flag F108: the April 2026 revision this register had not recorded",
-          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f108"
+          "label": "Flag F109: the April 2026 revision this register had not recorded",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f109"
         }
       ],
       "options": [
@@ -7814,7 +7814,7 @@
         }
       ],
       "recommendation": "A. Combined with C: the paid-promotion freeze is already true of this build, so adopting A changes nothing about what ships today and makes the register's wording current.",
-      "why": "A dated citation is only worth what its date is worth. The register should say what the rule says now, and where it cannot, say that it could not read it - which is what F108 records for the three items this pass could not verify.",
+      "why": "A dated citation is only worth what its date is worth. The register should say what the rule says now, and where it cannot, say that it could not read it - which is what F109 records for the three items this pass could not verify.",
       "impact": 4,
       "confidence": 5,
       "effort": "S",
@@ -7826,11 +7826,11 @@
       ],
       "current_state": "partial",
       "current_reviewed_on": "2026-11-19",
-      "current_note": "Pass 15 read the live policies page directly, confirmed the April 2026 stamp, quoted the 180-day condition as C19 and added C20-C21 from the same read. The change notice itself failed to fetch twice, so the other three items stay unquoted and F108 stays open.",
+      "current_note": "Pass 15 read the live policies page directly, confirmed the April 2026 stamp, quoted the 180-day condition as C19 and added C20-C21 from the same read. The change notice itself failed to fetch twice, so the other three items stay unquoted and F109 stays open.",
       "implementation": {
         "state": "partial",
         "on": "2026-11-19",
-        "note": "C19, C20 and C21 added with verbatim quotes and the same-day read date; S46 registered as a source with its limitation stated on the row; Q-42, Q-43 and Q-44 opened; F108 raised. No quotation was copied from a search extract into a policy row.",
+        "note": "C19, C20 and C21 added with verbatim quotes and the same-day read date; S46 registered as a source with its limitation stated on the row; Q-42, Q-43 and Q-44 opened; F109 raised. No quotation was copied from a search extract into a policy row.",
         "evidence": [
           {
             "label": "Pass-15 verification report",
@@ -7884,7 +7884,7 @@
       "blocked_by": [],
       "current_state": "open",
       "current_reviewed_on": "2026-11-19",
-      "current_note": "Proposed on 2026-11-19 from the F108 finding. Not implemented: it changes a shared page template (page_compliance), which sits outside this pass's claimed scope.",
+      "current_note": "Proposed on 2026-11-19 from the F109 finding. Not implemented: it changes a shared page template (page_compliance), which sits outside this pass's claimed scope.",
       "implementation": {
         "state": "proposed",
         "on": "2026-11-19",
@@ -7912,8 +7912,8 @@
           "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf"
         },
         {
-          "label": "Flag F107",
-          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f107"
+          "label": "Flag F108",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f108"
         }
       ],
       "options": [
@@ -7949,7 +7949,7 @@
       "blocked_by": [],
       "current_state": "open",
       "current_reviewed_on": "2026-11-19",
-      "current_note": "Raised on 2026-11-19 from the evidence collected for F107 while TP-19 was being considered. Not implemented in this pass: the product-page template is a shared output, and the cadence limit was already spent on the probe guide.",
+      "current_note": "Raised on 2026-11-19 from the evidence collected for F108 while TP-19 was being considered. Not implemented in this pass: the product-page template is a shared output, and the cadence limit was already spent on the probe guide.",
       "implementation": {
         "state": "proposed",
         "on": "2026-11-19",

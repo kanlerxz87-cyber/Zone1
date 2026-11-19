@@ -1,6 +1,6 @@
 {
   "accessed": "2026-11-13",
-  "scope": "Program-level compliance requirements that the platform must satisfy, taken only from the Associates Operating Agreement, the Program Policies, the Standard Commission Income Statement and FTC materials. Each requirement carries a verbatim or near-verbatim quote and a source id. | 2026-11-19 (arena/0c5c10d0-zone1): C19–C21 added from a direct, same-day read of the live Program Policies page. The 14 April 2026 change notice (S46) itself was not fetched directly, so the three items it lists beyond C19 are recorded as a re-read task (flag F108), not as quoted policy.",
+  "scope": "Program-level compliance requirements that the platform must satisfy, taken only from the Associates Operating Agreement, the Program Policies, the Standard Commission Income Statement and FTC materials. Each requirement carries a verbatim or near-verbatim quote and a source id. | 2026-11-19 (arena/0c5c10d0-zone1): C19–C21 added from a direct, same-day read of the live Program Policies page. The 14 April 2026 change notice (S46) itself was not fetched directly, so the three items it lists beyond C19 are recorded as a re-read task (flag F109), not as quoted policy.",
   "requirements": [
     {
       "id": "C1",

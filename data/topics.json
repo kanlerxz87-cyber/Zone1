@@ -605,7 +605,7 @@
       ],
       "status": "published",
       "blocked_by": [],
-      "status_note": "Published 2026-11-19 as articles/probe-in-an-air-fryer.html by arena/0c5c10d0-zone1, from four documents re-read for that page. The queued hook said the appliance “is built to run unattended”; the Chefman 6 Qt manual states “Do not leave the air fryer unattended during use”, so that premise was dropped and the article answers what each document states instead (flag F104). The half of a title that names one specific probe with one specific oven still waits on Q-27, and the published page asserts no such pairing.",
+      "status_note": "Published 2026-11-19 as articles/probe-in-an-air-fryer.html by arena/0c5c10d0-zone1, from four documents re-read for that page. The queued hook said the appliance “is built to run unattended”; the Chefman 6 Qt manual states “Do not leave the air fryer unattended during use”, so that premise was dropped and the article answers what each document states instead (flag F105). The half of a title that names one specific probe with one specific oven still waits on Q-27, and the published page asserts no such pairing.",
       "published_as": "articles/probe-in-an-air-fryer.html"
     },
     {
