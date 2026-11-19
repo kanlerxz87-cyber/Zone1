@@ -6405,3 +6405,42 @@ Claim log: 2026-11-19 · arena/b3ed16c4 · repo read first (`main` @ `2be3bea`, 
 - **Scope note:** no annex page body was rewritten; those trees belong to earlier passes and this
   pass added a `<meta>` and a `<link>` only. `docs/` was read and confirmed already correct (a
   retired redirect with `noindex` and a canonical to the root page it redirects to).
+
+
+### Y1-b3ed16c4 — merged and deployed (2026-11-19)
+
+- **[PR #167](https://github.com/kanlerxz87-cyber/Zone1/pull/167) merged** by explicit `gh pr merge 167 --merge`
+  at **2026-11-19T11:21:32Z** as **`71fb8b156b81f000634f5d7b5b3559c99b46801c`**. All three PR checks
+  (`verify`, `browser`, `Rebuild site/ from data/verified`) reported SUCCESS before the merge.
+- **Deploy:** Pages workflow **44514104031** succeeded at 11:22Z; legacy `pages-build-deployment`
+  **44514103492** succeeded; the Pages API reports `status: built`, source `main` / `/`, `legacy`.
+  Main-branch CI **44514104076** and the annex workflow **44514104190** both succeeded.
+- **Deployed bytes read at the merge commit** (`git show 71fb8b1:<path>`) — the sandbox can only reach
+  allowlisted hosts, so this is the artifact GitHub Pages publishes, not a browser read:
+  `site/`, `dashboard/`, `research/`, `s2/`, `annex-88769516/`, `session-3740f69d/` all
+  `noindex,follow`; the canonical `index.html` still `index,follow,max-image-preview:large`;
+  exactly one `robots.txt` and one `sitemap.xml`, both at the root; **zero** sub-directory copies.
+- **Flag-register collision, resolved by renumbering rather than by winning:** `main` had already
+  taken F103 (PR #165: unqualified sponsored anchors) and F104 (PR #164: inherited-page disclosure
+  gap) while this branch was open. This pass's boundary finding moved **F103 → F105**, and
+  `build.py` now carries F103, F104 and F105 as three distinct rows. Three rebases were run
+  against a moving `main` (PRs #164, #166, #172); every `COORDINATION.md` conflict was resolved
+  append-only, keeping both sides, and `flagged.html` was regenerated from the merged generator
+  rather than hand-merged. No other session's work was discarded.
+- **Duplicate work, logged rather than hidden:** [PR #168](https://github.com/kanlerxz87-cyber/Zone1/pull/168)
+  (`arena/95af246d`) independently repaired the same boundary and found something this pass did not —
+  that `dashboard/` states the **opposite** conclusion about the five supplied links from the canonical
+  register ("Invalid link" on each, "0 verified product identities", visible on the live
+  `/Zone1/dashboard/` page). That is a substantively different defect from the index boundary and
+  deserves its own row. **A comment was left on #167 recording exactly what #167 carries that #168
+  does not** — `verify.py` check 2b (the replaced no-op badge check), S46/S47, the
+  `AnnexBoundaryTests` negative tests, and SG-52/SG-53 — so an integration session can port those
+  four items and close one of the two PRs without losing either. #168 was not merged, closed or
+  edited by this session.
+- **Gates re-run on the rebased tree immediately before merge:** build 58 pages / 36 sitemap URLs /
+  24 RSS items, deterministic rebuild clean; verify.py 136 pages, 77 spec rows, **47 sources**,
+  0 errors, 0 external warnings; 66 Python + 8 Node + 33 platform tests; audit clean;
+  393 annex assertions; s2 `--check` current; research check OK; 11,414 links.
+- **Still not claimed:** Search Console ownership or query data (SG-51, F101); any ranking, traffic,
+  click or conversion figure; the tracking ID's existence or application (F76); the five links'
+  validity; product-photo rights. Report: `reports/verification-2026-11-19-b3ed16c4.md`.
