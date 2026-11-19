@@ -129,8 +129,18 @@ Local pre-integration gates passed on 19 November 2026:
   activated. Screenshots remain ignored development evidence, not product/test photography.
 
 A late fetch found additional main-branch work merged while this pass was running (PRs
-#152–#158). Its data, guards, tests, sources and coordination records are being reconciled before
-the final post-integration gate run. Earlier checkpoints are not substituted for that run.
+#152–#158). Integration with `cb33d97` retained its source/redirect observations, all history,
+SG-49/50, Q-41, F90–F95, sponsored-anchor fix, exact-file requirement targets and directory guard,
+flag-label/anchor guard and explicit desk inventory. The sidebar-only UI assertions were updated
+to the native Workspace, and its guard now verifies both the actual menu and footer. Tests for
+price policy follow the explanation's new journal location; the policy distinction itself is
+retained. Our new flags moved in one pass to **F96–F99**; no upstream ID was reassigned.
+
+**Post-integration re-run:** root build/verify; **36 Python**, **8 JavaScript**, **33 platform**
+tests; 393 annex assertions; 834 research checks; **11,987 links**; 64-artifact deterministic
+rebuild; no independent output drift. The 70-combination browser suite passed again with all
+49 suggestions / 41 questions retained. No local conflict marker remains in source or output.
+
 PR, merge, actual Pages deployment and live readback remain to be recorded after they occur.
 
 ## What remains outside repository authority

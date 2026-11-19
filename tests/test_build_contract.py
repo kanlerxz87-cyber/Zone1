@@ -49,5 +49,33 @@ class IntentAndTrackingGateTests(unittest.TestCase):
             self.assertEqual([], build.check_intent_measurement_contract())
 
 
+class RequirementPathGateTests(unittest.TestCase):
+    def test_rejects_directory_references_that_github_pages_cannot_serve(self):
+        requirements = copy.deepcopy(build.REQUIREMENTS)
+        requirements["requirements"][0]["where"] = ["platform/"]
+        requirements["requirements"][0]["evidence"] = [
+            {"label": "fixture", "url": "platform/tests/"}
+        ]
+
+        with patch.object(build, "REQUIREMENTS", requirements):
+            problems = build.check_requirement_paths()
+
+        self.assertTrue(any("implementation path must name a file" in issue for issue in problems))
+        self.assertTrue(any("evidence link must name a file" in issue for issue in problems))
+
+
+class RetainedIntegrationGuardTests(unittest.TestCase):
+    def test_flag_label_must_match_its_actual_fragment(self):
+        self.assertTrue(build.check_flag_anchor_labels({"fixture.html":
+            '<a href="flagged.html#f84">Flag F86</a>'}))
+        self.assertEqual([], build.check_flag_anchor_labels({"fixture.html":
+            '<a href="flagged.html#f86">Flag F86</a>'}))
+
+    def test_explicit_owner_inventory_cannot_drop_a_nav_route(self):
+        with patch.object(build, "DESK_NAV", [path for path in build.DESK_NAV if path != "figures.html"]):
+            problems = build.check_desk_nav({})
+        self.assertTrue(any("figures.html" in issue for issue in problems))
+
+
 if __name__ == "__main__":
     unittest.main()

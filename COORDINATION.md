@@ -6051,3 +6051,128 @@ keep the new tested native Workspace rather than reintroduce a second sidebar. N
 this session are renumbered in one pass: F90→F96 (manual cord conflict), F91→F97 (article
 corrections), F92→F98 (dates), F93→F99 (analytics). Upstream F90–F95 keep their IDs. Historical
 records are retained, and final gates will be re-run after source/data/guard reconciliation.
+
+
+---
+
+## Task board — arena/c1706796-zone1 (2026-11-19 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-c1706796 | Current-branch final integration and publication audit: reconcile this branch with current `main`, re-run the canonical build and verification gates, inspect the source register/official-link rules, repair only verified defects, regenerate the root GitHub Pages site, and open/merge a PR if the branch contains any publishable delta. | done — product-destination qualification repaired; all local and deployment-status gates green | arena/c1706796-zone1 (session c1706796) | `COORDINATION.md`; `build.py`; regenerated canonical root HTML only; no `s2/`, `site/`, `research/`, `docs/`, `dashboard/`, or `annex-88769516/` edits |
+
+### Claim log — arena/c1706796-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-19T00:00Z | arena/c1706796-zone1 (session c1706796) | Claimed X-c1706796 after reading the task board. The branch is fixed by Arena as `arena/c1706796-zone1`, so the branch-name convention in the shared protocol cannot be applied literally. All earlier tasks are recorded done; this scope is a fresh final audit and does not take an active claim. Claim commit and push follow immediately, before audit work. |
+| 2026-11-19T00:00Z | arena/c1706796-zone1 (session c1706796) | Completed the audit. **Verified defect and repair:** the root generator qualified supplied `link.amazon` CTAs but intentionally exempted `class="src"` Amazon product citations; direct `amazon.com/dp/` citations had no `rel="sponsored"`. The brief requires every outbound product link to be sponsored. `build.py` now applies the marker to all root `link.amazon/…` and Amazon `/dp/…` anchors (including citations) and its build gate rejects a missing marker. S22’s `ZZZ9ZZZZZ` resolver control stays exempt because it does not name a product. Rebuild result: **346/346** canonical outbound Amazon product destinations carry `rel="sponsored"`; zero missing. No product values, intent fields, sources, tracking IDs or editorial claims changed. |
+| 2026-11-19T00:00Z | arena/c1706796-zone1 (session c1706796) | **Verification run:** `python3 build.py` (56 canonical pages, 35 sitemap URLs, 24 RSS items); `python3 verify.py` (134 pages, 77 spec rows: 75 sourced values / 2 blank+flagged, 43 declared official-source rows, 0 errors); `python3 research/build_research.py && python3 research/check_research.py` (834 checks); `python3 scripts/verify_site.py` (393 assertions); `bash scripts/ci-check.sh` (33 unit tests, data audit clean, current annex build, 10,688 links, no blocking link finding); `git diff --check` clean. The qualification guard was also negatively tested with an unqualified `/dp/` anchor (rejected) and S22 (accepted exception). GitHub’s API reports Pages `built`, public, from `main` root at `https://kanlerxz87-cyber.github.io/Zone1/`; the latest Pages deployment for current `main` `1eb1e56` succeeded: https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44137462955. |
+| 2026-11-19T00:00Z | arena/c1706796-zone1 (session c1706796) | **Sources and limits:** this pass audited the local 43-row official-source register and retained its links to Associates Central (S1/S2), FTC/eCFR (S7–S9), manufacturer pages/manuals (S10–S15, S25–S27, S39–S40), Amazon listing observations (S16/S28/S29/S36/S37), and Google link guidance (S30/S31). It did **not** represent any of those third-party pages as freshly live-read: the sandbox’s permitted outbound hosts do not include those sites. The five product-intent records retain blank intended-ASIN/listing/confirmation fields, observed redirects separate, and the supplied `shopnow047c-20` ID remains recorded-only until an enrolled-Associates first-party test proves it. Those account-only items remain visibly flagged and do not block publication. |
+| 2026-11-19T05:39Z | arena/c1706796-zone1 (session c1706796) | **Publication complete:** [PR #152](https://github.com/kanlerxz87-cyber/Zone1/pull/152) merged to `main` as `c758b8b09be5b62f3fb47a0e84978d7aa9816eae` at 2026-11-19T05:38:54Z. Its two required PR checks passed (`verify`, 6 s; annex rebuild, 5 s). GitHub Pages then built and deployed that merge successfully in [run 44466604307](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44466604307): root build, research build/check, root verification, reproducibility check and Pages deployment all passed. Public Pages status is `built`; live URL: https://kanlerxz87-cyber.github.io/Zone1/. GitHub emitted a non-blocking Node 20 deprecation advisory for upstream actions; no build or deploy step failed. |
+
+## Task board — arena/62a6f797-zone1 (2026-11-19 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| R-62a6f797 | **Repair the live Requirements-page directory-link defect recorded as R-16adefc5-1, then independently re-run the canonical build and verification gates.** The three affected records created root-relative links to `platform/` and `platform/tests/`; GitHub Pages serves its 404 page for those directories. Preserve the visible repository evidence links, use only valid reader-facing targets, regenerate the canonical root output, and record verification and any remaining irregularities. | done — merged and Pages deployment confirmed | arena/62a6f797-zone1 | `COORDINATION.md` (this board and completion record), `build.py` (requirements renderer/path-link rule), generated `requirements.html`, `reports/verification-2026-11-19-62a6f797.md` (new), `tests/test_build_contract.py` |
+
+### Claim log — arena/62a6f797-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-19T05:36Z | arena/62a6f797-zone1 | Read the full shared board before claiming. Its historical `in progress` rows are stale and each has a later completion/merge record; no current task owns this repair. Claimed R-62a6f797 narrowly after confirming the live-HTML defect described in R-16adefc5-1 is still rendered. This branch is fixed by Arena; no branch switch will be made. The claim is committed and pushed before any implementation change. |
+| 2026-11-19T05:39Z | arena/62a6f797-zone1 | Scope extension recorded before implementation: `tests/test_build_contract.py` is added solely to prove the new requirement-path guard rejects a directory reference. No other scope changes. |
+
+### Completion record — arena/62a6f797-zone1 (2026-11-19 UTC)
+
+**R-62a6f797 is complete, merged and deployed.** The Requirements register no longer emits
+`platform/` or `platform/tests/` reader links. G-01 now points at `platform/README.md`; G-04 now points at
+`platform/tests/test_platform.py`. Both precise paths were confirmed as `type: file` through the official GitHub
+Contents API. The existing GitHub repository evidence links are preserved.
+
+**Prevention:** `check_requirement_paths()` now treats any local directory reference in a requirement's `where` or
+`evidence` field as a build error. `tests/test_build_contract.py` injects both former directory shapes and proves the
+build guard rejects them. The generated `requirements.html` was rebuilt and a rendered-link audit asserted that both
+former directory hrefs are absent and both exact-file hrefs are present.
+
+**Verification:** `python3 build.py` rebuilt 56 canonical pages; `python3 verify.py` checked 134 pages, 77 spec rows
+(75 verified / 2 blank+flagged), 43 sources and returned 0 errors; `scripts/check_links.py` passed 10,688 links.
+`bash scripts/ci-check.sh` passed its 33 tests and audit; `research/check_research.py` passed 834 checks;
+`scripts/verify_site.py` passed 393 assertions; `scripts/build_s2_site.py --check`, the 18-test root suite, both
+JavaScript syntax checks and `git diff --check` all passed. Full commands, the limited source review, and the explicit
+post-deploy read-back caveat are in `reports/verification-2026-11-19-62a6f797.md`.
+
+**Irregularities:** no product, affiliate, tracking, traffic, conversion, price, review or compliance value was
+changed or newly asserted. R-16adefc5-1 is resolved in the generated branch output. A browser read-back after merge
+remains required because GitHub Pages only deploys `main`; that is a deployment verification step, not an open
+content defect.
+
+**Rebase record:** while opening PR #154, `main` advanced to `c758b8b` (PR #152). The first rebase produced one
+real `COORDINATION.md` tail conflict and one generated `requirements.html` conflict. Both records were retained:
+PR #152's X-c1706796 audit remains above this board, this board remains below it, and `requirements.html` was
+regenerated from the merged generator and register rather than hand-merged. The product-link qualification change
+already on `main` was preserved. All integration gates listed above were then re-run on the rebased tree and passed.
+`main` advanced a second time to `6b4beb1` (PR #155) before this PR could merge; that rebase had only the same
+append-only `COORDINATION.md` tail conflict. PR #155's publication record and this record were both retained, and no
+code or generated output changed in that second rebase.
+---
+
+### Duplicate-audit collision — arena/80b0ddcc-zone1 (2026-11-19 UTC)
+
+This session independently identified the same source-citation qualification gap fixed by
+[PR #152](https://github.com/kanlerxz87-cyber/Zone1/pull/152). PR #153 passed both of its PR
+checks, but its merge request became conflicting because PR #152 had already merged the canonical
+functional change. The branch was rebased onto current `main` and all duplicate generator/output
+changes were intentionally dropped in favour of the already-merged, reproducible implementation.
+
+The final reconciliation leaves only this coordination record. It preserves PR #152's rule that all
+346 real generated Amazon product destinations carry `rel="sponsored"`, while retaining S22's fake
+resolver token as the non-product control exception. The [PR #152 publication record](https://github.com/kanlerxz87-cyber/Zone1/pull/155)
+immediately above is the authoritative deployment confirmation. No product facts, source values,
+tracking state, or account-only decisions were changed by this reconciliation.
+
+**Merge and deployment:** [PR #154](https://github.com/kanlerxz87-cyber/Zone1/pull/154) merged with
+`gh pr merge 154 --merge` as `2e3134ca64984ae75b563d8c1111fd5113f74097` at 2026-11-19T05:41:16Z. Both PR
+checks (`verify` and `Rebuild site/ from data/verified and assert every guarantee`) passed. GitHub Pages then built
+and deployed that merge commit successfully: [workflow run 44466873155](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44466873155)
+completed with build and deploy jobs `success`; the official Pages API reported `status: built`, `error: null`,
+source `main` `/`, and the same commit at 2026-11-19T05:41:40Z. Live URL:
+https://kanlerxz87-cyber.github.io/Zone1/
+## Task board — arena/9b3365c7-zone1 (2026-11-19 UTC) — pass 14: reader-first front page, one dashboard nav group, decision brief
+
+Board read before starting. `origin/main` = `1eb1e56` (PR #151). Five PRs are still open from 2026-11-17
+(#139, #141, #144, #146, #150) — all `CONFLICTING`, last commit > 40 hours ago, so per protocol item 7 their
+claims are stale; this pass **reviews** them (P14-4) and records a disposition, it does not silently drop them.
+No other session has an open claim newer than 60 minutes, so this session also acts as the integration session
+for its own pass (shared outputs: `index.html`, NAV in `build.py`).
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| P14-1 | Live re-read of the five supplied `link.amazon` links + the policy/FTC sources the reader copy relies on; dated report; new irregularities onto the flagged register | done | arena/9b3365c7-zone1 | `reports/verification-2026-11-19-9b3365c7.md`, `data/sources.json` (stamps only), `build.py` (`PROGRAMME_FLAGS` rows only) |
+| P14-2 | Reader-first chrome: one "Behind the site" nav group holding every dashboard surface, de-cluttered citation markers on reader pages, front page rebuilt as a publication front page, plain-English CTA with the disclosure kept beside it | done | arena/9b3365c7-zone1 | `build.py` (`layout`, `page_index`, `product_cta`, `price_line`, CSS/JS blocks), regenerated root HTML + `assets/` |
+| P14-3 | Decision desk additions: anti-slop suggestions, new questions with discovery steps, and a one-screen decision brief at the top of `suggestions.html` | done | arena/9b3365c7-zone1 | `data/suggestions.json`, `data/questions.json`, `build.py` (`page_suggestions` only) |
+| P14-4 | Stale-PR review (#139 #141 #144 #146 #150): what is already on `main`, what is not, disposition recorded | done | arena/9b3365c7-zone1 | `COORDINATION.md` (this section) |
+| P14-5 | Executive summary: pass-14 section | done | arena/9b3365c7-zone1 | `EXECUTIVE-SUMMARY.md`, `build.py` (`page_exec` only if needed) |
+| P14-6 | Integration: gates, PR → merge → Pages confirm → record | done | arena/9b3365c7-zone1 | whole tree (integration, last) |
+
+### Claim log — arena/9b3365c7-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-19 | arena/9b3365c7-zone1 | Claimed P14-1…P14-6. Baseline before any edit: `python3 build.py` exit 0 (35 sitemap URLs, 24 feed items, tree byte-identical after rebuild) · `python3 verify.py` 134 pages, 77 spec rows (75 verified / 2 blank+flagged), 43 sources, 0 errors · `bash scripts/ci-check.sh` 33 tests OK, audit clean, 10,688 links OK. Parallel builds (`s2/`, `site/`, `research/`, `docs/`, `dashboard/`, `annex-*/`, `session-*/`) are out of scope and will not be edited. |
+| 2026-11-19 | arena/9b3365c7-zone1 | **Rebase seam.** `git pull --rebase origin main` met `bc5f0b1` (PRs #152–#156 merged while this pass worked). Conflicts: `COORDINATION.md` tail resolved keep-both. The c1706796 and 62a6f797 boards and the 80b0ddcc note now sit above this section, unchanged. `index.html` and the three `products/*.html` pages were taken from this branch and then **regenerated** by `build.py` on top of main's generator, so PR #152's `qualify_affiliate_links` (every Amazon product anchor `rel="sponsored"`) and #154's `check_requirement_paths` both govern the output. Nothing either side published was deleted. The claim commit `a07ee63` was rewritten to `be9a1b4` by the rebase, so this branch (and only this branch) was pushed with `--force-with-lease`. |
+| 2026-11-19 | arena/9b3365c7-zone1 | **P14-2 done.** `layout()` now has three sidebar groups: Shop, The three machines, and a `<details>` "Behind the site" holding all 19 `DESK_NAV` pages. The group stays closed on reader pages and opens on working pages. The footer repeats Shop + Behind the site + Disclosure on every page. New guard `check_desk_nav()`: the build fails if a NAV page belongs to neither the shop set nor `DESK_NAV`, or if a footer lacks a desk link. Proven by removing `figures.html` from `DESK_NAV` (build failed, then restored). **Test change and its reason:** `tests/test_integration_output.py` used to assert the old "Owner workspace" nav labels. The brief asks for one nav group plus the footer, so the test now asserts exactly one "Behind the site" group in the nav, one in the footer, and all 8 sampled desk hrefs in both. Added 3 tests: front page leads with 3 sponsored CTAs each with its disclosure note; price note cites §2(b) only (F90); category count reads `observed_browse_path` (F91). The JS drawer was checked: `.navtoggle` toggles `.open` on `#site-nav.sidebar`, which the reader CSS shows. |
+| 2026-11-19 | arena/9b3365c7-zone1 | **P14-1 done.** Live reads of S2, S8, S16, S17 (+4 sibling short links), S28, S29, S32, S33, S35, S36 and S37 are recorded in `data/sources.json` → `reverified_2026_11_19_9b3365c7`. Breadcrumbs for PI-01..05 were confirmed by direct /dp/ reads (leaf nodes 17659096011 / 289810). Flags added: F90 (price clause), F91 (0-of-five lede, **takeover of open PR #144's task**, superseded here), F92 (two flag anchors + new guard `check_flag_anchor_labels()`, proven by reverting Q-38), F93 (stale PRs), F94 (suggestions desk double count + stale "nothing implemented" note), F95 (`channelId` varies by request; no meaning inferred). The Emeril 6-vs-7 accessories discrepancy was re-confirmed under the existing F48/F66/F71, so no duplicate flag was added. The S8 front-page promise now quotes S8's own words. Report: `reports/verification-2026-11-19-9b3365c7.md`. |
+| 2026-11-19 | arena/9b3365c7-zone1 | **P14-3 done.** SG-49 (where the working pages live) and SG-50 (stale PRs) added; Q-41 (who may close stale PRs) added. A Q-42 draft about `channelId` was withdrawn once direct reads showed the value changes per request (F95). Dated four-row `decision_brief` (SG-47, SG-42, SG-36, SG-49) now renders at the top of `suggestions.html`, and the build rejects an unknown id. Decision log `implemented[]` gained SG-04 path A and SG-27 path A under the adopt-after-silence rule (each recommended option is reversible, low risk, and has no 'unknowable' blocker). Q-38/Q-40 anchors repaired. |
+| 2026-11-19 | arena/9b3365c7-zone1 | **P14-4 done — stale PR dispositions (none merged, none closed; closing is an owner action, Q-41/SG-50):** #139 thermometer dataset/page: not on main; keep as a port source, re-read every row before porting, depends on SG-36. #141 tagged `/dp/` links: conflicts with main's blank-tag posture (F76) until the one-link test (SG-47); do not merge. #144 "0 of five" fix: superseded by F91 in this pass. #146 `platform/analytics`: overlaps `analytics/` on main; nothing to port without an owner host decision (Q-30). #150 COORDINATION-only record: nothing to port. |
+| 2026-11-19 | arena/9b3365c7-zone1 | **P14-5 done.** `EXECUTIVE-SUMMARY.md` §26. |
+| 2026-11-19 | arena/9b3365c7-zone1 | **P14-6 done — merge and deploy.** Gates before push: `build.py` OK (tree byte-identical after rebuild), `verify.py` 0 errors, unit tests OK, `ci-check.sh` OK (11,464 links). [PR #157](https://github.com/kanlerxz87-cyber/Zone1/pull/157): both checks passed (`verify`, `Rebuild site/ from data/verified and assert every guarantee`). Merged with `gh pr merge 157 --merge` as `0a860d98b5b4c69fb5e8cda5b1be08c548ff4d43` at 2026-11-19T05:53:18Z. On that commit: "Build, verify and deploy to GitHub Pages" run 44468233603 succeeded, as did `pages-build-deployment`, CI and the annex verify. The Pages API reports `status: built`, `error: null`, commit `0a860d9` at 2026-11-19T05:53:42Z. Live: https://kanlerxz87-cyber.github.io/Zone1/ . All pass-14 claims are released. |
+
+### Z14-4 integration resolution — 2026-11-19
+
+- Merged origin/main cb33d97 into the **current** Arena branch without switching/creating a branch. Source conflicts were reconciled structurally, not by accepting a whole side: kept upstream exact-file requirement targets and check_requirement_paths()/test, F90–F95 + evidence, repaired Q-38/Q-40 anchors, flag-label/anchor guard, all source/redirect stamps, both new SG rows, Q-41, decision_brief data, both executed-history rows, reports and both coordination tails.
+- The tested reader-led theme/native Workspace supersedes the parallel sidebar presentation. Retained the explicit DESK_NAV inventory and strengthened check_desk_nav() to test the rendered native group **and** footer. Updated UI-specific tests without dropping sponsored CTA, nearby paid label, correct policy-clause or category-count assertions. Category count now uses upstream's actual observed_browse_path, not a prose category substring. The unpublished raw registry cannot substitute for an intended-product confirmation.
+- Our four new flags are F96–F99 after the collision map above. The old IDs on upstream rows are unchanged. No unrelated stale PR was merged or closed; their dispositions remain a proposal with Q-41 unresolved. Source histories and account/ledger blanks are preserved. The independently found sponsored/link-directory defects are already repaired by upstream #152/#154 and are not claimed as this session's unique live fixes.
+- Final local post-integration gates: 36 canonical Python + 8 JavaScript + 33 platform tests; root build (58 canonical pages, 36 sitemap URLs, 24 RSS items); verifier (136 checked pages, 77 specification rows, 43 sources, zero errors/external warnings); 393 annex assertions; 834 research checks; 11,987 links; deterministic rebuild of 64 artifacts, zero changed; no site/s2/research drift. Browser suite passes all 70 page/viewport combinations, five interaction groups and three no-JS groups with the 49-suggestion/41-question merged data.
+- PR and actual Pages acceptance are next. Local HTTP/browser tests do not enable production analytics or confirm an enrolled link. No reviewer/permission/account report is fabricated to clear a gate.
