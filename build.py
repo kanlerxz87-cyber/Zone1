@@ -2490,7 +2490,18 @@ PROGRAMME_FLAGS = [('F1',
   'No change was made in this pass: the historical generators are declared read-only, and their own '
   'reproducibility gates compare committed HTML.',
   ['S1', 'S2', 'S31', 'S38']),
- ]
+('F104',
+  'Found 2026-11-19 by arena/43667e90-zone1 on a read of the live tree, not by any gate: ten inherited annex '
+  'pages publish with no disclosure strip under the masthead and no footer disclosure, and session-3740f69d/index.html '
+  'has no footer disclosure. The sponsored-token gap on the same paths is F103.',
+  'annex-88769516/404.html, compliance.html, content.html, executive-summary.html, flagged-for-review.html, '
+  'index.html, methodology.html, products.html, research.html, tracking.html; session-3740f69d/index.html',
+  'Not edited in this pass. These builds are inherited, owned by other sessions, and their generators are read-only '
+  'for this integration, so the root layout and its guards do not reach them. annex-88769516/products.html carries '
+  'the Associates sentence in the page body, but not as a strip under the masthead. The pages are served by GitHub '
+  'Pages, carry no noindex tag, and are absent from sitemap.xml. Owner choice: regenerate them with the disclosure '
+  'strip, or remove or noindex them. Record the decision in COORDINATION.md.',
+  ['S1', 'S7'])]
 
 REPO_EVIDENCE = {'F80': ['data/product-intent.json', 'product-intent.html', 'session-58cbaaa2/artifacts/README.md'],
  'F81': ['product-intent.html', 'data/product-intent.json', 'reports/verification-2026-11-17-58cbaaa2.md'],
@@ -2599,11 +2610,14 @@ REPO_EVIDENCE = {'F80': ['data/product-intent.json', 'product-intent.html', 'ses
  'F101': ['reports/verification-2026-11-19-1f9e7d52.md', 'build.py'],
  'F102': ['reports/verification-2026-11-19-1f9e7d52.md', 'build.py', 'tests/test_publication.py'],
  'F103': ['reports/verification-2026-11-19-1970a80b.md', 'build.py', '.github/workflows/pages.yml'],
+ 'F104': ['annex-88769516/products.html', 'annex-88769516/404.html', 'session-3740f69d/index.html'],
  'F105': ['data/topics.json', 'articles/probe-in-an-air-fryer.html', 'reports/verification-2026-11-19-0c5c10d0.md'],
  'F106': ['reports/verification-2026-11-19-0c5c10d0.md', 'articles/extension-cord-rules-in-the-manuals.html'],
  'F107': ['articles/probe-in-an-air-fryer.html', 'reports/verification-2026-11-19-0c5c10d0.md'],
  'F108': ['reports/verification-2026-11-19-0c5c10d0.md', 'data/topics.json'],
  'F109': ['data/compliance.json', 'reports/verification-2026-11-19-0c5c10d0.md', 'data/sources.json']}
+
+
 VERDICTS = {
     "chefman-6qt-dual-basket":
         "The published specification set is the most complete of the three: capacity, temperature range, dimensions, weight, power draw, safety approval and warranty are all stated by the manufacturer. Two independently controlled baskets with a Sync Finish function and a 450 °F ceiling address the main real-world complaint about single-basket air fryers — that you cannot cook two things at different temperatures at once. The one number a shopper most wants, cost per quart, cannot be computed here because the Amazon price is not available to this site by policy; the brand list price of $119.99 for 6 quarts is the only comparable figure that can be stated.",
@@ -2845,8 +2859,8 @@ def page_flagged():
         parts = ([src_links(srcs)] if srcs else []) + [repo_link(p) for p in REPO_EVIDENCE.get(fid, [])]
         src_html = " ".join(parts) if parts else '<a href="data.html">dataset</a>'
         return (f'<tr id="{(fid or "").lower()}"><td class="num"><strong>{e(fid)}</strong></td>'
-                f'<td>{e(issue)}<div class="tiny muted">Scope: {e(scope)}</div></td>'
-                f'<td class="small">{e(action)}</td><td>{src_html}</td></tr>')
+                f'<td>{_md(issue)}<div class="tiny muted">Scope: {e(scope)}</div></td>'
+                f'<td class="small">{_md(action)}</td><td>{src_html}</td></tr>')
 
     # Resolved items are generated from the re-verification ledger so a future pass updates the
     # table by editing data/reverification.json rather than by editing this template.
@@ -7080,6 +7094,24 @@ def qualify_affiliate_links(html_text):
     return re.sub(r'<a\b[^>]*>', fix, html_text, flags=re.I)
 
 
+# 2026-11-19 (arena/43667e90-zone1): the flag register printed literal "**CLOSED ...**" pairs
+# because some build.py strings were passed through e() instead of _md(). A reader sees the
+# asterisks as broken formatting. Glob paths such as "session-x/**" are excluded: the opening
+# pair must not follow a slash or word character, and the closing pair must not precede one.
+_LITERAL_BOLD_RE = re.compile(r"(?<![/\w*])\*\*(?=\S)[^*\n]{1,300}?(?<=\S)\*\*(?![/\w*])")
+
+
+def check_literal_markdown(pages):
+    """No markdown bold markers may reach visible text of a generated root page."""
+    problems = []
+    for rel, text in pages.items():
+        visible = re.sub(r"<script\b.*?</script>|<style\b.*?</style>", "", text, flags=re.S | re.I)
+        visible = re.sub(r"<[^>]+>", " ", visible)
+        for m in _LITERAL_BOLD_RE.finditer(visible):
+            problems.append(f"{rel}: literal markdown bold reached the page: {m.group(0)[:60]!r}")
+    return problems
+
+
 def check_affiliate_link_qualification(pages):
     """All outbound product anchors must retain sponsored, nofollow and noopener."""
     problems = []
@@ -7472,6 +7504,10 @@ def main():
     if affiliate_problems:
         raise SystemExit("BUILD FAILED - unqualified affiliate links (Google spam policies, "
                          "S30/S31):\n  " + "\n  ".join(affiliate_problems))
+    markdown_problems = check_literal_markdown(pages)
+    if markdown_problems:
+        raise SystemExit("BUILD FAILED - literal markdown in generated HTML:\n  "
+                         + "\n  ".join(markdown_problems))
     linkcount_problems = check_submitted_link_count(pages)
     if linkcount_problems:
         raise SystemExit("BUILD FAILED — a present-tense page asserts a link count the register "
