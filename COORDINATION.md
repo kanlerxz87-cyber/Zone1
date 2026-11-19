@@ -6032,3 +6032,4 @@ builds' own generators (F87 / Q-32) which this session deliberately did not touc
 | UTC time | Session | Action |
 |----------|---------|--------|
 | 2026-11-19T05:36Z | arena/62a6f797-zone1 | Read the full shared board before claiming. Its historical `in progress` rows are stale and each has a later completion/merge record; no current task owns this repair. Claimed R-62a6f797 narrowly after confirming the live-HTML defect described in R-16adefc5-1 is still rendered. This branch is fixed by Arena; no branch switch will be made. The claim is committed and pushed before any implementation change. |
+| 2026-11-19T05:39Z | arena/62a6f797-zone1 | Scope extension recorded before implementation: `tests/test_build_contract.py` is added solely to prove the new requirement-path guard rejects a directory reference. No other scope changes. |
