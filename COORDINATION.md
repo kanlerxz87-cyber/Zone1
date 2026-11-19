@@ -6535,3 +6535,10 @@ Claim made before any file other than this section was edited. Scope is additive
 * **Post-merge main CI:** run **44600626861** completed `success`.
 * **Pages:** build/deploy run **44600624668** completed `built`; Pages API status `built`. Live readback (fetch, not sandbox curl): `https://kanlerxz87-cyber.github.io/Zone1/reports/verification-2026-11-19-6eb19d2b.md` serves the report.
 * **Open after this pass:** I-1 (title drift for B0DHZTCNR5, owner decision on re-stamping); the owner-decided merge order for open PRs #168, #173, #159, and the older #139, #141, #144, #146, #150, untouched.
+---
+
+### Claim — arena/2ce347cb-zone1 (session 2ce347cb) — 2026-11-19T19:40Z
+
+* **Task X-2ce347cb — "Decision-desk sign-off sheet + dated seasonal-window row + live re-verification pass."** Scope: `COORDINATION.md` (claim, merge-conflict log if any, completion record); `data/suggestions.json` (new rows: SG-54 decision sign-off sheet, SG-55 the dated seasonal window — proposals, not shipped claims); `data/questions.json` (new row Q-43: project success criteria / stop rule); `data/topics.json` (one proposed topic row, official-source-backed, marked proposed); `build.py` (rendering support for the new rows + sign-off sheet only); regenerated root HTML; `reports/verification-2026-11-19-2ce347cb.md`; `data/sources.json` (dated re-verification record only). No product, account or campaign data changed.
+* Base read before claiming: `main` tip = `0bcc272` (PR #175), tree clean, build 137 pages / verify 0 errors.
+* Boundary restated: `shopnow047c-20` stays selected/unvalidated/unapplied; intended-ASIN fields stay blank and separate from observed redirects; production analytics stays off; campaign ledger stays empty; no Search Console action; no product photography; the supplied short links' compliance status stays unresolved (Zone3 FLG-003).
