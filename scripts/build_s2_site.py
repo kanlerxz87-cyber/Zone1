@@ -330,6 +330,11 @@ def page(title: str, rel: str, current: str, body: str, *, sub: str = "") -> str
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} · Zone1 affiliate platform</title>
 <meta name="description" content="Verified Amazon Associates affiliate platform data: {esc(title)}. Every row cites an official source.">
+<!-- Independent verification annex, not the publication (2026-11-19, arena/b3ed16c4).
+     Reachable from the canonical site's footer for review, but kept out of the index so the
+     public shop is the only URL set search engines are asked to rank. -->
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://kanlerxz87-cyber.github.io/Zone1/s2/{current}">
 <link rel="stylesheet" href="{rel}assets/app.css">
 <link rel="icon" href="{rel}assets/favicon.svg" type="image/svg+xml">
 </head><body>

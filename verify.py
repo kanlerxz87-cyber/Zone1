@@ -115,6 +115,11 @@ def rel(p):
 sources = json.loads((ROOT / "data" / "sources.json").read_text())
 known_ids = {s["id"] for s in sources["sources"]}
 official_urls = {s["url"] for s in sources["sources"]}
+# id -> registered URL, for the rendered-badge check (2b). Only S-ids: the decision and
+# question desks reuse the .src class for internal cross-references, which are not
+# sources and are covered by the internal-link checks.
+_SOURCE_URL = {s["id"]: s["url"] for s in sources["sources"]}
+_BADGE = re.compile(r'<a class="src" href="([^"]+)"[^>]*>(S\d+|S-[A-Z]+)</a>')
 
 checked = 0
 for page in pages():
@@ -153,6 +158,11 @@ for page in pages():
             dest_text = dest.read_text(encoding="utf-8")
         except (OSError, UnicodeDecodeError):
             continue
+        # Citation badges are written as href="...#frag" with the shown text in a
+        # sibling title attribute, so the generic id test below is the only one that
+        # applies to them. (This block used to be preceded by a no-op loop over
+        # title="..." that was described as checking source badges; it checked nothing.
+        # Removed 2026-11-19 by arena/b3ed16c4. The badge guarantee is check 2b below.)
         if f'id="{frag}"' not in dest_text and f"id='{frag}'" not in dest_text:
             errors.append(f"{rel(page)}: dead in-page link -> #{frag} (not present in {rel(dest)})")
 
@@ -163,9 +173,22 @@ for page in pages():
         if host not in OFFICIAL_HOSTS:
             warnings.append(f"{rel(page)}: external host not on the allow list: {host}")
 
+    # 2b. every rendered source badge must link to the URL registered for the id it
+    # names. Added 2026-11-19 (arena/b3ed16c4). Check 2 below only looks for the string
+    # "unknown source"; a badge that printed S10 next to S18's URL, or next to a page that
+    # is not a registered source at all, passed every gate. On the build that prompted this
+    # the site rendered 1,400 S-badges; all 1,400 resolve correctly today, so this check
+    # starts green and exists to keep it that way.
+    for m in _BADGE.finditer(text):
+        _href, _sid = m.group(1), m.group(2)
+        if _sid not in _SOURCE_URL:
+            errors.append(f"{rel(page)}: source badge {_sid} names an unregistered id")
+        elif _SOURCE_URL[_sid] != _href:
+            errors.append(
+                f"{rel(page)}: source badge {_sid} links to {_href}, but {_sid} is "
+                f"registered as {_SOURCE_URL[_sid]}")
+
     # 2. source badges resolve to declared sources
-    for m in re.finditer(r'title="([^"]*?)\s*—', text):
-        pass
     if "unknown source" in text:
         errors.append(f"{rel(page)}: references an undefined source id")
 
@@ -181,6 +204,33 @@ for page in pages():
     for bad in ("a-icon-alt", "out of 5 stars", "Amazon.com price"):
         if bad in text:
             errors.append(f"{rel(page)}: possible Amazon price/rating leak ({bad!r})")
+
+# 4b. One site to index. Every directory here that ships a complete HTML site of its
+#     own is a verification annex or a historical build, and none of them may ask a search
+#     engine to index it next to the canonical publication at /Zone1/.
+#     Written 2026-11-19 (arena/b3ed16c4) after a live audit: all six annex trees shipped
+#     without a robots directive, site/ explicitly said "index,follow" on eleven pages,
+#     and site/ and dashboard/ each published their own robots.txt and sitemap. RFC 9309
+#     §2.3 fixes robots.txt at the host root, so those sub-directory copies are never
+#     fetched; they also carried a Sitemap: line that RFC 9309 does not apply at any path
+#     other than the root, while Google's own documentation tells a publisher to submit
+#     the sitemap through Search Console or the robots.txt Sitemap line. The result was
+#     six uncovered trees and no way to tell which one a crawler was asked to rank.
+ANNEX_TREES = ("site", "dashboard", "research", "s2", "annex-88769516", "session-3740f69d")
+for _tree in ANNEX_TREES:
+    _root = ROOT / _tree
+    for _f in sorted(_root.rglob("*.html")):
+        _t = _f.read_text(encoding="utf-8")
+        _dirs = re.findall(r'<meta name="robots" content="([^"]*)"', _t, re.I)
+        if not _dirs:
+            errors.append(f"{rel(_f)}: annex page has no robots directive (annex boundary, F103)")
+        elif any("noindex" not in _d for _d in _dirs):
+            errors.append(f"{rel(_f)}: annex page asks to be indexed; only the canonical "
+                          f"publication may be indexed (annex boundary, F103)")
+for _stale in sorted(ROOT.glob("*/robots.txt")) + sorted(ROOT.glob("*/sitemap.xml")):
+    if _stale.parent.name in ANNEX_TREES:
+        errors.append(f"{rel(_stale)}: a robots.txt/sitemap.xml outside the host root is "
+                      f"never fetched at /Zone1/; the root robots.txt is authoritative (F103)")
 
 # 5. every source id in the JSON appears in the source register and
 #    every source register URL is https + on an official host

@@ -262,7 +262,13 @@ def page(filename: str, title: str, body: str, subtitle: str = "") -> None:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(title)} &middot; {e(CONFIG['site']['title'])}</title>
 <meta name="description" content="{e(CONFIG['site']['tagline'])}">
-<meta name="robots" content="index,follow">
+<!-- Independent verification annex, not the publication (repaired 2026-11-19 by
+     arena/b3ed16c4). This tree used to claim index,follow for all eleven pages while the
+     canonical shop at /Zone1/ publishes the same three products; two indexed trees for one
+     subject split the signal and put a second, differently-worded copy of the same spec
+     tables into the index. The annex stays reachable and crawlable (follow) for review. -->
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://kanlerxz87-cyber.github.io/Zone1/site/{e(filename)}">
 <link rel="stylesheet" href="assets/style.css">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
@@ -1518,9 +1524,13 @@ def build_assets() -> None:
         'font-weight="700" fill="#fff" text-anchor="middle">AF</text></svg>',
         encoding="utf-8",
     )
-    (OUT / "robots.txt").write_text(
-        "User-agent: *\nAllow: /\n", encoding="utf-8"
-    )
+    # Deliberately no robots.txt here. RFC 9309 section 2.3 fixes the file at
+    # "scheme://authority/robots.txt"; this annex lives at /Zone1/site/, so a robots.txt
+    # at that path is never fetched and never obeyed. It previously shipped one anyway,
+    # which made the annex look excluded while nothing excluded it. The boundary is now
+    # the per-page <meta name="robots" content="noindex,follow"> above and the one
+    # authoritative /Zone1/robots.txt. Repaired 2026-11-19 by arena/b3ed16c4; verify.py
+    # check 4b fails if a sub-directory robots.txt or sitemap.xml comes back.
     (OUT / ".nojekyll").write_text("", encoding="utf-8")
 
 
