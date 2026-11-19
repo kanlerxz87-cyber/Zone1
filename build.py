@@ -2494,7 +2494,7 @@ PROGRAMME_FLAGS = [('F1',
   'indexed an annex URL, and whether the canonical shop ranks for anything at all.',
   ['S46', 'S47', 'S30'])]
 
-REPO_EVIDENCE = {'F103': ['build.py', 'verify.py', 'scripts/add_annex_noindex.py', 'scripts/build_site.py',
+REPO_EVIDENCE = {'F105': ['build.py', 'verify.py', 'scripts/add_annex_noindex.py', 'scripts/build_site.py',
           'research/build_research.py', 'scripts/build_s2_site.py',
           'reports/verification-2026-11-19-b3ed16c4.md'],
  'F80': ['data/product-intent.json', 'product-intent.html', 'session-58cbaaa2/artifacts/README.md'],
@@ -3926,7 +3926,7 @@ def page_previous_passes():
 
 <div class="callout info">
   <strong>Six trees on this origin are now explicitly not indexed</strong>
-  <p class="small">Before 19 November 2026 every build on this page was equally visible to a search engine: none of the six carried a robots directive, and <code>site/</code> actively asked to be indexed on all eleven of its pages. Two of them also published a <code>robots.txt</code> and <code>sitemap.xml</code> of their own, which a crawler never fetches at <code>/Zone1/site/</code> or <code>/Zone1/dashboard/</code> — RFC 9309 §2.3 fixes that file at the host root, so they looked protective and protected nothing. Each annex page now carries <code>noindex,follow</code> and an absolute canonical to its own address, the one authoritative <a href="https://kanlerxz87-cyber.github.io/Zone1/robots.txt">robots.txt</a> and <a href="https://kanlerxz87-cyber.github.io/Zone1/sitemap.xml">sitemap.xml</a> sit at the root, and <code>verify.py</code> check 4b fails the build if a sub-directory copy returns. The pages themselves stay published and linked: this is a boundary on what competes in a search result, not concealment. Recorded as <a href="flagged.html#f103">F103</a>.</p>
+  <p class="small">Before 19 November 2026 every build on this page was equally visible to a search engine: none of the six carried a robots directive, and <code>site/</code> actively asked to be indexed on all eleven of its pages. Two of them also published a <code>robots.txt</code> and <code>sitemap.xml</code> of their own, which a crawler never fetches at <code>/Zone1/site/</code> or <code>/Zone1/dashboard/</code> — RFC 9309 §2.3 fixes that file at the host root, so they looked protective and protected nothing. Each annex page now carries <code>noindex,follow</code> and an absolute canonical to its own address, the one authoritative <a href="https://kanlerxz87-cyber.github.io/Zone1/robots.txt">robots.txt</a> and <a href="https://kanlerxz87-cyber.github.io/Zone1/sitemap.xml">sitemap.xml</a> sit at the root, and <code>verify.py</code> check 4b fails the build if a sub-directory copy returns. The pages themselves stay published and linked: this is a boundary on what competes in a search result, not concealment. Recorded as <a href="flagged.html#f105">F105</a>.</p>
 </div>
 
 <h2>Why the builds were not merged into one</h2>

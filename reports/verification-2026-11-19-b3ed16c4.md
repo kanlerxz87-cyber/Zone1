@@ -80,7 +80,7 @@ is correct: those pages are a retired redirect to that page — see §4.5.)
 --- verify.py should FAIL ---
 errors             : 1
   FAIL  dashboard/index.html: annex page asks to be indexed; only the canonical publication
-                                may be indexed (annex boundary, F103)
+                                may be indexed (annex boundary, F105)
 --- restored ---
 errors             : 0
 ```
@@ -167,7 +167,7 @@ Page-level metadata on the canonical 58 pages: **0 duplicate titles, 0 duplicate
 
 ## 6. New register rows
 
-- **F103** — the annex index boundary, its evidence and its limits (§2, §4).
+- **F105** — the annex index boundary, its evidence and its limits (§2, §4).
 - **S46** RFC 9309; **S47** Google block-indexing. Both read live 2026-11-19.
 - **SG-51** — claim the property and read a real report before writing another guide.
 - **SG-52** — whether the six annex builds stay published at all.

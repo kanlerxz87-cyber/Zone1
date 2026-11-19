@@ -746,11 +746,11 @@
     ]
    },
    "current_state": "partial",
-   "current_note": "The root publication alone owns the canonical sitemap, robots.txt and brand. As of 2026-11-19 every page in all six annex trees also carries noindex,follow with an absolute canonical, the sub-directory robots.txt/sitemap.xml copies are gone, and verify.py check 4b fails the build if either returns (F103). Historical builds stay published and cross-linked as archives; full annex redirects, removal or per-tree banners are still not performed. Whether they should stay published at all is SG-52.",
+   "current_note": "The root publication alone owns the canonical sitemap, robots.txt and brand. As of 2026-11-19 every page in all six annex trees also carries noindex,follow with an absolute canonical, the sub-directory robots.txt/sitemap.xml copies are gone, and verify.py check 4b fails the build if either returns (F105). Historical builds stay published and cross-linked as archives; full annex redirects, removal or per-tree banners are still not performed. Whether they should stay published at all is SG-52.",
    "current_reviewed_on": "2026-11-19",
    "current_evidence": [
     {
-     "label": "F103: the annex index boundary",
+     "label": "F105: the annex index boundary",
      "url": "flagged.html#f103"
     },
     {
@@ -7775,7 +7775,7 @@
    "id": "SG-51",
    "title": "Prove the site is findable at all: claim the one URL set and read a real report before writing another guide",
    "area": "Findability",
-   "problem": "The brief asks for a site that earns organic traffic. On 2026-11-19 an audit of the published origin found seven complete HTML sites sharing one address: the canonical root publication and six annex builds. None of the six declared a robots directive, site/ asked to be indexed on all eleven of its pages, one tree emitted relative canonicals, and two published robots.txt/sitemap.xml files at sub-paths where RFC 9309 section 2.3 says a crawler will never fetch them. The annex boundary is now repaired and gated (F103), so a crawler reaching this origin is asked to index 36 URLs and nothing else. What is still missing is not a fix: it is a measurement. Nobody has verified ownership of the origin in Search Console, submitted the sitemap, or read a single query, impression or click. 'Findable' is currently an untested claim.",
+   "problem": "The brief asks for a site that earns organic traffic. On 2026-11-19 an audit of the published origin found seven complete HTML sites sharing one address: the canonical root publication and six annex builds. None of the six declared a robots directive, site/ asked to be indexed on all eleven of its pages, one tree emitted relative canonicals, and two published robots.txt/sitemap.xml files at sub-paths where RFC 9309 section 2.3 says a crawler will never fetch them. The annex boundary is now repaired and gated (F105), so a crawler reaching this origin is asked to index 36 URLs and nothing else. What is still missing is not a fix: it is a measurement. Nobody has verified ownership of the origin in Search Console, submitted the sitemap, or read a single query, impression or click. 'Findable' is currently an untested claim.",
    "evidence": [
     {
      "label": "RFC 9309 §2.3 — the robots.txt URI is fixed at scheme://authority/robots.txt",
@@ -7838,10 +7838,10 @@
    "implementation": {
     "state": "proposed",
     "on": "2026-11-19",
-    "note": "The repository side is done and enforceable (F103): one indexable URL set, one robots.txt, one sitemap, a build guard and a negative test. The account side — property ownership, sitemap submission, query data — needs the owner's sign-in and is not claimed.",
+    "note": "The repository side is done and enforceable (F105): one indexable URL set, one robots.txt, one sitemap, a build guard and a negative test. The account side — property ownership, sitemap submission, query data — needs the owner's sign-in and is not claimed.",
     "evidence": [
      {
-      "label": "F103 in the flag register",
+      "label": "F105 in the flag register",
       "url": "flagged.html#f103"
      },
      {
@@ -7907,7 +7907,7 @@
    "implementation": {
     "state": "partial",
     "on": "2026-11-19",
-    "note": "Search consequence removed (F103). Option A's banner is not added; the annex pages are other sessions' published evidence and their bodies were not rewritten by this pass.",
+    "note": "Search consequence removed (F105). Option A's banner is not added; the annex pages are other sessions' published evidence and their bodies were not rewritten by this pass.",
     "evidence": [
      {
       "label": "The boundary repair",

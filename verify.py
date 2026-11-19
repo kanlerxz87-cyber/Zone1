@@ -228,14 +228,14 @@ for _tree in ANNEX_TREES:
         _t = _f.read_text(encoding="utf-8")
         _dirs = re.findall(r'<meta name="robots" content="([^"]*)"', _t, re.I)
         if not _dirs:
-            errors.append(f"{rel(_f)}: annex page has no robots directive (annex boundary, F103)")
+            errors.append(f"{rel(_f)}: annex page has no robots directive (annex boundary, F105)")
         elif any("noindex" not in _d for _d in _dirs):
             errors.append(f"{rel(_f)}: annex page asks to be indexed; only the canonical "
-                          f"publication may be indexed (annex boundary, F103)")
+                          f"publication may be indexed (annex boundary, F105)")
 for _stale in sorted(ROOT.glob("*/robots.txt")) + sorted(ROOT.glob("*/sitemap.xml")):
     if _stale.parent.name in ANNEX_TREES:
         errors.append(f"{rel(_stale)}: a robots.txt/sitemap.xml outside the host root is "
-                      f"never fetched at /Zone1/; the root robots.txt is authoritative (F103)")
+                      f"never fetched at /Zone1/; the root robots.txt is authoritative (F105)")
 
 # 5. every source id in the JSON appears in the source register and
 #    every source register URL is https + on an official host
