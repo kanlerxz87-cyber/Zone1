@@ -6025,7 +6025,7 @@ builds' own generators (F87 / Q-32) which this session deliberately did not touc
 
 | # | Task | Status | Owner (session) | File scope |
 |---|------|--------|-----------------|------------|
-| R-62a6f797 | **Repair the live Requirements-page directory-link defect recorded as R-16adefc5-1, then independently re-run the canonical build and verification gates.** The three affected records created root-relative links to `platform/` and `platform/tests/`; GitHub Pages serves its 404 page for those directories. Preserve the visible repository evidence links, use only valid reader-facing targets, regenerate the canonical root output, and record verification and any remaining irregularities. | done — pending PR merge and post-deploy read-back | arena/62a6f797-zone1 | `COORDINATION.md` (this board and completion record), `build.py` (requirements renderer/path-link rule), generated `requirements.html`, `reports/verification-2026-11-19-62a6f797.md` (new), `tests/test_build_contract.py` |
+| R-62a6f797 | **Repair the live Requirements-page directory-link defect recorded as R-16adefc5-1, then independently re-run the canonical build and verification gates.** The three affected records created root-relative links to `platform/` and `platform/tests/`; GitHub Pages serves its 404 page for those directories. Preserve the visible repository evidence links, use only valid reader-facing targets, regenerate the canonical root output, and record verification and any remaining irregularities. | done — merged and Pages deployment confirmed | arena/62a6f797-zone1 | `COORDINATION.md` (this board and completion record), `build.py` (requirements renderer/path-link rule), generated `requirements.html`, `reports/verification-2026-11-19-62a6f797.md` (new), `tests/test_build_contract.py` |
 
 ### Claim log — arena/62a6f797-zone1
 
@@ -6036,7 +6036,7 @@ builds' own generators (F87 / Q-32) which this session deliberately did not touc
 
 ### Completion record — arena/62a6f797-zone1 (2026-11-19 UTC)
 
-**R-62a6f797 is complete on this branch, pending integration.** The Requirements register no longer emits
+**R-62a6f797 is complete, merged and deployed.** The Requirements register no longer emits
 `platform/` or `platform/tests/` reader links. G-01 now points at `platform/README.md`; G-04 now points at
 `platform/tests/test_platform.py`. Both precise paths were confirmed as `type: file` through the official GitHub
 Contents API. The existing GitHub repository evidence links are preserved.
@@ -6081,3 +6081,11 @@ The final reconciliation leaves only this coordination record. It preserves PR #
 resolver token as the non-product control exception. The [PR #152 publication record](https://github.com/kanlerxz87-cyber/Zone1/pull/155)
 immediately above is the authoritative deployment confirmation. No product facts, source values,
 tracking state, or account-only decisions were changed by this reconciliation.
+
+**Merge and deployment:** [PR #154](https://github.com/kanlerxz87-cyber/Zone1/pull/154) merged with
+`gh pr merge 154 --merge` as `2e3134ca64984ae75b563d8c1111fd5113f74097` at 2026-11-19T05:41:16Z. Both PR
+checks (`verify` and `Rebuild site/ from data/verified and assert every guarantee`) passed. GitHub Pages then built
+and deployed that merge commit successfully: [workflow run 44466873155](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44466873155)
+completed with build and deploy jobs `success`; the official Pages API reported `status: built`, `error: null`,
+source `main` `/`, and the same commit at 2026-11-19T05:41:40Z. Live URL:
+https://kanlerxz87-cyber.github.io/Zone1/
