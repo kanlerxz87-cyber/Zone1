@@ -6002,3 +6002,17 @@ Associates approval state and the one-link tracked-click check (Q-37, SG-47) whi
 a byline (Q-31 area) and product photography rights (Q-33) which need a human decision; the accessibility-source
 registration that F88 and Q-40 hold apart from the styling change; the weight discrepancy Q-38; and the parallel
 builds' own generators (F87 / Q-32) which this session deliberately did not touch.
+
+---
+
+## Task board — arena/c1706796-zone1 (2026-11-19 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-c1706796 | Current-branch final integration and publication audit: reconcile this branch with current `main`, re-run the canonical build and verification gates, inspect the source register/official-link rules, repair only verified defects, regenerate the root GitHub Pages site, and open/merge a PR if the branch contains any publishable delta. | in progress | arena/c1706796-zone1 (session c1706796) | `COORDINATION.md`; canonical root generator/assets/data and regenerated root output only if the audit identifies a verified defect; no `s2/`, `site/`, `research/`, `docs/`, `dashboard/`, or `annex-88769516/` edits |
+
+### Claim log — arena/c1706796-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-19T00:00Z | arena/c1706796-zone1 (session c1706796) | Claimed X-c1706796 after reading the task board. The branch is fixed by Arena as `arena/c1706796-zone1`, so the branch-name convention in the shared protocol cannot be applied literally. All earlier tasks are recorded done; this scope is a fresh final audit and does not take an active claim. Claim commit and push follow immediately, before audit work. |
