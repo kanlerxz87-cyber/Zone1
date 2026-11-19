@@ -167,7 +167,7 @@ a synthetic test is not live traffic. No production endpoint is deployed.</p>
 <h2>Why nothing is sending yet</h2>
 <ul class="tight small"><li>GitHub Pages is static hosting, not a Python runtime. The first-party /api/analytics/events collector must run on a verified same-origin host before any production event can be accepted.</li><li>The browser switch and deployment gates remain false. Tests use synthetic events and isolated temporary databases; test results never enter the campaign ledger.</li><li>A correct application cannot control hosting-platform security logs. Deployment requires a reviewed privacy notice and host/proxy logging policy.</li><li>Associates order totals are available only from an authorised account report, not from a reader click. No authorised report has been imported.</li></ul>
 
-<h2>Campaign ledger</h2>
+<h2 id="campaign-ledger">Campaign ledger</h2>
 <p class="small">Started empty on purpose, per the brief&#x27;s &#x27;empty but well-defined campaign ledger&#x27;. A row may only be added from an authorised first-party report. No conversion score and no revenue forecast is presented anywhere in this repository.</p>
 <div class="tablewrap">
 <table>

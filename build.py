@@ -1010,7 +1010,7 @@ def page_about():
 <h2>Who writes this?</h2>
 <p>Zone1 Kitchen is the publication byline. The research, drafting and site build are AI-assisted. No named human editor has been established, so there is no invented expert biography, cook, test team or personal recommendation here. The <a href="data.html#sources">source register</a> makes the primary documents available for your own review.</p>
 <h2>Documents, not a test kitchen</h2>
-<p>No appliance was bought, handled or tested for these guides. Published dimensions, capacities and care rules come from the manufacturer or its manual. A label such as “worth comparing” is editorial guidance about those documents, not a claim about taste, noise, reliability or cooking speed. The FTC says you cannot talk about an experience with a product you have not tried. {src_link('S8')}</p>
+<p>No hands-on testing is claimed. No appliance was bought, handled or tested for these guides. Published dimensions, capacities and care rules come from the manufacturer or its manual. A label such as “worth comparing” is editorial guidance about those documents, not a claim about taste, noise, reliability or cooking speed. The FTC says you cannot talk about an experience with a product you have not tried. {src_link('S8')}</p>
 <p>When official documents disagree, the difference stays visible. An unconfirmed value stays blank; “not documented” is not the same as “not included.” See <a href="flagged.html">Flagged for review</a> for the evidence and discovery steps.</p>
 <h2>How the links work</h2>
 <p><strong>{e(DISCLOSURE)}</strong> Eligible links may earn a commission. The selected ID is recorded, but account ownership and attribution have not been verified. The five submitted links have separate fields for their observed redirect and their intended listing; none has a completed enrolled-Associates test. Short-link uncertainty is not a finding that the link is invalid. {src_links(['S1','S5','S41'])}</p>
@@ -1505,11 +1505,16 @@ PROGRAMME_FLAGS += [
      "The site-specific notice now distinguishes no publisher analytics from GitHub Pages security IP logs and browser-only localStorage decision drafts. Enabled notices describe page views and engagement as well as clicks. Infrastructure logging and the production notice still require a separate deployment review.", ["S38", "S2"]),
     ("F99", "Repaired 2026-11-19: old buying guidance misdescribed cleanup and capacity and omitted known dimensions.",
      "Canonical buying route and six revised articles; previous revisions remain in Git history",
-     "The previous buying guide called all three appliances dishwasher-safe and left the 8 Qt dimensions blank after they were sourced. The capacity article also called 6 qt and 8 qt the same nominal total. The revised guides distinguish removable parts from the main unit, Emeril's hand-wash recommendation, model-specific dimensions and divided vs undivided capacity. An unsupported most-common-return assertion was removed. These are content corrections, not evidence of better conversion.", ["S10", "S12", "S13", "S14", "S15", "S18"]),
+     "The previous buying guide called all three appliances dishwasher-safe and left the 8 Qt dimensions blank after they were sourced. The capacity article also called 6 qt and 8 qt the same nominal total. The revised guides distinguish removable parts from the main unit, Emeril's hand-wash recommendation, model-specific dimensions and divided vs undivided capacity. An unsupported most-common-return assertion was removed. The full prose review also removed unsupported serving-load ratios, cooking/durability claims, electrical-circuit assumptions, exact-energy-cost implications, guessed model explanations and a nutrition-regulatory classification. It corrected the 8 Qt aerosol caution and the disclosure placement. All 24 existing guides were revised without adding duplicate slugs. These are content corrections, not evidence of better conversion.", ["S10", "S12", "S13", "S14", "S15", "S18"]),
     ("F100", "Open boundary: production analytics, Search Console ownership and enrolled Associates validation are not deployed/account-verified.",
      "Recorded tracking ID shopnow047c-20, all five submitted links, empty campaign ledger",
      "Code, primary-source research and static publication work are complete within repository authority. No account ownership, intended listing, tracking-ID application, click/order report, live collector or search performance is invented. Confirm one intended listing and permitted enrolled Special Link workflow per product, then record dated first-party evidence before applying the ID broadly. A missing visible tag is not evidence of link failure.", ["S2", "S41", "S42", "S44"]),
 ]
+
+PROGRAMME_FLAGS.append((
+    "F101", "Repaired 2026-11-19: the row-source gate accepted a generic flag link and skipped data rows containing a row header.",
+    "row_is_sourced / check_row_sources and canonical implementation/evidence tables",
+    "A direct audit found 27 rows with no registered primary-source or repository evidence link. The gate now requires an actual registered primary URL, an exact supplied resolver URL, or an existing exact-file record in this repository. It checks data rows with th scope=row as well as td-only rows, and rejects generic Flagged links, unrelated GitHub repos and unregistered URLs on an otherwise official host. Editorial/implementation rows now link their authoritative repository record. Coverage and link identity are machine-checked; whether a source supports arbitrary prose still requires an actual scoped read. SG-48 records that boundary.", ["S2"]))
 
 # Repository files that evidence a programme-level flag. Used where the irregularity is a
 # fact about this repository, so the repository itself (on GitHub) is the source.
@@ -1547,7 +1552,7 @@ REPO_EVIDENCE = {
     "F78": ["data/product-intent.json"],
     "F79": ["data/sources.json", "build.py"],
     "F63": ["data/questions.json", "data/suggestions.json", "data/decision.json"],
-    "F20": ["s2/", "site/", "dashboard/", "research/", "session-3740f69d/", "docs/"],
+    "F20": ["s2/index.html", "site/index.html", "dashboard/index.html", "research/index.html", "session-3740f69d/index.html", "docs/index.html"],
     "F22": ["EXECUTIVE_SUMMARY.md"],
     "F23": ["scripts/build.mjs"],
     "F25": ["scripts/check_links.py", "dashboard/", "research/", "site/", "s2/",
@@ -1580,7 +1585,7 @@ REPO_EVIDENCE = {
     "F73": ["data/requirements.json", "build.py"],
 }
 
-for _flag in ("F96", "F97", "F98", "F99", "F100"):
+for _flag in ("F96", "F97", "F98", "F99", "F100", "F101"):
     REPO_EVIDENCE[_flag] = ["reports/verification-2026-11-19-1f9e7d52.md", "build.py"]
 REPO_EVIDENCE["F97"] += ["analytics/client.js", "analytics/collector.py", "tests/test_analytics_contract.py"]
 
@@ -1977,7 +1982,7 @@ def page_platform():
         ids = kpi_sources.get(name)
         if ids:
             return src_links(ids)
-        return 'Internal design target — no official source states it (<a href="flagged.html">F26</a>)'
+        return f'Internal operating target, not an Amazon fact. <a href="{REPO_BLOB}data/platform.json">Recorded target</a> · <a href="flagged.html#f26">F26</a>'
 
     kpis = "".join(
         f'<tr><td><strong>{e(k["kpi"])}</strong></td><td class="small">{e(k["definition"])}</td>'
@@ -1993,7 +1998,7 @@ def page_platform():
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Platform blueprint</p>
 <h1>An automated affiliate engine that survives an audit</h1>
-<p class="lede">The brief asks for automation, scale, data-driven optimisation and Amazon policy compliance. Those four pull in different directions, and the design below resolves the tension in one place: <strong>automate everything except the claims</strong>. Machines move data, check links, compute and report. A human signs off on what gets asserted about a product.</p>
+<p class="lede">The brief asks for automation, scale, data-driven optimisation and Amazon policy compliance. Those four pull in different directions, and the design below resolves the tension in one place: <strong>automate everything except the claims</strong>. Machines move data, check links, compute and report. Claims require primary-source evidence and the publication checks before shipping. No named human sign-off is established for this AI-assisted publication; this is a gated blueprint, not a running research/optimisation service.</p>
 
 <h2>Design principles</h2>
 <div class="grid grid-2">{principles}</div>
@@ -2092,235 +2097,27 @@ def _req_counts_html():
 
 
 def page_exec():
-    # The number of re-verification rows the executive summary quotes. Derived from
-    # every rendered register so it cannot drift as a targeted addendum is added.
-    LEDGER_ROWS = (len(REVERIFICATION["tests"]) + (len(PASS9["rows"]) if PASS9 else 0)
-                   + (len(PASS10["rows"]) if PASS10 else 0)
-                   + (len(PASS10_U2["rows"]) if PASS10_U2 else 0)
-                   + (len(PASS12["rows"]) if PASS12 else 0))
-    # How many pages the root build publishes. Counted from the directories this
-    # generator writes to, so the number in the prose cannot drift away from the
-    # number of pages actually shipped.
-    _written = set()
-    for _d in (ROOT, ROOT / "articles", ROOT / "products", ROOT / "categories", ROOT / "guides"):
-        for _f in _d.glob("*.html"):
-            _written.add(_f)
-    PAGES_HTML = len(_written)
-    # Economics are computed from the dataset, never transcribed by hand: the price comes from
-    # each product's brand-page list price and the rates come from the published Table 1 held
-    # in data/compliance.json, so this table cannot drift away from the sources it cites.
-    def _price(p):
-        m = re.search(r"\$\s*([\d,]+\.\d{2})", p["pricing"]["brand_list_price"]["v"])
-        return float(m.group(1).replace(",", "")) if m else None
-
-    def _rate(*needles):
-        for row in COMPLIANCE["commission_table"]:
-            if all(n.lower() in row["category"].lower() for n in needles):
-                return float(row["rate"].rstrip("%")), row["category"]
-        return None, None
-
-    rate_sets = [(r, c, lbl) for (r, c), lbl in
-                 zip([_rate("kitchen"), _rate("home", "furniture"), _rate("all other categories")],
-                     ["Kitchen", "Home", "fallback"])]
-    econ_rows = []
-    for p in PRODUCT_LIST:
-        price = _price(p)
-        cells = "".join(
-            f'<td class="num">{("$%.2f" % (price * r / 100)) if (price and r) else "—"}</td>'
-            for r, _c, _lbl in rate_sets
-        )
-        econ_rows.append(
-            f'<tr><td><a href="products/{p["slug"]}.html">{e(p["short_name"])}</a></td>'
-            f'<td class="num">{e(p["pricing"]["brand_list_price"]["v"])} {src_links(p["pricing"]["brand_list_price"]["s"])}</td>'
-            f'{cells}</tr>'
-        )
-    econ_rows = "".join(econ_rows)
-    rate_headers = "".join(f"<th>At {lbl} {r:.2f}%</th>" for r, _c, lbl in rate_sets)
-
-    facts = [
-        ("Product set", "Three supplied short links were followed; each fetch observed a landing on an air-fryer listing (candidate ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH). Token-to-ASIN mapping is not confirmed — see F14–F16 and the link checks on the <a href=\"reverification.html\">Re-verification</a> page.", ["S16", "S17"]),
-        ("Category", "All three are air fryers or air fryer toaster ovens — the niche is set by the products, not chosen.", ["S16"]),
-        ("Verification standard", "Official sources only; blank plus flagged wherever unconfirmed; no inference.", ["S1", "S2"]),
-        ("Verified spec values", "Published on the dashboard and in the full dataset, each with a source link.", ["S10", "S12", "S14"]),
-        (f"Re-verification ({REVERIFICATION['pass_date']}, 2026-11-15 and 2026-11-16)", f"Every published value was re-read against the official source it cites. The ledger — {LEDGER_ROWS} rows in total, each with the value as published, what the source said on the day, a verdict and a link — is on the <a href=\"reverification.html\">Re-verification</a> page. Two blank rows were filled from the manufacturer's own spec block, and the disputed question of whether the short links shuffle between requests was closed by a repeat fetch plus a nonsense-token control.", ["S16", "S21", "S22"]),
-        ("Re-verification (2026-11-15, pass 9)", "Every official source was re-fetched by that session rather than trusted from the recorded ones: the Program Policies, the Commission Income Statement, both Chefman product pages, the Emeril product page, all three owner's manuals, all three supplied short links, 16 CFR Part 255 and 16 CFR Part 465. All 43 specification rows were checked against the page each one cites; none was found wrong and no published value changed. The raw evidence, including the sources deliberately not fetched, is in the repository.", ["S2", "S3", "S10", "S12", "S14", "S18"]),
-        ("Re-verification (2026-11-16, pass 10)", "A tenth independent re-read fetched the load-bearing sources live and found three things. The Application Review criteria had been carried forward since 2026-11-13 and are now read from the source (which closes F56 and moves Q-19 from missing to answered). The two clauses that govern an AI-agent affiliate platform \u2014 IP License \u00a74 and Participation Requirements \u00a75 \u2014 were in neither the compliance register nor the platform blueprint, and are now C17, C18 and guardrail G11. And three pages pointed at a flag number that exists in no register, which is fixed and now fails the build. Two volatile review counters had moved again and were refreshed. No published value was found wrong.", ["S2", "S3", "S4", "S10", "S12", "S14"]),
-        ("Hard source conflicts", "One serious and still live (Chefman 8 Qt 450 °F claim vs its own manual), plus SKU ambiguity. The Emeril preset count was narrowed on 2026-11-15: the owner's manual lists 24 presets by name in two separate tables and the Amazon listing title says 24, while the brand page's specification block still says 25 - the site states 24 and flags the 25.", ["S12", "S13", "S14"]),
-        ("Commission rate", "Still blank per product, but on firmer ground. Amazon publishes rates by category and not by ASIN. All three listings were re-read on 2026-11-15 and all three render the browse-node path Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers, so Kitchen at 4.50% is the well-evidenced working rate. The settlement-time category still has to come from the Associates Earnings report, so both candidate rows are shown.", ["S3", "S16", "S28", "S29"]),
-        ("Amazon price / rating", "Not displayed anywhere, by policy, not by omission.", ["S2"]),
-        ("Disclosure", "Required statement on every page plus a link-level badge on every outbound link.", ["S1", "S5"]),
-        ("Biggest constraint", "Program Content may not be aggregated, analysed or trained on — which rules out the obvious version of an AI research engine.", ["S2"]),
-        ("API status (re-verified 2026-11-14)", "PA-API 5 is officially deprecated; Amazon's docs direct integrations to migrate to the Creators API. The automation blueprint must target the Creators API.", ["S24"]),
-("Editorial defect found and fixed", "Eleven article sentences spliced a published display label into a mid-sentence position, so the prose read as machine output — 'splits a cavity into Two 3-quart baskets'. Every value was genuinely published and correct in a table, which is why nine earlier verification passes missed it. Fixed, and the build now fails if it recurs. This is the clearest evidence on the site that reading the page as a reader, not as a database, is a separate job from verifying it.", ["S1"]),
-        ("Next decision", "Resolve the remaining flagged items, then publish, then apply. The decision queue is on the Suggestions page; the information gaps are on the Questions page.", ["S4"]),
+    counts = {state:sum(r.get("current_state") == state for r in SUGGESTIONS["suggestions"]) for state in ("complete","partial","gated","superseded","open")}
+    rows = [
+        ("Publication", 'Buyer-first home, category, comparison and model guides; both thermometer links are acknowledged as unconfirmed link notes. One native Workspace group and footer index hold owner/evidence work.', ['S10','S12','S14'], 'publication/README.md'),
+        ("Authorship & assets", 'AI-assisted document research is disclosed. No invented human editor, hands-on test or copied/generated branded-product photograph. The conceptual kitchen scene is visibly labelled.', ['S8','S2'], 'publication/README.md'),
+        ("Sources & corrections", 'Scoped 19 November reads, not a blanket refresh. F96 flags contradictory Emeril cord instructions; F99 records corrected care, capacity and dimension guidance. Source conflicts stay public.', ['S13','S15','S18'], 'reports/verification-2026-11-19-1f9e7d52.md'),
+        ("Five submitted links", 'Original URL strings, dated redirect/title observations and intended listings remain separate. Every intended ASIN/listing confirmation and enrolled test is still unconfirmed.', ['S41','S42'], 'data/product-intent.json'),
+        ("Selected tracking ID", 'shopnow047c-20 is recorded but unvalidated and unapplied. The operational tag is blank. Confirm one intended listing and a permitted enrolled Special Link workflow per product before scaling.', ['S2','S42'], 'data/config.json'),
+        ("Measurement", 'Actual named-event browser client and aggregate Python collector interoperate in synthetic HTTP tests. Production collection is disabled; no runtime/privacy approval or eligible campaign dataset exists.', ['S2','S38'], 'analytics/README.md'),
+        ("Search & reader loop", 'One canonical reader sitemap, feed and metadata are generated automatically. RSS works. Search Console ownership/submission/query data and email capture are not invented.', ['S44','S45'], 'data/publication.json'),
+        ("Cadence", 'Weekly source review and at most one useful new/substantial guide update per fortnight, only after evidence/build checks. Refresh an existing answer rather than duplicate it. This is a plan, not a running scheduler.', ['S43'], 'data/publication.json'),
     ]
-    rows = "".join(
-        f'<tr><td><strong>{e(k)}</strong></td><td>{e(v)}</td><td>{src_links(s)}</td></tr>' for k, v, s in facts
-    )
-    body = f"""
-<p class="crumbs"><a href="../index.html">Home</a> / Executive summary</p>
-<h1>Executive summary</h1>
-<p class="lede">A one-page briefing for someone who will not read the rest. The short version: the product data is good, the economics are provable only within narrow limits, and the compliance constraint is the design constraint.</p>
-<div class="grid grid-3" style="margin:1rem 0">
-  <a class="card tight" href="picks.html"><span class="kicker">Buyer-facing</span><strong>This week's picks</strong><br><span class="tiny muted">Decision rule, not a ranking</span></a>
-  <a class="card tight" href="decisions.html"><span class="kicker">Strategy</span><strong>Niche, traffic, measurement</strong><br><span class="tiny muted">Scored options and a kill rule</span></a>
-  <a class="card tight" href="handover.html"><span class="kicker">Action</span><strong>Handover: five actions</strong><br><span class="tiny muted">About an hour of owner time</span></a>
-</div>
-
-<div class="callout note">
-  <strong>Pass 9 — 2026-11-15 (verification, session 42ca97ad).</strong>
-  <p class="small">This pass re-fetched every official source itself instead of trusting the recorded ones,
-  and checked all 43 specification rows against the page each one cites. Nothing was found wrong and no
-  published value changed. Four things did change. First, the Amazon browse-node path
-  <em>Home &amp; Kitchen &gt; Kitchen &amp; Dining &gt; Small Appliances &gt; Fryers &gt; Air Fryers</em> was read
-  directly on all three listings, where an earlier pass had read it on one; the commission evidence is now
-  three-for-three (<a href="flagged.html">F50</a>). Second, eleven article sentences were found to splice a
-  published label into mid-sentence position, so the prose read as machine output; they are fixed and the build
-  now fails if it recurs (<a href="flagged.html">F51</a>). Third, the questions register gained four rows that
-  are <em>known and sourced</em> and therefore carry an explicit answer, and four new suggestions were added.
-  Fourth, the Application Review Process page was <em>not</em> re-read this pass and is flagged as
-  carried-forward rather than confirmed (<a href="flagged.html">F52</a>). Raw evidence:
-  <code>session-42ca97ad/EVIDENCE-2026-11-15.md</code>.</p>
-</div>
-
-<div class="callout note">
-  <strong>Pass 8 — 2026-11-15.</strong>
-  <p class="small">This pass re-fetched the three supplied links, the Standard Commission Income
-  Statement, the Program Policies page, 16 CFR 255.5, 16 CFR Part 465 and both manufacturers' pages.
-  Three defects were found by re-reading and are fixed: a stale listing title (<a href="flagged.html">F38</a>),
-  a source record cited for a value it does not support (F39), and two rows published under the same
-  flag number (F40). Two new registers were added: a <a href="suggestions.html">decision queue</a> of
-  16 evidence-backed improvements with alternative paths, and a register of
-  <a href="questions.html">14 open questions</a> separating what is known, what is discoverable, what
-  the official source does not state, and what can only be answered from inside the account.
-  Nothing on either register has been implemented. The full briefing, including the fetches that
-  did <em>not</em> return content, is in <code>EXECUTIVE-SUMMARY-PASS8.md</code> in the repository.</p>
-</div>
-
-<div class="callout note">
-  <strong>Pass 9 — 2026-11-15 (final integration).</strong>
-  <p class="small">A final-integration pass re-read the load-bearing facts against the live official
-  sources and fixed what it found. <strong>One new conflict was recorded rather than resolved</strong>:
-  the Emeril brand page says "Included are 7 premium accessories" and the owner's manual enumerates
-  seven removable accessories, while the supplied Amazon listing title says "Six Cooking Accessories
-  Included" (<a href="flagged.html">F48</a> and <a href="flagged.html">F50</a>). The Emeril preset
-  count was re-confirmed as 24 by reading the manual's two preset tables row by row, and the flag
-  wording was tightened from "names exactly 24" to "lists 24 presets by name" because the manual
-  never states the numeral. <strong>Ten defects in the site build itself were found and fixed</strong>,
-  among them two decision pages that had each other's canonical URL and title, a page that stated
-  16 suggestions while rendering 12, a buyer-facing link to a raw markdown file, and the complete
-  absence of canonical URLs, social cards and structured data on every page. The site now ships a
-  canonical URL, Open Graph and Twitter card tags and JSON-LD on all {PAGES_HTML} root pages, and
-  two new build guards fail the build on a nested anchor. The full evidence, including what this
-  pass could <em>not</em> establish, is in
-  <code>session-88bb2db6/EVIDENCE-2026-11-15.md</code> in the repository.</p>
-</div>
-
-<div class="callout note">
-  <strong>Pass 10 \u2014 2026-11-16 (verification, session 9fccce0c).</strong>
-  <p class="small">The tenth independent re-read of the same register, run because the register is made of
-  values that move. <strong>It found the clause the brief most needed and the register had never carried</strong>:
-  Amazon's Program Policies contain <strong>IP License \u00a74, the Agent Terms</strong>, and
-  <strong>Participation Requirements \u00a75</strong>, both written for exactly the case this project is
-  \u2014 an AI-powered affiliate platform that automates product research. They are now compliance requirements
-  <a href="compliance.html">C17 and C18</a> and platform guardrail G11, quoted verbatim. What they leave open is
-  published rather than guessed: whether an ordinary public listing page counts as Program Content, and what the
-  agent must call itself (<a href="questions.html">Q-21</a>, <a href="suggestions.html">SG-22</a>). It also found
-  that three published pages pointed readers at a flag number which exists in no register in this repository; that
-  is fixed and a new build guard now fails the build if any page cites an id that does not exist. The
-  Application Review criteria had been carried forward rather than read since 2026-11-13 and are now confirmed
-  verbatim from the live page, which closes <a href="flagged.html">F56</a> and gives
-  <a href="questions.html">Q-19</a> its answer. The full evidence is in
-  <code>reports/verification-2026-11-16-9fccce0c.md</code> in the repository, and on the
-  <a href="reverification.html">Re-verification</a> page.</p>
-</div>
-
-
-<div class="grid grid-4" style="margin-bottom:1rem">
-  <div class="stat bad"><div class="n">0</div><div class="l">Verified product identities</div><div class="h">3 candidate ASINs, mapping unconfirmed (F14–F16)</div></div>
-  <div class="stat ok"><div class="n">{len(SOURCES["sources"])}</div><div class="l">Sources</div><div class="h">All official, all linked</div></div>
-  <div class="stat warn"><div class="n">{len(PROGRAMME_FLAGS) + sum(1 for p in PRODUCT_LIST for f in p["flags"] if f["id"] not in ("F1", "F6"))}</div><div class="l">Open flag rows</div><div class="h">Counted the way the Flagged page lists them — none hidden, none blocking</div></div>
-  <div class="stat"><div class="n">0</div><div class="l">Numbers invented</div></div>
-</div>
-
-<div class="tablewrap">
-<table>
-  <caption>What was done, what was found, what it means</caption>
-  <thead><tr><th style="width:20%">Item</th><th style="width:64%">Finding</th><th style="width:16%">Source</th></tr></thead>
-  <tbody>{rows}</tbody>
-</table>
-</div>
-
-<h2>Findings</h2>
-<div class="callout ok">
-  <strong>1 · The product side is verifiable, and was verified</strong>
-  <p class="small">Every specification asserted on the site was read from the manufacturer's own product page or owner's manual on {e(ACCESSED)}, and each one carries a clickable link to it. {len(SOURCES["sources"])} sources are registered; none is a retailer, a review aggregator or an affiliate blog. Values that could not be confirmed are blank and listed, which is the only honest way to publish a comparison table.</p>
-</div>
-<div class="callout bad">
-  <strong>2 · One official source contradicts another, and it is not cosmetic</strong>
-  <p class="small">The Chefman 8 Qt listing advertises a 450 °F Hi-Fry mode; the brand page and the RJ38-SQSS-8T manual document 200–400 °F. A buyer relying on the listing could receive a unit that does not match it. The site states both claims, asserts neither, and tells the reader to check the manual. Resolving this needs someone to open the live listing.</p>
-</div>
-<div class="callout">
-  <strong>3 · The commission numbers cannot be stated per product, and pretending otherwise would be fabrication</strong>
-  <p class="small">Amazon's published rate table lists Kitchen at 4.50%, Home at 3.00% and a 4.00% fallback {src_links(['S3'])}. Amazon does not publish which category a given ASIN sits in, and air fryers are not named in the table. Every "commission rate" figure on a competitor site therefore rests on a guess. What this site adds is evidence rather than a guess: on 2026-11-15 all three listings were re-read and all three render the Kitchen &amp; Dining browse-node path, which makes 4.50% the well-evidenced working rate. The settlement-time category still comes only from the Earnings report, so both candidate rows stay on the page and the rate stays blank per product.</p>
-</div>
-<div class="callout info">
-  <strong>4 · The policy constraint is the architecture</strong>
-  <p class="small">The brief asks for automated product research, trend detection and optimisation. The IP License forbids aggregating, analysing, extracting or repurposing Program Content and forbids training models on it {src_links(['S2'])}. So the automated research layer must run on manufacturer documentation and the operator's own click and conversion data. That is a harder, slower build — and the only one that survives review.</p>
-</div>
-<div class="callout">
-  <strong>5 · Verifying the data and reading the page are different jobs, and only one of them was automated</strong>
-  <p class="small">Nine earlier passes checked every value against its source and found nothing wrong — correctly.
-  But a value that is right in a table can still be wrong in a sentence, and eleven of them were: a published
-  display label such as "Two 3-quart baskets" had been spliced into mid-sentence position, so the articles read
-  as machine output ("splits a cavity into Two 3-quart baskets"). No verifier catches that, because the value is
-  genuinely published. It took reading the rendered pages as a shopper would. The defect is fixed and the build
-  now fails if a capitalised value is spliced into a mid-sentence position again {src_links(['S1'])}.</p>
-</div>
-
-<h2>Economics, stated with the precision the data allows</h2>
-<div class="tablewrap">
-<table>
-  <caption>Illustrative commissions at published rates — arithmetic on the brand list price, not a forecast</caption>
-  <thead><tr><th>Product</th><th>Brand list price</th>{rate_headers}</tr></thead>
-  <tbody>{econ_rows}</tbody>
-</table>
-</div>
-<p class="tiny muted">Brand list prices from {src_link('S10')}, {src_link('S12')} and {src_link('S14')}; rates from {src_link('S3')}. Amazon computes commission on Qualifying Revenue after shipping, tax, returns and bad debt, so real payouts are lower. The Amazon selling price — the number that would actually drive commission — is unknown to this project by policy.</p>
-
-<h2>Coverage against the brief</h2>
-<div class="callout note">
-  <strong>Every requirement in the brief, and what is actually done about it</strong>
-  <p class="small" style="margin-bottom:0">{_req_counts_html()} The <a href="requirements.html">Requirements and
-  status</a> page lists all {len(REQUIREMENTS['requirements'])} rows individually, each with the path that
-  implements it and the official source that settles it. A row is marked <em>blocked</em> only where the input
-  exists solely inside Amazon's own systems — the Associate tag, the account's approval status, per-ASIN
-  commission categories, customer reviews, conversion reports — and never to mean "not done yet".</p>
-</div>
-
-<h2>Recommendation</h2>
-<ol class="tight small">
-  <li><strong>Publish this build.</strong> It satisfies the content substance a review looks for, and it is honest under inspection.</li>
-  <li><strong>Clear the flags that change copy first</strong> — F3 (the 450 °F conflict), F4/F5 (preset counts), F1/F2 (model mapping). Those decide what the pages may assert.</li>
-  <li><strong>Fix attribution before driving traffic</strong> — confirm the Associates tag and create sub-tags; F6 and F7.</li>
-  <li><strong>Then apply, and work the 180-day window deliberately</strong> {src_links(['S4'])}.</li>
-  <li><strong>Only pursue price and rating display if API access is granted.</strong> Until then, absence is the compliant state.</li>
-  <li><strong>Decide what the AI agent is allowed to read before writing the research pipeline.</strong> The IP License forbids using Amazon's Program Content to build or improve models, and forbids aggregating or analysing it without written approval {src_links(['S2'])}. The version of the brief that is lawful runs on manufacturers' own pages — which is the version this repository already implements. See <a href="suggestions.html#sg-18">SG-18</a>.</li>
-  <li><strong>Decide the product set before the next content push.</strong> Two of the three products share a brand and a form factor, which caps what the comparison can answer. See <a href="suggestions.html#sg-20">SG-20</a>.</li>
-</ol>
-
-<p class="small" style="margin-top:1.5rem"><a class="btn btn-ghost" href="requirements.html">Requirement-by-requirement status</a> <a class="btn btn-ghost" href="flagged.html">See every open flag</a></p>
-<p class="tiny muted">The Markdown briefings this page used to link are undated records from earlier passes; five of
-them sit at the repository root and at least one contradicts the position published here. They are not endorsed by
-this page. See <a href="flagged.html#f59">F59</a>.</p>
-"""
-    return layout("executive-summary.html", "Executive summary", body, active="executive-summary.html",
-                  description="One-page executive summary: findings, source conflicts, economics and the recommended next decision.",
-                  jsonld_blocks=[breadcrumbs_jsonld([
-        ("Home", SITE_URL + "/"),
-        ("Executive summary", page_url("executive-summary.html")),
-    ])]
-              )
+    table = ''.join(f'<tr><th scope="row">{e(title)}</th><td>{e(note)}</td><td>{src_links(ids)} <a href="{e(path)}">Repository evidence</a></td></tr>' for title,note,ids,path in rows)
+    links = ''.join(f'<a class="card tight" href="{e(href)}"><span class="kicker">Workspace</span><strong>{e(label)}</strong></a>' for href,label in (("suggestions.html","Current decisions & alternatives"),("questions.html","Known facts, gaps & discovery"),("product-intent.html","Five links & empty campaign ledger"),("measurement.html","Measurement & deployment contract"),("design-prompt.html","Current design/editorial brief"),("requirements.html","Brief coverage & explicit gaps")))
+    body = f"""<p class="crumbs"><a href="index.html">Home</a> / Executive summary</p><p class="section-eyebrow">Current integration · {e(PUBLICATION['updated'])}</p><h1>A publication, with its limits in view.</h1><p class="lede">The reader site is built. Account-only validation, production analytics and measured campaign results are not. This is the current brief—not a revenue forecast or a legal-compliance certificate.</p>
+<div class="grid grid-3"><div class="stat"><div class="n">{len(ARTICLES['articles'])}</div><div class="l">Question-led guides</div><div class="h">{len(CLUSTERS['clusters'])} intent clusters; editorial hypotheses, not measured demand</div></div><div class="stat"><div class="n">{len(PRODUCT_INTENT['rows'])}</div><div class="l">Exact submitted links retained</div><div class="h">Intended listings and enrolled tests remain unconfirmed</div></div><div class="stat"><div class="n">{len(CAMPAIGN_LEDGER['rows'])}</div><div class="l">Authorised campaign rows</div><div class="h">No conversions, revenue forecast or optimisation score</div></div></div>
+<h2>What is implemented—and what is not</h2><div class="tablewrap"><table><caption>Current evidence boundaries</caption><thead><tr><th>Area</th><th>Current state</th><th>Primary / implementation evidence</th></tr></thead><tbody>{table}</tbody></table></div>
+<div class="callout warn"><strong>Safety discrepancy, not a choice of instructions.</strong>The Emeril manual prohibits extension cords in its safeguards but conditionally permits them in a later section. Do not treat the latter as permission; seek current manufacturer clarification for the exact unit. <a href="flagged.html#f96">F96 and the source</a>.</div>
+<h2>A short route through the workspace</h2><div class="grid grid-3">{links}</div><p class="small">The Suggestions register contains {len(SUGGESTIONS['suggestions'])} rows: {counts['complete']} complete repository features/plans, {counts['superseded']} superseded, {counts['partial']} partial and {counts['gated']} gated. These current states form one partition; they do not add historical action logs to a current open count. Owner choices remain separate from agent execution records.</p>
+<h2>Evidence before optimisation</h2><ol class="tight"><li>Keep the original links and complete intended-listing/enrolled validation only with authorised account evidence.</li><li>Use the repaired collector only after a real controlled same-origin runtime, infrastructure-log minimisation and privacy review exist.</li><li>Import only dated authorised first-party reports with source/channel/date-range/eligible sessions/clicks/orders/provenance. Leave missing values blank.</li><li>Use actual comparable data before changing placement or calling a topic popular. No present design change is claimed to improve conversion.</li></ol>
+<p class="section-note"><a href="reports/verification-2026-11-19-1f9e7d52.md">Scoped verification, test results and deployment record</a> · <a href="EXECUTIVE-SUMMARY.md">Current written summary with historical appendices</a> · <a href="previous-passes.html">Historical builds</a>.</p>"""
+    return layout('executive-summary.html','Executive summary & workspace index',body,active='executive-summary.html',description='Current publication delivery, source corrections and honest remaining account/deployment boundaries. No fabricated traffic, conversions or approvals.',jsonld_blocks=[breadcrumbs_jsonld([('Home',SITE_BASE),('Executive summary',page_url('executive-summary.html'))])])
 
 
 REV_VERDICT = {
@@ -3084,7 +2881,7 @@ def page_previous_passes():
     for href, path, name, what, conflict in PARALLEL_BUILDS:
         rows.append(
             f'<tr><td><a href="{href}">{e(name)} ↗</a>'
-            f'<div class="tiny">{repo_link(path, "Source: " + path)}</div></td>'
+            f'<div class="tiny">{repo_link(path + "index.html", "Source: " + path + "index.html")}</div></td>'
             f'<td class="small">{e(what)}</td>'
             f'<td class="small">{conflict.replace("**", "")}</td></tr>')
     body = f"""
@@ -3121,7 +2918,7 @@ def page_previous_passes():
     <tr><td>Root site (canonical)</td><td><code>build.py</code>{repo_link('build.py', '')}</td><td><code>verify.py</code> — no broken internal links, no specification row with a value but no official source, the required disclosure on every page, and no article number that is not in the verified dataset. {repo_link('verify.py', 'verify.py on GitHub')}</td></tr>
     <tr><td><code>site/</code></td><td><code>scripts/build_site.py</code>{repo_link('scripts/build_site.py', '')}</td><td><code>scripts/verify_site.py</code> — 382 assertions over <code>data/verified/</code>. {repo_link('scripts/verify_site.py', 'verify_site.py on GitHub')}</td></tr>
     <tr><td><code>s2/</code></td><td><code>scripts/build_s2_site.py</code>{repo_link('scripts/build_s2_site.py', '')}</td><td><code>--check</code> byte-comparison against a fresh rebuild. {repo_link('scripts/build_s2_site.py', 'build_s2_site.py on GitHub')}</td></tr>
-    <tr><td>Others</td><td>their own scripts</td><td>No CI gate. They are preserved evidence, not a maintained product. {repo_link('.github/workflows/', 'The only workflows that run')}</td></tr>
+    <tr><td>Others</td><td>their own scripts</td><td>No CI gate. They are preserved evidence, not a maintained product. {repo_link('.github/workflows/ci.yml', 'Canonical CI workflow')}</td></tr>
   </tbody>
 </table>
 </div>
@@ -3256,8 +3053,8 @@ def page_design_prompt():
 
     body = f"""
 <p class="crumbs"><a href="index.html">Home</a> / Design prompt pack</p>
-<h1>Design prompt pack: review before anything changes</h1>
-<p class="lede">The design and content-production suggestion layer: a paste-ready design prompt, ten design suggestions with live status, the article topic queue, organic-traffic tactics, editorial voice rules and a decision register. Every row is a suggestion for you to approve, reject or modify — the status column records which of them the repository already satisfies today.</p>
+<h1>The design and editorial contract</h1>
+<p class="lede">The design and content-production suggestion layer: a paste-ready design prompt, design suggestions with current implementation states, the article topic queue, organic-traffic tactics, editorial voice rules and a decision register. Every row is a suggestion for you to approve, reject or modify — the status column records which of them the repository already satisfies today.</p>
 
 <div class="callout info">
   <strong>How this page fits the other registers.</strong>
@@ -3267,13 +3064,13 @@ def page_design_prompt():
 <h2 id="the-prompt">The design prompt</h2>
 <p class="small">Paste the block below into any designer or AI assistant used to restyle the site. It describes the site exactly as it is today, names the components and rules that must survive a redesign, and ends with the acceptance criteria every change has to pass. Nothing in it asks for a claim the site cannot source.</p>
 <pre class="prompt-block">{e(d["design_prompt"])}</pre>
-<p class="tiny muted">Compiled {e(d["compiled"])} by {e(d["session"])}. If a request built from this prompt contradicts the verification rules inside it — a filled blank cell, a price, a rating, a testing claim — the prompt is wrong and the rules win.</p>
+<p class="tiny muted">Compiled {e(d["compiled"])} by {e(d["session"])}. If a request built from this prompt contradicts the verification rules inside it — an invented fact, unauthorised Program Content, a fake author or testing claim — the prompt is wrong and the rules win.</p>
 
 <h2>Design suggestions</h2>
 <p class="small muted">{e(d["how_to_read"])}</p>
 <div class="tablewrap">
 <table>
-  <caption>Design suggestions D-1…D-10 with the status of each in the repository today</caption>
+  <caption>Design suggestions — current canonical implementation</caption>
   <thead><tr><th>#</th><th>Suggestion · why · path</th><th>Status</th><th>Evidence</th></tr></thead>
   <tbody>{design_rows}</tbody>
 </table>
@@ -3283,7 +3080,7 @@ def page_design_prompt():
 <p class="small">Catchy, reader-shaped topics for this product set, in the order they were proposed. Titles are working titles; each one names the format and the hook it leads with. Published rows link to the article they became. Nothing here may claim hands-on testing or state an Amazon price — those rules are inside the prompt above. <strong>Relationship to <a href="topics.html">topics.html</a>:</strong> that page is the proposal view (intent, serving product, citation each topic must carry); this table is the status view — which of the original working titles actually became articles, and which are still open.</p>
 <div class="tablewrap">
 <table>
-  <caption>Topic queue A-1…A-11 — published versus not written</caption>
+  <caption>Topic queue — publication state derived from the article register</caption>
   <thead><tr><th>#</th><th>Working title · format · hook</th><th>Status</th><th>Sources it would cite</th></tr></thead>
   <tbody>{''.join(topic_rows)}</tbody>
 </table>
@@ -3293,7 +3090,7 @@ def page_design_prompt():
 <p class="small">Channel strategy — which niche to build, which channels to run, what to measure — is decided on <a href="decisions.html">decisions.html</a>, with the per-topic promotion channels listed on <a href="topics.html">topics.html</a>. This table is the operational checklist behind them: what has already shipped, what is half-done and what has not started.</p>
 <div class="tablewrap">
 <table>
-  <caption>Organic-traffic tactics T-1…T-8 with implementation status</caption>
+  <caption>Organic-traffic tactics — implemented versus planned</caption>
   <thead><tr><th>#</th><th>Tactic · how · status note</th><th>Status</th><th>Evidence</th></tr></thead>
   <tbody>{tactic_rows}</tbody>
 </table>
@@ -3303,7 +3100,7 @@ def page_design_prompt():
 <p class="small">The voice half of the anti-slop rules. The enforcement half — the banned openers, the arithmetic guard, the claim checks — lives on <a href="decisions.html">decisions.html</a> and in <code>build.py</code>, where the build fails if a rule is broken.</p>
 <div class="tablewrap">
 <table>
-  <caption>Voice rules V-1…V-4</caption>
+  <caption>Current editorial voice rules</caption>
   <thead><tr><th>#</th><th>Rule</th><th>Why</th><th>Evidence</th></tr></thead>
   <tbody>{voice_rows}</tbody>
 </table>
@@ -3313,7 +3110,7 @@ def page_design_prompt():
 <p class="small">How to use this register: for each row choose <strong>Approved</strong>, <strong>Rejected</strong> or <strong>Needs more info</strong>, write the choice and the date in the last column, then implement only approved rows. Rejected rows stay on the register so they are not proposed again. Rows that are blocked name the question that unblocks them.</p>
 <div class="tablewrap">
 <table>
-  <caption>Decision register R-1…R-6 — the choice column is deliberately empty</caption>
+  <caption>Design choices — implementation state is not an owner approval</caption>
   <thead><tr><th>#</th><th>Suggestion</th><th>Options considered</th><th>Recommended path</th><th>Status today</th><th>Evidence</th><th>Decision</th></tr></thead>
   <tbody>{decision_rows}</tbody>
 </table>
@@ -3330,7 +3127,7 @@ def page_design_prompt():
 """
     return layout("design-prompt.html", "Design prompt pack", body,
                   active="design-prompt.html",
-                  description="Design, content and traffic suggestions for this site: a paste-ready design prompt, ten design suggestions with live status, the article topic queue, organic-traffic tactics, voice rules and a decision register to review before anything changes.",
+                  description="Design, content and traffic suggestions for this site: a paste-ready design prompt, design suggestions with current implementation states, the article topic queue, organic-traffic tactics, voice rules and a decision register to review before anything changes.",
                   jsonld_blocks=[breadcrumbs_jsonld([
         ("Home", SITE_URL + "/"),
         ("Design prompt pack", page_url("design-prompt.html")),
@@ -3338,270 +3135,41 @@ def page_design_prompt():
 
 
 def page_suggestions():
-    s = SUGGESTIONS
-    items = sorted(s["suggestions"], key=lambda x: -(x["impact"] * x["confidence"]))
-
-    def card(sg):
-        score = sg["impact"] * sg["confidence"]
-        opts = "".join(
-            f'<li><strong>{e(o["label"])}</strong>'
-            f'<div class="tiny" style="margin:.15rem 0 .35rem">Effort {e(o["effort"])} · risk {e(o["risk"])}'
-            f'{" · reversible" if o.get("reversible") else ""}</div>'
-            f'<div class="small">{e(o["what"])}</div></li>'
-            for o in sg["options"]
-        )
-        ev = " ".join(
-            f'<a class="src-link" href="{e(x["url"])}" target="_blank" rel="noopener">{e(x["label"])} ↗</a>'
-            for x in sg["evidence"]
-        )
-        blocked = sg.get("blocked_by") or []
-        blocked_html = (
-            " ".join(f'<a href="questions.html#{e(q.lower())}" class="src">{e(q)}</a>' for q in blocked)
-            if blocked else '<span class="tiny muted">Nothing blocks this.</span>'
-        )
-        return f"""
-<article class="sug" id="{e(sg['id'].lower())}">
-  <div class="sug-head">
-    <div>
-      <div class="tiny muted">{e(sg['id'])} · {e(sg['area'])}</div>
-      <h3>{e(sg['title'])}</h3>
-    </div>
-    <div class="score" title="impact {sg['impact']} x confidence {sg['confidence']} - this pass's judgement, not a measurement">
-      <strong>{score}</strong><span>priority</span>
-    </div>
-  </div>
-  <p><strong>The problem.</strong> {e(sg['problem'])}</p>
-  <div class="evidence"><strong>Evidence.</strong> {ev}</div>
-  <p class="label">Paths you could take</p>
-  <ol class="paths">{opts}</ol>
-  <p class="rec"><strong>This pass would pick:</strong> {e(sg['recommendation'])}</p>
-  <p class="small"><strong>Why.</strong> {e(sg['why'])}</p>
-  <p class="small"><strong>Cost of not doing it.</strong> {e(sg['risk_of_not_doing'])}</p>
-  <p class="small"><strong>Blocked by:</strong> {blocked_html}</p>
-</article>"""
-
-    cards = "".join(card(x) for x in items)
-
-    # ---- Choose a path (added 2026-11-15, arena/63a2c638) -------------------------- #
-    # A long decision queue is a backlog, not a decision. The paths group the rows into
-    # ordered pieces of work with an explicit entry condition, so the owner can pick one
-    # and finish it. Built from data/suggestions.json -> "paths"; a path's member ids are
-    # validated against the suggestion register so a stale id fails the build rather than
-    # silently dropping a row.
-    known_sg = {x["id"]: x for x in s["suggestions"]}
-    path_rows = []
-    path_articles = []
-    for path in (s.get("paths") or []):
-        unknown = [m for m in path["contains"] if m not in known_sg]
-        if unknown:
-            raise SystemExit(
-                "BUILD FAILED — path %s references unknown suggestion(s): %s"
-                % (path["id"], ", ".join(unknown)))
-        # Evidence links for the row-source gate: the official sources behind the members.
-        seen_urls = []
-        for m in path["contains"]:
-            for ev in known_sg[m]["evidence"]:
-                if ev["url"] not in seen_urls:
-                    seen_urls.append(ev["url"])
-        ev_links = " ".join(
-            f'<a href="{e(u)}" target="_blank" rel="noopener">{e(u.split("//")[-1][:34])} ↗</a>'
-            for u in seen_urls[:4]
-        )
-        # Flagged page is always a valid target, and every path links to it for its caveats.
-        ev_links += ' <a href="flagged.html">Flagged ↗</a>'
-        chips = " ".join(
-            f'<a class="src" href="#{e(m.lower())}">{e(m)}</a>' for m in path["contains"]
-        )
-        path_rows.append(
-            f'<tr><td class="num"><a href="#{e(path["id"].lower())}">{e(path["id"])}</a></td>'
-            f'<td><strong>{e(path["name"])}</strong><div class="small muted">{e(path["promise"])}</div></td>'
-            f'<td class="small">{chips}</td>'
-            f'<td class="small">{e(path["effort"])}</td>'
-            f'<td class="small">{ev_links}</td></tr>'
-        )
-        path_articles.append(f"""
-<article class="sug" id="{e(path['id'].lower())}">
-  <div class="sug-head">
-    <div>
-      <div class="tiny muted">{e(path['id'])} · a path through the queue</div>
-      <h3>{e(path['name'])}</h3>
-    </div>
-  </div>
-  <p>{e(path['promise'])}</p>
-  <p class="small"><strong>Contains.</strong> {chips}</p>
-  <p class="small"><strong>Effort.</strong> {e(path['effort'])}</p>
-  <p class="small"><strong>Must be true first.</strong> {e(path['must_be_true_first'])}</p>
-  <p class="small"><strong>What you get.</strong> {e(path['delivers'])}</p>
-  <p class="small"><strong>What it does not fix.</strong> {e(path['does_not_fix'])}</p>
-  <p class="small"><strong>Why it sits here in the order.</strong> {e(path['why_first'])}</p>
-  <p class="rec"><strong>Pick this if.</strong> {e(path['pick_this_if'])}</p>
-</article>""")
-
-    paths_html = ""
-    if path_rows:
-        paths_html = f"""
-<h2>Choose a path before you choose a suggestion</h2>
-<p class="lede">{e(s.get('paths_intro',''))}</p>
-<div class="tablewrap"><table>
-  <thead><tr><th>#</th><th>Path</th><th>Suggestions it contains</th><th>Effort</th><th>Evidence behind its rows</th></tr></thead>
-  <tbody>{''.join(path_rows)}</tbody>
-</table></div>
-<p class="tiny muted">{e(s.get('paths_note',''))}</p>
-{''.join(path_articles)}
-"""
-
-    # summary table - every row links to its own evidence so the row-source gate is satisfied
-    rows = []
-    for x in items:
-        ev_links = " ".join(
-            f'<a href="{e(y["url"])}" target="_blank" rel="noopener">{e(y["label"].split(" - ")[0][:38])} ↗</a>'
-            for y in x["evidence"]
-        )
-        # The choice set, at a glance, so a reviewer can decide from this table alone
-        # and record it. The row already carries its evidence links, which is what the
-        # row-source gate requires of every table row on the site.
-        choice = " ".join(
-            f'<span class="tiny muted">{e(o["label"].split(".")[0])}</span>'
-            for o in x["options"]
-        )
-        rows.append(
-            f'<tr><td class="num"><a href="#{e(x["id"].lower())}">{e(x["id"])}</a></td>'
-            f'<td>{e(x["title"])}</td><td class="small">{e(x["area"])}</td>'
-            f'<td class="num">{x["impact"]*x["confidence"]}</td>'
-            f'<td class="small">{_effort_chip(x["effort"])} {e(x["risk_of_not_doing"].split(".")[0])}</td>'
-            f'<td class="small">{choice}</td>'
-            f'<td class="small">{ev_links}</td></tr>'
-        )
-
-    # ---- the decision desk (added 2026-11-17, arena/fd9778a1-zone1) ---------------- #
-    # Four figures and two shortlists, all counted from the two decision registers rather
-    # than typed. It exists because the page's own lede asserted in prose that "Nothing on
-    # this page has been implemented" while data/decision-log.json had already recorded SG-26
-    # as shipped — the typed-snapshot-read-as-a-live-fact class this repository keeps finding
-    # (F52, F63), and now flag F87. A computed sentence cannot go stale in the same way: when a
-    # pass ships a row it appends to the log, and this panel moves with it.
-    impl = DECISION_LOG.get("implemented") or []
-    impl_ids = sorted({str(x.get("id", "")) for x in impl if x.get("id")})
-    shipped = [i for i in impl_ids if i in known_sg]
-    still_open = [x for x in s["suggestions"]
-                  if (x.get("effort") or "").strip().lower() not in ("done", "shipped", "complete")]
-    unblock = {}
-    for qq in QUESTIONS["questions"]:
-        if qq.get("state") in ("known", "answered"):
-            continue
-        n = sum(1 for x in s["suggestions"] if qq["id"] in (x.get("blocked_by") or []))
-        if n:
-            unblock[qq["id"]] = (n, qq)
-    top_unblock = sorted(unblock.values(), key=lambda kv: (-kv[0], kv[1]["id"]))[:4]
-    qstate = {x["id"]: x.get("state", "missing") for x in QUESTIONS["questions"]}
-    decided = set(shipped) | {x["id"] for x in s["suggestions"] if x.get("resolved_on")}
-    # F94: a shipped row no longer "asks you for a path"; without this the desk printed
-    # 47 rows = 42 open + 7 implemented.
-    still_open = [x for x in still_open if x["id"] not in decided]
-    gated = [x for x in still_open if x.get("blocked_by")]
-    undecided = [x for x in s["suggestions"] if x["id"] not in decided]
-    top_undecided = undecided[:4]
-    desk = f"""
-<section class="desk" id="decision-desk" aria-label="Decision desk">
-  <p class="section-eyebrow">The decision desk · counted from the registers at build time</p>
-  <div class="grid grid-4" style="margin:.5rem 0 .9rem">
-    <div class="stat"><div class="n">{len(s["suggestions"])}</div><div class="l">Rows in the queue</div><div class="h">{len(still_open)} still ask you for a path</div></div>
-    <div class="stat ok"><div class="n">{len(shipped)}</div><div class="l">Recorded as implemented</div><div class="h"><a href="decision-log.html">In the decision log &#8594;</a></div></div>
-    <div class="stat warn"><div class="n">{len(gated)}</div><div class="l">Blocked on a question</div><div class="h"><a href="questions.html">The open questions &#8594;</a></div></div>
-    <div class="stat"><div class="n">{len(s.get("paths") or [])}</div><div class="l">Paths through the queue</div><div class="h">Pick one instead of {len(s["suggestions"])} rows</div></div>
-  </div>
-  <div class="grid grid-2">
-    <div class="card tight">
-      <p class="tiny muted" style="margin:0 0 .3rem">Unanswered questions that unblock the most</p>
-      <ul class="tight small" style="margin:0">
-        {"".join(f'<li><a href="questions.html#{e(qq["id"].lower())}">{e(qq["id"])}</a> — {e(qq["question"][:112])}{"…" if len(qq["question"]) > 112 else ""} <span class="tiny muted">frees {n} · state {e(qq["state"])}</span></li>' for n, qq in top_unblock) or '<li>No question in the register currently gates a suggestion.</li>'}
-      </ul>
-    </div>
-    <div class="card tight">
-      <p class="tiny muted" style="margin:0 0 .3rem">Highest priority with no path recorded yet</p>
-      <ul class="tight small" style="margin:0">
-        {"".join(f'<li><a href="#{e(x["id"].lower())}">{e(x["id"])}</a> — {e(x["title"][:96])}{"…" if len(x["title"]) > 96 else ""} <span class="tiny muted">score {x["impact"] * x["confidence"]}</span></li>' for x in top_undecided)}
-      </ul>
-      <p class="tiny muted" style="margin:.45rem 0 0">Recording a path is one click on
-        <a href="decision-log.html">the decision log</a>; its export is the file the next pass reads.</p>
-    </div>
-  </div>
-  <p class="tiny muted">Implemented here means shipped in the canonical root build and recorded in
-    <code>data/decision-log.json</code> {("with these rows: " + ", ".join(e(i) for i in shipped) + ".") if shipped else "(no rows yet)."}
-    Questions already settled by an official source are left out of the shortlist on the left, because a settled
-    question unblocks nothing; the state each row carries is its own answer about who can settle it.
-  </p>
-</section>
-"""
-    # ---- decision brief (pass 14, arena/9b3365c7-zone1): four rows, dated, owner-facing ---- #
-    brief = s.get("decision_brief") or {}
-    brief_html = ""
-    if brief.get("items"):
-        for it in brief["items"]:
-            if it["id"] not in known_sg:
-                raise SystemExit(f"BUILD FAILED — decision_brief names {it['id']}, which is not a suggestion row")
-        brief_html = (
-            '<section class="card decision-brief" id="decision-brief" aria-label="Decision brief">'
-            f'<p class="section-eyebrow">Decision brief · {e(brief["date"])} · {e(brief["session"])}</p>'
-            f'<p class="small" style="margin:.2rem 0 .6rem">{e(brief["intro"])}</p><ol class="tight">'
-            + "".join(f'<li><strong><a href="#{e(it["id"].lower())}">{e(it["id"])}</a> — {e(it["ask"])}</strong> '
-                      f'<span class="small muted">{e(it["why"])}</span></li>' for it in brief["items"])
-            + '</ol><p class="tiny muted" style="margin:.4rem 0 0">The order is this pass\'s judgement. '
-              'Each row below carries its own evidence and paths.</p></section>')
-    body = f"""
-<p class="crumbs"><a href="../index.html">Home</a> / Suggestions</p>
-<h1>Suggestions, and a place to choose between them</h1>
-<p class="lede">{len(items)} reviewed, evidence-backed suggestions, in priority order. Each one would materially change something on this site.
-{len(shipped)} {"" if len(shipped) == 1 else ""}of them {"is" if len(shipped) == 1 else "are"} recorded as implemented in the
-decision log — reversible, low-risk paths an agent pass was pre-authorised to ship — and the rest wait for you. Each
-entry names the problem it fixes, the official document or repository evidence behind it, two or three paths you could
-take, and the path this pass would pick if it were your call. Read the one you care about, choose a path, and the work
-is a short story rather than an open-ended project.</p>
-
-{brief_html}
-
-{desk}
-
-<div class="callout note">
-  <strong>How to use this page.</strong> {e(s["how_to_read"][0])}
-  The score is <em>{e(s["scoring_note"])}</em>
-  Suggestions blocked by something only you can supply link to the exact row on the
-  <a href="questions.html">Open questions</a> page.
-  <a href="decision-log.html">The owner decision log</a> is where a choice is recorded: one picker
-  per suggestion, the default that stands if nothing is picked, and an export that turns the picks
-  into the file the next agent pass reads.
-</div>
-
-{paths_html}
-<h2>At a glance</h2>
-<p class="small muted">Read the table, then take one row and read the full entry for it. The <em>Your call</em> column lists the paths that are on the table for that suggestion &mdash; write the letter you choose next to it, with the date. Rows the decision log records as shipped are named in the desk above; for every other row, implementing it starts by choosing a path here.</p>
-<div class="tablewrap"><table>
-  <thead><tr><th>#</th><th>Suggestion</th><th>Area</th><th>Priority</th><th>Effort · cost of waiting</th><th>Your call</th><th>Evidence</th></tr></thead>
-  <tbody>{''.join(rows)}</tbody>
-</table></div>
-<p class="tiny muted">Priority is impact x confidence, both scored by this pass out of 5. It is judgement. The evidence column is the fact.</p>
-
-<h2>The queue</h2>
-{cards}
-
-<div class="callout note" style="margin-top:1.5rem">
-  <strong>Related registers.</strong>
-  A second, independently written set of questions and directions was produced by a parallel
-  session on the same day and is published rather than merged away, because it asks things this
-  register does not — including which Amazon marketplace a Japan-based Associate may promote.
-  <a href="decision-gate.html">Questions and information gaps (parallel pass)</a> ·
-  <a href="marketing-directions.html">Marketing directions (parallel pass)</a> ·
-  <a href="questions.html">This pass's open questions</a> ·
-  <a href="design-prompt.html">Design prompt pack — design, topics and tactics</a>
-</div>
-"""
-    return layout("suggestions.html", "Suggestions", body, active="suggestions.html",
-                  description="Reviewed, evidence-backed suggestions for the site, each with alternative paths and a recommendation, for the owner to choose before anything is implemented.",
-                  jsonld_blocks=[breadcrumbs_jsonld([
-        ("Home", SITE_URL + "/"),
-        ("Suggestions", page_url("suggestions.html")),
-    ])]
-              )
+    data = SUGGESTIONS
+    items = data['suggestions']
+    lookup = {row['id']:row for row in items}
+    states = {'complete':('pill-ok','Complete'), 'partial':('pill-warn','Partial'), 'gated':('pill-warn','Gated'), 'superseded':('pill-info','Superseded'), 'open':('pill-info','Open')}
+    def chip(row):
+        cls,label=states[row['current_state']]
+        return f'<span class="pill {cls}">{label}</span>'
+    def evidence(row):
+        official=' '.join(f'<a href="{e(v["url"])}" target="_blank" rel="noopener">{e(v["label"])}</a>' for v in row['evidence'][:2])
+        return official + f' <a href="{REPO_BLOB}data/suggestions.json">Current state record</a>'
+    counts={key:sum(r['current_state']==key for r in items) for key in states}
+    brief=data.get('decision_brief') or {}
+    for row in brief.get('items',[]):
+        if row['id'] not in lookup:
+            raise SystemExit('BUILD FAILED — unknown suggestion in decision brief: '+row['id'])
+    briefs=''.join(f'<li><strong><a href="#{e(r["id"].lower())}">{e(r["id"])}</a> — {e(r["ask"])}</strong><p class="small muted">{e(r["why"])}</p></li>' for r in brief.get('items',[]))
+    rows=''.join(f'<tr><td><a href="#{e(r["id"].lower())}">{e(r["id"])}</a></td><td>{e(r["title"])}<div class="small muted">{e(r["current_note"])}</div></td><td>{chip(r)}</td><td>{evidence(r)}</td></tr>' for r in items)
+    cards=[]
+    for row in items:
+        opts=''.join(f'<li><strong>{e(o["label"])}</strong><p>{e(o["what"])}</p><p class="tiny muted">Original effort: {e(o["effort"])} · original risk: {e(o["risk"])} · reversible: {"yes" if o.get("reversible") else "no"}</p></li>' for o in row['options'])
+        blocks=' '.join(f'<a href="questions.html#{e(q.lower())}">{e(q)}</a>' for q in (row.get('blocked_by') or [])) or 'None recorded in the original proposal.'
+        cards.append(f"""<details class="sug" id="{e(row['id'].lower())}"><summary>{e(row['id'])} · {e(row['title'])} {chip(row)}</summary><p><strong>Current review — {e(row['current_reviewed_on'])}.</strong> {e(row['current_note'])}</p><div class="evidence">{evidence(row)}</div><h3>Original proposal and alternatives</h3><p class="small muted">Historical recommendation, not a fresh factual claim or a request to repeat shipped work. Previous problem wording is preserved so a reviewer can understand the options. Current states and account/evidence gates above take precedence.</p><p class="small"><strong>Original problem.</strong> {e(row['problem'])}</p><ol class="paths">{opts}</ol><p class="small"><strong>Original recommendation.</strong> {e(row['recommendation'])} {e(row['why'])}</p><p class="small"><strong>Linked questions.</strong> {blocks}</p><p class="small"><a href="decision-log.html#{e(row['id'].lower())}">Draft or export a different choice →</a></p></details>""")
+    paths=[]
+    for path in data.get('paths',[]):
+        if any(i not in lookup for i in path['contains']):
+            raise SystemExit('BUILD FAILED — unknown suggestion in path '+path['id'])
+        members=' '.join(f'<a href="#{e(i.lower())}">{e(i)}</a>' for i in path['contains'])
+        paths.append(f'<section id="{e(path["id"].lower())}"><h3>{e(path["id"])} · {e(path["name"])}</h3><p class="small">{e(path["promise"])}</p><p>{members}</p></section>')
+    body=f"""<p class="crumbs"><a href="index.html">Home</a> / Suggestions</p><p class="section-eyebrow">Reviewable decisions · current states</p><h1>What changed. What still needs evidence.</h1><p class="lede">Repository work proceeds autonomously. This queue records what actually shipped, the boundaries that remain, and the alternatives a reviewer can choose. It never turns an agent action into a person’s approval.</p>
+<section class="desk" id="decision-desk" aria-label="Current suggestion counts"><p class="small">{len(items)} total = {counts['complete']} complete + {counts['superseded']} superseded + {counts['partial']} partial + {counts['gated']} gated + {counts['open']} open.</p><p class="tiny muted">Complete can mean an implemented repository feature or a recorded plan. Partial never means a deployed collector or confirmed account. Historical action records are not added to these counts.</p></section>
+<section class="card decision-brief" id="decision-brief"><h2 style="margin-top:0">The remaining boundaries, in brief</h2><p class="small">{e(brief.get('intro',''))}</p><ol class="tight">{briefs}</ol><p class="tiny">Order is editorial judgement. {src_links(['S2','S42','S44'])}</p></section>
+<h2>Current register</h2><div class="tablewrap"><table><caption>Every suggestion has exactly one current implementation state</caption><thead><tr><th>ID</th><th>Suggestion / current answer</th><th>State</th><th>Evidence</th></tr></thead><tbody>{rows}</tbody></table></div>
+<h2>Review a row and its alternatives</h2><p class="small">Open any row. A different choice can be drafted locally on <a href="decision-log.html">the decision log</a>; nothing is submitted from that page. The earlier proposals are labelled history rather than published as today’s facts.</p>{''.join(cards)}
+<details><summary>Original grouped paths (historical planning)</summary><p class="small muted">These earlier bundles are preserved for review; current per-row states supersede old claims about what remains unbuilt.</p>{''.join(paths)}</details><p class="section-note"><a href="questions.html">Known facts and missing evidence</a> · <a href="design-prompt.html">Current design/editorial brief</a> · <a href="executive-summary.html">Executive summary</a>.</p>"""
+    return layout('suggestions.html','Suggestions & current decisions',body,active='suggestions.html',description='A current, reviewable decision queue: implemented publication work, partial delivery, explicit evidence gates and preserved alternatives.',jsonld_blocks=[breadcrumbs_jsonld([('Home',SITE_BASE),('Suggestions',page_url('suggestions.html'))])])
 
 def page_questions():
     q = QUESTIONS
@@ -3688,10 +3256,10 @@ settled without you links to the row that blocks it.</p>
 
 <div class="callout warn">
   <strong>Read the four states before the questions.</strong>
-  <span class="pill ok">Known and sourced</span> verified this pass against an official page, link on the row.
-  <span class="pill warn">Missing - discoverable</span> not established here, but a browser and ten minutes would settle it.
+  <span class="pill ok">Known and sourced</span> sourced fact or recorded repository decision; the row gives its evidence/date.
+  <span class="pill warn">Missing - discoverable</span> not established here; the row names the required lookup or deployment step.
   <span class="pill bad">Needs account access</span> outside the account it cannot be known at all.
-  <span class="pill warn">The source does not state it</span> we read the official page and the fact is not on it.
+  <span class="pill warn">The source does not state it</span> the cited source or recorded permissions do not establish the fact.
 </div>
 
 <p class="small muted">{e(q['preamble'])}</p>
@@ -3933,6 +3501,11 @@ def page_decision_log():
 
     def default_for(sg):
         """Return (letter, label, kind, reason) for one suggestion's stand-if-silent outcome."""
+        current = sg.get("current_state")
+        if current in ("complete", "superseded"):
+            return ("", "Current implementation", "done", sg["current_note"])
+        if current in ("partial", "gated"):
+            return ("", "Current evidence/deployment boundary", "hold", sg["current_note"])
         rec = (sg.get("recommendation") or "").strip()
         letter = rec[:1].upper() if rec else ""
         opts = sg.get("options") or []
@@ -3980,6 +3553,7 @@ def page_decision_log():
         ev_links = " ".join(
             f'<a class="src-link" href="{e(u)}" target="_blank" rel="noopener">'
             f'{e(u.split("//")[-1][:30])} ↗</a>' for u in ev[:2])
+        ev_links += f' <a class="src-link" href="{REPO_BLOB}data/suggestions.json">Current state record</a>'
         rec = recorded.get(sg["id"])
         if rec:
             state = (f'<span class="pill pill-ok">recorded</span>'
@@ -4021,9 +3595,9 @@ def page_decision_log():
             f'{e(sg["title"])} '
             + (f'<span class="pill pill-ok">default {e(letter)}</span>' if kind == "auto"
                else '<span class="pill pill-info">already recorded as done</span>' if kind == "done"
-               else '<span class="pill pill-warn">waits for you</span>')
+               else '<span class="pill pill-warn">evidence / deployment gate</span>')
             + '</legend>'
-            f'<p class="tiny muted">{e(sg.get("problem", ""))[:220]}'
+            f'<p class="tiny muted">{e(sg.get("current_note", ""))[:220]}'
             f'{"…" if len(sg.get("problem", "")) > 220 else ""}</p>'
             f'{opts_html}'
             f'<label class="hold-row"><input type="radio" name="dec-{e(sg["id"])}" value="HOLD" '
@@ -4077,7 +3651,7 @@ def page_decision_log():
     # for something the repository now holds (this pass answered Q-01 and Q-02 the same way).
     answered_q = {k for k, v in qinfo.items() if v.get("state") in ("known", "answered")}
     done_sg = {x["id"] for x in s["suggestions"]
-               if (x.get("effort") or "").strip().lower() in ("done", "shipped", "complete")}
+               if x.get("current_state") in ("complete", "superseded")}
     set_aside = len(answered_q) + len(done_sg)
     triage = []
     for sid, lst in blocks_q.items():
@@ -4108,13 +3682,16 @@ def page_decision_log():
               f'<tr><td>{e(str(x.get("date", "")))}</td>'
               f'<td class="num"><a href="suggestions.html#{e(str(x.get("id", "")).lower())}">{e(x.get("id", ""))}</a></td>'
               f'<td class="num">{e(str(x.get("path", "")))}</td>'
-              f'<td class="small">{e(str(x.get("what", "")))} <a class="src" href="flagged.html">flags ↗</a></td>'
+              f'<td class="small">{e(str(x.get("what", "")))} <a class="src" href="{REPO_BLOB}data/decision-log.json">Dated action record ↗</a></td>'
               f'<td class="small">{e(str(x.get("why_allowed", "")))}</td></tr>'
               for x in implemented) + '</tbody></table></div>'
             + f'<p class="tiny muted">{e(str(log.get("implemented_note", "")).strip())}</p>')
     else:
         implemented_html = ('<p class="small muted">Nothing yet. A default that a pass executes must be '
                             'recorded here on the same commit, or the rule is unverifiable.</p>')
+    updates = log.get("execution_updates") or []
+    updates_html = "".join(f'<div class="callout note"><strong>{e(u["date"])} · {e(u["session"])}</strong><p>{e(u["what"])}</p><p class="tiny">'+ ' '.join(f'<a href="{e(path)}">Evidence</a>' for path in u['evidence'])+'</p></div>' for u in updates)
+    implemented_html = updates_html + '<details><summary>Dated historical execution records</summary><p class="small muted">Past-tense records from earlier builds. The current Suggestions state takes precedence; this history is not a production-deployment or account-approval claim.</p>' + implemented_html + '</details>'
     steps = "".join(f"<li>{e(x)}</li>" for x in log.get("how_to_return_a_choice", []))
     auto_in_order = [sg for sg in order if computed[sg["id"]][2] == "auto"]
     queue = "".join(
@@ -4127,7 +3704,7 @@ def page_decision_log():
 
     body = f"""
 <p class="crumbs"><a href="index.html">Home</a> / Owner decision log</p>
-<h1>Owner decision log: pick a path, or let the stated default stand</h1>
+<h1>Decision drafts, current states and action history</h1>
 <p class="lede">The suggestion queue runs to {len(order)} entries, and a queue nobody closes is a
 backlog. This page is the closing mechanism: one picker per suggestion, the default that applies if
 nobody answers, and an export that turns picks into the file the next agent pass reads. The rule is
@@ -4144,7 +3721,7 @@ own data does not support.</p>
 <div class="grid grid-4">
   <div class="stat"><div class="n">{len(order)}</div><div class="l">Suggestions on the queue</div><div class="h"><a href="suggestions.html">Read them →</a></div></div>
   <div class="stat ok"><div class="n">{n_auto}</div><div class="l">Carry a default a pass may implement</div><div class="h">reversible · low risk · unblocked</div></div>
-  <div class="stat warn"><div class="n">{n_hold}</div><div class="l">Hold until someone picks</div><div class="h"><a href="questions.html">Open questions →</a></div></div>
+  <div class="stat warn"><div class="n">{n_hold}</div><div class="l">Evidence / deployment gate</div><div class="h"><a href="questions.html">Open questions →</a></div></div>
   <div class="stat brand"><div class="n">{len(recorded)}</div><div class="l">Owner decisions in the register</div><div class="h">data/decision-log.json</div></div>
 </div>
 
@@ -4235,7 +3812,7 @@ def page_suggestions_alt():
     rows = []
     for sid, area, text, basis, basis_src, options, effort in SUGGESTIONS_ALT:
         basis_html = (src_links(basis_src) + " " if basis_src else "") + (
-            "" if basis_src else '<a href="flagged.html">Flagged for review</a> ')
+            "" if basis_src else f'<a href="{REPO_BLOB}build.py">Original editorial proposal</a> ')
         rows.append(
             f"""<tr>
           <td><strong>{e(sid)}</strong><div class="tiny muted">{e(area)}</div></td>
@@ -4263,6 +3840,7 @@ def page_suggestions_alt():
 <h2>Information needed before some of these can be decided</h2>
 <p class="small">Several suggestions depend on a fact not yet known. Those facts are listed, with the way to find each one, on the <a href="decision-gate.html">Questions and information gaps</a> page.</p>
 """
+    body = '<div class="callout warn"><strong>Historical parallel proposal — 15 November 2026.</strong> The text below is preserved history, not today’s account facts, location assumptions, current states or policy interpretation. IDs belong to that original proposal. Use <a href="questions.html">current questions/answers</a> and <a href="suggestions.html">current suggestion states</a> instead.</div>' + '<details><summary>Read the original parallel proposal</summary>' + body + '</details>'
     return layout("marketing-directions.html", "Marketing directions (parallel pass)", body,
                   active="marketing-directions.html",
                   description="Site, design, trust, content and measurement suggestions, with options for the owner to choose before any change is made.",
@@ -4280,7 +3858,7 @@ def page_questions_alt():
             f"""<tr>
           <td><strong>{e(qid)}</strong></td>
           <td>{e(q)}</td>
-          <td class="small">{e(known)}<div class="tiny">{src_links(srcs) if srcs else '<a href="flagged.html">Flagged for review</a>'}</div></td>
+          <td class="small">{e(known)}<div class="tiny">{src_links(srcs) if srcs else f'<a href="{REPO_BLOB}build.py">Original editorial question</a>'}</div></td>
           <td class="small">{e(missing)}</td>
           <td class="small">{e(how)}</td>
           <td class="small">{e(unblocks)}</td>
@@ -4302,6 +3880,7 @@ def page_questions_alt():
 
 <p class="small" style="margin-top:1.5rem">Related: <a href="marketing-directions.html">Marketing directions (parallel pass)</a> · <a href="questions.html">Questions and gaps (this register's main pass)</a> · <a href="flagged.html">Flagged for review</a> · <a href="executive-summary.html">Executive summary</a></p>
 """
+    body = '<div class="callout warn"><strong>Historical parallel proposal — 15 November 2026.</strong> The text below is preserved history, not today’s account facts, location assumptions, current states or policy interpretation. IDs belong to that original proposal. Use <a href="questions.html">current questions/answers</a> and <a href="suggestions.html">current suggestion states</a> instead.</div>' + '<details><summary>Read the original parallel proposal</summary>' + body + '</details>'
     return layout("decision-gate.html", "Questions and information gaps", body, active="decision-gate.html",
                   description="Questions that must be answered before decisions, what is known with sources, what is missing, and how to find it.",
                   jsonld_blocks=[breadcrumbs_jsonld([
@@ -4366,6 +3945,7 @@ def page_topics():
         _more = len(it["must_cite"]) - 2
         if _more > 0:
             cites += f' <a class="tiny muted" href="#{e(it["id"].lower())}">+{_more} more in the brief ↓</a>'
+        cites += f' <a href="{REPO_BLOB}data/topics.json">Editorial topic record</a>'
         title_html = e(it["title"])
         if it["status"] == "published" and it.get("published_as"):
             title_html = f'<a href="../{e(it["published_as"])}">{title_html}</a>'
@@ -4438,7 +4018,7 @@ def page_topics():
             f'<td class="small">{e(ch["verdict"])}</td>'
             f'<td class="small">{e(ch["constraint"])}</td>'
             f'<td class="small"><a href="{e(ch["source"]["url"])}" target="_blank" rel="noopener">'
-            f'{e(ch["source"]["label"])} ↗</a></td></tr>'
+            f'{e(ch["source"]["label"])} ↗</a> <a href="{REPO_BLOB}data/topics.json">Channel proposal</a></td></tr>'
         )
 
     disclaimer = "".join(f"<li>{e(x)}</li>" for x in t["disclaimer"])
@@ -4447,7 +4027,7 @@ def page_topics():
 
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Content and traffic plan</p>
-<h1>What to write next, and how it is allowed to be promoted</h1>
+<h1>What to write next, and how it is allowed to be promoted</h1><div class="callout note"><strong>Current operating plan, not an unattended publisher.</strong><p>{e(PUBLICATION["cadence"]["rhythm"])}</p><p>{e(PUBLICATION["cadence"]["kill_rule"])}</p></div>
 <p class="lede">{n_pub + n_new} topics for this product set — {n_pub} already published and {n_new} not yet
 written — and {len(TOPICS.get('channels', []))} distribution channels, two of which Amazon's policies close off entirely. The
 topics are chosen for one reason: each one is answerable from an official manufacturer page or an
@@ -4722,7 +4302,7 @@ def page_requirements():
   the alternative to leaving them open is inventing a number, which is the one thing the brief forbids
   more plainly than any other.</p>
   <p style="margin-bottom:0"><strong>Not built</strong> rows are the opposite: buildable today, not built
-  yet. There are {counts.get('not_delivered',0)} of them, and the largest is organic traffic — see
+  yet. There are {counts.get('not_delivered',0)} of them, and traffic outcomes remain unproven — see
   <a href="topics.html">the content and traffic plan</a> for the channels Amazon's policies leave open.</p>
 </div>
 
@@ -4730,7 +4310,7 @@ def page_requirements():
 
 <h2>What this register does not claim</h2>
 <p class="small">A status here is a statement about this repository, not about the affiliate business.
-This site has three products, one category, no traffic and no confirmed affiliate tag, so no row on this
+This site has three documented appliance guides, two unconfirmed thermometer notes, no verified campaign data and no confirmed active affiliate tag, so no row on this
 page should be read as evidence of revenue potential. The rows that would answer that —
 <a href="requirements.html#c-07">C-07</a>, <a href="requirements.html#c-08">C-08</a>,
 <a href="requirements.html#e-04">E-04</a> — are exactly the ones blocked.</p>
@@ -5510,6 +5090,12 @@ def page_intent():
         """Rows for the brand-catalogue comparison, read from the register so a new row needs no template edit."""
         out = []
         for row in SUBMITTED_ROWS:
+            current = row.get("latest_catalogue_observation")
+            if current:
+                out.append(f'<tr><td>{e(row["id"])}</td><td class="small">{e(row.get("observed_title", ""))}</td>'
+                           f'<td class="small">{e(current["observation"])}</td><td>Intended model/ASIN unconfirmed; no performance/certification specification adopted.</td>'
+                           f'<td>{src_link(current["source"])} {src_links(row["observed_source_ids"])}</td></tr>')
+                continue
             bc = row.get("brand_catalogue_check")
             if not bc:
                 continue
@@ -5569,13 +5155,13 @@ def page_intent():
 <p class="small">The five submitted URL strings, the observed destination/title for each, and any owner-confirmed intended listing are separate records. The observed pages are not evidence of intent. No conclusion is made here about whether a supplied short link is valid or compliant, or what its path token denotes. Intended fields stay blank until the account holder confirms each listing. Open flags: <a href="flagged.html#f77">F77</a>, <a href="flagged.html#f78">F78</a>, and <a href="flagged.html#f79">F79</a> (source-record correction).</p>
 <div class="tablewrap">
 <table>
-  <caption>Five link records — observed 2026-11-17; intended product not confirmed</caption>
+  <caption>Five link records — each observation is dated separately; intended products not confirmed</caption>
   <thead><tr><th>Record</th><th>Supplied link</th><th>Observed page title suggests (not intended identity)</th><th>Intended ASIN</th><th>Official listing URL confirmed by operator</th><th>Confirmation date / source</th><th>Observed redirect target</th><th>Observed listing title</th><th>Evidence / note</th></tr></thead>
   <tbody>{"".join(body_rows)}</tbody>
 </table>
 </div>
 
-<h2>Campaign ledger</h2>
+<h2 id="campaign-ledger">Campaign ledger</h2>
 <p class="small">No rows have been added. The ledger accepts timestamp, source report, channel, date range, eligible sessions, clicks and <em>reported</em> orders. It does not estimate conversion or revenue from click counts. The required fields and import gate are recorded in <a href="measurement.html">the measurement plan</a>. Sources for the program/reporting rules: {src_links(['S1', 'S2', 'S6'])}.</p>
 <div class="tablewrap">
 <table>
@@ -5586,12 +5172,10 @@ def page_intent():
 </div>
 {ledger_empty}
 <h2>What the brands' own catalogues say about the two newest links</h2>
-<p class="small">Both links submitted on 2026-11-17 were checked against the manufacturer's own pages rather
-than against the listing they resolved to. Neither check closes a row; both narrow what a future article could
-honestly claim, which is why no product page exists for either (F80).</p>
+<p class="small">The two thermometer links were checked against official manufacturer catalogues on 19 November. Current catalogue selections do not confirm the intended Amazon listing. The <a href="categories/thermometers.html">reader shelf</a> therefore publishes link notes only, not a verified product specification or certification claim. Earlier catalogue snapshots remain in the data history (F80).</p>
 <div class="tablewrap">
 <table>
-  <caption>Brand-catalogue check, read 2026-11-17</caption>
+  <caption>Scoped catalogue observations, read 2026-11-19</caption>
   <thead><tr><th style="width:8%">Row</th><th style="width:24%">The listing says</th>
   <th style="width:34%">The brand's own page says</th><th style="width:22%">Verdict</th>
   <th style="width:12%">Source</th></tr></thead>
@@ -5772,7 +5356,7 @@ a synthetic test is not live traffic. No production endpoint is deployed.</p>
 <h2>Why nothing is sending yet</h2>
 <ul class="tight small">{why}</ul>
 
-<h2>Campaign ledger</h2>
+<h2 id="campaign-ledger">Campaign ledger</h2>
 <p class="small">{e(led['note'])}</p>
 <div class="tablewrap">
 <table>
@@ -5805,160 +5389,14 @@ a synthetic test is not live traffic. No production endpoint is deployed.</p>
                   ])])
 
 def page_decisions():
-    d = DECISION
-    def crit_table():
-        crit = d["niche"]["criteria"]
-        head = "".join(f'<th title="{e(c["why"])}">{e(c["id"])}</th>' for c in crit)
-        rows = ""
-        for c in d["niche"]["candidates"]:
-            cells = "".join(f'<td class="num">{c["score"][k["id"]]}</td>' for k in crit)
-            rows += (f'<tr><td><strong>{e(c["id"])} {e(c["name"])}</strong>'
-                     f'<div class="tiny muted">{e(c["basis"])}</div></td>{cells}'
-                     f'<td class="num"><strong>{c["total"]}</strong></td>'
-                     f'<td class="small">{e(c["recommendation"])}'
-                     f'<div class="tiny">{src_links(c["source"])}</div></td></tr>')
-        return (f'<div class="tablewrap"><table><caption>Niche options scored 0\u20133 '
-                f'(higher is better; the scores are judgements, shown with their basis)</caption>'
-                f'<thead><tr><th>Candidate niche</th>{head}<th>Total</th><th>Verdict / evidence</th></tr></thead>'
-                f'<tbody>{rows}</tbody></table></div>')
-
-    def crit_legend():
-        return "".join(
-            f'<li><strong>{e(c["id"])}</strong> {e(c["name"])} \u2014 {e(c["why"])}</li>'
-            for c in d["niche"]["criteria"])
-
-    def channels():
-        out = ""
-        for c in d["traffic"]["channels"]:
-            reqs = "".join(f"<li>{e(r)}</li>" for r in c["requirements"])
-            out += f"""
-<div class="card channel">
-  <div class="channel-head">
-    <span class="pill pill-info">{e(c['id'])}</span>
-    <h3>{e(c['name'])}</h3>
-    <span class="pill {'pill-ok' if 'Ready' in c['status'] or 'exist' in c['status'] else 'pill-warn'}">{e(c['status'])}</span>
-  </div>
-  <p class="small">{e(c['works_because'])}</p>
-  <p class="tiny muted" style="margin-bottom:.2rem">Requires</p>
-  <ul class="tight small">{reqs}</ul>
-  <p class="tiny muted"><strong>Effort:</strong> {e(c['effort'])} \u00b7 <strong>Cost:</strong> {e(c['cost'])} \u00b7 <strong>Risk:</strong> {e(c['risk'])}</p>
-</div>"""
-        return out
-
-    def _msrc(m):
-        if m.get("source"):
-            return src_links(m["source"])
-        return repo_link("reports/verification-2026-11-15.md", "this pass")
-    metrics = "".join(
-        f'<tr><td>{e(m["id"])}</td><td><strong>{e(m["metric"])}</strong></td>'
-        f'<td class="small">{e(m["how"])}</td><td class="small">{e(m["status"])}</td>'
-        f'<td class="small">{_msrc(m)}</td></tr>'
-        for m in d["measurement"]["metrics"])
-
-    rules = "".join(f"<li>{e(r)}</li>" for r in d["traffic"]["anti_slop_rules"])
-
-    def _closes(h):
-        """Render 'closes' as flag links where the entry is a real register id, plain text otherwise.
-
-        Found 2026-11-17 (arena/0cf55ef3): the handover rows carried F01/F02/F03/F06/F07, which are
-        ids in the legacy data/flags.json register but not rows of the reader-facing Flagged page,
-        so a reader who followed one landed on nothing. The entries were re-pointed at canonical
-        rows in data/decision.json, and anything that is not a flag is now labelled as such here
-        rather than dressed up as one.
-        """
-        if not h["closes"]:
-            return "not a flag \u2014 unblocks measurement"
-        out = []
-        for c in h["closes"]:
-            out.append(f'<a href="flagged.html#f{c[1:]}">{e(c)}</a>' if re.fullmatch(r"F\d{1,2}", c) else e(c))
-        return ", ".join(out)
-    def _hsrc(h):
-        if h.get("source"):
-            return src_links(h["source"])
-        return repo_link("COORDINATION.md", "claim record")
-    handoff_rows = "".join(
-        f'<tr><td><span class="pill pill-info">{e(h["id"])}</span></td>'
-        f'<td>{_md(h["owner_action"])}</td><td class="num">{e(h["time"])}</td>'
-        f'<td class="small">{_closes(h)}</td><td class="small">{_hsrc(h)}</td></tr>'
-        for h in d["handover"]["items"])
-
-    body = f"""
-<p class="section-eyebrow">Decisions &amp; handover</p>
-<h1>What has to be decided before more is built</h1>
-<p class="lede">Three decisions, one measurement plan, and the short list of things only the account holder can do. Nothing on this page is implemented: it exists so the paths can be compared before anyone spends time on one.</p>
-<div class="callout trust"><strong>How to read this.</strong> A number is either quoted from a registered official source or labelled an assumption. Scores in the niche table are judgements and are shown with their basis so you can disagree with them. Nothing here is a forecast of traffic or revenue.</div>
-
-<div class="grid grid-3" style="margin:1.2rem 0">
-  <a class="card" href="#niche"><span class="kicker">Decision 1</span><span class="cardtitle">Which niche</span><span class="cardtext">Four candidates, scored on five criteria, with the honest verdict.</span></a>
-  <a class="card" href="#traffic"><span class="kicker">Decision 2</span><span class="cardtitle">Which traffic</span><span class="cardtext">Six channels ordered by how little they depend on things we do not have.</span></a>
-  <a class="card" href="#measure"><span class="kicker">Decision 3</span><span class="cardtitle">What to measure</span><span class="cardtext">Six metrics, what each needs, and a pre-committed kill rule.</span></a>
-</div>
-
-<h2 id="niche">Decision 1 \u2014 which niche to build around</h2>
-<p class="small muted">{_md(d['niche']['summary'])}</p>
-{crit_table()}
-<p class="tiny muted">{e(d['niche']['scoring_note'])}</p>
-<details class="card tight">
-  <summary><strong>What each criterion means</strong></summary>
-  <ul class="tight small" style="margin-top:.6rem">{crit_legend()}</ul>
-</details>
-<div class="callout ok">
-  <strong>Recommendation:</strong> {e(d['niche']['decision']['recommendation'])}
-  <p class="small" style="margin:.4rem 0 0">{e(d['niche']['decision']['why'])}</p>
-  <p class="small" style="margin:.3rem 0 0"><strong>Alternative:</strong> {e(d['niche']['decision']['alternative'])}</p>
-</div>
-<div class="tablewrap">
-<table>
-  <caption>What would have to be true for each candidate</caption>
-  <thead><tr><th>Candidate</th><th>Condition</th><th>Evidence</th></tr></thead>
-  <tbody>{''.join(f'<tr><td>{e(c["id"])} {e(c["name"])}</td><td class="small">{e(c["what_must_be_true"])}</td><td>{src_links(c["source"])}</td></tr>' for c in d['niche']['candidates'])}</tbody>
-</table>
-</div>
-
-<h2 id="traffic">Decision 2 \u2014 how traffic would actually arrive</h2>
-<p class="small muted">{e(d['traffic']['summary'])}</p>
-{channels()}
-
-<h3>Rules that keep the writing from reading like machine output</h3>
-<ol class="tight small">{rules}</ol>
-
-<h2 id="measure">Decision 3 \u2014 what to measure</h2>
-<p class="small muted">{e(d['measurement']['summary'])}</p>
-<div class="tablewrap">
-<table>
-  <caption>Six metrics and what each one needs before it can exist</caption>
-  <thead><tr><th>#</th><th>Metric</th><th>How</th><th>Status</th><th>Source of the rule</th></tr></thead>
-  <tbody>{metrics}</tbody>
-</table>
-</div>
-<div class="callout">
-  <strong>{e(d['measurement']['decision_rule']['heading'])}</strong>
-  <p class="small" style="margin:.4rem 0 0">{e(d['measurement']['decision_rule']['rule'])}</p>
-  <p class="small" style="margin:.3rem 0 0 muted">{e(d['measurement']['decision_rule']['why'])}</p>
-</div>
-<p class="small muted">{e(d['measurement']['untrackable_note'])}</p>
-
-<h2 id="handover">What only you can do</h2>
-<p class="small muted">{e(d['handover']['summary'])}</p>
-<div class="tablewrap">
-<table>
-  <caption>Owner actions, time required, and the flags each one closes</caption>
-  <thead><tr><th>#</th><th>Action</th><th>Time</th><th>Closes</th><th>Grounded in</th></tr></thead>
-  <tbody>{handoff_rows}</tbody>
-</table>
-</div>
-<p class="small"><a href="handover.html">Open the full handover sheet \u2014 with the exact steps and what to paste back \u2192</a></p>
-<p class="small muted">Nothing on this page has been implemented. The suggestions queue, with alternative paths, effort, risk and reversibility for each item, is on <a href="suggestions.html">Suggestions</a>; the outstanding facts are on <a href="questions.html">Questions and gaps</a>.</p>
-"""
-    durl = page_url("decisions.html")
-    ld = [breadcrumbs_jsonld([
-        ("Home", SITE_URL + "/"),
-        ("Decisions", durl),
-    ])]
-    return layout("decisions.html", "Decisions \u2014 niche, traffic, measurement and handover", body,
-                  active="decisions.html",
-                  description="Three decisions with scored options, a six-channel traffic plan, six metrics with their prerequisites, a pre-committed kill rule, and the five actions only the account holder can take.",
-                  jsonld_blocks=ld)
+    body=f"""<p class="crumbs"><a href="index.html">Home</a> / Publishing strategy</p><p class="section-eyebrow">The operating choices</p><h1>Publish the useful answer. Measure the real result.</h1><p class="lede">A source-led buying publication is implemented. Profitability, popularity and conversion performance are not established by a well-designed page or a weighted score.</p>
+<h2>The scope</h2><p>{e(PUBLICATION['positioning'])}</p><p class="small">Three documented appliance guides and two unconfirmed thermometer link notes reflect the submitted set, not a claim to cover a whole market. Brand/listing/model conflicts remain on <a href="flagged.html">the public review register</a>. {src_links(['S10','S12','S14','S36','S37'])}</p>
+<h2>The editorial rhythm</h2><p>{e(PUBLICATION['cadence']['rhythm'])}</p><p>{e(PUBLICATION['cadence']['kill_rule'])}</p><p class="small muted">{e(PUBLICATION['cadence']['status'])}. {e(PUBLICATION['cadence']['seasonal'])}</p>
+<h2>The reader loop</h2><p>Answer practical kitchen buying questions, connect the existing intent clusters, and offer the real <a href="feed.xml">RSS feed</a>. No social account, email service, paid campaign, popularity badge or lead total is fabricated. Search work is canonical metadata, a maintained sitemap and useful internal links—not a traffic guarantee. {src_links(['S43','S44','S45'])}</p>
+<h2>The measurement boundary</h2><p>The four allowed browser events are page_view, outbound_click, article_engagement and comparison_interaction. affiliate_report_import is operator-only. The tested first-party collector stays disabled until real hosting/privacy gates pass. The <a href="product-intent.html#campaign-ledger">campaign ledger</a> remains empty. {src_links(['S2','S38'])}</p>
+<p>No revenue scenario, forecast or conversion score is used to justify current design. Do not turn brand list prices, candidate rates or synthetic browser tests into actual earnings. Actual orders and commission facts come only from authorised dated first-party reports. {src_links(['S1','S42'])}</p>
+<h2>What remains a plan</h2><p>Automated source monitoring, licensed content integrations, production measurement and campaign optimisation require the access, permissions, runtime and data described on <a href="platform.html">the platform blueprint</a>. The static generator does not create those prerequisites.</p><p class="section-note"><a href="suggestions.html">Review current choices and alternatives</a> · <a href="questions.html">Known facts, missing data and discovery steps</a> · <a href="handover.html">Deployment/account boundaries</a> · <a href="design-prompt.html">House design and voice brief</a>.</p>"""
+    return layout('decisions.html','Publishing strategy & measurement boundary',body,active='decisions.html',description='The current publication scope, cadence plan, reader loop and evidence-first measurement rules. No revenue or conversion forecasts.',jsonld_blocks=[breadcrumbs_jsonld([('Home',SITE_BASE),('Strategy',page_url('decisions.html'))])])
 
 
 def _md(text):
@@ -5976,56 +5414,14 @@ def _md(text):
 
 
 def page_handover():
-    d = DECISION["handover"]
-    items = ""
-    for h in d["items"]:
-        if h["closes"]:
-            closes = ", ".join(
-                f'<a href="flagged.html#f{c[1:]}">{e(c)}</a>' if re.fullmatch(r"F\d{1,2}", c) else e(c)
-                for c in h["closes"])
-        else:
-            closes = "no flag \u2014 unblocks measurement"
-        src = src_links(h["source"]) if h["source"] else ""
-        items += f"""
-<article class="card handover-item">
-  <div class="handover-head">
-    <span class="handover-num">{e(h['id'])}</span>
-    <h3>{_md(h['owner_action'])}</h3>
-    <span class="pill pill-info">{e(h['time'])}</span>
-  </div>
-  <p class="small">{_md(h['why_now'])}</p>
-  <div class="handover-meta">
-    <div><span class="tiny muted">Closes</span><div class="small">{closes}</div></div>
-    <div><span class="tiny muted">Paste back</span><div class="small">{_md(h['what_to_paste_back'])} {src}</div></div>
-  </div>
-</article>"""
-
-    not_possible = "".join(f"<li>{e(x)}</li>" for x in d["not_possible_here"])
-    body = f"""
-<p class="section-eyebrow">Handover</p>
-<h1>Five actions, about an hour, a handful of flags</h1>
-<p class="lede">Everything in this repository is done as far as it can be done without the account holder's own logins. These five actions are the shortest path from "unverified" to "confirmed". Each shows the time it takes and the flags it closes.</p>
-<div class="callout bad">
-  <strong>H1 is done — by a fetch, not by hand.</strong> All three listings' Product information blocks were read on 2026-11-16 (<a href="flagged.html#f68">F68</a>, <a href="flagged.html#f49">F49</a>): B0CDY277D3 = RJ38-SQPF-3TDB-2W, B08DKYBTPH = RJ38-SQSS-8T (in its <em>Part Number</em> row), B09B7SB46R = 4-00675-02X-VN, which is one character from the brand page's string and is the remaining conflict (F70). What H1 was going to settle is settled for the model step; what it could never settle is the intent behind the three supplied short links, your Associates tag and your account data — those are still the top of the list here.
-</div>
-{items}
-
-<h2>What cannot be done from here</h2>
-<div class="card">
-  <ul class="tight small">{not_possible}</ul>
-</div>
-<p class="small muted">When the answers come back, they are recorded in <a href="flagged.html">the flag register</a> with their source and the date read, not inferred from an earlier pass. Every published value on this site carries that same discipline.</p>
-"""
-    hurl = page_url("handover.html")
-    ld = [breadcrumbs_jsonld([
-        ("Home", SITE_URL + "/"),
-        ("Decisions", page_url("decisions.html")),
-        ("Handover", hurl),
-    ])]
-    return layout("handover.html", "Handover \u2014 the five things only the account holder can do", body,
-                  active="decisions.html",
-                  description="Five owner actions totalling about an hour, each with the exact steps, the time required, the flags it closes and what to paste back.",
-                  jsonld_blocks=ld)
+    body=f"""<p class="crumbs"><a href="index.html">Home</a> / Deployment & account boundaries</p><h1>What code cannot confirm on its own.</h1><p class="lede">No manual review is needed to publish this repository change. These are the separate account, permission and runtime gates that an autonomous static-site build cannot truthfully fill in.</p>
+<section class="card"><h2 style="margin-top:0">1. Intended listings and enrolled link validation</h2><p>For each of the five exact submitted URLs, confirm the intended official listing, its ASIN, date and source separately from the observed redirect. Use the enrolled account’s permitted Special Link workflow and authorised reporting evidence before scaling. Do not self-purchase, manufacture traffic or assume that a missing visible tracking parameter proves failure. {src_links(['S2','S41','S42'])}</p><p class="small">Until that evidence exists, shopnow047c-20 stays selected but unapplied, and every per-product test stays false. <a href="product-intent.html">Exact fields and all submitted links</a>.</p></section>
+<section class="card"><h2 style="margin-top:0">2. Production measurement</h2><p>The Python/SQLite collector is tested, not deployed. Pages is a static host; a controlled runtime must sit behind the same public origin. Review proxy/security logs, HTTPS, database location/retention and the actual privacy/consent posture before enabling the two switches. {src_links(['S38','S2'])}</p><p class="small"><a href="analytics/README.md">Deployment contract</a> · <a href="measurement.html">Five events and current state</a>. Workspace tests never become campaign traffic.</p></section>
+<section class="card"><h2 style="margin-top:0">3. Search ownership</h2><p>Use the configured /Zone1/ URL-prefix property. Only a real verification token or another authorised method can establish access. No token, property approval, sitemap submission or query performance is invented. {src_links(['S44','S45'])}</p><p class="small">The generator supports a blank optional search_console_verification field. Record actual submission/ownership evidence before changing its state.</p></section>
+<section class="card"><h2 style="margin-top:0">4. Actual product images and licensed Amazon content</h2><p>The current AI scene is decorative and labelled; it is not a photograph of a model or evidence of a test. Actual product photography requires original work or suitable documented rights. API price/rating/review content requires the applicable authorised route and terms. {src_links(['S2','S8'])}</p><p class="small"><a href="publication/README.md">Current asset provenance</a>.</p></section>
+<section class="card"><h2 style="margin-top:0">5. Safety clarification</h2><p>The Emeril FAFO-001 manual contains incompatible extension-cord instructions. Seek current manufacturer clarification for the exact unit before relying on an affected setup; this publication does not select the permissive instruction. {src_links(['S15'])} <a href="flagged.html#f96">F96</a>.</p></section>
+<p class="section-note">These gates do not block the honest source-led publication. They block claims of validated attribution, deployed collection, approved content integration or measured results. <a href="executive-summary.html">Current executive summary</a> · <a href="questions.html">Full known/missing/answer/discovery register</a>.</p>"""
+    return layout('handover.html','Deployment & account boundaries',body,active='handover.html',description='What remains unconfirmed beyond repository authority: intended listings, enrolled link tests, production measurement, search ownership and content permissions.',jsonld_blocks=[breadcrumbs_jsonld([('Home',SITE_BASE),('Deployment boundaries',page_url('handover.html'))])])
 
 
 # --------------------------------------------------------------------------- #
@@ -6568,16 +5964,24 @@ REGISTERED_HOSTS = _registered_hosts()
 
 
 def row_is_sourced(row_html):
-    """Row passes if it links to a registered official host, to this repo on GitHub,
-    or to the Flagged-for-review page (the designed place for an unconfirmed value)."""
-    from urllib.parse import urlparse
+    """Require an actual registered primary-source URL or this repository's own
+    exact-file evidence. A generic flag/summary link is context, not the source.
+    This checks link identity/coverage, not whether arbitrary prose is true.
+    """
+    from urllib.parse import urldefrag, urlparse
+    registered = {urldefrag(r['url'])[0].rstrip('/') for r in SOURCES['sources']}
+    registered.update(row['supplied_link'] for row in PRODUCT_INTENT['rows'])
     for href in re.findall(r'href="([^"]+)"', row_html):
-        u = urlparse(href)
-        if u.scheme == "https" and (u.hostname or "").lower() in REGISTERED_HOSTS:
+        href = html.unescape(href)
+        url = urlparse(href)
+        if url.scheme != 'https':
+            continue
+        if urldefrag(href)[0].rstrip('/') in registered:
             return True
-        if href.endswith("flagged.html") or "flagged.html#" in href:
+        if href.startswith(REPO_BLOB) and (ROOT / href[len(REPO_BLOB):].split('#')[0]).is_file():
             return True
     return False
+
 
 
 def check_row_sources(pages):
@@ -6586,7 +5990,7 @@ def check_row_sources(pages):
     for rel, html_text in pages.items():
         for tbl in re.findall(r"<tbody>(.*?)</tbody>", html_text, re.S):
             for row in re.findall(r"<tr\b[^>]*>(.*?)</tr>", tbl, re.S):
-                if "<th" in row:
+                if "<td" not in row:
                     continue
                 if not row_is_sourced(row):
                     text = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", row)).strip()[:90]
@@ -6882,7 +6286,37 @@ def page_modified_date(rel):
     return PUBLICATION["updated"]
 
 
+def check_publication_data(publication=None, suggestions=None):
+    """Display copy, current states and reader routes share the same reviewed registers."""
+    publication = PUBLICATION if publication is None else publication
+    suggestions = SUGGESTIONS if suggestions is None else suggestions
+    problems = []
+    expected = {p['slug'] for p in PRODUCT_LIST}
+    rows = publication.get('products') or []
+    if len(rows) != len(expected) or {r.get('slug') for r in rows} != expected:
+        problems.append('publication product cards must match the documented product routes exactly')
+    for row in rows + (publication.get('thermometer_links') or []):
+        for key in ('sources', 'check_sources'):
+            for sid in row.get(key) or []:
+                if sid not in SRC_BY_ID:
+                    problems.append('publication copy references unknown source '+str(sid))
+    for row in publication.get('featured_guides') or []:
+        if row.get('slug') not in ARTICLE_BY_SLUG:
+            problems.append('featured guide is not in the canonical article register')
+    if {r.get('id') for r in publication.get('thermometer_links') or []} != {'PI-04','PI-05'}:
+        problems.append('thermometer shelf must retain both submitted link-note IDs')
+    for row in suggestions.get('suggestions') or []:
+        if row.get('current_state') not in {'complete','partial','gated','superseded','open'}:
+            problems.append(str(row.get('id'))+': missing/invalid current implementation state')
+        if not row.get('current_note') or not row.get('current_reviewed_on'):
+            problems.append(str(row.get('id'))+': current state needs a note and a dated review')
+    return problems
+
+
 def main():
+    publication_problems = check_publication_data()
+    if publication_problems:
+        raise SystemExit('BUILD FAILED — publication state/route drift:\n  ' + '\n  '.join(publication_problems))
     assets = ROOT / "assets"
     assets.mkdir(exist_ok=True)
     (assets / "style.css").write_text(CSS, encoding="utf-8")
@@ -7041,7 +6475,7 @@ def main():
     unsourced_rows = check_row_sources(pages)
     if unsourced_rows:
         raise SystemExit("BUILD FAILED — table rows with no official source link (cite a registered "
-                         "source, this repo on GitHub, or the Flagged page):\n  "
+                         "source or an existing exact-file record in this repo on GitHub):\n  "
                          + "\n  ".join(unsourced_rows))
 
     dangling_ids = check_register_cross_references(pages)
@@ -7099,9 +6533,9 @@ def main():
     # article set should give readers (and aggregators) a way to follow it without an
     # account, a script or a cookie — the same no-data posture the footer declares under
     # Program Policies §3(e). The feed is generated from data/articles.json, the same
-    # register that renders articles/index.html, so the two cannot drift. pubDate derives
-    # from ARTICLES["accessed"] — a fixed, already-published date — so the build stays
-    # byte-reproducible (the CI gate asserts that).
+    # register that renders articles/index.html, so the two cannot drift. The fixed
+    # editorial-update stamp sets channel freshness; unknown publication dates are omitted
+    # rather than invented from a source-access date. The CI gate asserts reproducibility.
     import datetime as _feed_dt
     _feed_link = base + "articles/index.html"
     _feed_stamp = _feed_dt.datetime.fromisoformat(PUBLICATION["updated_at_utc"].replace("Z", "+00:00"))

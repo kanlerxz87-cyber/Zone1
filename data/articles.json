@@ -76,272 +76,246 @@
       "kind": "Explainer",
       "cluster": "spec",
       "kicker": "Spec literacy",
-      "title": "What \"450 °F\" actually means on an air fryer listing",
-      "standfirst": "On one Chefman model it is a two-minute finishing blast. On another it is a setting the manual never mentions. The badge is the same. The feature is not.",
+      "title": "What does “450 °F” mean on an air-fryer listing?",
+      "standfirst": "A headline temperature can describe a special mode rather than a full cooking cycle. Check the model and the instructions attached to the number.",
       "target_query": "air fryer 450 degrees hi-fry meaning",
       "intent": "Informational",
-      "reading_minutes": 5,
+      "reading_minutes": 3,
       "products": [
         "chefman-8qt-turbofry",
         "chefman-6qt-dual-basket"
       ],
       "sections": [
         {
-          "h": "Three different things get called \"450 °F\"",
+          "h": "Read the mode as well as the maximum",
           "paras": [
-            "**A full-cycle ceiling.** The Chefman 6 Qt documents a {{200–450 °F / 95–235 °C}} working range, with Hi-Fry documented as {{450 °F / 235 °C, held for 2 minutes, for extra browning}}.",
-            "**A finishing blast on a lower-ceiling unit.** Chefman's 8 Qt High Fry model is a different SKU from the stainless one this site maps: it publishes a Hi-Fry temperature of 450 °F / 232 °C and a four-function list alongside it, so the two are documented as separate things on the same page. See flag F33.",
-            "**A marketing claim with no matching manual page.** This is the case the site flags rather than resolves: the Amazon listing for the stainless 8-quart unit advertises a 450 °F Hi-Fry option, but the brand page for the model the site maps to that listing documents a {{200–400 °F}} range and four food presets."
+            "Chefman’s dual-window brand page publishes a 200–450 °F range. Its manual describes Hi-Fry more narrowly: a two-minute boost at 450 °F for extra browning. Do not turn that maximum into a promise of an unrestricted full cycle at the same setting.",
+            "The manual also describes changes to the sync behaviour when Hi-Fry is used. A headline badge cannot tell you all the conditions of the feature. Read the operating section for the model you intend to buy."
           ],
           "cite": [
             "S10",
-            "S26",
-            "S12"
+            "S18"
           ]
         },
         {
-          "h": "Why the badge matters commercially",
+          "h": "The 8 Qt listing has a separate conflict",
           "paras": [
-            "A higher ceiling is the difference between browning and steaming. But a \"450 °F\" badge can mean a full-cycle setting, a two-minute finish mode, or a number a copywriter typed. The only way to tell is the manual that ships with the unit — and for a listing whose model is not stated, that manual is the only document that is definitely about your machine."
+            "The observed Amazon title for the stainless 8 Qt advertises 450 °F Hi-Fry. The Chefman page for RJ38-SQSS-8T gives a 200–400 °F range. Those statements are not interchangeable specifications.",
+            "The earlier version of this article treated an explanation involving another model as the most likely answer. That was inference, not a confirmed reconciliation. This publication now leaves the conflict unresolved rather than deciding which feature list belongs to the unit a reader would receive."
           ],
           "cite": [
             "S12",
+            "S29",
             "S13"
           ]
         },
         {
-          "h": "What this site does about it, and what it refuses to do",
+          "h": "What to check before buying",
           "paras": [
-            "It publishes both claims, side by side, with a link to each, and asserts neither. It also publishes the fact that a second Chefman 8-quart SKU exists whose documented Hi-Fry and function list match the Amazon title exactly — which makes \"one of these pages is stale\" the less likely explanation and \"these are two different units\" the more likely one.",
-            "It does not pick a winner. A fabricated resolution would be worse than a visible conflict, because you would buy on the strength of it."
+            "Match the exact listing’s model/part number and configuration with the manufacturer page and the manual for that unit. A model field is useful evidence about a listing, but it is not this account holder’s confirmation of the intended product or a guarantee of what ships.",
+            "No browning, crispness or speed result was measured for this guide. A higher maximum on a document is not evidence of better cooking. If the model documents disagree, ask for clarification before relying on the disputed feature."
           ],
           "cite": [
             "S12",
-            "S26",
-            "S16"
-          ]
-        },
-        {
-          "h": "How to check in thirty seconds",
-          "paras": [
-            "Open the listing. Find the model number in the product-information block. Search that exact model on the manufacturer's site. Read the specification block on that page, not the bullet points in the carousel. If the model number is absent — which it is on all three listings in this set — you are relying on the brand's word about a unit you cannot identify, and you should say so to yourself before you check out."
-          ],
-          "cite": [
-            "S16"
+            "S13",
+            "S18",
+            "S29"
           ]
         }
       ],
-      "closing_note": "This explainer states no temperature for the ASIN behind product 3, because no official source states it unambiguously. That gap is published on the Flagged for review page."
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "25-or-24-presets",
       "kind": "Investigation",
       "cluster": "spec",
       "kicker": "Source forensics",
-      "title": "25 presets, 24 presets, or 10-in-1? One brand page says all three",
-      "standfirst": "A single official product page contradicts itself four ways. That is not a scandal; it is what an unmaintained product page looks like. Here is how to read it.",
+      "title": "24 or 25 presets? How to read the Emeril feature counts",
+      "standfirst": "The brand page uses more than one preset count. Keep those statements separate, and do not mistake a function-marketing label for a standard unit of measurement.",
       "target_query": "emeril french door air fryer 360 how many presets",
       "intent": "Informational",
-      "reading_minutes": 4,
+      "reading_minutes": 3,
       "products": [
         "emeril-26qt-french-door"
       ],
       "sections": [
         {
-          "h": "The four numbers, all from official sources",
+          "h": "What the brand page says",
           "paras": [
-            "On 2026-11-14 the Emeril Everyday product page for the 26 QT French Door AirFryer carried **25 Cooking Pre-sets** in its specification block, **24 one-touch cooking presets** in its description paragraph, and a feature heading reading **10-In-1 Versatility**. One of its carousel images is a file named `11-in-1_convection_oven_in_action.png`. Amazon's listing title for the same product says **24 cooking functions**.",
-            "Five official statements, four different numbers, one product."
+            "The Emeril page displays “25 Cooking Pre-sets” in its specifications and describes “24 one-touch cooking presets” elsewhere. It also uses a 10-in-1 heading. The two preset counts disagree; the multifunction heading is a different label, not automatically a third preset count.",
+            "The earlier article speculated about how the page was assembled and why a shipping-related field would be more reliable. Neither explanation was sourced. They are not evidence for choosing one number."
+          ],
+          "cite": [
+            "S14"
+          ]
+        },
+        {
+          "h": "Use the manual for the feature you need",
+          "paras": [
+            "Read the named function and its instructions in the exact unit’s manual. The dataset retains a separately sourced count of the manual’s named presets from an earlier dated review; it does not silently replace the brand page’s conflicting text.",
+            "A preset count is less useful than finding whether the particular function you intend to use is documented. This publication has not tested the results of any of those presets."
+          ],
+          "cite": [
+            "S15",
+            "S14"
+          ]
+        },
+        {
+          "h": "What to check as a buyer",
+          "paras": [
+            "Match the exact model/configuration and the current instructions. Do not infer an extra capability from the larger count or borrow a feature from another appliance with a similar name.",
+            "The conflict remains visible in the full record. Reporting the disagreement is more honest than treating an unsupported explanation as a specification."
           ],
           "cite": [
             "S14",
-            "S16"
-          ]
-        },
-        {
-          "h": "The manual is the tiebreaker a shopper can actually use",
-          "paras": [
-            "The owner's manual linked from that same page names 24 presets for model FAFO-001, listed one by one: Airfry, Fries, Bacon, Grill, Eggs, Fish, Ribs, Defrost, Steak, Vegetables, Wings, Bake, Rotisserie, Toast, Chicken, Pizza, Pastry, Proof, Broil, Slow Cook, Roast, Dehydrate, Reheat, Warm.",
-            "That is a countable list on the document that ships with the unit, and it agrees with the description text and with Amazon. It does not agree with the page's own specification block."
-          ],
-          "cite": [
-            "S15",
-            "S14"
-          ]
-        },
-        {
-          "h": "What this means for a buyer",
-          "paras": [
-            "Nothing about the appliance changes when a marketing page is wrong. What changes is how much of the page you should trust. A page with four different preset counts, placeholder copy in its help section, and a carousel asset named for a feature its own heading contradicts is a page that was assembled quickly and not re-read.",
-            "The specifications that are singular and specific on that page — the dimensions, the 24.6-litre capacity and the 120-volt rating stated in that same block — are the ones to plan around, because a copy-paste error is less likely to survive in a field a shipping department needs."
-          ],
-          "cite": [
-            "S14"
-          ]
-        },
-        {
-          "h": "Why the site still shows no preset count for this product",
-          "paras": [
-            "Because two official sources agreeing is not the same as the manufacturer publishing one number. The owner's manual names 24, so the specification row is published against the manual and not against the marketing page — and the conflict is published on the Flagged for review page so you can see exactly what was reconciled and what was not."
-          ],
-          "cite": [
-            "S15",
-            "S14"
+            "S15"
           ]
         }
       ],
-      "closing_note": "The manual's 24-preset list is countable and is cited to the manual. The 25, 24, 10-in-1 and 11-in-1 statements are all published verbatim on the brand's own page and are recorded on the Flagged for review page rather than smoothed over."
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "no-amazon-prices",
       "kind": "Policy explainer",
       "cluster": "trust",
       "kicker": "Why this site looks like this",
-      "title": "Why this affiliate site shows no Amazon prices, ratings or review counts",
-      "standfirst": "It is not an oversight and it is not humility. Amazon's Program Policies only permit those numbers under two specific conditions, and this site meets neither.",
+      "title": "Why this site does not show live Amazon prices or ratings",
+      "standfirst": "There are permitted programme routes for some Amazon content. This publication has not configured an authorised integration, and it does not substitute scraped values.",
       "target_query": "why affiliate site no amazon price",
       "intent": "Informational",
-      "reading_minutes": 4,
+      "reading_minutes": 3,
       "products": [],
       "sections": [
         {
-          "h": "The rule, quoted",
+          "h": "The price rule is conditional—not a universal ban",
           "paras": [
-            "From the Associates Program Participation Requirements, section 2(b): prices and availability may be shown only if \"**(a) we serve the link in which that price and availability data are displayed, or (b) you obtain Product pricing and availability data via Creators API or PA API**\" and comply with the License requirements.",
-            "And from section 6(t): you may not display customer reviews or star ratings \"**unless you have obtained a link to that customer review or star rating through Creators API or PA API**\".",
-            "This site is a static set of pages generated from a JSON file. Amazon does not serve its links here, and there are no Creators or PA-API credentials behind it. Both conditions fail, so both categories of data are absent.",
-            "There is a third clause in the same paragraph, and it is aimed squarely at comparison pages. If you display prices for a product in any “comparison” format together with prices for the same or similar products offered through other means, “you must display both the lowest ‘new’ price and, if we provide it to you, the lowest ‘used’ price at which the Product is available on the Amazon Site”. That is why the comparison matrix on this site has no price column at all — a half-comparison is precisely what the clause is aimed at."
+            "Amazon’s Program Policies §2(b) condition price and availability display on Amazon serving the link with that data, or obtaining the data through the specified authorised APIs and complying with their licence. This site does neither.",
+            "Customer reviews and star ratings have a separate rule in §6(t), tied to the specified API route and licence. A price clause should not be cited as though it were the review clause, or vice versa."
           ],
           "cite": [
             "S2"
           ]
         },
         {
-          "h": "The second rule people miss: no price tracking",
+          "h": "What is absent here",
           "paras": [
-            "Section 6(y) is blunt: \"**Unless otherwise agreed by Amazon, your Site must not have price tracking and/or price alerting functionality.**\"",
-            "That rules out the most common affiliate feature of all — a price-history chart, a \"price drop\" alert, a \"lowest ever\" badge. A site that shows a price it scraped yesterday is not just out of date; it is the thing the clause is aimed at."
+            "There is no live Amazon price, availability indicator, star rating or scraped review summary in this publication. Following a clearly identified Amazon link lets a reader check the listing’s current configuration and terms.",
+            "A dated manufacturer list-price snapshot or brand-widget observation is labelled as the brand’s own content. It is not an Amazon quote, a current offer or a basis for a performance ranking."
           ],
           "cite": [
-            "S2"
+            "S2",
+            "S10",
+            "S12",
+            "S14"
           ]
         },
         {
-          "h": "What a compliant site can honestly show instead",
+          "h": "Price tracking is another permission question",
           "paras": [
-            "Manufacturer list prices, clearly labelled as the brand's own list price rather than a retailer price. Physical specifications, because the manufacturer owns those facts and they do not change by the hour. Commission rates from Amazon's own published table. And the gaps, named.",
-            "A number that is missing on purpose is a different object from a number that is missing by neglect. The first one a reader can trust the rest of the page around."
+            "The policies separately restrict price-tracking/alert functionality unless Amazon agrees. This site does not run a price history, deal timer, price alert or “lowest ever” badge.",
+            "If an authorised content integration becomes available later, its current licence, display, freshness and permitted-use conditions need their own review. An affiliate disclosure does not grant those permissions."
           ],
           "cite": [
-            "S3",
-            "S10"
+            "S2",
+            "S1"
           ]
         },
         {
-          "h": "The disclosure that does appear on every page",
+          "h": "The disclosure still matters",
           "paras": [
-            "Operating Agreement section 5 requires the Associate to \"**clearly and prominently state**\" the identification \"**As an Amazon Associate I earn from qualifying purchases.**\" — that sentence sits in the bar at the top of every page in this build, and the build fails if it is missing from any page.",
-            "The FTC's rule is the other half. A material connection must be disclosed \"**clearly and conspicuously**\" (16 CFR §255.5(a)), and the FTC's own guidance says the disclosure has to be placed with the endorsement rather than on a separate about page. Hence the persistent bar rather than a link in the footer."
+            "The required Associate sentence appears just below the masthead and again in the footer. Main product links repeat the affiliate relationship and the unconfirmed intended-listing/attribution boundary.",
+            "FTC guidance says disclosures should be hard to miss and with the endorsement. No particular placement here is described as an Amazon or FTC certification."
           ],
           "cite": [
             "S1",
-            "S9",
+            "S5",
             "S8"
           ]
         }
       ],
-      "closing_note": "Every quotation in this article is from a page linked in its source column and was read live. Nothing in it is legal advice; it is the rule text plus how this build implements it."
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "dual-basket-vs-single-basket",
       "kind": "Head-to-head",
       "cluster": "choose",
       "kicker": "Two-basket or one",
-      "title": "Two 3-quart drawers or one 8-quart basket: which actually feeds four people?",
-      "standfirst": "The total volume is nearly identical. The cooking is not, and the difference is what you do when the first batch finishes.",
+      "title": "Two baskets or one: which layout suits your usual dinner?",
+      "standfirst": "Compare separate controls with one undivided basket. The capacity labels do not tell this publication how many people either one will feed.",
       "target_query": "dual basket vs single basket air fryer",
       "intent": "Commercial investigation",
-      "reading_minutes": 5,
+      "reading_minutes": 3,
       "products": [
         "chefman-6qt-dual-basket",
         "chefman-8qt-turbofry"
       ],
       "sections": [
         {
-          "h": "The arithmetic, from the manufacturer's own pages",
+          "h": "Start with the layout, not a serving promise",
           "paras": [
-            "The dual-basket unit is {{6 Qt / 5.67 L}} as {{Two 3-quart baskets::two 3-quart baskets}}. The single-basket unit is {{8 qt (brand also sells a 5 qt version of the same product page)}}, documented as {{Designed for 4–6 people::designed for 4–6 people}}.",
-            "So the single basket holds more at once — a third more — and the two drawers hold less per drawer but can run independently. That is the whole trade, and everything else is detail."
+            "The documented 6 Qt Chefman is two 3-quart baskets. The 8 Qt Chefman is one basket. The latter’s brand page markets it for 4–6 people, but that is a manufacturer household-size claim, not a serving test performed here.",
+            "Nominal volume alone does not establish usable food load, the size of a chicken that fits, or portions of fries. The previous guide’s statement that the larger number meant proportionally more food was too strong; it is not used as a buying promise."
           ],
           "cite": [
             "S10",
+            "S18",
             "S12"
           ]
         },
         {
-          "h": "What Sync Finish is actually for",
+          "h": "When separate controls matter",
           "paras": [
-            "{{Sync Finish}} delays the start of the shorter cook so both baskets finish together; a separate Sync Baskets function copies time and temperature to the second basket.",
-            "This matters because the failure mode of batch cooking is the second batch going cold while the first one waits. A machine that plans both drawers to land at the same moment solves a problem that a bigger single basket creates rather than solves."
+            "The dual-window manual documents independent basket settings. Sync Finish delays the shorter cook so the cycles end together; Sync Baskets copies settings. Those are different behaviours. Neither feature measures food doneness.",
+            "As an editorial decision rule, compare separate zones if you often want different settings for two parts of a meal. Compare the single-basket layout if one undivided space is your priority. This is a question to ask of your cooking habits, not a tested winner."
           ],
           "cite": [
-            "S10",
-            "S18"
-          ]
-        },
-        {
-          "h": "Where the single basket wins",
-          "paras": [
-            "One big batch of one thing. A whole chicken, a full tray of fries, a pile of wings for a crowd. Splitting 8 quarts into two 3-quart drawers means every basket-shaped item has to fit a 3-quart drawer.",
-            "The documented one-touch presets on the single-basket unit are {{Fries, Chicken, Fish, Meat (one-touch)::fries, chicken, fish, meat (one-touch)}}, and the manual publishes a default for each: {{Default 400 °F / 15 min · Meat 375 °F / 18 min · Chicken 375 °F / 22 min · Fish 350 °F / 10 min · Fries 400 °F / 20 min}}."
-          ],
-          "cite": [
-            "S12",
+            "S18",
             "S13"
           ]
         },
         {
-          "h": "The decision, stated as a decision",
+          "h": "Read the loading and care rules",
           "paras": [
-            "If most of your meals are two components that should finish together, the dual basket is the better tool and the capacity number is a red herring. If most of your meals are one component in quantity, the 8-quart is the better tool and the Sync Finish feature is a feature you would never press.",
-            "This is a judgement about how people cook, not a fact from a manufacturer page, and it is labelled as such."
+            "Both Chefman manuals warn against overcrowding and describe removable baskets/racks separately from the main appliance. Their top-rack dishwasher permission is not permission to wash the entire machine.",
+            "Check the exterior footprint, room to pull out the basket and the exact manual’s ventilation rules. A quart figure cannot tell you whether the appliance can be safely used in the space you have."
           ],
-          "cite": []
+          "cite": [
+            "S13",
+            "S18",
+            "S10",
+            "S12"
+          ]
         }
       ],
-      "closing_note": "Neither unit was tested. Capacity, presets, defaults and features are quoted from the brand's product pages and the owner's manual for the single-basket model."
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "chefman-6qt-documented-review",
       "kind": "Product review",
       "cluster": "spec",
       "kicker": "Document-based review",
-      "title": "Chefman 6 Qt Dual Basket: a review of the documents, not the machine",
-      "standfirst": "No unit was bought, unboxed or cooked in. What follows is a reading of Chefman's own page and manual for the TurboFry Touch 6 Qt triple-verified SKU — what it promises, what it does not, and the one number the manufacturer withholds.",
+      "title": "Chefman 6 Qt Dual Window: what the page and manual tell you",
+      "standfirst": "Two independent baskets, documented sync modes, and a model check. A guide to the documents—not a claim about cooking in the appliance.",
       "target_query": "chefman 6 quart dual basket air fryer review",
       "intent": "Commercial investigation",
-      "reading_minutes": 7,
+      "reading_minutes": 3,
       "products": [
         "chefman-6qt-dual-basket"
       ],
       "sections": [
         {
-          "h": "What this review is, and what it is not",
+          "h": "The useful starting point",
           "paras": [
-            "This is a review of a specification sheet, and it is worth saying plainly what that means. No unit was bought, unboxed, cooked in or photographed. What follows is a reading of Chefman's own product page for the TurboFry Touch 6 Qt Dual-Window Air Fryer, model {{RJ38-SQPF-3TDB-2W}}, and its owner's manual, plus a note on what the Amazon listing says and does not say.",
-            "The FTC's guidance for endorsers is unambiguous on this point: you cannot describe an experience with a product you have not tried. So there is no \"crispy fries in eight minutes\" line on this page, no \"we loved it\", and no score out of ten. There are specifications, what they imply for a kitchen, and the gaps."
-          ],
-          "cite": [
-            "S10",
-            "S18",
-            "S8"
-          ]
-        },
-        {
-          "h": "The one-sentence version",
-          "paras": [
-            "A {{6 Qt / 5.67 L}} air fryer built as {{Two 3-quart baskets::two 3-quart baskets}}, with a Sync Finish feature that times the two cooks to land together, a documented ceiling of {{200–450 °F / 95–235 °C}}, and a footprint of {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}}.",
-            "That is the whole machine in one sentence, and it is enough to decide whether it suits your kitchen — which is the point of building the site this way."
+            "Chefman identifies the dual-window model as RJ38-SQPF-3TDB-2W. Its documented 6 Qt total is split into two 3-quart baskets. That layout is worth comparing if you want separate settings for two parts of a meal.",
+            "There is no measured portion count, usable-food-load result or performance score here. A nominal capacity cannot establish what your usual dinner will fit."
           ],
           "cite": [
             "S10",
@@ -349,33 +323,10 @@
           ]
         },
         {
-          "h": "The temperature range is not a marketing number",
+          "h": "Two sync modes, not one promise",
           "paras": [
-            "{{200–450 °F / 95–235 °C}} is wider at both ends than many basket fryers publish, and the low end is the interesting part: its floor is a dehydrating and proofing temperature, not a frying one. The manual is more precise about the top end than the product page is — {{450 °F / 235 °C, held for 2 minutes, for extra browning}}. Read that as a finish mode, not a full-cycle setting.",
-            "A buyer who expects a full cook cycle at the Hi-Fry temperature has read the badge, not the manual. This is the same class of problem the site documents at length for the 8-quart model, where the listing and the brand page disagree outright."
-          ],
-          "cite": [
-            "S10",
-            "S18",
-            "S12"
-          ]
-        },
-        {
-          "h": "Sync Finish is the whole product",
-          "paras": [
-            "Two drawers are only better than one big basket if they are used as two drawers. The difference between a dual-basket fryer and two timers is exactly this feature: {{Yes — delays the start of the shorter cook so both baskets finish together; a separate Sync Baskets function copies time and temperature to the second basket}}.",
-            "If you would set both drawers to the same temperature for the same time anyway, you are paying for a compartment you will not use. That is not a defect in the machine; it is a mismatch with how you cook."
-          ],
-          "cite": [
-            "S10",
-            "S18"
-          ]
-        },
-        {
-          "h": "The coating care line is a real constraint",
-          "paras": [
-            "The owner's manual carries a specific warning about aerosol cooking sprays on the nonstick coating and recommends a non-aerosol mister instead. That is the sort of instruction people skip and then blame the pan for. It is not a defect; it is a care requirement, and Chefman documents it in the specification block itself: {{Nonstick, dishwasher-safe baskets. Manual caution: never spray with aerosol cooking oil — use a non-aerosol mister instead}}.",
-            "It matters commercially: a coating that survives year two is the difference between a repurchase and a refund, and the warranty terms are for {{1-year Chefman assurance}}."
+            "Sync Finish delays the shorter cycle so both baskets finish together. Sync Baskets copies time and temperature settings. Finishing a cycle at the same time is not the same as proving that two foods are cooked through.",
+            "The manual describes Hi-Fry as a two-minute 450 °F boost and explains its effect on sync. The earlier guide wrongly treated the low end of the published range as a proofing/dehydrating feature. No such capability is claimed from the range alone."
           ],
           "cite": [
             "S18",
@@ -383,54 +334,43 @@
           ]
         },
         {
-          "h": "What Chefman does not publish",
+          "h": "Care is part of the decision",
           "paras": [
-            "Usable food volume. The 6 Qt figure is cavity volume; no usable-volume figure exists on the page or in the manual. Household size: Chefman states \"designed for 4–6 people\" for the 8-quart single-basket model, but the 6-quart dual-basket page makes no such claim — anyone who tells you this unit \"serves four\" is inferring it. An energy figure: wattage is published at {{1700 W / 120 V}}, consumption per cook is not, and it depends on how you use the machine.",
-            "And, deliberately, Amazon price, rating and review count. Amazon permits price and availability display only when it serves the link or via its official API, and customer reviews and star ratings only via the API. This site holds neither."
+            "The manual allows the removable baskets and racks on the dishwasher top rack; the main unit must not be immersed or dishwashed. It also cautions against aerosol cooking spray and distinguishes a non-aerosol mister.",
+            "Those instructions do not establish coating life. The previous discussion about surviving a second year was not a test result and has been removed."
           ],
           "cite": [
-            "S10",
-            "S12",
-            "S2"
+            "S18"
           ]
         },
         {
-          "h": "The model-number caveat you should know before buying",
+          "h": "Before following the listing",
           "paras": [
-            "Chefman sells several very similar 6-quart dual machines. This page's model, {{RJ38-SQPF-3TDB-2W}}, is the dual-window version; the sister SKU is {{RJ38-SQPF-3TDB-2 (labelled 'Dual-Basket' on chefman.com)}}. They share a price ladder and a form factor on the brand's own site, and a later pass found a third 6-quart dual-basket SKU on the brand's site as well — see the Flagged page, F32.",
-            "The Amazon listing's title mentions easy-view windows, which corresponds to the dual-window model, but Amazon does not publish a manufacturer model number on an ASIN, so this is a documented match rather than an official cross-reference. That is why this page does not claim \"the listing you clicked is exactly this model\"."
-          ],
-          "cite": [
-            "S10",
-            "S11",
-            "S25"
-          ]
-        },
-        {
-          "h": "Who this machine is for",
-          "paras": [
-            "If your dinners routinely involve two components that want different temperatures, and the failure mode you are trying to avoid is one component going cold while the other finishes, the documented design of this unit addresses precisely that. If your dinners are usually one thing in a large batch, an 8-quart single basket gives you more usable volume per square inch of counter, and Chefman publishes one in this same set.",
-            "The specification sheet will not tell you whether the food tastes good. Nothing can, except cooking in it. What it can tell you is whether the machine's documented behaviour matches the way you cook — and on that question, the documents are unusually complete."
+            "Compare the exact listing model/configuration with the manufacturer page and manual. A recorded listing model field is different from a confirmed intended product or a physical unit’s model plate.",
+            "This publication’s intended ASIN and enrolled-link fields remain unconfirmed. It does not claim that a click will deliver a particular unit, or that a matching name proves attribution."
           ],
           "cite": [
             "S10",
             "S18",
-            "S12"
+            "S41",
+            "S42"
           ]
         }
       ],
-      "closing_note": "No unit in this article was tested. Every number above is quoted from the manufacturer's own product page or owner's manual and is linked in the source column."
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "how-to-read-an-air-fryer-spec-sheet",
       "kind": "Buying guide",
       "cluster": "spec",
       "kicker": "Spec literacy",
-      "title": "How to read an air fryer spec sheet: the eight lines that actually decide it",
-      "standfirst": "Listings are long on adjectives and short on the eight lines that determine whether a machine fits your kitchen. Walk them in this order and most of the market falls away before you look at a price.",
+      "title": "How to read an air-fryer spec sheet without filling in the gaps",
+      "standfirst": "Read what each figure actually measures, keep the model attached, and leave unanswered questions unanswered.",
       "target_query": "how to read air fryer specifications",
       "intent": "Informational",
-      "reading_minutes": 9,
+      "reading_minutes": 3,
       "products": [
         "chefman-6qt-dual-basket",
         "emeril-26qt-french-door",
@@ -438,118 +378,61 @@
       ],
       "sections": [
         {
-          "h": "1. Temperature range, not \"max temperature\"",
+          "h": "Identify the model first",
           "paras": [
-            "The range tells you what the machine can hold; the max tells you what it can briefly reach. The Emeril oven documents {{75–500 °F / 25–260 °C}}; the Chefman 8-quart basket documents {{200–400 °F}}; the Chefman 6-quart dual documents {{200–450 °F / 95–235 °C}}.",
-            "Read the low end too. The Emeril's floor is low enough to proof dough and dehydrate; the basket fryers start where frying starts. Neither is a defect, but only one of the three can double as a dehydrator."
+            "A product-family name is not enough. Find the model or part number and the selected configuration, then keep that identity attached to the brand page and manual you read.",
+            "The Chefman 8 Qt example matters here: the RJ38-SQSS-8T brand page gives 200–400 °F, while the observed listing title advertises 450 °F Hi-Fry. Combining them into one richer specification would invent a resolution."
           ],
           "cite": [
-            "S15",
             "S12",
-            "S10"
+            "S13",
+            "S29"
           ]
         },
         {
-          "h": "2. Capacity — and whether it is two compartments",
+          "h": "Ask what each number describes",
           "paras": [
-            "Capacity is the most-abused number on the box because it measures cavity volume, not food. The useful question is not \"how many quarts\" but \"how many independent compartments, and what is each one's volume\". The Chefman dual-basket answers both: {{6 Qt / 5.67 L}} total, {{Two 3-quart baskets::two 3-quart baskets}}. The Emeril answers with one number: {{26 qt / 24.6 L (manual: 1,519 cu in)}}.",
-            "Two smaller drawers and one large drawer can hold similar total volume and cook very differently. The single-basket 8-quart model publishes just the total and no per-basket figure, because there is no second basket."
+            "Capacity: is it one cavity or a total split between baskets? The dual-window Chefman is two 3-quart baskets. The Emeril number describes an oven cavity. Neither is a measured serving count.",
+            "Temperature: is the headline number a normal setting, a special mode or a timed boost? The dual-window manual’s two-minute Hi-Fry description is more useful than quoting the maximum without its conditions.",
+            "Dimensions: retain the source’s stated orientation and distinguish the exterior from usable cooking space. Then read the separate ventilation and placement rules."
           ],
           "cite": [
-            "S10",
             "S18",
-            "S14",
-            "S12"
-          ]
-        },
-        {
-          "h": "3. Footprint, and the clearance nobody mentions",
-          "paras": [
-            "Measure your counter, then measure the gap to the cabinet above it. The Chefman 6 Qt dual is {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}}; the Chefman 8 Qt is {{8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg}}; the Emeril is {{16.9 D × 15.8 W × 14.8 H in}}.",
-            "The Emeril manual goes further than any of them and specifies free space on top, back and sides, and never under a hanging cabinet. For an oven-style unit of that height, the clearance requirement is a real constraint on where the machine can live — not a footnote."
-          ],
-          "cite": [
             "S10",
-            "S12",
             "S14",
             "S15"
           ]
         },
         {
-          "h": "4. Weight, because you will lift it",
+          "h": "Look for the instructions behind the feature",
           "paras": [
-            "A machine you cannot comfortably lift is a machine you will not clean properly. Chefman publishes {{13.3 lb / 6.03 kg}} for the 6-quart dual and {{8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg}} for the 8-quart.",
-            "The Emeril brand page publishes dimensions but not weight. That is a genuine gap in the spec sheet, and it is listed as such on the Flagged page rather than filled in from a retailer listing."
+            "Read cleaning permissions part by part: Chefman’s top-rack permission is for removable baskets/racks; Emeril recommends hand-washing accessories. None of that makes a whole appliance dishwasher safe.",
+            "For electrical setup, use the exact unit’s instructions and seek clarification when they conflict. F96 records incompatible extension-cord instructions inside the Emeril PDF; this publication does not choose the permissive version."
           ],
           "cite": [
-            "S10",
-            "S12",
-            "S14"
-          ]
-        },
-        {
-          "h": "5. Wattage and the circuit it sits on",
-          "paras": [
-            "All three machines draw serious power. Chefman publishes {{1700 W / 120 V}} for both basket models; the Emeril manual gives {{1700 W}} at {{120 V / 60 Hz}}.",
-            "If you plan to run one of these on the same circuit as a kettle or a coffee machine, that is the line to check against your breaker panel. This site does not give electrical advice beyond quoting the manufacturer's rating."
-          ],
-          "cite": [
-            "S10",
-            "S12",
+            "S13",
+            "S18",
             "S15"
           ]
         },
         {
-          "h": "6. What is dishwasher-safe, and what the manual forbids",
+          "h": "Write down the unanswered question",
           "paras": [
-            "\"Dishwasher-safe\" almost always means specific parts, not the whole machine. Chefman says the 8-quart basket and rack are top-rack dishwasher-safe, and its manuals warn specifically against aerosol cooking sprays on the nonstick coating.",
-            "That warning is worth more than any feature bullet, because it determines whether the coating survives year two."
+            "A spec sheet is not evidence of noise, coating durability, taste or energy consumed by a real cook. A warranty badge is not the complete terms for a particular seller/configuration.",
+            "Keep the question attached to the source instead of borrowing an answer from a similar model. The full record publishes blank/flagged values and conflicting readings so the reader can see that boundary."
           ],
           "cite": [
-            "S12",
-            "S13",
-            "S18"
-          ]
-        },
-        {
-          "h": "7. Presets — count them only if the manufacturer does",
-          "paras": [
-            "Preset counts are where spec sheets go to die. The Chefman 8-quart page lists {{Fries, Chicken, Fish, Meat (one-touch)::fries, chicken, fish, meat (one-touch)}} and its manual gives the default time and temperature for each. The Emeril brand page, by contrast, states its count several different ways on the same page, and the Amazon listing states it again differently. That is why no preset count is asserted for the Emeril anywhere on this site; the manual's individually named presets are the only countable set.",
-            "There is a whole article on that single discrepancy, because it is the clearest example on this site of why \"the official page says so\" is not the same as \"the official page is consistent\"."
-          ],
-          "cite": [
-            "S12",
-            "S13",
-            "S14",
-            "S15"
-          ]
-        },
-        {
-          "h": "8. Warranty, and what it excludes",
-          "paras": [
-            "Chefman publishes a {{Limited 1-year warranty from date of retail purchase (non-transferable, original purchaser)::limited 1-year warranty from date of retail purchase (non-transferable, original purchaser)}} in the 8-quart manual and {{1-year Chefman assurance}} on both basket product pages. The Emeril page publishes {{1-year warranty}}.",
-            "Read the terms document, not the badge — a warranty that excludes the coating is not covering the part that fails."
-          ],
-          "cite": [
-            "S13",
-            "S10",
-            "S12",
-            "S14"
-          ]
-        },
-        {
-          "h": "The line that is not on the spec sheet at all",
-          "paras": [
-            "Price and customer rating. This site does not publish either for an Amazon listing, because Amazon's Program Policies permit price and availability display only when Amazon serves the link or via its official API, and customer reviews and star ratings only via that API. Manufacturer list prices are published here in a separate, clearly labelled column with their own sources, because those are the brand's own numbers, not Amazon's.",
-            "A five-minute version: write down the width of the gap above your counter; write down how many people you cook for on a normal night; decide whether you need two compartments or one cavity; find the owner's manual PDF and read the temperature range and preset chart; only then look at price on the retailer, where it is current."
-          ],
-          "cite": [
+            "S8",
             "S2",
+            "S10",
+            "S12",
             "S14"
           ]
         }
       ],
-      "closing_note": "No unit in this article was tested. Every number above is quoted from the manufacturer's own product page or owner's manual and is linked in the source column."
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "air-fryer-capacity-guide",
@@ -682,72 +565,64 @@
       "kind": "Explainer",
       "cluster": "trust",
       "kicker": "How the money works",
-      "title": "Who pays for the air-fryer review you are reading?",
-      "standfirst": "Affiliate links are not a scandal and they are not invisible. Here is exactly how this site earns, what Amazon requires it to say, and the three claims it is not allowed to make.",
+      "title": "Who pays for an affiliate buying guide? Read the disclosure",
+      "standfirst": "Affiliate funding should be visible, and it should not be confused with product experience. Here is what this publication says—and does not claim.",
       "target_query": "are air fryer reviews affiliate",
       "intent": "Informational trust",
-      "reading_minutes": "4",
+      "reading_minutes": 3,
       "products": [],
       "sections": [
         {
-          "h": "The disclosure is a contract term, not a courtesy",
+          "h": "The financial relationship",
           "paras": [
-            "Amazon's own guidance is precise about the wording: the Operating Agreement requires that the statement “As an Amazon Associate I earn from qualifying purchases.” clearly and conspicuously appears on the site. That is why the sentence sits above the header on every page here rather than in a footer nobody scrolls to.",
-            "The same page adds the link-level rule: the disclosure next to a link must be **clear** — examples given are '(paid link)', '#ad' or '#CommissionsEarned' — and **conspicuous**, placed near the link rather than somewhere a reader has to hunt for it."
+            "Amazon requires the Associate identification sentence. It appears just below this site’s masthead and repeats in the footer. The main outbound product CTAs also identify the affiliate relationship near the link.",
+            "The possibility of a commission is not a statement that any click or purchase here has been credited. Intended listings and enrolled-account attribution remain unconfirmed; no earnings report is held."
           ],
           "cite": [
-            "S5"
+            "S1",
+            "S5",
+            "S41",
+            "S42"
           ]
         },
         {
-          "h": "US law adds a second, independent requirement",
+          "h": "A byline is not a test result",
           "paras": [
-            "The FTC's influencer guidance says to disclose any financial relationship with a brand, to place the disclosure so it is hard to miss, and to use simple language. It also states plainly that the disclosure should sit with the endorsement itself, not only on a profile page or at the end of a post.",
-            "The binding rule behind that guidance is 16 CFR Part 255, whose §255.5 is titled 'Disclosure of material connections'."
+            "This publication identifies itself as Zone1 Kitchen and discloses AI-assisted document research. No named human editor or personal product experience has been established.",
+            "FTC guidance says not to describe experience with a product you have not tried. That is why these guides do not narrate cooking results, invent customer quotes or attach a test score to specifications."
           ],
           "cite": [
-            "S8",
-            "S9"
+            "S8"
           ]
         },
         {
-          "h": "The three claims an affiliate site may not make",
+          "h": "What the guides can offer",
           "paras": [
-            "First, it may not claim hands-on experience it does not have — the FTC's own line is that you cannot talk about your experience with a product you have not tried. Every article on this site therefore states that nothing was tested.",
-            "Second, it may not publish Amazon prices, availability, star ratings or customer reviews unless Amazon serves the content or it comes through the official API. That is why every price on this site is either a manufacturer's own list price or blank.",
-            "Third, it may not run price-tracking or price-alert functionality unless Amazon agrees to it. A build check in this repository fails the build if such a component is added."
-          ],
-          "cite": [
-            "S8",
-            "S2",
-            "S3"
-          ]
-        },
-        {
-          "h": "What that leaves for a site like this one",
-          "paras": [
-            "It leaves documentation. Capacity, dimensions, temperature ranges, basket counts, door types and warranty terms are all published by the manufacturer, all verifiable by a reader in two clicks, and none of them require the author to have switched the appliance on.",
-            "That is a narrower promise than most affiliate sites make, and it is the only one that can be kept without testing."
+            "A guide can help compare documented layouts, capacities, dimensions and care instructions, while leaving conflicts visible. It cannot manufacture the experience of owning or cooking in the appliance.",
+            "No live Amazon price/rating integration is configured. A dated manufacturer snapshot is labelled as such, and disclosure alone does not grant permission to scrape or reuse Amazon content."
           ],
           "cite": [
             "S10",
+            "S12",
             "S14",
-            "S12"
+            "S2"
           ]
         }
       ],
-      "closing_note": "No unit in this article was tested. Policy quotations link to the Amazon, FTC and eCFR pages they were read from."
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "energy-cost-of-an-air-fryer",
       "kind": "Explainer",
       "cluster": "live",
       "kicker": "Running costs",
-      "title": "The 1,700-watt question: what an air fryer actually asks of your kitchen",
-      "standfirst": "All three units are documented at 1,700 watts on 120 volts. That number decides more than browning — it decides whether the appliance can share a circuit.",
+      "title": "Can wattage tell you what an air fryer costs to run?",
+      "standfirst": "The power rating is not a measured electricity bill. Actual energy use depends on a real cooking cycle, and the tariff is specific to the bill payer.",
       "target_query": "air fryer wattage 1700w circuit",
       "intent": "Informational",
-      "reading_minutes": "4",
+      "reading_minutes": 3,
       "products": [
         "chefman-6qt-dual-basket",
         "emeril-26qt-french-door",
@@ -755,117 +630,121 @@
       ],
       "sections": [
         {
-          "h": "Wattage is a circuit question before it is an electricity-bill question",
+          "h": "Start with the rating—but do not stop there",
           "paras": [
-            "Every one of these three appliances is documented at {{1700 W / 120 V}} or the equivalent 1,700-watt, 120-volt specification on its manufacturer page or manual. A 1,700-watt load on a 120-volt circuit draws about 14 amps, which is most of a standard 15-amp kitchen circuit.",
-            "That is why the manual, not the marketing page, is the place to look for the appliance's own instructions about not sharing the outlet. This site does not restate electrical code, because electrical code is not published by these manufacturers and this site does not publish what it cannot source."
+            "The two Chefman sources and Emeril manual document 1700 W ratings for these models. A rated power figure is not measured kilowatt-hours for a recipe or proof of the duty cycle during a cook.",
+            "The earlier guide inferred exact energy cost and made a circuit assumption from the rating. This publication has not measured energy use or assessed a reader’s electrical installation, and it does not make either claim."
           ],
           "cite": [
             "S10",
-            "S14",
             "S12",
             "S15"
           ]
         },
         {
-          "h": "What the electricity actually costs",
+          "h": "Keep energy, time and tariff separate",
           "paras": [
-            "Energy cost is arithmetic you can do exactly: kilowatts multiplied by hours multiplied by the price per kilowatt-hour on your own bill. The appliance's kilowatt figure is published — 1,700 W is 1.7 kW. The hours and the tariff are yours.",
-            "This site deliberately does not quote an average electricity price: no official source read for this project publishes one for a specific reader, and an average is not a bill."
+            "To calculate the energy charge for a measured use, multiply the measured kilowatt-hours by the applicable price per kilowatt-hour. A full bill may have other charges; no tariff is supplied or estimated here.",
+            "Rated kilowatts multiplied by elapsed time is not a measurement of an appliance that may cycle its heater. Do not present that calculation as what this air fryer actually consumed."
           ],
           "cite": [
             "S10",
-            "S14",
-            "S12"
+            "S12",
+            "S15"
           ]
         },
         {
-          "h": "Why 'faster than the oven' is not the same as 'cheaper'",
+          "h": "What a spec comparison cannot establish",
           "paras": [
-            "A smaller cavity heats faster and loses less heat when opened, which is the documented logic behind a countertop appliance — the Chefman pages describe cooking without preheating, and the Emeril page describes a dual-speed fan and 360° circulation. But none of those pages states a comparison of kilowatt-hours against a full-size oven, and this site does not invent one.",
-            "If that comparison matters to you, it can be measured with a plug-in energy monitor in an afternoon. It cannot be established from a specification page."
+            "No test here compares one of these models with a full-size oven, a different air fryer or a particular recipe. Smaller capacity or a higher maximum temperature is not evidence of lower energy cost.",
+            "For electrical placement and use, read the exact manual and seek qualified help where needed. The Emeril cord instructions themselves conflict, as recorded in F96; the publication does not resolve a circuit or cord question from watts alone."
           ],
           "cite": [
-            "S26",
-            "S14"
+            "S13",
+            "S18",
+            "S15"
           ]
         }
       ],
-      "closing_note": "No unit in this article was tested, and no electricity price is asserted. Wattage figures are quoted from the manufacturers and linked per section."
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "chefman-8qt-two-models",
       "kind": "Explainer",
       "cluster": "spec",
       "kicker": "Model watch",
-      "title": "The 8-quart Chefman is sold as two different machines — and the listing describes both",
-      "standfirst": "One SKU tops out at 400°F. Another reaches 450°F for the final two minutes. The supplied Amazon link's title names the feature of one and the finish of the other.",
+      "title": "Chefman 8 Qt: why the exact model matters more than the title",
+      "standfirst": "The brand-model temperature and the observed listing title do not agree. Do not assemble a specification from the most appealing pieces of both.",
       "target_query": "chefman 8 qt air fryer model difference",
       "intent": "Commercial investigation",
-      "reading_minutes": "5",
+      "reading_minutes": 3,
       "products": [
         "chefman-8qt-turbofry"
       ],
       "sections": [
         {
-          "h": "Two official pages, two temperature ceilings",
+          "h": "The disagreement to keep visible",
           "paras": [
-            "Chefman's own store publishes a stainless 8-quart unit with a documented temperature range of {{200–400 °F}} and four cooking presets.",
-            "On a different product page, Chefman publishes a matte-black 8-quart unit, model RJ38-8T-BLACK, with a 'Hi-Fry' button that raises the temperature to 450°F for the final two minutes and lists exactly four functions: air fry, bake, dehydrate and frozen."
+            "Chefman identifies RJ38-SQSS-8T on its stainless TurboFry page and publishes a 200–400 °F range. The observed Amazon title for the supplied 8 Qt destination advertises 450 °F Hi-Fry.",
+            "Those are different claims. Earlier copy treated the title as a definite mixture of two machines. The evidence establishes a conflict, not how the title came to be written or what unit will arrive."
           ],
           "cite": [
             "S12",
-            "S26"
+            "S13",
+            "S29"
           ]
         },
         {
-          "h": "Why this is not a contradiction — it is a catalogue",
+          "h": "Read a listing field as a listing field",
           "paras": [
-            "Two model numbers two different products. What makes it confusing is the supplied Amazon listing: its title reads 'Chefman Air Fryer 8 Qt | TurboFry 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel'.",
-            "The 450°F Hi-Fry and the exact function list match the black RJ38-8T-BLACK page. The finish matches the stainless page. A title can be edited independently of a SKU, and Amazon does not publish the model number in a place a search engine reliably reads, so this site does not choose between them."
+            "A listing’s model/part number helps compare that page with the manufacturer’s documents. It is still a dated listing statement, not this account holder’s intent confirmation or a physical inspection of the shipped unit.",
+            "Keep the selected capacity, finish and configuration attached to the source. Do not copy a feature from a different model page merely because “8 Qt” appears on both."
           ],
           "cite": [
-            "S29",
-            "S26",
-            "S12"
-          ]
-        },
-        {
-          "h": "What to do with this if you are buying",
-          "paras": [
-            "Open the listing and read the model number in the Product information section. If it says RJ38-8T-BLACK, expect the 450°F Hi-Fry button and four functions. If it says RJ38-SQSS-8T, expect a 400°F ceiling and four presets.",
-            "That single line resolves a question this repository has carried as an open flag through seven verification passes, because it is the one fact that only a rendered listing page shows."
-          ],
-          "cite": [
-            "S29",
             "S12",
-            "S26"
+            "S29",
+            "S2"
+          ]
+        },
+        {
+          "h": "A useful next step",
+          "paras": [
+            "If the disputed temperature/mode matters to your buying decision, seek current model-specific clarification before relying on it. Read the manual for the exact unit, not just a search-result title.",
+            "This site leaves the disputed capability flagged. It does not claim a full-cycle temperature, tested crispness result or confirmed intended listing where the documents do not establish one."
+          ],
+          "cite": [
+            "S12",
+            "S13",
+            "S29"
           ]
         }
       ],
-      "closing_note": "No unit in this article was tested. Both model pages and the listing title were read on 2026-11-15 and are linked above."
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "sync-finish-explained",
       "kind": "Explainer",
       "cluster": "choose",
       "kicker": "Feature, documented",
-      "title": "Sync Finish, explained by the manual that ships with it",
-      "standfirst": "One button promises two baskets that end at the same time. The owner's manual spells out exactly how that works, exactly when it breaks, and what the other sync button does instead.",
+      "title": "What does Sync Finish actually synchronise?",
+      "standfirst": "On the documented Chefman dual-window model, the feature coordinates the end of two cook cycles. That is a timing function—not a doneness test.",
       "target_query": "air fryer sync finish explained",
       "intent": "Informational",
-      "reading_minutes": 5,
+      "reading_minutes": 3,
       "products": [
         "chefman-6qt-dual-basket",
         "chefman-8qt-turbofry"
       ],
       "sections": [
         {
-          "h": "What Sync Finish does, in the manual's own words",
+          "h": "Sync Finish and Sync Baskets do different jobs",
           "paras": [
-            "The TurboFry Touch dual-window model publishes the feature as: {{Yes — delays the start of the shorter cook so both baskets finish together; a separate Sync Baskets function copies time and temperature to the second basket}}. That is this site's condensed record; the owner's manual describes the same behaviour step by step.",
-            "To use it, both baskets are set to their own times and temperatures, the SYNC FINISH button is pressed, and the unit starts the side with the longer cook first. The manual states that it delays the start of the other side until the appropriate moment so that they finish together, and that the basket which is waiting displays HOLD on the panel until it begins.",
-            "Sync Baskets is the second button, and it does something different: it applies the time and temperature set on the first basket to the second, so both baskets cook identically rather than finish together. The manual calls it a shortcut for setting both baskets to cook simultaneously with the same time and temperature."
+            "The manual describes setting each basket’s time and temperature, then using Sync Finish to delay the shorter cook so the two cycles end together.",
+            "Sync Baskets copies settings instead. Decide whether you want different settings with coordinated timing or the same settings on both sides; the names are not interchangeable."
           ],
           "cite": [
             "S18",
@@ -873,89 +752,84 @@
           ]
         },
         {
-          "h": "How each one behaves once cooking starts",
+          "h": "Read what changes the schedule",
           "paras": [
-            "Under Sync Baskets, an adjustment made to one basket while cooking is applied to the other automatically, so the two stay matched. Under Sync Finish, an adjustment made while one basket is still waiting keeps the finish synced, provided the shorter cook time is not raised above the longer one.",
-            "The pause behaviour is documented too: when either basket is pulled out during cooking, both sides pause until it is returned. The SHAKE light comes on as a reminder to shake or flip food, and goes off on its own after about a minute if the basket is not pulled out."
+            "The operating instructions explain the modes and how controls affect them. In particular, using Hi-Fry changes the synchronisation; its 450 °F operation is a two-minute boost, not an unlimited full-cycle promise.",
+            "Use the full current instructions rather than treating the button name as a guarantee that every later adjustment stays synced. This guide is a feature explanation, not a replacement operating manual."
           ],
           "cite": [
             "S18"
           ]
         },
         {
-          "h": "What breaks the sync",
+          "h": "What it cannot tell you",
           "paras": [
-            "Two documented actions break it. Pressing the HI-FRY button — the one that raises the cooking temperature to {{450 °F / 235 °C, held for 2 minutes, for extra browning}} — lifts one basket out of the shared schedule: in the sync modes, the manual says pressing it raises the temperature only on that basket and breaks the sync. The +2 MIN button does the same.",
-            "The manual adds a detail worth knowing before a second batch: while the unit cooks on one side, the other basket can still be started later, but the SYNC BASKETS and SYNC FINISH functions will not be available for that cook."
-          ],
-          "cite": [
-            "S18"
-          ]
-        },
-        {
-          "h": "What this feature is not",
-          "paras": [
-            "It is not a promise about doneness. Finishing at the same time is a scheduling behaviour documented by the manufacturer; whether each basket is cooked through is still a check the cook makes, and the manual's own advice is to check foods for doneness against current safety guidelines before serving.",
-            "It is also not a feature of every machine in this set. The manual for the 8 Qt TurboFry Touch — which this site also reads — lists one basket in its features section, so there is no second basket for two buttons to coordinate; the sync functions are documented only on the dual-window model's manual. That difference is recorded in the dataset as {{Not documented for RJ38-SQSS-8T on the brand page or in its manual::not documented for RJ38-SQSS-8T on the brand page or in its manual}}, on the row that asks whether a basket divider exists for the 8 Qt model."
+            "Two cycles ending together does not prove that two different foods are cooked through or safe to serve. This publication has not cooked a meal in the appliance or assessed a recipe.",
+            "The function belongs to the documented dual-window model. Do not transfer it to the single-basket 8 Qt model or assume that nominal capacity increases because cooking is coordinated."
           ],
           "cite": [
             "S18",
-            "S13",
-            "S10"
+            "S13"
           ]
         }
       ],
-      "closing_note": "No unit in this article was tested. The sync behaviour is quoted from the owner's manual linked per section, and the feature row comes from the manufacturer's own product page."
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "aerosol-oil-warning",
       "kind": "Explainer",
       "cluster": "live",
       "kicker": "Care, documented",
-      "title": "The aerosol-oil caution nobody reads, quoted instead of paraphrased",
-      "standfirst": "Chefman's dual-window manual carries one CAUTION about spray cans that decides whether a nonstick basket keeps its coating. The sentence is short enough to quote whole, so this page does.",
+      "title": "Why do the Chefman manuals warn about aerosol oil?",
+      "standfirst": "The care rule is model-specific. Both manuals read for this guide distinguish aerosol cooking spray from a non-aerosol mister.",
       "target_query": "aerosol cooking oil air fryer nonstick coating",
       "intent": "Informational",
-      "reading_minutes": 4,
+      "reading_minutes": 3,
       "products": [
         "chefman-6qt-dual-basket",
         "chefman-8qt-turbofry"
       ],
       "sections": [
         {
-          "h": "The sentence, in the manual's own words",
+          "h": "Read the actual caution",
           "paras": [
-            "The dual-window model's manual puts the rule inside the operating instructions, between a CAUTION marker and the step about loading food: “Never spray the baskets or racks with cooking oil from an aerosol spray can, which includes harsh components that can cause chipping of the nonstick coating. However, you can oil the racks or spray them with oil from a non-aerosol mister.”",
-            "The dataset publishes the same rule in its condensed form: {{Nonstick, dishwasher-safe baskets. Manual caution: never spray with aerosol cooking oil — use a non-aerosol mister instead}}. Both point at the same page; the manual is the primary document and is linked under this section."
+            "The dual-window manual warns against spraying its baskets or racks with cooking oil from an aerosol can and offers oiling the racks or using a non-aerosol mister instead. The single-basket manual also contains an aerosol-spray caution.",
+            "Earlier copy said no such caution was recorded for the 8 Qt model. The 19 November review read it in that model’s manual too, so the guide no longer makes the narrower claim."
           ],
           "cite": [
             "S18",
-            "S10"
+            "S13"
           ]
         },
         {
-          "h": "What the caution says, and what it leaves out",
+          "h": "A care instruction is not a durability test",
           "paras": [
-            "It names a cause and an effect — aerosol spray cans, harsh components, chipping of the nonstick coating — and it offers the substitute in the same breath: oil the racks, or spray them, from a non-aerosol mister. It does not set out a general oil rule; the manual handles that separately, telling the reader to toss food with a little oil in a separate bowl rather than filling the baskets.",
-            "The cleaning section carries the rest of the care story for the same model: the baskets and racks are top-rack dishwasher safe, the unit itself is wiped with a damp cloth and never submerged, and abrasive cleansers are off the list because they can damage the finishes."
+            "Follow the exact manual’s handling and cleaning instructions. The Chefman manuals allow the removable baskets/racks on the dishwasher top rack, but not the main appliance.",
+            "No coating was tested here. A warning about a type of spray does not establish a lifespan, prove that another spray is harmless in every application or turn a manufacturer instruction into a publication’s chemistry test."
           ],
           "cite": [
-            "S18"
+            "S18",
+            "S13"
           ]
         },
         {
-          "h": "The other model's care row, stated exactly as recorded",
+          "h": "Keep oil-use and food claims separate",
           "paras": [
-            "For the 8 Qt TurboFry Touch, this site's dataset records a shorter care row: {{Nonstick basket and rack; top-rack dishwasher safe}}. No aerosol rule is recorded for that model in this dataset, and this article quotes the caution only where the dataset carries it. If the second manual ever needs the same warning quoted, the source document is linked and the row can be checked against it.",
-            "That restraint is deliberate. A care instruction softened in retelling — the caution becoming “be careful with sprays”, the rule becoming optional — stops doing its job. Quoting the manufacturer's sentence keeps the obligation exact, and it gives the reader a link to the document that wrote it."
+            "This is a care topic, not a measured recipe, nutrition or oil-saving result. Read the exact instructions for loading and cooking the food you intend to prepare.",
+            "If a marketing percentage matters to you, ask for its comparison and method. Do not infer a health outcome from a coating-care instruction."
           ],
           "cite": [
-            "S13",
-            "S12"
+            "S12",
+            "S18",
+            "S13"
           ]
         }
       ],
-      "closing_note": "No product in this article was tested. The quoted caution is from the manufacturer's owner's manual, and the care rows come from the dataset's verified entries for each product."
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "extension-cord-rules-in-the-manuals",
@@ -1016,11 +890,11 @@
       "kind": "Document check",
       "cluster": "spec",
       "kicker": "What ships in the box",
-      "title": "Seven accessories, a six-accessory title, and one honest caveat",
-      "standfirst": "Two of Emeril's own documents say 7 accessories. Amazon's title for the same listing says six. The owner's manual settles the count and then takes it back — here is what each document actually says.",
+      "title": "What comes with the Emeril oven? Check the accessory list",
+      "standfirst": "A count is less useful than knowing whether the particular accessory you need is included in the exact configuration you are buying.",
       "target_query": "emeril lagasse french door airfryer 360 what accessories are included",
       "intent": "Commercial investigation",
-      "reading_minutes": 5,
+      "reading_minutes": 3,
       "products": [
         "emeril-26qt-french-door",
         "chefman-6qt-dual-basket",
@@ -1028,11 +902,10 @@
       ],
       "sections": [
         {
-          "h": "Two brand documents say seven. The Amazon title says six.",
+          "h": "The count is not consistent across sources",
           "paras": [
-            "The Emeril product page states, in one sentence: \"Included are 7 premium accessories to maximize versatility—air fry basket, rotisserie spit, bake pan, and more.\"",
-            "The Amazon listing title for the same product ends with \"Six Cooking Accessories Included\" — one fewer than the brand's own count. The full title is quoted on the product's data page, and the disagreement is recorded in that product's flag register rather than resolved by picking a winner. This site publishes the count the two brand documents agree on.",
-            "The owner's manual takes the third, most useful approach: it enumerates thirteen numbered parts. Six are built into the appliance (main unit, door handle, glass door, LED display, control panel, control knob), which leaves {{7}} removable accessories: a drip tray, a wire rack, a baking pan, a rotisserie spit, a crisper tray, a rotisserie fetch tool and a plate handle."
+            "The Emeril brand page describes seven premium accessories. The observed Amazon title says six cooking accessories. The dataset records those statements separately rather than changing one to match the other.",
+            "The parts section in the linked manual shows components and accessories and cautions that some accessories may not be included with purchase. A manual illustration is therefore not a complete packing guarantee for every configuration."
           ],
           "cite": [
             "S14",
@@ -1041,51 +914,51 @@
           ]
         },
         {
-          "h": "The manual's caveat is the sentence that matters",
+          "h": "Ask for the item, not just the total",
           "paras": [
-            "Immediately after its parts list, the manual says: \"Some accessories may not be included with purchase.\" That is the manufacturer declining to guarantee its own accessory count — and it is the one line almost no retail listing quotes.",
-            "Judgement: for a buyer who needs a specific accessory — the rotisserie spit for a recipe, the bake pan for a family meal — the count is trivia and the caveat is the fact. Check the box on delivery day; the documents give no promise to enforce."
+            "If a function depends on a particular accessory, check that named item against the selected listing/configuration and current seller information. Do not assume that a marketing count tells you how a spit, forks, tray or handle were counted.",
+            "This publication has not unboxed the appliance. It cannot resolve a shipping configuration from the fact that multiple documents describe similar equipment, and it does not infer a reader’s legal remedies from an accessory note."
+          ],
+          "cite": [
+            "S15",
+            "S14",
+            "S28"
+          ]
+        },
+        {
+          "h": "Make care part of the check",
+          "paras": [
+            "The Emeril manual recommends hand-washing accessories. If a particular tray or tool matters to the purchase, its care routine matters too.",
+            "A documented accessory and a promise of a cooking result are different things. The linked rotisserie instructions are evidence that the function is described, not a test of what dinner will be like."
           ],
           "cite": [
             "S15"
           ]
-        },
-        {
-          "h": "The Chefman documents answer a different question",
-          "paras": [
-            "Neither Chefman unit publishes an accessory count at all. The 6 Qt dual-basket's care row reads: {{Nonstick, dishwasher-safe baskets. Manual caution: never spray with aerosol cooking oil — use a non-aerosol mister instead}}. Baskets and racks, described by coating and cleaning rather than by a parts list.",
-            "The 8 Qt TurboFry's documents name its removable parts as: {{Nonstick basket and rack; top-rack dishwasher safe}} — and stop there. Its brand page sells the machine around them: {{Fries, Chicken, Fish, Meat (one-touch)}} presets, an {{LED shake reminder}}, and {{Designed for 4–6 people::designed for 4–6 people}} as the household pitch.",
-            "So the honest cross-brand comparison is not seven versus nothing. It is that one manufacturer documents a box list with a caveat, and the other two publish no count anywhere this site could verify — a gap, which is left visible here rather than filled from a third-party seller's guess."
-          ],
-          "cite": [
-            "S10",
-            "S18",
-            "S12"
-          ]
         }
       ],
-      "closing_note": "No unit in this article was unboxed or tested. The accessory counts come from the Emeril product page, its owner's manual and the Amazon listing title, each linked where cited."
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "rotisserie-at-home",
       "kind": "Feature explainer",
       "cluster": "choose",
       "kicker": "Manual walkthrough",
-      "title": "Rotisserie at home: what the 26 QT's manual actually documents",
-      "standfirst": "The preset and the spit set are in the manual. What the manual never claims — cooked weights, times, doneness — is the part worth reading before you plan a chicken dinner.",
+      "title": "Would you use a countertop rotisserie? Read the setup first",
+      "standfirst": "The Emeril manual documents a rotisserie function and spit. That is enough to ask a useful buying question—not enough to promise a recipe or result.",
       "target_query": "emeril lagasse 26qt french door airfryer rotisserie",
       "intent": "Commercial investigation",
-      "reading_minutes": 5,
+      "reading_minutes": 3,
       "products": [
         "emeril-26qt-french-door"
       ],
       "sections": [
         {
-          "h": "What is documented",
+          "h": "Separate the function from the cooking result",
           "paras": [
-            "The published spec row is deliberately narrow: {{Yes (manual documents a rotisserie preset and spit set)}} That wording summarizes two documents without stretching either: the brand page's feature list, which shows a Rotisserie section, and the owner's manual, whose preset chart lists Rotisserie by name and whose parts list includes the spit.",
-            "The rotisserie preset is one of the {{24 presets are named in the owner's manual for model FAFO-001: Airfry, Fries, Bacon, Grill, Eggs, Fish, Ribs, Defrost, Steak, Vegetables, Wings, Bake, Rotisserie, Toast, Chicken, Pizza, Pastry, Proof, Broil, Slow Cook, Roast, Dehydrate, Reheat, Warm}} The count itself has a history: the brand's spec block says \"25 Cooking Pre-sets\" while the same page's description says \"24 one-touch cooking presets\" — the manual is treated as the controlling document here.",
-            "The spit is one of the {{7}} removable accessories counted from the manual's parts list, and the manual immediately concedes: \"Some accessories may not be included with purchase.\""
+            "The Emeril page and manual describe a rotisserie function; the manual includes its equipment and operation. This publication has not cooked with it.",
+            "A 26 qt cavity figure does not establish the size of a bird that fits, a safe load, a time per weight or the result of a recipe. Follow current model-specific instructions and an appropriate food-safety source rather than inventing those values from capacity."
           ],
           "cite": [
             "S14",
@@ -1093,100 +966,94 @@
           ]
         },
         {
-          "h": "The machine the spit turns inside",
+          "h": "Check what is supplied and where it will be used",
           "paras": [
-            "The cavity is {{26 qt / 24.6 L (manual: 1,519 cu in)}} — the reason a whole bird is plausible on paper. The doors are {{French doors, single-pull opening::french doors, single-pull opening}}; the air system is {{Dual-speed fan, 360° air circulation::dual-speed fan, 360° air circulation}}. The oven runs on {{120 V / 60 Hz}} at {{1700 W}}, with a documented range of {{75–500 °F / 25–260 °C}}.",
-            "Numbers the documents do not publish: a maximum rotisserie weight, a suggested time per pound, a doneness temperature. None of those appears on the brand page or in the manual, so none appears here. Judgement: a recipe that needs them will come from a cookbook or a tested source, not from this spec sheet."
+            "The manual’s parts section includes accessories but says some may not be included with purchase. The selected configuration therefore needs a check for the particular equipment required.",
+            "The manual calls for ventilation space on the top, back and sides and prohibits operation under hanging cabinets. Room to store an oven is not automatically room to use it or handle its hot accessories."
           ],
           "cite": [
-            "S14",
             "S15"
           ]
         },
         {
-          "h": "The counting problem, stated plainly",
+          "h": "Ask whether the routine fits your kitchen",
           "paras": [
-            "The same brand page markets this oven as \"10-in-1\" in its feature headings while listing 24–25 presets elsewhere. Two counting systems, neither defined, on one page. This site's position is boring on purpose: report the manual's named presets, ignore the marketing arithmetic, and record the disagreement in the flag register so a reader can check it.",
-            "No unit was tested for this article. Everything above is a description of documents — which is exactly as far as a documentation-based site can honestly go on a feature like rotisserie."
+            "Consider whether you would use the function often enough to want the documented setup and hand-washing routine for accessories. This is a planning question, not a claim that cleanup is quick or the appliance replaces a full-size oven.",
+            "The accessory/count and model conflicts stay in the public record. If a particular included item or instruction remains unclear, resolve that question before relying on the function."
           ],
           "cite": [
-            "S14",
-            "S15"
+            "S15",
+            "S14"
           ]
         }
       ],
-      "closing_note": "No unit in this article was tested. Preset names, the parts list and the accessory caveat were read from the owner's manual; the conflicting preset counts are quoted from the brand page and the Amazon title, all linked where cited."
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "associates-disclosure-explained",
       "kind": "Policy explainer",
       "cluster": "trust",
       "kicker": "Compliance, in plain words",
-      "title": "What 'As an Amazon Associate I earn from qualifying purchases' actually obliges",
-      "standfirst": "The sentence in this site's header is a contract clause with a mandated wording and a placement rule. Who requires it, what it must look like, and the things it does not do.",
+      "title": "What does the Amazon Associate disclosure actually tell you?",
+      "standfirst": "It identifies a financial relationship. It does not prove a test, grant data rights or certify the site’s compliance.",
       "target_query": "amazon associates disclosure requirements",
       "intent": "Informational",
-      "reading_minutes": 5,
+      "reading_minutes": 3,
       "products": [],
       "sections": [
         {
-          "h": "The sentence is a contract clause, not a courtesy",
+          "h": "The required sentence",
           "paras": [
-            "Amazon's Associates Program Operating Agreement, section 5, requires it: 'You must clearly and prominently state the following … on your Site …: \"As an Amazon Associate I earn from qualifying purchases.\"' The wording inside the quotation marks is the only disclosure text the agreement mandates — a site may not invent a prettier paraphrase and call it compliant.",
-            "The agreement makes the requirement load-bearing in section 6(a): 'any violation of Section 5 and as specified in the Program Policies will be deemed a material breach of this Agreement.' Material breach is the termination clause — the difference between a style critique and losing the account."
+            "Amazon’s agreement and help require the Associate identification: “As an Amazon Associate I earn from qualifying purchases.” The publication repeats that exact sentence just below the masthead and in the footer.",
+            "Amazon’s disclosure help also calls for clear, conspicuous identification near affiliate links. Main product CTAs identify Amazon and the affiliate relationship beside the action."
           ],
           "cite": [
-            "S1"
+            "S1",
+            "S5"
           ]
         },
         {
-          "h": "Where the sentence has to sit",
+          "h": "What a reader should not infer",
           "paras": [
-            "Amazon's text sets a placement standard — 'clearly and prominently' — and the FTC's guidance for endorsements fills in what that means physically: the disclosure must be 'hard to miss' and 'placed with the endorsement message itself', not parked on an About page or at the end of a post where a reader has already made up their mind.",
-            "The codified rule underneath is 16 CFR §255.5, titled 'Disclosure of material connections'. An affiliate commission is a financial material connection — the exact situation the rule addresses — so the disclosure is not optional politeness; it is the mechanism the rule prescribes."
+            "A disclosure does not mean the author tried the product. FTC guidance says not to describe experience with something that was not tried; this publication discloses AI-assisted document research instead.",
+            "It also does not mean Amazon endorses the publication or that this particular account has earned a commission. Intended listing and enrolled-account attribution evidence remain unconfirmed."
           ],
           "cite": [
             "S8",
-            "S9"
+            "S1",
+            "S41",
+            "S42"
           ]
         },
         {
-          "h": "The things the sentence does not do",
+          "h": "Content permissions are separate",
           "paras": [
-            "It does not license untested claims. The FTC's companion rule is blunt: 'You can't talk about your experience with a product you haven't tried.' No product in this set was tested, so no article here narrates cooking results.",
-            "It does not unlock Amazon's data. Prices, availability, star ratings and review counts may be shown only when Amazon serves them or through the official API — the reason every price on this site is a manufacturer's list price or a blank cell.",
-            "It does not make the site Amazon's voice. The same section 5 forbids misrepresenting the relationship, 'including by expressing or implying that we support, sponsor, or endorse you'.",
-            "And it does not vary by page. A review, a comparison or a buying guide carries the same obligation as the homepage — the disclosure travels with the endorsement, per the FTC's placement rule."
+            "Price/availability and reviews/star ratings have specific conditions in the Program Policies. This site has no configured authorised integration, and a disclosure does not change those conditions.",
+            "The layout/build checks can prove that the disclosure is present in the generated pages. They cannot award legal certification, account approval or a conversion result."
           ],
           "cite": [
-            "S8",
             "S2",
-            "S1"
-          ]
-        },
-        {
-          "h": "How this site implements it",
-          "paras": [
-            "The sentence is emitted into the header of every page this site generates, above the first paragraph, and the site builder fails the build if a page ships without it. That is the practical answer to 'clearly and prominently': one fixed sentence, one fixed place, on every page, with the underlying documents linked from the compliance page."
-          ],
-          "cite": [
-            "S8",
-            "S1"
+            "S1",
+            "S8"
           ]
         }
       ],
-      "closing_note": "This article explains published rules; it is not legal advice. Policy quotations were re-read from the live Amazon, FTC and eCFR pages on 2026-11-16 and link to those pages."
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "air-fryer-gift-guide-2026",
       "kind": "Buying guide",
       "cluster": "choose",
       "kicker": "Seasonal",
-      "title": "Air fryer gift guide 2026: match the format to the person",
-      "standfirst": "Two small baskets, one large basket, or a French-door countertop oven — the three formats in this guide are documented by their manufacturers, not tested by anyone here. Pick the format first; the model questions can wait until the box is open.",
+      "title": "Air fryer gift guide 2026: ask about the kitchen first",
+      "standfirst": "A useful gift starts with the recipient’s meals, available space and care routine—not a ranked list or a countdown.",
       "target_query": "air fryer gift guide 2026",
       "intent": "Commercial investigation",
-      "reading_minutes": "5",
+      "reading_minutes": 3,
       "products": [
         "chefman-6qt-dual-basket",
         "chefman-8qt-turbofry",
@@ -1194,90 +1061,70 @@
       ],
       "sections": [
         {
-          "h": "Give the shape, not the spec sheet",
+          "h": "Ask before choosing a format",
           "paras": [
-            "Gift guides usually rank products against each other. This one does not: nobody here has cooked with any of these appliances, and Amazon's own numbers — price, stars, review counts — cannot be published under the programme's rules. What documents can settle honestly is **format**, and the manufacturer pages and owner's manuals behind this product set establish exactly three.",
-            "Format is the shape of the thing: two independent baskets, one large basket, or a countertop oven with a door. It decides what the appliance is like to live with far more than any preset count, and it is the one buying question a sourced guide can answer without a test kitchen."
+            "Would the recipient use separate cooking settings, one basket, or an oven-style layout? The documented options here are a 6 Qt total split into two baskets, an 8 Qt single basket and a 26 qt oven cavity. Those figures do not establish portions or cooking quality.",
+            "This November 2026 guide is an editorial seasonal selection. No search-volume trend, live deal, discount or bestseller status has been verified."
           ],
           "cite": [
             "S10",
+            "S18",
             "S12",
             "S14",
+            "S15"
+          ]
+        },
+        {
+          "h": "Separate settings or an oven layout?",
+          "paras": [
+            "The dual-window Chefman’s Sync Finish coordinates the end of two cook cycles. That may be a feature to discuss with someone who cooks two components, but it is not a guarantee about the food.",
+            "The Emeril manual documents an oven-style layout and rotisserie. Before treating a multifunction appliance as several gifts in one, ask whether those particular functions would be used. A long feature list is not evidence of convenience or performance."
+          ],
+          "cite": [
+            "S18",
             "S15",
-            "S18"
+            "S14"
           ]
         },
         {
-          "h": "For the cook who runs two things at once",
+          "h": "Check the space and cleanup routine",
           "paras": [
-            "The 6 Qt Chefman divides its {{6 Qt / 5.67 L}} into {{Two 3-quart baskets::two 3-quart baskets}}, each with its own controls, so two foods with different times go in together.",
-            "The manual's answer to \"do they finish together?\" is specific: {{Yes — delays the start of the shorter cook so both baskets finish together; a separate Sync Baskets function copies time and temperature to the second basket}}. Its browning mode is documented as {{450 °F / 235 °C, held for 2 minutes, for extra browning}}.",
-            "If counter space is the real constraint on this gift, the body measures {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}} — measure the cabinet clearance before wrapping anything."
+            "The Emeril manual calls for ventilation space on the top, back and sides and says not to operate under hanging cabinets. The 8 Qt Chefman manual has its own top/back clearance rule. Do not assume that space for storage is space for use.",
+            "The two Chefman manuals allow their removable baskets and racks on a dishwasher’s top rack. Emeril recommends hand-washing accessories. None permits immersing or dishwashing the main appliance. Those differences are worth asking about before choosing a gift."
           ],
           "cite": [
-            "S10",
-            "S18"
-          ]
-        },
-        {
-          "h": "For the household that cooks one big thing",
-          "paras": [
-            "The single-basket Chefman is documented at {{8 qt (brand also sells a 5 qt version of the same product page)}}, and the brand sizes it {{Designed for 4–6 people::designed for 4–6 people}}.",
-            "Its one-touch presets are deliberately few: {{Fries, Chicken, Fish, Meat (one-touch)::fries, chicken, fish, meat (one-touch)}}. In a gift, simple is a feature.",
-            "One honest warning belongs with this format: the manufacturer page documents a {{200–400 °F}} range, while the supplied Amazon listing's title advertises a 450 °F Hi-Fry finish and names functions that belong to a different documented SKU. Which machine actually ships is an open question here (the model match is unconfirmed), so give this format, and check the rating label before the return window closes."
-          ],
-          "cite": [
-            "S12",
             "S13",
-            "S26",
-            "S29"
+            "S18",
+            "S15"
           ]
         },
         {
-          "h": "For the person who hosts",
+          "h": "Leave the recipient a clear record",
           "paras": [
-            "The Emeril is a countertop oven rather than a basket: {{26 qt / 24.6 L (manual: 1,519 cu in)}} behind French doors, with a body of {{16.9 D × 15.8 W × 14.8 H in}} on the counter.",
-            "Hosts ask about the rotisserie first; the manual's answer is: {{Yes (manual documents a rotisserie preset and spit set)}}.",
-            "The preset list is long enough to print in full, because the brand's own page disagrees with itself about the count — 25 in one block, 24 in the description, and the supplied listing's title says 24. The owner's manual names every one of them: {{24 presets are named in the owner's manual for model FAFO-001: Airfry, Fries, Bacon, Grill, Eggs, Fish, Ribs, Defrost, Steak, Vegetables, Wings, Bake, Rotisserie, Toast, Chicken, Pizza, Pastry, Proof, Broil, Slow Cook, Roast, Dehydrate, Reheat, Warm}}."
-          ],
-          "cite": [
-            "S14",
-            "S15",
-            "S28"
-          ]
-        },
-        {
-          "h": "Four things this gift guide cannot tell you",
-          "paras": [
-            "One: what it costs today. Amazon's Program Policies allow prices and availability to be shown only when Amazon serves the link or the data comes through the Creators/PA API. This site holds neither, so there is no deal here, no strike-through price, no \"lowest ever\" badge — and any guide that shows you those numbers without the API is worth reading twice.",
-            "Two: how the food turns out. Nobody here has cooked with these units, and the FTC is blunt about pretending otherwise: \"You can't talk about your experience with a product you haven't tried.\"",
-            "Three: which exact model a listing will ship. For the 8-quart Chefman in particular, the supplied listing's title mixes the features of two documented SKUs, and the question stays open until someone reads the rating label on the delivered unit.",
-            "Four: what is actually in the Emeril box. The brand page says seven accessories, the listing title says six, and the manual hedges that some items \"may not be included with purchase\". Give the format, keep the receipt."
+            "Match the exact model and included configuration, and retain the current listing/seller terms. This publication has not established the account holder’s intended ASIN or completed an enrolled Associates test for any supplied link.",
+            "The choice should survive without a sale timer. If model, space or care is still uncertain, resolve the question rather than treating a larger capacity number as a safe substitute. This is buying judgement, not a tested recommendation."
           ],
           "cite": [
             "S2",
-            "S8",
-            "S12",
-            "S26",
-            "S29",
-            "S14",
-            "S15",
-            "S28"
+            "S41",
+            "S42"
           ]
         }
       ],
-      "closing_note": "No unit in this article was tested. Every specification is quoted from the manufacturer pages and owner's manuals read on 2026-11-16, and every place the official record contradicts itself is shown rather than smoothed over. Prices, star ratings and review counts are deliberately absent — the policy reasons are set out in the article 'Why this affiliate site shows no Amazon prices, ratings or review counts'."
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "black-friday-model-number-switch",
       "kind": "Investigation",
       "cluster": "trust",
       "kicker": "Seasonal / deal safety",
-      "title": "The Black Friday model-number switch, and the three-minute check that catches it",
-      "standfirst": "Discount badges stack up in November. The listings underneath them do not always describe the same machine - including the three this site tracks. Here is the documented version, and the check to run before the deal timer wins.",
+      "title": "Black Friday air-fryer shopping: check the model before the deal",
+      "standfirst": "Similar names and a feature-rich title can hide an unresolved model question. A sale does not reconcile conflicting documents.",
       "target_query": "black friday air fryer deals",
       "intent": "Commercial investigation",
-      "reading_minutes": 6,
+      "reading_minutes": 3,
       "products": [
         "chefman-8qt-turbofry",
         "chefman-6qt-dual-basket",
@@ -1285,58 +1132,45 @@
       ],
       "sections": [
         {
-          "h": "One listing, two machines' features",
+          "h": "One real example to check",
           "paras": [
-            "The Amazon listing behind this site's 8-quart pick sells a stainless-steel air fryer whose title advertises a Hi-Fry button and a high-heat finish. Chefman documents that button on a different model: the matte-black RJ38-8T-BLACK, whose own page lists four functions and a two-minute 450F finish. The stainless unit, RJ38-SQSS-8T, is documented with a ceiling of {{200–400 °F}} and no Hi-Fry mode anywhere in its own documentation.",
-            "Neither machine is a fake, and the listing is not a scam. It is a hybrid: title features borrowed from one model, finish borrowed from the other. This repository has carried that conflict as an open flag through several verification rounds precisely because a rendered listing page is the only place it shows."
+            "The observed title for the submitted Chefman 8 Qt destination advertises 450 °F Hi-Fry. Chefman’s page for RJ38-SQSS-8T documents 200–400 °F. This is a recorded disagreement, not proof that the listing is a scam or that features were deliberately borrowed from another unit.",
+            "Earlier copy called the listing a hybrid and predicted which model would arrive. The evidence does not establish either conclusion. A conflict should trigger a check, not a story about its cause."
           ],
           "cite": [
-            "S29",
-            "S26",
-            "S12"
+            "S12",
+            "S13",
+            "S29"
           ]
         },
         {
-          "h": "The same pattern one size down",
+          "h": "Read the exact configuration",
           "paras": [
-            "Chefman's 6-quart drawer exists in three documented variants: the dual-window model this site tracks (RJ38-SQPF-3TDB-2W), a sibling labelled 'Dual-Basket' (RJ38-SQPF-3TDB-2), and a third 'Easy View Windows' double-basket page (RJ38-3DBW-V2). Different pages, different features, near-identical names - the exact conditions a deal carousel compresses into one thumbnail.",
-            "The Emeril oven shows the softer version of the same problem: one official product page states its preset count two different ways, and the owner's manual states it a third. The manual's countable list is the one this site publishes against; the reasoning is written up in the preset-count investigation."
+            "Compare the model/part number, colour/capacity selection and included configuration with current manufacturer documents. Similar product names do not make two specification sets interchangeable.",
+            "The Emeril brand page illustrates another reason not to shop by feature count: it uses 25 and 24 in different preset statements, alongside a 10-in-1 heading. Different counting labels do not automatically describe the same metric, and the preset discrepancy remains public."
           ],
           "cite": [
             "S10",
-            "S18",
-            "S27",
-            "S25",
-            "S14",
-            "S15"
+            "S12",
+            "S14"
           ]
         },
         {
-          "h": "Why deal season makes it worse",
+          "h": "Do not let urgency answer an evidence question",
           "paras": [
-            "**Judgement, not a sourced fact:** bundles, seller swaps and open-box stock all move faster in November, and a listing title can be edited independently of the product behind it. The discount timer is doing retail work, not verification work.",
-            "A model number is the opposite. It sits in the listing's Product information table, it maps to one manufacturer page, and it cannot drift from the thing itself without changing the thing itself."
+            "This guide has no live Black Friday discount, price history or popularity claim. It is a seasonal checklist, not a deal feed.",
+            "As a buying rule, resolve any model or accessory uncertainty before relying on the feature you are paying attention to. The publication’s intended-listing and enrolled-link fields remain unconfirmed; a short-link landing page cannot fill them in."
           ],
           "cite": [
-            "S2"
-          ]
-        },
-        {
-          "h": "The three-minute check",
-          "paras": [
-            "Find the Model Number row in the listing's Product information table, and match it against the brand's own product page - not against the title. If the title's features and the model page's features disagree, the model page is describing the machine that will actually arrive.",
-            "Count what the manual says is in the box against what the listing shows. The oven this site tracks records {{7}} accessories across two official statements, while its own manual cautions that not every pictured accessory ships with every unit: 'Some accessories may not be included with purchase.'",
-            "**Judgement:** do the check before the timer runs out, not after. A deal that survives three minutes of reading is a deal worth taking; one that does not was selling the countdown, not the appliance."
-          ],
-          "cite": [
-            "S29",
-            "S14",
-            "S15",
-            "S2"
+            "S2",
+            "S41",
+            "S42"
           ]
         }
       ],
-      "closing_note": "No product in this article was tested, and no listing was purchased. Model pages and listing titles were read on 2026-11-15 and 2026-11-16 and are linked per section. This site displays no Amazon prices or discount percentages."
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "how-to-clean-an-air-fryer",
@@ -1409,12 +1243,12 @@
       "slug": "chefman-vs-emeril-air-fryer",
       "kind": "Comparison",
       "kicker": "Brand versus brand",
-      "title": "Chefman vs. Emeril: what a basket brand and an oven brand actually publish",
-      "standfirst": "Two brands, three machines, one decision. Both brand pages state capacity, footprint and temperature; neither states how dinner turns out. This is the comparison of what is written down, including the parts where the writing contradicts itself.",
+      "title": "Chefman or Emeril: compare the layout before the brand",
+      "standfirst": "The basket models and the French-door oven ask different questions about meals, space and care. The documents do not establish a cooking-performance winner.",
       "target_query": "chefman vs emeril air fryer",
       "intent": "Commercial investigation",
-      "reading_minutes": 6,
-      "sources_read": "2026-11-17",
+      "reading_minutes": 3,
+      "sources_read": "2026-11-19",
       "products": [
         "chefman-6qt-dual-basket",
         "chefman-8qt-turbofry",
@@ -1422,134 +1256,95 @@
       ],
       "sections": [
         {
-          "h": "The two brands are not selling the same shape of appliance",
+          "h": "Compare the three layouts",
           "paras": [
-            "Chefman's two pages in this set describe baskets with a fan on them. The dual-window model is {{6 Qt / 5.67 L}} divided into {{Two 3-quart baskets::two 3-quart baskets}}, each drawer carrying its own time and temperature, and the second is a single {{8 qt (brand also sells a 5 qt version of the same product page)}} cube. Both are counted in quarts of basket.",
-            "Emeril's page describes an oven with an air-fry mode, and the rows worth quoting are its own: capacity {{26 qt / 24.6 L (manual: 1,519 cu in)}}, door type: {{French doors, single-pull opening}}, a dual-speed fan with 360-degree circulation, and a documented rotisserie. The accessories row reads {{7}}, while the Amazon listing for the candidate ASIN names six components.",
-            "That difference is not marketing. A basket is deep and narrow, which is what makes shaking and stacking work; an oven cavity is wide and shallow, which is what makes a sheet pan or a rotisserie spit possible at all. Everything else in the comparison follows from that choice."
+            "The documented Chefman dual-window model has two 3-quart baskets, while the 8 Qt model has one basket. The Emeril is documented as a 26 qt oven-style cavity with a rotisserie function.",
+            "Do not compare those volume numbers as proportional servings. Start with what you would put in each cooking space and whether separate controls or an oven layout would be useful to you. That is an editorial decision rule, not a test result."
           ],
           "cite": [
             "S10",
             "S12",
-            "S14",
-            "S15",
             "S18",
-            "S28"
+            "S14",
+            "S15"
           ]
         },
         {
-          "h": "Heat: what each brand states, and where the numbers stop agreeing",
+          "h": "Read the temperature conditions",
           "paras": [
-            "The 6 Qt page publishes {{200–450 °F / 95–235 °C}} and puts a ceiling on its headline feature: {{450 °F / 235 °C, held for 2 minutes, for extra browning}}. Read the pair together and Hi-Fry is a finishing blast, not a cook temperature.",
-            "The 8 Qt page publishes {{200–400 °F}} for the stainless model, and its features block opens \"Max temp: 400ºF/ 205ºC\". The Amazon listing title for the candidate ASIN advertises a Hi-Fry mode and 450 °F. Chefman separately sells a High-Fry 8 Qt model whose own page does publish a 450 °F figure. The most likely explanation is two products under one title — which is a documentation problem, not a spec to average.",
-            "The Emeril manual goes further in both directions: {{75–500 °F / 25–260 °C}}. It is the only unit in this set documented below 200 °F, and that low end is the reason a Proof or Dehydrate preset on it means something other than 'the fan is on'.",
-            "**The useful inference is not about crispiness.** A range that starts at 75 °F and ends at 500 °F is a different appliance class from a range of 200–450 °F, before you consider capacity at all."
+            "The dual-window Chefman manual describes Hi-Fry as a two-minute 450 °F boost. The RJ38-SQSS-8T brand page gives a 200–400 °F range, which conflicts with the observed Amazon title’s 450 °F wording.",
+            "The Emeril manual publishes its own range and functions. A maximum temperature or a preset label does not establish browning, speed, noise or energy use. No such measurements were made for this comparison."
           ],
           "cite": [
-            "S10",
+            "S18",
             "S12",
             "S13",
-            "S26",
             "S29",
             "S15"
           ]
         },
         {
-          "h": "Counter space is the number that actually decides",
+          "h": "Plan the space and the cleaning",
           "paras": [
-            "Footprints, in each brand's own published units. The 6 Qt dual-window: {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}} at {{13.3 lb / 6.03 kg}}. The 8 Qt: {{8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg}}. The Emeril oven: {{16.9 D × 15.8 W × 14.8 H in}}.",
-            "Two details in that row matter more than the marketing copy. The Emeril is the tallest and widest, which is what puts it under a cabinet and off a small counter. And its French doors swing toward you, so the clearance in front is part of the footprint, not an afterthought.",
-            "Weight is a daily number, not a shipping number, if the appliance lives in a cupboard or on a shelf above shoulder height. Here the brands' own data disagrees with itself: Chefman's store record for the 8 Qt SKU carries a variant weight of 13.4 lb, while the same product page's specification block states 12.8 lbs / 5.8 kg. This site publishes the specification block and leaves the gap on the review register rather than picking one."
+            "Read the published dimensions with their original orientation and then the exact manual’s ventilation instructions. In particular, the Emeril manual prohibits operation under hanging cabinets and requires space on multiple sides.",
+            "The Chefman removable baskets/racks may go on the dishwasher top rack. Emeril recommends hand-washing accessories. The main appliance is not covered by those dishwasher permissions."
           ],
           "cite": [
             "S10",
             "S12",
             "S14",
-            "S33"
+            "S13",
+            "S18",
+            "S15"
           ]
         },
         {
-          "h": "Where each brand contradicts itself, and why that is your problem",
+          "h": "What the comparison cannot choose for you",
           "paras": [
-            "Emeril's page carries **25 Cooking Pre-sets** in its specification block and **24 one-touch cooking presets** in its own description, while the manual for the model names 24. Its marketing line counts the appliance as 10-in-1, and the same page separately promises two dozen presets.",
-            "Chefman's problem is the opposite kind: not one page disagreeing with itself, but several near-identical SKUs disagreeing with each other. Two 6-quart dual-basket models and a third dual-window model share a spec sheet shape, and two 8-quart TurboFry Touch models differ on maximum temperature.",
-            "So a brand-vs-brand comparison published on top of these documents inherits their ambiguity. The only reliable fix is at the appliance: the model number printed on the unit, matched to the model number on the page you are reading. A listing title is not a model number. This site publishes both and marks the gap between them."
-          ],
-          "cite": [
-            "S14",
-            "S15",
-            "S10",
-            "S11",
-            "S12",
-            "S26",
-            "S27"
-          ]
-        },
-        {
-          "h": "What neither brand publishes — so nobody should be telling you",
-          "paras": [
-            "How evenly either one browns a full tray. How loud it is at 1700 watts in an open-plan kitchen. How long the real preheat takes. Whether the nonstick survives a year of dishwashers. Whether a rotisserie element gives an even bird. None of these is on a manufacturer page, and none is in an owner's manual, because those documents describe what the appliance is designed to do rather than how it performs.",
-            "That is a limit on this page and on every page like it. The FTC's endorsement guidance is blunt that an endorser who says they used a product must actually have used it, and that a claim about a product's performance needs support a reasonable consumer would expect. A review that narrates crispiness for a machine nobody handled is a style choice, not evidence.",
-            "What a documentation-only comparison can honestly offer is the shape of the trade, the numbers behind it, and the list of questions the documents cannot answer. That is what this page is."
+            "No unit was owned, handled or cooked in. The publication cannot tell you which meal tastes better, which coating lasts longer or which brand is more convenient to live with.",
+            "Match the exact listing and model before relying on a documented feature. The supplied-link intent and enrolled attribution tests remain separate, unconfirmed fields. The unresolved Emeril cord wording also needs manufacturer clarification, not a convenient interpretation."
           ],
           "cite": [
             "S8",
-            "S2"
-          ]
-        },
-        {
-          "h": "The order to decide in",
-          "paras": [
-            "**1. Menu first, model last.** A week of fries and frozen snacks wants a basket. Two dishes at two temperatures wants two drawers. A whole bird, a sheet pan, or yoghurt wants the oven cavity.",
-            "**2. Measure the gap, then add the doors.** Tape the widest point of the gap, the height under the cabinet, and the depth including the handle swing. Compare against the published footprint, not against a photo.",
-            "**3. Confirm the model code.** Open the listing's product-information block and read the model or part number there against the brand page you intend to trust. If they differ by a character, stop and read the manual that ships in the box.",
-            "**4. Then, and only then, price.** Every figure above is stable; the price is not, and no page in this set publishes one that it can guarantee today."
-          ],
-          "cite": [
-            "S10",
-            "S12",
-            "S14",
-            "S16",
-            "S28",
-            "S29"
+            "S15",
+            "S41",
+            "S42"
           ]
         }
       ],
-      "closing_note": "No appliance in this comparison was cooked in, owned or handled. Every figure above is quoted from the manufacturer product pages, owner's manuals and store records linked per section, re-read on 2026-11-17, or from the Amazon listing pages cited by number. Where two official documents disagree, both readings are published and the disagreement is listed on the review register.",
-      "cluster": "choose"
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "cluster": "choose",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "ninety-eight-percent-less-oil-claim",
       "kind": "Explainer",
       "kicker": "Reading the claim",
-      "title": "“98% less oil” is a sentence on a box, not a measurement",
-      "standfirst": "Chefman's 8 Qt page carries the phrase in its first line. Less than what, on which food, measured how, and by whom? The page does not say. Here is exactly what it does say, and four questions that work on any percentage printed on an appliance.",
+      "title": "“98% less oil”: what would you need to check that claim?",
+      "standfirst": "Chefman uses the phrase on its 8 Qt page. Treat it as a brand statement and ask for the comparison—not as a measurement made by this publication.",
       "target_query": "air fryer 98% less oil meaning",
       "intent": "Informational",
-      "reading_minutes": 4,
-      "sources_read": "2026-11-17",
+      "reading_minutes": 3,
+      "sources_read": "2026-11-19",
       "products": [
         "chefman-8qt-turbofry"
       ],
       "sections": [
         {
-          "h": "What the brand page actually states",
+          "h": "What was actually observed",
           "paras": [
-            "The 8 Qt TurboFry Touch page introduces the appliance with, in its own words: “extra-crispy meals with 98% less oil; perfect for veggies, pizza, frozen foods, and more”. The same sentence is in the store's product record for that page, which is where this site read it on 2026-11-17.",
-            "That is the whole claim. The page does not name a comparison — deep frying in a fryer, a recipe with more oil, another appliance, or nothing added at all. It does not name a food, a method, a lab or a date. It is one clause of marketing copy, and it is the only place in the brand's documents for this model where that number appears.",
-            "This site records it as what it is, published on the product page under a label that says so: {{Brand claim: meals with '98% less oil'}}. The label is not a hedge added by this site; it is the difference between a measurement and a promise."
+            "The Chefman 8 Qt product description read on 19 November includes “98% less oil”. The description does not supply a test method alongside that sentence. This publication records the phrase as a brand claim, not a tested oil-use result.",
+            "The earlier article inferred a typical air-fryer oil requirement and classified the wording as not being a regulated health claim. Neither conclusion was established by the sources used here. They have been removed."
           ],
           "cite": [
-            "S12",
-            "S33"
+            "S12"
           ]
         },
         {
-          "h": "Why the missing half is the important half",
+          "h": "Questions to ask of a percentage",
           "paras": [
-            "A percentage is a ratio, and a ratio with no denominator is not information. “98% less oil” against food submerged in a deep fryer is a real and unsurprising difference: an air fryer circulates hot air and needs a film of oil at most. “98% less oil” against the same recipe made in an oven with a brush of oil is a very different statement, and nothing on that page rules either reading in or out.",
-            "There is a second silence worth noticing. The claim sits next to a temperature range — {{200–400 °F}} on that page — and a care rule, not next to a nutrition statement. The brand is not making a health claim here in the regulated sense; it is describing a cooking method's usual effect. Anyone who turns it into dietary advice is going beyond the document.",
-            "**If you need the health question answered, it is not answerable from a spec sheet.** A registered dietitian, or the published comparison the brand cites if it cites one, is the route. This site publishes neither and recommends neither."
+            "Compared with what recipe or method? What food and quantity? Who measured it, under what conditions, and where is the result published? Those are the missing details a comparison needs.",
+            "The headline percentage alone does not establish calories, a nutritional benefit, cooking quality or the amount of oil required for your food. No nutrition or medical conclusion is offered here."
           ],
           "cite": [
             "S12",
@@ -1557,36 +1352,21 @@
           ]
         },
         {
-          "h": "What the manuals do say about oil — a care rule, not a diet rule",
+          "h": "The manuals answer a different question",
           "paras": [
-            "The one oil instruction in this product set is a warning about a spray can, and it is about the coating rather than the food. The dual-window manual cautions never to spray the baskets or racks with cooking oil from an aerosol can, because the harsh components can chip the nonstick; its substitute is a non-aerosol mister. The dataset row for that model reads: {{Nonstick, dishwasher-safe baskets. Manual caution: never spray with aerosol cooking oil — use a non-aerosol mister instead}}.",
-            "For the 8 Qt, this site's record carries a shorter care row: {{Nonstick basket and rack; top-rack dishwasher safe}}. No aerosol caution for that model appears in the documents read for this site, and this article does not extend the dual-window manual's rule to it. If you own the 8 Qt, the manual in the box is the authority.",
-            "The practical overlap is small and honest: the appliances in this set document how to oil them without ruining the coating. None of them documents how much oil you need for a given food, and none publishes a nutrition outcome."
+            "Both Chefman manuals read for this guide caution against aerosol cooking spray and distinguish a non-aerosol mister. That is a model-specific care instruction, not a test of the marketing percentage.",
+            "Keep a manufacturer’s care instruction, a marketing statement and a measured result as three separate things. None of them should be substituted for another merely because they all mention oil."
           ],
           "cite": [
             "S18",
-            "S10",
-            "S12",
-            "S13"
-          ]
-        },
-        {
-          "h": "Four questions that work on any printed percentage",
-          "paras": [
-            "**Compared with what?** If the page does not name the baseline, the number cannot be checked. A comparison to deep frying and a comparison to “no oil added” can both be true and mean opposite things.",
-            "**On which food, and how much of it?** A figure from a lab run on 500 g of fries is a weak guide to 200 g of vegetables. Watch for percentages that appear in marketing copy and never in the instructions.",
-            "**Whose measurement is it?** Brand-run, third-party, or unattributed. Only the first is common on a product page, and it is the one with an interest in the answer.",
-            "**Does the manual repeat it?** Instructions are the document a manufacturer has to be able to stand behind when something goes wrong. A claim that appears only in the sales copy carries a different weight, and — as with the presets and the temperature rows on this very site — the sales copy is where the published contradictions tend to live."
-          ],
-          "cite": [
-            "S12",
-            "S14",
-            "S2"
+            "S13",
+            "S12"
           ]
         }
       ],
-      "closing_note": "Nothing in this article was cooked, measured or tested. The quoted sentence is reproduced from Chefman's own product page and its store product record, both read on 2026-11-17. This site takes no position on whether the claim is true; it states what the document does and does not say.",
-      "cluster": "spec"
+      "closing_note": "AI-assisted document research, not a hands-on test. Sources were read by the named sections used in this guide, not as a new full-dataset certification. Exact listing intent and enrolled-link attribution remain unconfirmed.",
+      "cluster": "spec",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "questions-before-buying-a-multifunction-appliance",
@@ -1661,5 +1441,5 @@
     }
   ],
   "updated": "2026-11-19",
-  "editorial_revision_note_2026_11_19": "Six existing canonical guides substantially revised from named official sections, including correction of the Emeril manual’s internal cord conflict and the old capacity arithmetic. Other articles retain their own source-read dates. No publication dates were invented from source-access timestamps."
+  "editorial_revision_note_2026_11_19": "All 24 existing canonical guides were read as prose and substantially revised within named official-source scopes. Unsupported serving/performance, full-cycle-temperature, durability, electrical/energy, model-resolution and nutrition-regulatory inferences were removed; oil-care, disclosure-placement and permission wording were corrected. Exact pre-change text remains in Git. This is not a full-register or full-document re-verification."
 }

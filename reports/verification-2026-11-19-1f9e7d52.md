@@ -23,7 +23,7 @@ Workspace navigation group and the footer, rather than a permanent sidebar.
 This is a **scoped** primary-source re-read, not a claim that every line of all 45
 registered sources or every page of each manual was read again. Historical broad
 `accessed`/`reverified` stamps are retained. Specific reviewed sections are appended
-to `data/sources.json`; six substantially revised articles have their own source
+to `data/sources.json`; all 24 revised articles have their own source
 read and modification dates. Other guides retain their previous source dates.
 
 No account credentials, authorised Associates report, Search Console ownership,
@@ -90,7 +90,7 @@ ledger is empty. Uncertainty is **not** a finding that short links are invalid.
 - One canonical brand and reader sitemap; prior source generators stay read-only.
 - Conceptual AI scene is visibly labelled; no generated branded-product likeness
   is offered as evidence. Product photography remains a separate rights gate.
-- Six existing guide slugs revised; no duplicate query pages added. RSS is the
+- All 24 existing canonical guides revised after a full prose read; no duplicate query pages added. RSS is the
   actual reader-subscription mechanism, not a nonfunctional email form.
 
 ## Verification log
@@ -121,3 +121,50 @@ required a lease-protected update of this same session branch, not another branc
 No stale parallel PR was merged or closed and no historical generator was edited.
 
 **PR, merge and production deployment:** pending at this report revision.
+
+
+### Current-state reconciliation and deeper editorial audit
+
+Main advanced to `cb33d97` (completed pass 14, PRs #157–#158) during
+pull-before-push. Both coordination/source records were retained. Its flags
+F90–F95, SG-49/SG-50/Q-41, breadcrumb counts, flag-anchor consistency guard,
+sponsored destinations and exact-file requirement guard remain present. PUB-1
+findings were renumbered F96–F100; F101 is a later distinct source-gate repair.
+The overlapping presentation was replaced by the canonical publication template,
+not by deleting main's evidence or historical source generators.
+
+The original Suggestions effort/status fields and historical `implemented[]`
+were not a reliable current-state partition. Each current row now has a dated
+state and note; complete, superseded, partial, gated and open sum to the actual
+register size. This does not turn an old disabled client into deployed analytics
+or an old “done” label into confirmed product intent. Prior Q&A/prompt snapshots
+are preserved in data history, owner choices remain empty, and agent execution
+updates are labelled separately.
+
+All 24 existing guides were then read as prose and substantially rewritten using
+the named official-source scopes. Additional unsupported inferences were found:
+proportional food load from quart capacity, a low-temperature proofing claim for
+the Chefman dual basket, cooking/durability assertions, a 15-amp circuit assumption,
+exact energy cost from rated watts, a definite “hybrid listing” explanation, and a
+nutrition-regulatory classification. Those were removed, not assigned a citation
+they did not have. The 8 Qt aerosol caution was corrected from its own manual.
+Disclosure placement and conditional Amazon-content permission wording were also
+reconciled. The S12 product description was re-opened and its “98% less oil” phrase
+confirmed; it is treated only as a brand statement with no test method supplied
+alongside it, not as nutrition, health or measured performance evidence.
+
+A direct rendered-table audit found **27 rows** with no direct primary/repository
+source, despite the old gate passing. A generic Flagged link counted as a source,
+and a data row containing a `<th>` was skipped entirely. **F101:** the replacement
+requires a registered primary URL, an exact submitted resolver, or an existing
+exact-file record in this repository. It rejects arbitrary URLs on an official
+host, unrelated repositories and a generic flag/summary. Editorial/implementation
+rows now link their authoritative code/data record; they are not presented as
+Amazon facts. Link identity/coverage does not prove arbitrary prose true, so scoped
+reading remains necessary.
+
+At this checkpoint, build and verifier pass (58 canonical pages / 37 sitemap URLs /
+24 RSS items; 136 HTML pages / 77 spec rows / 45 sources / 0 errors). The expanded
+**43-test root suite passes**, including explicit source-gate/header bypass,
+state-partition, disclosure-order, asset-drift, unknown-date and known-correction
+regressions. Full browser/annex/CI/deployment results still follow.

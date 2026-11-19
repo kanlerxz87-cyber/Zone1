@@ -60,7 +60,7 @@ operating plan, not a deployed scheduler.
 
 ## Dates and verification
 
-Source-access dates and content modification dates are separate. Six revised
+Source-access dates and content modification dates are separate. All 24 revised
 articles explicitly record `modified_on` and scoped `sources_read` dates. The
 sitemap uses per-article dates; other redesigned reader routes use the publication
 modification date. Legacy source-access dates are not invented into publication

@@ -1,380 +1,121 @@
-# Zone1 — verified Amazon affiliate product intelligence
+# Zone1 Kitchen
 
-A working affiliate site and data layer for three Amazon air fryer listings. Every
-factual value is traced to an official source; anything that could not be confirmed is left
-blank and published on the **Flagged for review** page. The site opens with the buying
-decision and keeps the verification layer one click behind it.
+A source-led, buyer-first kitchen publication, generated without a runtime
+framework. The front page leads with formats, product questions and practical
+buying guides—not an audit dashboard.
 
-**Live site:** https://kanlerxz87-cyber.github.io/Zone1/
-**Start here as a buyer:** [`picks.html`](https://kanlerxz87-cyber.github.io/Zone1/picks.html) — three products, three jobs, one decision rule, and what one sale actually pays
-**Start here as the owner:** [`handover.html`](https://kanlerxz87-cyber.github.io/Zone1/handover.html) — five actions, about an hour, eighteen flags closed
-**Product intent & ledger:** [`product-intent.html`](https://kanlerxz87-cyber.github.io/Zone1/product-intent.html) — each supplied link with its intended product and observed target, kept apart; tracking ID status; empty campaign ledger
-**Strategy:** [`decisions.html`](https://kanlerxz87-cyber.github.io/Zone1/decisions.html) — niche scorecard, traffic plan, measurement plan, kill rule
-**Decision queue:** [`suggestions.html`](https://kanlerxz87-cyber.github.io/Zone1/suggestions.html) — review and choose before anything is built
-**Open questions:** [`questions.html`](https://kanlerxz87-cyber.github.io/Zone1/questions.html) — what must be answered first
-**Briefing:** [`EXECUTIVE-SUMMARY-PASS8.md`](EXECUTIVE-SUMMARY-PASS8.md) (pass 9 addendum at the end) · [`EXECUTIVE-SUMMARY-PASS9.md`](EXECUTIVE-SUMMARY-PASS9.md) (search plumbing and duplicate builds) · [`EXECUTIVE-SUMMARY-PASS9-42CA97AD.md`](EXECUTIVE-SUMMARY-PASS9-42CA97AD.md) (verification pass 9) · [`EXECUTIVE-SUMMARY.md`](EXECUTIVE-SUMMARY.md) §19 (design-coherence pass 12) · §20 (seasonal content pass) · §21/§22 (verification round 11 + RSS syndication passes) · §23 (marketing & decision-support pass, session arena/19d92a81) · §24 (pass 13: brand catalogues for the two new links — session arena/58cbaaa2) · §25 (pass 13: measurement client, four clusters, live evidence — session arena/79743fd2)
-**Today's live re-verification:** [`reports/verification-2026-11-17-79743fd2.md`](reports/verification-2026-11-17-79743fd2.md) (pass 13: links, policies, brand pages, live article read) · [`reports/verification-2026-11-17-4618f77b.md`](reports/verification-2026-11-17-4618f77b.md) (full source evidence pass) · [`reports/verification-2026-11-16-19d92a81.md`](reports/verification-2026-11-16-19d92a81.md) (marketing pass: short links, S15 manual, S26, line-by-line review) · [`reports/verification-2026-11-16-8874422b.md`](reports/verification-2026-11-16-8874422b.md) (second-reader spot re-read, this session) · [`reports/verification-2026-11-16-492acddc.md`](reports/verification-2026-11-16-492acddc.md) (pass 12: policies, commission table, FTC, brand pages + WCAG audit) · [`reports/verification-round11-2026-11-16.md`](reports/verification-round11-2026-11-16.md) (round 11, session 3dfe4b45) · [`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md) (full pass 10) · [`reports/verification-2026-11-15.md`](reports/verification-2026-11-15.md) (pass 9)
-## What is in here
+**Canonical site:** https://kanlerxz87-cyber.github.io/Zone1/
+**Current implementation / source review:** [PUB-1 report](reports/verification-2026-11-19-1f9e7d52.md)
+**Owner index:** [Executive summary](https://kanlerxz87-cyber.github.io/Zone1/executive-summary.html)
 
-| Path | What it is |
-|---|---|
-| `index.html` | **Buying guide landing page** — the decision, a sourced three-column spec table, computed coverage tiles, and the verification layer below the fold |
-| `picks.html` | **This week's picks** — a decision rule instead of a ranking, with the commission arithmetic and the table rows it came from |
-| `decisions.html` | **Decisions** — four niches scored on five criteria, six traffic channels with their prerequisites, six metrics, and a pre-committed kill rule |
-| `handover.html` | **Handover** — the five things only the account holder can do, each with the time it takes and the flags it closes |
-| `articles/` | **Twenty-one sourced articles (counted 2026-11-17)** — comparisons, explainers, feature and care walkthroughs, a source-forensics piece and two policy explainers, each filed into one of four reader-intent clusters (`data/clusters.json`). Every highlighted value in them must appear verbatim in `data/products.json` or the build fails. The set also ships as an RSS feed (`feed.xml`). |
-| `categories/` | Category pages (currently: kitchen appliances / air fryers) |
-| `products/` | One documentation-based review per product |
-| `compare.html` | Verified-only comparison matrix, gaps left visible |
-| `guides/` | Buying guide |
-| `previous-passes.html` | Catalogue of every older build in this repo, where each one disagrees with this one, and which is canonical |
-| `data.html` | Full specification register + source register |
-| `platform.html` | Automation blueprint, guardrails, KPIs, launch sequence |
-| `compliance.html` | 18 program/legal requirements, quoted, each with a source link — including the two that govern an AI-agent platform (IP License §4 Agent Terms and Participation Requirements §5) |
-| `flagged.html` | Every unverified value, source conflict and irregularity |
-| `suggestions.html` | **Decision queue** — 34 evidence-backed suggestions (SG-01..SG-35), each with alternative paths, effort, risk and a recommendation. SG-28 (RSS feed), SG-35 (four reader-intent clusters) and SG-08 (privacy-preserving click counter, shipped disabled) are implemented and carry dated state rows; SG-27/29/30 remain open owner decisions. |
-| `questions.html` | **Open questions** — 29 questions (Q-01..Q-29) split into known / discoverable / not-stated / account-only. Those an official source already settles carry their **answer** on the row; the rest say so plainly and name the step that would produce one. |
-| `clusters.html` | **Four reader-intent clusters** — Choose (7), Spec (6), Live with it (4), Trust & policy (4): a hub map of the whole article set, enforced one-to-one at build time by `check_clusters()`. |
-| `requirements.html` | **Every requirement in the brief, and whether this repository meets it** — 51 rows, each with a live status, the path that implements it and a source link. Added 2026-11-16 by session `ad8105b3`. |
-| `executive-summary.html` | One-page briefing |
-| `measurement.html` | **Measurement register** — what the shipped outbound-click counter records (EV-01..EV-04), the empty campaign ledger, the undeployed endpoint sources (`analytics/`), and the enablement procedure. The counter is committed but **off** until an endpoint is deployed. |
-| `reverification.html` | Line-by-line re-read of every published value (2026-11-14 pass), each row with its verdict and source link |
-| `session-81495d2d/EVIDENCE-2026-11-14.md` | Raw evidence behind that ledger: exact requests, exact responses, and what was not re-read |
-| `data/*.json` | The verified dataset the site is generated from |
-| `build.py` | Static site generator (stdlib only — no dependencies) |
-| `verify.py` | Build gate: broken links, missing disclosures, unsourced values |
-| `COORDINATION.md` | Shared task board, claim log and verification record |
+## Read the publication
 
-## Verification annex — `site/`
+- [Home](https://kanlerxz87-cyber.github.io/Zone1/): concise format/product cards,
+  useful buying questions and a November 2026 editorial notebook.
+- [Air fryers and ovens](https://kanlerxz87-cyber.github.io/Zone1/categories/kitchen-appliances.html),
+  [comparison](https://kanlerxz87-cyber.github.io/Zone1/compare.html) and three
+  documentation-based model guides.
+- [Thermometer link notes](https://kanlerxz87-cyber.github.io/Zone1/categories/thermometers.html):
+  both other submitted links are visible without inventing confirmed models,
+  accuracy, certification or intended ASINs.
+- [Buying guides](https://kanlerxz87-cyber.github.io/Zone1/articles/), arranged in
+  four reader-intent clusters. Existing canonical questions are refreshed rather
+  than duplicated. [RSS](https://kanlerxz87-cyber.github.io/Zone1/feed.xml) is the
+  working reader-subscription mechanism; there is no pretend email signup.
+- [Our approach](https://kanlerxz87-cyber.github.io/Zone1/about.html): honest
+  AI-assisted publication authorship, no invented human editor or hands-on tests,
+  imagery provenance, affiliate funding and current privacy boundaries.
 
-Several agent sessions worked this repository concurrently. The canonical site above is generated by
-`build.py` and served at the root URL. A second, independent build by session `1874bb64` is published
-as an annex at **[`site/`](site/index.html)** — https://kanlerxz87-cyber.github.io/Zone1/site/
+One native **Workspace** menu and a footer index contain the decisions, questions,
+source register, flags, requirements and technical blueprint. There is no audit
+sidebar on reader pages. The exact Associate disclosure sits **below the masthead,
+before main content**, and repeats in the footer. Every actual outbound Amazon
+product destination, including source citations, is qualified `sponsored`.
 
-It exists because the two builds verify different things, and neither overwrote the other. The annex
-does not modify the root site, its data or its scripts: it reads `data/verified/` and writes only
-inside `site/`.
+## Important boundaries
 
-| | Root site (`build.py`) | Annex (`site/`) |
-|---|---|---|
-| Generator | `build.py` | `scripts/build_site.py` |
-| Verifier | `verify.py` | `scripts/verify_site.py` (382 assertions) |
-| Data | `data/*.json` | `data/verified/*.json` |
-| Spec fields verified | 18/30 | 40/53 |
-| Compliance requirements | 16 | 20 |
-| Review items | 13 | 17 |
-| **Commission rate** | shown as two candidate rows, per-product mapping unverified | **Kitchen fixed 4.50%**, sourced to the published Table 1 |
-| Per-product model numbers | unmapped, flagged | mapped to manufacturer SKUs from the brands' own pages |
+The five original submitted URL strings are preserved in
+[`data/product-intent.json`](data/product-intent.json). Intended ASIN, official
+listing, confirmation date/source, observed redirect/title/date, and enrolled
+per-product test evidence are separate fields. The selected ID **shopnow047c-20**
+is recorded but **unvalidated and unapplied**. The operational tag stays blank.
+Uncertainty is not a conclusion that a short link is invalid; absence of a
+visible URL parameter proves neither successful nor failed attribution.
 
-```bash
-python3 scripts/build_site.py    # regenerate site/ from data/verified/
-python3 scripts/verify_site.py   # 382 assertions; exit 0 = all passed
+No authorised Amazon price/rating integration is configured. This is an
+implementation boundary, not a blanket claim that Amazon forbids every permitted
+Amazon-served/API display route. No price tracking, fabricated social proof,
+performance ranking, conversion score or revenue forecast is published.
+
+**Production analytics is off.** The actual browser client and Python/SQLite
+collector share a tested named-event contract. The four browser events are
+`page_view`, `outbound_click`, `article_engagement` and `comparison_interaction`;
+`affiliate_report_import` is operator-only. Tests use temporary synthetic data,
+never campaign traffic. Pages cannot execute this collector. A controlled
+same-origin runtime, infrastructure-log minimisation and privacy approval are
+required before enabling it. See [analytics/README.md](analytics/README.md).
+The authorised first-party campaign ledger remains empty.
+
+Source review is scoped and dated. A layout refresh is not a fresh verification
+of every historical value. **F96** records conflicting extension-cord instructions
+inside the Emeril manual; this site does not choose the permissive instruction.
+**F99** records content corrections; **F101** records the stricter direct-evidence
+row gate. The [public flag register](https://kanlerxz87-cyber.github.io/Zone1/flagged.html)
+links the primary sources and implementation evidence.
+
+## Build and test
+
+The canonical build uses only Python's standard library. Node 22 is needed for
+the actual-client integration tests; browser tooling is an optional development
+installation, not shipped to readers.
+
+```sh
+python3 build.py
+python3 verify.py
+python3 -m unittest discover -s tests -v
+bash scripts/ci-check.sh
+python3 research/check_research.py
+python3 scripts/verify_site.py
 ```
 
-Both verifiers run in CI (`.github/workflows/`). Earlier sessions reported the same three candidate ASINs from cache-busted fetches of the
-opaque `link.amazon` short links. **Correction (2026-11-14, F14–F16):** product identity is **not confirmed** —
-the bare 9-character codes return "Page Not Found", and both the short links and the plain ASIN URLs served
-Amazon's fallback-parameter form on re-check. Evidence: `reports/link-check-2026-11-14.md`. That cross-check remains useful on the
-project's most consequential fact — which listing each token points to — but it is an observation of a
-redirect, not a confirmed identity mapping. See `COORDINATION.md` and annex flag **F-16** for the
-relationship between the two sites.
+The generator reads:
 
-## Build
+- `data/products.json`, `data/articles.json`, `data/sources.json` and related
+  evidence/intent/decision registers;
+- `data/publication.json` for concise reader copy and the explicit operating plan;
+- `publication/layout.html.tpl`, `publication/theme.css` and `publication/site.js`;
+- `analytics/client.js` for the separately gated measurement asset.
 
-```bash
-python3 build.py     # regenerate every page from data/*.json
-python3 verify.py    # exit 0 = no broken links, no unsourced values, disclosure on every page
-```
+It writes the canonical HTML, local style/scripts, `robots.txt`, `sitemap.xml` and
+`feed.xml`. Committed generated output must be byte-reproducible. Every data table
+row—including rows with a row header—needs an actual registered primary-source
+URL, an exact submitted resolver, or an existing exact-file record in this
+repository. A generic flag link is context, not a source. That gate verifies
+coverage/link identity; scoped primary-source reading still establishes what a
+document actually supports.
 
-The presentation layer (pass 12, 2026-11-16, session 492acddc) is one coherent stylesheet
-emitted from `build.py`'s `CSS` block: warm paper palette anchored to the brand green
-`#245746`, serif display type, superscript-style source chips, sidebar grouped into
-Shop smart / Products / Trust & evidence / Owner workspace, compact primary nav in the
-topbar, deep-green footer. All 23 foreground/background pairs measure ≥ 4.5:1 (WCAG AA);
-the only imagery is three hand-drawn inline SVG format glyphs. The design directives and
-their live statuses are kept in [`data/design-prompt.json`](data/design-prompt.json)
-(rendered on `design-prompt.html`).
+Source-access dates are not article publication timestamps. Unknown RSS item
+publication dates are omitted; channel freshness uses a fixed real editorial
+update timestamp. The optional Search Console token remains blank without real
+ownership evidence. Neither sitemap submission nor rankings are assumed.
 
-`build.py` refuses to emit a page if a specification row has a value but no official source, if a
-fourth guard fires — the **banned-phrase** check that fails the build when editorial copy drifts
-back to stock marketing language ("in today's fast-paced world", "elevate your", "game-changer")
-or claims first-hand experience—, or if the commission arithmetic in `data/decision.json` no longer
-matches the official rate table. It also refuses
-if any page is missing the required Amazon Associates disclosure statement, or if an article states
-a number that is not a value published in `data/products.json`, or cites a source id that is not in
-`data/sources.json`. The article guard rejected 18 paraphrased values while the article set was being
-written, which is the point of having it.
+For assets, licences, responsive/no-JavaScript behaviour and editorial limits see
+[publication/README.md](publication/README.md). For the current reviewable choices
+see [Suggestions](https://kanlerxz87-cyber.github.io/Zone1/suggestions.html) and
+[known/missing/answer/discovery questions](https://kanlerxz87-cyber.github.io/Zone1/questions.html).
+Agent execution history is separate from actual owner choices.
 
-## The verification rule
+## Historical builds and coordination
 
-A value is published only if an **official** source states it:
+`site/`, `s2/`, `research/`, `dashboard/`, `docs/`, `annex-*` and `session-*` contain
+independent earlier work. Their source generators remain read-only during this
+integration. The root publication is canonical; the
+[historical catalogue](https://kanlerxz87-cyber.github.io/Zone1/previous-passes.html)
+explains disagreements instead of presenting multiple current shops. Their
+reproducibility/audit gates still run.
 
-- Amazon.com for Amazon program facts and for which ASIN a short link resolves to
-- A US government source (FTC, eCFR) for US law
-- The manufacturer for product specifications — its own product page or its own owner's manual
-
-Retailer listings, reseller marketplaces, review aggregators and affiliate blogs are **not**
-sources. Several of them contradicted each other, and the official rate table, on the day of
-verification.
-
-Values that fail the rule are stored as `null` with a written reason, render as
-"— not confirmed —", and are listed on `flagged.html`. Nothing is inferred.
-
-## Compliance notes
-
-No Amazon price, availability, star rating or customer review appears anywhere on the site.
-Amazon's Program Policies §2(b) permit price/availability display only when Amazon serves the
-link or when the data comes from Creators/PA API, and §6(t) restricts customer reviews and
-star ratings to API-served content. The IP License §2(e) additionally forbids aggregating,
-analysing or repurposing Program Content, and forbids using it to train models.
-
-The disclosure statement required by Operating Agreement §5 — *"As an Amazon Associate I earn
-from qualifying purchases."* — is generated into every page by `build.py`.
-
-See `compliance.html` for all 16 requirements with quoted source text.
-
-## Deploy
-
-GitHub Pages, branch `main`, root directory. The workflow at
-`.github/workflows/pages.yml` rebuilds the site, runs `verify.py`, and fails the deploy if
-verification fails.
-
-The full AI platform in the brief needs Amazon Creators API / PA-API credentials, Associates account data and an analytics account.
-None are available to this session, and building those features without them would mean inventing data. See flag F11.
-
-## `research/` — deep-dive research section (session `8a2ddd06`)
-
-Two sessions worked this repository in parallel from the same base commit and both claimed the same scope;
-see the integration record at the bottom of [COORDINATION.md](COORDINATION.md). The published dashboard in
-`docs/` is session `d14c5409`'s build. Session `8a2ddd06`'s independent work is published as an additive
-section at **`/research/`** and is linked from the main navigation as "Deep-dive research ↗".
-
-What the research section adds:
-
-- a 90-field product table (30 fields per SKU) where every field is `{value, source, verified}`
-- a 24-source register including the manufacturers' own product pages (chefman.com, emerileveryday.com),
-  Associates Central policy documents with their *Updated* dates, 16 CFR Part 255, 16 CFR Part 465 and the
-  FTC Endorsement Guides
-- a 23-row compliance matrix with **verbatim quotations** and the section number for each requirement
-- a 17-item flag register (`I-1`–`I-17`) with root-cause detail for each item
-- a transparent scoring model, a content plan, and a 10-step automation pipeline with a compliance control
-  attached to every step
-- three source-linked articles (a buying guide and two comparisons) that claim no hands-on testing
-
-Build and verify it independently:
-
-```bash
-python3 research/build_research.py     # regenerate research/*.html
-python3 research/check_research.py     # 774 checks; exits non-zero on any failure
-node scripts/build.mjs --check         # validator for the retired docs/ build — currently FAILS
-                                       # against the shared data schema (see flag F23); no CI workflow uses it
-```
-
-Neither generator touches the other's files. The only cross-file dependency is the nav entry in
-`scripts/build.mjs` and the output-existence check that keeps that nav entry from rotting.
-
-
----
-
-## Third build — `session-3740f69d/`
-
-An independent build by session `arena-3740f69d`, published at
-**[`session-3740f69d/index.html`](session-3740f69d/index.html)** (URL path `/session-3740f69d/`). It contributes a
-dashboard-style site with subpages by category (Products, Analysis, Niches, Content, Links, Tracking, Platform,
-Compliance, Flagged, Sources), a marketing-content set (buying guide + comparison + per-product copy), and its own
-machine-readable registry in `session-3740f69d/data/`. Like the other builds, every table row carries an official
-source link or a policy-cited blank. Independent highlights: cache-busted double resolution of the three short links;
-the 2026 IP License §4 **Agent Terms** analysis for AI automation; link-policy mapping (§6(v)(w)) for the supplied
-`link.amazon` links; verified Commission Table 1 candidates (Kitchen 4.50% / All Other 4.00%) with the per-product
-mapping left flagged. Full record: `COORDINATION.md` → *Integration pass 3*.
-
-
----
-
-## Fifth pass — independent re-verification, 2026-11-14 (`sess-81495d2d`)
-
-Every value the root site publishes was re-read against the official source the site cites for it — the
-manufacturer's own product page, its own owner's manual PDF, Amazon Associates Central, and the eCFR — and the
-result is published as a ledger: **`reverification.html`** (61 rows: claim, value as published, what the source said
-on the day, verdict, source link). Raw evidence and the two control requests are in
-`session-81495d2d/EVIDENCE-2026-11-14.md`.
-
-What the pass changed:
-
-* **The link-resolution dispute is closed on the evidence.** Four sessions over two days, each with a fresh Amazon
-  session id, obtained the same three ASINs (`B0CDY277D3`, `B09B7SB46R`, `B08DKYBTPH`), and a nonsense-token control
-  returns **403** instead of a shuffled product. The "resolves to a different featured item on each request" clause
-  raised by an earlier pass is retired. What remains open is narrower and is still flagged: the tokens are not ASINs
-  (9 characters), every landing URL carries `plpRedirect=mhFallback`, and the Associates tag inside the link cannot
-  be observed from outside Associates Central.
-* **Two blank rows are now filled.** The Chefman 8 Qt `Wattage` and `Dimensions / weight` rows were blank with the
-  reason "not stated on the brand product page". The manufacturer's own Specifications block states
-  `Power: 1700W/120V`, `(8 Qt Model) 15.4 in x 12.6 in x 13.5 in` and `(8 Qt Model) 12.8 lbs / 5.8 kg`, so both rows
-  now carry values sourced to that page (verified spec rows: 40 → 42 of 43).
-* **Volatile figures are stamped.** Brand-hosted review counts moved in 24 hours (1,302 → 1,305 and 715 → 716)
-  while the averages held at 4.6. New flag F14 records why every rating on this site must carry its read date.
-* **The conflicts are still conflicts.** Chefman 8 Qt: Amazon title says "450°F Hi-Fry … Bake, Dehydrate, Frozen",
-  brand page says "Max temp: 400ºF/ 205ºC / 200–400°F". Emeril 26QT: **10-in-1**, **11-in-1** (a carousel asset's own
-  filename), **24 cooking functions** (Amazon title) and **25 Cooking Pre-sets** (brand spec block) all appear on
-  official pages on the same day. The site asserts none of them.
-* **Stale build artefacts corrected:** root navigation now reaches all six published builds (it previously exposed
-  three); the executive summary's hand-typed "12 sources / 9 flags" and its hand-typed commission table are computed
-  from `data/*.json`; the Flagged page's "this build is the first verification pass" line is replaced by a real
-  resolved-items table.
-
-```bash
-python3 build.py                 # regenerate every page, including reverification.html
-python3 verify.py                # 0 errors = no broken link, no unsourced value, disclosure everywhere
-```
-
-
----
-
-## Pass 7 — 2026-11-14 (`arena/6b2eddeb`)
-
-An independent pass that re-fetched its own sources rather than trusting the recorded ones. Raw
-evidence: [`session-6b2eddeb/EVIDENCE-2026-11-14.md`](session-6b2eddeb/EVIDENCE-2026-11-14.md).
-
-**No published value was found to be wrong.** All three supplied short links resolved to the same
-three ASINs with titles matching the stored strings character for character; the Associates Program
-Policies section map, the full Standard Commission Income Statement and all three manufacturer
-product pages were re-read live and matched the dataset.
-
-Four new findings, all published on [`flagged.html`](flagged.html):
-
-* **F32 — Chefman publishes three 6-quart dual-basket SKUs, not two.** `RJ38-3DBW-V2` (90–400 °F,
-  five functions), `RJ38-SQPF-3TDB-2` and `RJ38-SQPF-3TDB-2W` (200–450 °F, Hi-Fry). The root site
-  maps the 6 Qt ASIN to `-2W` on the `Hi-Fry` wording; two other builds in this repo map the same
-  ASIN to `RJ38-3DBW-V2` with no caveat.
-* **F33 — the 8 Qt "450 °F conflict" is probably two different SKUs.** Chefman's `RJ38-8T-BLACK`
-  documents 450 °F Hi-Fry and exactly the four functions named in the Amazon listing title, while
-  the currently mapped `RJ38-SQSS-8T` documents 200–400 °F. This narrows flag F3 sharply without
-  resolving it.
-* **F34** — the older `EXECUTIVE_SUMMARY.md` still asserts two things this pass disproved.
-* **F35** — nine published sites for the same three products disagree. The sidebar was reduced from
-  six parallel-build entries to one; `previous-passes.html` now catalogues every build and names
-  each divergence.
-
-The highest-value action for the account holder is unchanged and now more specific: open the three
-listings, read the model number in each one's product-information block, and settle F32 and F33.
-
----
-
-## Pass 10 — 2026-11-16 (`arena/9fccce0c-zone1`)
-
-A tenth independent re-read of the same source register, run because the register is made of
-values that move and because the last several passes each found something. It found three
-things, and all three are fixed:
-
-* **The clauses that govern the brief were missing from the canonical register.** The Program
-  Policies page carries **IP License §4 ("Agents" / the Agent Terms)** and **Participation
-  Requirements §5** — written for exactly the case this project is, an AI-powered affiliate
-  platform that automates research. Read verbatim on 2026-11-16 and now published as compliance
-  requirements **C17** and **C18** and platform guardrail **G11**. The scope question they raise
-  (does an ordinary public listing page count as Program Content, and what must the agent call
-  itself?) is published as **Q-21** and **SG-22** rather than answered by inference, and the
-  limit of what could be read is published as **F62**. The two defects are published as
-  **F61** and **F62**.
-* **Three published pages pointed at a flag that exists in no register.** `data/questions.json`,
-  `data/suggestions.json` and `data/sources.json` all sent readers to "flag F46"; there is no
-  F46 in either register in this repository. The pointers now name **F56**, and a new build guard
-  (`check_register_cross_references()`) fails the build if any generated page cites a flag,
-  source, question or suggestion id that does not exist. The guard was proven to fire on an
-  injected violation.
-* **The carried-forward Application Review figures are now read from the source**, which closes
-  **F56** and gives **Q-19** its answer, and the two volatile Chefman review counters had moved
-  again (1,307 and 717) and were refreshed with all three read dates kept.
-
-Two independent sessions verified sources on 2026-11-16 and both records are kept:
-`reports/verification-2026-11-16.md` (session `c334fb1c`, the three short links, the policy
-date and the live landing page) and `reports/verification-2026-11-16-9fccce0c.md` (this
-session, the full register). Neither replaces the other; the site publishes both ledgers.
-
-No published value was found wrong. Full evidence, row by row: **[`reports/verification-2026-11-16-9fccce0c.md`](reports/verification-2026-11-16-9fccce0c.md)**;
-the same ledger rendered on the site at
-[`reverification.html`](https://kanlerxz87-cyber.github.io/Zone1/reverification.html).
-
-## Pass 12 (session `arena/8874422b-zone1`) — RSS syndication, article masthead, second-reader re-read (2026-11-16)
-
-This session claimed the marketing-design polish pass; while it worked, the design-coherence pass
-(session `492acddc`, §19 of the executive summary), the seasonal content pass (session
-`a746a9f2`, §20), verification round 11 (session `b23f12f0`) and the pass-11 decision closure
-(session `ba29c641`) merged their own reader strip, single-era stylesheet, nineteen-article set
-and direct reads of all three listings' Product information blocks.
-Rather than ship two competing design systems, this branch **rebased onto their result, adopted it
-as the canonical design, and contributed the additive pieces the merged tree still lacked** — no
-published value, register row or wording changed anywhere:
-
-* **RSS feed.** `feed.xml` (19 items) is generated deterministically from `data/articles.json`
-  (pubDate derives from the register's own accessed date, so the reproducibility gate holds) and
-  linked from every page head, the articles index and the footer. Shipped as **SG-28**; the
-  owner-only Search Console step is **SG-29**; the keep-the-no-cookie-posture decision is
-  **SG-30**; a review of the shipped shopper-strip labels is **SG-27**.
-* **Article masthead.** Articles open with a kicker/headline/standfirst block and a meta row
-  (kind · reading time · sources-read date · "documentation-based — no hands-on testing" badge),
-  styled in the shipped stylesheet's own vocabulary.
-* **Footer brand column** naming the publisher and the feed; `theme-color` meta.
-* **Second-reader spot re-read.** The three `link.amazon` short links (same three `/dp/`
-  destinations through the same fallback-style redirects), both Chefman counters (1,307 / 717 —
-  unchanged), the Emeril preset conflict (re-confirmed live on one page) and the Program Policies
-  stamp (April 14, 2026 — unchanged). Evidence:
-  **[`reports/verification-2026-11-16-8874422b.md`](reports/verification-2026-11-16-8874422b.md)**;
-  ledger rendered at
-  [`reverification.html`](https://kanlerxz87-cyber.github.io/Zone1/reverification.html).
-  F1/F2/F3, F4/F5 and F46 stand as published.
-
-Gates on the final rebased tree: `build.py` exit 0 (48 pages, 47 sitemap URLs + feed.xml, 19
-items) · `verify.py` 127 pages, 77 spec rows (75 verified / 2 blank+flagged), 0 errors ·
-`ci-check.sh` green (8,287 links / 0 broken) · `verify_site.py` 393 assertions PASSED ·
-research checks OK · platform audit PASSED · two consecutive builds byte-identical.
-
----
-
-## Pass 13 (session `arena/58cbaaa2-zone1`) — two brand catalogues, one reasoning correction, and a pass that deleted its own work twice (2026-11-17)
-
-**What the brief added.** Two further `link.amazon` links (`B0c8moW59`, `B0f3GKalj`), the selected
-tracking ID `shopnow047c-20`, and the instruction to build click/conversion measurement first while
-publishing no conversion score or revenue forecast.
-
-**What landed.** Four official sources `S39–S42` — CHEF iQ's iQ Sense page, ThermoMaven's site, and the
-two tracking-ID help nodes reachable from `S6` — plus the brand-catalogue check on the two rows the new
-links created, rendered on `product-intent.html` from the register rather than typed into the template.
-Neither candidate listing reconciles with its manufacturer's own model names (**F80**): the observed
-"1 Sec" ThermoMaven title is not a brand model line (their instant-read line is F1 Pro / F1 Turbo), and
-the observed CHEF iQ listing omits the CQ60-3C-Z3-E designation the brand states. Consistent with, not
-confirmed by — so the intended fields stay null and no product page is written for either. The decision
-itself is now a queue row with three named paths (**SG-36** / **Q-27**).
-
-**The correction.** **F81.** Passes including this one cited the absence of a visible `tag=` parameter on
-a landing URL beside their caution about attribution. Amazon's own node (S41) says a tracking ID "is not
-necessary … to appear in order for us to track sales made after the initial click through", so a clean
-landing URL is a null observation, not a negative one, and cannot fill the per-row
-`associates_link_test_*` fields. Where the confirmation actually lives — the Tracking ID Summary Report,
-the screen that creates IDs, and the 100-per-account limit — is registered as S42 and written into the
-owner's five-minute path (**SG-37** / **Q-28**). The dated rows are left as written; the inference is
-corrected where it is drawn in the present tense.
-
-**A count, again.** **F82.** The category lede still said "The three supplied links were observed
-landing…" in the present tense, two days after the register grew to five — main's own F77/F79 class, one
-step up: every value inside the sentence was correct and no gate read the narrative. It now computes its
-numbers from `len(rows)` and the register's `observed_listing_category`, and
-`check_submitted_link_count()` fails the build on a mismatch, scoped to the present-tense surfaces so it
-cannot be satisfied by rewriting a dated row. Both directions proven; the guard's first version matched
-nothing, which is why the negative test is part of the row.
-
-**Why this PR is smaller than the session.** The pass built a parallel intent register, a parallel
-measurement register, a special-link gate, four flags and a browser click counter on base `9c6e3f0`, then
-fetched — twice. By the time it merged, `arena/5b17c077` had consolidated three intent records into
-`data/product-intent.json`, and `arena/c55fa0d8` had made the collection posture a tested contract:
-`associate_tag` blank, `analytics/collector.py` fail-closed and undeployed, footer stating that browser
-collection stays disabled. Shipping the counter would have overwritten that decision, so it was withdrawn
-and offered instead as **SG-38** with all three paths. The superseded draft, its full diff and a
-row-by-row account of what was dropped and why are published at
-[`session-58cbaaa2/artifacts/`](session-58cbaaa2/artifacts/README.md); the evidence record for what did
-land is [`reports/verification-2026-11-17-58cbaaa2.md`](reports/verification-2026-11-17-58cbaaa2.md).
-
-Gates on the landed tree: `build.py` exit 0 (52 pages, 31 sitemap URLs, 21 feed items; two consecutive
-builds byte-identical; rebuild leaves the working tree clean) · `verify.py` 130 pages, 77 spec rows
-(75 verified / 2 blank+flagged), 42 sources, 0 errors · `ci-check.sh` 33 platform tests, audit clean,
-s2 annex current, 9,585 links / 0 broken · `python3 -m unittest discover -s tests` 17 tests OK, including
-the intent/analytics contract · `verify_site.py` 393 assertions PASSED · research checks 834 OK.
+Read [COORDINATION.md](COORDINATION.md) before working. It records claims,
+keep-both integration incidents, exact checks, PR/merge/deployment evidence and
+completion. The previous README and historical briefings remain in Git history;
+the dated appendices in [EXECUTIVE-SUMMARY.md](EXECUTIVE-SUMMARY.md) are not current
+account or campaign evidence.

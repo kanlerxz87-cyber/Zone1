@@ -1,3 +1,88 @@
+# Zone1 Kitchen — current publication brief
+
+**As of 2026-11-19 UTC · PUB-1 · `arena/1f9e7d52-zone1`**
+
+The canonical site is a buyer-first kitchen publication: useful format/product
+cards, model guides, a source-linked comparison, question-led articles and one
+modest seasonal notebook. One native Workspace menu and the footer contain the
+owner/evidence pages. The required disclosure is immediately below the masthead,
+above main, and repeated in the footer. Every real outbound Amazon product anchor
+is sponsored, including source citations.
+
+The publication byline openly identifies AI-assisted document research. No human
+editor, ownership, cooking experience, customer quote or test result is invented.
+The conceptual kitchen image is visibly labelled AI-generated and is not a
+specific-product photograph. Local fonts carry their included OFL licences.
+
+## What is delivered
+
+- Three documentation-based air-fryer/oven guides and a concise comparison.
+- All five exact submitted links preserved. The other two have an honest
+  thermometer-note shelf, not fabricated model specifications.
+- All 24 existing canonical articles read as prose and substantially revised
+  within named primary-source scopes. No duplicate article slugs added.
+- RSS, canonical metadata, appropriate reader/workspace indexing, sitemap/feed
+  regeneration and per-guide modification dates. Source access is not invented
+  into a publication timestamp.
+- A reviewable Suggestions register with mutually exclusive current states,
+  reconciled questions/answers/discovery steps, and a current design/editorial
+  brief. Historical proposals and execution records remain distinguishable.
+- Repaired browser/collector interoperability and fail-closed deployment gates.
+  Actual client payloads reach the real collector in isolated synthetic tests.
+  This is code verification, **not production collection**.
+
+## What stays unconfirmed
+
+**shopnow047c-20 is selected, not validated or applied.** The active tag is blank.
+Every intended ASIN/listing confirmation and enrolled test remains unconfirmed.
+Dated redirect observations do not establish intent; a missing visible tag proves
+neither attribution nor failure. Confirm one intended Special Link per product
+through the permitted enrolled workflow and authorised reporting before scaling.
+
+The campaign ledger is empty. No eligible production sessions, authorised orders,
+conversions, revenue forecast or conversion score is fabricated. Pages cannot run
+the Python collector; runtime, same-origin routing, infrastructure-log review and
+privacy approval are separate gates. Search Console ownership/query data and
+licensed Amazon-content integrations are also not invented.
+
+## Corrections that matter
+
+- **F96 open:** the Emeril manual says never use an extension cord in one section
+  and conditionally permits it later. The site does not choose the permissive
+  instruction. Seek current manufacturer clarification for the exact unit.
+- **F97 repaired:** the old browser/collector protocols did not interoperate;
+  isolated tests had passed without exercising their connection.
+- **F98 repaired:** privacy wording now distinguishes no publisher analytics,
+  host security IP logs and browser-only decision drafts.
+- **F99 repaired:** care/capacity/dimension mistakes and unsupported serving,
+  cooking/durability, energy/circuit, guessed-model and nutrition-regulatory
+  inferences were removed from the reader copy.
+- **F100 boundary:** no account/runtime/first-party evidence is invented.
+- **F101 repaired:** generic Flagged links and table row-header cells no longer
+  bypass direct primary/repository evidence coverage.
+
+The cadence is a recorded operating plan: weekly source review and at most one
+useful new/substantially refreshed guide per fortnight, only after evidence/build
+checks. It is not an unattended scheduler or a promise of traffic.
+
+**Evidence and current check/deployment status:**
+[dated scoped report](reports/verification-2026-11-19-1f9e7d52.md),
+[current HTML executive index](https://kanlerxz87-cyber.github.io/Zone1/executive-summary.html),
+[public flags](https://kanlerxz87-cyber.github.io/Zone1/flagged.html).
+The report records checks after execution and does not anticipate a merge or
+production deployment.
+
+---
+
+# Historical appendices — preserved, not current facts
+
+The material below was compiled by earlier sessions. Its old counts, geography,
+commission arithmetic, feature claims and present-tense statements are dated
+history, **not** the current product-intent, account, measurement, legal or
+publication state. The current summary above, the linked registers and the dated
+PUB-1 report take precedence. Nothing below is deleted or silently recast as a
+fresh read.
+
 # Executive summary — Zone1 Amazon affiliate platform
 
 > **Historical briefing, superseded for the 2026-11-17 link-intent and measurement status.** Use [`data/product-intent.json`](data/product-intent.json), [`data/analytics-plan.json`](data/analytics-plan.json), and [`reports/brief-reconciliation-2026-11-17.md`](reports/brief-reconciliation-2026-11-17.md) for the current record. The five submitted URLs, observed destinations and owner-confirmed intent must remain separate; no intended listing or Associates attribution is confirmed by this historical summary.

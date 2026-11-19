@@ -1,7 +1,7 @@
 {
   "version": "1.1",
   "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped); SG-36..SG-38 and path P6 by arena/58cbaaa2 (2026-11-17) — written twice, and shortened the second time: the first draft's parallel intent register, measurement register and flags were dropped when main's merged registers and collection-disabled contract were found. The withdrawn draft is published at session-58cbaaa2/artifacts/. | pass 13 shopfront + decision desk (arena/fd9778a1-zone1): SG-39…SG-48, path P7, numbered after the merged 2026-11-17 rows so no id collides.",
-  "compiled": "2026-11-17",
+  "compiled": "2026-11-19",
   "how_to_read": [
     "This is a decision queue, not a changelog. Rows the build's decision desk counts as implemented were shipped in the canonical root build under the standing pre-authorisation rule and are recorded, row by row, in data/decision-log.json; everything else is a proposal awaiting a path from you.",
     "Each suggestion names the problem it fixes, the official document or repository evidence behind it, two or more paths you could take, and which path this pass would pick and why.",
@@ -71,7 +71,20 @@
         "Q-01",
         "Q-02"
       ],
-      "resolved_on": "2026-11-16"
+      "resolved_on": "2026-11-16",
+      "current_state": "gated",
+      "current_note": "All five intended ASIN/listing confirmations remain blank. Dated resolver observations and model conflicts are separate; no identity was inferred.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-02",
@@ -127,6 +140,19 @@
       "blocked_by": [
         "Q-03",
         "Q-04"
+      ],
+      "current_state": "gated",
+      "current_note": "shopnow047c-20 is selected, not validated or applied. Positive attribution needs the enrolled account workflow and a dated permitted report, not a visible URL parameter.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -180,6 +206,19 @@
       "blocks": [],
       "blocked_by": [
         "Q-09"
+      ],
+      "current_state": "complete",
+      "current_note": "Publication bylines and About now disclose AI-assisted document research. No named human editor, ownership, independence from affiliate incentives or hands-on experience is invented.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -233,6 +272,19 @@
       "blocks": [],
       "blocked_by": [
         "Q-01"
+      ],
+      "current_state": "complete",
+      "current_note": "The canonical front page is a publication with short format/product cards, buying questions and a seasonal feature. Evidence work is in one Workspace group and the footer.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -286,6 +338,19 @@
       "blocks": [],
       "blocked_by": [
         "Q-07"
+      ],
+      "current_state": "partial",
+      "current_note": "The root publication alone owns the canonical sitemap and brand. Historical builds are labelled/cross-linked as archives; their original generators are preserved. Full annex redirects or removal are not performed.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -340,6 +405,19 @@
       "blocked_by": [
         "Q-05",
         "Q-06"
+      ],
+      "current_state": "gated",
+      "current_note": "No Amazon price/rating integration is configured. S2 allows specified Amazon-served/API routes; the current absence is not a universal programme ban.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -387,7 +465,20 @@
       "effort": "S",
       "risk_of_not_doing": "High. Price tracking is the most commonly requested affiliate feature and the most clearly prohibited one here.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "complete",
+      "current_note": "No price tracking, alerts or simulated deal badges ship. This is the safe current implementation, not a claim that Amazon could never authorise another route.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-08",
@@ -449,7 +540,20 @@
       "blocked_by": [
         "Q-08"
       ],
-      "resolved_on": "2026-11-17"
+      "resolved_on": "2026-11-17",
+      "current_state": "partial",
+      "current_note": "The actual named-event client now interoperates with the aggregate Python collector in synthetic HTTP tests. Legacy raw-event sinks are retired. Collection is disabled; production hosting/privacy approval are missing.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-09",
@@ -502,6 +606,19 @@
       "blocks": [],
       "blocked_by": [
         "Q-10"
+      ],
+      "current_state": "partial",
+      "current_note": "Four intent clusters and canonical guides exist. Improve the existing question before creating another page. No Search Console demand/query export exists to validate topic priorities.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -551,6 +668,19 @@
       "blocks": [],
       "blocked_by": [
         "Q-11"
+      ],
+      "current_state": "gated",
+      "current_note": "Observed browse paths do not establish settlement-time commission categories. Product-specific commission and actual earnings remain unconfirmed until authorised reports exist.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -602,6 +732,19 @@
       ],
       "blocked_by": [
         "Q-03"
+      ],
+      "current_state": "gated",
+      "current_note": "Public application criteria are not the account’s approval status. No account status, review-window date or qualifying-order count is available.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -649,7 +792,20 @@
       "effort": "S",
       "risk_of_not_doing": "Low commercially, high for credibility - the page promises exact citations.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "partial",
+      "current_note": "Canonical flag IDs and flag-label/anchor consistency are build-checked. Pass-14 F90–F95 were retained and this session uses F96–F100. Historical annex collisions are labelled, not silently renumbered.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-13",
@@ -693,7 +849,20 @@
       "effort": "S",
       "risk_of_not_doing": "Low. Opportunity cost.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "complete",
+      "current_note": "Public flags and the dated verification report record corrections and remaining questions. Source-read scope is explicit rather than a blanket fresh-verification claim.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-14",
@@ -746,6 +915,19 @@
       "blocks": [],
       "blocked_by": [
         "Q-09"
+      ],
+      "current_state": "partial",
+      "current_note": "AI-assisted research is disclosed and claims/source/link/build checks run. There is no unattended writer or invented human sign-off; a future draft must pass the same checks.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -799,6 +981,19 @@
       "blocks": [],
       "blocked_by": [
         "Q-06"
+      ],
+      "current_state": "partial",
+      "current_note": "Capacity, care, footprint, caveats and an honest decision rule now lead product pages. Missing intended identity, authorised Amazon review data and hands-on results remain missing.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -845,6 +1040,19 @@
       "blocks": [],
       "blocked_by": [
         "Q-07"
+      ],
+      "current_state": "complete",
+      "current_note": "The chosen canonical publication remains the existing /Zone1/ Pages URL. No domain purchase or ownership claim was needed or made.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -905,7 +1113,20 @@
       "risk_of_not_doing": "Nine near-identical copies compete for the same queries while the canonical build carries the only complete verification layer, and at least one published copy shows prices the maintained build refuses to display.",
       "blocks": [],
       "blocked_by": [],
-      "confidence_note": "high on the duplicate-content and price-display defect; medium on how much the canonical tags alone recover in search"
+      "confidence_note": "high on the duplicate-content and price-display defect; medium on how much the canonical tags alone recover in search",
+      "current_state": "partial",
+      "current_note": "The navigation treats the old builds as historical evidence, not competing reader destinations. Their source generators stay read-only; this does not assert that external search engines removed old URLs.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-18",
@@ -952,7 +1173,20 @@
       "effort": "L",
       "risk_of_not_doing": "High. A pipeline built on scraped listing content that later turns out to be the prohibited use means discarding the pipeline, and potentially the account, at the point where the most has been spent.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "partial",
+      "current_note": "The platform defines permitted source/data boundaries and gated modules. No authorised Amazon-content analysis, autonomous network research agent or ongoing production optimiser is claimed.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-19",
@@ -999,7 +1233,20 @@
       "effort": "M",
       "risk_of_not_doing": "Medium. The failure is slow and invisible: a manufacturer revises a specification, the site keeps publishing the old one, and the first person to notice is a reader.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "partial",
+      "current_note": "Scoped source-read records and per-guide modification dates are recorded. A weekly source-review plan exists, not an automatic refresh job or proof that every historical row is fresh.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-20",
@@ -1048,6 +1295,19 @@
       "blocks": [],
       "blocked_by": [
         "Q-01"
+      ],
+      "current_state": "partial",
+      "current_note": "Coverage now acknowledges all five submitted links: three documented appliance guides and two explicitly unconfirmed thermometer notes. Expansion into a verified thermometer dataset still needs exact identity and source evidence.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -1095,7 +1355,20 @@
       "effort": "S",
       "risk_of_not_doing": "Medium. Nothing breaks and no rule is breached; the site simply fails to get credit for the thing it does better than a typical affiliate page.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "complete",
+      "current_note": "The model/link caveat is visible on every product route and beside each main outbound CTA; comparison and thermometer notes keep the same distinction.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-22",
@@ -1146,7 +1419,20 @@
       "effort": "S",
       "risk_of_not_doing": "High, and rising. The site currently makes no automated request against an Amazon listing page in its build; the moment a research agent is switched on, the Agent Terms apply, and an agent that does not identify itself is outside the licence. The cost of doing this later is a rewrite of the fetcher rather than a header change.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "partial",
+      "current_note": "No unattended Amazon research agent is deployed. Any future automated request must satisfy the current Agent Terms, access/identity requirements and the source’s permissions; a browser fetch is not account authorisation.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-23",
@@ -1195,6 +1481,19 @@
       "blocks": [],
       "blocked_by": [
         "Q-22"
+      ],
+      "current_state": "partial",
+      "current_note": "A labelled conceptual AI kitchen scene and original format diagrams ship with provenance. No specific product photograph is copied or invented; original/licensed actual product imagery remains gated.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -1244,6 +1543,19 @@
       "blocks": [],
       "blocked_by": [
         "Q-23"
+      ],
+      "current_state": "complete",
+      "current_note": "Existing gift and sale-checking guides are featured as the November 2026 editorial notebook. No demand, popularity, live deal or discount is claimed.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -1297,6 +1609,19 @@
       "blocks": [],
       "blocked_by": [
         "Q-04"
+      ],
+      "current_state": "complete",
+      "current_note": "Product CTAs name Amazon, carry sponsored/nofollow/noopener, and repeat the unconfirmed intended-listing/attribution note. All five submitted URL strings are preserved.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -1345,7 +1670,20 @@
       "risk_of_not_doing": "Low. The evidence all exists; the cost is the owner's time spent re-deriving priorities from a register that already contains them.",
       "blocks": [],
       "blocked_by": [],
-      "resolved_on": "2026-11-16"
+      "resolved_on": "2026-11-16",
+      "current_state": "complete",
+      "current_note": "The decision brief and state counts come from current register data. Historical proposals/options remain reviewable without masquerading as unfinished current work.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-27",
@@ -1385,7 +1723,20 @@
       "effort": "S",
       "risk_of_not_doing": "The site keeps presenting a compliance workbench to shoppers; bounce from search visitors stays unmeasured but structural.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "complete",
+      "current_note": "Four simple reader links and one native Workspace menu replace sidebar/dashboard navigation. Every desk page is reachable in that group and in the footer index.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-28",
@@ -1426,7 +1777,20 @@
       "risk_of_not_doing": "Readers who would follow the set have no mechanism to; discovery stays purely search-driven.",
       "blocks": [],
       "blocked_by": [],
-      "resolved_on": "2026-11-17"
+      "resolved_on": "2026-11-17",
+      "current_state": "complete",
+      "current_note": "RSS ships from the article register and is linked in the masthead metadata, footer and reader subscription bands. Unknown item publication dates are not invented from source-read dates.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-29",
@@ -1468,6 +1832,19 @@
       "blocks": [],
       "blocked_by": [
         "Q-03"
+      ],
+      "current_state": "gated",
+      "current_note": "Sitemap/feed/canonical metadata ship. Search Console ownership, token, sitemap submission and first-party search data remain unverified; no credentials or property approval are invented.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -1508,7 +1885,20 @@
       "effort": "—",
       "risk_of_not_doing": "Someone ships an embed later without rewriting the privacy statement, and the §3(e) statement becomes inaccurate - a real compliance breach rather than a style issue.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "complete",
+      "current_note": "RSS is the active reader loop. There is no email form, email database, provider, subscription counter or pretend signup success.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-32",
@@ -1561,6 +1951,19 @@
       "blocks": [],
       "blocked_by": [
         "Q-09"
+      ],
+      "current_state": "complete",
+      "current_note": "Publication bylines identify Zone1 Kitchen and AI-assisted document research on buyer routes. A personal expert/editor claim remains unavailable.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -1615,6 +2018,19 @@
       "blocked_by": [
         "Q-07",
         "Q-25"
+      ],
+      "current_state": "complete",
+      "current_note": "The canonical site and share metadata use Zone1 Kitchen consistently. Legacy builds are labelled history rather than rebranded as additional live publications.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -1669,6 +2085,19 @@
       "blocked_by": [
         "Q-05",
         "Q-26"
+      ],
+      "current_state": "partial",
+      "current_note": "The blueprint points to current official Creators API documentation and keeps authorised-content access gated. No credentials, API client deployment or licensed data feed is claimed.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -1721,7 +2150,20 @@
       "risk_of_not_doing": "Low now, compounding: every article added without a map makes the next one worth less.",
       "blocks": [],
       "blocked_by": [],
-      "resolved_on": "2026-11-17"
+      "resolved_on": "2026-11-17",
+      "current_state": "complete",
+      "current_note": "The article index is organised into four existing intent clusters, with build-enforced one-to-one membership and maintained related links. No duplicate guide slugs were added.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-36",
@@ -1782,6 +2224,19 @@
       "blocks": [],
       "blocked_by": [
         "Q-27"
+      ],
+      "current_state": "partial",
+      "current_note": "ThermoMaven and CHEF iQ submitted links now have a dedicated, honest shelf. It publishes link notes only: no guessed model, accuracy, certification or confirmed intended ASIN.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -1843,6 +2298,19 @@
       "blocks": [],
       "blocked_by": [
         "Q-28"
+      ],
+      "current_state": "gated",
+      "current_note": "No enrolled Tracking ID Summary Report is available. Test each confirmed intended Special Link through the account’s permitted workflow before scaling, without self-purchases or manufactured traffic.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
       ]
     },
     {
@@ -1902,7 +2370,20 @@
       "effort": "S",
       "risk_of_not_doing": "Low as a breach risk while collection stays off, and rising as a documentation risk: an event specification nobody owns and a service nobody deploys is how a later pass ends up quoting a number that was never measured.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "partial",
+      "current_note": "The chosen code path is a first-party same-origin aggregate collector. Production runtime, infrastructure-log review and privacy approval are still required; the static host cannot execute it.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-39",
@@ -1954,7 +2435,20 @@
       "risk_of_not_doing": "First impressions keep forming on the wrong screen: a buyer arrives, sees a count of open flags, and reads the site as a compliance document about someone else's project.",
       "blocks": [],
       "blocked_by": [],
-      "resolved_on": "2026-11-17"
+      "resolved_on": "2026-11-17",
+      "current_state": "complete",
+      "current_note": "Products and buying choices precede audit material. The reader front page contains no verification-stat dashboard or revenue scenario.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-40",
@@ -2006,7 +2500,20 @@
       "risk_of_not_doing": "Product pages stay reference pages: useful to a reader who is already convinced, useless to the one deciding.",
       "blocks": [],
       "blocked_by": [],
-      "resolved_on": "2026-11-17"
+      "resolved_on": "2026-11-17",
+      "current_state": "complete",
+      "current_note": "Each product route starts with format/capacity, a consequential model check, a qualified decision rule and a clearly identified Amazon CTA. Brand list-price snapshots are labelled, not represented as current Amazon prices.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-41",
@@ -2058,7 +2565,20 @@
       "risk_of_not_doing": "Nothing breaks; the mobile reader simply keeps leaving mid-comparison, and the site never learns how often.",
       "blocks": [],
       "blocked_by": [],
-      "resolved_on": "2026-11-17"
+      "resolved_on": "2026-11-17",
+      "current_state": "superseded",
+      "current_note": "The old sticky bottom bar was removed in favour of contextual internal comparison links. No floating purchase CTA or sticky overlay can cover the disclosure/footer.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-42",
@@ -2116,7 +2636,20 @@
       "effort": "S",
       "risk_of_not_doing": "The design ceiling stays where it is: no amount of typography fixes a shop window with no goods in it.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "partial",
+      "current_note": "Typography, diagrams and one labelled conceptual scene provide the current visual system. Actual branded-product photography still needs original images or a documented licence; no generated likeness is offered as product evidence.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-43",
@@ -2174,7 +2707,20 @@
       "effort": "M",
       "risk_of_not_doing": "Either the burst decays and nothing is published for a month, or the queue is filled on volume - and volume without a source is the exact pattern the spam policies name.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "complete",
+      "current_note": "An explicit operating plan now limits publication to useful source-checked work, at most one new/substantially refreshed guide per fortnight, with weekly source review and a no-duplicate-question rule. It is not a running scheduler.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-44",
@@ -2225,7 +2771,20 @@
       "effort": "M",
       "risk_of_not_doing": "Polish decays at the edges of the domain, and a crawler or a reader with a search-result bookmark keeps finding the older, less trustworthy-looking version.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "complete",
+      "current_note": "The publication redesign applies to the canonical root build only. Historical source generators remain unchanged and are catalogued as earlier builds.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-45",
@@ -2276,7 +2835,20 @@
       "effort": "M",
       "risk_of_not_doing": "The site keeps losing the comparison on the other pages' terms - star counts - instead of winning on the one axis no aggregator competes on.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "complete",
+      "current_note": "No fabricated customer quote, editor persona, test badge or Amazon rating is used as social proof. Any dated brand-widget snapshot stays labelled as that brand’s own content, not a ranking.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-46",
@@ -2327,7 +2899,20 @@
       "effort": "M",
       "risk_of_not_doing": "The site reads as evergreen, which is safe but forgettable.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "complete",
+      "current_note": "One November 2026 notebook features existing seasonal guides. It is editorial context, not a measured seasonal campaign or an automatic annual refresh.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-47",
@@ -2385,7 +2970,20 @@
       "effort": "M",
       "risk_of_not_doing": "The site keeps being optimised by judgement, and the campaign ledger stays empty for the fourth pass running - which means the brief's central automation claim stays unverifiable.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "partial",
+      "current_note": "Measurement code is repaired and tested before further placement claims. No production collector or authorised traffic/report exists, so no optimisation or conversion gain is asserted.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-48",
@@ -2436,7 +3034,20 @@
       "effort": "S",
       "risk_of_not_doing": "A future pass adds a row, sees the build fail, reorders the array, and the site keeps publishing rows whose visible citation is the one no one can verify.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "complete",
+      "current_note": "The row-source gate now checks row-header data rows and requires a registered primary URL, exact submitted resolver, or existing exact-file repository evidence. Generic Flagged links, arbitrary official-host URLs and unrelated repositories no longer pass. This verifies link identity/coverage, not the truth of arbitrary prose; scoped source reading remains necessary.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-49",
@@ -2487,7 +3098,20 @@
       "effort": "S",
       "risk_of_not_doing": "None urgent: the current state is guarded. The cost is a shopper on a phone scrolling past a third sidebar heading they do not need.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "complete",
+      "current_note": "One native Workspace menu contains the owner/evidence pages. Footer links and a collapsible complete index repeat access; no audit sidebar remains on reader pages.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     },
     {
       "id": "SG-50",
@@ -2538,7 +3162,20 @@
       "effort": "S",
       "risk_of_not_doing": "The next useful fix in an unmergeable PR stays unpublished as long as #144's did.",
       "blocks": [],
-      "blocked_by": []
+      "blocked_by": [],
+      "current_state": "partial",
+      "current_note": "Main’s dated stale-PR dispositions are preserved. No stale PR is merged or closed here; the thermometer notes were written only to the freshly checked evidence boundary, not imported as a confirmed dataset.",
+      "current_reviewed_on": "2026-11-19",
+      "current_evidence": [
+        {
+          "label": "PUB-1 scoped verification and boundary record",
+          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+        },
+        {
+          "label": "Current publication data",
+          "url": "data/publication.json"
+        }
+      ]
     }
   ],
   "paths_intro": "A decision queue with this many rows is a backlog, not a decision. The paths below group the suggestions into four coherent pieces of work. Each path is ordered, names what has to be true before it can start, and says plainly what it will not fix. Pick one path, finish it, then pick the next. The grouping is this pass's judgement; the dependencies inside it are not - they are the blocked_by links already recorded on each row.",
@@ -2682,29 +3319,59 @@
   ],
   "decision_brief": {
     "date": "2026-11-19",
-    "session": "arena/9b3365c7-zone1",
-    "intro": "If you read nothing else on this page, read these four. They are the choices that change what a shopper sees or what the site can earn, in the order this pass would take them. Each links to the full row with its paths.",
+    "session": "arena/1f9e7d52-zone1",
+    "intro": "Repository work proceeds autonomously. These are the remaining evidence/deployment boundaries, not a request for manual review before publication. Historical choices stay available below.",
     "items": [
       {
         "id": "SG-47",
-        "ask": "Run the one-link test and pick who hosts the click counter.",
-        "why": "Until one click appears in the Tracking ID Summary, nothing on the site can say a link earns anything (Q-37, Q-30)."
+        "ask": "Deploy only after a real first-party runtime and privacy review exist.",
+        "why": "The repaired collector is tested but switched off; static Pages cannot receive it."
+      },
+      {
+        "id": "SG-37",
+        "ask": "Validate intended listings and one enrolled Special Link per product before scaling.",
+        "why": "shopnow047c-20 is recorded but unapplied; no positive account-report evidence is held."
+      },
+      {
+        "id": "SG-29",
+        "ask": "Verify Search Console ownership when authorised access exists.",
+        "why": "Sitemap, canonical metadata and RSS work; query/demand evidence does not yet exist."
       },
       {
         "id": "SG-42",
-        "ask": "Choose the photography route.",
-        "why": "Brand-supplied, your own, or none: the front page now has a slot per product and no picture to put in it (Q-34)."
-      },
-      {
-        "id": "SG-36",
-        "ask": "Decide whether the two thermometer links get a shelf.",
-        "why": "Two of the five submitted links point at products the shop does not cover; #139 has a draft page to port if the answer is yes (SG-50)."
-      },
-      {
-        "id": "SG-49",
-        "ask": "Confirm where the working pages live.",
-        "why": "The current layout meets the brief and is guarded; this only matters if you want them out of the shopper's sidebar entirely."
+        "ask": "Use only original or documented licensed actual product photographs.",
+        "why": "The current AI scene is decorative and labelled; it proves no model identity or test result."
       }
     ]
-  }
+  },
+  "current_state_rule": "Current states count implementation, not old effort fields, historical action logs or owner choices. Complete/superseded + partial + gated + open must partition the register. Partial never means deployed.",
+  "decision_brief_history": [
+    {
+      "date": "2026-11-19",
+      "session": "arena/9b3365c7-zone1",
+      "intro": "If you read nothing else on this page, read these four. They are the choices that change what a shopper sees or what the site can earn, in the order this pass would take them. Each links to the full row with its paths.",
+      "items": [
+        {
+          "id": "SG-47",
+          "ask": "Run the one-link test and pick who hosts the click counter.",
+          "why": "Until one click appears in the Tracking ID Summary, nothing on the site can say a link earns anything (Q-37, Q-30)."
+        },
+        {
+          "id": "SG-42",
+          "ask": "Choose the photography route.",
+          "why": "Brand-supplied, your own, or none: the front page now has a slot per product and no picture to put in it (Q-34)."
+        },
+        {
+          "id": "SG-36",
+          "ask": "Decide whether the two thermometer links get a shelf.",
+          "why": "Two of the five submitted links point at products the shop does not cover; #139 has a draft page to port if the answer is yes (SG-50)."
+        },
+        {
+          "id": "SG-49",
+          "ask": "Confirm where the working pages live.",
+          "why": "The current layout meets the brief and is guarded; this only matters if you want them out of the shopper's sidebar entirely."
+        }
+      ]
+    }
+  ]
 }
