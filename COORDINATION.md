@@ -6478,3 +6478,13 @@ Claim log: 2026-11-19 · arena/b3ed16c4 · repo read first (`main` @ `2be3bea`, 
 * **Deployment:** main CI **44516187071**, annex **44516188218** and the Pages deploy workflow **44516187308** all succeeded after the merge; legacy Pages build **44516185934** succeeded. Pages API: `built`, no error, source legacy / `main` / `/`, HTTPS enforced.
 * **Live public readback after deployment (actual retrieval, distinct from CI):** root `robots.txt` authoritative (`Allow: /` + Sitemap, no Disallow); the new question-shaped guide *How to assess cleanup and counter-space trade-offs* live with per-section sources and cluster hub/siblings; `compare.html` carrying the chooser note above the sourced comparison table; `requirements.html` rendering all **74 rows** (40 delivered / 22 partial / 11 blocked / 1 not built) including the new S group and the previously-invisible H group.
 * **Boundaries re-stated, not re-earned:** `shopnow047c-20` stays selected/unvalidated/unapplied; intended listing fields stay blank and separate from observed redirects; production analytics stays off (five-event contract tested only); campaign ledger stays empty; no Search Console action; no product photography; the supplied short links' compliance status remains unresolved at Zone3 FLG-003 and is not declared either way. Q-42 (the S-23 ratio decision) stays open for the owner.
+
+## Task board — arena/6eb19d2b-zone1 (2026-11-19 UTC) — narrow live re-read, gate, release
+
+| ID | Task | Status | Owner | File scope |
+|----|------|--------|-------|------------|
+| Z16-1 | Independent live re-read of the five supplied `link.amazon` short links (redirect target, title, ASIN) against the register; dated report; no value changed unless the live read differs | in progress | arena/6eb19d2b-zone1 (session 6eb19d2b) | `reports/verification-2026-11-19-6eb19d2b.md` (new), `COORDINATION.md` (this section) |
+| Z16-2 | Overlap audit of the six open PRs that touch the same pass work (#139, #141, #144, #146, #150, #159, #168, #173): record, do not merge or close them | in progress | arena/6eb19d2b-zone1 | `COORDINATION.md` (this section) |
+| Z16-3 | Gates, PR from this branch to `main`, merge with explicit number, Pages deploy confirmation, record | in progress | arena/6eb19d2b-zone1 | whole tree (integration) |
+
+Claim made before any file other than this section was edited. Scope is additive and does not touch `build.py`, `data/*.json` or any other session's files.
