@@ -46,6 +46,11 @@ def allowed_page_ids() -> set[str]:
         "about",
         "clusters",
         "categories/kitchen-appliances",
+        # The thermometer pillar became a buyer-facing category on 2026-11-19
+        # (arena/d154e428). It was previously a noindexed owner note and correctly
+        # absent here; an eligible page missing from this set is an event the
+        # collector would reject, so the two lists move together.
+        "categories/cooking-thermometers",
         "guides/buying-guide-air-fryers",
         "articles/index",
     }
@@ -53,6 +58,13 @@ def allowed_page_ids() -> set[str]:
     articles = _json(DATA / "articles.json").get("articles", [])
     ids.update(f"products/{item['slug']}" for item in products)
     ids.update(f"articles/{item['slug']}" for item in articles)
+    # The two thermometer buyer pages live in their own register; reading it here
+    # keeps "eligible rendered page" and "accepted page id" derived from data
+    # rather than hand-maintained twice.
+    thermometer_path = DATA / "thermometers.json"
+    if thermometer_path.is_file():
+        for item in _json(thermometer_path).get("products", []):
+            ids.add(f"products/{item['slug']}")
     return ids
 
 

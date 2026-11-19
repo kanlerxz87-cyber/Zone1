@@ -140,3 +140,13 @@ footer.site>.inner{max-width:1208px;margin:auto;display:grid;grid-template-colum
 .suggestion-toolbar{margin:18px 0 24px;padding:20px;background:var(--brand-soft);border-radius:6px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .suggestion-toolbar label,.suggestion-toolbar output{font-size:12px}
 .suggestion-toolbar input{min-height:44px;flex:1;min-width:150px;padding:9px 12px;border:1px solid var(--line-strong);border-radius:4px;background:var(--panel)}
+
+/* Decision-review queue (2026-11-19). Option labels are real inputs, so a pick is
+   keyboard-operable and announced; the label is the tap target, not the 13px radio. */
+.dr-pick{margin:14px 0 6px;padding:14px;background:var(--panel-deep);border-radius:5px}
+.dr-opt{display:flex;gap:10px;align-items:flex-start;min-height:44px;padding:8px 4px;font-size:13px;cursor:pointer}
+.dr-opt input{margin-top:3px;flex:0 0 auto;width:18px;height:18px}
+.dr-opt span{display:block}
+.dr-row summary{font-size:15px}
+.dr-row[data-dr-priority="P0"] summary{font-weight:700}
+.decision-review-count{font-variant-numeric:tabular-nums}

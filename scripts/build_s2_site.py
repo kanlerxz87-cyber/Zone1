@@ -415,12 +415,17 @@ def p_index(D) -> str:
                     (str(C["checks"]), "line-by-line verification checks logged"),
                     (str(C["sources"]), "official sources in the registry"),
                     (str(C["flags"]), "items flagged for your review"),
-                    ("0 of 3", "products verifiable from the links given")])
+                    ("3 of 3", "supplied links reach a product page")])
     body = f"""
-<div class="alert crit"><b>Read this first.</b> The three product links supplied for this build do not identify any
-product: each token is 9 characters where an ASIN is 10, and each <code>amazon.com/dp/&lt;token&gt;</code> lookup
-returns Amazon's “Page Not Found” page. Product name, price, rating and competition are therefore
-<b>blank and flagged</b>, not estimated. <a href="pages/flagged.html#F-07">See F-07 with the evidence</a>.</div>
+<div class="alert crit"><b>Read this first.</b> The three air-fryer links supplied for this build are short-link
+tokens, not ASINs: each is 9 characters where an ASIN is 10, so a direct <code>amazon.com/dp/&lt;token&gt;</code>
+lookup returns Amazon's “Page Not Found” page. The supplied short links themselves resolve — each reaches a
+10-character Amazon product page — but a resolved destination is <b>not</b> a confirmed intended listing, and no
+enrolled-Associates test has been run. Product name, price, rating and competition therefore stay <b>blank and
+flagged</b>, not estimated. <a href="pages/flagged.html#F-07">See F-07 with the evidence</a>.
+<span class="sub">Corrected 2026-11-19 (arena/d154e428): an earlier version of this banner said the links
+“do not identify any product”, which overstated the evidence. A live re-read on 2026-11-19 found all five supplied
+links reaching product titles; what remains unproven is the intended-listing and attribution step.</span></div>
 <div class="grid" style="margin-bottom:14px">{cards}</div>
 <h2>Products — intake status</h2>{prods}
 <h2>Headline verified numbers</h2>{kn}

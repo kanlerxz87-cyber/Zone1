@@ -106,12 +106,29 @@ class PublicationOutputTests(unittest.TestCase):
 
     def test_owner_and_unconfirmed_notes_stay_out_of_sitemap(self):
         sitemap = (ROOT / 'sitemap.xml').read_text(encoding='utf-8')
-        for path in ('product-intent.html', 'measurement.html', 'suggestions.html', 'decision-log.html',
-                     'categories/cooking-thermometers.html'):
+        for path in ('product-intent.html', 'measurement.html', 'suggestions.html', 'decision-log.html'):
             self.assertIn('content="noindex,follow"', self.pages[path])
             self.assertNotIn(BASE + path, sitemap)
         self.assertIn(BASE + 'about.html', sitemap)
         self.assertEqual(25, len(json.loads((ROOT / 'data/articles.json').read_text())['articles']))
+
+    def test_thermometer_pillar_and_both_product_pages_are_indexable(self):
+        # Changed 2026-11-19 (arena/d154e428). The shelf began as dated link notes and was
+        # correctly noindexed then. Two of the five supplied products are thermometers, and a
+        # product a reader cannot reach from a search result is not a product page. Both now
+        # have manufacturer-documented buyer pages, so the pillar and its two children are
+        # buyer-facing and belong in the sitemap. The intent record stays out of it: that is
+        # the owner's evidence surface, not a buying page.
+        sitemap = (ROOT / 'sitemap.xml').read_text(encoding='utf-8')
+        pillar = 'categories/cooking-thermometers.html'
+        self.assertIn('content="index,follow', self.pages[pillar])
+        self.assertIn(BASE + pillar, sitemap)
+        for slug in ('thermomaven-f1-turbo', 'chef-iq-sense-gen3'):
+            page = 'products/' + slug + '.html'
+            self.assertIn('content="index,follow', self.pages[page])
+            self.assertIn(BASE + page, sitemap)
+            self.assertNotIn(BASE + page, sitemap.replace(BASE + page, '', 1))
+        self.assertIn('content="noindex,follow"', self.pages['product-intent.html'])
 
     def test_root_robots_is_authoritative_and_hides_nothing_the_annex_boundary_needs(self):
         # SG-44 option A / the brief's "make it findable" ask, implemented as the annex

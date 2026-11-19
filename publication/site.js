@@ -252,3 +252,85 @@ document.addEventListener('click', function (event) {
   }
   window.addEventListener('hashchange', revealAnchor); revealAnchor();
 })();
+
+/* Decision-review queue (decision-review.html, added 2026-11-19).
+   Browser-only, like the decision log above: a pick is kept in localStorage so a
+   reviewer can keep their place, and the export is a local file download. Nothing
+   is submitted to any server from this static page. */
+(function () {
+  var rows = Array.from(document.querySelectorAll('[data-dr-priority]'));
+  if (!rows.length) return;
+  var KEY = 'zone1-decision-review-2026-11-19';
+  var toolbar = document.querySelector('[data-dr-toolbar]');
+  var actions = document.querySelector('.decision-actions');
+  var counter = document.getElementById('dr-counter');
+  var store = {};
+  try { store = JSON.parse(window.localStorage.getItem(KEY) || '{}') || {}; } catch (err) { store = {}; }
+  function persist() {
+    try { window.localStorage.setItem(KEY, JSON.stringify(store)); } catch (err) {}
+  }
+  function paints() {
+    var n = 0;
+    Object.keys(store).forEach(function (id) {
+      var entry = store[id];
+      var choice = entry && typeof entry === 'object' ? entry.choice : entry;
+      if (typeof choice !== 'string') return;
+      var safe = choice.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+      var input = document.querySelector('input[name="dr-' + id + '"][value="' + safe + '"]');
+      if (input) input.checked = true;
+      n += 1;
+    });
+    if (counter) counter.textContent = n + ' chosen in this browser';
+  }
+  document.addEventListener('change', function (ev) {
+    var input = ev.target;
+    if (!input || !input.getAttribute || !input.getAttribute('data-dr-id')) return;
+    store[input.getAttribute('data-dr-id')] = { priority: '', choice: input.value };
+    var row = input.closest('[data-dr-priority]');
+    if (row) store[input.getAttribute('data-dr-id')].priority = row.getAttribute('data-dr-priority');
+    persist(); paints();
+  });
+  function payload() {
+    return JSON.stringify({ recorded: new Date().toISOString(), picks: store }, null, 2);
+  }
+  document.addEventListener('click', function (ev) {
+    var btn = ev.target.closest ? ev.target.closest('[data-dr-action]') : null;
+    if (!btn) return;
+    var act = btn.getAttribute('data-dr-action');
+    if (act === 'clear') {
+      store = {};
+      try { window.localStorage.removeItem(KEY); } catch (err) {}
+      document.querySelectorAll('input[data-dr-id]').forEach(function (i) { i.checked = false; });
+      persist(); paints(); return;
+    }
+    if (!Object.keys(store).length) { btn.textContent = 'nothing chosen yet'; setTimeout(function () { location.reload(); }, 900); return; }
+    if (act === 'download') {
+      var blob = new Blob([payload()], { type: 'application/json' });
+      var link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'decision-review.json';
+      document.body.appendChild(link); link.click();
+      setTimeout(function () { URL.revokeObjectURL(link.href); link.remove(); }, 0);
+      return;
+    }
+    if (act === 'copy' && navigator.clipboard) { navigator.clipboard.writeText(payload()); }
+  });
+  if (toolbar) {
+    var field = toolbar.querySelector('input');
+    var status = toolbar.querySelector('output');
+    toolbar.hidden = false;
+    var filter = function () {
+      var q = field.value.trim().toLocaleLowerCase();
+      var visible = 0;
+      rows.forEach(function (row) {
+        row.hidden = q !== '' && row.textContent.toLocaleLowerCase().indexOf(q) === -1;
+        if (!row.hidden) visible += 1;
+      });
+      status.textContent = visible + ' of ' + rows.length + ' decisions shown';
+    };
+    field.addEventListener('input', filter); filter();
+  }
+  if (actions) actions.hidden = false;
+  document.querySelectorAll('input[data-dr-id]').forEach(function (i) { i.setAttribute('data-js-required', ''); });
+  paints();
+})();

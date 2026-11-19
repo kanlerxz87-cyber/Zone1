@@ -1,0 +1,313 @@
+{
+ "accessed": "2026-11-19",
+ "note": "Buyer-facing pages for the two thermometer products supplied in the brief. The supplied link.amazon strings are short-link tokens, not ASINs: each reaches a 10-character Amazon listing that this record treats as an OBSERVED destination only. The intended listing and Associates attribution remain unconfirmed in data/product-intent.json (PI-04, PI-05). A page exists here because the manufacturer publishes a specification set a shopper can act on; it does not assert that the observed Amazon listing is the intended one.",
+ "discipline": "Every populated value cites the manufacturer document that states it, read on the date shown. Where a document is internally inconsistent, or disagrees with the observed Amazon listing title, both readings are published and neither is silently dropped. No accuracy, certification, performance or food-safety claim is adopted from an Amazon title. Brand prices are deliberately not republished: they move, and this site has no authorised live Amazon price feed.",
+ "products": [
+  {
+   "slug": "thermomaven-f1-turbo",
+   "brand": "ThermoMaven",
+   "name": "ThermoMaven F1 Turbo Instant Read Thermometer",
+   "short_name": "ThermoMaven F1 Turbo",
+   "category": "Kitchen tools → Instant-read thermometers",
+   "pillar": "categories/cooking-thermometers.html",
+   "link": "https://link.amazon/B0c8moW59",
+   "intent_id": "PI-04",
+   "observed_asin": "B0DHZTCNR5",
+   "eyebrow": "Instant read",
+   "dek": "A pocket instant-read thermometer for checking that meat, fish and leftovers have reached a safe internal temperature. The manufacturer publishes a 0.5-second read, a ±0.5°F accuracy figure and an IP67 water rating.",
+   "capacity": "Instant-read probe; no cooking chamber",
+   "best_for": {
+    "value": "Checking a piece of food has reached a safe internal temperature before it leaves the heat. USDA guidance is to cook to a safe minimum internal temperature measured with a food thermometer, and this is the class of tool that does that.",
+    "source": [
+     "S49",
+     "S40"
+    ]
+   },
+   "check": {
+    "value": "The manufacturer's page says 0.5 seconds; the observed Amazon listing title says ‘1 Sec’. Neither is the model you may receive, and the brand sells more than one instant-read line. Confirm the model number on the unit, not the adjective in a title.",
+    "source": [
+     "S40",
+     "S36"
+    ]
+   },
+   "specs": [
+    {
+     "label": "Read time (brand statement)",
+     "value": "0.5 seconds",
+     "source": [
+      "S40"
+     ],
+     "note": "Brand page feature copy. The observed Amazon listing title for the reached ASIN says ‘1 Sec’, so the two published figures disagree; both are shown rather than reconciled by this site."
+    },
+    {
+     "label": "Stated accuracy (brand statement)",
+     "value": "±0.5 °F / ±0.3 °C",
+     "source": [
+      "S40"
+     ],
+     "note": "Published by the manufacturer as its accuracy figure. This site has not tested it and does not repeat it as a measured result."
+    },
+    {
+     "label": "Water resistance (brand statement)",
+     "value": "IP67",
+     "source": [
+      "S40"
+     ]
+    },
+    {
+     "label": "Display",
+     "value": "Auto-rotating display with backlight; ‘hold’ lock function",
+     "source": [
+      "S40"
+     ]
+    },
+    {
+     "label": "Storage",
+     "value": "Magnetic back and hanging option",
+     "source": [
+      "S40"
+     ]
+    },
+    {
+     "label": "Extra function",
+     "value": "Built-in bottle opener",
+     "source": [
+      "S40"
+     ]
+    },
+    {
+     "label": "Calibration",
+     "value": "Self-calibration offered on the brand page",
+     "source": [
+      "S40"
+     ]
+    },
+    {
+     "label": "Warranty (brand term)",
+     "value": "Lifetime warranty, which the brand says must be activated within 30 days of purchase",
+     "source": [
+      "S40"
+     ],
+     "note": "The activation deadline is the part a buyer can miss. It is a registration condition stated by the manufacturer, not a legal entitlement this site can verify."
+    },
+    {
+     "label": "Certification wording",
+     "value": "Brand page: ‘NIST certified’ accuracy, ‘NSF approved’. Observed listing title: ‘NIST&NSF Certified’",
+     "source": [
+      "S40",
+      "S36"
+     ],
+     "note": "Certified and approved are different words in the two documents. The site quotes both and asserts neither; a certificate number is not published in either place it read."
+    },
+    {
+     "label": "External dimensions",
+     "value": null,
+     "unverified": "The brand specification tab rendered without its table in the page version read on 2026-11-19, and no other official document read here states the folded length or weight.",
+     "source": [
+      "S40"
+     ]
+    },
+    {
+     "label": "Power source",
+     "value": null,
+     "unverified": "The battery type is not stated in the brand page version read on 2026-11-19.",
+     "source": [
+      "S40"
+     ]
+    }
+   ],
+   "care": {
+    "value": "The manufacturer rates the unit IP67 for water resistance. Follow the brand’s own cleaning instructions; do not assume a dishwasher is safe for a sealed-body instant-read just because it is water resistant.",
+    "source": [
+     "S40"
+    ]
+   },
+   "flags": [
+    {
+     "id": "T-01",
+     "issue": "The supplied short link is a 9-character token, not an ASIN, and the listing it reaches is an observed destination only.",
+     "action": "Intended ASIN, official listing URL, confirmation date and source stay blank in data/product-intent.json (PI-04). Enter them there once the account holder confirms the listing.",
+     "sources": [
+      "S36",
+      "S41"
+     ]
+    },
+    {
+     "id": "T-02",
+     "issue": "Read time is published as 0.5 seconds by the brand and ‘1 Sec’ in the observed Amazon title.",
+     "action": "Do not publish either as a tested result. Confirm the model and its own manual before repeating a number.",
+     "sources": [
+      "S40",
+      "S36"
+     ]
+    },
+    {
+     "id": "T-03",
+     "issue": "‘Certified’ (brand page, for NIST) and ‘approved’ (brand page, for NSF) are not the same claim, and the Amazon title runs them together.",
+     "action": "Quote each document as written. No certificate number or certifying-body register entry was read here, so the claim is attributed, not adopted.",
+     "sources": [
+      "S40",
+      "S36"
+     ]
+    },
+    {
+     "id": "T-04",
+     "issue": "External dimensions and battery type could not be confirmed from an official document read on 2026-11-19.",
+     "action": "Left blank above. Fill from the brand specification tab or the user guide before publishing a size.",
+     "sources": [
+      "S40"
+     ]
+    }
+   ],
+   "verdict": "The most useful thing this page can tell you is what the manufacturer claims and where its own documents part company. A 0.5-second read and a ±0.5°F figure are the brand’s numbers, not this site’s measurements. The IP67 rating is the practical field feature: it is the difference between a thermometer you can wipe down and one you baby. Before buying, confirm the model on the unit matches the listing, and treat the ‘lifetime warranty’ as a registration deadline you have 30 days to meet.",
+   "model_caveat": "The brand page read on 2026-11-19 describes ‘F1 Turbo’ and does not use ‘1 Sec’ as a model name. The observed Amazon title does. No document read here confirms which SKU the supplied short link was created to promote.",
+   "cta_caution": "Check the model number and that it is the instant-read you intend, not a wireless line."
+  },
+  {
+   "slug": "chef-iq-sense-gen3",
+   "brand": "CHEF iQ",
+   "name": "CHEF iQ Sense Gen3 Wireless Meat Thermometer",
+   "short_name": "CHEF iQ Sense Gen3",
+   "category": "Kitchen tools → Wireless probe thermometers",
+   "pillar": "categories/cooking-thermometers.html",
+   "link": "https://link.amazon/B0f3GKalj",
+   "intent_id": "PI-05",
+   "observed_asin": "B0DZFD6R9Z",
+   "eyebrow": "Wireless probe",
+   "dek": "A rechargeable wireless probe and a hub that relays readings to your phone. The manufacturer publishes a 32–212 °F internal range, a 1,000 °F ambient rating and a 70-hour battery figure.",
+   "capacity": "One wireless probe plus Smart Hub, in the configuration read",
+   "best_for": {
+    "value": "Watching a long cook without standing at the oven, and seeing both the food’s internal temperature and the surrounding ambient heat. The manufacturer states the probe also works in an air fryer, an oven, a grill, a smoker, a deep fryer and sous vide.",
+    "source": [
+     "S39"
+    ]
+   },
+   "check": {
+    "value": "The brand page sells one to four probes at different prices and the default selection on the day read was a single probe. Count the probes you are actually buying, and note that wireless monitoring depends on the Smart Hub and the app, not the probe alone.",
+    "source": [
+     "S39"
+    ]
+   },
+   "specs": [
+    {
+     "label": "Internal temperature range",
+     "value": "32 °F – 212 °F",
+     "source": [
+      "S39"
+     ],
+     "note": "This is the range of the food the probe reads, and it stops at the boiling point of water. That comfortably covers USDA safe-minimum temperatures (145–165 °F) but it is not an oil- or sugar-temperature instrument; check your intended use against this figure."
+    },
+    {
+     "label": "Ambient temperature rating",
+     "value": "32 °F – 1,000 °F",
+     "source": [
+      "S39"
+     ],
+     "note": "The environment the probe can sit in, not a temperature it reads inside food."
+    },
+    {
+     "label": "Probe dimensions (brand statement)",
+     "value": "0.19 in thin, 4.75 in long",
+     "source": [
+      "S39"
+     ]
+    },
+    {
+     "label": "Probe materials",
+     "value": "Stainless steel; zirconia",
+     "source": [
+      "S39"
+     ]
+    },
+    {
+     "label": "Sensors",
+     "value": "The page describes four internal sensors and one ambient sensor",
+     "source": [
+      "S39"
+     ],
+     "note": "The same page’s summary blocks say ‘five internal sensors’ and ‘five temperature sensors’ while its feature list says four internal plus one ambient. Four plus one is five, but the words are not interchangeable; the observed Amazon title says ‘5 Sensors’. Published here as written, flagged as T-06."
+    },
+    {
+     "label": "Connectivity",
+     "value": "Wi-Fi and Bluetooth, relayed through the CHEF iQ Smart Hub",
+     "source": [
+      "S39"
+     ]
+    },
+    {
+     "label": "Stated battery life",
+     "value": "70+ hours; hub charges over USB-C",
+     "source": [
+      "S39"
+     ]
+    },
+    {
+     "label": "Cleaning",
+     "value": "The brand states the probe is waterproof and dishwasher safe",
+     "source": [
+      "S39"
+     ]
+    },
+    {
+     "label": "In the box (brand statement)",
+     "value": "Wireless probe, Smart Hub, USB-C charging cable; the brand says a charging brick is not included",
+     "source": [
+      "S39"
+     ]
+    },
+    {
+     "label": "App requirement",
+     "value": "Push notifications, cook-time estimates and presets are described as app features",
+     "source": [
+      "S39"
+     ],
+     "note": "A phone and the free app are part of the experience the brand describes. If you want a thermometer that works with no second device, this is not that product."
+    },
+    {
+     "label": "Price",
+     "value": null,
+     "unverified": "The brand page shows a live price that moves; brand prices are deliberately not republished here and no authorised Amazon price feed is configured.",
+     "source": [
+      "S39"
+     ]
+    }
+   ],
+   "care": {
+    "value": "The brand states the probe is waterproof and dishwasher safe. Charge through the hub with the included USB-C cable; the brand says no charging brick is included, so plan for one you already own.",
+    "source": [
+     "S39"
+    ]
+   },
+   "flags": [
+    {
+     "id": "T-05",
+     "issue": "The supplied short link is a 9-character token, not an ASIN, and the listing it reaches is an observed destination only. The brand page sells several probe configurations and none of them states an ASIN.",
+     "action": "Intended ASIN, official listing URL, confirmation date and source stay blank in data/product-intent.json (PI-05).",
+     "sources": [
+      "S37",
+      "S39"
+     ]
+    },
+    {
+     "id": "T-06",
+     "issue": "Sensor count is described as ‘four internal plus one ambient’ in the feature list but ‘five internal’ in the summary copy on the same brand page.",
+     "action": "Published as written on both readings and flagged. Resolve against the user guide before repeating a sensor count in an article.",
+     "sources": [
+      "S39"
+     ]
+    },
+    {
+     "id": "T-07",
+     "issue": "The internal range tops out at 212 °F.",
+     "action": "Stated plainly above rather than buried, because a buyer may assume a wireless probe also does frying-oil or sugar work. It is a food-doneness instrument within that range.",
+     "sources": [
+      "S39"
+     ]
+    }
+   ],
+   "verdict": "This is a connected-cooking tool, and the honest question is whether you want that. The wireless probe and hub let you watch a roast from another room and read ambient heat as well as the centre of the food, which is genuinely different from a $20 instant-read. The constraints are equally concrete: the internal range stops at 212 °F, the app and hub are part of the product, and the probe count you receive depends on the configuration you buy. Compare it to a simple instant-read on the features you would actually use, not on the number of sensors.",
+   "model_caveat": "The brand page read on 2026-11-19 shows single-probe CQ60-1C-Z1-E by default and offers one, two, three and four-probe configurations in two colours. The observed Amazon listing title says three ultra-thin probes. Neither document confirms the supplied short link’s intended listing.",
+   "cta_caution": "Check the model number and the number of probes in the configuration you are buying."
+  }
+ ]
+}
