@@ -6057,3 +6057,9 @@ post-deploy read-back caveat are in `reports/verification-2026-11-19-62a6f797.md
 changed or newly asserted. R-16adefc5-1 is resolved in the generated branch output. A browser read-back after merge
 remains required because GitHub Pages only deploys `main`; that is a deployment verification step, not an open
 content defect.
+
+**Rebase record:** while opening PR #154, `main` advanced to `c758b8b` (PR #152). The rebase produced one real
+`COORDINATION.md` tail conflict and one generated `requirements.html` conflict. Both records were retained: PR #152's
+X-c1706796 audit remains above this board, this board remains below it, and `requirements.html` was regenerated from
+the merged generator and register rather than hand-merged. The product-link qualification change already on `main`
+was preserved. All integration gates listed above were then re-run on the rebased tree and passed.
