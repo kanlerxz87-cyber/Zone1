@@ -29,6 +29,14 @@ OFFICIAL_HOSTS = {
     # Registered as official brand sites, which is not the same as confirming a listing identity: F80.
     "chefiq.com",
     "www.thermomaven.com",
+    # U.S. federal food-safety guidance (sources S48/S49, added 2026-11-19 by
+    # arena/d154e428). These are government publication hosts, used only for the
+    # safe-minimum internal temperature figures a food thermometer exists to check.
+    # A registered host is not a product claim: nothing on the thermometer pages is
+    # taken from them except the USDA temperature minimums and the advice to use a
+    # thermometer.
+    "www.fsis.usda.gov",
+    "www.foodsafety.gov",
     "affiliate-program.amazon.com",
     "www.amazon.com",
     "amazon.com",
