@@ -1,96 +1,43 @@
-// Zone1 Kitchen: progressive reader controls and the local-only owner picker.
-// No analytics or network requests; collection, if enabled, lives in analytics/client.js.
-(function () {
-  var menu = document.querySelector('.workspace-menu');
-  if (!menu) return;
-  document.addEventListener('click', function (ev) {
-    if (menu.open && !menu.contains(ev.target)) menu.open = false;
-  });
-  document.addEventListener('keydown', function (ev) {
-    if (ev.key === 'Escape' && menu.open) {
-      menu.open = false;
-      menu.querySelector('summary').focus();
-    }
-  });
-})();
+// Progressive controls are hidden in the HTML until their handlers can run.
+document.querySelectorAll('[data-js-required]').forEach(function (node) { node.hidden = false; });
 
-(function () {
-  var controls = document.querySelector('[data-format-controls]');
-  if (!controls) return;
-  var cards = Array.from(document.querySelectorAll('.publication-product[data-format]'));
-  var status = document.querySelector('[data-format-status]');
-  if (!cards.length) return;
-  controls.hidden = false;
-  controls.addEventListener('click', function (ev) {
-    var button = ev.target.closest('[data-format-filter]');
-    if (!button) return;
-    var filter = button.getAttribute('data-format-filter');
-    controls.querySelectorAll('button').forEach(function (item) {
-      item.setAttribute('aria-pressed', item === button ? 'true' : 'false');
-    });
-    var shown = 0;
-    cards.forEach(function (card) {
-      card.hidden = filter !== 'all' && card.getAttribute('data-format') !== filter;
-      if (!card.hidden) shown += 1;
-    });
-    if (status) status.textContent = shown + (shown === 1 ? ' format shown.' : ' formats shown.');
-  });
-})();
-
-// A failed clipboard request must not pretend that anything was copied.
+// copy-to-clipboard for article share rows (2026-11-15, arena/792c279e).
+// Progressive: without JS the button does nothing and the URL is still in the address bar,
+// so no functionality depends on it.
 document.addEventListener('click', function (ev) {
-  var button = ev.target.closest('.copylink');
-  if (!button) return;
-  var link = button.getAttribute('data-link') || location.href;
-  function feedback(ok) {
-    var label = button.textContent;
-    button.textContent = ok ? 'Copied' : 'Copy blocked — use the address bar';
-    setTimeout(function () { button.textContent = label; }, 2200);
-  }
-  function fallback() {
-    var area = document.createElement('textarea');
-    area.value = link;
-    area.setAttribute('readonly', '');
-    area.style.position = 'fixed'; area.style.opacity = '0';
-    document.body.appendChild(area); area.select();
-    var copied = false;
-    try { copied = document.execCommand('copy'); } catch (_) { /* Explain failure below. */ }
-    area.remove(); feedback(copied); button.focus();
-  }
+  var c = ev.target.closest('.copylink');
+  if (!c) return;
+  var link = c.getAttribute('data-link') || location.href;
+  var done = function () {
+    var old = c.textContent;
+    c.textContent = 'Copied';
+    setTimeout(function () { c.textContent = old; }, 1600);
+  };
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(link).then(function () { feedback(true); }, fallback);
-  } else { fallback(); }
+    navigator.clipboard.writeText(link).then(done, function () { c.textContent = 'Copy blocked — use the address bar'; });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = link; document.body.appendChild(ta); ta.select();
+    var copied = false;
+    try { copied = document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    if (copied) done(); else c.textContent = 'Copy blocked — use the address bar';
+  }
 });
 
-// revenue scenario calculator — arithmetic on two published inputs only
-(function () {
-  var form = document.getElementById('calc');
-  if (!form) return;
-  function num(id) {
-    var field = document.getElementById(id);
-    return field.value.trim() === '' || !field.checkValidity() ? NaN : Number(field.value);
-  }
-  function run() {
-    var price = num('price'), rate = num('rate') / 100,
-        conv = num('conv') / 100, clicks = num('clicks');
-    if (![price, rate, conv, clicks].every(Number.isFinite)) {
-      ['out-commission', 'out-sales', 'out-revenue', 'out-epc'].forEach(function (id) {
-        document.getElementById(id).textContent = '—';
-      });
-      return;
-    }
-    var commission = price * rate;
-    var sales = clicks * conv;
-    var revenue = sales * commission;
-    document.getElementById('out-commission').textContent = '$' + commission.toFixed(2);
-    document.getElementById('out-sales').textContent = sales.toFixed(1);
-    document.getElementById('out-revenue').textContent = '$' + revenue.toFixed(2);
-    document.getElementById('out-epc').textContent = '$' + (clicks > 0 ? revenue / clicks : 0).toFixed(3);
-  }
-  form.addEventListener('input', run);
-  form.addEventListener('submit', function (e) { e.preventDefault(); run(); });
-  run();
-})();
+// The native Workspace disclosure works without JavaScript. These shortcuts
+// only close it on Escape or an outside activation; no keyboard focus is trapped.
+document.addEventListener('keydown', function (event) {
+  if (event.key !== 'Escape') return;
+  var menu = document.querySelector('.workspace-menu[open]');
+  if (!menu) return;
+  menu.open = false;
+  menu.querySelector('summary').focus();
+});
+document.addEventListener('click', function (event) {
+  var menu = document.querySelector('.workspace-menu[open]');
+  if (menu && !menu.contains(event.target)) menu.open = false;
+});
 
 // Owner decision picker (2026-11-16, arena/ba29c641) — decision-log.html only.
 // A static host has nowhere to POST a choice, so the picker keeps it in this browser and exports
@@ -100,11 +47,13 @@ document.addEventListener('click', function (ev) {
 (function () {
   var root = document.getElementById('decision-picker');
   if (!root) return;
-  var KEY = 'zone1-***';
+  var KEY = 'zone1.decision-drafts.v2';
   var counter = document.getElementById('decision-counter');
   var out = document.getElementById('decision-output');
   var store = {};
-  try { store = JSON.parse(window.localStorage.getItem(KEY) || '{}') || {}; } catch (err) { store = {}; }
+  var storageReady = true;
+  try { store = JSON.parse(window.localStorage.getItem(KEY) || '{}') || {}; } catch (err) { store = {}; storageReady = false; }
+  if (typeof store !== 'object' || Array.isArray(store)) store = {};
 
   function panels() {
     return Array.prototype.slice.call(root.querySelectorAll('fieldset[data-sg]'));
@@ -150,10 +99,10 @@ document.addEventListener('click', function (ev) {
     if (!counter) return;
     var n = collect().length;
     counter.textContent = n + ' of ' + panels().length + ' picked in this browser' +
-      (n ? ' — copy or download to hand it back' : ' — nothing picked yet');
+      (storageReady ? (n ? ' — copy or download to hand it back' : ' — nothing picked yet') : ' — storage unavailable; copy/download to retain');
   }
   function persist() {
-    try { window.localStorage.setItem(KEY, JSON.stringify(store)); } catch (err) {}
+    try { window.localStorage.setItem(KEY, JSON.stringify(store)); } catch (err) { storageReady = false; }
   }
   function record(target) {
     var fs = target.closest ? target.closest('fieldset[data-sg]') : null;
@@ -211,9 +160,9 @@ document.addEventListener('click', function (ev) {
   });
   panels().forEach(function (fs) {
     var v = store[fs.getAttribute('data-sg')];
-    if (!v) return;
-    if (v.path) {
-      var i = Array.from(fs.querySelectorAll('input')).find(function (input) { return input.value === v.path; });
+    if (!v || typeof v !== 'object') return;
+    if (typeof v.path === 'string' && /^(?:[A-Z]|HOLD)$/.test(v.path)) {
+      var i = fs.querySelector('input[value="' + v.path + '"]');
       if (i) i.checked = true;
     }
     var t = fs.querySelector('textarea.dec-note');
@@ -223,65 +172,55 @@ document.addEventListener('click', function (ev) {
 })();
 
 // Shopfront pass (2026-11-17, arena/fd9778a1-zone1) — two presentation behaviours.
-// Both are progressive: with JavaScript off the tables still scroll (the fade is the
-// only thing missing), the comparison bar stays visible, and no content is hidden.
-// These display controls make no network requests and store nothing. The owner
-// picker above is explicitly local-only; analytics is a separate, gated client.
+// Wide tables remain keyboard-scrollable without JavaScript. Dynamic edge hints and
+// removing unnecessary tab stops on non-overflowing tables are progressive enhancements.
+// These presentation behaviours make no network call or storage write. The separate
+// measurement client has its own deployment and privacy gates; see measurement.html.
 (function () {
   // Tell the reader a wide table continues past the right edge. The hint element
   // lives outside the scroller, so it stays put while the table moves.
   var wraps = Array.prototype.slice.call(document.querySelectorAll('.tablewrap'));
   function paint() {
-    wraps.forEach(function (wrap) {
-      var wide = wrap.scrollWidth - wrap.clientWidth > 4;
-      var hint = wrap.nextElementSibling;
-      if (!hint || !hint.classList.contains('tablewrap-hint')) {
-        hint = document.createElement('p');
-        hint.className = 'tablewrap-hint';
-        hint.textContent = 'Scroll the table sideways to see every column →';
-        wrap.insertAdjacentElement('afterend', hint);
-      }
-      hint.classList.toggle('show', wide && wrap.scrollWidth - wrap.clientWidth - wrap.scrollLeft > 4);
-      if (wide) {
-        wrap.tabIndex = 0;
-        wrap.setAttribute('role', 'region');
-        var caption = wrap.querySelector('caption');
-        wrap.setAttribute('aria-label', caption ? caption.textContent : 'Scrollable data table');
-      } else {
-        wrap.removeAttribute('tabindex'); wrap.removeAttribute('role'); wrap.removeAttribute('aria-label');
-      }
+    wraps.forEach(function (w) {
+      var hint = w.nextElementSibling;
+      var wide = w.scrollWidth - w.clientWidth > 4;
+      w.tabIndex = wide ? 0 : -1;
+      var caption = w.querySelector('caption');
+      if (wide && caption) w.setAttribute('aria-label', caption.textContent + ' — scroll horizontally for more columns');
+      if (!hint || !hint.classList.contains('tablewrap-hint')) return;
+      var past = w.scrollWidth - w.clientWidth - w.scrollLeft;
+      hint.classList.toggle('show', w.scrollWidth - w.clientWidth > 4 && past > 4);
     });
   }
   if (wraps.length) {
-    wraps.forEach(function (wrap) { wrap.addEventListener('scroll', paint, { passive: true }); });
+    wraps.forEach(function (w) { w.addEventListener('scroll', paint, { passive: true }); });
     window.addEventListener('resize', paint);
-    document.addEventListener('toggle', paint, true);
-    if ('ResizeObserver' in window) {
-      var observer = new ResizeObserver(paint); wraps.forEach(function (wrap) { observer.observe(wrap); });
-    }
-    if (document.fonts) document.fonts.ready.then(paint);
     paint();
   }
 
-  // Step the sticky bar out of the way once the footer is on screen, so it never
-  // covers the disclosure text or the source list.
-  var bar = document.querySelector('.shopbar');
-  var foot = document.querySelector('footer.site');
-  if (bar && foot && 'IntersectionObserver' in window) {
-    var footerVisible = false;
-    var hero = document.querySelector('.publication-hero');
-    var heroVisible = Boolean(hero);
-    function barState() { bar.classList.toggle('hide', footerVisible || heroVisible); }
-    new IntersectionObserver(function (entries) {
-      footerVisible = entries[0].isIntersecting; barState();
-    }, { rootMargin: '0px 0px -8px 0px' }).observe(foot);
-    if (hero) {
-      new IntersectionObserver(function (entries) {
-        heroVisible = entries[0].isIntersecting; barState();
-      }).observe(hero);
-    }
-    barState();
-  }
+})();
+
+(function () {
+  var controls = document.querySelector('[data-format-controls]');
+  if (!controls) return;
+  var cards = Array.from(document.querySelectorAll('.publication-product[data-format]'));
+  var status = document.querySelector('[data-format-status]');
+  if (!cards.length) return;
+  controls.hidden = false;
+  controls.addEventListener('click', function (ev) {
+    var button = ev.target.closest('[data-format-filter]');
+    if (!button) return;
+    var filter = button.getAttribute('data-format-filter');
+    controls.querySelectorAll('button').forEach(function (item) {
+      item.setAttribute('aria-pressed', item === button ? 'true' : 'false');
+    });
+    var shown = 0;
+    cards.forEach(function (card) {
+      card.hidden = filter !== 'all' && card.getAttribute('data-format') !== filter;
+      if (!card.hidden) shown += 1;
+    });
+    if (status) status.textContent = shown + (shown === 1 ? ' format shown.' : ' formats shown.');
+  });
 })();
 
 (function () {
@@ -306,7 +245,7 @@ document.addEventListener('click', function (ev) {
     var target = document.getElementById(location.hash.slice(1));
     if (target && target.hasAttribute('data-suggestion')) {
       if (target.hidden) { field.value = ''; filter(); }
-      var detail = target.querySelector('details');
+      var detail = target.matches('details') ? target : target.querySelector('details');
       if (detail) detail.open = true;
       target.scrollIntoView();
     }

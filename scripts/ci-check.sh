@@ -2,7 +2,13 @@
 # Gate for every commit: engine tests, data audit, site build, stale-build check, link check.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-echo "· unit tests"
+echo "· canonical build, source and privacy gates"
+python3 build.py
+python3 verify.py
+echo "· publication and browser-to-collector contract tests"
+python3 -m unittest discover -s tests -v
+node --test tests/*.test.cjs
+echo "· engine unit tests"
 python3 -m unittest discover -s platform/tests -t platform -p 'test_*.py' 2>&1 | tail -3
 echo "· data audit"
 python3 -c "

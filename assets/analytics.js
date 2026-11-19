@@ -1,41 +1,37 @@
-/* Zone1 Kitchen: first-party aggregate events, disabled until deployment gates pass.
-   Canonical schema: data/analytics-plan.json. No identifiers or browsing history.
-   Failure to measure never changes a link or prevents a reader from leaving. */
+/* Zone1 Kitchen — first-party aggregate measurement, contract v2.
+   Source for assets/analytics.js. Disabled without a verified same-origin endpoint.
+   No cookies, storage, reader IDs, destination URLs or query parameters. */
 (function () {
   "use strict";
   var script = document.currentScript;
-  var root = document.body;
-  if (!script || !root || root.getAttribute("data-analytics-eligible") !== "true") return;
-  var rawEndpoint = script.getAttribute("data-endpoint") || "";
-  if (!rawEndpoint || navigator.webdriver === true) return;
-  var endpoint;
-  try { endpoint = new URL(rawEndpoint, window.location.origin); } catch (_) { return; }
-  if (endpoint.origin !== window.location.origin || endpoint.pathname !== "/api/analytics/events" ||
-      endpoint.search || endpoint.hash || endpoint.username || endpoint.password) return;
+  if (!script || script.getAttribute("data-enabled") !== "true") return;
+  if (document.body.getAttribute("data-analytics-eligible") !== "true" || navigator.webdriver === true) return;
+  if (navigator.doNotTrack === "1" || window.doNotTrack === "1" ||
+      navigator.globalPrivacyControl === true) return;
+
+  var route = script.getAttribute("data-endpoint") || "";
+  // Deliberately same-origin. An external URL, even HTTPS, is not this contract.
+  if (route !== "/api/analytics/events") return;
+  var page = document.body.getAttribute("data-page-id");
+  if (!page) return;
   var wanted = (script.getAttribute("data-events") || "").split(",");
-  var pageId = root.getAttribute("data-page-id");
-  var pageType = root.getAttribute("data-page-type");
-  if (!pageId) return;
+  var targets = (script.getAttribute("data-target-ids") || "").split(",");
 
-  function optedOut() {
-    return navigator.doNotTrack === "1" || window.doNotTrack === "1" ||
-      navigator.globalPrivacyControl === true;
-  }
-  if (optedOut()) return;
-
-  function send(event, fields) {
-    if (optedOut() || wanted.indexOf(event) === -1) return;
-    var payload = { event: event, page_id: pageId };
-    if (fields && fields.target_id) payload.target_id = fields.target_id;
-    if (fields && fields.bucket) payload.bucket = fields.bucket;
+  function send(event, extra) {
+    if (wanted.indexOf(event) === -1) return;
+    if (navigator.globalPrivacyControl === true || navigator.doNotTrack === "1" || window.doNotTrack === "1") return;
+    var body = { event: event, page_id: page };
+    if (extra) Object.keys(extra).forEach(function (key) { body[key] = extra[key]; });
+    // fetch can omit credentials and the Referer; sendBeacon cannot guarantee that.
+    // Never wait for a result or change a reader's navigation.
     try {
-      window.fetch(endpoint.href, {
+      fetch(route, {
         method: "POST", mode: "same-origin", credentials: "omit",
-        referrerPolicy: "no-referrer", keepalive: true,
+        referrerPolicy: "no-referrer", keepalive: true, cache: "no-store",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      }).catch(function () { /* Measurement must never break navigation. */ });
-    } catch (_) { /* Offline, unavailable, or blocked: do not retry or queue. */ }
+        body: JSON.stringify(body)
+      }).catch(function () {});
+    } catch (ignored) { /* measurement must never break the publication */ }
   }
 
   var viewed = false;
@@ -44,36 +40,40 @@
     viewed = true;
     send("page_view");
   }
+  pageView();
   document.addEventListener("visibilitychange", pageView);
   document.addEventListener("prerenderingchange", pageView, { once: true });
-  pageView();
 
   function activation(ev) {
-    if (!ev.isTrusted || (ev.type === "click" ? ev.button !== 0 : ev.button !== 1)) return;
-    var link = ev.target && ev.target.closest ? ev.target.closest("a[data-analytics-event]") : null;
+    if (!ev.isTrusted) return;
+    if (ev.type === "click" && ev.button !== 0) return;
+    if (ev.type === "auxclick" && ev.button !== 1) return;
+    var link = ev.target.closest ? ev.target.closest("a[data-analytics-event]") : null;
     if (!link) return;
     var event = link.getAttribute("data-analytics-event");
-    var target = link.getAttribute("data-analytics-target-id");
-    if (!target) return;
-    if (event === "outbound_click" || (event === "comparison_interaction" && pageId === "compare")) {
+    var target = link.getAttribute("data-analytics-target-id") || "";
+    if (targets.indexOf(target) === -1) return;
+    if (event === "outbound_click") send(event, { target_id: target });
+    if (event === "comparison_interaction" && page === "compare") {
       send(event, { target_id: target });
     }
   }
   document.addEventListener("click", activation, { passive: true });
   document.addEventListener("auxclick", activation, { passive: true });
 
-  // A single coarse engagement bucket, not a claim that an article was completed.
-  if (pageType === "article" || pageType === "guide") {
+  // A coarse 60-second active-reading bucket, not a claim that a guide was finished.
+  var type = document.body.getAttribute("data-page-type");
+  if ((type === "article" || type === "guide") && wanted.indexOf("article_engagement") !== -1) {
     var activeTicks = 0;
-    var timer = window.setInterval(function () {
-      if (optedOut()) { window.clearInterval(timer); return; }
+    var timer = setInterval(function () {
+      if (navigator.globalPrivacyControl === true || navigator.doNotTrack === "1" || window.doNotTrack === "1") { clearInterval(timer); return; }
       if (document.visibilityState !== "visible" || document.prerendering || !document.hasFocus()) return;
       activeTicks += 1;
       if (activeTicks >= 60) {
-        window.clearInterval(timer);
+        clearInterval(timer);
         send("article_engagement", { bucket: "60s" });
       }
     }, 1000);
-    window.addEventListener("pagehide", function () { window.clearInterval(timer); }, { once: true });
+    window.addEventListener("pagehide", function () { clearInterval(timer); }, { once: true });
   }
 })();

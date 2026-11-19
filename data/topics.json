@@ -768,5 +768,12 @@
       }
     }
   ],
-  "channels_note": "CH-2 and CH-5 are not recommendations to weigh; they are clauses in a contract this site has to operate inside. They are listed alongside the real channels because a traffic plan that omits them reads as if they were never considered."
+  "channels_note": "CH-2 and CH-5 are not recommendations to weigh; they are clauses in a contract this site has to operate inside. They are listed alongside the real channels because a traffic plan that omits them reads as if they were never considered.",
+  "cadence": {
+    "status": "operating plan, not a scheduled autonomous publisher",
+    "rhythm": "Review source changes weekly; prepare at most one useful new or substantially refreshed guide every two weeks. Publish only after primary-source, disclosure, link and build checks pass.",
+    "seasonal": "Review gift and sale-checking guides ahead of the relevant retail season. The November 2026 selection is editorial context, not proof of search demand or a deal.",
+    "kill_rule": "Do not publish a second article answering the same question. Improve the existing canonical guide instead. Hold a draft if its claims require unverified identity, unauthorised API content or invented first-party results.",
+    "measurement": "Once authorised Search Console and first-party aggregates exist, review query impressions, clicks and guide-to-product actions over a dated comparable period before changing priorities. There is currently no such dataset."
+  }
 }

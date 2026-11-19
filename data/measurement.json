@@ -1,35 +1,35 @@
 {
   "version": "2.0",
   "compiled": "2026-11-19",
-  "session": "arena/7d42af7c-zone1",
-  "status": "client_shipped_endpoint_not_deployed",
-  "purpose": "The five measurement events this site will record, defined precisely enough that whoever wires them cannot guess, plus an honest account of what is built, what is not, and why. Defining an event is not collecting it, and shipping a client is not collecting it either: the counter is written and shipped, the sink it would post to is not deployed, and every count in this file is empty on purpose.",
+  "session": "arena/1f9e7d52-zone1",
+  "status": "contract_tested_production_not_deployed",
+  "purpose": "EV-01..EV-05 are the stable labels of the five events in data/analytics-plan.json, not a second wire protocol. Browser JSON uses the canonical event names and allow-listed IDs accepted by analytics/collector.py. No production totals are available.",
   "why_nothing_is_sending": [
-    "GitHub Pages is a static host, not a server for POST requests. The Python aggregate collector is implemented and tested but no production host or same-origin reverse proxy has been deployed.",
-    "The two configuration switches remain off; changing only one fails the build. There are no measured production totals to display.",
-    "The footer is generated from the collection state. It distinguishes site code from GitHub hosting logs and discloses the owner decision picker’s local-only storage.",
-    "Orders and conversions cannot be observed by this site. Only authorized first-party reports may populate the separate campaign ledger; an absent metric remains blank, not zero."
+    "GitHub Pages is static hosting, not a Python runtime. The first-party /api/analytics/events collector must run on a verified same-origin host before any production event can be accepted.",
+    "The browser switch and deployment gates remain false. Tests use synthetic events and isolated temporary databases; test results never enter the campaign ledger.",
+    "A correct application cannot control hosting-platform security logs. Deployment requires a reviewed privacy notice and host/proxy logging policy.",
+    "Associates order totals are available only from an authorised account report, not from a reader click. No authorised report has been imported."
   ],
   "implementation": {
-    "client": "analytics/client.js, published verbatim as assets/analytics.js. Reads only canonical page IDs, explicitly marked link IDs and a fixed active-reading bucket. Uses same-origin application/json fetch with credentials omitted.",
-    "switch": "data/config.json analytics and data/analytics-plan.json collection must agree. The endpoint path, runtime, notice and deployment flags are build-gated.",
-    "endpoint_source": "analytics/collector.py is the canonical self-hosted endpoint. Stores atomic SQLite daily aggregates only. The older PHP and Worker raw-event examples are retired and return HTTP 410 without collecting.",
-    "guard": "Schema agreement, deployment flags, same-origin endpoint, privacy wording, trusted link activations and banned identifier APIs are verified in build.py and regression tests.",
-    "verification": "The Python HTTP/storage tests and JavaScript client contract tests exercise all four browser events and operator-only report import. These are local fixtures, not live visitor or Associates data.",
-    "what_is_not_shipped": "No production endpoint, approved privacy review, verified Associates account access or Search Console property. No production events, conversion totals or revenue forecast."
+    "client": "analytics/client.js is the reviewed source; build.py copies it byte-for-byte to assets/analytics.js. It observes trusted marked links, including the supplied short links, without inventing an ASIN.",
+    "switch": "data/config.json analytics and data/analytics-plan.json collection must agree; deployment and privacy flags must pass. Only indexable reader pages may load the client.",
+    "endpoint_source": "analytics/collector.py is the supported same-origin Python/SQLite collector. It accepts only bounded JSON with canonical event names, known page/product IDs and a fixed reading bucket, then increments UTC-day aggregates. Legacy PHP/Worker endpoints are retired and return 410.",
+    "guard": "check_analytics_consistency checks event names against the actual collector allow-list, deployment flags, script placement, privacy wording and banned identifying APIs.",
+    "verification": "tests/test_analytics_contract.py executes the actual client in a Node harness, posts its payloads to the real Python handler in an isolated database, and checks opt-outs, synthetic activations, engagement and rejection rules.",
+    "what_is_not_shipped": "A production runtime, authorised account reports and Search Console access are not configured. A passing synthetic test is not traffic, a live collector, an order or revenue."
   },
   "privacy_rules": [
-    "No analytics cookies, persistent reader IDs, browser storage, full URLs, referrers, query strings, IP addresses or user-agent strings are sent by the client.",
-    "DNT and Global Privacy Control are honored; prerendered and hidden-page time is excluded. Link events require trusted primary, keyboard or middle-button activations.",
-    "The collector stores UTC-day aggregate counters, not raw payloads or exact event timestamps. It rejects unknown fields, unknown page/link IDs and browser order/import events.",
-    "Network infrastructure sees connection metadata. The collector disables its own access log; actual host/proxy logging and retention must be reviewed separately. GitHub documents security IP logging for Pages.",
-    "The owner decision picker is separate from analytics. It saves choices locally in this browser only and offers explicit JSON export; nothing is submitted automatically."
+    "The client reads no cookies, persistent storage, reader IDs, referrer, query string or full outbound URL. It uses fetch with credentials omitted and no-referrer policy, never a credentialed beacon.",
+    "Do Not Track and Global Privacy Control disable measurement. Only marked primary/middle-button product activations are counted; scripts cannot manufacture an outbound navigation.",
+    "The collector rejects unknown fields and non-canonical page/product IDs. It computes the UTC date on the server and stores only daily aggregate counts, not raw event rows.",
+    "Request transport necessarily exposes connection information to infrastructure. The application suppresses access logs, but host/proxy logs need a separate review. GitHub Pages itself documents IP logging for security.",
+    "EV-05 cannot be sent by a browser. Import only authorised first-party aggregates, retain provenance, and never join click counts to an inferred order or a visitor."
   ],
   "events": [
     {
       "id": "EV-01",
       "name": "page_view",
-      "fires_when": "One event on the first visible, non-prerendered display of an eligible publication page. DNT, Global Privacy Control and browser automation suppress collection.",
+      "fires_when": "One event when an indexable publication page first becomes visible, per page load, after explicit enablement. DNT and Global Privacy Control opt out. This is a page load, not a unique human/session count.",
       "records": [
         "canonical page ID"
       ],
@@ -41,12 +41,12 @@
         "referrer",
         "query string"
       ],
-      "note": "Application-defined aggregate event; not proof of a human visit, a unique session, a product recommendation, or a conversion."
+      "note": "Canonical wire format: event and page_id; target_id or the fixed 60s bucket only where defined. Counts are not unique people, eligible sessions or conversions."
     },
     {
       "id": "EV-02",
       "name": "outbound_click",
-      "fires_when": "A trusted primary, keyboard or middle-button activation of an explicitly marked supplied product link. Counts interest, not an order; no navigation is blocked.",
+      "fires_when": "One trusted primary or middle-button activation of an explicitly marked supplied-product link. The recorded link/product ID is not an inferred ASIN or proof of the intended listing.",
       "records": [
         "canonical page ID",
         "allow-listed product/link ID when available"
@@ -56,12 +56,12 @@
         "link query parameters",
         "Amazon account or order data"
       ],
-      "note": "Application-defined aggregate event; not proof of a human visit, a unique session, a product recommendation, or a conversion."
+      "note": "Canonical wire format: event and page_id; target_id or the fixed 60s bucket only where defined. Counts are not unique people, eligible sessions or conversions."
     },
     {
       "id": "EV-03",
       "name": "article_engagement",
-      "fires_when": "An individual published article or buying guide is visible and focused for 60 coarse one-second intervals. Background time does not advance the counter; this is engagement, not completion.",
+      "fires_when": "One event after 60 visible-and-focused one-second intervals on a published article or buying guide. Hidden tabs do not accumulate intervals. This is coarse engagement, not proof that the article was finished.",
       "records": [
         "canonical page ID",
         "fixed threshold bucket"
@@ -72,12 +72,12 @@
         "session ID",
         "cross-page history"
       ],
-      "note": "Application-defined aggregate event; not proof of a human visit, a unique session, a product recommendation, or a conversion."
+      "note": "Canonical wire format: event and page_id; target_id or the fixed 60s bucket only where defined. Counts are not unique people, eligible sessions or conversions."
     },
     {
       "id": "EV-04",
       "name": "comparison_interaction",
-      "fires_when": "A trusted activation of a marked product-detail link from the comparison page, not merely a table impression.",
+      "fires_when": "One trusted activation of a marked product-detail link from compare.html; the target is an allow-listed product ID. Merely seeing a table does not emit this event.",
       "records": [
         "comparison page ID",
         "allow-listed product ID"
@@ -87,12 +87,12 @@
         "query string",
         "visitor identifier"
       ],
-      "note": "Application-defined aggregate event; not proof of a human visit, a unique session, a product recommendation, or a conversion."
+      "note": "Canonical wire format: event and page_id; target_id or the fixed 60s bucket only where defined. Counts are not unique people, eligible sessions or conversions."
     },
     {
       "id": "EV-05",
       "name": "affiliate_report_import",
-      "fires_when": "An authorized aggregate first-party report is explicitly imported into data/campaign-ledger.json. It is never accepted by the browser collector.",
+      "fires_when": "An authorized Associates Central report is imported; the corresponding aggregate is added to data/campaign-ledger.json.",
       "records": [
         "report timestamp",
         "source report",
@@ -108,7 +108,7 @@
         "product advertising content",
         "estimated conversions or revenue"
       ],
-      "note": "Operator-only report import. A click is not an order."
+      "note": "Operator-only aggregate report import; the repository ledger is empty."
     }
   ],
   "campaign_ledger": {
@@ -123,26 +123,26 @@
       "reported_orders"
     ],
     "rows": [],
-    "why_empty": "No authorized report has been imported and production collection is off. Test fixtures never enter the publication ledger."
+    "why_empty": "No authorised first-party report has been imported. Synthetic contract tests are excluded and a click is not an order."
   },
   "prerequisites": [
     {
       "step": "1",
-      "owner_action": "Select and deploy a durable HTTPS runtime and a same-origin /api/analytics/events route for the Python collector.",
-      "blocks": "Browser collection",
-      "why": "GitHub Pages cannot run the collector. Repository permissions do not provide a hosting account or DNS control."
+      "owner_action": "Provision a same-origin HTTPS runtime and /api/analytics/events route for analytics/collector.py.",
+      "blocks": "EV-01 through EV-04",
+      "why": "GitHub Pages serves static assets and cannot run the collector."
     },
     {
       "step": "2",
-      "owner_action": "Review actual host/proxy logs, retention and the visitor notice; pass both collection switches and end-to-end tests together.",
-      "blocks": "Activation",
-      "why": "The deployment and privacy statement must describe the same behavior."
+      "owner_action": "Verify the privacy notice, retention, and hosting/proxy logs; record the deployment evidence and enable both guarded switches.",
+      "blocks": "Production browser collection",
+      "why": "Program Policies §3(e) requires accurate technology disclosure; code cannot certify infrastructure it does not control."
     },
     {
       "step": "3",
-      "owner_action": "Confirm intended listings and the selected tracking ID in Associates Central, test one enrolled Special Link per product, then import an authorized report.",
-      "blocks": "Attribution and reported orders",
-      "why": "shopnow047c-20 is recorded as user-provided, not confirmed active or applied to any supplied link."
+      "owner_action": "Confirm the selected tracking ID in Associates Central, test one link per intended listing, and obtain an authorised aggregate report.",
+      "blocks": "EV-05 and validated affiliate attribution",
+      "why": "Account access and reports are not available to this repository. The selected ID remains recorded but not applied."
     }
   ]
 }

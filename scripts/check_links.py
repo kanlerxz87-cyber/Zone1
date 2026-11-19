@@ -91,9 +91,11 @@ def html_files(scope="all"):
     warnings: this project must not red-build someone else's page, and must not
     be blocked by defects in it either.
     """
-    for base, _dirs, files in os.walk(ROOT):
-        if any(p in base for p in ("/.git", "/node_modules", "/_site", "/crosscheck")):
-            continue
+    for base, directories, files in os.walk(ROOT):
+        # Optional browser tooling is not a published build. Prune rather than
+        # scanning dependencies/caches and mistaking their HTML for our content.
+        excluded = {"node_modules", "test-results", "playwright-report", "_site", "crosscheck"}
+        directories[:] = sorted(d for d in directories if not d.startswith(".") and d not in excluded)
         for f in sorted(files):
             if not f.endswith(".html"):
                 continue

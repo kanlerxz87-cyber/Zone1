@@ -43,8 +43,8 @@ def allowed_page_ids() -> set[str]:
         "picks",
         "compare",
         "compliance",
-        "clusters",
         "about",
+        "clusters",
         "categories/kitchen-appliances",
         "guides/buying-guide-air-fryers",
         "articles/index",
@@ -57,8 +57,14 @@ def allowed_page_ids() -> set[str]:
 
 
 def allowed_product_ids() -> set[str]:
-    return ({item["slug"] for item in _json(DATA / "products.json").get("products", [])}
-            | {item["id"] for item in _json(DATA / "product-intent.json").get("rows", [])})
+    return {item["slug"] for item in _json(DATA / "products.json").get("products", [])}
+
+
+def allowed_link_ids() -> set[str]:
+    """Stable link IDs are not assertions about the intended ASIN."""
+    return allowed_product_ids() | {
+        item["id"] for item in _json(DATA / "product-intent.json").get("rows", [])
+    }
 
 
 def validate_payload(payload: Any) -> dict[str, str]:
@@ -77,11 +83,11 @@ def validate_payload(payload: Any) -> dict[str, str]:
     if event == "outbound_click":
         allowed_keys.add("target_id")
         target_id = payload.get("target_id", "")
-        if not isinstance(target_id, str) or (target_id and target_id not in allowed_product_ids()):
+        if not isinstance(target_id, str) or not target_id or target_id not in allowed_link_ids():
             raise ValueError("outbound link ID is not allow-listed")
         result["target_id"] = target_id
     elif event == "article_engagement":
-        if not (page_id.startswith(("articles/", "guides/")) and page_id != "articles/index"):
+        if page_id == "articles/index" or not (page_id.startswith("articles/") or page_id.startswith("guides/")):
             raise ValueError("engagement is only defined for articles and guides")
         allowed_keys.add("bucket")
         bucket = payload.get("bucket")
@@ -114,8 +120,8 @@ def _database_path(raw_path: str) -> Path:
 
 def _origin(raw: str) -> str:
     parsed = urlsplit(raw)
-    if (parsed.scheme != "https" or not parsed.hostname or parsed.path or parsed.query or parsed.fragment
-            or parsed.username or parsed.password):
+    if (parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password
+            or parsed.path or parsed.query or parsed.fragment):
         raise ValueError("public origin must be an HTTPS origin with no path")
     return f"https://{parsed.netloc.lower()}"
 
@@ -192,6 +198,10 @@ def make_handler(environ: Mapping[str, str] | None = None):
         server_version = "Zone1AggregateCollector"
         sys_version = ""
 
+        def setup(self) -> None:
+            super().setup()
+            self.connection.settimeout(5)
+
         def log_message(self, _format: str, *args: Any) -> None:
             # BaseHTTPRequestHandler logs the remote address by default. Do not emit it.
             return
@@ -212,6 +222,9 @@ def make_handler(environ: Mapping[str, str] | None = None):
             if not config["ready"]:
                 _json_response(self, 503, {"error": "collector_disabled"})
                 return
+            if self.headers.get("Transfer-Encoding"):
+                _json_response(self, 400, {"error": "transfer_encoding_not_supported"})
+                return
             if self.headers.get("Origin", "") != config["origin"]:
                 _json_response(self, 403, {"error": "origin_not_allowed"})
                 return
@@ -227,7 +240,6 @@ def make_handler(environ: Mapping[str, str] | None = None):
                 _json_response(self, 413, {"error": "body_size_not_allowed"})
                 return
             try:
-                self.connection.settimeout(5)
                 raw = self.rfile.read(length)
                 payload = json.loads(raw.decode("utf-8"))
                 record_event(config["db_path"], payload)
@@ -239,6 +251,24 @@ def make_handler(environ: Mapping[str, str] | None = None):
     return CollectorHandler
 
 
+class AggregateHTTPServer(ThreadingHTTPServer):
+    """Do not let socketserver's fallback traceback log a client address.
+
+    Disabling BaseHTTPRequestHandler.log_message is not sufficient: a dropped
+    connection can reach handle_error(), whose stdlib implementation prints the
+    address plus a traceback. Expected transport failures are silent; unexpected
+    failures emit only a fixed operator diagnostic, never exception/request text.
+    """
+
+    daemon_threads = True
+
+    def handle_error(self, request, client_address) -> None:
+        error = sys.exc_info()[1]
+        if isinstance(error, (ConnectionError, TimeoutError, OSError)):
+            return
+        print("Aggregate collector request failed.", file=sys.stderr)
+
+
 def serve(host: str | None = None, port: int | None = None) -> None:
     config = environment_config()
     if not config["ready"]:
@@ -247,9 +277,9 @@ def serve(host: str | None = None, port: int | None = None) -> None:
             "ZONE1_ANALYTICS_PRIVACY_NOTICE_APPROVED=1, an HTTPS "
             "ZONE1_ANALYTICS_PUBLIC_ORIGIN, and ZONE1_ANALYTICS_DB_PATH outside the checkout."
         )
-    bind_host = host or os.environ.get("ZONE1_ANALYTICS_BIND", "127.0.0.1")
+    bind_host = host or os.environ.get("ZONE1_ANALYTICS_BIND", "0.0.0.0")
     bind_port = port or int(os.environ.get("ZONE1_ANALYTICS_PORT", "8078"))
-    server = ThreadingHTTPServer((bind_host, bind_port), make_handler())
+    server = AggregateHTTPServer((bind_host, bind_port), make_handler())
     print(f"Zone1 analytics collector listening on {bind_host}:{bind_port} (no access log)", flush=True)
     try:
         server.serve_forever()

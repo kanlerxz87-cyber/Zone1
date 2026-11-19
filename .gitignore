@@ -2,13 +2,11 @@ __pycache__/
 *.pyc
 .DS_Store
 .venv/
-
-# python bytecode from the local test runs
-__pycache__/
-*.pyc
-
-# Local browser tools, generated test evidence and non-public event stores
 .cache/
+node_modules/
+# Synthetic browser runs and temporary data must never enter the publication.
+test-results/
+playwright-report/
 *.sqlite3
-*.sqlite3-*
-analytics-data/
+*.sqlite3-wal
+*.sqlite3-shm

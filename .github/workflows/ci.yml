@@ -18,13 +18,18 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Canonical rebuild, verification and committed-output gate
+      - name: Build and verify the canonical publication
         run: |
           python3 build.py
           python3 verify.py
-          git diff --exit-code -- .
+          git diff --exit-code
 
-      - name: Research rebuild and verification
+      - name: Publication, privacy and actual-client collector contract tests
+        run: |
+          python3 -m unittest discover -s tests -v
+          node --test tests/*.test.cjs
+
+      - name: Research rebuild and source verification
         run: |
           python3 research/build_research.py
           python3 research/check_research.py
@@ -32,17 +37,6 @@ jobs:
 
       - name: Engine tests
         run: python3 -m unittest discover -s platform/tests -t platform -p "test_*.py"
-
-      - name: Canonical publication and analytics regression tests
-        run: |
-          python3 -m unittest discover -s tests -v
-          node --test tests/*.test.cjs
-
-      - name: Install disposable browser test dependencies
-        run: npm install --prefix .cache/browser --no-save --no-package-lock playwright-core@1.65.1 @sparticuz/chromium@153.0.0
-
-      - name: Responsive, keyboard, no-JS and network acceptance
-        run: node scripts/check_publication_browser.mjs
 
       - name: Data audit — every row sourced, no inferred values
         run: python3 platform/audit/report.py
@@ -59,3 +53,32 @@ jobs:
 
       - name: Link and source coverage on rendered pages
         run: python3 scripts/check_links.py
+
+  browser:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Install development-only browser tooling
+        run: npm ci --ignore-scripts
+      - name: Install Chromium and system libraries
+        run: npx playwright install --with-deps chromium
+      - name: Rendered publication, no-JS, accessibility and actual-browser collector gates
+        run: |
+          npm run test:browser
+          node scripts/check_publication_browser.mjs
+      - name: Preserve scoped browser evidence on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-gate-evidence
+          path: test-results/
+          retention-days: 3

@@ -39,8 +39,8 @@ class PublicationOutputTests(unittest.TestCase):
     def test_disclosure_sits_under_masthead_before_content_and_repeats_in_footer(self):
         for page, text in self.pages.items():
             with self.subTest(page=page):
-                masthead = text.index('<div class="masthead">')
-                band = text.index('<div class="disclosure-bar">')
+                masthead = text.index('</header>')
+                band = text.index('class="disclosure-bar"')
                 main = text.index('<main id="main-content">')
                 self.assertLess(masthead, band)
                 self.assertLess(band, main)
@@ -97,10 +97,10 @@ class PublicationOutputTests(unittest.TestCase):
         home = self.pages['index.html']
         for choice in ('all', 'dual', 'single', 'oven'):
             self.assertIn(f'data-format-filter="{choice}"', home)
-        self.assertEqual(3, home.count('class="publication-product"'))
+        self.assertEqual(3, sum(1 for tag, attrs in Elements(home).items if 'publication-product' in attrs.get('class', '').split()))
         self.assertIn('15.4 × 12.6 × 13.5 in', home)
         self.assertIn('AI-generated editorial scene', home)
-        self.assertIn('AI-generated food illustration', home)
+        self.assertIn('not a product image or test kitchen.', home)
         self.assertNotIn('kitchen-counter.webp', home)
         self.assertFalse((ROOT / 'assets/editorial/kitchen-counter.webp').exists())
 
@@ -114,13 +114,15 @@ class PublicationOutputTests(unittest.TestCase):
         self.assertEqual(24, len(json.loads((ROOT / 'data/articles.json').read_text())['articles']))
 
     def test_authored_assets_are_published_verbatim_and_fonts_are_local(self):
-        for source, output in (('assets/theme.css', 'assets/style.css'),
-                               ('assets/app.source.js', 'assets/app.js'),
+        for source, output in (('publication/theme.css', 'assets/style.css'),
+                               ('publication/site.js', 'assets/app.js'),
                                ('analytics/client.js', 'assets/analytics.js')):
             self.assertEqual((ROOT / source).read_bytes(), (ROOT / output).read_bytes())
         css = (ROOT / 'assets/style.css').read_text()
         self.assertNotIn('https://', css)
-        for font in re.findall(r"url\('([^']+\.woff2)'\)", css):
+        fonts = re.findall(r'url\(["\']([^"\']+\.woff2)["\']\)', css)
+        self.assertGreaterEqual(len(fonts), 2)
+        for font in fonts:
             self.assertTrue((ROOT / 'assets' / font).is_file())
         for name in ('DM-Sans-LICENSE.txt', 'DM-Serif-Display-LICENSE.txt'):
             self.assertIn('SIL OPEN FONT LICENSE', (ROOT / 'assets/fonts' / name).read_text())

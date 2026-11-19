@@ -19,6 +19,8 @@ function boot(options = {}) {
   let focused = true;
   const document = {
     currentScript: { getAttribute(name) {
+      if (name === 'data-enabled') return options.disabled ? 'false' : 'true';
+      if (name === 'data-target-ids') return [product, 'PI-04', 'PI-05'].join(',');
       return name === 'data-endpoint' ? (options.endpoint ?? '/api/analytics/events') :
         plan.events.filter(event => event.origin === 'browser').map(event => event.name).join(',');
     } },
@@ -44,7 +46,7 @@ function boot(options = {}) {
     globalPrivacyControl: Boolean(options.gpc),
     webdriver: Boolean(options.automation)
   };
-  vm.runInNewContext(source, { document, window, navigator, URL, JSON });
+  vm.runInNewContext(source, { document, window, navigator, URL, JSON, fetch:window.fetch, setInterval:window.setInterval, clearInterval:window.clearInterval });
   return {
     events, document, listeners, timers, navigator,
     focus(value) { focused = value; },
@@ -122,7 +124,7 @@ test('actual client payloads pass the Python collector unchanged and carry no co
   const comparison = boot({ page: 'compare', type: 'comparison' }); comparison.click('comparison_interaction');
   const samples = [...article.events, ...comparison.events];
   for (const { url, init, payload } of samples) {
-    assert.equal(url, 'https://zone1.example/api/analytics/events');
+    assert.equal(new URL(url, 'https://zone1.example').href, 'https://zone1.example/api/analytics/events');
     assert.equal(init.headers['Content-Type'], 'application/json');
     assert.equal(init.credentials, 'omit');
     assert.equal(init.referrerPolicy, 'no-referrer');

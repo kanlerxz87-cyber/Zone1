@@ -3,7 +3,7 @@
   "compiled": "2026-11-16",
   "session": "arena/ba29c641-zone1",
   "title": "Owner decision log",
-  "purpose": "The suggestion queue on suggestions.html is 21 entries long, and a queue nobody closes becomes a backlog. This register is the single place an owner's choice is recorded so that a later agent pass can implement the chosen path without re-asking. It is the write-side of the review step: every suggestion gets a path picked, or an explicit hold.",
+  "purpose": "A review/export surface for current suggestions, with original alternatives and dated execution history. Owner choices are never fabricated; autonomous low-risk publication work is separately recorded.",
   "policy": {
     "name": "adopt-after-silence",
     "text": "A suggestion whose recommended path is reversible, low-risk, and does not depend on a fact only an Amazon account holder can supply is treated as pre-approved: the next agent pass implements it and records what it did on this page. Everything else holds until the owner picks. This exists because the brief says no manual input is required of the owner, while also requiring that a human reviews suggestions before changes - so the review has a default outcome rather than a veto that blocks the work.",
@@ -189,6 +189,55 @@
       ]
     }
   ],
-  "implemented_note": "Dated execution history, not a live readiness checklist. Earlier rows retain the implementation and assumptions recorded at the time; later rows correct or supersede them. Current per-suggestion states are in data/suggestions.json. In particular the 2026-11-17 analytics event names/endpoint examples and universal touch-target claim are superseded by the 2026-11-19 protocol, privacy and presentation corrections. No entry here is an invented owner choice.",
-  "updated": "2026-11-19"
+  "implemented_note": "Rows a pass implemented without waiting for the owner, under the adopt-after-silence rule, each naming the path it took and why the rule allowed it. This is not the owner's decision list — choices[] stays owner-only and empty until a person fills it — and it exists so a default never looks like an instruction from someone who never gave one. A pass that implements something and does not record it here has broken the rule it used.",
+  "updated": "2026-11-19",
+  "execution_updates": [
+    {
+      "date": "2026-11-19",
+      "session": "arena/1f9e7d52-zone1",
+      "ids": [
+        "SG-03",
+        "SG-04",
+        "SG-07",
+        "SG-13",
+        "SG-16",
+        "SG-21",
+        "SG-24",
+        "SG-25",
+        "SG-26",
+        "SG-27",
+        "SG-28",
+        "SG-30",
+        "SG-32",
+        "SG-33",
+        "SG-35",
+        "SG-39",
+        "SG-40",
+        "SG-43",
+        "SG-44",
+        "SG-45",
+        "SG-46",
+        "SG-49",
+        "SG-48"
+      ],
+      "what": "PUB-1 publication, source corrections, truthful authorship, RSS-only reader loop, cadence plan and native Workspace implementation. This is an agent execution record, not an owner choice or an account/production approval. Current partial/gated states override old effort/done fields.",
+      "evidence": [
+        "data/publication.json",
+        "publication/README.md",
+        "reports/verification-2026-11-19-1f9e7d52.md"
+      ]
+    }
+  ],
+  "parallel_policy_history": [
+    {
+      "commit": "4ae97f0",
+      "policy": {
+        "name": "adopt-after-silence",
+        "text": "A suggestion whose recommended path is reversible, low-risk, and does not depend on a fact only an Amazon account holder can supply is treated as pre-approved: the next agent pass implements it and records what it did on this page. Everything else holds until the owner picks. This exists because the brief says no manual input is required of the owner, while also requiring that a human reviews suggestions before changes - so the review has a default outcome rather than a veto that blocks the work.",
+        "scope_limit": "Silence never authorises: spending money, registering a domain, contacting Amazon or a brand on the owner's behalf, publishing an Amazon-served price or star rating, changing a compliance posture, deleting another session's committed evidence, or asserting any product fact the repository has flagged as unverified. Anything in that class waits, on this page, with its reason.",
+        "rule_applied": "auto-adopt requires: an option letter the suggestion recommends; that option marked reversible; that option's risk 'none' or 'low'; and no blocking question in state 'unknowable'. The four tests are computed from data/suggestions.json and data/questions.json at build time, so the table on the page cannot claim a default its own data does not support.",
+        "recording": "An executed default is recorded in `implemented`, never in `choices`. A pass that adds a row to `choices` is inventing an owner instruction; a pass that changes data without recording it in `implemented` is the same failure in the other direction."
+      }
+    }
+  ]
 }

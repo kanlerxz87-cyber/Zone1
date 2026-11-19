@@ -9,10 +9,8 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const suggestionCount = JSON.parse(await readFile(resolve(root,'data/suggestions.json'),'utf8')).suggestions.length;
-const { default: chromium, inflate, setupLambdaEnvironment } = await import(new URL('../.cache/browser/node_modules/@sparticuz/chromium/build/index.js', import.meta.url));
-const { chromium: playwright } = await import(new URL('../.cache/browser/node_modules/playwright-core/index.mjs', import.meta.url));
-await inflate(resolve(root, '.cache/browser/node_modules/@sparticuz/chromium/bin/al2023.tar.br'));
-setupLambdaEnvironment('/tmp/al2023/lib');
+import { chromium as playwright } from 'playwright';
+const executablePath = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH;
 const types = { '.html':'text/html', '.css':'text/css', '.js':'text/javascript', '.json':'application/json',
   '.svg':'image/svg+xml', '.webp':'image/webp', '.png':'image/png', '.woff2':'font/woff2', '.xml':'application/xml' };
 const server = createServer(async (req, res) => {
@@ -37,8 +35,7 @@ const base = origin + '/Zone1/';
 const failures = [], blockedExternal = [], result = { viewports: [], interactions: [], noJavaScript: [] };
 let browser;
 try {
-  browser = await playwright.launch({ executablePath: await chromium.executablePath(), headless: true,
-    args: chromium.args.filter(arg => !arg.includes('disable-web-security') && !arg.includes('allow-running-insecure-content')) });
+  browser = await playwright.launch({ headless:true, ...(executablePath ? { executablePath, args:['--no-sandbox','--disable-dev-shm-usage'] } : {}) });
   const context = await browser.newContext({ deviceScaleFactor: 1 });
   await context.route('**/*', route => {
     if (new URL(route.request().url()).origin !== origin) {
@@ -121,7 +118,7 @@ try {
   await page.evaluate(() => { location.hash = 'sg-08'; });
   await page.locator('#sg-08').waitFor({ state:'visible' });
   assert.equal(await search.inputValue(), '');
-  assert(await page.locator('#sg-08 > details').evaluate(el => el.open));
+  assert(await page.locator('#sg-08').evaluate(el => el.open));
   assert.equal(await page.locator('[data-suggestion]:visible').count(), suggestionCount);
   result.interactions.push('suggestion search, empty state, anchor recovery and opened alternatives');
 
@@ -168,12 +165,12 @@ try {
   await plain.goto(base + 'suggestions.html', { waitUntil:'load' });
   assert.equal(await plain.locator('[data-suggestion]:visible').count(), suggestionCount);
   assert.equal(await plain.locator('[data-suggestion-toolbar]').isVisible(), false);
-  await plain.locator('#sg-08 > details > summary').click();
-  assert(await plain.locator('#sg-08 > details').evaluate(el => el.open));
+  await plain.locator('#sg-08 > summary').click();
+  assert(await plain.locator('#sg-08').evaluate(el => el.open));
   result.noJavaScript.push('all registered suggestion cards and their native alternatives remain readable');
   await plain.goto(base + 'articles/extension-cord-rules-in-the-manuals.html', { waitUntil:'load' });
-  assert.equal(await plain.locator('.reading-body h2').count(), 4);
-  result.noJavaScript.push('article and all four sourced sections render without scripts');
+  assert.equal(await plain.locator('.article-prose h2').count(), JSON.parse(await readFile(resolve(root,'data/articles.json'),'utf8')).articles.find(a=>a.slug==='extension-cord-rules-in-the-manuals').sections.length);
+  result.noJavaScript.push('article and every registered sourced section render without scripts');
   // Close contexts together in finally: serverless single-process Chromium can
   // terminate its process when an individual isolated context is closed.
   assert.deepEqual(failures, []); assert.deepEqual(blockedExternal, []);

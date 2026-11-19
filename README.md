@@ -1,113 +1,147 @@
 # Zone1 Kitchen
 
-A documentation-based, AI-assisted kitchen buying publication, with its evidence and owner
-workspace kept accessible rather than placed in front of the reader.
+A source-led, buyer-first kitchen publication, generated without a runtime
+framework. The front page leads with formats, product questions and practical
+buying guides—not an audit dashboard.
 
-**Canonical site:** <https://kanlerxz87-cyber.github.io/Zone1/>
-**Current brief:** [19 November 2026](EXECUTIVE-SUMMARY-2026-11-19.md)
-**Source, test and release record:** [publication review](reports/publication-2026-11-19.md)
+**Canonical site:** https://kanlerxz87-cyber.github.io/Zone1/
+**Current implementation / source review:** [PUB-1 report](reports/verification-2026-11-19-1f9e7d52.md)
+**Owner index:** [Executive summary](https://kanlerxz87-cyber.github.io/Zone1/executive-summary.html)
 
-## What is implemented
+## Read the publication
 
-- Reader-led home with a sourced three-format shelf, progressively enhanced filters, comparison,
-  category/product/buying guides, 24 existing question-led articles, four topic clusters and RSS.
-- A shared cream/forest theme, local OFL-licensed fonts and honest editorial-method page. Generic
-  AI food/preparation scenes are labelled illustrations, not product photography, tested recipes
-  or hands-on experience. Product-photo permissions remain unresolved.
-- Associate statement **under the masthead**, repeated in the footer. All outbound product
-  anchors, including listing citations, carry `sponsored nofollow noopener`.
-- One native keyboard-operable Workspace group plus the comprehensive dashboard/evidence footer.
-  Suggestions show current implementation state separately from alternatives, recommendations,
-  questions, missing facts and discovery steps. No owner answer is invented.
-- A corrected five-event analytics contract and self-hosted Python daily-aggregate collector,
-  with browser/HTTP/storage/import tests. **Production collection is disabled.** Static GitHub
-  Pages cannot run that endpoint; see [analytics deployment gates](analytics/README.md).
+- [Home](https://kanlerxz87-cyber.github.io/Zone1/): concise format/product cards,
+  useful buying questions and a November 2026 editorial notebook.
+- [Air fryers and ovens](https://kanlerxz87-cyber.github.io/Zone1/categories/kitchen-appliances.html),
+  [comparison](https://kanlerxz87-cyber.github.io/Zone1/compare.html) and three
+  documentation-based model guides.
+- [Thermometer link notes](https://kanlerxz87-cyber.github.io/Zone1/categories/cooking-thermometers.html):
+  both other submitted links are visible without inventing confirmed models,
+  accuracy, certification or intended ASINs.
+- [Buying guides](https://kanlerxz87-cyber.github.io/Zone1/articles/), arranged in
+  four reader-intent clusters. Existing canonical questions are refreshed rather
+  than duplicated. [RSS](https://kanlerxz87-cyber.github.io/Zone1/feed.xml) is the
+  working reader-subscription mechanism; there is no pretend email signup.
+- [Our approach](https://kanlerxz87-cyber.github.io/Zone1/about.html): honest
+  AI-assisted publication authorship, no invented human editor or hands-on tests,
+  imagery provenance, affiliate funding and current privacy boundaries.
 
-No conversions, traffic trends, earnings, search rankings or measured conversion improvements
-are claimed. Tests do not establish semantic source truth, legal compliance or accessibility
-conformance. The article review corrected substantive errors that earlier source-presence tests
-had missed; the evidence is in the dated report and canonical Flagged rows F96–F99.
+One native **Workspace** menu and a footer index contain the decisions, questions,
+source register, flags, requirements and technical blueprint. There is no audit
+sidebar on reader pages. The exact Associate disclosure sits **below the masthead,
+before main content**, and repeats in the footer. Every actual outbound Amazon
+product destination, including source citations, is qualified `sponsored`.
 
-## Links, account facts and reports
+## Important boundaries
 
-The five supplied `link.amazon` strings remain exactly as submitted. Observed destinations are
-not intended-product confirmations. Their validity/compliance is **not declared either way**;
-the unresolved external record is
-<https://kanlerxz87-cyber.github.io/Zone3/flagged.html#FLG-003>.
+The five original submitted URL strings are preserved in
+[`data/product-intent.json`](data/product-intent.json). Intended ASIN, official
+listing, confirmation date/source, observed redirect/title/date, and enrolled
+per-product test evidence are separate fields. The selected ID **shopnow047c-20**
+is recorded but **unvalidated and unapplied**. The operational tag stays blank.
+Uncertainty is not a conclusion that a short link is invalid; absence of a
+visible URL parameter proves neither successful nor failed attribution.
 
-`shopnow047c-20` is the selected user-provided tracking ID, not an account-verified active ID.
-`data/config.json` leaves the applied tag blank. The intended ASIN, official listing URL,
-confirmation date/source and enrolled-link result for each row remain unfilled in
-[`data/product-intent.json`](data/product-intent.json). A final URL without a visible ID proves
-neither successful nor failed attribution.
+No authorised Amazon price/rating integration is configured. This is an
+implementation boundary, not a blanket claim that Amazon forbids every permitted
+Amazon-served/API display route. No price tracking, fabricated social proof,
+performance ranking, conversion score or revenue forecast is published.
 
-The seven-column [`data/campaign-ledger.json`](data/campaign-ledger.json) is empty. Populate it
-only from authorised timestamped first-party aggregates with source/channel provenance.
-Browser clicks and engagement never become Amazon orders by inference. No synthetic check
-opens an Amazon link or generates an account click.
+**Production analytics is off.** The actual browser client and Python/SQLite
+collector share a tested named-event contract. The four browser events are
+`page_view`, `outbound_click`, `article_engagement` and `comparison_interaction`;
+`affiliate_report_import` is operator-only. Tests use temporary synthetic data,
+never campaign traffic. Pages cannot execute this collector. A controlled
+same-origin runtime, infrastructure-log minimisation and privacy approval are
+required before enabling it. See [analytics/README.md](analytics/README.md).
+The authorised first-party campaign ledger remains empty.
 
-## Build and check
+Source review is scoped and dated. A layout refresh is not a fresh verification
+of every historical value. **F96** records conflicting extension-cord instructions
+inside the Emeril manual; this site does not choose the permissive instruction.
+**F97** records content corrections; **F102** records the stricter direct-evidence
+row gate. The [public flag register](https://kanlerxz87-cyber.github.io/Zone1/flagged.html)
+links the primary sources and implementation evidence.
 
-The publication and collector use the Python standard library; the static site needs no
-runtime Node, package install, database or third-party service.
+## Build and test
+
+The canonical build uses only Python's standard library. Node 22 is needed for
+the actual-client integration tests; browser tooling is an optional development
+installation, not shipped to readers.
 
 ```sh
 python3 build.py
 python3 verify.py
 python3 -m unittest discover -s tests -v
-node --test tests/*.test.cjs
 bash scripts/ci-check.sh
-
-# Independent sections — preserve both their data and committed output
-python3 scripts/build_site.py
-python3 scripts/verify_site.py
-python3 research/build_research.py
 python3 research/check_research.py
+python3 scripts/verify_site.py
 ```
 
-A second root build must be byte-identical. CI rebuilds the canonical output and independent
-sections, tests the actual analytics contract and rejects stale output before merging.
-GitHub Pages deployment and actual live readback are separate evidence, recorded in the report.
-
-The browser check uses disposable development dependencies (not shipped with the site):
+The optional development-only browser suite is also a separate PR CI job:
 
 ```sh
-npm install --prefix .cache/browser --no-save --no-package-lock \
-  playwright-core@1.65.1 @sparticuz/chromium@153.0.0
-node scripts/check_publication_browser.mjs
+npm ci --ignore-scripts
+npx playwright install --with-deps chromium
+npm run test:browser
+# Optional after changing the reviewed share-card source/assets:
+npm run render:social
 ```
 
-It serves a temporary strict `/Zone1/` fixture, tests desktop/mobile/keyboard/no-JS behaviour,
-blocks external network requests and never activates an Amazon product link. Optional screenshots
-are written under `.cache/`, which is ignored. They are not source data or a test result about a
-product. See the script for the exact tested scope.
+It serves the committed pages locally over temporary HTTPS and uses an isolated,
+explicitly synthetic collector fixture outside Git. Real primary/keyboard/middle
+activations, privacy transport, opt-outs and the client/collector connection are
+exercised. The reading-bucket test uses a virtual clock with controlled
+focus/visibility inputs; it is not an OS-focus study or measured reading time.
+All static pages are checked at 320, 390, 768 and 1440 px, with separate no-JS,
+keyboard and scoped axe checks. This is not full WCAG certification or production
+measurement. Development dependencies/artifacts are excluded from publication
+crawls, not from any canonical or historical-build checks.
 
-## Maintained sources and outputs
+The generator reads:
 
-| Source | Purpose | Generated output |
-|---|---|---|
-| `build.py`, `data/*.json` | Canonical templates, registers and build guards | Root HTML and `products/`, `categories/`, `guides/`, `articles/`; sitemap/RSS |
-| `assets/theme.css` | Responsive publication theme | `assets/style.css`, emitted verbatim |
-| `assets/app.source.js` | Progressive UI, local-only owner picker | `assets/app.js`, emitted verbatim |
-| `analytics/client.js` | Gated four-event browser emitter | `assets/analytics.js`, emitted verbatim, **not loaded while disabled** |
-| `analytics/collector.py` | Same-origin aggregate collector | Separate server runtime; not a Pages function |
-| `analytics/report_import.py` | Validated/idempotent operator report import | Authorised ledger rows only; no fake fixture data in the real ledger |
-| `assets/editorial/README.md`, `assets/fonts/*LICENSE*` | Image-use record and local font licences | Visible image labels; no copied product photo |
-| `COORDINATION.md` | Claimed scopes, checkpoints, merge/deploy receipts | Human-readable coordination record |
+- `data/products.json`, `data/articles.json`, `data/sources.json` and related
+  evidence/intent/decision registers;
+- `data/publication.json` for concise reader copy and the explicit operating plan;
+- `publication/layout.html.tpl`, `publication/theme.css` and `publication/site.js`;
+- `analytics/client.js` for the separately gated measurement asset.
 
-Article `modified_at` records an actual editorial edit; `source_checks` names selected documents
-read on that date. Unknown first-publication timestamps remain null, with optional RSS/Article
-publication fields omitted. A rebuild never advances a date, and a source-read date is not
-substituted for a publication timestamp.
+It writes the canonical HTML, local style/scripts, `robots.txt`, `sitemap.xml` and
+`feed.xml`. Committed generated output must be byte-reproducible. Every data table
+row—including rows with a row header—needs an actual registered primary-source
+URL, an exact submitted resolver, or an existing exact-file record in this
+repository. A generic flag link is context, not a source. That gate verifies
+coverage/link identity; scoped primary-source reading still establishes what a
+document actually supports.
 
-## Preserved independent builds
+Source-access dates are not article publication timestamps. Unknown RSS item
+publication dates are omitted; channel freshness uses a fixed real editorial
+update timestamp. The optional Search Console token remains blank without real
+ownership evidence. Neither sitemap submission nor rankings are assumed.
 
-The canonical root is not a claim that every historical annex agrees with it. `site/`, `s2/`,
-`research/`, `docs/`, `dashboard/`, `annex-88769516/` and session evidence have their own generators,
-data and historical conclusions. They were not silently restyled or deleted. Their relationship,
-known conflicts and indexability questions are described on [Previous passes](previous-passes.html)
-and in the dated report. Never use an annex's identity assertion to fill the canonical intent blanks.
+For assets, licences, responsive/no-JavaScript behaviour and editorial limits see
+[publication/README.md](publication/README.md). For the current reviewable choices
+see [Suggestions](https://kanlerxz87-cyber.github.io/Zone1/suggestions.html) and
+[known/missing/answer/discovery questions](https://kanlerxz87-cyber.github.io/Zone1/questions.html).
+Agent execution history is separate from actual owner choices.
 
-Earlier README prose, fixed counts and older executive summaries describe previous revisions,
-not the current state. Their Git history and dated reports remain available; this current README
-supersedes their present-tense deployment, styling, privacy and measurement descriptions.
+## Historical builds and coordination
+
+`site/`, `s2/`, `research/`, `dashboard/`, `docs/`, `annex-*` and `session-*` contain
+independent earlier work. Their source generators remain read-only during this
+integration. The root publication is canonical; the
+[historical catalogue](https://kanlerxz87-cyber.github.io/Zone1/previous-passes.html)
+explains disagreements instead of presenting multiple current shops. Their
+reproducibility/audit gates still run.
+
+Read [COORDINATION.md](COORDINATION.md) before working. It records claims,
+keep-both integration incidents, exact checks, PR/merge/deployment evidence and
+completion. The previous README and historical briefings remain in Git history;
+the dated appendices in [EXECUTIVE-SUMMARY.md](EXECUTIVE-SUMMARY.md) are not current
+account or campaign evidence.
+
+The [parallel Z14 release report](reports/publication-2026-11-19.md) and its dated
+[receipt](EXECUTIVE-SUMMARY-2026-11-19.md) remain preserved. Shared source/metadata,
+bot/prerender and filter improvements were integrated; current canonical sources
+are the `publication/` files, not the preserved earlier `assets/theme.css` or
+`assets/app.source.js` drafts.

@@ -2,8 +2,8 @@
   "associate_tag": "",
   "associate_tag_note": "Intentionally blank. The brief supplied shopnow047c-20 as a selected tracking ID, but it has not been validated in Associates Central and the required enrolled-Associates test has not been completed for any confirmed intended product. Keep associate_tag blank and do not apply the ID to links until those account-only checks pass. The selected value and its unverified status are recorded separately below and in data/product-intent.json (flag F76).",
   "site": {
-    "title": "Air Fryer Affiliate Intelligence",
-    "tagline": "Verified data, sourced line by line, for three air fryers.",
+    "title": "Zone1 Kitchen",
+    "tagline": "A little clarity for your countertop.",
     "owner": "kanlerxz87-cyber",
     "repo": "kanlerxz87-cyber/Zone1",
     "base_url": "https://kanlerxz87-cyber.github.io/Zone1/",
@@ -25,12 +25,12 @@
       "article_engagement",
       "comparison_interaction"
     ],
-    "disabled_reason": "Production collection is off. GitHub Pages has no application runtime and no approved same-origin collector deployment or host/proxy logging review exists. The shipped client and Python collector now share one tested event schema; local test events are not production measurements.",
+    "disabled_reason": "The canonical GitHub Pages publication has no same-origin server runtime. The browser and Python aggregate collector now share one tested event contract, but production collection remains off until deployment, notice and host/proxy logging gates are verified.",
     "enable_procedure": [
-      "Deploy analytics/collector.py behind an HTTPS same-origin reverse proxy at /api/analytics/events; GitHub Pages alone cannot provide this route. No host has been provisioned by this repository.",
-      "Review hosting and proxy logs, retention and visitor-facing privacy wording. Set the collector deployment environment variables described in analytics/README.md only after approval.",
-      "Record endpoint_deployed, runtime_selected and privacy_notice_approved in data/analytics-plan.json; set collection.enabled and analytics.enabled together, with analytics.endpoint=/api/analytics/events.",
-      "Run schema and end-to-end tests, confirm daily aggregates contain no raw identifiers, and update any stale privacy claims the publishing gate reports. Keep all production counters blank until first-party reports exist."
+      "Deploy analytics/collector.py behind HTTPS with the publication and /api/analytics/events on the same origin; GitHub Pages alone cannot run this Python service.",
+      "Verify host/proxy logging and the privacy notice. Configure collector enablement, public origin and an external-to-repository database. Confirm /health and a synthetic end-to-end test in an isolated test database, never the campaign ledger.",
+      "Record runtime_selected, endpoint_deployed and privacy_notice_approved in data/analytics-plan.json. Set its collection.enabled and data/config.json analytics.enabled together; set analytics.endpoint to /api/analytics/events.",
+      "Run all build, contract and privacy tests and review the generated privacy notice before publishing. Do not claim collection is live until a real deployed request is accepted."
     ],
     "never_recorded": [
       "IP address",
@@ -39,6 +39,8 @@
       "cookie or any persistent reader identifier",
       "order value or anything about what the reader bought"
     ],
-    "policy_basis": "Program Policies Participation Requirements 3(e) require accurate data/technology disclosures; 6(s) prohibits artificial affiliate clicks. Trusted link activations are counted without delaying navigation. Page views and a fixed active-reading bucket are aggregate on-site events; neither opens Amazon nor asserts a conversion."
-  }
+    "policy_basis": "Program Policies §3(e) requires accurate technology disclosures; §6(s) prohibits artificially generated clicks. Measurement does not trigger affiliate navigation: it observes trusted reader activations without blocking them. Page views and reading events have their own definitions. Application aggregation is not proof of a unique person or a purchase.",
+    "contract_version": 2
+  },
+  "search_console_verification": ""
 }

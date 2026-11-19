@@ -1,3 +1,5 @@
+> **Dated Z14 release receipt, preserved.** The later PUB-1 integration is current at [executive-summary.html](executive-summary.html). This earlier implementation/test/deployment record is not silently re-certified by that integration.
+
 # Zone1 Kitchen — executive brief
 
 **19 November 2026 UTC**
