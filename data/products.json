@@ -1,7 +1,7 @@
 {
  "accessed": "2026-11-13",
  "discipline": "Each field is either {v: value, s: source_id(s)} where the value was read verbatim from that official source, or null with 'u' explaining why it could not be confirmed. Nothing is estimated, averaged or inferred.",
- "amazon_price_policy": "Amazon prices, availability and star ratings are intentionally NOT shown. Per S2 §2(b), prices/availability may only be displayed when Amazon serves the link or when obtained via Creators API/PA API; per S2 §6(t) customer reviews and star ratings may only be used when obtained via those APIs. This project holds neither, so those fields are blank and flagged.",
+ "amazon_price_policy": "No Amazon price/availability is displayed because this site has no authorised Amazon-served or API integration. S2 permits specified display routes; it is not a universal ban on all Associates price display.",
  "products": [
   {
    "slug": "chefman-6qt-dual-basket",
@@ -268,19 +268,26 @@
      "note": "Chefman.com list price. The same page displayed several promotional prices on the access date; only the list price is recorded here because it is the stable figure."
     },
     "amazon_price": null,
-    "amazon_price_reason": "Not displayed by policy (S2 §2(b)); unavailable without Associates access.",
+    "amazon_price_reason": "Not displayed: no authorised Amazon-served or Program Content API price integration is configured. Check the live listing; S2 defines the permitted routes.",
     "msrp_confirmed": "Not confirmed: the brand page shows a list price but does not label it as a manufacturer's suggested retail price. Chefman.com list price. The same page displayed several promotional prices on the access date; only the list price is recorded here because it is the stable figure."
    },
    "reviews": {
     "amazon_stars": null,
     "amazon_review_count": null,
-    "amazon_reason": "Not displayed by policy (S2 §6(t); S2 §2(b)).",
+    "amazon_reason": "Not displayed: no authorised review/rating integration is configured; this site does not scrape or republish Amazon review content.",
     "brand_site_rating": {
-     "v": "4.6 / 5 from 1,310 reviews",
+     "v": "4.6 / 5 from 1,312 reviews",
      "s": [
       "S10"
      ],
-     "note": "Ratings collected by Chefman's own on-site review widget (4.6 average; 5★ 930 · 4★ 259 · 3★ 85 · 2★ 12 · 1★ 24). Read 1,302 reviews on 2026-11-13, 1,305 on 2026-11-14 and 1,307 on 2026-11-16 and 1,310 on 2026-11-17 — the count moves daily, so it is stamped. Brand-hosted figure, not Amazon's. The 2026-11-17 read is the one published here; the 2026-11-16 read was corroborated by a second, independent session the same day."
+     "note": "Dated snapshot from the manufacturer’s own review widget, independently read 2026-11-19. Not an Amazon rating, not a test result, and not used to rank these products. Previous snapshots are preserved in history.",
+     "history": [
+      {
+       "value": "4.6 / 5 from 1,310 reviews",
+       "note": "Ratings collected by Chefman's own on-site review widget (4.6 average; 5★ 930 · 4★ 259 · 3★ 85 · 2★ 12 · 1★ 24). Read 1,302 reviews on 2026-11-13, 1,305 on 2026-11-14 and 1,307 on 2026-11-16 and 1,310 on 2026-11-17 — the count moves daily, so it is stamped. Brand-hosted figure, not Amazon's. The 2026-11-17 read is the one published here; the 2026-11-16 read was corroborated by a second, independent session the same day."
+      }
+     ],
+     "as_of": "2026-11-19"
     }
    },
    "commission": {
@@ -572,13 +579,13 @@
      "note": "Price shown on emerileveryday.com on the access date. Not labelled as MSRP by the brand."
     },
     "amazon_price": null,
-    "amazon_price_reason": "Not displayed by policy (S2 §2(b)).",
+    "amazon_price_reason": "Not displayed: no authorised Amazon-served or Program Content API price integration is configured. Check the live listing; S2 defines the permitted routes.",
     "msrp_confirmed": "Not confirmed: the brand page shows a list price but does not label it as a manufacturer's suggested retail price. Price shown on emerileveryday.com on the access date. Not labelled as MSRP by the brand."
    },
    "reviews": {
     "amazon_stars": null,
     "amazon_review_count": null,
-    "amazon_reason": "Not displayed by policy.",
+    "amazon_reason": "Not displayed: no authorised review/rating integration is configured; this site does not scrape or republish Amazon review content.",
     "brand_site_rating": {
      "v": "2.6 / 5 from 25 reviews",
      "s": [
@@ -909,19 +916,26 @@
      "note": "List price on chefman.com; a sale price of $79.99 was also displayed for the variant on the access date."
     },
     "amazon_price": null,
-    "amazon_price_reason": "Not displayed by policy (S2 §2(b)).",
+    "amazon_price_reason": "Not displayed: no authorised Amazon-served or Program Content API price integration is configured. Check the live listing; S2 defines the permitted routes.",
     "msrp_confirmed": "Not confirmed: the brand page shows a list price but does not label it as a manufacturer's suggested retail price. List price on chefman.com; a sale price of $79.99 was also displayed for the variant on the access date."
    },
    "reviews": {
     "amazon_stars": null,
     "amazon_review_count": null,
-    "amazon_reason": "Not displayed by policy.",
+    "amazon_reason": "Not displayed: no authorised review/rating integration is configured; this site does not scrape or republish Amazon review content.",
     "brand_site_rating": {
-     "v": "4.6 / 5 from 717 reviews",
+     "v": "4.6 / 5 from 719 reviews",
      "s": [
       "S12"
      ],
-     "note": "Brand-hosted rating for the RJ38-SQSS-8T product page (5★ 523 · 4★ 131 · 3★ 42 · 2★ 10 · 1★ 11). Read 715 reviews on 2026-11-13, 716 on 2026-11-14 and 717 on 2026-11-16. The average held at 4.6 on all three reads; only the count moves. Not Amazon's rating. A second, independent session read the same page the same day and saw the same count, which corroborates it."
+     "note": "Dated snapshot from the manufacturer’s own review widget, independently read 2026-11-19. Not an Amazon rating, not a test result, and not used to rank these products. Previous snapshots are preserved in history.",
+     "history": [
+      {
+       "value": "4.6 / 5 from 717 reviews",
+       "note": "Brand-hosted rating for the RJ38-SQSS-8T product page (5★ 523 · 4★ 131 · 3★ 42 · 2★ 10 · 1★ 11). Read 715 reviews on 2026-11-13, 716 on 2026-11-14 and 717 on 2026-11-16. The average held at 4.6 on all three reads; only the count moves. Not Amazon's rating. A second, independent session read the same page the same day and saw the same count, which corroborates it."
+      }
+     ],
+     "as_of": "2026-11-19"
     }
    },
    "commission": {

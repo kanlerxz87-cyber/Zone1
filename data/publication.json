@@ -1,0 +1,126 @@
+{
+  "updated": "2026-11-19",
+  "brand": "Zone1 Kitchen",
+  "positioning": "A source-led kitchen buying publication: make capacity, counter space and care requirements easier to compare without pretending to test products.",
+  "authorship": "Zone1 Kitchen publishes AI-assisted, documentation-based research. No named human editor, product ownership or hands-on experience has been established.",
+  "reader_capture": "RSS only. No email form, mailing-list provider or subscriber database is deployed.",
+  "cadence": {
+    "status": "operating plan, not a scheduled autonomous publisher",
+    "rhythm": "Review source changes weekly; prepare at most one useful new or substantially refreshed guide every two weeks. Publish only after primary-source, disclosure, link and build checks pass.",
+    "seasonal": "Review gift and sale-checking guides ahead of the relevant retail season. The November 2026 selection is editorial context, not proof of search demand or a deal.",
+    "kill_rule": "Do not publish a second article answering the same question. Improve the existing canonical guide instead. Hold a draft if its claims require unverified identity, unauthorised API content or invented first-party results.",
+    "measurement": "Once authorised Search Console and first-party aggregates exist, review query impressions, clicks and guide-to-product actions over a dated comparable period before changing priorities. There is currently no such dataset."
+  },
+  "products": [
+    {
+      "slug": "chefman-6qt-dual-basket",
+      "kind": "dual",
+      "index": "01",
+      "eyebrow": "Two cooking zones",
+      "title": "Chefman 6 Qt Dual Basket",
+      "dek": "Two separate baskets for dishes with different settings. Sync Finish coordinates their finish times.",
+      "capacity": "6 Qt total · two 3 Qt baskets",
+      "check": "Match the dual-window model number; Chefman sells similar-looking variants.",
+      "sources": [
+        "S10",
+        "S18"
+      ],
+      "check_sources": [
+        "S10",
+        "S11"
+      ],
+      "verdict": "Worth comparing if separate cooking settings matter more to you than one undivided basket. The manual documents two 3-quart baskets, Sync Baskets and Sync Finish; that does not establish how much your usual meal will fit or how it will taste.",
+      "related_guide": "sync-finish-explained"
+    },
+    {
+      "slug": "emeril-26qt-french-door",
+      "kind": "oven",
+      "index": "02",
+      "eyebrow": "The oven-style option",
+      "title": "Emeril 26 Qt French Door",
+      "dek": "A French-door oven cavity with a documented rotisserie. Start with the footprint and care instructions.",
+      "capacity": "26 qt oven cavity",
+      "check": "The preset and accessory counts disagree across the official documents.",
+      "sources": [
+        "S14",
+        "S15"
+      ],
+      "check_sources": [
+        "S14",
+        "S15",
+        "S28"
+      ],
+      "verdict": "Worth comparing if you want an oven-style layout and the documented rotisserie function. The 26-quart cavity is not a serving guarantee. Leave room for the doors and the manual’s required ventilation; its cleaning section recommends hand-washing the accessories.",
+      "related_guide": "rotisserie-at-home"
+    },
+    {
+      "slug": "chefman-8qt-turbofry",
+      "kind": "single",
+      "index": "03",
+      "eyebrow": "One larger basket",
+      "title": "Chefman 8 Qt TurboFry",
+      "dek": "A single-basket format for one batch. Check the model carefully: the 450 °F title conflicts with its documents.",
+      "capacity": "8 qt single basket",
+      "check": "The RJ38-SQSS-8T brand page says 400 °F; the observed listing title advertises 450 °F.",
+      "sources": [
+        "S12",
+        "S13"
+      ],
+      "check_sources": [
+        "S12",
+        "S29"
+      ],
+      "verdict": "Worth comparing if you prefer one basket to dividing food between two drawers. For RJ38-SQSS-8T, Chefman documents four presets and a 200–400 °F range. The listing title’s 450 °F Hi-Fry wording remains a conflict, not an extra feature this guide can promise.",
+      "related_guide": "chefman-8qt-two-models"
+    }
+  ],
+  "featured_guides": [
+    {
+      "slug": "dual-basket-vs-oven-air-fryer",
+      "label": "Start with the format",
+      "title": "Basket or oven: which fits the way you cook?",
+      "dek": "Separate cooking zones and an oven cavity solve different problems. Here’s where to start."
+    },
+    {
+      "slug": "air-fryer-capacity-guide",
+      "label": "Make room for dinner",
+      "title": "How much capacity do you actually need?",
+      "dek": "Quarts alone won’t tell you what fits. Use this short buying checklist."
+    },
+    {
+      "slug": "small-kitchen-air-fryer-dimensions",
+      "label": "Measure before you buy",
+      "title": "Will it fit on your counter?",
+      "dek": "Check the footprint, door or drawer space, ventilation and socket—not just the height."
+    },
+    {
+      "slug": "how-to-clean-an-air-fryer",
+      "label": "Life after dinner",
+      "title": "What will cleanup be like?",
+      "dek": "Dishwasher-safe parts are not the whole appliance. Read the care rules first."
+    }
+  ],
+  "thermometer_links": [
+    {
+      "id": "PI-04",
+      "title": "ThermoMaven thermometer link",
+      "eyebrow": "Observed: instant-read title",
+      "note": "The supplied link returned a ThermoMaven thermometer title. The exact intended listing and model are not confirmed; no accuracy or certification claim is adopted here.",
+      "sources": [
+        "S36",
+        "S40"
+      ]
+    },
+    {
+      "id": "PI-05",
+      "title": "CHEF iQ Sense thermometer link",
+      "eyebrow": "Observed: wireless-probe title",
+      "note": "The supplied link returned a CHEF iQ Sense Gen3 three-probe title. A brand page with selectable configurations is not proof that this is the intended listing.",
+      "sources": [
+        "S37",
+        "S39"
+      ]
+    }
+  ],
+  "updated_at_utc": "2026-11-19T05:56:08Z"
+}

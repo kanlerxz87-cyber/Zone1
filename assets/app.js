@@ -12,45 +12,30 @@ document.addEventListener('click', function (ev) {
     setTimeout(function () { c.textContent = old; }, 1600);
   };
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(link).then(done, done);
+    navigator.clipboard.writeText(link).then(done, function () { c.textContent = 'Copy unavailable — use the address bar'; });
   } else {
     var ta = document.createElement('textarea');
     ta.value = link; document.body.appendChild(ta); ta.select();
-    try { document.execCommand('copy'); } catch (e) {}
-    document.body.removeChild(ta); done();
+    var copied = false;
+    try { copied = document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    if (copied) done(); else c.textContent = 'Copy unavailable — use the address bar';
   }
 });
 
-document.addEventListener('click', function (ev) {
-  var t = ev.target.closest('.navtoggle');
-  if (!t) return;
-  var nav = document.getElementById(t.getAttribute('aria-controls'));
-  if (!nav) return;
-  var open = nav.classList.toggle('open');
-  t.setAttribute('aria-expanded', open ? 'true' : 'false');
+// The native Workspace disclosure works without JavaScript. These shortcuts
+// only close it on Escape or an outside activation; no keyboard focus is trapped.
+document.addEventListener('keydown', function (event) {
+  if (event.key !== 'Escape') return;
+  var menu = document.querySelector('.workspace-menu[open]');
+  if (!menu) return;
+  menu.open = false;
+  menu.querySelector('summary').focus();
 });
-
-// revenue scenario calculator — arithmetic on two published inputs only
-(function () {
-  var form = document.getElementById('calc');
-  if (!form) return;
-  var fields = ['profit', 'price', 'rate', 'conv'];
-  function num(id, d) { var v = parseFloat(document.getElementById(id).value); return isFinite(v) ? v : d; }
-  function run() {
-    var price = num('price', 0), rate = num('rate', 0) / 100,
-        conv = num('conv', 0) / 100, clicks = num('clicks', 0);
-    var commission = price * rate;
-    var sales = clicks * conv;
-    var revenue = sales * commission;
-    document.getElementById('out-commission').textContent = '$' + commission.toFixed(2);
-    document.getElementById('out-sales').textContent = sales.toFixed(1);
-    document.getElementById('out-revenue').textContent = '$' + revenue.toFixed(2);
-    document.getElementById('out-epc').textContent = '$' + (clicks > 0 ? revenue / clicks : 0).toFixed(3);
-  }
-  form.addEventListener('input', run);
-  form.addEventListener('submit', function (e) { e.preventDefault(); run(); });
-  run();
-})();
+document.addEventListener('click', function (event) {
+  var menu = document.querySelector('.workspace-menu[open]');
+  if (menu && !menu.contains(event.target)) menu.open = false;
+});
 
 // Owner decision picker (2026-11-16, arena/ba29c641) — decision-log.html only.
 // A static host has nowhere to POST a choice, so the picker keeps it in this browser and exports
@@ -185,8 +170,8 @@ document.addEventListener('click', function (ev) {
 // Shopfront pass (2026-11-17, arena/fd9778a1-zone1) — two presentation behaviours.
 // Both are progressive: with JavaScript off the tables still scroll (the fade is the
 // only thing missing), the comparison bar stays visible, and no content is hidden.
-// No network call, no storage, no measurement — this site records nothing (see the
-// cookies notice in the footer and measurement.html).
+// These presentation behaviours make no network call or storage write. The separate
+// measurement client has its own deployment and privacy gates; see measurement.html.
 (function () {
   // Tell the reader a wide table continues past the right edge. The hint element
   // lives outside the scroller, so it stays put while the table moves.
@@ -195,6 +180,10 @@ document.addEventListener('click', function (ev) {
     wraps.forEach(function (w) {
       var hint = w.nextElementSibling;
       if (!hint || !hint.classList.contains('tablewrap-hint')) return;
+      var wide = w.scrollWidth - w.clientWidth > 4;
+      w.tabIndex = wide ? 0 : -1;
+      var caption = w.querySelector('caption');
+      if (wide && caption) w.setAttribute('aria-label', caption.textContent + ' — scroll horizontally for more columns');
       var past = w.scrollWidth - w.clientWidth - w.scrollLeft;
       hint.classList.toggle('show', w.scrollWidth - w.clientWidth > 4 && past > 4);
     });

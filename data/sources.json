@@ -147,7 +147,15 @@
       "kind": "Policy",
       "directness": "Primary — the contract itself",
       "page_version": "Updated: October 15, 2025 (confirmed 2026-11-15) | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Header still reads “Updated: October 15, 2025.” | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; version stamp \"Updated: October 15, 2025\" unchanged.",
-      "verified": "Round 11 (2026-11-16, arena/b23f12f0): page version stamp re-read — \"Updated: October 15, 2025\", unchanged."
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): page version stamp re-read — \"Updated: October 15, 2025\", unchanged.",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026 scoped read: agreement version October 15, 2025; identification/disclosure and no earnings warranty sections.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
     },
     {
       "id": "S2",
@@ -157,7 +165,15 @@
       "covers": "Link rules, price and review display limits, Prohibited Paid Search Placement, sub-tag limits, API restrictions, session/attribution windows",
       "kind": "Policy",
       "directness": "Primary — the policy corpus incorporated into the Agreement",
-      "page_version": "Updated: April 14, 2026 | Re-read round 9, 2026-11-15 (arena/63a2c638). | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. The page heading still reads “Updated: April 14, 2026.” Re-read and quoted verbatim from the live page: Participation Requirements §3(e) (cookie / third-party technology disclosure), §6(t) (reviews and star ratings only via Creators API or PA API), §6(w) (link shorteners), §6(y) (no price tracking or price alerting), §6(s) (no artificially generated clicks or Sessions), §5 (no Special Links or Program Content used to develop machine learning models without express prior written approval); IP License §1 (no third party may use Program Content to develop or improve large language, multimodal or machine learning models), §2(e) (no aggregation, analysis, repurposing or fine-tuning of Product Advertising Content without express prior written approval) and §4 “Agents” (Agent Terms — an Agent must identify itself as “Agent/[agent name]” in the User-Agent string, must not obfuscate that it is an agent, must not complete or circumvent CAPTCHAs, and must answer truthfully about whether interactions are human). The Agent Terms and §5 were not previously in this register; they are now requirements C17 and C18. Evidence: reports/verification-2026-11-16.md rows V4–V11. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Header still reads “Updated: April 14, 2026.” | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; version stamp \"Updated: April 14, 2026\" unchanged; 24h / 89-day / 180-day session rules read verbatim again."
+      "page_version": "Updated: April 14, 2026 | Re-read round 9, 2026-11-15 (arena/63a2c638). | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. The page heading still reads “Updated: April 14, 2026.” Re-read and quoted verbatim from the live page: Participation Requirements §3(e) (cookie / third-party technology disclosure), §6(t) (reviews and star ratings only via Creators API or PA API), §6(w) (link shorteners), §6(y) (no price tracking or price alerting), §6(s) (no artificially generated clicks or Sessions), §5 (no Special Links or Program Content used to develop machine learning models without express prior written approval); IP License §1 (no third party may use Program Content to develop or improve large language, multimodal or machine learning models), §2(e) (no aggregation, analysis, repurposing or fine-tuning of Product Advertising Content without express prior written approval) and §4 “Agents” (Agent Terms — an Agent must identify itself as “Agent/[agent name]” in the User-Agent string, must not obfuscate that it is an agent, must not complete or circumvent CAPTCHAs, and must answer truthfully about whether interactions are human). The Agent Terms and §5 were not previously in this register; they are now requirements C17 and C18. Evidence: reports/verification-2026-11-16.md rows V4–V11. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Header still reads “Updated: April 14, 2026.” | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; version stamp \"Updated: April 14, 2026\" unchanged; 24h / 89-day / 180-day session rules read verbatim again.",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026 scoped read: version April 14, 2026; Special Links accuracy/tag requirements, authorised price-display conditions and technology disclosures. This is not a claim to have re-read every programme clause.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
     },
     {
       "id": "S3",
@@ -189,7 +205,15 @@
       "covers": "Required Associate statement; clear + conspicuous link-level disclosure",
       "kind": "Help article",
       "directness": "Primary — Amazon's own compliance guidance",
-      "page_version": "Associate identification / disclosure help node, re-read live 2026-11-14 (first read 2026-11-13) | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Required sentence “As an Amazon Associate I earn from qualifying purchases.” re-read verbatim, with the “Clear.” / “Conspicuous.” link-level test. The site’s disclosure string matches character for character. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; required sentence \"As an Amazon Associate I earn from qualifying purchases.\" verbatim; link-level disclosure \"(paid link)\" / \"#ad\" / \"#CommissionsEarned\" examples present."
+      "page_version": "Associate identification / disclosure help node, re-read live 2026-11-14 (first read 2026-11-13) | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Required sentence “As an Amazon Associate I earn from qualifying purchases.” re-read verbatim, with the “Clear.” / “Conspicuous.” link-level test. The site’s disclosure string matches character for character. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; required sentence \"As an Amazon Associate I earn from qualifying purchases.\" verbatim; link-level disclosure \"(paid link)\" / \"#ad\" / \"#CommissionsEarned\" examples present.",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026: disclosure help read; exact Associate sentence and clear/conspicuous link-adjacent identification.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
     },
     {
       "id": "S6",
@@ -220,7 +244,15 @@
       "kind": "Regulatory guidance",
       "directness": "Primary — the regulator",
       "page_version": "November 2019 | Round 11 (2026-11-16, arena/3dfe4b45): page re-read live — 'November 2019' stamp present; 'You can't talk about your experience with a product you haven't tried.' and the hard-to-miss placement rule read verbatim. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.“Place it so it’s hard to miss” and “You can’t talk about your experience with a product you haven’t tried” re-read verbatim. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; \"You can't talk about your experience with a product you haven't tried.\" verbatim.",
-      "verified": "Round 11 (2026-11-16, arena/b23f12f0): re-read in full. Confirms: place the disclosure where it is hard to miss; \"You can't talk about your experience with a product you haven't tried\"; page dated November 2019."
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): re-read in full. Confirms: place the disclosure where it is hard to miss; \"You can't talk about your experience with a product you haven't tried\"; page dated November 2019.",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026: FTC disclosure brochure read; disclosures must be hard to miss and an endorser cannot describe experience with an untried product.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
     },
     {
       "id": "S9",
@@ -242,7 +274,15 @@
       "kind": "Manufacturer product page",
       "directness": "Primary — brand owning the specification",
       "page_version": "Chefman 6 Qt Dual-Window product page, re-read live 2026-11-14 (first read 2026-11-13) — spec block, price and review widget all re-read | Re-read round 9, 2026-11-15 (arena/63a2c638). | Targeted re-read 2026-11-16 (arena/9f0e6668): product-page review counter displayed 1,307 Reviews. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. Specifications block read verbatim: “Capacity: 6 Qt / 5.67 L”, “200–450°F / 95º-235°C temperature range”, “Dimensions: 13.38 in x 11.81 in x 10.63 in”, “Weight: 13.3 lbs / 6.03 kg”, “Power: 1700W/120V”, “Model Number: RJ38-SQPF-3TDB-2W”. Brand-hosted review widget read 4.6 from 1,307 total reviews (5★ 928 · 4★ 258 · 3★ 85 · 2★ 12 · 1★ 24) — the count moved from 1,305, the average held at 4.6. Evidence: reports/verification-2026-11-16-9fccce0c.md rows V17–V18. | Round 11 (2026-11-16, arena/3dfe4b45): Specifications block re-read live — model RJ38-SQPF-3TDB-2W, 6 Qt / 5.67 L, 200–450 °F, 13.38 x 11.81 x 10.63 in / 33.98 x 30 x 27 cm, 13.3 lbs / 6.03 kg, 1700W/120V, cETL + 1-year assurance all confirmed. Review widget read 4.6 with 1307 total reviews (was 1305 on 2026-11-15) — volatile-count pattern, F14. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Chefman 6 Qt page re-read: model RJ38-SQPF-3TDB-2W, “1307 Reviews”, list price $119.99, “Max temp: 450ºF/ 235ºC with Hi-Fry function”, Sync Finish. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; model RJ38-SQPF-3TDB-2W on page; \"Max temp: 450ºF/ 235ºC with Hi-Fry function\"; Sync Function; review widget 1,307 (was 1,305 — F19 drift, no published value uses it). | Final verification pass 2026-11-17 (arena/4618f77b-zone1): re-read live. Specifications block unchanged (RJ38-SQPF-3TDB-2W, 6 Qt / 5.67 L, 200–450 °F / 95º-235ºC, 13.38 × 11.81 × 10.63 in, 13.3 lbs / 6.03 kg, 1700W/120V, cETL, 1-year assurance). Review widget now displays 1,310 total reviews at a 4.6 average (5★ 930 · 4★ 259 · 3★ 85 · 2★ 12 · 1★ 24) — the count moved again (1,307 on 2026-11-16), consistent with flag F19; the published value was refreshed with both read dates kept. | Re-read live 2026-11-17 (arena/fd9778a1-zone1): specification block verbatim - Capacity 6 Qt / 5.67 L, 200-450 F / 95-235 C, Dimensions 13.38 x 11.81 x 10.63 in / 33.98 x 30 x 27 cm, Weight 13.3 lbs / 6.03 kg, Power 1700W/120V, Model Number RJ38-SQPF-3TDB-2W, cETL + 1-year assurance; features block 'Max temp: 450F/ 235C with Hi-Fry function' and 'Sync Function so both baskets finish cooking at the same time'; brand review widget 4.6 from 1310 total reviews (5*930 4*259 3*85 2*12 1*24); price block $119.99 with promotional prices displayed alongside. Every figure matches the register; the review count is unchanged from 2026-11-17T earlier read by arena/4618f77b (1,310).",
-      "verified": "Round 11 (2026-11-16, arena/b23f12f0): brand page live; the storefront endpoint (S32) reports price 119.99, compare-at 119.99, SKU RJ38-SQPF-3TDB-2W, 6,582 g / 14.51 lb, both records updated 2026-11-16T13:25:53-05:00. Every published 6 Qt value still matches."
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): brand page live; the storefront endpoint (S32) reports price 119.99, compare-at 119.99, SKU RJ38-SQPF-3TDB-2W, 6,582 g / 14.51 lb, both records updated 2026-11-16T13:25:53-05:00. Every published 6 Qt value still matches.",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026 scoped read: model RJ38-SQPF-3TDB-2W, 6 Qt/5.67 L, 200–450 °F, dimensions 13.38×11.81×10.63 in, 1700W/120V. Brand widget 4.6 with 1,312 reviews. These are dated observations, not Amazon reviews.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
     },
     {
       "id": "S11",
@@ -263,7 +303,15 @@
       "kind": "Manufacturer product page",
       "directness": "Primary",
       "page_version": "Chefman 8 Qt TurboFry product page, re-read live 2026-11-14 (first read 2026-11-13) — Features and Specifications blocks re-read (the block that fills the former Wattage and Dimensions blanks) | Re-read round 9, 2026-11-15 (arena/63a2c638). | Targeted re-read 2026-11-16 (arena/9f0e6668): product-page review counter displayed 717 Reviews. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. Specifications block read verbatim: “Capacity: 5 Qt or 8 Qt / 4.73 L or 7.57 L”, “200–400°F / 95º-205°C temperature range”, “Power: 1700W/120V”, “Dimensions: (8 Qt Model) 15.4 in x 12.6 in x 13.5 in”, “Weight: (8 Qt Model) 12.8 lbs / 5.8 kg”, “Model Number: RJ38-SQSS-8T (8 Qt model)”. Brand-hosted review widget read 4.6 from 717 total reviews (5★ 523 · 4★ 131 · 3★ 42 · 2★ 10 · 1★ 11) — the count moved from 716, the average held at 4.6. Evidence: reports/verification-2026-11-16-9fccce0c.md rows V19–V20. | Round 11 (2026-11-16, arena/3dfe4b45): Features and Specifications re-read live — RJ38-SQSS-8T, 5 or 8 Qt, 200–400 °F, 1700W/120V, (8 Qt) 15.4 x 12.6 x 13.5 in / 12.8 lbs / 5.8 kg confirmed; max temp still 400 °F (F3 conflict stands). Review widget read 4.6 with 717 total reviews (was 716) — F14 pattern. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.RJ38-SQSS-8T, “717 Reviews”, 200–400°F, presets fries/chicken/fish/meat, 98% less oil, 4-6 people, auto shutoff, dishwasher-safe basket and rack, $119.99, size selector 8/5 Quart. F3 (450 °F) re-established as still open. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; model RJ38-SQSS-8T; \"200–400°F\"; \"Designed for 4-6 people\"; presets fries/chicken/fish/meat; review widget 717 (was 716). 400 °F ceiling confirmed — F3 conflict live. | Re-read live 2026-11-17 (arena/fd9778a1-zone1): features and specification blocks verbatim - 'Max temp: 400F/ 205C', '4 cooking presets', '5-quart or 8-quart nonstick basket', '200-400F / 95-205C temperature range', 'Power: 1700W/120V', 'Dimensions: (8 Qt Model) 15.4 in x 12.6 in x 13.5 in / 39.11 cm x 32 cm x 34.29 cm', 'Weight: (8 Qt Model) 12.8 lbs / 5.8 kg', 'Model Number: RJ38-SQSS-8T', cETL + 1-year assurance; brand review widget 4.6 from 717 total reviews. Unchanged from the register. No Hi-Fry or 450 F figure appears anywhere on this page, which is the half of flag F3 that the brand controls.",
-      "verified": "Round 11 (2026-11-16, arena/b23f12f0): brand page live; the storefront endpoint (S33) reports 8 Quart price 119.99 / compare-at 119.99, SKU RJ38-SQSS-8T, 6,078 g / 13.4 lb, and 5 Quart 79.99 / compare-at 99.99, SKU RJ38-SQSS-5T, both updated 2026-11-16T13:25:53-05:00. Every published 8 Qt value still matches."
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): brand page live; the storefront endpoint (S33) reports 8 Quart price 119.99 / compare-at 119.99, SKU RJ38-SQSS-8T, 6,078 g / 13.4 lb, and 5 Quart 79.99 / compare-at 99.99, SKU RJ38-SQSS-5T, both updated 2026-11-16T13:25:53-05:00. Every published 8 Qt value still matches.",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026 scoped read: RJ38-SQSS-8T, 8 Qt/7.57 L option, 200–400 °F, 15.4×12.6×13.5 in, 12.8 lb, 1700W/120V and four presets. Brand widget 4.6 with 719 reviews. The listing-title 450 °F conflict is not resolved.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
     },
     {
       "id": "S13",
@@ -273,7 +321,15 @@
       "covers": "Owner's manual: 8-quart basket, preset chart and default temperatures, shake reminder, safety instructions",
       "kind": "Manufacturer owner's manual",
       "directness": "Primary",
-      "page_version": "Document live, 2026-11-13 | Round 11 (2026-11-16, arena/3dfe4b45): safety-instructions and features sections re-read live — RJ38-SQSS-8T, extra-large 8-quart basket, preset defaults (Default 15 min/400 °F; Meat 18/375; Chicken 22/375; Fish 10/350) match the dataset rows; one basket in the features list; extension-cord clause read verbatim."
+      "page_version": "Document live, 2026-11-13 | Round 11 (2026-11-16, arena/3dfe4b45): safety-instructions and features sections re-read live — RJ38-SQSS-8T, extra-large 8-quart basket, preset defaults (Default 15 min/400 °F; Meat 18/375; Chicken 22/375; Fish 10/350) match the dataset rows; one basket in the features list; extension-cord clause read verbatim.",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026: manual model/safety, cooking setup and cleaning sections read. Setup requires 6 inches above and behind; removable basket/rack may go on the dishwasher top rack; main unit may not be immersed or dishwashed.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
     },
     {
       "id": "S14",
@@ -284,7 +340,15 @@
       "kind": "Manufacturer product page",
       "directness": "Primary",
       "page_version": "Emeril 26QT French Door product page, re-read live 2026-11-14 (first read 2026-11-13) — price, spec icons, model number and 2.6/25 review widget re-read | Re-read round 9, 2026-11-15 (arena/63a2c638). | Targeted re-read 2026-11-16 (arena/9f0e6668): page still displayed 2.6 (25); conflicting 25 pre-sets / 10-in-1 copy and an 11-in-1 image remain visible. | Verification pass 10 (2026-11-16, arena/9fccce0c-zone1): re-read live. Price $199.99, model 4-00675-02A-VN and the brand-hosted rating 2.6 (25) all read unchanged. Specification icons read: “26-Quart Capacity — preparing food for 4–6 people”, “Dual-Speed Fan”, “25 Cooking Pre-sets”, “16.9”D x 15.8”W x 14.8”H Product Dimensions”, “24.6 Liters Capacity”, “120 volts Product Voltage”; body copy still reads “enviously versatile 10-in-1 air fry convection oven”. The four-way preset / in-1 conflict is still live on official pages and the site still asserts none of the four figures. Evidence: reports/verification-2026-11-16-9fccce0c.md row V21. | Round 11 (2026-11-16, arena/3dfe4b45): spec icons re-read live — 26-Quart, 24.6 Liters, 16.9\"D x 15.8\"W x 14.8\"H, 120 volts, 1-year warranty confirmed; the page still carries both '25 Cooking Pre-sets' (icon) and '24 one-touch cooking presets' (description) plus a 10-in-1 heading — preset conflict re-confirmed; still no weight row (Q-06 open). | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.$199.99; model line 4-00675-02A-VN; 2.6 from (25); “25 Cooking Pre-sets”; 16.9\"D x 15.8\"W x 14.8\"H; 24.6 Liters; 120 volts; body copy “10-in-1”; carousel asset named 11-in-1. The preset conflict is four-way and remains open. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; SKU 4-00675-02A-VN; \"25 Cooking Pre-sets\" widget vs \"10-in-1\" description vs 11-in-1 asset name; 26-Quart / 24.6 Liters; 16.9\"D x 15.8\"W x 14.8\"H; 120 volts; 2.6 (25) widget. F4/F5 conflicts live. | Re-read live 2026-11-17 (arena/fd9778a1-zone1): specification icons verbatim - '26-Quart Capacity / preparing food for 4-6 people', '24.6 Liters', '16.9\"D x 15.8\"W x 14.8\"H', '120 volts', 'Dual-Speed Fan', '25 Cooking Pre-sets'; product code 4-00675-02A-VN; price $199.99; brand widget rating 2.6 from 25 reviews; description says '10-in-1' and '26-quart extra-large capacity'. Every figure matches the register, and the 25-vs-24 preset conflict (F4) is still live on the page, as is the 11-in-1 label carried by a marketing image asset.",
-      "verified": "Round 11 (2026-11-16, arena/b23f12f0): brand page live. **New evidence:** the page's own product description (updated 2026-11-16T12:27:19-06:00) states \"24 one-touch cooking presets\" and \"Included are 7 premium accessories\". The separate specification block still states \"25 Cooking Pre-sets\". So the brand now documents both numbers on the same page — see flags F4 and F63."
+      "verified": "Round 11 (2026-11-16, arena/b23f12f0): brand page live. **New evidence:** the page's own product description (updated 2026-11-16T12:27:19-06:00) states \"24 one-touch cooking presets\" and \"Included are 7 premium accessories\". The separate specification block still states \"25 Cooking Pre-sets\". So the brand now documents both numbers on the same page — see flags F4 and F63.",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026 scoped read: 26 qt/24.6 L, 16.9D×15.8W×14.8H in, 120V; specification icon says 25 presets and description says 24, alongside a 10-in-1 heading. Manual link and $199.99 brand price observed. Did not re-verify every historical review-widget or accessory field.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
     },
     {
       "id": "S15",
@@ -294,7 +358,15 @@
       "covers": "Rated power 1700 W, 120 V/60 Hz, 26 qt (1519 cu in), temperature range 75–500 °F / 25–260 °C",
       "kind": "Manufacturer owner's manual",
       "directness": "Primary",
-      "page_version": "Emeril FAFO-001 owner's manual (PDF) — safety, Parts & Accessories and control-panel pages re-read 2026-11-14; the temperature/preset chart was not re-read in this pass | Round 11 (2026-11-16, arena/3dfe4b45): Appliance Specifications table re-read live — FAFO-001, 120 V/1700 W/60 Hz, 1700 W, 26 quarts (1519 cubic inches), 75° F - 500° F/25° C - 260° C, LED — all match; Preset Information re-read: 24 named presets, Rotisserie preset with 'Rotisserie Spit and Forks', safeguards include 'never use with an extension cord'."
+      "page_version": "Emeril FAFO-001 owner's manual (PDF) — safety, Parts & Accessories and control-panel pages re-read 2026-11-14; the temperature/preset chart was not re-read in this pass | Round 11 (2026-11-16, arena/3dfe4b45): Appliance Specifications table re-read live — FAFO-001, 120 V/1700 W/60 Hz, 1700 W, 26 quarts (1519 cubic inches), 75° F - 500° F/25° C - 260° C, LED — all match; Preset Information re-read: 24 named presets, Rotisserie preset with 'Rotisserie Spit and Forks', safeguards include 'never use with an extension cord'.",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026 scoped manual read: model FAFO-001 and electrical/capacity table, English safeguards and Attaching the Power Cord, parts, cleaning/storage and FAQ sections. IMPORTANT: safeguards item 9 says never use an extension cord, while Attaching the Power Cord conditionally allows longer cords. Both occur in the same fetched PDF; F96 records the conflict. Cleaning recommends hand-washing accessories.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
     },
     {
       "id": "S16",
@@ -327,7 +399,15 @@
       "covers": "Owner's manual: explicit statement of 'two 3-quart baskets', HI-FRY definition (450 °F/235 °C for 2 minutes), Sync Finish, Sync Baskets, aerosol-spray caution",
       "kind": "Manufacturer owner's manual",
       "directness": "Primary",
-      "page_version": "Chefman RJ38-SQPF-3TDB-2W owner's manual (PDF) — control panel and operating instructions re-read 2026-11-14; the cooking chart was not re-read in this pass | Round 11 (2026-11-16, arena/3dfe4b45): control-panel, operating-instructions and special-functions sections re-read live — 'two 3-quart baskets', Sync Finish delay behaviour with HOLD, Sync Baskets copy behaviour, HI-FRY 450 °F/235 °C for 2 minutes, and the aerosol CAUTION sentence read verbatim. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.RJ38-SQPF-3TDB-2W user guide: “two 3-quart baskets”; Sync Finish and Sync Baskets defined in the manual’s own words. The guide contains no preset chart, which is why the 6 Qt preset row stays blank (F36)."
+      "page_version": "Chefman RJ38-SQPF-3TDB-2W owner's manual (PDF) — control panel and operating instructions re-read 2026-11-14; the cooking chart was not re-read in this pass | Round 11 (2026-11-16, arena/3dfe4b45): control-panel, operating-instructions and special-functions sections re-read live — 'two 3-quart baskets', Sync Finish delay behaviour with HOLD, Sync Baskets copy behaviour, HI-FRY 450 °F/235 °C for 2 minutes, and the aerosol CAUTION sentence read verbatim. | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.RJ38-SQPF-3TDB-2W user guide: “two 3-quart baskets”; Sync Finish and Sync Baskets defined in the manual’s own words. The guide contains no preset chart, which is why the 6 Qt preset row stays blank (F36).",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026: model/safety, independent baskets, Sync Finish/Sync Baskets, 2-minute Hi-Fry and cleaning sections read. Two 3-quart baskets; removable baskets/racks top-rack dishwasher safe, main unit not immersed or dishwashed.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
     },
     {
       "id": "S19",
@@ -513,7 +593,15 @@
       "covers": "Listing title and final URL for ASIN B0DHZTCNR5 only, as reached from the supplied short link https://link.amazon/B0c8moW59 on 2026-11-17. Not an air fryer; recorded in the product-intent record, not used for any specification claim.",
       "kind": "Retail listing",
       "directness": "Primary for 'what does this short link point to' only",
-      "page_version": "Fetched 2026-11-17 via link.amazon/B0c8moW59; final URL https://www.amazon.com/dp/B0DHZTCNR5 ; <title> reads 'Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black : Home & Kitchen'. Amazon prices and ratings deliberately not reproduced (S2 §2(b), §6(t))."
+      "page_version": "Fetched 2026-11-17 via link.amazon/B0c8moW59; final URL https://www.amazon.com/dp/B0DHZTCNR5 ; <title> reads 'Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black : Home & Kitchen'. Amazon prices and ratings deliberately not reproduced (S2 §2(b), §6(t)).",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026 exact supplied-link read: B0c8moW59 returned fallback-form Amazon content with a ThermoMaven instant-read thermometer title and observed ASIN B0DHZTCNR5. Observation is not intended-product confirmation, performance evidence or an attribution test.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
     },
     {
       "id": "S37",
@@ -523,7 +611,15 @@
       "covers": "Listing title and final URL for ASIN B0DZFD6R9Z only, as reached from the supplied short link https://link.amazon/B0f3GKalj on 2026-11-17. Not an air fryer; recorded in the product-intent record, not used for any specification claim.",
       "kind": "Retail listing",
       "directness": "Primary for 'what does this short link point to' only",
-      "page_version": "Fetched 2026-11-17 via link.amazon/B0f3GKalj; final URL https://www.amazon.com/dp/B0DZFD6R9Z ; <title> reads 'Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen'. Amazon prices and ratings deliberately not reproduced (S2 §2(b), §6(t))."
+      "page_version": "Fetched 2026-11-17 via link.amazon/B0f3GKalj; final URL https://www.amazon.com/dp/B0DZFD6R9Z ; <title> reads 'Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen'. Amazon prices and ratings deliberately not reproduced (S2 §2(b), §6(t)).",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026 exact supplied-link read: B0f3GKalj returned fallback-form Amazon content with a CHEF iQ Sense Gen3 three-probe thermometer title and observed ASIN B0DZFD6R9Z. Observation is not intended-product confirmation, performance evidence or an attribution test.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
     },
     {
       "id": "S38",
@@ -533,7 +629,15 @@
       "covers": "Official GitHub Pages documentation URL registered as a hosting reference. The page content was not fetched in this integration, so no statement about its contents is treated as re-verified here.",
       "kind": "Platform documentation",
       "directness": "Primary — GitHub documentation for its Pages hosting product",
-      "page_version": "Reference URL recorded 2026-11-17; page content not fetched in this integration."
+      "page_version": "Reference URL recorded 2026-11-17; page content not fetched in this integration.",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026 official documentation read: Pages is static hosting and GitHub logs/stores visitor IP addresses for security. Application-level no-cookie claims do not cover host security logs.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
     },
     {
       "id": "S39",
@@ -543,7 +647,15 @@
       "covers": "The brand's own model designation, probe configuration and ambient rating for the iQ Sense, checked against the listing observed at /dp/B0DZFD6R9Z",
       "kind": "Brand product page",
       "directness": "Primary",
-      "page_version": "Read 2026-11-17 (arena/58cbaaa2-zone1). The brand page states model CQ60-3C-Z3-E, the Gen3 probe configuration and an ambient rating the observed Amazon listing does not repeat, and lists air-fryer use among the product's heat environments. It does not mention an Amazon ASIN. Registered because it is what the manufacturer states, not because it confirms a listing identity — see flag F80. Evidence: reports/verification-2026-11-17-58cbaaa2.md."
+      "page_version": "Read 2026-11-17 (arena/58cbaaa2-zone1). The brand page states model CQ60-3C-Z3-E, the Gen3 probe configuration and an ambient rating the observed Amazon listing does not repeat, and lists air-fryer use among the product's heat environments. It does not mention an Amazon ASIN. Registered because it is what the manufacturer states, not because it confirms a listing identity — see flag F80. Evidence: reports/verification-2026-11-17-58cbaaa2.md.",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026 brand page read, both chunks. Current default selection shows CQ60-1C-Z1-E and offers 1/2/3/4-probe configurations and two colours. This is not the prior three-probe selected SKU or proof of the submitted listing identity. No current variant specification is copied into a confirmed product record.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
     },
     {
       "id": "S40",
@@ -553,7 +665,15 @@
       "covers": "The brand's own instant-read model names, checked against the '1 Sec' title on the listing observed at /dp/B0DHZTCNR5",
       "kind": "Brand site",
       "directness": "Primary",
-      "page_version": "Read 2026-11-17 (arena/58cbaaa2-zone1). The brand's instant-read line is named F1 Pro / F1 Turbo with a sub-second read; the site does not use '1 Sec' as a model name. Recorded as a divergence, not resolved: this site makes no claim about which product the submitted short code was created to promote (flag F80, Q-27). Evidence: reports/verification-2026-11-17-58cbaaa2.md."
+      "page_version": "Read 2026-11-17 (arena/58cbaaa2-zone1). The brand's instant-read line is named F1 Pro / F1 Turbo with a sub-second read; the site does not use '1 Sec' as a model name. Recorded as a divergence, not resolved: this site makes no claim about which product the submitted short code was created to promote (flag F80, Q-27). Evidence: reports/verification-2026-11-17-58cbaaa2.md.",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026 catalogue read: F1 Turbo appears among multiple instant-read/wireless lines. Its own performance claims do not identify the model intended by the submitted short link; no specs are promoted into an intended-product field.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
     },
     {
       "id": "S41",
@@ -563,7 +683,15 @@
       "covers": "Whether an absent tag= parameter on a landing URL can be read as evidence about attribution",
       "kind": "Help article",
       "directness": "Primary",
-      "page_version": "Read 2026-11-17 (arena/58cbaaa2-zone1), from the linked-topic list on S6. Full answer, verbatim: “We understand your concern, but rest assured that it is not necessary for your unique ID to appear in order for us to track sales made after the initial click through. The individual shopping session will be tagged in a way that allows us to track the items purchased and credit you with the appropriate commission.” This is the official statement that a landing URL without a visible tag is not evidence either way; it says nothing about whether a particular link carries a particular ID. Flag F81."
+      "page_version": "Read 2026-11-17 (arena/58cbaaa2-zone1), from the linked-topic list on S6. Full answer, verbatim: “We understand your concern, but rest assured that it is not necessary for your unique ID to appear in order for us to track sales made after the initial click through. The individual shopping session will be tagged in a way that allows us to track the items purchased and credit you with the appropriate commission.” This is the official statement that a landing URL without a visible tag is not evidence either way; it says nothing about whether a particular link carries a particular ID. Flag F81.",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026 help read: an ID need not remain visible in the Amazon landing URL for the shopping session to be tagged. Absence of a visible tag is neither proof of attribution nor of failure.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
     },
     {
       "id": "S42",
@@ -573,7 +701,15 @@
       "covers": "Where additional tracking IDs are created, the 100-per-account limit, and the report where each ID's data is read",
       "kind": "Help article",
       "directness": "Primary",
-      "page_version": "Read 2026-11-17 (arena/58cbaaa2-zone1), from the linked-topic list on S6. Verbatim: to create multiple IDs, “visit your account and click on ‘Manage your Tracking ID’” (linked as https://affiliate-program.amazon.com/home/account/tag/manage); “Once they have been created, you will be able to see data on each ID in your Tracking ID Summary Report”; “there is a limit of 100 Tracking IDs per associate account”, with Associates Customer Service named for further requirements. This is where the enrolled-Associates test result this site waits for is actually read, and it is the second official page naming that screen."
+      "page_version": "Read 2026-11-17 (arena/58cbaaa2-zone1), from the linked-topic list on S6. Verbatim: to create multiple IDs, “visit your account and click on ‘Manage your Tracking ID’” (linked as https://affiliate-program.amazon.com/home/account/tag/manage); “Once they have been created, you will be able to see data on each ID in your Tracking ID Summary Report”; “there is a limit of 100 Tracking IDs per associate account”, with Associates Customer Service named for further requirements. This is where the enrolled-Associates test result this site waits for is actually read, and it is the second official page naming that screen.",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026 help read: Manage your Tracking ID, Tracking ID Summary Report, up to 100 IDs per account. This public help read does not grant account access.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
     },
     {
       "id": "S43",
@@ -584,7 +720,35 @@
       "kind": "Search guidance",
       "directness": "Primary - the search engine's own published guidance for site owners",
       "page_version": "Fetched live 2026-11-17 (arena/fd9778a1-zone1). Page heading 'Understanding page experience in Google Search results'; self-assessment list and FAQ present as quoted on this row. Registered by this pass, first read.",
-      "verified": "Read 2026-11-17 by arena/fd9778a1-zone1 while deciding the sticky-bar scope: the guidance warns against intrusive interstitials and dialogs, which is why the comparison bar is bottom-anchored, non-blocking, hidden from print and hidden above 880 px."
+      "verified": "Read 2026-11-17 by arena/fd9778a1-zone1 while deciding the sticky-bar scope: the guidance warns against intrusive interstitials and dialogs, which is why the comparison bar is bottom-anchored, non-blocking, hidden from print and hidden above 880 px.",
+      "scoped_reviews": [
+        {
+          "date": "2026-11-19",
+          "session": "arena/1f9e7d52-zone1",
+          "scope": "19 November 2026 official page-experience guidance read: mobile usability, main-content distinction, secure serving, avoiding distracting ads and intrusive interstitials; good technical results do not guarantee rankings.",
+          "report": "reports/verification-2026-11-19-1f9e7d52.md"
+        }
+      ]
+    },
+    {
+      "id": "S44",
+      "org": "Google",
+      "title": "Verify your site ownership — Search Console Help",
+      "url": "https://support.google.com/webmasters/answer/9008080",
+      "covers": "Ownership verification methods and access requirements; not evidence that this property is verified.",
+      "kind": "Official search documentation",
+      "directness": "Primary — search service documentation",
+      "page_version": "Scoped public documentation read 2026-11-19, arena/1f9e7d52-zone1; report names sections read."
+    },
+    {
+      "id": "S45",
+      "org": "Google",
+      "title": "Build and submit a sitemap — Google Search Central",
+      "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap",
+      "covers": "Absolute canonical URLs, optional accurate lastmod, RSS and sitemap submission; not a ranking guarantee.",
+      "kind": "Official search documentation",
+      "directness": "Primary — search service documentation",
+      "page_version": "Scoped public documentation read 2026-11-19, arena/1f9e7d52-zone1; report names sections read."
     }
   ],
   "reverified_scope": "Pass 11 (arena/2e346d24-zone1) re-read live on 2026-11-16: S1, S2, S3, S4, S5, S8, S9, S10, S17, S28, S29, then S12, S14 and S18 later in the same session — fourteen sources in total. NOT re-read in pass 11 and therefore not restated: S6, S7, S11, S13, S15, S16, S19-S27, S30-S34, and the 8 Qt owner's-manual PDF. F3 (450 °F) was re-established live against S12 and the listing title; F4/F5 (Emeril presets) against S14. S15, the Emeril owner's manual, was NOT re-read, so the 24-preset count is carried forward and not re-asserted. Evidence: reports/verification-2026-11-16-2e346d24.md",
@@ -757,5 +921,10 @@
     },
     "not_read_by_this_pass": "S1 (the agreement's version stamp was not re-read; its §5 and §6 text was), S3-S7, S9-S15, S18-S27, S30, S31, S34, S38-S43. Nothing about them is restated as current here.",
     "deliberately_not_used": "Prices, star ratings, review counts and 'customers also viewed' items visible on the live Amazon pages were seen and not recorded, per S2 §2(b) and §6(t)."
+  },
+  "scoped_review_2026_11_19": {
+    "session": "arena/1f9e7d52-zone1",
+    "report": "reports/verification-2026-11-19-1f9e7d52.md",
+    "note": "Only the named pages and sections were re-read. Broad accessed/reverified stamps remain historical, not a fresh full-register certification."
   }
 }

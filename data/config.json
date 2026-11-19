@@ -41,5 +41,6 @@
     ],
     "policy_basis": "Program Policies §3(e) requires accurate technology disclosures; §6(s) prohibits artificially generated clicks. Measurement does not trigger affiliate navigation: it observes trusted reader activations without blocking them. Page views and reading events have their own definitions. Application aggregation is not proof of a unique person or a purchase.",
     "contract_version": 2
-  }
+  },
+  "search_console_verification": ""
 }

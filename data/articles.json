@@ -8,65 +8,68 @@
       "kind": "Comparison",
       "cluster": "choose",
       "kicker": "Decision guide",
-      "title": "Dual-basket or countertop oven? The 8-quart question nobody answers",
-      "standfirst": "Two 3-quart drawers and one 26-quart cavity solve opposite problems. Here is the documented difference, and the one measurement that decides it for your kitchen.",
+      "title": "Basket or oven air fryer: which fits the way you cook?",
+      "standfirst": "Start with your usual meal, not the biggest quart number. Two separate cooking zones and an oven-style cavity solve different problems.",
       "target_query": "dual basket vs air fryer oven",
       "intent": "Commercial investigation",
-      "reading_minutes": 6,
+      "reading_minutes": 3,
       "products": [
         "chefman-6qt-dual-basket",
         "emeril-26qt-french-door"
       ],
       "sections": [
         {
-          "h": "The two machines are not competing for the same job",
+          "h": "Do you need different settings at the same time?",
           "paras": [
-            "A dual-basket air fryer is one appliance pretending to be two. The Chefman 6 Qt splits a {{6 Qt / 5.67 L}} cavity into {{Two 3-quart baskets::two 3-quart baskets}} and gives each its own time and temperature, then adds Sync Finish so the shorter cook is delayed to land with the longer one.",
-            "A countertop oven is a different shape of compromise: one big cavity, many modes. The Emeril 26 QT is documented at {{26 qt / 24.6 L (manual: 1,519 cu in)}} with a dual-speed fan, a rotisserie, and French doors."
+            "If dinner usually has two parts with different settings, look at how the cooking zones work. The Chefman dual-window manual describes two 3-quart baskets with independent controls. Sync Finish delays the shorter cook so the two cycles finish together. It is a scheduling feature, not proof that two foods will be cooked to the same doneness.",
+            "The 8-quart Chefman uses one basket. That may be a simpler format to compare for one batch, but “larger basket” is not the same promise as two independently controlled zones."
           ],
           "cite": [
-            "S10",
             "S18",
-            "S14"
+            "S13"
           ]
         },
         {
-          "h": "What you can actually cook, stated in the manufacturer's own numbers",
+          "h": "Would you use the oven layout?",
           "paras": [
-            "The dual-basket unit's ceiling is {{450 °F / 235 °C, held for 2 minutes, for extra browning}}, over a {{200–450 °F / 95–235 °C}} range.",
-            "The oven's documented range is {{75–500 °F / 25–260 °C}} on {{120 V / 60 Hz}} at a rated {{1700 W}}. It is the only unit here that goes below 200 °F, which is what makes proofing and dehydrating possible rather than nominal.",
-            "What neither page states is how evenly either one cooks. That number does not exist on a manufacturer page, and this site does not invent it."
+            "The Emeril is an oven-style appliance with a 26-quart cavity, shelves and a documented rotisserie spit. That is a different layout from a drawer. Before treating it as a replacement for another appliance, list the functions you actually use and check the manual for those functions.",
+            "Do not compare 26 quarts with 6 quarts as though that were a ratio of meals. One number describes an oven cavity; the other is a total split between two baskets. Neither figure measures the food in your usual dinner."
           ],
           "cite": [
-            "S10",
+            "S14",
+            "S15",
+            "S18"
+          ]
+        },
+        {
+          "h": "What space will it need in use?",
+          "paras": [
+            "Plan for opening the doors or pulling a basket out, as well as the published footprint. The Emeril manual calls for at least 5 inches above, behind and at the sides, and says not to use the appliance under hanging cabinets. The single-basket Chefman manual calls for at least 6 inches above and behind. Those are model-specific instructions, not a clearance rule for every air fryer.",
+            "An oven cavity also comes with different care work. Emeril recommends hand-washing accessories; the two Chefman manuals allow their removable baskets and racks on the top rack of a dishwasher. Neither permits immersing the main appliance."
+          ],
+          "cite": [
+            "S15",
+            "S13",
+            "S18"
+          ]
+        },
+        {
+          "h": "A useful way to choose",
+          "paras": [
+            "Write down one ordinary meal you would cook, where each part would go, and the space you have available. Compare the dual-basket model if separate settings are the priority. Compare the oven if its documented layout and functions are what you need. If neither matters, look at the single basket rather than paying attention to a feature count you will not use. This is an editorial decision rule—not a performance ranking.",
+            "Finally, match the exact listing. The supplied links have dated observed destinations, but their intended listings and enrolled Associates tests remain unconfirmed. A clean landing URL does not prove or disprove that a tracking ID was applied."
+          ],
+          "cite": [
             "S18",
-            "S15"
-          ]
-        },
-        {
-          "h": "The measurement that decides it",
-          "paras": [
-            "Footprint, not capacity. The dual-basket unit is {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}} and weighs {{13.3 lb / 6.03 kg}}. The oven is {{16.9 D × 15.8 W × 14.8 H in}}.",
-            "Put a tape measure on the counter and add the clearance the manual asks for behind and above the unit. A 26-quart oven that does not fit under your cabinets is not a 26-quart oven; it is a return."
-          ],
-          "cite": [
-            "S10",
-            "S14"
-          ]
-        },
-        {
-          "h": "The honest summary",
-          "paras": [
-            "Buy the dual-basket if you cook two things at two temperatures and want them to finish together. Buy the oven if you want one cavity that can also toast, proof and rotisserie, and you have measured the space.",
-            "If you want a single large basket instead, the third product in this set is documented as {{8 qt (brand also sells a 5 qt version of the same product page)}} and {{Designed for 4–6 people::designed for 4–6 people}} — but read that product's own page before you buy, because its Amazon listing and its brand page disagree about the temperature ceiling."
-          ],
-          "cite": [
-            "S10",
-            "S12"
+            "S13",
+            "S15",
+            "S41"
           ]
         }
       ],
-      "closing_note": "No unit in this article was tested. Every number above is quoted from the manufacturer's own product page or owner's manual and is linked in the source column."
+      "closing_note": "Documentation-based guidance, not a hands-on test. Match the exact model and read the full current instructions before buying or using it.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "what-450f-actually-means",
@@ -553,96 +556,71 @@
       "kind": "Guide",
       "cluster": "choose",
       "kicker": "Capacity, explained",
-      "title": "26 quarts, 1,519 cubic inches: an honest air fryer capacity guide",
-      "standfirst": "Quart capacity is a cavity measurement, not a food measurement. So this guide uses the numbers the manufacturers print, shows the arithmetic they imply, and is explicit about the one thing none of them publishes: usable food volume.",
+      "title": "How much air-fryer capacity do you need? A buying checklist",
+      "standfirst": "A quart figure is a starting point, not a serving count. Check the shape of the space, how your meal is divided and the instructions about loading it.",
       "target_query": "26 quart air fryer capacity",
       "intent": "Commercial investigation",
-      "reading_minutes": 6,
+      "reading_minutes": 3,
       "products": [
         "chefman-8qt-turbofry",
         "emeril-26qt-french-door"
       ],
       "sections": [
         {
-          "h": "What the brands actually publish",
+          "h": "First, ask what the capacity number describes",
           "paras": [
-            "Three units, three different ways of stating the same idea, all from official pages. The dual-window fryer is {{6 Qt / 5.67 L}}. The single-basket fryer is sold in two sizes on one page, listed as {{8 qt (brand also sells a 5 qt version of the same product page)}}. The countertop oven is {{26 qt / 24.6 L (manual: 1,519 cu in)}}.",
-            "The oven is the only one that publishes a cubic-inch figure as well as a litre figure, which lets you check the arithmetic instead of taking it on trust."
+            "The dual-basket Chefman is documented at 6 Qt total, split into two 3-quart baskets. The 8-quart model has one basket. The Emeril’s 26-quart figure describes an oven cavity. Do not read those three numbers as directly comparable portions of dinner.",
+            "No hands-on loading test was performed for this guide. A manufacturer’s household-size statement is a marketing claim, not a measured number of portions this publication can promise."
           ],
           "cite": [
             "S10",
+            "S18",
             "S12",
+            "S14",
+            "S15"
+          ]
+        },
+        {
+          "h": "Use an ordinary meal as your checklist",
+          "paras": [
+            "**One food or separate foods?** Decide whether you want one undivided basket or separate settings. Sync Finish is documented on the dual-basket model; it coordinates timing rather than increasing the size of either basket.",
+            "**What shape is the food?** Check the basket or tray dimensions for the exact model rather than assuming a volume tells you whether a particular pan or item fits. A published exterior footprint is not an interior tray measurement.",
+            "**Will you need batches?** Both Chefman manuals warn against overcrowding and recommend batches when needed. Do not plan to use every bit of nominal volume as tightly packed food."
+          ],
+          "cite": [
+            "S18",
             "S13",
-            "S14",
-            "S15"
-          ]
-        },
-        {
-          "h": "Do the arithmetic, because the brands make you",
-          "paras": [
-            "The oven's owner's manual gives its specification table as model FAFO-001, 120 V/1700 W/60 Hz, rated power 1700 W, capacity 26 quarts (1,519 cubic inches), 75 °F - 500 °F, LED display. Converting 1,519 cubic inches gives roughly **24.9 litres**. The brand's own page states {{26 qt / 24.6 L (manual: 1,519 cu in)}}.",
-            "Those two figures sit about one per cent apart — close enough that both describe the same cavity, and far enough apart that anyone quoting litres to two decimal places should say which document it came from. The two Chefman figures need no conversion at all: they are printed on the brand's own specification blocks.",
-            "**The conversion is arithmetic, not a published figure.** The published numbers are 26 quarts and 24.6 litres. Where this site shows a derived number, it says so."
-          ],
-          "cite": [
-            "S14",
-            "S15"
-          ]
-        },
-        {
-          "h": "The only household-size claim in this set — and why it is the only one",
-          "paras": [
-            "Exactly one official page in this product set maps a capacity to a number of people: the single-basket fryer is {{Designed for 4–6 people::designed for 4–6 people}}. No other unit here makes that mapping, and the oven's page, which does describe the cavity as spacious, stops short of assigning it to a family size.",
-            "That single claim is worth more than a page of folk maths, because it is a manufacturer telling you how it expects the product to be used. Everything else — the “feeds 6-8”, “perfect for a family of four” lines that fill comparison blogs — is somebody's estimate built on a quart figure that was never a food volume to begin with.",
-            "One caution on that page: it covers two products, the 5 qt and the 8 qt, and the capacity, dimensions and weight rows are given for both. Check which model you are reading before you measure your shelf."
-          ],
-          "cite": [
-            "S12",
-            "S14"
-          ]
-        },
-        {
-          "h": "What nobody publishes: usable food volume",
-          "paras": [
-            "This is the number that would actually answer “will this feed my family”, and not one of these three manufacturers publishes it. Usable volume is smaller than cavity volume because the heating element, the basket walls and the rack all take space, and how much depends on the food.",
-            "So this guide cannot tell you how many chicken wings fit, and neither can any other page that quotes only a quart figure. What it can tell you is the relative scale, which is a real decision. The 8 qt is a single cavity of 7.57 L that the brand says is designed for 4–6 people. The 6 qt is the same class of cooking in two 3-quart baskets — the same nominal total, split so two dishes can finish together. The 26 qt is a different category entirely, documented with a rotisserie, a crisper tray, a baking pan and a wire rack.",
-            "Any page that tells you the exact number of drumsticks will be guessing. This one will not."
-          ],
-          "cite": [
             "S10",
-            "S12",
-            "S14",
+            "S12"
+          ]
+        },
+        {
+          "h": "Check the space outside it, too",
+          "paras": [
+            "Capacity is only useful if the appliance can be operated where you intend to put it. Include the clearance required by the exact manual and room to open it. The Emeril manual requires space on the top, back and sides and rules out operation under hanging cabinets.",
+            "A useful final question is not “Which holds the most?” but “Which documented layout accommodates my meal, my counter and my willingness to cook in batches?” That answer is a personal buying decision; the quart number cannot make it for you."
+          ],
+          "cite": [
             "S15",
+            "S13",
             "S18"
-          ]
-        },
-        {
-          "h": "Before you measure your counter",
-          "paras": [
-            "Capacity is the number you will argue about with other shoppers. Counter space is the number that will argue with your kitchen. The oven's manual sets out its own ventilation requirements: leave at least 5 inches of free space on the top, back and sides, never put anything on top of the appliance, and never operate it under hanging cabinets. The unit measures {{16.9 D × 15.8 W × 14.8 H in}}.",
-            "The fryers need less: {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}} for the dual-window unit, and {{8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg}} for the single-basket one.",
-            "And if you are still choosing between them, the form-factor question comes before capacity, and the toaster-oven question comes before both."
-          ],
-          "cite": [
-            "S10",
-            "S12",
-            "S14",
-            "S15"
           ]
         }
       ],
-      "closing_note": "No unit in this set publishes a usable food volume, and none has been tested by anyone who wrote this. Those gaps are real, and they are why this site refuses to declare a winner."
+      "closing_note": "Documentation-based guidance, not a hands-on test. Match the exact model and read the full current instructions before buying or using it.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "small-kitchen-air-fryer-dimensions",
       "kind": "Guide",
       "cluster": "choose",
       "kicker": "Fit check",
-      "title": "Will it actually fit? Three air fryers, measured against your counter",
-      "standfirst": "Every manufacturer on this site publishes outer dimensions. That turns 'will it fit' from a guess into arithmetic — and it is the one buying question a spec sheet can answer completely.",
+      "title": "Will an air fryer fit on your counter? Measure these things first",
+      "standfirst": "The footprint is only the beginning. Leave space to open it, follow the ventilation instructions and check where the cord will reach.",
       "target_query": "air fryer dimensions counter space",
       "intent": "Commercial investigation",
-      "reading_minutes": "5",
+      "reading_minutes": 3,
       "products": [
         "chefman-6qt-dual-basket",
         "emeril-26qt-french-door",
@@ -650,22 +628,10 @@
       ],
       "sections": [
         {
-          "h": "The number you measure first is not the width",
+          "h": "Mark out the published footprint",
           "paras": [
-            "Most counter-space failures are depth or height failures, because people measure the width of the gap they can see and ignore the distance the appliance needs in front of it. The Emeril is documented at {{16.9 D × 15.8 W × 14.8 H in}}, and its French doors swing forward rather than up, so the space in front of it matters as much as the space under the cabinet.",
-            "The two Chefman units are both shorter and shallower on paper. The dual-window 6 Qt is documented at {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}}. The 8 Qt's published row reads {{8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg}}. Read the manual's own clearance instructions before deciding — a published outer dimension is not a published clearance."
-          ],
-          "cite": [
-            "S14",
-            "S10",
-            "S12"
-          ]
-        },
-        {
-          "h": "Weight matters when you lift it out to clean",
-          "paras": [
-            "These are not built-in appliances. Every one of them gets lifted, wiped and put back, so weight is a daily detail rather than a shipping detail. The manufacturer's own figure for the 6 Qt dual-window is {{13.3 lb / 6.03 kg}}. The 8 Qt publishes its weight on the same line as its dimensions — {{8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg}} — and the Emeril's specification block does not state a weight.",
-            "If the appliance is going above shoulder height or into a cupboard, that is the number to weigh, not the capacity."
+            "The Chefman dual-window page gives {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}}. For the 8 Qt model, Chefman’s specification block gives {{8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg}}. The Emeril page gives {{16.9 D × 15.8 W × 14.8 H in}}.",
+            "Use the source’s stated orientation; do not silently reorder an unlabelled dimension string. Mark a footprint on the counter as a planning aid, then leave extra working space for opening and handling the appliance. The brand’s dimensions are not a measurement made by this publication."
           ],
           "cite": [
             "S10",
@@ -674,31 +640,42 @@
           ]
         },
         {
-          "h": "Capacity per square inch of counter",
+          "h": "Add the model-specific ventilation space",
           "paras": [
-            "The interesting ratio is how much cooking volume each unit buys per unit of counter it occupies. The 6 Qt dual-window gives {{Two 3-quart baskets::two 3-quart baskets}} inside a footprint of roughly 158 square inches. The 8 Qt single basket gives {{8 qt (brand also sells a 5 qt version of the same product page)}} on a slightly larger footprint. The Emeril gives {{26 qt / 24.6 L (manual: 1,519 cu in)}} on the largest footprint of the three.",
-            "That ratio is arithmetic on published numbers, not a measurement of usable volume: a manufacturer's quart figure and a usable cooking area are not the same thing, and no official source read for this site states usable interior area."
+            "The 8 Qt Chefman manual asks for at least 6 inches of clearance on the top and back. The Emeril manual asks for at least 5 inches at the top, back and sides and says not to operate in an enclosed space or under hanging cabinets. A machine fitting on a shelf does not establish that it can be used there.",
+            "Keep the instructions separate. Do not apply the oven’s five-inch figure to a different model, or treat a single clearance number as permission to ignore the rest of a manual’s placement rules."
           ],
           "cite": [
-            "S10",
-            "S12",
-            "S14"
-          ]
-        },
-        {
-          "h": "What this page cannot tell you",
-          "paras": [
-            "It cannot tell you the clearance your cabinet manufacturer requires, the heat your countertop tolerates, or how loud the fan is — none of that is published by these brands in the pages read for this site. Measure the gap, read the manual's clearance section, and treat the published outer dimensions as the starting point rather than the answer."
-          ],
-          "cite": [
-            "S10",
-            "S12",
-            "S14",
+            "S13",
             "S15"
+          ]
+        },
+        {
+          "h": "Think about opening, cleaning and power",
+          "paras": [
+            "Leave a safe place to put a removed basket or accessory and room to reach the appliance without crowding it. This is a planning suggestion, not a measured opening clearance for any of these models.",
+            "Check the exact unit’s electrical rating and current instructions. The Emeril PDF itself contains conflicting extension-cord language: its safeguards say never use one, while a later power-cord section describes conditional use. That conflict is not permission to use an extension cord; ask the manufacturer to clarify before relying on it."
+          ],
+          "cite": [
+            "S15",
+            "S13",
+            "S18"
+          ]
+        },
+        {
+          "h": "Before you order",
+          "paras": [
+            "Record the model number, the space available and the particular manual you checked. Recheck the listing before buying: the 8 Qt listing title’s 450 °F Hi-Fry wording does not match the 200–400 °F range on the RJ38-SQSS-8T brand page. Similar names do not make interchangeable specifications."
+          ],
+          "cite": [
+            "S12",
+            "S29"
           ]
         }
       ],
-      "closing_note": "No unit in this article was tested. Every dimension is quoted from the manufacturer's own product page or owner's manual and is linked per section."
+      "closing_note": "Documentation-based guidance, not a hands-on test. Match the exact model and read the full current instructions before buying or using it.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "who-actually-pays-for-air-fryer-reviews",
@@ -985,11 +962,11 @@
       "kind": "Explainer",
       "cluster": "live",
       "kicker": "Power, documented",
-      "title": "1700 watts, three manuals, and one extension-cord rule that is not the same",
-      "standfirst": "All three appliances in this set carry the same wattage rating from their manufacturers. Their manuals do not agree on how to power them, and one of the three rules is absolute.",
+      "title": "Can you use an extension cord? The manuals need a closer read",
+      "standfirst": "Do not borrow a cord rule from another air fryer. One of the official PDFs even contradicts itself, so this guide does not recommend an extension-cord setup.",
       "target_query": "air fryer 1700 watts extension cord manual",
       "intent": "Informational",
-      "reading_minutes": 5,
+      "reading_minutes": 3,
       "products": [
         "chefman-6qt-dual-basket",
         "chefman-8qt-turbofry",
@@ -997,53 +974,42 @@
       ],
       "sections": [
         {
-          "h": "The same rating, three times",
+          "h": "The model matters more than the general rule",
           "paras": [
-            "The Chefman 6 Qt dual-window model documents {{1700 W / 120 V}} on its product page. The Chefman 8 Qt TurboFry Touch documents {{1700 W / 120 V}} on its page as well. The Emeril Lagasse French Door AirFryer 360 documents a rated power of {{1700 W}} on {{120 V / 60 Hz}}.",
-            "The Emeril's specification table in its owner's manual states the same figures for model FAFO-001, and its heating-element section attributes the turbo-fan mode to a top spiral heating element at that same wattage. Nothing in this paragraph is an estimate; each figure is a published dataset value with the manufacturer's page behind it."
+            "The manuals are for particular appliances and supply ratings. Read the instructions for the exact unit and region rather than treating “air fryer” as a single electrical specification. This page is document research, not electrical advice or an installation assessment."
           ],
           "cite": [
-            "S10",
-            "S12",
-            "S14",
+            "S18",
+            "S13",
             "S15"
           ]
         },
         {
-          "h": "The Chefman manuals: an extension cord is allowed, with one condition",
+          "h": "The Emeril manual contains two different instructions",
           "paras": [
-            "Both Chefman manuals explain that the supplied cord is deliberately short, to reduce entanglement and tripping hazards. A longer detachable extension cord may be used if care is exercised, and both manuals attach the same condition: the marked electrical rating of the extension cord should be at least as great as the electrical rating of the appliance. The longer cord, they add, should be arranged so it will not drape over a countertop or tabletop where it can be pulled on or tripped over.",
-            "Before any of that, both manuals ask a question most buyers skip: check that the home power supply corresponds with the intended voltage of the appliance."
-          ],
-          "cite": [
-            "S18",
-            "S13"
-          ]
-        },
-        {
-          "h": "The Emeril manual: the rule is absolute",
-          "paras": [
-            "The French Door AirFryer 360's manual states it differently, in its safeguards: never use with an extension cord. That line is the manufacturer's, not this site's, and it is the sharpest single instruction in this comparison.",
-            "The same safeguards section defines where the appliance may sit: a flat, heat-resistant surface, countertop use only, not in an enclosed space or under hanging cabinets, with free space left on the top, back and sides and above the appliance, and never on a cooktop."
+            "In Important Safeguards, item 9 says never to use an extension cord. In the later “CAUTION: Attaching the Power Cord” section, the same PDF says longer extension cords may be used if care is exercised and lists conditions. Those are incompatible directions within one document—not a choice this publication can safely make for you.",
+            "The earlier version of this guide quoted only the prohibition. The 19 November 2026 review read both sections and records the contradiction publicly as F96. Do not treat the later wording here as permission to use a cord; seek current clarification from the manufacturer for the unit you own."
           ],
           "cite": [
             "S15"
           ]
         },
         {
-          "h": "What a buyer can take from three manuals",
+          "h": "Do not transfer the Chefman wording to the oven",
           "paras": [
-            "If one of these appliances is heading for a kitchen where the outlet is far from the counter, the manuals' difference matters before any feature does. Two manufacturers permit a rated extension cord with care; the third forbids the cord outright and instead defines the clearance around the unit.",
-            "None of this is this site's advice. It is each manufacturer's instruction, quoted from the manuals and linked per section, with the wattage rows taken from the dataset's published values."
+            "The Chefman manuals discuss conditions for a longer cord. That is a statement about those instructions, not an override of the Emeril safeguards or a recommendation for your circuit. Read the full safety section, keep the model and regional rating attached to it, and ask the manufacturer if any part is unclear.",
+            "An internet buying guide cannot inspect an outlet, a circuit, a cord or the space around an appliance. If a setup depends on an unresolved electrical instruction, pause that setup rather than selecting the more convenient sentence."
           ],
           "cite": [
-            "S15",
+            "S13",
             "S18",
-            "S13"
+            "S15"
           ]
         }
       ],
-      "closing_note": "No appliance in this article was plugged in, measured or tested. The power rows are published dataset values sourced to the manufacturer pages, and the cord instructions are quoted from the owner's manuals."
+      "closing_note": "Documentation-based guidance, not a hands-on test. Match the exact model and read the full current instructions before buying or using it.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "whats-in-the-box",
@@ -1377,11 +1343,11 @@
       "kind": "Guide",
       "cluster": "live",
       "kicker": "Care and upkeep",
-      "title": "How to clean an air fryer, according to the people who made it",
-      "standfirst": "Three manuals in this set carry cleaning sections. Quoted side by side, they agree on the big rules and split on the details. No vinegar hacks and no life tricks - just the instructions in the box.",
+      "title": "How do you clean an air fryer? Start with the removable parts",
+      "standfirst": "“Dishwasher safe” does not mean the whole appliance. The two Chefman manuals and the Emeril manual describe different care routines.",
       "target_query": "how to clean an air fryer",
       "intent": "Informational",
-      "reading_minutes": 5,
+      "reading_minutes": 3,
       "products": [
         "chefman-6qt-dual-basket",
         "chefman-8qt-turbofry",
@@ -1389,35 +1355,22 @@
       ],
       "sections": [
         {
-          "h": "The rules all three manuals share",
+          "h": "Unplug it and let it cool first",
           "paras": [
-            "Unplug first, cool down first. The Emeril manual's cleaning section opens with it: remove the power cord from the wall socket and be certain the appliance is thoroughly cooled before cleaning. Its instructions add a specific wait - allow at least thirty minutes to cool before attempting cleaning or storing.",
-            "Never submerge the appliance body. The Chefman dual-window manual says the unit is wiped with a damp cloth and never submerged; the Emeril's before-first-use steps say the same in different words."
+            "All three manuals tell you to disconnect the appliance and let it cool before cleaning. Do not turn a cleaning checklist into permission to handle a hot rack or basket. The Chefman manuals explicitly warn against lifting a rack out while it is hot.",
+            "The body of the appliance is not a dishwasher item. Both Chefman manuals say not to put the unit in a dishwasher or submerge it; Emeril likewise prohibits soaking or dishwashing the appliance."
           ],
           "cite": [
-            "S15",
-            "S18"
-          ]
-        },
-        {
-          "h": "Where the manuals split: the dishwasher",
-          "paras": [
-            "The two Chefman units put their cooking parts on the top rack. The dataset's care rows read: {{Nonstick, dishwasher-safe baskets. Manual caution: never spray with aerosol cooking oil — use a non-aerosol mister instead}}, and for the 8-quart, {{Nonstick basket and rack; top-rack dishwasher safe::nonstick basket and rack; top-rack dishwasher safe}}.",
-            "The Emeril oven draws the line differently. Its accessories are hand-wash - caked-on food should be soaked in warm, soapy water, and hand-washing is recommended - and the appliance body may not be soaked, submerged, or washed in the dishwasher. A countertop oven is not a basket, and its manual says so."
-          ],
-          "cite": [
-            "S10",
             "S18",
-            "S12",
             "S13",
             "S15"
           ]
         },
         {
-          "h": "The one rule that saves the coating",
+          "h": "For the two Chefman models: baskets and racks",
           "paras": [
-            "The dual-basket manual's caution is worth reading once in the manufacturer's own words: never spray the baskets or racks with cooking oil from an aerosol spray can. The manual offers the substitute in the same breath - fill a non-aerosol mister instead.",
-            "The 8-quart manual records no aerosol rule, and this site does not extend one model's rule to another by analogy. The mister satisfies the rule that exists and breaks none that do."
+            "Chefman’s manuals recommend washing the removable basket or baskets and racks with warm, soapy water, then rinsing and drying well. They also permit those parts on the top rack of a dishwasher. That statement applies to the documented parts and models, not every accessory sold for an air fryer.",
+            "Use a damp cloth on the cooled body and avoid abrasive cleaners. The dual-window manual says not to use window cleaner on its windows. Both manuals warn against aerosol cooking spray on the nonstick parts; they distinguish that from a non-aerosol oil mister."
           ],
           "cite": [
             "S18",
@@ -1425,29 +1378,32 @@
           ]
         },
         {
-          "h": "The never list, in the manuals' own words",
+          "h": "For the Emeril oven: plan for accessories and the cavity",
           "paras": [
-            "Metal scouring pads are banned in the Emeril manual: pieces can break off and touch electrical parts. Non-metallic pads only. Abrasive cleansers are out on the Chefman side as well.",
-            "Do not scrub the heating coils - the Emeril manual calls them fragile and says they may break - and rinse the interior so no standing water is left behind."
-          ],
-          "cite": [
-            "S15",
-            "S18"
-          ]
-        },
-        {
-          "h": "A five-minute routine built only from the above",
-          "paras": [
-            "**Judgement, assembled from the instructions above:** cool, unplug, remove parts, soak anything caked, top-rack the dishwasher-safe parts and hand-wash the rest, wipe the cavity with a damp cloth and mild detergent, dry, reassemble. Nothing here is a home remedy; it is the manuals' steps in one order."
+            "The Emeril cleaning section recommends hand-washing accessories, soaking caked-on food in warm, soapy water when needed, and using nonabrasive cleaning tools. It tells you not to scrub the fragile heating coils and not to leave standing water inside the appliance.",
+            "Its instructions are not the same as the Chefman top-rack permission. Do not describe all three as dishwasher-safe appliances, and do not assume one care routine applies to an oven cavity, its doors and every removable part."
           ],
           "cite": [
             "S15",
             "S18",
             "S13"
+          ]
+        },
+        {
+          "h": "Use the care routine as a buying question",
+          "paras": [
+            "Before choosing, think about where the cooled removable parts will be washed and dried, and whether the documented routine fits your habits. This publication has not timed cleanup or tested a coating. The manual can tell you what is permitted; it cannot tell you whether you will enjoy doing it."
+          ],
+          "cite": [
+            "S18",
+            "S13",
+            "S15"
           ]
         }
       ],
-      "closing_note": "No product was cleaned for this article. Every instruction above is quoted or condensed from the manufacturer manuals linked per section, read on 2026-11-16."
+      "closing_note": "Documentation-based guidance, not a hands-on test. Match the exact model and read the full current instructions before buying or using it.",
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     },
     {
       "slug": "chefman-vs-emeril-air-fryer",
@@ -1636,12 +1592,12 @@
       "slug": "questions-before-buying-a-multifunction-appliance",
       "kind": "Checklist",
       "kicker": "Buyer's checklist",
-      "title": "Eight questions to ask before you buy a multi-function kitchen appliance",
-      "standfirst": "A multi-function machine is a stack of claims: quarts, presets, temperature ranges, accessory counts. Every question below is answerable from a listing page, a spec block or the manual in the box — and each one has a live example in this site's own three-product record, including the places where the documents refuse to answer.",
+      "title": "Eight questions before buying a multifunction kitchen appliance",
+      "standfirst": "A long function list is not a plan for dinner. Ask these questions of the exact model’s page and manual before making space for it.",
       "target_query": "questions to ask before buying a multi function air fryer oven",
       "intent": "Commercial investigation",
-      "reading_minutes": 7,
-      "sources_read": "2026-11-17",
+      "reading_minutes": 4,
+      "sources_read": "2026-11-19",
       "products": [
         "chefman-6qt-dual-basket",
         "chefman-8qt-turbofry",
@@ -1649,85 +1605,61 @@
       ],
       "sections": [
         {
-          "h": "Questions to ask of the specification block",
+          "h": "Start with the meal and the model",
           "paras": [
-            "**1. Which unit is the capacity counted in, and of what?** The three appliances here publish {{6 Qt / 5.67 L}}, an {{8 qt (brand also sells a 5 qt version of the same product page)}} basket, and {{26 qt / 24.6 L (manual: 1,519 cu in)}} of cavity. The third one is the only figure you can cross-check, because the manual states the same volume in cubic inches as well as litres. Where a brand gives one number in one unit, you are trusting its definition of the space.",
-            "**2. What is the temperature range, and what is the top number held for?** The 6 Qt page pairs {{200–450 °F / 95–235 °C}} with a ceiling note: {{450 °F / 235 °C, held for 2 minutes, for extra browning}}. A maximum that lasts two minutes is a finisher. Ask which number describes a cook, and which describes a photograph.",
-            "**3. What does it need around it, not just under it?** Published footprints here are {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}}, {{8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg}} and {{16.9 D × 15.8 W × 14.8 H in}}. Add the door swing and the ventilation gap the manual asks for. A machine that fits the drawn rectangle and not the real kitchen is the most common avoidable return.",
-            "**4. What does the plug ask of your circuit?** All three of these are documented at 1700 watts on a 120-volt supply. That is the question you ask before a second large appliance goes on the same run, and it is the reason the manuals' cord and extension rules are worth reading before the counter is planned."
+            "**1. What would I use it for on an ordinary evening?** Write down the meal and the functions you would use. Then check that those functions appear in the manual, not only the title or a marketing image. The Emeril manual documents a rotisserie; that does not establish a cooking result.",
+            "**2. Which exact model is being described?** Match the model or part number across the listing, manufacturer and instructions. The 8 Qt Chefman listing title advertises 450 °F Hi-Fry, while the brand page for RJ38-SQSS-8T gives a 200–400 °F range. Do not merge the two into a richer imaginary model."
           ],
           "cite": [
-            "S10",
-            "S12",
-            "S14",
             "S15",
-            "S18"
+            "S12",
+            "S29"
           ]
         },
         {
-          "h": "Questions to ask of the manual rather than the marketing",
+          "h": "Check the space inside and outside",
           "paras": [
-            "**5. Is every advertised function documented in the instructions?** A function named only in a listing title is a claim about a box. On this site's record, the Emeril manual documents a rotisserie preset and a spit set, which is why the rotisserie is treated as a feature rather than a badge. Elsewhere, a Hi-Fry mode in a listing title meets a 200–400 °F range on the brand's own page for the model number the listing carries — the manual is the document that has to be right when you call about it.",
-            "**6. How many presets, and counted how?** The Emeril page states {{24 presets are named in the owner's manual for model FAFO-001: Airfry, Fries, Bacon, Grill, Eggs, Fish, Ribs, Defrost, Steak, Vegetables, Wings, Bake, Rotisserie, Toast, Chicken, Pizza, Pastry, Proof, Broil, Slow Cook, Roast, Dehydrate, Reheat, Warm}} in its manual, 25 in its own specification icons, and markets the machine as 10-in-1 in the same page's description. Ask what a preset is: a saved time-and-temperature pair, or a mode that shares one.",
-            "**7. What does it say about cleaning, and does that fit your habits?** The two Chefman manuals put their cooking parts on the top rack of a dishwasher; the Emeril manual hand-washes its accessories and soaks caked-on food. The dual-window manual also bans aerosol oil spray on the nonstick. A machine you will not clean properly is a machine you will not use, and the care rules are in the manual, not in the hero image."
+            "**3. Is the capacity divided?** The 6 Qt Chefman is two 3-quart baskets, not one 6-quart drawer. Its Sync Finish function coordinates separate cook times. Think about where each part of the meal would go.",
+            "**4. Can it be used where it will live?** Compare published exterior dimensions and the model’s ventilation rules. The Emeril manual requires at least 5 inches at the top, back and sides and forbids operation under hanging cabinets. Room for storage is not automatically room for use."
           ],
           "cite": [
-            "S14",
-            "S15",
-            "S12",
-            "S13",
             "S18",
-            "S29"
+            "S10",
+            "S14",
+            "S15"
           ]
         },
         {
-          "h": "The question the documents usually dodge",
+          "h": "Read past the headline features",
           "paras": [
-            "**8. Which exact model is this, and does the page you are reading describe that model?** Read the model or part number in the listing's product-information block and match it character by character against the brand page whose specifications you are using. Three of this site's open flags exist because that check has not been settled: more than one 6-quart Chefman SKU exists with near-identical pages; two 8-quart models disagree about their own maximum temperature; and the Emeril listing carries a model code one character away from the brand page's.",
-            "This is the one question a buyer can answer in about three minutes and the one almost nobody asks. Everything above rests on it: a specification quoted against the wrong model is not a conservative estimate, it is simply the wrong number."
+            "**5. What does the top temperature mean?** The dual-basket Chefman manual describes a two-minute Hi-Fry boost at 450 °F. That is not the same description as an unrestricted full-cycle temperature setting.",
+            "**6. How are the functions counted?** The Emeril brand page uses 25 presets in an icon, 24 presets in the description, and a 10-in-1 heading. A feature count is not a standardised measurement of usefulness.",
+            "**7. How will I clean it?** The Chefman removable baskets and racks may go on the dishwasher top rack; Emeril recommends hand-washing accessories. None of those statements makes the main unit dishwasher safe."
           ],
           "cite": [
-            "S10",
-            "S11",
-            "S12",
-            "S26",
-            "S27",
-            "S28",
-            "S16",
-            "S29"
+            "S18",
+            "S14",
+            "S15",
+            "S13"
           ]
         },
         {
-          "h": "What this checklist cannot tell you",
+          "h": "Leave the sales page one final question",
           "paras": [
-            "It cannot tell you whether any of these machines cooks well. Evenness, noise, real preheat time, how long a coating lasts and how a bird roasts are not published by these brands, so no page in this set states them, and a review that narrates them without a test is describing a mood, not a measurement.",
-            "It cannot tell you today's price or availability. Amazon's Program Policies limit how an Associate site may display price, rating and review-count data, which is why this site publishes none of it and links out instead. The brand list prices on the product pages here are the brands' own figures, not the price you will pay.",
-            "What it can do is stop the expensive mistakes that documents do cover: the wrong footprint, the wrong model number, the wrong expectation of a temperature figure, and a care routine the manual forbids."
+            "**8. What evidence is still missing?** Check the listing configuration, what is included, and the current manufacturer instructions. This publication’s intended-ASIN fields and enrolled Associates tests remain unconfirmed. A supplied short link is not an identity certificate, and a visible or invisible tracking ID is not an account report.",
+            "If one of these answers is missing, leave it missing rather than borrowing an answer from a similar-looking product. A smaller feature list for the correct model is more useful than a bigger one assembled from several."
           ],
           "cite": [
             "S2",
-            "S8",
-            "S10",
-            "S12",
-            "S14"
-          ]
-        },
-        {
-          "h": "Use it on the three machines here",
-          "paras": [
-            "Every question above is answered, row by row and source by source, on the three product records this site keeps, linked under “Products covered” at the top of this page. The side-by-side matrix keeps only the figures that could be confirmed from an official document, and a dash there means the documents did not answer — not that the answer is zero.",
-            "If a row you care about is blank, that is a fact about the published documents, and it is listed on the review register with the official page that was read."
-          ],
-          "cite": [
-            "S10",
-            "S12",
-            "S14"
+            "S41"
           ]
         }
       ],
-      "closing_note": "This checklist was written from the manufacturer pages, manuals and listing documents cited per section, re-read on 2026-11-17. No appliance was purchased, tested or handled for it, and no ranking is implied by the order of the questions.",
-      "cluster": "choose"
+      "closing_note": "Documentation-based guidance, not a hands-on test. Match the exact model and read the full current instructions before buying or using it.",
+      "cluster": "choose",
+      "modified_on": "2026-11-19"
     }
   ],
-  "updated": "2026-11-17"
+  "updated": "2026-11-19",
+  "editorial_revision_note_2026_11_19": "Six existing canonical guides substantially revised from named official sections, including correction of the Emeril manual’s internal cord conflict and the old capacity arithmetic. Other articles retain their own source-read dates. No publication dates were invented from source-access timestamps."
 }

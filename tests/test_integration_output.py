@@ -10,15 +10,15 @@ class PublishedIntegrationOutputTests(unittest.TestCase):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         self.assertIn("Choose the shape that fits your kitchen.", html)
         self.assertLess(html.index("publication-hero"), html.index("publication-product"))
-        # Pass 14 (arena/9b3365c7-zone1): the brief asks for every dashboard surface to be
-        # reachable "from the footer and a single navigation group". Both are asserted here.
-        self.assertIn("<h4>Behind the site</h4>", html)
-        self.assertIn("<h5>Behind the site</h5>", html)
-        self.assertEqual(1, html.count("<h4>Behind the site</h4>"))
-        self.assertNotIn("<h4>Owner workspace</h4>", html)
-        self.assertNotIn("<h4>Trust &amp; evidence</h4>", html)
-        nav = html[html.index('<nav id="site-nav"'):html.index("</nav>", html.index('<nav id="site-nav"'))]
-        foot = html[html.index('<footer class="site">'):html.index("</footer>")]
+        self.assertIn('<details class="workspace-menu">', html)
+        self.assertEqual(1, html.count('class="workspace-menu"'))
+        self.assertIn('<h5>Owner workspace</h5>', html)
+        self.assertNotIn('class="sidebar"', html)
+        self.assertLess(html.index('</header>'), html.index('class="disclosure-bar"'))
+        self.assertLess(html.index('class="disclosure-bar"'), html.index('<main'))
+        nav_start = html.index('<nav class="workspace-links"')
+        nav = html[nav_start:html.index('</nav>', nav_start)]
+        foot = html[html.index('<footer class="site">'):html.index('</footer>')]
         for page in ("product-intent.html", "measurement.html", "questions.html", "decision-log.html",
                      "suggestions.html", "executive-summary.html", "flagged.html", "compliance.html"):
             self.assertIn(f'href="{page}"', nav)
@@ -31,18 +31,23 @@ class PublishedIntegrationOutputTests(unittest.TestCase):
         self.assertLess(html.index('class="disclosure-bar"'), html.index("<main"))
         self.assertGreater(html.index("As an Amazon Associate I earn from qualifying purchases.",
                                       html.index('<footer class="site">')), 0)
-        ctas = [m for m in main.split("<a ") if "link.amazon/" in m and 'class="src"' not in m]
-        self.assertEqual(3, len(ctas))
-        for tag in ctas:
-            self.assertIn("sponsored", tag.split(">")[0])
-            self.assertIn("Amazon", tag)            # Program Policies 6(w): clear it goes to Amazon
-        self.assertEqual(3, main.count("Sponsored link — we may earn a commission"))
+        # Homepage cards open useful local guides rather than adding unconfirmed
+        # one-click product CTAs. All actual product routes retain conspicuous link notes.
+        self.assertEqual(3, main.count('class="card pcard publication-product"'))
+        for slug in ('chefman-6qt-dual-basket', 'emeril-26qt-french-door', 'chefman-8qt-turbofry'):
+            self.assertIn(f'href="products/{slug}.html"', main)
+            product = (ROOT / 'products' / (slug + '.html')).read_text(encoding='utf-8')
+            self.assertIn('Affiliate link · intended listing and attribution unconfirmed.', product)
+            self.assertIn('View on Amazon', product)
+            self.assertIn('rel="sponsored nofollow noopener"', product)
 
     def test_price_note_cites_the_clause_that_governs_prices(self):
         # F90: the note used to say 2(b) *and* 6(t) bar Amazon prices; 6(t) is about reviews.
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         self.assertNotIn("§2(b) and §6(t) bar", html)
-        self.assertIn("Associates Program Policies §2(b) allow", html)
+        self.assertNotIn("§2(b) and §6(t) bar", (ROOT / "products/chefman-6qt-dual-basket.html").read_text())
+        policy = json.loads((ROOT / "data/products.json").read_text())["amazon_price_policy"]
+        self.assertIn("no authorised", policy)
 
     def test_category_count_reads_the_recorded_browse_path(self):
         # F91: the category lede published "0 of the five links" while three landed on air fryers.
@@ -51,7 +56,7 @@ class PublishedIntegrationOutputTests(unittest.TestCase):
                 if r["observed_browse_path"].split("›")[-1].strip() == "Air Fryers")
         self.assertEqual(3, n)
         html = (ROOT / "categories/kitchen-appliances.html").read_text(encoding="utf-8")
-        self.assertIn("Three of the five links submitted", html)
+        self.assertIn("Three returned air-fryer titles;", html)
         self.assertNotIn("0 of the five links", html)
 
     def test_link_intent_and_tracking_status_remain_unconfirmed(self):
