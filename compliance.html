@@ -60,7 +60,7 @@
 
     <p class="crumbs"><a href="index.html">Home</a> / Compliance</p>
 <h1>Policy text and implementation boundaries</h1><p class="small muted">This is a cited policy register, not Amazon approval or legal certification. Implementation notes were reconciled on 19 November; quotes retain their recorded source dates. Only the named sections in the scoped report were freshly re-read.</p>
-<p class="lede">18 requirements that govern this site, each with the source text, a link to the official document, and a bounded statement of what this repository does about it. Where a rule is inconvenient, the rule wins and the feature is dropped.</p>
+<p class="lede">21 requirements that govern this site, each with the source text, a link to the official document, and a bounded statement of what this repository does about it. Where a rule is inconvenient, the rule wins and the feature is dropped.</p>
 
 <div class="callout">
   <strong>The three rules that shape everything else</strong>
@@ -198,6 +198,27 @@
           </td>
           <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
           <td class="small">This repository implements no model-training/fine-tuning pipeline. Future Special Link or Program Content use requires current permission/terms review; no API credentials, written approval or legal entitlement are invented.</td>
+        </tr><tr>
+          <td><strong>C19</strong><div class="tiny muted">Qualifying purchase must ship and be paid for in time</div></td>
+          <td>A purchase only earns Standard Commission Income if, within 180 days of the purchase, the product is shipped to (or streamed or downloaded by) and paid for by the customer.
+            <blockquote>“(iii) within 180 days of the purchase, the Product is shipped to, streamed or downloaded by, and paid for by the customer”<cite>Program Policies — Commission Income Statement §1, read verbatim from the live page on 2026-11-19 (2026-11-19, arena/0c5c10d0-zone1)</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">Nothing on this site states an earning, a delivery promise or a commission timing. The condition is recorded because it is new text on the page the register cites, and because a future ‘estimated earnings’ component would have to model it; none is built and none is planned here.</td>
+        </tr><tr>
+          <td><strong>C20</strong><div class="tiny muted">Links to product-list pages need relevant original content</div></td>
+          <td>Special Links must link to Products; where a link goes to a page of product results, the Site must carry additional original content relevant to that link.
+            <blockquote>“Special Links must link to Products (as defined in the Products Statement). When linking to pages with Product lists you must have additional original content on your Site that is relevant to the Special Link. Product lists include search results, events (e.g. Prime Day), or a department homepage (e.g. grocery).”<cite>Program Policies — Participation Requirements §2(b), read verbatim from the live page on 2026-11-19</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">Every product anchor on this site goes to a Product detail page or to the exact supplied resolver, never to a search-results or department page. The category and comparison pages carry the manufacturer quotations that make the link relevant, and they link out only through the product guides.</td>
+        </tr><tr>
+          <td><strong>C21</strong><div class="tiny muted">Time-limited promotion mentions must be removed when they end</div></td>
+          <td>Any reference to a limited-time promotion must be removed from the Site as soon as that promotion ends on the Amazon site.
+            <blockquote>“You must remove from your Site any links and related references to limited time promotions as soon as that promotion on the relevant Amazon Site ends.”<cite>Program Policies — Participation Requirements §2(b), read verbatim from the live page on 2026-11-19</cite></blockquote>
+          </td>
+          <td><a class="src" href="https://affiliate-program.amazon.com/help/operating/policies" title="Amazon.com Associates Central — Associates Program Policies (Commission Income Statement, Participation Requirements, Products Statement, Mobile Application Policy, Trademark Guidelines, IP License)" rel="noopener" target="_blank">S2</a></td>
+          <td class="small">This is the rule the seasonal guides are written to. The gift guide, the model-number check and the November notebook name no discount, no deal and no bestseller, so there is no promotion reference to expire; the notebook dates its own selection (November 2026) and the kill rule in data/publication.json refuses a second article on the same question rather than chasing an event.</td>
         </tr></tbody>
 </table>
 </div>

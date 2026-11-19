@@ -749,6 +749,18 @@
       "kind": "Official search documentation",
       "directness": "Primary — search service documentation",
       "page_version": "Scoped public documentation read 2026-11-19, arena/1f9e7d52-zone1; report names sections read."
+    },
+    {
+      "id": "S46",
+      "org": "Amazon.com Associates Central",
+      "title": "Updates to the Associates Program Operating Agreement (“what’s changed” notice, effective April 14, 2026)",
+      "url": "https://affiliate-program.amazon.com/help/operating/compare",
+      "covers": "The dated change notice for the 14 April 2026 revision of the Commission Income Statement and Participation Requirements: the 180-day shipping/payment condition, the broadened paid-or-boosted-advertisement disqualifier, the same-ASIN-variant onsite commission scope, and the new Original Content definition",
+      "kind": "Policy",
+      "directness": "Primary — Amazon's own change notice. NOT read directly this pass: two direct fetches of this URL failed in the pass-15 tooling, so the wording in the register rests on (a) the live Program Policies page read directly the same day and (b) a search-engine extract of this page. No sentence on this site is quoted from it as verified.",
+      "page_version": "Discovered 2026-11-19 by arena/0c5c10d0-zone1 while re-reading S2. Linked from the S2 header line “Updated: April 14, 2026. (Current Associates, see what’s changed.)”, which was read from the live page this session.",
+      "verified": "Not verified by a direct read this pass. The S2 text read on 2026-11-19 does contain the 180-day clause quoted in C19; the other three items on this notice still require a direct read before any register row quotes them (flag F108).",
+      "accessed": "2026-11-19"
     }
   ],
   "reverified_scope": "Pass 11 (arena/2e346d24-zone1) re-read live on 2026-11-16: S1, S2, S3, S4, S5, S8, S9, S10, S17, S28, S29, then S12, S14 and S18 later in the same session — fourteen sources in total. NOT re-read in pass 11 and therefore not restated: S6, S7, S11, S13, S15, S16, S19-S27, S30-S34, and the 8 Qt owner's-manual PDF. F3 (450 °F) was re-established live against S12 and the listing title; F4/F5 (Emeril presets) against S14. S15, the Emeril owner's manual, was NOT re-read, so the 24-preset count is carried forward and not re-asserted. Evidence: reports/verification-2026-11-16-2e346d24.md",
@@ -926,5 +938,29 @@
     "session": "arena/1f9e7d52-zone1",
     "report": "reports/verification-2026-11-19-1f9e7d52.md",
     "note": "Only the named pages and sections were re-read. Broad accessed/reverified stamps remain historical, not a fresh full-register certification."
+  },
+  "reverified_2026_11_19_0c5c10d0": {
+    "on": "2026-11-19",
+    "session": "arena/0c5c10d0-zone1",
+    "method": "Live fetches made during pass 15, each recorded with the page it was read from. Nothing below is inferred from an earlier pass's note.",
+    "read_directly": [
+      "link.amazon/B04G1MEwY → amazon.com/dp/B0CDY277D3 (title matched the stored value; landing URL carried lv=shuf, btn_ref=srctok…, channelId=704, plpRedirect=mhFallback and no visible tag= parameter)",
+      "link.amazon/B02NbDxp3 → amazon.com/dp/B09B7SB46R (Emeril 26QT French Door, title still says 24 one-touch presets and six accessories)",
+      "link.amazon/B00hJ57DV → amazon.com/dp/B08DKYBTPH (title still advertises 450°F Hi-Fry against the RJ38-SQSS-8T brand page and manual)",
+      "link.amazon/B0c8moW59 → amazon.com/dp/B0DHZTCNR5 (ThermoMaven 1 Sec, Black; channelId=500 on this pair, 704 on the air-fryer pair — F95 stands)",
+      "link.amazon/B0f3GKalj → amazon.com/dp/B0DZFD6R9Z (CHEF iQ Sense Gen3 3-probe title; the observed title lists “Air Fryer” among the environments)",
+      "S2 Program Policies header: “Updated: April 14, 2026”, unchanged; §1(a)-(c) and §2(a)-(b) of the Participation Requirements read verbatim, including the 180-day clause and the product-list and limited-time-promotion rules",
+      "S18 Chefman RJ38-SQPF-3TDB-2W manual: safety list (unattended, aerosol, oil, accessory clauses), control panel (HI-FRY 450°F/235°C for 2 minutes), Before First Use, Sync Finish behaviour, cooking tips, troubleshooting, cleaning, warranty terms",
+      "S13 Chefman RJ38-SQSS-8T manual: Before First Use, 6-inch clearance wording, aerosol caution, charts, the food-safety doneness note, preheat guidance",
+      "S15 Emeril FAFO-001 manual: specifications (26 quarts / 1519 cu in, 1700 W, 75–500°F), safeguards 1-28 (extension-cord clause 9, clearance 5 inches, 20-second fan run-on), accessory weight limits (11 lb / 11 lb / 6 lb spit), preset chart, internal-temperature meat chart, Before First Use burn-in, Instructions for Use, Cleaning & Storage, and the French-language equivalents of the cord and first-use passages",
+      "S39 CHEF iQ iQ Sense product page: model CQ60-1C-Z1-E shown as the default selection, the environment list including air fryer, the heat-resistance line, and the sensor-count wording recorded in F106"
+    ],
+    "not_read_this_pass": [
+      "S46 (the ‘what’s changed’ notice) — two direct fetch attempts failed; no register row quotes it",
+      "S1 Operating Agreement header — not fetched directly this pass; its “Updated: October 15, 2025” stamp therefore carries its previous read date, not today’s",
+      "Any Associates Central screen: tag ownership, application status, link type reports, registered tracking-ID state",
+      "Amazon listing ‘Product information’ blocks beyond the served title text (not re-scrolled this pass)"
+    ],
+    "effect_on_published_values": "One specification value was re-confirmed and none was changed by this pass: the published capacity, dimensions, wattage and preset figures were left as recorded because their dated scoped reads remain the register's evidence. The new guide articles/probe-in-an-air-fryer.html quotes only documents read today."
   }
 }

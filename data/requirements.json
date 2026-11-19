@@ -727,7 +727,7 @@
       "status": "not_delivered",
       "where": [],
       "evidence": [],
-      "why": "This is the honest gap. The site is technically indexable but nothing has been submitted to any search engine, no page has an inbound link, the domain is a github.io project subpath rather than a domain the owner controls, and there is no analytics to tell whether a single visitor arrives. Publishing a sitemap is a precondition for organic traffic, not a cause of it.",
+      "why": "This is the honest gap. The site is technically indexable but nothing has been submitted to any search engine, no page has an inbound link, the domain is a github.io project subpath rather than a domain the owner controls, and there is no analytics to tell whether a single visitor arrives. Publishing a sitemap is a precondition for organic traffic, not a cause of it. | Pass-15 state (2026-11-19): one further guide was published into the cadence (articles/probe-in-an-air-fryer.html, from topic TP-22), so the sitemap and feed now carry 37 and 25 entries and the article set is 25. The traffic half of this requirement is still nothing more than indexable: no search-engine property is verified, no query data exists, and no inbound link has been recorded. The site also re-read its own governing policy page on this date and found an unrecorded revision (F108), which is the compliance gate any growth step has to pass first.",
       "sources": [
         "S30"
       ]
@@ -2029,7 +2029,7 @@
           "url": "reports/verification-2026-11-19-1f9e7d52.md"
         }
       ],
-      "why": "Conspicuous below-masthead/footer disclosure and honest no-testing/AI-assisted authorship are implemented. This is not an FTC certification or an assertion about an unknown future deployment.",
+      "why": "Conspicuous below-masthead/footer disclosure and honest no-testing/AI-assisted authorship are implemented. This is not an FTC certification or an assertion about an unknown future deployment. | 2026-11-19: the disclosure and link rules were checked against the live Program Policies text again, three further requirement rows were added with verbatim quotes and today's read date (C19-C21), and the register records that the April 2026 change notice could not be fetched directly (F108).",
       "sources": [
         "S7",
         "S8",

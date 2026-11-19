@@ -3110,6 +3110,88 @@
           }
         }
       ]
+    },
+    {
+      "id": "Q-42",
+      "group": "Programme compliance",
+      "question": "Does the 14 April 2026 widening of the disqualified-purchases clause cover anything this site does, or anything it is considering doing?",
+      "state": "missing",
+      "why_it_matters": "The change notice, as extracted by a search engine on 2026-11-19, says purchases referred “through any paid or boosted advertisement linking to Amazon” are disqualified regardless of keywords. Nothing on this site runs a paid or boosted placement, so nothing binds today. What it decides is whether ‘boost the best guide’ is a growth option at all, or an option that voids the commission it is meant to earn.",
+      "what_we_know": [
+        "The live Program Policies page carries the header “Updated: April 14, 2026” and links a ‘what’s changed’ notice; both read directly on 2026-11-19.",
+        "The clause this site quotes as C8 disqualifies purchases referred through an advertisement purchased by the Associate, with the keyword-bidding wording quoted, and it carries the date it was read.",
+        "This repository deploys no paid campaign, no boosted post and no bidding workflow, and records that fact rather than implying a channel exists."
+      ],
+      "what_is_missing": "A direct read of the change notice and of the current §2 disqualified-purchases text, so the register can say what the clause says now instead of what it said when a pass last quoted it.",
+      "how_to_discover": "Fetch https://affiliate-program.amazon.com/help/operating/compare and the Commission Income Statement section of the Program Policies page, quote them into data/compliance.json with the read date, and only then re-open any promotion question on the suggestions desk.",
+      "blocks": [
+        "SG-51"
+      ],
+      "sources": [
+        {
+          "label": "Amazon Associates Program Policies (live page)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Amazon — Updates to the Associates Program Operating Agreement",
+          "url": "https://affiliate-program.amazon.com/help/operating/compare"
+        }
+      ]
+    },
+    {
+      "id": "Q-43",
+      "group": "Economics",
+      "question": "What does the narrowed onsite-commission scope mean for a site whose guides link sibling SKUs and variants, and does it change how the published commission rows should be read?",
+      "state": "missing",
+      "why_it_matters": "The published rows state the rates on Amazon's Standard Commission Income Statement and nothing else. If onsite income now applies only to Direct Qualifying Purchases of the same ASIN variant as the linked product detail page, then a guide that links two similar variants and hopes the reader picks one is a different economic object from a guide that links one — and a future pass that models earnings must model that.",
+      "what_we_know": [
+        "This site publishes no earnings estimate, no revenue forecast and no conversion score, so no number on any page needs correcting today.",
+        "The site does publish a brand-sold variant problem: the observed 8 Qt listing carries a title that its own brand page and manual do not support, and the model-matching warning is on the product page.",
+        "The change notice item was seen only in a search-engine extract on 2026-11-19, not in a direct fetch; no register row quotes it."
+      ],
+      "what_is_missing": "The current text of the onsite-commission definition, read directly, and a decision about whether this site's one-link-per-product posture should be written down as a rule rather than a habit.",
+      "how_to_discover": "Read the Commission Income Statement sections that define Direct and Indirect Qualifying Purchases and the onsite scope, quote them into data/compliance.json with the read date, and if the wording holds, record the one-link posture as a compliance rule with an economic reason attached.",
+      "blocks": [
+        "SG-51"
+      ],
+      "sources": [
+        {
+          "label": "Amazon Associates Program Policies — Commission Income Statement (live page)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Flag F108 on this site",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f108"
+        }
+      ]
+    },
+    {
+      "id": "Q-44",
+      "group": "Content operations",
+      "question": "Who re-reads a policy change, and how soon after it appears? A seven-month gap sat between Amazon's revision date and this register noticing it.",
+      "state": "known",
+      "why_it_matters": "The site's whole trust model is a dated citation. A date that is old is not false, but a register that never revisits the two pages that govern its behaviour will quote superseded text with a straight face, and no build check catches that because the check only asks whether a source is registered.",
+      "what_we_know": [
+        "The build fails when a row loses its source, and it fails when a flag id or count drifts; it has never asked whether a load-bearing source has been revised.",
+        "The register stores per-source page_version stamps, so drift is detectable from the data alone when someone compares the stamp with the live header.",
+        "Pass 15 re-read the policies page directly on 2026-11-19, confirmed the April stamp, and found that the change notice had never been registered at all (F108, S46)."
+      ],
+      "what_is_missing": "Nothing to discover — this row records the standing rule the pass adopted: every pass re-reads the Program Policies header and the Operating Agreement header, compares the stamp, and opens a flag when the live date is newer than the registered one.",
+      "how_to_discover": "Already answered by adoption. The mechanical half is a future build check that fails when a policy source's registered stamp is older than a stated review window; it belongs to the generator, and no window is claimed to be enforced before that check exists.",
+      "blocks": [
+        "SG-51"
+      ],
+      "sources": [
+        {
+          "label": "This site's disclosure and link policy page",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/compliance.html"
+        },
+        {
+          "label": "Amazon Associates Program Policies",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ],
+      "answer": "Adopted on 2026-11-19 by arena/0c5c10d0-zone1: re-read the two governing headers on every pass, stamp the read in data/sources.json, and raise a flag when a revision is newer than the register. The automatic window check is proposed, not built."
     }
   ],
   "updated": "2026-11-19"
