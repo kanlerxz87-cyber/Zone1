@@ -6295,3 +6295,58 @@ tracking state or account-only decisions were changed by it.
 
 **Rebase conflict, resolved without discarding work:** rebasing this commit onto updated `main` (which had gained the arena/1970a80b-zone1 F103 record) met a content conflict in `COORDINATION.md` because both passes appended dated sections at end-of-file. Both sections were kept: the merged arena/1970a80b record above and this U2 record below. No session history was discarded or rewritten.
 
+## Task board — arena/43667e90-zone1 (2026-11-19 UTC) — brief re-audit, literal-markdown defect, live link re-read
+
+### Claim log — arena/43667e90-zone1
+
+* **Scope claimed:** a full audit of the brief against the published root site, then only the defects it found. Files touched: `build.py` (one flag-row renderer line, one new build guard, one new flag row F104 with its repo evidence list; main's F103 from PR #165 is kept unchanged), the generated `flagged.html`, and this log. No data register, Associates tag, analytics switch, product-intent field, campaign ledger or historical builds (`site/`, `s2/`, `research/`, `dashboard/`, `docs/`, `annex-*`, `session-*`) were changed.
+* **Not claimed, because they need an account holder or a host:** Associates Special Link validation, intended-ASIN confirmation, applying `shopnow047c-20`, production analytics hosting and privacy approval, Search Console ownership, product-photo rights (S-18), and the campaign ledger.
+
+### Audit result (root publication, read today)
+
+| Brief item | State found | Evidence |
+|---|---|---|
+| Disclosure under the masthead on every page; repeated in footer | Present on all 58 root publication pages, both places. The exceptions are inherited builds (F104) | `publication/layout.html.tpl`; rendered-page scan |
+| Every outbound product link `rel="sponsored"` | Holds on root pages. Build guard `check_affiliate_link_qualification` applies `sponsored nofollow noopener`. The only anchors without it are the deliberate nonsense-token control `link.amazon/ZZZ9ZZZZZ` (a citation, not a product) and historical builds that the README leaves read-only | Scan of Amazon-hosted anchors (product, browse and resolver links, my broader definition): 318 on the 58 root pages; 8 unqualified, all of them the control token `link.amazon/ZZZ9ZZZZZ`. PR #165's F103 counts product-type anchors only, so the two totals are not comparable |
+| Product-intent record (intended ASIN, official listing, confirmation date/source kept apart from observed redirect) | Present. Intended and confirmation fields are null, as they must be. Observed fields are separate | `data/product-intent.json` |
+| Five defined events (EV-01…EV-05) | Defined and contract-tested. Collection is **off**: no same-origin runtime, no privacy approval, no host/proxy logging review | `data/analytics-plan.json`, `analytics/README.md` |
+| Sitemap, RSS, question-shaped guides | 36 sitemap URLs covering every indexable root page; RSS 24 items; 24 articles, including all four editorial hypotheses or close variants | `sitemap.xml`, `feed.xml`, `data/articles.json` |
+| Single nav group plus footer for owner surfaces | Present (`Workspace` menu; footer) | `publication/layout.html.tpl` |
+| SG-27…SG-30 (nav labels, RSS, Search Console, reader capture) | Rows present. RSS shipped. Search Console registration and sitemap submission remain owner actions | `data/suggestions.json`, `data/publication.json` |
+
+### Live re-read of the five supplied links — 2026-11-19 (fetch, not inference)
+
+| Supplied link | Redirect target observed today | Title matches the record? |
+|---|---|---|
+| `link.amazon/B04G1MEwY` | `amazon.com/dp/B0CDY277D3` — CHEFMAN 6 Quart Dual Basket | Yes |
+| `link.amazon/B02NbDxp3` | `amazon.com/dp/B09B7SB46R` — Emeril Lagasse 26QT French Door | Yes |
+| `link.amazon/B00hJ57DV` | `amazon.com/dp/B08DKYBTPH` — Chefman 8 Qt TurboFry 450 °F Hi-Fry | Yes |
+| `link.amazon/B0c8moW59` | `amazon.com/dp/B0DHZTCNR5` — ThermoMaven 1 Sec thermometer | Yes |
+| `link.amazon/B0f3GKalj` | `amazon.com/dp/B0DZFD6R9Z` — CHEF iQ Sense thermometer | Yes |
+
+These are observations of where a redirect landed on one date. They are not intended-listing confirmation, not Associates attribution, and not a price or review check. `intended_asin` stays blank for all five.
+
+### Defect found and fixed — literal markdown in the published flag register
+
+* **Defect.** `flagged.html` printed literal `**CLOSED …**` and `**Addendum …**` pairs (9 instances in build.py strings). The flag-row renderer used `e()`, which escapes but does not convert `**bold**`. Same defect class as the T20 handover fix, in a different template.
+* **Fix.** The flag row now renders issue and action text through `_md()`, the single escape-then-bold helper. `flagged.html` diff: 2 lines; the affected passages now show as bold rather than asterisks.
+* **Guard added.** `check_literal_markdown()` fails the build if a bold-like pair reaches the visible text of any generated root page. It ignores `<script>`/`<style>` and glob paths such as `s2/**` or `session-x/**`. Proven on an injected pair (fails) and on the glob paths (passes).
+* **Not a defect:** a suspected "space before full stop" on the homepage was an artifact of my scan replacing tags with spaces. The source is `record</a>.`.
+
+### Gates on this branch
+
+* `bash scripts/ci-check.sh` — exit 0: build, `verify.py`, 61 Python tests, 8 Node tests, 33 engine tests, data audit clean, `build_s2_site.py --check`, link check (11,297 links, 0 broken).
+* `python3 research/check_research.py` — OK. `python3 scripts/verify_site.py` — 393 assertions passed.
+* `verify.py` — 0 errors (77 spec rows: 75 verified, 2 blank and flagged).
+
+### Remaining blockers (recorded, not fabricated)
+
+1. Associates Special Link validation for each product, in the enrolled account. Owner action.
+2. Intended-listing confirmation for each supplied link (`intended_asin`, `official_listing_url`, date, source). Owner action.
+3. Whether `shopnow047c-20` is registered in Associates Central. Not confirmed; not applied to any link.
+4. Production analytics: a same-origin runtime, privacy-notice approval and host/proxy log review. Until then collection stays off.
+5. Search Console ownership and sitemap submission (SG-29). Owner action.
+6. Product photography rights (S-18): needs a decision first. The site uses labelled AI illustrations and no product photos.
+7. Campaign ledger: remains empty. No authorised first-party report exists in this repo.
+8. **F104 (new, published on `flagged.html`, not edited here):** ten inherited annex pages have no disclosure strip under the masthead and no footer disclosure, and `session-3740f69d/index.html` has no footer disclosure. None of these pages carries `noindex`, and they are absent from `sitemap.xml`. Their sponsored-token gap is in main's F103. Owner choice: regenerate them through their own generators, or remove or noindex them.
+
