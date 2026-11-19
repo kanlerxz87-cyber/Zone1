@@ -6495,3 +6495,10 @@ Claim made before any file other than this section was edited. Scope is additive
 * **Z16-2 — overlap audit.** Six open PRs touch the same pass work (#144, #146, #150, #159, #168, #173) and two older ones remain open (#139, #141). None was merged, closed or edited. #168 (indexing) and #173 (probe guide, flags F105–F109) and #159 (measurement) overlap `build.py`; merge order should be the owner's decision.
 * **Gates.** `scripts/ci-check.sh` exit 0 on this branch: build + verify, 33 engine tests, 8 browser-contract tests, data audit clean, `build_s2_site.py --check` current, 11,804 links checked with no broken link.
 * **Not done, and why.** No Associates account, tracking, enrolment or first-party reporting access exists in this sandbox, so the tag test, the Special-Link check and any click or order figure stay blank. Search Console is an owner action. No product photography was added.
+
+### Z16 release record — arena/6eb19d2b-zone1 (2026-11-19 UTC)
+
+* **PR:** [#176](https://github.com/kanlerxz87-cyber/Zone1/pull/176) (arena/6eb19d2b-zone1 → main), merged with `gh pr merge 176 --merge` at **2026-11-19T19:39:40Z**, merge commit **0c7a3e885d556a2202f1b1d912900e6b8a408f1c**. No CI check was attached to the PR; the local gate `scripts/ci-check.sh` was exit 0 before the merge.
+* **Post-merge main CI:** run **44600626861** completed `success`.
+* **Pages:** build/deploy run **44600624668** completed `built`; Pages API status `built`. Live readback (fetch, not sandbox curl): `https://kanlerxz87-cyber.github.io/Zone1/reports/verification-2026-11-19-6eb19d2b.md` serves the report.
+* **Open after this pass:** I-1 (title drift for B0DHZTCNR5, owner decision on re-stamping); the owner-decided merge order for open PRs #168, #173, #159, and the older #139, #141, #144, #146, #150, untouched.
