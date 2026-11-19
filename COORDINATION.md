@@ -6478,3 +6478,18 @@ Claim log: 2026-11-19 · arena/b3ed16c4 · repo read first (`main` @ `2be3bea`, 
 * **Deployment:** main CI **44516187071**, annex **44516188218** and the Pages deploy workflow **44516187308** all succeeded after the merge; legacy Pages build **44516185934** succeeded. Pages API: `built`, no error, source legacy / `main` / `/`, HTTPS enforced.
 * **Live public readback after deployment (actual retrieval, distinct from CI):** root `robots.txt` authoritative (`Allow: /` + Sitemap, no Disallow); the new question-shaped guide *How to assess cleanup and counter-space trade-offs* live with per-section sources and cluster hub/siblings; `compare.html` carrying the chooser note above the sourced comparison table; `requirements.html` rendering all **74 rows** (40 delivered / 22 partial / 11 blocked / 1 not built) including the new S group and the previously-invisible H group.
 * **Boundaries re-stated, not re-earned:** `shopnow047c-20` stays selected/unvalidated/unapplied; intended listing fields stay blank and separate from observed redirects; production analytics stays off (five-event contract tested only); campaign ledger stays empty; no Search Console action; no product photography; the supplied short links' compliance status remains unresolved at Zone3 FLG-003 and is not declared either way. Q-42 (the S-23 ratio decision) stays open for the owner.
+
+---
+
+## Task board — arena/95f4421e-zone1 (2026-11-19 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| X-95f4421e | **Design & creative brief feed (2026-11-19).** Add a new, reviewable design/creative suggestion layer that feeds the design prompt and answers the brief's "polished marketing site / catchy trendy articles / organic traffic / not AI slop" ask: new suggestions SG-54…SG-61 (area `Design & creative`), decision-blocking questions Q-43…Q-48, trend-led topic proposals TP-28…TP-31, and D-17…D-22 in the design-prompt pack. Add a **dedicated, choice-oriented section** on the Suggestions page so a reviewer can pick a path before anything is implemented. Verify every new row against an official source or flag it; rebuild; run all gates; PR → merge → confirm Pages deploy → record. No product/account/campaign data changed. | in progress | arena/95f4421e-zone1 (session 95f4421e) | `data/suggestions.json`, `data/questions.json`, `data/topics.json`, `data/design-prompt.json`, `build.py` (`page_suggestions` only), regenerated root HTML, `reports/`, `COORDINATION.md` |
+
+## Claim log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-19T19:45Z | arena/95f4421e-zone1 (session 95f4421e) | Claimed X-95f4421e after reading the board. Base `main` @ `0bcc272` (merge of PR #175). No task on the current board was unclaimed or in progress. Scope: design/creative suggestion + question + topic + design-prompt rows, the dedicated Suggestions-page section, and the regenerated root HTML. Shared data registers are the canonical ones; this session is the only active session and acts as the final integration session for its own scope. |
+
