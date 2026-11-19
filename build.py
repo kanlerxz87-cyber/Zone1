@@ -6035,7 +6035,10 @@ def check_requirement_paths(generated=()):
     register row R-01 cited `data/requirements.json` and a "Requirements page"; neither
     existed at those locations, and no gate noticed because a register is prose. A
     status table that points at files which are not there is worse than no table: it
-    reads as verification and is none. Failing the build makes the claim checkable.
+    reads as verification and is none. Requirement paths must also be files, not
+    repository directories: the canonical GitHub Pages output has no directory index,
+    so a root-relative `platform/` or `platform/tests/` reader link is a published 404.
+    Failing the build makes both kinds of claim checkable.
     """
     generated = set(generated)
 
@@ -6046,16 +6049,17 @@ def check_requirement_paths(generated=()):
     problems = []
     for req in REQUIREMENTS["requirements"]:
         for path in req.get("where") or []:
-            if path.endswith("/"):
-                if not exists(path) and not (ROOT / path).is_dir():
-                    problems.append(f"{req['id']}: directory does not exist: {path}")
+            if path.endswith("/") or (ROOT / path).is_dir():
+                problems.append(f"{req['id']}: implementation path must name a file, not a directory: {path}")
             elif not exists(path):
                 problems.append(f"{req['id']}: file does not exist: {path}")
         for ev in req.get("evidence") or []:
             url = ev["url"]
             if url.startswith("http") or url.startswith("#"):
                 continue
-            if not exists(url):
+            if url.endswith("/") or (ROOT / url).is_dir():
+                problems.append(f"{req['id']}: evidence link must name a file, not a directory: {url}")
+            elif not exists(url):
                 problems.append(f"{req['id']}: evidence link does not exist: {url}")
         for sid in req.get("sources") or []:
             if sid not in SRC_BY_ID:

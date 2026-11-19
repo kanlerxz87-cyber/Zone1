@@ -1092,7 +1092,7 @@
       "clause": "Prioritize automation, scalability, data-driven decisions",
       "status": "partial",
       "where": [
-        "platform/",
+        "platform/README.md",
         "scripts/build_site.py"
       ],
       "evidence": [
@@ -1157,13 +1157,13 @@
       "clause": "The agent should ... continuously optimize campaigns",
       "status": "partial",
       "where": [
-        "platform/tests/",
+        "platform/tests/test_platform.py",
         "platform/pipeline/eligibility.py"
       ],
       "evidence": [
         {
           "label": "tests",
-          "url": "platform/tests/"
+          "url": "platform/tests/test_platform.py"
         },
         {
           "label": "eligibility gate",
