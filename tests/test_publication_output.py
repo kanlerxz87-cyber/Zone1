@@ -110,7 +110,7 @@ class PublicationOutputTests(unittest.TestCase):
             self.assertIn('content="noindex,follow"', self.pages[path])
             self.assertNotIn(BASE + path, sitemap)
         self.assertIn(BASE + 'about.html', sitemap)
-        self.assertEqual(25, len(json.loads((ROOT / 'data/articles.json').read_text())['articles']))
+        self.assertEqual(26, len(json.loads((ROOT / 'data/articles.json').read_text())['articles']))
 
     def test_thermometer_pillar_and_both_product_pages_are_indexable(self):
         # Changed 2026-11-19 (arena/d154e428). The shelf began as dated link notes and was
