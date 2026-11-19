@@ -73,10 +73,21 @@ declared either way; the unresolved external record remains
 
 ## Verification and release receipt
 
-The authoritative, updated command results, scoped source reads, responsive-browser checks,
-PR/merge and actual Pages readback belong to
-[`reports/publication-2026-11-19.md`](reports/publication-2026-11-19.md). Earlier checkpoints are
-not substituted for the final release result.
+**Released:** [PR #160](https://github.com/kanlerxz87-cyber/Zone1/pull/160) merged after green checks
+at 06:39:46 UTC as `4baab6289b68b56d1e3f8ed0a5f2c53208d465d4`. The
+[Pages workflow](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44473800015) succeeded;
+the Pages API reported that commit built with no error. Actual public home, guide, article,
+About, suggestions, measurement, intent, stylesheet and feed reads returned the new content.
+
+Final post-integration verification: **36 canonical Python + 8 JavaScript + 33 platform tests**,
+**393 annex assertions**, **834 research checks**, 11,987 links and a 64-artifact deterministic
+rebuild with zero changes. Browser acceptance passed **70 page/viewport combinations**, five
+interaction groups and three no-JavaScript groups. No external request or Amazon link activation
+was made by those browser tests. Independent outputs had no drift.
+
+The detailed scoped source reads, correction evidence, command/deployment IDs, API timestamps,
+readback limitations and informational CI annotation are in
+[`reports/publication-2026-11-19.md`](reports/publication-2026-11-19.md).
 
 This is a targeted review, not a claim to have re-read every historical file or every volatile
 product value. Independent annexes and their evidence are preserved. Technical tests do not

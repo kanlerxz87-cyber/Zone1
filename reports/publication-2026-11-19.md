@@ -141,7 +141,51 @@ tests; 393 annex assertions; 834 research checks; **11,987 links**; 64-artifact 
 rebuild; no independent output drift. The 70-combination browser suite passed again with all
 49 suggestions / 41 questions retained. No local conflict marker remains in source or output.
 
-PR, merge, actual Pages deployment and live readback remain to be recorded after they occur.
+### Released and read back — 19 November 2026
+
+- [PR #160](https://github.com/kanlerxz87-cyber/Zone1/pull/160) passed both checks before merge:
+  [canonical CI](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44473639156) and
+  [independent annex](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44473639101).
+- Merged with explicit `gh pr merge 160 --merge` at **06:39:46 UTC**, merge commit
+  **`4baab6289b68b56d1e3f8ed0a5f2c53208d465d4`**. No auto-merge flag, unrelated PR merge,
+  branch switch or forced push was used.
+- [Build, verify and deploy](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44473800015)
+  succeeded, including rebuild/reproducibility and deploy, completed **06:40:27 UTC**.
+  Main-branch [CI](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44473799872),
+  [annex](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44473799968), and
+  [Pages build](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44473799059) also succeeded.
+- The Pages API returned **`built`**, no error, and that exact merge commit, updated
+  **06:40:08 UTC** (21,445 ms). The existing configuration remains **legacy / main / root**;
+  it was not silently changed to another deployment source. The Actions deployment result is
+  separately linked above.
+- Actual public fetches after deployment returned the redesigned home (both canonical URL and
+  a release-query read), new product guide, honest About method/imagery, revised extension-cord
+  article, current suggestion desk (**11 implemented / 21 partial / 17 proposed**), named
+  five-event measurement page marked **not active**, the five-link intent record with selected
+  ID unconfirmed, the local-font/cream-forest stylesheet and the revised RSS text/date. These
+  were **Pages reads**, not responses from the sandbox preview.
+- Live readback is a scoped content/stylesheet retrieval, not an assertion that a remote browser
+  was screen-reader tested or that the fetch service exposes every raw HTML attribute. Disclosure
+  placement, all commercial `rel` tokens, disabled script emission, metadata, keyboard/no-JS and
+  network behaviour were checked on the deterministic artifact in the local and GitHub CI
+  browser suites. No synthetic Amazon activation was made.
+- Informational CI annotation: inherited checkout/setup action versions target deprecated Node
+  20 and GitHub currently runs them on Node 24. Checks passed; that warning is not hidden as
+  “zero CI warnings” and does not mean an application dependency or production endpoint failed.
+
+Public readback entry points:
+[home](https://kanlerxz87-cyber.github.io/Zone1/) ·
+[product guide](https://kanlerxz87-cyber.github.io/Zone1/products/chefman-6qt-dual-basket.html) ·
+[corrected manual article](https://kanlerxz87-cyber.github.io/Zone1/articles/extension-cord-rules-in-the-manuals.html) ·
+[About](https://kanlerxz87-cyber.github.io/Zone1/about.html) ·
+[suggestions](https://kanlerxz87-cyber.github.io/Zone1/suggestions.html) ·
+[measurement](https://kanlerxz87-cyber.github.io/Zone1/measurement.html) ·
+[intent](https://kanlerxz87-cyber.github.io/Zone1/product-intent.html) ·
+[stylesheet](https://kanlerxz87-cyber.github.io/Zone1/assets/style.css) ·
+[RSS](https://kanlerxz87-cyber.github.io/Zone1/feed.xml).
+
+The code publication is released. Production analytics and enrolled Associates confirmation
+remain deliberately **unverified**, not retroactively passed because Pages deployed.
 
 ## What remains outside repository authority
 
