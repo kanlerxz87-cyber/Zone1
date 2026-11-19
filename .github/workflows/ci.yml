@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: "22"
       - name: Canonical, analytics, engine, annex and staged-artifact gates
-        run: bash scripts/ci-check.sh
+        run: python3 scripts/annotated_check.py bash scripts/ci-check.sh
 
   browser:
     name: Local HTTPS browser and accessibility fixtures
@@ -40,4 +40,4 @@ jobs:
       - name: Reflow, disclosures, keyboard, no-JS, print, accessibility and event receipt
         # All requests are local; external requests, including Amazon, are blocked.
         # Fixtures use an ephemeral database and never import campaign data.
-        run: node tests/browser_check.cjs
+        run: python3 scripts/annotated_check.py node tests/browser_check.cjs

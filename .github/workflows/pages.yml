@@ -29,7 +29,7 @@ jobs:
         with:
           node-version: "22"
       - name: Test canonical output before rebuilding; validate code and public artifact
-        run: bash scripts/ci-check.sh
+        run: python3 scripts/annotated_check.py bash scripts/ci-check.sh
       - name: Regenerate the research section from its own data
         run: python3 research/build_research.py
       - name: Verify the independent research section

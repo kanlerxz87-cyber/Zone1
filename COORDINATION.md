@@ -6198,3 +6198,13 @@ HTML URLs matching the sitemap. Real local HTTPS browser checks repeated success
 keyboard/no-JS/print checks, four browser event types received only in temporary SQLite,
 zero external requests/JS errors. The production switches, intent fields and ledger remain
 unchanged/off/null/empty. Persistent collection and account attribution are not deployed.
+
+### Remote checks held — PR #159
+
+[PR #159](https://github.com/kanlerxz87-cyber/Zone1/pull/159) is open from this branch.
+The initial remote run `44472993390` failed the canonical `verify` and local-browser jobs;
+the independent annex job passed. The cause is not yet established: local equivalents
+pass, and the signed Actions log download redirects to a host unavailable to this sandbox.
+No merge was attempted. Added a bounded, exit-code-preserving failure annotation wrapper
+(and tests) so the diagnostic is available through the normal GitHub check-runs API.
+This is observability, not a waiver or a claim the remote failures are fixed.
