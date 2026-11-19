@@ -399,4 +399,21 @@ conversion, traffic or ranking promise was added to close any of these gates.
 
 **PUB-1 repository/publication scope is complete and released.**
 
-Receipt recorded at 2026-11-19T07:25:56Z. A documentation-only follow-up publishes this already-observed release record; it does not anticipate another functional change.
+Receipt recorded at 2026-11-19T07:25:56Z. The follow-up publishes this already-observed release record and the narrowly scoped Flagged-introduction correction described below; it does not anticipate unperformed account or production actions.
+
+
+### Last live-read finding — Flagged introduction corrected in the receipt follow-up
+
+The final actual public Flagged read exposed a present-tense introduction left
+outside the earlier article/register reconciliation: it labelled every historical
+finding “Open items”, typed “3 Hard source conflicts”, and repeated a “most likely
+two models” explanation above the dated evidence. Those claims were not supported
+by the current-state register. The receipt follow-up therefore also corrects this
+small generated surface: **recorded findings/history included**, computed source
+and blank/populated-specification counts, and a source-linked model conflict with
+no selected explanation. The cord safety conflict is explicitly highlighted.
+Historical flag bodies/IDs remain untouched. A targeted negative regression raises
+the root suite to **61 tests**; all current gates are rerun on the follow-up head.
+This is a bounded content correction, not new source verification or a change to
+account, link, analytics or campaign data. The prior functional release proof above
+remains the already-observed PR #162 result.
