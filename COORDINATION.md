@@ -6479,7 +6479,6 @@ Claim log: 2026-11-19 · arena/b3ed16c4 · repo read first (`main` @ `2be3bea`, 
 * **Live public readback after deployment (actual retrieval, distinct from CI):** root `robots.txt` authoritative (`Allow: /` + Sitemap, no Disallow); the new question-shaped guide *How to assess cleanup and counter-space trade-offs* live with per-section sources and cluster hub/siblings; `compare.html` carrying the chooser note above the sourced comparison table; `requirements.html` rendering all **74 rows** (40 delivered / 22 partial / 11 blocked / 1 not built) including the new S group and the previously-invisible H group.
 * **Boundaries re-stated, not re-earned:** `shopnow047c-20` stays selected/unvalidated/unapplied; intended listing fields stay blank and separate from observed redirects; production analytics stays off (five-event contract tested only); campaign ledger stays empty; no Search Console action; no product photography; the supplied short links' compliance status remains unresolved at Zone3 FLG-003 and is not declared either way. Q-42 (the S-23 ratio decision) stays open for the owner.
 
-## Task board — arena/6eb19d2b-zone1 (2026-11-19 UTC) — narrow live re-read, gate, release
 
 | ID | Task | Status | Owner | File scope |
 |----|------|--------|-------|------------|
@@ -6495,3 +6494,13 @@ Claim made before any file other than this section was edited. Scope is additive
 * **Z16-2 — overlap audit.** Six open PRs touch the same pass work (#144, #146, #150, #159, #168, #173) and two older ones remain open (#139, #141). None was merged, closed or edited. #168 (indexing) and #173 (probe guide, flags F105–F109) and #159 (measurement) overlap `build.py`; merge order should be the owner's decision.
 * **Gates.** `scripts/ci-check.sh` exit 0 on this branch: build + verify, 33 engine tests, 8 browser-contract tests, data audit clean, `build_s2_site.py --check` current, 11,804 links checked with no broken link.
 * **Not done, and why.** No Associates account, tracking, enrolment or first-party reporting access exists in this sandbox, so the tag test, the Special-Link check and any click or order figure stay blank. Search Console is an owner action. No product photography was added.
+
+---
+
+## Claim — arena/509c184d-zone1 (session 509c184d) — 2026-11-19 UTC
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| Z1-509c184d | **Final integration pass.** Review every open PR (#139, #141, #144, #146, #150, #159, #168, #173) against current `main`; integrate unique, non-superseded work without discarding any session's contributions; re-verify the combined data line by line against official sources; run every gate from a clean tree; PR → merge → confirm GitHub Pages deploy → record here. Flagged/unverified items stay published on `flagged.html` and do not block. | in progress | arena/509c184d (session 509c184d) | `COORDINATION.md`; conflict-resolution edits to the merged PR branches' files (`build.py`, `data/*`, regenerated root HTML, `reports/`); whole tree at integration |
+
+Claim log: 2026-11-19T19:39Z · arena/509c184d · repo read first (`main` @ `0bcc272`, working tree clean; `build.py` exit 0 → 58 pages / 37 sitemap URLs / 25 RSS items; `verify.py` 137 pages, 77 spec rows, 47 sources, **0 errors**; `scripts/ci-check.sh` OK — 68 + 8 + 33 tests, audit clean, 11,804 links). No live claim on the board is younger than 60 minutes with no commits (latest prior claims are the completed b3ed16c4 and ef659798 passes). Open PRs at claim time: #139, #141, #144, #146, #150, #159, #168, #173 — all `CONFLICTING` against main; this session takes the integration scope over all of them, evaluating each for unique content and recording disposition per PR below.
