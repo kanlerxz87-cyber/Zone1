@@ -4086,11 +4086,137 @@
           ]
         }
       ]
+    },
+    {
+      "slug": "probe-in-an-air-fryer",
+      "kind": "Guide",
+      "cluster": "live",
+      "kicker": "Manual walkthrough",
+      "title": "Can you leave a probe in an air fryer? What the manuals actually say",
+      "standfirst": "A wireless probe is made to stay in the food while it cooks. A basket air fryer is made to be shut, and one of these manuals says do not walk away. Here is what each document states - and the part none of them answers.",
+      "target_query": "can you leave a meat probe in an air fryer",
+      "intent": "Informational",
+      "reading_minutes": 4,
+      "products": [
+        "chefman-6qt-dual-basket",
+        "chefman-8qt-turbofry",
+        "emeril-26qt-french-door"
+      ],
+      "sections": [
+        {
+          "h": "Split the question before answering it",
+          "paras": [
+            "Two different things have to be true before a probe sits in a running air fryer, and they are not the same check. The probe has to tolerate the environment it is put in, which is a thermometer-maker specification. The appliance still has to close, ventilate and be used the way its own manual instructs, which is an appliance-maker instruction. A number on one page does not answer the other page.",
+            "So this guide reports each document separately and stops where they stop. Where a manual is silent about probes, cables or clearance, the sentence below says it is silent. That silence is the most useful thing a buyer can take away from these three documents."
+          ],
+          "cite": [
+            "S15",
+            "S18",
+            "S13",
+            "S39"
+          ]
+        },
+        {
+          "h": "What the Emeril oven manual states",
+          "paras": [
+            "The French Door AirFryer 360 manual (model FAFO-001) does tell readers to measure. Its Internal Temperature Meat Chart opens: “Use this chart and a food thermometer to ensure that meat, poultry, seafood, and other cooked foods reach a safe minimum internal temperature.” The chart then prints the figures it attributes to the U.S. Department of Agriculture: 165° F for all poultry, 160° F for ground beef, lamb and pork, and 145° F with a three-minute rest for other beef, lamb and pork.",
+            "The same safeguard list carries two clauses a probe owner has to read. “The use of accessory attachments NOT RECOMMENDED by the appliance manufacturer may cause injuries.” And: “Oversize foods or metal utensils MUST NOT be inserted in the appliance as they may create a fire or risk of electric shock.” A probe is a small metal object with a cable, so a reader can see why those two lines matter and why neither of them is about a probe.",
+            "What the manual never does is mention a probe, a sensor cable or leaving either in the cavity. It does not authorise it and it does not forbid it, and this page will not turn that silence into permission in either direction."
+          ],
+          "cite": [
+            "S15"
+          ]
+        },
+        {
+          "h": "What the two Chefman manuals state",
+          "paras": [
+            "Neither Chefman guide names a thermometer. The 6 Qt dual-window manual says only: “Follow food-safety guidelines for doneness. Because air fryer temperatures and food sizes can vary, do not rely only on recipe timing when cooking food. Check foods for doneness against current safety guidelines before serving.” The 8 Qt TurboFry manual puts the same instruction under its air-frying chart: “Please follow current food-safety guidelines when determining doneness.”",
+            "The two drawer models also describe how the cavity behaves, which is where a cable has to go. In the dual-basket unit, pulling a basket out stops that side: “When one basket is removed, both sides will pause cooking until the basket is returned.” The basket has to be slid fully back in to resume. Nothing in either manual describes a route for a probe lead through that closing gap, and no clearance figure for a cable is published in either document.",
+            "The 8 Qt manual does state a spacing rule for the appliance itself: place it “on a hard, flat surface with at least 6 inches of clearance on top and back for proper air flow”. The Emeril manual gives its own number: “Leave at least 5 inches of free space on the top, back, and sides and above the appliance.” Those are two different figures for two different machines, and one of them also counts the sides."
+          ],
+          "cite": [
+            "S18",
+            "S13",
+            "S15"
+          ]
+        },
+        {
+          "h": "What one probe maker states about its own product",
+          "paras": [
+            "CHEF iQ sells the iQ Sense probe, and its own product page is the only document read here that names an air fryer as a use environment. The feature list states: “Compatible with the oven, stovetop, gas and charcoal grills, smoker, air fryer, deep fryer, and sous vide” and “Heat resistant up to 1,000ºF (537ºC)”, alongside “1 ambient temperature sensor”. The page's own intro sentence compresses that to “Five internal sensors and heat resistance up to 1000°F”, which does not match the split its feature list gives: four internal sensors plus one ambient. Read the list, not the sentence (flag F105).",
+            "The Amazon listing that one of the two thermometer links on this site landed on carries a similar title, which was read on 19 November 2026: “CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3”. That is an observed listing claim on a store page, not a specification this site has verified, and the listing does not identify which product the link was intended for.",
+            "Even taken at face value, a heat-resistance figure answers only one half. It is a rating for the probe in an oven-shaped environment. It does not state a maximum for a specific air fryer, does not address the cable or its clip, and is not the air-fryer manufacturer's approval of the pairing. No document read here states any of those three things."
+          ],
+          "cite": [
+            "S39",
+            "S37"
+          ]
+        },
+        {
+          "h": "The attention rule is a separate question",
+          "paras": [
+            "The reason people want a probe in an air fryer is that they would rather not stand at the counter. The manuals answer that wish, and a phone alert is not the answer. The 6 Qt Chefman manual states flatly: “Do not leave the air fryer unattended during use.” The Emeril manual does not say the opposite; it describes the appliance's own behaviour instead - “Leaving the appliance idle (untouched) for 3 minutes will automatically turn the appliance off”, a fan that keeps running for 20 seconds after the cycle, and at least 30 minutes of cooling before cleaning or storing.",
+            "A probe that streams temperature to a phone changes what you can watch. It does not change a sentence that says do not leave the appliance unattended, and it does not replace the cool-down and clearance rules around it. That distinction is why this page does not describe any of these three machines as safe to run untended."
+          ],
+          "cite": [
+            "S18",
+            "S15"
+          ]
+        },
+        {
+          "h": "What to check on the unit you actually own",
+          "paras": [
+            "Open the manual for your model and read four things in this order. First, the accessory clause: both brands warn that accessories not recommended by the appliance manufacturer may cause injuries. Second, the metal-and-overfill clauses, which is where the Emeril manual's warning about metal utensils sits. Third, the closure behaviour: does the door or basket still seal with a cable in the path, and what pauses when it is opened? Fourth, the stated clearance around the appliance, which the two brands number differently.",
+            "Then read the probe's own documentation for its heat limit and its cable and clip limits, and compare those numbers with the temperature range your appliance can reach, not with its marketing title. The 8 Qt Chefman listing is a caution here: its title advertises a 450°F mode while the RJ38-SQSS-8T brand page and manual document a 400°F ceiling, a conflict this site has published and does not resolve for you.",
+            "And the gap, stated plainly. None of the four documents read for this page states that a probe may be left inside any of these three appliances while they run, states a maximum probe temperature for a named air fryer, or gives a manufacturer's approval for the pairing. Those three cells stay unwritten here. The party that can answer them is the appliance maker, through the support contact printed in your manual, with the model number from the rating label."
+          ],
+          "cite": [
+            "S15",
+            "S18",
+            "S13",
+            "S12",
+            "S29"
+          ]
+        },
+        {
+          "h": "Where that leaves the purchase decision",
+          "paras": [
+            "If a probe you can watch from another room is a requirement, treat it as a two-part shopping list: an appliance whose manual you have read, and a thermometer whose environment list includes the appliance you chose. A countertop oven with a glass door and racks is a different fit question from a basket that has to be pulled out to turn the food, and the manuals describe both differently.",
+            "Judgement, not measurement: nothing on this page is a test result. The comparison table and the format guides give the documented specifications these instructions belong to, and the thermometer shelf holds what this site can say about the two probe links it was given - which is deliberately little."
+          ],
+          "cite": [
+            "S15",
+            "S18",
+            "S13"
+          ]
+        }
+      ],
+      "closing_note": "Documentation-based guidance, not a hands-on test. This page records what three owner's manuals and one thermometer product page state, and where they are silent. It does not endorse leaving any object inside a running appliance. Read the manual of the unit you own and ask that manufacturer about a probe.",
+      "published_at": null,
+      "modified_at": "2026-11-19T11:05:00Z",
+      "source_checks": [
+        {
+          "on": "2026-11-19",
+          "ids": [
+            "S12",
+            "S13",
+            "S15",
+            "S18",
+            "S37",
+            "S39"
+          ],
+          "session": "arena/0c5c10d0-zone1",
+          "scope": "Pass-15 scoped reads made for this guide: Emeril FAFO-001 manual (safeguards, accessory weight table, control panel, preset chart, internal-temperature chart, before-first-use, instructions, cleaning), Chefman RJ38-SQPF-3TDB-2W manual (safety, control panel, operating instructions, tips, troubleshooting, cleaning, warranty), Chefman RJ38-SQSS-8T manual (first use, operating instructions, charts, tips), CHEF iQ iQ Sense product page, and the observed Amazon listing title for B0DZFD6R9Z. Not a complete source-register re-read."
+        }
+      ],
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     }
   ],
   "updated": "2026-11-19",
-  "editorial_updated_at": "2026-11-19T07:04:09Z",
+  "editorial_updated_at": "2026-11-19T11:05:00Z",
   "publication_date_policy": "First-publication timestamps are not established; published_at remains null. modified_at is the actual revision timestamp; source_checks are separately scoped.",
   "source_check_policy": "source_checks lists only the selected official documents read on that date. Earlier listing/cross-reference evidence retains its own source-register dates. A source check is not a complete product or legal compliance certification.",
-  "editorial_revision_note_2026_11_19": "All 24 existing canonical guides were read as prose and substantially revised within named official-source scopes. Unsupported serving/performance, full-cycle-temperature, durability, electrical/energy, model-resolution and nutrition-regulatory inferences were removed; oil-care, disclosure-placement and permission wording were corrected. Exact pre-change text remains in Git. This is not a full-register or full-document re-verification."
+  "editorial_revision_note_2026_11_19": "All 24 existing canonical guides were read as prose and substantially revised within named official-source scopes. Unsupported serving/performance, full-cycle-temperature, durability, electrical/energy, model-resolution and nutrition-regulatory inferences were removed; oil-care, disclosure-placement and permission wording were corrected. Exact pre-change text remains in Git. This is not a full-register or full-document re-verification.",
+  "editorial_addition_note_2026_11_19_pass15": "One new canonical guide was published by arena/0c5c10d0-zone1 on 2026-11-19 (articles/probe-in-an-air-fryer.html, from queued topic TP-22), written from four documents re-read for that page. The cadence rule in data/publication.json allows at most one new or substantially refreshed guide per fortnight, so no second article was queued for this pass; TP-16, TP-19, TP-20 and TP-23 stay proposed with their own gates. First-publication timestamps are still not established by this register, so published_at remains null and modified_at records the actual revision moment."
 }

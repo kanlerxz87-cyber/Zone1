@@ -2437,6 +2437,26 @@ PROGRAMME_FLAGS = [('F1',
   'product, then record dated first-party evidence before applying the ID broadly. A missing visible tag is '
   'not evidence of link failure.',
   ['S2', 'S41', 'S42', 'S44']),
+ ('F103',
+  'A queued editorial premise said an air fryer is built to run unattended. The manual for the machine in question says the opposite, so the premise was dropped before the page was written.',
+  'data/topics.json TP-22 hook, and any copy that frames these appliances as set-and-forget',
+  'Found 2026-11-19 by arena/0c5c10d0-zone1 while preparing articles/probe-in-an-air-fryer.html. The queued hook read “The appliance is built to run unattended”. The RJ38-SQPF-3TDB-2W safety list states “Do not leave the air fryer unattended during use” (S18, read live this session), and the Emeril FAFO-001 manual never grants it either: it describes a 3-minute idle auto-off, a 20-second fan run-on after the cycle and a cool-down of at least 30 minutes before cleaning or storing (S15). The published article answers what each document states instead of repeating the premise, and the hook text stays in Git history rather than being silently rewritten. The standing rule this reinforces: a topic card is a hypothesis, not a source.',
+  ['S18', 'S15']),
+ ('F104',
+  'The Emeril extension-cord conflict is not a translation artefact: the French safeguard list and the French wiring note contradict each other the same way the English ones do.',
+  'Emeril FAFO-001 manual (S15) — a second observation for F96, which stays open',
+  'Read 2026-11-19 by arena/0c5c10d0-zone1. English safeguard 9 states “NEVER use with an extension cord”. French safeguard 9 states “NE JAMAIS utiliser avec une rallonge”. The French “MISE EN GARDE : Branchement du Cordon D’Alimentation” block then says longer extension cords are available and may be used with care, with rating and routing conditions — the same pair of instructions F96 records in the English text. That narrows the remedy: a reader cannot resolve the conflict by switching language, and current manufacturer clarification for the exact unit is still the only way out. This row adds an observation; it closes nothing.',
+  ['S15']),
+ ('F105',
+  'The CHEF iQ iQ Sense page describes its own sensors two ways on one page: five internal sensors in the prose, four internal plus one ambient in the feature list.',
+  'S39 (brand page) read against the observed Amazon listing title (S37)',
+  'Read 2026-11-19 by arena/0c5c10d0-zone1. The product description states “Five internal sensors and heat resistance up to 1000°F”, while the feature list below it states “4 internal temperature sensors for accuracy within 1°F” and “1 ambient temperature sensor”. The observed listing title says “5 Sensors”. All three are consistent with four internal plus one ambient, and no official document read here defines what the word “internal” counts, so the article cites the feature list and warns against the prose sentence. No probe count, accuracy figure or heat rating is published here as a verified specification, and none of it confirms an intended ASIN for PI-05.',
+  ['S39', 'S37']),
+ ('F106',
+  '“Before first use” is not the same procedure in the three manuals, and the clearance figure differs too, so one generic first-week paragraph would have been wrong for at least one product.',
+  'S15, S18, S13 (owner’s manuals) — the separation a future TP-19 guide must keep',
+  'Read 2026-11-19 by arena/0c5c10d0-zone1. The Emeril manual ends Before First Use with a burn-in: “preheat the appliance for a few minutes to allow the manufacturer’s protective coating of oil to burn off. Wipe the appliance with warm, soapy water and a dishcloth after this burn-in cycle”, and its French note warns of smoke or a burnt smell on first use caused by those coating oils. Both Chefman manuals stop at unpack, wipe and wash, and state only that on first use “the unit may emit a slight odor, which is normal and will dissipate with use”; neither instructs a burn-in. Clearance: Emeril asks for at least 5 inches of free space on the top, back and sides; the 8 Qt Chefman asks for at least 6 inches on top and back. A combined setup guide therefore has to publish three procedures, not one — one reason TP-19 was held this pass.',
+  ['S15', 'S18', 'S13']),
  ('F102',
   'Repaired 2026-11-19: the row-source gate accepted a generic flag link and skipped data rows containing a '
   'row header.',
@@ -2555,7 +2575,11 @@ REPO_EVIDENCE = {'F80': ['data/product-intent.json', 'product-intent.html', 'ses
           'analytics/collector.py',
           'tests/test_analytics.py'],
  'F101': ['reports/verification-2026-11-19-1f9e7d52.md', 'build.py'],
- 'F102': ['reports/verification-2026-11-19-1f9e7d52.md', 'build.py', 'tests/test_publication.py']}
+ 'F102': ['reports/verification-2026-11-19-1f9e7d52.md', 'build.py', 'tests/test_publication.py'],
+ 'F103': ['data/topics.json', 'articles/probe-in-an-air-fryer.html', 'reports/verification-2026-11-19-0c5c10d0.md'],
+ 'F104': ['reports/verification-2026-11-19-0c5c10d0.md', 'articles/extension-cord-rules-in-the-manuals.html'],
+ 'F105': ['articles/probe-in-an-air-fryer.html', 'reports/verification-2026-11-19-0c5c10d0.md'],
+ 'F106': ['reports/verification-2026-11-19-0c5c10d0.md', 'data/topics.json']}
 
 VERDICTS = {
     "chefman-6qt-dual-basket":
