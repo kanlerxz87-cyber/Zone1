@@ -6005,7 +6005,6 @@ builds' own generators (F87 / Q-32) which this session deliberately did not touc
 
 ---
 
-<<<<<<< HEAD
 ## Task board — arena/c1706796-zone1 (2026-11-19 UTC)
 
 | # | Task | Status | Owner (session) | File scope |
@@ -6090,7 +6089,6 @@ and deployed that merge commit successfully: [workflow run 44466873155](https://
 completed with build and deploy jobs `success`; the official Pages API reported `status: built`, `error: null`,
 source `main` `/`, and the same commit at 2026-11-19T05:41:40Z. Live URL:
 https://kanlerxz87-cyber.github.io/Zone1/
-=======
 ## Task board — arena/9b3365c7-zone1 (2026-11-19 UTC) — pass 14: reader-first front page, one dashboard nav group, decision brief
 
 Board read before starting. `origin/main` = `1eb1e56` (PR #151). Five PRs are still open from 2026-11-17
@@ -6113,4 +6111,3 @@ for its own pass (shared outputs: `index.html`, NAV in `build.py`).
 | UTC time | Session | Action |
 |----------|---------|--------|
 | 2026-11-19 | arena/9b3365c7-zone1 | Claimed P14-1…P14-6. Baseline before any edit: `python3 build.py` exit 0 (35 sitemap URLs, 24 feed items, tree byte-identical after rebuild) · `python3 verify.py` 134 pages, 77 spec rows (75 verified / 2 blank+flagged), 43 sources, 0 errors · `bash scripts/ci-check.sh` 33 tests OK, audit clean, 10,688 links OK. Parallel builds (`s2/`, `site/`, `research/`, `docs/`, `dashboard/`, `annex-*/`, `session-*/`) are out of scope and will not be edited. |
->>>>>>> a07ee63 (COORDINATION: claim pass 14 (arena/9b3365c7-zone1))
