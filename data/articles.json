@@ -4179,10 +4179,106 @@
       "parallel_revision_history": [],
       "sources_read": "2026-11-19",
       "modified_on": "2026-11-19"
+    },
+    {
+      "slug": "turkey-temperature-usda-chart-and-air-fryer-manuals",
+      "kind": "Guide",
+      "cluster": "live",
+      "kicker": "Guide",
+      "title": "What temperature is turkey safe? The USDA chart for hosting week, and what an air-fryer preset can and cannot promise",
+      "standfirst": "The safe answer is measured, not timed: 165 °F in the bird, read with a food thermometer. Here is what the USDA chart actually says, what the preset buttons in the manuals set by default, and where every document stops.",
+      "target_query": "what temperature is turkey safe",
+      "intent": "Informational",
+      "reading_minutes": 3,
+      "products": [
+        "chefman-6qt-dual-basket",
+        "chefman-8qt-turbofry",
+        "emeril-26qt-french-door"
+      ],
+      "sections": [
+        {
+          "h": "One number, measured — not one clock",
+          "paras": [
+            "The USDA's Food Safety and Inspection Service publishes one chart that answers the question directly: all poultry — breast, whole bird, legs, thighs, wings, ground poultry, giblets and stuffing — is safe at a minimum internal temperature of 165 °F (73.9 °C). The measurement, not the clock, is the test: the chart's own instruction is to cook all food to these minimum internal temperatures, as measured with a food thermometer, before removing food from the heat source.",
+            "The chart adds two numbers hosting week tends to blur. Beef, pork, veal and lamb steaks, chops and roasts go to 145 °F (62.8 °C) and then rest for at least three minutes. Ground meats — the sausage in the stuffing, the burgers nobody planned — go to 160 °F (71.1 °C). And the chart sets a floor, not a ceiling: for reasons of personal preference, consumers may choose to cook food to higher temperatures."
+          ],
+          "cite": [
+            "S48"
+          ]
+        },
+        {
+          "h": "The rest of the chart, for the rest of the meal",
+          "paras": [
+            "Hosting week is not only the bird, and the chart covers the whole table: fish and shellfish 145 °F (62.8 °C); eggs 160 °F (71.1 °C); leftovers and casseroles 165 °F (73.9 °C). Fresh or smoked uncooked ham is 145 °F with the same three-minute rest; reheating a fully cooked ham from a USDA-inspected plant wants 140 °F (60 °C), and all others 165 °F.",
+            "The leftovers row is the one that actually gets skipped in a busy kitchen. The same chart that gives the turkey its number gives Tuesday's re-plate the same number: 165 °F. Nothing about the holiday changes it."
+          ],
+          "cite": [
+            "S48"
+          ]
+        },
+        {
+          "h": "What the preset buttons actually set",
+          "paras": [
+            "Air-fryer presets are time-and-temperature starting points, not doneness certificates. The Chefman 8 Qt manual's preset chart names four food defaults and one catch-all — {{Default 400 °F / 15 min · Meat 375 °F / 18 min · Chicken 375 °F / 22 min · Fish 350 °F / 10 min · Fries 400 °F / 20 min}} — useful defaults, none of which is a statement that the food has reached the USDA's minimum anywhere in it.",
+            "No manual in this site's register states that a preset guarantees a safe internal temperature, and no official source in the register claims one. That gap — between 'the preset finished' and 'the food measured done' — is exactly what the government chart is for. Heat can brown the outside while the thickest part lags; the food thermometer is the instrument the chart names, and no box feature replaces it."
+          ],
+          "cite": [
+            "S13",
+            "S48"
+          ]
+        },
+        {
+          "h": "The ranges the three machines publish",
+          "paras": [
+            "The three appliances this site documents publish different dials. The Chefman 6 Qt lists {{200–450 °F / 95–235 °C}}, with a Hi-Fry setting of {{450 °F / 235 °C, held for 2 minutes, for extra browning}} — a finish mode per the manual, not a full-cycle setting. The Emeril 26 QT French Door publishes the widest range, {{75–500 °F / 25–260 °C}}, from its owner's manual. The stainless Chefman 8 Qt lists {{200–400 °F}}.",
+            "One conflict stays visible rather than smoothed over: the 8 Qt listing's title advertises a 450 °F Hi-Fry while the same listing's spec table and the brand page publish a 400 °F maximum. The register keeps that unresolved, and it is one reason the model-number check exists: a hosting-week buyer comparing boxes should read the exact model's manual, not the loudest number on the front."
+          ],
+          "cite": [
+            "S10",
+            "S18",
+            "S15",
+            "S12",
+            "S29"
+          ]
+        },
+        {
+          "h": "Where the documents stop",
+          "paras": [
+            "Nothing was cooked, probed or timed for this guide. No official source in this site's register publishes how a specific cavity heats a specific bird — whether a 26-quart French-door oven or a 6-quart dual basket reaches 165 °F in the thickest part sooner, or how a partially frozen bird changes the arithmetic. Those are test questions; this is a document-based site, and when a manual answers one, the answer lands here with its source attached.",
+            "This guide was written for US Thanksgiving week 2026, when the question is asked most often. The chart it quotes is evergreen — the numbers do not expire with the holiday — and every claim on this page carries its re-read date in the source panel. What the documents do support this week: measure the bird, not the clock; treat presets as starting points; and match the exact model before buying. The format trade-offs are set out side by side on **the comparison page**, the format decision is walked through in **the buying guide**, and this page's cluster hub — how to clean the machine — covers the part of hosting week that comes after dinner."
+          ],
+          "cite": [
+            "S48"
+          ]
+        }
+      ],
+      "closing_note": "Documentation-based guidance, not a hands-on test: nothing was cooked, probed or timed for this page. The USDA chart is the food-safety authority here and was re-read on the date shown; the manuals' preset rows are starting points, not safety claims. Read the full current manual for the exact unit before buying or using it, and when the documents and your appliance disagree, the thermometer wins.",
+      "published_at": null,
+      "modified_at": "2026-11-19T19:46:53Z",
+      "source_checks": [
+        {
+          "on": "2026-11-19",
+          "ids": [
+            "S48",
+            "S10",
+            "S18",
+            "S15",
+            "S12",
+            "S29",
+            "S13"
+          ],
+          "session": "arena/2ce347cb-zone1",
+          "scope": "Named official sections used to write this guide: the USDA FSIS Safe Minimum Internal Temperature Chart (S48) read live (poultry 165 °F; 145 °F + 3-minute rest; ground meats 160 °F; leftovers/casseroles 165 °F; the 'as measured with a food thermometer' instruction and the preference clause); the Chefman 6 Qt brand page and manual for the range and the Hi-Fry finish-mode wording; the Emeril owner's manual for its 75–500 °F range; the Chefman 8 Qt brand page for 200–400 °F and the manual's preset chart for the default rows; the 8 Qt Amazon listing for the 450 °F-title/400 °F-spec conflict. No cooking, probing or timing was performed. No thermometer content is included in this guide: it cites only the USDA chart and the three air-fryer manuals, and does not cite the thermometer link-note pages published in parallel the same day."
+        }
+      ],
+      "source_check_history": [],
+      "parallel_revision_history": [],
+      "sources_read": "2026-11-19",
+      "modified_on": "2026-11-19"
     }
   ],
   "updated": "2026-11-19",
-  "editorial_updated_at": "2026-11-19T11:02:32Z",
+  "editorial_updated_at": "2026-11-19T19:46:53Z",
   "publication_date_policy": "First-publication timestamps are not established; published_at remains null. modified_at is the actual revision timestamp; source_checks are separately scoped.",
   "source_check_policy": "source_checks lists only the selected official documents read on that date. Earlier listing/cross-reference evidence retains its own source-register dates. A source check is not a complete product or legal compliance certification.",
   "editorial_revision_note_2026_11_19": "All 24 existing canonical guides were read as prose and substantially revised within named official-source scopes. Unsupported serving/performance, full-cycle-temperature, durability, electrical/energy, model-resolution and nutrition-regulatory inferences were removed; oil-care, disclosure-placement and permission wording were corrected. Exact pre-change text remains in Git. This is not a full-register or full-document re-verification."

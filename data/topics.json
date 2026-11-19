@@ -739,6 +739,44 @@
       "status": "published",
       "published_as": "articles/cleanup-and-counter-space-trade-offs.html",
       "blocked_by": []
+    },
+    {
+      "id": "TP-28",
+      "title": "What temperature is turkey safe? The USDA chart for hosting week, and what an air-fryer preset can and cannot promise",
+      "hook": "Hosting week's one safe answer is measured, not timed.",
+      "intent": "Informational",
+      "serves": [
+        "chefman-6qt-dual-basket",
+        "chefman-8qt-turbofry",
+        "emeril-26qt-french-door"
+      ],
+      "angle": "The seasonal principle the register already holds (SG-24: ship while the season is live; SG-46: one designed moment a season) made concrete for the week it matters: Thanksgiving 2026 falls on 2026-11-26, and the safe-temperature question is the hosting question of that week. The answer is deliberately document-based: the USDA's chart plus what the three manuals publish, with the preset-vs-measured gap named. Deliberately no thermometer-product content: Q-27/SG-36 keep the two submitted thermometer links out of the catalogue until the intended identity is confirmed.",
+      "why_it_could_earn_traffic": "Judgement, not measurement: a question-shaped seasonal title is the brief's 'catchy and timely' ask expressed as a query people type in this exact week. Demand is argued, not measured — the evidence rule for popularity claims (SG-16, decision D-19) applies, and the page labels itself as seasonal framing around an evergreen chart.",
+      "must_cite": [
+        {
+          "label": "USDA FSIS — Safe Minimum Internal Temperature Chart (read live 2026-11-19)",
+          "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart"
+        },
+        {
+          "label": "Chefman RJ38-SQPF-3TDB-2W owner's manual (Hi-Fry finish-mode wording)",
+          "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf"
+        },
+        {
+          "label": "Chefman RJ38-SQSS-8T user guide (preset function chart)",
+          "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf"
+        },
+        {
+          "label": "Emeril FAFO-001 owner's manual (temperature range)",
+          "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"
+        },
+        {
+          "label": "Chefman 8 Qt Amazon listing (450 °F title vs 400 °F spec conflict, kept visible)",
+          "url": "https://www.amazon.com/dp/B08DKYBTPH"
+        }
+      ],
+      "status": "published",
+      "published_as": "articles/turkey-temperature-usda-chart-and-air-fryer-manuals.html",
+      "blocked_by": []
     }
   ],
   "channels": [

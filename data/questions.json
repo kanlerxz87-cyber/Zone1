@@ -3143,6 +3143,31 @@
           "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
         }
       ]
+    },
+    {
+      "id": "Q-43",
+      "group": "Governance",
+      "question": "What outcome, by when, would make this project a success — and what evidence would make it a stop?",
+      "state": "missing",
+      "why_it_matters": "Every prioritisation on the suggestion queue is currently an editorial judgement labelled as one, because no row records what the owner is optimising for. Q-03's review clock and SG-11's 180-day threshold are external deadlines Amazon sets; they are not an objective. Without a stated objective and stop rule, the queue cannot rank 'more content' against 'fix the links' against 'wait for the account', and every suggestion's impact score stays a judgement rather than a decision.",
+      "what_we_know": [
+        "The Associates application review requires at least three qualifying sales within the first 180 days and roughly ten posts of recent original content (S4, re-read 2026-11-16).",
+        "The campaign ledger is empty by design; no click, order or revenue figure exists in this repository (F101).",
+        "The register already refuses to present unmeasured demand as data (SG-16/D-19), so a traffic target cannot be invented from public sources either."
+      ],
+      "what_is_missing": "The owner's objective (first qualifying sale, monthly revenue, audience size, or something else), the horizon for judging it, and the stop rule — the evidence that would end the project. Only the account holder can state these; no public source supplies them.",
+      "how_to_discover": "Owner statement, recorded on this row and linked from the decision worksheet (SG-54) so the queue can be re-sorted against it. The natural anchors that already exist: the 180-day qualifying-sale deadline from the application criteria (S4) and the one-click/one-report attribution test (SG-37). Nothing else in the register can rank priorities until this is answered.",
+      "blocks": [],
+      "sources": [
+        {
+          "label": "Amazon Associates — Application Review Process (the external deadlines that already exist)",
+          "url": "https://affiliate-program.amazon.com/help/node/topic/G8TW5AE9XL2VX9VM"
+        },
+        {
+          "label": "The decision log, where a choice can be drafted and exported",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/decision-log.html"
+        }
+      ]
     }
   ],
   "updated": "2026-11-19"

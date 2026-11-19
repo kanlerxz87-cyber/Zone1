@@ -1,6 +1,6 @@
 {
  "version": "1.1",
- "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped); SG-36..SG-38 and path P6 by arena/58cbaaa2 (2026-11-17) — written twice, and shortened the second time: the first draft's parallel intent register, measurement register and flags were dropped when main's merged registers and collection-disabled contract were found. The withdrawn draft is published at session-58cbaaa2/artifacts/. | pass 13 shopfront + decision desk (arena/fd9778a1-zone1): SG-39…SG-48, path P7, numbered after the merged 2026-11-17 rows so no id collides.",
+ "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped); SG-36..SG-38 and path P6 by arena/58cbaaa2 (2026-11-17) — written twice, and shortened the second time: the first draft's parallel intent register, measurement register and flags were dropped when main's merged registers and collection-disabled contract were found. The withdrawn draft is published at session-58cbaaa2/artifacts/. | pass 13 shopfront + decision desk (arena/fd9778a1-zone1): SG-39…SG-48, path P7, numbered after the merged 2026-11-17 rows so no id collides. | SG-54–SG-55 (decision worksheet + hosting-week guide) by arena/2ce347cb-zone1 (2026-11-19).",
  "compiled": "2026-11-19",
  "how_to_read": [
   "This is a decision queue, not a changelog. Rows the build's decision desk counts as implemented were shipped in the canonical root build under the standing pre-authorisation rule and are recorded, row by row, in data/decision-log.json; everything else is a proposal awaiting a path from you.",
@@ -7989,6 +7989,156 @@
    "current_state": "open",
    "current_note": "Product pages keep the specification-first layout described above.",
    "current_reviewed_on": "2026-11-19"
+  },
+  {
+   "id": "SG-54",
+   "title": "Give the reviewer one worksheet: every unfinished row, its blocker and its blocking question, in a single table",
+   "area": "Decision making",
+   "problem": "The brief asks for a dedicated place where someone reviews suggestions and chooses the best path before any change is implemented, and for a clear list of the questions that must be answered before a decision is reasonable. The parts exist — the per-row alternatives, the four-item decision brief, the decision-log draft page — but they are scattered across fifty-plus rows: a reviewer who wants to make today's decisions must read the whole register to find the rows that are not complete, and nothing collects each row's blocker next to the question that holds its answer.",
+   "evidence": [
+    {
+     "label": "The decision brief as it stands (top four boundaries only)",
+     "url": "suggestions.html#decision-brief"
+    },
+    {
+     "label": "The decision log, where a reviewer drafts and exports a choice",
+     "url": "decision-log.html"
+    },
+    {
+     "label": "FTC — a disclosure works when the reader sees and understands it; the same logic governs decision surfaces",
+     "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Add a worksheet table to the suggestions page, derived from the register",
+     "what": "One table under the decision brief listing every row whose current state is not complete, with four columns pulled mechanically from the same JSON the register already renders: the row's current note (what remains), its state chip, its blocking question link, and the link that drafts a choice on the decision log. No new facts, no new claims; a reviewer reads one table instead of fifty cards.",
+     "effort": "S",
+     "risk": "low",
+     "reversible": true
+    },
+    {
+     "label": "B. Ship a separate worksheet page",
+     "what": "Same table on its own URL. Costs a page, a nav decision and an extra canonical surface for zero added information while the annex boundary (F105) is still being closed.",
+     "effort": "M",
+     "risk": "low",
+     "reversible": true
+    },
+    {
+     "label": "C. Leave the brief + register as the review surface",
+     "what": "The four-item brief already answers 'decide this first'; everything else keeps its per-row review.",
+     "effort": "0",
+     "risk": "low",
+     "reversible": true
+    }
+   ],
+   "recommendation": "A. The worksheet is a rendering change over data that already exists, it is reversible, and it depends on no account-only fact, so under the standing adopt-after-silence rule this pass implemented it and recorded what it did.",
+   "why": "The review surface the brief asks for should cost one read. Fifty cards are a register; one table is a worksheet.",
+   "impact": 3,
+   "confidence": 4,
+   "effort": "S",
+   "risk_of_not_doing": "Every future pass adds rows to a register the owner must re-read in full to find the live decisions, which is exactly the audit-like reading experience the brief says the site must not impose.",
+   "blocks": [],
+   "blocked_by": [],
+   "implementation": {
+    "state": "implemented",
+    "on": "2026-11-19",
+    "note": "Option A implemented in this pass: suggestions.html now renders a 'Decision worksheet' table listing every non-complete row with its current note, state, blocking-question links and a decision-log link, all derived mechanically from data/suggestions.json. The worksheet adds no facts and does not change any state; choices are still recorded only on the decision log.",
+    "evidence": [
+     {
+      "label": "The worksheet as shipped",
+      "url": "suggestions.html#decision-worksheet"
+     }
+    ]
+   },
+   "current_state": "complete",
+   "current_note": "Worksheet table shipped on suggestions.html in this pass; it renders the same register rows the cards already show, so the review surface is one table. It does not change any row's state or pre-approve anything.",
+   "current_reviewed_on": "2026-11-19",
+   "current_evidence": [
+    {
+     "label": "The worksheet as shipped",
+     "url": "suggestions.html#decision-worksheet"
+    }
+   ]
+  },
+  {
+   "id": "SG-55",
+   "title": "Ship the hosting-week temperature guide while the season is live — dated, evergreen-labelled, and thermometer-free",
+   "area": "Content and traffic",
+   "problem": "Today is 2026-11-19; Thanksgiving falls on 2026-11-26. The next seven days are the week in which the safe-temperature question is asked hardest, and the topic calendar's seasonal rows (TP-15 gift guide, TP-16 hosting math) are December-framed. SG-24 and SG-46 already set the principle — publish seasonal content while the season is live and date-stamp it — but no row named this week's concrete instance. The two submitted thermometer links would be the obvious tie-in; this pass left them out of the guide because the intended identity is still unconfirmed (Q-27, state unknowable) and SG-36's recommendation stood when the guide was written. Thermometer link-note pages published by a parallel session the same day are separate records and are not cited by the guide.",
+   "evidence": [
+    {
+     "label": "USDA FSIS — Safe Minimum Internal Temperature Chart (read live 2026-11-19: poultry 165 °F; the 'as measured with a food thermometer' instruction)",
+     "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart"
+    },
+    {
+     "label": "SG-24 — ship the seasonal content while the season is live, and date-stamp it",
+     "url": "suggestions.html#sg-24"
+    },
+    {
+     "label": "SG-36 — the two non-air-fryer links stay out of the catalogue",
+     "url": "suggestions.html#sg-36"
+    },
+    {
+     "label": "Google Search Central — helpful, people-first content: the standard the guide is written to",
+     "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+    }
+   ],
+   "options": [
+    {
+     "label": "A. Publish the guide this week, from documents only",
+     "what": "A question-shaped guide ('What temperature is turkey safe?') answering from the USDA chart plus what the three manuals publish: presets are starting points, not doneness certificates; the ranges the machines list; the 8 Qt's unresolved 450 °F-title conflict kept visible; an explicit statement that nothing was cooked or timed. Thermometer products excluded. Reversible: a page can be unpublished.",
+     "effort": "S",
+     "risk": "low",
+     "reversible": true
+    },
+    {
+     "label": "B. Skip the season, bank the topic for 2027",
+     "what": "TP-28 stays proposed until next November. Costs this year's window, which is the exact loss SG-24 was written to prevent.",
+     "effort": "0",
+     "risk": "low",
+     "reversible": true
+    },
+    {
+     "label": "C. Publish, and add thermometer content to the guide",
+     "what": "Rejected on the register's rule as it stood: the two thermometer listings' intended identity is unconfirmed (Q-27, state unknowable), and SG-36's recommendation is to publish nothing new from an unconfirmed identity. Building the week's page on an unconfirmed product would repeat the mistake the product-intent register exists to stop.",
+     "effort": "M",
+     "risk": "medium",
+     "reversible": true
+    }
+   ],
+   "recommendation": "A. Reversible, low-risk, uses only already-registered sources plus one newly registered official page (S48, read live before use), and depends on no account-only fact — so under the standing adopt-after-silence rule this pass implemented it.",
+   "why": "The seasonal rule has a principle and a calendar but no shipped instance this week; a dated guide that labels its own seasonal framing and keeps the evergreen chart central is the smallest honest version of the moment.",
+   "impact": 3,
+   "confidence": 3,
+   "effort": "S",
+   "risk_of_not_doing": "The season the calendar already anticipated passes unused, and the site's 'trendy' brief stays aspirational while the calendar's own rule says ship now.",
+   "blocks": [],
+   "blocked_by": [],
+   "implementation": {
+    "state": "implemented",
+    "on": "2026-11-19",
+    "note": "Option A implemented in this pass: topic TP-28 published as articles/turkey-temperature-usda-chart-and-air-fryer-manuals.html, written from the USDA chart (S48, re-read live before use; main's register already carried the same source from a same-day parallel read) and the manuals already in the register. No thermometer content; no claim that any food was cooked or measured; seasonal framing labelled in the page itself.",
+    "evidence": [
+     {
+      "label": "The guide as shipped",
+      "url": "articles/turkey-temperature-usda-chart-and-air-fryer-manuals.html"
+     },
+     {
+      "label": "USDA FSIS chart",
+      "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart"
+     }
+    ]
+   },
+   "current_state": "complete",
+   "current_note": "The hosting-week guide shipped this week while the season is live (TP-28 → articles/turkey-temperature-usda-chart-and-air-fryer-manuals.html). No thermometer content: the guide cites only the USDA chart and the three air-fryer manuals, and does not cite the thermometer link-note pages published in parallel the same day. Demand framing labelled as judgement per SG-16/D-19; the seasonal label sits in the page text so December's version does not pretend to be fresh.",
+   "current_reviewed_on": "2026-11-19",
+   "current_evidence": [
+    {
+     "label": "The guide as shipped",
+     "url": "articles/turkey-temperature-usda-chart-and-air-fryer-manuals.html"
+    }
+   ]
   }
  ],
  "paths_intro": "A decision queue with this many rows is a backlog, not a decision. The paths below group the suggestions into four coherent pieces of work. Each path is ordered, names what has to be true before it can start, and says plainly what it will not fix. Pick one path, finish it, then pick the next. The grouping is this pass's judgement; the dependencies inside it are not - they are the blocked_by links already recorded on each row.",

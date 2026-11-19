@@ -2589,9 +2589,28 @@ PROGRAMME_FLAGS = [('F1',
   'three trees with no generator. The annex pages remain published and linked: this bounds what competes in a '
   'search result; it does not conceal evidence. Not verified by this repair: whether any engine has already '
   'indexed an annex URL, and whether the canonical shop ranks for anything at all.',
-  ['S46', 'S47', 'S30'])]
+  ['S46', 'S47', 'S30']),
+ ('F106',
+  'Found 2026-11-19 ~19:45 UTC: the third supplied short link (B00hJ57DV) twice resolved to the Amazon '
+  'homepage instead of the product page recorded earlier the same day.',
+  'data/sources.json PI-03 history; reports/verification-2026-11-19-2ce347cb.md',
+  'Two fetches of https://link.amazon/B00hJ57DV about two minutes apart both landed on https://www.amazon.com/ '
+  "(site homepage, title \"Amazon.com. Spend less. Smile more.\"), while the same token resolved to "
+  '/dp/B08DKYBTPH for session 6ace936d earlier on 2026-11-19 and in every recorded pass since 2026-11-15. '
+  'This matters because the live money pages use the supplied short links as their primary CTAs: the 8 Qt '
+  "product page's button is href=\"https://link.amazon/B00hJ57DV\". A redirect that sometimes lands on the "
+  'storefront homepage instead of the listing is exactly the failure mode the intended-ASIN and one-link-test '
+  'gates (Q-01, Q-27, SG-37, F80, F101) exist for. Recorded as an observed change in this pass\'s reads only: '
+  'it is not evidence about the token\'s validity, its Associates tag, or the intended product, and no validity '
+  'claim is made in either direction (the Zone3 FLG-003 position is unchanged). A datacentre fetch without '
+  'cookies can be treated differently from a browser click, so the record says what was observed, not what a '
+  'shopper will see. The historical PI-03 record is not overwritten. Action: re-read this token from a normal '
+  'browser before any release that carries it, run the enrolled-account one-link test (SG-37), and keep the '
+  "'check model' caveat on the button.",
+  ['S2', 'S21', 'S41'])]
 
-REPO_EVIDENCE = {'F105': ['build.py', 'verify.py', 'scripts/add_annex_noindex.py', 'scripts/build_site.py',
+REPO_EVIDENCE = {
+ 'F106': ['data/sources.json', 'build.py', 'reports/verification-2026-11-19-2ce347cb.md'],'F105': ['build.py', 'verify.py', 'scripts/add_annex_noindex.py', 'scripts/build_site.py',
           'research/build_research.py', 'scripts/build_s2_site.py',
           'reports/verification-2026-11-19-b3ed16c4.md'],
  'F80': ['data/product-intent.json', 'product-intent.html', 'session-58cbaaa2/artifacts/README.md'],
@@ -4280,6 +4299,32 @@ def page_suggestions():
         opts=''.join(f'<li><strong>{e(o["label"])}</strong><p>{e(o["what"])}</p><p class="tiny muted">Original effort: {e(o["effort"])} · original risk: {e(o["risk"])} · reversible: {"yes" if o.get("reversible") else "no"}</p></li>' for o in row['options'])
         blocks=' '.join(f'<a href="questions.html#{e(q.lower())}">{e(q)}</a>' for q in (row.get('blocked_by') or [])) or 'None recorded in the original proposal.'
         cards.append(f"""<details class="sug" id="{e(row['id'].lower())}" data-suggestion><summary>{e(row['id'])} · {e(row['title'])} {chip(row)}</summary><p><strong>Current review — {e(row['current_reviewed_on'])}.</strong> {e(row['current_note'])}</p><div class="evidence">{evidence(row)}</div><h3>Original proposal and alternatives</h3><p class="small muted">Historical recommendation, not a fresh factual claim or a request to repeat shipped work. Previous problem wording is preserved so a reviewer can understand the options. Current states and account/evidence gates above take precedence.</p><p class="small"><strong>Original problem.</strong> {e(row['problem'])}</p><ol class="paths">{opts}</ol><p class="small"><strong>Original recommendation.</strong> {e(row['recommendation'])} {e(row['why'])}</p><p class="small"><strong>Linked questions.</strong> {blocks}</p><p class="small"><a href="decision-log.html#{e(row['id'].lower())}">Draft or export a different choice →</a></p></details>""")
+    # SG-54 decision worksheet: every row not yet complete, in one table, derived
+    # mechanically from the same register the cards below render. No new facts.
+    def _q_links(row):
+        qs = row.get('blocked_by') or []
+        return ' '.join(f'<a href="questions.html#{e(q.lower())}">{e(q)}</a>' for q in qs) or 'None recorded'
+    worksheet_rows = ''.join(
+        f'<tr><td><a href="#{e(r["id"].lower())}">{e(r["id"])}</a></td>'
+        f'<td>{chip(r)}</td>'
+        f'<td class="small">{e(r["current_note"])}</td>'
+        f'<td class="small">{_q_links(r)}</td>'
+        f'<td class="small">{evidence(r)}</td>'
+        f'<td class="small"><a href="decision-log.html#{e(r["id"].lower())}">Draft a choice &rarr;</a></td></tr>'
+        for r in items if r['current_state'] != 'complete')
+    worksheet_html = (
+        '<section class="card" id="decision-worksheet" aria-label="Decision worksheet">'
+        '<h2 style="margin-top:0">Decision worksheet: everything not yet complete</h2>'
+        '<p class="small">The review surface the brief asks for, in one table: every register row whose current '
+        'state is not complete, the one thing that still blocks it, and the question that holds the answer. Rows '
+        'marked Gated wait on a fact only the account holder can supply. Pick a path per row on '
+        '<a href="decision-log.html">the decision log</a>; nothing on this page changes a state by itself.</p>'
+        '<div class="tablewrap" tabindex="0" role="region" aria-label="Decision worksheet table"><table>'
+        '<caption>Every unfinished suggestion, its blocker and its blocking question</caption>'
+        '<thead><tr><th>Row</th><th>State</th><th>What remains</th><th>Blocking question</th><th>Evidence</th><th>Record a choice</th></tr></thead>'
+        f'<tbody>{worksheet_rows}</tbody></table></div>'
+        '<p class="tiny muted">Derived mechanically from the same register below (SG-54). Complete and superseded '
+        'rows are excluded on purpose: their review lives in the register and the decision log.</p></section>')
     paths=[]
     for path in data.get('paths',[]):
         if any(i not in lookup for i in path['contains']):
@@ -4289,6 +4334,7 @@ def page_suggestions():
     body=f"""<p class="crumbs"><a href="index.html">Home</a> / Suggestions</p><p class="section-eyebrow">Reviewable decisions · current states</p><h1>What changed. What still needs evidence.</h1><p class="lede">Repository work proceeds autonomously. This queue records what actually shipped, the boundaries that remain, and the alternatives a reviewer can choose. It never turns an agent action into a person’s approval.</p>
 <section class="desk" id="decision-desk" aria-label="Current suggestion counts"><p class="small">{len(items)} total = {counts['complete']} complete + {counts['superseded']} superseded + {counts['partial']} partial + {counts['gated']} gated + {counts['open']} open.</p><p class="tiny muted">Complete can mean an implemented repository feature or a recorded plan. Partial never means a deployed collector or confirmed account. Historical action records are not added to these counts.</p></section>
 <section class="card decision-brief" id="decision-brief"><h2 style="margin-top:0">The remaining boundaries, in brief</h2><p class="small">{e(brief.get('intro',''))}</p><ol class="tight">{briefs}</ol><p class="tiny">Order is editorial judgement. {src_links(['S2','S42','S44'])}</p></section>
+{worksheet_html}
 <h2>Current register</h2><div class="tablewrap"><table><caption>Every suggestion has exactly one current implementation state</caption><thead><tr><th>ID</th><th>Suggestion / current answer</th><th>State</th><th>Evidence</th></tr></thead><tbody>{rows}</tbody></table></div>
 <h2>Review a row and its alternatives</h2><div class="suggestion-toolbar" data-suggestion-toolbar hidden><label for="suggestion-query">Find a suggestion</label><input id="suggestion-query" type="search" placeholder="Search the decisions and alternatives"><output aria-live="polite"></output></div><p class="small">Open any row. A different choice can be drafted locally on <a href="decision-log.html">the decision log</a>; nothing is submitted from that page. The earlier proposals are labelled history rather than published as today’s facts.</p>{''.join(cards)}
 <details><summary>Original grouped paths (historical planning)</summary><p class="small muted">These earlier bundles are preserved for review; current per-row states supersede old claims about what remains unbuilt.</p>{''.join(paths)}</details><p class="section-note"><a href="questions.html">Known facts and missing evidence</a> · <a href="design-prompt.html">Current design/editorial brief</a> · <a href="executive-summary.html">Executive summary</a>.</p>"""
