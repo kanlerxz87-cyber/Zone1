@@ -2,6 +2,8 @@
 
 **As of 2026-11-19 UTC · PUB-1 · `arena/1f9e7d52-zone1`**
 
+**Published and confirmed:** [PR #162](https://github.com/kanlerxz87-cyber/Zone1/pull/162) merged as `c8b9b61`; all combined local/PR/main gates passed. Pages built that exact merge and the actual public publication was read back. The [dated release receipt](reports/verification-2026-11-19-1f9e7d52.md#final-publication-receipt--completed) records the checks, deployment and remaining boundaries.
+
 The canonical site is a buyer-first kitchen publication: useful format/product
 cards, model guides, a source-linked comparison, question-led articles and one
 modest seasonal notebook. One native Workspace menu and the footer contain the
