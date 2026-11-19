@@ -2826,18 +2826,19 @@ def page_flagged():
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Flagged for review</p>
 <h1>Flagged for review</h1>
-<p class="lede">Everything this project could not confirm, could not reconcile, or found contradicted between official sources. These items are published rather than hidden, they do not block the site, and each one names the decision a human needs to make.</p>
+<p class="lede">Source conflicts, missing facts and dated repairs are kept in public. This register includes historical and already-repaired findings—not a count of currently open work. Read each row’s date and action; current implementation states are on the Suggestions page. Unconfirmed facts stay explicit and do not block the honest publication.</p>
 
 <div class="grid grid-4" style="margin-bottom:1rem">
-  <div class="stat bad"><div class="n">{len(prog_flags) + len(prod_flags)}</div><div class="l">Open items</div></div>
-  <div class="stat warn"><div class="n">3</div><div class="l">Hard source conflicts</div><div class="h">Official pages disagreeing with official pages</div></div>
-  <div class="stat"><div class="n">0</div><div class="l">Values guessed</div><div class="h">Everything unconfirmed is blank</div></div>
-  <div class="stat ok"><div class="n">100%</div><div class="l">Asserted values sourced</div></div>
+  <div class="stat"><div class="n">{len(prog_flags) + len(prod_flags)}</div><div class="l">Recorded findings</div><div class="h">History included; not all open</div></div>
+  <div class="stat"><div class="n">{len(SOURCES['sources'])}</div><div class="l">Registered sources</div><div class="h">Read dates and scopes stay separate</div></div>
+  <div class="stat warn"><div class="n">{sum(r['value'] is None for p in PRODUCT_LIST for r in p['specs'])}</div><div class="l">Blank specification fields</div><div class="h">Unknown values are not back-filled</div></div>
+  <div class="stat"><div class="n">{sum(r['value'] is not None for p in PRODUCT_LIST for r in p['specs'])}</div><div class="l">Populated specification rows</div><div class="h">With declared primary-source evidence</div></div>
 </div>
 
-<div class="callout bad">
-  <strong>The one that matters most</strong>
-  <p class="small">The Chefman 8 Qt listing advertises a <strong>450 °F Hi-Fry</strong> mode and bake/dehydrate/frozen functions. The brand's page and owner's manual for <code>RJ38-SQSS-8T</code> — the model this site maps to that listing — document a <strong>200–400 °F</strong> range with four food-type presets. <strong>Read 2026-11-14:</strong> Chefman also sells <code>RJ38-8T-BLACK</code>, whose page states a <strong>450 °F Hi-Fry</strong> and exactly those four functions, in a matte-black finish. So this is most likely <em>two different units</em> rather than one stale page — which narrows the problem without settling which unit the ASIN ships. This site asserts neither, and the buying guide tells readers to read the manual that ships with the unit. {src_links(['S12', 'S13', 'S26', 'S16'])}</p>
+<div class="callout warn">
+  <strong>A model conflict—not a guessed explanation.</strong>
+  <p class="small">The observed Chefman 8 Qt listing title advertises 450 °F Hi-Fry, while the RJ38-SQSS-8T brand page gives a 200–400 °F range. Both claims are recorded. This does not establish why the sources disagree or which unit will ship; no “most likely” model explanation is selected. Match the exact current listing/model documents and seek clarification before relying on the disputed feature. {src_links(['S12','S13','S29'])}</p>
+  <p class="small">A separate electrical-safety conflict remains unresolved in the Emeril manual: incompatible extension-cord instructions. Do not select the permissive passage as permission; seek current manufacturer clarification for the exact unit. <a href="#f96">F96</a>. {src_link('S15')}</p>
 </div>
 
 <h2>Programme-level flags</h2>

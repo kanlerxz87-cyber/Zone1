@@ -101,6 +101,16 @@ class PublishedReaderBoundaryTests(unittest.TestCase):
         reordered = correct.replace('</header>', '').replace('<main', '</header><main', 1)
         self.assertTrue(build.check_disclosure([("index.html", reordered)]))
 
+    def test_flagged_intro_does_not_call_all_historical_findings_open_or_guess_a_model(self):
+        text = build.page_flagged().split('<h2>Programme-level flags')[0]
+        self.assertIn('Recorded findings', text)
+        self.assertIn('not a count of currently open work', text)
+        self.assertNotIn('>Open items<', text)
+        self.assertNotIn('>Hard source conflicts<', text)
+        self.assertNotIn('So this is most likely', text)
+        self.assertIn('no “most likely” model explanation is selected', text)
+        self.assertIn('F96', text)
+
     def test_known_content_corrections_remain_visible(self):
         extension = (ROOT / "articles/extension-cord-rules-in-the-manuals.html").read_text()
         self.assertIn("F96", extension)

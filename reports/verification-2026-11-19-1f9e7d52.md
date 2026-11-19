@@ -2,7 +2,7 @@
 
 **Date:** 2026-11-19 UTC  
 **Session branch:** `arena/1f9e7d52-zone1`  
-**Status:** implementation and verification in progress; merge and live deployment are not yet claimed.
+**Status:** complete — PR #162 merged, all combined local/PR/main gates passed, Pages built the exact merge and actual public content was read back. The earlier checkpoints below retain their original timing/limits.
 
 ## Executive finding
 
@@ -291,3 +291,129 @@ items**, verifier **136 pages / 77 spec rows / 45 sources / 0 errors and warning
 subpath browser script passes **70 page/viewport combinations, 5 interaction groups
 and 3 no-JS groups**, with no external request or page error. The broader native
 HTTP/axe suite will be rerun on the combined tree before merge.
+
+
+## Final publication receipt — completed
+
+**Functional integration:** [PR #162](https://github.com/kanlerxz87-cyber/Zone1/pull/162)
+merged with `gh pr merge 162 --merge` at **2026-11-19T07:19:38Z** as
+**c8b9b61a4187bd511582bb054ee764f8a9feec5c**. No approval or manual review was
+invented. The current Arena branch was never switched or renamed.
+
+### Final combined gates
+
+- **60 canonical Python tests + 8 Node client tests + 33 platform tests:** pass.
+- **11 native Playwright tests:** pass on the integrated tree, including actual
+  HTTP/HTTPS collector transport, trusted primary/keyboard/middle activations,
+  DNT/GPC/automated-browser exclusion, controlled reading-state inputs, all 58
+  canonical pages at four widths, no-JS flows, keyboard and local draft/export
+  behaviour, and the scoped 12-route × 2-width axe checks with zero selected-tag
+  violations.
+- **Retained strict-subpath suite:** 70 page/viewport combinations, 5 interaction
+  groups, 3 no-JS groups, no external request or page error.
+- **136 HTML pages / 77 specification rows / 45 registered sources:** 0 verifier
+  errors or external warnings. This is traceability/build validation, not a
+  blanket fresh source or legal certification.
+- **11,297 links**, clean platform data audit, **834 research checks**, **393 annex
+  assertions** and the 16-file annex current-output gate: pass.
+- Deterministic canonical rebuild: **64 artifacts, zero byte changes**. JavaScript
+  syntax checks and Git whitespace/diff gates: pass. Historical generators/data
+  were not silently edited.
+
+PR [CI 44477886498](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44477886498)
+passed both `verify` and `browser`; independent annex
+[44477886612](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44477886612)
+also passed. On the actual main merge, canonical
+[CI 44478744857](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44478744857)
+passed (including the full browser job), as did annex
+[44478744750](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44478744750).
+
+### Deployment proof and actual read-back
+
+The build/reproducibility/deploy workflow
+[44478744908](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44478744908)
+succeeded through both jobs at **07:20:09Z**. The separate legacy Pages run
+[44478743774](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44478743774)
+also succeeded. The official Pages API reported **built**, **error.message=null**,
+exact commit **c8b9b61**, updated **07:20:04Z**, duration **24,905 ms**. Source remains
+**legacy / main / root**, HTTPS enforced. No Pages-configuration migration is
+claimed.
+
+Actual public fetches, after that deployment, returned the integrated content at:
+
+- [Home](https://kanlerxz87-cyber.github.io/Zone1/): the current buying-question
+  headline, three format choices/cards with source-linked dimensions, conceptual
+  image caption, November notebook and RSS reader loop.
+- [6 Qt model guide](https://kanlerxz87-cyber.github.io/Zone1/products/chefman-6qt-dual-basket.html):
+  the original submitted Amazon URL, explicit paid-link/unknown-attribution note,
+  concise essentials, two-minute Hi-Fry qualification and correct part-specific care.
+- [Thermometer notes](https://kanlerxz87-cyber.github.io/Zone1/categories/cooking-thermometers.html):
+  correct PI-04 ThermoMaven / PI-05 CHEF iQ mapping as observations only, original
+  supplied URLs, no invented model or accuracy/certification claim.
+- [Cord guide](https://kanlerxz87-cyber.github.io/Zone1/articles/extension-cord-rules-in-the-manuals.html):
+  both incompatible manual directions, F96, and no permissive electrical recommendation.
+- [About](https://kanlerxz87-cyber.github.io/Zone1/about.html): honest AI-assisted
+  publication authorship, no tests/persona invented, imagery provenance, no live
+  analytics and GitHub's separate IP security logs.
+- [Measurement](https://kanlerxz87-cyber.github.io/Zone1/measurement.html) and
+  [link-intent record](https://kanlerxz87-cyber.github.io/Zone1/product-intent.html):
+  all five events inactive, selected ID unvalidated/unapplied, all five original
+  submitted strings, separate observed/intended fields and no campaign report rows.
+- [Live stylesheet](https://kanlerxz87-cyber.github.io/Zone1/assets/style.css): the
+  selected publication tokens and local DM fonts, not the superseded theme.
+- [RSS](https://kanlerxz87-cyber.github.io/Zone1/feed.xml): current rewritten guide
+  titles and stable canonical links; no invented original item publication times.
+
+These are actual public-content retrievals. They are distinct from local/CI
+Chromium rendering; no remote browser/a11y certification or raw-byte equality with
+the public proxy is claimed. All synthetic metrics remain outside Git and outside
+the authorised campaign ledger.
+
+### Process and remaining boundaries
+
+A plain post-integration `git pull --rebase origin main` tried to flatten the
+already-reconciled merge and stopped at the earlier claim. It was aborted intact.
+The actual merge had both **929a411** and **4ae97f0** as parents. A fresh
+`git pull --rebase --ff-only origin arena/1f9e7d52-zone1` then reported up to date,
+followed by a normal fast-forward push. No other session branch was modified and
+neither integration history was dropped. This is logged rather than masking a
+failed command's exit status.
+
+Active overlapping PR #159 was reviewed only for coordination/disposition. A
+[scope/hold request](https://github.com/kanlerxz87-cyber/Zone1/pull/159#issuecomment-7002437543)
+was posted; it was **not** merged, closed, imported or claimed as tested. Earlier
+stale-PR dispositions remain preserved. The root publication is canonical while
+historical annexes remain labelled public evidence; full archive-only deployment
+wrapping is not claimed.
+
+A nonblocking GitHub runner annotation says older action versions target Node 20
+and are forced to Node 24. All jobs succeeded; an action-version maintenance
+refresh is not represented as performed here.
+
+**Still unverified, deliberately:** enrolled account/selected-ID ownership and
+per-intended-product attribution; intended ASIN/listing confirmations; authorised
+campaign/query reports; controlled production collector runtime and infrastructure
+privacy/log approval; actual product-photography rights; and the Emeril cord
+clarification. The cadence is a recorded plan, not a deployed scheduler. No revenue,
+conversion, traffic or ranking promise was added to close any of these gates.
+
+**PUB-1 repository/publication scope is complete and released.**
+
+Receipt recorded at 2026-11-19T07:25:56Z. The follow-up publishes this already-observed release record and the narrowly scoped Flagged-introduction correction described below; it does not anticipate unperformed account or production actions.
+
+
+### Last live-read finding — Flagged introduction corrected in the receipt follow-up
+
+The final actual public Flagged read exposed a present-tense introduction left
+outside the earlier article/register reconciliation: it labelled every historical
+finding “Open items”, typed “3 Hard source conflicts”, and repeated a “most likely
+two models” explanation above the dated evidence. Those claims were not supported
+by the current-state register. The receipt follow-up therefore also corrects this
+small generated surface: **recorded findings/history included**, computed source
+and blank/populated-specification counts, and a source-linked model conflict with
+no selected explanation. The cord safety conflict is explicitly highlighted.
+Historical flag bodies/IDs remain untouched. A targeted negative regression raises
+the root suite to **61 tests**; all current gates are rerun on the follow-up head.
+This is a bounded content correction, not new source verification or a change to
+account, link, analytics or campaign data. The prior functional release proof above
+remains the already-observed PR #162 result.
