@@ -6058,8 +6058,11 @@ changed or newly asserted. R-16adefc5-1 is resolved in the generated branch outp
 remains required because GitHub Pages only deploys `main`; that is a deployment verification step, not an open
 content defect.
 
-**Rebase record:** while opening PR #154, `main` advanced to `c758b8b` (PR #152). The rebase produced one real
-`COORDINATION.md` tail conflict and one generated `requirements.html` conflict. Both records were retained: PR #152's
-X-c1706796 audit remains above this board, this board remains below it, and `requirements.html` was regenerated from
-the merged generator and register rather than hand-merged. The product-link qualification change already on `main`
-was preserved. All integration gates listed above were then re-run on the rebased tree and passed.
+**Rebase record:** while opening PR #154, `main` advanced to `c758b8b` (PR #152). The first rebase produced one
+real `COORDINATION.md` tail conflict and one generated `requirements.html` conflict. Both records were retained:
+PR #152's X-c1706796 audit remains above this board, this board remains below it, and `requirements.html` was
+regenerated from the merged generator and register rather than hand-merged. The product-link qualification change
+already on `main` was preserved. All integration gates listed above were then re-run on the rebased tree and passed.
+`main` advanced a second time to `6b4beb1` (PR #155) before this PR could merge; that rebase had only the same
+append-only `COORDINATION.md` tail conflict. PR #155's publication record and this record were both retained, and no
+code or generated output changed in that second rebase.
