@@ -1,106 +1,98 @@
-# The outbound-click endpoint — source for a host you control
+# First-party measurement — one tested contract
 
-**Nothing here is deployed, and nothing here is sending.** This folder is the
-source code for the endpoint that the site's outbound-click counter posts to.
-The site is static files on GitHub Pages, which cannot receive a `POST`, so the
-sink has to live on a host the account holder controls. This repository builds
-the counter (`assets/analytics.js`) and ships it with the switch **off**; it
-cannot and does not run the sink.
+**Implemented and integration-tested; not deployed on the GitHub Pages site.**
+`data/analytics-plan.json` is the canonical contract. EV-01..EV-05 are its stable
+labels, not a second JSON schema. Synthetic tests never enter the campaign ledger.
 
-| File | What it is |
-|---|---|
-| `endpoint.php` | Reference implementation for any PHP host (Apache, nginx + PHP-FPM, cPanel). Writes newline-delimited JSON to a file. |
-| `worker.js` | Reference implementation for Cloudflare Workers. Writes to a KV namespace. |
+| ID | Wire event | Trigger | Accepted application data |
+|---|---|---|---|
+| EV-01 | `page_view` | First visible state per reader-page load | `event`, allow-listed `page_id` |
+| EV-02 | `outbound_click` | Trusted primary/middle activation of a marked supplied-product link | Above + allow-listed `target_id` (not an inferred ASIN) |
+| EV-03 | `article_engagement` | 60 visible, focused one-second intervals on an article/guide | Above + fixed `bucket: "60s"`; no target |
+| EV-04 | `comparison_interaction` | Trusted product-detail activation on `compare.html` | `event`, `page_id`, product `target_id` |
+| EV-05 | `affiliate_report_import` | Operator-only authorised report import | Campaign ledger's dated aggregate fields; never accepted by the browser endpoint |
 
-Both store the **same seven fields** and nothing else:
+`analytics/client.js` is copied byte-for-byte to `assets/analytics.js` by the build.
+It uses same-origin JSON `fetch`, `credentials: "omit"`, `referrerPolicy:
+"no-referrer"`, and `keepalive`; never a credentialed beacon. It reads no cookies,
+storage, reader identifiers, referrer, query string or outbound URL. DNT and GPC
+opt out. Only public indexable reader pages may load it. JavaScript being enabled
+is not evidence that a visitor is human; these counts are not unique people,
+eligible sessions, conversions or revenue.
 
-| Field | Meaning |
-|---|---|
-| `event` | `EV-01` page view · `EV-02` outbound product click · `EV-03` article finished · `EV-04` comparison table seen |
-| `page` | the path of the page, relative to the site root |
-| `date` | `YYYY-MM-DD`, UTC, from the client's clock |
-| `asin` | the product's ASIN (EV-02 only) |
-| `tag` | the Associates tracking ID found on the clicked link (EV-02 only) |
-| `page_type` | `article` · `product` · `comparison` · `guide` (EV-01 only) |
-| `utm` | `1` when the arrival carried a `utm_source`/`utm_campaign` parameter (EV-01 only) |
+`analytics/collector.py` validates bounded payloads and stores **UTC-day aggregate
+counts only** in SQLite. Unknown events/properties/IDs, an untrusted origin, and
+browser order events are rejected. No raw rows, IP addresses, user agents,
+referrers, cookies or order IDs are written by the application. The collector
+suppresses HTTP access logs. Infrastructure sees connection metadata regardless;
+review host/proxy logging and retention separately. GitHub Pages itself logs IPs
+for security ([official hosting documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection)).
 
-Plus one field the server adds: `received_at`, the UTC time the line was
-written.
+## Deployment gate — why production remains off
 
-## What is never stored
+GitHub Pages is [static hosting](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages),
+not a Python runtime. A workspace preview is not a durable production service.
+No host, runtime account, privacy approval or authorised Associates report has
+been supplied. Do not send production events to a temporary preview or invent
+counts to fill a dashboard.
 
-* **The client IP address.** It is visible to the web server that receives the
-  request — that is unavoidable and outside the site's control — but neither
-  implementation writes it into the event store.
-* **The user agent.** It is read once, in memory, only to recognise obvious
-  crawlers, and is then discarded.
-* **The referrer, cookies, and any reader identifier.** None is ever sent by
-  the client, and the endpoints refuse any field outside the list above.
-* **Anything about an order.** The counter never sees what the reader bought.
-  Reported orders come only from an Amazon Associates Central report, entered
-  by hand into the campaign ledger.
+1. Host the publication and collector on one HTTPS origin. Proxy only
+   `/api/analytics/events` to the collector; keep the database outside both the
+   checkout and document root. Apply infrastructure body/rate limits and configure
+   host/proxy logs and retention. The application origin check is an abuse
+   reduction, **not authentication or proof of a human**.
+2. Review the actual privacy notice, aggregate retention (395 days proposed),
+   infrastructure logs and relevant jurisdiction before recording approval.
+3. Start the application with the following operator-owned settings. No secrets
+   belong in the repository or a browser payload:
 
-The `assets/analytics.js` client is checked by the build guard
-`check_analytics_consistency()`, which fails the build if the file contains
-`document.cookie`, `localStorage`, `sessionStorage`, `indexedDB`,
-`navigator.userAgent`, `document.referrer` or `window.name`, if it calls
-`preventDefault()`, or if it does not check `event.isTrusted`.
+   ```sh
+   export ZONE1_ANALYTICS_ENABLED=1
+   export ZONE1_ANALYTICS_PRIVACY_NOTICE_APPROVED=1
+   export ZONE1_ANALYTICS_PUBLIC_ORIGIN=https://your-real-publication-origin
+   export ZONE1_ANALYTICS_DB_PATH=/var/lib/zone1/events.sqlite3
+   python3 -m analytics.collector
+   ```
 
-## Why it stays off until you turn it on
+   Default bind: `0.0.0.0:8078`; put it behind a restrictive HTTPS reverse proxy.
+   `/health` returns ready only after all required environment gates pass. There
+   is no public reporting/read endpoint or order-ingestion endpoint.
+4. In `data/analytics-plan.json`, record real deployment evidence and set
+   `runtime_selected`, `endpoint_deployed`, `privacy_notice_approved`, and
+   `collection.enabled` only when true. In `data/config.json`, set
+   `analytics.enabled` to the same value and `analytics.endpoint` to
+   `/api/analytics/events`. The build rejects drift, an external endpoint, or
+   incomplete approvals. Review the generated notice and any now-stale register
+   wording as part of that change.
+5. Test the exact production origin/route in an isolated test database. Verify
+   accepted requests, rejected extra fields, the stored aggregate schema, actual
+   opt-outs and infrastructure logging before enabling real traffic. Do not add
+   test clicks or test orders to the campaign ledger.
 
-Program Policies §3(e) requires an accurate statement of cookie and
-third-party technology use on an Associate site, and §3(s) forbids
-artificially generating clicks. Two consequences:
+## Verification
 
-1. A counter with no sink behind it would report a number this site cannot
-   source, so it ships **disabled**.
-2. The footer's cookie/privacy paragraph is **generated from the same
-   configuration block** that turns the counter on, so the statement cannot
-   describe a behaviour the page does not have. When you switch the counter on,
-   the build will also fail until every published sentence that says the site
-   "runs no analytics" — in the footer *and* in the registers, which are
-   quoted onto the pages — has been updated in the same commit. That failure is
-   the guard working, not a nuisance: those sentences become false the moment
-   the counter starts sending.
-
-## Turning it on
-
-1. Deploy one of the two files above on a host you control, over **https**.
-   For the PHP version, put the NDJSON file outside the document root, or deny
-   it with a `.htaccess` rule.
-2. In `data/config.json`, set `analytics.enabled` to `true` and
-   `analytics.endpoint` to the absolute `https://` URL of that endpoint.
-3. Rebuild and deploy: `python3 build.py`.
-4. The build will stop with a list of the published sentences that are now
-   false. Update each one, and the register it is quoted from, in the same
-   commit. The guard names the file for you.
-5. Click a product link on the live site and confirm one request arrives.
-6. Open the stored rows and confirm they contain **no IP address, no user
-   agent and no reader identifier**. If they do, the endpoint is wrong, not the
-   counter.
-
-The enable procedure is also written out in `data/config.json` →
-`analytics.enable_procedure`, and the events themselves are defined in
-`data/measurement.json`.
-
-## Reading the data afterwards
-
-The event file is one JSON object per line, so it reads with ordinary tools:
-
-```bash
-# how many outbound product clicks, by ASIN
-jq -r 'select(.event=="EV-02") | .asin' events.ndjson | sort | uniq -c | sort -rn
-
-# which pages readers click from
-jq -r 'select(.event=="EV-02") | .page' events.ndjson | sort | uniq -c | sort -rn
-
-# every day, in order
-jq -r '[.date, .event] | @tsv' events.ndjson | sort | uniq -c
+```sh
+python3 -m unittest discover -s tests -v
 ```
 
-A click count from this file is a **first-party measurement of a click**. It is
-not a conversion, not an order, and not revenue. Reported orders come from the
-Amazon Associates report and are entered into the campaign ledger by hand — see
-`data/campaign-ledger.json` and `measurement.html`. The ledger stays empty until
-a report is actually read; a filled ledger with invented numbers would be worse
-than an empty one.
+`tests/test_analytics_contract.py` executes the **actual** client with a Node VM,
+then sends its generated JSON to the **real** HTTP handler and checks the SQLite
+aggregates. It also covers opt-outs, synthetic clicks, short-link IDs, hidden-tab
+engagement, event-name drift, the disabled gate and enabled script placement.
+The old PHP and Worker implementations were incompatible with this protocol and
+stored raw events. They now return `410` without reading or storing a payload;
+their earlier implementations remain in Git history, not as deployable advice.
+
+## Authorised report import
+
+`analytics/report_import.py` accepts only the aggregate fields named by
+`data/campaign-ledger.json`: timestamp, source, channel, date range, eligible
+sessions, clicks and reported orders. It cannot authenticate a report. Obtain
+one through authorised first-party access first, keep a private dated provenance
+trail, and import only fields actually present. Never infer orders from clicks
+or fill missing data with zero. No report has been imported; the ledger is empty.
+
+Policy references: [Amazon Program Policies](https://affiliate-program.amazon.com/help/operating/policies)
+(technology disclosures, no artificial clicks, no end-user sub-tags),
+[tracking-ID reporting](https://affiliate-program.amazon.com/help/node/topic/GK5TZZ4AWML2QSLA).
+This is a technical implementation, not legal certification.

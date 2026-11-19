@@ -2,8 +2,8 @@
   "associate_tag": "",
   "associate_tag_note": "Intentionally blank. The brief supplied shopnow047c-20 as a selected tracking ID, but it has not been validated in Associates Central and the required enrolled-Associates test has not been completed for any confirmed intended product. Keep associate_tag blank and do not apply the ID to links until those account-only checks pass. The selected value and its unverified status are recorded separately below and in data/product-intent.json (flag F76).",
   "site": {
-    "title": "Air Fryer Affiliate Intelligence",
-    "tagline": "Verified data, sourced line by line, for three air fryers.",
+    "title": "Zone1 Kitchen",
+    "tagline": "A little clarity for your countertop.",
     "owner": "kanlerxz87-cyber",
     "repo": "kanlerxz87-cyber/Zone1",
     "base_url": "https://kanlerxz87-cyber.github.io/Zone1/",
@@ -20,17 +20,17 @@
     "enabled": false,
     "endpoint": "",
     "events": [
-      "EV-01",
-      "EV-02",
-      "EV-03",
-      "EV-04"
+      "page_view",
+      "outbound_click",
+      "article_engagement",
+      "comparison_interaction"
     ],
-    "disabled_reason": "No endpoint host exists yet. The site is static files on GitHub Pages, which cannot receive a POST, so a counter that reported a number without a sink behind it would be an invented number on a page that promises every value is sourced. The client is shipped (assets/analytics.js) and is completely inert until an endpoint is configured here and in the same commit the footer sentence changes.",
+    "disabled_reason": "The canonical GitHub Pages publication has no same-origin server runtime. The browser and Python aggregate collector now share one tested event contract, but production collection remains off until deployment, notice and host/proxy logging gates are verified.",
     "enable_procedure": [
-      "1. Deploy the endpoint source in analytics/ to a host you control (analytics/endpoint.php for any PHP host, analytics/worker.js for Cloudflare Workers). The source is not deployed by this repository.",
-      "2. Set analytics.enabled to true and analytics.endpoint to the absolute https:// URL of that endpoint.",
-      "3. Rebuild and deploy. The footer cookie/privacy paragraph is generated from this block, so it changes in the same commit and cannot go stale.",
-      "4. Confirm one request arrives, then confirm the sink's stored rows contain no IP address, no user agent and no reader identifier."
+      "Deploy analytics/collector.py behind HTTPS with the publication and /api/analytics/events on the same origin; GitHub Pages alone cannot run this Python service.",
+      "Verify host/proxy logging and the privacy notice. Configure collector enablement, public origin and an external-to-repository database. Confirm /health and a synthetic end-to-end test in an isolated test database, never the campaign ledger.",
+      "Record runtime_selected, endpoint_deployed and privacy_notice_approved in data/analytics-plan.json. Set its collection.enabled and data/config.json analytics.enabled together; set analytics.endpoint to /api/analytics/events.",
+      "Run all build, contract and privacy tests and review the generated privacy notice before publishing. Do not claim collection is live until a real deployed request is accepted."
     ],
     "never_recorded": [
       "IP address",
@@ -39,6 +39,7 @@
       "cookie or any persistent reader identifier",
       "order value or anything about what the reader bought"
     ],
-    "policy_basis": "Amazon Program Policies section 3(e) requires an accurate statement of cookie and third-party technology use on an Associate site, and section 3(s) forbids artificially generating clicks. The counter therefore fires only on a reader-initiated click (event.isTrusted) and never on load, on scroll alone or from a synthetic event."
+    "policy_basis": "Program Policies §3(e) requires accurate technology disclosures; §6(s) prohibits artificially generated clicks. Measurement does not trigger affiliate navigation: it observes trusted reader activations without blocking them. Page views and reading events have their own definitions. Application aggregation is not proof of a unique person or a purchase.",
+    "contract_version": 2
   }
 }

@@ -35,12 +35,13 @@ class CollectorValidationTests(unittest.TestCase):
 
     def test_engagement_is_a_fixed_bucket_and_only_for_published_reading_pages(self) -> None:
         self.assertEqual(
-            validate_payload({"event": "article_engagement", "page_id": "articles/index", "bucket": "60s"})["bucket"],
+            validate_payload({"event": "article_engagement", "page_id": "articles/sync-finish-explained", "bucket": "60s"})["bucket"],
             "60s",
         )
         for payload in (
             {"event": "article_engagement", "page_id": "index", "bucket": "60s"},
-            {"event": "article_engagement", "page_id": "articles/index", "bucket": "61s"},
+            {"event": "article_engagement", "page_id": "articles/index", "bucket": "60s"},
+            {"event": "article_engagement", "page_id": "articles/sync-finish-explained", "bucket": "61s"},
         ):
             with self.subTest(payload=payload), self.assertRaises(ValueError):
                 validate_payload(payload)

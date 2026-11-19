@@ -1,140 +1,152 @@
 {
- "schema_version": 1,
- "prepared_on": "2026-11-17",
- "status": "prepared_not_deployed",
- "purpose": "A minimal first-party measurement plan for the canonical Zone1 publication. No visitor events are collected in the current GitHub Pages deployment.",
- "collection": {
-  "enabled": false,
-  "endpoint_mode": "self-hosted, same-origin only",
-  "endpoint_path": "/api/analytics/events",
-  "endpoint_deployed": false,
-  "runtime_selected": false,
-  "privacy_notice_approved": false,
-  "static_host": "GitHub Pages",
-  "blocker": "The repository points the canonical site at a GitHub Pages origin, but no same-origin event endpoint or runtime is configured or verified. The reference collector is not deployed and the privacy notice is not approved. Do not enable the browser client until the endpoint, visitor-facing notice, host/proxy logging policy and end-to-end tests are reviewed and verified."
- },
- "event_policy": {
-  "no_cookies": true,
-  "no_local_storage": true,
-  "no_persistent_visitor_ids": true,
-  "no_full_referrer_or_query_string": true,
-  "no_full_outbound_url": true,
-  "no_ip_or_user_agent_storage": true,
-  "no_amazon_program_content": true,
-  "storage_model": "UTC-day aggregate counts by event, canonical page ID, and allow-listed product ID; no raw event rows are retained.",
-  "retention_days": 395,
-  "retention_note": "Retention is a proposed default for a future deployment, not an active collection setting. Confirm the final privacy notice and retention before enabling collection.",
-  "deployment_logging_gate": "Before enabling collection, verify the host and any reverse proxy do not retain raw IP or user-agent access logs outside an approved notice and retention policy. The reference collector disables its own HTTP access log; that does not control host or proxy logs."
- },
- "events": [
-  {
-   "name": "page_view",
-   "origin": "browser",
-   "when": "One event per page load, only when collection is explicitly enabled and the visitor has not opted out with DNT or Global Privacy Control.",
-   "properties": [
-    "canonical page ID"
-   ],
-   "excludes": [
-    "IP address",
-    "user agent",
-    "cookies",
-    "persistent identifiers",
-    "referrer",
-    "query string"
-   ]
+  "schema_version": 2,
+  "prepared_on": "2026-11-19",
+  "status": "contract_tested_production_not_deployed",
+  "purpose": "Canonical event contract for the first-party browser client and Python daily-aggregate collector. Automated integration tests exercise the actual client payloads against the collector. Production collection remains disabled.",
+  "collection": {
+    "enabled": false,
+    "endpoint_mode": "self-hosted, same-origin only",
+    "endpoint_path": "/api/analytics/events",
+    "endpoint_deployed": false,
+    "runtime_selected": false,
+    "privacy_notice_approved": false,
+    "static_host": "GitHub Pages",
+    "blocker": "The canonical publication is on static GitHub Pages. No production same-origin analytics runtime or approved host/proxy logging and privacy configuration exists here. Application code and synthetic integration tests are complete; those are not a live deployment."
   },
-  {
-   "name": "outbound_click",
-   "origin": "browser",
-   "when": "A reader activates a link to a supplied affiliate destination.",
-   "properties": [
-    "canonical page ID",
-    "allow-listed product/link ID when available"
-   ],
-   "excludes": [
-    "full destination URL",
-    "link query parameters",
-    "Amazon account or order data"
-   ]
+  "event_policy": {
+    "no_cookies": true,
+    "no_local_storage": true,
+    "no_persistent_visitor_ids": true,
+    "no_full_referrer_or_query_string": true,
+    "no_full_outbound_url": true,
+    "no_ip_or_user_agent_storage": true,
+    "no_amazon_program_content": true,
+    "storage_model": "UTC-day aggregate counts by event, canonical page ID, and allow-listed product ID; no raw event rows are retained.",
+    "retention_days": 395,
+    "retention_note": "Retention is a proposed default for a future deployment, not an active collection setting. Confirm the final privacy notice and retention before enabling collection.",
+    "deployment_logging_gate": "Before enabling collection, verify the host and any reverse proxy do not retain raw IP or user-agent access logs outside an approved notice and retention policy. The reference collector disables its own HTTP access log; that does not control host or proxy logs."
   },
-  {
-   "name": "article_engagement",
-   "origin": "browser",
-   "when": "A published article or buying guide remains visible and active for the 60-second coarse threshold.",
-   "properties": [
-    "canonical page ID",
-    "fixed threshold bucket"
-   ],
-   "excludes": [
-    "exact dwell time",
-    "scroll trace",
-    "session ID",
-    "cross-page history"
-   ]
+  "events": [
+    {
+      "name": "page_view",
+      "origin": "browser",
+      "when": "One event when an indexable publication page first becomes visible, per page load, after explicit enablement. DNT and Global Privacy Control opt out. This is a page load, not a unique human/session count.",
+      "properties": [
+        "canonical page ID"
+      ],
+      "excludes": [
+        "IP address",
+        "user agent",
+        "cookies",
+        "persistent identifiers",
+        "referrer",
+        "query string"
+      ],
+      "id": "EV-01"
+    },
+    {
+      "name": "outbound_click",
+      "origin": "browser",
+      "when": "One trusted primary or middle-button activation of an explicitly marked supplied-product link. The recorded link/product ID is not an inferred ASIN or proof of the intended listing.",
+      "properties": [
+        "canonical page ID",
+        "allow-listed product/link ID when available"
+      ],
+      "excludes": [
+        "full destination URL",
+        "link query parameters",
+        "Amazon account or order data"
+      ],
+      "id": "EV-02"
+    },
+    {
+      "name": "article_engagement",
+      "origin": "browser",
+      "when": "One event after 60 visible-and-focused one-second intervals on a published article or buying guide. Hidden tabs do not accumulate intervals. This is coarse engagement, not proof that the article was finished.",
+      "properties": [
+        "canonical page ID",
+        "fixed threshold bucket"
+      ],
+      "excludes": [
+        "exact dwell time",
+        "scroll trace",
+        "session ID",
+        "cross-page history"
+      ],
+      "id": "EV-03"
+    },
+    {
+      "name": "comparison_interaction",
+      "origin": "browser",
+      "when": "One trusted activation of a marked product-detail link from compare.html; the target is an allow-listed product ID. Merely seeing a table does not emit this event.",
+      "properties": [
+        "comparison page ID",
+        "allow-listed product ID"
+      ],
+      "excludes": [
+        "full URL",
+        "query string",
+        "visitor identifier"
+      ],
+      "id": "EV-04"
+    },
+    {
+      "name": "affiliate_report_import",
+      "origin": "operator-imported aggregate",
+      "when": "An authorized Associates Central report is imported; the corresponding aggregate is added to data/campaign-ledger.json.",
+      "properties": [
+        "report timestamp",
+        "source report",
+        "reported channel",
+        "date range",
+        "eligible sessions",
+        "clicks",
+        "reported orders"
+      ],
+      "excludes": [
+        "order IDs",
+        "customer data",
+        "product advertising content",
+        "estimated conversions or revenue"
+      ],
+      "id": "EV-05"
+    }
+  ],
+  "campaign_ledger": {
+    "path": "data/campaign-ledger.json",
+    "status": "empty",
+    "rule": "Add a row only from an authorized first-party analytics aggregate or Associates Central report. Preserve the report's timestamp, source, channel, eligible sessions, clicks, and reported orders. Do not infer orders, conversion rate, or revenue from clicks."
   },
-  {
-   "name": "comparison_interaction",
-   "origin": "browser",
-   "when": "A reader opens a product detail from the comparison page.",
-   "properties": [
-    "comparison page ID",
-    "allow-listed product ID"
-   ],
-   "excludes": [
-    "full URL",
-    "query string",
-    "visitor identifier"
-   ]
+  "cadence": [
+    {
+      "frequency": "Every publication",
+      "action": "Run the generator and link/content gates. The canonical build regenerates the sitemap from indexable pages and the RSS feed from the article register; add a new guide to its data register before publication."
+    },
+    {
+      "frequency": "Weekly after a collector is deployed",
+      "action": "Check endpoint health and aggregate event counts for unexpected drops or spikes. Do not inspect visitor-level records; the collector stores no raw rows. Until deployment, record this check as blocked rather than inventing counts."
+    },
+    {
+      "frequency": "Monthly after Search Console and Associates access are verified",
+      "action": "Save dated aggregate Search Console query/page data and authorized Associates report totals. Add only reported values to the campaign ledger, with source and date range."
+    },
+    {
+      "frequency": "Quarterly, once measured query data exists",
+      "action": "Choose and refresh topics using observed query impressions/clicks, reader questions, and documented product gaps. Treat topic ideas as hypotheses until supported by actual query data."
+    }
+  ],
+  "query_policy": "Do not claim topics are trending or high-converting without measured, dated evidence. Search Console query data is unavailable until the owner verifies the property and submits the sitemap; the codebase cannot do those account actions.",
+  "sources": {
+    "github_pages": "S38",
+    "associates_tracking_ids": "S6",
+    "associates_policies": "S2",
+    "google_link_qualification": "S31"
   },
-  {
-   "name": "affiliate_report_import",
-   "origin": "operator-imported aggregate",
-   "when": "An authorized Associates Central report is imported; the corresponding aggregate is added to data/campaign-ledger.json.",
-   "properties": [
-    "report timestamp",
-    "source report",
-    "reported channel",
-    "date range",
-    "eligible sessions",
-    "clicks",
-    "reported orders"
-   ],
-   "excludes": [
-    "order IDs",
-    "customer data",
-    "product advertising content",
-    "estimated conversions or revenue"
-   ]
+  "implementation": {
+    "client_source": "analytics/client.js",
+    "generated_client": "assets/analytics.js",
+    "collector": "analytics/collector.py",
+    "contract_tests": "tests/test_analytics_contract.py",
+    "report_import": "analytics/report_import.py"
   }
- ],
- "campaign_ledger": {
-  "path": "data/campaign-ledger.json",
-  "status": "empty",
-  "rule": "Add a row only from an authorized first-party analytics aggregate or Associates Central report. Preserve the report's timestamp, source, channel, eligible sessions, clicks, and reported orders. Do not infer orders, conversion rate, or revenue from clicks."
- },
- "cadence": [
-  {
-   "frequency": "Every publication",
-   "action": "Run the generator and link/content gates. The canonical build regenerates the sitemap from indexable pages and the RSS feed from the article register; add a new guide to its data register before publication."
-  },
-  {
-   "frequency": "Weekly after a collector is deployed",
-   "action": "Check endpoint health and aggregate event counts for unexpected drops or spikes. Do not inspect visitor-level records; the collector stores no raw rows. Until deployment, record this check as blocked rather than inventing counts."
-  },
-  {
-   "frequency": "Monthly after Search Console and Associates access are verified",
-   "action": "Save dated aggregate Search Console query/page data and authorized Associates report totals. Add only reported values to the campaign ledger, with source and date range."
-  },
-  {
-   "frequency": "Quarterly, once measured query data exists",
-   "action": "Choose and refresh topics using observed query impressions/clicks, reader questions, and documented product gaps. Treat topic ideas as hypotheses until supported by actual query data."
-  }
- ],
- "query_policy": "Do not claim topics are trending or high-converting without measured, dated evidence. Search Console query data is unavailable until the owner verifies the property and submits the sitemap; the codebase cannot do those account actions.",
- "sources": {
-  "github_pages": "S38",
-  "associates_tracking_ids": "S6",
-  "associates_policies": "S2",
-  "google_link_qualification": "S31"
- }
 }
