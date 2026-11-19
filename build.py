@@ -8310,61 +8310,59 @@ def check_row_sources(pages):
 # pass 9 guards (session 22f43836)
 # --------------------------------------------------------------------------- #
 
-def qualify_affiliate_links(html_text):
-    """Add rel="sponsored" to every clickable affiliate anchor in a rendered page.
+# The local standard is intentionally stricter than a CTA-only check: every click from
+# this publisher to an Amazon product detail page or supplied Amazon resolver is qualified,
+# whether it is rendered as a button, an inline source citation or a table link. That makes
+# the machine-readable treatment of an outbound product link unambiguous and implements the
+# brief's “every outbound product link marked as sponsored” rule in one place. It does *not*
+# turn Amazon policy, help, or developer-documentation links into sponsored links.
+AFFILIATE_HOST = "link.amazon"
+_AMAZON_PRODUCT_ANCHOR_RE = re.compile(
+    r'<a\b(?=[^>]*\bhref="https://(?:link\.amazon/|(?:www\.)?amazon\.com/dp/))[^>]*>',
+    re.I,
+)
 
-    One post-render pass rather than fifteen template edits, so a future page that prints a
-    supplied link cannot reintroduce the defect the guard now blocks. Rules match the guard:
-    anchors on the affiliate host, excluding citation badges (class="src") and the
-    nonsense-token control request (S22). Existing rel values are preserved and de-duplicated
-    so rel="nofollow sponsored noopener" never becomes contradictory or repeated.
+
+def qualify_affiliate_links(html_text):
+    """Add rel="sponsored" to every rendered outbound Amazon product anchor.
+
+    One post-render pass rather than many template edits means that a new page cannot quietly
+    bypass the rule. Existing rel values are preserved and de-duplicated, so an existing
+    ``rel="nofollow sponsored noopener"`` never becomes contradictory or repeated. The
+    nonsense-token control request (S22) remains an evidence-only exception: it does not
+    name a product and exists solely so a reviewer can reproduce the resolver control.
+
+    Google says paid links may be qualified with ``nofollow`` or ``sponsored`` and should use
+    ``sponsored`` for advertisements or paid placements (S30/S31). This site applies the
+    latter marker to the broader, owner-requested class of Amazon product destinations; it
+    does not claim that a citation itself earned a commission.
     """
     def fix(match):
         tag = match.group(0)
-        if 'class="src"' in tag or "ZZZ9ZZZZZ" in tag:
+        if "ZZZ9ZZZZZ" in tag:
             return tag
         rel_attr = re.search(r'rel="([^"]*)"', tag, re.I)
-        if rel_attr:
-            values = [v for v in rel_attr.group(1).split() if v]
-        else:
-            values = []
+        values = [v for v in (rel_attr.group(1) if rel_attr else "").split() if v]
         if "sponsored" not in values:
-            # sponsored must lead: it is the value that states the commercial relationship.
+            # sponsored leads because it states how an Amazon product destination is treated.
             values = ["sponsored"] + values
         new_tag = re.sub(r'\srel="[^"]*"', "", tag, count=1, flags=re.I)
         return new_tag[:-1].rstrip() + f' rel="{" ".join(values)}">'
-    return re.sub(r'<a\b[^>]*' + AFFILIATE_HOST + r'[^>]*>', fix, html_text, flags=re.I)
-
-
-AFFILIATE_HOST = "link.amazon"
+    return _AMAZON_PRODUCT_ANCHOR_RE.sub(fix, html_text)
 
 
 def check_affiliate_link_qualification(pages):
-    """Build guard: every clickable affiliate link must be qualified.
+    """Build guard: every clickable Amazon product destination is qualified.
 
-    Read verbatim 2026-11-15 from Google Search Central, "Spam policies for Google web
-    search" (S30): "It's not a violation of our policies to have such links as long as
-    they are qualified with a rel="nofollow" or rel="sponsored" attribute value to the
-    <a> tag", and from "Qualify your outbound links to Google" (S31): "Mark links that are
-    advertisements or paid placements (commonly called paid links) with the sponsored
-    value."
-
-    Scope: only anchors a reader can actually click through to Amazon, i.e. hrefs on the
-    affiliate short-link host. Excluded on purpose:
-      * citation badges (class="src") — these evidence a fact, they are not calls to action;
-      * the nonsense-token control request (data/sources.json S22), which exists to prove
-        the resolver refuses unknown tokens and must stay clickable for a human to re-test.
-    Every product CTA already carried rel="nofollow sponsored"; the anchors this guard was
-    written to catch are the raw supplied links printed in the evidence tables, which had
-    rel="noopener" only. Refusing to qualify a link that is the site's entire commercial
-    purpose is a silent revenue and compliance defect, so it is a build failure now.
+    The checked class covers the supplied ``link.amazon`` URLs and direct Amazon ``/dp/``
+    product-detail URLs, including source citations. It deliberately excludes Amazon policy
+    and help pages, plus S22's non-product nonsense-token control. A missing ``sponsored``
+    token is a build failure rather than a review note, so the requirement cannot regress
+    when a template or table is added.
     """
-    anchor = re.compile(r'<a\b[^>]*' + AFFILIATE_HOST + r'[^>]*>', re.I)
     problems = []
     for rel, html_text in pages.items():
-        for tag in anchor.findall(html_text):
-            if 'class="src"' in tag:
-                continue
+        for tag in _AMAZON_PRODUCT_ANCHOR_RE.findall(html_text):
             if "ZZZ9ZZZZZ" in tag:
                 continue
             rel_attr = re.search(r'rel="([^"]*)"', tag, re.I)
@@ -8372,7 +8370,7 @@ def check_affiliate_link_qualification(pages):
             if "sponsored" not in values:
                 href = re.search(r'href="([^"]+)"', tag)
                 problems.append(
-                    f'{rel}: affiliate link without rel="sponsored": '
+                    f'{rel}: outbound Amazon product link without rel="sponsored": '
                     f'{(href.group(1) if href else tag)[:90]}')
     return problems
 
