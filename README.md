@@ -15,9 +15,13 @@ buying guides—not an audit dashboard.
 - [Air fryers and ovens](https://kanlerxz87-cyber.github.io/Zone1/categories/kitchen-appliances.html),
   [comparison](https://kanlerxz87-cyber.github.io/Zone1/compare.html) and three
   documentation-based model guides.
-- [Thermometer link notes](https://kanlerxz87-cyber.github.io/Zone1/categories/cooking-thermometers.html):
-  both other submitted links are visible without inventing confirmed models,
-  accuracy, certification or intended ASINs.
+- [Thermometers](https://kanlerxz87-cyber.github.io/Zone1/categories/cooking-thermometers.html):
+  a buyer-facing category with a documented guide for each of the two supplied
+  thermometer products — [ThermoMaven F1 Turbo](https://kanlerxz87-cyber.github.io/Zone1/products/thermomaven-f1-turbo.html)
+  and [CHEF iQ Sense Gen3](https://kanlerxz87-cyber.github.io/Zone1/products/chef-iq-sense-gen3.html).
+  Every fabricated-sounding figure is the manufacturer's own, cited; where the brand
+  page contradicts the observed Amazon title (read time, sensor count) both readings
+  are printed rather than reconciled. Intended listings remain unconfirmed.
 - [Buying guides](https://kanlerxz87-cyber.github.io/Zone1/articles/), arranged in
   four reader-intent clusters. Existing canonical questions are refreshed rather
   than duplicated. [RSS](https://kanlerxz87-cyber.github.io/Zone1/feed.xml) is the
@@ -25,6 +29,10 @@ buying guides—not an audit dashboard.
 - [Our approach](https://kanlerxz87-cyber.github.io/Zone1/about.html): honest
   AI-assisted publication authorship, no invented human editor or hands-on tests,
   imagery provenance, affiliate funding and current privacy boundaries.
+
+**Start decisions on the [Decision review queue](https://kanlerxz87-cyber.github.io/Zone1/decision-review.html)** —
+fourteen forward-looking choices (priority-ordered, each with its official evidence and
+options) plus a dated written brief at [`reports/suggestions-2026-11-19-d154e428.md`](reports/suggestions-2026-11-19-d154e428.md).
 
 One native **Workspace** menu and a footer index contain the decisions, questions,
 source register, flags, requirements and technical blueprint. There is no audit

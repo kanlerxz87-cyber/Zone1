@@ -90,6 +90,7 @@ $search_console_tag
       <h2>Owner workspace</h2>
       <ul>
         <li><a href="${prefix}executive-summary.html">Executive summary &amp; index</a></li>
+        <li><a href="${prefix}decision-review.html">Decision review queue</a></li>
         <li><a href="${prefix}suggestions.html">Suggestions decision queue</a></li>
         <li><a href="${prefix}questions.html">Known facts &amp; missing answers</a></li>
         <li><a href="${prefix}product-intent.html">Links, attribution &amp; ledger</a></li>

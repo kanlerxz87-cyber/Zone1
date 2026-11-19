@@ -1,0 +1,256 @@
+{
+  "accessed": "2026-11-19",
+  "owner": "Account holder",
+  "purpose": "One reviewable queue of the decisions that actually change what this site can earn, what it may publish, and what a reader sees. Each row states the question, what is already known from a named official source, what is still missing, the options, what each option costs, and who or what unblocks it. Nothing here is implemented until the account holder chooses; the rows marked 'shipped' record work already completed and are present so the queue reflects the whole picture rather than a list of wishes.",
+  "how_to_use": [
+    "Read the priority column from P0 down. P0 rows are the ones that make every other row either possible or pointless.",
+    "A row marked 'needs your decision' cannot be completed by an agent: it requires an account, a credential, or a choice only the account holder can make.",
+    "A row marked 'agent can proceed' has a defensible default. Quietly doing the default risks building the wrong thing, so it is tabled rather than pre-empted.",
+    "Where a row cites S41 or S6, the answer to the attribution question is already documented. Read it before treating 'we do not know which link was intended' as a blocker."
+  ],
+  "rows": [
+    {
+      "id": "DR-01",
+      "priority": "P0",
+      "title": "Which Amazon listing is each supplied short link meant to point at?",
+      "state": "needs your decision",
+      "question": "For each of the five supplied https://link.amazon/... strings, which exact 10-character ASIN is the product you intend a reader to buy?",
+      "known": "All five supplied short links were re-read live on 2026-11-19 and each reached an Amazon product page: B0CDY277D3 (Chefman 6 Qt dual basket), B09B7SB46R (Emeril 26QT French Door), B08DKYBTPH (Chefman 8 Qt TurboFry), B0DHZTCNR5 (ThermoMaven instant-read), B0DZFD6R9Z (CHEF iQ Sense Gen3). Those are observed destinations, not confirmed intents.",
+      "missing": "The intended ASIN, the official listing URL, and the date and source of your confirmation. Without them, data/product-intent.json must leave four fields blank and every product page must carry 'listing unconfirmed'.",
+      "options": [
+        "Confirm the five observed ASINs are the intended ones. One statement per product, recorded in data/product-intent.json with today's date.",
+        "Supply the correct ASINs where the observed one is wrong.",
+        "Leave them unconfirmed and accept that the pages stay explicitly unconfirmed."
+      ],
+      "why_it_matters": "This single row converts 'observed' into 'confirmed' across five product records and removes the largest single caveat on every buyer page. It does not require a re-write: the field already exists and is designed for exactly this.",
+      "cost": "About ten minutes of your time; no engineering.",
+      "sources": ["S17", "S28", "S29", "S36", "S37", "S41"]
+    },
+    {
+      "id": "DR-02",
+      "priority": "P0",
+      "title": "Is shopnow047c-20 an enrolled tracking ID, and may it be applied?",
+      "state": "needs your decision",
+      "question": "Does shopnow047c-20 exist in your Associates account, and do you want it appended to the links readers actually click?",
+      "known": "The value is recorded as supplied. It has not been validated in Associates Central and does not appear on any supplied link. Amazon's own help states that the tracking ID does not need to appear in the URL for a sale to be tracked after the initial click, so a missing visible ID is not proof that attribution failed.",
+      "missing": "A screenshot-free confirmation that the ID exists in your account, and a decision to apply it. The repository keeps the operational tag blank by design until then.",
+      "options": [
+        "Confirm the ID and authorise applying it to product CTAs.",
+        "Confirm the ID but keep it unapplied while listings are unconfirmed.",
+        "Create a fresh sub-tag per traffic source and supply those instead."
+      ],
+      "why_it_matters": "Amazon's tracking-ID help documents that separate IDs can be reported separately, which is the only lawful first-party way to learn which page earns. Without it there is no measurement path at all.",
+      "cost": "Minutes in Associates Central.",
+      "sources": ["S6", "S41", "S42"]
+    },
+    {
+      "id": "DR-03",
+      "priority": "P0",
+      "title": "Do you want to meet Amazon's qualifying-sales requirement in 180 days?",
+      "state": "needs your decision",
+      "question": "An Associates account must make at least three qualifying sales within its first 180 days or it is closed, and the application is reviewed. Are you prepared to drive qualifying traffic inside that window?",
+      "known": "Amazon's Application Review page states the three-in-180-days requirement, a recency and follower expectation, and that a rejected application is final. This is a business fact that decides whether the whole project has a runway.",
+      "missing": "Your answer. If the window is short, the site should chase the highest-intent product immediately rather than build breadth.",
+      "options": [
+        "Yes, and prioritise a single high-intent product page over breadth.",
+        "Yes, but with organic search as the only channel, accepting the timing risk.",
+        "Not yet, and keep the site as a publication until you can."
+      ],
+      "why_it_matters": "It determines the content strategy: chase one converting product, or build authority across a category. Those are different sites.",
+      "cost": "A decision, not a task.",
+      "sources": ["S4", "S1"]
+    },
+    {
+      "id": "DR-04",
+      "priority": "P1",
+      "title": "Turn on the analytics collector?",
+      "state": "needs your decision",
+      "question": "The self-hosted, privacy-preserving collector is implemented and tested but not deployed. Do you want it enabled, and do you accept the privacy obligations that come with it?",
+      "known": "The browser client and the Python/SQLite collector share a tested named-event contract covering page_view, outbound_click, article_engagement and comparison_interaction, plus an operator-only affiliate_report_import. It stores daily aggregate counts only. GitHub Pages cannot execute it, so a separate host is required.",
+      "missing": "A host, and an actual privacy decision. No traffic figure, conversion or revenue number can be produced until this is live and receiving events.",
+      "options": [
+        "Deploy the collector on a controlled same-origin runtime and accept the privacy terms it needs.",
+        "Keep collection off and read Amazon's own Associates reports only.",
+        "Use the aggregate Amazon reports as the record of truth and treat site analytics as optional."
+      ],
+      "why_it_matters": "Every 'measure and iterate' promise on this site is blocked here. The code exists; the deployment and the consent decision do not.",
+      "cost": "A host and about an hour of setup; ongoing privacy diligence.",
+      "sources": ["S2", "S45"]
+    },
+    {
+      "id": "DR-05",
+      "priority": "P1",
+      "title": "Which three or four comparison attributes should be authoritative?",
+      "state": "needs your decision",
+      "question": "The comparison table can grow any number of columns. Which few actually help a buyer, and which are noise?",
+      "known": "The manufacturer documents a large set: capacity, temperature range, dimensions, weight, power, safety approval and warranty. A reader deciding between a dual basket and an oven does not weigh all of them equally. Prior passes have published every row they could source, which is complete and also unreadable.",
+      "missing": "Your judgement of your reader. This is the one thing research cannot supply.",
+      "options": [
+        "Capacity, footprint and care — the three that decide whether it fits your kitchen and your washing-up.",
+        "Capacity, temperature range and function count — the three that appear on a spec sheet.",
+        "Keep all sourced columns and let the reader scan."
+      ],
+      "why_it_matters": "A shorter, opinionated comparison is the difference between a data dump and a decision tool. The long tables already exist on data.html.",
+      "cost": "One editorial choice; about an hour of page work.",
+      "sources": ["S10", "S12", "S14"]
+    },
+    {
+      "id": "DR-06",
+      "priority": "P1",
+      "title": "Keep the 'no hands-on testing' position, or plan real testing?",
+      "state": "needs your decision",
+      "question": "The site's honesty rests on disclosing that no product was handled. Do you want to keep that boundary, or fund real tests?",
+      "known": "The FTC's Disclosures 101 is explicit: you cannot talk about your experience with a product you have not tried. Every page currently discloses AI-assisted document research and no hands-on testing, which is truthful. Adding invented experience would not be.",
+      "missing": "A decision, and if testing, actual access to the products and a method worth trusting.",
+      "options": [
+        "Keep the document-research boundary and compete on transparency and specification clarity.",
+        "Buy the products, run a documented test, and publish the method and results.",
+        "Keep the boundary but add external, cited reviews where they exist."
+      ],
+      "why_it_matters": "A hands-on review is the strongest possible differentiator in this category, and the one thing a generated site cannot fake. If you can test, the site changes category entirely.",
+      "cost": "From zero to the cost of three appliances and your time.",
+      "sources": ["S8", "S9"]
+    },
+    {
+      "id": "DR-07",
+      "priority": "P1",
+      "title": "Original product photography, or remain image-light?",
+      "state": "needs your decision",
+      "question": "Do you have or can you produce your own product photographs?",
+      "known": "Amazon's Operating Agreement treats images as Program Content, and the site currently publishes only an AI-generated decorative scene, clearly labelled as not a product image. There is no authorised Amazon image integration configured, and copied photography is explicitly ruled out.",
+      "missing": "Either your own photographs or a decision to stay with decorative imagery and typography.",
+      "options": [
+        "Original photographs of the products you actually own.",
+        "Stay image-light: typography, clear tables and diagrams, no borrowed product shots.",
+        "Commission photography from someone who owns the units."
+      ],
+      "why_it_matters": "Images are the largest perceived-quality gap between this site and a professional affiliate site. The gap cannot be closed with borrowed or generated product pictures without breaking a stated rule.",
+      "cost": "Photography time and equipment, or nothing.",
+      "sources": ["S1", "S2"]
+    },
+    {
+      "id": "DR-08",
+      "priority": "P2",
+      "title": "What should the brand be called?",
+      "state": "needs your decision",
+      "question": "The site currently publishes as 'Zone1 Kitchen', which is the repository name, not a chosen brand. What should it be called?",
+      "known": "The brand name appears in the masthead, page titles, structured data, the RSS feed and every canonical URL. It is cheap to change once and expensive to change after search engines and readers have learned it.",
+      "missing": "Your chosen name. This is a naming decision, not a research one.",
+      "options": [
+        "Keep 'Zone1 Kitchen'.",
+        "Choose a new name and accept a redirect and re-index period.",
+        "Use a descriptive name that includes the category."
+      ],
+      "why_it_matters": "A brand that reads like a placeholder undercuts every page's trustworthiness, and search engines reward a stable identity.",
+      "cost": "Minutes to choose, an hour to apply.",
+      "sources": ["S45"]
+    },
+    {
+      "id": "DR-09",
+      "priority": "P2",
+      "title": "What is the publishing cadence, and who approves each guide?",
+      "state": "needs your decision",
+      "question": "Should the site publish on a schedule, and does each new guide need your approval before it goes live?",
+      "known": "There are 25 published guides in the register, question-shaped, each sourced. A cadence and an approval step are editorial policy, not facts that can be researched.",
+      "missing": "The cadence and the approval rule. Without them, 'publish regularly' is a slogan.",
+      "options": [
+        "A fixed cadence (for example one guide a week) with no per-article approval.",
+        "A fixed cadence with your approval on each guide.",
+        "No cadence: publish only when a documented question is answered."
+      ],
+      "why_it_matters": "The brief asks the next topic to be chosen from measured queries. That only works if there is a rhythm and an owner for each decision.",
+      "cost": "A standing policy choice.",
+      "sources": ["S43", "S45"]
+    },
+    {
+      "id": "DR-10",
+      "priority": "P2",
+      "title": "Should the two thermometer guides expand into a full second category?",
+      "state": "agent can proceed",
+      "question": "The two thermometer products now have buyer pages. Should the site build the matching guides, or keep thermometers as a narrower shelf beside the air fryers?",
+      "known": "Both manufacturer pages state a specification set worth writing about, including two real internal contradictions (read time, sensor count). The air-fryer side already has 25 guides; the thermometer side has two product pages and no guides.",
+      "missing": "An editorial appetite for a second category. The facts are already sourced.",
+      "options": [
+        "Build three to five thermometer guides mirroring the air-fryer structure.",
+        "Keep two product pages and one pillar, and add guides only if search data asks for them.",
+        "Fold thermometers into a broader 'kitchen tools' category."
+      ],
+      "why_it_matters": "Two supplied products are thermometers, and they are currently the thinner half of the site.",
+      "cost": "Several hours per guide.",
+      "sources": ["S39", "S40", "S48"]
+    },
+    {
+      "id": "DR-11",
+      "priority": "P2",
+      "title": "May the historical build directories be retired from the published site?",
+      "state": "needs your decision",
+      "question": "The repository publishes several parallel builds (dashboard, s2, site, docs, annex, session pages) alongside the canonical publication. They are noindexed but publicly reachable. Keep them, or retire them from the deployment?",
+      "known": "Annex pages carry noindex,follow and an absolute canonical. They contain earlier, in some places contradicted, conclusions, though two of the most misleading statements were corrected on 2026-11-19. Anyone who browses them will meet older conclusions.",
+      "missing": "Whether you want the audit trail public. It is a policy decision with no research component.",
+      "options": [
+        "Keep them for the audit trail, with the noindex boundary and a corrected-contradiction note (current state).",
+        "Retire them from the deployment and keep them only in Git history.",
+        "Keep them but add a prominent superseded banner to every annex page."
+      ],
+      "why_it_matters": "A reader who lands on an annex gets a different, sometimes contradictory, story about the same products.",
+      "cost": "Low: exclude the directories from the Pages upload.",
+      "sources": ["S2"]
+    },
+    {
+      "id": "DR-12",
+      "priority": "P3",
+      "title": "Publish the two USDA temperature minimums as a standing reference?",
+      "state": "needs your decision",
+      "question": "Should the site publish a small, permanent 'safe minimum internal temperatures' reference, sourced to USDA, as a useful page in its own right?",
+      "known": "USDA FSIS and FoodSafety.gov both publish the figures, and they are already cited on the two new thermometer pages. Republishing a short table with attribution is a service to the reader and a genuine search entry point.",
+      "missing": "Nothing factual. The question is whether you want the site to make that kind of public-service commitment.",
+      "options": [
+        "Publish it as a short reference page with full USDA attribution.",
+        "Keep the figures inline on the thermometer pages only.",
+        "Do not republish government figures."
+      ],
+      "why_it_matters": "It is the clearest example of content that is useful whether or not anyone buys anything, which is what separates a publication from a link farm.",
+      "cost": "About an hour.",
+      "sources": ["S48", "S49"]
+    },
+    {
+      "id": "DR-13",
+      "priority": "P3",
+      "title": "Collect reader emails?",
+      "state": "needs your decision",
+      "question": "Should the site offer email capture yet?",
+      "known": "There is a real RSS feed and no email service. The site has deliberately not built a fake signup. Email capture requires a provider, a privacy notice and a consent design.",
+      "missing": "A provider and a decision. Without them the RSS feed remains the only honest subscription.",
+      "options": [
+        "Keep RSS only until search traffic justifies more.",
+        "Add a real email provider with an explicit consent notice.",
+        "Add both and cross-link them."
+      ],
+      "why_it_matters": "Email is the only channel you own if search rankings move. Adding a pretend one is worse than having none.",
+      "cost": "A provider account and ongoing compliance.",
+      "sources": ["S45"]
+    },
+    {
+      "id": "DR-14",
+      "priority": "P3",
+      "title": "What counts as evidence for the word 'trending'?",
+      "state": "needs your decision",
+      "question": "The brief asks for trending products. What dated, official evidence would justify the word on any page?",
+      "known": "A dated snapshot of an official Amazon category page is the kind of evidence that could support such a claim. The site currently publishes no 'trending' or popularity claim anywhere, deliberately.",
+      "missing": "A rule you are willing to be held to: which source, how dated, and what would make a claim expire.",
+      "options": [
+        "Allow 'trending' only with a dated official Amazon category snapshot, and an expiry date.",
+        "Never use the word; describe products only by documented attributes.",
+        "Use neutral language such as 'recently re-read' and skip popularity entirely."
+      ],
+      "why_it_matters": "The brief wants catchy, trendy topics. Catchy is achievable honestly; 'trending' without a dated source is not.",
+      "cost": "A one-paragraph written rule.",
+      "sources": ["S2", "S43"]
+    }
+  ],
+  "shipped": [
+    {"id": "SH-01", "what": "Two sourced buyer pages for the supplied thermometer products, and an indexable thermometer pillar", "note": "Shipped 2026-11-19 in this pass. Every value cites the brand page read that day; two brand-page self-contradictions are published as-is."},
+    {"id": "SH-02", "what": "Disclosure below the masthead on every page, repeated in the footer, and every outbound Amazon link qualified sponsored", "note": "Already in the canonical build; nothing in this pass relaxed it."},
+    {"id": "SH-03", "what": "One site in the sitemap, annexes noindexed, sitemap and RSS generated from data", "note": "Already in the canonical build; the thermometer pillar was the one buyer-facing page wrongly excluded and is now included."}
+  ]
+}

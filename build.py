@@ -667,6 +667,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     ))
     workspace_items = (
         ("executive-summary.html", "Executive summary & index"),
+        ("decision-review.html", "Decision review queue"),
         ("suggestions.html", "Suggestions decision queue"),
         ("questions.html", "Questions, known facts & gaps"),
         ("decision-log.html", "Decision drafts & export"),
@@ -1151,7 +1152,7 @@ def page_index():
 <div class="publication-compare-cta"><div><h2>Prefer everything side by side?</h2><p>Capacity, counter space and care. Official sources beside the details.</p></div><a class="btn btn-ghost" href="compare.html">Compare the three <span aria-hidden="true">→</span></a></div>
 <section class="quick-guide" aria-labelledby="guides-heading"><div class="section-heading"><div><p class="section-eyebrow">A little homework, a better fit</p><h2 id="guides-heading">Read before you make room.</h2></div><a class="text-link" href="articles/index.html">All buying guides <span aria-hidden="true">↗</span></a></div><div class="grid grid-2">{guides}</div></section>
 <section class="season-feature" aria-labelledby="season-heading"><div><p class="section-eyebrow">The November notebook · 2026</p><h2 id="season-heading">Giving an air fryer? Ask about the counter first.</h2><p>A useful gift starts with the way someone cooks—not the biggest number on the box. These seasonal guides help with the questions, without claiming a deal or a bestseller.</p></div><div class="season-links"><a href="articles/air-fryer-gift-guide-2026.html">The thoughtful air-fryer gift guide <span aria-hidden="true">↗</span></a><a href="articles/black-friday-model-number-switch.html">A model-number check before a sale <span aria-hidden="true">↗</span></a><a href="articles/questions-before-buying-a-multifunction-appliance.html">Questions before buying multifunction <span aria-hidden="true">↗</span></a></div></section>
-<section class="reader-note" aria-label="How these guides are made"><span class="note-symbol" aria-hidden="true">“</span><div><h3>The manual is a good place to start.</h3><p>We link the specifications to the manufacturer. When official documents disagree, you’ll see the difference—not a guess. <a href="about.html">How we research</a>.</p></div><div><h3>More kitchen tools, kept in perspective.</h3><p>The other submitted links open thermometer titles. Read the <a href="categories/cooking-thermometers.html">ThermoMaven and CHEF iQ link notes</a>; intended models and specifications remain unconfirmed.</p></div></section>
+<section class="reader-note" aria-label="How these guides are made"><span class="note-symbol" aria-hidden="true">“</span><div><h3>The manual is a good place to start.</h3><p>We link the specifications to the manufacturer. When official documents disagree, you’ll see the difference—not a guess. <a href="about.html">How we research</a>.</p></div><div><h3>Two more kitchen tools.</h3><p>Two of the submitted links open thermometer listings. Both brands publish a specification set, so each now has its own guide: compare them on the <a href="categories/cooking-thermometers.html">thermometers page</a>; which exact listing you would receive is still unconfirmed.</p></div></section>
 {reader_capture()}"""
     ld = [breadcrumbs_jsonld([("Home", SITE_BASE)]), {"@type":"ItemList","name":"Documented air-fryer formats","itemListElement":[{"@type":"ListItem","position":i,"name":r["title"],"url":page_url('products/'+r['slug']+'.html')} for i,r in enumerate(PUBLICATION['products'],1)]}]
     return layout("index.html","Kitchen buying guides for the way you cook",body,active="index.html",description="Find the air-fryer format that fits your kitchen. Compare documented capacity, counter space and care, with useful buying guides and clear affiliate disclosures.",jsonld_blocks=ld)
@@ -6528,6 +6529,68 @@ a synthetic test is not live traffic. No production endpoint is deployed.</p>
                       ("Measurement plan", page_url("measurement.html")),
                   ])])
 
+DECISION_QUEUE = json.loads((ROOT / "data" / "decision-queue.json").read_text(encoding="utf-8"))
+
+
+def page_decision_review():
+    """Per-row decision queue the account holder can review and pick from.
+
+    Deliberately separate from suggestions.html, which tracks implementation state of past
+    proposals. This page asks forward-looking questions, orders them by what unblocks what,
+    and records a pick in the browser only — the same privacy boundary as the decision log:
+    nothing is submitted from a static Pages site.
+    """
+    rows = DECISION_QUEUE["rows"]
+    state_pill = {
+        "needs your decision": '<span class="pill pill-warn">Needs your decision</span>',
+        "agent can proceed": '<span class="pill pill-info">Agent can proceed</span>',
+    }
+    order = {r["id"]: i for i, r in enumerate(rows)}
+    summary = "".join(
+        f'<tr><td><a href="#{e(r["id"].lower())}">{e(r["id"])}</a></td><td>{e(r["priority"])}</td>'
+        f'<td>{e(r["title"])}</td><td>{state_pill.get(r["state"], e(r["state"]))}</td>'
+        f'<td>{src_links(r.get("sources", [])[:4])}</td></tr>'
+        for r in rows)
+    cards = []
+    for r in rows:
+        opts = "".join(
+            f'<label class="dr-opt"><input type="radio" name="dr-{e(r["id"])}" value="{e(o)}" data-dr-id="{e(r["id"])}"> <span>{e(o)}</span></label>'
+            for o in r["options"])
+        cards.append(f"""<details class="sug dr-row" id="{e(r['id'].lower())}" data-dr-priority="{e(r['priority'])}" data-dr-state="{e(r['state'])}">
+<summary>{e(r['id'])} · {e(r['priority'])} · {e(r['title'])} {state_pill.get(r['state'], '')}</summary>
+<p><strong>The question.</strong> {e(r['question'])}</p>
+<p class="small"><strong>What is already known.</strong> {e(r['known'])} {src_links(r.get('sources', []))}</p>
+<p class="small"><strong>What is still missing.</strong> {e(r['missing'])}</p>
+<p class="small"><strong>Why it matters.</strong> {e(r['why_it_matters'])}</p>
+<div class="dr-pick" data-dr-group="{e(r['id'])}"><p class="small"><strong>Choose a path</strong> <span class="tiny muted">(stored in this browser only; nothing is sent)</span></p>{opts}</div>
+<p class="tiny muted">Cost of deciding: {e(r['cost'])}</p>
+</details>""")
+    shipped = "".join(f'<li><strong>{e(s["id"])}</strong> — {e(s["what"])}. <span class="tiny muted">{e(s["note"])}</span></li>' for s in DECISION_QUEUE.get("shipped", []))
+    howto = "".join(f"<li>{e(x)}</li>" for x in DECISION_QUEUE.get("how_to_use", []))
+    body = f"""<p class="crumbs"><a href="index.html">Home</a> / Decision review</p>
+<p class="section-eyebrow">Owner review queue · {e(DECISION_QUEUE['accessed'])}</p>
+<h1>Decide the {len(rows)} things that actually change the outcome.</h1>
+<p class="lede">This is the review surface the brief asked for: a single list of the decisions that change what the site can earn, what it may publish and what a reader sees. Each row states the question, what is already known from a named official source, what is missing, and the options. Nothing is implemented until you choose.</p>
+<div class="callout note"><strong>How to use it.</strong><ol class="tight">{howto}</ol></div>
+<h2>The queue at a glance</h2>
+<div class="tablewrap"><table><caption>Every open decision, highest priority first</caption><thead><tr><th>ID</th><th>Priority</th><th>Decision</th><th>Who unblocks it</th><th>Official evidence</th></tr></thead><tbody>{summary}</tbody></table></div>
+<div class="suggestion-toolbar" data-dr-toolbar hidden><label for="dr-query">Find a decision</label><input id="dr-query" type="search" placeholder="Search a decision, an option or a fact"><output aria-live="polite"></output></div>
+<div class="decision-actions" data-js-required hidden>
+  <span id="dr-counter" class="tiny muted">0 chosen in this browser</span>
+  <button type="button" class="btn" data-dr-action="download">Download decision-review.json</button>
+  <button type="button" class="btn btn-ghost" data-dr-action="copy">Copy the picks</button>
+  <button type="button" class="btn btn-ghost" data-dr-action="clear">Clear this browser&rsquo;s picks</button>
+</div>
+<h2>Review each decision</h2>
+<p class="small muted">Open a row to read the evidence and choose a path. The radio buttons record your pick in this browser so you can keep your place; use the download button to keep a copy. Nothing on this page submits to a server.</p>
+{''.join(cards)}
+<h2>Already shipped in this pass</h2>
+<ul class="small">{shipped}</ul>
+<p class="section-note"><a href="suggestions.html">Implementation state of past proposals</a> · <a href="questions.html">Known facts &amp; missing answers</a> · <a href="decision-log.html">Draft a choice</a> · <a href="executive-summary.html">Executive summary</a></p>"""
+    return layout('decision-review.html', 'Decision review queue — what to choose before anything changes', body,
+                  description='A prioritised review queue of the decisions that change what the affiliate site can earn and publish, each with its official evidence and options.',
+                  jsonld_blocks=[breadcrumbs_jsonld([('Home', SITE_BASE), ('Decision review', page_url('decision-review.html'))])])
+
 def page_decisions():
     body=f"""<p class="crumbs"><a href="index.html">Home</a> / Publishing strategy</p><p class="section-eyebrow">The operating choices</p><h1>Publish the useful answer. Measure the real result.</h1><p class="lede">A source-led buying publication is implemented. Profitability, popularity and conversion performance are not established by a well-designed page or a weighted score.</p>
 <h2>The scope</h2><p>{e(PUBLICATION['positioning'])}</p><p class="small">Three documented appliance guides and two unconfirmed thermometer link notes reflect the submitted set, not a claim to cover a whole market. Brand/listing/model conflicts remain on <a href="flagged.html">the public review register</a>. {src_links(['S10','S12','S14','S36','S37'])}</p>
@@ -7524,6 +7587,7 @@ def main():
     pages["figures.html"] = page_figures()
     pages["picks.html"] = page_picks()
     pages["decisions.html"] = page_decisions()
+    pages["decision-review.html"] = page_decision_review()
     pages["handover.html"] = page_handover()
     pages["product-intent.html"] = page_intent()
     pages["measurement.html"] = page_measurement()
