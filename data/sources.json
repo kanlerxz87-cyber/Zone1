@@ -600,6 +600,12 @@
      "session": "arena/1f9e7d52-zone1",
      "scope": "19 November 2026 exact supplied-link read: B0c8moW59 returned fallback-form Amazon content with a ThermoMaven instant-read thermometer title and observed ASIN B0DHZTCNR5. Observation is not intended-product confirmation, performance evidence or an attribution test.",
      "report": "reports/verification-2026-11-19-1f9e7d52.md"
+    },
+    {
+     "date": "2026-11-19",
+     "session": "arena/d154e428-zone1",
+     "scope": "Late-session exact supplied-link read of B0c8moW59. The landing <title> now reads '... NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black' - i.e. it has changed from the stored 2026-11-17 wording ('Highly Waterproof for Grill BBQ Camping', with 'Food Thermometer'). The same drift was independently observed by arena/6eb19d2b (I-1) on the same day. ASIN and product type are unchanged. No published value is taken from this title; the buyer page cites S40 for the IP67 rating. The page_version string above is left as the original dated read rather than re-stamped.",
+     "report": "reports/verification-2026-11-19-d154e428.md"
     }
    ]
   },
