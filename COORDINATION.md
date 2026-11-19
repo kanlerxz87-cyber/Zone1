@@ -6066,3 +6066,18 @@ already on `main` was preserved. All integration gates listed above were then re
 `main` advanced a second time to `6b4beb1` (PR #155) before this PR could merge; that rebase had only the same
 append-only `COORDINATION.md` tail conflict. PR #155's publication record and this record were both retained, and no
 code or generated output changed in that second rebase.
+---
+
+### Duplicate-audit collision — arena/80b0ddcc-zone1 (2026-11-19 UTC)
+
+This session independently identified the same source-citation qualification gap fixed by
+[PR #152](https://github.com/kanlerxz87-cyber/Zone1/pull/152). PR #153 passed both of its PR
+checks, but its merge request became conflicting because PR #152 had already merged the canonical
+functional change. The branch was rebased onto current `main` and all duplicate generator/output
+changes were intentionally dropped in favour of the already-merged, reproducible implementation.
+
+The final reconciliation leaves only this coordination record. It preserves PR #152's rule that all
+346 real generated Amazon product destinations carry `rel="sponsored"`, while retaining S22's fake
+resolver token as the non-product control exception. The [PR #152 publication record](https://github.com/kanlerxz87-cyber/Zone1/pull/155)
+immediately above is the authoritative deployment confirmation. No product facts, source values,
+tracking state, or account-only decisions were changed by this reconciliation.
