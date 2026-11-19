@@ -29,7 +29,9 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 ENDPOINT_PATH = "/api/analytics/events"
 MAX_BODY_BYTES = 1024
-BROWSER_EVENTS = {"page_view", "outbound_click", "article_engagement", "comparison_interaction"}
+# Event names are taken from the same contract that build.py renders.
+EVENT_PLAN = json.loads((DATA / "analytics-plan.json").read_text(encoding="utf-8"))
+BROWSER_EVENTS = {event["name"] for event in EVENT_PLAN["events"] if event["origin"] == "browser"}
 
 
 def _json(path: Path) -> dict[str, Any]:
@@ -46,6 +48,8 @@ def allowed_page_ids() -> set[str]:
         "categories/kitchen-appliances",
         "guides/buying-guide-air-fryers",
         "articles/index",
+        "clusters",
+        "about",
     }
     products = _json(DATA / "products.json").get("products", [])
     articles = _json(DATA / "articles.json").get("articles", [])
@@ -64,7 +68,7 @@ def validate_payload(payload: Any) -> dict[str, str]:
         raise ValueError("event body must be an object")
     event = payload.get("event")
     page_id = payload.get("page_id")
-    if event not in BROWSER_EVENTS:
+    if not isinstance(event, str) or event not in BROWSER_EVENTS:
         raise ValueError("event is not allowed from a browser")
     if not isinstance(page_id, str) or page_id not in allowed_page_ids():
         raise ValueError("unknown canonical page ID")
@@ -74,12 +78,12 @@ def validate_payload(payload: Any) -> dict[str, str]:
     if event == "outbound_click":
         allowed_keys.add("target_id")
         target_id = payload.get("target_id", "")
-        if not isinstance(target_id, str) or (target_id and target_id not in allowed_product_ids()):
+        if not isinstance(target_id, str) or target_id not in allowed_product_ids():
             raise ValueError("outbound link ID is not allow-listed")
         result["target_id"] = target_id
     elif event == "article_engagement":
-        if not (page_id.startswith("articles/") or page_id.startswith("guides/")):
-            raise ValueError("engagement is only defined for articles and guides")
+        if page_id == "articles/index" or not (page_id.startswith("articles/") or page_id.startswith("guides/")):
+            raise ValueError("engagement is only defined for published articles and guides")
         allowed_keys.add("bucket")
         bucket = payload.get("bucket")
         if bucket != "60s":
@@ -111,8 +115,13 @@ def _database_path(raw_path: str) -> Path:
 
 def _origin(raw: str) -> str:
     parsed = urlsplit(raw)
-    if parsed.scheme != "https" or not parsed.netloc or parsed.path or parsed.query or parsed.fragment:
-        raise ValueError("public origin must be an HTTPS origin with no path")
+    if (parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password
+            or parsed.path or parsed.query or parsed.fragment):
+        raise ValueError("public origin must be an HTTPS origin with no credentials or path")
+    try:
+        parsed.port
+    except ValueError as exc:
+        raise ValueError("public origin has an invalid port") from exc
     return f"https://{parsed.netloc.lower()}"
 
 
@@ -188,6 +197,10 @@ def make_handler(environ: Mapping[str, str] | None = None):
         server_version = "Zone1AggregateCollector"
         sys_version = ""
 
+        def setup(self) -> None:
+            super().setup()
+            self.connection.settimeout(5)
+
         def log_message(self, _format: str, *args: Any) -> None:
             # BaseHTTPRequestHandler logs the remote address by default. Do not emit it.
             return
@@ -211,6 +224,14 @@ def make_handler(environ: Mapping[str, str] | None = None):
             if self.headers.get("Origin", "") != config["origin"]:
                 _json_response(self, 403, {"error": "origin_not_allowed"})
                 return
+            if self.headers.get("DNT") == "1" or self.headers.get("Sec-GPC") == "1":
+                self.send_response(204)
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                return
+            if self.headers.get("Transfer-Encoding"):
+                _json_response(self, 400, {"error": "content_length_required"})
+                return
             content_type = self.headers.get("Content-Type", "").split(";", 1)[0].strip().lower()
             if content_type != "application/json":
                 _json_response(self, 415, {"error": "json_required"})
@@ -225,9 +246,14 @@ def make_handler(environ: Mapping[str, str] | None = None):
             try:
                 raw = self.rfile.read(length)
                 payload = json.loads(raw.decode("utf-8"))
-                record_event(config["db_path"], payload)
-            except (UnicodeDecodeError, json.JSONDecodeError, ValueError, OSError, sqlite3.Error):
+                validate_payload(payload)
+            except (UnicodeDecodeError, json.JSONDecodeError, ValueError, OSError):
                 _json_response(self, 400, {"error": "invalid_event"})
+                return
+            try:
+                record_event(config["db_path"], payload)
+            except (OSError, sqlite3.Error):
+                _json_response(self, 503, {"error": "storage_unavailable"})
                 return
             _json_response(self, 202, {"accepted": True})
 

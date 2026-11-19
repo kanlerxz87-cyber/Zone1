@@ -21,35 +21,25 @@ document.addEventListener('click', function (ev) {
   }
 });
 
-document.addEventListener('click', function (ev) {
-  var t = ev.target.closest('.navtoggle');
-  if (!t) return;
-  var nav = document.getElementById(t.getAttribute('aria-controls'));
-  if (!nav) return;
-  var open = nav.classList.toggle('open');
-  t.setAttribute('aria-expanded', open ? 'true' : 'false');
-});
-
-// revenue scenario calculator — arithmetic on two published inputs only
+// Native details navigation works without JS. Enhance it with Escape, outside-click
+// dismissal and one-open-at-a-time behavior; no custom keyboard trap or storage.
 (function () {
-  var form = document.getElementById('calc');
-  if (!form) return;
-  var fields = ['profit', 'price', 'rate', 'conv'];
-  function num(id, d) { var v = parseFloat(document.getElementById(id).value); return isFinite(v) ? v : d; }
-  function run() {
-    var price = num('price', 0), rate = num('rate', 0) / 100,
-        conv = num('conv', 0) / 100, clicks = num('clicks', 0);
-    var commission = price * rate;
-    var sales = clicks * conv;
-    var revenue = sales * commission;
-    document.getElementById('out-commission').textContent = '$' + commission.toFixed(2);
-    document.getElementById('out-sales').textContent = sales.toFixed(1);
-    document.getElementById('out-revenue').textContent = '$' + revenue.toFixed(2);
-    document.getElementById('out-epc').textContent = '$' + (clicks > 0 ? revenue / clicks : 0).toFixed(3);
-  }
-  form.addEventListener('input', run);
-  form.addEventListener('submit', function (e) { e.preventDefault(); run(); });
-  run();
+  var menus = document.querySelectorAll('.masthead details');
+  menus.forEach(function (menu) {
+    menu.addEventListener('toggle', function () {
+      if (!menu.open) return;
+      menus.forEach(function (other) { if (other !== menu) other.open = false; });
+    });
+  });
+  document.addEventListener('click', function (ev) {
+    menus.forEach(function (menu) { if (!menu.contains(ev.target)) menu.open = false; });
+  });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key !== 'Escape') return;
+    menus.forEach(function (menu) {
+      if (menu.open) { menu.open = false; menu.querySelector('summary').focus(); }
+    });
+  });
 })();
 
 // Owner decision picker (2026-11-16, arena/ba29c641) — decision-log.html only.
@@ -185,8 +175,8 @@ document.addEventListener('click', function (ev) {
 // Shopfront pass (2026-11-17, arena/fd9778a1-zone1) — two presentation behaviours.
 // Both are progressive: with JavaScript off the tables still scroll (the fade is the
 // only thing missing), the comparison bar stays visible, and no content is hidden.
-// No network call, no storage, no measurement — this site records nothing (see the
-// cookies notice in the footer and measurement.html).
+// These presentation behaviors make no network call and store no reader data.
+// Measurement, when enabled, is isolated in analytics/client.js.
 (function () {
   // Tell the reader a wide table continues past the right edge. The hint element
   // lives outside the scroller, so it stays put while the table moves.

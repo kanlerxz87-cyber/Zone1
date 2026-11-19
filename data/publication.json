@@ -1,0 +1,121 @@
+{
+  "edition": "November 2026",
+  "updated": "2026-11-19",
+  "positioning": "Practical questions for a more considered kitchen.",
+  "editorial_note": "Front-page choices are editorial selections, not popularity rankings or evidence of product performance.",
+  "featured_articles": ["air-fryer-capacity-guide", "small-kitchen-air-fryer-dimensions", "how-to-clean-an-air-fryer"],
+  "lead_guide": "dual-basket-vs-oven-air-fryer",
+  "seasonal_guide": "air-fryer-gift-guide-2026",
+  "seasonal_followup": "black-friday-model-number-switch",
+  "imagery": {
+    "hero": "assets/editorial/kitchen-counter.webp",
+    "alt": "Editorial illustration of a green bowl, golden potato wedges, lemon and linen on a sunlit kitchen counter",
+    "caption": "AI-generated editorial illustration. Not product photography or a cooking test.",
+    "format_art": "Original schematic illustrations, not photographs, brand assets or scale drawings."
+  },
+  "cadence": {
+    "status": "scheduled_review_not_automatic_publication",
+    "rule": "Review one buyer question each Tuesday; publish at most one guide after source, disclosure and link gates pass. New writing stays paused until the production measurement/access gate is cleared. A build refresh is not an article publication.",
+    "first_review_date": "2026-11-24",
+    "monthly": "Review authorized Search Console query/page aggregates and Associates report totals monthly. Refresh or choose the next topic from measured reader needs, not assumed popularity.",
+    "demand_status": "No query, traffic, conversion or revenue data has been obtained. Seasonal subjects are editorial hypotheses, not verified trends."
+  },
+  "decisions": [
+    {
+      "priority": "01 · Revenue gate",
+      "question": "Are these the intended products, and do the links attribute to shopnow047c-20?",
+      "known": "Five supplied links and a user-selected tracking ID are recorded. Intended ASINs and enrolled-Associates tests remain blank.",
+      "missing": "Account approval, intended official listing for each link, confirmation date/source, and one destination/report test per product.",
+      "discover": "Use the enrolled Associates workflow to confirm each listing and generate/test its Special Link; check the Tracking ID Summary Report. Do not infer failure from a landing URL without a visible tag.",
+      "recommendation": "Keep purchase CTAs gated; retain observed redirects as observations, never intent confirmations.",
+      "question_ids": ["Q-01", "Q-04", "Q-28", "Q-37"],
+      "suggestion_ids": ["SG-01", "SG-37"],
+      "sources": ["S2", "S23", "S41", "S42"],
+      "state": "Blocked · account evidence"
+    },
+    {
+      "priority": "02 · Measure first",
+      "question": "Where can a real analytics event be received, and what may be retained?",
+      "known": "The browser and Python collector now share a tested five-event contract. Production collection is disabled.",
+      "missing": "Persistent same-origin host, approved privacy/retention notice, host/proxy log review and a production aggregate receipt.",
+      "discover": "Deploy the supported collector behind TLS, review the host logs, and prove one authorized diagnostic receipt before enabling both switches.",
+      "recommendation": "Use the aggregate-only self-hosted route. No third-party tracker, fabricated session count or browser conversion pixel.",
+      "question_ids": ["Q-08", "Q-30"],
+      "suggestion_ids": ["SG-08", "SG-38", "SG-47"],
+      "sources": ["S38", "S2"],
+      "state": "Blocked · persistent runtime"
+    },
+    {
+      "priority": "03 · Findability",
+      "question": "Which searches actually bring people here?",
+      "known": "One canonical publication, a generated sitemap, RSS and question-led editorial clusters exist. No search-performance report has been obtained.",
+      "missing": "Verified Search Console property, sitemap submission receipt and dated query/page aggregates.",
+      "discover": "Verify the URL-prefix property for the GitHub Pages subpath in an authorized Google account; submit sitemap.xml and review the Performance report when data exists.",
+      "recommendation": "Treat the topic queue as hypotheses until measured impressions/clicks justify the next guide. No ranking or traffic promise.",
+      "question_ids": ["Q-07", "Q-31", "Q-33"],
+      "suggestion_ids": ["SG-05", "SG-29"],
+      "sources": ["S44", "S45"],
+      "state": "Blocked · account verification"
+    },
+    {
+      "priority": "04 · Useful scope",
+      "question": "Should meat thermometers join the air-fryer publication?",
+      "known": "Two supplied links have observed thermometer listing titles. Their intended models and specifications are unconfirmed.",
+      "missing": "Intended models, official model-to-listing evidence and a decision to expand coverage.",
+      "discover": "Reconcile the manufacturer model with the intended official listing before adding product reviews or comparisons. Keep the research records separate meanwhile.",
+      "recommendation": "Keep air fryers as the editorial focus; expose the thermometer research category without invented specifications.",
+      "question_ids": ["Q-27"],
+      "suggestion_ids": ["SG-36"],
+      "sources": ["S36", "S37", "S39", "S40"],
+      "state": "Review · product scope"
+    },
+    {
+      "priority": "05 · Authorship",
+      "question": "Who is responsible for the publication, and what experience may it claim?",
+      "known": "Zone1 Kitchen is the site identity and its repository owner is public. Content is AI-assisted and documentation-based; no hands-on testing is established.",
+      "missing": "A named, consenting human editor and evidence for any claimed expertise or product testing.",
+      "discover": "Obtain an authorized byline/profile and a written review responsibility. A person or credential cannot be supplied by inference.",
+      "recommendation": "Publish the method and repository contact now; do not invent an expert, test lab or headshot.",
+      "question_ids": ["Q-09", "Q-32"],
+      "suggestion_ids": ["SG-03", "SG-32"],
+      "sources": ["S8", "S44"],
+      "state": "Partial · method published"
+    },
+    {
+      "priority": "06 · Imagery",
+      "question": "What imagery is useful without pretending we tested the products?",
+      "known": "The front page uses a labeled AI-generated kitchen still life and original generic format drawings. No product photos have been licensed.",
+      "missing": "Rights-cleared model-specific photography or documented original product photography.",
+      "discover": "Obtain written brand-media permission or a real, documented photo shoot. Match the photographed SKU before it appears next to a product claim.",
+      "recommendation": "Keep editorial art visibly separate from product evidence; use no fabricated product photo or customer testimonial.",
+      "question_ids": ["Q-22", "Q-34"],
+      "suggestion_ids": ["SG-23", "SG-42"],
+      "sources": ["S2", "S8", "S44"],
+      "state": "Partial · editorial art shipped"
+    },
+    {
+      "priority": "07 · Publication cadence",
+      "question": "When does another guide earn a place in the journal?",
+      "known": "Existing guides are filed into reader-intent clusters. A Tuesday review cadence is now documented, not a promise of automatic publication.",
+      "missing": "Production measurement/access clearance, a responsible reviewer, and measured query evidence for future topic choices.",
+      "discover": "Review one question weekly; require a buyer takeaway, primary citations, link checks and disclosure review before release. Use dated query reports when available.",
+      "recommendation": "Improve existing useful guides before generating volume. Every approved article must enter the article register, sitemap and RSS together.",
+      "question_ids": ["Q-10", "Q-23", "Q-36"],
+      "suggestion_ids": ["SG-24", "SG-43"],
+      "sources": ["S44", "S30"],
+      "state": "Scheduled · writing paused"
+    },
+    {
+      "priority": "08 · Automation boundary",
+      "question": "Which research and optimization can run without restricted inputs?",
+      "known": "Builds, schema checks, link checks, source coverage and report-validation code can run automatically. Live Amazon research/optimization is not running.",
+      "missing": "Authorized API access and permissions for each proposed use, first-party campaign evidence and an approved publishing workflow.",
+      "discover": "Review the current API and Agent Terms before connecting a service; separate manufacturer facts and first-party aggregates from restricted Amazon Program Content.",
+      "recommendation": "Automate deterministic checks, not unsupported profitability claims. No review scraping, price alerts, model training on Program Content or autonomous spend.",
+      "question_ids": ["Q-05", "Q-18", "Q-21", "Q-26"],
+      "suggestion_ids": ["SG-14", "SG-18", "SG-34"],
+      "sources": ["S2", "S24"],
+      "state": "Partial · safe gates automated"
+    }
+  ]
+}

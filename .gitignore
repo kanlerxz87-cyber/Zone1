@@ -3,6 +3,11 @@ __pycache__/
 .DS_Store
 .venv/
 
-# python bytecode from the local test runs
-__pycache__/
-*.pyc
+# Local diagnostics and browser tooling, never campaign evidence
+.arena/
+node_modules/
+_site/
+*.sqlite3
+*.sqlite3-*
+*.ndjson
+*.json.lock

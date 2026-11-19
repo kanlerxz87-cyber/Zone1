@@ -11,8 +11,8 @@
   "Anything about the operator's own account (approval, tag, category assignment, sales) is 'account-only' unless an official page settles it."
  ],
  "commission": {
-  "heading": "What one sale is actually worth",
-  "summary": "Amazon pays a fixed percentage per category, not per product. Two rows of the official table are plausible for the three air fryers, and Amazon publishes no mapping from an ASIN to a category, so the honest answer is a range until the operator reads their own signed-in report.",
+  "heading": "What an official category rate can — and cannot — establish",
+  "summary": "Amazon publishes a fixed rate by category. The rows below are illustrative official rates, not an exhaustive range or an established assignment for these products. Brand list-price arithmetic is not an order report, actual qualifying revenue or a payout forecast.",
   "rows": [
    {
     "label": "Kitchen (air fryers plausibly sit here)",
@@ -65,9 +65,9 @@
    }
   ],
   "caveats": [
-   "Commission is paid on Qualifying Revenue, which Amazon defines as what it actually receives less shipping, gift wrap, handling, taxes, service charges, credits, rebates, card fees and bad debt — a real payout is therefore lower than the arithmetic above.",
-   "A sale is only attributed if the click came through a correctly tagged Special Link. The three supplied links show no tag in their landing URL, so as supplied they are evidence of a destination, not of an attribution path. [Narrowed 2026-11-17 by arena/58cbaaa2: per S41 a tracking ID need not appear in the click-through URL for a sale to be attributed, so the absence of a tag= parameter is a null observation, not evidence about attribution. The five submitted links are recorded on product-intent.html; flag F81.]",
-   "The category that applies to a given ASIN is not published publicly. 4.50% vs 4.00% is a $0.60 difference on a $120 item; it is not worth guessing, and it is not worth blocking the site over."
+   "The examples multiply a historical brand list price by an illustrative official category rate. Neither input establishes an Amazon sale, qualifying revenue, assigned category, attribution or payout. The real result could differ; the examples are not a ceiling or a forecast.",
+   "Attribution is account/report evidence, not a URL inspection. Per S41 a tracking ID need not appear in the landing URL after the initial click. The five submitted links and unconfirmed intent/test fields are recorded separately on product-intent.html.",
+   "The per-ASIN commission assignment is not established. Do not choose a convenient rate from a shopper browse breadcrumb or extrapolate the arithmetic into traffic, order or profit claims."
   ]
  },
  "niche": {

@@ -986,7 +986,7 @@
       "cluster": "live",
       "kicker": "Power, documented",
       "title": "1700 watts, three manuals, and one extension-cord rule that is not the same",
-      "standfirst": "All three appliances in this set carry the same wattage rating from their manufacturers. Their manuals do not agree on how to power them, and one of the three rules is absolute.",
+      "standfirst": "All three appliances carry the same published wattage rating. Their manuals need a closer read: the Emeril guide contains two conflicting extension-cord passages.",
       "target_query": "air fryer 1700 watts extension cord manual",
       "intent": "Informational",
       "reading_minutes": 5,
@@ -1010,7 +1010,7 @@
           ]
         },
         {
-          "h": "The Chefman manuals: an extension cord is allowed, with one condition",
+          "h": "The Chefman manuals: conditional permission, with safeguards",
           "paras": [
             "Both Chefman manuals explain that the supplied cord is deliberately short, to reduce entanglement and tripping hazards. A longer detachable extension cord may be used if care is exercised, and both manuals attach the same condition: the marked electrical rating of the extension cord should be at least as great as the electrical rating of the appliance. The longer cord, they add, should be arranged so it will not drape over a countertop or tabletop where it can be pulled on or tripped over.",
             "Before any of that, both manuals ask a question most buyers skip: check that the home power supply corresponds with the intended voltage of the appliance."
@@ -1021,10 +1021,11 @@
           ]
         },
         {
-          "h": "The Emeril manual: the rule is absolute",
+          "h": "The Emeril manual: two passages that conflict",
           "paras": [
-            "The French Door AirFryer 360's manual states it differently, in its safeguards: never use with an extension cord. That line is the manufacturer's, not this site's, and it is the sharpest single instruction in this comparison.",
-            "The same safeguards section defines where the appliance may sit: a flat, heat-resistant surface, countertop use only, not in an enclosed space or under hanging cabinets, with free space left on the top, back and sides and above the appliance, and never on a cooktop."
+            "The French Door AirFryer 360 manual says “NEVER use with an extension cord” in safeguard 9. The next section, “Attaching the Power Cord,” says longer extension cords may be used if care is exercised, and lists rating, routing and grounding conditions. Those are conflicting instructions in the same official document, not a difference this publication can resolve.",
+            "Correction, 19 November 2026: this guide previously called the Emeril rule absolute after reading only the safeguard. It should have reported both passages. Do not treat the permissive paragraph as approval to use an extension cord; get model-specific clarification from official support or a qualified professional before relying on it.",
+            "The safeguards also specify a flat, heat-resistant countertop surface, no enclosed or under-cabinet operation, free space around the top, back and sides, and no placement on a cooktop."
           ],
           "cite": [
             "S15"
@@ -1033,8 +1034,8 @@
         {
           "h": "What a buyer can take from three manuals",
           "paras": [
-            "If one of these appliances is heading for a kitchen where the outlet is far from the counter, the manuals' difference matters before any feature does. Two manufacturers permit a rated extension cord with care; the third forbids the cord outright and instead defines the clearance around the unit.",
-            "None of this is this site's advice. It is each manufacturer's instruction, quoted from the manuals and linked per section, with the wattage rows taken from the dataset's published values."
+            "If the outlet is far from the planned location, settle the electrical requirements before buying. The two Chefman manuals give conditional extension-cord instructions. The Emeril manual contains an internal contradiction; this site does not choose its more convenient paragraph.",
+            "Follow the instructions for the exact model that ships and obtain official clarification where they conflict. These excerpts are not a wiring assessment, safety certification or substitute for professional advice."
           ],
           "cite": [
             "S15",
@@ -1043,7 +1044,9 @@
           ]
         }
       ],
-      "closing_note": "No appliance in this article was plugged in, measured or tested. The power rows are published dataset values sourced to the manufacturer pages, and the cord instructions are quoted from the owner's manuals."
+      "closing_note": "No appliance in this article was plugged in, measured or tested. The power rows are published dataset values sourced to the manufacturer pages, and the cord instructions are quoted from the owner's manuals.",
+      "updated": "2026-11-19",
+      "correction_note": "Corrected 19 November 2026: the earlier version called the Emeril rule absolute. Reading the adjacent power-cord section exposed a conflicting permission. Both passages are now shown; no electrical approval is inferred (F97)."
     },
     {
       "slug": "whats-in-the-box",

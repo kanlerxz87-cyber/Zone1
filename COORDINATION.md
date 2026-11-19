@@ -6133,3 +6133,39 @@ for its own pass (shared outputs: `index.html`, NAV in `build.py`).
 Read the shared board and the most recent integration records before claiming. Current working branch is the Arena-assigned `arena/53d18637-zone1`; the environment requires using that branch rather than creating the older `session-*` naming convention. Base is `1eb1e56` (PR #151); origin/main is the same commit at claim time. No fresh claim on this board (all previous sessions' work is dated 17 November or earlier). Open PRs #139/#141/#144/#146/#150 were last updated 17 November; they will **not** be merged or overwritten by this session. Their scopes overlap historical measurement/register work; after >60 minutes idle this session claims only the current canonical implementation and records the handoff here. The independent builds (`s2/`, `site/`, `docs/`, `research/`, `dashboard/`, `annex-88769516/`, `session-*/`) remain untouched. Their public URLs remain reachable as archives/evidence, not additional indexable publications.
 
 Before new editorial content: inspect and test the existing click/analytics machinery. No new claim of popularity, orders, profit, current price, valid account ownership or deployed persistent analytics will be made without a matching authorized source. The selected ID `shopnow047c-20` is a user-supplied selection, not proof of enrollment. Unconfirmed intended ASINs remain blank; observed redirects stay separate. No generated Special Link will be activated without the per-product enrolled-Associates destination/report gate. Official pages that cannot be reached will be logged as unverified **this session**, not quietly treated as re-verified.
+
+### Integration checkpoint — arena/53d18637, 19 November 2026
+
+Z14-1..3 are locally implemented and tested; Z14-4 integration/release is still in progress.
+Current local gates: 59 canonical pages, 36 sitemap URLs, 24 RSS items; 35 canonical Python
+unit tests, 8 generated-client Node tests, 33 inherited engine tests; verify.py 137 pages,
+77 spec rows (75 populated/two blank+flagged), 48 sources, zero external warnings/errors.
+The staged artifact contains 59 canonical and 78 archived HTML pages, with exactly 36
+indexable HTML URLs matching the sitemap. Real Chromium/local HTTPS: 232 layout checks,
+10 scoped axe scans with zero reported violations, keyboard focus/native menus, no-JS
+navigation and print-disclosure checks passed. Ephemeral fixture receipts are not production
+analytics; there were no external/Amazon requests, and the real campaign ledger remains empty.
+A deliberately stale homepage was rejected by the pre-build hash gate (exit 1), then restored.
+Independent research/site rebuild checks passed without changing their source/output files.
+
+**Concurrent-main handoff:** a fresh fetch found `origin/main=cb33d97` (PRs #152–#158),
+including arena/c1706796's all-product-destination qualification, arena/62a6f797's requirement
+file-link guard and arena/9b3365c7's reader/nav/flag-anchor/decision-brief work. Those completed
+changes landed while this branch was working from `1eb1e56`; none will be silently discarded.
+The implementation checkpoint is committed before rebasing, then the latest checks and data
+will be integrated. Current IDs on main occupy F90–F95, SG-49/50 and Q-41; this branch's new
+IDs were renumbered in a single pass before integration:
+
+| Draft here | Integration ID | Meaning |
+|---|---|---|
+| F90/F91/F92 | F96/F97/F98 | analytics contract / contradictory electrical instructions / evidence boundaries |
+| SG-49/50/51 | SG-51/52/53 | analytics contract / publication-workspace split / staged archives |
+| Q-41/Q-42 | Q-42/Q-43 | electrical contradiction / tests versus deployment |
+
+The publication intentionally goes further than the older sidebar-based front page, but
+retains its underlying requirement that every dashboard remains available. No owner choice,
+intent, account approval, profit/traffic result or persistent analytics host is invented.
+The Pages API currently reports **legacy branch publishing** as well as successful custom
+workflows; final release must select workflow publishing so the verified staged artifact,
+not a parallel whole-checkout build, is the authoritative deployment. That setting and the
+actual PR/merge/Actions/live receipts will be recorded after they happen.

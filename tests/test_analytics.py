@@ -29,18 +29,21 @@ class CollectorValidationTests(unittest.TestCase):
             {"event": "page_view", "page_id": "index", "referrer": "https://example.test/?email=x"},
             {"event": "page_view", "page_id": "../secret"},
             {"event": "affiliate_report_import", "page_id": "index"},
+            {"event": [], "page_id": "index"},
+            {"event": {"bad": True}, "page_id": "index"},
+            {"event": "outbound_click", "page_id": "index"},
         ):
             with self.subTest(payload=payload), self.assertRaises(ValueError):
                 validate_payload(payload)
 
     def test_engagement_is_a_fixed_bucket_and_only_for_published_reading_pages(self) -> None:
         self.assertEqual(
-            validate_payload({"event": "article_engagement", "page_id": "articles/index", "bucket": "60s"})["bucket"],
+            validate_payload({"event": "article_engagement", "page_id": "articles/air-fryer-capacity-guide", "bucket": "60s"})["bucket"],
             "60s",
         )
         for payload in (
             {"event": "article_engagement", "page_id": "index", "bucket": "60s"},
-            {"event": "article_engagement", "page_id": "articles/index", "bucket": "61s"},
+            {"event": "article_engagement", "page_id": "articles/air-fryer-capacity-guide", "bucket": "61s"},
         ):
             with self.subTest(payload=payload), self.assertRaises(ValueError):
                 validate_payload(payload)
@@ -69,6 +72,29 @@ class CollectorValidationTests(unittest.TestCase):
                 rows = db.execute("SELECT day,event,page_id,target_id,bucket,count FROM daily_events").fetchall()
             self.assertEqual(columns, ["day", "event", "page_id", "target_id", "bucket", "count"])
             self.assertEqual(rows, [("2026-11-17", "page_view", "index", "", "", 2)])
+
+    def test_concurrent_increments_are_not_lost(self):
+        from concurrent.futures import ThreadPoolExecutor
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "aggregate.sqlite3"
+            event = {"event": "outbound_click", "page_id": "index", "target_id": self.product}
+            with ThreadPoolExecutor(max_workers=8) as pool:
+                list(pool.map(lambda _: record_event(path, event), range(40)))
+            with sqlite3.connect(path) as db:
+                self.assertEqual(db.execute("SELECT sum(count) FROM daily_events").fetchone()[0], 40)
+
+    def test_engagement_listing_page_is_not_an_article(self):
+        with self.assertRaises(ValueError):
+            validate_payload({"event": "article_engagement", "page_id": "articles/index", "bucket": "60s"})
+
+    def test_daily_retention_is_applied(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "events.sqlite3"
+            event = {"event": "page_view", "page_id": "index"}
+            record_event(path, event, now=datetime(2020, 1, 1, tzinfo=timezone.utc))
+            record_event(path, event, now=datetime(2026, 11, 19, tzinfo=timezone.utc))
+            with sqlite3.connect(path) as db:
+                self.assertEqual(db.execute("SELECT day,count FROM daily_events").fetchall(), [("2026-11-19", 1)])
 
     def test_disabled_http_service_fails_closed(self) -> None:
         server = ThreadingHTTPServer(("127.0.0.1", 0), make_handler({}))
@@ -155,6 +181,22 @@ class ReportImportTests(unittest.TestCase):
             saved = json.loads(ledger.read_text(encoding="utf-8"))
             self.assertEqual(len(saved["rows"]), 1)
             self.assertEqual(saved["rows"][0]["reported_orders"], 2)
+
+    def test_missing_report_fields_remain_blank_not_zero(self):
+        row = self.valid_row()
+        row["eligible_sessions"] = None
+        normalized = normalize_row(row)
+        self.assertIsNone(normalized["eligible_sessions"])
+
+    def test_conflicting_reimport_is_flagged_not_silently_dropped(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "ledger.json"
+            path.write_text(json.dumps({"rows": []}))
+            row = self.valid_row()
+            append_report_row(row, path)
+            row["clicks"] = 9
+            with self.assertRaises(ValueError):
+                append_report_row(row, path)
 
 
 if __name__ == "__main__":

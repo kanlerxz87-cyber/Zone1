@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "compiled": "2026-11-17",
+  "compiled": "2026-11-19",
   "preamble": "A decision is only as good as the information behind it. This page separates four states that are usually mixed together: what we know and can prove, what we do not know but could look up, what the official source does not state, and what we cannot know at all without information that only the account holder possesses. Every suggestion on the Suggestions page points at the rows below that block it. Nothing here is a guess about what the answer probably is. Questions in the 'known and sourced' state carry their answer on the row: an official source already settles them, and the answer is what the source says. Every other row states plainly that no answer is published, and names the step that would produce one.",
   "legend": {
     "known": "Verified against an official source this pass fetched itself, or recorded by an earlier pass whose fetch is logged in this repository. The source link is on the row.",
@@ -1035,7 +1035,8 @@
         "Amazon's Operating Agreement section 1 defines Program Content to include the data, images and text available through the program, and the site publishes no Amazon image for that reason.",
         "The manufacturer pages carry their own photography on Shopify's CDN; nothing in this repository records a licence from Chefman or Emeril to reuse it.",
         "The site's only current imagery is four generated SVG diagrams and a generated social card, both described as such on figures.html.",
-        "Generated or copied pictures of a specific product would misrepresent the item a reader is being paid to send to a retailer, which is why that option is recorded as rejected, not deferred."
+        "Generated or copied pictures of a specific product would misrepresent the item a reader is being paid to send to a retailer, which is why that option is recorded as rejected, not deferred.",
+        "The 2026-11-19 front page uses labeled AI-generated non-product kitchen art and original generic format drawings. No licensed product photograph or generated model likeness is claimed."
       ],
       "what_is_missing": "Either a photograph you took (with a sentence saying who took it and when), or written permission from a brand naming this site, or an explicit decision to stay text-and-diagrams. All three are answers; only the first two need doing.",
       "how_to_discover": "Option one is an afternoon with a phone: three units, front, open, and the model plate, plus a line of caption. Option two is one email each to Chefman and Emeril press asking for permission to use product imagery on this site specifically, with the reply filed in data/sources.json like any other fact.",
@@ -1062,14 +1063,14 @@
       "id": "Q-35",
       "group": "Brand",
       "question": "What is this site for, in one sentence a shopper would repeat: a buying guide, a deals page, or a verification service?",
-      "state": "missing",
+      "state": "known",
       "why_it_matters": "The brief asks simultaneously for a marketing affiliate site, a dashboard of every finding, and a compliance-grade source register. Those three products want different front pages, different vocabulary and different evidence. Every design row in the queue is downstream of this answer, which is why the site keeps oscillating between a shop and an audit.",
       "what_we_know": [
         "The repository's own positioning row says the niche was dictated by the product set, not chosen by research (data/marketing.json).",
         "The front page now leads with the three machines and puts the metrics under the comparison table, which is the buying-guide reading of the brief.",
         "A deals page is not available to this site as configured: it may not display Amazon prices or ratings without the API, and it runs no paid placements."
       ],
-      "what_is_missing": "One sentence, owned by you, and consistency with it. If the answer is 'a buying guide', the register pages move to the footer permanently and the article set gets the front page. If it is 'a verification service for people who buy appliances', the flags and the read dates move up, and the site should stop imitating a shop.",
+      "what_is_missing": "Measured reader demand and conversion evidence are still unavailable; this editorial direction is not measured superiority.",
       "how_to_discover": "No research step exists. Write the sentence, then have a pass test every page against it: any surface that does not serve the sentence becomes an annex. Decisions R-9 to R-12 on design-prompt.html are where it gets recorded.",
       "blocks": [
         "SG-39",
@@ -1090,7 +1091,7 @@
           "url": "https://kanlerxz87-cyber.github.io/Zone1/articles/no-amazon-prices.html"
         }
       ],
-      "answer": null
+      "answer": "The standing brief is a buyer-first kitchen publication, not a deals feed or public audit dashboard. data/publication.json records that positioning; owner records remain under Workspace and the footer."
     },
     {
       "id": "Q-36",
@@ -1101,7 +1102,8 @@
       "what_we_know": [
         "Every article is machine-checked: a value quoted in prose must already be a published value in the dataset, an unregistered source citation fails the build, and banned stock phrases fail it too.",
         "The voice rules on design-prompt.html are the editorial standard currently enforced, and they were adopted on 2026-11-16.",
-        "The kill rule proposed in SG-43 is the only published performance commitment in the content plan."
+        "The kill rule proposed in SG-43 is the only published performance commitment in the content plan.",
+        "2026-11-19 project plan: review one buyer question each Tuesday from 24 November, with at most one source-approved guide; new writing remains paused until production measurement/access is cleared. This is an agent implementation record, not a fabricated owner choice or actual publication receipt."
       ],
       "what_is_missing": "A cadence (SG-43), an editor - is a human reading each piece before it ships, or is the guard the only check? - and a byline policy, which is Q-32. Answering the editor question alone changes what 'published' means on this site.",
       "how_to_discover": "Owner decision, then recorded in data/topics.json as a cadence field and on the decisions register as a status change.",
@@ -1221,33 +1223,33 @@
       "id": "Q-40",
       "group": "Governance",
       "question": "Which accessibility and mobile standard is the design required to meet, and can this site cite it?",
-      "state": "missing",
+      "state": "known",
       "why_it_matters": "This pass widened tap targets to a 44 px minimum and added a fluid type scale. Both are usability choices the build enforces and no page claims they satisfy a standard, because the site cannot cite one: the verifier's official-host list contains no accessibility body, so a WCAG reference could not be linked as a source without weakening every other citation on the page. Recorded as F88.",
       "what_we_know": [
-        "The site's own checks confirm contrast pairs and disclosure presence, not conformance to an external standard.",
-        "Google's page-experience guidance asks whether content displays well on mobile and whether intrusive interstitials are avoided - both satisfied by the current build and quotable from a registered source (S43).",
-        "No accessibility standard is registered in data/sources.json, so no page on this site may assert conformance."
+        "W3C SC 2.5.8 is 24 × 24 CSS pixels at Level AA, with exceptions/spacing; SC 2.5.5 is 44 × 44 at Level AAA.",
+        "SC 2.4.7 requires a visible keyboard focus mode. A numeric target alone cannot prove full conformance.",
+        "The publication uses a 44 px design target for main controls, scrollable tables, visible keyboard focus and reduced-motion support. Browser/automated checks are scoped, not a WCAG certification."
       ],
-      "what_is_missing": "A decision on whether to hold the design to a named standard. If yes, an owner or agent pass must register the standard's own publisher page as a source - and the verifier's host list is the gate, which is a one-line change with a reason attached.",
-      "how_to_discover": "Decide the standard, then have a pass add its official page to data/sources.json and to verify.py's allow list in the same commit, so the claim and the citation arrive together. Do not add the claim first.",
+      "what_is_missing": "A comprehensive manual accessibility audit, assistive-technology checks and ongoing governance remain outside the current evidence.",
+      "how_to_discover": "Keep scope-specific test results in the verification report. Obtain a full manual audit before asserting WCAG conformance.",
       "blocks": [
         "SG-41"
       ],
       "sources": [
         {
-          "label": "Google page-experience guidance, the standard this site can currently cite",
-          "url": "https://developers.google.com/search/docs/appearance/page-experience"
+          "label": "W3C minimum target size (AA)",
+          "url": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html"
         },
         {
-          "label": "The verifier's official-host list",
-          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/verify.py"
+          "label": "W3C enhanced target size (AAA)",
+          "url": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-enhanced.html"
         },
         {
-          "label": "Flag F88",
-          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f88"
+          "label": "W3C focus visible (AA)",
+          "url": "https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html"
         }
       ],
-      "answer": null
+      "answer": "The authoritative criteria are now registered as S46, S47 and S48. The previous lack of an official-host citation is resolved; site-wide conformance is not established."
     },
     {
       "id": "Q-41",
@@ -1281,6 +1283,48 @@
         }
       ],
       "answer": ""
+    },
+    {
+      "id": "Q-42",
+      "group": "Evidence limits",
+      "question": "Do the two Emeril extension-cord passages give a consistent instruction?",
+      "state": "known",
+      "why_it_matters": "A convenient claim is not a verified answer; publish the unresolved boundary.",
+      "what_we_know": [
+        "Safeguard 9 in the fetched FAFO-001 manual says NEVER use with an extension cord.",
+        "The next Attaching the Power Cord section conditionally permits a longer extension cord. Both passages were read 2026-11-19."
+      ],
+      "what_is_missing": "Which instruction the manufacturer confirms for the exact shipped unit.",
+      "how_to_discover": "Ask official support for a model-specific written clarification; until then do not choose the permissive sentence as safety advice.",
+      "blocks": [],
+      "sources": [
+        {
+          "label": "Official source",
+          "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"
+        }
+      ],
+      "answer": "No. An internal source conflict is now flagged as F97; the guide is corrected."
+    },
+    {
+      "id": "Q-43",
+      "group": "Evidence limits",
+      "question": "Does a passing code test establish live analytics or Amazon attribution?",
+      "state": "known",
+      "why_it_matters": "A convenient claim is not a verified answer; publish the unresolved boundary.",
+      "what_we_know": [
+        "The Node/HTTP/schema tests use isolated fixtures; they cannot observe a production runtime or Associates account.",
+        "GitHub Pages is static; the collection switches and every deployment gate remain false."
+      ],
+      "what_is_missing": "A persistent same-origin deployment, approved notice/log handling and one authorized production aggregate receipt.",
+      "how_to_discover": "Complete the written deployment checklist, then separately perform the enrolled-Associates report test.",
+      "blocks": [],
+      "sources": [
+        {
+          "label": "Official source",
+          "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages"
+        }
+      ],
+      "answer": "No. Tested instrumentation, deployed collection and authorized conversion reports are three separate evidence levels."
     }
   ]
 }

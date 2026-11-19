@@ -55,6 +55,9 @@ OFFICIAL_HOSTS = {
     "cdn.shopify.com",
     "www.emerileveryday.com",
     "www.ftc.gov",
+    # W3C owns the accessibility criteria registered as S46–S48 (2026-11-19).
+    "www.w3.org",
+    "w3.org",
     "www.ecfr.gov",
     "docs.github.com",
     "github.com",
@@ -97,7 +100,8 @@ class _NestedAnchorParser(HTMLParser):
 
 def pages():
     for p in sorted(ROOT.rglob("*.html")):
-        if any(part.startswith(".") for part in p.relative_to(ROOT).parts):
+        if any(part.startswith(".") or part in {"node_modules", "_site", "__pycache__"}
+               for part in p.relative_to(ROOT).parts):
             continue
         yield p
 

@@ -10,10 +10,12 @@ report file. The repository's ledger remains empty until this explicit import is
 from __future__ import annotations
 
 import argparse
+import fcntl
 import json
 import os
 import re
 import sys
+import tempfile
 from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -71,9 +73,11 @@ def normalize_row(row: Any) -> dict[str, Any]:
     }
     for field in ("eligible_sessions", "clicks", "reported_orders"):
         value = row[field]
-        if isinstance(value, bool) or not isinstance(value, int) or value < 0:
-            raise ValueError(f"{field} must be a non-negative integer copied from the report")
+        if value is not None and (isinstance(value, bool) or not isinstance(value, int) or value < 0):
+            raise ValueError(f"{field} must be null or a non-negative integer copied from the report")
         normalized[field] = value
+    if all(normalized[field] is None for field in ("eligible_sessions", "clicks", "reported_orders")):
+        raise ValueError("at least one metric must actually be reported")
     return normalized
 
 
@@ -81,25 +85,42 @@ def append_report_row(row: Any, ledger_path: str | Path = DEFAULT_LEDGER) -> boo
     """Append a validated row atomically; return False for an already-imported row."""
     normalized = normalize_row(row)
     path = Path(ledger_path)
-    ledger = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(ledger, dict) or not isinstance(ledger.get("rows"), list):
-        raise ValueError("campaign ledger has an invalid schema")
-    key = ("timestamp_utc", "source_report", "channel", "date_range")
-    for existing in ledger["rows"]:
-        if all(existing.get(field) == normalized[field] for field in key):
-            return False
-    ledger["rows"].append(normalized)
-    temp = path.with_name(path.name + ".tmp")
-    temp.write_text(json.dumps(ledger, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    os.replace(temp, path)
-    return True
+    # Lock around read/compare/write, not just the final rename. Two authorized
+    # imports must not overwrite each other. No raw report or customer data is kept.
+    with path.with_suffix(path.suffix + ".lock").open("a") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        ledger = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(ledger, dict) or not isinstance(ledger.get("rows"), list):
+            raise ValueError("campaign ledger has an invalid schema")
+        key = ("timestamp_utc", "source_report", "channel", "date_range")
+        for existing in ledger["rows"]:
+            if all(existing.get(field) == normalized[field] for field in key):
+                if existing != normalized:
+                    raise ValueError("conflicting metrics for an already-imported report; review provenance")
+                return False
+        ledger["rows"].append(normalized)
+        temp = None
+        try:
+            with tempfile.NamedTemporaryFile(mode="w", dir=path.parent, prefix=".ledger-", delete=False, encoding="utf-8") as out:
+                temp = Path(out.name)
+                out.write(json.dumps(ledger, indent=2, ensure_ascii=False) + "\n")
+                out.flush()
+                os.fsync(out.fileno())
+            os.replace(temp, path)
+        finally:
+            if temp and temp.exists():
+                temp.unlink()
+        return True
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("report_row_json", type=Path, help="one JSON aggregate row copied from an authorized first-party report")
     parser.add_argument("--ledger", type=Path, default=DEFAULT_LEDGER, help="campaign ledger path (default: data/campaign-ledger.json)")
+    parser.add_argument("--authorized", action="store_true", help="confirm that this is an authorized first-party aggregate, not estimated data")
     args = parser.parse_args(argv)
+    if not args.authorized:
+        parser.error("--authorized is required; never import estimates or test fixtures into the real ledger")
     try:
         row = json.loads(args.report_row_json.read_text(encoding="utf-8"))
         added = append_report_row(row, args.ledger)

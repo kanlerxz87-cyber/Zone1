@@ -1,117 +1,96 @@
-
-/* Zone1 Kitchen - privacy-preserving outbound-click counter.
-   Shipped by build.py. Behaviour is driven entirely by the data attributes on
-   the script tag: with no data-endpoint the file does nothing at all.
-   No cookie, no identifier, no IP, no user agent, no referrer. */
+/* Zone1 Kitchen: first-party aggregate events, v2.
+   No request until a deployment is explicitly enabled by build.py.
+   No beacon API: fetch with credentials omitted avoids sending cookies. */
 (function () {
   "use strict";
-
-  var tag = document.currentScript;
-  if (!tag) { return; }
-  var endpoint = (tag.getAttribute("data-endpoint") || "").trim();
-  if (!endpoint) { return; }                 // no sink -> the counter is inert
-  var wanted = (tag.getAttribute("data-events") || "EV-01,EV-02,EV-03,EV-04")
-                 .split(",").map(function (s) { return s.trim(); })
-                 .filter(function (s) { return s.length > 0; });
-
-  function enabled(id) { return wanted.indexOf(id) !== -1; }
-  function utcDate() { return new Date().toISOString().slice(0, 10); }
-  function slug() {
-    var p = window.location.pathname;
-    var i = p.indexOf("/Zone1/");
-    if (i !== -1) { p = p.slice(i + 7); }
-    return p.replace(/index\.html$/, "") || "index.html";
-  }
-  function asinFrom(href) {
-    var m = /\/dp\/([A-Z0-9]{10})/.exec(href || "");
-    return m ? m[1] : "";
-  }
-  function tagFrom(href) {
-    var m = /[?&]tag=([^&]+)/.exec(href || "");
-    return m ? decodeURIComponent(m[1]) : "";
-  }
-
-  // The whole payload. Five named fields, no more. If a field is not known it
-  // is omitted rather than filled with a guess.
+  var script = document.currentScript;
+  if (!script) { return; }
+  var rawEndpoint = script.getAttribute("data-endpoint") || "";
+  if (!rawEndpoint) { return; }
+  var endpoint;
+  try {
+    endpoint = new URL(rawEndpoint, window.location.href);
+    if (endpoint.origin !== window.location.origin || endpoint.protocol !== "https:" ||
+        endpoint.pathname !== "/api/analytics/events" || endpoint.username || endpoint.password ||
+        endpoint.search || endpoint.hash) { return; }
+  } catch (err) { return; }
   function optedOut() {
-    // Do Not Track / Global Privacy Control honoured (collector-plan client).
     return navigator.doNotTrack === "1" || window.doNotTrack === "1" ||
            navigator.globalPrivacyControl === true;
   }
+  if (optedOut()) { return; }
+  var page = document.body.getAttribute("data-page-id");
+  var type = document.body.getAttribute("data-page-type");
+  if (!page || script.getAttribute("data-collection") !== "enabled") { return; }
 
-  function send(id, extra) {
-    if (!enabled(id)) { return; }
+  function send(name, extra) {
     if (optedOut()) { return; }
-    var body = { event: id, page: slug(), date: utcDate() };
+    var body = { event: name, page_id: page };
     if (extra) {
-      for (var k in extra) {
-        if (Object.prototype.hasOwnProperty.call(extra, k) && extra[k]) {
-          body[k] = extra[k];
-        }
-      }
+      Object.keys(extra).forEach(function (key) { body[key] = extra[key]; });
     }
-    var payload = JSON.stringify(body);
     try {
-      if (navigator.sendBeacon) {
-        // text/plain keeps this a simple request: no CORS preflight, and the
-        // body is never sent as a form post.
-        var blob = new Blob([payload], { type: "text/plain;charset=UTF-8" });
-        if (navigator.sendBeacon(endpoint, blob)) { return; }
+      fetch(endpoint.href, {
+        method: "POST", mode: "same-origin", credentials: "omit",
+        keepalive: true, referrerPolicy: "no-referrer",
+        headers: { "Content-Type": "application/json" }, body: JSON.stringify(body)
+      }).catch(function () { /* Measurement must not interrupt navigation. */ });
+    } catch (err) { /* Measurement must not interrupt navigation. */ }
+  }
+
+  // EV-01. Page loads are counts, not unique people or sessions.
+  if (document.visibilityState === "visible") {
+    send("page_view");
+  } else {
+    var firstVisible = function () {
+      if (document.visibilityState === "visible") {
+        send("page_view");
+        document.removeEventListener("visibilitychange", firstVisible);
       }
-    } catch (err) { /* fall through to fetch */ }
-    try {
-      fetch(endpoint, {
-        method: "POST",
-        mode: "no-cors",
-        keepalive: true,
-        credentials: "omit",
-        referrerPolicy: "no-referrer",
-        headers: { "Content-Type": "text/plain;charset=UTF-8" },
-        body: payload
-      }).catch(function () { /* a lost beacon must never break the page */ });
-    } catch (err) { /* ignore */ }
+    };
+    document.addEventListener("visibilitychange", firstVisible);
   }
 
-  // EV-02: only a real click on an Amazon product link.
-  document.addEventListener("click", function (ev) {
-    if (!ev.isTrusted || ev.button !== 0) { return; }
-    var el = ev.target;
-    while (el && el !== document.body) {
-      if (el.tagName === "A" && el.href) { break; }
-      el = el.parentNode;
-    }
-    if (!el || el.tagName !== "A") { return; }
-    var asin = asinFrom(el.href);
-    if (!asin) { return; }
-    send("EV-02", { asin: asin, tag: tagFrom(el.href) });
-  }, { passive: true });
-
-  // EV-01: one page view, on the pages the measurement spec names.
-  var pageType = document.documentElement.getAttribute("data-zone1-page-type");
-  if (pageType) {
-    var q = window.location.search || "";
-    var hasUtm = /(^|[?&])utm_(source|campaign)=/.test(q);
-    send("EV-01", { page_type: pageType, utm: hasUtm ? "1" : "" });
-  }
-
-  // EV-03 and EV-04: an element becomes visible. Observed, not polled.
-  if (typeof IntersectionObserver === "function") {
-    var fired = {};
-    var marks = document.querySelectorAll("[data-zone1-track]");
-    for (var i = 0; i < marks.length; i++) {
-      (function (node) {
-        var kind = node.getAttribute("data-zone1-track");
-        var obs = new IntersectionObserver(function (entries) {
-          for (var j = 0; j < entries.length; j++) {
-            if (entries[j].isIntersecting && !fired[kind]) {
-              fired[kind] = true;
-              send(kind, {});
-              obs.disconnect();
-            }
-          }
-        }, { threshold: 0.6 });
-        obs.observe(node);
-      })(marks[i]);
+  // EV-02 / EV-04. Observe real activations; never wrap, delay or redirect a link.
+  function activation(ev) {
+    if (!ev.isTrusted || (ev.type === "click" && ev.button !== 0) ||
+        (ev.type === "auxclick" && ev.button !== 1)) { return; }
+    var anchor = ev.target.closest ? ev.target.closest("a[data-analytics-target-id]") : null;
+    if (!anchor) { return; }
+    var id = anchor.getAttribute("data-analytics-target-id");
+    var url;
+    try { url = new URL(anchor.href, window.location.href); } catch (err) { return; }
+    if (anchor.getAttribute("data-analytics-event") === "outbound_click" &&
+        url.protocol === "https:" &&
+        ["link.amazon", "www.amazon.com", "amazon.com"].indexOf(url.hostname) !== -1) {
+      send("outbound_click", { target_id: id });
+    } else if (page === "compare" &&
+               anchor.getAttribute("data-analytics-event") === "comparison_interaction" &&
+               url.origin === window.location.origin &&
+               url.pathname.endsWith("/products/" + id + ".html")) {
+      send("comparison_interaction", { target_id: id });
     }
   }
+  document.addEventListener("click", activation, { passive: true });
+  document.addEventListener("auxclick", activation, { passive: true });
+
+  // EV-03. Once per document after 60 visible, focused seconds. No scroll trace,
+  // exact duration or cross-page identity is transmitted. A timer is kept in memory.
+  if (type === "article" || type === "guide") {
+    var elapsed = 0;
+    var last = performance.now();
+    var timer = setInterval(function () {
+      var now = performance.now();
+      if (document.visibilityState === "visible" && document.hasFocus()) {
+        elapsed += Math.min(now - last, 2000);
+      }
+      last = now;
+      if (elapsed >= 60000) {
+        send("article_engagement", { bucket: "60s" });
+        clearInterval(timer);
+      }
+    }, 1000);
+  }
+  // EV-05 is NEVER a browser event. Use analytics/report_import.py with a dated,
+  // authorized first-party aggregate report; clicks cannot establish an order.
 })();

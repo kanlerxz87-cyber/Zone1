@@ -20,38 +20,34 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
-      - name: Regenerate the site from data
-        run: python3 build.py
-
+      - name: Set up Node for generated-client checks
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Test canonical output before rebuilding; validate code and public artifact
+        run: bash scripts/ci-check.sh
       - name: Regenerate the research section from its own data
         run: python3 research/build_research.py
-
-      - name: Verify the research section — 789 checks
+      - name: Verify the independent research section
         run: python3 research/check_research.py
-
-      - name: Verify — no broken links, no unsourced values, disclosure present
-        run: python3 verify.py
-
-      - name: Confirm the build is reproducible
+      - name: Confirm independent research output remains current
+        run: git diff --exit-code -- research/
+      - name: Stage public files and label historical deployment copies
+        # Never upload the checkout, runtime, .git, private scratch or dependencies.
+        # The independent generators' committed files remain untouched.
         run: |
-          git diff --exit-code -- . || {
-            echo "::error::Generated HTML differs from the committed HTML. Run 'python3 build.py' and commit the result."
-            exit 1
-          }
-
+          python3 scripts/stage_pages.py --output _site
+          python3 scripts/verify_staged.py _site
       - name: Configure Pages
         uses: actions/configure-pages@v5
-
-      - name: Upload artifact
+      - name: Upload verified public artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
 
   deploy:
     needs: build
