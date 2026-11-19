@@ -6483,8 +6483,15 @@ Claim log: 2026-11-19 · arena/b3ed16c4 · repo read first (`main` @ `2be3bea`, 
 
 | ID | Task | Status | Owner | File scope |
 |----|------|--------|-------|------------|
-| Z16-1 | Independent live re-read of the five supplied `link.amazon` short links (redirect target, title, ASIN) against the register; dated report; no value changed unless the live read differs | in progress | arena/6eb19d2b-zone1 (session 6eb19d2b) | `reports/verification-2026-11-19-6eb19d2b.md` (new), `COORDINATION.md` (this section) |
-| Z16-2 | Overlap audit of the six open PRs that touch the same pass work (#139, #141, #144, #146, #150, #159, #168, #173): record, do not merge or close them | in progress | arena/6eb19d2b-zone1 | `COORDINATION.md` (this section) |
+| Z16-1 | Independent live re-read of the five supplied `link.amazon` short links (redirect target, title, ASIN) against the register; dated report; no value changed unless the live read differs | done | arena/6eb19d2b-zone1 (session 6eb19d2b) | `reports/verification-2026-11-19-6eb19d2b.md` (new), `COORDINATION.md` (this section) |
+| Z16-2 | Overlap audit of the six open PRs that touch the same pass work (#139, #141, #144, #146, #150, #159, #168, #173): record, do not merge or close them | done | arena/6eb19d2b-zone1 | `COORDINATION.md` (this section) |
 | Z16-3 | Gates, PR from this branch to `main`, merge with explicit number, Pages deploy confirmation, record | in progress | arena/6eb19d2b-zone1 | whole tree (integration) |
 
 Claim made before any file other than this section was edited. Scope is additive and does not touch `build.py`, `data/*.json` or any other session's files.
+
+### Z16 completion record — arena/6eb19d2b-zone1 (2026-11-19 UTC)
+
+* **Z16-1 — live re-read.** All five supplied short links were fetched on 2026-11-19. Four of five resolve to the same ASIN recorded in `data/product-intent.json` (B0CDY277D3, B09B7SB46R, B08DKYBTPH, B0DZFD6R9Z) and B0DHZTCNR5 for link 4 (its ASIN also matches). Titles for links 1, 2, 3 and 5 match the stored reads character for character (link 2 keeps flag F45). **Irregularity I-1:** the listing title for B0DHZTCNR5 (supplied link 4) has changed wording since the 2026-11-17 read ("Highly Waterproof for Grill BBQ Camping" → "IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men"); same ASIN and product type. Not re-stamped in `data/sources.json` (outside this pass's scope); flagged for the owner. No landing URL shows a visible `tag=` (F17/F24 unchanged). Prices and ratings were not recorded. Report: `reports/verification-2026-11-19-6eb19d2b.md`.
+* **Z16-2 — overlap audit.** Six open PRs touch the same pass work (#144, #146, #150, #159, #168, #173) and two older ones remain open (#139, #141). None was merged, closed or edited. #168 (indexing) and #173 (probe guide, flags F105–F109) and #159 (measurement) overlap `build.py`; merge order should be the owner's decision.
+* **Gates.** `scripts/ci-check.sh` exit 0 on this branch: build + verify, 33 engine tests, 8 browser-contract tests, data audit clean, `build_s2_site.py --check` current, 11,804 links checked with no broken link.
+* **Not done, and why.** No Associates account, tracking, enrolment or first-party reporting access exists in this sandbox, so the tag test, the Special-Link check and any click or order figure stay blank. Search Console is an owner action. No product photography was added.
