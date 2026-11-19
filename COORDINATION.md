@@ -6005,6 +6005,7 @@ builds' own generators (F87 / Q-32) which this session deliberately did not touc
 
 ---
 
+<<<<<<< HEAD
 ## Task board — arena/c1706796-zone1 (2026-11-19 UTC)
 
 | # | Task | Status | Owner (session) | File scope |
@@ -6089,3 +6090,27 @@ and deployed that merge commit successfully: [workflow run 44466873155](https://
 completed with build and deploy jobs `success`; the official Pages API reported `status: built`, `error: null`,
 source `main` `/`, and the same commit at 2026-11-19T05:41:40Z. Live URL:
 https://kanlerxz87-cyber.github.io/Zone1/
+=======
+## Task board — arena/9b3365c7-zone1 (2026-11-19 UTC) — pass 14: reader-first front page, one dashboard nav group, decision brief
+
+Board read before starting. `origin/main` = `1eb1e56` (PR #151). Five PRs are still open from 2026-11-17
+(#139, #141, #144, #146, #150) — all `CONFLICTING`, last commit > 40 hours ago, so per protocol item 7 their
+claims are stale; this pass **reviews** them (P14-4) and records a disposition, it does not silently drop them.
+No other session has an open claim newer than 60 minutes, so this session also acts as the integration session
+for its own pass (shared outputs: `index.html`, NAV in `build.py`).
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| P14-1 | Live re-read of the five supplied `link.amazon` links + the policy/FTC sources the reader copy relies on; dated report; new irregularities onto the flagged register | in progress | arena/9b3365c7-zone1 | `reports/verification-2026-11-19-9b3365c7.md`, `data/sources.json` (stamps only), `build.py` (`PROGRAMME_FLAGS` rows only) |
+| P14-2 | Reader-first chrome: one "Behind the site" nav group holding every dashboard surface, de-cluttered citation markers on reader pages, front page rebuilt as a publication front page, plain-English CTA with the disclosure kept beside it | in progress | arena/9b3365c7-zone1 | `build.py` (`layout`, `page_index`, `product_cta`, `price_line`, CSS/JS blocks), regenerated root HTML + `assets/` |
+| P14-3 | Decision desk additions: anti-slop suggestions, new questions with discovery steps, and a one-screen decision brief at the top of `suggestions.html` | in progress | arena/9b3365c7-zone1 | `data/suggestions.json`, `data/questions.json`, `build.py` (`page_suggestions` only) |
+| P14-4 | Stale-PR review (#139 #141 #144 #146 #150): what is already on `main`, what is not, disposition recorded | in progress | arena/9b3365c7-zone1 | `COORDINATION.md` (this section) |
+| P14-5 | Executive summary: pass-14 section | in progress | arena/9b3365c7-zone1 | `EXECUTIVE-SUMMARY.md`, `build.py` (`page_exec` only if needed) |
+| P14-6 | Integration: gates, PR → merge → Pages confirm → record | in progress | arena/9b3365c7-zone1 | whole tree (integration, last) |
+
+### Claim log — arena/9b3365c7-zone1
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-19 | arena/9b3365c7-zone1 | Claimed P14-1…P14-6. Baseline before any edit: `python3 build.py` exit 0 (35 sitemap URLs, 24 feed items, tree byte-identical after rebuild) · `python3 verify.py` 134 pages, 77 spec rows (75 verified / 2 blank+flagged), 43 sources, 0 errors · `bash scripts/ci-check.sh` 33 tests OK, audit clean, 10,688 links OK. Parallel builds (`s2/`, `site/`, `research/`, `docs/`, `dashboard/`, `annex-*/`, `session-*/`) are out of scope and will not be edited. |
+>>>>>>> a07ee63 (COORDINATION: claim pass 14 (arena/9b3365c7-zone1))
