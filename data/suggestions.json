@@ -746,9 +746,13 @@
     ]
    },
    "current_state": "partial",
-   "current_note": "The root publication alone owns the canonical sitemap and brand. Historical builds are labelled/cross-linked as archives; their original generators are preserved. Full annex redirects or removal are not performed.",
+   "current_note": "The root publication alone owns the canonical sitemap, robots.txt and brand. As of 2026-11-19 every page in all six annex trees also carries noindex,follow with an absolute canonical, the sub-directory robots.txt/sitemap.xml copies are gone, and verify.py check 4b fails the build if either returns (F103). Historical builds stay published and cross-linked as archives; full annex redirects, removal or per-tree banners are still not performed. Whether they should stay published at all is SG-52.",
    "current_reviewed_on": "2026-11-19",
    "current_evidence": [
+    {
+     "label": "F103: the annex index boundary",
+     "url": "flagged.html#f103"
+    },
     {
      "label": "PUB-1 scoped verification and boundary record",
      "url": "reports/verification-2026-11-19-1f9e7d52.md"

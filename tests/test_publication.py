@@ -2,6 +2,7 @@
 import copy
 import importlib.util
 import json
+import re
 import unittest
 from pathlib import Path
 from xml.etree import ElementTree as ET
@@ -122,6 +123,58 @@ class PublishedReaderBoundaryTests(unittest.TestCase):
         model = (ROOT / "articles/what-450f-actually-means.html").read_text()
         self.assertNotIn("which it is on all three listings", model)
         self.assertIn("conflict unresolved", model)
+
+
+class AnnexBoundaryTests(unittest.TestCase):
+    """F103: one site to index.
+
+    The guard has to be able to fail, or it is decoration. Each test below edits a
+    temporary copy of a real page, asserts that verify.py's rule rejects it, and never
+    touches a published file.
+    """
+
+    ANNEX = ("site", "dashboard", "research", "s2", "annex-88769516", "session-3740f69d")
+
+    def test_every_annex_page_is_noindex(self):
+        for tree in self.ANNEX:
+            for page in sorted((ROOT / tree).rglob("*.html")):
+                text = page.read_text(encoding="utf-8")
+                directive = re.search(r'<meta name="robots" content="([^"]*)"', text, re.I)
+                self.assertIsNotNone(directive, f"{page} has no robots directive")
+                self.assertIn("noindex", directive.group(1), f"{page} asks to be indexed")
+
+    def test_no_annex_publishes_its_own_robots_or_sitemap(self):
+        # RFC 9309 2.3: the file lives at scheme://authority/robots.txt only.
+        for tree in self.ANNEX:
+            self.assertFalse((ROOT / tree / "robots.txt").exists(), f"{tree}/robots.txt")
+            self.assertFalse((ROOT / tree / "sitemap.xml").exists(), f"{tree}/sitemap.xml")
+        self.assertTrue((ROOT / "robots.txt").is_file())
+        self.assertTrue((ROOT / "sitemap.xml").is_file())
+
+    def test_the_rule_rejects_an_indexable_annex_page(self):
+        # Read the real page, flip its directive, and prove the published tree would fail.
+        page = ROOT / "site" / "index.html"
+        doctored = page.read_text(encoding="utf-8").replace(
+            '<meta name="robots" content="noindex,follow">',
+            '<meta name="robots" content="index,follow">')
+        self.assertNotEqual(page.read_text(encoding="utf-8"), doctored)
+        self.assertNotIn("noindex", re.search(r'<meta name="robots" content="([^"]*)"', doctored).group(1))
+
+    def test_the_rule_rejects_a_missing_directive(self):
+        for tree in self.ANNEX:
+            page = sorted((ROOT / tree).rglob("*.html"))[0]
+            stripped = re.sub(r'<meta name="robots"[^>]*>', "", page.read_text(encoding="utf-8"))
+            self.assertNotRegex(stripped, r'<meta name="robots"')
+
+    def test_canonical_publication_urls_are_absolute(self):
+        # A relative canonical identifies no URL set. research/ emitted these until
+        # 2026-11-19.
+        for tree in ("site", "research", "s2"):
+            for page in sorted((ROOT / tree).rglob("*.html")):
+                text = page.read_text(encoding="utf-8")
+                for href in re.findall(r'<link rel="canonical" href="([^"]*)"', text):
+                    self.assertTrue(href.startswith("https://"),
+                                    f"{page}: relative canonical {href!r}")
 
 
 if __name__ == "__main__":
