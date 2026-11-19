@@ -226,6 +226,22 @@
         "publication/README.md",
         "reports/verification-2026-11-19-1f9e7d52.md"
       ]
+    },
+    {
+      "date": "2026-11-19",
+      "session": "arena/0c5c10d0-zone1",
+      "ids": [
+        "SG-43",
+        "SG-51"
+      ],
+      "what": "Execution record for pass 15, not an owner choice. SG-43: the fortnightly cadence was spent on exactly one new guide (TP-22 → articles/probe-in-an-air-fryer.html), the kill rule was applied to a second candidate (TP-19 recorded as considered and held, with the cadence limit and its Q-20 gate both named on the topic row), and the new row carries published_at: null rather than a backfilled date. SG-51: executed only in part — the live Program Policies page was re-read the same day and three requirement rows were added with verbatim quotes and today's read date (C19, C20, C21), while the 14 April 2026 change notice itself could not be fetched (two failed attempts), so its other three items are registered as a re-read task and an open flag (F109) instead of being quoted as policy text. No path on any other row was treated as pre-approved by this pass.",
+      "evidence": [
+        "data/topics.json",
+        "articles/probe-in-an-air-fryer.html",
+        "data/compliance.json",
+        "data/sources.json",
+        "reports/verification-2026-11-19-0c5c10d0.md"
+      ]
     }
   ],
   "parallel_policy_history": [

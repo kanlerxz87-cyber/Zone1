@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped); SG-36..SG-38 and path P6 by arena/58cbaaa2 (2026-11-17) — written twice, and shortened the second time: the first draft's parallel intent register, measurement register and flags were dropped when main's merged registers and collection-disabled contract were found. The withdrawn draft is published at session-58cbaaa2/artifacts/. | pass 13 shopfront + decision desk (arena/fd9778a1-zone1): SG-39…SG-48, path P7, numbered after the merged 2026-11-17 rows so no id collides.",
+  "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped); SG-36..SG-38 and path P6 by arena/58cbaaa2 (2026-11-17) — written twice, and shortened the second time: the first draft's parallel intent register, measurement register and flags were dropped when main's merged registers and collection-disabled contract were found. The withdrawn draft is published at session-58cbaaa2/artifacts/. | pass 13 shopfront + decision desk (arena/fd9778a1-zone1): SG-39…SG-48, path P7, numbered after the merged 2026-11-17 rows so no id collides. | pass 15 2026-11-19 (arena/0c5c10d0-zone1): SG-51…SG-54, added from the dated policy re-read and the manual reads made for the new guide. No earlier row's state was changed.",
   "compiled": "2026-11-19",
   "how_to_read": [
     "This is a decision queue, not a changelog. Rows the build's decision desk counts as implemented were shipped in the canonical root build under the standing pre-authorisation rule and are recorded, row by row, in data/decision-log.json; everything else is a proposal awaiting a path from you.",
@@ -7766,6 +7766,262 @@
           ]
         }
       ]
+    },
+    {
+      "id": "SG-51",
+      "title": "Re-read the 14 April 2026 policy revision in full, and re-check every clause this site quotes against it, before any new promotion or earnings feature is discussed",
+      "area": "Programme compliance",
+      "problem": "Amazon revised the Program Policies on 14 April 2026. The register recorded the date stamp on every pass but not the content of the change, and it quotes clause text whose wording that revision altered. Four items are listed on the change notice; only one could be confirmed from a direct read today, because the notice itself could not be fetched in this pass.",
+      "evidence": [
+        {
+          "label": "Amazon Associates Program Policies",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Amazon — updates to the Associates Program Operating Agreement",
+          "url": "https://affiliate-program.amazon.com/help/operating/compare"
+        },
+        {
+          "label": "This site's compliance register",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/compliance.html"
+        },
+        {
+          "label": "Flag F109: the April 2026 revision this register had not recorded",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f109"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Read the notice and the current text of the four affected clauses, then update C8, C10 and the new C19-C21 rows with quotes and read dates",
+          "what": "Four fetches, four quoted rows, one flag closed. Anything the notice changes for this site gets written into the register with a date; anything it does not change stays as it is with its original date.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "B. Leave the quotations as they are",
+          "what": "The site quotes text an earlier pass read, each row carrying its read date. Honest, and it will keep drifting.",
+          "effort": "0",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "C. Freeze every feature that touches money or promotion until A is done",
+          "what": "The safest reading, and the one that costs the site nothing it has, because no paid placement, price widget or earnings estimate exists to freeze.",
+          "effort": "0",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A. Combined with C: the paid-promotion freeze is already true of this build, so adopting A changes nothing about what ships today and makes the register's wording current.",
+      "why": "A dated citation is only worth what its date is worth. The register should say what the rule says now, and where it cannot, say that it could not read it - which is what F109 records for the three items this pass could not verify.",
+      "impact": 4,
+      "confidence": 5,
+      "effort": "S",
+      "risk_of_not_doing": "The site keeps quoting a superseded clause, and a later pass plans a boosted-post campaign that disqualifies the very commission it was meant to earn.",
+      "blocks": [],
+      "blocked_by": [
+        "Q-42",
+        "Q-43"
+      ],
+      "current_state": "partial",
+      "current_reviewed_on": "2026-11-19",
+      "current_note": "Pass 15 read the live policies page directly, confirmed the April 2026 stamp, quoted the 180-day condition as C19 and added C20-C21 from the same read. The change notice itself failed to fetch twice, so the other three items stay unquoted and F109 stays open.",
+      "implementation": {
+        "state": "partial",
+        "on": "2026-11-19",
+        "note": "C19, C20 and C21 added with verbatim quotes and the same-day read date; S46 registered as a source with its limitation stated on the row; Q-42, Q-43 and Q-44 opened; F109 raised. No quotation was copied from a search extract into a policy row.",
+        "evidence": [
+          {
+            "label": "Pass-15 verification report",
+            "url": "reports/verification-2026-11-19-0c5c10d0.md"
+          },
+          {
+            "label": "Compliance register",
+            "url": "compliance.html"
+          }
+        ]
+      }
+    },
+    {
+      "id": "SG-52",
+      "title": "Put a dated “rules changed” line on the compliance page so a reader can see which clause was read when",
+      "area": "Trust and compliance",
+      "problem": "compliance.html quotes eighteen-plus clauses with read dates buried in the clause cell. Nobody looking at the page can tell whether the register is current, and the site asks buyers to trust it precisely because it cites. A one-line dated changelog costs nothing and answers the only question a sceptical reader of an affiliate site actually has.",
+      "evidence": [
+        {
+          "label": "This site's compliance register",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/compliance.html"
+        },
+        {
+          "label": "Amazon Associates Program Policies",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Add a short dated list at the top of the page: what was re-read, what changed, what could not be read",
+          "what": "Three to five lines, generated from data/sources.json stamps rather than typed, so the list cannot claim a read that the register does not hold.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "B. Keep the dates inside each row only",
+          "what": "Status quo. Complete, but visible only to someone who opens every row.",
+          "effort": "0",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A. Generated from the register, so the page cannot drift from the data it claims to show.",
+      "why": "The site's differentiator is that it shows its work. A changelog is the cheapest version of that promise and the only version a first-time visitor will actually see.",
+      "impact": 3,
+      "confidence": 4,
+      "effort": "S",
+      "risk_of_not_doing": "The citation work stays invisible, and the page reads like every other affiliate page that happens to have links in it.",
+      "blocks": [],
+      "blocked_by": [],
+      "current_state": "open",
+      "current_reviewed_on": "2026-11-19",
+      "current_note": "Proposed on 2026-11-19 from the F109 finding. Not implemented: it changes a shared page template (page_compliance), which sits outside this pass's claimed scope.",
+      "implementation": {
+        "state": "proposed",
+        "on": "2026-11-19",
+        "note": "Recorded as a proposal with a generator-free data path (sources.json already holds every stamp the list needs).",
+        "evidence": [
+          {
+            "label": "Source register with stamps",
+            "url": "data/sources.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "SG-53",
+      "title": "Give each product page a “before you cook the first time” block from that unit's own manual, not a shared one",
+      "area": "Design and layout",
+      "problem": "The three manuals give three different first-use procedures, and one of them gives a different clearance number: the Emeril manual ends with a burn-in preheat to burn off the protective oil coating and warns of smoke and a burnt smell on the first run, while both Chefman manuals stop at unpack, wipe and wash and say a slight odour is normal. A generic ‘season it, preheat it’ paragraph - the kind every listicle carries - would be wrong for at least one of the three products on this site.",
+      "evidence": [
+        {
+          "label": "Emeril FAFO-001 owner’s manual (Before First Use)",
+          "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"
+        },
+        {
+          "label": "Chefman RJ38-SQPF-3TDB-2W user guide (Before First Use)",
+          "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf"
+        },
+        {
+          "label": "Flag F108",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f108"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. One per-product panel under the specifications, quoting only that product's manual, with a ‘not stated’ line where a manual is silent",
+          "what": "The content already exists in the scoped reads recorded for 2026-11-19. It answers the buyer's real next question after ‘will it fit’, and it is the sort of block that makes a product page worth bookmarking.",
+          "effort": "M",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "B. Write one cross-brand first-week article instead",
+          "what": "Rejected as written, because the kill rule in data/publication.json refuses a second page on a question this site already answers, and the queued TP-19 stays blocked on Q-20 until the owner states the marketplace.",
+          "effort": "M",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Do nothing until a hands-on owner exists",
+          "what": "Keeps the site silent on a question every buyer has, and leaves the shelf as a link directory with numbers.",
+          "effort": "0",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A. Documentation only, per unit, with the silence marked — the same rule the guides already follow.",
+      "why": "It is the one thing a listing cannot tell a reader, it needs no test and no permission, and the differences between the three documents are the interesting part: a shared paragraph would have flattened exactly what a buyer needs to know.",
+      "impact": 4,
+      "confidence": 4,
+      "effort": "M",
+      "risk_of_not_doing": "The site keeps telling readers to read the manual without ever showing what the manual says at the moment they most need it.",
+      "blocks": [],
+      "blocked_by": [],
+      "current_state": "open",
+      "current_reviewed_on": "2026-11-19",
+      "current_note": "Raised on 2026-11-19 from the evidence collected for F108 while TP-19 was being considered. Not implemented in this pass: the product-page template is a shared output, and the cadence limit was already spent on the probe guide.",
+      "implementation": {
+        "state": "proposed",
+        "on": "2026-11-19",
+        "note": "The quoted material is already in the register's dated reads; only rendering is missing.",
+        "evidence": [
+          {
+            "label": "Pass-15 verification report",
+            "url": "reports/verification-2026-11-19-0c5c10d0.md"
+          }
+        ]
+      }
+    },
+    {
+      "id": "SG-54",
+      "title": "Answer the question in the title, in one sentence, at the top of every guide",
+      "area": "Content and traffic",
+      "problem": "The guides earn their honesty by qualifying everything, but a reader who arrives from a search box and wants one answer has to scroll to find it. The polished marketing sites that rank for these questions put a short, direct answer above the analysis - and this site can do that without claiming anything it cannot cite, because in most cases the honest answer is ‘the manual does not say’.",
+      "evidence": [
+        {
+          "label": "This site's article index",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/articles/index.html"
+        },
+        {
+          "label": "Google: creating helpful, people-first content",
+          "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+        }
+      ],
+      "options": [
+        {
+          "label": "A. Add an optional short_answer field per article, rendered as the first block, and write it for one guide at a time inside the existing cadence rule",
+          "what": "One generator change plus one sentence per article. The sentence must be true on the citations already on the page, and a build check can require that a short_answer exists or is explicitly absent, so no page gets a confident answer invented for it.",
+          "effort": "S",
+          "risk": "none",
+          "reversible": true
+        },
+        {
+          "label": "B. Rewrite every standfirst into a direct answer in one pass",
+          "what": "Faster to a finished look, and it breaks the fortnightly cadence limit the site set for itself, which is the rule that keeps the guides from turning into volume.",
+          "effort": "L",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Leave the ledes as they are",
+          "what": "The pages stay honest and slightly slower to use.",
+          "effort": "0",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "recommendation": "A. One sentence per guide, opt-in, guarded by the same source rule as the body text.",
+      "why": "It is the cheapest real improvement available to a documentation-led shop: it serves the reader first, it is what makes a guide quotable, and it does not need a single unverified claim.",
+      "impact": 4,
+      "confidence": 4,
+      "effort": "S",
+      "risk_of_not_doing": "The site stays better-sourced and worse-to-use than the pages it is competing with, and searchers bounce to an answer they can read in five seconds.",
+      "blocks": [],
+      "blocked_by": [],
+      "current_state": "open",
+      "current_reviewed_on": "2026-11-19",
+      "current_note": "Proposed on 2026-11-19. Needs a generator field plus a guard in page_article and the article register, so it is deliberately queued rather than half-done here.",
+      "implementation": {
+        "state": "proposed",
+        "on": "2026-11-19",
+        "note": "The pattern is already visible in the pass-15 guide's standfirst, which answers its own question in the first two sentences.",
+        "evidence": [
+          {
+            "label": "The new guide",
+            "url": "articles/probe-in-an-air-fryer.html"
+          }
+        ]
+      }
     }
   ],
   "paths_intro": "A decision queue with this many rows is a backlog, not a decision. The paths below group the suggestions into four coherent pieces of work. Each path is ordered, names what has to be true before it can start, and says plainly what it will not fix. Pick one path, finish it, then pick the next. The grouping is this pass's judgement; the dependencies inside it are not - they are the blocked_by links already recorded on each row.",
@@ -7931,6 +8187,11 @@
         "id": "SG-42",
         "ask": "Use only original or documented licensed actual product photographs.",
         "why": "The current AI scene is decorative and labelled; it proves no model identity or test result."
+      },
+      {
+        "id": "SG-51",
+        "ask": "Re-read the 14 April 2026 revision in full before any money- or promotion-related feature is added.",
+        "why": "Only one of the four change items could be confirmed by a direct read this pass; the register quotes clause text whose wording that revision may have altered."
       }
     ]
   },

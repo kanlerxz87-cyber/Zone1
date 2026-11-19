@@ -1,7 +1,7 @@
 {
   "version": "1.0",
-  "compiled": "2026-11-17",
-  "session": "arena/79743fd2-zone1",
+  "compiled": "2026-11-19",
+  "session": "arena/0c5c10d0-zone1",
   "purpose": "The article set had twenty-one pieces and no map. Internal linking was whatever a reader happened to click next, and the 'Read next' list on every article showed the same three articles because it was simply the first three rows of the file. A small site earns a commercial query by owning one cluster completely rather than by publishing one page per idea, so this file groups the articles by the question a reader actually arrives with, names a hub for each group, and lets the build draw the links instead of a person guessing them.",
   "rule": "Every article belongs to exactly one cluster. The clusters are editorial, not topical: they are the four questions a shopper brings to a page like this one. Membership is a judgement about what a reader is trying to decide, and it is recorded here so the judgement can be reviewed rather than re-made at every link.",
   "clusters": [
@@ -52,7 +52,8 @@
         "how-to-clean-an-air-fryer",
         "aerosol-oil-warning",
         "extension-cord-rules-in-the-manuals",
-        "energy-cost-of-an-air-fryer"
+        "energy-cost-of-an-air-fryer",
+        "probe-in-an-air-fryer"
       ]
     },
     {
@@ -70,5 +71,5 @@
       ]
     }
   ],
-  "note": "Pass 13 (arena/fd9778a1-zone1, 2026-11-17) filed its three guides here rather than leaving them reachable only from the flat list: two brand-and-format decision pieces under 'choose', and the oil-claim reading piece under 'spec', because the reader arrives with a number on a box and wants to know what it means."
+  "note": "Pass 13 (arena/fd9778a1-zone1, 2026-11-17) filed its three guides here rather than leaving them reachable only from the flat list: two brand-and-format decision pieces under 'choose', and the oil-claim reading piece under 'spec', because the reader arrives with a number on a box and wants to know what it means. | 2026-11-19 (arena/0c5c10d0-zone1): articles/probe-in-an-air-fryer.html filed under 'live' on publication, so the map and the article set stayed in one state in the same commit."
 }

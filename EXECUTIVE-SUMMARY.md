@@ -1667,3 +1667,57 @@ Separately, the five stale pull requests (#139, #141, #144, #146, #150) have a r
 (F93, SG-50, Q-41). This pass closed none of them, because closing another session's work is your call.
 
 Full record: `reports/verification-2026-11-19-9b3365c7.md` and the pass-14 section of `COORDINATION.md`.
+
+## 27. Pass 15 — one guide a reader would actually open, and a policy revision the register had been quoting past (2026-11-19, session `arena/0c5c10d0-zone1`)
+
+**What a visitor gained.** [Can you leave a probe in an air fryer?](https://kanlerxz87-cyber.github.io/Zone1/articles/probe-in-an-air-fryer.html)
+— a four-minute guide that answers the question the listings never address, by quoting what each owner's manual
+actually says instead of repeating a shop cliché. It came out of the editorial cadence register (topic TP-22), and
+it is the site's 25th article. It states plainly that no document read here clears leaving a probe in a running
+unit, and it quotes the rules that do exist: "Do not leave the air fryer unattended during use"
+([Chefman RJ38-SQPF-3TDB-2W guide](https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf)),
+"at least 6 inches of clearance on top and back"
+([Chefman RJ38-SQSS-8T guide](https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQSS-8T-UG-US.pdf)),
+"Leave at least 5 inches … top, back, and sides", a three-minute idle auto-off and a 30-minute cool-down
+([Emeril FAFO-001 manual](https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf)),
+and the manual's own internal-temperature table, which says "Use this chart and a food thermometer".
+
+**A topic card is a hypothesis, not a source.** The queued hook for this guide read "The appliance is built to run
+unattended". The manual for that appliance says the opposite, so the premise was dropped before a sentence was
+written, and the hook text stays in Git history rather than being quietly rewritten. Recorded as
+[F105](https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f105). Three further findings from the same reading
+session are published with it: the Emeril cord conflict recurs in the French section, so a reader cannot resolve it
+by switching language ([F106](https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f106), and F96 stays open);
+CHEF iQ's own page describes its sensors two ways, so no probe count is published here as a verified specification
+([F107](https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f107)); and "before first use" is three different
+procedures across three machines, which is why the site will never carry one generic first-week paragraph
+([F108](https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f108)).
+
+**The compliance gap this pass found in itself.** The Program Policies page has read
+"Updated: April 14, 2026" on every pass since 15 November, and the register recorded that date without ever asking
+what changed. Today's direct re-read confirmed one of the four items on Amazon's change notice — the 180-day
+shipping-and-payment condition on qualifying purchases — and it is now quoted as C19, with two further same-day
+quotes added (C20: a link to a product-list page needs additional relevant original content; C21: a limited-time
+promotion mention must come off the site the moment the promotion ends). The other three items are **not** quoted
+anywhere on this site: two direct fetches of the change notice failed in this pass, so the notice is registered as a
+source with that limitation on the row ([S46](data/sources.json)) and the gap is an open flag
+([F109](https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f109)). The standing rule adopted from it: every pass
+re-reads the two governing headers and stamps the read, so a citation ages in the open instead of silently.
+
+**What else moved.** Three questions and four suggestions went onto the decision desk
+([Q-42…Q-44](https://kanlerxz87-cyber.github.io/Zone1/questions.html),
+[SG-51…SG-54](https://kanlerxz87-cyber.github.io/Zone1/suggestions.html)): read the April revision in full before
+any money- or promotion-shaped feature is discussed; put a dated "rules changed" line on the compliance page; give
+each product page its own before-first-use block; and answer the title's question in one sentence at the top of
+every guide. Three of the four are recorded as open or proposed, not done. One test was repaired for the right
+reason: `tests/test_publication_output.py` asserted a frozen article count inside a sitemap test, so it failed the
+moment a guide was legitimately published; it now asserts the real invariant, one sitemap entry per registered
+article.
+
+**What did not change.** No price, rating, popularity or "trending" claim was added — prices shown in Amazon's own
+recommendation rails during this pass were deliberately not reused. `shopnow047c-20` is still recorded as selected
+and unapplied; every intended-listing field in the product-intent register is still blank; the campaign ledger is
+still empty; production analytics is still off; the five supplied `link.amazon` strings are still published as
+supplied, re-read today with unchanged targets, and not called invalid. The
+[pass report](reports/verification-2026-11-19-0c5c10d0.md) records the reads, the gates, the merge conflict with
+two parallel sessions, and the PR #159 review (contents appear superseded; no merge, no close — owner call).

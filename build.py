@@ -2437,6 +2437,31 @@ PROGRAMME_FLAGS = [('F1',
   'product, then record dated first-party evidence before applying the ID broadly. A missing visible tag is '
   'not evidence of link failure.',
   ['S2', 'S41', 'S42', 'S44']),
+ ('F109',
+  'Amazon revised the Program Policies on 14 April 2026 and this register carried on quoting clause text without recording the revision until today.',
+  'data/compliance.json C8 and C10, the Commission Income Statement and Original Content rows, and any future paid-promotion plan',
+  "Found 2026-11-19 by arena/0c5c10d0-zone1. The live Program Policies page has read “Updated: April 14, 2026” on every pass since 2026-11-15, and the register recorded that stamp; what it never recorded is what changed. Amazon's linked change notice lists four items: a 180-day shipping-and-payment condition on qualifying purchases, a broadened disqualifier for products referred through any paid or boosted advertisement, an onsite-commission scope narrowed to Direct Qualifying Purchases of the same ASIN variant as the linked product page, and a new definition of original content requiring commentary, analysis or transformation. Only the first was confirmed from a direct read of the live policy text today, and it is now quoted as C19. The other three are NOT quoted anywhere on this site as verified policy text: two direct fetches of the change notice (S46) failed this pass, so they are recorded as a re-read task, not as rules with citations. C8 keeps its own dated quote and remains accurate about what it quoted; whether the surrounding clause has since been broadened is unresolved and C8 should be re-read against the live text before anyone plans a paid promotion.",
+  ['S2', 'S46']),
+ ('F105',
+  'A queued editorial premise said an air fryer is built to run unattended. The manual for the machine in question says the opposite, so the premise was dropped before the page was written.',
+  'data/topics.json TP-22 hook, and any copy that frames these appliances as set-and-forget',
+  'Found 2026-11-19 by arena/0c5c10d0-zone1 while preparing articles/probe-in-an-air-fryer.html. The queued hook read “The appliance is built to run unattended”. The RJ38-SQPF-3TDB-2W safety list states “Do not leave the air fryer unattended during use” (S18, read live this session), and the Emeril FAFO-001 manual never grants it either: it describes a 3-minute idle auto-off, a 20-second fan run-on after the cycle and a cool-down of at least 30 minutes before cleaning or storing (S15). The published article answers what each document states instead of repeating the premise, and the hook text stays in Git history rather than being silently rewritten. The standing rule this reinforces: a topic card is a hypothesis, not a source.',
+  ['S18', 'S15']),
+ ('F106',
+  'The Emeril extension-cord conflict is not a translation artefact: the French safeguard list and the French wiring note contradict each other the same way the English ones do.',
+  'Emeril FAFO-001 manual (S15) — a second observation for F96, which stays open',
+  'Read 2026-11-19 by arena/0c5c10d0-zone1. English safeguard 9 states “NEVER use with an extension cord”. French safeguard 9 states “NE JAMAIS utiliser avec une rallonge”. The French “MISE EN GARDE : Branchement du Cordon D’Alimentation” block then says longer extension cords are available and may be used with care, with rating and routing conditions — the same pair of instructions F96 records in the English text. That narrows the remedy: a reader cannot resolve the conflict by switching language, and current manufacturer clarification for the exact unit is still the only way out. This row adds an observation; it closes nothing.',
+  ['S15']),
+ ('F107',
+  'The CHEF iQ iQ Sense page describes its own sensors two ways on one page: five internal sensors in the prose, four internal plus one ambient in the feature list.',
+  'S39 (brand page) read against the observed Amazon listing title (S37)',
+  'Read 2026-11-19 by arena/0c5c10d0-zone1. The product description states “Five internal sensors and heat resistance up to 1000°F”, while the feature list below it states “4 internal temperature sensors for accuracy within 1°F” and “1 ambient temperature sensor”. The observed listing title says “5 Sensors”. All three are consistent with four internal plus one ambient, and no official document read here defines what the word “internal” counts, so the article cites the feature list and warns against the prose sentence. No probe count, accuracy figure or heat rating is published here as a verified specification, and none of it confirms an intended ASIN for PI-05.',
+  ['S39', 'S37']),
+ ('F108',
+  '“Before first use” is not the same procedure in the three manuals, and the clearance figure differs too, so one generic first-week paragraph would have been wrong for at least one product.',
+  'S15, S18, S13 (owner’s manuals) — the separation a future TP-19 guide must keep',
+  'Read 2026-11-19 by arena/0c5c10d0-zone1. The Emeril manual ends Before First Use with a burn-in: “preheat the appliance for a few minutes to allow the manufacturer’s protective coating of oil to burn off. Wipe the appliance with warm, soapy water and a dishcloth after this burn-in cycle”, and its French note warns of smoke or a burnt smell on first use caused by those coating oils. Both Chefman manuals stop at unpack, wipe and wash, and state only that on first use “the unit may emit a slight odor, which is normal and will dissipate with use”; neither instructs a burn-in. Clearance: Emeril asks for at least 5 inches of free space on the top, back and sides; the 8 Qt Chefman asks for at least 6 inches on top and back. A combined setup guide therefore has to publish three procedures, not one — one reason TP-19 was held this pass.',
+  ['S15', 'S18', 'S13']),
  ('F102',
   'Repaired 2026-11-19: the row-source gate accepted a generic flag link and skipped data rows containing a '
   'row header.',
@@ -2585,7 +2610,13 @@ REPO_EVIDENCE = {'F80': ['data/product-intent.json', 'product-intent.html', 'ses
  'F101': ['reports/verification-2026-11-19-1f9e7d52.md', 'build.py'],
  'F102': ['reports/verification-2026-11-19-1f9e7d52.md', 'build.py', 'tests/test_publication.py'],
  'F103': ['reports/verification-2026-11-19-1970a80b.md', 'build.py', '.github/workflows/pages.yml'],
- 'F104': ['annex-88769516/products.html', 'annex-88769516/404.html', 'session-3740f69d/index.html']}
+ 'F104': ['annex-88769516/products.html', 'annex-88769516/404.html', 'session-3740f69d/index.html'],
+ 'F105': ['data/topics.json', 'articles/probe-in-an-air-fryer.html', 'reports/verification-2026-11-19-0c5c10d0.md'],
+ 'F106': ['reports/verification-2026-11-19-0c5c10d0.md', 'articles/extension-cord-rules-in-the-manuals.html'],
+ 'F107': ['articles/probe-in-an-air-fryer.html', 'reports/verification-2026-11-19-0c5c10d0.md'],
+ 'F108': ['reports/verification-2026-11-19-0c5c10d0.md', 'data/topics.json'],
+ 'F109': ['data/compliance.json', 'reports/verification-2026-11-19-0c5c10d0.md', 'data/sources.json']}
+
 
 VERDICTS = {
     "chefman-6qt-dual-basket":
@@ -2805,7 +2836,18 @@ def page_compliance():
 
 def page_flagged():
     # cross-product flags from products.json plus programme-level flags
-    prog_flags = PROGRAMME_FLAGS
+    #
+    # Sorted by numeric id on render. PROGRAMME_FLAGS is appended to by whichever pass raises a
+    # flag first, and on 2026-11-19 two sessions added rows at once: the register order became
+    # F101, F108, F104…F107, F102, F103. Renumbering the rows after the fact is the wrong fix —
+    # ids are cited from articles, topics and the question registers, so a renumber would chase
+    # references forever. Sorting at render keeps the published ids stable and the table readable.
+    # (2026-11-19, arena/0c5c10d0-zone1.)
+    def _flag_sort_key(row):
+        fid = str(row[0] or "")
+        return (0, int(fid[1:])) if re.fullmatch(r"F\d+", fid) else (1, 0)
+
+    prog_flags = sorted(PROGRAMME_FLAGS, key=_flag_sort_key)
     prod_flags = []
     for p in PRODUCT_LIST:
         for f in p["flags"]:

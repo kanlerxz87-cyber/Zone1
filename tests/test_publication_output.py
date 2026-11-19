@@ -111,7 +111,15 @@ class PublicationOutputTests(unittest.TestCase):
             self.assertIn('content="noindex,follow"', self.pages[path])
             self.assertNotIn(BASE + path, sitemap)
         self.assertIn(BASE + 'about.html', sitemap)
-        self.assertEqual(24, len(json.loads((ROOT / 'data/articles.json').read_text())['articles']))
+        articles = json.loads((ROOT / 'data/articles.json').read_text())['articles']
+        # 2026-11-19 (arena/0c5c10d0-zone1): the register gains a row whenever a cadence guide is
+        # published, and a frozen count then fails for the wrong reason. Assert the invariant instead:
+        # the sitemap carries exactly one entry per registered article, and no article entry the
+        # register does not know. The count the pass shipped is recorded, not required.
+        urls = re.findall(r'<loc>(.*?)</loc>', sitemap)
+        article_urls = sorted(u for u in urls if '/articles/' in u and not u.endswith('articles/index.html'))
+        self.assertEqual(sorted(BASE + 'articles/' + a['slug'] + '.html' for a in articles), article_urls)
+        self.assertGreaterEqual(len(articles), 24)
 
     def test_authored_assets_are_published_verbatim_and_fonts_are_local(self):
         for source, output in (('publication/theme.css', 'assets/style.css'),

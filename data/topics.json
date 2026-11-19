@@ -1,7 +1,7 @@
 {
   "version": "1",
-  "compiled": "2026-11-17",
-  "compiled_by": "arena/63a2c638 (integration pass 9)",
+  "compiled": "2026-11-19",
+  "compiled_by": "arena/0c5c10d0-zone1 (pass 15): TP-22 published, TP-19 recorded as considered-and-held",
   "status_of_this_document": "proposal",
   "disclaimer": [
     "Everything on this page is a proposal or a judgement unless it is explicitly marked as sourced. No topic here has been written, and none of them is a claim about a product.",
@@ -524,7 +524,8 @@
       "published_as": null,
       "blocked_by": [
         "Q-20"
-      ]
+      ],
+      "status_note": "Considered and not written by arena/0c5c10d0-zone1 on 2026-11-19. Two reasons, both recorded rather than assumed away. First, the cadence rule allows at most one new guide per fortnight and this pass used it on TP-22. Second, the blocker stands: Q-20 asks the owner to state the marketplace and country the site promotes, which bears on a seasonal gift page in a way it does not bear on manual quotations. Useful material gathered on the way: the Emeril manual's before-first-use steps end with a burn-in preheat to burn off the manufacturer's protective oil coating, and the two Chefman manuals state a first-use odour instead of a burn-in - a real cross-brand difference for whichever pass writes this page."
     },
     {
       "id": "TP-20",
@@ -602,9 +603,10 @@
           "url": "https://cdn.shopify.com/s/files/1/0687/4388/8948/files/FAFO-001_VN_32451_EF_IB_T22-5004282-C_1.pdf"
         }
       ],
-      "status": "proposed",
+      "status": "published",
       "blocked_by": [],
-      "status_note": "Queued 2026-11-17 by arena/58cbaaa2 and deliberately not written. Writable from documents this site already cites; the half of the title that names a specific probe waits for Q-27. Numbered after 66c32067's TP-21, which this pass found already merged and did not renumber."
+      "status_note": "Published 2026-11-19 as articles/probe-in-an-air-fryer.html by arena/0c5c10d0-zone1, from four documents re-read for that page. The queued hook said the appliance “is built to run unattended”; the Chefman 6 Qt manual states “Do not leave the air fryer unattended during use”, so that premise was dropped and the article answers what each document states instead (flag F105). The half of a title that names one specific probe with one specific oven still waits on Q-27, and the published page asserts no such pairing.",
+      "published_as": "articles/probe-in-an-air-fryer.html"
     },
     {
       "id": "TP-23",
