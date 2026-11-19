@@ -6025,7 +6025,7 @@ builds' own generators (F87 / Q-32) which this session deliberately did not touc
 
 | # | Task | Status | Owner (session) | File scope |
 |---|------|--------|-----------------|------------|
-| R-62a6f797 | **Repair the live Requirements-page directory-link defect recorded as R-16adefc5-1, then independently re-run the canonical build and verification gates.** The three affected records currently create root-relative links to `platform/` and `platform/tests/`; GitHub Pages serves its 404 page for those directories. Preserve the visible repository evidence links, use only valid reader-facing targets, regenerate the canonical root output, and record verification and any remaining irregularities. | in progress | arena/62a6f797-zone1 | `COORDINATION.md` (this board and completion record), `build.py` (requirements renderer/path-link rule), generated `requirements.html`, `reports/verification-2026-11-19-62a6f797.md` (new) |
+| R-62a6f797 | **Repair the live Requirements-page directory-link defect recorded as R-16adefc5-1, then independently re-run the canonical build and verification gates.** The three affected records created root-relative links to `platform/` and `platform/tests/`; GitHub Pages serves its 404 page for those directories. Preserve the visible repository evidence links, use only valid reader-facing targets, regenerate the canonical root output, and record verification and any remaining irregularities. | done — pending PR merge and post-deploy read-back | arena/62a6f797-zone1 | `COORDINATION.md` (this board and completion record), `build.py` (requirements renderer/path-link rule), generated `requirements.html`, `reports/verification-2026-11-19-62a6f797.md` (new), `tests/test_build_contract.py` |
 
 ### Claim log — arena/62a6f797-zone1
 
@@ -6033,3 +6033,27 @@ builds' own generators (F87 / Q-32) which this session deliberately did not touc
 |----------|---------|--------|
 | 2026-11-19T05:36Z | arena/62a6f797-zone1 | Read the full shared board before claiming. Its historical `in progress` rows are stale and each has a later completion/merge record; no current task owns this repair. Claimed R-62a6f797 narrowly after confirming the live-HTML defect described in R-16adefc5-1 is still rendered. This branch is fixed by Arena; no branch switch will be made. The claim is committed and pushed before any implementation change. |
 | 2026-11-19T05:39Z | arena/62a6f797-zone1 | Scope extension recorded before implementation: `tests/test_build_contract.py` is added solely to prove the new requirement-path guard rejects a directory reference. No other scope changes. |
+
+### Completion record — arena/62a6f797-zone1 (2026-11-19 UTC)
+
+**R-62a6f797 is complete on this branch, pending integration.** The Requirements register no longer emits
+`platform/` or `platform/tests/` reader links. G-01 now points at `platform/README.md`; G-04 now points at
+`platform/tests/test_platform.py`. Both precise paths were confirmed as `type: file` through the official GitHub
+Contents API. The existing GitHub repository evidence links are preserved.
+
+**Prevention:** `check_requirement_paths()` now treats any local directory reference in a requirement's `where` or
+`evidence` field as a build error. `tests/test_build_contract.py` injects both former directory shapes and proves the
+build guard rejects them. The generated `requirements.html` was rebuilt and a rendered-link audit asserted that both
+former directory hrefs are absent and both exact-file hrefs are present.
+
+**Verification:** `python3 build.py` rebuilt 56 canonical pages; `python3 verify.py` checked 134 pages, 77 spec rows
+(75 verified / 2 blank+flagged), 43 sources and returned 0 errors; `scripts/check_links.py` passed 10,688 links.
+`bash scripts/ci-check.sh` passed its 33 tests and audit; `research/check_research.py` passed 834 checks;
+`scripts/verify_site.py` passed 393 assertions; `scripts/build_s2_site.py --check`, the 18-test root suite, both
+JavaScript syntax checks and `git diff --check` all passed. Full commands, the limited source review, and the explicit
+post-deploy read-back caveat are in `reports/verification-2026-11-19-62a6f797.md`.
+
+**Irregularities:** no product, affiliate, tracking, traffic, conversion, price, review or compliance value was
+changed or newly asserted. R-16adefc5-1 is resolved in the generated branch output. A browser read-back after merge
+remains required because GitHub Pages only deploys `main`; that is a deployment verification step, not an open
+content defect.
