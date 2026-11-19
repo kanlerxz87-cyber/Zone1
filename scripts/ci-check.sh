@@ -7,6 +7,7 @@ python3 build.py
 python3 verify.py
 echo "· publication and browser-to-collector contract tests"
 python3 -m unittest discover -s tests -v
+node --test tests/*.test.cjs
 echo "· engine unit tests"
 python3 -m unittest discover -s platform/tests -t platform -p 'test_*.py' 2>&1 | tail -3
 echo "· data audit"

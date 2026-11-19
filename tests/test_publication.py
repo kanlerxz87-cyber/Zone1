@@ -91,7 +91,7 @@ class PublishedReaderBoundaryTests(unittest.TestCase):
             ld = build.article_jsonld(article, "https://example.invalid/article")
             if not article.get("published_on"):
                 self.assertNotIn("datePublished", ld)
-            self.assertEqual(article.get("modified_on"), ld.get("dateModified"))
+            self.assertEqual(article.get("modified_at"), ld.get("dateModified"))
 
     def test_disclosure_both_placements_and_order_are_enforced(self):
         correct = (ROOT / "index.html").read_text()

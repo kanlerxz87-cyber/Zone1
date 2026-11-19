@@ -5,6 +5,7 @@
   "use strict";
   var script = document.currentScript;
   if (!script || script.getAttribute("data-enabled") !== "true") return;
+  if (document.body.getAttribute("data-analytics-eligible") !== "true" || navigator.webdriver === true) return;
   if (navigator.doNotTrack === "1" || window.doNotTrack === "1" ||
       navigator.globalPrivacyControl === true) return;
 
@@ -18,7 +19,7 @@
 
   function send(event, extra) {
     if (wanted.indexOf(event) === -1) return;
-    if (navigator.globalPrivacyControl === true || navigator.doNotTrack === "1") return;
+    if (navigator.globalPrivacyControl === true || navigator.doNotTrack === "1" || window.doNotTrack === "1") return;
     var body = { event: event, page_id: page };
     if (extra) Object.keys(extra).forEach(function (key) { body[key] = extra[key]; });
     // fetch can omit credentials and the Referer; sendBeacon cannot guarantee that.
@@ -35,12 +36,13 @@
 
   var viewed = false;
   function pageView() {
-    if (viewed || document.visibilityState !== "visible") return;
+    if (viewed || document.visibilityState !== "visible" || document.prerendering) return;
     viewed = true;
     send("page_view");
   }
   pageView();
   document.addEventListener("visibilitychange", pageView);
+  document.addEventListener("prerenderingchange", pageView, { once: true });
 
   function activation(ev) {
     if (!ev.isTrusted) return;
@@ -64,12 +66,14 @@
   if ((type === "article" || type === "guide") && wanted.indexOf("article_engagement") !== -1) {
     var activeTicks = 0;
     var timer = setInterval(function () {
-      if (document.visibilityState !== "visible" || !document.hasFocus()) return;
+      if (navigator.globalPrivacyControl === true || navigator.doNotTrack === "1" || window.doNotTrack === "1") { clearInterval(timer); return; }
+      if (document.visibilityState !== "visible" || document.prerendering || !document.hasFocus()) return;
       activeTicks += 1;
       if (activeTicks >= 60) {
         clearInterval(timer);
         send("article_engagement", { bucket: "60s" });
       }
     }, 1000);
+    window.addEventListener("pagehide", function () { clearInterval(timer); }, { once: true });
   }
 })();

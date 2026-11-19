@@ -14,7 +14,11 @@ async function noRetailNavigation(context) {
   });
 }
 
-test.beforeEach(async ({ request }) => { await request.post('/__test/reset'); });
+test.beforeEach(async ({ request, context }) => {
+  await request.post('/__test/reset');
+  // Controlled bot signal only in the enabled synthetic fixture, never production.
+  await context.addInitScript(() => Object.defineProperty(navigator, 'webdriver', { get: () => false }));
+});
 
 test('real browser trusted primary, keyboard and middle clicks reach the aggregate HTTP collector', async ({ page, context, request }) => {
   await noRetailNavigation(context);
@@ -105,6 +109,7 @@ test('DNT and GPC suppress actual-browser enabled fixtures', async ({ browser, r
     const context = await browser.newContext({ ignoreHTTPSErrors: true });
     await noRetailNavigation(context);
     await context.addInitScript(mode => {
+      Object.defineProperty(navigator, 'webdriver', { get: () => false });
       if (mode === 'dnt') Object.defineProperty(navigator, 'doNotTrack', { get: () => '1' });
       if (mode === 'gpc') Object.defineProperty(navigator, 'globalPrivacyControl', { get: () => true });
     }, mode);
@@ -128,4 +133,15 @@ test('browser-only fixtures never change repository collection, link or campaign
   expect(config.associate_tag).toBe('');
   expect(intent.tracking_id_applied_to_links).toBe(false);
   expect(ledger.rows).toEqual([]);
+});
+
+
+test('an ordinary automated browser is excluded from enabled synthetic measurement', async ({ browser, request }) => {
+  await request.post('/__test/reset');
+  const context = await browser.newContext({ ignoreHTTPSErrors:true });
+  const page = await context.newPage();
+  await page.goto(BASE + '/__test/product.html', { waitUntil:'domcontentloaded' });
+  expect(await page.evaluate(() => navigator.webdriver)).toBe(true);
+  expect(await stats(request)).toEqual([]);
+  await context.close();
 });

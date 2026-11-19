@@ -15,7 +15,7 @@ buying guides—not an audit dashboard.
 - [Air fryers and ovens](https://kanlerxz87-cyber.github.io/Zone1/categories/kitchen-appliances.html),
   [comparison](https://kanlerxz87-cyber.github.io/Zone1/compare.html) and three
   documentation-based model guides.
-- [Thermometer link notes](https://kanlerxz87-cyber.github.io/Zone1/categories/thermometers.html):
+- [Thermometer link notes](https://kanlerxz87-cyber.github.io/Zone1/categories/cooking-thermometers.html):
   both other submitted links are visible without inventing confirmed models,
   accuracy, certification or intended ASINs.
 - [Buying guides](https://kanlerxz87-cyber.github.io/Zone1/articles/), arranged in
@@ -59,7 +59,7 @@ The authorised first-party campaign ledger remains empty.
 Source review is scoped and dated. A layout refresh is not a fresh verification
 of every historical value. **F96** records conflicting extension-cord instructions
 inside the Emeril manual; this site does not choose the permissive instruction.
-**F99** records content corrections; **F101** records the stricter direct-evidence
+**F97** records content corrections; **F102** records the stricter direct-evidence
 row gate. The [public flag register](https://kanlerxz87-cyber.github.io/Zone1/flagged.html)
 links the primary sources and implementation evidence.
 
@@ -139,3 +139,9 @@ keep-both integration incidents, exact checks, PR/merge/deployment evidence and
 completion. The previous README and historical briefings remain in Git history;
 the dated appendices in [EXECUTIVE-SUMMARY.md](EXECUTIVE-SUMMARY.md) are not current
 account or campaign evidence.
+
+The [parallel Z14 release report](reports/publication-2026-11-19.md) and its dated
+[receipt](EXECUTIVE-SUMMARY-2026-11-19.md) remain preserved. Shared source/metadata,
+bot/prerender and filter improvements were integrated; current canonical sources
+are the `publication/` files, not the preserved earlier `assets/theme.css` or
+`assets/app.source.js` drafts.

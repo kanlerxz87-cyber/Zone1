@@ -56,6 +56,8 @@ class CollectorValidationTests(unittest.TestCase):
             {"event": "page_view", "page_id": "index", "referrer": "https://example.test/?email=x"},
             {"event": "page_view", "page_id": "../secret"},
             {"event": "affiliate_report_import", "page_id": "index"},
+            {"event": [], "page_id": "index"},
+            {"event": {}, "page_id": "index"},
         ):
             with self.subTest(payload=payload), self.assertRaises(ValueError):
                 validate_payload(payload)
@@ -68,6 +70,7 @@ class CollectorValidationTests(unittest.TestCase):
         for payload in (
             {"event": "article_engagement", "page_id": "index", "bucket": "60s"},
             {"event": "article_engagement", "page_id": "articles/index", "bucket": "60s"},
+            {"event": "article_engagement", "page_id": "articles/index", "bucket": "61s"},
             {"event": "article_engagement", "page_id": "articles/sync-finish-explained", "bucket": "61s"},
         ):
             with self.subTest(payload=payload), self.assertRaises(ValueError):
@@ -78,6 +81,8 @@ class CollectorValidationTests(unittest.TestCase):
             "event": "comparison_interaction", "page_id": "compare", "target_id": self.product
         })
         self.assertEqual(accepted["target_id"], self.product)
+        with self.assertRaises(ValueError):
+            validate_payload({"event": "comparison_interaction", "page_id": "compare", "target_id": "PI-04"})
         with self.assertRaises(ValueError):
             validate_payload({"event": "comparison_interaction", "page_id": "compare", "target_id": "https://amazon.com"})
 

@@ -31,7 +31,7 @@ $jsonld
 $search_console_tag
 <meta name="theme-color" content="#294f3f">
 </head>
-<body class="$body_class" data-page-id="$page_id" data-page-type="$page_type">
+<body class="$body_class" data-page-id="$page_id" data-page-type="$page_type" data-analytics-eligible="$analytics_eligible">
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <header class="topbar">
   <div class="header-inner">
@@ -72,7 +72,7 @@ $search_console_tag
       <h2>Find your fit</h2>
       <ul>
         <li><a href="${prefix}categories/kitchen-appliances.html">Air fryers &amp; ovens</a></li>
-        <li><a href="${prefix}categories/thermometers.html">Thermometer link notes</a></li>
+        <li><a href="${prefix}categories/cooking-thermometers.html">Thermometer link notes</a></li>
         <li><a href="${prefix}compare.html">Compare the air fryers</a></li>
         <li><a href="${prefix}articles/index.html">All buying guides</a></li>
       </ul>

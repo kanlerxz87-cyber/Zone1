@@ -50,15 +50,15 @@ licensed Amazon-content integrations are also not invented.
 - **F96 open:** the Emeril manual says never use an extension cord in one section
   and conditionally permits it later. The site does not choose the permissive
   instruction. Seek current manufacturer clarification for the exact unit.
-- **F97 repaired:** the old browser/collector protocols did not interoperate;
+- **F99 repaired:** the old browser/collector protocols did not interoperate;
   isolated tests had passed without exercising their connection.
-- **F98 repaired:** privacy wording now distinguishes no publisher analytics,
+- **F100 repaired:** privacy wording now distinguishes no publisher analytics,
   host security IP logs and browser-only decision drafts.
-- **F99 repaired:** care/capacity/dimension mistakes and unsupported serving,
+- **F97 repaired:** care/capacity/dimension mistakes and unsupported serving,
   cooking/durability, energy/circuit, guessed-model and nutrition-regulatory
   inferences were removed from the reader copy.
-- **F100 boundary:** no account/runtime/first-party evidence is invented.
-- **F101 repaired:** generic Flagged links and table row-header cells no longer
+- **F101 boundary:** no account/runtime/first-party evidence is invented.
+- **F102 repaired:** generic Flagged links and table row-header cells no longer
   bypass direct primary/repository evidence coverage.
 
 The cadence is a recorded operating plan: weekly source review and at most one

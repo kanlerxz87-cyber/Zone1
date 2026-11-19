@@ -131,3 +131,12 @@ footer.site>.inner{max-width:1208px;margin:auto;display:grid;grid-template-colum
 .comparison-table th:first-child,.comparison-table td:first-child{width:145px;min-width:145px}
 .comparison-table th[scope="row"]{position:sticky;left:0;background:var(--panel);z-index:1}
 .comparison-table thead th:first-child{position:sticky;left:0;z-index:2}
+
+/* Preserved progressive finder/search controls; all content works without them. */
+.format-controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 22px}
+.format-controls button{padding:9px 13px;background:var(--panel);border:1px solid var(--line-strong);border-radius:4px;font-size:11px;min-height:40px}
+.format-controls button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:white}
+.format-controls [data-format-status]{margin-left:auto}
+.suggestion-toolbar{margin:18px 0 24px;padding:20px;background:var(--brand-soft);border-radius:6px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.suggestion-toolbar label,.suggestion-toolbar output{font-size:12px}
+.suggestion-toolbar input{min-height:44px;flex:1;min-width:150px;padding:9px 12px;border:1px solid var(--line-strong);border-radius:4px;background:var(--panel)}

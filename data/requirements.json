@@ -99,6 +99,41 @@
             "sources": []
           }
         }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
+            "id": "A-02",
+            "scope": "Brief",
+            "requirement": "Suggest improvements to design, polish and marketing",
+            "clause": "Make suggestions that will feed into the prompt to design The site so it should look like a polished marketing affiliate website.",
+            "status": "delivered",
+            "where": [
+              "data/design-prompt.json",
+              "data/suggestions.json",
+              "suggestions.html"
+            ],
+            "evidence": [
+              {
+                "label": "suggestions register (row count shown on the page)",
+                "url": "suggestions.html"
+              },
+              {
+                "label": "data",
+                "url": "data/suggestions.json"
+              },
+              {
+                "label": "pass 13 record",
+                "url": "reports/verification-2026-11-17-fd9778a1.md"
+              }
+            ],
+            "why": "Pass 13 added the shopfront half of the brief-facing prompt: the paste-ready design prompt now carries a 'what the build does since 2026-11-17 and what still needs a human' block, nine new suggestion rows with paths and effort, five design rows with live status, three traffic tactics and two voice rules the generator enforces.",
+            "sources": []
+          }
+        }
       ]
     },
     {
@@ -138,6 +173,42 @@
           "recorded_before": "2026-11-19",
           "reconciled_by": "arena/1f9e7d52-zone1",
           "snapshot": {
+            "id": "A-03",
+            "scope": "Brief",
+            "requirement": "A dedicated suggestions section, reviewable before anything is implemented",
+            "clause": "Create a section dedicated for suggestions so someone can review suggestions and choose the best path before implementing any changes.",
+            "status": "delivered",
+            "where": [
+              "suggestions.html",
+              "design-prompt.html",
+              "decision-log.html",
+              "data/suggestions.json"
+            ],
+            "evidence": [
+              {
+                "label": "suggestions",
+                "url": "suggestions.html"
+              },
+              {
+                "label": "design prompt",
+                "url": "design-prompt.html"
+              },
+              {
+                "label": "pass 13 record",
+                "url": "reports/verification-2026-11-17-fd9778a1.md"
+              }
+            ],
+            "why": "Three review surfaces, one mechanism: suggestions.html is the queue with paths, design-prompt.html is the status view with a blank Decision column, and decision-log.html is where a path is picked and exported back as JSON. Pass 13 added path P7 (numbered after the money-path P6 that merged the same day) ('make the shop look bought-in') and a computed decision desk at the top of the queue — open rows, rows blocked on an unanswered question, the questions that unblock the most, and the highest-scoring row with no recorded choice — all of it counted from the registers at build time, so it cannot go stale the way a typed summary does.",
+            "sources": []
+          }
+        }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
             "id": "A-03",
             "scope": "Brief",
             "requirement": "A dedicated suggestions section, reviewable before anything is implemented",
@@ -231,6 +302,40 @@
             "sources": []
           }
         }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
+            "id": "A-04",
+            "scope": "Brief",
+            "requirement": "A clear list of questions, information and answers needed before a decision",
+            "clause": "I want a clear list of questions, informations and answers that need to be addressed before any decision can be reasonably made.",
+            "status": "delivered",
+            "where": [
+              "questions.html",
+              "data/questions.json"
+            ],
+            "evidence": [
+              {
+                "label": "questions register (row count shown on the page)",
+                "url": "questions.html"
+              },
+              {
+                "label": "data",
+                "url": "data/questions.json"
+              },
+              {
+                "label": "pass 13 record",
+                "url": "reports/verification-2026-11-17-fd9778a1.md"
+              }
+            ],
+            "why": "{n_questions} questions, each recording what is known, what is missing, the answer that would unblock it, and the steps that would discover it. Where the answer is already in the repository the row says so and links it, rather than asking again. Eleven rows added on 2026-11-17 (Q-30 to Q-40), each stating the answer's owner: the account holder alone can settle the click-test question (Q-37) and the photography rights question (Q-34); Search Console ownership settles the next topic (Q-31); two rows record what an official source was read and does not state (Q-38's weight conflict, Q-39's quotation rule). Nothing here was filled by inference, and the four states — known, missing, unknowable, not_stated — are the legend, not decoration.",
+            "sources": []
+          }
+        }
       ]
     },
     {
@@ -278,7 +383,34 @@
         }
       ],
       "why": "The briefing page is generated from data, so it cannot drift from the registers it summarises. Note the repository also carries five stale executive-summary Markdown files at its root, which is a separate defect recorded as flag F59.",
-      "sources": []
+      "sources": [],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
+            "id": "A-06",
+            "scope": "Brief",
+            "requirement": "An executive summary outlining the important details",
+            "clause": "Create an executive summary outlining important details.",
+            "status": "delivered",
+            "where": [
+              "executive-summary.html",
+              "EXECUTIVE-SUMMARY-2026-11-19.md",
+              "reports/publication-2026-11-19.md"
+            ],
+            "evidence": [
+              {
+                "label": "executive summary",
+                "url": "executive-summary.html"
+              }
+            ],
+            "why": "The current dated brief distinguishes implemented code, local tests, unresolved account facts and live deployment evidence. Historical executive summaries remain historical and are not silently claimed as current.",
+            "sources": []
+          }
+        }
+      ]
     },
     {
       "id": "A-07",
@@ -301,7 +433,37 @@
         }
       ],
       "why": "Everything a machine can do here has been done. Five items cannot be automated honestly: the Associate tag is only visible inside Associates Central, the Approve/Reject status of the Associates application is only visible there, the model number on each listing is rendered client-side, real sales data requires real sales, and a social account requires a human to own it. They are collected on one page with the exact click-path for each.",
-      "sources": []
+      "sources": [],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
+            "id": "A-07",
+            "scope": "Brief",
+            "requirement": "No manual input required from the account holder",
+            "clause": "There should be no manual input on my part.",
+            "status": "partial",
+            "where": [
+              "handover.html",
+              "data/decision.json"
+            ],
+            "evidence": [
+              {
+                "label": "handover",
+                "url": "handover.html"
+              },
+              {
+                "label": "data",
+                "url": "data/decision.json"
+              }
+            ],
+            "why": "Repository changes, verification and publication proceed autonomously. Unavailable account/hosting facts cannot be fabricated: intended listings, enrolled attribution, authorised reports and a production analytics host remain unconfirmed. The discovery steps are documented without pretending that they ran.",
+            "sources": []
+          }
+        }
+      ]
     },
     {
       "id": "A-08",
@@ -379,6 +541,44 @@
           "recorded_before": "2026-11-19",
           "reconciled_by": "arena/1f9e7d52-zone1",
           "snapshot": {
+            "id": "B-01",
+            "scope": "Site",
+            "requirement": "Look like a polished marketing affiliate website, not an AI-slop site",
+            "clause": "It should not read like some AI slop website like it looks like now.",
+            "status": "partial",
+            "where": [
+              "assets/style.css",
+              "data/articles.json",
+              "build.py"
+            ],
+            "evidence": [
+              {
+                "label": "house voice guard",
+                "url": "build.py"
+              },
+              {
+                "label": "voice rules",
+                "url": "design-prompt.html"
+              },
+              {
+                "label": "pass 13 record",
+                "url": "reports/verification-2026-11-17-fd9778a1.md"
+              }
+            ],
+            "why": "The build fails on {n_banned} banned stock-phrase entries and on machine-spliced sentences, and pass 13 (2026-11-17) added the shop layer a buyer judges a storefront by: the front page opens with the three machines (capacity, the brand's own list price, a 'Best for' row and a 'Check first' row each), the product pages lead with the same decision block, and mobile got a fluid type scale, a 44 px minimum hit area and a sticky comparison route. What still keeps this row at partial is one fact, not one effort: there is no product image anywhere on the site, because Amazon's Program Content may not be copied and no brand licence is recorded (Q-34, SG-42). A shop window with no goods in it reads as generated, whatever the typography does.",
+            "sources": [
+              "S1",
+              "S43"
+            ]
+          }
+        }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
             "id": "B-01",
             "scope": "Site",
             "requirement": "Look like a polished marketing affiliate website, not an AI-slop site",
@@ -560,6 +760,43 @@
       "why": "{n_articles} articles are published and {n_topics_minus_articles} more topics are specified but unwritten. They are written to answer a question that a listing cannot ('Two 3-quart drawers or one 8-quart basket: which actually feeds four people?'), which is the durable form of 'trendy' — but they are deliberately not trend-chasing, because a trending topic has no official source and this site will not publish a claim it cannot cite. {n_articles} articles as this register was last updated, three of them added by pass 13 on 2026-11-17 with the shapes a shopper actually types: 'Chefman vs. Emeril: what a basket brand and an oven brand actually publish', '“98% less oil” is a sentence on a box, not a measurement', and 'Eight questions to ask before you buy a multi-function kitchen appliance'. Trendy in the durable sense — a question with a documented answer and a visible gap where there is none — and deliberately not trend-chasing: a trending claim with no official source is the one thing this build will not publish. What is still missing is not titles, it is cadence and query data (Q-31, Q-36, SG-43).",
       "sources": [
         "S30"
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
+            "id": "B-08",
+            "scope": "Site",
+            "requirement": "Catchy, trendy articles that a shopper would actually read",
+            "clause": "It should include catchy trendy articles and topics related to the product we are promoting.",
+            "status": "delivered",
+            "where": [
+              "articles/index.html",
+              "data/topics.json",
+              "data/articles.json"
+            ],
+            "evidence": [
+              {
+                "label": "article index (row count shown on the page)",
+                "url": "articles/index.html"
+              },
+              {
+                "label": "14-topic plan",
+                "url": "topics.html"
+              },
+              {
+                "label": "pass 13 record",
+                "url": "reports/verification-2026-11-17-fd9778a1.md"
+              }
+            ],
+            "why": "The existing 24 question-led articles were reviewed and corrected in place, including substantive safety and model-inference errors. No search-volume, trend or readership performance is established, and no new volume was added for its own sake.",
+            "sources": [
+              "S30"
+            ]
+          }
+        }
       ]
     },
     {
@@ -670,6 +907,43 @@
             ]
           }
         }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
+            "id": "C-02",
+            "scope": "Research",
+            "requirement": "Verify product specifications from official sources",
+            "clause": "analyzes pricing, reviews, competition",
+            "status": "delivered",
+            "where": [
+              "data/products.json",
+              "products/chefman-6qt-dual-basket.html"
+            ],
+            "evidence": [
+              {
+                "label": "product page",
+                "url": "products/chefman-6qt-dual-basket.html"
+              },
+              {
+                "label": "manual",
+                "url": "https://cdn.shopify.com/s/files/1/0576/5755/7158/files/RJ38-SQPF-3TDB-2W-UG-US.pdf"
+              }
+            ],
+            "why": "Forty-six spec rows across three products, read from the manufacturer's product page or the owner's manual and cited field by field. Where the manual is more precise than the page (the Hi-Fry mode holds 450 °F for two minutes rather than cooking at it) the manual wins and the difference is stated.",
+            "sources": [
+              "S10",
+              "S12",
+              "S13",
+              "S14",
+              "S15",
+              "S18"
+            ]
+          }
+        }
       ]
     },
     {
@@ -722,6 +996,34 @@
             ]
           }
         }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
+            "id": "C-03",
+            "scope": "Research",
+            "requirement": "Analyse pricing",
+            "clause": "analyzes pricing",
+            "status": "blocked",
+            "where": [
+              "data/products.json"
+            ],
+            "evidence": [
+              {
+                "label": "Program Policies",
+                "url": "https://affiliate-program.amazon.com/help/operating/policies"
+              }
+            ],
+            "why": "Program Policies §2(b): an Associate site may show a price only if Amazon serves that link or the price comes from Creators API/PA API. This project holds neither credential. Manufacturer list prices are published instead and labelled as manufacturer prices — they are not Amazon offers, and the page says so on the row.",
+            "sources": [
+              "S2",
+              "S10"
+            ]
+          }
+        }
       ]
     },
     {
@@ -752,6 +1054,33 @@
           "recorded_before": "2026-11-19",
           "reconciled_by": "arena/1f9e7d52-zone1",
           "snapshot": {
+            "id": "C-04",
+            "scope": "Research",
+            "requirement": "Analyse customer reviews and star ratings",
+            "clause": "analyzes reviews",
+            "status": "blocked",
+            "where": [
+              "data/products.json"
+            ],
+            "evidence": [
+              {
+                "label": "Program Policies",
+                "url": "https://affiliate-program.amazon.com/help/operating/policies"
+              }
+            ],
+            "why": "Program Policies §6(t): customer reviews and star ratings may be displayed only when obtained through Creators API or PA API. No rating, review count or review quote appears anywhere on the site, and check_no_price_tracking() plus the verify.py leak scan fail the build if one is introduced.",
+            "sources": [
+              "S2"
+            ]
+          }
+        }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
             "id": "C-04",
             "scope": "Research",
             "requirement": "Analyse customer reviews and star ratings",
@@ -941,6 +1270,44 @@
             ]
           }
         }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
+            "id": "D-01",
+            "scope": "Content",
+            "requirement": "Generate SEO-optimised product articles",
+            "clause": "generates SEO-optimized product articles, comparisons, and buying guides",
+            "status": "partial",
+            "where": [
+              "data/articles.json",
+              "build.py",
+              "data/topics.json"
+            ],
+            "evidence": [
+              {
+                "label": "generator",
+                "url": "platform/content/generator.py"
+              },
+              {
+                "label": "voice guard",
+                "url": "build.py"
+              },
+              {
+                "label": "pass 13 record",
+                "url": "reports/verification-2026-11-17-fd9778a1.md"
+              }
+            ],
+            "why": "Every article row declares its target query, its intent and a reading time, and each new piece is regenerated into the index, the sitemap, the feed and the prev/next strip from one register row — the pipeline is mechanical and its output is checked. It stays partial because the optimisation half is absent: no query report and no click counter, so nothing in the pipeline learns which article earned anything. F12 still states what a real loop requires.",
+            "sources": [
+              "S2",
+              "S30"
+            ]
+          }
+        }
       ]
     },
     {
@@ -1042,6 +1409,38 @@
             "sources": []
           }
         }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
+            "id": "D-04",
+            "scope": "Content",
+            "requirement": "Automate the writing pipeline end to end",
+            "clause": "Prioritize automation, scalability",
+            "status": "partial",
+            "where": [
+              "platform/content/generator.py",
+              "platform/content/claims_checker.py",
+              "platform/content/similarity.py",
+              "platform/content/lint.py"
+            ],
+            "evidence": [
+              {
+                "label": "claims checker",
+                "url": "platform/content/claims_checker.py"
+              },
+              {
+                "label": "similarity",
+                "url": "platform/content/similarity.py"
+              }
+            ],
+            "why": "Four gate modules exist and are unit-tested: a claims checker, a similarity check against existing copy, a style lint, and the source gate in the generator. They are not wired to publish, deliberately — an unattended pipeline that writes and deploys without a human is the mechanism by which slop sites are made, and the brief asks for the opposite.",
+            "sources": []
+          }
+        }
       ]
     },
     {
@@ -1117,6 +1516,34 @@
             ]
           }
         }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
+            "id": "D-06",
+            "scope": "Content",
+            "requirement": "Never show an Amazon price or rating without the API",
+            "clause": "compliance with Amazon Associates policies",
+            "status": "delivered",
+            "where": [
+              "data/products.json",
+              "build.py"
+            ],
+            "evidence": [
+              {
+                "label": "policy",
+                "url": "https://affiliate-program.amazon.com/help/operating/policies"
+              }
+            ],
+            "why": "Enforced, not documented: the verifier fails the build on three markup markers — the star-rating attribute class, the star-rating sentence, and an Amazon price label — in any page. Structured data deliberately omits schema.org Product, Offer and AggregateRating, so no invented price is ever asserted to a search engine.",
+            "sources": [
+              "S2"
+            ]
+          }
+        }
       ]
     },
     {
@@ -1149,6 +1576,35 @@
           "recorded_before": "2026-11-19",
           "reconciled_by": "arena/1f9e7d52-zone1",
           "snapshot": {
+            "id": "E-01",
+            "scope": "Publishing",
+            "requirement": "Publish and manage affiliate links",
+            "clause": "publish and manage affiliate links",
+            "status": "partial",
+            "where": [
+              "products/chefman-6qt-dual-basket.html",
+              "build.py"
+            ],
+            "evidence": [
+              {
+                "label": "a product page",
+                "url": "products/chefman-6qt-dual-basket.html"
+              }
+            ],
+            "why": "Thirteen clickable affiliate anchors are live across the three product pages — five, four and four — and every one, including the one in the home-page warning, carries rel=\"sponsored\" — qualify_affiliate_links() rewrites them and check_affiliate_link_qualification() fails the build if any is unqualified. What is unmanaged is the destination: the links cannot be confirmed to carry the owner's tag (E-02).",
+            "sources": [
+              "S30",
+              "S31"
+            ]
+          }
+        }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
             "id": "E-01",
             "scope": "Publishing",
             "requirement": "Publish and manage affiliate links",
@@ -1300,6 +1756,58 @@
             ]
           }
         }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
+            "id": "E-03",
+            "scope": "Publishing",
+            "requirement": "Track clicks",
+            "clause": "track clicks and conversions",
+            "status": "partial",
+            "where": [
+              "data/analytics-plan.json",
+              "analytics/collector.py",
+              "assets/analytics.js",
+              "tests/test_analytics.py",
+              "measurement.html",
+              "analytics/endpoint.php",
+              "analytics/worker.js",
+              "data/config.json",
+              "data/measurement.json"
+            ],
+            "evidence": [
+              {
+                "label": "Disabled measurement plan",
+                "url": "measurement.html"
+              },
+              {
+                "label": "Collector reference",
+                "url": "analytics/collector.py"
+              },
+              {
+                "label": "the counter that ships (switched off)",
+                "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/assets/analytics.js"
+              },
+              {
+                "label": "the endpoint source the owner deploys",
+                "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/analytics/README.md"
+              },
+              {
+                "label": "Program Policies, section 3(e) and 3(s)",
+                "url": "https://affiliate-program.amazon.com/help/operating/policies"
+              }
+            ],
+            "why": "Both halves ship and neither collects: the five-event schema and a privacy-minimising reference collector with tests (data/analytics-plan.json, analytics/collector.py, tests/test_analytics.py) and a counter client with self-hosted endpoint sources (assets/analytics.js, analytics/endpoint.php, analytics/worker.js, data/config.json, data/measurement.json). The client is disabled, the collector is not deployed, and the footer's cookie statement is generated from the same configuration block so it cannot go stale. Collection stays off until the host, proxy logs, privacy notice and endpoint tests are approved; order and conversion figures come only from authorized Associates Central reports into the empty campaign ledger.",
+            "sources": [
+              "S38",
+              "S2"
+            ]
+          }
+        }
       ]
     },
     {
@@ -1339,6 +1847,31 @@
           "recorded_before": "2026-11-19",
           "reconciled_by": "arena/1f9e7d52-zone1",
           "snapshot": {
+            "id": "E-05",
+            "scope": "Publishing",
+            "requirement": "Continuously optimise campaigns",
+            "clause": "continuously optimize campaigns to maximize affiliate revenue",
+            "status": "not_delivered",
+            "where": [
+              "platform/pipeline/rot_sweep.py"
+            ],
+            "evidence": [
+              {
+                "label": "rotation sweep",
+                "url": "platform/pipeline/rot_sweep.py"
+              }
+            ],
+            "why": "The rotation sweep module exists but has no campaign data to act on, because there is no click or conversion data (E-03, E-04). Optimising requires a loop that closes; this one currently has no input.",
+            "sources": []
+          }
+        }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
             "id": "E-05",
             "scope": "Publishing",
             "requirement": "Continuously optimise campaigns",
@@ -1437,6 +1970,39 @@
             ]
           }
         }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
+            "id": "F-01",
+            "scope": "Compliance",
+            "requirement": "Comply with the Amazon Associates Operating Agreement",
+            "clause": "compliance with Amazon Associates policies and disclosure requirements",
+            "status": "delivered",
+            "where": [
+              "data/compliance.json",
+              "compliance.html"
+            ],
+            "evidence": [
+              {
+                "label": "rule matrix",
+                "url": "compliance.html"
+              },
+              {
+                "label": "agreement",
+                "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+              }
+            ],
+            "why": "Sixteen rules are quoted verbatim with their clause numbers and each is mapped to the code that enforces it. The Operating Agreement was re-read today; it still shows 'Updated: October 15, 2025'. The full 82-rule matrix lives in the s2/ annex.",
+            "sources": [
+              "S1",
+              "S2"
+            ]
+          }
+        }
       ]
     },
     {
@@ -1474,6 +2040,40 @@
           "recorded_before": "2026-11-19",
           "reconciled_by": "arena/1f9e7d52-zone1",
           "snapshot": {
+            "id": "F-02",
+            "scope": "Compliance",
+            "requirement": "Meet FTC endorsement rules (16 CFR Part 255)",
+            "clause": "disclosure requirements",
+            "status": "delivered",
+            "where": [
+              "data/compliance.json",
+              "compliance.html"
+            ],
+            "evidence": [
+              {
+                "label": "16 CFR 255",
+                "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255"
+              },
+              {
+                "label": "Disclosures 101",
+                "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+              }
+            ],
+            "why": "The FTC's own placement test — hard to miss, same medium as the endorsement, not hidden behind a click — is met: the disclosure is a persistent bar above the fold on every page, plus a visible per-link tag. Both FTC pages were re-read today and the quoted language is unchanged.",
+            "sources": [
+              "S7",
+              "S8",
+              "S9"
+            ]
+          }
+        }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
             "id": "F-02",
             "scope": "Compliance",
             "requirement": "Meet FTC endorsement rules (16 CFR Part 255)",
@@ -1553,6 +2153,34 @@
             ]
           }
         }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
+            "id": "F-03",
+            "scope": "Compliance",
+            "requirement": "The exact Amazon-required disclosure sentence on every page",
+            "clause": "disclosure requirements",
+            "status": "delivered",
+            "where": [
+              "build.py",
+              "index.html"
+            ],
+            "evidence": [
+              {
+                "label": "a page",
+                "url": "index.html"
+              }
+            ],
+            "why": "check_disclosure() fails the build if any generated page lacks the exact sentence 'As an Amazon Associate I earn from qualifying purchases.' It is in the header bar and the footer, not only the footer, because the footer alone is the placement the FTC calls likely to be missed.",
+            "sources": [
+              "S1"
+            ]
+          }
+        }
       ]
     },
     {
@@ -1590,6 +2218,40 @@
           "recorded_before": "2026-11-19",
           "reconciled_by": "arena/1f9e7d52-zone1",
           "snapshot": {
+            "id": "F-04",
+            "scope": "Compliance",
+            "requirement": "Accurate cookie and third-party technology statement",
+            "clause": "compliance with Amazon Associates policies",
+            "status": "partial",
+            "where": [
+              "build.py",
+              "data/config.json",
+              "assets/analytics.js",
+              "data/flags.json"
+            ],
+            "evidence": [
+              {
+                "label": "policy",
+                "url": "https://affiliate-program.amazon.com/help/operating/policies"
+              },
+              {
+                "label": "flag",
+                "url": "flagged.html"
+              }
+            ],
+            "why": "Program Policies §3(e). The statement is no longer a hand-typed sentence in the footer: it is generated from the same configuration block that decides whether the counter ships, so it cannot describe a behaviour the page does not have, and a build guard fails the build if any published sentence claiming the site runs no analytics would become false. What remains a limitation rather than a defect: it is a footer paragraph, not a drafted privacy policy, and it says nothing about EU/UK visitors' consent — which is why Q-08 and Q-29 remain open. Legal review is still recommended before the counter is switched on.",
+            "sources": [
+              "S2"
+            ]
+          }
+        }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
             "id": "F-04",
             "scope": "Compliance",
             "requirement": "Accurate cookie and third-party technology statement",
@@ -1703,7 +2365,7 @@
           "url": "reports/verification-2026-11-19-1f9e7d52.md"
         }
       ],
-      "why": "Claim/source/row checks and scoped primary-source reads prevent many defects; they do not prove every possible statement. The Emeril internal cord conflict is public (F96), and care/capacity/dimension corrections are logged (F99).",
+      "why": "Claim/source/row checks and scoped primary-source reads prevent many defects; they do not prove every possible statement. The Emeril internal cord conflict is public (F96), and care/capacity/dimension corrections are logged (F97).",
       "sources": [
         "S2"
       ],
@@ -1712,6 +2374,37 @@
           "recorded_before": "2026-11-19",
           "reconciled_by": "arena/1f9e7d52-zone1",
           "snapshot": {
+            "id": "F-08",
+            "scope": "Compliance",
+            "requirement": "No inaccurate, overbroad or misleading product claims",
+            "clause": "compliance with Amazon Associates policies",
+            "status": "delivered",
+            "where": [
+              "platform/content/claims_checker.py"
+            ],
+            "evidence": [
+              {
+                "label": "claims checker",
+                "url": "platform/content/claims_checker.py"
+              },
+              {
+                "label": "guard",
+                "url": "build.py"
+              }
+            ],
+            "why": "Program Policies §2(b). Three gates: the claims checker, check_articles() (an article may not state a value that is not in the published dataset), and check_spec_source_conflicts() (a row may not cite a document that contradicts its own value).",
+            "sources": [
+              "S2"
+            ]
+          }
+        }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
             "id": "F-08",
             "scope": "Compliance",
             "requirement": "No inaccurate, overbroad or misleading product claims",
@@ -1769,6 +2462,36 @@
           "recorded_before": "2026-11-19",
           "reconciled_by": "arena/1f9e7d52-zone1",
           "snapshot": {
+            "id": "G-01",
+            "scope": "Platform",
+            "requirement": "Prioritise automation and scalability",
+            "clause": "Prioritize automation, scalability, data-driven decisions",
+            "status": "partial",
+            "where": [
+              "platform/README.md",
+              "scripts/build_site.py"
+            ],
+            "evidence": [
+              {
+                "label": "platform modules",
+                "url": "platform/README.md"
+              },
+              {
+                "label": "site generator",
+                "url": "scripts/build_site.py"
+              }
+            ],
+            "why": "The repository is a working build system: a data audit, 33 unit tests, a site generator with 15 build-failing guards, a link checker and a byte-reproducibility check, all running in CI on every push. What is not automated is the research itself, because the inputs it needs are behind a login (C-03, C-04, E-02, E-04).",
+            "sources": []
+          }
+        }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
             "id": "G-01",
             "scope": "Platform",
             "requirement": "Prioritise automation and scalability",
@@ -1890,6 +2613,36 @@
             "sources": []
           }
         }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
+            "id": "G-04",
+            "scope": "Platform",
+            "requirement": "A working, running automated pipeline",
+            "clause": "The agent should ... continuously optimize campaigns",
+            "status": "partial",
+            "where": [
+              "platform/tests/test_platform.py",
+              "platform/pipeline/eligibility.py"
+            ],
+            "evidence": [
+              {
+                "label": "tests",
+                "url": "platform/tests/test_platform.py"
+              },
+              {
+                "label": "eligibility gate",
+                "url": "platform/pipeline/eligibility.py"
+              }
+            ],
+            "why": "The stages and their tests run; the pipeline as a live loop does not, because every networked stage is credential-gated and no credential is present. That gate is the design working as intended, not a defect — the alternative is a pipeline that invents its own inputs.",
+            "sources": []
+          }
+        }
       ]
     },
     {
@@ -1974,6 +2727,50 @@
             ]
           }
         }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
+            "id": "H-01",
+            "scope": "Brief",
+            "requirement": "Record each submitted link with intended ASIN, official listing URL, confirmation date and source, kept separate from the observed redirect target",
+            "clause": "Create a product-intent confirmation record for every submitted product link: intended ASIN, official listing URL, confirmation date, and source. Keep observed redirect targets in a separate field. Do not merge the two fields. Validate the supplied short links by testing one per product in the enrolled Associates workflow before scaling.",
+            "status": "partial",
+            "where": [
+              "data/product-intent.json",
+              "product-intent.html",
+              "build.py",
+              "tests/test_build_contract.py"
+            ],
+            "evidence": [
+              {
+                "label": "the rendered record, with the brand-catalogue table and the method correction",
+                "url": "product-intent.html"
+              },
+              {
+                "label": "this pass's evidence file",
+                "url": "reports/verification-2026-11-17-58cbaaa2.md"
+              },
+              {
+                "label": "Amazon — where an enrolled link test is actually read",
+                "url": "https://affiliate-program.amazon.com/help/node/topic/GJDYPQZK6E37RLPU"
+              }
+            ],
+            "why": "The register, the field separation and the build contract were merged by other sessions; this pass added what they lacked — the brand-catalogue check on the two links submitted on 2026-11-17, which shows a listing marketing phrase and a manufacturer model number are different kinds of identifier and closes neither row (F80), and a dated correction of the inference that a landing URL without a visible tag says anything about attribution (F81, S41). Partial by arithmetic rather than by judgement: {n_submitted_links} rows, {n_intent_confirmed} with a confirmed intended product, {n_link_tests_passed} enrolled-Associates link tests recorded. Only the account holder can move those two numbers, which is Q-27 and Q-28.",
+            "sources": [
+              "S23",
+              "S36",
+              "S37",
+              "S39",
+              "S40",
+              "S41",
+              "S42"
+            ]
+          }
+        }
       ]
     },
     {
@@ -2010,6 +2807,39 @@
           "recorded_before": "2026-11-19",
           "reconciled_by": "arena/1f9e7d52-zone1",
           "snapshot": {
+            "id": "H-02",
+            "scope": "Site",
+            "requirement": "Keep narrative counts in prose derived from the registers rather than typed into sentences",
+            "clause": "Flag irregularities found during review; never let a published page assert something the data contradicts.",
+            "status": "delivered",
+            "where": [
+              "build.py",
+              "categories/kitchen-appliances.html",
+              "data/product-intent.json"
+            ],
+            "evidence": [
+              {
+                "label": "the guard",
+                "url": "build.py"
+              },
+              {
+                "label": "the category page whose lede was repaired",
+                "url": "categories/kitchen-appliances.html"
+              }
+            ],
+            "why": "The category lede still described the submitted set as three links, present tense, two days after the register grew to five — every value inside the sentence correct, the sentence false, and no gate reading narrative. Repaired where the tense is present (the lede now reads len(rows) and the register's own observed_listing_category field, spelled by _num_word) and guarded by check_submitted_link_count(), scoped to the shopper surfaces and the two registers so a dated row that truthfully records 2026-11-14 cannot be 'fixed' by rewriting it. Recorded as F82 with the process note: when the owner submits another link, add a row, never a sentence.",
+            "sources": [
+              "S17"
+            ]
+          }
+        }
+      ],
+      "parallel_revision_history": [
+        {
+          "session": "arena/7d42af7c-zone1",
+          "commit": "4ae97f0",
+          "recorded_on": "2026-11-19",
+          "record": {
             "id": "H-02",
             "scope": "Site",
             "requirement": "Keep narrative counts in prose derived from the registers rather than typed into sentences",

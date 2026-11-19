@@ -77,15 +77,15 @@ ledger is empty. Uncertainty is **not** a finding that short links are invalid.
 ## Corrections and implementation boundaries
 
 - **F96 open:** contradictory cord instructions inside the same Emeril manual.
-- **F97 repaired, production hosting open:** incompatible browser/collector
+- **F99 repaired, production hosting open:** incompatible browser/collector
   contracts; old PHP/Worker endpoints retired without accepting/storing bodies.
-- **F98 repaired, infrastructure approval open:** privacy wording now includes
+- **F100 repaired, infrastructure approval open:** privacy wording now includes
   host IP logs and local decision drafts, and the enabled notice describes all
   browser events rather than clicks alone.
-- **F99 repaired:** old guide’s all-appliance dishwasher claim, omitted known
+- **F97 repaired:** old guide’s all-appliance dishwasher claim, omitted known
   8 Qt dimensions, capacity article’s incorrect same-total comparison of 6 and
   8 quarts, and unsupported “most common avoidable return” sentence.
-- **F100 account/runtime boundary:** no invented first-party reports, link tests,
+- **F101 account/runtime boundary:** no invented first-party reports, link tests,
   Search Console data, approved infrastructure or conversion result.
 - One canonical brand and reader sitemap; prior source generators stay read-only.
 - Conceptual AI scene is visibly labelled; no generated branded-product likeness
@@ -129,7 +129,7 @@ Main advanced to `cb33d97` (completed pass 14, PRs #157–#158) during
 pull-before-push. Both coordination/source records were retained. Its flags
 F90–F95, SG-49/SG-50/Q-41, breadcrumb counts, flag-anchor consistency guard,
 sponsored destinations and exact-file requirement guard remain present. PUB-1
-findings were renumbered F96–F100; F101 is a later distinct source-gate repair.
+findings were renumbered F96–F101; F102 is a later distinct source-gate repair.
 The overlapping presentation was replaced by the canonical publication template,
 not by deleting main's evidence or historical source generators.
 
@@ -155,7 +155,7 @@ alongside it, not as nutrition, health or measured performance evidence.
 
 A direct rendered-table audit found **27 rows** with no direct primary/repository
 source, despite the old gate passing. A generic Flagged link counted as a source,
-and a data row containing a `<th>` was skipped entirely. **F101:** the replacement
+and a data row containing a `<th>` was skipped entirely. **F102:** the replacement
 requires a registered primary URL, an exact submitted resolver, or an existing
 exact-file record in this repository. It rejects arbitrary URLs on an official
 host, unrelated repositories and a generic flag/summary. Editorial/implementation
@@ -231,7 +231,7 @@ visible notice element and DOM text instead.
 
 The full browser run exposed a genuine privacy hardening issue in the stdlib
 server’s fallback error path: an interrupted TLS request printed the client
-address despite disabled request access logs. **F98 update:** the production
+address despite disabled request access logs. **F100 update:** the production
 `AggregateHTTPServer` now suppresses expected disconnect diagnostics and emits
 only a fixed nonidentifying message for unexpected errors—never request/exception
 text or a traceback. Two negative log tests were added; the **45-test root suite**
@@ -244,3 +244,50 @@ Agent-Term exemption is invented. Original notes remain dated history. The polic
 quotes were not silently edited or blanket-stamped newly verified.
 
 **PR CI, merge and actual Pages read-back remain pending at this checkpoint.**
+
+
+## Integration with the completed parallel Z14 release
+
+The next pull-before-push found `main` at `4ae97f0`, including PRs #160/#161.
+That release independently addressed much of the same publication/evidence seam.
+The stopped six-commit rebase was aborted intact, then one explicit main merge was
+reconciled on the Arena-fixed current branch. Both histories, both complete board
+records, the published Z14 report/receipt and its image/font/source assets remain.
+No other session branch or historical generator was edited or discarded.
+
+- Keep the already-public thermometer-note route
+  **categories/cooking-thermometers.html**. The unmerged draft pathname was removed,
+  not published as a duplicate. The unconfirmed shelf stays noindex and outside
+  analytics eligibility, matching upstream's existing boundary.
+- Upstream **F96 cord conflict, F97 article corrections, F98 date provenance and
+  F99 protocol repair retain their published IDs**. Independent duplicate findings
+  are consolidated into those rows with both reports/evidence. New distinct PUB-1
+  findings are **F100 privacy/server-error logging**, **F101 external runtime/account
+  boundary**, and **F102 direct-source/row-header bypass**. This is not a renumbering
+  of an already-published upstream flag.
+- Preserve explicit published_at=null, real modified_at, scoped source_checks and
+  source-check history; preserve both suggestion/decision histories. Current-state
+  and implementation compatibility views agree without inventing owner choices.
+- Preserve bot/prerender/lifecycle opt-outs alongside the explicit enable switch,
+  same-origin route and target-ID allowlists. Preserve stricter all-product-anchor
+  sponsored/nofollow/noopener qualification, including `/gp/product/` destinations.
+- Preserve the real progressive format filter, suggestion search/empty state/anchor
+  recovery, clipboard-denial feedback and native no-JS alternatives in the selected
+  theme. The source-linked 8 Qt dimensions remain available on the product cards.
+- Preserve upstream's complete Q&A summary citations, the native Workspace **and**
+  footer inventory guard, source/date/metadata tests and strict /Zone1/ subpath browser
+  acceptance. Shape-specific tests were updated for the selected semantic header,
+  `publication/` source paths and native details structure—not dropped or reduced.
+- The original Z14 6 lb (2721 g) rotisserie-spit limit observation is retained with
+  that session's date/source provenance. Two final attempts to reopen the official
+  PDF returned a fetch failure; this integration does **not** claim those were a
+  successful fresh load-limit read. It does not resurrect the false absence claim,
+  infer load from quarts or provide a doneness recommendation. F96 still requires
+  manufacturer clarification on the independent cord contradiction.
+
+Post-integration checkpoint: canonical build **58 pages / 36 sitemap URLs / 24 RSS
+items**, verifier **136 pages / 77 spec rows / 45 sources / 0 errors and warnings**;
+**60 Python root tests and 8 retained JavaScript tests pass**. The preserved strict
+subpath browser script passes **70 page/viewport combinations, 5 interaction groups
+and 3 no-JS groups**, with no external request or page error. The broader native
+HTTP/axe suite will be rerun on the combined tree before merge.

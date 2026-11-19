@@ -10,7 +10,7 @@ const pages = ['.', 'products', 'categories', 'guides', 'articles'].flatMap(fold
   fs.readdirSync(path.join(ROOT, folder)).filter(name => name.endsWith('.html'))
     .map(name => folder === '.' ? name : `${folder}/${name}`));
 const representative = [
-  'index.html', 'categories/kitchen-appliances.html', 'categories/thermometers.html',
+  'index.html', 'categories/kitchen-appliances.html', 'categories/cooking-thermometers.html',
   'products/chefman-6qt-dual-basket.html', 'compare.html',
   'articles/dual-basket-vs-oven-air-fryer.html', 'about.html', 'executive-summary.html',
   'suggestions.html', 'questions.html', 'decision-log.html', 'product-intent.html',

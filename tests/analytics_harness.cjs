@@ -13,7 +13,8 @@ const attrs = {
 };
 const body = {
   'data-page-id': config.page || 'index',
-  'data-page-type': config.type || 'page'
+  'data-page-type': config.type || 'page',
+  'data-analytics-eligible': config.ineligible ? 'false' : 'true'
 };
 const document = {
   currentScript: {getAttribute: key => attrs[key] || null},
@@ -27,7 +28,7 @@ const navigator = {
   globalPrivacyControl: Boolean(config.gpc)
 };
 const sandbox = {
-  document, navigator, window: {},
+  document, navigator, window: {addEventListener(name, callback) { (listeners[name] ||= []).push(callback); }},
   fetch(route, options) { sent.push({route, options, body: JSON.parse(options.body)}); return Promise.resolve({status: 202}); },
   setInterval(fn) { timers.push(fn); return timers.length; },
   clearInterval(id) { timers[id - 1] = null; }

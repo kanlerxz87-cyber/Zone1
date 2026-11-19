@@ -301,15 +301,13 @@ def article_jsonld(a, url):
     source of the headline, the standfirst and the reading time; the dates are the
     dates recorded in data/articles.json, not invented ones.
     """
-    return {
+    node = {
         "@type": "Article",
         "@id": url + "#article",
         "headline": a["title"],
         "description": a["standfirst"],
         "articleSection": a["kind"],
         "inLanguage": "en-US",
-        **({"datePublished": a["published_on"]} if a.get("published_on") else {}),
-        **({"dateModified": a["modified_on"]} if a.get("modified_on") else {}),
         "author": {"@id": SITE_URL + "/#organization"},
         "publisher": {"@id": SITE_URL + "/#organization"},
         "mainEntityOfPage": {"@type": "WebPage", "@id": url},
@@ -317,6 +315,11 @@ def article_jsonld(a, url):
         "url": url,
         "isAccessibleForFree": True,
     }
+    if a.get("published_at"):
+        node["datePublished"] = a["published_at"]
+    if a.get("modified_at"):
+        node["dateModified"] = a["modified_at"]
+    return node
 
 
 def uniq(seq):
@@ -613,7 +616,7 @@ PUBLIC_INDEX_PAGES = {
 
 def is_indexable_page(page_rel):
     """Only buyer-facing canonical publication pages enter the root sitemap."""
-    if page_rel == "404.html":
+    if page_rel in {"404.html", "categories/cooking-thermometers.html"}:
         return False
     return (
         page_rel in PUBLIC_INDEX_PAGES
@@ -648,7 +651,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
         return f'<a href="{prefix}{href}"{current}>{e(label)}</a>'
     topnav = "".join(navlink(href, label) for href, label in (
         ("categories/kitchen-appliances.html", "Air fryers"),
-        ("categories/thermometers.html", "Thermometers"),
+        ("categories/cooking-thermometers.html", "Thermometers"),
         ("articles/index.html", "Buying guides"),
         ("compare.html", "Compare"),
     ))
@@ -699,7 +702,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
         page_id=e(page_rel.removesuffix(".html")), page_type=e(analytics_page_type(page_rel)),
         topnav=topnav, workspace_links="".join(navlink(*item) for item in workspace_items),
         footer_workspace="".join(f'<li>{navlink(*item)}</li>' for item in workspace_items),
-        disclosure=e(DISCLOSURE), privacy=privacy_html(), analytics_tag=analytics_tag,
+        analytics_eligible=str(indexable).lower(), disclosure=e(DISCLOSURE), privacy=privacy_html(), analytics_tag=analytics_tag,
         workspace_status=('<div class="workspace-status">OWNER WORKSPACE <span aria-hidden="true">/</span> '
                           'Public evidence and decisions · not a reader buying guide</div>' if page_kind == "workspace" else ""),
         search_console_tag=search_tag, body=body.strip(),
@@ -726,7 +729,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
 
 def product_cta(p, prefix=""):
     return f"""<div class="cta-row"><a class="btn" href="{e(p['link'])}" target="_blank" rel="sponsored nofollow noopener" data-analytics-event="outbound_click" data-analytics-target-id="{e(p['slug'])}">View on Amazon — check model <span aria-hidden="true">↗</span></a></div>
-<p class="cta-note">Affiliate link · intended listing and attribution unconfirmed. The submitted link has an observed destination, not a verified model match. Check the exact listing before buying. <a href="{prefix}product-intent.html">Link notes</a>. {src_links(['S2','S41'])}</p>"""
+<p class="cta-note"><strong>Paid link — we may earn a commission.</strong> Affiliate link · intended listing and attribution unconfirmed. The submitted link has an observed destination, not a verified model match. Check the exact listing before buying. <a href="{prefix}product-intent.html">Link notes</a>. {src_links(['S2','S41'])}</p>"""
 
 
 
@@ -949,13 +952,13 @@ def format_art(row):
 
 def product_card(p, prefix=""):
     row = BUYING_BY_SLUG[p["slug"]]
-    return f"""<article class="card pcard publication-product">
+    return f"""<article class="card pcard publication-product" data-format="{e(row['kind'])}">
 {format_art(row)}
 <div class="pcard-body">
  <p class="product-type">{e(row['eyebrow'])}</p>
  <h3><a href="{prefix}products/{e(p['slug'])}.html">{e(row['title'])}</a></h3>
  <p class="cardtext">{e(row['dek'])} {src_links(row['sources'])}</p>
- <dl class="publication-facts"><div><dt>Capacity</dt><dd>{e(row['capacity'])} {src_links(row['sources'])}</dd></div></dl>
+ <dl class="publication-facts"><div><dt>Capacity</dt><dd>{e(row['capacity'])} {src_links(row['sources'])}</dd></div><div><dt>Published size</dt><dd>{e(row["size"])} {src_links(row["size_sources"])}</dd></div></dl>
  <p class="product-caution"><strong>Check first:</strong> {e(row['check'])} {src_links(row['check_sources'])}</p>
  <a class="pick-cta" href="{prefix}products/{e(p['slug'])}.html">Explore the product guide <span aria-hidden="true">→</span></a>
 </div>
@@ -999,9 +1002,9 @@ def page_thermometers():
 <p class="small">The observed Amazon titles are retained as dated evidence. No claim about accuracy, certifications, wireless range, heat resistance or food safety is adopted from those titles. A landing URL alone does not prove attribution, and a missing visible tracking ID does not disprove it. {src_links(['S36','S37','S41'])}</p>
 <p class="small"><a href="../product-intent.html">Read all five separate link records →</a> · <a href="../flagged.html#f80">Unresolved model matching →</a></p>
 {reader_capture('../')}"""
-    return layout('categories/thermometers.html','Meat thermometer link notes',body,active='categories/thermometers.html',
+    return layout('categories/cooking-thermometers.html','Meat thermometer link notes',body,active='categories/cooking-thermometers.html',
                   description='Dated notes on the two submitted thermometer links, keeping observed listings separate from intended products and unverified specifications.',
-                  jsonld_blocks=[breadcrumbs_jsonld([('Home',SITE_BASE),('Thermometer link notes',page_url('categories/thermometers.html'))])])
+                  jsonld_blocks=[breadcrumbs_jsonld([('Home',SITE_BASE),('Thermometer link notes',page_url('categories/cooking-thermometers.html'))])])
 
 
 def page_about():
@@ -1045,13 +1048,14 @@ def page_index():
 <nav class="browse-strip" aria-label="Browse by question"><span>Start with a question</span><a href="articles/dual-basket-vs-oven-air-fryer.html">Basket or oven?</a><a href="articles/air-fryer-capacity-guide.html">How much capacity?</a><a href="articles/small-kitchen-air-fryer-dimensions.html">Will it fit?</a></nav>
 <section class="quick-guide" id="choose-a-format" aria-labelledby="formats-title">
  <div class="section-heading"><div><p class="section-eyebrow">Different kitchens. Different trade-offs.</p><h2 id="formats-title">Find your kind of air fryer.</h2></div><a class="text-link" href="categories/kitchen-appliances.html">Explore air fryers <span aria-hidden="true">↗</span></a></div>
+ <div class="format-controls" data-format-controls hidden role="group" aria-label="Filter by appliance format"><button type="button" data-format-filter="all" aria-pressed="true">All formats</button><button type="button" data-format-filter="dual" aria-pressed="false">Two baskets</button><button type="button" data-format-filter="single" aria-pressed="false">One basket</button><button type="button" data-format-filter="oven" aria-pressed="false">Oven-style</button><span class="tiny muted" data-format-status aria-live="polite">3 formats shown.</span></div>
  <div class="grid grid-3">{cards}</div>
  <p class="section-note">These are documented product options, not a ranking. Supplied-link destinations and intended listings are not yet confirmed as a match; check the exact model before buying. <a href="product-intent.html">The separate link record</a>.</p>
 </section>
 <div class="publication-compare-cta"><div><h2>Prefer everything side by side?</h2><p>Capacity, counter space and care. Official sources beside the details.</p></div><a class="btn btn-ghost" href="compare.html">Compare the three <span aria-hidden="true">→</span></a></div>
 <section class="quick-guide" aria-labelledby="guides-heading"><div class="section-heading"><div><p class="section-eyebrow">A little homework, a better fit</p><h2 id="guides-heading">Read before you make room.</h2></div><a class="text-link" href="articles/index.html">All buying guides <span aria-hidden="true">↗</span></a></div><div class="grid grid-2">{guides}</div></section>
 <section class="season-feature" aria-labelledby="season-heading"><div><p class="section-eyebrow">The November notebook · 2026</p><h2 id="season-heading">Giving an air fryer? Ask about the counter first.</h2><p>A useful gift starts with the way someone cooks—not the biggest number on the box. These seasonal guides help with the questions, without claiming a deal or a bestseller.</p></div><div class="season-links"><a href="articles/air-fryer-gift-guide-2026.html">The thoughtful air-fryer gift guide <span aria-hidden="true">↗</span></a><a href="articles/black-friday-model-number-switch.html">A model-number check before a sale <span aria-hidden="true">↗</span></a><a href="articles/questions-before-buying-a-multifunction-appliance.html">Questions before buying multifunction <span aria-hidden="true">↗</span></a></div></section>
-<section class="reader-note" aria-label="How these guides are made"><span class="note-symbol" aria-hidden="true">“</span><div><h3>The manual is a good place to start.</h3><p>We link the specifications to the manufacturer. When official documents disagree, you’ll see the difference—not a guess. <a href="about.html">How we research</a>.</p></div><div><h3>More kitchen tools, kept in perspective.</h3><p>The other submitted links open thermometer titles. Read the <a href="categories/thermometers.html">ThermoMaven and CHEF iQ link notes</a>; intended models and specifications remain unconfirmed.</p></div></section>
+<section class="reader-note" aria-label="How these guides are made"><span class="note-symbol" aria-hidden="true">“</span><div><h3>The manual is a good place to start.</h3><p>We link the specifications to the manufacturer. When official documents disagree, you’ll see the difference—not a guess. <a href="about.html">How we research</a>.</p></div><div><h3>More kitchen tools, kept in perspective.</h3><p>The other submitted links open thermometer titles. Read the <a href="categories/cooking-thermometers.html">ThermoMaven and CHEF iQ link notes</a>; intended models and specifications remain unconfirmed.</p></div></section>
 {reader_capture()}"""
     ld = [breadcrumbs_jsonld([("Home", SITE_BASE)]), {"@type":"ItemList","name":"Documented air-fryer formats","itemListElement":[{"@type":"ListItem","position":i,"name":r["title"],"url":page_url('products/'+r['slug']+'.html')} for i,r in enumerate(PUBLICATION['products'],1)]}]
     return layout("index.html","Kitchen buying guides for the way you cook",body,active="index.html",description="Find the air-fryer format that fits your kitchen. Compare documented capacity, counter space and care, with useful buying guides and clear affiliate disclosures.",jsonld_blocks=ld)
@@ -1094,514 +1098,1464 @@ def page_product(p):
     return layout('products/'+p['slug']+'.html',row['title']+' product guide',body,active='categories/kitchen-appliances.html',description=row['dek']+' Documentation-based product notes; no hands-on testing.',jsonld_blocks=[breadcrumbs_jsonld([('Home',SITE_BASE),('Air fryers',page_url('categories/kitchen-appliances.html')),(row['title'],page_url('products/'+p['slug']+'.html'))])])
 
 
-PROGRAMME_FLAGS = [
-    ("F1", "ASIN → manufacturer model number: recorded for ten passes as not published by Amazon. Closed on 2026-11-16 for two of three products — see F49 and F68.",
-     "All three", "HISTORY KEPT, BECAUSE THE PREMISE WAS THE DEFECT: this row said the model number could not be read from the listing, so each product's model was published as a documented match with a caveat, and F49 recorded that a machine could not read it at all. On 2026-11-16 session arena/ba29c641 fetched all three /dp/ pages and each Product information block rendered. B0CDY277D3 states Model Number and Part Number RJ38-SQPF-3TDB-2W — the brand page's and manual's string, so that mapping is now sourced twice. B08DKYBTPH states Part Number RJ38-SQSS-8T (its Model Number row holds the marketing string 'Large Air Fryer'). B09B7SB46R states 4-00675-02X-VN, one character away from the brand page's 4-00675-02A-VN, and that conflict stays open (F70). Still open, unchanged by this pass: whether the supplied short links point where the account holder intended (F6, F7, F10), which is why the caveat on the *link* half of the mapping is not removed.", ["S16", "S28", "S29"]),
-    ("F6", "The Associates tag inside the three link.amazon short links is not observable.",
-     "All three links", "The shortener hides the tag. Attribution cannot be verified from outside Associates Central, so 'associates_tag_confirmed' is false for all three links. Needs the account holder to open Manage Tracking IDs.", ["S2", "S17"]),
-    ("F7", "Program Policies §6(w) (Content on your Site) prohibits link shortening that makes it unclear you are linking to an Amazon Site.",
-     "All three links", "link.amazon keeps the Amazon name visible, so the risk is low, but the landing URL is generated and temporary. Recorded so the account holder can confirm current guidance before publishing.", ["S2"]),
-    ("F83", "The owner handover told a reader to see F01, F02, F03, F06 and F07, and the Flagged page renders no such rows.",
-     "data/decision.json handover.items, handover.html, decisions.html",
-     "Found and repaired 2026-11-17 by arena/0cf55ef3 (X-0cf55ef3). The handover register names the flags each owner action closes. Five of those entries were zero-padded ids (F01, F02, F03, F06, F07) belonging to the older annex register data/flags.json, which runs F01-F27. The page that prints them is rendered next to flagged.html, and that page renders the canonical register (F1, F6, ...), where the same numbers mean different things: legacy F01 is 'price, rating and review count are blank', canonical F1 is 'ASIN to manufacturer model number'. A reader who followed one landed on the wrong row or on nothing, which is the F46/F59 defect class that check_register_cross_references() was written to stop - but that guard accepts legacy ids on purpose because F47 documents two registers, so these slipped through. Repaired at source: H1 now closes F1, F32 and F33; H2 closes F6 and F76; H3 cites Q-03 as a question; H4 and H5 are labelled as measurement rows and a decision log rather than dressed up as flags. Both renderers link an id only when it matches F plus one or two digits. New guard check_legacy_flag_pointers() now fails the build when a zero-padded id is printed without the surrounding sentence naming the legacy register, and it was proven to fire on an injected 'closes F01' before being committed.",
-     []),
-    ("F84", "Three published counts were typed into prose and had already gone stale, including the headline on the handover page.",
-     "build.py (homepage callout, handover heading), data/decision.json handover.summary, data/requirements.json rows A-04 and B-08",
-     "Found and repaired 2026-11-17 by arena/0cf55ef3 (X-0cf55ef3), fifth occurrence of the class F14, F38, F52 and F63 record. (1) handover.html's headline read 'Five actions, about an hour, eighteen flags' and the homepage repeated 'closes eighteen flags' twice, while data/decision.json holds five handover items and the three that close flags close five flag rows between them - 18 matched neither the item count nor the flag count. (2) index.html said 'Eight reads written for this product set' directly above a grid rendering 21 articles. (3) data/requirements.json row B-08 said 'Twelve articles are published and three more are specified but unwritten' (now 21 and 4) and row A-04 said 'Twenty questions' (now 26). Repaired at source: the article count is now computed from data/articles.json at build time, both requirements rows now use the register's existing computed-count tokens (n_articles, n_questions) and a new n_topics_minus_articles token derived from data/topics.json, and the handover headline and summary state the five-row figure that the register actually supports. An unknown token still fails the build. Re-rendered and re-checked: requirements.html reads '21 articles' and '26 questions', index.html reads '21 reads' and 'five flag rows closed'.",
-     []),
-    ("F85", "The article set is tracked in two hand-maintained registers, and both were wrong in opposite directions on 2026-11-17.",
-     "data/topics.json vs data/design-prompt.json (topics)",
-     "Found by the pass-13 read. The design-prompt register still marked A-9 'not-written' two days after its article shipped (articles/associates-disclosure-explained.html, published 2026-11-16 in the pass-10 set), while the canonical topic queue carried no row for that published article at all — the orphan defect of F74 in reverse: a page every reader could reach, absent from the list that says what the site covers. Both data rows are corrected in place by this pass (A-9 status fixed; queue row TP-26 added) and the new rows TP-21/TP-24/TP-25 keep the two lists aligned for now. The machinery gap is what stays open: nothing in the build compares the two registers, so the next article that touches one and not the other reproduces this. Decision needed: generate the design-prompt topic list from data/topics.json, or retire the duplicate list.",
-     ["S30"]),
-    ("F86", "chefman.com publishes two different weights for the 8 Qt TurboFry Touch (RJ38-SQSS-8T) on the same product, read on the same day.",
-     "Chefman 8 Qt TurboFry — product weight",
-     "Read 2026-11-17: the product page's specification block states 'Weight: (8 Qt Model) 12.8 lbs / 5.8 kg'; the store product record behind the same page (…/turbofry-touch-air-fryer-1.json, updated_at 2026-11-17T11:41:54-05:00) carries variant weight 13.4 lb. 0.6 lb apart, and neither document says which figure is the appliance and which is the carton — which matters because this site's small-kitchen article and the new buyer's checklist both tell readers to check a shelf or cupboard load. Nothing was averaged and no weight figure was invented: the published row stays the specification block, and no weight claim is made in advice. Settled by a statement from Chefman or a scale reading (Q-38).",
-     ["S12", "S33"]),
-    ("F87", "The shopfront polish of pass 13 lands in the canonical root build only; six parallel builds on the same origin keep their own stylesheets and their own look.",
-     "s2/, site/, research/, docs/, dashboard/, annex-88769516/",
-     "Found while implementing SG-44. Every design change in this pass (front-page order, merchandising rows, mobile type scale, the sticky comparison bar) is generated by build.py for the root site. The parallel builds are separate generators with their own reproducibility gates — scripts/build_s2_site.py --check, scripts/verify_site.py, research/check_research.py — so hand-editing their HTML or CSS would break the gate that proves their output matches their data, which is the reason earlier passes logged requests instead of edits and this pass does the same. A reader who reaches a parallel build from the footer's archive links sees a pre-2026-11-17 page and a second brand voice. Decision needed (SG-44): declare the root build canonical and label the annexes archives, port the tokens into each generator, or stop serving the annexes from the published site.",
-     ["S31"]),
-    ("F88", "No accessibility standard can currently be cited on this site, so the mobile pass states a 44 px tap-target minimum as a usability choice and claims no conformance.",
-     "verify.py OFFICIAL_HOSTS vs the design rows in data/design-prompt.json",
-     "The pass-13 stylesheet widens interactive chrome to a 44 px minimum and the code comment names WCAG 2.2 SC 2.5.8 — but verify.py's official-host allow list contains no accessibility body, so no published row could link the standard it satisfies and the site must not print a conformance claim without a registered source. Recorded rather than silently fixed: adding a host to the verifier is a policy change to the checking machinery, and the two must arrive in the same commit with the decision attached (Q-40). Note also that 44 px is larger than the 24 CSS px minimum in that success criterion; the figure chosen here comes from platform interface guidance, not from the standard, and is described that way on D-16.",
-     ["S43"]),
-    ("F89", "The suggestions queue asserted in its own lede that nothing on the page had been implemented, while the decision log already recorded a shipped row — a typed claim that outlived the fact.",
-     "data/suggestions.json (lede and how_to_read) vs data/decision-log.json (implemented)",
-     "Found 2026-11-17 by the pass-13 read while adding rows to that register: the page's first sentence and its how_to_read[0] both stated 'Nothing on this page has been implemented', which had been untrue since 2026-11-16, when data/decision-log.json recorded SG-26 path A as implemented under the queue's own pre-authorisation rule. Same class as F52, F63 and F14 — a register cell written as a snapshot and rendered as a live fact. Repaired in the generator: the lede and the new decision desk now count the log's rows at build time (so the sentence moves when the log does), and how_to_read[0] was rewritten to describe the mechanism instead of asserting a status. What remains open is the general fix: check_register_preambles() compares repeated sentences, not claims about other registers, so no guard stops the next typed status sentence from going stale the same way. Decision needed: extend the register-preamble guard to reject declarative status claims ('nothing has been implemented', 'N rows are done') in prose that has a computed equivalent. The pass-13 scan found the same class in a place no guard looks at — evidence-link labels: 'A-02: 21 suggestions', 'A-04: 20 questions' and 'B-08: 12 articles' were printed as link text beside a register that had grown to 44, 37 and 24. All three were rewritten to point at the page that computes its own count, and B-08's typed count became a build-time computed count instead. A label is prose, and prose about a row count is exactly what drifts.",
-     ["S30"]),
-    # ---- pass 14 (arena/9b3365c7-zone1, 2026-11-19): found while rebuilding the front page.
-    ("F90", "The price note on every front-page product card cited the wrong policy clause: it said Program Policies §2(b) and §6(t) bar an Associate site from displaying Amazon's price.",
-     "Front page (price_line in build.py) — all three products",
-     "Re-read live 2026-11-19: Participation Requirements §2(b) says a site 'may only show prices and availability if: (a) we serve the link … or (b) you obtain Product pricing and availability data via Creators API or PA API' — a conditional permission, not a bar — and §6(t) is about customer reviews and star ratings, not prices. Fixed in the same pass: the note now cites §2(b) alone and says what it allows. Other pages that pair 'prices and star ratings' with '§2(b) and §6(t)' are correct and were left alone.",
-     ["S2"]),
-    ("F91", "categories/kitchen-appliances.html published '0 of the five links submitted to this project were observed landing on air fryer or air fryer-oven listings' while three of them did.",
-     "Category page lede — PI-01…PI-05",
-     "The count tested 'air fryer' against a prose field that spells it 'Air-fryer', so nothing matched. Live re-read 2026-11-19: B04G1MEwY, B02NbDxp3 and B00hJ57DV land on pages whose breadcrumb ends 'Fryers › Air Fryers'; B0c8moW59 and B0f3GKalj land under 'Thermometers & Timers › Meat'. The breadcrumb is now recorded per row as observed_browse_path (an observation, kept apart from intent), the count reads it, and a row without one fails the build. The defect was first reported in open PR #144 on 2026-11-17 and stayed live for two days because that PR could not merge.",
-     ["S17", "S16", "S28", "S29", "S36", "S37"]),
-    ("F92", "Two rows on the questions page linked their flag citations to the wrong anchor: 'Flag F86' pointed to #f84 and 'Flag F88' pointed to #f86.",
-     "data/questions.json — Q-38 and Q-40",
-     "Left over from the pass-13 renumbering (F84→F86, F86→F88): the labels were rewritten, the URL fragments were not, and check_register_cross_references() reads labels, not fragments. Both anchors repaired 2026-11-19; a repository-wide scan of every data file for a 'Flag Fnn' label whose URL fragment names a different flag found no other case. The guard gap is closed in the same pass: check_flag_anchor_labels() now fails the build when a link's text names one flag and its fragment opens another (proven by reverting Q-38's anchor).",
-     []),
-    ("F93", "Five pull requests from 2026-11-17 are still open and unmergeable (#139, #141, #144, #146, #150); at least one carried content no merged pass has published.",
-     "Repository process",
-     "Reviewed 2026-11-19. #144's fix is superseded by F91. #150 is a COORDINATION record only. #146's self-hosted endpoint overlaps analytics/ already on main. #141 applies the selected tracking ID to links, which main deliberately does not do until the account test passes (Q-01, SG-47) — a decision, not a merge. #139 carries a sourced dataset and page for the two thermometer links (PI-04, PI-05) that main has never published; porting it needs a fresh live re-read of every row, and the choice is SG-50. Disposition is in COORDINATION.md; none of the five was merged or closed by this pass.",
-     []),
-    ("F94", "The suggestions page contradicted itself: the decision desk said 47 rows, 42 still asking for a path and 7 implemented (49), and the 'At a glance' note under it still said 'Nothing on this page has been implemented'.",
-     "suggestions.html — decision desk and 'At a glance' note",
-     "Found 2026-11-19 while adding rows. The desk's 'still ask you for a path' figure excluded only rows whose effort said 'done', not rows the decision log records as shipped, so implemented rows were counted twice. The 'At a glance' sentence is the same typed-status class as F89, in a second place that F89's repair did not reach. Both fixed in the generator: shipped rows leave the open count and the 'blocked on a question' count, and the note now points at the desk instead of asserting a status.",
-     []),
-    ("F95", "The channelId parameter on Amazon's landing URL is not a property of a link: the same ASIN came back with channelId=704 through its short link and channelId=500 through a direct /dp/ request on the same day.",
-     "PI-01…PI-05 observed redirect targets",
-     "Observed 2026-11-19. Through the short links, the three air-fryer ASINs landed with channelId=704 and the two thermometer ASINs with channelId=500 plus extra parameters; the same day, direct requests for all five /dp/ pages each landed with channelId=500. The 704 value matches the 2026-11-14 record in data/reverification.json. Amazon documents none of these parameters in any source this project holds, so they are recorded and nothing is read into them — not attribution, not link type, not who made the links. Amazon says even an absent tag parameter on the landing URL is not evidence about attribution (S41). This row exists so a future pass does not treat the 704/500 split as a difference between the two batches of links.",
-     ["S17", "S41"]),
-    ("F8", "IP License §2(e) forbids aggregating, analysing or repurposing Program Content and training models on it.",
-     "Platform design", "Any AI research or trend scoring therefore runs only on first-party data and public manufacturer data. Documented as guardrail G6 in the blueprint.", ["S2"]),
-    ("F9", "No Amazon price, star rating or review count is available to this build.",
-     "All three", "Left blank everywhere by policy rather than by omission. Becomes fillable only if the operator secures Creators/PA API credentials.", ["S2", "S19"]),
-    ("F10", "The short links are generated redirects with fallback parameters, not plain product links.",
-     "All three links", "Logged redirect observations carried lv=shuf and plpRedirect=mhFallback. The candidate ASIN/title destinations were consistent across the recorded checks, but the btn_ref/srctok value changed between repeat or cache-busted requests (see F41 and the linked session evidence). These are observations of redirect responses, not confirmation that the candidate ASINs are the products intended by the account holder or that the links carry an Associates tag. Confirm both before publishing.", ["S17", "S16"]),
-    ("F11", "The site does not disclose cookies, pixels and third-party technologies as Participation Requirements §3(e) requires.",
-     "Whole site", "The site itself sets no cookies and runs no analytics, but §3(e) requires an accurate disclosure of cookie and third-party technology use, including that third parties may place or recognise cookies. Only a minimal notice is in the footer; a proper privacy/cookie statement is needed before launch. Legal review recommended.", ["S2"]),
-    ("F12", "The automated platform functions in the brief are not running — by design, not by omission.",
-     "Platform", "Automated trend detection, competition scoring and conversion optimisation need an Associates account, Creators/PA API credentials and sales reports. PA API access is registered through Associates Central and credentials are tied to the primary account holder, with request rate scaled to account sales performance. None of that exists in this repository, and inventing the data to fill the gap would defeat the point of the project.", ["S2", "S19", "S20"]),
-    ("F13", "Product listing titles are reproduced from Amazon; §6(a) restricts altering Program Content.",
-     "All three", "Titles are shown verbatim and unedited. §6(a) permits truncation only where meaning is not materially altered, and whether a listing title counts as Program Content is not stated. Recorded so the operator can confirm before adding any paraphrase.", ["S2"]),
-    ("F14", "The landing page overstated product resolution (corrected 2026-11-14).",
-     "Root landing page", "The headline read '3 products resolved — all three short links followed to an ASIN'. The 2026-11-14 check found the short links reach Amazon fallback pages and the bare 9-character codes return 'Page Not Found'. The headline now reads '0 verified product identities' and the ASINs are labelled as unconfirmed candidates. Evidence: reports/link-check-2026-11-14.md.", ["S16", "S17"]),
-    ("F15", "Plain ASIN URLs were also answered with Amazon's fallback form on 2026-11-14.",
-     "All three ASINs", "amazon.com/dp/B0CDY277D3, /dp/B09B7SB46R and /dp/B08DKYBTPH each returned a URL carrying lv=shuf and plpRedirect=mhFallback, so a fetch cannot show that the ASIN is the live product page. Confirm from a logged-in browser before any ASIN is treated as the supplied product.", ["S16"]),
-    ("F16", "link.amazon is not confirmed as an Amazon-documented short-link domain.",
-     "All three links", "A web search on 2026-11-14 returned only third-party blogs naming amzn.to and a.co. No official Amazon page listing link.amazon was found. An official Associates help page is needed before the domain is described as Amazon's.", ["S2", "S17"]),
-    ("F17", "Advisory link gate: table rows with no source link on inherited annex pages.",
-     "dashboard/, site/, research/, session-3740f69d/ annexes", "Root pages generated by build.py were given a source badge, policy citation or flagged-page link in the arena/0c7445c7 pass (2026-11-14). Remaining advisory rows lived only in other sessions' annex builds; scripts/check_links.py reported them as non-blocking warnings. **CLOSED 2026-11-14 by sess-7111e2b6** along with F25: a row-source pass now runs inside the research/ and site/ generators, and scripts/source_rows.py applies it to the hand-authored annex builds. The advisory list is empty, and the gate's own definition was corrected first, so that it can see single-quoted hrefs and every flagged-page filename.", ["S1"]),
-    ("F18", "Committed s2 build stamp changes with the calendar date.",
-     "s2/ (session zone1-s2 build)", "scripts/build_s2_site.py writes today's date into the 'built' stamp. Re-running on 2026-11-14 changes 13 files by that stamp alone (committed stamp: 2026-11-13). The CI gate regenerates before it checks, so it passes, but the committed copy is not pinned. Not changed in this pass because another session owns the file.", ["S1"]),
-    ("F19", "Brand-site review counts move between days, so every rating on this site is a dated observation.",
-     "All three", "Chefman's own widget read 1,302 reviews on 2026-11-13 and 1,305 on 2026-11-14; the 8 Qt page read 715 then 716. A third read on 2026-11-16 moved them again — 1,307 and 717 — while both averages held at 4.6 for the third consecutive time. The averages did not move (4.6 on every read), but a published figure without its read date would silently become false. All three counts now carry all three dates in the dataset, and any copy generated from it must carry the date too.", ["S10", "S12"]),
-    ("F20", "The repository carries six parallel builds, and two of them were unreachable from the landing page until the 2026-11-14 integration pass.",
-     "Whole repo", "s2/, site/, dashboard/, research/, session-3740f69d/ and docs/ are independent session outputs with their own data, their own verifiers and their own verdicts; they disagree in places (for example on whether the commission rate can be stated, and on how to read the plpRedirect=mhFallback marker). The pass linked the two orphaned builds into the navigation and changed none of their content. The owner should decide which build is canonical before this points at a real domain — a live site with six home pages is a maintenance and trust problem, not a data problem.", []),
-    ("F23", "One documented build command in the README no longer runs against the shared data — it is a pre-existing break, not a regression from this pass.",
-     "scripts/build.mjs → docs/", "The Node builder that generated the retired docs/ build validates a schema (products with official_url / values, sources with a status field, compliance.rows, flags) that data/products.json, data/sources.json, data/compliance.json and data/flags.json no longer use, so 'node scripts/build.mjs --check' throws ERR_INVALID_URL on undefined. Verified identical on the pre-change baseline, and no CI workflow calls it — pages.yml, ci.yml and verify.yml are Python-only. docs/ therefore stays frozen as committed and cannot be regenerated from current data. Not repaired here: re-authoring another session's generator to a new schema would silently change what its published pages assert. Either retire docs/ and its README line, or point the builder at data/verified/. This pass added no dependency on it.", []),
-    ("F22", "A committed merge-conflict marker was found in a published document and repaired by this pass.",
-     "EXECUTIVE_SUMMARY.md", "The file carried a bare '=======' line and a '>>>>>>> origin/main' line on main, i.e. a previous integration resolved a conflict by leaving the markers in. Both sides are real work by different sessions, so this pass removed only the markers and kept both documents as separate sections. Any other file carrying markers should be treated the same way — delete the marker, never the work.", []),
-    ("F21", "Two verification passes on the same links reached different conclusions, and both are published.",
-     "The three supplied links", "arena/1dcaaafc (reports/link-check-2026-11-14.md) reads the fallback marker plus the 9-character-token 404 as 'product identity not confirmed' and removed the 'products resolved' headline. sess-81495d2d (reverification.html) re-tested with a repeat request and a nonsense-token control: the target was identical across four sessions on two days, while an unrecognised token returns 403 instead of a product page, which is not what a pure not-found fallback would do. The reconciled position on this site: the *destination* of the links is reproducible and is documented; the *identity* of the product the operator meant, and the Associates tag attached to the link, are not confirmed and are not asserted. Confirm both in a logged-in browser and in Associates Central before publishing.", ["S16", "S17", "S21", "S22"]),
-    ("F24", "PA-API 5 is officially deprecated (confirmed live 2026-11-14); the successor is Amazon's Creators API.",
-     "Platform design", "The official docs URL now serves a deprecation notice: PA-API 5 calls return 403 AccessDeniedException and integrations are told to migrate to the Creators API. This supersedes the earlier board retraction of the cross-check's F18 claim and means every automated feature in the blueprint must target the Creators API, not PA-API 5. The Program Policies phrase their data-use rules as 'Creators API or PA API', so the compliance quotes remain accurate. Independently noted in the dashboard annex as H-01.", ["S24", "S20"]),
-    ("F25", "Table rows on inherited builds have no link to a registered official source.",
-     "dashboard/, research/, site/, s2/, session-3740f69d/, annex-88769516/",
-     "Audited 2026-11-14 with the project's own official-host list (every host in data/sources.json, plus this repo on GitHub). Root pages generated by build.py now pass, and the build fails on any unsourced row. Inherited builds were not edited by that pass because other sessions own them. Count at 2026-11-14: 281 of 1,363 table rows in the repository have no sourced link (inherited builds: 281 of 1,057; root pages built by build.py: 0 of 306). **CLOSED 2026-11-14 by sess-7111e2b6.** The residue is now 0. Two things were wrong with the count itself: the link gate could not see single-quoted hrefs, and it recognised only one filename for the flagged page, so 33 rows that did carry a source link were being reported as unsourced. With the gate corrected, the true figure was 248 rows. A row-source pass was then added inside the research/ and site/ generators, and scripts/source_rows.py applies the same pass to the three hand-authored builds (dashboard/, annex-88769516/, session-3740f69d/). Rows that state a fact now link to that fact's official document; rows that are judgements, blocked metrics or unverified values link to the flagged page, which is where the project puts unconfirmed values. The gate also now rejects rows that link only to a relative internal page.", []),
+PROGRAMME_FLAGS = [('F1',
+  'ASIN → manufacturer model number: recorded for ten passes as not published by Amazon. Closed on 2026-11-16 '
+  'for two of three products — see F49 and F68.',
+  'All three',
+  'HISTORY KEPT, BECAUSE THE PREMISE WAS THE DEFECT: this row said the model number could not be read from the '
+  "listing, so each product's model was published as a documented match with a caveat, and F49 recorded that a "
+  'machine could not read it at all. On 2026-11-16 session arena/ba29c641 fetched all three /dp/ pages and '
+  'each Product information block rendered. B0CDY277D3 states Model Number and Part Number RJ38-SQPF-3TDB-2W — '
+  "the brand page's and manual's string, so that mapping is now sourced twice. B08DKYBTPH states Part Number "
+  "RJ38-SQSS-8T (its Model Number row holds the marketing string 'Large Air Fryer'). B09B7SB46R states "
+  "4-00675-02X-VN, one character away from the brand page's 4-00675-02A-VN, and that conflict stays open "
+  '(F70). Still open, unchanged by this pass: whether the supplied short links point where the account holder '
+  'intended (F6, F7, F10), which is why the caveat on the *link* half of the mapping is not removed.',
+  ['S16', 'S28', 'S29']),
+ ('F6',
+  'The Associates tag inside the three link.amazon short links is not observable.',
+  'All three links',
+  'The shortener hides the tag. Attribution cannot be verified from outside Associates Central, so '
+  "'associates_tag_confirmed' is false for all three links. Needs the account holder to open Manage Tracking "
+  'IDs.',
+  ['S2', 'S17']),
+ ('F7',
+  'Program Policies §6(w) (Content on your Site) prohibits link shortening that makes it unclear you are '
+  'linking to an Amazon Site.',
+  'All three links',
+  'link.amazon keeps the Amazon name visible, so the risk is low, but the landing URL is generated and '
+  'temporary. Recorded so the account holder can confirm current guidance before publishing.',
+  ['S2']),
+ ('F83',
+  'The owner handover told a reader to see F01, F02, F03, F06 and F07, and the Flagged page renders no such '
+  'rows.',
+  'data/decision.json handover.items, handover.html, decisions.html',
+  'Found and repaired 2026-11-17 by arena/0cf55ef3 (X-0cf55ef3). The handover register names the flags each '
+  'owner action closes. Five of those entries were zero-padded ids (F01, F02, F03, F06, F07) belonging to the '
+  'older annex register data/flags.json, which runs F01-F27. The page that prints them is rendered next to '
+  'flagged.html, and that page renders the canonical register (F1, F6, ...), where the same numbers mean '
+  "different things: legacy F01 is 'price, rating and review count are blank', canonical F1 is 'ASIN to "
+  "manufacturer model number'. A reader who followed one landed on the wrong row or on nothing, which is the "
+  'F46/F59 defect class that check_register_cross_references() was written to stop - but that guard accepts '
+  'legacy ids on purpose because F47 documents two registers, so these slipped through. Repaired at source: H1 '
+  'now closes F1, F32 and F33; H2 closes F6 and F76; H3 cites Q-03 as a question; H4 and H5 are labelled as '
+  'measurement rows and a decision log rather than dressed up as flags. Both renderers link an id only when it '
+  'matches F plus one or two digits. New guard check_legacy_flag_pointers() now fails the build when a '
+  'zero-padded id is printed without the surrounding sentence naming the legacy register, and it was proven to '
+  "fire on an injected 'closes F01' before being committed.",
+  []),
+ ('F84',
+  'Three published counts were typed into prose and had already gone stale, including the headline on the '
+  'handover page.',
+  'build.py (homepage callout, handover heading), data/decision.json handover.summary, data/requirements.json '
+  'rows A-04 and B-08',
+  'Found and repaired 2026-11-17 by arena/0cf55ef3 (X-0cf55ef3), fifth occurrence of the class F14, F38, F52 '
+  "and F63 record. (1) handover.html's headline read 'Five actions, about an hour, eighteen flags' and the "
+  "homepage repeated 'closes eighteen flags' twice, while data/decision.json holds five handover items and the "
+  'three that close flags close five flag rows between them - 18 matched neither the item count nor the flag '
+  "count. (2) index.html said 'Eight reads written for this product set' directly above a grid rendering 21 "
+  "articles. (3) data/requirements.json row B-08 said 'Twelve articles are published and three more are "
+  "specified but unwritten' (now 21 and 4) and row A-04 said 'Twenty questions' (now 26). Repaired at source: "
+  'the article count is now computed from data/articles.json at build time, both requirements rows now use the '
+  "register's existing computed-count tokens (n_articles, n_questions) and a new n_topics_minus_articles token "
+  'derived from data/topics.json, and the handover headline and summary state the five-row figure that the '
+  'register actually supports. An unknown token still fails the build. Re-rendered and re-checked: '
+  "requirements.html reads '21 articles' and '26 questions', index.html reads '21 reads' and 'five flag rows "
+  "closed'.",
+  []),
+ ('F85',
+  'The article set is tracked in two hand-maintained registers, and both were wrong in opposite directions on '
+  '2026-11-17.',
+  'data/topics.json vs data/design-prompt.json (topics)',
+  "Found by the pass-13 read. The design-prompt register still marked A-9 'not-written' two days after its "
+  'article shipped (articles/associates-disclosure-explained.html, published 2026-11-16 in the pass-10 set), '
+  'while the canonical topic queue carried no row for that published article at all — the orphan defect of F74 '
+  'in reverse: a page every reader could reach, absent from the list that says what the site covers. Both data '
+  'rows are corrected in place by this pass (A-9 status fixed; queue row TP-26 added) and the new rows '
+  'TP-21/TP-24/TP-25 keep the two lists aligned for now. The machinery gap is what stays open: nothing in the '
+  'build compares the two registers, so the next article that touches one and not the other reproduces this. '
+  'Decision needed: generate the design-prompt topic list from data/topics.json, or retire the duplicate list.',
+  ['S30']),
+ ('F86',
+  'chefman.com publishes two different weights for the 8 Qt TurboFry Touch (RJ38-SQSS-8T) on the same product, '
+  'read on the same day.',
+  'Chefman 8 Qt TurboFry — product weight',
+  "Read 2026-11-17: the product page's specification block states 'Weight: (8 Qt Model) 12.8 lbs / 5.8 kg'; "
+  'the store product record behind the same page (…/turbofry-touch-air-fryer-1.json, updated_at '
+  '2026-11-17T11:41:54-05:00) carries variant weight 13.4 lb. 0.6 lb apart, and neither document says which '
+  "figure is the appliance and which is the carton — which matters because this site's small-kitchen article "
+  "and the new buyer's checklist both tell readers to check a shelf or cupboard load. Nothing was averaged and "
+  'no weight figure was invented: the published row stays the specification block, and no weight claim is made '
+  'in advice. Settled by a statement from Chefman or a scale reading (Q-38).',
+  ['S12', 'S33']),
+ ('F87',
+  'The shopfront polish of pass 13 lands in the canonical root build only; six parallel builds on the same '
+  'origin keep their own stylesheets and their own look.',
+  's2/, site/, research/, docs/, dashboard/, annex-88769516/',
+  'Found while implementing SG-44. Every design change in this pass (front-page order, merchandising rows, '
+  'mobile type scale, the sticky comparison bar) is generated by build.py for the root site. The parallel '
+  'builds are separate generators with their own reproducibility gates — scripts/build_s2_site.py --check, '
+  'scripts/verify_site.py, research/check_research.py — so hand-editing their HTML or CSS would break the gate '
+  'that proves their output matches their data, which is the reason earlier passes logged requests instead of '
+  "edits and this pass does the same. A reader who reaches a parallel build from the footer's archive links "
+  'sees a pre-2026-11-17 page and a second brand voice. Decision needed (SG-44): declare the root build '
+  'canonical and label the annexes archives, port the tokens into each generator, or stop serving the annexes '
+  'from the published site.',
+  ['S31']),
+ ('F88',
+  'No accessibility standard can currently be cited on this site, so the mobile pass states a 44 px tap-target '
+  'minimum as a usability choice and claims no conformance.',
+  'verify.py OFFICIAL_HOSTS vs the design rows in data/design-prompt.json',
+  'The pass-13 stylesheet widens interactive chrome to a 44 px minimum and the code comment names WCAG 2.2 SC '
+  "2.5.8 — but verify.py's official-host allow list contains no accessibility body, so no published row could "
+  'link the standard it satisfies and the site must not print a conformance claim without a registered source. '
+  'Recorded rather than silently fixed: adding a host to the verifier is a policy change to the checking '
+  'machinery, and the two must arrive in the same commit with the decision attached (Q-40). Note also that 44 '
+  'px is larger than the 24 CSS px minimum in that success criterion; the figure chosen here comes from '
+  'platform interface guidance, not from the standard, and is described that way on D-16.',
+  ['S43']),
+ ('F89',
+  'The suggestions queue asserted in its own lede that nothing on the page had been implemented, while the '
+  'decision log already recorded a shipped row — a typed claim that outlived the fact.',
+  'data/suggestions.json (lede and how_to_read) vs data/decision-log.json (implemented)',
+  "Found 2026-11-17 by the pass-13 read while adding rows to that register: the page's first sentence and its "
+  "how_to_read[0] both stated 'Nothing on this page has been implemented', which had been untrue since "
+  "2026-11-16, when data/decision-log.json recorded SG-26 path A as implemented under the queue's own "
+  'pre-authorisation rule. Same class as F52, F63 and F14 — a register cell written as a snapshot and rendered '
+  "as a live fact. Repaired in the generator: the lede and the new decision desk now count the log's rows at "
+  'build time (so the sentence moves when the log does), and how_to_read[0] was rewritten to describe the '
+  'mechanism instead of asserting a status. What remains open is the general fix: check_register_preambles() '
+  'compares repeated sentences, not claims about other registers, so no guard stops the next typed status '
+  'sentence from going stale the same way. Decision needed: extend the register-preamble guard to reject '
+  "declarative status claims ('nothing has been implemented', 'N rows are done') in prose that has a computed "
+  'equivalent. The pass-13 scan found the same class in a place no guard looks at — evidence-link labels: '
+  "'A-02: 21 suggestions', 'A-04: 20 questions' and 'B-08: 12 articles' were printed as link text beside a "
+  'register that had grown to 44, 37 and 24. All three were rewritten to point at the page that computes its '
+  "own count, and B-08's typed count became a build-time computed count instead. A label is prose, and prose "
+  'about a row count is exactly what drifts.',
+  ['S30']),
+ ('F90',
+  'The price note on every front-page product card cited the wrong policy clause: it said Program Policies '
+  "§2(b) and §6(t) bar an Associate site from displaying Amazon's price.",
+  'Front page (price_line in build.py) — all three products',
+  "Re-read live 2026-11-19: Participation Requirements §2(b) says a site 'may only show prices and "
+  'availability if: (a) we serve the link … or (b) you obtain Product pricing and availability data via '
+  "Creators API or PA API' — a conditional permission, not a bar — and §6(t) is about customer reviews and "
+  'star ratings, not prices. Fixed in the same pass: the note now cites §2(b) alone and says what it allows. '
+  "Other pages that pair 'prices and star ratings' with '§2(b) and §6(t)' are correct and were left alone.",
+  ['S2']),
+ ('F91',
+  "categories/kitchen-appliances.html published '0 of the five links submitted to this project were observed "
+  "landing on air fryer or air fryer-oven listings' while three of them did.",
+  'Category page lede — PI-01…PI-05',
+  "The count tested 'air fryer' against a prose field that spells it 'Air-fryer', so nothing matched. Live "
+  "re-read 2026-11-19: B04G1MEwY, B02NbDxp3 and B00hJ57DV land on pages whose breadcrumb ends 'Fryers › Air "
+  "Fryers'; B0c8moW59 and B0f3GKalj land under 'Thermometers & Timers › Meat'. The breadcrumb is now recorded "
+  'per row as observed_browse_path (an observation, kept apart from intent), the count reads it, and a row '
+  'without one fails the build. The defect was first reported in open PR #144 on 2026-11-17 and stayed live '
+  'for two days because that PR could not merge.',
+  ['S17', 'S16', 'S28', 'S29', 'S36', 'S37']),
+ ('F92',
+  "Two rows on the questions page linked their flag citations to the wrong anchor: 'Flag F86' pointed to #f84 "
+  "and 'Flag F88' pointed to #f86.",
+  'data/questions.json — Q-38 and Q-40',
+  'Left over from the pass-13 renumbering (F84→F86, F86→F88): the labels were rewritten, the URL fragments '
+  'were not, and check_register_cross_references() reads labels, not fragments. Both anchors repaired '
+  "2026-11-19; a repository-wide scan of every data file for a 'Flag Fnn' label whose URL fragment names a "
+  'different flag found no other case. The guard gap is closed in the same pass: check_flag_anchor_labels() '
+  "now fails the build when a link's text names one flag and its fragment opens another (proven by reverting "
+  "Q-38's anchor).",
+  []),
+ ('F93',
+  'Five pull requests from 2026-11-17 are still open and unmergeable (#139, #141, #144, #146, #150); at least '
+  'one carried content no merged pass has published.',
+  'Repository process',
+  "Reviewed 2026-11-19. #144's fix is superseded by F91. #150 is a COORDINATION record only. #146's "
+  'self-hosted endpoint overlaps analytics/ already on main. #141 applies the selected tracking ID to links, '
+  'which main deliberately does not do until the account test passes (Q-01, SG-47) — a decision, not a merge. '
+  '#139 carries a sourced dataset and page for the two thermometer links (PI-04, PI-05) that main has never '
+  'published; porting it needs a fresh live re-read of every row, and the choice is SG-50. Disposition is in '
+  'COORDINATION.md; none of the five was merged or closed by this pass.',
+  []),
+ ('F94',
+  'The suggestions page contradicted itself: the decision desk said 47 rows, 42 still asking for a path and 7 '
+  "implemented (49), and the 'At a glance' note under it still said 'Nothing on this page has been "
+  "implemented'.",
+  "suggestions.html — decision desk and 'At a glance' note",
+  "Found 2026-11-19 while adding rows. The desk's 'still ask you for a path' figure excluded only rows whose "
+  "effort said 'done', not rows the decision log records as shipped, so implemented rows were counted twice. "
+  "The 'At a glance' sentence is the same typed-status class as F89, in a second place that F89's repair did "
+  "not reach. Both fixed in the generator: shipped rows leave the open count and the 'blocked on a question' "
+  'count, and the note now points at the desk instead of asserting a status.',
+  []),
+ ('F95',
+  "The channelId parameter on Amazon's landing URL is not a property of a link: the same ASIN came back with "
+  'channelId=704 through its short link and channelId=500 through a direct /dp/ request on the same day.',
+  'PI-01…PI-05 observed redirect targets',
+  'Observed 2026-11-19. Through the short links, the three air-fryer ASINs landed with channelId=704 and the '
+  'two thermometer ASINs with channelId=500 plus extra parameters; the same day, direct requests for all five '
+  '/dp/ pages each landed with channelId=500. The 704 value matches the 2026-11-14 record in '
+  'data/reverification.json. Amazon documents none of these parameters in any source this project holds, so '
+  'they are recorded and nothing is read into them — not attribution, not link type, not who made the links. '
+  'Amazon says even an absent tag parameter on the landing URL is not evidence about attribution (S41). This '
+  'row exists so a future pass does not treat the 704/500 split as a difference between the two batches of '
+  'links.',
+  ['S17', 'S41']),
+ ('F8',
+  'IP License §2(e) forbids aggregating, analysing or repurposing Program Content and training models on it.',
+  'Platform design',
+  'Any AI research or trend scoring therefore runs only on first-party data and public manufacturer data. '
+  'Documented as guardrail G6 in the blueprint.',
+  ['S2']),
+ ('F9',
+  'No Amazon price, star rating or review count is available to this build.',
+  'All three',
+  'Left blank everywhere by policy rather than by omission. Becomes fillable only if the operator secures '
+  'Creators/PA API credentials.',
+  ['S2', 'S19']),
+ ('F10',
+  'The short links are generated redirects with fallback parameters, not plain product links.',
+  'All three links',
+  'Logged redirect observations carried lv=shuf and plpRedirect=mhFallback. The candidate ASIN/title '
+  'destinations were consistent across the recorded checks, but the btn_ref/srctok value changed between '
+  'repeat or cache-busted requests (see F41 and the linked session evidence). These are observations of '
+  'redirect responses, not confirmation that the candidate ASINs are the products intended by the account '
+  'holder or that the links carry an Associates tag. Confirm both before publishing.',
+  ['S17', 'S16']),
+ ('F11',
+  'The site does not disclose cookies, pixels and third-party technologies as Participation Requirements §3(e) '
+  'requires.',
+  'Whole site',
+  'The site itself sets no cookies and runs no analytics, but §3(e) requires an accurate disclosure of cookie '
+  'and third-party technology use, including that third parties may place or recognise cookies. Only a minimal '
+  'notice is in the footer; a proper privacy/cookie statement is needed before launch. Legal review '
+  'recommended.',
+  ['S2']),
+ ('F12',
+  'The automated platform functions in the brief are not running — by design, not by omission.',
+  'Platform',
+  'Automated trend detection, competition scoring and conversion optimisation need an Associates account, '
+  'Creators/PA API credentials and sales reports. PA API access is registered through Associates Central and '
+  'credentials are tied to the primary account holder, with request rate scaled to account sales performance. '
+  'None of that exists in this repository, and inventing the data to fill the gap would defeat the point of '
+  'the project.',
+  ['S2', 'S19', 'S20']),
+ ('F13',
+  'Product listing titles are reproduced from Amazon; §6(a) restricts altering Program Content.',
+  'All three',
+  'Titles are shown verbatim and unedited. §6(a) permits truncation only where meaning is not materially '
+  'altered, and whether a listing title counts as Program Content is not stated. Recorded so the operator can '
+  'confirm before adding any paraphrase.',
+  ['S2']),
+ ('F14',
+  'The landing page overstated product resolution (corrected 2026-11-14).',
+  'Root landing page',
+  "The headline read '3 products resolved — all three short links followed to an ASIN'. The 2026-11-14 check "
+  "found the short links reach Amazon fallback pages and the bare 9-character codes return 'Page Not Found'. "
+  "The headline now reads '0 verified product identities' and the ASINs are labelled as unconfirmed "
+  'candidates. Evidence: reports/link-check-2026-11-14.md.',
+  ['S16', 'S17']),
+ ('F15',
+  "Plain ASIN URLs were also answered with Amazon's fallback form on 2026-11-14.",
+  'All three ASINs',
+  'amazon.com/dp/B0CDY277D3, /dp/B09B7SB46R and /dp/B08DKYBTPH each returned a URL carrying lv=shuf and '
+  'plpRedirect=mhFallback, so a fetch cannot show that the ASIN is the live product page. Confirm from a '
+  'logged-in browser before any ASIN is treated as the supplied product.',
+  ['S16']),
+ ('F16',
+  'link.amazon is not confirmed as an Amazon-documented short-link domain.',
+  'All three links',
+  'A web search on 2026-11-14 returned only third-party blogs naming amzn.to and a.co. No official Amazon page '
+  'listing link.amazon was found. An official Associates help page is needed before the domain is described as '
+  "Amazon's.",
+  ['S2', 'S17']),
+ ('F17',
+  'Advisory link gate: table rows with no source link on inherited annex pages.',
+  'dashboard/, site/, research/, session-3740f69d/ annexes',
+  'Root pages generated by build.py were given a source badge, policy citation or flagged-page link in the '
+  "arena/0c7445c7 pass (2026-11-14). Remaining advisory rows lived only in other sessions' annex builds; "
+  'scripts/check_links.py reported them as non-blocking warnings. **CLOSED 2026-11-14 by sess-7111e2b6** along '
+  'with F25: a row-source pass now runs inside the research/ and site/ generators, and scripts/source_rows.py '
+  "applies it to the hand-authored annex builds. The advisory list is empty, and the gate's own definition was "
+  'corrected first, so that it can see single-quoted hrefs and every flagged-page filename.',
+  ['S1']),
+ ('F18',
+  'Committed s2 build stamp changes with the calendar date.',
+  's2/ (session zone1-s2 build)',
+  "scripts/build_s2_site.py writes today's date into the 'built' stamp. Re-running on 2026-11-14 changes 13 "
+  'files by that stamp alone (committed stamp: 2026-11-13). The CI gate regenerates before it checks, so it '
+  'passes, but the committed copy is not pinned. Not changed in this pass because another session owns the '
+  'file.',
+  ['S1']),
+ ('F19',
+  'Brand-site review counts move between days, so every rating on this site is a dated observation.',
+  'All three',
+  "Chefman's own widget read 1,302 reviews on 2026-11-13 and 1,305 on 2026-11-14; the 8 Qt page read 715 then "
+  '716. A third read on 2026-11-16 moved them again — 1,307 and 717 — while both averages held at 4.6 for the '
+  'third consecutive time. The averages did not move (4.6 on every read), but a published figure without its '
+  'read date would silently become false. All three counts now carry all three dates in the dataset, and any '
+  'copy generated from it must carry the date too.',
+  ['S10', 'S12']),
+ ('F20',
+  'The repository carries six parallel builds, and two of them were unreachable from the landing page until '
+  'the 2026-11-14 integration pass.',
+  'Whole repo',
+  's2/, site/, dashboard/, research/, session-3740f69d/ and docs/ are independent session outputs with their '
+  'own data, their own verifiers and their own verdicts; they disagree in places (for example on whether the '
+  'commission rate can be stated, and on how to read the plpRedirect=mhFallback marker). The pass linked the '
+  'two orphaned builds into the navigation and changed none of their content. The owner should decide which '
+  'build is canonical before this points at a real domain — a live site with six home pages is a maintenance '
+  'and trust problem, not a data problem.',
+  []),
+ ('F23',
+  'One documented build command in the README no longer runs against the shared data — it is a pre-existing '
+  'break, not a regression from this pass.',
+  'scripts/build.mjs → docs/',
+  'The Node builder that generated the retired docs/ build validates a schema (products with official_url / '
+  'values, sources with a status field, compliance.rows, flags) that data/products.json, data/sources.json, '
+  "data/compliance.json and data/flags.json no longer use, so 'node scripts/build.mjs --check' throws "
+  'ERR_INVALID_URL on undefined. Verified identical on the pre-change baseline, and no CI workflow calls it — '
+  'pages.yml, ci.yml and verify.yml are Python-only. docs/ therefore stays frozen as committed and cannot be '
+  "regenerated from current data. Not repaired here: re-authoring another session's generator to a new schema "
+  'would silently change what its published pages assert. Either retire docs/ and its README line, or point '
+  'the builder at data/verified/. This pass added no dependency on it.',
+  []),
+ ('F22',
+  'A committed merge-conflict marker was found in a published document and repaired by this pass.',
+  'EXECUTIVE_SUMMARY.md',
+  "The file carried a bare '=======' line and a '>>>>>>> origin/main' line on main, i.e. a previous "
+  'integration resolved a conflict by leaving the markers in. Both sides are real work by different sessions, '
+  'so this pass removed only the markers and kept both documents as separate sections. Any other file carrying '
+  'markers should be treated the same way — delete the marker, never the work.',
+  []),
+ ('F21',
+  'Two verification passes on the same links reached different conclusions, and both are published.',
+  'The three supplied links',
+  'arena/1dcaaafc (reports/link-check-2026-11-14.md) reads the fallback marker plus the 9-character-token 404 '
+  "as 'product identity not confirmed' and removed the 'products resolved' headline. sess-81495d2d "
+  '(reverification.html) re-tested with a repeat request and a nonsense-token control: the target was '
+  'identical across four sessions on two days, while an unrecognised token returns 403 instead of a product '
+  'page, which is not what a pure not-found fallback would do. The reconciled position on this site: the '
+  '*destination* of the links is reproducible and is documented; the *identity* of the product the operator '
+  'meant, and the Associates tag attached to the link, are not confirmed and are not asserted. Confirm both in '
+  'a logged-in browser and in Associates Central before publishing.',
+  ['S16', 'S17', 'S21', 'S22']),
+ ('F24',
+  "PA-API 5 is officially deprecated (confirmed live 2026-11-14); the successor is Amazon's Creators API.",
+  'Platform design',
+  'The official docs URL now serves a deprecation notice: PA-API 5 calls return 403 AccessDeniedException and '
+  'integrations are told to migrate to the Creators API. This supersedes the earlier board retraction of the '
+  "cross-check's F18 claim and means every automated feature in the blueprint must target the Creators API, "
+  "not PA-API 5. The Program Policies phrase their data-use rules as 'Creators API or PA API', so the "
+  'compliance quotes remain accurate. Independently noted in the dashboard annex as H-01.',
+  ['S24', 'S20']),
+ ('F25',
+  'Table rows on inherited builds have no link to a registered official source.',
+  'dashboard/, research/, site/, s2/, session-3740f69d/, annex-88769516/',
+  "Audited 2026-11-14 with the project's own official-host list (every host in data/sources.json, plus this "
+  'repo on GitHub). Root pages generated by build.py now pass, and the build fails on any unsourced row. '
+  'Inherited builds were not edited by that pass because other sessions own them. Count at 2026-11-14: 281 of '
+  '1,363 table rows in the repository have no sourced link (inherited builds: 281 of 1,057; root pages built '
+  'by build.py: 0 of 306). **CLOSED 2026-11-14 by sess-7111e2b6.** The residue is now 0. Two things were wrong '
+  'with the count itself: the link gate could not see single-quoted hrefs, and it recognised only one filename '
+  'for the flagged page, so 33 rows that did carry a source link were being reported as unsourced. With the '
+  'gate corrected, the true figure was 248 rows. A row-source pass was then added inside the research/ and '
+  'site/ generators, and scripts/source_rows.py applies the same pass to the three hand-authored builds '
+  "(dashboard/, annex-88769516/, session-3740f69d/). Rows that state a fact now link to that fact's official "
+  'document; rows that are judgements, blocked metrics or unverified values link to the flagged page, which is '
+  'where the project puts unconfirmed values. The gate also now rejects rows that link only to a relative '
+  'internal page.',
+  []),
+ ('F26',
+  'Two platform KPIs are internal design targets; no official source states them.',
+  'platform.html, KPI table: Verified-row coverage, Flag resolution time',
+  'Shown with this flag, not with an invented source. They are operating targets for this project, not facts '
+  'about Amazon, the FTC or any product, and they feed no published product value. The owner should decide '
+  'whether to keep them as targets.',
+  []),
+ ('F27',
+  "Policy citations for the Participation Requirements 'Content on your Site' items used section numbers that "
+  'do not match the live page.',
+  'Root-site content (corrected in this pass); site/ annex pages still carry the old labels',
+  'Live reads of affiliate-program.amazon.com/help/operating/policies on 2026-11-14 (two independent renders; '
+  "version dated April 14, 2026) place the customer-review/star-rating rule at Participation Requirements '6. "
+  "Content on your Site' item (t), and items (g) incentives, (n) framing, (u) self-purchase, (v) cloaking, (w) "
+  'link shortening and (y) price tracking in the same section. Repo content had cited these as §3(t), §3(g), '
+  '§3(n), §3(u), §3(v), §2(w) and §3(y). Every quoted rule text was verified verbatim against the live page, '
+  'so no published behaviour changes — only the citation labels were aligned to the live structure in '
+  'build.py, data/compliance.json, data/products.json, data/sources.json, data/platform.json, '
+  'data/marketing.json, README.md, EXECUTIVE-SUMMARY.md and EXECUTIVE_SUMMARY.md. Spot-checked labels that '
+  'were already correct: §2(b) prices/availability, §3(e) cookies, §6(a) alteration, IP License §2(e) '
+  'aggregation/ML-training, Operating Agreement §5 disclosure. The site/ annex (session 1874bb64) still '
+  'renders §3(t) from data/verified/; its owner session should align it (request logged in COORDINATION.md). '
+  'Historical session records in COORDINATION.md were left as written.',
+  ['S2']),
+ ('F28',
+  'Three flag registers share overlapping ID spaces but index different issues, and two published documents '
+  'cite the wrong one.',
+  'Cross-build consistency',
+  "Confirmed 2026-11-14 by sess-91d0552e (renumbered F25 -> F28 to avoid a collision with arena/6ecdb4e4's "
+  "F25). (a) research/build_research.py tells the reader to see 'the root site's Flagged page (shared register "
+  "data/flags.json id F19)' for the product-titles/§6(a) issue and 'id F20' for the cookie-disclosure issue. "
+  "Those IDs ARE correct inside data/flags.json, but the root Flagged page is generated from build.py's own "
+  "PROGRAMME_FLAGS, where F19 is 'brand-site review counts move between days' and F20 is 'the repository "
+  "carries six parallel builds'. A reader following that pointer lands on an unrelated row. (b) "
+  "EXECUTIVE_SUMMARY.md, still served at the site root, asserts 'Identity verified. All three short links "
+  "resolve to Amazon.com product pages with different ASINs' and that 'the official commission schedule "
+  "redirected to a sign-in page'. Both are contradicted by this pass: the reconciled position published on "
+  'this site is 0 verified product identities (F14-F16, F21), and the Standard Commission Income Statement was '
+  'read in full, without any login, on 2026-11-14. Not repaired in this pass: data/flags.json is consumed by '
+  "the s2 and docs generators and research/ is another session's build, so re-keying either register would "
+  "silently re-point another build's citations. Decision needed: adopt one register as canonical and re-key "
+  'the others, or relabel the pointers. Evidence: session-91d0552e/VERIFICATION-2026-11-14.md §5.',
+  ['S1', 'S3']),
+ ('F29',
+  'The Emeril preset count is stated five different ways across official sources, and two of them now say 24.',
+  'Emeril 26 QT French Door',
+  "Re-read 2026-11-14 by sess-54c66535. Amazon's listing title for ASIN B09B7SB46R says '24 cooking functions' "
+  "and Emeril's own description paragraph says 'Equipped with 24 one-touch cooking presets', while the same "
+  "page's specification block says '25 Cooking Pre-sets', its feature heading says '10-In-1' and one of its "
+  "carousel assets is named '11-in-1'. Two independent official sources now agreeing on 24 is new evidence: "
+  'earlier passes recorded only 25 vs 10-in-1 vs 11-in-1 with no tiebreaker. The conflict is narrowed, not '
+  'closed - the same brand page still contradicts itself - so no preset count is asserted anywhere on this '
+  "site. Decision needed: confirm the figure against the unit's own control panel before any copy states a "
+  'number. <strong>Re-read 2026-11-15 by arena/88bb2db6, which changes that last sentence.</strong> The '
+  "owner's manual for FAFO-001 was read row by row: its Preset Mode Chart and its Recommended Accessory "
+  'Positions table each list exactly 24 presets by name, and the manual never states the numeral. The Amazon '
+  "listing title independently says '24 One-Touch Preset Options'. The site now states 24 on the strength of "
+  "the manual, names the one official line that disagrees (the brand page's specification block, '25 Cooking "
+  "Pre-sets'), and flags it. This row and F4 both stay open, but the site no longer asserts nothing. The "
+  '10-in-1 and 11-in-1 labels remain marketing wording and are not presented as specifications. Decision still '
+  "needed: confirm the figure against the unit's own control panel.",
+  ['S14', 'S17', 'S16']),
+ ('F30',
+  'Two published specification values are not stated by the official source the site cites for them.',
+  'Chefman 6 Qt Dual Basket (preset count); Emeril 26 QT French Door (interior light)',
+  'Re-read 2026-11-14 by sess-54c66535. The Chefman dual-window user guide RJ38-SQPF-3TDB-2W was read end to '
+  'end and documents HI-FRY, +2 MIN, MUTE, SYNC BASKETS, SYNC FINISH, START/STOP, TIME/TEMP and SHAKE, but has '
+  'no preset chart and never names the four food presets the site publishes; its control panel is artwork with '
+  "no text layer. The Emeril brand page's specification block lists Timer, 26-Quart Capacity, Dual-Speed Fan, "
+  '25 Cooking Pre-sets, dimensions, 24.6 Liters, Temperature Control and 120 volts, with no interior-light '
+  "row. Both values were left as published rather than deleted, because deleting another session's sourced row "
+  "is not this pass's call, but neither is currently traceable to an official statement. Decision needed: "
+  're-source both to the brand product pages, or blank them and let them appear here as unverified.',
+  ['S18', 'S14']),
+ ('F31',
+  "The two Chefman 6 Qt sister SKUs carry very different review counts on the brand's own site.",
+  'Chefman 6 Qt Dual Basket',
+  'Re-read 2026-11-14 by sess-54c66535. The dual-basket page RJ38-SQPF-3TDB-2 reports 4.6 stars from 194 '
+  'reviews; the dual-window page RJ38-SQPF-3TDB-2W reports 4.6 stars from 1,305 reviews, on an identical list '
+  'price and promo ladder. The 6.7x gap is a usable signal for deciding which SKU the supplied ASIN maps to, '
+  'which is open flag F2. It is not an identification: a review count is not a product identifier. No SKU is '
+  "asserted. Correction 2026-11-16 (session arena/ba29c641): this row also stated that 'Amazon does not "
+  "publish the model number behind an ASIN', which is false — the listing's Product information block "
+  'publishes it (F49, F68) — so a review-count comparison is no longer the nearest thing to a route: the model '
+  'number itself has been read, and it matches the -2W page this site maps to.',
+  ['S11', 'S10', 'S16']),
+ ('F32',
+  'Chefman sells three different 6-quart dual-basket SKUs; the site names two of them.',
+  'Chefman 6 Qt Dual Basket',
+  "Found live 2026-11-14 by arena/6b2eddeb. Chefman's own store currently publishes RJ38-3DBW-V2 ('TurboFry 6 "
+  "Qt. Double Basket Air Fryer with Easy View Windows': 6 Qt / 5.68 L as two 3 Qt / 2.84 L baskets, 90–400 °F "
+  '/ 32–204 °C, 1700 W, five functions — air fry, bake, reheat, dehydrate, frozen — easy-view windows, '
+  'interior lights, shake notifications, 4.5 stars from 30 reviews, $99.99 list), RJ38-SQPF-3TDB-2 '
+  '(dual-basket, 4.6 from 194, no specification block published) and RJ38-SQPF-3TDB-2W (dual-window, 200–450 '
+  "°F, Hi-Fry, 4.6 from 1,305). The site records the -2W mapping because the Amazon title says 'Hi-Fry' and "
+  "'Easy View Windows', and Hi-Fry is documented only on the -2W page — but Easy View windows appear on all "
+  'three, so the title does not discriminate on its own. This is an identification risk, not an '
+  'identification. Two other builds shipped in this repo (site/, research/) map the same ASIN to RJ38-3DBW-V2 '
+  'with no caveat, so a reader can reach two different official-looking answers two clicks apart. Decision '
+  "needed: open the listing, read the model plate or the 'Product information' model number, and settle it "
+  "once. **Addendum 2026-11-16 (session arena/ba29c641): the read was done, by fetch.** The listing's Product "
+  "information block states Model Number and Part Number RJ38-SQPF-3TDB-2W — the root site's mapping, not the "
+  'site/ and research/ mapping to RJ38-3DBW-V2. Those two builds now disagree with a document each of them can '
+  'read; they are not edited here because those trees belong to other sessions, and the divergence is another '
+  'reason to retire or re-key them (F44). See F68.',
+  ['S25', 'S27', 'S10', 'S16']),
+ ('F33',
+  "The 'Hi-Fry / 450 °F: None' row for the 8 Qt product is only true of the stainless SKU, and a second "
+  'official SKU matches the Amazon title exactly.',
+  'Chefman 8 Qt TurboFry',
+  'Found live 2026-11-14 by arena/6b2eddeb — narrows F3, does not resolve it. Chefman sells RJ38-SQSS-8T '
+  '(TurboFry Touch Stainless-Steel, max 400 °F / 205 °C, four food presets, stainless finish — the SKU the '
+  'site currently maps) and RJ38-8T-BLACK (TurboFry 8 Qt Air Fryer w/ High Fry: Hi-Fry 450 °F / 232 °C for the '
+  'final two minutes, and exactly four functions — air fry, bake, dehydrate, frozen — in a matte-black '
+  "finish). The Amazon listing title for B08DKYBTPH reads '…4-in-1 with 450°F Hi-Fry Option… | Bake, "
+  "Dehydrate, Frozen | … Stainless Steel'. The function list and the 450 °F Hi-Fry match RJ38-8T-BLACK word "
+  'for word; the finish matches RJ38-SQSS-8T. So the title may describe a third variant, or may carry a finish '
+  "that does not match the unit. The previous framing — 'one of the two official sources is stale' — is now "
+  'the less likely explanation. No value is changed and neither model is asserted; a human should read the '
+  "model number printed in the listing's Product information section. **Read 2026-11-16 by session "
+  'arena/ba29c641, by fetch:** the listing states Part Number RJ38-SQSS-8T *and* Max Temperature Setting 400 '
+  "°F — its identifier field points at the 400 °F model while its title describes the -BLACK's Hi-Fry "
+  'capability. That is a listing carrying a title from somewhere else, which is not the same as proof of which '
+  'machine ships: because RJ38-8T-BLACK genuinely documents 450 °F (S26), the two-models explanation this row '
+  'opened stays live and both readings are published.',
+  ['S12', 'S26', 'S16', 'S29']),
+ ('F34',
+  'The second executive summary at the repo root still asserts two things that are now known to be wrong.',
+  'EXECUTIVE_SUMMARY.md',
+  'Found 2026-11-14 by arena/6b2eddeb. EXECUTIVE_SUMMARY.md (the older of the two root summaries) states in '
+  "its Key findings: 'Identity verified. All three short links resolve to Amazon.com product pages with "
+  "different ASINs' and 'the official commission schedule redirected to a sign-in page'. This session "
+  're-fetched both on 2026-11-14: the Associates Program Standard Commission Income Statement (Table 1 and '
+  'Bounty Events) was read in full with no login, and product identity is explicitly NOT verified anywhere on '
+  'this site (F14–F16, F21, F32, F33). A dated correction banner was placed above that document by an earlier '
+  'pass, but the contradicting sentences remain in the body and the file is still served from the site root by '
+  'direct link. Decision needed: retire the duplicate document, or rewrite the two sentences. This pass did '
+  "not edit it — the sentence is another session's published work and rewriting it is a content decision, not "
+  'a verification one.',
+  ['S1', 'S3']),
+ ('F35',
+  'Nine separate HTML sites for the same three products are published in this repository, and they disagree '
+  'with each other.',
+  'Whole repository',
+  'Found 2026-11-14 by arena/6b2eddeb. Alongside the canonical root build there are research/ (12 pages), '
+  'session-3740f69d/ (11), s2/ (13), site/ (11), dashboard/ (14), docs/ (7) and annex-88769516/ (10), plus '
+  'data-only trees in crosscheck/ and platform/. The root navigation links to six of them. They disagree on '
+  'facts a reader would take as settled: the Chefman 6 Qt model (RJ38-SQPF-3TDB-2W on the root site, '
+  'RJ38-3DBW-V2 in site/ and research/ — F32), and the policy section numbers for the review/star-rating and '
+  'link-shortening rules (§6(t)/§6(w) on the root site after F27, §3(t)/§2(w) in site/ and session-3740f69d/). '
+  'Each build is internally consistent and individually verified; the problem is that nothing tells a reader '
+  'which one is canonical when they arrive from a search engine. Decision needed: keep one site and archive '
+  "the rest behind a clearly labelled 'previous verification passes' page, or make every non-canonical page "
+  'carry a fixed banner naming the canonical build.',
+  ['S1', 'S2']),
+ ('F41',
+  "F10's earlier wording incorrectly said the short links' srctok marker stays constant across repeat "
+  'requests.',
+  'All three links — historical wording correction',
+  'Closed 2026-11-15 by arena/94a562a1-zone1: F10 now states that the recorded candidate ASIN/title '
+  'destinations were consistent while btn_ref/srctok values changed across some repeat or cache-busted '
+  'requests. The underlying records include srctok-2cef40d2904c29d8 on 2026-11-13; srctok-1e229870efde5acf '
+  'changing to srctok-397b5ba66db39bbf on a cache-busted repeat (session-81495d2d evidence, row 4); '
+  'srctok-704dc575b940a94c (session-54c66535); and srctok-0740a2e990c9bbb3 in two observations later that day. '
+  'This closes only the wording mismatch. It does not prove that any candidate listing is the product intended '
+  'by the account holder or confirm affiliate attribution; see F1, F6, F14-F16 and F21.',
+  ['S17', 'S16']),
+ ('F37',
+  'A published value was cited to a source that does not state it.',
+  'Emeril 26 QT French Door — the "Interior light: Yes" row',
+  'Found and fixed 2026-11-14 by sess-7111e2b6. The row cited the brand product page (S14), whose '
+  'specification strip lists Timer, 26-Quart Capacity, Dual-Speed Fan, 25 Cooking Pre-sets, 16.9"D x 15.8"W x '
+  '14.8"H, 24.6 Liters, Temperature Control and 120 volts — and no interior light. The value is nonetheless '
+  'correct: the owner\'s manual (S15) documents it in the control-panel section, "F. LIGHT BUTTON: May be '
+  'selected at any time during the cooking process to light the appliance\'s interior." The row has been '
+  "re-sourced from S14 to S15 and the manual's wording recorded in the row note. The lesson is published "
+  'rather than quietly fixed: a value can be true and still be mis-cited, and a citation that does not support '
+  'its value is as much a defect as an invented number.',
+  ['S14', 'S15']),
+ ('F38',
+  'An Amazon listing title changed between the 2026-11-14 read and 2026-11-15, so a published value was stale.',
+  'Emeril 26 QT French Door — the listing-title row',
+  "Found and fixed 2026-11-15 by arena/3ddfa50e. The stored title ended '| 26QT air fryer oven with French "
+  "doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.' and the live title on "
+  "the same ASIN (B09B7SB46R, reached through https://link.amazon/B02NbDxp3) now ends '| Countertop Convection "
+  "Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included'. The preset "
+  'count is unchanged at 24; the wording around it is not. The row now carries the 2026-11-15 string, keeps '
+  'the superseded string in a visible field, and states the date of the read. This is the same class of '
+  'volatility as F14 (brand-hosted review counts that moved in 24 hours) and the reason every volatile value '
+  'on this site must carry its read date.',
+  ['S28']),
+ ('F39',
+  'A source record was cited for a value it does not support: one registered URL stood in for three different '
+  'product pages.',
+  'All three products — the listing-title and ASIN rows',
+  'Found and fixed 2026-11-15 by arena/3ddfa50e. Source S16 was registered with a single URL '
+  "(https://www.amazon.com/dp/B0CDY277D3) but its title claimed to cover 'ASINs B0CDY277D3, B09B7SB46R, "
+  "B08DKYBTPH', and it was cited as the source for all three products' listing titles and ASIN rows. For the "
+  'Emeril and 8 Qt rows, the source link therefore took a reader to the Chefman 6 Qt listing. A citation that '
+  'does not resolve to the page stating the value is the same defect class as F37. Fixed by registering each '
+  'ASIN separately: S16 = B0CDY277D3, S28 = B09B7SB46R, S29 = B08DKYBTPH, and repointing every citation. The '
+  "root build's row-source gate did not catch this because it checks that a row links to *a* registered "
+  'official host, not that the host page actually states the value.',
+  ['S16', 'S28', 'S29']),
+ ('F40',
+  'Two different rows were published under the same flag number.',
+  'Register integrity — F36',
+  'Found and fixed 2026-11-15 by arena/3ddfa50e. The programme-level row recording the srctok-marker finding '
+  '(added by sess-ce4070ad, itself renumbered from F32) was published as F36, and a product-level row in '
+  'data/products.json recording the Chefman 6 Qt preset-count mis-citation was also published as F36. Both '
+  'rendered on the Flagged page, so the register showed 38 rows with 37 distinct numbers and any citation of '
+  "'F36' was ambiguous. F28 records an earlier ID collision of the same kind, which means the rule was not "
+  'enforceable. The programme-level row is renumbered F41; the product row keeps F36 because three session '
+  'evidence files cite it by that number. A duplicate-ID build test now fails the build if this recurs.',
+  ['S1']),
+ ('F42',
+  "The operator's location is stated two different ways on the same domain, and neither statement comes from "
+  'an official source.',
+  'questions.html (Q-06) and suggestions.html (SG-10) vs the s2/ annex register (its F08)',
+  'Recorded 2026-11-15 by arena-b1e7b4bc. The 2026-11-15 pages say the owner is in Osaka, Japan; the s2 annex '
+  'register (data/flags.json, row F08) records a Norway residence. Both were written from agent-session '
+  'environment context, not from anything the owner supplied in the repository and not from any official page, '
+  'so neither can be verified from here and at most one can be right. The Japan wording matters because Q-06 '
+  'and SG-10 build a store-targeting decision on it. Decision needed: the owner states their actual country '
+  'once, one register row cites it, and the other wording is corrected to match; until then no eligibility '
+  "conclusion (Q-06, SG-10, or the s2 register's F08) should be treated as settled.",
+  []),
+ ('F44',
+  'The same site is published nine times from one repository, and eight of those copies are reachable at '
+  'public URLs.',
+  'Whole repository — GitHub Pages deployment',
+  'Measured 2026-11-15 by this pass: 106 HTML files are published from the repository root. The maintained '
+  'site is the 27 sitemap URLs generated by build.py; the remaining pages are seven earlier or parallel builds '
+  '(dashboard/, annex-88769516/, session-3740f69d/, research/, s2/, site/, docs/), each with its own homepage, '
+  'its own near-duplicate comparison of the same three products, and in two cases a visible Amazon price. '
+  "Amazon's Program Policies §2(b) permit price display only when Amazon serves the link or the data comes "
+  'from Creators/PA API, so a published copy that shows a price is a compliance exposure this project has '
+  "otherwise been careful to avoid. Google's own guidance (S30) states that the presumption is that individual "
+  "pages match the overall quality of the domain, that a site reputation review weighs whether 'the same "
+  "identical or near-identical content appears on multiple other sites', and that scaled content generated "
+  "without added value for users should be excluded from search. Decision needed, and it is the owner's: keep "
+  'the older builds published for auditability and accept the duplicate-content and compliance risk, or remove '
+  "the duplicate pages and keep only their evidence files. This pass did not delete or edit another session's "
+  'published output — that is not a unilateral decision to take. Full option set: SG-17 on the Suggestions '
+  'page.',
+  ['S30', 'S2']),
+ ('F45',
+  "The site's search-engine plumbing was incomplete: no page declared a canonical URL, and no page carried "
+  'Open Graph or structured data.',
+  'Whole root site — every generated page',
+  'Found and fixed 2026-11-15 by this pass, and measured before the fix: 0 of 27 generated pages had '
+  'rel=canonical, 0 had og:* tags, 0 had a Twitter card, 0 had JSON-LD (a repository-wide count that also '
+  "included the annex builds was 33 canonicals of 106 pages, from other sessions' templates). Two "
+  'consequences: with nine copies of the same content on one origin, nothing told a search engine which copy '
+  "is maintained; and a shared link rendered as a bare URL. Fixed in build.py's layout() so every generated "
+  'page now carries canonical, og:*, twitter:card and schema.org WebSite/Organization/BreadcrumbList/Article '
+  'markup, and 404.html carries noindex and no canonical. Enforced by a new build guard (check_seo_metadata) '
+  'so a later template edit cannot drop it. schema.org Product/Offer/AggregateRating is deliberately NOT '
+  'emitted: the site publishes no Amazon price or star rating (§2(b), §6(t)), so product markup would either '
+  'be empty or would assert a number this project refuses to publish.',
+  ['S30', 'S31', 'S2']),
+ ('F43',
+  'Two wording advisories on the Suggestions and Questions pages (reader-facing precision, no data value '
+  'affected).',
+  'suggestions.html and questions.html (PR #58, X-633b115f)',
+  "Recorded 2026-11-15 by arena-b1e7b4bc. (a) The Suggestions lede says 'None of them has been implemented', "
+  "but for SG-03, SG-04, SG-05 and SG-11 option A is the current, already-implemented state ('Keep...', 'Keep "
+  "blank and link to the live Amazon page (current, compliant)'), so those rows read more accurately as "
+  "'confirm the current state' than as pending work. (b) Q-01's 'How to find out' says to check the owner's "
+  "Associates account for which tag the short links carry - the tag is not observable from the account's "
+  'tracking-ID page either (flag F6); only whoever created the short links knows the mapping. Decision needed: '
+  "reword the lede and the Q-01 cell, or accept the current phrasing. Both rows' facts and sources check out; "
+  'this flag is about wording only.',
+  []),
+ ('F47',
+  'There are two flag registers in this repository, they contradict each other, and both are readable from the '
+  'live site.',
+  'data/flags.json (F01-F27) vs flagged.html (F1-F43)',
+  "Found 2026-11-15 by arena/792c279e-zone1. data/flags.json still records F02 'The official Standard "
+  "Commission Income schedule redirected to a sign-in page' and F01-F04 language asserting that the short "
+  "links resolve 'with different ASINs'. The re-verification performed in this same pass read the Standard "
+  'Commission Income Statement in full without any login (Table 1: Kitchen 4.50%, All Other 4.00%) and '
+  "re-confirmed all three destinations, so the older register's two statements are contradicted by a live "
+  'read. The rendered Flagged page says the opposite of data/flags.json on the commission question, so a '
+  'reader who follows two links reaches two different answers. This pass did not edit data/flags.json: it is '
+  'consumed by scripts/build_s2_site.py and scripts/build.mjs, and re-keying it would silently re-point '
+  "another build's citations. Decision needed: name one register canonical, then either re-key the other or "
+  'replace its contradicting sentences with a dated pointer to this page. Evidence: the two files themselves, '
+  'and reports/verification-2026-11-15.md section 1.',
+  ['S3', 'S16', 'S28', 'S29']),
+ ('F48',
+  'The Amazon listing for the Emeril 26 QT says six cooking accessories; the site publishes seven.',
+  'Emeril 26 QT French Door — the Included accessories row',
+  "Found 2026-11-15 by arena/792c279e-zone1 while re-reading the live listing title. ASIN B09B7SB46R's title "
+  "now ends '... Extra Large Interior, Six Cooking Accessories Included', while the site's own row publishes "
+  "7, sourced to the brand product page and the owner's manual. This is not necessarily a contradiction: a "
+  'listing can count a rotisserie spit and its forks as one accessory, or bundle differently from the retail '
+  'box, and the brand page and manual are the sources this site chose. The value was therefore NOT changed — '
+  'altering it would mean replacing a manual-sourced number with a listing-title number on a row whose product '
+  'identity is itself unconfirmed (F1, F2). Decision needed: count the accessories in the box against the '
+  "manual's accessory list, then publish one number with that source. Evidence: "
+  'reports/verification-2026-11-15.md section 3 row V21.',
+  ['S28', 'S14', 'S15']),
+ ('F49',
+  'The 2026-11-15 live pass could not retrieve the one fact that closes four high-severity flags, and the site '
+  'now says why in the place a buyer will look.',
+  'All three products — the model-number mapping',
+  'Recorded 2026-11-15 by arena/792c279e-zone1. The three Amazon detail pages were fetched again and returned '
+  "the buy box, the protection plans and the 'Customers who viewed this item also viewed' blocks, but not the "
+  "'Product information' table that carries the model number. That block is rendered client-side, so an "
+  'automated read cannot see it; a human browser can, in about ten seconds per listing. This is recorded as '
+  "its own row because seven sessions have now listed F1/F2/F32/F33 as 'needs a human' without saying why the "
+  'machine cannot do it, which invites an eighth session to try again. It is now also stated on picks.html, '
+  'handover.html and hand-over item H1 rather than only in the register. Evidence: '
+  'reports/verification-2026-11-15.md section 3 row V24. **TESTED AND FALSIFIED 2026-11-16 by session '
+  'arena/ba29c641-zone1.** The same /dp/ URLs were fetched from the same kind of environment and the Product '
+  'information block was present in the response body for all three ASINs, model rows included, so the block '
+  'is not unreachable to an automated read; whether it renders depends on the render path, not on the '
+  'existence of the data. The row is kept rather than deleted because the failure it documents is real and '
+  "worth reading: a negative observation about a fetch was promoted to a rule ('only a human can do this'), "
+  'that rule was copied forward by six later passes, and it then gated four flags, two questions and the top '
+  "item of the decision queue. A 'needs a human' claim is a claim about what a tool can reach, and it should "
+  'be re-tested on the same schedule as any other checkable value. See F68.',
+  ['S16', 'S28', 'S29']),
+ ('F54',
+  'The Amazon department category is now read directly on all three listings; the rate itself still needs the '
+  'Earnings report.',
+  'All three products — commission rate',
+  'Recorded 2026-11-15 by session 42ca97ad. The annex register’s row F-06 recorded that the browse-node path '
+  '‘Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers’ had been read directly on '
+  'B09B7SB46R only, and named reading the other two listings as the confirmation step. This session fetched '
+  'all three supplied link.amazon short links and read the identical path on B0CDY277D3 and B08DKYBTPH as '
+  'well, so the evidence is now three for three rather than one for three. It still does not establish the '
+  'category Amazon applies when a commission is settled: only the Associates Earnings report names the '
+  'category on a shipped line, so the two candidate rows (Kitchen 4.50%, All Other 4.00%) remain the honest '
+  'presentation until a sale exists. Decision needed: publish Kitchen 4.50% as the working rate with the '
+  'breadcrumb cited (SG-10 path A), or keep both rows until the first Earnings report lands.',
+  ['S3', 'S16', 'S28', 'S29']),
+ ('F55',
+  'Eleven article sentences spliced a published display label into a mid-sentence position. Found, fixed and '
+  'guarded.',
+  'articles/ prose, and the build’s article gate',
+  'Recorded 2026-11-15 by session 42ca97ad. The article prose in data/articles.json interpolates published '
+  'values into sentences. Eleven of those interpolations put a display label — ‘Two 3-quart baskets’, '
+  '‘Designed for 4-6 people’, ‘Fries, Chicken, Fish, Meat (one-touch)’, ‘Limited 1-year warranty …’ — into a '
+  'position where its capital is wrong, so the sentences read as machine output: ‘The dual-basket unit is 6 Qt '
+  '/ 5.67 L as Two 3-quart baskets’, ‘splits a 6 Qt / 5.67 L cavity into Two 3-quart baskets’. The defect was '
+  'invisible to every earlier verification pass, because each value is genuinely published and correct in a '
+  'table; it only appears when the page is read as prose, which is what a shopper does. It survived PR #71’s '
+  'full rewrite of data/articles.json, which re-introduced the same ten sentences and added an eleventh in a '
+  'new article. Fixed by adding a {{value::prose form}} syntax whose prose form may differ from the published '
+  'value in letter case and nothing else, enforced by check_articles(), and by adding check_article_splices(), '
+  'which fails the build when a capitalised value is spliced into a mid-sentence position. Both guards were '
+  'proven to fire: the build failed on exactly these defects before the fix and passes after it. No published '
+  'value changed and no source changed.',
+  ['S1']),
+ ('F56',
+  'The Application Review Process page was not re-read this pass; its figures are carried forward from an '
+  'earlier fetch.',
+  'S4 — the Associates application criteria',
+  'Recorded 2026-11-15 by session 42ca97ad. This pass re-fetched the Program Policies, the Standard Commission '
+  'Income Statement, both Chefman product pages, the Emeril product page, all three owner’s manuals, all three '
+  'supplied short links, 16 CFR Part 255 and 16 CFR Part 465. It did not load the Application Review Process '
+  'page (S4). The figures the repository carries for it — three qualifying sales within 180 days, roughly ten '
+  'posts, content recent within about sixty days, a social follower floor of about five hundred — are carried '
+  'forward from earlier logged fetches and are NOT re-confirmed by this pass. The sixty-day recency '
+  'requirement is load-bearing for any content-refresh schedule the owner adopts, so it must be re-read before '
+  'it is used as a scheduling rule rather than quoted from this repository. Note that a sibling pass on the '
+  'same day did re-read this page and reported the same four figures, which corroborates them but does not '
+  'change what this session itself fetched. What was and was not fetched is listed item by item in '
+  'session-42ca97ad/EVIDENCE-2026-11-15.md section 6. **Re-read 2026-11-16 by arena/9fccce0c-zone1: all four '
+  'figures are confirmed verbatim from the live page** — “we require at least three within the first 180 '
+  'days”, “a good rule of thumb is at least 10 posts”, “Content on your website must be recent (generally '
+  'within the last 60 days)” and “in most cases, at least 500” organic followers/likes — so the '
+  'carried-forward part of this row is closed, and question Q-19 moves from *missing* to *known and sourced* '
+  'with its answer on the row. Evidence: reports/verification-2026-11-16-9fccce0c.md row V3.',
+  ['S4']),
+ ('F57',
+  'Three files under data/ are read by no build, and one of them is a stale copy of a register that is '
+  'published.',
+  'data/flagged.json, data/commission-rates.csv, data/products.csv',
+  'Recorded 2026-11-15 by session 42ca97ad. A reference scan of every loader in the repository shows that '
+  'scripts/build_site.py and scripts/verify_site.py read data/verified/, not data/. The root-level '
+  'data/flagged.json is therefore an orphan: it holds a 13-row register whose live counterpart is '
+  'data/verified/flagged.json (17 rows), and the two disagree across 85 lines — including the browse-node '
+  'observation this pass has just updated, which would otherwise leave two registers saying different things '
+  'about the same fact. data/commission-rates.csv and data/products.csv are read by nothing in the repository; '
+  'the first is a CSV transcription of the Standard Commission Income Statement, the second the 2026-11-13 '
+  'link-check ledger that records the bare-token 404 and the fallback redirect, and both are evidence worth '
+  'keeping if they are labelled as evidence. Nothing published depends on any of the three, so this is a '
+  'maintenance risk rather than a correctness bug, but a reader who opens data/flagged.json sees a register '
+  'that no longer matches the site. This row is narrower than F47, which covers the same class of problem for '
+  'data/flags.json; the two are kept separate because the files and the contradictions are different. Decision '
+  'needed: delete the three orphans, or keep them explicitly as dated evidence with a header that says so.',
+  ['S1']),
+ ('F58',
+  'A register preamble repeated a sentence on the published page. Found on the deployed site, fixed, and '
+  'guarded.',
+  'questions.html — the preamble above the register',
+  'Found 2026-11-15 by session 42ca97ad, after PR #78 merged: the sentence ‘Questions in the ‘known and '
+  'sourced’ state carry their answer on the row …’ appeared twice in the preamble above the questions '
+  'register. The cause was the one-shot editor that adds the register rows '
+  '(session-42ca97ad/apply_pass9_edits.py): it appended the sentence to the preamble unconditionally, so '
+  'running it a second time appended it again. The build did not catch it, because the duplicate-ID guard sees '
+  'IDs, the published-value guard sees numbers, and a repeated sentence is neither. Fixed by making the editor '
+  'idempotent, by removing the duplicate from data/questions.json, and by adding check_register_preambles(), '
+  'which fails the build if any register preamble repeats a sentence. The guard was proven to fire on an '
+  "injected duplicate. The same edit also corrected the preamble's own claim that the page ‘separates three "
+  'things’ - it has always described four states, which is what the legend on the page lists.',
+  ['S1']),
+ ('F59',
+  'The repository serves six separate executive summaries, five of them stale and none labelled stale.',
+  'EXECUTIVE-SUMMARY.md, EXECUTIVE_SUMMARY.md, EXECUTIVE-SUMMARY-PASS8.md, EXECUTIVE-SUMMARY-PASS9.md, '
+  'EXECUTIVE-SUMMARY-PASS9-42CA97AD.md, executive-summary.html',
+  'Recorded 2026-11-16 by arena/ad8105b3. A read of the repository root finds six files whose names all claim '
+  'to be the executive summary: the generated executive-summary.html (current, built from data), '
+  'EXECUTIVE-SUMMARY.md, and four earlier or parallel-session Markdown files (EXECUTIVE_SUMMARY.md, '
+  'EXECUTIVE-SUMMARY-PASS8.md, EXECUTIVE-SUMMARY-PASS9.md, EXECUTIVE-SUMMARY-PASS9-42CA97AD.md). GitHub Pages '
+  'publishes the repository root, so all six are reachable by URL. At least one, EXECUTIVE_SUMMARY.md, is '
+  "already recorded in this register (F28) as asserting 'Identity verified. All three short links resolve to "
+  "Amazon.com product pages with different ASINs', which this site's reconciled position contradicts. This "
+  "pass did not delete or rewrite any of them: they are other sessions' committed records, and deleting "
+  "another session's evidence is not a repair. The live site links only executive-summary.html. Decision "
+  'needed: keep one Markdown briefing and move the rest under an archive directory with a one-line header '
+  'saying what superseded them, or add a banner to each. Evidence: the six files themselves, and the root '
+  'README. **Disposition recorded 2026-11-16 (session arena/ba29c641): the banner option was taken,** because '
+  "deleting another session's committed evidence is not a repair. Each non-canonical briefing now opens with a "
+  "'Superseded, and kept' line naming its session and date, pointing at executive-summary.html, and stating "
+  'the specific claim inside it that the repository has since reversed. Covered: EXECUTIVE_SUMMARY.md (whose '
+  '2026-11-14 banner also carried a stale count, refreshed here), EXECUTIVE-SUMMARY-PASS8.md, '
+  'EXECUTIVE-SUMMARY-PASS9.md, EXECUTIVE-SUMMARY-PASS9-42CA97AD.md and EXECUTIVE-SUMMARY-PASS10-121929a5.md — '
+  'six Markdown briefings beside the generated page. Nothing was deleted and no historical sentence was '
+  'rewritten.',
+  ['S1']),
+ ('F60',
+  "The s2 annex's requirements register cites two paths that do not exist, and its commission row rests on a "
+  'premise the annex itself has since corrected.',
+  'data/s2/requirements.json rows R-01 and R-08',
+  'Recorded 2026-11-16 by arena/ad8105b3 while building the root requirements register (requirements.html). '
+  "Two defects in the annex register. (1) R-01 'Collect and organise a full list of requirements' gives its "
+  "implementation path as 'data/requirements.json rendered on Requirements page'. There is no "
+  'data/requirements.json: the file is data/s2/requirements.json, and it renders at '
+  "s2/pages/requirements.html. So the repository's only requirements register pointed the reader at a "
+  'different, non-existent file. This is the third occurrence of the same defect class (after F14 and F38 in '
+  'this register), which is why the new root register has check_requirement_paths() failing the build on any '
+  'cited path that does not exist, and that guard was proven to fire on an injected bad path. (2) R-08 '
+  "'Analyse commission potential' is marked blocked with the reason 'login-gated rate card (F-04)'. "
+  "data/s2/flags.json row F-04 is itself titled 'CORRECTED — a public commission table does exist' and records "
+  'that the Standard Commission Income Statement is readable without a login, which this pass re-confirmed '
+  "live on 2026-11-16: Table 1 renders 'Physical Books, Kitchen, Automotive 4.50%'. The genuine remaining gap "
+  'is narrower — Table 1 is keyed to categories, not ASINs — and the root register states it that way. Neither '
+  "row was edited in the annex: data/s2/requirements.json is another session's published output. Decision "
+  "needed: re-point R-01 at the real path, and restate R-08's blocking reason as the ASIN-to-category mapping "
+  'rather than a login. Evidence: the two annex files and the commission page. **Repaired at source 2026-11-16 '
+  '(session arena/ba29c641), with the correction shown as a dated line inside the annex row rather than '
+  'applied silently:** R-01 names both registers and the paths that exist, R-08 states the ASIN-to-category '
+  "mapping as the blocker and cites the public Standard Commission Income Statement, and R-03's 'no public "
+  "demand metric exists' was corrected to what is actually true (a listing does carry a rank line; this "
+  'repository declines to publish it under IP License §2(e), F8). The annex was regenerated with its own '
+  'generator, the only supported way to change s2/**.',
+  ['S3']),
+ ('F51',
+  "The brand's own store reports a different product weight than the brand's own specification block, and this "
+  'site publishes the specification-block figure.',
+  'Chefman 6 Qt Dual-Window (RJ38-SQPF-3TDB-2W) and Chefman 8 Qt TurboFry (RJ38-SQSS-8T)',
+  'Recorded 2026-11-15 by arena/63a2c638, round 9. The Chefman product pages print a Specifications block: the '
+  "6 Qt page says 'Weight: 13.3 lbs / 6.03 kg' and the 8 Qt page says 'Weight: (8 Qt Model) 12.8 lbs / 5.8 "
+  "kg'. Those are the figures this site publishes, cited to S10 and S12. The same brand's own commerce "
+  'endpoint, read the same day, reports the variant weight as 14.51 lb / 6,582 g for RJ38-SQPF-3TDB-2W (S32) '
+  'and 13.4 lb / 6,078 g for RJ38-SQSS-8T (S33). The endpoint figure is the weight Shopify carries for '
+  'shipping, so the most likely reading is product weight versus packaged weight - but neither page says so, '
+  'and the site must not choose between them by inference. No published value was changed: the specification '
+  'block remains the cited source because that is the document the published row points at. Decision needed: '
+  'state in each weight row whether the figure is the product or the packaged weight, or publish both.',
+  ['S10', 'S12', 'S32', 'S33']),
+ ('F52',
+  'The open-questions register states that dimensions, weight and warranty are missing for all three products; '
+  'the product dataset already publishes eight of those nine values from official sources.',
+  'questions.html row Q-06 vs data/products.json',
+  "Recorded 2026-11-15 by arena/63a2c638, round 9. Q-06 asks 'What are the exterior dimensions, weight and "
+  "warranty terms for each of the three products?' and is filed as 'not_stated'. Checking the nine cells "
+  'against the dataset this pass: exterior dimensions are published for all three (6 Qt from S10, Emeril from '
+  'S14, 8 Qt from S12); warranty is published for all three (S10, S14, S13); weight is published for both '
+  'Chefman models (S10, S12). One cell - the Emeril 26 QT product weight - is genuinely absent, because '
+  "neither the brand page nor the owner's manual states one. So the register overstates the gap by eight "
+  'cells. This matters in both directions: a reader using Q-06 to decide what to research would redo work '
+  'already done, and a reader trusting the product pages would think the register is stale. Q-06 was narrowed '
+  'this pass to the single cell that is actually open, and is cross-linked to this row. No data value moved.',
+  ['S10', 'S12', 'S13', 'S14']),
+ ('F61',
+  'The canonical compliance register and platform blueprint had never carried the two clauses that govern an '
+  'AI-agent affiliate platform, and three published pages pointed at a flag number that does not exist.',
+  'Whole site — compliance.html, platform.html, questions.html, suggestions.html, data.html',
+  'Found 2026-11-16 by arena/9fccce0c-zone1 during verification pass 10, and fixed in the same pass. Two '
+  'independent defects. (a) Missing clauses. The Associates Program Policies page (S2, “Updated: April 14, '
+  '2026”) carries IP License §4 “Agents” (the Agent Terms) and Participation Requirements §5, both read '
+  'verbatim live on 2026-11-16. Neither appeared anywhere in the canonical build: data/compliance.json held 0 '
+  'occurrences of “Agent Terms” and data/platform.json held 0 occurrences of “Agent”, although the brief this '
+  'project answers is explicitly an AI-powered affiliate platform and the root site ships a platform blueprint '
+  'that proposes automated research. They are now requirements C17 and C18, with platform guardrail G11; the '
+  'scope question they raise is published as Q-21 and the design decision as SG-22, and neither is answered by '
+  'inference. (b) Dangling pointer. data/questions.json, data/suggestions.json and data/sources.json each told '
+  'the reader to see the flag numbered 46 for the Application Review Process recency criterion. No such flag '
+  'exists in the canonical register, which runs F1–F45 and F47–F58, and none exists in the legacy '
+  'data/flags.json register either, which runs F01–F27. The three pointers now name F56, the row that actually '
+  'covers it. A new build guard, check_register_cross_references(), fails the build if any generated page '
+  'cites a flag id, source id, question id or suggestion id that is not in the register it points at, so the '
+  'class of defect cannot recur silently. Evidence: reports/verification-2026-11-16-9fccce0c.md section E.',
+  ['S2', 'S4']),
+ ('F62',
+  'IP License §4 (the Agent Terms) was not read end to end, so the full list of agent-identification '
+  'requirements is not yet on the record.',
+  'S2 — the IP License section of the Program Policies page',
+  'Recorded 2026-11-16 by arena/9fccce0c-zone1. The Associates Program Policies page renders its IP License as '
+  'one long table, and the markdown conversion used for that pass collapsed part of it. Everything quoted in '
+  'requirement C17 was read directly in the response body, but the section was not read to its end: sub-part '
+  '(a) refers to “the requirements in section 3 of these Agent Terms”, and the text of that section was not '
+  'visible in the render. The Agent Terms are therefore published as the rules this pass could read, with the '
+  'limit stated on the row, rather than as a complete checklist. Decision needed: read IP License §4 in a '
+  'browser, in full, and extend requirement C17 if it adds anything — before the research agent is built '
+  '(SG-22). Evidence: reports/verification-2026-11-16-9fccce0c.md, the limit stated under section A.',
+  ['S2']),
+ ('F53',
+  'The Amazon browse-node breadcrumb is now published for two ASINs, and it does not settle which commission '
+  'rate applies.',
+  "All three products - the 'Amazon browse node' row and open question Q-11",
+  'Recorded 2026-11-15 by arena/63a2c638, round 9, at the same time as the value itself was added, so the '
+  "limit travels with the value. Both Chefman listings render the breadcrumb 'Home & Kitchen > Kitchen & "
+  "Dining > Small Appliances > Fryers > Air Fryers' (S16, S29). It is tempting to read 'Kitchen' there and "
+  'apply the 4.50% Kitchen rate from the Commission Income Statement (S3). That would be an inference, not a '
+  "source: S3's categories are commission categories defined by the Associates programme, Amazon's browse "
+  'nodes are a shopper-navigation taxonomy, and Amazon publishes no mapping between the two. The same '
+  "breadcrumb begins 'Home & Kitchen', and S3 also carries 'Home' at 3.00%, so the breadcrumb alone cannot "
+  'even tell you which of the two it resembles. The site therefore continues to show the commission rate as '
+  'unconfirmed (Q-11) and now shows the browse node as a separate, sourced fact. The Emeril browse node is '
+  "blank: three fetches of that ASIN on 2026-11-15 returned Amazon's automated 'Continue shopping' checkpoint "
+  'instead of the listing page, and a value that was never rendered cannot be recorded. **Update 2026-11-16, '
+  'from three reads on one day:** pass 10 (arena/121929a5) filled the Emeril row by reaching the listing '
+  'through the supplied short link; arena/a746a9f2 re-read the breadcrumb directly and recorded that the '
+  'checkpoint had cleared; session arena/ba29c641 fetched the /dp/ URL independently and found the same '
+  "classification in the page's Best Sellers Rank line (Kitchen & Dining; Air Fryers node 17659096011). Three "
+  'of three ASINs now carry a browse classification from three routes, and none of the three carries a '
+  'commission category: the inference this row forbids is still forbidden, as arena/a746a9f2 put it.',
+  ['S3', 'S16', 'S29', 'S28']),
+ ('F46',
+  'Product photography rights are undecided: no row records which images, if any, the site publishes, whose '
+  'permission covers them, or how Amazon Program Content image rights apply to these specific products. '
+  "Amazon's Operating Agreement and Program Policies govern Program Content imagery; the FTC treats imagery as "
+  'part of an endorsement requiring clear disclosure of material connections. No product photography is '
+  'published and Q-22 asks what may be published and whose permission covers it.',
+  'SG-23, Q-22 and all three product pages',
+  'Recorded 2026-11-16 by arena/695f03b7-zone1. The design layer offers owner photos, licensed imagery and '
+  'Amazon Program Content as image options, but none is decided; until Q-22 is answered, the site stays '
+  'text-and-diagrams-only and the figures on figures.html are generated diagrams, not photographs. Evidence: '
+  'data/suggestions.json (SG-23), data/questions.json (Q-22), build.py flags register.',
+  ['S1', 'S2']),
+ ('F63',
+  "Fourth occurrence of the stale-count defect class: three registers asserted 'eight articles' after the set "
+  'grew to thirteen. Found and fixed.',
+  'data/questions.json Q-10, data/suggestions.json SG-09, data/decision.json niche rows',
+  "Recorded 2026-11-16 by arena/a746a9f2 (X-a746a9f2). The brief's line-by-line review grepped every generated "
+  'page for register counts and found live assertions that had gone stale as the article set grew: '
+  "questions.html (Q-10's 'what we know' cell and the page's JSON-LD) and suggestions.html (SG-09's title, "
+  "problem, evidence label and recommendation) both said 'eight articles', and decisions.html carried 'the "
+  "site's existing eight articles' plus a pill reading 'Eight articles already exist in this shape' - while "
+  'the articles index publishes thirteen. This is the same defect class as F14, F38 and F52: a register cell '
+  'written as a snapshot and read as a live fact. Fixed per the F52 precedent: the two rows inside this '
+  "session's claimed scope were corrected in place, and the third (data/decision.json, created by a completed "
+  'session) was corrected as an integration-scope wording fix, with before/after strings logged in '
+  'COORDINATION.md. All three now carry a dated count (13, 2026-11-16) plus a pointer to the live articles '
+  "index, so they read as dated snapshots rather than live claims. The same scan cleared the 'parallel "
+  "register' pages (decision-gate.html's fourteen questions, marketing-directions.html's twelve suggestions) "
+  "as internally consistent — their ledes render their own frozen register's length — and cleared the "
+  'historical recounts in reverification.html and executive-summary.html, which describe already-fixed '
+  'defects. No build guard can police free-prose counts without a whitelist of claim sentences; '
+  'check_register_preambles covers repeated sentences only. Decision needed: adopt computed counts in register '
+  'prose (SG-26 option A machinery) or accept dated snapshots as the house standard.',
+  []),
+ ('F64',
+  'Three registers carried duplicated content onto the published site. Found by line-by-line review, repaired, '
+  'and guarded.',
+  'questions.html row Q-11, the articles note, and one Chefman 8 Qt specification row',
+  'Recorded 2026-11-16 by arena/b23f12f0, round 11. A line-by-line read of data/ found three places where the '
+  'same text was stored more than once and then published more than once: (1) the Q-11 row of the '
+  "open-questions register carried three of its 'what we know' entries seven times each - 18 entries "
+  "collapsing to 6 - so the sentence 'The same breadcrumb does NOT settle this question' appeared 14 times in "
+  'the rendered questions.html; (2) the note field in data/articles.json repeated its first paragraph '
+  "verbatim, joined by a pipe, so the editorial discipline statement was printed twice; (3) the 'Hi-Fry / 450 "
+  "F mode' row of the Chefman 8 Qt product cited source S29 three times in a row, which a reader sees as three "
+  'source badges for one claim. None of the three is a wrong fact - each is the same fact printed repeatedly, '
+  'which is precisely the pattern that makes a page read as machine-generated. All three were repaired with an '
+  'order-preserving de-duplication that changed no wording. A build guard, check_register_duplicates(), now '
+  'fails the build if any register list repeats an entry or any register string repeats a sentence, and the '
+  'guard was proven to fire on an injected duplicate before it was committed.',
+  ['S3', 'S29']),
+ ('F65',
+  'A recorded conclusion about Amazon’s bot checkpoint was wrong: the block is intermittent per request, not a '
+  'property of the ASIN.',
+  "data/sources.json source S28, data/products.json, and the 'Amazon browse node' row of the Emeril 26 QT "
+  'product',
+  'Recorded 2026-11-16 by arena/b23f12f0, round 11, because an earlier pass recorded a conclusion that this '
+  'pass contradicts. On 2026-11-15 three fetches of ASIN B09B7SB46R were each answered by Amazon’s automated '
+  "'Continue shopping' checkpoint, while the two Chefman ASINs fetched cleanly in the same window. The "
+  "recorded conclusion was 'this is a per-ASIN block, not a site-wide one'. Round 11 re-tested it: the Emeril "
+  'ASIN loaded on the first attempt, and in the same session B0CDY277D3 - which had loaded cleanly the '
+  'previous day - was served the checkpoint on its first attempt and returned the listing only on a retry. So '
+  'the block is intermittent per request. The 2026-11-15 evidence could not have distinguished the two '
+  'readings, because a per-ASIN pattern and an intermittent pattern look identical across three failures, but '
+  'the distinction matters: a failed fetch is not evidence about the ASIN, and no future pass should record '
+  "'blocked' as a property of a listing. Separately, this pass filled the Emeril browse-node cell and then "
+  'found that session 121929a5 (pass 10) had filled the same cell independently on the same day, by the same '
+  'route - the detail page and the supplied short link - reaching the identical string. Two independent reads '
+  'agreeing is worth more than one, so both are recorded on the row and both sources cited (S28, S17). This '
+  "pass also removed a stale 'unverified' field that the earlier fill had left behind, which still read 'Not "
+  "read ... left blank' on a row that now carried a value; it did not render, but it would have contradicted "
+  'the value if the render rule ever changed.',
+  ['S28', 'S17', 'S16', 'S29']),
+ ('F66',
+  'The Emeril brand page now documents 24 presets and 25 presets on the same page, and states a different '
+  'accessory count from its own Amazon listing title.',
+  'Emeril 26 QT French Door - the preset count and the included-accessories count',
+  'Recorded 2026-11-16 by arena/b23f12f0, round 11, from a source this project had not previously read: the '
+  'brand storefront’s own machine-readable product record (S35), whose description text carries an updated_at '
+  "stamp of 2026-11-16. It states 'Equipped with 24 one-touch cooking presets' and 'Included are 7 premium "
+  "accessories'. Two consequences. On presets: the brand’s specification block still says '25 Cooking "
+  "Pre-sets', so the brand now contradicts itself within a single page rather than across two documents. The "
+  'owner’s manual’s chart names 24 and the Amazon listing title says 24, so 24 now has three statements behind '
+  'it and the site continues to publish 24 - but the conflict is recorded as live and unresolved, because the '
+  'brand has not withdrawn the 25. On accessories: the site publishes 7 on the strength of the brand page, '
+  "while the current Amazon listing title for the same ASIN reads 'Six Cooking Accessories Included'. Both "
+  'figures are quoted, neither was reconciled by inference, and the discrepancy is published rather than '
+  'averaged. Neither published value changed in this pass.',
+  ['S35', 'S14', 'S15', 'S28']),
+ ('F67',
+  'The flag duplicate-ID guard had gone blind: it matched zero rows and reported success, so it could not '
+  'catch a same-day collision between two sessions.',
+  'build.py - check_flag_ids_unique(), and the Flagged page it reads',
+  'Found independently by two sessions on 2026-11-16 and repaired by the first of them. This pass '
+  '(arena/b23f12f0, round 11) found the defect while renumbering its own flags and checking whether the guard '
+  'would object; session arena/2e346d24 located and repaired it on main first, and additionally added '
+  'check_flag_count_matches_page() for the related defect where the landing page was advertising zero open '
+  'flags beside a 61-row register. The defect: check_flag_ids_unique() counted flag rows with a pattern that '
+  'began with a bare opening table-row tag followed immediately by the number cell, while page_flagged() has '
+  'emitted a row id attribute since the per-row anchors landed. The pattern therefore matched nothing, and a '
+  'Counter over an empty list reports no duplicates - so the guard returned success on every run while two '
+  'sessions published different rows under F61 and F62 on the same day. This repository has been bitten by '
+  'flag-ID collisions at least three times before (F28, F40 and the preamble case F58), which is why the guard '
+  "exists. It is recorded here rather than in the repairing session's own words because the finding belongs on "
+  'the register even though the repair predates this pass landing. Nothing in this row is a claim by this pass '
+  'to have made the fix.',
+  ['S1']),
+ ('F68',
+  "The 'only a human in a browser can read this' rule was untested for ten passes, and testing it took one "
+  'fetch. Also: on one ASIN the model code is not in the field named Model Number.',
+  'F1, F2, F32, F33, F49, SG-01, Q-01, Q-02, hand-over item H1, and every product page',
+  "Found 2026-11-16 by arena/ba29c641-zone1, as the consequence of F49. The register's own explanation for why "
+  'four flags needed a human was that the Product information table is rendered client-side and cannot be '
+  'retrieved by a fetch. Three /dp/ URLs were fetched on 2026-11-16 and the block was present in each '
+  'response, model rows included. Two lessons, both kept on the record. (1) A negative claim about tooling is '
+  "an empirical claim and decays: 'the fetch did not return it' became 'a fetch cannot return it' without "
+  'anyone re-testing, and six later passes copied the sentence forward, one of them into a hand-over sheet and '
+  "a 'three minutes of your time' callout on the landing page. (2) The method matters as much as the read: on "
+  "B08DKYBTPH the field called Model Number holds the marketing string 'Large Air Fryer' and the code sits in "
+  "Part Number, so any procedure that reads 'the Model Number row' — the exact procedure SG-01 told the owner "
+  'to follow — returns a non-code for one of the three products. Both fields must be read, and the two are '
+  'compared. What this pass did NOT do is convert a listing claim into a manufacturer specification: the 31 '
+  "rows added to data/products.json are each labelled 'as listed by Amazon' and sourced to S16/S28/S29, and "
+  'product identity from the link side stays open (F6, F7, F10). The mechanism behind the earlier failed read '
+  'is recorded separately and correctly by arena/b23f12f0 as F65 — the “Continue shopping” checkpoint is '
+  'intermittent per request, not a property of the ASIN — so the 2026-11-15 observation that the table was '
+  'missing was a real observation about three particular responses, and the error was generalising from them '
+  'to a rule about all fetches. Both rows stand on their own reads.',
+  ['S16', 'S28', 'S29', 'S10', 'S12', 'S13', 'S18', 'S26']),
+ ('F69',
+  "Two official documents disagree on the 8 Qt's footprint, and one listing disagrees with itself about the 6 "
+  "Qt's capacity units.",
+  'chefman-8qt-turbofry dimensions rows; chefman-6qt-dual-basket capacity rows',
+  'Found 2026-11-16 by arena/ba29c641-zone1, in the same read that closed F1. chefman.com publishes the 8 Qt '
+  '(RJ38-SQSS-8T) as 15.4 in x 12.6 in x 13.5 in and separates the 5 Qt figures on the same page (S12); the '
+  'listing for B08DKYBTPH publishes 12.75"D x 13.5"W x 10"H (S29). Those are not two ways of writing one '
+  'measurement: the depth differs by 2.65 in and the height by 3.5 in, so a buyer checking a cabinet clearance '
+  'gets a different answer from each official source, and the weight agrees on both (12.8 lb) — which is what '
+  'makes it a documentation problem rather than a transcription of a different product. Nothing was averaged: '
+  "the brand figures stay the published row, the listing's figures sit on their own dated row. The same class "
+  "on the 6 Qt: its listing's Capacity field reads '6 liters' while the same page's title, its Size field and "
+  'the brand page all read 6 quarts (5.67 L) — a unit label that moved. Any copy that turns a capacity or a '
+  'footprint into advice (the capacity guide, the small-kitchen article) must carry the caveat until Chefman '
+  'states which figures are the appliance and which are the carton. Decision needed: ask Chefman which number '
+  'is the appliance footprint, or drop cabinet-clearance advice.',
+  ['S12', 'S29', 'S10', 'S16']),
+ ('F70',
+  'Three official documents give three different model strings for the Emeril 26 QT, and the two newest differ '
+  'by one character.',
+  'emeril-26qt-french-door model_number and its listing rows',
+  "Found 2026-11-16 by arena/ba29c641-zone1. The owner's manual is headed FAFO-001 (S15), the brand product "
+  'page lists 4-00675-02A-VN (S14), and the listing for B09B7SB46R states 4-00675-02X-VN in both its Model '
+  "Number and Part Number rows (S28). An 'A' against an 'X' in the tenth position is the whole difference, and "
+  'it is the kind of difference that means either a variant suffix or a transcription error in one of three '
+  'documents — no document in this repository says which. This is the one product where the live read did not '
+  'settle the mapping the way it did for the two Chefman listings, so all three strings are quoted and none is '
+  'asserted. The commercial reason it matters: a comparison page that prints the wrong SKU string is a page '
+  'that can be accused of reviewing a different machine, on a site whose entire claim is traceability. '
+  'Decision needed: Emeril Everyday support can state the SKU behind the ASIN in one reply; until then the '
+  'product page shows three strings and the character in dispute.',
+  ['S14', 'S15', 'S28']),
+ ('F71',
+  'The Emeril listing contradicts itself inside one table: 7 accessories in Configuration, six parts '
+  "enumerated in Included Components, 'Six' in the title. F48 records the six-vs-seven question; this row is "
+  'about the self-contradiction.',
+  "emeril-26qt-french-door 'Included accessories', 'Configuration' and 'Included components' rows",
+  'Found 2026-11-16 by arena/ba29c641-zone1, and it complicates F48 rather than repeating it. F48 was recorded '
+  "2026-11-15 from the listing *title* alone ('Six Cooking Accessories Included' against the site's "
+  'manual-sourced 7), and left open with the sensible observation that a listing may count a spit and its '
+  'forks as one item. Reading the whole Product information block shows the page does not agree with itself: '
+  "its Configuration field says '…with 24 Functions and 7 Accessories', its Included Components row then "
+  'enumerates six named parts (Rack, Bake Pan, Drip Tray, Crisper Basket, Rotisserie Spit, Fetch Tool), and '
+  "its title says Six. So 'the listing says six' is not a single fact to weigh against the manual — the "
+  "listing says both, on one screen. The site's published value stays 7 because the brand page and the manual "
+  'state it (S14, S15); the Configuration field is a fourth document that agrees, and the enumeration is a '
+  'second that does not. No averaging, no quiet correction. Decision needed: the packing list settles it. Note '
+  "the same fetch also strengthened the other half of that row: '24 Functions' in the Configuration field is a "
+  "third document agreeing with the manual's 24 named presets against the brand page's '25 Cooking Pre-sets' "
+  "(F4). Distinct from F66, which records the brand page's own 24/25 split and the title-vs-manual accessory "
+  'disagreement: this row is the narrower observation that the two counts sit next to each other in one table '
+  'on the listing.',
+  ['S14', 'S15', 'S28']),
+ ('F72',
+  'Temperature floors published in degrees Celsius do not convert to the floors published in degrees '
+  'Fahrenheit, on two of the three products.',
+  'chefman-6qt-dual-basket and chefman-8qt-turbofry temperature rows; any copy quoting a low end',
+  'Found 2026-11-16 by arena/ba29c641-zone1. The 6 Qt brand page gives 200-450 °F / 95-235 °C (S10); the same '
+  "product's listing states 'Min Temperature Setting: 93 °C' (S16), and 93 °C is 199.4 °F, not 95 °C's 203 °F. "
+  "The 8 Qt listing states 'Min 94 °C' (S29) against the brand page's 200 °F floor (S12), i.e. 201.2 °F. Two "
+  'degrees, in both cases, in the same direction: 200 °F is 93.33 °C, so someone rounded the Celsius figure up '
+  'in one document and left the Fahrenheit figure alone in the other. This is a rounding inconsistency, not a '
+  'second specification, and it is recorded rather than repaired because the site does not get to rewrite a '
+  "manufacturer's numbers. What it forbids is specific: an article that says 'the 6 Qt goes down to 95 °C' is "
+  'quoting one page and contradicting another, so low-end claims must show both units with the source that '
+  'uses them, or stay out of the copy.',
+  ['S10', 'S16', 'S12', 'S29']),
+ ('F73',
+  'The requirements register promised computed counts in its own preamble and then typed eight of them into '
+  'prose; four had already gone stale.',
+  'data/requirements.json (rows A-02, A-04, A-06, B-01, B-05, B-06, B-08, C-02, D-05, G-01)',
+  "Found 2026-11-16 by arena/ba29c641-zone1 while updating the register for this pass's rows. The file's "
+  "`counts_note` says: 'Counts are computed from the rows at build time rather than typed, so this page cannot "
+  "claim a total the register does not contain.' The status counts at the top of the page are indeed computed "
+  '— every number inside the prose of individual rows was typed, and four had drifted within two days: '
+  "'Forty-six spec rows' and '43 of 46 carry a value' (the dataset had moved to 46 and then to 77 as passes "
+  "added sourced rows), 'Twenty-one numbered suggestions (SG-01…SG-21)' against a register of 23, 'Twenty "
+  "questions' against 22, and 'a generated sitemap of 37 URLs' against 46. None of these is a wrong fact about "
+  'the world; each is a right fact about an older build, published as present tense, which is how a '
+  'verification register quietly becomes a historical document. The fix is structural, not editorial: those '
+  'rows now write named count tokens — n_spec_rows, n_verified_rows, n_blank_rows, n_suggestions, n_sg_last, '
+  'n_questions, n_articles, n_topics, n_products, n_sources, n_banned, n_banned_distinct, n_tests, n_guards, '
+  'n_stale_briefings — each wrapped in braces in the data and substituted by req_interp() from the same '
+  'objects the pages render from. An unknown token raises at build time, and check_requirement_tokens() fails '
+  'the build if a brace-delimited token survives into any generated page, so a row cannot ship '
+  'half-interpolated. Both directions were proven: an injected bad token and an injected unresolved token each '
+  "exited non-zero. The same class is why this register's sibling in the s2 annex carries F60, and why the "
+  "sitemap row's number was removed rather than retyped: a count is only true at the moment it is written — "
+  "including the counts typed into this register's own log lines, one of which this pass had to correct in its "
+  'own commit message two minutes after writing it (7,815 links became 7,826 when the guard rows were added). '
+  "Process note for the next session: this pass's rows were renumbered twice in one day to avoid same-day id "
+  'collisions — first off F63 (arena/a746a9f2), then off F64-F67 (arena/b23f12f0, whose F67 is the '
+  'duplicate-ID guard that has now caught both collisions). Renumbering is cheap while a PR is open and '
+  'expensive after it merges.',
+  []),
+ ('F74',
+  'An article page existed on disk and on the live site that no data file or generator referenced: '
+  'articles/sync-finish-two-buttons.html. Found independently twice on 2026-11-16; repaired the same day.',
+  'articles/sync-finish-two-buttons.html vs data/articles.json (no matching slug); file removed 2026-11-16',
+  'Found 2026-11-16 by session arena/19d92a81 during the line-by-line repo review, after the file arrived with '
+  "a parallel pass's merge. data/articles.json carries no 'sync-finish-two-buttons' slug and no build step "
+  'generates the page, so nothing will ever refresh or retire it - yet it is served publicly next to the '
+  'generated articles and looks exactly like them, disclosure bar included, so a reader cannot tell it is '
+  'unmanaged. A grep of data/ and build.py finds zero references. It is the same defect class as F57 (orphan '
+  'registers), one layer up: a page outside the data-driven set. Independent discovery the same day by '
+  'arena/5ac82b1d during the final integration pass: articles/ held 20 HTML files against 19 registered slugs; '
+  'the orphan carried the same TP-09 subject as the registered article sync-finish-explained.html and appeared '
+  'in no sitemap entry, no articles index and no internal link - an orphan a crawler could still reach by '
+  "direct URL, publishing a second unregistered answer to the same question. Its own passing session's "
+  "completion record (X-121929a5) states this draft was discarded as a duplicate of round 11's TP-09 article; "
+  'the register entry was dropped but the HTML file survived the merge, and no gate compared the articles/ '
+  'directory against the page set the build emits (verify.py checks links from files that exist, so it cannot '
+  'see a file nothing links to). DECISION EXECUTED 2026-11-16 by arena/5ac82b1d: deleted rather than '
+  'registered - the canonical TP-09 article (articles/sync-finish-explained.html, data/topics.json '
+  'published_as) already covers the subject, so registering the duplicate would publish the same question '
+  'twice. check_no_orphan_pages() now fails the build if any .html file in articles/, products/, guides/, '
+  'categories/ or the repo root is not generated by this build, and the guard was proven to fire on an '
+  'injected file before it was committed.',
+  []),
+ ('F75',
+  'The 404 page was published with relative links, but GitHub Pages serves it at any missing path — so every '
+  'link on it broke under nested URLs.',
+  '404.html (all href/src values)',
+  "Found 2026-11-16 by arena/5ac82b1d while reading back the deleted orphan article's URL on the live site: "
+  '/articles/sync-finish-two-buttons.html correctly served the 404 page, but its nav, card and stylesheet '
+  'links resolved against /articles/ (e.g. products/chefman-6qt-dual-basket.html became '
+  '/articles/products/...), so the error page it served was itself unstyled and full of dead links — the one '
+  'page whose whole job is to recover a lost reader. Root-relative links (/Zone1/...) were rejected as a fix '
+  'because verify.py and scripts/check_links.py resolve internal hrefs against the file on disk, where they do '
+  'not exist. Fixed instead by rewriting every relative href/src on 404.html to its absolute SITE_URL form in '
+  'layout(), leaving fragment-only links (#anchor) alone since they address the displayed document. '
+  'check_seo_metadata() now fails the build if any non-absolute, non-fragment URL survives on the 404 page. '
+  'Note for later: this defect can only be observed by fetching a missing nested URL from the deployed site — '
+  'no local gate sees the serving path.',
+  []),
+ ('F76',
+  'The tracking ID shopnow047c-20 is user-provided but is not validated in Associates Central, applied to '
+  'links, or confirmed by a test.',
+  'data/config.json (selected_tracking_id); data/product-intent.json (tracking_id_status); associate_tag left '
+  'blank',
+  'For each product the account holder confirms as intended, verify that the ID is active in Associates '
+  'Central, create or select one enrolled Special Link, follow it, and verify that the click appears under '
+  "that ID in the report. Apply no tag broadly until every intended product's test passes. No account login "
+  'was available in this pass.',
+  ['S5', 'S6', 'S2']),
+ ('F77',
+  'No intended ASIN or official listing URL is confirmed for any of the five supplied short links; each '
+  'intended-product field remains blank.',
+  'data/product-intent.json rows PI-01 to PI-05 (intended_asin, official_listing_url)',
+  'The submitted URL strings, observed destinations and owner-confirmed intent are kept separate. No claim is '
+  "made here about a short link's validity, compliance or intended product. Confirm the official listing "
+  'separately for each link before filling intended fields.',
+  ['S16', 'S28', 'S29', 'S36', 'S37']),
+ ('F78',
+  'Two new short-link fetches returned fallback-style Amazon pages whose titles identify meat thermometers, '
+  'outside the current air-fryer publication scope.',
+  'PI-04 and PI-05 in data/product-intent.json; observed targets B0DHZTCNR5 and B0DZFD6R9Z',
+  "These are observed redirect destinations only; they do not establish the operator's intended products, "
+  'invalidate the links, or establish compliance. Keep them unmapped and do not publish thermometer '
+  'specifications unless product intent and scope are confirmed.',
+  ['S36', 'S37']),
+ ('F79',
+  "S23 is registered as KDP's 'Linking from Your Website' help page, but earlier notes cited it as a general "
+  'Amazon ASIN definition.',
+  'data/sources.json S23; prior ASIN-format claims; data/product-intent.json',
+  'Corrected in the final integration: the current product-intent page no longer cites S23 for ASIN length or '
+  '/dp/ format. Do not use the supplied short-link tokens or observed redirects to infer intent. Verify a '
+  'suitable first-party source before restoring an identifier-format claim.',
+  ['S23']),
+ ('F80',
+  "Neither newly submitted link reconciles with its manufacturer's own catalogue, so the two candidate "
+  'listings cannot be closed by reading harder.',
+  'PI-04, PI-05 on the link-intent record',
+  "Both links submitted on 2026-11-17 were read the same day against the brands' own product pages rather than "
+  "against the Amazon listings they resolved to. The observed ThermoMaven listing is titled '1 Sec "
+  "Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified …'; ThermoMaven's site names its "
+  "instant-read line F1 Pro and F1 Turbo with a sub-second read and does not use '1 Sec' as a model name. The "
+  'observed CHEF iQ listing is the iQ Sense Gen3 with three probes; the brand page states model CQ60-3C-Z3-E '
+  "and an ambient rating the listing omits, and names air-fryer use among the product's heat environments. A "
+  'marketing phrase in a listing title and a brand model designation are different kinds of identifier, and '
+  'neither page mentions an ASIN — so the observed destinations stand as observations, the intended fields '
+  'stay null, and no product page is written for either. The two brand pages are registered as S39 and S40, '
+  "and their hosts are in verify.py's allow-list, which records that they are official brand sites, not that "
+  'they settle an identity. Decision needed: say what each link was created to promote (Q-27), or drop the two '
+  'rows — SG-36 lays out the paths. Recorded by arena/58cbaaa2, which re-scoped twice against the merged '
+  'registers rather than publish a parallel one.',
+  ['S39', 'S40', 'S36', 'S37', 'S23']),
+ ('F81',
+  'The inference that a landing URL without a visible tag casts doubt on attribution was an over-reading, and '
+  'it is corrected on the record instead of edited out of it.',
+  'product-intent.html, data/product-intent.json, data/decision.json, F76',
+  'Passes including this one cited the absence of a tag= parameter on an observed landing URL next to their '
+  "caution about attribution. Amazon's help node read on 2026-11-17 (S41) states that 'it is not necessary for "
+  "your unique ID to appear in order for us to track sales made after the initial click through', because the "
+  "shopping session is tagged on Amazon's side. A null observation is not a negative one: the clean landing "
+  'URLs neither support nor undermine attribution. The correction is applied where the inference is drawn in '
+  'the present tense — the link-intent page now says so in those words next to the per-row test fields — and '
+  'the dated rows are untouched, because they are records of what those passes saw. The sibling node (S42) '
+  'names where the real confirmation is read, the Tracking ID Summary Report, plus the screen that creates IDs '
+  'and the limit of 100 per account; that is what the per-row associates_link_test_* fields are waiting for, '
+  "and Q-28/SG-37 are the owner's five minutes.",
+  ['S41', 'S42', 'S6', 'S2']),
+ ('F82',
+  'A present-tense sentence still counted the submitted links at three, two days after the register grew to '
+  'five.',
+  'categories/kitchen-appliances.html lede',
+  "Found 2026-11-17 while re-scoping this session against main, in the same class main's F77/F79 lineage "
+  "describes but with the narrative rather than a value out of date: the category lede opened 'The three "
+  "supplied links were observed landing on air fryer or air fryer-oven listings on 2026-11-13/14', which was "
+  'true at the time and is now a partial description of a five-row register whose two newest rows sit under '
+  'Thermometers & Timers. The sentence is repaired where the tense is present — the lede reads its counts from '
+  "len(rows) and from the register's own observed_listing_category field — and check_submitted_link_count() "
+  'fails the build if a present-tense surface asserts a different count in its own words — both directions '
+  'proven on 2026-11-17: the current tree builds silently, and injecting the old phrase back into the lede '
+  "exited non-zero with the register's own row count named in the message. (A first version of the pattern "
+  "required a lead-in word like 'all' and matched nothing, which is how a guard that cannot fail gets shipped: "
+  'the negative test is the guard.) The scope is narrowed to the shopper surfaces and the two registers: a '
+  "dated verification row that says 'all three supplied links' is a true statement about 2026-11-14, and a "
+  'check that could only be satisfied by rewriting history is worse than no check. Process note for whoever '
+  'next receives a link: add a row to data/product-intent.json — never a sentence.',
+  ['S17', 'S2']),
+ ('F96',
+  'The FAFO-001 manual contradicts itself about extension cords; the conflict remains unresolved.',
+  'Emeril manual Important Safeguards item 9 vs Attaching the Power Cord; re-read 2026-11-19',
+  'Item 9 says NEVER use with an extension cord, while the later power-cord section permits longer cords with '
+  'conditions. The previous article quoted one passage and called it an absolute difference between manuals. '
+  'That account is corrected. Do not infer permission from the later paragraph: seek manufacturer '
+  'clarification for the exact unit and appropriate electrical advice. The site supplies no cord '
+  'recommendation. Independent PUB-1 scoped review and regression/HTTP/browser evidence are retained in '
+  'reports/verification-2026-11-19-1f9e7d52.md. Read 2026-11-19. Safeguards item 9 says never use an extension '
+  'cord; the later power-cord section conditionally permits longer cords. The prior guide quoted only the '
+  'prohibition. Both statements are now recorded, not selected between. This is not permission to use an '
+  'extension cord. Obtain current manufacturer clarification for the exact unit before relying on a setup '
+  'affected by the conflict.',
+  ['S15']),
+ ('F97',
+  'Several articles made false absence claims or unsupported inferences despite passing source-presence tests; '
+  'corrected in place on 2026-11-19.',
+  'All 24 existing article bodies; reports/publication-2026-11-19.md',
+  'The 8 Qt manual explicitly warns against aerosol spray. The Emeril manual includes a 6 lb (2721 g) '
+  'rotisserie spit limit, preset times and an internal-temperature chart. Both Chefman manuals contain '
+  'practical oil advice. Removed unsupported probability rankings for model matches, serving/footprint and '
+  'energy assumptions, and seasonal stock-switch/trend claims. A citation or valid value placeholder does not '
+  'verify the sentence containing it. No human product test or current public-health validation is claimed. '
+  'Independent PUB-1 scoped review and regression/HTTP/browser evidence are retained in '
+  'reports/verification-2026-11-19-1f9e7d52.md. The previous buying guide called all three appliances '
+  'dishwasher-safe and left the 8 Qt dimensions blank after they were sourced. The capacity article also '
+  'called 6 qt and 8 qt the same nominal total. The revised guides distinguish removable parts from the main '
+  "unit, Emeril's hand-wash recommendation, model-specific dimensions and divided vs undivided capacity. An "
+  'unsupported most-common-return assertion was removed. The full prose review also removed unsupported '
+  'serving-load ratios, cooking/durability claims, electrical-circuit assumptions, exact-energy-cost '
+  'implications, guessed model explanations and a nutrition-regulatory classification. It corrected the 8 Qt '
+  'aerosol caution and the disclosure placement. All 24 existing guides were revised without adding duplicate '
+  'slugs. These are content corrections, not evidence of better conversion.',
+  ['S13', 'S15', 'S18', 'S8', 'S10', 'S12', 'S14']),
+ ('F98',
+  'Article datePublished and RSS pubDate inherited a global source-access date and invented a 09:00 '
+  'publication time; repaired.',
+  'build.py article_jsonld/RSS/sitemap; data/articles.json',
+  'First-publication timestamps are not established, so published_at stays null and those optional output '
+  'fields are omitted. Actual authored modified_at and scoped source_checks are separate, stable data. The '
+  'sitemap describes real publication-content edits rather than pretending the entire source register was '
+  're-read. A successful build is not historical publication evidence.',
+  []),
+ ('F99',
+  'The old browser, event registers and example endpoints did not share one analytics protocol; corrected '
+  'without enabling production collection.',
+  'analytics/client.js, analytics/collector.py, data/measurement.json, data/analytics-plan.json',
+  'The four browser events and operator-only affiliate_report_import now share one tested named schema. The '
+  'canonical client is emitted verbatim, incompatible PHP/Worker examples return 410, and both switches stay '
+  'off. Local tests are not a deployed same-origin runtime, approved privacy notice or authorised Associates '
+  'report. No order or attribution was invented. Independent PUB-1 scoped review and regression/HTTP/browser '
+  'evidence are retained in reports/verification-2026-11-19-1f9e7d52.md. One named-event contract now covers '
+  'the actual browser source, collector, deployment gates and privacy notice. Synthetic client payloads are '
+  'posted to the real HTTP handler in an isolated database. The old raw-event PHP/Worker endpoints return 410. '
+  'No production endpoint or traffic is claimed; hosting and privacy approval remain open.',
+  ['S2', 'S38']),
+ ('F100',
+  'Repaired 2026-11-19: blanket no-data privacy wording omitted hosting IP logs and local decision drafts.',
+  'Canonical footer, about page, measurement notices',
+  'The site-specific notice now distinguishes no publisher analytics from GitHub Pages security IP logs and '
+  'browser-only localStorage decision drafts. Enabled notices describe page views and engagement as well as '
+  'clicks. The browser run also exposed socketserver’s fallback transport-error traceback, which can print a '
+  'client address even with request access logs disabled. The production server now suppresses expected '
+  'disconnects and emits only a fixed nonidentifying diagnostic for unexpected errors, with negative log '
+  'tests. Proxy/hosting infrastructure logging and the production notice still require a separate deployment '
+  'review.',
+  ['S38', 'S2']),
+ ('F101',
+  'Open boundary: production analytics, Search Console ownership and enrolled Associates validation are not '
+  'deployed/account-verified.',
+  'Recorded tracking ID shopnow047c-20, all five submitted links, empty campaign ledger',
+  'Code, primary-source research and static publication work are complete within repository authority. No '
+  'account ownership, intended listing, tracking-ID application, click/order report, live collector or search '
+  'performance is invented. Confirm one intended listing and permitted enrolled Special Link workflow per '
+  'product, then record dated first-party evidence before applying the ID broadly. A missing visible tag is '
+  'not evidence of link failure.',
+  ['S2', 'S41', 'S42', 'S44']),
+ ('F102',
+  'Repaired 2026-11-19: the row-source gate accepted a generic flag link and skipped data rows containing a '
+  'row header.',
+  'row_is_sourced / check_row_sources and canonical implementation/evidence tables',
+  'A direct audit found 27 rows with no registered primary-source or repository evidence link. The gate now '
+  'requires an actual registered primary URL, an exact supplied resolver URL, or an existing exact-file record '
+  'in this repository. It checks data rows with th scope=row as well as td-only rows, and rejects generic '
+  'Flagged links, unrelated GitHub repos and unregistered URLs on an otherwise official host. '
+  'Editorial/implementation rows now link their authoritative repository record. Coverage and link identity '
+  'are machine-checked; whether a source supports arbitrary prose still requires an actual scoped read. SG-48 '
+  'records that boundary.',
+  ['S2'])]
 
-    ("F26", "Two platform KPIs are internal design targets; no official source states them.",
-     "platform.html, KPI table: Verified-row coverage, Flag resolution time",
-     "Shown with this flag, not with an invented source. They are operating targets for this project, not facts about Amazon, the FTC or any product, and they feed no published product value. The owner should decide whether to keep them as targets.", []),
-    ("F27", "Policy citations for the Participation Requirements 'Content on your Site' items used section numbers that do not match the live page.",
-     "Root-site content (corrected in this pass); site/ annex pages still carry the old labels",
-     "Live reads of affiliate-program.amazon.com/help/operating/policies on 2026-11-14 (two independent renders; version dated April 14, 2026) place the customer-review/star-rating rule at Participation Requirements '6. Content on your Site' item (t), and items (g) incentives, (n) framing, (u) self-purchase, (v) cloaking, (w) link shortening and (y) price tracking in the same section. Repo content had cited these as \u00a73(t), \u00a73(g), \u00a73(n), \u00a73(u), \u00a73(v), \u00a72(w) and \u00a73(y). Every quoted rule text was verified verbatim against the live page, so no published behaviour changes \u2014 only the citation labels were aligned to the live structure in build.py, data/compliance.json, data/products.json, data/sources.json, data/platform.json, data/marketing.json, README.md, EXECUTIVE-SUMMARY.md and EXECUTIVE_SUMMARY.md. Spot-checked labels that were already correct: \u00a72(b) prices/availability, \u00a73(e) cookies, \u00a76(a) alteration, IP License \u00a72(e) aggregation/ML-training, Operating Agreement \u00a75 disclosure. The site/ annex (session 1874bb64) still renders \u00a73(t) from data/verified/; its owner session should align it (request logged in COORDINATION.md). Historical session records in COORDINATION.md were left as written.", ["S2"]),
-    ("F28", "Three flag registers share overlapping ID spaces but index different issues, and two published documents cite the wrong one.",
-     "Cross-build consistency",
-     "Confirmed 2026-11-14 by sess-91d0552e (renumbered F25 -> F28 to avoid a collision with arena/6ecdb4e4's F25). (a) research/build_research.py tells the reader to see 'the root site's Flagged page (shared register data/flags.json id F19)' for the product-titles/§6(a) issue and 'id F20' for the cookie-disclosure issue. Those IDs ARE correct inside data/flags.json, but the root Flagged page is generated from build.py's own PROGRAMME_FLAGS, where F19 is 'brand-site review counts move between days' and F20 is 'the repository carries six parallel builds'. A reader following that pointer lands on an unrelated row. (b) EXECUTIVE_SUMMARY.md, still served at the site root, asserts 'Identity verified. All three short links resolve to Amazon.com product pages with different ASINs' and that 'the official commission schedule redirected to a sign-in page'. Both are contradicted by this pass: the reconciled position published on this site is 0 verified product identities (F14-F16, F21), and the Standard Commission Income Statement was read in full, without any login, on 2026-11-14. Not repaired in this pass: data/flags.json is consumed by the s2 and docs generators and research/ is another session's build, so re-keying either register would silently re-point another build's citations. Decision needed: adopt one register as canonical and re-key the others, or relabel the pointers. Evidence: session-91d0552e/VERIFICATION-2026-11-14.md §5.", ["S1", "S3"]),
-
-    ("F29", "The Emeril preset count is stated five different ways across official sources, and two of them now say 24.",
-     "Emeril 26 QT French Door",
-     "Re-read 2026-11-14 by sess-54c66535. Amazon's listing title for ASIN B09B7SB46R says '24 cooking functions' and Emeril's own description paragraph says 'Equipped with 24 one-touch cooking presets', while the same page's specification block says '25 Cooking Pre-sets', its feature heading says '10-In-1' and one of its carousel assets is named '11-in-1'. Two independent official sources now agreeing on 24 is new evidence: earlier passes recorded only 25 vs 10-in-1 vs 11-in-1 with no tiebreaker. The conflict is narrowed, not closed - the same brand page still contradicts itself - so no preset count is asserted anywhere on this site. Decision needed: confirm the figure against the unit's own control panel before any copy states a number. <strong>Re-read 2026-11-15 by arena/88bb2db6, which changes that last sentence.</strong> The owner's manual for FAFO-001 was read row by row: its Preset Mode Chart and its Recommended Accessory Positions table each list exactly 24 presets by name, and the manual never states the numeral. The Amazon listing title independently says '24 One-Touch Preset Options'. The site now states 24 on the strength of the manual, names the one official line that disagrees (the brand page's specification block, '25 Cooking Pre-sets'), and flags it. This row and F4 both stay open, but the site no longer asserts nothing. The 10-in-1 and 11-in-1 labels remain marketing wording and are not presented as specifications. Decision still needed: confirm the figure against the unit's own control panel.", ["S14", "S17", "S16"]),
-    ("F30", "Two published specification values are not stated by the official source the site cites for them.",
-     "Chefman 6 Qt Dual Basket (preset count); Emeril 26 QT French Door (interior light)",
-     "Re-read 2026-11-14 by sess-54c66535. The Chefman dual-window user guide RJ38-SQPF-3TDB-2W was read end to end and documents HI-FRY, +2 MIN, MUTE, SYNC BASKETS, SYNC FINISH, START/STOP, TIME/TEMP and SHAKE, but has no preset chart and never names the four food presets the site publishes; its control panel is artwork with no text layer. The Emeril brand page's specification block lists Timer, 26-Quart Capacity, Dual-Speed Fan, 25 Cooking Pre-sets, dimensions, 24.6 Liters, Temperature Control and 120 volts, with no interior-light row. Both values were left as published rather than deleted, because deleting another session's sourced row is not this pass's call, but neither is currently traceable to an official statement. Decision needed: re-source both to the brand product pages, or blank them and let them appear here as unverified.", ["S18", "S14"]),
-    ("F31", "The two Chefman 6 Qt sister SKUs carry very different review counts on the brand's own site.",
-     "Chefman 6 Qt Dual Basket",
-     "Re-read 2026-11-14 by sess-54c66535. The dual-basket page RJ38-SQPF-3TDB-2 reports 4.6 stars from 194 reviews; the dual-window page RJ38-SQPF-3TDB-2W reports 4.6 stars from 1,305 reviews, on an identical list price and promo ladder. The 6.7x gap is a usable signal for deciding which SKU the supplied ASIN maps to, which is open flag F2. It is not an identification: a review count is not a product identifier. No SKU is asserted. Correction 2026-11-16 (session arena/ba29c641): this row also stated that 'Amazon does not publish the model number behind an ASIN', which is false — the listing's Product information block publishes it (F49, F68) — so a review-count comparison is no longer the nearest thing to a route: the model number itself has been read, and it matches the -2W page this site maps to.", ["S11", "S10", "S16"]),
-    ("F32", "Chefman sells three different 6-quart dual-basket SKUs; the site names two of them.",
-     "Chefman 6 Qt Dual Basket",
-     "Found live 2026-11-14 by arena/6b2eddeb. Chefman's own store currently publishes RJ38-3DBW-V2 ('TurboFry 6 Qt. Double Basket Air Fryer with Easy View Windows': 6 Qt / 5.68 L as two 3 Qt / 2.84 L baskets, 90–400 °F / 32–204 °C, 1700 W, five functions — air fry, bake, reheat, dehydrate, frozen — easy-view windows, interior lights, shake notifications, 4.5 stars from 30 reviews, $99.99 list), RJ38-SQPF-3TDB-2 (dual-basket, 4.6 from 194, no specification block published) and RJ38-SQPF-3TDB-2W (dual-window, 200–450 °F, Hi-Fry, 4.6 from 1,305). The site records the -2W mapping because the Amazon title says 'Hi-Fry' and 'Easy View Windows', and Hi-Fry is documented only on the -2W page — but Easy View windows appear on all three, so the title does not discriminate on its own. This is an identification risk, not an identification. Two other builds shipped in this repo (site/, research/) map the same ASIN to RJ38-3DBW-V2 with no caveat, so a reader can reach two different official-looking answers two clicks apart. Decision needed: open the listing, read the model plate or the 'Product information' model number, and settle it once. **Addendum 2026-11-16 (session arena/ba29c641): the read was done, by fetch.** The listing's Product information block states Model Number and Part Number RJ38-SQPF-3TDB-2W — the root site's mapping, not the site/ and research/ mapping to RJ38-3DBW-V2. Those two builds now disagree with a document each of them can read; they are not edited here because those trees belong to other sessions, and the divergence is another reason to retire or re-key them (F44). See F68.", ["S25", "S27", "S10", "S16"]),
-    ("F33", "The 'Hi-Fry / 450 °F: None' row for the 8 Qt product is only true of the stainless SKU, and a second official SKU matches the Amazon title exactly.",
-     "Chefman 8 Qt TurboFry",
-     "Found live 2026-11-14 by arena/6b2eddeb — narrows F3, does not resolve it. Chefman sells RJ38-SQSS-8T (TurboFry Touch Stainless-Steel, max 400 °F / 205 °C, four food presets, stainless finish — the SKU the site currently maps) and RJ38-8T-BLACK (TurboFry 8 Qt Air Fryer w/ High Fry: Hi-Fry 450 °F / 232 °C for the final two minutes, and exactly four functions — air fry, bake, dehydrate, frozen — in a matte-black finish). The Amazon listing title for B08DKYBTPH reads '…4-in-1 with 450°F Hi-Fry Option… | Bake, Dehydrate, Frozen | … Stainless Steel'. The function list and the 450 °F Hi-Fry match RJ38-8T-BLACK word for word; the finish matches RJ38-SQSS-8T. So the title may describe a third variant, or may carry a finish that does not match the unit. The previous framing — 'one of the two official sources is stale' — is now the less likely explanation. No value is changed and neither model is asserted; a human should read the model number printed in the listing's Product information section. **Read 2026-11-16 by session arena/ba29c641, by fetch:** the listing states Part Number RJ38-SQSS-8T *and* Max Temperature Setting 400 °F — its identifier field points at the 400 °F model while its title describes the -BLACK's Hi-Fry capability. That is a listing carrying a title from somewhere else, which is not the same as proof of which machine ships: because RJ38-8T-BLACK genuinely documents 450 °F (S26), the two-models explanation this row opened stays live and both readings are published.", ["S12", "S26", "S16", "S29"]),
-    ("F34", "The second executive summary at the repo root still asserts two things that are now known to be wrong.",
-     "EXECUTIVE_SUMMARY.md",
-     "Found 2026-11-14 by arena/6b2eddeb. EXECUTIVE_SUMMARY.md (the older of the two root summaries) states in its Key findings: 'Identity verified. All three short links resolve to Amazon.com product pages with different ASINs' and 'the official commission schedule redirected to a sign-in page'. This session re-fetched both on 2026-11-14: the Associates Program Standard Commission Income Statement (Table 1 and Bounty Events) was read in full with no login, and product identity is explicitly NOT verified anywhere on this site (F14–F16, F21, F32, F33). A dated correction banner was placed above that document by an earlier pass, but the contradicting sentences remain in the body and the file is still served from the site root by direct link. Decision needed: retire the duplicate document, or rewrite the two sentences. This pass did not edit it — the sentence is another session's published work and rewriting it is a content decision, not a verification one.", ["S1", "S3"]),
-    ("F35", "Nine separate HTML sites for the same three products are published in this repository, and they disagree with each other.",
-     "Whole repository",
-     "Found 2026-11-14 by arena/6b2eddeb. Alongside the canonical root build there are research/ (12 pages), session-3740f69d/ (11), s2/ (13), site/ (11), dashboard/ (14), docs/ (7) and annex-88769516/ (10), plus data-only trees in crosscheck/ and platform/. The root navigation links to six of them. They disagree on facts a reader would take as settled: the Chefman 6 Qt model (RJ38-SQPF-3TDB-2W on the root site, RJ38-3DBW-V2 in site/ and research/ — F32), and the policy section numbers for the review/star-rating and link-shortening rules (§6(t)/§6(w) on the root site after F27, §3(t)/§2(w) in site/ and session-3740f69d/). Each build is internally consistent and individually verified; the problem is that nothing tells a reader which one is canonical when they arrive from a search engine. Decision needed: keep one site and archive the rest behind a clearly labelled 'previous verification passes' page, or make every non-canonical page carry a fixed banner naming the canonical build.", ["S1", "S2"]),
-    # sess-ce4070ad, pass 7, 2026-11-14. NOTE (2026-11-15, arena/3ddfa50e): this row was published as F36
-    # while a product-level row in data/products.json was also published as F36. Two rows, one number. The
-    # product row is re-sourced from S16 to S28 by this pass and keeps F36 because three session evidence
-    # files cite it by that number; this programme-level row moves to F41. Flag F40 records the collision.
-    ("F41", "F10's earlier wording incorrectly said the short links' srctok marker stays constant across repeat requests.",
-     "All three links — historical wording correction",
-     "Closed 2026-11-15 by arena/94a562a1-zone1: F10 now states that the recorded candidate ASIN/title destinations were consistent while btn_ref/srctok values changed across some repeat or cache-busted requests. The underlying records include srctok-2cef40d2904c29d8 on 2026-11-13; srctok-1e229870efde5acf changing to srctok-397b5ba66db39bbf on a cache-busted repeat (session-81495d2d evidence, row 4); srctok-704dc575b940a94c (session-54c66535); and srctok-0740a2e990c9bbb3 in two observations later that day. This closes only the wording mismatch. It does not prove that any candidate listing is the product intended by the account holder or confirm affiliate attribution; see F1, F6, F14-F16 and F21.", ["S17", "S16"]),
-
-    ("F37", "A published value was cited to a source that does not state it.",
-     "Emeril 26 QT French Door — the \"Interior light: Yes\" row",
-     "Found and fixed 2026-11-14 by sess-7111e2b6. The row cited the brand product page (S14), whose specification strip lists Timer, 26-Quart Capacity, Dual-Speed Fan, 25 Cooking Pre-sets, 16.9\"D x 15.8\"W x 14.8\"H, 24.6 Liters, Temperature Control and 120 volts — and no interior light. The value is nonetheless correct: the owner\'s manual (S15) documents it in the control-panel section, \"F. LIGHT BUTTON: May be selected at any time during the cooking process to light the appliance\'s interior.\" The row has been re-sourced from S14 to S15 and the manual\'s wording recorded in the row note. The lesson is published rather than quietly fixed: a value can be true and still be mis-cited, and a citation that does not support its value is as much a defect as an invented number.",
-     ["S14", "S15"]),
-
-    # ---- arena/3ddfa50e, integration pass 8, 2026-11-15 ------------------------------ #
-    # Three defects found by re-fetching the official sources rather than trusting the
-    # recorded reads. All three are fixed in this pass; none was inferred.
-    ("F38", "An Amazon listing title changed between the 2026-11-14 read and 2026-11-15, so a published value was stale.",
-     "Emeril 26 QT French Door \u2014 the listing-title row",
-     "Found and fixed 2026-11-15 by arena/3ddfa50e. The stored title ended '| 26QT air fryer oven with French doors, 24 cooking functions, dual-speed fan and rotisserie for easy family meals.' and the live title on the same ASIN (B09B7SB46R, reached through https://link.amazon/B02NbDxp3) now ends '| Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included'. The preset count is unchanged at 24; the wording around it is not. The row now carries the 2026-11-15 string, keeps the superseded string in a visible field, and states the date of the read. This is the same class of volatility as F14 (brand-hosted review counts that moved in 24 hours) and the reason every volatile value on this site must carry its read date.",
-     ["S28"]),
-
-    ("F39", "A source record was cited for a value it does not support: one registered URL stood in for three different product pages.",
-     "All three products \u2014 the listing-title and ASIN rows",
-     "Found and fixed 2026-11-15 by arena/3ddfa50e. Source S16 was registered with a single URL (https://www.amazon.com/dp/B0CDY277D3) but its title claimed to cover 'ASINs B0CDY277D3, B09B7SB46R, B08DKYBTPH', and it was cited as the source for all three products' listing titles and ASIN rows. For the Emeril and 8 Qt rows, the source link therefore took a reader to the Chefman 6 Qt listing. A citation that does not resolve to the page stating the value is the same defect class as F37. Fixed by registering each ASIN separately: S16 = B0CDY277D3, S28 = B09B7SB46R, S29 = B08DKYBTPH, and repointing every citation. The root build's row-source gate did not catch this because it checks that a row links to *a* registered official host, not that the host page actually states the value.",
-     ["S16", "S28", "S29"]),
-
-    ("F40", "Two different rows were published under the same flag number.",
-     "Register integrity \u2014 F36",
-     "Found and fixed 2026-11-15 by arena/3ddfa50e. The programme-level row recording the srctok-marker finding (added by sess-ce4070ad, itself renumbered from F32) was published as F36, and a product-level row in data/products.json recording the Chefman 6 Qt preset-count mis-citation was also published as F36. Both rendered on the Flagged page, so the register showed 38 rows with 37 distinct numbers and any citation of 'F36' was ambiguous. F28 records an earlier ID collision of the same kind, which means the rule was not enforceable. The programme-level row is renumbered F41; the product row keeps F36 because three session evidence files cite it by that number. A duplicate-ID build test now fails the build if this recurs.",
-     ["S1"]),
-
-    # arena-b1e7b4bc, verification round 2026-11-15 (additive): findings from the
-    # line-by-line review of the new suggestions.html / questions.html layer (PR #58).
-    # RENUMBERED at the merge seam 2026-11-15: authored as F38/F39, but PR #62
-    # (arena/3ddfa50e) had already taken F38-F40 on main, so this session's rows
-    # become F42/F43. Same precedent as the F32 -> F36 renumber; nothing else
-    # about the rows changed.
-    ("F42", "The operator's location is stated two different ways on the same domain, and neither statement comes from an official source.",
-     "questions.html (Q-06) and suggestions.html (SG-10) vs the s2/ annex register (its F08)",
-     "Recorded 2026-11-15 by arena-b1e7b4bc. The 2026-11-15 pages say the owner is in Osaka, Japan; the s2 annex register (data/flags.json, row F08) records a Norway residence. Both were written from agent-session environment context, not from anything the owner supplied in the repository and not from any official page, so neither can be verified from here and at most one can be right. The Japan wording matters because Q-06 and SG-10 build a store-targeting decision on it. Decision needed: the owner states their actual country once, one register row cites it, and the other wording is corrected to match; until then no eligibility conclusion (Q-06, SG-10, or the s2 register's F08) should be treated as settled.",
-     []),
-    # ---- pass 9, session 22f43836, 2026-11-15 ------------------------------- #
-    # Both rows are about the repository as a published web property, not about a product
-    # fact. Neither changes a published value. Each was measured, not assumed.
-    ("F44", "The same site is published nine times from one repository, and eight of those copies are reachable at public URLs.",
-     "Whole repository \u2014 GitHub Pages deployment",
-     "Measured 2026-11-15 by this pass: 106 HTML files are published from the repository root. The maintained site is the 27 sitemap URLs generated by build.py; the remaining pages are seven earlier or parallel builds (dashboard/, annex-88769516/, session-3740f69d/, research/, s2/, site/, docs/), each with its own homepage, its own near-duplicate comparison of the same three products, and in two cases a visible Amazon price. Amazon's Program Policies \u00a72(b) permit price display only when Amazon serves the link or the data comes from Creators/PA API, so a published copy that shows a price is a compliance exposure this project has otherwise been careful to avoid. Google's own guidance (S30) states that the presumption is that individual pages match the overall quality of the domain, that a site reputation review weighs whether 'the same identical or near-identical content appears on multiple other sites', and that scaled content generated without added value for users should be excluded from search. Decision needed, and it is the owner's: keep the older builds published for auditability and accept the duplicate-content and compliance risk, or remove the duplicate pages and keep only their evidence files. This pass did not delete or edit another session's published output \u2014 that is not a unilateral decision to take. Full option set: SG-17 on the Suggestions page.",
-     ["S30", "S2"]),
-
-    ("F45", "The site's search-engine plumbing was incomplete: no page declared a canonical URL, and no page carried Open Graph or structured data.",
-     "Whole root site \u2014 every generated page",
-     "Found and fixed 2026-11-15 by this pass, and measured before the fix: 0 of 27 generated pages had rel=canonical, 0 had og:* tags, 0 had a Twitter card, 0 had JSON-LD (a repository-wide count that also included the annex builds was 33 canonicals of 106 pages, from other sessions' templates). Two consequences: with nine copies of the same content on one origin, nothing told a search engine which copy is maintained; and a shared link rendered as a bare URL. Fixed in build.py's layout() so every generated page now carries canonical, og:*, twitter:card and schema.org WebSite/Organization/BreadcrumbList/Article markup, and 404.html carries noindex and no canonical. Enforced by a new build guard (check_seo_metadata) so a later template edit cannot drop it. schema.org Product/Offer/AggregateRating is deliberately NOT emitted: the site publishes no Amazon price or star rating (\u00a72(b), \u00a76(t)), so product markup would either be empty or would assert a number this project refuses to publish.",
-     ["S30", "S31", "S2"]),
-
-    ("F43", "Two wording advisories on the Suggestions and Questions pages (reader-facing precision, no data value affected).",
-     "suggestions.html and questions.html (PR #58, X-633b115f)",
-     "Recorded 2026-11-15 by arena-b1e7b4bc. (a) The Suggestions lede says 'None of them has been implemented', but for SG-03, SG-04, SG-05 and SG-11 option A is the current, already-implemented state ('Keep...', 'Keep blank and link to the live Amazon page (current, compliant)'), so those rows read more accurately as 'confirm the current state' than as pending work. (b) Q-01's 'How to find out' says to check the owner's Associates account for which tag the short links carry - the tag is not observable from the account's tracking-ID page either (flag F6); only whoever created the short links knows the mapping. Decision needed: reword the lede and the Q-01 cell, or accept the current phrasing. Both rows' facts and sources check out; this flag is about wording only.",
-     []),
-
-    # ---- arena/792c279e-zone1, task T20, 2026-11-15 -------------------------------- #
-    # Findings from the live line-by-line re-verification performed in this pass. Full
-    # evidence, including the exact strings read back from each official page, is in
-    # reports/verification-2026-11-15.md. No published product value was changed by this
-    # pass; each row below either records a source-liveness change or a conflict that a
-    # human has to settle.
-    ("F47", "There are two flag registers in this repository, they contradict each other, and both are readable from the live site.",
-     "data/flags.json (F01-F27) vs flagged.html (F1-F43)",
-     "Found 2026-11-15 by arena/792c279e-zone1. data/flags.json still records F02 'The official Standard Commission Income schedule redirected to a sign-in page' and F01-F04 language asserting that the short links resolve 'with different ASINs'. The re-verification performed in this same pass read the Standard Commission Income Statement in full without any login (Table 1: Kitchen 4.50%, All Other 4.00%) and re-confirmed all three destinations, so the older register's two statements are contradicted by a live read. The rendered Flagged page says the opposite of data/flags.json on the commission question, so a reader who follows two links reaches two different answers. This pass did not edit data/flags.json: it is consumed by scripts/build_s2_site.py and scripts/build.mjs, and re-keying it would silently re-point another build's citations. Decision needed: name one register canonical, then either re-key the other or replace its contradicting sentences with a dated pointer to this page. Evidence: the two files themselves, and reports/verification-2026-11-15.md section 1.",
-     ["S3", "S16", "S28", "S29"]),
-
-    ("F48", "The Amazon listing for the Emeril 26 QT says six cooking accessories; the site publishes seven.",
-     "Emeril 26 QT French Door — the Included accessories row",
-     "Found 2026-11-15 by arena/792c279e-zone1 while re-reading the live listing title. ASIN B09B7SB46R's title now ends '... Extra Large Interior, Six Cooking Accessories Included', while the site's own row publishes 7, sourced to the brand product page and the owner's manual. This is not necessarily a contradiction: a listing can count a rotisserie spit and its forks as one accessory, or bundle differently from the retail box, and the brand page and manual are the sources this site chose. The value was therefore NOT changed — altering it would mean replacing a manual-sourced number with a listing-title number on a row whose product identity is itself unconfirmed (F1, F2). Decision needed: count the accessories in the box against the manual's accessory list, then publish one number with that source. Evidence: reports/verification-2026-11-15.md section 3 row V21.",
-     ["S28", "S14", "S15"]),
-
-    ("F49", "The 2026-11-15 live pass could not retrieve the one fact that closes four high-severity flags, and the site now says why in the place a buyer will look.",
-     "All three products — the model-number mapping",
-     "Recorded 2026-11-15 by arena/792c279e-zone1. The three Amazon detail pages were fetched again and returned the buy box, the protection plans and the 'Customers who viewed this item also viewed' blocks, but not the 'Product information' table that carries the model number. That block is rendered client-side, so an automated read cannot see it; a human browser can, in about ten seconds per listing. This is recorded as its own row because seven sessions have now listed F1/F2/F32/F33 as 'needs a human' without saying why the machine cannot do it, which invites an eighth session to try again. It is now also stated on picks.html, handover.html and hand-over item H1 rather than only in the register. Evidence: reports/verification-2026-11-15.md section 3 row V24. **TESTED AND FALSIFIED 2026-11-16 by session arena/ba29c641-zone1.** The same /dp/ URLs were fetched from the same kind of environment and the Product information block was present in the response body for all three ASINs, model rows included, so the block is not unreachable to an automated read; whether it renders depends on the render path, not on the existence of the data. The row is kept rather than deleted because the failure it documents is real and worth reading: a negative observation about a fetch was promoted to a rule ('only a human can do this'), that rule was copied forward by six later passes, and it then gated four flags, two questions and the top item of the decision queue. A 'needs a human' claim is a claim about what a tool can reach, and it should be re-tested on the same schedule as any other checkable value. See F68.",
-     ["S16", "S28", "S29"]),
-
-    # ------------------------------------------------------------------ #
-    # Verification pass 9 - session 42ca97ad, 2026-11-15.
-    # Raw evidence: session-42ca97ad/EVIDENCE-2026-11-15.md
-    # Renumbered at the merge seam: F44/F45/F47 were taken by PR #69/#70/#71
-    # (duplicate builds, canonical/structured data, two flag registers), so
-    # these four rows start at F50.
-    # ------------------------------------------------------------------ #
-    ("F54", "The Amazon department category is now read directly on all three listings; the rate itself still needs the Earnings report.",
-     "All three products \u2014 commission rate",
-     "Recorded 2026-11-15 by session 42ca97ad. The annex register\u2019s row F-06 recorded that the browse-node path \u2018Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers\u2019 had been read directly on B09B7SB46R only, and named reading the other two listings as the confirmation step. This session fetched all three supplied link.amazon short links and read the identical path on B0CDY277D3 and B08DKYBTPH as well, so the evidence is now three for three rather than one for three. It still does not establish the category Amazon applies when a commission is settled: only the Associates Earnings report names the category on a shipped line, so the two candidate rows (Kitchen 4.50%, All Other 4.00%) remain the honest presentation until a sale exists. Decision needed: publish Kitchen 4.50% as the working rate with the breadcrumb cited (SG-10 path A), or keep both rows until the first Earnings report lands.",
-     ["S3", "S16", "S28", "S29"]),
-    ("F55", "Eleven article sentences spliced a published display label into a mid-sentence position. Found, fixed and guarded.",
-     "articles/ prose, and the build\u2019s article gate",
-     "Recorded 2026-11-15 by session 42ca97ad. The article prose in data/articles.json interpolates published values into sentences. Eleven of those interpolations put a display label \u2014 \u2018Two 3-quart baskets\u2019, \u2018Designed for 4-6 people\u2019, \u2018Fries, Chicken, Fish, Meat (one-touch)\u2019, \u2018Limited 1-year warranty \u2026\u2019 \u2014 into a position where its capital is wrong, so the sentences read as machine output: \u2018The dual-basket unit is 6 Qt / 5.67 L as Two 3-quart baskets\u2019, \u2018splits a 6 Qt / 5.67 L cavity into Two 3-quart baskets\u2019. The defect was invisible to every earlier verification pass, because each value is genuinely published and correct in a table; it only appears when the page is read as prose, which is what a shopper does. It survived PR #71\u2019s full rewrite of data/articles.json, which re-introduced the same ten sentences and added an eleventh in a new article. Fixed by adding a {{value::prose form}} syntax whose prose form may differ from the published value in letter case and nothing else, enforced by check_articles(), and by adding check_article_splices(), which fails the build when a capitalised value is spliced into a mid-sentence position. Both guards were proven to fire: the build failed on exactly these defects before the fix and passes after it. No published value changed and no source changed.",
-     ["S1"]),
-    ("F56", "The Application Review Process page was not re-read this pass; its figures are carried forward from an earlier fetch.",
-     "S4 \u2014 the Associates application criteria",
-     "Recorded 2026-11-15 by session 42ca97ad. This pass re-fetched the Program Policies, the Standard Commission Income Statement, both Chefman product pages, the Emeril product page, all three owner\u2019s manuals, all three supplied short links, 16 CFR Part 255 and 16 CFR Part 465. It did not load the Application Review Process page (S4). The figures the repository carries for it \u2014 three qualifying sales within 180 days, roughly ten posts, content recent within about sixty days, a social follower floor of about five hundred \u2014 are carried forward from earlier logged fetches and are NOT re-confirmed by this pass. The sixty-day recency requirement is load-bearing for any content-refresh schedule the owner adopts, so it must be re-read before it is used as a scheduling rule rather than quoted from this repository. Note that a sibling pass on the same day did re-read this page and reported the same four figures, which corroborates them but does not change what this session itself fetched. What was and was not fetched is listed item by item in session-42ca97ad/EVIDENCE-2026-11-15.md section 6. **Re-read 2026-11-16 by arena/9fccce0c-zone1: all four figures are confirmed verbatim from the live page** \u2014 \u201cwe require at least three within the first 180 days\u201d, \u201ca good rule of thumb is at least 10 posts\u201d, \u201cContent on your website must be recent (generally within the last 60 days)\u201d and \u201cin most cases, at least 500\u201d organic followers/likes \u2014 so the carried-forward part of this row is closed, and question Q-19 moves from *missing* to *known and sourced* with its answer on the row. Evidence: reports/verification-2026-11-16-9fccce0c.md row V3.",
-     ["S4"]),
-    ("F57", "Three files under data/ are read by no build, and one of them is a stale copy of a register that is published.",
-     "data/flagged.json, data/commission-rates.csv, data/products.csv",
-     "Recorded 2026-11-15 by session 42ca97ad. A reference scan of every loader in the repository shows that scripts/build_site.py and scripts/verify_site.py read data/verified/, not data/. The root-level data/flagged.json is therefore an orphan: it holds a 13-row register whose live counterpart is data/verified/flagged.json (17 rows), and the two disagree across 85 lines \u2014 including the browse-node observation this pass has just updated, which would otherwise leave two registers saying different things about the same fact. data/commission-rates.csv and data/products.csv are read by nothing in the repository; the first is a CSV transcription of the Standard Commission Income Statement, the second the 2026-11-13 link-check ledger that records the bare-token 404 and the fallback redirect, and both are evidence worth keeping if they are labelled as evidence. Nothing published depends on any of the three, so this is a maintenance risk rather than a correctness bug, but a reader who opens data/flagged.json sees a register that no longer matches the site. This row is narrower than F47, which covers the same class of problem for data/flags.json; the two are kept separate because the files and the contradictions are different. Decision needed: delete the three orphans, or keep them explicitly as dated evidence with a header that says so.",
-     ["S1"]),
-
-    ("F58", "A register preamble repeated a sentence on the published page. Found on the deployed site, fixed, and guarded.",
-     "questions.html \u2014 the preamble above the register",
-     "Found 2026-11-15 by session 42ca97ad, after PR #78 merged: the sentence \u2018Questions in the \u2018known and sourced\u2019 state carry their answer on the row \u2026\u2019 appeared twice in the preamble above the questions register. The cause was the one-shot editor that adds the register rows (session-42ca97ad/apply_pass9_edits.py): it appended the sentence to the preamble unconditionally, so running it a second time appended it again. The build did not catch it, because the duplicate-ID guard sees IDs, the published-value guard sees numbers, and a repeated sentence is neither. Fixed by making the editor idempotent, by removing the duplicate from data/questions.json, and by adding check_register_preambles(), which fails the build if any register preamble repeats a sentence. The guard was proven to fire on an injected duplicate. The same edit also corrected the preamble's own claim that the page \u2018separates three things\u2019 - it has always described four states, which is what the legend on the page lists.",
-     ["S1"]),
-
-
-    # ---- arena/ad8105b3, 2026-11-16 ------------------------------------------------- #
-    # Both found by reading the repository's own registers rather than the live sources.
-    # Neither changes a published value; both are records a reader can act on.
-    ("F59", "The repository serves six separate executive summaries, five of them stale and none labelled stale.",
-     "EXECUTIVE-SUMMARY.md, EXECUTIVE_SUMMARY.md, EXECUTIVE-SUMMARY-PASS8.md, EXECUTIVE-SUMMARY-PASS9.md, EXECUTIVE-SUMMARY-PASS9-42CA97AD.md, executive-summary.html",
-     "Recorded 2026-11-16 by arena/ad8105b3. A read of the repository root finds six files whose names all claim to be the executive summary: the generated executive-summary.html (current, built from data), EXECUTIVE-SUMMARY.md, and four earlier or parallel-session Markdown files (EXECUTIVE_SUMMARY.md, EXECUTIVE-SUMMARY-PASS8.md, EXECUTIVE-SUMMARY-PASS9.md, EXECUTIVE-SUMMARY-PASS9-42CA97AD.md). GitHub Pages publishes the repository root, so all six are reachable by URL. At least one, EXECUTIVE_SUMMARY.md, is already recorded in this register (F28) as asserting 'Identity verified. All three short links resolve to Amazon.com product pages with different ASINs', which this site's reconciled position contradicts. This pass did not delete or rewrite any of them: they are other sessions' committed records, and deleting another session's evidence is not a repair. The live site links only executive-summary.html. Decision needed: keep one Markdown briefing and move the rest under an archive directory with a one-line header saying what superseded them, or add a banner to each. Evidence: the six files themselves, and the root README. **Disposition recorded 2026-11-16 (session arena/ba29c641): the banner option was taken,** because deleting another session's committed evidence is not a repair. Each non-canonical briefing now opens with a 'Superseded, and kept' line naming its session and date, pointing at executive-summary.html, and stating the specific claim inside it that the repository has since reversed. Covered: EXECUTIVE_SUMMARY.md (whose 2026-11-14 banner also carried a stale count, refreshed here), EXECUTIVE-SUMMARY-PASS8.md, EXECUTIVE-SUMMARY-PASS9.md, EXECUTIVE-SUMMARY-PASS9-42CA97AD.md and EXECUTIVE-SUMMARY-PASS10-121929a5.md — six Markdown briefings beside the generated page. Nothing was deleted and no historical sentence was rewritten.",
-     ["S1"]),
-
-    ("F60", "The s2 annex's requirements register cites two paths that do not exist, and its commission row rests on a premise the annex itself has since corrected.",
-     "data/s2/requirements.json rows R-01 and R-08",
-     "Recorded 2026-11-16 by arena/ad8105b3 while building the root requirements register (requirements.html). Two defects in the annex register. (1) R-01 'Collect and organise a full list of requirements' gives its implementation path as 'data/requirements.json rendered on Requirements page'. There is no data/requirements.json: the file is data/s2/requirements.json, and it renders at s2/pages/requirements.html. So the repository's only requirements register pointed the reader at a different, non-existent file. This is the third occurrence of the same defect class (after F14 and F38 in this register), which is why the new root register has check_requirement_paths() failing the build on any cited path that does not exist, and that guard was proven to fire on an injected bad path. (2) R-08 'Analyse commission potential' is marked blocked with the reason 'login-gated rate card (F-04)'. data/s2/flags.json row F-04 is itself titled 'CORRECTED — a public commission table does exist' and records that the Standard Commission Income Statement is readable without a login, which this pass re-confirmed live on 2026-11-16: Table 1 renders 'Physical Books, Kitchen, Automotive 4.50%'. The genuine remaining gap is narrower — Table 1 is keyed to categories, not ASINs — and the root register states it that way. Neither row was edited in the annex: data/s2/requirements.json is another session's published output. Decision needed: re-point R-01 at the real path, and restate R-08's blocking reason as the ASIN-to-category mapping rather than a login. Evidence: the two annex files and the commission page. **Repaired at source 2026-11-16 (session arena/ba29c641), with the correction shown as a dated line inside the annex row rather than applied silently:** R-01 names both registers and the paths that exist, R-08 states the ASIN-to-category mapping as the blocker and cites the public Standard Commission Income Statement, and R-03's 'no public demand metric exists' was corrected to what is actually true (a listing does carry a rank line; this repository declines to publish it under IP License §2(e), F8). The annex was regenerated with its own generator, the only supported way to change s2/**.",
-     ["S3"]),
-
-    # ---- arena/63a2c638, integration pass 9, 2026-11-15 ----------------------------- #
-    # Three findings from re-reading the official sources rather than trusting recorded
-    # reads. F51 and F52 were found by reading a source the site had never used; F53 is a
-    # scope limit on a value this pass added, published so it cannot be misread.
-    ("F51", "The brand's own store reports a different product weight than the brand's own specification block, and this site publishes the specification-block figure.",
-     "Chefman 6 Qt Dual-Window (RJ38-SQPF-3TDB-2W) and Chefman 8 Qt TurboFry (RJ38-SQSS-8T)",
-     "Recorded 2026-11-15 by arena/63a2c638, round 9. The Chefman product pages print a Specifications block: the 6 Qt page says 'Weight: 13.3 lbs / 6.03 kg' and the 8 Qt page says 'Weight: (8 Qt Model) 12.8 lbs / 5.8 kg'. Those are the figures this site publishes, cited to S10 and S12. The same brand's own commerce endpoint, read the same day, reports the variant weight as 14.51 lb / 6,582 g for RJ38-SQPF-3TDB-2W (S32) and 13.4 lb / 6,078 g for RJ38-SQSS-8T (S33). The endpoint figure is the weight Shopify carries for shipping, so the most likely reading is product weight versus packaged weight - but neither page says so, and the site must not choose between them by inference. No published value was changed: the specification block remains the cited source because that is the document the published row points at. Decision needed: state in each weight row whether the figure is the product or the packaged weight, or publish both.",
-     ["S10", "S12", "S32", "S33"]),
-
-    ("F52", "The open-questions register states that dimensions, weight and warranty are missing for all three products; the product dataset already publishes eight of those nine values from official sources.",
-     "questions.html row Q-06 vs data/products.json",
-     "Recorded 2026-11-15 by arena/63a2c638, round 9. Q-06 asks 'What are the exterior dimensions, weight and warranty terms for each of the three products?' and is filed as 'not_stated'. Checking the nine cells against the dataset this pass: exterior dimensions are published for all three (6 Qt from S10, Emeril from S14, 8 Qt from S12); warranty is published for all three (S10, S14, S13); weight is published for both Chefman models (S10, S12). One cell - the Emeril 26 QT product weight - is genuinely absent, because neither the brand page nor the owner's manual states one. So the register overstates the gap by eight cells. This matters in both directions: a reader using Q-06 to decide what to research would redo work already done, and a reader trusting the product pages would think the register is stale. Q-06 was narrowed this pass to the single cell that is actually open, and is cross-linked to this row. No data value moved.",
-     ["S10", "S12", "S13", "S14"]),
-
-    ("F61", "The canonical compliance register and platform blueprint had never carried the two clauses that govern an AI-agent affiliate platform, and three published pages pointed at a flag number that does not exist.",
-     "Whole site \u2014 compliance.html, platform.html, questions.html, suggestions.html, data.html",
-     "Found 2026-11-16 by arena/9fccce0c-zone1 during verification pass 10, and fixed in the same pass. Two independent defects. "
-     "(a) Missing clauses. The Associates Program Policies page (S2, \u201cUpdated: April 14, 2026\u201d) carries IP License \u00a74 "
-     "\u201cAgents\u201d (the Agent Terms) and Participation Requirements \u00a75, both read verbatim live on 2026-11-16. Neither appeared "
-     "anywhere in the canonical build: data/compliance.json held 0 occurrences of \u201cAgent Terms\u201d and data/platform.json held 0 occurrences of "
-     "\u201cAgent\u201d, although the brief this project answers is explicitly an AI-powered affiliate platform and the root site ships a "
-     "platform blueprint that proposes automated research. They are now requirements C17 and C18, with platform guardrail G11; the scope "
-     "question they raise is published as Q-21 and the design decision as SG-22, and neither is answered by inference. "
-     "(b) Dangling pointer. data/questions.json, data/suggestions.json and data/sources.json each told the reader to see the flag numbered 46 "
-     "for the Application Review Process recency criterion. No such flag exists in the canonical register, which runs F1\u2013F45 and F47\u2013F58, "
-     "and none exists in the legacy data/flags.json register either, which runs F01\u2013F27. The three pointers now name F56, the row that actually "
-     "covers it. A new build guard, check_register_cross_references(), fails the build if any generated page cites a flag id, source id, question id "
-     "or suggestion id that is not in the register it points at, so the class of defect cannot recur silently. Evidence: "
-     "reports/verification-2026-11-16-9fccce0c.md section E.",
-     ["S2", "S4"]),
-    ("F62", "IP License \u00a74 (the Agent Terms) was not read end to end, so the full list of agent-identification requirements is not yet on the record.",
-     "S2 \u2014 the IP License section of the Program Policies page",
-     "Recorded 2026-11-16 by arena/9fccce0c-zone1. The Associates Program Policies page renders its IP License as one long table, and the "
-     "markdown conversion used for that pass collapsed part of it. Everything quoted in requirement C17 was read directly in the response body, "
-     "but the section was not read to its end: sub-part (a) refers to \u201cthe requirements in section 3 of these Agent Terms\u201d, and the text of "
-     "that section was not visible in the render. The Agent Terms are therefore published as the rules this pass could read, with the limit stated "
-     "on the row, rather than as a complete checklist. Decision needed: read IP License \u00a74 in a browser, in full, and extend requirement C17 "
-     "if it adds anything \u2014 before the research agent is built (SG-22). Evidence: reports/verification-2026-11-16-9fccce0c.md, the limit stated under "
-     "section A.",
-     ["S2"]),
-    ("F53", "The Amazon browse-node breadcrumb is now published for two ASINs, and it does not settle which commission rate applies.",
-     "All three products - the 'Amazon browse node' row and open question Q-11",
-     "Recorded 2026-11-15 by arena/63a2c638, round 9, at the same time as the value itself was added, so the limit travels with the value. Both Chefman listings render the breadcrumb 'Home & Kitchen > Kitchen & Dining > Small Appliances > Fryers > Air Fryers' (S16, S29). It is tempting to read 'Kitchen' there and apply the 4.50% Kitchen rate from the Commission Income Statement (S3). That would be an inference, not a source: S3's categories are commission categories defined by the Associates programme, Amazon's browse nodes are a shopper-navigation taxonomy, and Amazon publishes no mapping between the two. The same breadcrumb begins 'Home & Kitchen', and S3 also carries 'Home' at 3.00%, so the breadcrumb alone cannot even tell you which of the two it resembles. The site therefore continues to show the commission rate as unconfirmed (Q-11) and now shows the browse node as a separate, sourced fact. The Emeril browse node is blank: three fetches of that ASIN on 2026-11-15 returned Amazon's automated 'Continue shopping' checkpoint instead of the listing page, and a value that was never rendered cannot be recorded. **Update 2026-11-16, from three reads on one day:** pass 10 (arena/121929a5) filled the Emeril row by reaching the listing through the supplied short link; arena/a746a9f2 re-read the breadcrumb directly and recorded that the checkpoint had cleared; session arena/ba29c641 fetched the /dp/ URL independently and found the same classification in the page's Best Sellers Rank line (Kitchen & Dining; Air Fryers node 17659096011). Three of three ASINs now carry a browse classification from three routes, and none of the three carries a commission category: the inference this row forbids is still forbidden, as arena/a746a9f2 put it.",
-     ["S3", "S16", "S29", "S28"]),
-    # ---- arena/695f03b7-zone1, task P3, 2026-11-16 -------------------------------- #
-    # Product-photography rights gap: no row records which images the site publishes or
-    # whose permission covers them; Amazon Program Content/image rights and FTC disclosure
-    # duties are unresolved until Q-22 is answered and SG-23 decided (SG-23 recommends
-    # text-and-diagrams-only for now). No product photography is published. Flag number F46
-    # is free on the canonical register (origin/main carries F1-F45 and F47-F62); no other
-    # session's row is renumbered.
-    ("F46", "Product photography rights are undecided: no row records which images, if any, the site publishes, whose permission covers them, or how Amazon Program Content image rights apply to these specific products. Amazon's Operating Agreement and Program Policies govern Program Content imagery; the FTC treats imagery as part of an endorsement requiring clear disclosure of material connections. No product photography is published and Q-22 asks what may be published and whose permission covers it.",
-     "SG-23, Q-22 and all three product pages",
-     "Recorded 2026-11-16 by arena/695f03b7-zone1. The design layer offers owner photos, licensed imagery and Amazon Program Content as image options, but none is decided; until Q-22 is answered, the site stays text-and-diagrams-only and the figures on figures.html are generated diagrams, not photographs. Evidence: data/suggestions.json (SG-23), data/questions.json (Q-22), build.py flags register.",
-     ["S1", "S2"]),
-
-# ---- arena/a746a9f2, line-by-line review pass, 2026-11-16 ----------------------- #
-    ("F63", "Fourth occurrence of the stale-count defect class: three registers asserted 'eight articles' after the set grew to thirteen. Found and fixed.",
-     "data/questions.json Q-10, data/suggestions.json SG-09, data/decision.json niche rows",
-     "Recorded 2026-11-16 by arena/a746a9f2 (X-a746a9f2). The brief's line-by-line review grepped every generated page for register counts and found live assertions that had gone stale as the article set grew: questions.html (Q-10's 'what we know' cell and the page's JSON-LD) and suggestions.html (SG-09's title, problem, evidence label and recommendation) both said 'eight articles', and decisions.html carried 'the site's existing eight articles' plus a pill reading 'Eight articles already exist in this shape' - while the articles index publishes thirteen. This is the same defect class as F14, F38 and F52: a register cell written as a snapshot and read as a live fact. Fixed per the F52 precedent: the two rows inside this session's claimed scope were corrected in place, and the third (data/decision.json, created by a completed session) was corrected as an integration-scope wording fix, with before/after strings logged in COORDINATION.md. All three now carry a dated count (13, 2026-11-16) plus a pointer to the live articles index, so they read as dated snapshots rather than live claims. The same scan cleared the 'parallel register' pages (decision-gate.html's fourteen questions, marketing-directions.html's twelve suggestions) as internally consistent \u2014 their ledes render their own frozen register's length \u2014 and cleared the historical recounts in reverification.html and executive-summary.html, which describe already-fixed defects. No build guard can police free-prose counts without a whitelist of claim sentences; check_register_preambles covers repeated sentences only. Decision needed: adopt computed counts in register prose (SG-26 option A machinery) or accept dated snapshots as the house standard.",
-     []),
-
-    # ---- arena/b23f12f0, verification round 11, 2026-11-16 --------------------------- #
-    # Four findings. F64 is a defect this pass repaired and then guarded. F65 corrects a
-    # conclusion an earlier pass recorded. F66 is new evidence on two conflicts that
-    # were already open. F67 is a build guard that had silently stopped working.
-    ("F64", "Three registers carried duplicated content onto the published site. Found by line-by-line review, repaired, and guarded.",
-     "questions.html row Q-11, the articles note, and one Chefman 8 Qt specification row",
-     "Recorded 2026-11-16 by arena/b23f12f0, round 11. A line-by-line read of data/ found three places where the same text was stored more than once and then published more than once: (1) the Q-11 row of the open-questions register carried three of its 'what we know' entries seven times each - 18 entries collapsing to 6 - so the sentence 'The same breadcrumb does NOT settle this question' appeared 14 times in the rendered questions.html; (2) the note field in data/articles.json repeated its first paragraph verbatim, joined by a pipe, so the editorial discipline statement was printed twice; (3) the 'Hi-Fry / 450 F mode' row of the Chefman 8 Qt product cited source S29 three times in a row, which a reader sees as three source badges for one claim. None of the three is a wrong fact - each is the same fact printed repeatedly, which is precisely the pattern that makes a page read as machine-generated. All three were repaired with an order-preserving de-duplication that changed no wording. A build guard, check_register_duplicates(), now fails the build if any register list repeats an entry or any register string repeats a sentence, and the guard was proven to fire on an injected duplicate before it was committed.",
-     ["S3", "S29"]),
-
-    ("F65", "A recorded conclusion about Amazon\u2019s bot checkpoint was wrong: the block is intermittent per request, not a property of the ASIN.",
-     "data/sources.json source S28, data/products.json, and the 'Amazon browse node' row of the Emeril 26 QT product",
-     "Recorded 2026-11-16 by arena/b23f12f0, round 11, because an earlier pass recorded a conclusion that this pass contradicts. On 2026-11-15 three fetches of ASIN B09B7SB46R were each answered by Amazon\u2019s automated 'Continue shopping' checkpoint, while the two Chefman ASINs fetched cleanly in the same window. The recorded conclusion was 'this is a per-ASIN block, not a site-wide one'. Round 11 re-tested it: the Emeril ASIN loaded on the first attempt, and in the same session B0CDY277D3 - which had loaded cleanly the previous day - was served the checkpoint on its first attempt and returned the listing only on a retry. So the block is intermittent per request. The 2026-11-15 evidence could not have distinguished the two readings, because a per-ASIN pattern and an intermittent pattern look identical across three failures, but the distinction matters: a failed fetch is not evidence about the ASIN, and no future pass should record 'blocked' as a property of a listing. Separately, this pass filled the Emeril browse-node cell and then found that session 121929a5 (pass 10) had filled the same cell independently on the same day, by the same route - the detail page and the supplied short link - reaching the identical string. Two independent reads agreeing is worth more than one, so both are recorded on the row and both sources cited (S28, S17). This pass also removed a stale 'unverified' field that the earlier fill had left behind, which still read 'Not read ... left blank' on a row that now carried a value; it did not render, but it would have contradicted the value if the render rule ever changed.",
-     ["S28", "S17", "S16", "S29"]),
-
-    ("F66", "The Emeril brand page now documents 24 presets and 25 presets on the same page, and states a different accessory count from its own Amazon listing title.",
-     "Emeril 26 QT French Door - the preset count and the included-accessories count",
-     "Recorded 2026-11-16 by arena/b23f12f0, round 11, from a source this project had not previously read: the brand storefront\u2019s own machine-readable product record (S35), whose description text carries an updated_at stamp of 2026-11-16. It states 'Equipped with 24 one-touch cooking presets' and 'Included are 7 premium accessories'. Two consequences. On presets: the brand\u2019s specification block still says '25 Cooking Pre-sets', so the brand now contradicts itself within a single page rather than across two documents. The owner\u2019s manual\u2019s chart names 24 and the Amazon listing title says 24, so 24 now has three statements behind it and the site continues to publish 24 - but the conflict is recorded as live and unresolved, because the brand has not withdrawn the 25. On accessories: the site publishes 7 on the strength of the brand page, while the current Amazon listing title for the same ASIN reads 'Six Cooking Accessories Included'. Both figures are quoted, neither was reconciled by inference, and the discrepancy is published rather than averaged. Neither published value changed in this pass.",
-     ["S35", "S14", "S15", "S28"]),
-
-    ("F67", "The flag duplicate-ID guard had gone blind: it matched zero rows and reported success, so it could not catch a same-day collision between two sessions.",
-     "build.py - check_flag_ids_unique(), and the Flagged page it reads",
-     "Found independently by two sessions on 2026-11-16 and repaired by the first of them. This pass (arena/b23f12f0, round 11) found the defect while renumbering its own flags and checking whether the guard would object; session arena/2e346d24 located and repaired it on main first, and additionally added check_flag_count_matches_page() for the related defect where the landing page was advertising zero open flags beside a 61-row register. The defect: check_flag_ids_unique() counted flag rows with a pattern that began with a bare opening table-row tag followed immediately by the number cell, while page_flagged() has emitted a row id attribute since the per-row anchors landed. The pattern therefore matched nothing, and a Counter over an empty list reports no duplicates - so the guard returned success on every run while two sessions published different rows under F61 and F62 on the same day. This repository has been bitten by flag-ID collisions at least three times before (F28, F40 and the preamble case F58), which is why the guard exists. It is recorded here rather than in the repairing session's own words because the finding belongs on the register even though the repair predates this pass landing. Nothing in this row is a claim by this pass to have made the fix.",
-     ["S1"]),
-
-
-    ("F68", "The 'only a human in a browser can read this' rule was untested for ten passes, and testing it took one fetch. Also: on one ASIN the model code is not in the field named Model Number.",
-     "F1, F2, F32, F33, F49, SG-01, Q-01, Q-02, hand-over item H1, and every product page",
-     "Found 2026-11-16 by arena/ba29c641-zone1, as the consequence of F49. The register's own explanation for why four flags needed a human was that the Product information table is rendered client-side and cannot be retrieved by a fetch. Three /dp/ URLs were fetched on 2026-11-16 and the block was present in each response, model rows included. Two lessons, both kept on the record. (1) A negative claim about tooling is an empirical claim and decays: 'the fetch did not return it' became 'a fetch cannot return it' without anyone re-testing, and six later passes copied the sentence forward, one of them into a hand-over sheet and a 'three minutes of your time' callout on the landing page. (2) The method matters as much as the read: on B08DKYBTPH the field called Model Number holds the marketing string 'Large Air Fryer' and the code sits in Part Number, so any procedure that reads 'the Model Number row' — the exact procedure SG-01 told the owner to follow — returns a non-code for one of the three products. Both fields must be read, and the two are compared. What this pass did NOT do is convert a listing claim into a manufacturer specification: the 31 rows added to data/products.json are each labelled 'as listed by Amazon' and sourced to S16/S28/S29, and product identity from the link side stays open (F6, F7, F10). The mechanism behind the earlier failed read is recorded separately and correctly by arena/b23f12f0 as F65 — the \u201cContinue shopping\u201d checkpoint is intermittent per request, not a property of the ASIN — so the 2026-11-15 observation that the table was missing was a real observation about three particular responses, and the error was generalising from them to a rule about all fetches. Both rows stand on their own reads.",
-     ["S16", "S28", "S29", "S10", "S12", "S13", "S18", "S26"]),
-
-    ("F69", "Two official documents disagree on the 8 Qt's footprint, and one listing disagrees with itself about the 6 Qt's capacity units.",
-     "chefman-8qt-turbofry dimensions rows; chefman-6qt-dual-basket capacity rows",
-     "Found 2026-11-16 by arena/ba29c641-zone1, in the same read that closed F1. chefman.com publishes the 8 Qt (RJ38-SQSS-8T) as 15.4 in x 12.6 in x 13.5 in and separates the 5 Qt figures on the same page (S12); the listing for B08DKYBTPH publishes 12.75\"D x 13.5\"W x 10\"H (S29). Those are not two ways of writing one measurement: the depth differs by 2.65 in and the height by 3.5 in, so a buyer checking a cabinet clearance gets a different answer from each official source, and the weight agrees on both (12.8 lb) — which is what makes it a documentation problem rather than a transcription of a different product. Nothing was averaged: the brand figures stay the published row, the listing's figures sit on their own dated row. The same class on the 6 Qt: its listing's Capacity field reads '6 liters' while the same page's title, its Size field and the brand page all read 6 quarts (5.67 L) — a unit label that moved. Any copy that turns a capacity or a footprint into advice (the capacity guide, the small-kitchen article) must carry the caveat until Chefman states which figures are the appliance and which are the carton. Decision needed: ask Chefman which number is the appliance footprint, or drop cabinet-clearance advice.",
-     ["S12", "S29", "S10", "S16"]),
-
-    ("F70", "Three official documents give three different model strings for the Emeril 26 QT, and the two newest differ by one character.",
-     "emeril-26qt-french-door model_number and its listing rows",
-     "Found 2026-11-16 by arena/ba29c641-zone1. The owner's manual is headed FAFO-001 (S15), the brand product page lists 4-00675-02A-VN (S14), and the listing for B09B7SB46R states 4-00675-02X-VN in both its Model Number and Part Number rows (S28). An 'A' against an 'X' in the tenth position is the whole difference, and it is the kind of difference that means either a variant suffix or a transcription error in one of three documents — no document in this repository says which. This is the one product where the live read did not settle the mapping the way it did for the two Chefman listings, so all three strings are quoted and none is asserted. The commercial reason it matters: a comparison page that prints the wrong SKU string is a page that can be accused of reviewing a different machine, on a site whose entire claim is traceability. Decision needed: Emeril Everyday support can state the SKU behind the ASIN in one reply; until then the product page shows three strings and the character in dispute.",
-     ["S14", "S15", "S28"]),
-
-    ("F71", "The Emeril listing contradicts itself inside one table: 7 accessories in Configuration, six parts enumerated in Included Components, 'Six' in the title. F48 records the six-vs-seven question; this row is about the self-contradiction.",
-     "emeril-26qt-french-door 'Included accessories', 'Configuration' and 'Included components' rows",
-     "Found 2026-11-16 by arena/ba29c641-zone1, and it complicates F48 rather than repeating it. F48 was recorded 2026-11-15 from the listing *title* alone ('Six Cooking Accessories Included' against the site's manual-sourced 7), and left open with the sensible observation that a listing may count a spit and its forks as one item. Reading the whole Product information block shows the page does not agree with itself: its Configuration field says '…with 24 Functions and 7 Accessories', its Included Components row then enumerates six named parts (Rack, Bake Pan, Drip Tray, Crisper Basket, Rotisserie Spit, Fetch Tool), and its title says Six. So 'the listing says six' is not a single fact to weigh against the manual — the listing says both, on one screen. The site's published value stays 7 because the brand page and the manual state it (S14, S15); the Configuration field is a fourth document that agrees, and the enumeration is a second that does not. No averaging, no quiet correction. Decision needed: the packing list settles it. Note the same fetch also strengthened the other half of that row: '24 Functions' in the Configuration field is a third document agreeing with the manual's 24 named presets against the brand page's '25 Cooking Pre-sets' (F4). Distinct from F66, which records the brand page's own 24/25 split and the title-vs-manual accessory disagreement: this row is the narrower observation that the two counts sit next to each other in one table on the listing.",
-     ["S14", "S15", "S28"]),
-
-    ("F72", "Temperature floors published in degrees Celsius do not convert to the floors published in degrees Fahrenheit, on two of the three products.",
-     "chefman-6qt-dual-basket and chefman-8qt-turbofry temperature rows; any copy quoting a low end",
-     "Found 2026-11-16 by arena/ba29c641-zone1. The 6 Qt brand page gives 200-450 °F / 95-235 °C (S10); the same product's listing states 'Min Temperature Setting: 93 °C' (S16), and 93 °C is 199.4 °F, not 95 °C's 203 °F. The 8 Qt listing states 'Min 94 °C' (S29) against the brand page's 200 °F floor (S12), i.e. 201.2 °F. Two degrees, in both cases, in the same direction: 200 °F is 93.33 °C, so someone rounded the Celsius figure up in one document and left the Fahrenheit figure alone in the other. This is a rounding inconsistency, not a second specification, and it is recorded rather than repaired because the site does not get to rewrite a manufacturer's numbers. What it forbids is specific: an article that says 'the 6 Qt goes down to 95 °C' is quoting one page and contradicting another, so low-end claims must show both units with the source that uses them, or stay out of the copy.",
-     ["S10", "S16", "S12", "S29"]),
-
-    ("F73", "The requirements register promised computed counts in its own preamble and then typed eight of them into prose; four had already gone stale.",
-     "data/requirements.json (rows A-02, A-04, A-06, B-01, B-05, B-06, B-08, C-02, D-05, G-01)",
-     "Found 2026-11-16 by arena/ba29c641-zone1 while updating the register for this pass's rows. The file's `counts_note` says: 'Counts are computed from the rows at build time rather than typed, so this page cannot claim a total the register does not contain.' The status counts at the top of the page are indeed computed — every number inside the prose of individual rows was typed, and four had drifted within two days: 'Forty-six spec rows' and '43 of 46 carry a value' (the dataset had moved to 46 and then to 77 as passes added sourced rows), 'Twenty-one numbered suggestions (SG-01…SG-21)' against a register of 23, 'Twenty questions' against 22, and 'a generated sitemap of 37 URLs' against 46. None of these is a wrong fact about the world; each is a right fact about an older build, published as present tense, which is how a verification register quietly becomes a historical document. The fix is structural, not editorial: those rows now write named count tokens — n_spec_rows, n_verified_rows, n_blank_rows, n_suggestions, n_sg_last, n_questions, n_articles, n_topics, n_products, n_sources, n_banned, n_banned_distinct, n_tests, n_guards, n_stale_briefings — each wrapped in braces in the data and substituted by req_interp() from the same objects the pages render from. An unknown token raises at build time, and check_requirement_tokens() fails the build if a brace-delimited token survives into any generated page, so a row cannot ship half-interpolated. Both directions were proven: an injected bad token and an injected unresolved token each exited non-zero. The same class is why this register's sibling in the s2 annex carries F60, and why the sitemap row's number was removed rather than retyped: a count is only true at the moment it is written — including the counts typed into this register's own log lines, one of which this pass had to correct in its own commit message two minutes after writing it (7,815 links became 7,826 when the guard rows were added). Process note for the next session: this pass's rows were renumbered twice in one day to avoid same-day id collisions — first off F63 (arena/a746a9f2), then off F64-F67 (arena/b23f12f0, whose F67 is the duplicate-ID guard that has now caught both collisions). Renumbering is cheap while a PR is open and expensive after it merges.",
-     []),
-    # ---- arena/19d92a81, marketing & decision-support pass, 2026-11-16 ---------------- #
-    # (F74: renumbered from F68 in this session's first draft - arena/ba29c641
-    #  published its own F68 on the same day; renamed at merge, neither row lost.)
-    # Resolution recorded by arena/5ac82b1d: the decision this row asked for was executed
-    #  the same day - the orphan was deleted and check_no_orphan_pages() now guards it.
-    ("F74", "An article page existed on disk and on the live site that no data file or generator referenced: articles/sync-finish-two-buttons.html. Found independently twice on 2026-11-16; repaired the same day.",
-     "articles/sync-finish-two-buttons.html vs data/articles.json (no matching slug); file removed 2026-11-16",
-     "Found 2026-11-16 by session arena/19d92a81 during the line-by-line repo review, after the file arrived with a parallel pass's merge. data/articles.json carries no 'sync-finish-two-buttons' slug and no build step generates the page, so nothing will ever refresh or retire it - yet it is served publicly next to the generated articles and looks exactly like them, disclosure bar included, so a reader cannot tell it is unmanaged. A grep of data/ and build.py finds zero references. It is the same defect class as F57 (orphan registers), one layer up: a page outside the data-driven set. Independent discovery the same day by arena/5ac82b1d during the final integration pass: articles/ held 20 HTML files against 19 registered slugs; the orphan carried the same TP-09 subject as the registered article sync-finish-explained.html and appeared in no sitemap entry, no articles index and no internal link - an orphan a crawler could still reach by direct URL, publishing a second unregistered answer to the same question. Its own passing session's completion record (X-121929a5) states this draft was discarded as a duplicate of round 11's TP-09 article; the register entry was dropped but the HTML file survived the merge, and no gate compared the articles/ directory against the page set the build emits (verify.py checks links from files that exist, so it cannot see a file nothing links to). DECISION EXECUTED 2026-11-16 by arena/5ac82b1d: deleted rather than registered - the canonical TP-09 article (articles/sync-finish-explained.html, data/topics.json published_as) already covers the subject, so registering the duplicate would publish the same question twice. check_no_orphan_pages() now fails the build if any .html file in articles/, products/, guides/, categories/ or the repo root is not generated by this build, and the guard was proven to fire on an injected file before it was committed.",
-     []),
-    ("F75", "The 404 page was published with relative links, but GitHub Pages serves it at any missing path — so every link on it broke under nested URLs.",
-     "404.html (all href/src values)",
-     "Found 2026-11-16 by arena/5ac82b1d while reading back the deleted orphan article's URL on the live site: /articles/sync-finish-two-buttons.html correctly served the 404 page, but its nav, card and stylesheet links resolved against /articles/ (e.g. products/chefman-6qt-dual-basket.html became /articles/products/...), so the error page it served was itself unstyled and full of dead links — the one page whose whole job is to recover a lost reader. Root-relative links (/Zone1/...) were rejected as a fix because verify.py and scripts/check_links.py resolve internal hrefs against the file on disk, where they do not exist. Fixed instead by rewriting every relative href/src on 404.html to its absolute SITE_URL form in layout(), leaving fragment-only links (#anchor) alone since they address the displayed document. check_seo_metadata() now fails the build if any non-absolute, non-fragment URL survives on the 404 page. Note for later: this defect can only be observed by fetching a missing nested URL from the deployed site — no local gate sees the serving path.",
-     []),
-    # ---- arena/1c97a25f, product-intent pass, 2026-11-17 ----------------------------- #
-    ("F76", "The tracking ID shopnow047c-20 is user-provided but is not validated in Associates Central, applied to links, or confirmed by a test.",
-     "data/config.json (selected_tracking_id); data/product-intent.json (tracking_id_status); associate_tag left blank",
-     "For each product the account holder confirms as intended, verify that the ID is active in Associates Central, create or select one enrolled Special Link, follow it, and verify that the click appears under that ID in the report. Apply no tag broadly until every intended product's test passes. No account login was available in this pass.",
-     ["S5", "S6", "S2"]),
-    ("F77", "No intended ASIN or official listing URL is confirmed for any of the five supplied short links; each intended-product field remains blank.",
-     "data/product-intent.json rows PI-01 to PI-05 (intended_asin, official_listing_url)",
-     "The submitted URL strings, observed destinations and owner-confirmed intent are kept separate. No claim is made here about a short link's validity, compliance or intended product. Confirm the official listing separately for each link before filling intended fields.",
-     ["S16", "S28", "S29", "S36", "S37"]),
-    ("F78", "Two new short-link fetches returned fallback-style Amazon pages whose titles identify meat thermometers, outside the current air-fryer publication scope.",
-     "PI-04 and PI-05 in data/product-intent.json; observed targets B0DHZTCNR5 and B0DZFD6R9Z",
-     "These are observed redirect destinations only; they do not establish the operator's intended products, invalidate the links, or establish compliance. Keep them unmapped and do not publish thermometer specifications unless product intent and scope are confirmed.",
-     ["S36", "S37"]),
-    ("F79", "S23 is registered as KDP's 'Linking from Your Website' help page, but earlier notes cited it as a general Amazon ASIN definition.",
-     "data/sources.json S23; prior ASIN-format claims; data/product-intent.json",
-     "Corrected in the final integration: the current product-intent page no longer cites S23 for ASIN length or /dp/ format. Do not use the supplied short-link tokens or observed redirects to infer intent. Verify a suitable first-party source before restoring an identifier-format claim.",
-     ["S23"]),
-    ("F80", "Neither newly submitted link reconciles with its manufacturer's own catalogue, so the two candidate listings cannot be closed by reading harder.",
-     "PI-04, PI-05 on the link-intent record",
-     "Both links submitted on 2026-11-17 were read the same day against the brands' own product pages rather than against the Amazon listings they resolved to. The observed ThermoMaven listing is titled '1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified …'; ThermoMaven's site names its instant-read line F1 Pro and F1 Turbo with a sub-second read and does not use '1 Sec' as a model name. The observed CHEF iQ listing is the iQ Sense Gen3 with three probes; the brand page states model CQ60-3C-Z3-E and an ambient rating the listing omits, and names air-fryer use among the product's heat environments. A marketing phrase in a listing title and a brand model designation are different kinds of identifier, and neither page mentions an ASIN — so the observed destinations stand as observations, the intended fields stay null, and no product page is written for either. The two brand pages are registered as S39 and S40, and their hosts are in verify.py's allow-list, which records that they are official brand sites, not that they settle an identity. Decision needed: say what each link was created to promote (Q-27), or drop the two rows — SG-36 lays out the paths. Recorded by arena/58cbaaa2, which re-scoped twice against the merged registers rather than publish a parallel one.",
-     ["S39", "S40", "S36", "S37", "S23"]),
-    ("F81", "The inference that a landing URL without a visible tag casts doubt on attribution was an over-reading, and it is corrected on the record instead of edited out of it.",
-     "product-intent.html, data/product-intent.json, data/decision.json, F76",
-     "Passes including this one cited the absence of a tag= parameter on an observed landing URL next to their caution about attribution. Amazon's help node read on 2026-11-17 (S41) states that 'it is not necessary for your unique ID to appear in order for us to track sales made after the initial click through', because the shopping session is tagged on Amazon's side. A null observation is not a negative one: the clean landing URLs neither support nor undermine attribution. The correction is applied where the inference is drawn in the present tense — the link-intent page now says so in those words next to the per-row test fields — and the dated rows are untouched, because they are records of what those passes saw. The sibling node (S42) names where the real confirmation is read, the Tracking ID Summary Report, plus the screen that creates IDs and the limit of 100 per account; that is what the per-row associates_link_test_* fields are waiting for, and Q-28/SG-37 are the owner's five minutes.",
-     ["S41", "S42", "S6", "S2"]),
-    ("F82", "A present-tense sentence still counted the submitted links at three, two days after the register grew to five.",
-     "categories/kitchen-appliances.html lede",
-     "Found 2026-11-17 while re-scoping this session against main, in the same class main's F77/F79 lineage describes but with the narrative rather than a value out of date: the category lede opened 'The three supplied links were observed landing on air fryer or air fryer-oven listings on 2026-11-13/14', which was true at the time and is now a partial description of a five-row register whose two newest rows sit under Thermometers & Timers. The sentence is repaired where the tense is present — the lede reads its counts from len(rows) and from the register's own observed_listing_category field — and check_submitted_link_count() fails the build if a present-tense surface asserts a different count in its own words — both directions proven on 2026-11-17: the current tree builds silently, and injecting the old phrase back into the lede exited non-zero with the register's own row count named in the message. (A first version of the pattern required a lead-in word like 'all' and matched nothing, which is how a guard that cannot fail gets shipped: the negative test is the guard.) The scope is narrowed to the shopper surfaces and the two registers: a dated verification row that says 'all three supplied links' is a true statement about 2026-11-14, and a check that could only be satisfied by rewriting history is worse than no check. Process note for whoever next receives a link: add a row to data/product-intent.json — never a sentence.",
-     ["S17", "S2"]),
-]
-
-# PUB-1: current findings are explicit about what is open versus repaired.
-PROGRAMME_FLAGS += [
-    ("F96", "The Emeril FAFO-001 manual contradicts itself about extension cords.",
-     "S15 Important Safeguards item 9 vs CAUTION: Attaching the Power Cord; electrical setup remains unresolved",
-     "Read 2026-11-19. Safeguards item 9 says never use an extension cord; the later power-cord section conditionally permits longer cords. The prior guide quoted only the prohibition. Both statements are now recorded, not selected between. This is not permission to use an extension cord. Obtain current manufacturer clarification for the exact unit before relying on a setup affected by the conflict.", ["S15"]),
-    ("F97", "Repaired 2026-11-19: browser and collector protocols did not interoperate despite isolated tests passing.",
-     "Old EV-number browser fields and /dp/-only click matching vs named-event Python collector",
-     "One named-event contract now covers the actual browser source, collector, deployment gates and privacy notice. Synthetic client payloads are posted to the real HTTP handler in an isolated database. The old raw-event PHP/Worker endpoints return 410. No production endpoint or traffic is claimed; hosting and privacy approval remain open.", ["S2", "S38"]),
-    ("F98", "Repaired 2026-11-19: blanket no-data privacy wording omitted hosting IP logs and local decision drafts.",
-     "Canonical footer, about page, measurement notices",
-     "The site-specific notice now distinguishes no publisher analytics from GitHub Pages security IP logs and browser-only localStorage decision drafts. Enabled notices describe page views and engagement as well as clicks. The browser run also exposed socketserver’s fallback transport-error traceback, which can print a client address even with request access logs disabled. The production server now suppresses expected disconnects and emits only a fixed nonidentifying diagnostic for unexpected errors, with negative log tests. Proxy/hosting infrastructure logging and the production notice still require a separate deployment review.", ["S38", "S2"]),
-    ("F99", "Repaired 2026-11-19: old buying guidance misdescribed cleanup and capacity and omitted known dimensions.",
-     "Canonical buying route and six revised articles; previous revisions remain in Git history",
-     "The previous buying guide called all three appliances dishwasher-safe and left the 8 Qt dimensions blank after they were sourced. The capacity article also called 6 qt and 8 qt the same nominal total. The revised guides distinguish removable parts from the main unit, Emeril's hand-wash recommendation, model-specific dimensions and divided vs undivided capacity. An unsupported most-common-return assertion was removed. The full prose review also removed unsupported serving-load ratios, cooking/durability claims, electrical-circuit assumptions, exact-energy-cost implications, guessed model explanations and a nutrition-regulatory classification. It corrected the 8 Qt aerosol caution and the disclosure placement. All 24 existing guides were revised without adding duplicate slugs. These are content corrections, not evidence of better conversion.", ["S10", "S12", "S13", "S14", "S15", "S18"]),
-    ("F100", "Open boundary: production analytics, Search Console ownership and enrolled Associates validation are not deployed/account-verified.",
-     "Recorded tracking ID shopnow047c-20, all five submitted links, empty campaign ledger",
-     "Code, primary-source research and static publication work are complete within repository authority. No account ownership, intended listing, tracking-ID application, click/order report, live collector or search performance is invented. Confirm one intended listing and permitted enrolled Special Link workflow per product, then record dated first-party evidence before applying the ID broadly. A missing visible tag is not evidence of link failure.", ["S2", "S41", "S42", "S44"]),
-]
-
-PROGRAMME_FLAGS.append((
-    "F101", "Repaired 2026-11-19: the row-source gate accepted a generic flag link and skipped data rows containing a row header.",
-    "row_is_sourced / check_row_sources and canonical implementation/evidence tables",
-    "A direct audit found 27 rows with no registered primary-source or repository evidence link. The gate now requires an actual registered primary URL, an exact supplied resolver URL, or an existing exact-file record in this repository. It checks data rows with th scope=row as well as td-only rows, and rejects generic Flagged links, unrelated GitHub repos and unregistered URLs on an otherwise official host. Editorial/implementation rows now link their authoritative repository record. Coverage and link identity are machine-checked; whether a source supports arbitrary prose still requires an actual scoped read. SG-48 records that boundary.", ["S2"]))
-
-# Repository files that evidence a programme-level flag. Used where the irregularity is a
-# fact about this repository, so the repository itself (on GitHub) is the source.
-REPO_EVIDENCE = {
-    # arena/58cbaaa2 (2026-11-17): file paths a reader can open when the irregularity is a fact
-    # about this repository rather than about Amazon.
-    "F80": ["data/product-intent.json", "product-intent.html", "session-58cbaaa2/artifacts/README.md"],
-    "F81": ["product-intent.html", "data/product-intent.json", "reports/verification-2026-11-17-58cbaaa2.md"],
-    "F82": ["build.py", "data/product-intent.json", "reports/verification-2026-11-17-58cbaaa2.md"],
-    "F83": ["data/decision.json", "data/flags.json", "handover.html", "decisions.html", "build.py"],
-    "F84": ["build.py", "data/decision.json", "data/requirements.json", "data/articles.json"],
-    # arena/fd9778a1-zone1 (2026-11-17): pass 13's five rows, whose evidence is this
-    # repository's own data files plus the dated re-read report.
-    "F85": ["data/topics.json", "data/design-prompt.json", "build.py",
-            "reports/verification-2026-11-17-fd9778a1.md"],
-    "F86": ["data/products.json", "data/sources.json", "reports/verification-2026-11-17-fd9778a1.md"],
-    "F87": ["data/suggestions.json", "data/questions.json", "reports/verification-2026-11-17-fd9778a1.md"],
-    "F88": ["verify.py", "data/design-prompt.json", "assets/style.css"],
-    "F89": ["data/suggestions.json", "data/decision-log.json", "build.py",
-            "reports/verification-2026-11-17-fd9778a1.md"],
-    # arena/9b3365c7-zone1 (2026-11-19): pass 14.
-    "F90": ["build.py", "reports/verification-2026-11-19-9b3365c7.md"],
-    "F91": ["data/product-intent.json", "build.py", "tests/test_integration_output.py",
-            "reports/verification-2026-11-19-9b3365c7.md"],
-    "F92": ["data/questions.json", "reports/verification-2026-11-19-9b3365c7.md"],
-    "F93": ["COORDINATION.md", "reports/verification-2026-11-19-9b3365c7.md"],
-    "F94": ["build.py", "data/decision-log.json"],
-    "F95": ["data/product-intent.json", "data/reverification.json",
-            "reports/verification-2026-11-19-9b3365c7.md"],
-    "F74": ["build.py", "data/articles.json", "data/topics.json",
-            "reports/verification-2026-11-16-19d92a81.md"],
-    "F75": ["build.py", "404.html"],
-    "F76": ["data/config.json", "data/product-intent.json"],
-    "F77": ["data/product-intent.json"],
-    "F78": ["data/product-intent.json"],
-    "F79": ["data/sources.json", "build.py"],
-    "F63": ["data/questions.json", "data/suggestions.json", "data/decision.json"],
-    "F20": ["s2/index.html", "site/index.html", "dashboard/index.html", "research/index.html", "session-3740f69d/index.html", "docs/index.html"],
-    "F22": ["EXECUTIVE_SUMMARY.md"],
-    "F23": ["scripts/build.mjs"],
-    "F25": ["scripts/check_links.py", "dashboard/", "research/", "site/", "s2/",
-            "session-3740f69d/", "annex-88769516/"],
-    "F26": ["data/platform.json"],
-    "F29": ["session-54c66535/EVIDENCE-2026-11-14.md", "data/products.json"],
-    "F30": ["session-54c66535/EVIDENCE-2026-11-14.md", "session-54c66535/pass6.json"],
-    "F31": ["session-54c66535/EVIDENCE-2026-11-14.md"],
-    "F32": ["session-6b2eddeb/EVIDENCE-2026-11-14.md", "data/products.json", "site/", "research/"],
-    "F33": ["session-6b2eddeb/EVIDENCE-2026-11-14.md"],
-    "F34": ["EXECUTIVE_SUMMARY.md"],
-    "F35": ["build.py", "site/", "session-3740f69d/"],
-    "F41": ["session-81495d2d/EVIDENCE-2026-11-14.md", "session-ce4070ad/EVIDENCE-2026-11-14.md"],
-    "F47": ["data/flags.json", "data/sources.json"],
-    "F48": ["data/products.json"],
-    "F49": ["reports/verification-2026-11-15.md"],
-    "F42": ["suggestions.html", "questions.html", "data/flags.json", "s2/"],
-    "F43": ["suggestions.html", "questions.html"],
-    "F44": ["dashboard/", "annex-88769516/", "session-3740f69d/", "research/", "s2/", "site/", "docs/", "sitemap.xml"],
-    "F45": ["build.py", "sitemap.xml"],
-    "F64": ["data/questions.json", "data/articles.json", "data/products.json", "build.py"],
-    "F65": ["data/sources.json", "data/products.json"],
-    "F66": ["data/sources.json", "data/products.json"],
-    "F67": ["build.py", "flagged.html"],
-    "F68": ["reports/asin-model-mapping-2026-11-16.md", "data/products.json", "build.py"],
-    "F69": ["data/products.json"],
-    "F70": ["data/products.json"],
-    "F71": ["data/products.json"],
-    "F72": ["data/products.json"],
-    "F73": ["data/requirements.json", "build.py"],
-}
-
-for _flag in ("F96", "F97", "F98", "F99", "F100", "F101"):
-    REPO_EVIDENCE[_flag] = ["reports/verification-2026-11-19-1f9e7d52.md", "build.py"]
-REPO_EVIDENCE["F97"] += ["analytics/client.js", "analytics/collector.py", "tests/test_analytics_contract.py"]
+REPO_EVIDENCE = {'F80': ['data/product-intent.json', 'product-intent.html', 'session-58cbaaa2/artifacts/README.md'],
+ 'F81': ['product-intent.html', 'data/product-intent.json', 'reports/verification-2026-11-17-58cbaaa2.md'],
+ 'F82': ['build.py', 'data/product-intent.json', 'reports/verification-2026-11-17-58cbaaa2.md'],
+ 'F83': ['data/decision.json', 'data/flags.json', 'handover.html', 'decisions.html', 'build.py'],
+ 'F84': ['build.py', 'data/decision.json', 'data/requirements.json', 'data/articles.json'],
+ 'F85': ['data/topics.json',
+         'data/design-prompt.json',
+         'build.py',
+         'reports/verification-2026-11-17-fd9778a1.md'],
+ 'F86': ['data/products.json', 'data/sources.json', 'reports/verification-2026-11-17-fd9778a1.md'],
+ 'F87': ['data/suggestions.json', 'data/questions.json', 'reports/verification-2026-11-17-fd9778a1.md'],
+ 'F88': ['verify.py', 'data/design-prompt.json', 'assets/style.css'],
+ 'F89': ['data/suggestions.json',
+         'data/decision-log.json',
+         'build.py',
+         'reports/verification-2026-11-17-fd9778a1.md'],
+ 'F90': ['build.py', 'reports/verification-2026-11-19-9b3365c7.md'],
+ 'F91': ['data/product-intent.json',
+         'build.py',
+         'tests/test_integration_output.py',
+         'reports/verification-2026-11-19-9b3365c7.md'],
+ 'F92': ['data/questions.json', 'reports/verification-2026-11-19-9b3365c7.md'],
+ 'F93': ['COORDINATION.md', 'reports/verification-2026-11-19-9b3365c7.md'],
+ 'F94': ['build.py', 'data/decision-log.json'],
+ 'F95': ['data/product-intent.json', 'data/reverification.json', 'reports/verification-2026-11-19-9b3365c7.md'],
+ 'F74': ['build.py', 'data/articles.json', 'data/topics.json', 'reports/verification-2026-11-16-19d92a81.md'],
+ 'F75': ['build.py', '404.html'],
+ 'F76': ['data/config.json', 'data/product-intent.json'],
+ 'F77': ['data/product-intent.json'],
+ 'F78': ['data/product-intent.json'],
+ 'F79': ['data/sources.json', 'build.py'],
+ 'F63': ['data/questions.json', 'data/suggestions.json', 'data/decision.json'],
+ 'F20': ['s2/index.html',
+         'site/index.html',
+         'dashboard/index.html',
+         'research/index.html',
+         'session-3740f69d/index.html',
+         'docs/index.html'],
+ 'F22': ['EXECUTIVE_SUMMARY.md'],
+ 'F23': ['scripts/build.mjs'],
+ 'F25': ['scripts/check_links.py',
+         'dashboard/',
+         'research/',
+         'site/',
+         's2/',
+         'session-3740f69d/',
+         'annex-88769516/'],
+ 'F26': ['data/platform.json'],
+ 'F29': ['session-54c66535/EVIDENCE-2026-11-14.md', 'data/products.json'],
+ 'F30': ['session-54c66535/EVIDENCE-2026-11-14.md', 'session-54c66535/pass6.json'],
+ 'F31': ['session-54c66535/EVIDENCE-2026-11-14.md'],
+ 'F32': ['session-6b2eddeb/EVIDENCE-2026-11-14.md', 'data/products.json', 'site/', 'research/'],
+ 'F33': ['session-6b2eddeb/EVIDENCE-2026-11-14.md'],
+ 'F34': ['EXECUTIVE_SUMMARY.md'],
+ 'F35': ['build.py', 'site/', 'session-3740f69d/'],
+ 'F41': ['session-81495d2d/EVIDENCE-2026-11-14.md', 'session-ce4070ad/EVIDENCE-2026-11-14.md'],
+ 'F47': ['data/flags.json', 'data/sources.json'],
+ 'F48': ['data/products.json'],
+ 'F49': ['reports/verification-2026-11-15.md'],
+ 'F42': ['suggestions.html', 'questions.html', 'data/flags.json', 's2/'],
+ 'F43': ['suggestions.html', 'questions.html'],
+ 'F44': ['dashboard/',
+         'annex-88769516/',
+         'session-3740f69d/',
+         'research/',
+         's2/',
+         'site/',
+         'docs/',
+         'sitemap.xml'],
+ 'F45': ['build.py', 'sitemap.xml'],
+ 'F64': ['data/questions.json', 'data/articles.json', 'data/products.json', 'build.py'],
+ 'F65': ['data/sources.json', 'data/products.json'],
+ 'F66': ['data/sources.json', 'data/products.json'],
+ 'F67': ['build.py', 'flagged.html'],
+ 'F68': ['reports/asin-model-mapping-2026-11-16.md', 'data/products.json', 'build.py'],
+ 'F69': ['data/products.json'],
+ 'F70': ['data/products.json'],
+ 'F71': ['data/products.json'],
+ 'F72': ['data/products.json'],
+ 'F73': ['data/requirements.json', 'build.py'],
+ 'F96': ['reports/publication-2026-11-19.md',
+         'data/articles.json',
+         'reports/verification-2026-11-19-1f9e7d52.md',
+         'build.py'],
+ 'F97': ['reports/publication-2026-11-19.md',
+         'data/articles.json',
+         'reports/verification-2026-11-19-1f9e7d52.md',
+         'build.py'],
+ 'F98': ['build.py',
+         'data/articles.json',
+         'tests/test_editorial_metadata.py',
+         'reports/verification-2026-11-19-1f9e7d52.md'],
+ 'F99': ['analytics/README.md',
+         'analytics/client.js',
+         'analytics/collector.py',
+         'tests/analytics-client.test.cjs',
+         'reports/verification-2026-11-19-1f9e7d52.md',
+         'build.py',
+         'tests/test_analytics_contract.py',
+         'tests/browser/measurement.spec.cjs'],
+ 'F100': ['reports/verification-2026-11-19-1f9e7d52.md',
+          'build.py',
+          'analytics/collector.py',
+          'tests/test_analytics.py'],
+ 'F101': ['reports/verification-2026-11-19-1f9e7d52.md', 'build.py'],
+ 'F102': ['reports/verification-2026-11-19-1f9e7d52.md', 'build.py', 'tests/test_publication.py']}
 
 VERDICTS = {
     "chefman-6qt-dual-basket":
@@ -2115,7 +3069,7 @@ def page_exec():
     rows = [
         ("Publication", 'Buyer-first home, category, comparison and model guides; both thermometer links are acknowledged as unconfirmed link notes. One native Workspace group and footer index hold owner/evidence work.', ['S10','S12','S14'], 'publication/README.md'),
         ("Authorship & assets", 'AI-assisted document research is disclosed. No invented human editor, hands-on test or copied/generated branded-product photograph. The conceptual kitchen scene is visibly labelled.', ['S8','S2'], 'publication/README.md'),
-        ("Sources & corrections", 'Scoped 19 November reads, not a blanket refresh. F96 flags contradictory Emeril cord instructions; F99 records corrected care, capacity and dimension guidance. Source conflicts stay public.', ['S13','S15','S18'], 'reports/verification-2026-11-19-1f9e7d52.md'),
+        ("Sources & corrections", 'Scoped 19 November reads, not a blanket refresh. F96 flags contradictory Emeril cord instructions; F97 records corrected care, capacity and dimension guidance. Source conflicts stay public.', ['S13','S15','S18'], 'reports/verification-2026-11-19-1f9e7d52.md'),
         ("Five submitted links", 'Original URL strings, dated redirect/title observations and intended listings remain separate. Every intended ASIN/listing confirmation and enrolled test is still unconfirmed.', ['S41','S42'], 'data/product-intent.json'),
         ("Selected tracking ID", 'shopnow047c-20 is recorded but unvalidated and unapplied. The operational tag is blank. Confirm one intended listing and a permitted enrolled Special Link workflow per product before scaling.', ['S2','S42'], 'data/config.json'),
         ("Measurement", 'Actual named-event browser client and aggregate Python collector interoperate in synthetic HTTP tests. Production collection is disabled; no runtime/privacy approval or eligible campaign dataset exists.', ['S2','S38'], 'analytics/README.md'),
@@ -3170,7 +4124,7 @@ def page_suggestions():
     for row in items:
         opts=''.join(f'<li><strong>{e(o["label"])}</strong><p>{e(o["what"])}</p><p class="tiny muted">Original effort: {e(o["effort"])} · original risk: {e(o["risk"])} · reversible: {"yes" if o.get("reversible") else "no"}</p></li>' for o in row['options'])
         blocks=' '.join(f'<a href="questions.html#{e(q.lower())}">{e(q)}</a>' for q in (row.get('blocked_by') or [])) or 'None recorded in the original proposal.'
-        cards.append(f"""<details class="sug" id="{e(row['id'].lower())}"><summary>{e(row['id'])} · {e(row['title'])} {chip(row)}</summary><p><strong>Current review — {e(row['current_reviewed_on'])}.</strong> {e(row['current_note'])}</p><div class="evidence">{evidence(row)}</div><h3>Original proposal and alternatives</h3><p class="small muted">Historical recommendation, not a fresh factual claim or a request to repeat shipped work. Previous problem wording is preserved so a reviewer can understand the options. Current states and account/evidence gates above take precedence.</p><p class="small"><strong>Original problem.</strong> {e(row['problem'])}</p><ol class="paths">{opts}</ol><p class="small"><strong>Original recommendation.</strong> {e(row['recommendation'])} {e(row['why'])}</p><p class="small"><strong>Linked questions.</strong> {blocks}</p><p class="small"><a href="decision-log.html#{e(row['id'].lower())}">Draft or export a different choice →</a></p></details>""")
+        cards.append(f"""<details class="sug" id="{e(row['id'].lower())}" data-suggestion><summary>{e(row['id'])} · {e(row['title'])} {chip(row)}</summary><p><strong>Current review — {e(row['current_reviewed_on'])}.</strong> {e(row['current_note'])}</p><div class="evidence">{evidence(row)}</div><h3>Original proposal and alternatives</h3><p class="small muted">Historical recommendation, not a fresh factual claim or a request to repeat shipped work. Previous problem wording is preserved so a reviewer can understand the options. Current states and account/evidence gates above take precedence.</p><p class="small"><strong>Original problem.</strong> {e(row['problem'])}</p><ol class="paths">{opts}</ol><p class="small"><strong>Original recommendation.</strong> {e(row['recommendation'])} {e(row['why'])}</p><p class="small"><strong>Linked questions.</strong> {blocks}</p><p class="small"><a href="decision-log.html#{e(row['id'].lower())}">Draft or export a different choice →</a></p></details>""")
     paths=[]
     for path in data.get('paths',[]):
         if any(i not in lookup for i in path['contains']):
@@ -3181,7 +4135,7 @@ def page_suggestions():
 <section class="desk" id="decision-desk" aria-label="Current suggestion counts"><p class="small">{len(items)} total = {counts['complete']} complete + {counts['superseded']} superseded + {counts['partial']} partial + {counts['gated']} gated + {counts['open']} open.</p><p class="tiny muted">Complete can mean an implemented repository feature or a recorded plan. Partial never means a deployed collector or confirmed account. Historical action records are not added to these counts.</p></section>
 <section class="card decision-brief" id="decision-brief"><h2 style="margin-top:0">The remaining boundaries, in brief</h2><p class="small">{e(brief.get('intro',''))}</p><ol class="tight">{briefs}</ol><p class="tiny">Order is editorial judgement. {src_links(['S2','S42','S44'])}</p></section>
 <h2>Current register</h2><div class="tablewrap"><table><caption>Every suggestion has exactly one current implementation state</caption><thead><tr><th>ID</th><th>Suggestion / current answer</th><th>State</th><th>Evidence</th></tr></thead><tbody>{rows}</tbody></table></div>
-<h2>Review a row and its alternatives</h2><p class="small">Open any row. A different choice can be drafted locally on <a href="decision-log.html">the decision log</a>; nothing is submitted from that page. The earlier proposals are labelled history rather than published as today’s facts.</p>{''.join(cards)}
+<h2>Review a row and its alternatives</h2><div class="suggestion-toolbar" data-suggestion-toolbar hidden><label for="suggestion-query">Find a suggestion</label><input id="suggestion-query" type="search" placeholder="Search the decisions and alternatives"><output aria-live="polite"></output></div><p class="small">Open any row. A different choice can be drafted locally on <a href="decision-log.html">the decision log</a>; nothing is submitted from that page. The earlier proposals are labelled history rather than published as today’s facts.</p>{''.join(cards)}
 <details><summary>Original grouped paths (historical planning)</summary><p class="small muted">These earlier bundles are preserved for review; current per-row states supersede old claims about what remains unbuilt.</p>{''.join(paths)}</details><p class="section-note"><a href="questions.html">Known facts and missing evidence</a> · <a href="design-prompt.html">Current design/editorial brief</a> · <a href="executive-summary.html">Executive summary</a>.</p>"""
     return layout('suggestions.html','Suggestions & current decisions',body,active='suggestions.html',description='A current, reviewable decision queue: implemented publication work, partial delivery, explicit evidence gates and preserved alternatives.',jsonld_blocks=[breadcrumbs_jsonld([('Home',SITE_BASE),('Suggestions',page_url('suggestions.html'))])])
 
@@ -3197,8 +4151,8 @@ def page_questions():
     for item in q["questions"]:
         cls, label = _STATE_LABEL[item["state"]]
         first = item["sources"][0]
-        extra = (" " + " ".join(f'<a href="{e(y["url"])}" target="_blank" rel="noopener">repo ↗</a>'
-                                for y in item["sources"][1:] if "github.com" in y["url"]))
+        extra = (" " + " ".join(f'<a href="{e(y["url"])}" target="_blank" rel="noopener">evidence ↗</a>'
+                                for y in item["sources"][1:]))
         rows.append(
             f'<tr><td class="num"><a href="#{e(item["id"].lower())}">{e(item["id"])}</a></td>'
             f'<td>{e(item["question"])}</td><td class="small">{e(item["group"])}</td>'
@@ -4557,7 +5511,17 @@ def check_articles():
     problems = []
     values = _published_values()
     for a in ARTICLES["articles"]:
+        if not a.get("modified_at"):
+            problems.append(f"{a['slug']}: missing evidence-backed editorial modification date")
+        for check in a.get("source_checks", []):
+            if not check.get("on") or not check.get("ids"):
+                problems.append(f"{a['slug']}: incomplete scoped source-check record")
+            for sid in check.get("ids", []):
+                if sid not in SRC_BY_ID:
+                    problems.append(f"{a['slug']}: source check cites unknown {sid}")
         for sec in a["sections"]:
+            if not sec.get("cite"):
+                problems.append(f"{a['slug']} §'{sec['h']}' has no source citation")
             for sid in sec.get("cite", []):
                 if sid not in SRC_BY_ID:
                     problems.append(f"{a['slug']} §'{sec['h']}' cites unregistered source {sid}")
@@ -4953,9 +5917,10 @@ def page_article(a):
   <h1>{e(a['title'])}</h1>
   <p class="lede">{e(a['standfirst'])}</p>
   <div class="article-meta">
-    <span>By <a href="../about.html">Zone1 Kitchen</a> · AI-assisted document research</span><span aria-hidden="true">·</span>
+    <span>By <a href="../about.html">Zone1 Kitchen</a> · AI-assisted, document-based writing</span><span aria-hidden="true">·</span>
     <span>{a['reading_minutes']} min read</span><span aria-hidden="true">·</span>
-    <span>sources read {e(a.get('sources_read') or ARTICLES['accessed'])}</span><span aria-hidden="true">·</span>
+    <span>Sources checked {e(a.get('sources_read') or ARTICLES['accessed'])}</span><span aria-hidden="true">·</span>
+    <span>Edited <time datetime="{e(a['modified_at'])}">{e(a['modified_at'][:10])}</time>; first-publication timestamp is not established.</span>
     <span class="pill pill-info">Documentation-based — no hands-on testing</span>
     {cluster_badge}
   </div>
@@ -5186,7 +6151,7 @@ def page_intent():
 </div>
 {ledger_empty}
 <h2>What the brands' own catalogues say about the two newest links</h2>
-<p class="small">The two thermometer links were checked against official manufacturer catalogues on 19 November. Current catalogue selections do not confirm the intended Amazon listing. The <a href="categories/thermometers.html">reader shelf</a> therefore publishes link notes only, not a verified product specification or certification claim. Earlier catalogue snapshots remain in the data history (F80).</p>
+<p class="small">The two thermometer links were checked against official manufacturer catalogues on 19 November. Current catalogue selections do not confirm the intended Amazon listing. The <a href="categories/cooking-thermometers.html">reader shelf</a> therefore publishes link notes only, not a verified product specification or certification claim. Earlier catalogue snapshots remain in the data history (F80).</p>
 <div class="tablewrap">
 <table>
   <caption>Scoped catalogue observations, read 2026-11-19</caption>
@@ -6029,55 +6994,44 @@ _AMAZON_PRODUCT_ANCHOR_RE = re.compile(
 )
 
 
+def is_product_href(href):
+    """Submitted links and ordinary product listings; policy/help URLs are not products."""
+    from urllib.parse import urlsplit
+    parsed = urlsplit(html.unescape(href))
+    return ((parsed.hostname == "link.amazon" and "ZZZ9ZZZZZ" not in parsed.path) or
+            (parsed.hostname in {"amazon.com", "www.amazon.com"} and
+             parsed.path.startswith(("/dp/", "/gp/product/"))))
+
 def qualify_affiliate_links(html_text):
-    """Add rel="sponsored" to every rendered outbound Amazon product anchor.
+    """Qualify every outbound product anchor, including listing citation badges.
 
-    One post-render pass rather than many template edits means that a new page cannot quietly
-    bypass the rule. Existing rel values are preserved and de-duplicated, so an existing
-    ``rel="nofollow sponsored noopener"`` never becomes contradictory or repeated. The
-    nonsense-token control request (S22) remains an evidence-only exception: it does not
-    name a product and exists solely so a reviewer can reproduce the resolver control.
-
-    Google says paid links may be qualified with ``nofollow`` or ``sponsored`` and should use
-    ``sponsored`` for advertisements or paid placements (S30/S31). This site applies the
-    latter marker to the broader, owner-requested class of Amazon product destinations; it
-    does not claim that a citation itself earned a commission.
+    Preserve other rel values, add sponsored/nofollow/noopener, never rewrite a
+    destination. The nonsense-token control is not a product; it remains a citation.
     """
     def fix(match):
         tag = match.group(0)
-        if "ZZZ9ZZZZZ" in tag:
+        href = re.search(r'href="([^\"]+)"', tag, re.I)
+        if not href or not is_product_href(href.group(1)):
             return tag
-        rel_attr = re.search(r'rel="([^"]*)"', tag, re.I)
-        values = [v for v in (rel_attr.group(1) if rel_attr else "").split() if v]
-        if "sponsored" not in values:
-            # sponsored leads because it states how an Amazon product destination is treated.
-            values = ["sponsored"] + values
-        new_tag = re.sub(r'\srel="[^"]*"', "", tag, count=1, flags=re.I)
-        return new_tag[:-1].rstrip() + f' rel="{" ".join(values)}">'
-    return _AMAZON_PRODUCT_ANCHOR_RE.sub(fix, html_text)
+        existing = re.search(r'rel="([^\"]*)"', tag, re.I)
+        values = uniq(["sponsored", "nofollow", "noopener"] +
+                      (existing.group(1).split() if existing else []))
+        tag = re.sub(r'\srel="[^\"]*"', "", tag, count=1, flags=re.I)
+        return tag[:-1].rstrip() + f' rel="{" ".join(values)}">'
+    return re.sub(r'<a\b[^>]*>', fix, html_text, flags=re.I)
 
 
 def check_affiliate_link_qualification(pages):
-    """Build guard: every clickable Amazon product destination is qualified.
-
-    The checked class covers the supplied ``link.amazon`` URLs and direct Amazon ``/dp/``
-    product-detail URLs, including source citations. It deliberately excludes Amazon policy
-    and help pages, plus S22's non-product nonsense-token control. A missing ``sponsored``
-    token is a build failure rather than a review note, so the requirement cannot regress
-    when a template or table is added.
-    """
+    """All outbound product anchors must retain sponsored, nofollow and noopener."""
     problems = []
-    for rel, html_text in pages.items():
-        for tag in _AMAZON_PRODUCT_ANCHOR_RE.findall(html_text):
-            if "ZZZ9ZZZZZ" in tag:
+    for rel, text in pages.items():
+        for tag in re.findall(r'<a\b[^>]*>', text, re.I):
+            href = re.search(r'href="([^\"]+)"', tag, re.I)
+            if not href or not is_product_href(href.group(1)):
                 continue
-            rel_attr = re.search(r'rel="([^"]*)"', tag, re.I)
-            values = (rel_attr.group(1) if rel_attr else "").split()
-            if "sponsored" not in values:
-                href = re.search(r'href="([^"]+)"', tag)
-                problems.append(
-                    f'{rel}: outbound Amazon product link without rel="sponsored": '
-                    f'{(href.group(1) if href else tag)[:90]}')
+            values = re.search(r'rel="([^\"]*)"', tag, re.I)
+            if not {"sponsored", "nofollow", "noopener"}.issubset(set(values.group(1).split() if values else [])):
+                problems.append(f"{rel}: product link must be sponsored/nofollow/noopener: {href.group(1)}")
     return problems
 
 
@@ -6256,32 +7210,33 @@ def check_flag_anchor_labels(pages):
 
 
 def check_desk_nav(pages):
-    """Pass 14 guard (arena/9b3365c7-zone1): every dashboard surface stays reachable.
+    """Retain P14's explicit owner inventory and test both actual rendered routes.
 
-    A NAV page that is not a reader page and not a parallel build must be listed in DESK_NAV
-    (or be the previous-passes catalogue, which the group links separately), and every
-    generated page must link each DESK_NAV page from its footer. Otherwise collapsing the
-    owner pages into one group could quietly orphan the next dashboard someone adds.
+    The root redesign replaces the old sidebar with one native Workspace menu; it
+    must not make any desk route disappear from that group or from the footer.
+    Buyer cluster/About routes may sit in reader navigation instead of the menu.
     """
     problems = []
     reader = {"index.html", "picks.html", "compare.html", "categories/kitchen-appliances.html",
-              "guides/buying-guide-air-fryers.html", "articles/index.html"}
+              "guides/buying-guide-air-fryers.html", "articles/index.html", "clusters.html", "about.html"}
     for href, _label, _sub in NAV:
         if "/" in href and href not in reader:
-            continue  # parallel builds: reached via previous-passes.html
-        if href in reader or href in DESK_NAV or href == "previous-passes.html":
             continue
-        problems.append(f"{href}: in NAV but in neither the Shop group nor DESK_NAV")
-    for rel, html_text in pages.items():
+        if href not in reader and href not in DESK_NAV and href != "previous-passes.html":
+            problems.append(f"{href}: in NAV but neither a reader route nor DESK_NAV")
+    for rel, content in pages.items():
         if rel == "404.html":
-            continue
-        i = html_text.find('<footer class="site">')
-        foot = html_text[i:] if i >= 0 else ""
+            continue  # its separate guard requires absolute canonical routes
+        foot = content[content.find('<footer class="site">'):]
+        match = re.search(r'<nav class="workspace-links"[^>]*>(.*?)</nav>', content, re.S)
+        workspace = match.group(1) if match else ""
         prefix = depth_prefix(rel)
         for href in DESK_NAV:
-            if f'href="{prefix}{href}"' not in foot:
+            target = f'href="{prefix}{href}"'
+            if target not in foot:
                 problems.append(f"{rel}: footer does not link {href}")
-                break
+            if href not in reader and target not in workspace:
+                problems.append(f"{rel}: Workspace does not link {href}")
     return problems
 
 
@@ -6296,7 +7251,7 @@ def page_modified_date(rel):
     if rel.startswith("articles/") and rel != "articles/index.html":
         slug = Path(rel).stem
         article = ARTICLE_BY_SLUG.get(slug, {})
-        return article.get("modified_on") or article.get("sources_read") or ACCESSED
+        return (article.get("modified_at") or article.get("modified_on") or article.get("sources_read") or ACCESSED)[:10]
     return PUBLICATION["updated"]
 
 
@@ -6310,7 +7265,7 @@ def check_publication_data(publication=None, suggestions=None):
     if len(rows) != len(expected) or {r.get('slug') for r in rows} != expected:
         problems.append('publication product cards must match the documented product routes exactly')
     for row in rows + (publication.get('thermometer_links') or []):
-        for key in ('sources', 'check_sources'):
+        for key in ('sources', 'check_sources', 'size_sources'):
             for sid in row.get(key) or []:
                 if sid not in SRC_BY_ID:
                     problems.append('publication copy references unknown source '+str(sid))
@@ -6349,7 +7304,7 @@ def main():
     for p in PRODUCT_LIST:
         pages[f"products/{p['slug']}.html"] = page_product(p)
     pages["categories/kitchen-appliances.html"] = page_category()
-    pages["categories/thermometers.html"] = page_thermometers()
+    pages["categories/cooking-thermometers.html"] = page_thermometers()
     pages["about.html"] = page_about()
     pages["compare.html"] = page_compare()
     pages["guides/buying-guide-air-fryers.html"] = page_guide()

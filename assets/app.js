@@ -14,14 +14,14 @@ document.addEventListener('click', function (ev) {
     setTimeout(function () { c.textContent = old; }, 1600);
   };
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(link).then(done, function () { c.textContent = 'Copy unavailable — use the address bar'; });
+    navigator.clipboard.writeText(link).then(done, function () { c.textContent = 'Copy blocked — use the address bar'; });
   } else {
     var ta = document.createElement('textarea');
     ta.value = link; document.body.appendChild(ta); ta.select();
     var copied = false;
     try { copied = document.execCommand('copy'); } catch (e) {}
     document.body.removeChild(ta);
-    if (copied) done(); else c.textContent = 'Copy unavailable — use the address bar';
+    if (copied) done(); else c.textContent = 'Copy blocked — use the address bar';
   }
 });
 
@@ -198,4 +198,57 @@ document.addEventListener('click', function (event) {
     paint();
   }
 
+})();
+
+(function () {
+  var controls = document.querySelector('[data-format-controls]');
+  if (!controls) return;
+  var cards = Array.from(document.querySelectorAll('.publication-product[data-format]'));
+  var status = document.querySelector('[data-format-status]');
+  if (!cards.length) return;
+  controls.hidden = false;
+  controls.addEventListener('click', function (ev) {
+    var button = ev.target.closest('[data-format-filter]');
+    if (!button) return;
+    var filter = button.getAttribute('data-format-filter');
+    controls.querySelectorAll('button').forEach(function (item) {
+      item.setAttribute('aria-pressed', item === button ? 'true' : 'false');
+    });
+    var shown = 0;
+    cards.forEach(function (card) {
+      card.hidden = filter !== 'all' && card.getAttribute('data-format') !== filter;
+      if (!card.hidden) shown += 1;
+    });
+    if (status) status.textContent = shown + (shown === 1 ? ' format shown.' : ' formats shown.');
+  });
+})();
+
+(function () {
+  var toolbar = document.querySelector('[data-suggestion-toolbar]');
+  if (!toolbar) return;
+  var field = toolbar.querySelector('input');
+  var status = toolbar.querySelector('output');
+  var cards = Array.from(document.querySelectorAll('[data-suggestion]'));
+  toolbar.hidden = false;
+  function filter() {
+    var query = field.value.trim().toLocaleLowerCase();
+    var visible = 0;
+    cards.forEach(function (card) {
+      card.hidden = query !== '' && card.textContent.toLocaleLowerCase().indexOf(query) === -1;
+      if (!card.hidden) visible += 1;
+    });
+    status.textContent = visible + ' of ' + cards.length + ' detailed suggestions shown';
+  }
+  field.addEventListener('input', filter); filter();
+  // Following an ID anchor should always reveal the target, even after a search.
+  function revealAnchor() {
+    var target = document.getElementById(location.hash.slice(1));
+    if (target && target.hasAttribute('data-suggestion')) {
+      if (target.hidden) { field.value = ''; filter(); }
+      var detail = target.matches('details') ? target : target.querySelector('details');
+      if (detail) detail.open = true;
+      target.scrollIntoView();
+    }
+  }
+  window.addEventListener('hashchange', revealAnchor); revealAnchor();
 })();

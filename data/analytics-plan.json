@@ -142,6 +142,7 @@
     "associates_policies": "S2",
     "google_link_qualification": "S31"
   },
+  "schema_note": "This is the single canonical five-event definition. data/measurement.json is a reader-friendly projection, checked for exact event-ID/name agreement. The browser emits the four named browser events, never the operator import.",
   "implementation": {
     "client_source": "analytics/client.js",
     "generated_client": "assets/analytics.js",

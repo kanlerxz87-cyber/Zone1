@@ -30,7 +30,11 @@
         "S11"
       ],
       "verdict": "Worth comparing if separate cooking settings matter more to you than one undivided basket. The manual documents two 3-quart baskets, Sync Baskets and Sync Finish; that does not establish how much your usual meal will fit or how it will taste.",
-      "related_guide": "sync-finish-explained"
+      "related_guide": "sync-finish-explained",
+      "size": "13.38 × 11.81 × 10.63 in",
+      "size_sources": [
+        "S10"
+      ]
     },
     {
       "slug": "emeril-26qt-french-door",
@@ -51,7 +55,11 @@
         "S28"
       ],
       "verdict": "Worth comparing if you want an oven-style layout and the documented rotisserie function. The 26-quart cavity is not a serving guarantee. Leave room for the doors and the manual’s required ventilation; its cleaning section recommends hand-washing the accessories.",
-      "related_guide": "rotisserie-at-home"
+      "related_guide": "rotisserie-at-home",
+      "size": "16.9 D × 15.8 W × 14.8 H in",
+      "size_sources": [
+        "S14"
+      ]
     },
     {
       "slug": "chefman-8qt-turbofry",
@@ -71,7 +79,11 @@
         "S29"
       ],
       "verdict": "Worth comparing if you prefer one basket to dividing food between two drawers. For RJ38-SQSS-8T, Chefman documents four presets and a 200–400 °F range. The listing title’s 450 °F Hi-Fry wording remains a conflict, not an extra feature this guide can promise.",
-      "related_guide": "chefman-8qt-two-models"
+      "related_guide": "chefman-8qt-two-models",
+      "size": "15.4 × 12.6 × 13.5 in",
+      "size_sources": [
+        "S12"
+      ]
     }
   ],
   "featured_guides": [
@@ -122,5 +134,5 @@
       ]
     }
   ],
-  "updated_at_utc": "2026-11-19T06:46:25Z"
+  "updated_at_utc": "2026-11-19T07:04:09Z"
 }

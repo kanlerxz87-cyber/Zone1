@@ -117,6 +117,51 @@
       ]
     },
     {
+      "id": "SG-08",
+      "session": "arena/7d42af7c-zone1",
+      "date": "2026-11-19",
+      "path": "Protocol repair; production still disabled",
+      "what": "Reconciled the actual browser client, Python collector, two event registers, privacy notice and enablement guards around page_view, outbound_click, article_engagement, comparison_interaction and the operator-only affiliate_report_import. Retired the incompatible PHP/Worker raw-event examples with HTTP 410. Actual JavaScript fixture payloads pass the Python validator; no production event or account report was created. The 2026-11-17 executed entry above describes the historical implementation, not the repaired protocol.",
+      "why_allowed": "Bug repair within the existing five-event scope and accurate privacy disclosures, without choosing a host, spending money, enabling collection or asserting account evidence. All deployment/privacy flags remain false.",
+      "evidence": [
+        "analytics/client.js",
+        "analytics/collector.py",
+        "analytics/README.md",
+        "tests/analytics-client.test.cjs",
+        "tests/test_analytics.py"
+      ]
+    },
+    {
+      "id": "SG-39",
+      "session": "arena/7d42af7c-zone1",
+      "date": "2026-11-19",
+      "path": "Reader-first presentation follow-up",
+      "what": "Moved the canonical publication to a format-led shelf and journal, compact buyer navigation, one native owner/evidence workspace and a comprehensive footer. The Associates statement is beneath the masthead, as explicitly requested, and repeated in the footer. Metrics no longer lead the front page. Clearly labelled generic AI-generated preparation/food scenes contain no promoted appliance or asserted recipe result; schematic format drawings are not product photographs. The rejected generated-appliance candidate is not published.",
+      "why_allowed": "The user explicitly requested a useful publication rather than an audit dashboard. These reversible local presentation changes do not settle the product-photography permission question, alter any intended identity or imply a measured conversion gain. No owner choice was fabricated.",
+      "evidence": [
+        "build.py",
+        "assets/theme.css",
+        "assets/app.source.js",
+        "assets/editorial/README.md",
+        "tests/test_publication_output.py",
+        "reports/publication-2026-11-19.md"
+      ]
+    },
+    {
+      "id": "SG-40",
+      "session": "arena/7d42af7c-zone1",
+      "date": "2026-11-19",
+      "path": "Documented-use block retained; stale offer-like snapshots demoted",
+      "what": "Product pages now lead with the documented format/use, the model caveat, an explicitly sponsored link and the sourced specifications. Dated manufacturer pricing and commission uncertainty are retained in expandable publisher evidence, not used as live prices or a rating-based recommendation. Brand review widgets are not front-page or product-page social proof. Full values remain in the dataset.",
+      "why_allowed": "Reversible reader presentation and removal of unsupported comparative/probabilistic copy, not a product superiority claim, price API activation or invented testing experience.",
+      "evidence": [
+        "build.py",
+        "data/products.json",
+        "products/chefman-6qt-dual-basket.html",
+        "data.html"
+      ]
+    },
+    {
       "id": "SG-04",
       "session": "arena/9b3365c7-zone1",
       "date": "2026-11-19",
@@ -145,6 +190,7 @@
     }
   ],
   "implemented_note": "Rows a pass implemented without waiting for the owner, under the adopt-after-silence rule, each naming the path it took and why the rule allowed it. This is not the owner's decision list — choices[] stays owner-only and empty until a person fills it — and it exists so a default never looks like an instruction from someone who never gave one. A pass that implements something and does not record it here has broken the rule it used.",
+  "updated": "2026-11-19",
   "execution_updates": [
     {
       "date": "2026-11-19",
@@ -180,6 +226,18 @@
         "publication/README.md",
         "reports/verification-2026-11-19-1f9e7d52.md"
       ]
+    }
+  ],
+  "parallel_policy_history": [
+    {
+      "commit": "4ae97f0",
+      "policy": {
+        "name": "adopt-after-silence",
+        "text": "A suggestion whose recommended path is reversible, low-risk, and does not depend on a fact only an Amazon account holder can supply is treated as pre-approved: the next agent pass implements it and records what it did on this page. Everything else holds until the owner picks. This exists because the brief says no manual input is required of the owner, while also requiring that a human reviews suggestions before changes - so the review has a default outcome rather than a veto that blocks the work.",
+        "scope_limit": "Silence never authorises: spending money, registering a domain, contacting Amazon or a brand on the owner's behalf, publishing an Amazon-served price or star rating, changing a compliance posture, deleting another session's committed evidence, or asserting any product fact the repository has flagged as unverified. Anything in that class waits, on this page, with its reason.",
+        "rule_applied": "auto-adopt requires: an option letter the suggestion recommends; that option marked reversible; that option's risk 'none' or 'low'; and no blocking question in state 'unknowable'. The four tests are computed from data/suggestions.json and data/questions.json at build time, so the table on the page cannot claim a default its own data does not support.",
+        "recording": "An executed default is recorded in `implemented`, never in `choices`. A pass that adds a row to `choices` is inventing an owner instruction; a pass that changes data without recording it in `implemented` is the same failure in the other direction."
+      }
     }
   ]
 }
