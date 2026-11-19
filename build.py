@@ -2461,7 +2461,7 @@ def page_index():
   <h2 id="promise-heading" class="fp-promise-title">How we write these guides</h2>
   <div class="fp-promise-grid">
     <div><h3>Manuals, not hype</h3><p>Every specification is quoted from the manufacturer's page or owner's manual and linked beside the number. <a href="data.html#sources">Our sources →</a></p></div>
-    <div><h3>No pretend testing</h3><p>We have not cooked in these machines, so we never write as if we had — the FTC is clear that you can't describe an experience you haven't had. {src_link('S8')}</p></div>
+    <div><h3>No pretend testing</h3><p>We have not cooked in these machines, so we never write as if we had — FTC staff guidance says it plainly: you can't talk about your experience with a product you haven't tried. {src_link('S8')}</p></div>
     <div><h3>No Amazon prices or star ratings</h3><p>Amazon's rules allow those only through its own link tools or API, so we send you to the listing for the live price and reviews. {src_link('S2')}</p></div>
   </div>
   <p class="tiny muted">Something we could not confirm is left blank and listed under <a href="flagged.html">Flagged for review</a>.</p>
@@ -2650,6 +2650,31 @@ PROGRAMME_FLAGS = [
      "data/suggestions.json (lede and how_to_read) vs data/decision-log.json (implemented)",
      "Found 2026-11-17 by the pass-13 read while adding rows to that register: the page's first sentence and its how_to_read[0] both stated 'Nothing on this page has been implemented', which had been untrue since 2026-11-16, when data/decision-log.json recorded SG-26 path A as implemented under the queue's own pre-authorisation rule. Same class as F52, F63 and F14 — a register cell written as a snapshot and rendered as a live fact. Repaired in the generator: the lede and the new decision desk now count the log's rows at build time (so the sentence moves when the log does), and how_to_read[0] was rewritten to describe the mechanism instead of asserting a status. What remains open is the general fix: check_register_preambles() compares repeated sentences, not claims about other registers, so no guard stops the next typed status sentence from going stale the same way. Decision needed: extend the register-preamble guard to reject declarative status claims ('nothing has been implemented', 'N rows are done') in prose that has a computed equivalent. The pass-13 scan found the same class in a place no guard looks at — evidence-link labels: 'A-02: 21 suggestions', 'A-04: 20 questions' and 'B-08: 12 articles' were printed as link text beside a register that had grown to 44, 37 and 24. All three were rewritten to point at the page that computes its own count, and B-08's typed count became a build-time computed count instead. A label is prose, and prose about a row count is exactly what drifts.",
      ["S30"]),
+    # ---- pass 14 (arena/9b3365c7-zone1, 2026-11-19): found while rebuilding the front page.
+    ("F90", "The price note on every front-page product card cited the wrong policy clause: it said Program Policies §2(b) and §6(t) bar an Associate site from displaying Amazon's price.",
+     "Front page (price_line in build.py) — all three products",
+     "Re-read live 2026-11-19: Participation Requirements §2(b) says a site 'may only show prices and availability if: (a) we serve the link … or (b) you obtain Product pricing and availability data via Creators API or PA API' — a conditional permission, not a bar — and §6(t) is about customer reviews and star ratings, not prices. Fixed in the same pass: the note now cites §2(b) alone and says what it allows. Other pages that pair 'prices and star ratings' with '§2(b) and §6(t)' are correct and were left alone.",
+     ["S2"]),
+    ("F91", "categories/kitchen-appliances.html published '0 of the five links submitted to this project were observed landing on air fryer or air fryer-oven listings' while three of them did.",
+     "Category page lede — PI-01…PI-05",
+     "The count tested 'air fryer' against a prose field that spells it 'Air-fryer', so nothing matched. Live re-read 2026-11-19: B04G1MEwY, B02NbDxp3 and B00hJ57DV land on pages whose breadcrumb ends 'Fryers › Air Fryers'; B0c8moW59 and B0f3GKalj land under 'Thermometers & Timers › Meat'. The breadcrumb is now recorded per row as observed_browse_path (an observation, kept apart from intent), the count reads it, and a row without one fails the build. The defect was first reported in open PR #144 on 2026-11-17 and stayed live for two days because that PR could not merge.",
+     ["S17", "S16", "S28", "S29", "S36", "S37"]),
+    ("F92", "Two rows on the questions page linked their flag citations to the wrong anchor: 'Flag F86' pointed to #f84 and 'Flag F88' pointed to #f86.",
+     "data/questions.json — Q-38 and Q-40",
+     "Left over from the pass-13 renumbering (F84→F86, F86→F88): the labels were rewritten, the URL fragments were not, and check_register_cross_references() reads labels, not fragments. Both anchors repaired 2026-11-19; a repository-wide scan of every data file for a 'Flag Fnn' label whose URL fragment names a different flag found no other case. The guard gap is closed in the same pass: check_flag_anchor_labels() now fails the build when a link's text names one flag and its fragment opens another (proven by reverting Q-38's anchor).",
+     []),
+    ("F93", "Five pull requests from 2026-11-17 are still open and unmergeable (#139, #141, #144, #146, #150); at least one carried content no merged pass has published.",
+     "Repository process",
+     "Reviewed 2026-11-19. #144's fix is superseded by F91. #150 is a COORDINATION record only. #146's self-hosted endpoint overlaps analytics/ already on main. #141 applies the selected tracking ID to links, which main deliberately does not do until the account test passes (Q-01, SG-47) — a decision, not a merge. #139 carries a sourced dataset and page for the two thermometer links (PI-04, PI-05) that main has never published; porting it needs a fresh live re-read of every row, and the choice is SG-50. Disposition is in COORDINATION.md; none of the five was merged or closed by this pass.",
+     []),
+    ("F94", "The suggestions page contradicted itself: the decision desk said 47 rows, 42 still asking for a path and 7 implemented (49), and the 'At a glance' note under it still said 'Nothing on this page has been implemented'.",
+     "suggestions.html — decision desk and 'At a glance' note",
+     "Found 2026-11-19 while adding rows. The desk's 'still ask you for a path' figure excluded only rows whose effort said 'done', not rows the decision log records as shipped, so implemented rows were counted twice. The 'At a glance' sentence is the same typed-status class as F89, in a second place that F89's repair did not reach. Both fixed in the generator: shipped rows leave the open count and the 'blocked on a question' count, and the note now points at the desk instead of asserting a status.",
+     []),
+    ("F95", "The channelId parameter on Amazon's landing URL is not a property of a link: the same ASIN came back with channelId=704 through its short link and channelId=500 through a direct /dp/ request on the same day.",
+     "PI-01…PI-05 observed redirect targets",
+     "Observed 2026-11-19. Through the short links, the three air-fryer ASINs landed with channelId=704 and the two thermometer ASINs with channelId=500 plus extra parameters; the same day, direct requests for all five /dp/ pages each landed with channelId=500. The 704 value matches the 2026-11-14 record in data/reverification.json. Amazon documents none of these parameters in any source this project holds, so they are recorded and nothing is read into them — not attribution, not link type, not who made the links. Amazon says even an absent tag parameter on the landing URL is not evidence about attribution (S41). This row exists so a future pass does not treat the 704/500 split as a difference between the two batches of links.",
+     ["S17", "S41"]),
     ("F8", "IP License §2(e) forbids aggregating, analysing or repurposing Program Content and training models on it.",
      "Platform design", "Any AI research or trend scoring therefore runs only on first-party data and public manufacturer data. Documented as guardrail G6 in the blueprint.", ["S2"]),
     ("F9", "No Amazon price, star rating or review count is available to this build.",
@@ -3021,6 +3046,15 @@ REPO_EVIDENCE = {
     "F88": ["verify.py", "data/design-prompt.json", "assets/style.css"],
     "F89": ["data/suggestions.json", "data/decision-log.json", "build.py",
             "reports/verification-2026-11-17-fd9778a1.md"],
+    # arena/9b3365c7-zone1 (2026-11-19): pass 14.
+    "F90": ["build.py", "reports/verification-2026-11-19-9b3365c7.md"],
+    "F91": ["data/product-intent.json", "build.py", "tests/test_integration_output.py",
+            "reports/verification-2026-11-19-9b3365c7.md"],
+    "F92": ["data/questions.json", "reports/verification-2026-11-19-9b3365c7.md"],
+    "F93": ["COORDINATION.md", "reports/verification-2026-11-19-9b3365c7.md"],
+    "F94": ["build.py", "data/decision-log.json"],
+    "F95": ["data/product-intent.json", "data/reverification.json",
+            "reports/verification-2026-11-19-9b3365c7.md"],
     "F74": ["build.py", "data/articles.json", "data/topics.json",
             "reports/verification-2026-11-16-19d92a81.md"],
     "F75": ["build.py", "404.html"],
@@ -5164,7 +5198,6 @@ def page_suggestions():
     shipped = [i for i in impl_ids if i in known_sg]
     still_open = [x for x in s["suggestions"]
                   if (x.get("effort") or "").strip().lower() not in ("done", "shipped", "complete")]
-    gated = [x for x in still_open if x.get("blocked_by")]
     unblock = {}
     for qq in QUESTIONS["questions"]:
         if qq.get("state") in ("known", "answered"):
@@ -5175,6 +5208,10 @@ def page_suggestions():
     top_unblock = sorted(unblock.values(), key=lambda kv: (-kv[0], kv[1]["id"]))[:4]
     qstate = {x["id"]: x.get("state", "missing") for x in QUESTIONS["questions"]}
     decided = set(shipped) | {x["id"] for x in s["suggestions"] if x.get("resolved_on")}
+    # F94: a shipped row no longer "asks you for a path"; without this the desk printed
+    # 47 rows = 42 open + 7 implemented.
+    still_open = [x for x in still_open if x["id"] not in decided]
+    gated = [x for x in still_open if x.get("blocked_by")]
     undecided = [x for x in s["suggestions"] if x["id"] not in decided]
     top_undecided = undecided[:4]
     desk = f"""
@@ -5209,6 +5246,21 @@ def page_suggestions():
   </p>
 </section>
 """
+    # ---- decision brief (pass 14, arena/9b3365c7-zone1): four rows, dated, owner-facing ---- #
+    brief = s.get("decision_brief") or {}
+    brief_html = ""
+    if brief.get("items"):
+        for it in brief["items"]:
+            if it["id"] not in known_sg:
+                raise SystemExit(f"BUILD FAILED — decision_brief names {it['id']}, which is not a suggestion row")
+        brief_html = (
+            '<section class="card decision-brief" id="decision-brief" aria-label="Decision brief">'
+            f'<p class="section-eyebrow">Decision brief · {e(brief["date"])} · {e(brief["session"])}</p>'
+            f'<p class="small" style="margin:.2rem 0 .6rem">{e(brief["intro"])}</p><ol class="tight">'
+            + "".join(f'<li><strong><a href="#{e(it["id"].lower())}">{e(it["id"])}</a> — {e(it["ask"])}</strong> '
+                      f'<span class="small muted">{e(it["why"])}</span></li>' for it in brief["items"])
+            + '</ol><p class="tiny muted" style="margin:.4rem 0 0">The order is this pass\'s judgement. '
+              'Each row below carries its own evidence and paths.</p></section>')
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Suggestions</p>
 <h1>Suggestions, and a place to choose between them</h1>
@@ -5218,6 +5270,8 @@ decision log — reversible, low-risk paths an agent pass was pre-authorised to 
 entry names the problem it fixes, the official document or repository evidence behind it, two or three paths you could
 take, and the path this pass would pick if it were your call. Read the one you care about, choose a path, and the work
 is a short story rather than an open-ended project.</p>
+
+{brief_html}
 
 {desk}
 
@@ -5233,7 +5287,7 @@ is a short story rather than an open-ended project.</p>
 
 {paths_html}
 <h2>At a glance</h2>
-<p class="small muted">Read the table, then take one row and read the full entry for it. The <em>Your call</em> column lists the paths that are on the table for that suggestion &mdash; write the letter you choose next to it, with the date. Nothing on this page has been implemented, and implementing anything starts by choosing a path here.</p>
+<p class="small muted">Read the table, then take one row and read the full entry for it. The <em>Your call</em> column lists the paths that are on the table for that suggestion &mdash; write the letter you choose next to it, with the date. Rows the decision log records as shipped are named in the desk above; for every other row, implementing it starts by choosing a path here.</p>
 <div class="tablewrap"><table>
   <thead><tr><th>#</th><th>Suggestion</th><th>Area</th><th>Priority</th><th>Effort · cost of waiting</th><th>Your call</th><th>Evidence</th></tr></thead>
   <tbody>{''.join(rows)}</tbody>
@@ -8708,6 +8762,29 @@ def check_intent_measurement_contract(pages=None):
     return problems
 
 
+_FLAG_ANCHOR_RE = re.compile(r'<a\b[^>]*href="[^"]*flagged\.html#f(\d+)"[^>]*>(.*?)</a>', re.S | re.I)
+
+
+def check_flag_anchor_labels(pages):
+    """F92 / SG-50: a link whose text names one flag must land on that flag's row.
+
+    Pass 13 renumbered F84->F86 and F86->F88; the labels on Q-38 and Q-40 were rewritten and
+    the URL fragments were not, so 'Flag F86' opened F84. check_register_cross_references()
+    reads labels only, so nothing caught it. This compares the label with the fragment on
+    every published page."""
+    problems = []
+    for name, content in pages.items():
+        if not name.endswith(".html"):
+            continue
+        for m in _FLAG_ANCHOR_RE.finditer(content):
+            frag = m.group(1)
+            text = re.sub(r"<[^>]+>", " ", m.group(2))
+            named = set(re.findall(r"\bF(\d+)\b", text))
+            if len(named) == 1 and frag not in named:
+                problems.append(f"{name}: link text names F{next(iter(named))} but opens #f{frag}")
+    return problems
+
+
 def check_desk_nav(pages):
     """Pass 14 guard (arena/9b3365c7-zone1): every dashboard surface stays reachable.
 
@@ -8879,6 +8956,10 @@ def main():
     if contract_problems:
         raise SystemExit("BUILD FAILED - product-intent or analytics contract:\n  "
                          + "\n  ".join(contract_problems))
+    anchor_problems = check_flag_anchor_labels(pages)
+    if anchor_problems:
+        raise SystemExit("BUILD FAILED — a flag link opens a different flag (F92):\n  "
+                         + "\n  ".join(anchor_problems[:20]))
     desk_problems = check_desk_nav(pages)
     if desk_problems:
         raise SystemExit("BUILD FAILED — a dashboard surface is unreachable:\n  "

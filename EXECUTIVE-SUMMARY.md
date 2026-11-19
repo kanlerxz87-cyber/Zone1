@@ -1540,3 +1540,43 @@ on top of main's generator, the script tag now has **two switches** (both must e
 five-event registers are published with a one-to-one mapping on `measurement.html` instead of one
 being hidden. The homepage's inline comparison table yielded to main's buyer-first front page;
 EV-04 marking stays on `compare.html`. Nothing either session published was deleted.
+
+## 26. Pass 14 — the site now opens as a shop, and two false sentences came off it (2026-11-19, session `arena/9b3365c7-zone1`)
+
+**What a visitor sees now.** The front page is a buying guide. It opens with a question ("Choose the
+shape that fits your kitchen."), then the three machines. Each card shows capacity, footprint and
+temperature, the brand's own list price with its source, and one thing to check before buying. Each
+card also has a sponsored "See it on Amazon" button with the disclosure line right beside it, as FTC
+staff guidance asks ([S8](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers)).
+Below the cards come the season pair and six buyer-question guides. The registers, decision tools and
+evidence pages (nineteen working pages) sit in one collapsed "Behind the site" group in the sidebar
+and in the footer of every page. A new build guard keeps each of them reachable.
+
+**What was wrong and is fixed.**
+- The price note on every front-page card cited the wrong clause. It said Program Policies §2(b)
+  and §6(t) bar showing Amazon prices. In fact §2(b) permits prices on two conditions, and §6(t) is
+  about reviews and star ratings
+  ([S2](https://affiliate-program.amazon.com/help/operating/policies), read 2026-11-19). Flag F90.
+- The kitchen-appliances category page said none of the five submitted links lands on an air
+  fryer; three do. The count matched "air fryer" against a field that spells it "Air-fryer". It now
+  reads the breadcrumb printed on each landing page, read live today for all five. Flag F91. The fix
+  had been sitting in unmergeable PR #144 for two days.
+- Two flag links opened the wrong flag (F92). A new build guard now catches that whole class.
+- The suggestions page counted shipped rows twice and still said nothing had been implemented (F94).
+
+**What did not change.** No Amazon price, rating or popularity claim was added. The tracking ID
+`shopnow047c-20` is still recorded but applied to no link until the one-link test (SG-47). The
+supplied short links are still published as supplied: their redirect targets were re-read today and
+are unchanged, and this pass does not call them invalid. `channelId` on Amazon's landing URL changes
+from request to request, so it is recorded as noise and not read as evidence (F95).
+
+**What only you can decide** is the four-row decision brief at the top of `suggestions.html`:
+- SG-47: run the one-link test and pick a click-counter host;
+- SG-42: the photography route;
+- SG-36: whether the thermometer links get a shelf;
+- SG-49: where the working pages finally live.
+
+Separately, the five stale pull requests (#139, #141, #144, #146, #150) have a recorded disposition
+(F93, SG-50, Q-41). This pass closed none of them, because closing another session's work is your call.
+
+Full record: `reports/verification-2026-11-19-9b3365c7.md` and the pass-14 section of `COORDINATION.md`.

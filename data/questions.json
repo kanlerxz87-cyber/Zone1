@@ -1248,6 +1248,39 @@
         }
       ],
       "answer": null
+    },
+    {
+      "id": "Q-41",
+      "group": "Governance",
+      "question": "Should the five pull requests left open since 2026-11-17 be closed, and who may close them?",
+      "state": "missing",
+      "why_it_matters": "The coordination protocol lets a session take over a stale claim but not discard another session's work. Closing a PR is a judgement on that work, so this pass recorded a disposition for each and closed none (F93).",
+      "what_we_know": [
+        "All five were opened on 2026-11-17 and none can merge cleanly into main as of 2026-11-19.",
+        "#144's fix is now on main (F91); #146 overlaps analytics/ on main; #150 changes only COORDINATION.md.",
+        "#141 applies the selected tracking ID to links, which main holds back until the account test (SG-47).",
+        "#139 carries a thermometer page main has never published."
+      ],
+      "what_is_missing": "An owner decision, or a protocol rule saying when an agent pass may close a superseded PR.",
+      "how_to_discover": "Read the disposition table in COORDINATION.md (pass 14) and choose a path on SG-50. If you want agent passes to close superseded PRs in future, add that rule to COORDINATION.md's protocol section.",
+      "blocks": [
+        "SG-50"
+      ],
+      "sources": [
+        {
+          "label": "Open pull requests",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/pulls"
+        },
+        {
+          "label": "The coordination protocol",
+          "url": "https://github.com/kanlerxz87-cyber/Zone1/blob/main/COORDINATION.md"
+        },
+        {
+          "label": "Flag F93",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/flagged.html#f93"
+        }
+      ],
+      "answer": ""
     }
   ]
 }

@@ -1,180 +1,180 @@
 {
- "schema_note": "One row per exact link supplied in the project brief. intended_asin, official_listing_url, confirmation_date and confirmation_source remain null until the account holder confirms the intended official Amazon listing. observed_* fields are the separate destination/title observed on the date shown; they are not product-intent or Associates-attribution confirmation. Short-link tokens are recorded as tokens, not asserted to be ASINs.",
- "tracking_id_selected": "shopnow047c-20",
- "tracking_id_applied_to_links": false,
- "tracking_id_status": "User-provided value recorded only. Not validated in Associates Central and not confirmed on any supplied link. No per-product enrolled-Associates test has passed. Keep associate_tag blank until each intended listing is confirmed and its test result is recorded.",
- "rows": [
-  {
-   "id": "PI-01",
-   "supplied_link": "https://link.amazon/B04G1MEwY",
-   "short_code": "B04G1MEwY",
-   "intended_asin": null,
-   "official_listing_url": null,
-   "confirmation_date": null,
-   "confirmation_source": null,
-   "observed_redirect_target": "https://www.amazon.com/dp/B0CDY277D3",
-   "observed_asin": "B0CDY277D3",
-   "observed_title": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
-   "observed_on": "2026-11-17",
-   "observed_source_ids": [
-    "S17",
-    "S16"
-   ],
-   "note": "Observed fallback-style landing page/title only. It is not confirmation of the account holder’s intended listing or Associates attribution.",
-   "observed_listing_category": "Air-fryer product title on observed landing page; intended product unconfirmed",
-   "observed_browse_path": "Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers",
-   "observed_browse_path_read_on": "2026-11-19",
-   "observed_browse_path_note": "Breadcrumb printed on the Amazon page the supplied link landed on, read live 2026-11-19 by arena/9b3365c7-zone1. An observation of where the redirect landed, not a statement of the account holder’s intent.",
-   "associates_link_test_passed": false,
-   "associates_link_test_date": null,
-   "associates_link_test_source": null
-  },
-  {
-   "id": "PI-02",
-   "supplied_link": "https://link.amazon/B02NbDxp3",
-   "short_code": "B02NbDxp3",
-   "intended_asin": null,
-   "official_listing_url": null,
-   "confirmation_date": null,
-   "confirmation_source": null,
-   "observed_redirect_target": "https://www.amazon.com/dp/B09B7SB46R",
-   "observed_asin": "B09B7SB46R",
-   "observed_title": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
-   "observed_on": "2026-11-17",
-   "observed_source_ids": [
-    "S17",
-    "S28"
-   ],
-   "note": "Observed fallback-style landing page/title only. The listing title says six accessories; the separate product-register conflict remains flagged. This is not confirmation of intent or attribution.",
-   "observed_listing_category": "Air-fryer product title on observed landing page; intended product unconfirmed",
-   "observed_browse_path": "Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers",
-   "observed_browse_path_read_on": "2026-11-19",
-   "observed_browse_path_note": "Breadcrumb printed on the Amazon page the supplied link landed on, read live 2026-11-19 by arena/9b3365c7-zone1. An observation of where the redirect landed, not a statement of the account holder’s intent.",
-   "associates_link_test_passed": false,
-   "associates_link_test_date": null,
-   "associates_link_test_source": null
-  },
-  {
-   "id": "PI-03",
-   "supplied_link": "https://link.amazon/B00hJ57DV",
-   "short_code": "B00hJ57DV",
-   "intended_asin": null,
-   "official_listing_url": null,
-   "confirmation_date": null,
-   "confirmation_source": null,
-   "observed_redirect_target": "https://www.amazon.com/dp/B08DKYBTPH",
-   "observed_asin": "B08DKYBTPH",
-   "observed_title": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
-   "observed_on": "2026-11-17",
-   "observed_source_ids": [
-    "S17",
-    "S29"
-   ],
-   "note": "Observed fallback-style landing page/title only. It is not confirmation of the account holder’s intended listing or Associates attribution.",
-   "observed_listing_category": "Air-fryer product title on observed landing page; intended product unconfirmed",
-   "observed_browse_path": "Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers",
-   "observed_browse_path_read_on": "2026-11-19",
-   "observed_browse_path_note": "Breadcrumb printed on the Amazon page the supplied link landed on, read live 2026-11-19 by arena/9b3365c7-zone1. An observation of where the redirect landed, not a statement of the account holder’s intent.",
-   "associates_link_test_passed": false,
-   "associates_link_test_date": null,
-   "associates_link_test_source": null
-  },
-  {
-   "id": "PI-04",
-   "supplied_link": "https://link.amazon/B0c8moW59",
-   "short_code": "B0c8moW59",
-   "intended_asin": null,
-   "official_listing_url": null,
-   "confirmation_date": null,
-   "confirmation_source": null,
-   "observed_redirect_target": "https://www.amazon.com/dp/B0DHZTCNR5",
-   "observed_asin": "B0DHZTCNR5",
-   "observed_title": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black",
-   "observed_on": "2026-11-17",
-   "observed_source_ids": [
-    "S36",
-    "S40",
-    "S23"
-   ],
-   "note": "Observed Amazon page title is for a ThermoMaven meat thermometer. This redirect observation does not establish that the account holder intended to promote it. Brand catalogue read against this listing on 2026-11-17 (S39/S40): reconciles with, but does not confirm, the candidate destination — flag F80; the associates_link_test fields stay empty because a URL inspection is not a link test (S41).",
-   "observed_listing_category": "Meat-thermometer product title on observed landing page; intended product unconfirmed",
-   "observed_browse_path": "Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat",
-   "observed_browse_path_read_on": "2026-11-19",
-   "observed_browse_path_note": "Breadcrumb printed on the Amazon page the supplied link landed on, read live 2026-11-19 by arena/9b3365c7-zone1. An observation of where the redirect landed, not a statement of the account holder’s intent.",
-   "associates_link_test_passed": false,
-   "associates_link_test_date": null,
-   "associates_link_test_source": null,
-   "brand_catalogue_check": {
-    "listing_says": "Title as served on 2026-11-17: 'ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black'. No model number in the fetched portion of the page.",
-    "brand_page_says": "ThermoMaven's own site names its instant-read line F1 Pro and F1 Turbo and states a sub-second read; '1 Sec' is not used there as a model name.",
-    "verdict": "Not reconciled. The brand catalogue and the listing title use different kinds of identifier and neither names the ASIN, so the intended product stays null and no product page is written.",
-    "source_ids": [
-     "S40",
-     "S36",
-     "S23"
+  "schema_note": "One row per exact link supplied in the project brief. intended_asin, official_listing_url, confirmation_date and confirmation_source remain null until the account holder confirms the intended official Amazon listing. observed_* fields are the separate destination/title observed on the date shown; they are not product-intent or Associates-attribution confirmation. Short-link tokens are recorded as tokens, not asserted to be ASINs.",
+  "tracking_id_selected": "shopnow047c-20",
+  "tracking_id_applied_to_links": false,
+  "tracking_id_status": "User-provided value recorded only. Not validated in Associates Central and not confirmed on any supplied link. No per-product enrolled-Associates test has passed. Keep associate_tag blank until each intended listing is confirmed and its test result is recorded.",
+  "rows": [
+    {
+      "id": "PI-01",
+      "supplied_link": "https://link.amazon/B04G1MEwY",
+      "short_code": "B04G1MEwY",
+      "intended_asin": null,
+      "official_listing_url": null,
+      "confirmation_date": null,
+      "confirmation_source": null,
+      "observed_redirect_target": "https://www.amazon.com/dp/B0CDY277D3",
+      "observed_asin": "B0CDY277D3",
+      "observed_title": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
+      "observed_on": "2026-11-17",
+      "observed_source_ids": [
+        "S17",
+        "S16"
+      ],
+      "note": "Observed fallback-style landing page/title only. It is not confirmation of the account holder’s intended listing or Associates attribution.",
+      "observed_listing_category": "Air-fryer product title on observed landing page; intended product unconfirmed",
+      "observed_browse_path": "Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers",
+      "observed_browse_path_read_on": "2026-11-19",
+      "observed_browse_path_note": "Breadcrumb printed on the Amazon detail page this link redirects to, read live 2026-11-19 by arena/9b3365c7-zone1 (leaf link: Amazon browse node 17659096011). An observation of where the redirect landed, not a statement of the account holder’s intent, and a browse path, not a commission category (F56).",
+      "associates_link_test_passed": false,
+      "associates_link_test_date": null,
+      "associates_link_test_source": null
+    },
+    {
+      "id": "PI-02",
+      "supplied_link": "https://link.amazon/B02NbDxp3",
+      "short_code": "B02NbDxp3",
+      "intended_asin": null,
+      "official_listing_url": null,
+      "confirmation_date": null,
+      "confirmation_source": null,
+      "observed_redirect_target": "https://www.amazon.com/dp/B09B7SB46R",
+      "observed_asin": "B09B7SB46R",
+      "observed_title": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
+      "observed_on": "2026-11-17",
+      "observed_source_ids": [
+        "S17",
+        "S28"
+      ],
+      "note": "Observed fallback-style landing page/title only. The listing title says six accessories; the separate product-register conflict remains flagged. This is not confirmation of intent or attribution.",
+      "observed_listing_category": "Air-fryer product title on observed landing page; intended product unconfirmed",
+      "observed_browse_path": "Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers",
+      "observed_browse_path_read_on": "2026-11-19",
+      "observed_browse_path_note": "Breadcrumb printed on the Amazon detail page this link redirects to, read live 2026-11-19 by arena/9b3365c7-zone1 (leaf link: Amazon browse node 17659096011). An observation of where the redirect landed, not a statement of the account holder’s intent, and a browse path, not a commission category (F56).",
+      "associates_link_test_passed": false,
+      "associates_link_test_date": null,
+      "associates_link_test_source": null
+    },
+    {
+      "id": "PI-03",
+      "supplied_link": "https://link.amazon/B00hJ57DV",
+      "short_code": "B00hJ57DV",
+      "intended_asin": null,
+      "official_listing_url": null,
+      "confirmation_date": null,
+      "confirmation_source": null,
+      "observed_redirect_target": "https://www.amazon.com/dp/B08DKYBTPH",
+      "observed_asin": "B08DKYBTPH",
+      "observed_title": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
+      "observed_on": "2026-11-17",
+      "observed_source_ids": [
+        "S17",
+        "S29"
+      ],
+      "note": "Observed fallback-style landing page/title only. It is not confirmation of the account holder’s intended listing or Associates attribution.",
+      "observed_listing_category": "Air-fryer product title on observed landing page; intended product unconfirmed",
+      "observed_browse_path": "Home & Kitchen › Kitchen & Dining › Small Appliances › Fryers › Air Fryers",
+      "observed_browse_path_read_on": "2026-11-19",
+      "observed_browse_path_note": "Breadcrumb printed on the Amazon detail page this link redirects to, read live 2026-11-19 by arena/9b3365c7-zone1 (leaf link: Amazon browse node 17659096011). An observation of where the redirect landed, not a statement of the account holder’s intent, and a browse path, not a commission category (F56).",
+      "associates_link_test_passed": false,
+      "associates_link_test_date": null,
+      "associates_link_test_source": null
+    },
+    {
+      "id": "PI-04",
+      "supplied_link": "https://link.amazon/B0c8moW59",
+      "short_code": "B0c8moW59",
+      "intended_asin": null,
+      "official_listing_url": null,
+      "confirmation_date": null,
+      "confirmation_source": null,
+      "observed_redirect_target": "https://www.amazon.com/dp/B0DHZTCNR5",
+      "observed_asin": "B0DHZTCNR5",
+      "observed_title": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black",
+      "observed_on": "2026-11-17",
+      "observed_source_ids": [
+        "S36",
+        "S40",
+        "S23"
+      ],
+      "note": "Observed Amazon page title is for a ThermoMaven meat thermometer. This redirect observation does not establish that the account holder intended to promote it. Brand catalogue read against this listing on 2026-11-17 (S39/S40): reconciles with, but does not confirm, the candidate destination — flag F80; the associates_link_test fields stay empty because a URL inspection is not a link test (S41).",
+      "observed_listing_category": "Meat-thermometer product title on observed landing page; intended product unconfirmed",
+      "observed_browse_path": "Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat",
+      "observed_browse_path_read_on": "2026-11-19",
+      "observed_browse_path_note": "Breadcrumb printed on the Amazon detail page this link redirects to, read live 2026-11-19 by arena/9b3365c7-zone1 (leaf link: Amazon browse node 289810). An observation of where the redirect landed, not a statement of the account holder’s intent, and a browse path, not a commission category (F56).",
+      "associates_link_test_passed": false,
+      "associates_link_test_date": null,
+      "associates_link_test_source": null,
+      "brand_catalogue_check": {
+        "listing_says": "Title as served on 2026-11-17: 'ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black'. No model number in the fetched portion of the page.",
+        "brand_page_says": "ThermoMaven's own site names its instant-read line F1 Pro and F1 Turbo and states a sub-second read; '1 Sec' is not used there as a model name.",
+        "verdict": "Not reconciled. The brand catalogue and the listing title use different kinds of identifier and neither names the ASIN, so the intended product stays null and no product page is written.",
+        "source_ids": [
+          "S40",
+          "S36",
+          "S23"
+        ]
+      }
+    },
+    {
+      "id": "PI-05",
+      "supplied_link": "https://link.amazon/B0f3GKalj",
+      "short_code": "B0f3GKalj",
+      "intended_asin": null,
+      "official_listing_url": null,
+      "confirmation_date": null,
+      "confirmation_source": null,
+      "observed_redirect_target": "https://www.amazon.com/dp/B0DZFD6R9Z",
+      "observed_asin": "B0DZFD6R9Z",
+      "observed_title": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen",
+      "observed_on": "2026-11-17",
+      "observed_source_ids": [
+        "S37",
+        "S39",
+        "S23"
+      ],
+      "note": "Observed Amazon page title is for a CHEF iQ meat thermometer. This redirect observation does not establish that the account holder intended to promote it. Brand catalogue read against this listing on 2026-11-17 (S39/S40): reconciles with, but does not confirm, the candidate destination — flag F80; the associates_link_test fields stay empty because a URL inspection is not a link test (S41).",
+      "observed_listing_category": "Meat-thermometer product title on observed landing page; intended product unconfirmed",
+      "observed_browse_path": "Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat",
+      "observed_browse_path_read_on": "2026-11-19",
+      "observed_browse_path_note": "Breadcrumb printed on the Amazon detail page this link redirects to, read live 2026-11-19 by arena/9b3365c7-zone1 (leaf link: Amazon browse node 289810). An observation of where the redirect landed, not a statement of the account holder’s intent, and a browse path, not a commission category (F56).",
+      "associates_link_test_passed": false,
+      "associates_link_test_date": null,
+      "associates_link_test_source": null,
+      "brand_catalogue_check": {
+        "listing_says": "Title as served on 2026-11-17: 'CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | Gen3'. No model number in the fetched portion of the page.",
+        "brand_page_says": "CHEF iQ's iQ Sense product page states model CQ60-3C-Z3-E, the Gen3 probe configuration and an ambient rating the listing does not repeat, and names air-fryer use among the heat environments the product is sold for.",
+        "verdict": "Consistent with, not confirmed by. A brand model designation the listing does not carry cannot be transcribed into an intended-ASIN field, so the row stays open pending Q-27.",
+        "source_ids": [
+          "S39",
+          "S37",
+          "S23"
+        ]
+      }
+    }
+  ],
+  "tracking_id_provenance": "User-provided in the project brief on 2026-11-17; not independently checked in Associates Central.",
+  "tracking_id_associates_central_confirmation_date": null,
+  "tracking_id_associates_central_confirmation_source": null,
+  "tracking_id_associates_central_confirmed": false,
+  "observation_method_correction": {
+    "date": "2026-11-17",
+    "read_by": "arena/58cbaaa2-zone1",
+    "what_changed": "Two official help nodes read on this date narrow what a landing URL can be said to show. Amazon states that a tracking ID 'is not necessary … to appear in order for us to track sales made after the initial click through', because the session is tagged on Amazon's side (S41). So the absence of a tag= parameter on an observed URL is a null observation, not evidence that a link failed to attribute, and no row on this record may be read that way in either direction.",
+    "what_still_cannot_be_seen": "The positive: whether the selected ID is listed on the account, and whether a click through a published link appears under it. That is read in the Tracking ID Summary Report named by S42, and it requires the account holder's login. Until it is, the correct statement is the one this file already makes — the tag is recorded, not validated, and not applied to links.",
+    "where_it_applies": "The inference is corrected where it is drawn in the present tense: the link-intent page carries this note next to the per-row test fields, and flag F81 records it. Historical rows, including the F76 observation and the dated flag prose about no tag appearing, are left exactly as written — they are records of what those passes observed, and rewriting them would remove the audit trail that makes them evidence.",
+    "sources": [
+      "S41",
+      "S42",
+      "S6"
     ]
-   }
   },
-  {
-   "id": "PI-05",
-   "supplied_link": "https://link.amazon/B0f3GKalj",
-   "short_code": "B0f3GKalj",
-   "intended_asin": null,
-   "official_listing_url": null,
-   "confirmation_date": null,
-   "confirmation_source": null,
-   "observed_redirect_target": "https://www.amazon.com/dp/B0DZFD6R9Z",
-   "observed_asin": "B0DZFD6R9Z",
-   "observed_title": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen",
-   "observed_on": "2026-11-17",
-   "observed_source_ids": [
-    "S37",
-    "S39",
-    "S23"
-   ],
-   "note": "Observed Amazon page title is for a CHEF iQ meat thermometer. This redirect observation does not establish that the account holder intended to promote it. Brand catalogue read against this listing on 2026-11-17 (S39/S40): reconciles with, but does not confirm, the candidate destination — flag F80; the associates_link_test fields stay empty because a URL inspection is not a link test (S41).",
-   "observed_listing_category": "Meat-thermometer product title on observed landing page; intended product unconfirmed",
-   "observed_browse_path": "Home & Kitchen › Kitchen & Dining › Kitchen Utensils & Gadgets › Thermometers & Timers › Meat",
-   "observed_browse_path_read_on": "2026-11-19",
-   "observed_browse_path_note": "Breadcrumb printed on the Amazon page the supplied link landed on, read live 2026-11-19 by arena/9b3365c7-zone1. An observation of where the redirect landed, not a statement of the account holder’s intent.",
-   "associates_link_test_passed": false,
-   "associates_link_test_date": null,
-   "associates_link_test_source": null,
-   "brand_catalogue_check": {
-    "listing_says": "Title as served on 2026-11-17: 'CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | Gen3'. No model number in the fetched portion of the page.",
-    "brand_page_says": "CHEF iQ's iQ Sense product page states model CQ60-3C-Z3-E, the Gen3 probe configuration and an ambient rating the listing does not repeat, and names air-fryer use among the heat environments the product is sold for.",
-    "verdict": "Consistent with, not confirmed by. A brand model designation the listing does not carry cannot be transcribed into an intended-ASIN field, so the row stays open pending Q-27.",
-    "source_ids": [
-     "S39",
-     "S37",
-     "S23"
+  "sub_tag_plan": {
+    "what": "S42 records that additional tracking IDs are created at Associates Central > Manage your Tracking ID, that each one is reported in the Tracking ID Summary Report, and that an account may hold up to 100. One ID per channel — site, newsletter, social — separates traffic sources inside Amazon's own reporting, with no script on this site, nothing new to host and no new technology to disclose.",
+    "limit": "It attributes a channel, not a page: clicks and orders arrive per tracking ID, not per URL. Page-level questions stay with the five event definitions on measurement.html, which remain disabled until the endpoint contract there is satisfied.",
+    "status": "proposed; needs the account holder to create the IDs in Associates Central",
+    "sources": [
+      "S42",
+      "S6"
     ]
-   }
   }
- ],
- "tracking_id_provenance": "User-provided in the project brief on 2026-11-17; not independently checked in Associates Central.",
- "tracking_id_associates_central_confirmation_date": null,
- "tracking_id_associates_central_confirmation_source": null,
- "tracking_id_associates_central_confirmed": false,
- "observation_method_correction": {
-  "date": "2026-11-17",
-  "read_by": "arena/58cbaaa2-zone1",
-  "what_changed": "Two official help nodes read on this date narrow what a landing URL can be said to show. Amazon states that a tracking ID 'is not necessary … to appear in order for us to track sales made after the initial click through', because the session is tagged on Amazon's side (S41). So the absence of a tag= parameter on an observed URL is a null observation, not evidence that a link failed to attribute, and no row on this record may be read that way in either direction.",
-  "what_still_cannot_be_seen": "The positive: whether the selected ID is listed on the account, and whether a click through a published link appears under it. That is read in the Tracking ID Summary Report named by S42, and it requires the account holder's login. Until it is, the correct statement is the one this file already makes — the tag is recorded, not validated, and not applied to links.",
-  "where_it_applies": "The inference is corrected where it is drawn in the present tense: the link-intent page carries this note next to the per-row test fields, and flag F81 records it. Historical rows, including the F76 observation and the dated flag prose about no tag appearing, are left exactly as written — they are records of what those passes observed, and rewriting them would remove the audit trail that makes them evidence.",
-  "sources": [
-   "S41",
-   "S42",
-   "S6"
-  ]
- },
- "sub_tag_plan": {
-  "what": "S42 records that additional tracking IDs are created at Associates Central > Manage your Tracking ID, that each one is reported in the Tracking ID Summary Report, and that an account may hold up to 100. One ID per channel — site, newsletter, social — separates traffic sources inside Amazon's own reporting, with no script on this site, nothing new to host and no new technology to disclose.",
-  "limit": "It attributes a channel, not a page: clicks and orders arrive per tracking ID, not per URL. Page-level questions stay with the five event definitions on measurement.html, which remain disabled until the endpoint contract there is satisfied.",
-  "status": "proposed; needs the account holder to create the IDs in Associates Central",
-  "sources": [
-   "S42",
-   "S6"
-  ]
- }
 }
