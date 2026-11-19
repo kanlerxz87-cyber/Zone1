@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "compiled": "2026-11-19",
-  "session": "arena/ad8105b3-zone1",
+  "session": "arena/ef659798-zone1",
   "purpose": "Current brief coverage, with implementation evidence and explicit remaining account/runtime boundaries. Delivered means the repository feature, not legal certification, programme approval or measured outcomes.",
   "rule": "Status is a claim about this repository, so each one is checkable: the 'where' paths must exist in the tree (the build fails if one does not), the evidence links open the file or the official page that settles it, and a row with no evidence must be a row whose honest answer is that nothing exists yet.",
   "status_legend": {
@@ -2866,6 +2866,629 @@
             ]
           }
         }
+      ]
+    },
+    {
+      "id": "S-04",
+      "scope": "Brief spec",
+      "requirement": "Give every page its own title and meta description",
+      "clause": "S-04 · P1 · \"Give every page its own title and meta description\". The brief's tracker records \"Implemented 2026-11-16\" (D-04).",
+      "status": "delivered",
+      "where": [
+        "build.py",
+        "sitemap.xml",
+        "tests/test_publication_output.py"
+      ],
+      "evidence": [
+        {
+          "label": "build guard check_seo_metadata (presence and, since this pass, distinctness)",
+          "url": "build.py"
+        },
+        {
+          "label": "Google — create unique descriptions for each page",
+          "url": "https://developers.google.com/search/docs/appearance/snippet"
+        },
+        {
+          "label": "brief's recorded decision D-04",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
+      ],
+      "why": "Verified 2026-11-19: layout() gives each of the generated pages its own <title> and meta description, check_seo_metadata fails the build if either is missing, and this pass added a distinctness check so two pages may no longer share a title or description string. The guard runs on every push in CI.",
+      "sources": []
+    },
+    {
+      "id": "S-05",
+      "scope": "Brief spec",
+      "requirement": "Mark the affiliate links rel=\"sponsored\" without breaking the required disclosure",
+      "clause": "S-05 · P2 · \"Mark the affiliate links rel=\\\"sponsored\\\" without breaking the required disclosure\". The brief's tracker records \"Implemented 2026-11-16\" (D-05).",
+      "status": "delivered",
+      "where": [
+        "build.py",
+        "verify.py",
+        "tests/test_publication_output.py"
+      ],
+      "evidence": [
+        {
+          "label": "product-link rel guard (check_product_link_rels)",
+          "url": "build.py"
+        },
+        {
+          "label": "test: every outbound product anchor is commercially qualified",
+          "url": "tests/test_publication_output.py"
+        },
+        {
+          "label": "Google — qualify your outbound links",
+          "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links"
+        },
+        {
+          "label": "brief's recorded decision D-05",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
+      ],
+      "why": "Verified 2026-11-19: every outbound product anchor renders sponsored nofollow noopener (guard plus rendered-output test), while the exact Associates disclosure sentence stays below the masthead before main content and repeats in the footer — checked by verify.py and by tests on the rendered pages. The two requirements are enforced together, so qualifying the links cannot remove the disclosure.",
+      "sources": [
+        "S2",
+        "S31"
+      ]
+    },
+    {
+      "id": "S-06",
+      "scope": "Brief spec",
+      "requirement": "Add the one thing a listing cannot tell a reader: what the appliance is like to live with",
+      "clause": "S-06 · P2 · \"Add the one thing a listing cannot tell a reader: what the appliance is like to live with\". The brief's tracker records \"Not adopted — see the recorded decision\" (D-06).",
+      "status": "partial",
+      "where": [
+        "articles/how-to-clean-an-air-fryer.html",
+        "articles/extension-cord-rules-in-the-manuals.html",
+        "data/clusters.json"
+      ],
+      "evidence": [
+        {
+          "label": "the 'What is it like to live with?' cluster, from the owner's manuals",
+          "url": "clusters.html"
+        },
+        {
+          "label": "Google — thin affiliation: meaningful content such as original reviews and comparisons",
+          "url": "https://developers.google.com/search/docs/essentials/spam-policies"
+        },
+        {
+          "label": "brief's recorded decision D-06",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
+      ],
+      "why": "Divergence recorded, not hidden: this repository answers the underlying need with manuals-based ownership guidance (cleaning, aerosol care, cord rules, running cost) filed under a 'life after dinner' cluster, but it does not and cannot publish lived experience — no appliance was used, and inventing one is banned by the voice rules. The brief's row stands as 'not adopted' for hands-on experience; the documentation form is delivered, so this row is partial.",
+      "sources": [
+        "S30"
+      ]
+    },
+    {
+      "id": "S-07",
+      "scope": "Brief spec",
+      "requirement": "Answer the questions people actually type, one page per question",
+      "clause": "S-07 · P2 · \"Answer the questions people actually type, one page per question\". The brief's tracker leaves the status blank.",
+      "status": "partial",
+      "where": [
+        "articles/index.html",
+        "data/articles.json",
+        "data/topics.json",
+        "data/clusters.json"
+      ],
+      "evidence": [
+        {
+          "label": "the question-led article set, one target query per page",
+          "url": "articles/index.html"
+        },
+        {
+          "label": "Google — helpful, people-first content",
+          "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+        }
+      ],
+      "why": "Verified 2026-11-19: 25 question-shaped guides now ship, each with one declared target query, a cluster and per-section sources; a kill rule improves the canonical answer instead of duplicating it. What is still unknown is which questions people actually type — no Search Console or query dataset exists (SG-29, Q-03), and the brief's own editorial hypotheses are labelled working titles, not demand claims. The page-per-question structure is delivered; the 'actually type' half stays measured-later.",
+      "sources": [
+        "S30"
+      ]
+    },
+    {
+      "id": "S-09",
+      "scope": "Brief spec",
+      "requirement": "Ship a social preview image and structured data, then measure whether search traffic arrives",
+      "clause": "S-09 · P2 · \"Ship a social preview image and structured data, then measure whether search traffic arrives\". The brief's tracker records \"Partly implemented 2026-11-16\" (D-09).",
+      "status": "partial",
+      "where": [
+        "assets/og-card.png",
+        "build.py",
+        "measurement.html"
+      ],
+      "evidence": [
+        {
+          "label": "metadata guard: canonical, OG, twitter card and JSON-LD on every page",
+          "url": "build.py"
+        },
+        {
+          "label": "Google — page experience and mobile presentation",
+          "url": "https://developers.google.com/search/docs/appearance/page-experience"
+        },
+        {
+          "label": "brief's recorded decision D-09",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
+      ],
+      "why": "Verified 2026-11-19: the social card ships, every page carries canonical/OG/twitter/JSON-LD metadata under a build guard, and structured data deliberately omits Product/Offer blocks because no authorised price or rating exists. The measurement half cannot close in this repository: search-traffic arrival needs Search Console ownership (SG-29) and a deployed first-party collector (both gated, see handover).",
+      "sources": [
+        "S43"
+      ]
+    },
+    {
+      "id": "S-10",
+      "scope": "Brief spec",
+      "requirement": "Bring the documentation in line with the code, and get every published check to run from a clean checkout",
+      "clause": "S-10 · P3 · \"Bring the documentation in line with the code, and get every published check to run from a clean checkout\". The brief's tracker records \"Partly implemented 2026-11-16\" (D-10) against an ENGINE.md test-count line.",
+      "status": "delivered",
+      "where": [
+        "README.md",
+        ".github/workflows/ci.yml",
+        "verify.py"
+      ],
+      "evidence": [
+        {
+          "label": "CI: build, verify, root/Node/platform tests, research rebuild, annex --check, link audit — all from a clean checkout",
+          "url": ".github/workflows/ci.yml"
+        },
+        {
+          "label": "the repository README the CI instructions come from",
+          "url": "README.md"
+        }
+      ],
+      "why": "Verified 2026-11-19: every check the README publishes is a CI step that runs on a clean checkout (build.py + verify.py + git diff for reproducibility, unittest, node --test, platform tests, data audit, s2 --check, check_links), and the README carries no typed test-count line of the kind the brief flags in Zone4's ENGINE.md. Status judged on this repository only.",
+      "sources": [
+        "S38"
+      ]
+    },
+    {
+      "id": "S-11",
+      "scope": "Brief spec",
+      "requirement": "Fix one wrong flag cross-reference and split the open, resolved and historical items on the review page",
+      "clause": "S-11 · P3 · \"Fix one wrong flag cross-reference and split the open, resolved and historical items on the review page\". The brief's tracker records \"Partly implemented 2026-11-16\" (D-11).",
+      "status": "partial",
+      "where": [
+        "flagged.html",
+        "data/reverification.json",
+        "build.py"
+      ],
+      "evidence": [
+        {
+          "label": "the review page: dated programme/product registers plus a resolved table",
+          "url": "flagged.html"
+        },
+        {
+          "label": "brief's recorded decision D-11",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
+      ],
+      "why": "Verified 2026-11-19: the resolved table is generated from dated verification ledgers and the page intro states plainly that the register mixes historical and repaired findings rather than counting open work. What S-11 asks beyond that — three physically separate open/resolved/historical sections — is not built: open and historical rows still share the programme and product tables, so the row stays partial.",
+      "sources": []
+    },
+    {
+      "id": "S-12",
+      "scope": "Brief spec",
+      "requirement": "Decide the site's voice, and rewrite the articles to it once",
+      "clause": "S-12 · P2 · \"Decide the site's voice, and rewrite the articles to it once\". The brief's tracker records \"Implemented 2026-11-16\" (D-12).",
+      "status": "delivered",
+      "where": [
+        "data/design-prompt.json",
+        "data/publication.json",
+        "data/articles.json",
+        "build.py"
+      ],
+      "evidence": [
+        {
+          "label": "the voice rules and the banned-phrase guard",
+          "url": "design-prompt.html"
+        },
+        {
+          "label": "the dated editorial rewrite record",
+          "url": "data/articles.json"
+        },
+        {
+          "label": "Google — helpful, people-first content",
+          "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+        },
+        {
+          "label": "brief's recorded decision D-12",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
+      ],
+      "why": "Verified 2026-11-19: the voice is written down (question-led, sourced over smooth, gaps shown as gaps), the build fails on banned stock phrases and machine-spliced sentences, and every article body was reviewed and rewritten to that voice in the dated 2026-11-19 editorial revision, with pre-change text preserved in Git.",
+      "sources": [
+        "S30"
+      ]
+    },
+    {
+      "id": "S-13",
+      "scope": "Brief spec",
+      "requirement": "Approve a format-first topic calendar: eight catchy, spec-backed articles",
+      "clause": "S-13 · P2 · \"Approve a format-first topic calendar: eight catchy, spec-backed articles\". The brief's tracker records \"Partly implemented 2026-11-16\" (D-17).",
+      "status": "partial",
+      "where": [
+        "data/topics.json",
+        "topics.html",
+        "data/articles.json"
+      ],
+      "evidence": [
+        {
+          "label": "the topic calendar: 26 rows, published and proposed, each with must-cite sources",
+          "url": "topics.html"
+        },
+        {
+          "label": "Google — helpful, people-first content",
+          "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+        },
+        {
+          "label": "brief's recorded decision D-17",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
+      ],
+      "why": "Verified 2026-11-19: a format-first calendar exists with more than eight spec-backed pieces already published from it, and each row names the official documents it must cite. The word 'approve' is an owner act: no owner approval is recorded anywhere, so the row cannot close above partial regardless of how much of the calendar has shipped.",
+      "sources": [
+        "S30"
+      ]
+    },
+    {
+      "id": "S-14",
+      "scope": "Brief spec",
+      "requirement": "Adopt the prepared design-prompt draft as the brief for the visual overhaul",
+      "clause": "S-14 · P2 · \"Adopt the prepared design-prompt draft as the brief for the visual overhaul\". The brief's tracker records \"Implemented 2026-11-16\" (D-20).",
+      "status": "delivered",
+      "where": [
+        "data/design-prompt.json",
+        "design-prompt.html",
+        "publication/theme.css"
+      ],
+      "evidence": [
+        {
+          "label": "the adopted design brief, including its acceptance gates",
+          "url": "design-prompt.html"
+        },
+        {
+          "label": "brief's recorded decision D-20",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
+      ],
+      "why": "Verified 2026-11-19: the design-prompt draft is the operative brief — its layout, palette, typography, imagery and acceptance rules are what build.py and publication/theme.css implement and what the browser test suite audits.",
+      "sources": []
+    },
+    {
+      "id": "S-15",
+      "scope": "Brief spec",
+      "requirement": "Choose the visual direction and settle the brand name",
+      "clause": "S-15 · P2 · \"Choose the visual direction and settle the brand name\". The brief's tracker records \"Implemented 2026-11-16\" (D-18).",
+      "status": "delivered",
+      "where": [
+        "data/publication.json",
+        "publication/theme.css",
+        "assets/brand-mark.svg"
+      ],
+      "evidence": [
+        {
+          "label": "brand and positioning record",
+          "url": "data/publication.json"
+        },
+        {
+          "label": "Google — people-first presentation",
+          "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+        },
+        {
+          "label": "brief's recorded decision D-18",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
+      ],
+      "why": "Verified 2026-11-19: one brand name ('Zone1 Kitchen') is used on every reader surface, and the visual direction (warm paper, forest green, self-hosted licensed serif/sans) is implemented in publication/theme.css and copied verbatim into the build.",
+      "sources": []
+    },
+    {
+      "id": "S-16",
+      "scope": "Brief spec",
+      "requirement": "Adopt a written evidence rule for 'trending' and popularity claims",
+      "clause": "S-16 · P2 · \"Adopt a written evidence rule for 'trending' and popularity claims\". The brief's tracker records \"Implemented 2026-11-16\" (D-19).",
+      "status": "delivered",
+      "where": [
+        "data/topics.json",
+        "data/suggestions.json",
+        "data/design-prompt.json"
+      ],
+      "evidence": [
+        {
+          "label": "the demand note: editorial hypotheses, not demand estimates",
+          "url": "topics.html"
+        },
+        {
+          "label": "brief's recorded decision D-19",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
+      ],
+      "why": "Verified 2026-11-19: the rule is written down in three places — the topic register labels every traffic argument 'judgement, not measurement', the suggestion register scores confidence explicitly and states no conversion claims without dated first-party data, and the design brief defines 'trendy' as an editorial hypothesis unless dated first-party evidence establishes demand. No page describes any product as trending or popular.",
+      "sources": [
+        "S2"
+      ]
+    },
+    {
+      "id": "S-17",
+      "scope": "Brief spec",
+      "requirement": "Rebuild the front page as an editorial homepage: hero, featured articles, category tiles, then the data",
+      "clause": "S-17 · P2 · \"Rebuild the front page as an editorial homepage: hero, featured articles, category tiles, then the data\". The brief's tracker records \"Implemented 2026-11-16\" (D-21).",
+      "status": "delivered",
+      "where": [
+        "index.html",
+        "build.py",
+        "picks.html"
+      ],
+      "evidence": [
+        {
+          "label": "the shipped front page",
+          "url": "index.html"
+        },
+        {
+          "label": "Google — helpful, people-first content",
+          "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+        },
+        {
+          "label": "brief's recorded decision D-21",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
+      ],
+      "why": "Verified 2026-11-19: the front page leads with the three documented formats and their check-first rows, then question routes, guide teasers, a seasonal notebook and the RSS band; the full data sits one click away at compare.html and data.html, and the working registers live behind one Workspace menu and the footer. Products lead; the verification process does not.",
+      "sources": [
+        "S43"
+      ]
+    },
+    {
+      "id": "S-18",
+      "scope": "Brief spec",
+      "requirement": "Add real product photography, and never generated or copied photography",
+      "clause": "S-18 · P2 · \"Add real product photography, and never generated or copied photography\". The brief's tracker records \"Needs a decision first\" (D-22).",
+      "status": "blocked",
+      "where": [
+        "assets/editorial/README.md",
+        "data/design-prompt.json",
+        "about.html"
+      ],
+      "evidence": [
+        {
+          "label": "imagery provenance note",
+          "url": "assets/editorial/README.md"
+        },
+        {
+          "label": "Amazon Associates Operating Agreement §1 — Program Content includes data, images and text",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        },
+        {
+          "label": "brief's recorded decision D-22",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
+      ],
+      "why": "Verified 2026-11-19: no product photography exists on the site, deliberately. Copied brand/Amazon imagery is not licensed here (Q-34, SG-42), generated product likenesses are banned in writing, and the one AI kitchen scene is labelled decorative and not a product image. The row is blocked on an image-rights decision only — an owner can supply original photographs, which is the recommended route.",
+      "sources": [
+        "S1",
+        "S2"
+      ]
+    },
+    {
+      "id": "S-19",
+      "scope": "Brief spec",
+      "requirement": "Add a three-question 'which one is for you' chooser above the comparison table",
+      "clause": "S-19 · P2 · \"Add a three-question 'which one is for you' chooser above the comparison table\". The brief's tracker records \"Implemented 2026-11-16\" (D-23).",
+      "status": "delivered",
+      "where": [
+        "compare.html",
+        "build.py",
+        "index.html"
+      ],
+      "evidence": [
+        {
+          "label": "the chooser above the comparison table",
+          "url": "compare.html"
+        },
+        {
+          "label": "Amazon listing for the P1 capacity and dimensions row",
+          "url": "https://www.amazon.com/dp/B0CDY277D3"
+        },
+        {
+          "label": "brief's recorded decision D-23",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
+      ],
+      "why": "Verified and implemented 2026-11-19: compare.html now opens with three situation questions (different settings for two dishes / one batch at a single setting / oven layout with a documented rotisserie), each routing to the matching documented format page, sitting directly above the comparison table and labelled as opening a format page, not a verdict. The front page carries the parallel question strip.",
+      "sources": [
+        "S16"
+      ]
+    },
+    {
+      "id": "S-20",
+      "scope": "Brief spec",
+      "requirement": "Mobile-first pass: type scale, tap targets, sticky comparison bar",
+      "clause": "S-20 · P2 · \"Mobile-first pass: type scale, tap targets, sticky comparison bar\". The brief's tracker leaves the status blank.",
+      "status": "delivered",
+      "where": [
+        "publication/theme.css",
+        "tests/browser/publication.spec.cjs",
+        "build.py"
+      ],
+      "evidence": [
+        {
+          "label": "the responsive system (fluid clamp() type scale, 44 px hit areas, bottom-anchored comparison bar)",
+          "url": "publication/theme.css"
+        },
+        {
+          "label": "browser acceptance at 320/390/768/1440 px, no-JS and keyboard passes",
+          "url": "tests/browser/publication.spec.cjs"
+        },
+        {
+          "label": "Google — page experience",
+          "url": "https://developers.google.com/search/docs/appearance/page-experience"
+        }
+      ],
+      "why": "Verified 2026-11-19: the shopfront pass shipped a fluid type scale, a 44 px minimum hit area, wide-table hints and a bottom-anchored comparison bar on reader pages only (hidden on desktop, in print and over the footer), and the browser suite exercises every page at four widths including no-JavaScript navigation. The bar stays informational — no sticky purchase overlay is permitted by the adopted design brief.",
+      "sources": [
+        "S43"
+      ]
+    },
+    {
+      "id": "S-23",
+      "scope": "Brief spec",
+      "requirement": "Publish the counter-space analysis: capacity per centimetre of counter depth",
+      "clause": "S-23 · P2 · \"Publish the counter-space analysis: capacity per centimetre of counter depth\". The brief's tracker records \"Implemented 2026-11-16\" (D-26).",
+      "status": "partial",
+      "where": [
+        "articles/small-kitchen-air-fryer-dimensions.html",
+        "assets/figures/footprint.svg",
+        "articles/cleanup-and-counter-space-trade-offs.html"
+      ],
+      "evidence": [
+        {
+          "label": "the counter-space guide, including the documented refusal of the ratio",
+          "url": "articles/small-kitchen-air-fryer-dimensions.html"
+        },
+        {
+          "label": "the true-scale footprint figure",
+          "url": "figures.html"
+        },
+        {
+          "label": "brief's recorded decision D-26",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
+      ],
+      "why": "Divergence recorded 2026-11-19: this repository publishes the counter-space analysis as published dimensions, model-specific clearances and a true-scale footprint figure, but prints a reasoned refusal of the capacity-per-area ratio itself — nominal volume over body footprint does not measure food capacity without the dimension order and usable food area, which no official source publishes. The brief's D-26 shows the ratio implemented in Zone4; the two positions are kept visible rather than merged. If an official source publishes the missing dimensions, the ratio becomes computable and this row can move (Q-42).",
+      "sources": [
+        "S10",
+        "S12",
+        "S14"
+      ]
+    },
+    {
+      "id": "S-24",
+      "scope": "Brief spec",
+      "requirement": "Complete the internal linking: every article reaches the comparison, the buying guide and its category pillar",
+      "clause": "S-24 · P2 · \"Complete the internal linking: every article reaches the comparison, the buying guide and its category pillar\". The brief's tracker records \"Implemented 2026-11-16\" (D-27).",
+      "status": "delivered",
+      "where": [
+        "data/clusters.json",
+        "clusters.html",
+        "build.py"
+      ],
+      "evidence": [
+        {
+          "label": "the cluster map: every article files under one hub",
+          "url": "clusters.html"
+        },
+        {
+          "label": "Amazon Participation Requirements 6(v)/6(w) — do not obscure where a link goes",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "brief's recorded decision D-27",
+          "url": "https://kanlerxz87-cyber.github.io/Zone4/docs/decisions.html"
+        }
+      ],
+      "why": "Verified 2026-11-19: the generator draws the links from data/clusters.json — every article renders its cluster siblings and a hub link (the buying guide for the 'choose' cluster, the comparison matrix for 'spec'), every article page's footer reaches compare.html and the category pillar, and check_clusters fails the build if an article is unfiled or a hub is missing. Links are generated, not hand-placed, so they cannot rot.",
+      "sources": [
+        "S2"
+      ]
+    },
+    {
+      "id": "S-25",
+      "scope": "Brief spec",
+      "requirement": "Grow organic traffic on the verification angle, not on volume",
+      "clause": "S-25 · P2 · \"Grow organic traffic on the verification angle, not on volume\". The brief's tracker leaves the status blank.",
+      "status": "blocked",
+      "where": [
+        "data/topics.json",
+        "data/campaign-ledger.json",
+        "handover.html"
+      ],
+      "evidence": [
+        {
+          "label": "the traffic plan and its honest boundary",
+          "url": "topics.html"
+        },
+        {
+          "label": "Google — helpful, people-first content",
+          "url": "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+        }
+      ],
+      "why": "The verification angle is the editorial strategy (source-linked rows, shown gaps, conflict transparency) and it ships. Growth itself is an outcome that cannot be asserted from inside this repository: no Search Console property, query dataset or first-party session data exists (SG-29, Q-03), and the campaign ledger is empty by rule. The row stays blocked until measured arrival data exists; nothing here estimates traffic.",
+      "sources": [
+        "S30"
+      ]
+    },
+    {
+      "id": "S-P4",
+      "scope": "Brief spec",
+      "requirement": "Priority 4 — evidence-based iteration: keep an empty but well-defined campaign ledger until authorised first-party reports exist",
+      "clause": "Priority 4 · evidence-based iteration · \"Start with an empty but well-defined campaign ledger; add timestamp, source, channel, eligible sessions, clicks and reported orders only when obtained from authorized first-party reports. Keep a dated provenance trail. No conversion score or revenue forecast is presented here.\"",
+      "status": "delivered",
+      "where": [
+        "data/campaign-ledger.json",
+        "analytics/report_import.py",
+        "measurement.html"
+      ],
+      "evidence": [
+        {
+          "label": "the empty ledger with its defined columns and provenance rule",
+          "url": "data/campaign-ledger.json"
+        },
+        {
+          "label": "the operator-only report import path",
+          "url": "analytics/report_import.py"
+        },
+        {
+          "label": "Amazon Associates Program Policies",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        }
+      ],
+      "why": "Verified 2026-11-19: the ledger schema defines timestamp_utc, source_report, channel, date_range, eligible_sessions, clicks and reported_orders; its rows array is empty because no authorised report has been obtained; imports require a named first-party report with its date; and no page presents a conversion score or revenue forecast. 'Measure before automating optimization' is satisfied by the emptiness, not despite it.",
+      "sources": [
+        "S2"
+      ]
+    },
+    {
+      "id": "S-P5",
+      "scope": "Brief spec",
+      "requirement": "Priority 5 — compliance gate: put disclosure and API policy checks into the publishing workflow",
+      "clause": "Priority 5 · compliance gate · \"Put the Associates statement visible and review disclosure placement and endorsement context against the Operating Agreement and FTC guidance.\"",
+      "status": "delivered",
+      "where": [
+        ".github/workflows/ci.yml",
+        "verify.py",
+        "compliance.html",
+        "build.py"
+      ],
+      "evidence": [
+        {
+          "label": "the gate: disclosure placement, sponsored rel, no-price/rating patterns, official-source links — run on every push",
+          "url": ".github/workflows/ci.yml"
+        },
+        {
+          "label": "the clause-by-clause review against the OA and FTC guidance",
+          "url": "compliance.html"
+        },
+        {
+          "label": "Amazon Associates Operating Agreement",
+          "url": "https://affiliate-program.amazon.com/help/operating/agreement"
+        },
+        {
+          "label": "FTC — Disclosures 101 for social media influencers",
+          "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+        },
+        {
+          "label": "FTC — endorsements, influencers and reviews",
+          "url": "https://www.ftc.gov/business-guidance/advertising-marketing/endorsements-influencers-reviews"
+        }
+      ],
+      "why": "Verified 2026-11-19: a page cannot publish without passing verify.py and the build guards — the exact Associates sentence below the masthead on every page and repeated in the footer, sponsored qualification on product links, prohibited price/rating patterns absent, every table row sourced. compliance.html carries the dated placement and endorsement-context review against the cited clauses. The gate is mechanical; legal certification is not claimed.",
+      "sources": [
+        "S1",
+        "S7",
+        "S8"
       ]
     }
   ]

@@ -6703,7 +6703,7 @@
       "implementation": {
         "state": "implemented",
         "on": "2026-11-19",
-        "note": "The publication redesign applies to the canonical root build only. Historical source generators remain unchanged and are catalogued as earlier builds.",
+        "note": "Option A, both halves now recorded. The publication redesign applies to the canonical root build only (PUB-1). Since this pass the root robots.txt also disallows the seven parallel builds, so search engines are told to index one site while the annexes stay publicly readable evidence; workspace pages keep crawlable noindex metas instead of robots blocks. Annex banner wording is the annexes' own files and was not edited (their reproducibility gates own them).",
         "evidence": [
           {
             "label": "PUB-1 scoped verification and boundary record",
@@ -6712,6 +6712,10 @@
           {
             "label": "Current publication data",
             "url": "data/publication.json"
+          },
+          {
+            "label": "X-ef659798 verification and boundary record (robots one-site-to-index)",
+            "url": "reports/verification-2026-11-19-ef659798.md"
           }
         ]
       },

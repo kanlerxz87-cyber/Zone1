@@ -627,6 +627,25 @@ def is_indexable_page(page_rel):
     )
 
 
+# The seven parallel builds kept in this repository for the evidence record (see
+# previous-passes.html). They are served on the same origin as the canonical shop,
+# so without a robots rule a search engine indexes seven answers to the same query.
+# The brief asks for one site to index, and SG-44's option A says the same: the root
+# build is canonical and the annexes stay publicly readable but unindexed. The
+# workspace pages are deliberately NOT listed here: they carry a noindex meta (so a
+# crawler that reads them drops them from the index) while staying crawlable and
+# one click away in the footer and the Workspace menu.
+ANNEX_TREES = (
+    "research/",
+    "site/",
+    "s2/",
+    "dashboard/",
+    "docs/",
+    "annex-88769516/",
+    "session-3740f69d/",
+)
+
+
 def analytics_page_type(page_rel):
     if page_rel == "articles/index.html":
         return "listing"
@@ -2595,6 +2614,8 @@ def page_compare():
     rows.append('<tr><th scope="row">Care instructions</th>'+''.join('<td>'+e(text)+'<div class="tiny">'+src_links(ids)+'</div></td>' for text,ids in care)+'</tr>')
     rows.append('<tr><th scope="row">Check before buying</th>'+''.join('<td>'+e(BUYING_BY_SLUG[p['slug']]['check'])+'<div class="tiny">'+src_links(BUYING_BY_SLUG[p['slug']]['check_sources'])+'</div></td>' for p in ordered)+'</tr>')
     body=f"""<p class="crumbs"><a href="index.html">Home</a> / Compare</p><p class="section-eyebrow">The useful details, together</p><h1>Three formats. Side by side.</h1><p class="lede">Compare the space, capacity and care each documented model asks of you. No winner, no invented performance score—and no assumption that a submitted link is the intended listing.</p>{publication_byline()}
+<nav class="browse-strip" aria-label="Which one is for you"><span>Which one is for you?</span><a href="products/chefman-6qt-dual-basket.html">Two dishes with different settings?</a><a href="products/chefman-8qt-turbofry.html">One batch at a single setting?</a><a href="products/emeril-26qt-french-door.html">Oven layout and a documented rotisserie?</a></nav>
+<p class="tablewrap-hint">Each answer opens that format’s documented page—not a verdict. The table below keeps every detail and its official source.</p>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Air-fryer comparison, scroll horizontally on a small screen"><table class="comparison-table"><caption>Documented model comparison — not a test or a ranking</caption><thead><tr><th scope="col">What to compare</th>{head}</tr></thead><tbody>{''.join(rows)}</tbody></table></div><p class="tablewrap-hint">Scroll sideways for every model and its official sources.</p>
 <p class="small muted">The dual-basket 450 °F maximum is a two-minute Hi-Fry boost, not an unrestricted cook setting. {src_link('S18')} The 8 Qt brand-model range conflicts with the listing title’s 450 °F claim. {src_links(['S12','S29'])} Read the manual for the exact unit you would receive.</p>
 <h2>What matters for your meals?</h2><div class="grid grid-3">{''.join(product_card(p) for p in ordered)}</div>
@@ -5065,6 +5086,14 @@ REQ_GROUPS = [
     ("E", "Publishing, affiliate links and measurement"),
     ("F", "Compliance and disclosure"),
     ("G", "The automation platform"),
+    # H rows (the link record and honest counts) were added to data/requirements.json
+    # without a group entry here, so the register page silently dropped them from its
+    # tables while the header tiles still counted them (found 2026-11-19, arena/ef659798).
+    ("H", "The link record and honest published counts"),
+    # S rows are the specification rows the brief quotes verbatim (S-04…S-25 plus the
+    # Priority 4 and Priority 5 blocks). They are tracked here with the status judged
+    # against this repository, so the brief's own table can be checked line by line.
+    ("S", "Specification rows quoted in the brief"),
 ]
 
 
@@ -7084,6 +7113,27 @@ def check_seo_metadata(pages):
                 problems.append(f"{rel}: structured data is not valid JSON ({exc})")
         if 'name="description"' not in html_text:
             problems.append(f"{rel}: missing meta description")
+    # S-04 asks every page to carry its *own* title and meta description. Presence was
+    # enforced above; distinctness was not checked anywhere, so two pages could share a
+    # description and no gate would notice (found 2026-11-19, arena/ef659798).
+    for what, pattern in (
+        ("title", re.compile(r"<title>(.*?)</title>", re.S)),
+        ("meta description", re.compile(r'<meta name="description" content="(.*?)"')),
+    ):
+        seen = {}
+        for rel in sorted(pages):
+            html_text = pages[rel]
+            if not rel.endswith(".html") or rel == "404.html":
+                continue
+            m = pattern.search(html_text)
+            if not m:
+                continue
+            text = m.group(1).strip()
+            if text in seen:
+                problems.append(
+                    f"{rel}: {what} duplicates {seen[text]} — every page needs its own {what}")
+            else:
+                seen[text] = rel
     return problems
 
 
@@ -7475,12 +7525,18 @@ def main():
     # ---- SEO plumbing: one canonical buyer publication ---------------------
     # The root sitemap contains only buyer-facing publication pages. Owner workspaces,
     # verification registers, dashboards and the 404 page remain reachable by direct
-    # navigation but are noindex and excluded. The separate historical annexes are not
-    # generated into this sitemap.
+    # navigation but are noindex and excluded. The seven parallel annex builds are
+    # disallowed below (added 2026-11-19, arena/ef659798): they stay publicly readable
+    # evidence on the same origin, but a search engine is told to index one site — the
+    # canonical shop — not seven answers to the same query (SG-44 option A). Workspace
+    # pages stay crawlable on purpose: their noindex meta can only be read by a crawler
+    # that visits them, and blocking them in robots.txt would undo that.
     base = "https://kanlerxz87-cyber.github.io/Zone1/"
     indexable = sorted(rel for rel in pages if is_indexable_page(rel))
     (ROOT / "robots.txt").write_text(
-        "User-agent: *\nAllow: /\n\nSitemap: " + base + "sitemap.xml\n",
+        "User-agent: *\nAllow: /\n"
+        + "".join(f"Disallow: /{tree}\n" for tree in ANNEX_TREES)
+        + "\nSitemap: " + base + "sitemap.xml\n",
         encoding="utf-8")
     # <lastmod> carries the date the published values were last re-read against their
     # official sources (REVERIFIED), not the date the file was written. Added

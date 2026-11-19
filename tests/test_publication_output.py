@@ -111,7 +111,28 @@ class PublicationOutputTests(unittest.TestCase):
             self.assertIn('content="noindex,follow"', self.pages[path])
             self.assertNotIn(BASE + path, sitemap)
         self.assertIn(BASE + 'about.html', sitemap)
-        self.assertEqual(24, len(json.loads((ROOT / 'data/articles.json').read_text())['articles']))
+        self.assertEqual(25, len(json.loads((ROOT / 'data/articles.json').read_text())['articles']))
+
+    def test_robots_gives_search_engines_one_site_to_index(self):
+        # SG-44 option A / the brief's "make it findable" ask: the seven parallel
+        # annex builds stay publicly readable evidence but are not for indexing, and
+        # workspace pages stay crawlable so their noindex meta can be read.
+        robots = (ROOT / 'robots.txt').read_text(encoding='utf-8')
+        for tree in ('research/', 'site/', 's2/', 'dashboard/', 'docs/',
+                     'annex-88769516/', 'session-3740f69d/'):
+            self.assertIn(f'Disallow: /{tree}\n', robots)
+        self.assertIn(f'Sitemap: {BASE}sitemap.xml\n', robots)
+        self.assertNotIn('Disallow: /\n', robots)
+        self.assertNotIn('Disallow: /executive-summary.html', robots)
+
+    def test_compare_page_opens_with_the_three_question_chooser(self):
+        compare = self.pages['compare.html']
+        self.assertIn('Which one is for you?', compare)
+        chooser = compare.index('Which one is for you?')
+        table = compare.index('comparison-table')
+        self.assertLess(chooser, table)
+        for slug in ('chefman-6qt-dual-basket', 'chefman-8qt-turbofry', 'emeril-26qt-french-door'):
+            self.assertIn(f'href="products/{slug}.html"', compare)
 
     def test_authored_assets_are_published_verbatim_and_fonts_are_local(self):
         for source, output in (('publication/theme.css', 'assets/style.css'),

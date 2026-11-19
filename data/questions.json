@@ -3110,6 +3110,39 @@
           }
         }
       ]
+    },
+    {
+      "id": "Q-42",
+      "group": "Content strategy",
+      "question": "Should this site publish a capacity-per-counter-depth ratio, or keep its documented refusal of the metric?",
+      "state": "missing",
+      "why_it_matters": "The brief's spec row S-23 records such an analysis as implemented in a parallel build, while this repository prints a reasoned refusal of the ratio. The two positions are published side by side rather than merged; someone has to decide which one this site stands behind.",
+      "what_we_know": [
+        "The counter-space guide publishes the exact dimension strings each manufacturer states, model-specific clearances and a true-scale footprint figure.",
+        "The same guide states that nominal volume over body footprint does not measure food capacity without the dimension order and usable food area.",
+        "No official source in the register publishes the dimension order or usable food area for these models."
+      ],
+      "what_is_missing": "Either an official source that publishes the missing dimensions (which would make the ratio computable), or an owner decision to publish the ratio anyway with its limits stated on the row.",
+      "how_to_discover": "Re-check the manufacturer product pages and owner's manuals for a dimension-order diagram or usable-area figure; if one appears, add the ratio beside its source. Otherwise ask the owner whether the ratio's limits are acceptable and record the decision here before any metric is published.",
+      "blocks": [],
+      "sources": [
+        {
+          "label": "The counter-space guide with the documented refusal",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/articles/small-kitchen-air-fryer-dimensions.html"
+        },
+        {
+          "label": "Chefman 6 Qt dual-window product page (published dimensions)",
+          "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer"
+        },
+        {
+          "label": "Chefman 8 Qt product page (published dimensions)",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        },
+        {
+          "label": "Emeril French Door product page (published dimensions)",
+          "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+        }
+      ]
     }
   ],
   "updated": "2026-11-19"
