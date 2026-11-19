@@ -8,7 +8,9 @@ ROOT = Path(__file__).resolve().parents[1]
 class PublishedIntegrationOutputTests(unittest.TestCase):
     def test_homepage_starts_with_buyer_choices_and_groups_owner_tools(self):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
-        self.assertIn("Choose the shape that fits your kitchen.", html)
+        self.assertIn('id="home-title">Less guesswork.', html)
+        self.assertIn("Three formats. Different jobs.", html)
+        self.assertNotIn('class="sidebar"', html)
         self.assertLess(html.index("publication-hero"), html.index("publication-product"))
         self.assertIn("<h4>Owner workspace</h4>", html)
         self.assertIn("<h5>Owner &amp; dashboard index</h5>", html)

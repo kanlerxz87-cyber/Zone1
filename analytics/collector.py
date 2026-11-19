@@ -43,6 +43,8 @@ def allowed_page_ids() -> set[str]:
         "picks",
         "compare",
         "compliance",
+        "clusters",
+        "about",
         "categories/kitchen-appliances",
         "guides/buying-guide-air-fryers",
         "articles/index",

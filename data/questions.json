@@ -1030,11 +1030,11 @@
       "group": "Product photography",
       "question": "Who owns the rights to any image of these three products, and is a photo of your own kitchen allowed to appear?",
       "state": "not_stated",
-      "why_it_matters": "This is the row that decides whether the site can ever look like a shop. The design work in this pass is the ceiling of what typography alone can do; every remaining visual improvement wants an image, and images are the one asset class this repository has deliberately published none of.",
+      "why_it_matters": "Actual product photography remains a separate rights and evidence question. Generic editorial atmosphere and format diagrams do not establish the exact appearance, model identity or ownership of a promoted product.",
       "what_we_know": [
         "Amazon's Operating Agreement section 1 defines Program Content to include the data, images and text available through the program, and the site publishes no Amazon image for that reason.",
         "The manufacturer pages carry their own photography on Shopify's CDN; nothing in this repository records a licence from Chefman or Emeril to reuse it.",
-        "The site's only current imagery is four generated SVG diagrams and a generated social card, both described as such on figures.html.",
+        "The canonical publication now uses original schematic SVG format drawings, data diagrams, a social card and visibly labelled AI-generated food/preparation scenes. Those generic scenes show no promoted appliance and are not test or recipe evidence. No product photograph or generated commercial-product likeness is published (2026-11-19).",
         "Generated or copied pictures of a specific product would misrepresent the item a reader is being paid to send to a retailer, which is why that option is recorded as rejected, not deferred."
       ],
       "what_is_missing": "Either a photograph you took (with a sentence saying who took it and when), or written permission from a brand naming this site, or an explicit decision to stay text-and-diagrams. All three are answers; only the first two need doing.",
@@ -1099,7 +1099,7 @@
       "state": "missing",
       "why_it_matters": "Twenty-four articles exist because agent passes wrote them under an evidence rule and a build guard. That is a pipeline with no owner, no cadence and no editor, which is exactly how a publication becomes a content farm with good footnotes. The topic queue has four proposed rows and no order.",
       "what_we_know": [
-        "Every article is machine-checked: a value quoted in prose must already be a published value in the dataset, an unregistered source citation fails the build, and banned stock phrases fail it too.",
+        "Articles have automated source-ID, published-value and phrase checks, but those do not prove that every natural-language inference is supported. No new article is added in the 2026-11-19 pass before repairing measurement and reviewing the existing collection.",
         "The voice rules on design-prompt.html are the editorial standard currently enforced, and they were adopted on 2026-11-16.",
         "The kill rule proposed in SG-43 is the only published performance commitment in the content plan."
       ],
@@ -1249,5 +1249,6 @@
       ],
       "answer": null
     }
-  ]
+  ],
+  "updated": "2026-11-19"
 }
