@@ -46,7 +46,7 @@ so the first sentence a search engine shows was routinely the cut-off half of a 
 
 ### 1.3 Two registers the pass could not leave as it found them
 
-- **F109** — the policy text and the supplied links, side by side for the first time (see §4).
+- **F113** — the policy text and the supplied links, side by side for the first time (see §4).
 - **C20** — the same finding as a cited row in the compliance register on
   [`compliance.html`](../compliance.html), so it is visible where a reader or reviewer looks for policy
   rather than only in the flag table. (This row was drafted as C19. While this branch was open, a concurrent
@@ -113,19 +113,24 @@ existing dated provenance. This is a scoped re-read, not a re-verification of th
 
 ## 4. Irregularities as published (nothing here blocks deployment)
 
-**F107 — search-result metadata over budget.** 13 titles / 10 descriptions over the display budget,
-repaired and gated as described in §1.2. Source links on the row: Google page-experience (§4) and
+**F110 — search-result metadata over budget (recorded by another session, and this pass's draft of the
+same finding is withdrawn).** This pass wrote the finding up as F107 before merging. While the branch was
+open, the concurrent session `arena/b6891e75-zone1` (PR #188) merged **F110** for the same defect (27 of 63
+pages at that point) and took **F107** for an unrelated source-register finding. Two ids for one defect is
+the kind of duplication this repository's coordination protocol exists to stop, so this pass keeps F110 as
+the record and dropped its own row; the repair it made is unchanged. 13 titles / 10 descriptions over the
+display budget at the time it was measured, repaired and gated as described in §1.2. Source links on the row: Google page-experience (§4) and
 sitemap documentation. Not claimed: any ranking effect, or that 65/160 are published specifications —
 they are conventional display budgets, and the row says so.
 
-**F108 — seven open pull requests from earlier sessions.** #139, #141, #144, #146, #150, #159, #168,
+**F112 — seven open pull requests from earlier sessions.** #139, #141, #144, #146, #150, #159, #168,
 #173, each verified through the GitHub API today as `OPEN` with no merge commit, while `main` is at
 `1c7de82`. Some of their content is superseded by work that did merge; some (the probe-in-an-air-fryer
 guide, the de-index generators) is not on main at all. This pass neither merged nor closed any of them
 and edited only its own branch. The row asks a later integration session to diff each against `main`,
 keep what is new, and record the decision.
 
-**F109 — the tag/redirect question, quoted rather than judged.** Read live today:
+**F113 — the tag/redirect question, quoted rather than judged.** Read live today:
 
 > "Special Links must use the Associates ID we have assigned to you." — S2, Participation Requirements §2(a)
 >
@@ -188,5 +193,5 @@ kind of instability the intended-listing test exists to catch.
 | Disclosure rules | [FTC Disclosures 101](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers) · [FTC Endorsement Guides](https://www.ftc.gov/business-guidance/advertising-marketing/endorsements-influencers-reviews) |
 | Temperature values on the thermometer pages | [USDA FSIS chart](https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/food-safety-basics/safe-temperature-chart) |
 | The 6 Qt dimensions and model number on the front page | [Chefman 6 Qt dual-window page](https://chefman.com/products/turbofry-touch-dual-window-air-fryer) |
-| What this pass changed on the live site | [Home](../index.html) · [Compliance C20](../compliance.html) · [Flagged F107–F109](../flagged.html) |
-| The open pull requests named in F108 | [#139](https://github.com/kanlerxz87-cyber/Zone1/pull/139) · [#141](https://github.com/kanlerxz87-cyber/Zone1/pull/141) · [#144](https://github.com/kanlerxz87-cyber/Zone1/pull/144) · [#146](https://github.com/kanlerxz87-cyber/Zone1/pull/146) · [#150](https://github.com/kanlerxz87-cyber/Zone1/pull/150) · [#159](https://github.com/kanlerxz87-cyber/Zone1/pull/159) · [#168](https://github.com/kanlerxz87-cyber/Zone1/pull/168) · [#173](https://github.com/kanlerxz87-cyber/Zone1/pull/173) |
+| What this pass changed on the live site | [Home](../index.html) · [Compliance C20](../compliance.html) · [Flagged F110 · F112 · F113](../flagged.html) |
+| The open pull requests named in F112 | [#139](https://github.com/kanlerxz87-cyber/Zone1/pull/139) · [#141](https://github.com/kanlerxz87-cyber/Zone1/pull/141) · [#144](https://github.com/kanlerxz87-cyber/Zone1/pull/144) · [#146](https://github.com/kanlerxz87-cyber/Zone1/pull/146) · [#150](https://github.com/kanlerxz87-cyber/Zone1/pull/150) · [#159](https://github.com/kanlerxz87-cyber/Zone1/pull/159) · [#168](https://github.com/kanlerxz87-cyber/Zone1/pull/168) · [#173](https://github.com/kanlerxz87-cyber/Zone1/pull/173) |

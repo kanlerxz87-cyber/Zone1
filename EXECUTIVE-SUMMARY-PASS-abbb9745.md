@@ -11,7 +11,7 @@ The site is a documented, affiliate-funded kitchen buying publication covering t
 two supplied thermometers. This pass made two reader-visible improvements — sources are now cited by name
 ("Chefman RJ38-SQSS-8T guide") instead of by register number, and every page's search-result title and
 description now fit the space a search engine actually shows — and it put the most consequential
-compliance question of the whole project into print with the official quotations beside it (**F109**).
+compliance question of the whole project into print with the official quotations beside it (**F113**).
 Nothing about the products, prices, tracking ID or campaign data changed, because none of those can be
 closed from inside the sandbox: they need your decisions or your Associates account.
 
@@ -44,8 +44,9 @@ them. This report says so rather than implying a full re-read.
 2. **Search-result metadata fits.** 13 titles and 10 descriptions were over display length (one title at
    133 characters). The build now composes the `<head>` within budget, `verify.py` fails on regression,
    and a unit test pins it. Reader headlines are untouched.
-3. **Two registers updated, with sources.** **C20** on the compliance page and **F109** on Flagged for
-   Review carry the tag/redirect quotation; **F107** records the metadata repair; **F108** records the
+3. **Two registers updated, with sources.** **C20** on the compliance page and **F113** on Flagged for
+   Review carry the tag/redirect quotation; **F110** (recorded by another session for the same defect) carries the
+   metadata repair; **F112** records the
    stale pull-request backlog.
 
 ---
@@ -62,12 +63,12 @@ them. This report says so rather than implying a full re-read.
    [S42 multiple IDs](https://affiliate-program.amazon.com/help/node/topic/GF4RJEQ)
 3. **Run the one-link test in Associates Central** (SG-02/SG-37): generate one tagged Special Link per
    product, click it, and confirm the destination *and* the click report. This is the single act that
-   closes F109, the intended-listing question and the attribution question at once. Until it is done, the
+   closes F113, the intended-listing question and the attribution question at once. Until it is done, the
    site keeps the honest "check model" call to action rather than a "buy now" it cannot back.
 4. **Decide the measurement gate.** Production analytics is off by design; the client, collector and the
    five events are built and tested. Turning it on needs a same-origin endpoint and a privacy decision
    that belongs to you, not to a session. → [measurement.html](measurement.html)
-5. **Decide the pull-request backlog (F108).** Seven older branches carry partly-superseded work. A later
+5. **Decide the pull-request backlog (F112).** Seven older branches carry partly-superseded work. A later
    integration session can diff and salvage them; that instruction has to come from you.
    → [flagged.html](flagged.html)
 
@@ -77,7 +78,7 @@ them. This report says so rather than implying a full re-read.
 
 - Whether the supplied links carry an Associates tag server-side (it is not visible in the final URL).
 - Whether `link.amazon` redirects are treated as "Redirecting Links" for commission purposes — the policy
-  text is quoted in F109 and the question is left open rather than guessed.
+  text is quoted in F113 and the question is left open rather than guessed.
 - Whether any search engine has indexed the annex trees, or whether the canonical shop ranks for anything.
 - Whether anyone arrives at all: the campaign ledger is empty and no traffic figure exists.
 - Whether the Emeril preset count is 24 or 25, and the 8 Qt wattage (the listing itself says both 1000 W

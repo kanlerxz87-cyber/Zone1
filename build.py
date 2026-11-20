@@ -2770,26 +2770,10 @@ PROGRAMME_FLAGS = [('F1',
   'format section, so the longer-term choice is whether it stays a standalone format finder or is folded into '
   'the category page.',
   ['S45']),
- ('F107',
-  'Found and repaired 2026-11-20: 13 shipped pages carried a <title> longer than a search result '
-  'displays (the longest 133 characters) and 10 carried a meta description over 160 characters '
-  '(the longest 259). Nothing in the build or the gates had a budget for either.',
-  'Root publication, 63 generated pages; measured in this pass',
-  'Measured on the build as committed before this pass: titles over 65 characters on 13 pages '
-  '(turkey-temperature article 133, small-kitchen dimensions 81, several articles 76-80, both new '
-  'thermometer product pages 85-86, decision-review 78) and descriptions over 160 on 10 pages '
-  '(design-prompt 259, chef-iq-sense-gen3 220, thermomaven-f1-turbo 220, turkey-temperature 219, '
-  'cleanup-and-counter-space 204, decision-log 194, requirements 193, clusters 191, questions 170, '
-  'no-amazon-prices 167). A search result truncates both, so the part a new reader sees first was '
-  'the cut-off half of a sentence. Repair: build.seo_title()/seo_description() now compose the '
-  '<head> within budget (authored override first, then the page title without the site suffix, and '
-  'a word-boundary cut with a printed warning as the last resort), the reader-facing H1 and card '
-  'copy is unchanged, and verify.py check 8 plus a unit test fail the build if a shipped page '
-  'exceeds 65 / 160 characters. Not claimed by this repair: any ranking effect, any claim that the '
-  'engine truncated at exactly these lengths (the figures are conventional display budgets, not a '
-  'published specification), or that the page copy itself is good.',
-  ['S43', 'S45']),
- ('F108',
+ ('F112',
+  'Re-numbered from F107 on 2026-11-20: a concurrent session (arena/b6891e75) had taken F107 '
+  'for an unrelated source-register finding before this branch merged, and this pass\u2019s metadata-budget '
+  'finding turned out to duplicate F110. This row keeps the pull-request-backlog finding alone.'
   'Found 2026-11-20: seven pull requests from earlier sessions are still open on this repository, '
   'and at least two of them carry register content (flags, guides, annex boundaries) that is not '
   'on main.',
@@ -2808,7 +2792,9 @@ PROGRAMME_FLAGS = [('F1',
   'the new files, discard the superseded rows, and record the decision in this board. Nothing here '
   'blocks the canonical publication.',
   ['S38']),
- ('F109',
+ ('F113',
+  'Re-numbered from F109 on 2026-11-20 because F109-F111 were taken by other sessions while this '
+  'branch was open; the finding itself is unchanged.'
   'Found 2026-11-20 by reading the live Agreement and Program Policies against the five supplied links: the '
   'links route through an intermediate host and no Associates tag parameter was visible in the URL each one '
   'resolved to. The policy text names both facts, and the site had never put the two side by side.',
@@ -2833,13 +2819,11 @@ PROGRAMME_FLAGS = [('F1',
   'the enrolled tracking ID, run the single-link test (SG-02/SG-37), and record the destination and the '
   'Associates Central report in data/product-intent.json. Until then the CTA keeps its "check model" wording and '
   'rel="sponsored nofollow noopener".',
-  ['S1', 'S2', 'S17', 'S41'])])]
+  ['S1', 'S2', 'S17', 'S41'])]
 
 REPO_EVIDENCE = {
- 'F109': ['data/sources.json', 'data/product-intent.json', 'reports/verification-2026-11-20-abbb9745.md'],
- 'F108': ['COORDINATION.md', 'reports/verification-2026-11-20-abbb9745.md'],
- 'F107': ['build.py', 'verify.py', 'tests/test_publication.py',
-          'reports/verification-2026-11-20-abbb9745.md'],
+ 'F113': ['data/sources.json', 'data/product-intent.json', 'reports/verification-2026-11-20-abbb9745.md'],
+ 'F112': ['COORDINATION.md', 'reports/verification-2026-11-20-abbb9745.md'],
  'F111': ['data/compliance.json', 'data/sources.json', 'build.py',
          'reports/verification-2026-11-20-69c1201a.md'],
  'F107': ['data/sources.json', 'data/product-intent.json', 'reports/verification-2026-11-20-b6891e75.md'],
