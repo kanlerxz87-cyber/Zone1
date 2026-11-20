@@ -3168,7 +3168,38 @@
           "url": "https://kanlerxz87-cyber.github.io/Zone1/decision-log.html"
         }
       ]
+    },
+    {
+      "id": "Q-44",
+      "group": "Design and trust",
+      "question": "How much of the sourcing apparatus should stay in the reader's line of sight?",
+      "state": "not_stated",
+      "why_it_matters": "The same sentence that makes a claim checkable is the sentence that makes a buying guide read like an audit. Every route through SG-56 depends on an answer only the publisher can give: keep the per-section citation lines, collect them into one block, or apply a lighter rule to new pages only.",
+      "what_we_know": [
+        "The 2026-11-20 pass removed the three noisiest instances without removing a disclosure: the run-on dated byline fragment, the four-sentence buy-button note, and 38 over-budget search snippets (F110).",
+        "Google's people-first content guidance asks what a page is for and who it helps; it does not prescribe a citation layout, so it cannot settle a voice question.",
+        "No reader evidence exists: collection is disabled, the campaign ledger is empty, and no query data is available."
+      ],
+      "what_is_missing": "A stated preference from the publisher, or any reader signal (comment, reply, search query) that the citations are in the way.",
+      "how_to_discover": "Answer directly if the preference is already known. Otherwise treat it as SG-56 option C: apply the lighter rule to new pages, and revisit when the measurement contract produces a real reader signal.",
+      "blocks": [
+        "SG-56"
+      ],
+      "sources": [
+        {
+          "label": "Google Search Central — title links (S50), read live 2026-11-20",
+          "url": "https://developers.google.com/search/docs/appearance/title-link"
+        },
+        {
+          "label": "Google Search Central — snippets (S51), read live 2026-11-20",
+          "url": "https://developers.google.com/search/docs/appearance/snippet"
+        },
+        {
+          "label": "A rendered article carrying the current apparatus",
+          "url": "https://kanlerxz87-cyber.github.io/Zone1/articles/air-fryer-capacity-guide.html"
+        }
+      ]
     }
   ],
-  "updated": "2026-11-19"
+  "updated": "2026-11-20"
 }

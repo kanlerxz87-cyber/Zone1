@@ -1,6 +1,7 @@
 """The reader-facing publication must preserve its evidence and state boundaries."""
 import copy
 import importlib.util
+from html import unescape as html_unescape
 import json
 import re
 import unittest
@@ -278,3 +279,50 @@ class HistoricalComplianceTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SearchSnippetBudgetTests(unittest.TestCase):
+    """Check 12, added 2026-11-20 (arena/91a755df).
+
+    Measured before the repair: 27 of 63 canonical pages published a <title>
+    longer than 65 characters and 11 published a meta description longer than
+    165, so the text a searcher sees was cut mid-sentence. S50 says a title link
+    "is truncated in Google Search results as needed"; S51 says the same of the
+    snippet. The budgets are this publication's convention inside that guidance.
+    """
+
+    def test_brand_suffix_is_dropped_when_it_would_overflow(self):
+        self.assertEqual("Short page · Zone1 Kitchen", build.seo_title("Short page"))
+        long_title = "x" * 55
+        self.assertEqual(long_title, build.seo_title(long_title))
+
+    def test_a_title_tag_override_is_used_instead_of_the_headline(self):
+        self.assertEqual("Short tag · Zone1 Kitchen",
+                         build.seo_title("A much longer editorial headline for the page",
+                                         "Short tag"))
+
+    def test_fit_description_never_cuts_mid_word(self):
+        out = build.fit_description("word " * 40)
+        self.assertLessEqual(len(out), build.DESC_BUDGET)
+        self.assertFalse(out.endswith(" "))
+        self.assertEqual("kept whole and this tail too",
+                         build.fit_description("kept whole", "and this tail too"))
+
+    def test_every_canonical_page_fits_the_snippet_budget(self):
+        pages = [ROOT / "index.html"]
+        for folder in ("articles", "products", "categories", "guides"):
+            pages.extend(sorted((ROOT / folder).glob("*.html")))
+        pages.extend(sorted(p for p in ROOT.glob("*.html")))
+        checked = 0
+        for path in pages:
+            content = path.read_text()
+            with self.subTest(page=str(path.relative_to(ROOT))):
+                # length is measured on the text a search engine reads, so the
+                # HTML entities are unescaped first (&amp; counts as one character)
+                title = html_unescape(content.split("<title>", 1)[1].split("</title>", 1)[0])
+                self.assertLessEqual(len(title), build.TITLE_BUDGET)
+                desc = html_unescape(content.split('<meta name="description" content="', 1)[1]
+                                     .split('">', 1)[0])
+                self.assertLessEqual(len(desc), build.DESC_BUDGET)
+                checked += 1
+        self.assertGreaterEqual(checked, 60)

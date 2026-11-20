@@ -811,6 +811,26 @@
           "report": "reports/verification-2026-11-19-d154e428.md"
         }
       ]
+    },
+    {
+      "id": "S50",
+      "org": "Google Search Central",
+      "title": "Influencing your title links in search results",
+      "url": "https://developers.google.com/search/docs/appearance/title-link",
+      "covers": "How Google builds the clickable title of a search result and what a publisher can do about it. Read live 2026-11-20. Verbatim points relied on here: a title link \"is truncated in Google Search results as needed, typically to fit the device width\"; titles should be \"descriptive and concise\"; repeated or boilerplate text in <title> elements — text that \"varies by only a single piece of information\" — is listed among the common issues Google manages. The page also says including just the site name at the start or end of each <title>, separated by a delimiter, is acceptable. Cited by check 12 in verify.py and by the 2026-11-20 snippet repair (arena/91a755df).",
+      "kind": "Documentation",
+      "directness": "Primary — the search engine's own documentation",
+      "page_version": "Live page, read 2026-11-20"
+    },
+    {
+      "id": "S51",
+      "org": "Google Search Central",
+      "title": "Control your snippets in search results",
+      "url": "https://developers.google.com/search/docs/appearance/snippet",
+      "covers": "How the description snippet is generated and what the meta description element is for. Read live 2026-11-20. Verbatim points relied on here: \"There's no limit on how long a meta description can be, but the snippet is truncated in Google Search results as needed, typically to fit the device width\"; and pages should carry unique descriptions rather than one repeated description. Cited by check 12 in verify.py and by the 2026-11-20 snippet repair (arena/91a755df).",
+      "kind": "Documentation",
+      "directness": "Primary — the search engine's own documentation",
+      "page_version": "Live page, read 2026-11-20"
     }
   ],
   "reverified_scope": "Pass 11 (arena/2e346d24-zone1) re-read live on 2026-11-16: S1, S2, S3, S4, S5, S8, S9, S10, S17, S28, S29, then S12, S14 and S18 later in the same session — fourteen sources in total. NOT re-read in pass 11 and therefore not restated: S6, S7, S11, S13, S15, S16, S19-S27, S30-S34, and the 8 Qt owner's-manual PDF. F3 (450 °F) was re-established live against S12 and the listing title; F4/F5 (Emeril presets) against S14. S15, the Emeril owner's manual, was NOT re-read, so the 24-preset count is carried forward and not re-asserted. Evidence: reports/verification-2026-11-16-2e346d24.md",
@@ -1075,5 +1095,15 @@
       "new_source": "S48 (USDA FSIS Safe Minimum Internal Temperature Chart) was already registered on main by arena/d154e428 the same day; this pass re-read the live page independently and corroborates it — the values quoted on the S48 row were re-read verbatim (all poultry 165 F; 145 F + 3-minute rest; ground meats 160 F; leftovers/casseroles 165 F; the 'as measured with a food thermometer' instruction; the personal-preference clause) and are the primary source for the new seasonal article (TP-28). No duplicate source row was created; the two same-day reads are merged on the S48 row."
     },
     "scope": "No product, account or campaign data changed; no policy position changed; no config or tag applied."
+  },
+  "reverified_2026_11_20_91a755df": {
+    "date": "2026-11-20",
+    "session": "arena/91a755df-zone1",
+    "what": "Two Google Search Central documents were opened and read in full for the snippet budgets used by check 12. Additions only: no existing source row was edited, and no earlier read was re-dated.",
+    "ids": [
+      "S50",
+      "S51"
+    ],
+    "limit": "Neither page states a character limit. Both say the displayed text is truncated as needed to fit the device. The 60/160 budgets in build.py and verify.py are therefore an editorial convention chosen inside that guidance, not a figure either document publishes — and verify.py reports them as a convention in its own comment."
   }
 }

@@ -28,6 +28,70 @@ SITE_NAME = "Zone1 Kitchen"
 SITE_TAGLINE = "A little clarity for your countertop."
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
 
+# --------------------------------------------------------------------------- #
+# search-snippet budget (added 2026-11-20, arena/91a755df)
+# --------------------------------------------------------------------------- #
+# Google Search Central's title-link documentation, read live 2026-11-20 (S50),
+# states that a title link "is truncated in Google Search results as needed,
+# typically to fit the device width", asks for titles that are "descriptive and
+# concise", and lists boilerplate titles that vary "by only a single piece of
+# information" as a common issue it manages. The snippet guidance for
+# descriptions (S51) describes the same truncation for the snippet text.
+#
+# Two consequences, both applied here rather than typed by hand on 63 pages:
+#   1. the brand suffix is appended only when the whole string still fits the
+#      budget, so a long headline keeps its own words instead of being cut
+#      mid-brand;
+#   2. a page may carry a separate short `title_tag` / `seo_description` in its
+#      data record, so the search snippet is concise while the on-page headline
+#      stays editorial.
+# verify.py check 12 fails the build if any published page exceeds either
+# budget, so this cannot regress silently.
+TITLE_BUDGET = 60
+DESC_BUDGET = 160
+
+
+_MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+           "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+
+
+def _pretty_date(iso):
+    """2026-11-19 -> 19 Nov 2026. Presentation only; the datetime attribute keeps ISO."""
+    try:
+        y, m, d = iso.split("-")
+        return f"{int(d)} {_MONTHS[int(m) - 1]} {y}"
+    except (ValueError, IndexError):
+        return iso
+
+
+def fit_description(primary, tail=""):
+    """Keep a meta description inside DESC_BUDGET without cutting mid-word.
+
+    The page's own sentence is never truncated; the tail clause is appended only
+    when the whole thing fits. A page whose sentence already fills the budget
+    gets the sentence alone, which is still a complete description.
+    """
+    primary = (primary or "").strip()
+    tail = (tail or "").strip()
+    if not tail:
+        return primary[:DESC_BUDGET].rsplit(" ", 1)[0]
+    if len(primary) + 1 + len(tail) <= DESC_BUDGET:
+        return primary + " " + tail
+    if len(primary) <= DESC_BUDGET:
+        return primary
+    return primary[:DESC_BUDGET].rsplit(" ", 1)[0]
+
+
+def seo_title(title, title_tag=None):
+    """Compose the <title> text for one page within TITLE_BUDGET characters."""
+    text = (title_tag or title).strip()
+    suffix = " · " + SITE_NAME
+    if text.endswith(suffix):
+        return text
+    if len(text) + len(suffix) <= TITLE_BUDGET:
+        return text + suffix
+    return text
+
 # Public origin of the canonical site (GitHub Pages, branch main, root). The sitemap and
 # robots.txt generators below already hard-code this; it is named here so canonical URLs,
 # Open Graph URLs and structured-data ids cannot drift from the sitemap.
@@ -650,8 +714,13 @@ def analytics_page_type(page_rel):
 
 
 def layout(page_rel, title, body, active=None, description="", og_type="website",
-           jsonld_blocks=None, og_image_alt=None):
-    """One publication masthead, below-masthead disclosure and native workspace menu."""
+           jsonld_blocks=None, og_image_alt=None, title_tag=None):
+    """One publication masthead, below-masthead disclosure and native workspace menu.
+
+    `title` is the editorial headline; `title_tag` (optional) is the shorter
+    text for the <title> element. Both go through seo_title(), so the brand
+    suffix is only appended when the result fits TITLE_BUDGET.
+    """
     from string import Template
     prefix = depth_prefix(page_rel)
     body = body.replace('<div class="tablewrap">', '<div class="tablewrap" tabindex="0" role="region" aria-label="Scrollable data table">')
@@ -703,8 +772,8 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
     search_token = (SITE_CONFIG.get("search_console_verification") or "").strip()
     search_tag = f'<meta name="google-site-verification" content="{e(search_token)}">' if search_token else ""
     result = Template((ROOT / "publication" / "layout.html.tpl").read_text(encoding="utf-8")).substitute(
-        prefix=prefix, full_title=e(f"{title} · {SITE_NAME}"), site_name=e(SITE_NAME),
-        description=e(description or SITE_TAGLINE), canonical=e(canonical),
+        prefix=prefix, full_title=e(seo_title(title, title_tag)), site_name=e(SITE_NAME),
+        description=e((description or SITE_TAGLINE).strip()), canonical=e(canonical),
         canonical_tag=(f'<link rel="canonical" href="{e(canonical)}">' if page_rel != "404.html" else ""),
         robots="index,follow,max-image-preview:large" if indexable else "noindex,follow",
         og_type=e(og_type), og_image=e(OG_IMAGE),
@@ -740,7 +809,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
 
 def product_cta(p, prefix=""):
     return f"""<div class="cta-row"><a class="btn" href="{e(p['link'])}" target="_blank" rel="sponsored nofollow noopener" data-analytics-event="outbound_click" data-analytics-target-id="{e(p['slug'])}">View on Amazon — check model <span aria-hidden="true">↗</span></a></div>
-<p class="cta-note"><strong>Paid link — we may earn a commission.</strong> Affiliate link · intended listing and attribution unconfirmed. The submitted link has an observed destination, not a verified model match. Check the exact listing before buying. <a href="{prefix}product-intent.html">Link notes</a>. {src_links(['S2','S41'])}</p>"""
+<p class="cta-note"><strong>Paid link — we may earn a commission.</strong> Affiliate link · intended listing and attribution unconfirmed. Match the model number on the listing before you buy — <a href="{prefix}product-intent.html">what we observed, and when</a>. {src_links(['S2','S41'])}</p>"""
 
 
 
@@ -1060,7 +1129,8 @@ def page_thermo_product(p):
 {reader_capture('../')}"""
     return layout('products/' + p['slug'] + '.html', p['name'] + ' — what the documents say', body,
                   active='categories/cooking-thermometers.html',
-                  description=p['dek'][:150] + ' Manufacturer-stated specifications with sources; no hands-on testing.',
+                  title_tag=p['short_name'] + ' — documented specifications',
+                  description=fit_description(p['dek'], 'Manufacturer-stated figures, each with its source.'),
                   jsonld_blocks=[breadcrumbs_jsonld([('Home', SITE_BASE),
                                                      ('Thermometers', page_url('categories/cooking-thermometers.html')),
                                                      (p['short_name'], page_url('products/' + p['slug'] + '.html'))])])
@@ -1155,7 +1225,7 @@ def page_index():
 <section class="reader-note" aria-label="How these guides are made"><span class="note-symbol" aria-hidden="true">“</span><div><h3>The manual is a good place to start.</h3><p>We link the specifications to the manufacturer. When official documents disagree, you’ll see the difference—not a guess. <a href="about.html">How we research</a>.</p></div><div><h3>Two more kitchen tools.</h3><p>Two of the submitted links open thermometer listings. Both brands publish a specification set, so each now has its own guide: compare them on the <a href="categories/cooking-thermometers.html">thermometers page</a>; which exact listing you would receive is still unconfirmed.</p></div></section>
 {reader_capture()}"""
     ld = [breadcrumbs_jsonld([("Home", SITE_BASE)]), {"@type":"ItemList","name":"Documented air-fryer formats","itemListElement":[{"@type":"ListItem","position":i,"name":r["title"],"url":page_url('products/'+r['slug']+'.html')} for i,r in enumerate(PUBLICATION['products'],1)]}]
-    return layout("index.html","Kitchen buying guides for the way you cook",body,active="index.html",description="Find the air-fryer format that fits your kitchen. Compare documented capacity, counter space and care, with useful buying guides and clear affiliate disclosures.",jsonld_blocks=ld)
+    return layout("index.html","Kitchen buying guides for the way you cook",body,active="index.html",description="Find the air-fryer format that fits your kitchen. Compare documented capacity, counter space and care, with clear affiliate disclosures.",jsonld_blocks=ld)
 
 def page_product(p):
     row = BUYING_BY_SLUG[p["slug"]]
@@ -1192,7 +1262,7 @@ def page_product(p):
 </details>
 <p class="small muted">No Amazon price, rating or review count is displayed. No authorised live Program Content integration is configured. The brand’s dated commercial snapshots, if useful for a source check, remain in the <a href="../data.html">full dataset</a>, not as today’s shopping price. {src_link('S2')}</p>
 {reader_capture('../')}"""
-    return layout('products/'+p['slug']+'.html',row['title']+' product guide',body,active='categories/kitchen-appliances.html',description=row['dek']+' Documentation-based product notes; no hands-on testing.',jsonld_blocks=[breadcrumbs_jsonld([('Home',SITE_BASE),('Air fryers',page_url('categories/kitchen-appliances.html')),(row['title'],page_url('products/'+p['slug']+'.html'))])])
+    return layout('products/'+p['slug']+'.html',row['title']+' product guide',body,active='categories/kitchen-appliances.html',description=fit_description(row['dek'], 'Documented specifications with sources.'),title_tag=row['title'],jsonld_blocks=[breadcrumbs_jsonld([('Home',SITE_BASE),('Air fryers',page_url('categories/kitchen-appliances.html')),(row['title'],page_url('products/'+p['slug']+'.html'))])])
 
 
 PROGRAMME_FLAGS = [('F1',
@@ -2599,6 +2669,24 @@ PROGRAMME_FLAGS = [('F1',
   'search result; it does not conceal evidence. Not verified by this repair: whether any engine has already '
   'indexed an annex URL, and whether the canonical shop ranks for anything at all.',
   ['S46', 'S47', 'S30']),
+ ('F110',
+  'Repaired 2026-11-20: 27 of 63 canonical pages published a <title> longer than 65 characters and 11 '
+  'published a meta description longer than 165, so the text a search engine shows was cut mid-sentence.',
+  'build.py, verify.py check 12, data/articles.json (seo_title / seo_description), data/sources.json S50 & S51',
+  'Measured by parsing all 63 canonical pages after the 2026-11-19 build: the longest <title> was 120 '
+  'characters and the longest description 234. Google Search Central states that a title link "is truncated '
+  'in Google Search results as needed, typically to fit the device width" and that a meta description has no '
+  'limit but "the snippet is truncated ... as needed" (S50, S51, both read live 2026-11-20). Neither page '
+  'publishes a character limit, so the 60/160 budgets in build.py and verify.py are labelled everywhere as '
+  'this publication\'s convention inside that guidance, not as a number Google states. Repair: the brand '
+  'suffix is appended only when the whole string fits; long-tail pages got a shorter search title (and, on '
+  'four pages, a shorter description) while the on-page headline is unchanged; verify.py check 12 now fails '
+  'the build on an over-budget title, an over-budget description or a duplicate <title>, and was proven to '
+  'fire by injecting one before the fix was committed. Not claimed: that any of these pages ranks, that a '
+  'shorter snippet improves click-through, or that the previous snippets were indexed in the form measured. '
+  'Numbered F110 rather than F107 because the open pull request arena/0c5c10d0 has drafted F105-F109 and may '
+  'merge first.',
+  ['S50', 'S51']),
  ('F106',
   'Found 2026-11-19 ~19:45 UTC: the third supplied short link (B00hJ57DV) twice resolved to the Amazon '
   'homepage instead of the product page recorded earlier the same day.',
@@ -2780,7 +2868,7 @@ def page_compare():
 <h2>What matters for your meals?</h2><div class="grid grid-3">{''.join(product_card(p) for p in ordered)}</div>
 <p class="section-note">Use the <a href="data.html">full dataset</a> for every recorded field, dated listing observation and blank. Manufacturer and listing values are not silently combined. Official sources disagree on some temperatures, dimensions and counts; see <a href="flagged.html">the public review register</a>.</p>
 {reader_capture()}"""
-    return layout('compare.html','Compare air fryers & countertop ovens',body,active='compare.html',description='Compare documented air-fryer capacity, dimensions, temperature, power and care with a source in each populated cell. No performance ranking or revenue estimates.',jsonld_blocks=[breadcrumbs_jsonld([('Home',SITE_BASE),('Compare',page_url('compare.html'))])])
+    return layout('compare.html','Compare air fryers & countertop ovens',body,active='compare.html',description='Compare documented air-fryer capacity, dimensions, temperature and care with a source in every populated cell. No ranking, no revenue estimates.',jsonld_blocks=[breadcrumbs_jsonld([('Home',SITE_BASE),('Compare',page_url('compare.html'))])])
 
 
 def page_guide():
@@ -3266,7 +3354,7 @@ def page_exec():
 <div class="callout warn"><strong>Safety discrepancy, not a choice of instructions.</strong>The Emeril manual prohibits extension cords in its safeguards but conditionally permits them in a later section. Do not treat the latter as permission; seek current manufacturer clarification for the exact unit. <a href="flagged.html#f96">F96 and the source</a>.</div>
 <h2>A short route through the workspace</h2><div class="grid grid-3">{links}</div><p class="small">The Suggestions register contains {len(SUGGESTIONS['suggestions'])} rows: {counts['complete']} complete repository features/plans, {counts['superseded']} superseded, {counts['partial']} partial and {counts['gated']} gated. These current states form one partition; they do not add historical action logs to a current open count. Owner choices remain separate from agent execution records.</p>
 <h2>Evidence before optimisation</h2><ol class="tight"><li>Keep the original links and complete intended-listing/enrolled validation only with authorised account evidence.</li><li>Use the repaired collector only after a real controlled same-origin runtime, infrastructure-log minimisation and privacy review exist.</li><li>Import only dated authorised first-party reports with source/channel/date-range/eligible sessions/clicks/orders/provenance. Leave missing values blank.</li><li>Use actual comparable data before changing placement or calling a topic popular. No present design change is claimed to improve conversion.</li></ol>
-<p class="section-note"><a href="reports/verification-2026-11-19-1f9e7d52.md">Scoped verification, test results and deployment record</a> · <a href="EXECUTIVE-SUMMARY.md">Current written summary with historical appendices</a> · <a href="previous-passes.html">Historical builds</a>.</p>"""
+<p class="section-note"><a href="reports/verification-2026-11-20-91a755df.md">This pass: reader-voice and search-snippet repair</a> · <a href="reports/verification-2026-11-19-1f9e7d52.md">Scoped verification, test results and deployment record</a> · <a href="EXECUTIVE-SUMMARY.md">Current written summary with historical appendices</a> · <a href="previous-passes.html">Historical builds</a>.</p>"""
     return layout('executive-summary.html','Executive summary & workspace index',body,active='executive-summary.html',description='Current publication delivery, source corrections and honest remaining account/deployment boundaries. No fabricated traffic, conversions or approvals.',jsonld_blocks=[breadcrumbs_jsonld([('Home',SITE_BASE),('Executive summary',page_url('executive-summary.html'))])])
 
 
@@ -4082,7 +4170,7 @@ def page_previous_passes():
 """
     return layout("previous-passes.html", "Previous passes", body,
                   active="previous-passes.html",
-                  description="Catalogue of every parallel build published in this repository, where each one disagrees with the canonical site, and which build to trust.",
+                  description="Every parallel build published in this repository, where each one disagrees with the canonical site, and which build to trust.",
                   jsonld_blocks=[breadcrumbs_jsonld([
         ("Home", SITE_URL + "/"),
         ("Previous passes", page_url("previous-passes.html")),
@@ -4282,7 +4370,7 @@ def page_design_prompt():
 """
     return layout("design-prompt.html", "Design prompt pack", body,
                   active="design-prompt.html",
-                  description="Design, content and traffic suggestions for this site: a paste-ready design prompt, design suggestions with current implementation states, the article topic queue, organic-traffic tactics, voice rules and a decision register to review before anything changes.",
+                  description="Design, content and traffic suggestions: a paste-ready design prompt, implementation states, the topic queue and a decision register to review first.",
                   jsonld_blocks=[breadcrumbs_jsonld([
         ("Home", SITE_URL + "/"),
         ("Design prompt pack", page_url("design-prompt.html")),
@@ -4499,7 +4587,7 @@ settled without you links to the row that blocks it.</p>
         ]),
     ]
     return layout("questions.html", "Open questions", body, active="questions.html",
-                  description="The questions, information and answers that must be settled before a decision on this site is reasonable, separated into known, discoverable, not-stated and account-only.",
+                  description="The questions and answers that must be settled before a decision is reasonable, split into known, discoverable, not-stated and account-only.",
                   jsonld_blocks=ld)
 
 
@@ -4982,7 +5070,7 @@ rating, a compliance posture, or any product fact the flag register holds open.<
 <a href="flagged.html">Flagged for review</a></p>
 """
     return layout("decision-log.html", "Owner decision log", body, active="decision-log.html",
-                  description="Every suggestion on the queue with the path it recommends, the default that stands if the owner says nothing, and a picker that records a chosen path as a file the next agent pass can implement.",
+                  description="Each suggestion with the path it recommends, the default if the owner says nothing, and a picker that records a chosen path for the next pass.",
                   jsonld_blocks=[breadcrumbs_jsonld([
         ("Home", SITE_URL + "/"),
         ("Owner decision log", page_url("decision-log.html")),
@@ -5521,9 +5609,7 @@ first are on <a href="questions.html">Questions and gaps</a>.</p>
 </div>
 """
     return layout("requirements.html", "Requirements and status", body, active="requirements.html",
-                  description="Every requirement in the brief, one row each, with the status judged against what "
-                              "this repository and this site actually do, the path that implements it and the "
-                              "official source that settles it.",
+                  description="Every requirement in the brief, one row each: its status judged against what the repository can show, and the official source that settles it.",
                   jsonld_blocks=[breadcrumbs_jsonld([
                       ("Home", SITE_URL + "/"),
                       ("Requirements and status", page_url("requirements.html")),
@@ -6077,7 +6163,7 @@ from <code>data/clusters.json</code>, so the map and the articles cannot drift a
         ]),
     ]
     return layout("clusters.html", "Article clusters", body, active="articles/index.html",
-                  description="The article set filed under the four questions a shopper actually arrives with: which machine to buy, what the numbers mean, what it is like to live with, and whether the page can be trusted.",
+                  description="The article set filed under the four questions a shopper arrives with: which machine to buy, what the numbers mean, and whether the page can be trusted.",
                   jsonld_blocks=ld)
 
 
@@ -6142,13 +6228,13 @@ def page_article(a):
     <span>By <a href="../about.html">Zone1 Kitchen</a> · AI-assisted, document-based writing</span><span aria-hidden="true">·</span>
     <span>{a['reading_minutes']} min read</span><span aria-hidden="true">·</span>
     <span>Sources checked {e(a.get('sources_read') or ARTICLES['accessed'])}</span><span aria-hidden="true">·</span>
-    <span>Edited <time datetime="{e(a['modified_at'])}">{e(a['modified_at'][:10])}</time>; first-publication timestamp is not established.</span>
+    <span>Updated <time datetime="{e(a['modified_at'])}">{e(_pretty_date(a['modified_at'][:10]))}</time></span>
     <span class="pill pill-info">Documentation-based — no hands-on testing</span>
     {cluster_badge}
   </div>
 </header>
 
-<p class="reading-note">No appliance was tested for this guide. Specifications are attributed to their documents; editorial guidance is not a cooking result. <a href="../about.html">How we research</a>.</p>
+<p class="reading-note">No appliance was tested for this guide. Specifications are attributed to their documents; editorial guidance is not a cooking result. <a href="../about.html">How we research</a> · first-publication timestamp is not established.</p>
 <div class="article-prose">
 {article_body(a)}
 </div>
@@ -6197,9 +6283,14 @@ def page_article(a):
             (a["title"], aurl),
         ]),
     ]
+    # 2026-11-20 (arena/91a755df): the on-page headline stays the editorial one;
+    # `seo_title` / `seo_description`, when present in data/articles.json, are the
+    # concise search-snippet pair. Absence falls back to the previous behaviour.
     return layout(f"articles/{a['slug']}.html", a["title"], body,
-                  active="articles/index.html", description=a["standfirst"],
+                  active="articles/index.html",
+                  description=a.get("seo_description") or a["standfirst"],
                   og_type="article", jsonld_blocks=ld,
+                  title_tag=a.get("seo_title"),
                   og_image_alt=f"{a['title']} — {SITE_NAME}")
 
 
@@ -6647,7 +6738,7 @@ def page_decision_review():
 <h2>Already shipped in this pass</h2>
 <ul class="small">{shipped}</ul>
 <p class="section-note"><a href="suggestions.html">Implementation state of past proposals</a> · <a href="questions.html">Known facts &amp; missing answers</a> · <a href="decision-log.html">Draft a choice</a> · <a href="executive-summary.html">Executive summary</a></p>"""
-    return layout('decision-review.html', 'Decision review queue — what to choose before anything changes', body,
+    return layout('decision-review.html', 'Decision review: what to choose before anything changes', body,
                   description='A prioritised review queue of the decisions that change what the affiliate site can earn and publish, each with its official evidence and options.',
                   jsonld_blocks=[breadcrumbs_jsonld([('Home', SITE_BASE), ('Decision review', page_url('decision-review.html'))])])
 
