@@ -906,17 +906,17 @@ LOOK_ELSEWHERE = {
         ["S10", "S18", "S14"]),
     "chefman-8qt-turbofry": (
         "You want two settings running at the same time. The brand page documents one basket, four "
-        "presets and a 200-400 °F range for this model - a different shape of job from two "
+        "presets and a 200\u2013400 °F range for this model \u2014 a different shape of job from two "
         "independently controlled baskets.",
         ["S12", "S13", "S10"]),
     "emeril-26qt-french-door": (
-        "Counter space is the binding constraint. The brand page's own specification block gives a "
+        "Counter space is the binding constraint. The brand page’s own specification block gives a "
         "footprint of 16.9 in deep by 15.8 in wide by 14.8 in high, which is a larger permanent "
         "installation than either basket model documented on this site.",
         ["S14"]),
     "thermomaven-f1-turbo": (
         "You want the reading while the oven door stays shut. The brand page presents this as a pocket "
-        "instant-read with an auto-rotating display - a handheld check, not a hub-and-app monitoring "
+        "instant-read with an auto-rotating display \u2014 a handheld check, not a hub-and-app monitoring "
         "set.",
         ["S40"]),
     "chef-iq-sense-gen3": (
@@ -978,11 +978,22 @@ def decision_kit(slug, prefix="", kind="air-fryer", cells=None):
     routes = "".join(
         f'<li>{e(q)} <a href="{prefix}{href}">{e(label)} →</a></li>'
         for q, href, label in DECISION_ROUTES[kind])
+    also = ""
+    if kind == "air-fryer":
+        # SG-53 option B, in the half that needs no basket, no storage and no
+        # measurement: the other two documented machines stay one click away from the
+        # page the reader is deciding on, and the side-by-side matrix is reachable
+        # from the same row.
+        others = [x for x in PRODUCT_LIST if x["slug"] != slug]
+        bits = "".join(f'<a href="{prefix}products/{e(x["slug"])}.html">{e(x["short_name"])}</a>'
+                       for x in others)
+        also = (f'<p class="dk-also">Also documented here: {bits} '
+                f'<a href="{prefix}compare.html">the three side by side</a></p>')
     return (f'<section class="decision-kit" aria-labelledby="dk-{e(slug)}">'
             f'<p class="section-eyebrow" id="dk-{e(slug)}">Decide, do not just read</p>'
             f'<dl class="dk-rows">{"".join(out)}</dl>'
             f'<ol class="dk-routes" aria-label="Questions that finish this decision">{routes}</ol>'
-            "</section>")
+            + also + "</section>")
 
 
 def not_published_note(p, prefix=""):
@@ -1333,7 +1344,7 @@ def page_about():
 <h2>About the illustrations and imagery</h2>
 <p>The line drawings are original format diagrams, not photographs or exact depictions of a branded model. The front-page kitchen scene is AI-generated decorative imagery. It is not a real test kitchen, an appliance demonstration, proof of a cooking result or an image of the submitted products. No Amazon or manufacturer product photograph has been copied. Image provenance and the self-hosted fonts’ open licences are recorded in <a href="{REPO_BLOB}publication/README.md">the publication asset notes</a>.</p>
 <h2>Updates and corrections</h2>
-<p>Sources are dated on individual guides. A fresh layout does not refresh every product fact. The <a href="{REPO_BLOB}reports/verification-2026-11-19-1f9e7d52.md">19 November 2026 review report</a> names exactly which official pages and sections were read, what changed, and what remains unverified. Reports from earlier passes remain available, not silently rewritten.</p>
+<p>Sources are dated on individual guides. A fresh layout does not refresh every product fact. The <a href="{REPO_BLOB}reports/verification-2026-11-19-1f9e7d52.md">19 November 2026 review report</a> names exactly which official pages and sections were read, what changed, and what remains unverified. Reports from earlier passes remain available, not silently rewritten. The <a href="{REPO_BLOB}reports/verification-2026-11-20-915c51ea.md">20 November 2026 read</a> covers the pages re-read for the product-page decision kit and the hosting-week guide, and lists the two brand-page contradictions that pass found without editing another session&#39;s register.</p>
 <p>The operating plan is a weekly source review and at most one new or substantially refreshed guide every two weeks, subject to evidence and checks. This is not an already-running scheduler. <a href="topics.html">The publishing plan</a> distinguishes topics worth investigating from measured demand; no traffic, ranking or revenue outcome is promised.</p>
 <h2>Privacy and reader capture</h2>
 {privacy_html()}
@@ -3519,15 +3530,17 @@ def _req_counts_html():
 def page_exec():
     counts = {state:sum(r.get("current_state") == state for r in SUGGESTIONS["suggestions"]) for state in ("complete","partial","gated","superseded","open")}
     rows = [
-        ("Publication", 'Buyer-first home, category, comparison and model guides. Both supplied thermometer products now have documented buyer pages of their own, and the thermometer pillar is an indexable category, so all five submitted products lead to a page a reader can act on. One native Workspace group and footer index hold owner/evidence work.', ['S10','S12','S14','S39','S40'], 'publication/README.md'),
+        ("Publication", 'Buyer-first home, category, comparison and model guides. Both supplied thermometer products now have documented buyer pages of their own, and the thermometer pillar is an indexable category, so all five submitted products lead to a page a reader can act on. Every product page now opens with a decision path - what the documents fit the machine to, what they do not, the conflict to check before clicking, then the five questions that finish it - and the citation trail moved into the expandable record below it. One native Workspace group and footer index hold owner/evidence work.', ['S10','S12','S14','S39','S40'], 'publication/README.md'),
         ("Decisions", 'A 14-row decision review queue orders the choices only the account holder can make - intended listings, tracking-ID validation, the 180-day qualifying clock, analytics deployment and eight editorial questions - each with its official evidence and options. Nothing in it is implemented until the owner picks.', ['S4','S6','S41'], 'data/decision-queue.json'),
         ("Authorship & assets", 'AI-assisted document research is disclosed. No invented human editor, hands-on test or copied/generated branded-product photograph. The conceptual kitchen scene is visibly labelled.', ['S8','S2'], 'publication/README.md'),
-        ("Sources & corrections", 'Scoped 19 November reads, not a blanket refresh. F96 flags contradictory Emeril cord instructions; F97 records corrected care, capacity and dimension guidance. Source conflicts stay public.', ['S13','S15','S18'], 'reports/verification-2026-11-19-1f9e7d52.md'),
+        ("Sources & corrections", 'Scoped reads, not a blanket refresh: 19 November for the product register, 20 November for the five brand pages behind the new guide, the decision-kit copy and one added Emeril row. F96 flags contradictory Emeril cord instructions; F97 records corrected care, capacity and dimension guidance; the 20 November read adds a brand page that contradicts itself on sensor count and a supplied token that reached a product page through a fallback path. Source conflicts stay public.', ['S13','S15','S18','S39','S14'], 'reports/verification-2026-11-20-915c51ea.md'),
         ("Five submitted links", 'Original URL strings, dated redirect/title observations and intended listings remain separate. Every intended ASIN/listing confirmation and enrolled test is still unconfirmed.', ['S41','S42'], 'data/product-intent.json'),
         ("Selected tracking ID", 'shopnow047c-20 is recorded but unvalidated and unapplied. The operational tag is blank. Confirm one intended listing and a permitted enrolled Special Link workflow per product before scaling.', ['S2','S42'], 'data/config.json'),
         ("Measurement", 'Actual named-event browser client and aggregate Python collector interoperate in synthetic HTTP tests. Production collection is disabled; no runtime/privacy approval or eligible campaign dataset exists.', ['S2','S38'], 'analytics/README.md'),
         ("Search & reader loop", 'One canonical reader sitemap, feed and metadata are generated automatically. RSS works. Search Console ownership/submission/query data and email capture are not invented.', ['S44','S45'], 'data/publication.json'),
         ("Cadence", 'Weekly source review and at most one useful new/substantial guide update per fortnight, only after evidence/build checks. Refresh an existing answer rather than duplicate it. This is a plan, not a running scheduler.', ['S43'], 'data/publication.json'),
+        ("Editorial set", f'27 question-shaped guides in four clusters, plus a hosting-week worksheet added 2026-11-20 from brand pages read that day. The queue\'s kill rule was followed rather than routed around: the seasonal topic became a worksheet on a new page plus one section on the canonical capacity guide, not a second capacity article. Every guide carries per-section source ids, a dated scoped source-check record and a statement that nothing was tested.', ['S10','S12','S14','S48'], 'articles/hosting-week-air-fryer-math.html'),
+        ("Open for the owner", '46 recorded questions and 58 suggestion rows, of which the decision worksheet lists every row not complete with its blocker. Four new rows came out of the 20 November read: two brand-page contradictions worth correcting in their own registers, the merchandising ceiling nobody has written down, and the missing handover date on the front page\'s seasonal band.', ['S2','S8'], 'suggestions.html'),
     ]
     table = ''.join(f'<tr><th scope="row">{e(title)}</th><td>{e(note)}</td><td>{src_links(ids)} <a href="{e(path)}">Repository evidence</a></td></tr>' for title,note,ids,path in rows)
     links = ''.join(f'<a class="card tight" href="{e(href)}"><span class="kicker">Workspace</span><strong>{e(label)}</strong></a>' for href,label in (("suggestions.html","Current decisions & alternatives"),("questions.html","Known facts, gaps & discovery"),("product-intent.html","Five links & empty campaign ledger"),("measurement.html","Measurement & deployment contract"),("design-prompt.html","Current design/editorial brief"),("requirements.html","Brief coverage & explicit gaps")))

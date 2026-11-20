@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped); SG-36..SG-38 and path P6 by arena/58cbaaa2 (2026-11-17) — written twice, and shortened the second time: the first draft's parallel intent register, measurement register and flags were dropped when main's merged registers and collection-disabled contract were found. The withdrawn draft is published at session-58cbaaa2/artifacts/. | pass 13 shopfront + decision desk (arena/fd9778a1-zone1): SG-39…SG-48, path P7, numbered after the merged 2026-11-17 rows so no id collides. | SG-54–SG-55 (decision worksheet + hosting-week guide) by arena/2ce347cb-zone1 (2026-11-19).",
+  "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped); SG-36..SG-38 and path P6 by arena/58cbaaa2 (2026-11-17) — written twice, and shortened the second time: the first draft's parallel intent register, measurement register and flags were dropped when main's merged registers and collection-disabled contract were found. The withdrawn draft is published at session-58cbaaa2/artifacts/. | pass 13 shopfront + decision desk (arena/fd9778a1-zone1): SG-39…SG-48, path P7, numbered after the merged 2026-11-17 rows so no id collides. | SG-54–SG-55 (decision worksheet + hosting-week guide) by arena/2ce347cb-zone1 (2026-11-19). | 2026-11-20 (arena/915c51ea-zone1): SG-53 and SG-15 states moved after the reader-side work shipped; SG-56..SG-59 added - the two brands' identical '4-6 people' sentences as the site's claim-literacy example, the CHEF iQ same-page sensor conflict found on 2026-11-20, the unwritten merchandising ceiling, and the missing date on the seasonal handover.",
   "compiled": "2026-11-19 | SG-56 (reader-voice decision) by arena/91a755df-zone1 (2026-11-20), after the snippet and CTA repair shipped; no earlier row edited.",
   "how_to_read": [
     "This is a decision queue, not a changelog. Rows the build's decision desk counts as implemented were shipped in the canonical root build under the standing pre-authorisation rule and are recorded, row by row, in data/decision-log.json; everything else is a proposal awaiting a path from you.",
@@ -2311,31 +2311,31 @@
         "Q-06"
       ],
       "implementation": {
-        "state": "partial",
-        "on": "2026-11-19",
-        "note": "Capacity, care, footprint, caveats and an honest decision rule now lead product pages. Missing intended identity, authorised Amazon review data and hands-on results remain missing.",
+        "state": "implemented",
+        "on": "2026-11-20",
+        "note": "data/products.json: one row added (Emeril 'Stated household size', cited to S14). build.py: not_published_note() renders blank-row labels per product on all five product pages.",
         "evidence": [
           {
-            "label": "PUB-1 scoped verification and boundary record",
-            "url": "reports/verification-2026-11-19-1f9e7d52.md"
+            "label": "This pass's dated source-read report",
+            "url": "reports/verification-2026-11-20-915c51ea.md"
           },
           {
-            "label": "Current publication data",
-            "url": "data/publication.json"
+            "label": "The live brand reads behind the copy (2026-11-20)",
+            "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
           }
         ]
       },
-      "current_state": "partial",
-      "current_note": "Capacity, care, footprint, caveats and an honest decision rule now lead product pages. Missing intended identity, authorised Amazon review data and hands-on results remain missing.",
-      "current_reviewed_on": "2026-11-19",
+      "current_state": "complete",
+      "current_note": "Option A is live on 2026-11-20: every product page now states, where the reader would expect a number, which buyer-relevant fields the manufacturer does not publish for that model - derived from the blank specification rows themselves, so the sentence cannot drift from the table it describes. The Emeril brand page's own household-size sentence was also read live on 2026-11-20 and added as a sourced row, which is one of the two figures this row said the site did not have. Options B (ask the manufacturer) and C (buy and measure) remain owner actions and are not done here.",
+      "current_reviewed_on": "2026-11-20",
       "current_evidence": [
         {
-          "label": "PUB-1 scoped verification and boundary record",
-          "url": "reports/verification-2026-11-19-1f9e7d52.md"
+          "label": "This pass's dated source-read report",
+          "url": "reports/verification-2026-11-20-915c51ea.md"
         },
         {
-          "label": "Current publication data",
-          "url": "data/publication.json"
+          "label": "The live brand reads behind the copy (2026-11-20)",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
         }
       ],
       "parallel_revision_history": [
@@ -2417,7 +2417,8 @@
             "reports/publication-2026-11-19.md"
           ]
         }
-      ]
+      ],
+      "resolved_on": "2026-11-20"
     },
     {
       "id": "SG-16",
@@ -7976,19 +7977,34 @@
         "Q-30"
       ],
       "implementation": {
-        "state": "proposed",
-        "on": "2026-11-19",
-        "note": "Not implemented. The product-page decision block is a layout decision that should be made with click data, and production analytics is still off.",
+        "state": "partial",
+        "on": "2026-11-20",
+        "note": "build.py: product_cta() shortened to one line; decision_kit(), not_published_note(), LOOK_ELSEWHERE and DECISION_ROUTES added and rendered on all five product pages; publication/theme.css styles the block. The comparison affordance is a link row, not a basket. No claim is made about measured effect: Q-30 is open.",
         "evidence": [
           {
-            "label": "Measurement contract and its disabled state",
-            "url": "measurement.html"
+            "label": "This pass's dated source-read report",
+            "url": "reports/verification-2026-11-20-915c51ea.md"
+          },
+          {
+            "label": "The live brand reads behind the copy (2026-11-20)",
+            "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
           }
         ]
       },
-      "current_state": "open",
-      "current_note": "Product pages keep the specification-first layout described above.",
-      "current_reviewed_on": "2026-11-19"
+      "current_state": "partial",
+      "current_note": "Options A and B shipped on 2026-11-20 in the reader build, and neither is described as a conversion improvement because nothing measures one: the buy button's three-sentence qualification is now one line, and a decision kit sits directly under it on all five product pages - 'Good fit if', 'Look elsewhere if' and 'Confirm before you click', each quoting a row this site already publishes with that row's own source ids, followed by the five questions that finish the decision and a link to the page that answers each. The comparison half of B is a link row ('the other two documented machines'), not a basket: no storage, no script and no measurement was added, and the sticky basket that SG-53 described exists only in an older annex build, not in this one. What stays open is exactly what this row said stays open: whether any of it is used cannot be known until the click counter in Q-30 has a host.",
+      "current_reviewed_on": "2026-11-20",
+      "current_evidence": [
+        {
+          "label": "This pass's dated source-read report",
+          "url": "reports/verification-2026-11-20-915c51ea.md"
+        },
+        {
+          "label": "The live brand reads behind the copy (2026-11-20)",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        }
+      ],
+      "resolved_on": null
     },
     {
       "id": "SG-54",
@@ -8218,6 +8234,334 @@
         "S50",
         "S51"
       ]
+    },
+    {
+      "id": "SG-57",
+      "title": "Correct the CHEF iQ sensor row: the brand page now contradicts itself and sells one to four probes",
+      "area": "Product content",
+      "problem": "Read live on 2026-11-20, the iQ Sense product page states 'Five internal sensors and heat resistance up to 1000 F' in its description paragraph and '4 internal temperature sensors for accuracy within 1 F' plus '1 ambient temperature sensor' in its feature list. This site's row prints only the second reading, labelled as what the page describes - which was true when it was written and is now half the page. The same page also offers 1, 2, 3 and 4 probe sizes and two colours, none of which the register mentions, so 'what is in the box' now depends on a selector the reader has to be told exists.",
+      "recommendation": "A. Print both readings on the row, the way the Emeril 25-versus-24 preset conflict is already printed, and add the variant selector as a dated observation. Do not average the two sensor counts and do not pick the one that reads tidier.",
+      "why": "The site's whole trust argument is that where official documents disagree, the reader sees the disagreement. A row that quietly keeps one of two contradictory sentences is the defect that argument exists to prevent, and here it is on a page a reader arrives at with money in hand.",
+      "options": [
+        {
+          "label": "A. Both readings plus the variant list, dated",
+          "what": "Edit data/thermometers.json's 'Sensors' and 'In the box' rows to name both sentences with the date each was read, and note the size selector. No new fact is asserted; the page's own contradiction becomes the content.",
+          "effort": "S",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Ask CHEF iQ which is right, then publish the answer",
+          "what": "Slowest, and the only version that ends with one figure. Q-45 is the row that carries the question.",
+          "effort": "S",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "C. Do nothing this cycle",
+          "what": "Accepted only if you also accept that a reader may notice the row is quieter than the page it cites.",
+          "effort": "0",
+          "risk": "medium",
+          "reversible": true
+        }
+      ],
+      "impact": 4,
+      "confidence": 5,
+      "effort": "S",
+      "risk_of_not_doing": "Medium. This is the kind of discrepancy a reader who compares the citation with the page will find, and finding it once costs more than the site's entire disclosure.",
+      "evidence": [
+        {
+          "label": "CHEF iQ iQ Sense product page (read live 2026-11-20)",
+          "url": "https://chefiq.com/products/iq-sense"
+        },
+        {
+          "label": "The pattern this site already uses for a same-page conflict",
+          "url": "articles/25-or-24-presets.html"
+        },
+        {
+          "label": "Q-45 - the question this row opens",
+          "url": "questions.html#q-45"
+        }
+      ],
+      "blocks": [],
+      "blocked_by": [],
+      "current_state": "open",
+      "current_note": "Not done by this pass: data/thermometers.json belongs to the pass that published the thermometer pages, so the finding is recorded here and in the report rather than edited across a file boundary. The row as it stands reflects the feature list only.",
+      "current_reviewed_on": "2026-11-20",
+      "current_evidence": [
+        {
+          "label": "This pass's dated source-read report",
+          "url": "reports/verification-2026-11-20-915c51ea.md"
+        },
+        {
+          "label": "The live brand reads behind the copy (2026-11-20)",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        }
+      ],
+      "implementation": {
+        "state": "proposed",
+        "on": "2026-11-20",
+        "note": "Not implemented by this pass. The finding is published with its date and both quotations; the register row this would change lives in data/thermometers.json, owned by the pass that shipped the thermometer pages.",
+        "evidence": [
+          {
+            "label": "This pass's dated source-read report",
+            "url": "reports/verification-2026-11-20-915c51ea.md"
+          },
+          {
+            "label": "The live brand reads behind the copy (2026-11-20)",
+            "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "SG-58",
+      "title": "Set the merchandising ceiling for product pages: what a page may say before it owns a test",
+      "area": "Content and traffic",
+      "problem": "The decision kit added today answers 'good fit if / look elsewhere if' strictly from documented features, which is why it reads like this site rather than like a review farm. A marketing affiliate site normally sells harder: benefits, scenarios, urgency, a deal line. Every one of those is available here only as a brand sentence, labelled as one, and the site's rules on brand claims (Q-39) and on Amazon's price and rating display (Q-16) decide how far that goes. Nobody has written the ceiling down, so each pass improvises it - which is how a page ends up sounding generated.",
+      "recommendation": "A. State the ceiling in one paragraph on the design brief page and let the build test it: documented features and named brand claims only, no benefit sentence the register cannot point at, no urgency, no invented scenario. Then stop relitigating it per pass.",
+      "why": "The brief wants a shop. A shop with a fixed, written voice is a publication; a shop whose voice is renegotiated by every automated pass is the slop the brief complains about. Writing the ceiling down is what lets the next pass push on the parts that can move - layout, structure, imagery, the questions it answers - instead of the parts that cannot.",
+      "options": [
+        {
+          "label": "A. Write the ceiling down and gate it",
+          "what": "One paragraph in the design brief, one build check that fails when a product-page sentence names a benefit the register cannot source. The kit stays as written.",
+          "effort": "S",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Widen it deliberately: brand sentences as body copy",
+          "what": "Every marketing line the brand publishes may be used as content with the brand, the page and the date attached. Louder pages; a bigger claim-review duty, and it needs Q-39 recorded as a decision rather than a rule.",
+          "effort": "M",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Buy one unit and rewrite the pages from a test",
+          "what": "The only path to real benefit language. Changes what the site may claim about every product, so it is a project decision, not a copy decision.",
+          "effort": "L",
+          "risk": "high",
+          "reversible": false
+        }
+      ],
+      "impact": 4,
+      "confidence": 4,
+      "effort": "S",
+      "risk_of_not_doing": "Medium. Without a written ceiling the next pass will either oversell and break the site's own rule, or undersell and the pages keep reading like documentation with a buy button.",
+      "evidence": [
+        {
+          "label": "Q-39 - may the site use a brand's marketing sentence, and with what framing",
+          "url": "questions.html#q-39"
+        },
+        {
+          "label": "Q-16 - what may be displayed at all (price, stars, review counts)",
+          "url": "questions.html#q-16"
+        },
+        {
+          "label": "Amazon Associates Program Policies (registered as S2; the display and claim rules this ceiling inherits)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "FTC Disclosures 101 (registered as S8; experience claims require experience)",
+          "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers"
+        }
+      ],
+      "blocks": [],
+      "blocked_by": [],
+      "current_state": "open",
+      "current_note": "The kit added 2026-11-20 stays inside option A's boundary in practice, but the boundary is not written down or enforced anywhere, which is the gap this row names.",
+      "current_reviewed_on": "2026-11-20",
+      "current_evidence": [
+        {
+          "label": "This pass's dated source-read report",
+          "url": "reports/verification-2026-11-20-915c51ea.md"
+        },
+        {
+          "label": "The live brand reads behind the copy (2026-11-20)",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        }
+      ],
+      "implementation": {
+        "state": "proposed",
+        "on": "2026-11-20",
+        "note": "Not implemented. The decision kit added on 2026-11-20 stays inside the ceiling option A would write down, but nothing enforces it yet.",
+        "evidence": [
+          {
+            "label": "This pass's dated source-read report",
+            "url": "reports/verification-2026-11-20-915c51ea.md"
+          },
+          {
+            "label": "The live brand reads behind the copy (2026-11-20)",
+            "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "SG-59",
+      "title": "Put a date on the front page's seasonal handover, before December decides it for you",
+      "area": "Content operations",
+      "problem": "The front page carries one designed seasonal moment, and today it is a hosting-week band: the new hosting guide, the gift guide and the model-number check. SG-46 asked for exactly this and got it. What nobody has set is when it changes. On 1 January the band will still be talking about a table that has already been cleared, and the topic queue's January row (TP-19, the first-week setup and care checklist for a gifted appliance) is blocked on Q-20, so the natural replacement is not ready either. A seasonal surface with no handover date is how a publication starts reading like a template that was filled once.",
+      "recommendation": "A. Fix the handover date now (this pass suggests the week of 28 December) and name the replacement slot, even if the replacement article is still gated: an empty slot with a date is honest, a stale band is not. B. Keep the band running into the new year and accept the mismatch.",
+      "why": "Two of the three seasonal guides are already dated in their own titles, and the queue's cadence rule says a seasonal page is reviewed ahead of its season. The front page is the one surface a returning reader looks at first, so it is where a missed date is most visible.",
+      "options": [
+        {
+          "label": "A. Set the handover date and the next occupant",
+          "what": "One line in the publication register: the band changes on a stated date, and TP-19 replaces it if Q-20 is answered by then, otherwise the slot carries the safe-temperature guide instead.",
+          "effort": "S",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Let it run",
+          "what": "No change, no date, no cost - and a hosting band on a January front page.",
+          "effort": "0",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "C. Make the band data-driven and self-dating",
+          "what": "The band is generated from a windowed field on each article, so it moves by itself. Worth doing only if you intend several seasonal bands; a build that picks content by date needs a rule for what happens in a week with nothing scheduled.",
+          "effort": "M",
+          "risk": "medium",
+          "reversible": false
+        }
+      ],
+      "impact": 2,
+      "confidence": 4,
+      "effort": "S",
+      "risk_of_not_doing": "Low. The site looks unmaintained for a fortnight, which is precisely the impression SG-46 was written to avoid.",
+      "evidence": [
+        {
+          "label": "SG-46 - one designed moment a season, not a redesign",
+          "url": "suggestions.html#sg-46"
+        },
+        {
+          "label": "The topic queue's cadence and kill rules",
+          "url": "topics.html"
+        },
+        {
+          "label": "The front page as published",
+          "url": "index.html"
+        }
+      ],
+      "blocks": [],
+      "blocked_by": [
+        "Q-23"
+      ],
+      "current_state": "partial",
+      "current_note": "The November/December band ships with this pass, featuring the hosting-week guide, the gift guide and the model-number check. No handover date is recorded, because setting one is the owner's call this row asks for.",
+      "current_reviewed_on": "2026-11-20",
+      "current_evidence": [
+        {
+          "label": "This pass's dated source-read report",
+          "url": "reports/verification-2026-11-20-915c51ea.md"
+        },
+        {
+          "label": "The live brand reads behind the copy (2026-11-20)",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        }
+      ],
+      "implementation": {
+        "state": "partial",
+        "on": "2026-11-20",
+        "note": "The November/December band is live on the front page and features the new hosting guide, the gift guide and the model-number check. No handover date is recorded; that is the decision this row asks for.",
+        "evidence": [
+          {
+            "label": "This pass's dated source-read report",
+            "url": "reports/verification-2026-11-20-915c51ea.md"
+          },
+          {
+            "label": "The live brand reads behind the copy (2026-11-20)",
+            "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+          }
+        ]
+      }
+    },
+    {
+      "id": "SG-60",
+      "title": "Decide whether the front-page product card may carry the buy button, or only the guide",
+      "area": "Design and layout",
+      "problem": "The front-page cards and both category pages send a reader to the product guide; the buy link appears only one level deeper, under the specification summary. That is deliberate - the site wants the model-conflict check read before the click - but it is also the single biggest structural difference between this front page and a normal affiliate shopfront, where the card is the click target. SG-25 asked for one compliant call-to-action pattern per money page and that has now been built; nobody has decided how far up the funnel the button climbs. The answer changes what the front page is for.",
+      "recommendation": "Keep the card as it is until Q-30 has an answer, then decide with the click data rather than by taste: if the outbound button is used at all on product pages, moving it up is a real conversion question; if it is never used, a front-page button would only add a sponsored link that sends readers past the conflict warnings.",
+      "why": "Both options are defensible and the difference is measurable, which is rare here. Choosing by taste now means changing it twice.",
+      "options": [
+        {
+          "label": "A. Card links to the guide only (today's behaviour)",
+          "what": "Every outbound product link sits behind a page that states the capacity figure, the care rule and the model conflict. Fewer clicks for the site, one more click for the reader.",
+          "effort": "0",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Card carries the same qualified button the product page does",
+          "what": "The card gains 'View on Amazon - check model' with the one-line disclosure, exactly as product_cta() renders it, sponsored and nofollow as everywhere else. Louder, and it puts a purchase link in front of a reader who has not met the caveat.",
+          "effort": "S",
+          "risk": "medium",
+          "reversible": true
+        },
+        {
+          "label": "C. Card carries a second link beside the guide link",
+          "what": "'Read the guide' and 'Check the listing' as a pair, so the reader chooses. Keeps the caveat in the same visual row instead of one level down.",
+          "effort": "S",
+          "risk": "low",
+          "reversible": true
+        }
+      ],
+      "impact": 3,
+      "confidence": 4,
+      "effort": "S",
+      "risk_of_not_doing": "Low. The site keeps a defensible funnel and the decision simply stays unrecorded, which invites a later pass to change it by instinct.",
+      "evidence": [
+        {
+          "label": "SG-25 - one compliant call-to-action pattern on every money page",
+          "url": "suggestions.html#sg-25"
+        },
+        {
+          "label": "The CTA as it is rendered on a product page today",
+          "url": "products/chefman-8qt-turbofry.html"
+        },
+        {
+          "label": "Amazon Associates Program Policies (link and disclosure obligations the button inherits)",
+          "url": "https://affiliate-program.amazon.com/help/operating/policies"
+        },
+        {
+          "label": "Q-30 - whether a click counter can exist at all",
+          "url": "questions.html#q-30"
+        }
+      ],
+      "blocks": [],
+      "blocked_by": [
+        "Q-30",
+        "Q-08"
+      ],
+      "implementation": {
+        "state": "proposed",
+        "on": "2026-11-20",
+        "note": "Not implemented. Option A is the current behaviour and is left running; the question is whether to move up the funnel, which this pass declines to answer without measurement.",
+        "evidence": [
+          {
+            "label": "This pass's dated report",
+            "url": "reports/verification-2026-11-20-915c51ea.md"
+          }
+        ]
+      },
+      "current_state": "open",
+      "current_note": "Front-page and category cards link to the guide; the qualified buy button appears on the product page only.",
+      "current_reviewed_on": "2026-11-20",
+      "current_evidence": [
+        {
+          "label": "This pass's dated report",
+          "url": "reports/verification-2026-11-20-915c51ea.md"
+        },
+        {
+          "label": "The card as published",
+          "url": "index.html"
+        }
+      ],
+      "resolved_on": null,
+      "parallel_implementation_history": [],
+      "parallel_revision_history": []
     }
   ],
   "paths_intro": "A decision queue with this many rows is a backlog, not a decision. The paths below group the suggestions into four coherent pieces of work. Each path is ordered, names what has to be true before it can start, and says plainly what it will not fix. Pick one path, finish it, then pick the next. The grouping is this pass's judgement; the dependencies inside it are not - they are the blocked_by links already recorded on each row.",

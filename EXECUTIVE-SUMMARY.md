@@ -1679,3 +1679,78 @@ Separately, the five stale pull requests (#139, #141, #144, #146, #150) have a r
 (F93, SG-50, Q-41). This pass closed none of them, because closing another session's work is your call.
 
 Full record: `reports/verification-2026-11-19-9b3365c7.md` and the pass-14 section of `COORDINATION.md`.
+
+---
+
+## 15. Shopfront decision pass — 2026-11-20 (`arena/915c51ea-zone1`)
+
+**As of 2026-11-20 UTC · session 915c51ea · base `main` @ `1c7de82` (PR #185).**
+Full record: [`reports/verification-2026-11-20-915c51ea.md`](reports/verification-2026-11-20-915c51ea.md).
+
+The brief asked for a shop rather than an audit, and the site was already an honest one; what
+it still lacked was a path from a product page to a decision. That is what this pass added, and
+it is the last part of the reader-facing brief that could be closed without touching an account.
+
+**What changed on the reader pages.**
+
+- **A decision kit on all five product pages** (SG-53, options A and B). The three-sentence
+  qualification under the buy button is now one line; below it sit *Good fit if*, *Look
+  elsewhere if* and *Confirm before you click*, each cell quoting a row the register already
+  publishes and reusing that row's source ids, then the five questions that finish the decision
+  with a link to the page that answers each, then the other documented machines and the
+  side-by-side matrix. The citation trail did not disappear; it moved into the record below.
+- **"Not published by the brand for this model"** (SG-15, option A) is now printed where a
+  reader would expect the missing number, derived from the blank specification rows themselves.
+  An absence explains itself; it is not filled with an estimate.
+- **One row added to the product register**, from a live read: the Emeril brand page's own
+  household-size sentence beside its 26-quart capacity (S14). Spec rows go 77 → 78, verified
+  75 → 76, blank-and-flagged stays 2.
+- **A 27th guide**: [`articles/hosting-week-air-fryer-math.html`](articles/hosting-week-air-fryer-math.html),
+  the queue's TP-16. The kill rule was obeyed rather than routed around — the seasonal topic
+  became a worksheet page plus one section on the canonical capacity guide, not a second
+  capacity article. It is filed in a cluster, in the sitemap, in the feed and in both topic
+  registers (the F85 mirror drift is not reproduced).
+- **Design polish inside the site's own recorded decision**: decision-kit styling, numbered
+  cluster heads on the guide index, card hover, prose size on wide screens. **No generated
+  product likeness and no photography**, because SG-42 records generated imagery as rejected
+  and Q-34 is unanswered.
+- **The front page's seasonal band now leads with hosting week**, which is the live window on
+  2026-11-20 — and SG-59 asks for the date it changes over, because a seasonal surface with no
+  handover date is how a publication starts reading like a filled template.
+
+**The one editorial finding worth the owner's attention.** Both Chefman's 8 Qt page and the
+Emeril page publish a household-size figure, and they publish the *same* one — "4-6 people"
+beside a single 8-quart basket and again beside a 26-quart cavity, roughly three times the
+volume. That is the clearest demonstration this site could hold up of why a marketing sentence
+is not a portion table, and it is now the spine of the new guide (SG-56 proposes putting the
+pair where the decision is actually made).
+
+**Irregularities found on live official pages today, published not silently fixed:**
+
+1. The CHEF iQ iQ Sense page contradicts itself on sensor count — "Five internal sensors" in
+   its description, "4 internal temperature sensors … 1 ambient" in its feature list — while
+   this site's row prints only the second reading. Raised as **SG-57** and **Q-45**; the file
+   that owns the row belongs to another session, so nothing was rewritten here.
+2. The same page sells 1, 2, 3 and 4-probe variants, which the register's "in the box" row does
+   not mention. Recorded in **Q-45**.
+3. Neither brand states which product its household-size sentence describes, and Chefman's one
+   description serves both the 5 Qt and 8 Qt selector. Opened as **Q-44**.
+4. Supplied link 3 reached a **product** page today (`/dp/B08DKYBTPH`) carrying
+   `plpRedirect=mhFallback` in the landing URL — which is how the 19 November homepage fallback
+   (F106) and a normal product landing can both be true on different days. The flag stays open
+   for its owner with this dated observation attached; the token is called neither valid nor
+   invalid, per Zone3 FLG-003.
+
+**What did not change, by design.** No price, rating, review count, traffic, click, conversion
+or ranking figure was added; the campaign ledger stays empty; production analytics stays off
+(Q-30); `shopnow047c-20` stays recorded, unvalidated and unapplied; intended-ASIN fields stay
+blank and separate from observed redirects; no layout change here is described as a conversion
+improvement, because nothing measures one.
+
+**Gates at hand-off:** build 142 pages / 42 sitemap URLs / 27 feed items, deterministic ·
+verify.py 142 pages, 78 spec rows, 49 sources, **0 errors**, 0 external warnings · 75
+publication tests OK · 14 Node contract tests pass · 33 engine tests OK · data audit clean ·
+`build_s2_site.py --check` current · **12,971 links, no broken link** · `scripts/ci-check.sh`
+exit 0. One test was repaired rather than loosened: the pinned article count became the
+structural property it stood for (every registered guide has exactly one sitemap URL; no shared
+slugs).
