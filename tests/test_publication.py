@@ -78,6 +78,45 @@ class PublishedReaderBoundaryTests(unittest.TestCase):
                 self.assertNotIn('class="sidebar"', content)
                 self.assertEqual([], build.check_disclosure([(str(path), content)]))
 
+    def test_reader_source_labels_still_carry_a_verifiable_register_id(self):
+        """The readable form added 2026-11-20 (arena/abbb9745) must not become an unchecked label.
+
+        A reader badge prints the source's short name and keeps the register id in
+        data-src-id; verify.py resolves that id to its registered URL. This test
+        pins the same contract at the data level so an edit to build.src_link cannot
+        quietly drop the attribute.
+        """
+        badge = build.src_link("S13", words=True)
+        self.assertIn('class="src src-word"', badge)
+        self.assertIn('data-src-id="S13"', badge)
+        self.assertIn(build.SRC_BY_ID["S13"]["url"], badge)
+        self.assertNotIn('>S13<', badge)
+        self.assertIn(build.SRC_BY_ID["S13"]["short"], badge)
+        self.assertIn('>S13<', build.src_link("S13"))
+        appended = build.src_links(["S13", "S13"], words=True)
+        self.assertEqual(1, appended.count("data-src-id"))  # a source listed twice is linked once
+        for source in build.SOURCES["sources"]:
+            with self.subTest(source=source["id"]):
+                self.assertTrue(source.get("short"), "every source needs a readable short name")
+
+    def test_the_metadata_budget_is_applied_to_description_as_well_as_title(self):
+        """The snippet budget covers both fields, on every shipped page.
+
+        `build.seo_title()` / `build.fit_description()` and verify.py check 12 already
+        cover the head; this keeps a page from being added later with a long
+        description that no test looks at.
+        """
+        reader_routes = sorted(ROOT.glob("*.html"))
+        for folder in ("articles", "products", "categories", "guides"):
+            reader_routes.extend(sorted((ROOT / folder).glob("*.html")))
+        for path in reader_routes:
+            text = path.read_text(encoding="utf-8")
+            if 'data-page-id=' not in text:
+                continue
+            desc = re.search(r'<meta name="description" content="([^"]*)"', text).group(1)
+            with self.subTest(page=str(path.relative_to(ROOT))):
+                self.assertLessEqual(len(desc), build.DESC_BUDGET, desc)
+
     def test_sources_and_generated_presentation_assets_do_not_drift(self):
         for source, output in (("publication/theme.css", "assets/style.css"),
                                ("publication/site.js", "assets/app.js"),

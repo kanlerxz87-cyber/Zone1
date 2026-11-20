@@ -10,10 +10,13 @@ Checks:
   5. no page references an undefined source id
   6. no Amazon price / star-rating pattern leaked into the HTML
   7. no page nests an <a> inside another <a> (invalid HTML)
+  8. every shipped page keeps its <title> and meta description inside the
+     search-result budget (65 / 160 characters)
 
 Exit code is non-zero if anything fails, so this can gate the deploy.
 """
 
+import html
 import json
 import re
 import sys
@@ -29,6 +32,9 @@ sys.path.insert(0, str(ROOT / "scripts"))
 # disagree. See scripts/historical_compliance.py.
 import historical_compliance as _hist  # noqa: E402
 DISCLOSURE = "As an Amazon Associate I earn from qualifying purchases."
+# Annex trees are the historical/verification builds; they are never indexed and are
+# excluded from the canonical-page metadata checks below.
+ANNEX_TREES = ("site", "dashboard", "research", "s2", "annex-88769516", "session-3740f69d", "docs")
 
 OFFICIAL_HOSTS = {
     # Brand pages read 2026-11-17 against the two links submitted that day (sources S39/S40).
@@ -138,7 +144,14 @@ official_urls = {s["url"] for s in sources["sources"]}
 # question desks reuse the .src class for internal cross-references, which are not
 # sources and are covered by the internal-link checks.
 _SOURCE_URL = {s["id"]: s["url"] for s in sources["sources"]}
-_BADGE = re.compile(r'<a class="src" href="([^"]+)"[^>]*>(S\d+|S-[A-Z]+)</a>')
+# Two badge forms are legitimate after pass 16 (2026-11-20): the register form, whose
+# link text is the source id, and the reader form (class "src src-word"), whose link
+# text is the source's short human name and whose data-src-id attribute carries the id.
+# Both are checked against the registered URL; the second form exists so a reader sees
+# "Chefman RJ38-SQSS-8T guide" instead of "S13" without weakening the guarantee.
+_BADGE = re.compile(r'<a class="src(?: src-word)?" href="([^"]+)"(?P<attrs>[^>]*)>'
+                    r'(?P<text>S\d+|S-[A-Z]+|[^<]*)</a>')
+_BADGE_ID = re.compile(r'data-src-id="([^"]+)"')
 
 checked = 0
 for page in pages():
@@ -199,7 +212,17 @@ for page in pages():
     # the site rendered 1,400 S-badges; all 1,400 resolve correctly today, so this check
     # starts green and exists to keep it that way.
     for m in _BADGE.finditer(text):
-        _href, _sid = m.group(1), m.group(2)
+        _href = m.group(1)
+        _id_attr = _BADGE_ID.search(m.group("attrs") or "")
+        _is_id_text = bool(re.fullmatch(r"S\d+|S-[A-Z]+", m.group("text")))
+        if not _id_attr and not _is_id_text:
+            # Historical annexes label some badges with a short name instead of an S-id;
+            # those were never covered by this id-to-URL guarantee.
+            continue
+        _sid = _id_attr.group(1) if _id_attr else m.group("text")
+        if not re.fullmatch(r"S\d+|S-[A-Z]+", _sid):
+            errors.append(f"{rel(page)}: badge data-src-id {_sid!r} is not a source id")
+            continue
         if _sid not in _SOURCE_URL:
             errors.append(f"{rel(page)}: source badge {_sid} names an unregistered id")
         elif _SOURCE_URL[_sid] != _href:
@@ -235,7 +258,6 @@ for page in pages():
 #     other than the root, while Google's own documentation tells a publisher to submit
 #     the sitemap through Search Console or the robots.txt Sitemap line. The result was
 #     six uncovered trees and no way to tell which one a crawler was asked to rank.
-ANNEX_TREES = ("site", "dashboard", "research", "s2", "annex-88769516", "session-3740f69d", "docs")
 for _tree in ANNEX_TREES:
     _root = ROOT / _tree
     for _f in sorted(_root.rglob("*.html")):
