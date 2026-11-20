@@ -6715,3 +6715,22 @@ Live re-read this session (2026-11-20): all three air-fryer resolver targets re-
 **Scopes deliberately NOT taken** (owned by open PRs or prior sessions): `data/product-intent.json`, `data/config.json`, `data/flags.json`, `data/decision.json`, `data/questions.json`, `data/suggestions.json`, `dashboard/`, `docs/`, `s2/`, `site/`, `research/`, `annex-*`, `session-*`.
 
 **Why this scope.** The brief asks for revenue ("real people can click the links and buy") and for verification against official sources "line by line". The repository records `associate_tag` as blank, which is correct until the account-holder checks pass; but the canonical compliance register did **not** carry the one Operating-Agreement-adjacent clause that makes the tag a *URL parameter* requirement rather than a preference. That gap is the thing most likely to be mistaken for a cosmetic one.
+
+### W-8ab133ea release receipt — PR #186 merged and deployed — 2026-11-20
+
+* **Merged:** [PR #186](https://github.com/kanlerxz87-cyber/Zone1/pull/186) — all three PR checks SUCCESS (`verify` 22s, `browser` 4m4s, annex rebuild 8s) before explicit `gh pr merge 186 --merge` (no `--auto`). Merge commit **`fca7fe1`**, 2026-11-20T05:57:03Z.
+* **Post-merge CI on main:** Pages deploy workflow **44684402882** success; legacy `pages build and deployment` **44684402231** success; annex verify **44684402810** success; CI **44684402954** success. `gh api .../pages` → status `built`, https enforced, https://kanlerxz87-cyber.github.io/Zone1/.
+* **Live readback note:** direct retrieval of github.io from this sandbox is blocked (outbound hosts restricted to GitHub/npm/PyPI; TLS EOF), so live verification here is via the Pages API + workflow conclusions, not an HTTP fetch. No site HTML changed in this pass, so the deployed bytes are identical to the pre-merge build already verified locally.
+* **Boundaries re-stated, not re-earned:** `shopnow047c-20` stays selected/unvalidated/unapplied; intended-ASIN fields stay blank and separate from observed redirects; production analytics stays off; campaign ledger stays empty; no Search Console action; F106 stays open for review; Q-43 stays open for the owner.
+
+### W-8ab133ea rebase note — 2026-11-20 (UTC)
+
+* PR #194 hit a merge conflict after PR #191 (arena/91a755df) merged to main. Single conflict block at the end of `COORDINATION.md` (both sides append-only entries). Resolved keep-both: session 91a755df's claim section kept verbatim first, this session's release receipt appended after. No other session's record, state or flag row altered. Gates unaffected (COORDINATION.md is not generated output); PR checks re-run on the rebased branch before merge.
+
+### W-8ab133ea second rebase note — 2026-11-20 (UTC)
+
+* PR #194 conflicted again after PR #195 (arena/91a755df) merged. Same single append-only conflict block in `COORDINATION.md`; resolved keep-both (their completion record verbatim first, this session's receipt after). No other session's work altered. Checks re-run on the rebased branch before merge.
+
+### W-8ab133ea third rebase note — 2026-11-20 (UTC)
+
+* PR #194 conflicted again after PR #190 (arena/69c1201a) merged. Same single append-only conflict block in `COORDINATION.md`; resolved keep-both (their record verbatim first, this session's receipt after). No other session's work altered. Checks re-run on the rebased branch before merge.
