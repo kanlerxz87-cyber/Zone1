@@ -2704,9 +2704,26 @@ PROGRAMME_FLAGS = [('F1',
   'shopper will see. The historical PI-03 record is not overwritten. Action: re-read this token from a normal '
   'browser before any release that carries it, run the enrolled-account one-link test (SG-37), and keep the '
   "'check model' caveat on the button.",
-  ['S2', 'S21', 'S41'])]
+  ['S2', 'S21', 'S41']),
+ ('F111',
+  'The canonical compliance register described tracking IDs (C14) but did not carry the clause that requires '
+  'the Associates tag to be a URL parameter on every link, so it could not state the consequence: an untagged '
+  'product link cannot produce an attributed Qualifying Purchase.',
+  'data/compliance.json requirements C1-C18 (as at 2026-11-19); the clause existed only in the archived s2/ '
+  'annex (data/s2/program.json) and crosscheck/arena-4ba9e055, neither of which is the canonical register',
+  'Read live on 2026-11-20: Program Policies section 2(b) requires the Associates ID or "tag" "as a parameter '
+  'in the URL of each link you place on your Site to an Amazon Site" and requires Special Links to be "accessed '
+  'directly from your Site"; the Commission Income Statement section 1 makes a Qualifying Purchase depend on "a '
+  'customer clicks through a Special Link on your Site". Recorded as C19 with status "gated", because '
+  'associate_tag is blank on the live build and the blocker is the account-only test already tracked as F76 and '
+  'F77. The register now reads 18 met + 1 gated instead of uniformly green. No stored value was found to be '
+  'wrong: what was missing was the consequence, not a figure. This flag records the register gap; it does not '
+  'assert anything about the supplied short links, whose compliance status stays unresolved.',
+  ['S2'])]
 
 REPO_EVIDENCE = {
+ 'F111': ['data/compliance.json', 'data/sources.json', 'build.py',
+         'reports/verification-2026-11-20-69c1201a.md'],
  'F106': ['data/sources.json', 'build.py', 'reports/verification-2026-11-19-2ce347cb.md'],'F105': ['build.py', 'verify.py', 'scripts/add_annex_noindex.py', 'scripts/build_site.py',
           'research/build_research.py', 'scripts/build_s2_site.py',
           'reports/verification-2026-11-19-b3ed16c4.md'],
@@ -2944,6 +2961,21 @@ def page_data():
               )
 
 
+def _compliance_state_pill(status):
+    """Status chip for one compliance requirement.
+
+    'implemented' stays unstyled because the register's default reading is that the rule
+    is met; anything else has to be visible at a glance. 'gated' is the honest third
+    state this register needed on 2026-11-20: the rule is not met on the live build, and
+    the reason is an account-only step this repository cannot perform itself (C19 /
+    F76). Rendering it as if it were met would have been the defect.
+    """
+    return {
+        "implemented": "",
+        "gated": ' <span class="pill pill-warn">Gated</span>',
+    }.get(status, f' <span class="pill pill-info">{e(status or "unknown")}</span>')
+
+
 def page_compliance():
     rows = "".join(
         f"""<tr>
@@ -2952,7 +2984,7 @@ def page_compliance():
             <blockquote>{e(r['quote'])}<cite>{e(r['clause'])}</cite></blockquote>
           </td>
           <td>{src_links(r['source'])}</td>
-          <td class="small">{e(r['how_implemented'])}</td>
+          <td class="small">{_compliance_state_pill(r.get('status'))}{e(r['how_implemented'])}</td>
         </tr>"""
         for r in COMPLIANCE["requirements"]
     )
@@ -2973,7 +3005,12 @@ def page_compliance():
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / Compliance</p>
 <h1>Policy text and implementation boundaries</h1><p class="small muted">This is a cited policy register, not Amazon approval or legal certification. Implementation notes were reconciled on 19 November; quotes retain their recorded source dates. Only the named sections in the scoped report were freshly re-read.</p>
-<p class="lede">{len(COMPLIANCE['requirements'])} requirements that govern this site, each with the source text, a link to the official document, and a bounded statement of what this repository does about it. Where a rule is inconvenient, the rule wins and the feature is dropped.</p>
+<p class="lede">{len(COMPLIANCE['requirements'])} requirements that govern this site, each with the source text, a link to the official document, and a bounded statement of what this repository does about it. Where a rule is inconvenient, the rule wins and the feature is dropped. <strong>{sum(1 for r in COMPLIANCE['requirements'] if r.get('status') == 'gated')} of them is gated rather than met</strong> — named in the register below with the step that would clear it. A register that showed every row green while a revenue path was switched off would be the kind of page this project exists not to publish.</p>
+
+<div class="callout">
+  <strong>The rule that governs whether a click can be paid on</strong>
+  <p class="small">Amazon requires the Associates tag to appear <em>as a parameter in the URL</em> of each link, and pays only where a purchase follows a click through one of those Special Links. This site currently emits untagged product links, so it cannot be attributed a sale. That is a deliberate, reversible gate, not an editorial position: see <strong>C19</strong> below and <a href="flagged.html#f76">F76</a>. {src_links(['S2'])}</p>
+</div>
 
 <div class="callout">
   <strong>The three rules that shape everything else</strong>
