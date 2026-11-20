@@ -1247,12 +1247,34 @@
             "S13",
             "S18"
           ]
+        },
+        {
+          "h": "Hosting week: the one question the worksheet adds",
+          "paras": [
+            "Through late November and December the same capacity question arrives in a sharper form: not what the appliance holds on an ordinary Tuesday, but what it holds when several things have to be hot at once and the oven is already busy. That is a different calculation, and it is mostly not about quarts.",
+            "Two of the three brand pages in this project publish a household figure beside capacity - one for a single 8-quart basket, one for a 26-quart cavity - and they name the same range of people. The hosting-week guide sets those sentences next to each other, with the footprints, and gives a five-minute worksheet you can finish before you order."
+          ],
+          "cite": [
+            "S12",
+            "S14",
+            "S10"
+          ]
         }
       ],
       "closing_note": "Documentation-based guidance, not a hands-on test. Match the exact model and read the full current instructions before buying or using it.",
       "published_at": null,
-      "modified_at": "2026-11-19T07:04:09Z",
+      "modified_at": "2026-11-20T06:07:20Z",
       "source_checks": [
+        {
+          "on": "2026-11-20",
+          "ids": [
+            "S10",
+            "S12",
+            "S14"
+          ],
+          "session": "arena/915c51ea-zone1",
+          "scope": "Refreshed section only. The household-size sentences quoted in it were read live on the two brand pages the same day this section was added (Chefman 8 Qt description block; Emeril specification block); the 6 Qt capacity row is the register's own published value with its S10/S18 sourcing. Nothing in the earlier sections was re-verified by this edit, and no loading, portion or timing test was performed."
+        },
         {
           "on": "2026-11-19",
           "ids": [
@@ -4287,6 +4309,111 @@
       "modified_on": "2026-11-19",
       "seo_title": "Turkey temperature: the USDA chart, plainly",
       "seo_description": "What the USDA safe minimum for turkey is, and what an air-fryer preset can and cannot promise about it."
+    },
+    {
+      "slug": "hosting-week-air-fryer-math",
+      "kind": "Guide",
+      "cluster": "choose",
+      "kicker": "Hosting week",
+      "title": "Hosting week: how much air fryer does a full table need?",
+      "standfirst": "Capacity becomes a real question when six people arrive at once. Here is what the three brand pages on this site actually publish about crowds, what they leave out, and the five-minute worksheet that settles it.",
+      "seo_description": "How much air fryer a hosting-week table needs: what three brand pages publish about crowds, and a five-minute worksheet you can finish before you order.",
+      "target_query": "what size air fryer for hosting a family dinner",
+      "intent": "Transactional",
+      "reading_minutes": 4,
+      "products": [
+        "chefman-6qt-dual-basket",
+        "chefman-8qt-turbofry",
+        "emeril-26qt-french-door"
+      ],
+      "sections": [
+        {
+          "h": "Count the hot dishes, then the quarts",
+          "paras": [
+            "A full table is a timing problem before it is a volume problem, and the three machines documented here answer it in three different shapes. The dual-window Chefman is a 6 Qt appliance built as two baskets with their own controls, and its brand page leads with a sync function that finishes both at the same time. The 8 Qt TurboFry is a single basket with four one-touch presets for fries, chicken, fish and meat. The Emeril is an oven-style cavity whose own page names ten modes, from Air Fry and Roast to Warm and Proof, and documents a rotisserie.",
+            "**Which matters more, the number of dishes or the number of settings?** If two side dishes need different temperatures at the same moment, a second control zone is the feature doing the work, not a larger nominal volume. If everything on your table cooks at one temperature, one bigger basket and a batch plan may be the simpler answer. The capacity guide explains what a quart figure does and does not describe; this page is only about the hosting week around it."
+          ],
+          "cite": [
+            "S10",
+            "S18",
+            "S12",
+            "S14"
+          ]
+        },
+        {
+          "h": "What the brands say about people - and what they do not",
+          "paras": [
+            "Two of these brand pages publish a household figure, and the two appliances are nowhere near the same size. The 8 Qt page states {{Designed for 4–6 people::designed for 4–6 people}} beside one basket. The Emeril page puts {{preparing food for 4–6 people}} in its specification block beside a 26 qt cavity. Same household range, roughly three times the volume - which is the clearest available evidence that a people figure is marketing shorthand for family-sized, not a portion table.",
+            "The dual-window 6 Qt page publishes no people figure at all; its capacity row is simply {{6 Qt / 5.67 L}}. This site has not cooked for anyone, so it will not convert any of the three statements into a number of place settings. What a brand prints beside a capacity line is a claim the brand makes; what your table needs is a measurement you can take at home."
+          ],
+          "cite": [
+            "S12",
+            "S14",
+            "S10"
+          ]
+        },
+        {
+          "h": "Count the counter before you count the quarts",
+          "paras": [
+            "The same brand pages publish the outside of each machine, and on hosting day that is often the real limit. The dual-window model is documented at {{13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm}}, the 8 Qt model at {{8 Qt model: 15.4 × 12.6 × 13.5 in / 39.11 × 32 × 34.29 cm · 12.8 lb / 5.8 kg}}, and the Emeril at {{16.9 D × 15.8 W × 14.8 H in}}.",
+            "A footprint is the box, not the working space. Before the appliance is where you intend it to live, check the manual for the clearance it needs while running, whether a door swings or a basket pulls out into the room someone has to stand in, and whether the surface under it is rated for the heat. The dimensions guide walks through that measurement; the care pages say what the manuals require afterwards."
+          ],
+          "cite": [
+            "S10",
+            "S12",
+            "S14",
+            "S18",
+            "S13",
+            "S15"
+          ]
+        },
+        {
+          "h": "The five-minute worksheet",
+          "paras": [
+            "**1. How many things have to be hot at the same time?** Write the menu down and mark each item that needs a different temperature. Two or more is an argument for a second control zone; zero is an argument for one bigger basket.",
+            "**2. What is already taken on the day?** The oven-style cavity is the format that overlaps with a conventional oven's jobs. If the oven is busy with the bird, the counter appliance is doing a different dish, not the same one faster.",
+            "**3. Where will it sit while it runs?** Measure the position you have in mind, then add the clearance the manual for your exact model asks for, plus swing or pull-out room.",
+            "**4. Will you batch, and can you hold what you cooked?** Both Chefman manuals warn against overcrowding, so batching is part of owning a basket appliance. A documented Warm mode is what makes holding food practical; the Emeril page lists one, and the preset rows for the basket models do not.",
+            "**5. Who reads the model number before the order?** A capacity figure belongs to a specific model. Read the model string on the listing and on the document, and match both before treating any number on this page as yours."
+          ],
+          "cite": [
+            "S10",
+            "S12",
+            "S13",
+            "S14",
+            "S18",
+            "S15"
+          ]
+        },
+        {
+          "h": "What this page cannot tell you",
+          "paras": [
+            "No appliance was bought, loaded, run or timed for this guide, so there is no batch count, no preheat figure and no portion number here to trust or distrust. The brand figures quoted above are the brands' own, reproduced as their claims with the page they came from.",
+            "Two gaps are worth naming before you buy on hosting-week urgency. The 8 Qt listing this site maps to its brand page carries a higher maximum temperature in its title than the brand page documents for that model, which is a reason to read the model string rather than the headline. And the destinations of the supplied short links in this project are dated observations, not confirmed intended listings: what the link sends you to is a separate record, kept apart from what it was meant to point at."
+          ],
+          "cite": [
+            "S12",
+            "S2"
+          ]
+        }
+      ],
+      "closing_note": "Editorial guidance about published documents, not a cooking result. The worksheet is a way to take your own measurements; nothing here is a claim that any appliance will feed a given number of people.",
+      "published_at": null,
+      "modified_at": "2026-11-20T06:07:20Z",
+      "sources_read": "2026-11-20",
+      "source_checks": [
+        {
+          "on": "2026-11-20",
+          "ids": [
+            "S10",
+            "S12",
+            "S14"
+          ],
+          "session": "arena/915c51ea-zone1",
+          "scope": "Read live while this guide was written: the Chefman dual-window 6 Qt brand page (capacity line, sync function, Hi-Fry maximum, published footprint), the Chefman 8 Qt / 5 Qt brand page (household-size sentence in the description, four presets, 200-400 °F range, 8 Qt dimensions and weight, dishwasher-safe basket, auto-shutoff) and the Emeril French Door AirFryer 360 brand page (26-Quart Capacity with the 4-6 people wording in the specification block, ten named modes, rotisserie, 25 presets in the spec block against 24 in the description, dimensions). The manual rows cited beside the sections (S18, S13, S15) are the dated register reads this site already publishes, re-linked not re-read for this guide, and the 8 Qt listing conflict (S29) is referenced through its own dated record rather than restated as a fresh observation. No appliance was cooked in, loaded or timed."
+        }
+      ],
+      "source_check_history": []
     }
   ],
   "updated": "2026-11-19",

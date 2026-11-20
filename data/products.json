@@ -400,6 +400,14 @@
      ]
     },
     {
+     "label": "Stated household size",
+     "value": "preparing food for 4–6 people",
+     "source": [
+      "S14"
+     ],
+     "note": "Brand wording in the specification block, read live 2026-11-20. It sits beside the 26-Quart Capacity entry, not beside a serving or portion table. This site has not cooked for anyone."
+    },
+    {
      "label": "Supply power",
      "value": "120 V / 60 Hz",
      "source": [

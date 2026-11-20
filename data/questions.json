@@ -3199,6 +3199,112 @@
           "url": "https://kanlerxz87-cyber.github.io/Zone1/articles/air-fryer-capacity-guide.html"
         }
       ]
+    },
+    {
+      "id": "Q-45",
+      "question": "Does the 'Designed for 4-6 people' sentence on the Chefman TurboFry Touch page describe the 8 Qt, the 5 Qt, or both - and does the Emeril figure describe the cavity or a meal?",
+      "group": "Products",
+      "state": "not_stated",
+      "why_it_matters": "One brand page serves both basket sizes from a single description, so the sentence this site cites for the 8 Qt may be a template line written for the pair. The Emeril page puts the same range beside a 26-quart cavity, in a specification block rather than a description. Until someone says which product each sentence is about, the figure can be used as an example of marketing language - which is how the hosting-week guide uses it - but not as sizing advice for the machine a reader would receive.",
+      "what_we_know": [
+        "Read live 2026-11-20: the Chefman 8 Qt / 5 Qt page's description paragraph ends 'Designed for 4-6 people, this family-sized air fryer delivers swift cooking' and the page offers a Size selector with 8 Quart and 5 Quart (https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1).",
+        "Read live 2026-11-20: the Emeril page's specification block pairs '26-Quart Capacity' with 'preparing food for 4-6 people' (https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360).",
+        "Both figures are reproduced by this site as brand claims with the page attached, never as this site's own sizing advice (Q-39).",
+        "Q-44, opened by a parallel pass on the same day, asks a different question about brand sentences like this one - how much of the sourcing apparatus stays in the reader's line of sight. It does not settle which product the sentence describes."
+      ],
+      "what_is_missing": "A statement from each brand about which product its household-size sentence describes. Nothing on either page says so.",
+      "how_to_discover": "Ask each brand's support contact named on its own page, quoting the sentence and asking whether it applies to the 5 Qt variant as well as the 8 Qt, and to the cavity or to a meal for the Emeril. An answer becomes a sourced row; the absence of one keeps the figure in the claim-literacy guide, where it is already doing useful work.",
+      "blocks": [],
+      "sources": [
+        {
+          "label": "Chefman 8 Qt / 5 Qt product page (read live 2026-11-20)",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        },
+        {
+          "label": "Emeril French Door AirFryer 360 product page (read live 2026-11-20)",
+          "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+        }
+      ],
+      "reviewed_on": "2026-11-20",
+      "history": [
+        {
+          "on": "2026-11-20",
+          "session": "arena/915c51ea-zone1",
+          "note": "Opened by the pass that added the Emeril household-size row and the hosting-week guide, both of which needed exactly this distinction and could not settle it. Renumbered from a draft Q-44 at merge 2026-11-20: arena/91a755df's reader-voice question took that id first, and the two rows ask different things."
+        }
+      ],
+      "answer": null,
+      "parallel_revision_history": []
+    },
+    {
+      "id": "Q-46",
+      "question": "How many internal sensors does the CHEF iQ iQ Sense Gen3 have - four or five - and which probe count does a reader actually receive?",
+      "group": "Products",
+      "state": "not_stated",
+      "why_it_matters": "The brand's own page states both numbers in the same screen: 'Five internal sensors' in the description, '4 internal temperature sensors for accuracy within 1 F' and '1 ambient temperature sensor' in the feature list. The page also sells the same probe in 1, 2, 3 and 4-probe sizes, so the question of what arrives is a selector, not a spec. This site publishes a row that says the page describes four internal and one ambient, which was a fair reading of the feature list and is now a half-reading of the page.",
+      "what_we_know": [
+        "Read live 2026-11-20: the description paragraph and the feature list disagree by one internal sensor (https://chefiq.com/products/iq-sense).",
+        "Read live 2026-11-20: the page offers Size 1/2/3/4 Probes and two colours, with 'In stock, ready to ship' shown for the 1 Probe selection.",
+        "This site's existing pattern for a same-page conflict is to print both readings with their date, as it does for the Emeril preset count (SG-57 asks for the same treatment here)."
+      ],
+      "what_is_missing": "Which sentence is the brand's position, and whether the count of probes in the box is a product fact or a purchase option. Neither is answerable from the page.",
+      "how_to_discover": "One email to CHEF iQ support quoting both sentences, plus a dated re-read of the page after any revision. If no answer comes, the row prints both readings and says so - which is the site's normal outcome for a conflict, not a failure.",
+      "blocks": [],
+      "sources": [
+        {
+          "label": "CHEF iQ iQ Sense product page (read live 2026-11-20)",
+          "url": "https://chefiq.com/products/iq-sense"
+        },
+        {
+          "label": "The observed Amazon listing this site maps the supplied link to (S37, dated record)",
+          "url": "https://www.amazon.com/dp/B0DZFD6R9Z"
+        }
+      ],
+      "reviewed_on": "2026-11-20",
+      "history": [
+        {
+          "on": "2026-11-20",
+          "session": "arena/915c51ea-zone1",
+          "note": "Found while re-reading the thermometer sources before writing any thermometer copy; the copy was not written, and the finding is published instead of quietly fixed. Renumbered from Q-45 at merge 2026-11-20, after a parallel pass took the earlier ids."
+        }
+      ]
+    },
+    {
+      "id": "Q-47",
+      "question": "Which product family is this site's primary destination now that both the air fryers and the thermometers have buyer pages and a decision kit?",
+      "group": "Strategy",
+      "state": "missing",
+      "why_it_matters": "The navigation, the front-page moment, the guide clusters and every internal link currently assume air fryers: the thermometers sit in a second category with two guides and no slot in the seasonal band. That was reasonable while their intended listings were unconfirmed, and it is a decision now rather than a consequence - the five product pages carry the same structure. Whichever family the site is for decides where the next three guides go, and the queue cannot answer it because no measured query exists (Q-31).",
+      "what_we_know": [
+        "Five supplied links; three map to air fryers and two to thermometers in this site's separate intent record (data/product-intent.json).",
+        "Both families have indexable category pages and per-product buyer pages with sources; the air-fryer side has 25 guides, the thermometer side has none of its own.",
+        "The category question for commission is separate and still open (Q-11): the rate table is published by category, not by ASIN."
+      ],
+      "what_is_missing": "An owner statement: one family as the pillar, the other as a supporting shelf, or both as peers. No public source can settle it, and no analytics exist here to argue it.",
+      "how_to_discover": "Owner decision, recorded in the decision log and applied to the navigation and the seasonal band by a later pass. If Search Console is ever connected (SG-29, SG-51), the query mix for the two families becomes evidence rather than preference - which is the reason to answer this before commissioning more guides, not after.",
+      "blocks": [],
+      "sources": [
+        {
+          "label": "The navigation as published",
+          "url": "index.html"
+        },
+        {
+          "label": "The thermometer category page as published",
+          "url": "categories/cooking-thermometers.html"
+        },
+        {
+          "label": "Google Search Central - Build and submit a sitemap (the indexing surface both families share)",
+          "url": "https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap"
+        }
+      ],
+      "reviewed_on": "2026-11-20",
+      "history": [
+        {
+          "on": "2026-11-20",
+          "session": "arena/915c51ea-zone1",
+          "note": "Raised when the decision kit had to be written twice, once for each family, because no register row said which one the site leads with. Renumbered from Q-46 at merge 2026-11-20, after a parallel pass took the earlier ids."
+        }
+      ]
     }
   ],
   "updated": "2026-11-20"

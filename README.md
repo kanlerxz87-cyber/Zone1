@@ -30,6 +30,10 @@ buying guides—not an audit dashboard.
   AI-assisted publication authorship, no invented human editor or hands-on tests,
   imagery provenance, affiliate funding and current privacy boundaries.
 
+**Every product page opens with a decision path, not a citation trail** — *Good fit if*, *Look
+elsewhere if* and *Confirm before you click*, each quoting a sourced row, then the five questions
+that finish the decision. The specification record, the flag rows and the link notes sit below it.
+
 **Start decisions on the [Decision review queue](https://kanlerxz87-cyber.github.io/Zone1/decision-review.html)** —
 fourteen forward-looking choices (priority-ordered, each with its official evidence and
 options) plus a dated written brief at [`reports/suggestions-2026-11-19-d154e428.md`](reports/suggestions-2026-11-19-d154e428.md).

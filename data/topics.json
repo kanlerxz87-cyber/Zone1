@@ -443,8 +443,10 @@
           "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
         }
       ],
-      "status": "proposed",
-      "blocked_by": []
+      "status": "published",
+      "blocked_by": [],
+      "published_as": "articles/hosting-week-air-fryer-math.html",
+      "status_note": "Published 2026-11-20 by arena/915c51ea as the hosting-week worksheet, not as a second capacity explainer. The queue's kill rule says do not publish a second article answering the same question, so the conceptual half of this topic stays in the canonical capacity guide, which gained a short hosting-week section pointing here on the same date. The brand household-size sentences this row asked for were read live on the Chefman 8 Qt and Emeril brand pages before being quoted; the 6 Qt page publishes no people figure."
     },
     {
       "id": "TP-17",
