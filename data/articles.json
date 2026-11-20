@@ -497,7 +497,8 @@
             "S15"
           ]
         }
-      ]
+      ],
+      "seo_description": "The Emeril 26 Qt documents disagree on the preset count. How to read feature counts without assuming the bigger number."
     },
     {
       "slug": "no-amazon-prices",
@@ -664,7 +665,8 @@
             "S14"
           ]
         }
-      ]
+      ],
+      "seo_description": "Why this site shows no live Amazon price or star rating, what the Associates policy says about it, and how to check the current price yourself."
     },
     {
       "slug": "dual-basket-vs-single-basket",
@@ -1188,7 +1190,8 @@
             "S18"
           ]
         }
-      ]
+      ],
+      "seo_title": "How to read an air-fryer spec sheet"
     },
     {
       "slug": "air-fryer-capacity-guide",
@@ -1549,7 +1552,8 @@
             "S18"
           ]
         }
-      ]
+      ],
+      "seo_title": "Will an air fryer fit on your counter?"
     },
     {
       "slug": "who-actually-pays-for-air-fryer-reviews",
@@ -2039,7 +2043,8 @@
             "S26"
           ]
         }
-      ]
+      ],
+      "seo_title": "Chefman 8 Qt: why the exact model matters"
     },
     {
       "slug": "sync-finish-explained",
@@ -2503,7 +2508,8 @@
             "S18"
           ]
         }
-      ]
+      ],
+      "seo_title": "Extension cords: what the air-fryer manuals say"
     },
     {
       "slug": "whats-in-the-box",
@@ -3351,7 +3357,8 @@
             "S26"
           ]
         }
-      ]
+      ],
+      "seo_title": "Black Friday air fryers: check the model"
     },
     {
       "slug": "how-to-clean-an-air-fryer",
@@ -3527,7 +3534,8 @@
             "S18"
           ]
         }
-      ]
+      ],
+      "seo_title": "How to clean an air fryer: start with the parts"
     },
     {
       "slug": "chefman-vs-emeril-air-fryer",
@@ -4085,7 +4093,8 @@
             "S18"
           ]
         }
-      ]
+      ],
+      "seo_title": "Eight questions before buying multifunction"
     },
     {
       "slug": "cleanup-and-counter-space-trade-offs",
@@ -4178,7 +4187,8 @@
       "source_check_history": [],
       "parallel_revision_history": [],
       "sources_read": "2026-11-19",
-      "modified_on": "2026-11-19"
+      "modified_on": "2026-11-19",
+      "seo_description": "A checklist for the two costs a spec sheet hides: how much counter the appliance takes and how much of it you have to wash."
     },
     {
       "slug": "turkey-temperature-usda-chart-and-air-fryer-manuals",
@@ -4274,7 +4284,9 @@
       "source_check_history": [],
       "parallel_revision_history": [],
       "sources_read": "2026-11-19",
-      "modified_on": "2026-11-19"
+      "modified_on": "2026-11-19",
+      "seo_title": "Turkey temperature: the USDA chart, plainly",
+      "seo_description": "What the USDA safe minimum for turkey is, and what an air-fryer preset can and cannot promise about it."
     }
   ],
   "updated": "2026-11-19",

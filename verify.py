@@ -17,6 +17,7 @@ Exit code is non-zero if anything fails, so this can gate the deploy.
 import json
 import re
 import sys
+from html import unescape as html_unescape
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlparse
@@ -271,6 +272,48 @@ for _tree in ANNEX_TREES:
                      if _f.suffix in _hist.CLAIM_SUFFIXES):
         for _p in _hist.claim_violations(_f.read_text(encoding="utf-8")):
             errors.append(f"{rel(_f)}: {_p} (F103)")
+
+# 12. Search-snippet budget. Written 2026-11-20 (arena/91a755df) after counting the
+#     built site: 27 of 63 pages published a <title> longer than 65 characters and 11
+#     published a <meta name="description"> longer than 165, so what a searcher sees was
+#     cut mid-sentence. Google Search Central's title-link documentation, read live
+#     2026-11-20 (S50), states that a title link "is truncated in Google Search results
+#     as needed, typically to fit the device width", asks for "descriptive and concise"
+#     titles, and lists boilerplate titles that differ by only one piece of information
+#     as a common issue. S51 describes the same truncation for the description snippet.
+#     The budgets are an editorial convention chosen inside that guidance, not a limit
+#     the documentation states; the check enforces the convention and nothing more.
+TITLE_BUDGET = 60
+DESC_BUDGET = 160
+# The canonical publication only: the repository root and its four reader folders.
+# Historical builds (research/, site/, s2/, the session annexes) are frozen, noindex
+# and out of scope; `pages()` walks them too, so the path root is matched explicitly.
+CANONICAL_PAGES = [p for p in pages()
+                   if p.relative_to(ROOT).parts[0] in
+                   {"index.html", "articles", "products", "categories", "guides"}
+                   or len(p.relative_to(ROOT).parts) == 1]
+_titles = {}
+for page in CANONICAL_PAGES:
+    text = page.read_text(encoding="utf-8")
+    m = re.search(r"<title>(.*?)</title>", text, re.S)
+    if not m:
+        errors.append(f"{rel(page)}: no <title> element")
+        continue
+    title = html_unescape(m.group(1)).strip()
+    if len(title) > TITLE_BUDGET:
+        errors.append(f"{rel(page)}: <title> is {len(title)} characters (budget {TITLE_BUDGET}): {title!r}")
+    _titles.setdefault(title, []).append(rel(page))
+    d = re.search(r'<meta name="description" content="(.*?)">', text, re.S)
+    if not d:
+        errors.append(f"{rel(page)}: no meta description")
+        continue
+    desc = html_unescape(d.group(1)).strip()
+    if len(desc) > DESC_BUDGET:
+        errors.append(f"{rel(page)}: meta description is {len(desc)} characters "
+                      f"(budget {DESC_BUDGET})")
+for _t, _pages in sorted(_titles.items()):
+    if len(_pages) > 1:
+        errors.append(f"duplicate <title> on {len(_pages)} pages: {_t!r} -> {_pages}")
 
 # 5. every source id in the JSON appears in the source register and
 #    every source register URL is https + on an official host
