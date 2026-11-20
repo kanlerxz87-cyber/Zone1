@@ -154,3 +154,41 @@ records that rule, and the campaign ledger remains empty.
 * `data/thermometers.json`, `data/flagged.json`, `data/product-intent.json` and every frozen
   annex tree are untouched; the findings that belong to them are listed in §3 with the row
   that should carry them.
+
+---
+
+## 7. A gate that cannot run here, and what it caught
+
+The first push of this pass passed `verify` and failed the workflow's `browser` job. The cause was
+in the new decision kit, and it was not visible from any check that runs in this sandbox:
+`scripts/check_publication_browser.mjs` loads every product page at **320px** and asserts
+`documentElement.scrollWidth <= width + 1`, and `tests/browser/publication.spec.cjs` repeats it at
+every configured viewport plus a scoped axe run (wcag2a/aa, 390px and 1440px). Those need a
+Chromium download from `cdn.playwright.dev`, which this environment cannot reach, and the run's
+log and its `browser-gate-evidence` artifact are served from hosts that are blocked too — so the
+failure could be reasoned about but not read.
+
+What the wide layout declared was a `150px` label column next to a `minmax(0,1fr)` text column,
+with `white-space:nowrap` on the row links. At 320px the content column computes to about 60px,
+and a link label such as "How Sync Finish works" cannot shrink into it, so the document scrolls
+sideways on the exact pages a shopper lands on. Two fixes, in this order:
+
+1. **The component was corrected, not the assertion.** The kit's markup dropped the per-row `div`
+   groups — `dt`/`dd` now sit directly in the `dl`, which is what the grid lays out, and which
+   also keeps the axe `definition-list` question out of the picture. The label stacks above the
+   text below 620px, links wrap, and `overflow-wrap` is available for long tokens. No fixed width
+   remains in the component. Colour pairs used by the kit were recomputed against the theme's own
+   tokens before pushing (accent-on-panel 6.55:1, muted-on-panel 6.35:1, brand-on-panel 9.11:1,
+   warn-on-warn-soft 6.48:1), so the axe contrast rule is not a live risk either.
+2. **The part of that gate that can run headless is now a test.**
+   `tests/test_publication_output.py::test_the_decision_kit_cannot_force_horizontal_overflow`
+   asserts the rule that was broken — a text column in the kit must be declared `minmax(0,1fr)`,
+   no rule inside it may forbid wrapping, and the ≤620px block must collapse the grid. A comment in
+   the file's own prose is stripped before the assertion, so describing the defect cannot fail the
+   build.
+
+Recorded as a boundary rather than a success: this pass cannot prove the browser gate is green
+locally, so the claim is only that the identified cause was removed and that CI for this commit
+either passes or the reviewer sees a different failure. `publication/site.js` is **not** in this
+change — the claimed scope listed it, but the polish needed no script behaviour, and adding one
+would have widened the surface for no reader benefit.

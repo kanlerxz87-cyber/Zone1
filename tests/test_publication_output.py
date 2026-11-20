@@ -176,5 +176,32 @@ class PublicationOutputTests(unittest.TestCase):
             self.assertIn('SIL OPEN FONT LICENSE', (ROOT / 'assets/fonts' / name).read_text())
 
 
+    def test_the_decision_kit_cannot_force_horizontal_overflow(self):
+        """Headless half of the browser gate for the component added 2026-11-20 (SG-53).
+
+        `scripts/check_publication_browser.mjs` loads every product page at 320px and asserts
+        `documentElement.scrollWidth <= width + 1`; `tests/browser/publication.spec.cjs` repeats the
+        check at every configured viewport. Neither can run where a browser binary cannot be
+        downloaded, so the first push of this component failed CI with no locally reproducible
+        signal: the wide layout paired a fixed 150px label column with `white-space:nowrap` row
+        links, which at 320px leaves a 60px content column and an unshrinkable link inside it.
+
+        The rule that was actually broken is expressible without a browser, so it is asserted here:
+        a text column in this component must be `minmax(0,1fr)` (able to shrink below its content),
+        no rule in it may forbid wrapping, and it must collapse to one column on narrow screens.
+        """
+        css = (ROOT / "publication" / "theme.css").read_text(encoding="utf-8")
+        start = css.index(".decision-kit{")
+        end = css.index("@media(max-width:620px){.decision-kit", start)
+        # Prose in the file's own comments describes the defect; only declarations are under test.
+        kit = re.sub(r"/\*.*?\*/", " ", css[start:end], flags=re.S)
+        self.assertNotIn("white-space:nowrap", kit, "an unbreakable link inside the kit")
+        columns = re.findall(r"grid-template-columns:([^;}]+)", kit)
+        self.assertTrue(columns, "the kit lost its grid rules entirely")
+        for decl in columns:
+            self.assertIn("minmax(0,1fr)", decl, f"grid column cannot shrink: {decl.strip()}")
+        self.assertRegex(css[end:end + 500], r"\.dk-rows\{grid-template-columns:minmax\(0,1fr\)",
+                         "the kit must stack its label above the text on narrow screens")
+
 if __name__ == '__main__':
     unittest.main()

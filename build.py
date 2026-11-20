@@ -969,12 +969,14 @@ def decision_kit(slug, prefix="", kind="air-fryer", cells=None):
         ("Confirm before you click",) + tuple(MERCH[slug]["check_first"]),
     ]
     out = []
-    for cell in rows_in:
-        label, text, srcs, link, link_label = cell
+    for label, text, srcs, link, link_label in rows_in:
+        # dt/dd sit directly in the dl rather than in per-row divs: the pair is the
+        # thing the grid lays out, the mobile collapse is then a one-line change, and
+        # no accessibility rule has to reason about div groups inside a list.
         out.append(
-            f'<div class="dk-row"><dt>{e(label)}</dt><dd>{e(text)} {src_links(srcs)}'
+            f'<dt>{e(label)}</dt><dd>{e(text)} {src_links(srcs)}'
             + (f'<a class="dk-link" href="{prefix}{link}">{e(link_label)}</a>' if link else "")
-            + "</dd></div>")
+            + "</dd>")
     routes = "".join(
         f'<li>{e(q)} <a href="{prefix}{href}">{e(label)} →</a></li>'
         for q, href, label in DECISION_ROUTES[kind])

@@ -6935,3 +6935,23 @@ intended ASIN / official listing / confirmation date and source / enrolled per-p
 on all five rows; observed redirects stay in their own field; production analytics stays off; the
 campaign ledger stays empty; no Search Console action; no price, rating, traffic, conversion or ranking
 figure is claimed; the short links are still neither called valid nor invalid (Zone3 FLG-003).
+
+### Y-915c51ea · browser-gate correction — 2026-11-20 (UTC)
+
+* PR #197's `verify` job passed; its `browser` job failed. Cause: the decision kit's wide grid used a
+  fixed `150px` label column plus `white-space:nowrap` row links — at 320px that leaves a ~60px text
+  column and an unshrinkable link, so product pages scrolled sideways. Neither the run log nor the
+  `browser-gate-evidence` artifact is reachable from this sandbox (blocked hosts), and Playwright's
+  Chromium cannot be downloaded, so the failure was reasoned from the gate sources
+  (`scripts/check_publication_browser.mjs` 320px assertion; `tests/browser/publication.spec.cjs`
+  viewport + scoped axe run) rather than read.
+* Fixed the component, not the assertion: `dt`/`dd` are now direct children of the `dl` (no div groups,
+  so the axe `definition-list` question disappears), links wrap, `overflow-wrap` covers long tokens, and
+  a ≤620px block collapses the grid to one column. No fixed width survives in the kit. Kit colour pairs
+  were recomputed against the theme tokens (lowest 6.35:1) so the wcag2aa contrast rule is not a risk.
+* Added `tests/test_publication_output.py::test_the_decision_kit_cannot_force_horizontal_overflow` — the
+  headless half of that gate, so the next pass gets a local signal instead of a CI-only one.
+* `publication/site.js` is untouched after all: the claimed scope listed it, but the polish needed no new
+  script behaviour. `EXECUTIVE_SUMMARY.md`/`EXECUTIVE-SUMMARY.md` mirror and the generated HTML were
+  re-rendered by `build.py` after each merge of `main`, never hand-merged — that is how the
+  "Format finder" footer line that a text merge had dropped came back.

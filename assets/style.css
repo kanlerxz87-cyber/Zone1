@@ -161,16 +161,16 @@ footer.site>.inner{max-width:1208px;margin:auto;display:grid;grid-template-colum
 --------------------------------------------------------------------------- */
 .decision-kit{margin:0 0 34px;padding:22px 24px 20px;background:var(--panel);border:1px solid var(--brand-line);border-top:3px solid var(--brand);border-radius:0 0 var(--radius-lg) var(--radius-lg)}
 .decision-kit .section-eyebrow{margin:0 0 15px;color:var(--brand)}
-.dk-rows{margin:0}
-.dk-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:0 22px;padding:13px 0;border-top:1px solid var(--line)}
-.dk-row:first-child{border-top:0;padding-top:2px}
-.dk-row dt{padding-top:4px;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent)}
-.dk-row dd{margin:0;font-size:13.5px;line-height:1.75}
-.dk-link{display:inline-block;margin-left:10px;font-size:12px;font-weight:600;white-space:nowrap}
+.dk-rows{display:grid;grid-template-columns:150px minmax(0,1fr);gap:0 22px;margin:0}
+.dk-rows>dt,.dk-rows>dd{border-top:1px solid var(--line);padding-top:13px;padding-bottom:13px}
+.dk-rows>:nth-child(1),.dk-rows>:nth-child(2){border-top:0;padding-top:2px}
+.dk-rows>dt{font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent)}
+.dk-rows>dd{margin:0;overflow-wrap:break-word;font-size:13.5px;line-height:1.75}
+.dk-link{display:inline;font-size:12px;font-weight:600}
 .dk-routes{display:grid;gap:7px;margin:16px 0 0;padding:16px 0 0;border-top:1px dashed var(--line-strong);list-style:none;counter-reset:dk}
-.dk-routes li{counter-increment:dk;position:relative;padding-left:34px;font-size:13px;line-height:1.6;color:var(--muted)}
+.dk-routes li{counter-increment:dk;position:relative;overflow-wrap:break-word;padding-left:34px;font-size:13px;line-height:1.6;color:var(--muted)}
 .dk-routes li::before{content:counter(dk);position:absolute;left:0;top:2px;width:22px;height:22px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand);border-radius:50%;font:600 10px/1 var(--sans)}
-.dk-routes a{color:var(--brand);font-weight:600;text-decoration:none;white-space:nowrap}
+.dk-routes a{color:var(--brand);font-weight:600;text-decoration:none}
 .dk-routes a:hover{text-decoration:underline}
 .dk-also{margin:14px 0 0;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
 .dk-also a{font-weight:600;text-decoration:none;border-bottom:1px solid var(--brand-line)}
@@ -192,3 +192,17 @@ footer.site>.inner{max-width:1208px;margin:auto;display:grid;grid-template-colum
 .cluster-head h2::before{content:counter(cluster,decimal-leading-zero);display:block;margin:0 0 7px;font:600 11px/1 var(--sans);letter-spacing:2px;color:var(--accent)}
 .buyer-toc{border-top:1px solid var(--line);padding-top:14px}
 .cta-note{max-width:72ch}
+
+/* The decision kit on a 320px screen (2026-11-20, arena/915c51ea).
+   The browser gate (`scripts/check_publication_browser.mjs`) loads every product page at 320px
+   and asserts documentElement.scrollWidth <= width + 1. A fixed 150px label column plus
+   `white-space:nowrap` on the row links satisfied the wide layout and broke that gate: at 320px the
+   content column was 60px wide and a link could not shrink into it. So the label stacks above the
+   text, the row links wrap, and long tokens may break. No fixed width survives in this component. */
+@media(max-width:620px){.decision-kit{padding:18px 16px 16px}
+ .dk-rows{grid-template-columns:minmax(0,1fr);gap:4px}
+ .dk-rows>dt{border-top:0;padding-bottom:0;padding-top:11px}
+ .dk-rows>dt:first-child{padding-top:2px}
+ .dk-rows>dd{padding-top:3px}
+ .dk-link{display:inline-block;margin:7px 0 0}
+ .dk-routes li{padding-left:30px}}
