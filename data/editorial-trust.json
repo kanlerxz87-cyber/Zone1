@@ -1,0 +1,110 @@
+{
+ "accessed": "2026-11-20",
+ "purpose": "Reader-facing authorship and review policy, in one dated place. Every claim here is bounded by what was actually done. The site publishes document research; it does not test appliances, and it does not cite search volume or conversion data it does not have. The 2026-11-20 pass is recorded as a content-maintenance entry, not as an endorsement of any product.",
+ "publisher": {
+  "name": "Zone1 Kitchen",
+  "url": "https://kanlerxz87-cyber.github.io/Zone1/",
+  "what_this_is": "An independent, AI-assisted kitchen-appliance publication. Buying guides are built from manufacturers' own product pages and owner's manuals, with the document cited beside each figure. It is not a review site in the sense of having used the products.",
+  "not_claimed": [
+   "No hands-on testing or ownership is claimed for any product on the site.",
+   "No human editor name, photo or byline is invented.",
+   "No evidence is presented that a reader bought anything through a link on the site."
+  ],
+  "disclosure_source": "S1"
+ },
+ "editorial_method": [
+  {
+   "step": "Source selection",
+   "detail": "Figures come from the brand's own product page, an owner's manual/hosted PDF, or a regulator/national-quality source. Third-party review roundups are not used as the source of a figure."
+  },
+  {
+   "step": "Figure attribution",
+   "detail": "Each published value carries its source id (S10, S18 and so on) beside it. A value that no official source supports is left blank and flagged rather than estimated."
+  },
+  {
+   "step": "Conflict handling",
+   "detail": "When two official documents disagree, both readings are printed and the disagreement is described; the site does not silently choose the more flattering number. Current examples: the Chefman 8 Qt 400 °F/450 °F title conflict, and the Emeril preset/accessory counts."
+  },
+  {
+   "step": "Amazon listing boundary",
+   "detail": "The five supplied short links were read live (2026-11-17, 2026-11-19, 2026-11-20) and each reached a product page. An observed landing is not a confirmed intended listing, so intended-ASIN fields stay blank and are kept separate from the observed redirect. The site does not call a short link valid or invalid; that status is unresolved."
+  },
+  {
+   "step": "Claims that are refused by design",
+   "detail": "No hands-on experience claims, no invented search volumes, no conversion or revenue forecasts, no live Amazon price or star-rating display, and no ranking of the products as 'best'. These are refusals because the underlying evidence does not exist in this project."
+  }
+ ],
+ "sources_read_2026_11_20": [
+  {
+   "id": "S17",
+   "what": "link.amazon/B04G1MEwY observed resolving to B0CDY277D3 (CHEFMAN 6 Quart Dual Basket title)"
+  },
+  {
+   "id": "S28",
+   "what": "link.amazon/B02NbDxp3 observed resolving to B09B7SB46R (Emeril 26QT French Door title)"
+  },
+  {
+   "id": "S29",
+   "what": "link.amazon/B00hJ57DV observed resolving to B08DKYBTPH (Chefman 8 Qt TurboFry title)"
+  },
+  {
+   "id": "S36",
+   "what": "link.amazon/B0c8moW59 observed resolving to B0DHZTCNR5 (ThermoMaven instant-read title)"
+  },
+  {
+   "id": "S37",
+   "what": "link.amazon/B0f3GKalj observed resolving to B0DZFD6R9Z (CHEF iQ Sense Gen3 title)"
+  },
+  {
+   "id": "S10",
+   "what": "Chefman dual-window product page: 6 Qt / 5.67 L, 200-450 F, dimensions, 1700 W, model RJ38-SQPF-3TDB-2W"
+  },
+  {
+   "id": "S12",
+   "what": "Chefman 8 Qt TurboFry page: max 400 F, 200-400 F range, dimensions, model RJ38-SQSS-8T (the 450 F figure is an Amazon listing title, not this page)"
+  },
+  {
+   "id": "S14",
+   "what": "Emeril page: 26-quart capacity, 16.9 D x 15.8 W x 14.8 H in, 120 V, and 25 cooking presets in the specifications block opposite '10-in-1' in the copy"
+  },
+  {
+   "id": "S8",
+   "what": "FTC Disclosures 101: disclose near the recommendation, simple language, and the rule against describing experience with a product you have not tried"
+  },
+  {
+   "id": "S31",
+   "what": "Google Search Central: mark paid or sponsored outbound links with rel=\"sponsored\""
+  }
+ ],
+ "decisions_recorded_2026_11_20": [
+  {
+   "id": "ET-1",
+   "decision": "The reading-time badge no longer claims a fixed 3 minutes for every guide.",
+   "why": "All 26 article pages previously printed the same '3 min read', because the figure was a constant in the data file rather than a property of the text. A reader on the longest guide met the same badge as a reader on the shortest. The page now prints its own prose word count, computed at build time, with an assumed 200 words per minute labelled as an assumption."
+  },
+  {
+   "id": "ET-2",
+   "decision": "Each guide now links to the documented model pages for the products its own data row names.",
+   "why": "Before this change none of the 27 reader articles contained a link to a product page or to Amazon: a reader who finished a comparison had no next step on the page. Guides that discuss three models now end with those three documentation pages, carrying the same unconfirmed-listing wording as every other product surface."
+  },
+  {
+   "id": "ET-3",
+   "decision": "Site metadata type sizes were raised from 10-11 px to 12 px.",
+   "why": "The article byline strip, footer link lists and source notes were set at 10-11 px, which is at the floor of comfortable reading for the audience this site is for. The change is a type-size fix only - no published value, name or date changed."
+  },
+  {
+   "id": "ET-4",
+   "decision": "Recorded, not hidden: the guides are shorter than their own former badge implied.",
+   "why": "Measured prose (excluding specifications, captions, sources and navigation) runs 162-382 words per guide. At 200 words per minute that is one to two minutes, against the '3 min read' every page used to print. Padding the guides to match an old badge would be the wrong repair, so the figure now follows the text and the short length is recorded here. Lengthening a guide is an editorial decision for the owner, not a silent build change."
+  }
+ ],
+ "not_changed_2026_11_20": [
+  "No intended ASIN, official listing URL, confirmation date or source was filled in.",
+  "No compliance verdict changed and no short link was declared valid or invalid.",
+  "shopnow047c-20 stays recorded, unvalidated and unapplied; the operational associate tag stays blank.",
+  "Production analytics stays off; the campaign ledger stays empty.",
+  "No price, star rating, review count, traffic figure or revenue forecast was added.",
+  "No colour token was changed: the palette was measured against WCAG contrast ratios in this pass and already passed, so claiming a contrast improvement would have been false."
+ ],
+ "reproducibility": "python3 build.py rebuilds every reader page from data/*.json deterministically; python3 verify.py re-checks that each published figure has a registered source. The word counts printed on the article pages are computed from the same data the page itself renders."
+}

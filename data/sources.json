@@ -1168,5 +1168,112 @@
       "not_read": "S3, S4, S6, S7, S9, S11-S13, S15, S18-S27, S30-S35, S38-S49 were NOT re-read in this session. No statement is made here about their current content."
     },
     "consequence": "No published product specification, price, rating average, commission figure or campaign value changed in this pass. The only canonical data changes are the five PI rows' dated observation fields and this record."
+  },
+  "reverified_2026_11_20_761c3c2e": {
+    "date": "2026-11-20",
+    "session": "arena/761c3c2e-zone1",
+    "scope": "Reader-path pass. Every source below was fetched live in this session; nothing in this record is recalled from an earlier pass.",
+    "read": [
+      {
+        "id": "S17",
+        "url": "https://link.amazon/B04G1MEwY",
+        "observed": "resolved to /dp/B0CDY277D3; title 'CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry...' (matches PI-01)"
+      },
+      {
+        "id": "S28",
+        "url": "https://link.amazon/B02NbDxp3",
+        "observed": "resolved to /dp/B09B7SB46R; title 'Emeril Lagasse 26QT French Door ... 24 One-Touch Preset Options ... Six Cooking Accessories Included' (matches PI-02)"
+      },
+      {
+        "id": "S29",
+        "url": "https://link.amazon/B00hJ57DV",
+        "observed": "resolved to /dp/B08DKYBTPH; title 'Chefman Air Fryer 8 Qt | TurboFry 4-in-1 with 450F Hi-Fry Option' (matches PI-03). F106's homepage fallback was NOT reproduced in this session's read."
+      },
+      {
+        "id": "S36",
+        "url": "https://link.amazon/B0c8moW59",
+        "observed": "resolved to /dp/B0DHZTCNR5; title ends '...Stocking Stuffers Gifts for Men, Black'; $16.99 price block on page. Colour/sale detail not in the 2026-11-19 record - see F107."
+      },
+      {
+        "id": "S37",
+        "url": "https://link.amazon/B0f3GKalj",
+        "observed": "resolved to /dp/B0DZFD6R9Z; title 'CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes ... Gen3'; page URL carried an sbo sale parameter - see F107."
+      },
+      {
+        "id": "S16",
+        "url": "https://www.amazon.com/dp/B0CDY277D3",
+        "observed": "detail page rendered with Home & Kitchen > ... > Air Fryers breadcrumb (node 17659096011)"
+      },
+      {
+        "id": "S28b",
+        "url": "https://www.amazon.com/dp/B09B7SB46R",
+        "observed": "detail page rendered; same breadcrumb path"
+      },
+      {
+        "id": "S29b",
+        "url": "https://www.amazon.com/dp/B08DKYBTPH",
+        "observed": "detail page rendered; same breadcrumb path"
+      },
+      {
+        "id": "S36b",
+        "url": "https://www.amazon.com/dp/B0DHZTCNR5",
+        "observed": "detail page rendered; breadcrumb Home & Kitchen > ... > Thermometers & Timers > Meat (node 289810)"
+      },
+      {
+        "id": "S10",
+        "url": "https://chefman.com/products/turbofry-touch-dual-window-air-fryer",
+        "observed": "6 Qt / 5.67 L; 200-450 F / 95-235 C; 13.38 x 11.81 x 10.63 in; 1700 W / 120 V; model RJ38-SQPF-3TDB-2W; max temp 450 F 'with Hi-Fry function'"
+      },
+      {
+        "id": "S12",
+        "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1",
+        "observed": "Features 'Max temp: 400F/205C'; '200-400F / 95-205C temperature range'; 8 Qt dimensions 15.4 x 12.6 x 13.5 in; model RJ38-SQSS-8T. The 450 F figure appears only in the Amazon listing title, not on this page."
+      },
+      {
+        "id": "S14",
+        "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360",
+        "observed": "Specification block prints '25 Cooking Pre-sets' beside '26-Quart Capacity', '16.9\"D x 15.8\"W x 14.8\"H', '120 volts'; the body copy says '10-in-1'; the published Amazon title says 24 presets. The three-way disagreement is retained, not resolved."
+      },
+      {
+        "id": "S31",
+        "url": "https://developers.google.com/search/docs/crawling-indexing/qualify-outbound-links",
+        "observed": "'Mark links that are advertisements or paid placements (commonly called paid links) with the sponsored value'; multiple rel values may be space- or comma-separated"
+      },
+      {
+        "id": "S8",
+        "url": "https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers",
+        "observed": "'Place it so it's hard to miss'; 'The disclosure should be placed with the endorsement message itself'; 'You can't talk about your experience with a product you haven't tried'"
+      },
+      {
+        "id": "S9",
+        "url": "https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255",
+        "observed": "16 CFR Part 255 displayed as up to date as of 2026-11-18; Part 255 sections 255.0-255.6 present (255.5 'Disclosure of material connections')"
+      },
+      {
+        "id": "S23",
+        "url": "https://kdp.amazon.com/en_US/help/topic/G200652190",
+        "observed": "page title 'Linking from Your Website' - the help node cited for the ASIN definition. NOTE: the model-name definitional text was not in the fetched portion of this page in this session; the ASIN reference used in product-intent.json rests on earlier passes and this pass did not re-confirm the sentence."
+      },
+      {
+        "id": "S3",
+        "url": "https://affiliate-program.amazon.com/help/node/topic/GRXPHT8U84RAYDXZ",
+        "observed": "'Associates Program Standard Commission Income Statement', Table 1: 'Physical Books, Kitchen, Automotive | 4.50%' and 'All Other Categories | 4.00%'"
+      }
+    ],
+    "not_reconfirmed": [
+      {
+        "id": "S1",
+        "why": "Operating Agreement not fetched in this session; the disclosure sentence already published on every page is unchanged by this pass and was not re-written."
+      },
+      {
+        "id": "S2",
+        "why": "Program Policies page not fetched in this session. No policy claim was added or edited."
+      },
+      {
+        "id": "S23",
+        "why": "see the note above - the ASIN sentence was not in the fetched text; no new ASIN claim was made."
+      }
+    ],
+    "note": "This record is additive. Earlier reverified_* entries are unchanged, so the history of what each pass actually read stays intact."
   }
 }
