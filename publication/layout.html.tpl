@@ -72,6 +72,7 @@ $search_console_tag
       <h2>Find your fit</h2>
       <ul>
         <li><a href="${prefix}categories/kitchen-appliances.html">Air fryers &amp; ovens</a></li>
+        <li><a href="${prefix}picks.html">Format finder</a></li>
         <li><a href="${prefix}categories/cooking-thermometers.html">Thermometer link notes</a></li>
         <li><a href="${prefix}compare.html">Compare the air fryers</a></li>
         <li><a href="${prefix}articles/index.html">All buying guides</a></li>
