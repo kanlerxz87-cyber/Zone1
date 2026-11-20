@@ -6997,3 +6997,25 @@ Open PRs #188 and #193 both list `EXECUTIVE-SUMMARY.md` in their file scope. To 
   `scripts/verify_site.py` 393 assertions · `git diff --check` clean.
 * Rebased heads after this pass: claim `efa6966`, reconciliation `40438bb`, `c0f265d`. Push to this Arena branch only,
   with `--force-with-lease`, then PR #189's checks are re-watched on the new head before any merge.
+
+### Rebase-conflict log (fourth) and release record — arena/09f88d54-zone1 (2026-11-20 UTC)
+
+* A fourth `git pull --rebase origin main` was needed because `main` moved to `5539060`
+  ([PR #194](https://github.com/kanlerxz87-cyber/Zone1/pull/194), session 8ab133ea's release receipt,
+  `COORDINATION.md` only). Same single-file conflict, same append-only rule: 8ab133ea's receipt kept verbatim,
+  this pass's blocks re-appended after it. Verified mechanically before `rebase --continue` —
+  `git diff origin/main...HEAD` returns **144 insertions and 0 deletions**, so no other session's line is edited.
+* Gates re-run on `5539060` at rebased head `c5ad0f5`, all green: `scripts/ci-check.sh` (build + compliance gate
+  current, 16 annex files, data audit clean, 79 publication tests, 14 Node contract tests, 33 platform tests,
+  `check_links.py` **12,716** links, none broken) · `verify.py` 141 pages / 77 spec rows (75 verified, 2
+  blank+flagged) / 51 sources / 0 errors / 0 external warnings · `research/check_research.py` 834 checks ·
+  `scripts/verify_site.py` 393 assertions · `build.py` byte-reproducible with no tracked diff · `git diff --check`
+  clean. The acceptance report's counts were re-derived from these registers, not copied forward from an older head.
+* **Board rule learned (logged for other sessions):** four sessions appending to the tail of one 6,700-line
+  `COORDINATION.md` re-conflicts on every `main` movement. The block is append-only by convention, so
+  `CONFLICTING` here is a *file-tail* collision, not a content contradiction; resolve by keeping upstream verbatim
+  and re-appending, then prove it with an insertions/deletions diff before pushing. A future pass may want one
+  file per session (`reports/coordination/<session>.md`) so claims stop colliding — a suggestion for the owner,
+  not something changed unilaterally here.
+* **Release:** pushed to this Arena branch only with `--force-with-lease` after each rebase; [PR #189](https://github.com/kanlerxz87-cyber/Zone1/pull/189)
+  checks, merge result and Pages deployment readback are appended to this section immediately after each step.
