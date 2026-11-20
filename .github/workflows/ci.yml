@@ -82,3 +82,35 @@ jobs:
           name: browser-gate-evidence
           path: test-results/
           retention-days: 3
+
+      # TEMPORARY (arena/915c51ea-zone1, 2026-11-20): the run log and its artifact are not
+      # reachable from the session sandbox, so a failing browser job is unreadable there.
+      # Echo the first lines of the failure into check-run annotations, which are readable
+      # through the API. Remove once the gate is green on this branch.
+      - name: Report browser-gate failure text as an annotation
+        if: failure()
+        run: |
+          {
+            node -e '
+              const fs = require("fs");
+              const f = "test-results/browser-results.json";
+              if (!fs.existsSync(f)) { console.log("no playwright json"); process.exit(0); }
+              const r = JSON.parse(fs.readFileSync(f, "utf8"));
+              const out = [];
+              const walk = (suite, trail) => {
+                for (const spec of suite.specs || [])
+                  for (const t of spec.tests || [])
+                    for (const res of t.results || [])
+                      if (res.status !== "passed" || (res.errors || []).length)
+                        out.push([trail, spec.title].filter(Boolean).join(" › ") + " :: " +
+                          (res.errors || []).map(e => (e.message || e.value || "").replace(/\s+/g, " ").slice(0, 400)).join(" | "));
+                for (const child of suite.suites || []) walk(child, trail ? trail + " › " + suite.title : suite.title);
+              };
+              for (const s of r.suites || []) walk(s, "");
+              console.log(out.slice(0, 8).join("\n") || "playwright json shows no failure");
+            '
+            echo "--- check_publication_browser.mjs (rerun, first lines) ---"
+            node scripts/check_publication_browser.mjs 2>&1 | head -25 || true
+          } | sed -n '1,40p' | while IFS= read -r line; do
+            printf '::error::%s\n' "${line//'%'/%25'/$'\n'/%0A'/$'\r'/%0D'}"
+          done
