@@ -141,7 +141,8 @@
    "observed_title": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black",
    "observed_on": "2026-11-20",
    "observed_source_ids": [
-    "S36"
+    "S36",
+    "S52"
    ],
    "note": "Observed title only. This does not establish the intended product, exact brand variant, accuracy of marketing claims, link validity or Associates attribution. Intended fields and enrolled-test evidence remain blank.",
    "observed_listing_category": "Meat-thermometer product title on observed landing page; intended product unconfirmed",
@@ -190,7 +191,8 @@
     "source": "S40",
     "observation": "The catalogue includes F1 Turbo and several wireless lines. No direct intended-ASIN match was established."
    },
-   "title_drift_note": "The listing title changed wording between the 2026-11-17 and 2026-11-19 reads: 'Highly Waterproof for Grill BBQ Camping' became 'IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men', and 'Food Thermometer' was dropped. ASIN and product type are unchanged. Independently observed twice on 2026-11-19 (arena/6eb19d2b I-1 and arena/d154e428). No published value is taken from this title; it is retained as dated evidence and to explain why the buyer page cites the brand page for IP67 rather than the listing."
+   "title_drift_note": "The listing title changed wording between the 2026-11-17 and 2026-11-19 reads: 'Highly Waterproof for Grill BBQ Camping' became 'IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men', and 'Food Thermometer' was dropped. ASIN and product type are unchanged. Independently observed twice on 2026-11-19 (arena/6eb19d2b I-1 and arena/d154e428). No published value is taken from this title; it is retained as dated evidence and to explain why the buyer page cites the brand page for IP67 rather than the listing.",
+   "observed_source_scope_note": "Added 2026-11-20 (F107): S52 registers the token https://link.amazon/B0c8moW59 itself. The destination still rests on S36, as before, and both are cited; the short-link row is not a substitute for the listing row. No duplicate 2026-11-20 observation entry was added: session 1875c5bb had already recorded one for this row, and this pass's independent read of the same token agreed with it."
   },
   {
    "id": "PI-05",
@@ -205,7 +207,8 @@
    "observed_title": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3",
    "observed_on": "2026-11-20",
    "observed_source_ids": [
-    "S37"
+    "S37",
+    "S53"
    ],
    "note": "Observed title only. This does not establish the intended product, exact brand variant, accuracy of marketing claims, link validity or Associates attribution. Intended fields and enrolled-test evidence remain blank.",
    "observed_listing_category": "Meat-thermometer product title on observed landing page; intended product unconfirmed",
@@ -245,7 +248,8 @@
     "date": "2026-11-19",
     "source": "S39",
     "observation": "Current default is a one-probe CQ60-1C-Z1-E selection, with multiple probe-count and colour options. A catalogue selection is not a confirmed listing match."
-   }
+   },
+   "observed_source_scope_note": "Added 2026-11-20 (F107): S53 registers the token https://link.amazon/B0f3GKalj itself. The destination still rests on S37, as before, and both are cited; the short-link row is not a substitute for the listing row. No duplicate 2026-11-20 observation entry was added: session 1875c5bb had already recorded one for this row, and this pass's independent read of the same token agreed with it."
   }
  ],
  "tracking_id_provenance": "User-provided in the project brief on 2026-11-17; not independently checked in Associates Central.",
@@ -280,5 +284,6 @@
   "method": "Each of the five exact supplied link.amazon URLs was fetched live in this session (fetch_page). Final URL and landing-page <title> were read from the live response body; nothing was copied from an earlier session's record.",
   "result": "All five tokens resolved to a product detail page on this read: B04G1MEwY -> B0CDY277D3, B02NbDxp3 -> B09B7SB46R, B00hJ57DV -> B08DKYBTPH, B0c8moW59 -> B0DHZTCNR5, B0f3GKalj -> B0DZFD6R9Z. Every observed ASIN matches the record already stored here.",
   "scope": "Destination and title observation only. intended_asin, official_listing_url, confirmation_date and confirmation_source remain null for all five rows; associates_link_test_passed remains false; the selected tracking ID remains recorded but unapplied. Reaching a product page is not evidence of the account holder's intent, of Associates attribution, or of compliance status either way."
- }
+ },
+ "reverified_2026_11_20_b6891e75": "Independent second read, 2026-11-20: all five supplied links re-fetched by arena/b6891e75-zone1, each resolving to the same destination ASIN already recorded for 2026-11-20 by session 1875c5bb. No observation entry was duplicated and no value was overwritten. The only change is the token citation on PI-04/PI-05 (S52, S53) alongside the existing listing rows S36/S37."
 }
