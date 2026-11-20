@@ -6928,3 +6928,104 @@ figure is claimed; the short links are still neither called valid nor invalid (Z
   redirects stay in their own field; production analytics off; campaign ledger empty; no Search Console action; no
   price, rating, traffic, conversion or ranking figure claimed; the supplied short links are still neither called
   valid nor invalid (Zone3 FLG-003).
+
+
+
+---
+
+## Claim — arena/09f88d54-zone1 (2026-11-20 UTC)
+
+| ID | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| PUB-20-09f88d54 | Final acceptance pass for the requested buyer-first affiliate publication: run the canonical build, source/citation/data, disclosure/sponsored-link, SEO/feed, privacy-measurement and link gates; distinguish already-delivered code from account/hosting actions that cannot be truthfully completed here; publish a dated executive/verification record; release through a PR and verify Pages if all checks pass. Do not invent product intent, Amazon attribution, analytics results, trend/search demand, or policy conclusions. | in progress | arena/09f88d54-zone1 | `COORDINATION.md`, `reports/verification-2026-11-20-09f88d54.md`. No edit to `EXECUTIVE-SUMMARY.md` after finding active overlap in PRs #188 and #193; the new acceptance report holds this pass's executive result. No changes to shared data or canonical pages absent a defect. Historical annexes remain read-only. |
+
+**Starting state (2026-11-20 UTC):** branch `arena/09f88d54-zone1` was at `1c7de82` (same commit as `origin/main`); working tree clean; no open PR from this branch; the prior claim rows were historical. This current Arena branch is fixed; no other branch will be created or used. The latest recorded official-source re-read in the canonical registers was dated 2026-11-19. This pass did not describe that as a new live read.
+
+### Coordination note — shared executive summary file (2026-11-20)
+
+Open PRs #188 and #193 both list `EXECUTIVE-SUMMARY.md` in their file scope. To avoid overwriting either session's copy, this pass removed its summary-file edit and keeps its dated executive result in `reports/verification-2026-11-20-09f88d54.md`. **Request to final integration:** after those PRs are resolved, incorporate the 20 November acceptance counts/status into the current summary only if the merged summary does not already carry them. No file owned by those active passes was edited by this note.
+
+### Rebase-conflict log — arena/09f88d54-zone1 integrating PR #191 (2026-11-20)
+
+* The first `gh pr merge 189 --merge` attempt was refused because upstream `main` advanced after PR checks. `git pull --rebase origin main` then conflicted only in `COORDINATION.md` when integrating `main` at `9c97897` (PR #191).
+* Resolution kept the `origin/main` side in full, including W-8ab133ea and R-91a755df, then appended this pass's PUB-20 claim. No other session's claim, source record, state, or files were discarded. The PR #191 generated site and source-read report were retained; the local full gate suite was rerun on the rebased tree.
+* PR #191 also revealed the summary-file overlap documented above; this pass's edits to `EXECUTIVE-SUMMARY.md` were removed rather than replayed over the other active work.
+
+### Rebase-conflict log (second) — arena/09f88d54-zone1 integrating PR #195 (2026-11-20 UTC)
+
+* After PR #189 was updated to the rebased head `25a9687` and all three checks went green, GitHub recomputed it as
+  `CONFLICTING`: upstream `main` had merged PR #195 (`f72cc5d`), which appended the `R-91a755df` completion, merge
+  and deploy record to `COORDINATION.md`. A second `git pull --rebase origin main` conflicted only there.
+* Resolved append-only again: the `origin/main` side was kept in full (session 8ab133ea audit, 91a755df claim and
+  completion record), then this pass's claim block, coordination note and conflict logs were re-appended below it.
+  No upstream text was reordered or deleted. `data/articles.json` = 26 articles, `data/suggestions.json` = 55,
+  `data/questions.json` = 44, `data/requirements.json` = 74 and `data/sources.json` = 51 were re-counted on the
+  rebased tree and the acceptance report corrected to those counts.
+* Rebase head: claim `173dc34`, reconciliation `d0521fb`; both were then re-verified with the full local gate suite
+  before a `--force-with-lease` push to this Arena branch only.
+
+### Count reconciliation — 26 canonical articles vs "24 existing articles revised" (2026-11-20 UTC)
+
+* `data/articles.json` holds **26** article records on the rebased tree, and `build.py` publishes 26 article pages
+  plus `articles/index.html` (**27** files in `articles/`), with **26** RSS items. The acceptance report's "26
+  canonical articles" and the earlier 8ab133ea audit line's "all 27 article files included" are both consistent with
+  this register; they count different objects (records vs generated files).
+* `EXECUTIVE-SUMMARY.md` says "All 24 existing canonical articles read as prose and substantially revised within named
+  primary-source scopes." That sentence arrived in the repository root commit `1c7de82`, whose parent is not present
+  in this shallow checkout, so the corpus size at the time it was written **cannot be verified from this checkout**.
+  The 24 and 26 figures are therefore **not** treated as the same scope or the same date, and neither was rewritten
+  to match the other.
+* **Request to final integration:** if the owner wants one number in the summary, restate that line as a dated
+  historical scope ("24 of the then-existing canonical articles were revised in pass `arena/d154e428`, 2026-11-19;
+  the register now holds 26 records") only after #188/#193 land, since they own the file. No edit was made here.
+
+### Rebase-conflict log (third) — arena/09f88d54-zone1 integrating PR #190 (2026-11-20 UTC)
+
+* PR #189's three checks went green on the pushed head `25a9687`; GitHub then recomputed it `CONFLICTING` because
+  `main` had advanced again to `f07c251` ([PR #190](https://github.com/kanlerxz87-cyber/Zone1/pull/190), session
+  69c1201a: compliance rule **C19** for the tag-as-URL-parameter clause, flag **F111**, `build.py`,
+  `compliance.html`, `flagged.html`, `data/compliance.json`, `data/sources.json` and its own dated report).
+* The third `git pull --rebase origin main` conflicted only in `COORDINATION.md`. Resolved append-only: 69c1201a's
+  `CLAIM — arena/69c1201a-zone1` block was taken from `origin/main` verbatim and this pass's claim, executive-summary
+  overlap note and conflict logs re-appended below it. Verified with `git diff origin/main...HEAD` that the branch
+  makes **zero** deletions or edits to any other session's lines (additions only: `COORDINATION.md` + this report).
+* All gates were re-run on `f07c251` and pass unchanged except the link total, which rose because #190 added links:
+  `build.py` 63 pages / 41 sitemap URLs / 26 RSS items, byte-reproducible (no tracked diff) · `verify.py` 141 pages,
+  77 spec rows (75 verified, 2 blank+flagged), 51 sources, 0 errors, 0 external warnings · 79 publication tests ·
+  14 Node contract tests · 33 platform tests · data audit clean · s2 annex current (16 files) ·
+  `check_links.py` **12,716** links, none broken · `research/check_research.py` 834 checks ·
+  `scripts/verify_site.py` 393 assertions · `git diff --check` clean.
+* Rebased heads after this pass: claim `efa6966`, reconciliation `40438bb`, `c0f265d`. Push to this Arena branch only,
+  with `--force-with-lease`, then PR #189's checks are re-watched on the new head before any merge.
+
+### Rebase-conflict log (fourth) and release record — arena/09f88d54-zone1 (2026-11-20 UTC)
+
+* A fourth `git pull --rebase origin main` was needed because `main` moved to `5539060`
+  ([PR #194](https://github.com/kanlerxz87-cyber/Zone1/pull/194), session 8ab133ea's release receipt,
+  `COORDINATION.md` only). Same single-file conflict, same append-only rule: 8ab133ea's receipt kept verbatim,
+  this pass's blocks re-appended after it. Verified mechanically before `rebase --continue` —
+  `git diff origin/main...HEAD` returns **144 insertions and 0 deletions**, so no other session's line is edited.
+* Gates re-run on `5539060` at rebased head `c5ad0f5`, all green: `scripts/ci-check.sh` (build + compliance gate
+  current, 16 annex files, data audit clean, 79 publication tests, 14 Node contract tests, 33 platform tests,
+  `check_links.py` **12,716** links, none broken) · `verify.py` 141 pages / 77 spec rows (75 verified, 2
+  blank+flagged) / 51 sources / 0 errors / 0 external warnings · `research/check_research.py` 834 checks ·
+  `scripts/verify_site.py` 393 assertions · `build.py` byte-reproducible with no tracked diff · `git diff --check`
+  clean. The acceptance report's counts were re-derived from these registers, not copied forward from an older head.
+* **Board rule learned (logged for other sessions):** four sessions appending to the tail of one 6,700-line
+  `COORDINATION.md` re-conflicts on every `main` movement. The block is append-only by convention, so
+  `CONFLICTING` here is a *file-tail* collision, not a content contradiction; resolve by keeping upstream verbatim
+  and re-appending, then prove it with an insertions/deletions diff before pushing. A future pass may want one
+  file per session (`reports/coordination/<session>.md`) so claims stop colliding — a suggestion for the owner,
+  not something changed unilaterally here.
+* **Release:** pushed to this Arena branch only with `--force-with-lease` after each rebase; [PR #189](https://github.com/kanlerxz87-cyber/Zone1/pull/189)
+  checks, merge result and Pages deployment readback are appended to this section immediately after each step.
+
+### Release-window churn — arena/09f88d54-zone1 (2026-11-20 UTC)
+
+`main` moved eight times while [PR #189](https://github.com/kanlerxz87-cyber/Zone1/pull/189) was open
+(#190 → `f07c251`, #195 → `f72cc5d`, #194 → `5539060`, #191 → `9c97897`, #187/#188 → `d8ee8b7`, #196 → `8f8b350`,
+#198 → `b4b2199`, #192 → `e604412`). Every single conflict was the same `COORDINATION.md` tail collision and was
+resolved append-only (`git diff <base> -- COORDINATION.md` shows 0 deletions each time). Because a four-minute
+`browser` check cannot finish before the next session merges, the acceptance report now records the **final** base
+it was measured on (`e604412`) and shows the link totals seen at earlier bases instead of quoting one floating
+number; the gate suite was re-run on each base, not copied forward.
