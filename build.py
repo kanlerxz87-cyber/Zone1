@@ -236,21 +236,36 @@ def e(text):
     return html.escape(str(text), quote=True)
 
 
-def src_link(sid):
-    """A single inline source badge linking to the official page."""
+def src_link(sid, words=False):
+    """A single inline source badge linking to the official page.
+
+    `words=True` (pass 16, 2026-11-20, arena/abbb9745-zone1) prints the source's
+    short human name instead of its register id and carries the id in data-src-id:
+    reader surfaces read as prose-plus-citation ("Chefman RJ38-SQSS-8T guide")
+    rather than as a wall of S-numbers, while verify.py check 2b still resolves
+    every badge to the URL registered for that id — the guarantee moves into the
+    attribute, it is not dropped.
+    """
     s = SRC_BY_ID.get(sid)
     if not s:
         return f'<span class="src src-bad">unknown source {e(sid)}</span>'
+    if words:
+        text = s.get("short") or sid
+        return (
+            f'<a class="src src-word" href="{e(s["url"])}" data-src-id="{e(sid)}" '
+            f'title="{e(s["org"])} — {e(s["title"])} ({e(sid)})" '
+            f'rel="noopener" target="_blank">{e(text)}</a>'
+        )
     return (
         f'<a class="src" href="{e(s["url"])}" title="{e(s["org"])} — {e(s["title"])}" '
         f'rel="noopener" target="_blank">{e(sid)}</a>'
     )
 
 
-def src_links(ids):
+def src_links(ids, words=False):
     if not ids:
         return '<span class="src src-none">no official source</span>'
-    return " ".join(src_link(i) for i in ids)
+    return " ".join(src_link(i, words=words) for i in uniq(ids))
 
 
 def format_glyph(kind):
@@ -1037,9 +1052,10 @@ def product_card(p, prefix=""):
 <div class="pcard-body">
  <p class="product-type">{e(row['eyebrow'])}</p>
  <h3><a href="{prefix}products/{e(p['slug'])}.html">{e(row['title'])}</a></h3>
- <p class="cardtext">{e(row['dek'])} {src_links(row['sources'])}</p>
- <dl class="publication-facts"><div><dt>Capacity</dt><dd>{e(row['capacity'])} {src_links(row['sources'])}</dd></div><div><dt>Published size</dt><dd>{e(row["size"])} {src_links(row["size_sources"])}</dd></div></dl>
- <p class="product-caution"><strong>Check first:</strong> {e(row['check'])} {src_links(row['check_sources'])}</p>
+ <p class="cardtext">{e(row['dek'])}</p>
+ <dl class="publication-facts"><div><dt>Capacity</dt><dd>{e(row['capacity'])}</dd></div><div><dt>Published size</dt><dd>{e(row["size"])}</dd></div></dl>
+ <p class="product-caution"><strong>Check first:</strong> {e(row['check'])}</p>
+ <p class="card-src">From the documents: {src_links(row['sources'] + row['size_sources'] + row['check_sources'], words=True)}</p>
  <a class="pick-cta" href="{prefix}products/{e(p['slug'])}.html">Explore the product guide <span aria-hidden="true">→</span></a>
 </div>
 </article>"""
@@ -1111,17 +1127,17 @@ def page_thermo_product(p):
                     f'<span>Why quart capacity and safe internal temperature answer different questions</span></a></div>'
                     if sibling else "")
     body = f"""<p class="crumbs"><a href="../index.html">Home</a> / <a href="../categories/cooking-thermometers.html">Thermometers</a> / {e(p['short_name'])}</p>
-<section class="product-hero"><div><p class="section-eyebrow">{e(p['eyebrow'])} · a document-based guide</p><h1>{e(p['name'])}</h1><p class="lede">{e(p['dek'])} {src_links(['S39'] if p['brand'] == 'CHEF iQ' else ['S40'])}</p><p class="small"><strong>What it is for:</strong> {e(p['best_for']['value'])} {src_links(p['best_for']['source'])}</p><p class="small"><strong>Check first:</strong> {e(p['check']['value'])} {src_links(p['check']['source'])}</p>{thermo_cta(p)}</div></section>
+<section class="product-hero"><div><p class="section-eyebrow">{e(p['eyebrow'])} · a document-based guide</p><h1>{e(p['name'])}</h1><p class="lede">{e(p['dek'])}</p><p class="small"><strong>What it is for:</strong> {e(p['best_for']['value'])}</p><p class="small"><strong>Check first:</strong> {e(p['check']['value'])}</p><p class="section-sources">From the brand's own pages: {src_links((['S39'] if p['brand'] == 'CHEF iQ' else ['S40']) + p['best_for']['source'] + p['check']['source'], words=True)}</p>{thermo_cta(p)}</div></section>
 {publication_byline('../')}
-<div class="product-verdict"><p class="section-eyebrow">The short version · editorial guidance</p><p>{e(p['verdict'])} {src_links(['S48', 'S49']) if p['brand'] == 'ThermoMaven' else src_links(['S39'])}</p></div>
+<div class="product-verdict"><p class="section-eyebrow">The short version · editorial guidance</p><p>{e(p['verdict'])}</p></div>
 <nav class="buyer-toc" aria-label="On this product page"><a href="#specifications">Specifications</a><a href="#care">Care &amp; ownership</a><a href="#source-record">Sources &amp; listing record</a></nav>
 <h2 id="specifications">What the manufacturer says.</h2><p class="small muted">Read from the brand’s own product page on {e(THERMOMETERS['accessed'])}. Where the brand page contradicts itself, or contradicts the observed Amazon title, both readings are printed rather than one being chosen.</p>
 {thermo_spec_table(p)}
-<h2 id="care">What owning it is like.</h2><p><strong>Care:</strong> {e(p['care']['value'])} {src_links(p['care']['source'])}</p>
-<p class="small">A thermometer answers one question: has the food reached a safe internal temperature. USDA publishes the minimums (145 °F for whole cuts with a three-minute rest, 160 °F for ground meat, 165 °F for poultry and leftovers) and advises cooking to them as measured with a food thermometer. {src_links(SAFE_TEMP_SOURCES)}</p>
+<h2 id="care">What owning it is like.</h2><p><strong>Care:</strong> {e(p['care']['value'])} {src_links(p['care']['source'], words=True)}</p>
+<p class="small">A thermometer answers one question: has the food reached a safe internal temperature. USDA publishes the minimums (145 °F for whole cuts with a three-minute rest, 160 °F for ground meat, 165 °F for poultry and leftovers) and advises cooking to them as measured with a food thermometer. {src_links(SAFE_TEMP_SOURCES, words=True)}</p>
 <div class="grid grid-2">{sibling_link}</div>
 <details class="source-detail" id="source-record"><summary>Where each value comes from, and what is still open</summary>
-<p class="small"><strong>Model caveat.</strong> {e(p['model_caveat'])} {src_links(['S39'] if p['brand'] == 'CHEF iQ' else ['S36', 'S40'])}</p>
+<p class="small"><strong>Model caveat.</strong> {e(p['model_caveat'])} {src_links(['S39'] if p['brand'] == 'CHEF iQ' else ['S36', 'S40'], words=True)}</p>
 <div class="tablewrap"><table><caption>Open questions on this product</caption><thead><tr><th>ID</th><th>Issue</th><th>Next step</th><th>Official evidence</th></tr></thead><tbody>{flags}</tbody></table></div>
 <p class="small"><a href="../flagged.html">Full public review register</a> · <a href="../product-intent.html">Separate intent and attribution fields</a> · <a href="../data.html">Dataset &amp; sources</a></p>
 </details>
@@ -1140,8 +1156,8 @@ def thermo_product_card(p):
     return f"""<article class="card">
 <p class="kicker">{e(p['eyebrow'])}</p><h2 style="font-size:27px;margin-top:5px"><a href="../products/{e(p['slug'])}.html" style="text-decoration:none">{e(p['short_name'])}</a></h2>
 <p class="small">{e(p['dek'])}</p>
-<p class="tiny muted"><strong>Best for:</strong> {e(p['best_for']['value'])} {src_links(p['best_for']['source'])}</p>
-<p class="tiny muted"><strong>Check first:</strong> {e(p['check']['value'])} {src_links(p['check']['source'])}</p>
+<p class="tiny muted"><strong>Best for:</strong> {e(p['best_for']['value'])} {src_links(p['best_for']['source'], words=True)}</p>
+<p class="section-sources"><strong>Check first:</strong> {e(p['check']['value'])} {src_links(p['check']['source'], words=True)}</p>
 <a class="btn btn-ghost" href="../products/{e(p['slug'])}.html">Read the documented guide →</a>
 </article>"""
 
@@ -1241,17 +1257,17 @@ def page_product(p):
         'chefman-6qt-dual-basket': 'The removable baskets and racks may go on the dishwasher top rack. Never immerse or dishwash the main unit.',
         'chefman-8qt-turbofry': 'The removable basket and rack may go on the dishwasher top rack. Never immerse or dishwash the main unit.',
     }[p['slug']]
-    temperature_note = ('<p class="small"><strong>Temperature note:</strong> the manual describes 450 °F as a two-minute Hi-Fry boost, not an unrestricted full-cycle setting. ' + src_link('S18') + '</p>'
+    temperature_note = ('<p class="small"><strong>Temperature note:</strong> the manual describes 450 °F as a two-minute Hi-Fry boost, not an unrestricted full-cycle setting. ' + src_link('S18', words=True) + '</p>'
                         if p['slug'] == 'chefman-6qt-dual-basket' else '')
     body = f"""<p class="crumbs"><a href="../index.html">Home</a> / <a href="../categories/kitchen-appliances.html">Air fryers</a> / {e(row['title'])}</p>
-<section class="product-hero">{format_art(row)}<div><p class="section-eyebrow">{e(row['eyebrow'])} · a document-based guide</p><h1>{e(row['title'])}</h1><p class="lede">{e(row['dek'])} {src_links(row['sources'])}</p><p class="small"><strong>Capacity:</strong> {e(row['capacity'])} {src_links(row['sources'])}</p><p class="small"><strong>Check first:</strong> {e(row['check'])} {src_links(row['check_sources'])}</p>{product_cta(p,'../')}</div></section>
+<section class="product-hero">{format_art(row)}<div><p class="section-eyebrow">{e(row['eyebrow'])} · a document-based guide</p><h1>{e(row['title'])}</h1><p class="lede">{e(row['dek'])}</p><p class="small"><strong>Capacity:</strong> {e(row['capacity'])}</p><p class="small"><strong>Check first:</strong> {e(row['check'])}</p><p class="section-sources">From the documents: {src_links(row['sources'] + row['check_sources'], words=True)}</p>{product_cta(p,'../')}</div></section>
 {publication_byline('../')}
-<div class="product-verdict"><p class="section-eyebrow">The short version · editorial guidance</p><p>{e(row['verdict'])} {src_links(row['sources']+row['check_sources'])}</p></div>
+<div class="product-verdict"><p class="section-eyebrow">The short version · editorial guidance</p><p>{e(row['verdict'])}</p></div>
 <nav class="buyer-toc" aria-label="On this product page"><a href="#specifications">Specifications</a><a href="#before-buying">Before buying</a><a href="#source-record">Sources &amp; listing record</a></nav>
 <h2 id="specifications">What the documents say.</h2><p class="small muted">The essentials for the documented model—not a serving or performance test. A refreshed layout does not re-verify every field; individual dates and conflicts stay in the <a href="../data.html">full record</a>.</p>
 {brief}
 {temperature_note}
-<p class="small"><strong>Care:</strong> {e(care)} {src_link(care_source)} <a href="../articles/how-to-clean-an-air-fryer.html">Read the care guide →</a></p>
+<p class="small"><strong>Care:</strong> {e(care)} {src_link(care_source, words=True)} <a href="../articles/how-to-clean-an-air-fryer.html">Read the care guide →</a></p>
 <h2 id="before-buying">What to check before buying.</h2><p>{e(row['check'])} {src_links(row['check_sources'])}</p><p class="small">The model string in this record is <code>{e(p['model_number']['v'])}</code>. {src_links(p['model_number']['s'])} Compare it with the listing and the documentation for the unit you would receive. No opinion here establishes cooking performance, noise, durability or how many portions your meal will make.</p>
 <div class="grid grid-2">{article_teaser(related["slug"],"../")}{article_teaser("how-to-clean-an-air-fryer","../")}</div><p class="small"><a href="../compare.html">Compare all three formats →</a></p>
 <details class="source-detail" id="source-record"><summary>Official sources, listing observations &amp; open questions</summary>
@@ -2753,9 +2769,77 @@ PROGRAMME_FLAGS = [('F1',
   'same sources. Residual, left as a judgement call for the owner: the page still overlaps the home page\u2019s '
   'format section, so the longer-term choice is whether it stays a standalone format finder or is folded into '
   'the category page.',
-  ['S45'])]
+  ['S45']),
+ ('F107',
+  'Found and repaired 2026-11-20: 13 shipped pages carried a <title> longer than a search result '
+  'displays (the longest 133 characters) and 10 carried a meta description over 160 characters '
+  '(the longest 259). Nothing in the build or the gates had a budget for either.',
+  'Root publication, 63 generated pages; measured in this pass',
+  'Measured on the build as committed before this pass: titles over 65 characters on 13 pages '
+  '(turkey-temperature article 133, small-kitchen dimensions 81, several articles 76-80, both new '
+  'thermometer product pages 85-86, decision-review 78) and descriptions over 160 on 10 pages '
+  '(design-prompt 259, chef-iq-sense-gen3 220, thermomaven-f1-turbo 220, turkey-temperature 219, '
+  'cleanup-and-counter-space 204, decision-log 194, requirements 193, clusters 191, questions 170, '
+  'no-amazon-prices 167). A search result truncates both, so the part a new reader sees first was '
+  'the cut-off half of a sentence. Repair: build.seo_title()/seo_description() now compose the '
+  '<head> within budget (authored override first, then the page title without the site suffix, and '
+  'a word-boundary cut with a printed warning as the last resort), the reader-facing H1 and card '
+  'copy is unchanged, and verify.py check 8 plus a unit test fail the build if a shipped page '
+  'exceeds 65 / 160 characters. Not claimed by this repair: any ranking effect, any claim that the '
+  'engine truncated at exactly these lengths (the figures are conventional display budgets, not a '
+  'published specification), or that the page copy itself is good.',
+  ['S43', 'S45']),
+ ('F108',
+  'Found 2026-11-20: seven pull requests from earlier sessions are still open on this repository, '
+  'and at least two of them carry register content (flags, guides, annex boundaries) that is not '
+  'on main.',
+  'Repository state via the GitHub API; main at 1c7de82',
+  'Open at the time of this pass, each verified through the GitHub API as state=OPEN with no merge '
+  'commit: #139 (two supplied links, 79 files), #141 (Associates tag wiring, 96 files), #144 (F82 '
+  'repair, 8 files), #146 (C9 click measurement, 81 files), #150 (COORDINATION record, 1 file), '
+  '#159 (publication + measurement, 111 files), #168 (one-site de-indexing, 11 files), #173 (Pass '
+  '15 probe guide and flags F105-F109, 34 files). Two of these overlap work that did merge by other '
+  'routes: F104/F105 land in this tree through arena/b3ed16c4 and arena/e01a0112, and the dashboard '
+  'verdict repair is already on main. That overlap is the reason this is a flagged irregularity and '
+  'not a merge instruction: merging them as they stand would re-introduce superseded text, while '
+  'closing them would discard whatever is genuinely new (the probe-in-an-air-fryer guide, the '
+  'de-index generators). This pass neither merged nor closed any of them and edited no branch other '
+  'than its own. Action for the owner or a later integration session: diff each against main, keep '
+  'the new files, discard the superseded rows, and record the decision in this board. Nothing here '
+  'blocks the canonical publication.',
+  ['S38']),
+ ('F109',
+  'Found 2026-11-20 by reading the live Agreement and Program Policies against the five supplied links: the '
+  'links route through an intermediate host and no Associates tag parameter was visible in the URL each one '
+  'resolved to. The policy text names both facts, and the site had never put the two side by side.',
+  'S1 §1; S2 Participation Requirements §2(a)-(b); S2 Commission Income Statement §2(e); '
+  'all five supplied links, re-read 2026-11-20',
+  'What the official documents say, read verbatim on 2026-11-20: the Operating Agreement §1 requires that links '
+  '"properly use the special tagged link formats we provide" to be Special Links; Participation Requirements '
+  '§2(a) says "Special Links must use the Associates ID we have assigned to you"; §2(b) says "All Special Links '
+  'must be accessed directly from your Site. For example, you must include your Associates ID or tag (appearing '
+  'as XXXXX-##) as a parameter in the URL of each link"; and the Commission Income Statement §2(e) disqualifies a '
+  'purchase referred "by a link that sends users indirectly to an Amazon Site via an intermediate site, without '
+  'requiring the customer to click on a link or take some other affirmative action on that intermediate site (a '
+  'Redirecting Link)". What the live links did on 2026-11-20: all five resolved from the intermediate host '
+  'link.amazon to an amazon.com/dp/ page, automatically and without any affirmative action, and each final URL '
+  'carried btn_ref=srctok-<opaque token> and plpRedirect=mhFallback with no visible tag= parameter. What this is '
+  'NOT: a finding that the links violate the Agreement. The token may carry an Associates ID server-side, '
+  'link.amazon is plausibly an Amazon-operated redirector, and the disqualification in §2(e) turns on whether the '
+  'customer is required to take an affirmative action, which a browser session may satisfy differently from a '
+  'server-side fetch. The short links remain neither valid nor invalid here (Zone3 FLG-003). What it is: a '
+  'compliance risk that the site surfaces rather than buries, because every money page uses these strings as its '
+  'call to action. Action: before scaling, generate one Special Link per product inside Associates Central with '
+  'the enrolled tracking ID, run the single-link test (SG-02/SG-37), and record the destination and the '
+  'Associates Central report in data/product-intent.json. Until then the CTA keeps its "check model" wording and '
+  'rel="sponsored nofollow noopener".',
+  ['S1', 'S2', 'S17', 'S41'])])]
 
 REPO_EVIDENCE = {
+ 'F109': ['data/sources.json', 'data/product-intent.json', 'reports/verification-2026-11-20-abbb9745.md'],
+ 'F108': ['COORDINATION.md', 'reports/verification-2026-11-20-abbb9745.md'],
+ 'F107': ['build.py', 'verify.py', 'tests/test_publication.py',
+          'reports/verification-2026-11-20-abbb9745.md'],
  'F111': ['data/compliance.json', 'data/sources.json', 'build.py',
          'reports/verification-2026-11-20-69c1201a.md'],
  'F107': ['data/sources.json', 'data/product-intent.json', 'reports/verification-2026-11-20-b6891e75.md'],
@@ -6069,7 +6153,7 @@ def article_body(article, prefix="../"):
         parts.append(_article_text(sec["paras"]))
         if sec.get("cite"):
             parts.append(
-                f'<p class="tiny muted">Sources for this section: {src_links(sec["cite"])}</p>')
+                f'<p class="section-sources">Sources for this section: {src_links(sec["cite"], words=True)}</p>')
     body = "\n".join(parts)
     return body
 
