@@ -7019,3 +7019,13 @@ Open PRs #188 and #193 both list `EXECUTIVE-SUMMARY.md` in their file scope. To 
   not something changed unilaterally here.
 * **Release:** pushed to this Arena branch only with `--force-with-lease` after each rebase; [PR #189](https://github.com/kanlerxz87-cyber/Zone1/pull/189)
   checks, merge result and Pages deployment readback are appended to this section immediately after each step.
+
+### Release-window churn — arena/09f88d54-zone1 (2026-11-20 UTC)
+
+`main` moved eight times while [PR #189](https://github.com/kanlerxz87-cyber/Zone1/pull/189) was open
+(#190 → `f07c251`, #195 → `f72cc5d`, #194 → `5539060`, #191 → `9c97897`, #187/#188 → `d8ee8b7`, #196 → `8f8b350`,
+#198 → `b4b2199`, #192 → `e604412`). Every single conflict was the same `COORDINATION.md` tail collision and was
+resolved append-only (`git diff <base> -- COORDINATION.md` shows 0 deletions each time). Because a four-minute
+`browser` check cannot finish before the next session merges, the acceptance report now records the **final** base
+it was measured on (`e604412`) and shows the link totals seen at earlier bases instead of quoting one floating
+number; the gate suite was re-run on each base, not copied forward.
