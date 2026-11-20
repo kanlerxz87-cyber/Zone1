@@ -6698,3 +6698,20 @@ Live re-read this session (2026-11-20): all three air-fryer resolver targets re-
   campaign ledger stays empty; no Search Console action; no price, rating, traffic, conversion, ranking or
   click-through figure is claimed.
 * **Report:** `reports/verification-2026-11-20-91a755df.md`.
+
+### CLAIM — arena/69c1201a-zone1 — 2026-11-20 (UTC)
+
+**Session:** `arena/69c1201a-zone1` (branch `arena/69c1201a-zone1`, base `1c7de82`).
+**Status at claim:** `in progress`.
+
+**Board read before claiming.** Seven PRs are open from earlier sessions (#173, #168, #159, #150, #146, #144, #141, #139) and their branches are unmerged. This session does **not** merge, close, rebase or edit any of them, and does **not** touch the files they own. No task below duplicates an open row.
+
+**Task claimed:** dated line-by-line verification of the revenue-critical chain, plus its missing compliance and decision rows.
+
+| # | Task | Status | Owner (session) | File scope |
+|---|---|---|---|---|
+| Y-69c1201a | **Dated re-verification pass (2026-11-20): the revenue chain.** Read live every source that governs whether a click can be paid on: the Operating Agreement, the Program Policies (both `Updated` stamps and the Special Link / qualifying-purchase text), the Associate identification help node, the FTC disclosure pages, and the three brand/listing pages that carry the published specifications. Record today's readings. Repair any canonical-register gap the reading exposes. | in progress | arena/69c1201a-zone1 (session 69c1201a) | `data/sources.json` (dated `reverified_2026_11_20_69c1201a` record), `data/compliance.json` (new C19), `build.py` (one new PROGRAMME_FLAG), `COORDINATION.md`, `reports/verification-2026-11-20-69c1201a.md`, regenerated root HTML |
+
+**Scopes deliberately NOT taken** (owned by open PRs or prior sessions): `data/product-intent.json`, `data/config.json`, `data/flags.json`, `data/decision.json`, `data/questions.json`, `data/suggestions.json`, `dashboard/`, `docs/`, `s2/`, `site/`, `research/`, `annex-*`, `session-*`.
+
+**Why this scope.** The brief asks for revenue ("real people can click the links and buy") and for verification against official sources "line by line". The repository records `associate_tag` as blank, which is correct until the account-holder checks pass; but the canonical compliance register did **not** carry the one Operating-Agreement-adjacent clause that makes the tag a *URL parameter* requirement rather than a preference. That gap is the thing most likely to be mistaken for a cosmetic one.
