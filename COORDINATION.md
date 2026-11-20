@@ -6737,3 +6737,53 @@ Two files had to be added to the claimed scope, and one line corrected:
 * Correction to the claim: the reader-side files touched are `build.py`, `data/articles.json`, `data/clusters.json`, `data/topics.json`, `data/suggestions.json`, `data/questions.json`, `publication/theme.css`, `publication/site.js`, the regenerated HTML they emit, `assets/editorial/README.md`, `EXECUTIVE_SUMMARY.md`/`EXECUTIVE-SUMMARY.md` (append) and this file.
 * Known collision, recorded not avoided: open PRs **#159, #168 and #173** also edit `build.py` and the `data/*.json` registers this pass appends to. This pass does not merge, close or edit them; every register edit here is an append to the end of an array or a new top-level row, so a later rebase of theirs is mechanical rather than destructive. If the owner merges one of those first, the integration session should re-run `python3 build.py` to regenerate the shared registers instead of hand-merging generated HTML.
 * One queued topic is deliberately **not** published by this pass: TP-22 (a probe-in-an-air-fryer guide) is the subject of open PR #173, and TP-19/TP-23 are `blocked_by` Q-20/Q-27 in the site's own queue. Publishing them here would duplicate or pre-empt another session's work, which is what the cadence register's kill rule forbids.
+
+### Y-915c51ea completion — 2026-11-20 (UTC)
+
+* **Reader-side work shipped (canonical publication only; no annex touched).**
+  * SG-53 A+B: the buy button's three-sentence qualification is now one line, and a **decision kit**
+    (*Good fit if* / *Look elsewhere if* / *Confirm before you click*, then the five finishing questions,
+    then the other documented machines and the compare link) renders on **all five** product pages,
+    assembled from register rows and their own source ids. No claim of measured effect anywhere.
+  * SG-15 A → complete: *Not published by the brand for this model*, derived from the blank spec rows, so
+    the sentence cannot drift from the table it describes.
+  * `data/products.json`: **+1 row** (Emeril "Stated household size", S14, read live 2026-11-20); rows
+    77→78, verified 75→76, blank+flagged unchanged at 2. No existing value, date or source altered.
+  * New guide `articles/hosting-week-air-fryer-math.html` (TP-16) plus one hosting-week section on the
+    canonical capacity guide — kill rule respected, no second capacity article. Both topic registers moved
+    (`data/topics.json` TP-16 → published; `data/design-prompt.json` gained A-16, so F85's mirror drift is
+    not reproduced by this pass).
+  * `publication/theme.css` (and the regenerated `assets/style.css`): decision-kit design, numbered cluster
+    heads on the guide index, card hover, prose scale. No generated product likeness and no photography —
+    SG-42 stands as decided and Q-34 is unanswered.
+* **Registers**: SG-53 → partial (its measurement half stays gated on Q-30), SG-15 → complete; five
+  suggestion rows and three questions opened. `data/questions.json` → 47 rows, `data/suggestions.json` → 60.
+* **Renumbering at merge — collision handled by re-ids, not overwrite.** `arena/91a755df-zone1` merged
+  PR #195 while this pass was open and took **SG-56** and **Q-44**. This pass's drafted rows moved to
+  **SG-57…SG-61** and **Q-45/Q-46/Q-47**; the claim-literacy row drafted as SG-56 now sits at **SG-61**, and
+  Q-45 explicitly names Q-44 as a different question about the same class of sentence. A script verified
+  that no `suggestions.html#…` or `questions.html#…` fragment points at a missing row. Nothing inside their
+  SG-56/Q-44 rows was edited. Their claim in that note — "no other file touched: `build.py` and the generated
+  HTML untouched, **by design**" — is why the two registers, not the build, were the meeting point.
+* **Repair, not loosening**: `tests/test_publication_output.py` pinned the article count at 26, a tripwire
+  that cannot explain itself. It now asserts the property the number stood for (every registered guide has
+  exactly one sitemap URL; no duplicate slugs; the guide index appears once). `verify.py`'s 160-character
+  meta-description budget then rejected the new guide's 211-character standfirst; fixed by giving the article
+  a `seo_description` — the pattern main already uses — rather than shortening the copy readers see.
+* **Findings published, not silently fixed** (detail in `reports/verification-2026-11-20-915c51ea.md`): the
+  CHEF iQ page contradicts itself on internal-sensor count (five in the description; "4 internal + 1 ambient"
+  in the features) and sells 1/2/3/4-probe variants → **SG-57** + **Q-46**; Chefman's and Emeril's identical
+  "4-6 people" sentences beside 8 qt and 26 qt capacities → **SG-61** + **Q-45**; which product family the site
+  leads with is now an open decision → **Q-47**. `data/thermometers.json`, `data/flagged.json` and
+  `data/product-intent.json` were **not** edited — other passes own them.
+* **Supplied links**: token 3 was re-read live and reached `/dp/B08DKYBTPH` with `plpRedirect=mhFallback` in
+  the landing URL; recorded in the report as a dated observation bearing on **F106**, whose 19 November record
+  stands and whose flag stays open for its owner. Nothing here calls any token valid or invalid
+  (Zone3 FLG-003 unresolved). Token 1 could not be fetched by this sandbox's retriever — no conclusion drawn.
+* **Gates at hand-off**: `bash scripts/ci-check.sh` **exit 0** — build 64 root pages / 42 sitemap URLs / 27
+  feed items, deterministic (rebuild byte-identical) · verify 142 pages, 78 rows, 51 sources, 0 errors,
+  0 external warnings · 79 publication tests OK · 14 Node contract tests pass · 33 engine tests OK · data
+  audit clean · `build_s2_site.py --check` current · 13,046 links, no broken link.
+* **Boundaries held**: `shopnow047c-20` recorded-unapplied; intended-ASIN fields blank and kept separate from
+  observed redirects; production analytics off; campaign ledger empty; no price, rating, review-count, traffic
+  or conversion figure; no hands-on claim; no `/dp/` resolution beyond the reads recorded in the report.
