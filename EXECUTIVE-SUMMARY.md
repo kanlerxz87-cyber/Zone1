@@ -1722,19 +1722,19 @@ it is the last part of the reader-facing brief that could be closed without touc
 Emeril page publish a household-size figure, and they publish the *same* one — "4-6 people"
 beside a single 8-quart basket and again beside a 26-quart cavity, roughly three times the
 volume. That is the clearest demonstration this site could hold up of why a marketing sentence
-is not a portion table, and it is now the spine of the new guide (SG-56 proposes putting the
+is not a portion table, and it is now the spine of the new guide (SG-61 proposes putting the
 pair where the decision is actually made).
 
 **Irregularities found on live official pages today, published not silently fixed:**
 
 1. The CHEF iQ iQ Sense page contradicts itself on sensor count — "Five internal sensors" in
    its description, "4 internal temperature sensors … 1 ambient" in its feature list — while
-   this site's row prints only the second reading. Raised as **SG-57** and **Q-45**; the file
+   this site's row prints only the second reading. Raised as **SG-57** and **Q-46**; the file
    that owns the row belongs to another session, so nothing was rewritten here.
 2. The same page sells 1, 2, 3 and 4-probe variants, which the register's "in the box" row does
-   not mention. Recorded in **Q-45**.
+   not mention. Recorded in **Q-46**.
 3. Neither brand states which product its household-size sentence describes, and Chefman's one
-   description serves both the 5 Qt and 8 Qt selector. Opened as **Q-44**.
+   description serves both the 5 Qt and 8 Qt selector. Opened as **Q-45**.
 4. Supplied link 3 reached a **product** page today (`/dp/B08DKYBTPH`) carrying
    `plpRedirect=mhFallback` in the landing URL — which is how the 19 November homepage fallback
    (F106) and a normal product landing can both be true on different days. The flag stays open

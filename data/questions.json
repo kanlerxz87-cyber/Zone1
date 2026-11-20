@@ -3202,6 +3202,42 @@
     },
     {
       "id": "Q-45",
+      "question": "Does the 'Designed for 4-6 people' sentence on the Chefman TurboFry Touch page describe the 8 Qt, the 5 Qt, or both - and does the Emeril figure describe the cavity or a meal?",
+      "group": "Products",
+      "state": "not_stated",
+      "why_it_matters": "One brand page serves both basket sizes from a single description, so the sentence this site cites for the 8 Qt may be a template line written for the pair. The Emeril page puts the same range beside a 26-quart cavity, in a specification block rather than a description. Until someone says which product each sentence is about, the figure can be used as an example of marketing language - which is how the hosting-week guide uses it - but not as sizing advice for the machine a reader would receive.",
+      "what_we_know": [
+        "Read live 2026-11-20: the Chefman 8 Qt / 5 Qt page's description paragraph ends 'Designed for 4-6 people, this family-sized air fryer delivers swift cooking' and the page offers a Size selector with 8 Quart and 5 Quart (https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1).",
+        "Read live 2026-11-20: the Emeril page's specification block pairs '26-Quart Capacity' with 'preparing food for 4-6 people' (https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360).",
+        "Both figures are reproduced by this site as brand claims with the page attached, never as this site's own sizing advice (Q-39).",
+        "Q-44, opened by a parallel pass on the same day, asks a different question about brand sentences like this one - how much of the sourcing apparatus stays in the reader's line of sight. It does not settle which product the sentence describes."
+      ],
+      "what_is_missing": "A statement from each brand about which product its household-size sentence describes. Nothing on either page says so.",
+      "how_to_discover": "Ask each brand's support contact named on its own page, quoting the sentence and asking whether it applies to the 5 Qt variant as well as the 8 Qt, and to the cavity or to a meal for the Emeril. An answer becomes a sourced row; the absence of one keeps the figure in the claim-literacy guide, where it is already doing useful work.",
+      "blocks": [],
+      "sources": [
+        {
+          "label": "Chefman 8 Qt / 5 Qt product page (read live 2026-11-20)",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        },
+        {
+          "label": "Emeril French Door AirFryer 360 product page (read live 2026-11-20)",
+          "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+        }
+      ],
+      "reviewed_on": "2026-11-20",
+      "history": [
+        {
+          "on": "2026-11-20",
+          "session": "arena/915c51ea-zone1",
+          "note": "Opened by the pass that added the Emeril household-size row and the hosting-week guide, both of which needed exactly this distinction and could not settle it. Renumbered from a draft Q-44 at merge 2026-11-20: arena/91a755df's reader-voice question took that id first, and the two rows ask different things."
+        }
+      ],
+      "answer": null,
+      "parallel_revision_history": []
+    },
+    {
+      "id": "Q-46",
       "question": "How many internal sensors does the CHEF iQ iQ Sense Gen3 have - four or five - and which probe count does a reader actually receive?",
       "group": "Products",
       "state": "not_stated",
@@ -3229,12 +3265,12 @@
         {
           "on": "2026-11-20",
           "session": "arena/915c51ea-zone1",
-          "note": "Found while re-reading the thermometer sources before writing any thermometer copy; the copy was not written, and the finding is published instead of quietly fixed."
+          "note": "Found while re-reading the thermometer sources before writing any thermometer copy; the copy was not written, and the finding is published instead of quietly fixed. Renumbered from Q-45 at merge 2026-11-20, after a parallel pass took the earlier ids."
         }
       ]
     },
     {
-      "id": "Q-46",
+      "id": "Q-47",
       "question": "Which product family is this site's primary destination now that both the air fryers and the thermometers have buyer pages and a decision kit?",
       "group": "Strategy",
       "state": "missing",
@@ -3266,7 +3302,7 @@
         {
           "on": "2026-11-20",
           "session": "arena/915c51ea-zone1",
-          "note": "Raised when the decision kit had to be written twice, once for each family, because no register row said which one the site leads with."
+          "note": "Raised when the decision kit had to be written twice, once for each family, because no register row said which one the site leads with. Renumbered from Q-46 at merge 2026-11-20, after a parallel pass took the earlier ids."
         }
       ]
     }

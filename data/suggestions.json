@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped); SG-36..SG-38 and path P6 by arena/58cbaaa2 (2026-11-17) — written twice, and shortened the second time: the first draft's parallel intent register, measurement register and flags were dropped when main's merged registers and collection-disabled contract were found. The withdrawn draft is published at session-58cbaaa2/artifacts/. | pass 13 shopfront + decision desk (arena/fd9778a1-zone1): SG-39…SG-48, path P7, numbered after the merged 2026-11-17 rows so no id collides. | SG-54–SG-55 (decision worksheet + hosting-week guide) by arena/2ce347cb-zone1 (2026-11-19).",
+  "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped); SG-36..SG-38 and path P6 by arena/58cbaaa2 (2026-11-17) — written twice, and shortened the second time: the first draft's parallel intent register, measurement register and flags were dropped when main's merged registers and collection-disabled contract were found. The withdrawn draft is published at session-58cbaaa2/artifacts/. | pass 13 shopfront + decision desk (arena/fd9778a1-zone1): SG-39…SG-48, path P7, numbered after the merged 2026-11-17 rows so no id collides. | SG-54–SG-55 (decision worksheet + hosting-week guide) by arena/2ce347cb-zone1 (2026-11-19). | 2026-11-20 (arena/915c51ea-zone1): SG-53 and SG-15 states moved after the reader-side work shipped; SG-61 (claim-literacy pair), SG-57..SG-60 added - the two brands' identical 4-6 people sentences as the site's claim-literacy example, the CHEF iQ same-page sensor conflict found 2026-11-20, the unwritten merchandising ceiling, the seasonal handover date, and the front-card CTA question.",
   "compiled": "2026-11-19 | SG-56 (reader-voice decision) by arena/91a755df-zone1 (2026-11-20), after the snippet and CTA repair shipped; no earlier row edited.",
   "how_to_read": [
     "This is a decision queue, not a changelog. Rows the build's decision desk counts as implemented were shipped in the canonical root build under the standing pre-authorisation rule and are recorded, row by row, in data/decision-log.json; everything else is a proposal awaiting a path from you.",
@@ -8213,32 +8213,26 @@
         "Q-44"
       ],
       "implementation": {
-        "state": "proposed",
-        "on": "2026-11-20",
-        "note": "Not implemented. The pair is argued once, in articles/hosting-week-air-fryer-math.html, and the values are sourced rows in data/products.json, so surfacing them elsewhere is a rendering decision rather than new data.",
+        "state": "partial",
+        "files": [
+          "build.py",
+          "data/articles.json",
+          "verify.py"
+        ],
+        "guard": "verify.py check 12 (snippet budget) and the row-source gate are unchanged by this decision",
         "evidence": [
           {
-            "label": "This pass's dated source-read report",
-            "url": "reports/verification-2026-11-20-915c51ea.md"
-          },
-          {
-            "label": "The live brand reads behind the copy (2026-11-20)",
-            "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+            "label": "F110 — the snippet repair and its gate, shipped 2026-11-20",
+            "url": "flagged.html#f110"
           }
         ]
       },
-      "current_state": "open",
-      "current_note": "The pair is argued in the hosting-week guide, published 2026-11-20, and nowhere else.",
+      "current_state": "partial",
+      "current_note": "The two worst instances were removed on 2026-11-20: the article byline now reads 'Updated 19 Nov 2026' with the first-publication caveat moved to one footnote, and the product CTA note is one sentence plus its source badges instead of four. Options A, B and C remain unselected.",
       "current_reviewed_on": "2026-11-20",
       "current_evidence": [
-        {
-          "label": "This pass's dated source-read report",
-          "url": "reports/verification-2026-11-20-915c51ea.md"
-        },
-        {
-          "label": "The live brand reads behind the copy (2026-11-20)",
-          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
-        }
+        "S50",
+        "S51"
       ]
     },
     {
@@ -8258,7 +8252,7 @@
         },
         {
           "label": "B. Ask CHEF iQ which is right, then publish the answer",
-          "what": "Slowest, and the only version that ends with one figure. Q-45 is the row that carries the question.",
+          "what": "Slowest, and the only version that ends with one figure. Q-46 is the row that carries the question.",
           "effort": "S",
           "risk": "low",
           "reversible": true
@@ -8286,7 +8280,7 @@
         },
         {
           "label": "Q-45 - the question this row opens",
-          "url": "questions.html#q-45"
+          "url": "questions.html#q-46"
         }
       ],
       "blocks": [],
@@ -8568,6 +8562,89 @@
       "resolved_on": null,
       "parallel_implementation_history": [],
       "parallel_revision_history": []
+    },
+    {
+      "id": "SG-61",
+      "title": "Use the two brands' identical '4-6 people' sentences as the site's claim-literacy example",
+      "area": "Content and traffic",
+      "problem": "On 2026-11-20 both Chefman's 8 Qt page and the Emeril 26 QT page publish a household-size figure, and they publish the same one: 'Designed for 4-6 people' beside one 8-quart basket, 'preparing food for 4-6 people' beside a 26-quart cavity. The two sentences are roughly three times apart in volume and identical in people. That is the clearest demonstration this site could ask for that a household figure is marketing shorthand rather than a portion table - and it is more persuasive than the site's present, correct but abstract sentence on the same subject. It is currently used only in the hosting-week guide.",
+      "recommendation": "A. Put the pair where the decision is actually made - the comparison matrix row and the two product cards - in the same wording the guide uses, with the brand page cited. B is defensible if you would rather the example stayed in one place.",
+      "why": "A shopper deciding between 8 quarts and 26 quarts is deciding between two marketing sentences, and seeing them side by side is the moment the choice becomes legible. It also gives the site a signature piece of judgement: not a spec scrape, not a review summary, and not a claim about cooking.",
+      "options": [
+        {
+          "label": "A. Surface the pair on compare.html and both product cards",
+          "what": "One row: the figure each brand prints, the volume it sits beside, the page it comes from. Values splice from data/products.json, so the build keeps them honest.",
+          "effort": "S",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "B. Leave it in the guide only",
+          "what": "The guide carries the argument; the matrix keeps its current capacity rows. Nothing is added to the money pages.",
+          "effort": "0",
+          "risk": "low",
+          "reversible": true
+        },
+        {
+          "label": "C. Build a standing 'how to read a brand claim' pattern",
+          "what": "Every marketing sentence the site reproduces gets the same treatment: the sentence, the page, and one line on what it cannot be used for. Bigger, and it touches Q-39's framing rule; worth it only if you intend to keep republishing brand language.",
+          "effort": "M",
+          "risk": "medium",
+          "reversible": false
+        }
+      ],
+      "impact": 3,
+      "confidence": 4,
+      "effort": "S",
+      "risk_of_not_doing": "Low but real: the strongest demonstration the site has for its own positioning stays buried in one guide, while the pages that close the decision keep presenting capacity figures as if they were neutral numbers.",
+      "evidence": [
+        {
+          "label": "Chefman 8 Qt / 5 Qt page - 'Designed for 4-6 people' in the description (read live 2026-11-20)",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        },
+        {
+          "label": "Emeril French Door AirFryer 360 page - '26-Quart Capacity / preparing food for 4-6 people' in the specification block (read live 2026-11-20)",
+          "url": "https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360"
+        },
+        {
+          "label": "The guide that already argues this",
+          "url": "articles/hosting-week-air-fryer-math.html"
+        },
+        {
+          "label": "Q-39 - whether the site may use a brand's marketing sentence, and with what framing (Q-45 asks which product this sentence describes)",
+          "url": "questions.html#q-39"
+        }
+      ],
+      "blocks": [],
+      "blocked_by": [],
+      "current_state": "open",
+      "current_note": "The pair is argued in the hosting-week guide, published 2026-11-20, and nowhere else.",
+      "current_reviewed_on": "2026-11-20",
+      "current_evidence": [
+        {
+          "label": "This pass's dated source-read report",
+          "url": "reports/verification-2026-11-20-915c51ea.md"
+        },
+        {
+          "label": "The live brand reads behind the copy (2026-11-20)",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        }
+      ],
+      "implementation": {
+        "state": "proposed",
+        "on": "2026-11-20",
+        "note": "Not implemented. The pair is argued once, in articles/hosting-week-air-fryer-math.html, and the values are sourced rows in data/products.json, so surfacing them elsewhere is a rendering decision rather than new data.",
+        "evidence": [
+          {
+            "label": "This pass's dated source-read report",
+            "url": "reports/verification-2026-11-20-915c51ea.md"
+          },
+          {
+            "label": "The live brand reads behind the copy (2026-11-20)",
+            "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+          }
+        ]
+      }
     }
   ],
   "paths_intro": "A decision queue with this many rows is a backlog, not a decision. The paths below group the suggestions into four coherent pieces of work. Each path is ordered, names what has to be true before it can start, and says plainly what it will not fix. Pick one path, finish it, then pick the next. The grouping is this pass's judgement; the dependencies inside it are not - they are the blocked_by links already recorded on each row.",

@@ -68,9 +68,9 @@ to print both readings rather than an average.
 
 | ID | Finding | Status |
 |---|---|---|
-| I-1 | **The CHEF iQ page contradicts itself on sensor count.** Same screen, 2026-11-20: the description says "Five internal sensors"; the feature list says "4 internal temperature sensors for accuracy within 1°F" plus "1 ambient temperature sensor". The register's `Sensors` row prints the feature-list reading only. | Raised as **SG-57** (a proposed correction to `data/thermometers.json`, owned by the pass that published the thermometer pages) and **Q-45** (what is missing, and how to settle it). Not silently rewritten. |
-| I-2 | **The same page sells 1, 2, 3 and 4-probe variants.** The register's "In the box" row describes one probe, a hub and a cable, which matches the selected variant but not the page's whole offer. | Recorded in **Q-45**; no register row changed. |
-| I-3 | **Two brands print the same household-size figure beside capacities roughly three times apart** — "Designed for 4-6 people" next to one 8-quart basket, "preparing food for 4–6 people" next to a 26-quart cavity. It is also not stated whether Chefman's sentence describes the 5 Qt variant as well, since one description serves both sizes. | Used as claim-literacy content in the new guide; the ambiguity is opened as **Q-44**; the proposal to surface the pair where the decision is made is **SG-56**. |
+| I-1 | **The CHEF iQ page contradicts itself on sensor count.** Same screen, 2026-11-20: the description says "Five internal sensors"; the feature list says "4 internal temperature sensors for accuracy within 1°F" plus "1 ambient temperature sensor". The register's `Sensors` row prints the feature-list reading only. | Raised as **SG-57** (a proposed correction to `data/thermometers.json`, owned by the pass that published the thermometer pages) and **Q-46** (what is missing, and how to settle it). Not silently rewritten. |
+| I-2 | **The same page sells 1, 2, 3 and 4-probe variants.** The register's "In the box" row describes one probe, a hub and a cable, which matches the selected variant but not the page's whole offer. | Recorded in **Q-46**; no register row changed. |
+| I-3 | **Two brands print the same household-size figure beside capacities roughly three times apart** — "Designed for 4-6 people" next to one 8-quart basket, "preparing food for 4–6 people" next to a 26-quart cavity. It is also not stated whether Chefman's sentence describes the 5 Qt variant as well, since one description serves both sizes. | Used as claim-literacy content in the new guide; the ambiguity is opened as **Q-45**; the proposal to surface the pair where the decision is made is **SG-61**. |
 | I-4 | **Dash forms differ between the source and the register.** Chefman's page writes "4-6" with a hyphen; the register's published value is "Designed for 4–6 people" with an en dash. The row reproduces the brand's wording with typographic normalisation, not a wording change. | Recorded here for the reviewer; no value altered. |
 | I-5 | **A test pinned the article count at 26.** `tests/test_publication_output.py::test_owner_and_unconfirmed_notes_stay_out_of_sitemap` asserted a literal count, so shipping a 27th guide failed the build with no explanation of what was actually at stake. | Repaired, not loosened: the test now asserts that every registered guide has **exactly one** sitemap URL, that no two guides share a slug, and that the guide index appears once — the structural property the number was standing in for. |
 
@@ -112,8 +112,8 @@ the ASIN each supplied token reached.
   screens, and a top rule on the buyer table of contents. All inside the existing token set;
   `prefers-reduced-motion` already neutralises transitions.
 * **Suggestion and question registers**: SG-53 → `partial` (the counter that would say
-  whether any of this is used is gated on Q-30), SG-15 → `complete`, and SG-56 … SG-59 plus
-  Q-44 … Q-46 opened. `test_suggestions_have_current_evidenced_states…` passes, so every row
+  whether any of this is used is gated on Q-30), SG-15 → `complete`, and SG-57 … SG-61 plus
+  Q-45 … Q-47 opened. `test_suggestions_have_current_evidenced_states…` passes, so every row
   carries an evidenced implementation state.
 
 **No conversion, click, traffic or ranking claim is made by any of this.** SG-53's own note
