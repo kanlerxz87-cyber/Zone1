@@ -6978,3 +6978,22 @@ Open PRs #188 and #193 both list `EXECUTIVE-SUMMARY.md` in their file scope. To 
 * **Request to final integration:** if the owner wants one number in the summary, restate that line as a dated
   historical scope ("24 of the then-existing canonical articles were revised in pass `arena/d154e428`, 2026-11-19;
   the register now holds 26 records") only after #188/#193 land, since they own the file. No edit was made here.
+
+### Rebase-conflict log (third) — arena/09f88d54-zone1 integrating PR #190 (2026-11-20 UTC)
+
+* PR #189's three checks went green on the pushed head `25a9687`; GitHub then recomputed it `CONFLICTING` because
+  `main` had advanced again to `f07c251` ([PR #190](https://github.com/kanlerxz87-cyber/Zone1/pull/190), session
+  69c1201a: compliance rule **C19** for the tag-as-URL-parameter clause, flag **F111**, `build.py`,
+  `compliance.html`, `flagged.html`, `data/compliance.json`, `data/sources.json` and its own dated report).
+* The third `git pull --rebase origin main` conflicted only in `COORDINATION.md`. Resolved append-only: 69c1201a's
+  `CLAIM — arena/69c1201a-zone1` block was taken from `origin/main` verbatim and this pass's claim, executive-summary
+  overlap note and conflict logs re-appended below it. Verified with `git diff origin/main...HEAD` that the branch
+  makes **zero** deletions or edits to any other session's lines (additions only: `COORDINATION.md` + this report).
+* All gates were re-run on `f07c251` and pass unchanged except the link total, which rose because #190 added links:
+  `build.py` 63 pages / 41 sitemap URLs / 26 RSS items, byte-reproducible (no tracked diff) · `verify.py` 141 pages,
+  77 spec rows (75 verified, 2 blank+flagged), 51 sources, 0 errors, 0 external warnings · 79 publication tests ·
+  14 Node contract tests · 33 platform tests · data audit clean · s2 annex current (16 files) ·
+  `check_links.py` **12,716** links, none broken · `research/check_research.py` 834 checks ·
+  `scripts/verify_site.py` 393 assertions · `git diff --check` clean.
+* Rebased heads after this pass: claim `efa6966`, reconciliation `40438bb`, `c0f265d`. Push to this Arena branch only,
+  with `--force-with-lease`, then PR #189's checks are re-watched on the new head before any merge.
