@@ -1679,3 +1679,46 @@ Separately, the five stale pull requests (#139, #141, #144, #146, #150) have a r
 (F93, SG-50, Q-41). This pass closed none of them, because closing another session's work is your call.
 
 Full record: `reports/verification-2026-11-19-9b3365c7.md` and the pass-14 section of `COORDINATION.md`.
+
+---
+
+## Appendix — 2026-11-20 UTC · independent review and re-verification · `arena/1875c5bb-zone1`
+
+**Bottom line.** Nothing in the publication needed a correction to a product, price, rating,
+commission or compliance statement. The site's stored facts survived an independent live
+re-read, every gate passed from a clean tree, and one internal inconsistency was repaired.
+Full record: [`reports/verification-2026-11-20-1875c5bb.md`](reports/verification-2026-11-20-1875c5bb.md).
+
+**What was verified live today, not recalled.** The five supplied `link.amazon` short links all
+resolved to product detail pages, and every observed ASIN matches the record already stored:
+`B04G1MEwY` → `B0CDY277D3`, `B02NbDxp3` → `B09B7SB46R`, `B00hJ57DV` → `B08DKYBTPH`,
+`B0c8moW59` → `B0DHZTCNR5`, `B0f3GKalj` → `B0DZFD6R9Z`. The
+[Operating Agreement](https://affiliate-program.amazon.com/help/operating/agreement) still
+reads *Updated: October 15, 2025*; the
+[Program Policies](https://affiliate-program.amazon.com/help/operating/policies) still read
+*Updated: April 14, 2026*; the
+[identification help page](https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98)
+still requires the exact sentence "As an Amazon Associate I earn from qualifying purchases."
+near the links; the
+[FTC guide](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers)
+still says a disclosure must be placed so it is "hard to miss" and that you "can't talk about
+your experience with a product you haven't tried". The Chefman and Emeril brand pages still
+state the figures the site publishes (450 °F Hi-Fry max on the 6 Qt; 25 presets in the spec
+block against 24 elsewhere; 16.9 × 15.8 × 14.8 in on the 26 QT).
+
+**One repair.** The canonical intent register carried a PI-04 landing title that matched
+neither the earlier session's note nor today's read. The row now carries today's read and the
+superseded wording is preserved in its history. All intent fields stay blank and
+`associates_link_test_passed` stays `false`.
+
+**One deliberate non-change.** The 6 Qt review widget showed 1,313 reviews today against a
+stamped 2026-11-19 snapshot of 1,312, but the star average was not displayed in the text this
+session read. Rather than infer "4.6 from 1,313", the stamped snapshot stands.
+
+**What is still yours alone.** DR-01 (which listing each supplied link is meant to reach), DR-02
+(whether `shopnow047c-20` is enrolled and may be applied), DR-03 (the 180-day qualifying-sales
+decision) and DR-04 (enabling the analytics collector) remain open on the
+[decision review queue](https://kanlerxz87-cyber.github.io/Zone1/decision-review.html). No
+click, order, conversion, revenue, ranking or traffic figure is published, because no
+authorised account data or Search Console ownership exists. The compliance status of the five
+supplied short links remains unresolved in both directions.

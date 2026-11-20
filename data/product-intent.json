@@ -14,8 +14,8 @@
    "confirmation_source": null,
    "observed_redirect_target": "https://www.amazon.com/dp/B0CDY277D3",
    "observed_asin": "B0CDY277D3",
-   "observed_title": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
-   "observed_on": "2026-11-19",
+   "observed_title": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black",
+   "observed_on": "2026-11-20",
    "observed_source_ids": [
     "S17",
     "S16"
@@ -34,6 +34,12 @@
      "observed_asin": "B0CDY277D3",
      "observed_redirect_target": "https://www.amazon.com/dp/B0CDY277D3",
      "observed_title": "CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black"
+    },
+    {
+     "observed_on": "2026-11-20",
+     "observed_asin": "B0CDY277D3",
+     "observed_redirect_target": "https://www.amazon.com/dp/B0CDY277D3",
+     "observed_title": "Amazon.com: CHEFMAN 6 Quart Dual Basket Air Fryer Oven with Easy View Windows, Sync Finish, Hi-Fry, Auto Shutoff, 2 Independent 3Qt Nonstick Dishwasher Safe Frying Baskets, Digital Double Air Fryer - Black"
     }
    ],
    "observation_scope": "Exact supplied URL fetched; fallback-parameter Amazon landing content/title observed. No enrolled Associates workflow, intent confirmation or current price/review reuse.",
@@ -50,7 +56,7 @@
    "observed_redirect_target": "https://www.amazon.com/dp/B09B7SB46R",
    "observed_asin": "B09B7SB46R",
    "observed_title": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included",
-   "observed_on": "2026-11-19",
+   "observed_on": "2026-11-20",
    "observed_source_ids": [
     "S17",
     "S28"
@@ -66,6 +72,12 @@
    "observation_history": [
     {
      "observed_on": "2026-11-17",
+     "observed_asin": "B09B7SB46R",
+     "observed_redirect_target": "https://www.amazon.com/dp/B09B7SB46R",
+     "observed_title": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included"
+    },
+    {
+     "observed_on": "2026-11-20",
      "observed_asin": "B09B7SB46R",
      "observed_redirect_target": "https://www.amazon.com/dp/B09B7SB46R",
      "observed_title": "Amazon.com: Emeril Lagasse 26QT French Door Multi-Function Air Fryer Toaster Oven | Countertop Convection Cooker, 24 One-Touch Preset Options, Extra Large Interior, Six Cooking Accessories Included"
@@ -85,7 +97,7 @@
    "observed_redirect_target": "https://www.amazon.com/dp/B08DKYBTPH",
    "observed_asin": "B08DKYBTPH",
    "observed_title": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
-   "observed_on": "2026-11-19",
+   "observed_on": "2026-11-20",
    "observed_source_ids": [
     "S17",
     "S29"
@@ -104,6 +116,13 @@
      "observed_asin": "B08DKYBTPH",
      "observed_redirect_target": "https://www.amazon.com/dp/B08DKYBTPH",
      "observed_title": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel"
+    },
+    {
+     "observed_on": "2026-11-20",
+     "observed_asin": "B08DKYBTPH",
+     "observed_redirect_target": "https://www.amazon.com/dp/B08DKYBTPH",
+     "observed_title": "Amazon.com: Chefman Air Fryer 8 Qt | TurboFry® 4-in-1 with 450°F Hi-Fry Option for Crispier Results | Bake, Dehydrate, Frozen | XL Nonstick Dishwasher-Safe Basket | Stainless Steel",
+     "note": "Reached its recorded /dp/ target on this read. A 2026-11-19 pass (arena/2ce347cb-zone1) had observed this token land on the Amazon site homepage (F106); that observation is retained in the register, not overwritten. No claim is made here about link validity or attribution."
     }
    ],
    "observation_scope": "Exact supplied URL fetched; fallback-parameter Amazon landing content/title observed. No enrolled Associates workflow, intent confirmation or current price/review reuse.",
@@ -120,7 +139,7 @@
    "observed_redirect_target": "https://www.amazon.com/dp/B0DHZTCNR5",
    "observed_asin": "B0DHZTCNR5",
    "observed_title": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black",
-   "observed_on": "2026-11-19",
+   "observed_on": "2026-11-20",
    "observed_source_ids": [
     "S36"
    ],
@@ -155,6 +174,13 @@
      "observed_redirect_target": "https://www.amazon.com/dp/B0DHZTCNR5",
      "observed_title": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified Food Thermometer, Auto-Rotate Bright LED Screen, Highly Waterproof for Grill BBQ Camping, Black",
      "note": "Superseded by the 2026-11-19 late-session read; retained as dated evidence."
+    },
+    {
+     "observed_on": "2026-11-20",
+     "observed_asin": "B0DHZTCNR5",
+     "observed_redirect_target": "https://www.amazon.com/dp/B0DHZTCNR5",
+     "observed_title": "Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black",
+     "note": "Landing title differs from the wording carried in observed_title after the 2026-11-19 read: that read recorded 'NIST&NSF Certified Food Thermometer ... Highly Waterproof for Grill BBQ Camping, Black'. The ASIN is unchanged (B0DHZTCNR5). The 2026-11-19 record in data/sources.json (reverified_2026_11_19_2ce347cb) already carried this IP67/gift wording, so the canonical row is brought into line with two agreeing reads rather than one. A listing-title change is not a product change and neither reading is treated as a verified product claim."
     }
    ],
    "observation_scope": "Exact supplied URL fetched; fallback-parameter Amazon landing content/title observed. No enrolled Associates workflow, intent confirmation or current price/review reuse.",
@@ -176,8 +202,8 @@
    "confirmation_source": null,
    "observed_redirect_target": "https://www.amazon.com/dp/B0DZFD6R9Z",
    "observed_asin": "B0DZFD6R9Z",
-   "observed_title": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen",
-   "observed_on": "2026-11-19",
+   "observed_title": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3",
+   "observed_on": "2026-11-20",
    "observed_source_ids": [
     "S37"
    ],
@@ -205,6 +231,12 @@
      "observed_asin": "B0DZFD6R9Z",
      "observed_redirect_target": "https://www.amazon.com/dp/B0DZFD6R9Z",
      "observed_title": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen"
+    },
+    {
+     "observed_on": "2026-11-20",
+     "observed_asin": "B0DZFD6R9Z",
+     "observed_redirect_target": "https://www.amazon.com/dp/B0DZFD6R9Z",
+     "observed_title": "Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3"
     }
    ],
    "observation_scope": "Exact supplied URL fetched; fallback-parameter Amazon landing content/title observed. No enrolled Associates workflow, intent confirmation or current price/review reuse.",
@@ -241,5 +273,12 @@
    "S6"
   ]
  },
- "reviewed_on": "2026-11-19"
+ "reviewed_on": "2026-11-20",
+ "observation_2026_11_20": {
+  "read_by": "arena/1875c5bb-zone1 (session 1875c5bb)",
+  "date": "2026-11-20",
+  "method": "Each of the five exact supplied link.amazon URLs was fetched live in this session (fetch_page). Final URL and landing-page <title> were read from the live response body; nothing was copied from an earlier session's record.",
+  "result": "All five tokens resolved to a product detail page on this read: B04G1MEwY -> B0CDY277D3, B02NbDxp3 -> B09B7SB46R, B00hJ57DV -> B08DKYBTPH, B0c8moW59 -> B0DHZTCNR5, B0f3GKalj -> B0DZFD6R9Z. Every observed ASIN matches the record already stored here.",
+  "scope": "Destination and title observation only. intended_asin, official_listing_url, confirmation_date and confirmation_source remain null for all five rows; associates_link_test_passed remains false; the selected tracking ID remains recorded but unapplied. Reaching a product page is not evidence of the account holder's intent, of Associates attribution, or of compliance status either way."
+ }
 }
