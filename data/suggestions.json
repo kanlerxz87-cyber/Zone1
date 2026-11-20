@@ -1,6 +1,6 @@
 {
   "version": "1.1",
-  "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped); SG-36..SG-38 and path P6 by arena/58cbaaa2 (2026-11-17) — written twice, and shortened the second time: the first draft's parallel intent register, measurement register and flags were dropped when main's merged registers and collection-disabled contract were found. The withdrawn draft is published at session-58cbaaa2/artifacts/. | pass 13 shopfront + decision desk (arena/fd9778a1-zone1): SG-39…SG-48, path P7, numbered after the merged 2026-11-17 rows so no id collides. | SG-54–SG-55 (decision worksheet + hosting-week guide) by arena/2ce347cb-zone1 (2026-11-19). | 2026-11-20 (arena/915c51ea-zone1): SG-53 and SG-15 states moved after the reader-side work shipped; SG-56..SG-59 added - the two brands' identical '4-6 people' sentences as the site's claim-literacy example, the CHEF iQ same-page sensor conflict found on 2026-11-20, the unwritten merchandising ceiling, and the missing date on the seasonal handover.",
+  "pass": "Verification pass 9 (arena/42ca97ad-zone1), extended from integration pass 8; marketing and decision-support rows SG-27..SG-31 + path P5 by session arena/19d92a81 (2026-11-16), reconciled after merging the parallel pass's SG-23..SG-26; second-collision renumber at merge 2026-11-16 (SG-27..31 draft ids -> SG-32..35; RSS row dropped as shipped); SG-36..SG-38 and path P6 by arena/58cbaaa2 (2026-11-17) — written twice, and shortened the second time: the first draft's parallel intent register, measurement register and flags were dropped when main's merged registers and collection-disabled contract were found. The withdrawn draft is published at session-58cbaaa2/artifacts/. | pass 13 shopfront + decision desk (arena/fd9778a1-zone1): SG-39…SG-48, path P7, numbered after the merged 2026-11-17 rows so no id collides. | SG-54–SG-55 (decision worksheet + hosting-week guide) by arena/2ce347cb-zone1 (2026-11-19).",
   "compiled": "2026-11-19 | SG-56 (reader-voice decision) by arena/91a755df-zone1 (2026-11-20), after the snippet and CTA repair shipped; no earlier row edited.",
   "how_to_read": [
     "This is a decision queue, not a changelog. Rows the build's decision desk counts as implemented were shipped in the canonical root build under the standing pre-authorisation rule and are recorded, row by row, in data/decision-log.json; everything else is a proposal awaiting a path from you.",
@@ -8213,26 +8213,32 @@
         "Q-44"
       ],
       "implementation": {
-        "state": "partial",
-        "files": [
-          "build.py",
-          "data/articles.json",
-          "verify.py"
-        ],
-        "guard": "verify.py check 12 (snippet budget) and the row-source gate are unchanged by this decision",
+        "state": "proposed",
+        "on": "2026-11-20",
+        "note": "Not implemented. The pair is argued once, in articles/hosting-week-air-fryer-math.html, and the values are sourced rows in data/products.json, so surfacing them elsewhere is a rendering decision rather than new data.",
         "evidence": [
           {
-            "label": "F110 — the snippet repair and its gate, shipped 2026-11-20",
-            "url": "flagged.html#f110"
+            "label": "This pass's dated source-read report",
+            "url": "reports/verification-2026-11-20-915c51ea.md"
+          },
+          {
+            "label": "The live brand reads behind the copy (2026-11-20)",
+            "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
           }
         ]
       },
-      "current_state": "partial",
-      "current_note": "The two worst instances were removed on 2026-11-20: the article byline now reads 'Updated 19 Nov 2026' with the first-publication caveat moved to one footnote, and the product CTA note is one sentence plus its source badges instead of four. Options A, B and C remain unselected.",
+      "current_state": "open",
+      "current_note": "The pair is argued in the hosting-week guide, published 2026-11-20, and nowhere else.",
       "current_reviewed_on": "2026-11-20",
       "current_evidence": [
-        "S50",
-        "S51"
+        {
+          "label": "This pass's dated source-read report",
+          "url": "reports/verification-2026-11-20-915c51ea.md"
+        },
+        {
+          "label": "The live brand reads behind the copy (2026-11-20)",
+          "url": "https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1"
+        }
       ]
     },
     {

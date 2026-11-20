@@ -187,6 +187,7 @@ footer.site>.inner{max-width:1208px;margin:auto;display:grid;grid-template-colum
 .card{transition:box-shadow .18s ease,border-color .18s ease,transform .18s ease}
 @media(hover:hover){.card:hover{border-color:var(--brand-line);box-shadow:0 10px 26px #203e321a;transform:translateY(-2px)}}
 .shell main{counter-reset:cluster}
+.cluster-group{counter-increment:cluster}
 .cluster-head{align-items:flex-start}
 .cluster-head h2::before{content:counter(cluster,decimal-leading-zero);display:block;margin:0 0 7px;font:600 11px/1 var(--sans);letter-spacing:2px;color:var(--accent)}
 .buyer-toc{border-top:1px solid var(--line);padding-top:14px}
