@@ -1731,7 +1731,7 @@ supplied short links remains unresolved in both directions.
 This pass re-read all five supplied short links and the load-bearing official sources live, then
 repaired two published defects that could be proved from the repository itself.
 
-**D-1 — the reading badge (F108 / ET-1 / ET-4).** Every article page printed `3 min read` because
+**D-1 — the reading badge (F113 / ET-1 / ET-4).** Every article page printed `3 min read` because
 the number was a literal in `data/articles.json`. The guides' prose runs **162–382 words**. The
 badge is now the page's own computed count with an assumed 200 wpm labelled as an assumption. The
 uncomfortable half is published rather than hidden: at that rate these are one-to-two-minute
@@ -1739,7 +1739,7 @@ guides, shorter than the badge used to advertise. Padding them to match an old n
 been the wrong repair, so the length is recorded as ET-4 and lengthening is an owner/editorial
 decision.
 
-**D-2 — the missing path (F108 / ET-2).** A count over the generated files found **zero** product
+**D-2 — the missing path (F113 / ET-2).** A count over the generated files found **zero** product
 or Amazon links across all 27 reader articles, while every product page already linked back to
 the guides. Each guide now closes with the documented model pages named in its own data row,
 under the standing wording *"Documentation pages, not a recommendation or a test"*. A row of
@@ -1753,8 +1753,8 @@ so claiming an accessibility colour fix would have been false. That measurement 
 method, the dated source reads, the corrections and an explicit "what this edition did not
 change".
 
-**New flags:** F107 (the two thermometer links now serve a colour variant / sale parameter the
-2026-11-19 record did not carry; nothing overwritten) and F108 (the two repaired defects, kept
+**New flags:** F112 (the two thermometer links now serve a colour variant / sale parameter the
+2026-11-19 record did not carry; nothing overwritten) and F113 (the two repaired defects, kept
 public because ET-4 is an open editorial question).
 
 **Gates:** build 64 pages / 42 sitemap URLs / 26 feed items, deterministic · `verify.py` 142 pages,

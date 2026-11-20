@@ -20,8 +20,8 @@ earlier pass. It is also recorded machine-readably as
 | S17 | https://link.amazon/B04G1MEwY | Resolved to `/dp/B0CDY277D3`, title `CHEFMAN 6 Quart Dual Basket Air Fryer Oven … Sync Finish, Hi-Fry …`. Matches the stored PI-01 observation. |
 | S28 | https://link.amazon/B02NbDxp3 | Resolved to `/dp/B09B7SB46R`, title `Emeril Lagasse 26QT French Door … 24 One-Touch Preset Options … Six Cooking Accessories Included`. Matches PI-02. |
 | S29 | https://link.amazon/B00hJ57DV | Resolved to `/dp/B08DKYBTPH`, title `Chefman Air Fryer 8 Qt \| TurboFry® 4-in-1 with 450°F Hi-Fry Option …`. Matches PI-03. **F106's homepage fallback was not reproduced in this read**; F106 stays recorded as an observation of that pass, not as a present-tense claim. |
-| S36 | https://link.amazon/B0c8moW59 | Resolved to `/dp/B0DHZTCNR5`, title ending `… Stocking Stuffers Gifts for Men, Black`, with a `$16.99` price block. The 2026-11-19 record did not name a colour. → **F107** |
-| S37 | https://link.amazon/B0f3GKalj | Resolved to `/dp/B0DZFD6R9Z`, title `CHEF iQ Sense … 3 Ultra-Thin Probes … Gen3`; the served page URL carried an `sbo` sale parameter absent from the previous redirect. → **F107** |
+| S36 | https://link.amazon/B0c8moW59 | Resolved to `/dp/B0DHZTCNR5`, title ending `… Stocking Stuffers Gifts for Men, Black`, with a `$16.99` price block. The 2026-11-19 record did not name a colour. → **F112** |
+| S37 | https://link.amazon/B0f3GKalj | Resolved to `/dp/B0DZFD6R9Z`, title `CHEF iQ Sense … 3 Ultra-Thin Probes … Gen3`; the served page URL carried an `sbo` sale parameter absent from the previous redirect. → **F112** |
 | S16 / S28b / S29b | `/dp/B0CDY277D3`, `/dp/B09B7SB46R`, `/dp/B08DKYBTPH` | Product detail pages rendered; breadcrumb `Home & Kitchen › … › Fryers › Air Fryers` (leaf node 17659096011). |
 | S36b | `/dp/B0DHZTCNR5` | Detail page rendered; breadcrumb `… › Thermometers & Timers › Meat` (node 289810). |
 | S10 | https://chefman.com/products/turbofry-touch-dual-window-air-fryer | `6 Qt / 5.67 L`; `200–450°F / 95º-235ºC`; `13.38 × 11.81 × 10.63 in`; `1700W/120V`; model `RJ38-SQPF-3TDB-2W`; "Max temp: 450ºF with Hi-Fry function". |
@@ -42,7 +42,7 @@ of either. This is recorded so the next pass knows exactly which claims carry wh
 
 ## 2. Defects found and repaired
 
-### D-1 · The reading badge was a constant, not an estimate  → **F108 / ET-1 / ET-4**
+### D-1 · The reading badge was a constant, not an estimate  → **F113 / ET-1 / ET-4**
 
 *Before:* all 26 article pages printed `3 min read`. The value came from a single literal in
 `data/articles.json`, not from the text. Measured prose (placeholders rendered, headings,
@@ -60,7 +60,7 @@ the question of lengthening a guide is left to the owner.
 number equals the computed number for every article, that at least six distinct counts exist
 across the set (so a reinstated constant fails), and that no `min read` string survives.
 
-### D-2 · No reader article linked to a product page  → **F108 / ET-2**
+### D-2 · No reader article linked to a product page  → **F113 / ET-2**
 
 *Before:* a count over the generated files found **zero** occurrences of a product-page path
 or an Amazon URL across all 27 reader articles. A reader who finished a comparison had no next
@@ -117,12 +117,24 @@ working as designed.
 
 | Flag | Severity | Item |
 |---|---|---|
-| **F107** | Low | The two thermometer short links serve a colour variant (B0DHZTCNR5, Black, with a companion Orange listing B0GL7Z4KP4 in the same rail) and an `sbo` sale parameter that the 2026-11-19 record did not carry. No stored observation was overwritten; intended-ASIN fields stay blank. |
+| **F112** | Low | The two thermometer short links serve a colour variant (B0DHZTCNR5, Black, with a companion Orange listing B0GL7Z4KP4 in the same rail) and an `sbo` sale parameter that the 2026-11-19 record did not carry. No stored observation was overwritten; intended-ASIN fields stay blank. |
 | **F106** | (existing) | Not reproduced in this session's read of B00hJ57DV. Left as the record of the pass that observed it. |
-| **F108** | Medium, repaired | D-1 and D-2 above; kept on the public flag register because the *length* finding (ET-4) is an open editorial question for the owner. |
+| **F113** | Medium, repaired | D-1 and D-2 above; kept on the public flag register because the *length* finding (ET-4) is an open editorial question for the owner. |
 | S23 | note | The ASIN definition sentence was not present in the fetched text today. No new ASIN claim was made; the existing `product-intent.json` note rests on earlier passes. |
 
 ---
+
+### Flag-numbering note (rebase of 2026-11-20)
+
+These two rows were drafted as **F107/F108**. While this branch was open, PR #188
+(`arena/b6891e75`) merged its own **F107** (the S17 scope sentence) and **F108** (orphaned
+`picks.html`) to `main` first. A flag id is a citation target, so re-using a merged id would
+point two findings at one anchor. The rows were renumbered to **F112/F113** on rebase, with no
+change to their substance. `build.py` carries the same note in a comment above the rows, in the
+form `arena/69c1201a` used for F110. Rebase conflicts were resolved keep-both: `main`'s
+F111/F107/F108 rows, `data/product-intent.json` and `EXECUTIVE-SUMMARY.md` appendix were kept
+verbatim, and `data/sources.json` was rebuilt from `main`'s file with only this session's dated
+entry appended (+107 lines, one key added, nothing removed).
 
 ## 5. Gates run (this tree, after all changes)
 

@@ -209,6 +209,25 @@ class PublicationOutputTests(unittest.TestCase):
         # a policy page may not carry a row table whose rows lack a source
         self.assertNotIn('<table', page)
 
+    def test_every_flag_row_renders_and_no_id_is_reused(self):
+        """2026-11-20 (arena/761c3c2e): a rebase dropped two other sessions' flag rows.
+
+        Resolving a conflict in the flag list by taking one side left F107/F108 out of
+        the rendered register while the ids stayed quoted in prose. A flag id is a
+        citation target, so both failures - a duplicate id and a missing row - make a
+        published anchor lie. This gate checks the list and the page agree.
+        """
+        import build
+        ids = [row[0] for row in build.PROGRAMME_FLAGS]
+        self.assertEqual(len(ids), len(set(ids)), "a flag id is used twice")
+        page = (ROOT / 'flagged.html').read_text()
+        for fid in ids:
+            self.assertIn(f'<tr id="{fid.lower()}"', page,
+                          f"{fid} is in the register but has no row on flagged.html")
+        # rows contributed by other sessions that this branch rebased across
+        for fid in ('F111', 'F107', 'F108'):
+            self.assertIn(fid, ids)
+
 
 if __name__ == '__main__':
     unittest.main()

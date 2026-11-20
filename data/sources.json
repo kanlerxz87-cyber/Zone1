@@ -385,10 +385,10 @@
       "org": "Amazon.com",
       "title": "link.amazon short links supplied by the account holder (B04G1MEwY, B02NbDxp3, B00hJ57DV)",
       "url": "https://link.amazon/B04G1MEwY",
-      "covers": "The three redirect links themselves and their resolved destinations",
+      "covers": "The three redirect links B04G1MEwY, B02NbDxp3 and B00hJ57DV themselves and the destinations they resolved to. Scope text narrowed 2026-11-20 (F107): two further link.amazon tokens were supplied on 2026-11-17 (B0c8moW59, B0f3GKalj) and are registered separately as S52 and S53. This entry does not describe those two links; the rows that use them cite S52/S53 together with the ASIN listing rows S36/S37, which were already the sources for their destinations.",
       "kind": "Short link",
       "directness": "Primary for the redirect target; the Associates tag inside is not observable",
-      "page_version": "Supplied link.amazon short link — re-resolved 2026-11-14, same target ASIN, still served with lv=shuf&plpRedirect=mhFallback | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Short link B04G1MEwY re-read: resolves to /dp/B0CDY277D3 via plpRedirect=mhFallback with no visible tag=. Destination stable; attribution and model identity still unconfirmed. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; all three short links re-resolved to the same destinations (B0CDY277D3, B09B7SB46R, B08DKYBTPH) with plpRedirect=mhFallback-style parameters; tokens still 9 characters (F17/F24 unchanged); tag still unobservable (Q-04).",
+      "page_version": "Supplied link.amazon short link — re-resolved 2026-11-14, same target ASIN, still served with lv=shuf&plpRedirect=mhFallback | Pass 11 (2026-11-16, arena/2e346d24-zone1): re-read live.Short link B04G1MEwY re-read: resolves to /dp/B0CDY277D3 via plpRedirect=mhFallback with no visible tag=. Destination stable; attribution and model identity still unconfirmed. | Re-verification pass 2026-11-16 (arena/a746a9f2, X-a746a9f2): re-read live; all three short links re-resolved to the same destinations (B0CDY277D3, B09B7SB46R, B08DKYBTPH) with plpRedirect=mhFallback-style parameters; tokens still 9 characters (F17/F24 unchanged); tag still unobservable (Q-04). | Independent corroboration 2026-11-20 (arena/b6891e75-zone1 (session b6891e75)): all three tokens re-resolved to /dp/B0CDY277D3, /dp/B09B7SB46R and /dp/B08DKYBTPH, each served with lv=shuf and plpRedirect=mhFallback and no visible tag= parameter. Session 1875c5bb recorded its own 2026-11-20 read of the same three tokens in reverified_2026_11_20_1875c5bb, and the two independent reads agree.",
       "verified": "Round 11 (2026-11-16, arena/b23f12f0): all three tokens re-resolved. B04G1MEwY -> /dp/B0CDY277D3, B02NbDxp3 -> /dp/B09B7SB46R, B00hJ57DV -> /dp/B08DKYBTPH. Destinations unchanged; each landing URL still carries plpRedirect=mhFallback and no tag= parameter."
     },
     {
@@ -831,6 +831,28 @@
       "kind": "Documentation",
       "directness": "Primary — the search engine's own documentation",
       "page_version": "Live page, read 2026-11-20"
+    },
+    {
+      "id": "S52",
+      "org": "Amazon.com",
+      "title": "link.amazon short link supplied by the account holder (B0c8moW59)",
+      "url": "https://link.amazon/B0c8moW59",
+      "covers": "This one redirect token and the destination it resolved to on the date recorded. It is the link itself as a source, not a product record: the listing title for the same ASIN is registered on S36, and the other supplied tokens are S17 (three air-fryer links) and S53. Its landing URL carried channelId=500 and an sp_csd parameter, unlike the channelId=704 seen on the three air-fryer tokens the same day; recorded as an observation only (F95).",
+      "kind": "Short link",
+      "directness": "Primary for the redirect target of this token; the Associates tag inside the redirect is not observable from outside Associates Central",
+      "page_version": "Supplied link.amazon short link — re-read live 2026-11-20 (arena/b6891e75-zone1 (session b6891e75)). Resolved to https://www.amazon.com/dp/B0DHZTCNR5 served with lv=shuf and plpRedirect=mhFallback. The <title> read from that response: “Amazon.com: ThermoMaven 1 Sec Professional Digital Meat Thermometer, ±0.5℉ Accuracy | NIST&NSF Certified, Auto-Rotate Bright LED Screen, IP67 Waterproof for Grill BBQ, Stocking Stuffers Gifts for Men, Black : Home & Kitchen”. No tag= parameter was visible on the landing URL, which is an observation about what a datacentre fetch received, not evidence that the link is untagged (S41).",
+      "verified": "2026-11-20: fetched from this session's own outbound request; the destination ASIN and page title above are the values served that day. Intended listing, per-product enrolled-Associates test and attribution remain blank in data/product-intent.json."
+    },
+    {
+      "id": "S53",
+      "org": "Amazon.com",
+      "title": "link.amazon short link supplied by the account holder (B0f3GKalj)",
+      "url": "https://link.amazon/B0f3GKalj",
+      "covers": "This one redirect token and the destination it resolved to on the date recorded. It is the link itself as a source, not a product record: the listing title for the same ASIN is registered on S37, and the other supplied tokens are S17 (three air-fryer links) and S52. Its landing URL carried channelId=500 and an sbo parameter; recorded as an observation only (F95), not as a statement about link type or attribution.",
+      "kind": "Short link",
+      "directness": "Primary for the redirect target of this token; the Associates tag inside the redirect is not observable from outside Associates Central",
+      "page_version": "Supplied link.amazon short link — re-read live 2026-11-20 (arena/b6891e75-zone1 (session b6891e75)). Resolved to https://www.amazon.com/dp/B0DZFD6R9Z served with lv=shuf and plpRedirect=mhFallback. The <title> read from that response: “Amazon.com: CHEF iQ Sense | Smart Wireless Meat Thermometer | 3 Ultra-Thin Probes | WiFi Unlimited Range | 1000°F Heat Safe | 5 Sensors | BBQ, Grill, Oven, Smoker, Air Fryer | Gen3: Home & Kitchen”. No tag= parameter was visible on the landing URL, which is an observation about what a datacentre fetch received, not evidence that the link is untagged (S41).",
+      "verified": "2026-11-20: fetched from this session's own outbound request; the destination ASIN and page title above are the values served that day. Intended listing, per-product enrolled-Associates test and attribution remain blank in data/product-intent.json."
     }
   ],
   "reverified_scope": "Pass 11 (arena/2e346d24-zone1) re-read live on 2026-11-16: S1, S2, S3, S4, S5, S8, S9, S10, S17, S28, S29, then S12, S14 and S18 later in the same session — fourteen sources in total. NOT re-read in pass 11 and therefore not restated: S6, S7, S11, S13, S15, S16, S19-S27, S30-S34, and the 8 Qt owner's-manual PDF. F3 (450 °F) was re-established live against S12 and the listing title; F4/F5 (Emeril presets) against S14. S15, the Emeril owner's manual, was NOT re-read, so the 24-preset count is carried forward and not re-asserted. Evidence: reports/verification-2026-11-16-2e346d24.md",
@@ -1168,6 +1190,51 @@
       "not_read": "S3, S4, S6, S7, S9, S11-S13, S15, S18-S27, S30-S35, S38-S49 were NOT re-read in this session. No statement is made here about their current content."
     },
     "consequence": "No published product specification, price, rating average, commission figure or campaign value changed in this pass. The only canonical data changes are the five PI rows' dated observation fields and this record."
+  },
+  "reverified_2026_11_20_b6891e75": {
+    "performed_by": "arena/b6891e75-zone1 (session b6891e75)",
+    "method": "Each row below was fetched through this session's own outbound HTTP request on 2026-11-20 (UTC) and the quoted text read from that response. Nothing is asserted from memory, from a stored data file, or from another session's record. Session 1875c5bb ran its own 2026-11-20 read the same day (reverified_2026_11_20_1875c5bb); this is an independent second read, not a copy, and the two are reported separately rather than merged.",
+    "re_read_live": [
+      {
+        "id": "S1",
+        "what": "Operating Agreement — 'Updated: October 15, 2025'; section 1 Special Links wording re-read."
+      },
+      {
+        "id": "S2",
+        "what": "Program Policies — 'Updated: April 14, 2026'; qualifying-purchase definition (24-hour session, 89-day cart window, 180-day shipment window) re-read verbatim."
+      },
+      {
+        "id": "S8",
+        "what": "FTC Disclosures 101 — still dated November 2019; 'Place it so it's hard to miss' and the sentence about not talking about experience with an untried product present."
+      },
+      {
+        "id": "S10",
+        "what": "Chefman 6 Qt Dual-Window — Specifications block: 6 Qt / 5.67 L; 200–450 °F; 13.38 × 11.81 × 10.63 in; 1700W/120V; RJ38-SQPF-3TDB-2W. Every published value matched."
+      },
+      {
+        "id": "S17",
+        "what": "Three air-fryer tokens re-resolved to B0CDY277D3, B09B7SB46R and B08DKYBTPH; no tag= visible."
+      },
+      {
+        "id": "S52",
+        "what": "New in this pass: https://link.amazon/B0c8moW59 resolved to /dp/B0DHZTCNR5; title as registered."
+      },
+      {
+        "id": "S53",
+        "what": "New in this pass: https://link.amazon/B0f3GKalj resolved to /dp/B0DZFD6R9Z; title as registered."
+      }
+    ],
+    "not_re_read_and_not_restated": {
+      "ids": [
+        "S14",
+        "S15",
+        "S36",
+        "S37"
+      ],
+      "why": "The Emeril brand page fetch failed in this pass (no page returned at the URL tried), so no Emeril value is refreshed here and S14/S15 keep their earlier dates. S36/S37 were not re-opened: the two thermometer tokens were re-resolved (S52/S53) and the destinations matched the ASINs those rows already record. Session 1875c5bb did read S14, S36 and S37 live on 2026-11-20 in its own record; this pass neither copies nor contradicts it."
+    },
+    "new_source": "S52 and S53 were added because S17 described itself as the entry for 'the short links supplied by the account holder' while naming three of the five tokens supplied (F107). The two thermometer rows already sourced their destinations correctly — PI-04 cites S36 and PI-05 cites S37, each naming the token it was reached through — so no published claim was unsupported. The repair makes the token itself citable without changing that separation.",
+    "scope": "No product specification, policy position, tracking ID, analytics setting or campaign ledger row changed. Intended ASIN, official listing URL, confirmation date/source and the enrolled per-product test stay blank on all five rows; observed redirect targets stay in their own field."
   },
   "reverified_2026_11_20_761c3c2e": {
     "date": "2026-11-20",

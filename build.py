@@ -2722,7 +2722,45 @@ PROGRAMME_FLAGS = [('F1',
   'wrong: what was missing was the consequence, not a figure. This flag records the register gap; it does not '
   'assert anything about the supplied short links, whose compliance status stays unresolved.',
   ['S2']),
- ('F107',
+('F107',
+  'The source register described one entry as covering "the short links supplied by the account holder" while '
+  'naming three of the five tokens that were supplied.',
+  'data/sources.json S17 vs data/product-intent.json PI-01…PI-05',
+  'Found 2026-11-20 (arena/b6891e75-zone1) by reading the two registers against each other. Two thermometer tokens '
+  'were supplied on 2026-11-17 (B0c8moW59, B0f3GKalj). Their destinations were already sourced correctly: PI-04 '
+  'cites S36 and PI-05 cites S37, and each of those entries names the token it was reached through, so no '
+  'published claim rested on a source that did not cover it. What was wrong was the register’s own scope '
+  'sentence — S17 called itself the entry for the supplied links and enumerated three — which invites the next '
+  'pass to cite it for the other two. Repaired the same day: S17 now names the three tokens it covers and says '
+  'so; S52 and S53 register the two thermometer tokens as short-link sources in their own right, recording only '
+  'what each served on 2026-11-20; PI-04 and PI-05 cite them *alongside* S36/S37, not instead of them. '
+  'Correction recorded rather than quietly dropped: the first draft of this row called it a mis-citation, with '
+  'two rows citing a source that excluded them. Re-reading the rows against the register showed that was wrong '
+  '— the listing rows already did the work — so the claim was rewritten before merge. Unchanged: nothing here '
+  'says a token is valid or invalid (Zone3 FLG-003), and no intended ASIN, confirmation or enrolled test was '
+  'filled in.',
+  ['S17', 'S36', 'S37', 'S52', 'S53']),
+ ('F108',
+  'picks.html was indexable, listed in sitemap.xml, and linked from no other page on the site.',
+  'picks.html vs the header, footer, home page, comparison page and sitemap.xml',
+  'Found 2026-11-20 (arena/b6891e75-zone1) by building the internal link graph of every published page and '
+  'comparing it with the sitemap: picks.html had exactly zero inbound links, and the only pages that named it '
+  'were two owner-workspace registers. A reader could not reach the page and a crawler was handed a sitemap '
+  'entry with no path into it \u2014 the opposite of the one-navigation-group rule the brief sets. The page was also '
+  'a near-copy of the front page\u2019s three product cards, which is the likeliest reason it was never linked. '
+  'Repaired in the generator, not in the HTML: picks.html now opens with four reader questions that route to '
+  'the guides that already answer them from the manufacturer documents, and it is reachable from the footer\u2019s '
+  '\u201cFind your fit\u201d group on every page, from the home browse strip, and from the comparison page. No new '
+  'factual claim was introduced \u2014 the four answers restate sentences the linked guides already publish from the '
+  'same sources. Residual, left as a judgement call for the owner: the page still overlaps the home page\u2019s '
+  'format section, so the longer-term choice is whether it stays a standalone format finder or is folded into '
+  'the category page.',
+  ['S45']),
+ # Numbered F112/F113, not F107/F108: arena/b6891e75 merged F107 (S17 scope) and F108
+ # (the orphaned picks.html) on main before this branch landed. Same reasoning as F110 -
+ # a flag id is a citation target, so re-using a merged one would point two findings at
+ # one anchor. The two rows below are unchanged in substance.
+ ('F112',
   'Found 2026-11-20: the two thermometer short links redirect to a different colour variant than the one recorded '
   'on 2026-11-19, and one of them is additionally served with a sale badge.',
   'Observed in this pass against data/product-intent.json PI-04/PI-05',
@@ -2736,7 +2774,7 @@ PROGRAMME_FLAGS = [('F1',
   'intended-ASIN fields are still blank (Q-27), so a reader comparing "what we recorded" with "what the link does '
   'today" must see the difference, not a silently stale title. No stored observation was overwritten.',
   ['S36', 'S37', 'S41']),
- ('F108',
+ ('F113',
   'Found and repaired 2026-11-20: every article page published "3 min read" regardless of the text, and no reader '
   'article linked to a product page at all.',
   'articles/*.html as published before this pass; data/articles.json',
@@ -2756,8 +2794,8 @@ PROGRAMME_FLAGS = [('F1',
 REPO_EVIDENCE = {
  'F111': ['data/compliance.json', 'data/sources.json', 'build.py',
           'reports/verification-2026-11-20-69c1201a.md'],
- 'F107': ['data/product-intent.json'],
- 'F108': ['data/editorial-trust.json', 'reports/verification-2026-11-20-761c3c2e.md'],
+ 'F112': ['data/product-intent.json'],
+ 'F113': ['data/editorial-trust.json', 'reports/verification-2026-11-20-761c3c2e.md'],
  'F106': ['data/sources.json', 'build.py', 'reports/verification-2026-11-19-2ce347cb.md'],'F105': ['build.py', 'verify.py', 'scripts/add_annex_noindex.py', 'scripts/build_site.py',
           'research/build_research.py', 'scripts/build_s2_site.py',
           'reports/verification-2026-11-19-b3ed16c4.md'],

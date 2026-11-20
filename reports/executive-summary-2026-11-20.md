@@ -26,7 +26,7 @@ earn anything. That is a deliberately honest position, not an incomplete build.
 | 2 | Every guide now ends with links to the model pages it discusses | A count over the generated files found **zero** product or Amazon links across all 27 reader articles. The guides described products a reader could not click through to. |
 | 3 | New indexable page: **How this site is researched** (`how-we-research.html`) | The method, the dated source reads and the corrections were previously a sentence on the about page. Authorship is now a dated, citable page — which is also what E-E-A-T guidance rewards. |
 | 4 | Metadata type raised from 9–11 px to 12 px | Byline, source dates and footer index were at the readability floor. |
-| 5 | Two new flags published (**F107**, **F108**) and one new console gate | F107 records that the two thermometer links now serve a different colour variant / sale parameter than yesterday's record. |
+| 5 | Two new flags published (**F112**, **F113**) and one new console gate | F107 records that the two thermometer links now serve a different colour variant / sale parameter than yesterday's record. |
 
 **Measured, not asserted:** contrast was tested on 18 colour pairs — all passed (lowest 5.35:1).
 No colour was changed, because changing it and calling it an accessibility fix would have been
@@ -97,7 +97,7 @@ so the first real report can be dropped in without redesigning anything.
 ## 8. Review trail
 
 * Full verification record: [`reports/verification-2026-11-20-761c3c2e.md`](verification-2026-11-20-761c3c2e.md)
-* Open items for your review: https://kanlerxz87-cyber.github.io/Zone1/flagged.html (F107, F108 new)
+* Open items for your review: https://kanlerxz87-cyber.github.io/Zone1/flagged.html (F112, F113 new)
 * Machine-readable source reads: `data/sources.json → reverified_2026_11_20_761c3c2e`
 * Editorial policy behind every change: https://kanlerxz87-cyber.github.io/Zone1/how-we-research.html
 
