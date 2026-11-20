@@ -1722,3 +1722,53 @@ decision) and DR-04 (enabling the analytics collector) remain open on the
 click, order, conversion, revenue, ranking or traffic figure is published, because no
 authorised account data or Search Console ownership exists. The compliance status of the five
 supplied short links remains unresolved in both directions.
+
+## 27. Pass 15 — the reading badge that was not an estimate, and the missing reader path (2026-11-20, session `arena/761c3c2e-zone1`)
+
+**Standalone briefing:** [`reports/executive-summary-2026-11-20.md`](reports/executive-summary-2026-11-20.md)
+**Verification record:** [`reports/verification-2026-11-20-761c3c2e.md`](reports/verification-2026-11-20-761c3c2e.md)
+
+This pass re-read all five supplied short links and the load-bearing official sources live, then
+repaired two published defects that could be proved from the repository itself.
+
+**D-1 — the reading badge (F108 / ET-1 / ET-4).** Every article page printed `3 min read` because
+the number was a literal in `data/articles.json`. The guides' prose runs **162–382 words**. The
+badge is now the page's own computed count with an assumed 200 wpm labelled as an assumption. The
+uncomfortable half is published rather than hidden: at that rate these are one-to-two-minute
+guides, shorter than the badge used to advertise. Padding them to match an old number would have
+been the wrong repair, so the length is recorded as ET-4 and lengthening is an owner/editorial
+decision.
+
+**D-2 — the missing path (F108 / ET-2).** A count over the generated files found **zero** product
+or Amazon links across all 27 reader articles, while every product page already linked back to
+the guides. Each guide now closes with the documented model pages named in its own data row,
+under the standing wording *"Documentation pages, not a recommendation or a test"*. A row of
+purchase buttons was deliberately rejected: the linked pages are documentation surfaces.
+
+**D-3 — typography (ET-3).** Byline, footer index and source notes moved from 9–11 px to 12 px.
+**No colour token was touched:** contrast was measured on 18 pairs and all passed (lowest 5.35:1),
+so claiming an accessibility colour fix would have been false. That measurement is in the record.
+
+**D-4 — a new page.** `how-we-research.html` is indexable, in the sitemap and the footer: the
+method, the dated source reads, the corrections and an explicit "what this edition did not
+change".
+
+**New flags:** F107 (the two thermometer links now serve a colour variant / sale parameter the
+2026-11-19 record did not carry; nothing overwritten) and F108 (the two repaired defects, kept
+public because ET-4 is an open editorial question).
+
+**Gates:** build 64 pages / 42 sitemap URLs / 26 feed items, deterministic · `verify.py` 142 pages,
+77 spec rows (75 verified, 2 blank+flagged), 49 sources, **0 errors** · **78** publication tests
+(+3 new gates) · 14 Node · 33 platform · data audit clean · s2 `--check` current · `verify_site.py`
+393 assertions · `check_links.py` **13,088** links · `research/check_research.py` OK ·
+`historical_compliance.py --check` 61 frozen files unchanged.
+
+**One gate caught a real defect during the pass:** making the new page indexable made it
+analytics-eligible, and `test_collector_page_allowlist_matches_every_eligible_rendered_page` failed
+until `allowed_page_ids()` was updated. Worth recording, because it is the existing suite doing
+exactly what it was built for.
+
+**Boundaries re-stated, not re-earned:** `shopnow047c-20` stays recorded, unvalidated and
+unapplied; intended ASINs stay blank; no short link is called valid or invalid; production
+analytics stays off; the campaign ledger stays empty; no price, rating, traffic or conversion
+figure was added.
