@@ -6787,3 +6787,84 @@ Two files had to be added to the claimed scope, and one line corrected:
 * **Boundaries held**: `shopnow047c-20` recorded-unapplied; intended-ASIN fields blank and kept separate from
   observed redirects; production analytics off; campaign ledger empty; no price, rating, review-count, traffic
   or conversion figure; no hands-on claim; no `/dp/` resolution beyond the reads recorded in the report.
+
+### W-8ab133ea release receipt — PR #186 merged and deployed — 2026-11-20
+
+* **Merged:** [PR #186](https://github.com/kanlerxz87-cyber/Zone1/pull/186) — all three PR checks SUCCESS (`verify` 22s, `browser` 4m4s, annex rebuild 8s) before explicit `gh pr merge 186 --merge` (no `--auto`). Merge commit **`fca7fe1`**, 2026-11-20T05:57:03Z.
+* **Post-merge CI on main:** Pages deploy workflow **44684402882** success; legacy `pages build and deployment` **44684402231** success; annex verify **44684402810** success; CI **44684402954** success. `gh api .../pages` → status `built`, https enforced, https://kanlerxz87-cyber.github.io/Zone1/.
+* **Live readback note:** direct retrieval of github.io from this sandbox is blocked (outbound hosts restricted to GitHub/npm/PyPI; TLS EOF), so live verification here is via the Pages API + workflow conclusions, not an HTTP fetch. No site HTML changed in this pass, so the deployed bytes are identical to the pre-merge build already verified locally.
+* **Boundaries re-stated, not re-earned:** `shopnow047c-20` stays selected/unvalidated/unapplied; intended-ASIN fields stay blank and separate from observed redirects; production analytics stays off; campaign ledger stays empty; no Search Console action; F106 stays open for review; Q-43 stays open for the owner.
+
+### W-8ab133ea rebase note — 2026-11-20 (UTC)
+
+* PR #194 hit a merge conflict after PR #191 (arena/91a755df) merged to main. Single conflict block at the end of `COORDINATION.md` (both sides append-only entries). Resolved keep-both: session 91a755df's claim section kept verbatim first, this session's release receipt appended after. No other session's record, state or flag row altered. Gates unaffected (COORDINATION.md is not generated output); PR checks re-run on the rebased branch before merge.
+
+### W-8ab133ea second rebase note — 2026-11-20 (UTC)
+
+* PR #194 conflicted again after PR #195 (arena/91a755df) merged. Same single append-only conflict block in `COORDINATION.md`; resolved keep-both (their completion record verbatim first, this session's receipt after). No other session's work altered. Checks re-run on the rebased branch before merge.
+
+### W-8ab133ea third rebase note — 2026-11-20 (UTC)
+
+* PR #194 conflicted again after PR #190 (arena/69c1201a) merged. Same single append-only conflict block in `COORDINATION.md`; resolved keep-both (their record verbatim first, this session's receipt after). No other session's work altered. Checks re-run on the rebased branch before merge.
+---
+
+## Task board — arena/1875c5bb-zone1 (2026-11-20 UTC)
+
+| # | Task | Status | Owner (session) | File scope |
+|---|------|--------|-----------------|------------|
+| V1 | **Independent review + live re-verification + integration (arena/1875c5bb-zone1)** — re-read the five supplied `link.amazon` tokens and the governing compliance sources live on 2026-11-20; audit the built site against the brief (disclosure placement, sponsored coverage, titles/metas, sitemap/feed hygiene, future dates, 404 handling); repair any proven defect; run every gate from a clean tree; PR → merge → confirm Pages deploy → record. | done | arena/1875c5bb-zone1 (session 1875c5bb) | `COORDINATION.md`; `reports/verification-2026-11-20-1875c5bb.md` (new); `data/product-intent.json` (dated observations only); `data/sources.json` (scoped `reverified_2026_11_20_1875c5bb` record only); `EXECUTIVE-SUMMARY.md` (dated appendix); regenerated root HTML; whole tree at integration |
+
+### V1 claim log
+
+| UTC time | Session | Action |
+|----------|---------|--------|
+| 2026-11-20 | arena/1875c5bb-zone1 (session 1875c5bb) | Claimed V1 after reading the board. Base `main` @ `1c7de825` (merge of PR #185); branch was level with `main` and no task on the board was unclaimed or in progress. Baseline gates were green before any edit: `build.py` 41 sitemap URLs / 26 feed items, reproducible; `verify.py` 141 pages / 77 spec rows (75 verified, 2 blank+flagged) / 49 sources / 0 errors; 75 unittests; `ci-check.sh` 12,674 links; `check_research.py` OK; `verify_site.py` 393 assertions; 14 Node tests. Scope is the root publication and its registers only; the parallel trees (`site/`, `s2/`, `dashboard/`, `docs/`, `annex-*`, `session-*`, `research/`) are read but not edited. |
+
+### V1 completion record — arena/1875c5bb-zone1 (2026-11-20)
+
+**Status: done.** Full record: [`reports/verification-2026-11-20-1875c5bb.md`](reports/verification-2026-11-20-1875c5bb.md).
+
+**Live verification performed this session** — every value below was read from a live
+response body in this pass, not recalled:
+
+| Item | What was read | Result |
+|---|---|---|
+| the five supplied `link.amazon` tokens | final URL + landing `<title>` for each | **5/5 resolved to product detail pages**; ASINs `B0CDY277D3`, `B09B7SB46R`, `B08DKYBTPH`, `B0DHZTCNR5`, `B0DZFD6R9Z` — all match the stored record |
+| [S1 Operating Agreement](https://affiliate-program.amazon.com/help/operating/agreement) | version heading + §1 Special Link wording | "Updated: October 15, 2025" — no drift |
+| [S2 Program Policies](https://affiliate-program.amazon.com/help/operating/policies) | version heading + qualifying-purchase wording | "Updated: April 14, 2026" — no drift |
+| [S5 identification](https://affiliate-program.amazon.com/help/node/topic/GHQNZAU6669EZS98) | required sentence + placement rule | unchanged; site placement conforms |
+| [S8 FTC Disclosures 101](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers) | "hard to miss", no-untried-experience rule | unchanged |
+| [S10 Chefman 6 Qt Dual-Window](https://chefman.com/products/turbofry-touch-dual-window-air-fryer) | model, max temp, Sync Finish, review widget | 450 ºF Hi-Fry max confirmed; widget showed **1,313 reviews**, average not rendered |
+| [S14 Emeril 26 QT](https://www.emerileveryday.com/products/emeril_lagasse_french_door_airfryer_360) | spec block + widget | 25 presets / 16.9×15.8×14.8 in / 24.6 L / 2.6 (26) all reconfirmed |
+
+**Proven defect repaired.** `data/product-intent.json` PI-04 carried a landing title that
+matched neither the 2026-11-19 `data/sources.json` record nor today's read. It now carries
+today's read; the superseded wording is preserved in `observation_history`. All intent fields
+remain `null`, `associates_link_test_passed` remains `false`, the tracking ID remains
+recorded-but-unapplied.
+
+**Deliberate non-changes, recorded rather than silently applied.** (a) The 6 Qt review
+average was not readable today, so the stamped 2026-11-19 "4.6 / 5 from 1,312" stands instead
+of inferring "4.6 from 1,313". (b) The eight `link.amazon/ZZZ9ZZZZZ` anchors without
+`rel="sponsored"` are the documented negative-control citation that `build.py` excludes on
+purpose — investigated, not "fixed". (c) `404.html` has no canonical by design and carries
+`noindex`. (d) `commercial_table()` remains dead code for the owner's decision (E-3).
+
+**Structural audit (independent of the generator's own tests), 63 root HTML files:** 0
+duplicate titles · 0 pages missing the exact Associate statement · 0 unqualified real product
+destinations · sitemap 41/41 URLs with 0 duplicates and 0 future `lastmod` · feed 26 items with
+0 future dates · 404 `noindex` present · rebuild byte-identical.
+
+**Gates after the changes:** build 41 URLs / 26 feed items, deterministic · `verify.py` 141
+pages / 77 spec rows (75 verified, 2 blank+flagged) / 49 sources / **0 errors** · 75 unittests
+OK · `ci-check.sh` 12,674 links OK · `check_research.py` OK · `verify_site.py` 393 assertions ·
+14 Node tests pass.
+
+**Boundaries unchanged.** `shopnow047c-20` remains selected, unvalidated and applied to no
+link. DR-01…DR-04 remain the account holder's to close. Production analytics stays off, the
+campaign ledger stays empty, no price/rating/ranking/traffic/conversion figure is published,
+and the compliance status of the supplied short links remains unresolved in both directions.
+
+
+
+
