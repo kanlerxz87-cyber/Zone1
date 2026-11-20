@@ -6896,3 +6896,35 @@ figure is claimed; the short links are still neither called valid nor invalid (Z
 * **Concurrency incidents, resolved without discarding work:** three rebases were required because other sessions merged into `main` during this pass's check windows (PR #186, then #191/#195, then #188). Each conflict was in append-only registers only — `COORDINATION.md` and `data/sources.json` — and each was resolved **keep-both**; no other session's rows, records or text were removed. A first rebase ended in `REBASE_ABORT` after a two-commit conflict sequence and was retried with a resolve-and-continue loop; the aborted attempt changed nothing on the remote.
 * **Boundaries re-stated, not re-earned:** `shopnow047c-20` stays selected / unvalidated / unapplied; intended ASIN, official listing, confirmation date and source stay `null`; `associates_link_test_passed` stays `false`; production analytics stays off; campaign ledger stays empty; no price, rating, ranking, traffic, click or revenue figure is published; the compliance status of the five supplied short links remains unresolved in both directions.
 
+
+### B-6891e75 receipt rebase note — 2026-11-20 (UTC)
+
+* The receipt PR was refused because `main` advanced to `e604412` (merge of PR #192, session abbb9745, which adopted flag ids F110/F112/F113). Rebased; the only conflict was this append-only file, and **both records are kept verbatim** — theirs above, this receipt below. No id changed hands: this pass's flags are F107 and F108, which neither session uses.
+
+### B-6891e75 release receipt — PR #188 merged and deployed — 2026-11-20
+
+* **Merged:** [PR #188](https://github.com/kanlerxz87-cyber/Zone1/pull/188) — `verify` (26s), the annex rebuild (8s)
+  and the browser suite all passed on the head commit `26ed191` before `gh pr merge 188 --merge` (no `--auto`).
+  Merge commit **`d8ee8b7`**, 2026-11-20T06:29:21Z.
+* **Five rebases, all append-only conflicts, all resolved keep-both.** `main` advanced under this branch four times
+  (`fca7fe1`/PR #186, `9c97897`/PR #191, `f07c251`/PR #190, `d633c0d`/PR #187) while CI ran. Each resolution kept the
+  other session's record verbatim and added a dated note; flag ids (F107, F108) and source ids (S52, S53) never
+  collided with theirs (F110, F111; S50, S51). `data/sources.json` and `data/product-intent.json` were re-resolved by
+  re-applying this pass's additions to `origin/main`'s version rather than hand-merging JSON, after a marker-carrying
+  JSON was caught by `build.py` in one intermediate state and fixed before any merge.
+* **Post-merge CI on `main`:** run **44688143738** (CI: verify + browser) success; run 44688143689 (annex verify)
+  success; Pages workflow **44688143751** success (36s); legacy `pages-build-deployment` **44688143265** success (30s).
+  `GET /repos/.../pages` reports `status: built`, source `main` `/`.
+* **Live public readback (actual retrieval, distinct from CI):** `picks.html` served with the Associates disclosure
+  above the content, the four buyer questions, the three documented cards with their S10/S12/S14/S18/S13/S15 sources,
+  the "check first" cautions, the intent-register note and the comparison CTA. Title `Air-fryer format finder · Zone1
+  Kitchen`.
+* **Correction carried in the merge, not after it:** F107 was first written as a mis-citation and rewritten to the
+  smaller true statement — S17's scope sentence named three of five tokens, while PI-04/PI-05 already sourced their
+  destinations on S36/S37. The correction is recorded in the flag, the pass report, the executive-summary appendix
+  and this board.
+* **Boundaries re-stated, not re-earned:** `shopnow047c-20` stays selected/unvalidated/unapplied; intended ASIN and
+  listing confirmation fields stay blank on all five rows; the enrolled per-product test stays blank; observed
+  redirects stay in their own field; production analytics off; campaign ledger empty; no Search Console action; no
+  price, rating, traffic, conversion or ranking figure claimed; the supplied short links are still neither called
+  valid nor invalid (Zone3 FLG-003).
