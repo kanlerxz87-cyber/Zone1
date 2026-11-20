@@ -6634,3 +6634,67 @@ Claim made before any file other than this section was edited. Scope is additive
 Claim log: 2026-11-20 · arena/91a755df · repo read first (`main` @ `1c7de82`, working tree clean). Baseline gates re-run green before any edit: `python3 build.py` (63 pages / 41 sitemap URLs / 26 RSS items), `python3 verify.py` (141 pages, 77 spec rows, 75 verified, 2 blank+flagged, 49 sources, 0 errors, 0 external warnings), `bash scripts/ci-check.sh` (14 Node contract tests, 33 platform tests, data audit clean, 12,674 links). No other live claim is younger than 60 minutes with no commits, so no handoff is required.
 
 Live re-read this session (2026-11-20): all three air-fryer resolver targets re-followed one day after the 2026-11-19 observation and unchanged — PI-01 → `B0CDY277D3`, PI-02 → `B09B7SB46R`, PI-03 → `B08DKYBTPH` (same 450 °F title). No `tag=` parameter on any resolved URL, which stays a null observation under S41, not a verdict in either direction. `shopnow047c-20` remains recorded, unvalidated and unapplied.
+
+### R-91a755df complete — reader voice and search snippets (2026-11-20 UTC)
+
+* **Two defects, both measured before and after.** (1) **27 of 63 canonical pages** published a `<title>`
+  longer than 65 characters (longest 120) and **11** published a `<meta name="description">` longer than
+  165 (longest 234). (2) The product buy button was followed by four sentences of hedging and the article
+  byline ended in the run-on fragment "Edited 2026-11-19 ; first-publication timestamp is not
+  established."
+* **Sources read live 2026-11-20 and registered:** **S50** Google Search Central, *Influencing your title
+  links* — a title link "is truncated in Google Search results as needed, typically to fit the device
+  width"; "descriptive and concise"; boilerplate that varies "by only a single piece of information" is a
+  listed common issue; a site name at the start or end of each `<title>` is explicitly acceptable.
+  **S51** Google Search Central, *Control your snippets* — "There's no limit on how long a meta
+  description can be, but the snippet is truncated ... as needed"; descriptions should be unique per page.
+  **Neither document publishes a character limit**, so the 60/160 budgets are labelled as this
+  publication's convention in `build.py`, in `verify.py` check 12, in the source register and in the
+  report — not as a figure Google states.
+* **Repair:** `seo_title()` + `fit_description()` in `build.py`; the brand suffix is appended only when the
+  whole string fits; optional `title_tag` in `layout()` and `seo_title`/`seo_description` on article
+  records so a headline and a snippet can differ without either being cut; 11 article records and 9 page
+  descriptions adjusted; product CTA note shortened to two sentences **keeping** the paid-link label, the
+  exact sentence "Affiliate link · intended listing and attribution unconfirmed." (asserted by an
+  existing test) and the match-the-model instruction; byline now "Updated 19 Nov 2026" with the
+  first-publication caveat moved into the single reading note. `<time datetime>` values unchanged.
+* **Gate, proven to fire:** `verify.py` **check 12** fails on an over-budget title, an over-budget
+  description, a duplicate `<title>` or a missing one. Injected a 120-character title and a
+  235-character description into `index.html` → exactly two `FAIL` lines; restored → `errors: 0`.
+  Four new tests in `SearchSnippetBudgetTests`.
+* **Live re-read of the supplied links, 2026-11-20 (one day on):** PI-01 → `B0CDY277D3`, PI-02 →
+  `B09B7SB46R`, PI-03 → `B08DKYBTPH` — all unchanged from 2026-11-19, same 450 °F listing title on
+  PI-03. No `tag=` parameter on any resolved URL: a **null observation** under S41, not evidence about
+  attribution. Prices and star ratings displayed on the Amazon pages fetched during this check were not
+  written into any file. PI-04 and PI-05 were not re-followed; their 2026-11-19 rows stand.
+* **Registers:** **F110** (flagged.html#f110) publishes the 27/11 finding, its repair and its gate.
+  Numbered F110, not F107, because open PR `arena/0c5c10d0` has drafted F105–F109. **SG-56** puts the
+  remaining voice question on the suggestions desk with three reversible options, state `partial`
+  because the worst instances were removed here. **Q-44** records the same question as one only the
+  publisher can answer (state `not_stated`) with the discovery route named. `data/publication.json`
+  `updated` moved to 2026-11-20 so the executive summary states the date the publication changed.
+* **Gates at merge (rebased onto `main` @ `fca7fe1`):** build 63 pages / 41 sitemap URLs / 26 RSS items,
+  byte-reproducible · `verify.py` 141 pages, 77 spec rows (75 verified, 2 blank+flagged), **51 sources**,
+  0 errors, 0 external warnings · **79** publication tests · 14 Node contract tests · 33 platform tests ·
+  data audit clean · `check_links.py` 12,708 links · `verify_site.py` 393 assertions · research check OK ·
+  s2 `--check` current.
+* **Merge/conflict log:** the rebase onto `main` conflicted only in `COORDINATION.md` (main had gained
+  session 8ab133ea's claim/completion). Resolved **append-only, both sides kept** — 8ab133ea's section
+  first, this session's after it — then the branch was force-pushed **to its own branch only** with
+  `--force-with-lease` after the rebase rewrote its own two commits. No other session's text was
+  reordered or removed.
+* **Release:** [PR #191](https://github.com/kanlerxz87-cyber/Zone1/pull/191) — all three checks SUCCESS
+  (`verify` 15s, `browser` 4m06s, annex rebuild 8s) before explicit `gh pr merge 191 --merge` (no
+  `--auto`). Merged **`9c97897`** at 2026-11-20T06:03:02Z. Pages workflow **44685064291** success (28s);
+  legacy `pages-build-deployment` **44685063231** success; annex workflow **44685064317** success; main
+  CI **44685064228** launched (browser job longest).
+* **Live readback after the deploy (actual retrieval, not CI):**
+  `products/chefman-6qt-dual-basket.html` serves `<title>Chefman 6 Qt Dual Basket · Zone1 Kitchen` and the
+  shortened CTA note; `articles/air-fryer-capacity-guide.html` serves the 56-character title without the
+  brand suffix and the reading note carrying the first-publication caveat.
+* **Boundaries re-stated, not re-earned:** the five supplied links remain neither valid nor invalid
+  (Zone3 FLG-003 unchanged); intended-ASIN fields stay blank and separate from the observed redirects;
+  `shopnow047c-20` stays recorded, unvalidated and unapplied; production analytics stays off; the
+  campaign ledger stays empty; no Search Console action; no price, rating, traffic, conversion, ranking or
+  click-through figure is claimed.
+* **Report:** `reports/verification-2026-11-20-91a755df.md`.
