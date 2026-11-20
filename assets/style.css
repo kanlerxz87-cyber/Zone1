@@ -150,3 +150,41 @@ footer.site>.inner{max-width:1208px;margin:auto;display:grid;grid-template-colum
 .dr-row summary{font-size:15px}
 .dr-row[data-dr-priority="P0"] summary{font-weight:700}
 .decision-review-count{font-variant-numeric:tabular-nums}
+/* ---------------------------------------------------------------------------
+   The decision kit (2026-11-20, arena/915c51ea-zone1; SG-53 options A and B).
+
+   The product pages used to answer "should I buy this?" with a citation trail.
+   These rows put the fit, the non-fit and the conflict in one block directly
+   under the buy button, so the caveat sits beside the decision it qualifies
+   instead of standing in front of it. Design intent only: with no click counter
+   (Q-30 is open), nothing here is offered as a conversion improvement.
+--------------------------------------------------------------------------- */
+.decision-kit{margin:0 0 34px;padding:22px 24px 20px;background:var(--panel);border:1px solid var(--brand-line);border-top:3px solid var(--brand);border-radius:0 0 var(--radius-lg) var(--radius-lg)}
+.decision-kit .section-eyebrow{margin:0 0 15px;color:var(--brand)}
+.dk-rows{margin:0}
+.dk-row{display:grid;grid-template-columns:150px minmax(0,1fr);gap:0 22px;padding:13px 0;border-top:1px solid var(--line)}
+.dk-row:first-child{border-top:0;padding-top:2px}
+.dk-row dt{padding-top:4px;font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent)}
+.dk-row dd{margin:0;font-size:13.5px;line-height:1.75}
+.dk-link{display:inline-block;margin-left:10px;font-size:12px;font-weight:600;white-space:nowrap}
+.dk-routes{display:grid;gap:7px;margin:16px 0 0;padding:16px 0 0;border-top:1px dashed var(--line-strong);list-style:none;counter-reset:dk}
+.dk-routes li{counter-increment:dk;position:relative;padding-left:34px;font-size:13px;line-height:1.6;color:var(--muted)}
+.dk-routes li::before{content:counter(dk);position:absolute;left:0;top:2px;width:22px;height:22px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand);border-radius:50%;font:600 10px/1 var(--sans)}
+.dk-routes a{color:var(--brand);font-weight:600;text-decoration:none;white-space:nowrap}
+.dk-routes a:hover{text-decoration:underline}
+.dk-gap{margin:14px 0 0;padding:10px 14px;font-size:11.5px;line-height:1.7;color:var(--warn);background:var(--warn-soft);border-left:3px solid var(--warn-line);border-radius:0 5px 5px 0}
+.dk-gap a{color:inherit;font-weight:600}
+
+/* ---------------------------------------------------------------------------
+   Reader-facing polish, same pass (SG-42 stays on its recorded decision:
+   illustration and type only, no generated product likeness, no photography
+   this publication has no right to).
+--------------------------------------------------------------------------- */
+@media(min-width:621px){.article-prose p{font-size:16.5px}}
+.card{transition:box-shadow .18s ease,border-color .18s ease,transform .18s ease}
+@media(hover:hover){.card:hover{border-color:var(--brand-line);box-shadow:0 10px 26px #203e321a;transform:translateY(-2px)}}
+.shell main{counter-reset:cluster}
+.cluster-head{align-items:flex-start}
+.cluster-head h2::before{content:counter(cluster,decimal-leading-zero);display:block;margin:0 0 7px;font:600 11px/1 var(--sans);letter-spacing:2px;color:var(--accent)}
+.buyer-toc{border-top:1px solid var(--line);padding-top:14px}
+.cta-note{max-width:72ch}

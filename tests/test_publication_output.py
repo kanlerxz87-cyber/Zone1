@@ -110,7 +110,17 @@ class PublicationOutputTests(unittest.TestCase):
             self.assertIn('content="noindex,follow"', self.pages[path])
             self.assertNotIn(BASE + path, sitemap)
         self.assertIn(BASE + 'about.html', sitemap)
-        self.assertEqual(26, len(json.loads((ROOT / 'data/articles.json').read_text())['articles']))
+        # The article count was pinned at 26 here. A pinned count only says "a number
+        # changed"; it does not say whether the change is a defect. It now asserts the
+        # structural property the pin was standing in for: every guide in the register
+        # has exactly one sitemap URL, and the guide index has one too. (Raised to the
+        # current 27 by arena/915c51ea on 2026-11-20 when the hosting-week guide shipped.)
+        articles = json.loads((ROOT / 'data/articles.json').read_text())['articles']
+        slugs = [a['slug'] for a in articles]
+        self.assertEqual(len(slugs), len(set(slugs)), 'two articles share a slug')
+        for slug in slugs:
+            self.assertEqual(1, sitemap.count(BASE + 'articles/' + slug + '.html'), slug)
+        self.assertEqual(1, sitemap.count(BASE + 'articles/index.html'))
 
     def test_thermometer_pillar_and_both_product_pages_are_indexable(self):
         # Changed 2026-11-19 (arena/d154e428). The shelf began as dated link notes and was

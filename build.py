@@ -879,6 +879,129 @@ def merch_pair(p, prefix="", mode="card"):
     return f'<dl class="merch">{"".join(cells)}</dl>'
 
 
+# --------------------------------------------------------------------------- #
+# The decision kit (2026-11-20, arena/915c51ea-zone1) — SG-53, options A and B.
+#
+# SG-53's complaint about these pages was structural, not verbal: under the buy
+# button sat three sentences of qualification, doing the work a fit-check should
+# do. So the qualification under the button is now one line, and the three things
+# a buyer actually weighs — what the documents fit this machine to, what they do
+# not, and the conflict to check before clicking — sit directly beneath it in one
+# block, followed by the questions that finish the decision and a link to the page
+# on this site that answers each.
+#
+# Every cell quotes a row this repository already publishes and reuses that row's
+# source ids; no new product fact is introduced here. No comfort, noise,
+# durability, taste or portion claim appears, because no such fact exists in the
+# register: a hands-on claim would need a test and no test was run (S8). SG-53's
+# note records that the counter which would say whether the button is used at all
+# is gated on Q-30, and the repository rule is that no layout change is described
+# as a conversion improvement — so it is not described that way here either.
+# --------------------------------------------------------------------------- #
+LOOK_ELSEWHERE = {
+    "chefman-6qt-dual-basket": (
+        "You need one undivided cavity for a single large item. This model is documented as two "
+        "3-quart baskets, while the whole-bird and 12-inch-tray language sits on the oven-style "
+        "brand page, not on this one.",
+        ["S10", "S18", "S14"]),
+    "chefman-8qt-turbofry": (
+        "You want two settings running at the same time. The brand page documents one basket, four "
+        "presets and a 200-400 °F range for this model - a different shape of job from two "
+        "independently controlled baskets.",
+        ["S12", "S13", "S10"]),
+    "emeril-26qt-french-door": (
+        "Counter space is the binding constraint. The brand page's own specification block gives a "
+        "footprint of 16.9 in deep by 15.8 in wide by 14.8 in high, which is a larger permanent "
+        "installation than either basket model documented on this site.",
+        ["S14"]),
+    "thermomaven-f1-turbo": (
+        "You want the reading while the oven door stays shut. The brand page presents this as a pocket "
+        "instant-read with an auto-rotating display - a handheld check, not a hub-and-app monitoring "
+        "set.",
+        ["S40"]),
+    "chef-iq-sense-gen3": (
+        "A spot check at the sink is the whole job, or you would rather not add an account and a hub to "
+        "your kitchen. The brand page describes the notifications, cook-time estimates and presets as "
+        "app features relayed through the Smart Hub.",
+        ["S39"]),
+}
+
+DECISION_ROUTES = {
+    "air-fryer": [
+        ("How much machine does a full table need?", "articles/hosting-week-air-fryer-math.html",
+         "Hosting-week maths"),
+        ("Basket layout or oven cavity?", "articles/dual-basket-vs-oven-air-fryer.html",
+         "Compare the formats"),
+        ("Will it fit where you mean to keep it?", "articles/small-kitchen-air-fryer-dimensions.html",
+         "Counter and clearance"),
+        ("What does it ask of you after dinner?", "articles/how-to-clean-an-air-fryer.html",
+         "Care rules in the manuals"),
+        ("Which exact model does the listing ship?", "product-intent.html",
+         "The separate link record"),
+    ],
+    "thermometer": [
+        ("Does a spot check answer your question, or a monitored cook?",
+         "categories/cooking-thermometers.html", "Both thermometers, side by side"),
+        ("What temperature would you be cooking to?",
+         "articles/turkey-temperature-usda-chart-and-air-fryer-manuals.html",
+         "The safe-temperature chart"),
+        ("Does appliance capacity change how you probe?", "articles/air-fryer-capacity-guide.html",
+         "Capacity, explained"),
+        ("What does the brand not publish?", "flagged.html", "Open questions, with evidence"),
+        ("Where did the link you clicked come from?", "product-intent.html",
+         "The separate link record"),
+    ],
+}
+
+NOT_PUBLISHED_LEADIN = "Not published by the brand for this model:"
+
+
+def decision_kit(slug, prefix="", kind="air-fryer", cells=None):
+    """Three decision rows and the routes that finish them.
+
+    `cells` lets a page whose merchandising rows live in another register (the two
+    thermometers, published from data/thermometers.json) hand in the same four-tuples
+    instead of duplicating them into MERCH.
+    """
+    rows_in = cells or [
+        ("Good fit if",) + tuple(MERCH[slug]["best_for"]),
+        ("Look elsewhere if", LOOK_ELSEWHERE[slug][0], LOOK_ELSEWHERE[slug][1], "", ""),
+        ("Confirm before you click",) + tuple(MERCH[slug]["check_first"]),
+    ]
+    out = []
+    for cell in rows_in:
+        label, text, srcs, link, link_label = cell
+        out.append(
+            f'<div class="dk-row"><dt>{e(label)}</dt><dd>{e(text)} {src_links(srcs)}'
+            + (f'<a class="dk-link" href="{prefix}{link}">{e(link_label)}</a>' if link else "")
+            + "</dd></div>")
+    routes = "".join(
+        f'<li>{e(q)} <a href="{prefix}{href}">{e(label)} →</a></li>'
+        for q, href, label in DECISION_ROUTES[kind])
+    return (f'<section class="decision-kit" aria-labelledby="dk-{e(slug)}">'
+            f'<p class="section-eyebrow" id="dk-{e(slug)}">Decide, do not just read</p>'
+            f'<dl class="dk-rows">{"".join(out)}</dl>'
+            f'<ol class="dk-routes" aria-label="Questions that finish this decision">{routes}</ol>'
+            "</section>")
+
+
+def not_published_note(p, prefix=""):
+    """SG-15, option A: name the buyer-relevant fields the brand does not publish,
+    in the place a reader would otherwise expect a number, so the absence is
+    explained instead of invisible."""
+    blanks = [s["label"] for s in p["specs"] if s.get("value") is None]
+    if blanks:
+        return ('<p class="dk-gap"><strong>' + NOT_PUBLISHED_LEADIN + "</strong> "
+                + e(", ".join(blanks))
+                + '. Nothing is estimated to fill those cells: an unlisted field stays blank '
+                  'here, and a shipping weight is never converted into an appliance figure. '
+                  '<a href="' + prefix + 'flagged.html">What would settle it</a>.</p>')
+    return ('<p class="dk-gap"><strong>No field in this table is left blank.</strong> That is not '
+            'the same as completeness: what remains open on this product is recorded as a '
+            'question with its evidence, not folded into a sentence here. <a href="'
+            + prefix + 'flagged.html">The review register</a>.</p>')
+
+
 def price_line(p, prefix=""):
     snapshot = p["pricing"]["brand_list_price"]
     return (f'<p class="price-line"><b>{e(snapshot["v"])}</b> · brand list-price snapshot '
@@ -1099,6 +1222,25 @@ def thermo_cta(p):
 <p class="cta-note"><strong>Paid link — we may earn a commission.</strong> Affiliate link · intended listing and attribution unconfirmed. The submitted short link reaches a product page, but the account holder has not confirmed that this is the intended listing. {e(p['cta_caution'])} <a href="../product-intent.html">Link notes</a>. {src_links(['S2', 'S41'])}</p>"""
 
 
+def thermo_decision_kit(p):
+    """The decision kit for a thermometer page, assembled from its own register rows.
+
+    MERCH holds the three air fryers because their merchandising cells were written
+    against data/products.json. The thermometers are published from
+    data/thermometers.json, whose rows already carry `best_for` and `check` with a
+    per-row source, so the same three cells are read from that file and handed to
+    `decision_kit` rather than copied into a second register.
+    """
+    cells = [
+        ("Good fit if", p["best_for"]["value"], p["best_for"]["source"],
+         "categories/cooking-thermometers.html", "The other thermometer, side by side"),
+        ("Look elsewhere if", LOOK_ELSEWHERE[p["slug"]][0], LOOK_ELSEWHERE[p["slug"]][1], "", ""),
+        ("Confirm before you click", p["check"]["value"], p["check"]["source"],
+         "flagged.html", "Open questions on this product"),
+    ]
+    return decision_kit(p["slug"], prefix="../", kind="thermometer", cells=cells)
+
+
 def page_thermo_product(p):
     flags = "".join(
         f'<tr><td>{e(f["id"])}</td><td>{e(f["issue"])}</td><td>{e(f["action"])}</td><td>{src_links(f.get("sources", []))}</td></tr>'
@@ -1111,7 +1253,9 @@ def page_thermo_product(p):
                     f'<span>Why quart capacity and safe internal temperature answer different questions</span></a></div>'
                     if sibling else "")
     body = f"""<p class="crumbs"><a href="../index.html">Home</a> / <a href="../categories/cooking-thermometers.html">Thermometers</a> / {e(p['short_name'])}</p>
-<section class="product-hero"><div><p class="section-eyebrow">{e(p['eyebrow'])} · a document-based guide</p><h1>{e(p['name'])}</h1><p class="lede">{e(p['dek'])} {src_links(['S39'] if p['brand'] == 'CHEF iQ' else ['S40'])}</p><p class="small"><strong>What it is for:</strong> {e(p['best_for']['value'])} {src_links(p['best_for']['source'])}</p><p class="small"><strong>Check first:</strong> {e(p['check']['value'])} {src_links(p['check']['source'])}</p>{thermo_cta(p)}</div></section>
+<section class="product-hero"><div><p class="section-eyebrow">{e(p['eyebrow'])} · a document-based guide</p><h1>{e(p['name'])}</h1><p class="lede">{e(p['dek'])} {src_links(['S39'] if p['brand'] == 'CHEF iQ' else ['S40'])}</p>{thermo_cta(p)}</div></section>
+{thermo_decision_kit(p)}
+{not_published_note(p, '../')}
 {publication_byline('../')}
 <div class="product-verdict"><p class="section-eyebrow">The short version · editorial guidance</p><p>{e(p['verdict'])} {src_links(['S48', 'S49']) if p['brand'] == 'ThermoMaven' else src_links(['S39'])}</p></div>
 <nav class="buyer-toc" aria-label="On this product page"><a href="#specifications">Specifications</a><a href="#care">Care &amp; ownership</a><a href="#source-record">Sources &amp; listing record</a></nav>
@@ -1221,7 +1365,7 @@ def page_index():
 </section>
 <div class="publication-compare-cta"><div><h2>Prefer everything side by side?</h2><p>Capacity, counter space and care. Official sources beside the details.</p></div><a class="btn btn-ghost" href="compare.html">Compare the three <span aria-hidden="true">→</span></a></div>
 <section class="quick-guide" aria-labelledby="guides-heading"><div class="section-heading"><div><p class="section-eyebrow">A little homework, a better fit</p><h2 id="guides-heading">Read before you make room.</h2></div><a class="text-link" href="articles/index.html">All buying guides <span aria-hidden="true">↗</span></a></div><div class="grid grid-2">{guides}</div></section>
-<section class="season-feature" aria-labelledby="season-heading"><div><p class="section-eyebrow">The November notebook · 2026</p><h2 id="season-heading">Giving an air fryer? Ask about the counter first.</h2><p>A useful gift starts with the way someone cooks—not the biggest number on the box. These seasonal guides help with the questions, without claiming a deal or a bestseller.</p></div><div class="season-links"><a href="articles/air-fryer-gift-guide-2026.html">The thoughtful air-fryer gift guide <span aria-hidden="true">↗</span></a><a href="articles/black-friday-model-number-switch.html">A model-number check before a sale <span aria-hidden="true">↗</span></a><a href="articles/questions-before-buying-a-multifunction-appliance.html">Questions before buying multifunction <span aria-hidden="true">↗</span></a></div></section>
+<section class="season-feature" aria-labelledby="season-heading"><div><p class="section-eyebrow">The November notebook · 2026</p><h2 id="season-heading">Giving an air fryer? Ask about the counter first.</h2><p>A useful gift starts with the way someone cooks—not the biggest number on the box. These seasonal guides help with the questions, without claiming a deal or a bestseller.</p></div><div class="season-links"><a href="articles/hosting-week-air-fryer-math.html">Hosting week: how much machine a full table needs <span aria-hidden="true">↗</span></a><a href="articles/air-fryer-gift-guide-2026.html">The thoughtful air-fryer gift guide <span aria-hidden="true">↗</span></a><a href="articles/black-friday-model-number-switch.html">A model-number check before a sale <span aria-hidden="true">↗</span></a><a href="articles/questions-before-buying-a-multifunction-appliance.html">Questions before buying multifunction <span aria-hidden="true">↗</span></a></div></section>
 <section class="reader-note" aria-label="How these guides are made"><span class="note-symbol" aria-hidden="true">“</span><div><h3>The manual is a good place to start.</h3><p>We link the specifications to the manufacturer. When official documents disagree, you’ll see the difference—not a guess. <a href="about.html">How we research</a>.</p></div><div><h3>Two more kitchen tools.</h3><p>Two of the submitted links open thermometer listings. Both brands publish a specification set, so each now has its own guide: compare them on the <a href="categories/cooking-thermometers.html">thermometers page</a>; which exact listing you would receive is still unconfirmed.</p></div></section>
 {reader_capture()}"""
     ld = [breadcrumbs_jsonld([("Home", SITE_BASE)]), {"@type":"ItemList","name":"Documented air-fryer formats","itemListElement":[{"@type":"ListItem","position":i,"name":r["title"],"url":page_url('products/'+r['slug']+'.html')} for i,r in enumerate(PUBLICATION['products'],1)]}]
@@ -1244,7 +1388,9 @@ def page_product(p):
     temperature_note = ('<p class="small"><strong>Temperature note:</strong> the manual describes 450 °F as a two-minute Hi-Fry boost, not an unrestricted full-cycle setting. ' + src_link('S18') + '</p>'
                         if p['slug'] == 'chefman-6qt-dual-basket' else '')
     body = f"""<p class="crumbs"><a href="../index.html">Home</a> / <a href="../categories/kitchen-appliances.html">Air fryers</a> / {e(row['title'])}</p>
-<section class="product-hero">{format_art(row)}<div><p class="section-eyebrow">{e(row['eyebrow'])} · a document-based guide</p><h1>{e(row['title'])}</h1><p class="lede">{e(row['dek'])} {src_links(row['sources'])}</p><p class="small"><strong>Capacity:</strong> {e(row['capacity'])} {src_links(row['sources'])}</p><p class="small"><strong>Check first:</strong> {e(row['check'])} {src_links(row['check_sources'])}</p>{product_cta(p,'../')}</div></section>
+<section class="product-hero">{format_art(row)}<div><p class="section-eyebrow">{e(row['eyebrow'])} · a document-based guide</p><h1>{e(row['title'])}</h1><p class="lede">{e(row['dek'])} {src_links(row['sources'])}</p><p class="small"><strong>Capacity:</strong> {e(row['capacity'])} {src_links(row['sources'])}</p>{product_cta(p,'../')}</div></section>
+{decision_kit(p['slug'], '../')}
+{not_published_note(p, '../')}
 {publication_byline('../')}
 <div class="product-verdict"><p class="section-eyebrow">The short version · editorial guidance</p><p>{e(row['verdict'])} {src_links(row['sources']+row['check_sources'])}</p></div>
 <nav class="buyer-toc" aria-label="On this product page"><a href="#specifications">Specifications</a><a href="#before-buying">Before buying</a><a href="#source-record">Sources &amp; listing record</a></nav>
