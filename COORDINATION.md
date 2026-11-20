@@ -6950,3 +6950,31 @@ Open PRs #188 and #193 both list `EXECUTIVE-SUMMARY.md` in their file scope. To 
 * The first `gh pr merge 189 --merge` attempt was refused because upstream `main` advanced after PR checks. `git pull --rebase origin main` then conflicted only in `COORDINATION.md` when integrating `main` at `9c97897` (PR #191).
 * Resolution kept the `origin/main` side in full, including W-8ab133ea and R-91a755df, then appended this pass's PUB-20 claim. No other session's claim, source record, state, or files were discarded. The PR #191 generated site and source-read report were retained; the local full gate suite was rerun on the rebased tree.
 * PR #191 also revealed the summary-file overlap documented above; this pass's edits to `EXECUTIVE-SUMMARY.md` were removed rather than replayed over the other active work.
+
+### Rebase-conflict log (second) — arena/09f88d54-zone1 integrating PR #195 (2026-11-20 UTC)
+
+* After PR #189 was updated to the rebased head `25a9687` and all three checks went green, GitHub recomputed it as
+  `CONFLICTING`: upstream `main` had merged PR #195 (`f72cc5d`), which appended the `R-91a755df` completion, merge
+  and deploy record to `COORDINATION.md`. A second `git pull --rebase origin main` conflicted only there.
+* Resolved append-only again: the `origin/main` side was kept in full (session 8ab133ea audit, 91a755df claim and
+  completion record), then this pass's claim block, coordination note and conflict logs were re-appended below it.
+  No upstream text was reordered or deleted. `data/articles.json` = 26 articles, `data/suggestions.json` = 55,
+  `data/questions.json` = 44, `data/requirements.json` = 74 and `data/sources.json` = 51 were re-counted on the
+  rebased tree and the acceptance report corrected to those counts.
+* Rebase head: claim `173dc34`, reconciliation `d0521fb`; both were then re-verified with the full local gate suite
+  before a `--force-with-lease` push to this Arena branch only.
+
+### Count reconciliation — 26 canonical articles vs "24 existing articles revised" (2026-11-20 UTC)
+
+* `data/articles.json` holds **26** article records on the rebased tree, and `build.py` publishes 26 article pages
+  plus `articles/index.html` (**27** files in `articles/`), with **26** RSS items. The acceptance report's "26
+  canonical articles" and the earlier 8ab133ea audit line's "all 27 article files included" are both consistent with
+  this register; they count different objects (records vs generated files).
+* `EXECUTIVE-SUMMARY.md` says "All 24 existing canonical articles read as prose and substantially revised within named
+  primary-source scopes." That sentence arrived in the repository root commit `1c7de82`, whose parent is not present
+  in this shallow checkout, so the corpus size at the time it was written **cannot be verified from this checkout**.
+  The 24 and 26 figures are therefore **not** treated as the same scope or the same date, and neither was rewritten
+  to match the other.
+* **Request to final integration:** if the owner wants one number in the summary, restate that line as a dated
+  historical scope ("24 of the then-existing canonical articles were revised in pass `arena/d154e428`, 2026-11-19;
+  the register now holds 26 records") only after #188/#193 land, since they own the file. No edit was made here.
