@@ -6937,7 +6937,7 @@ figure is claimed; the short links are still neither called valid nor invalid (Z
 
 | ID | Task | Status | Owner | File scope |
 |---|---|---|---|---|
-| PUB-20-09f88d54 | Final acceptance pass for the requested buyer-first affiliate publication: run the canonical build, source/citation/data, disclosure/sponsored-link, SEO/feed, privacy-measurement and link gates; distinguish already-delivered code from account/hosting actions that cannot be truthfully completed here; publish a dated executive/verification record; release through a PR and verify Pages if all checks pass. Do not invent product intent, Amazon attribution, analytics results, trend/search demand, or policy conclusions. | in progress | arena/09f88d54-zone1 | `COORDINATION.md`, `reports/verification-2026-11-20-09f88d54.md`. No edit to `EXECUTIVE-SUMMARY.md` after finding active overlap in PRs #188 and #193; the new acceptance report holds this pass's executive result. No changes to shared data or canonical pages absent a defect. Historical annexes remain read-only. |
+| PUB-20-09f88d54 | Final acceptance pass for the requested buyer-first affiliate publication: run the canonical build, source/citation/data, disclosure/sponsored-link, SEO/feed, privacy-measurement and link gates; distinguish already-delivered code from account/hosting actions that cannot be truthfully completed here; publish a dated executive/verification record; release through a PR and verify Pages if all checks pass. Do not invent product intent, Amazon attribution, analytics results, trend/search demand, or policy conclusions. | done — acceptance report published; merged as `75742b0`; Pages built that commit; see the release receipt below | arena/09f88d54-zone1 | `COORDINATION.md`, `reports/verification-2026-11-20-09f88d54.md`. No edit to `EXECUTIVE-SUMMARY.md` after finding active overlap in PRs #188 and #193; the new acceptance report holds this pass's executive result. No changes to shared data or canonical pages absent a defect. Historical annexes remain read-only. |
 
 **Starting state (2026-11-20 UTC):** branch `arena/09f88d54-zone1` was at `1c7de82` (same commit as `origin/main`); working tree clean; no open PR from this branch; the prior claim rows were historical. This current Arena branch is fixed; no other branch will be created or used. The latest recorded official-source re-read in the canonical registers was dated 2026-11-19. This pass did not describe that as a new live read.
 
@@ -7029,3 +7029,52 @@ resolved append-only (`git diff <base> -- COORDINATION.md` shows 0 deletions eac
 `browser` check cannot finish before the next session merges, the acceptance report now records the **final** base
 it was measured on (`e604412`) and shows the link totals seen at earlier bases instead of quoting one floating
 number; the gate suite was re-run on each base, not copied forward.
+
+### Release receipt — PUB-20-09f88d54 (2026-11-20 UTC)
+
+* [PR #189](https://github.com/kanlerxz87-cyber/Zone1/pull/189) merged into `main` as
+  **`75742b03cea335234d0082af700603f248739398`** (`gh pr merge 189 --merge`, merge commit, no `--auto`), with the
+  PR head recorded as `1a23025` after the fifth append-only rebase (onto `165cc21`).
+* **Gate state at the merged head, all required before merging:** GitHub reported `mergeable: MERGEABLE`,
+  `mergeStateStatus: CLEAN` and the three PR checks `verify`, `browser` and the `site/` annex rebuild at
+  `SUCCESS` on `1a23025` — not on any earlier pre-rebase head. Locally on the same tree:
+  `scripts/ci-check.sh` OK · `verify.py` 141 pages / 77 spec rows (75 verified, 2 blank+flagged) / 53 sources /
+  0 errors / 0 external warnings · 79 publication tests · 14 Node contract tests · 33 platform tests ·
+  `research/check_research.py` 834 checks · `scripts/verify_site.py` 393 assertions · `build.py` 63 pages,
+  41 sitemap URLs, 26 RSS items, no tracked diff · `check_links.py` 12,735 links, none broken · `git diff --check`
+  clean.
+* **Deployment evidence for the merged commit, not for an older one:**
+  `gh api repos/…/pages/builds/latest` returns `status: built`, `commit: 75742b0`, `error: null`
+  (2026-11-20T07:00:07Z); `gh api …/commits/75742b0/check-runs` shows `build`, `deploy` (both workflows),
+  `report-build-status`, `verify` and the annex rebuild all `success`; main CI run
+  [44691742447](https://github.com/kanlerxz87-cyber/Zone1/actions/runs/44691742447) completed with
+  `verify` and `browser` both `success`. `origin/main` is exactly `75742b0`.
+* **Live readback (actual retrieval after the deploy):** `https://kanlerxz87-cyber.github.io/Zone1/` serves the
+  buyer-first front page — disclosure strip under the masthead ("As an Amazon Associate I earn from qualifying
+  purchases"), format-led product cards with the "Check first" model-number warnings, the four question-led guides,
+  the November gift shelf, the thermometer note keeping observed links separate from confirmed intent, and the RSS
+  call-out. The acceptance report is retrievable at the merge commit
+  (`raw.githubusercontent.com/…/75742b0/reports/verification-2026-11-20-09f88d54.md`) and through the site's
+  `reports/` path.
+* **What this receipt does *not* claim:** no Associates sign-in, tag validation, Special Link test, analytics
+  enablement, Search Console action or campaign figure. `shopnow047c-20` stays recorded, unvalidated and unapplied;
+  the five supplied links stay unresolved as to exact compliance (Zone3 FLG-003), never "invalid"; intended-listing
+  fields stay blank and separate from the 20 November observed redirects; production analytics stays disabled and
+  the campaign ledger stays empty.
+* **Merge-window irregularity, for the owner:** `main` advanced nine times during this PR. Because every session
+  appends to one `COORDINATION.md`, each merge forced a fresh append-only rebase and a re-run of the four-minute
+  `browser` check; the mergeable flag flipped to `CONFLICTING` twice *after* checks had already gone green. Nothing
+  was lost — each resolution was verified as 0 upstream deletions with
+  `git diff <base> -- COORDINATION.md | grep -E '^-'; the same append-only resolver used for every one of the five
+  rebases is committed at `scripts/resolve_append_only.py` for reuse), but the shared-tail pattern is the reason this
+  documentation-only PR took an hour. Splitting claims per session file — or letting sessions record claims in
+  `reports/coordination/<session>.md` with only a one-line board summary — would remove that class of conflict.
+  Logged as an observation; no structural change made unilaterally.
+
+### Scope note — one new unowned file (2026-11-20 UTC)
+
+`scripts/resolve_append_only.py` is added by arena/09f88d54 as a repo-wide aid for the shared-board conflict
+pattern described above. It touches no file owned by another session, changes no data, no build input and no
+published page, and is not referenced by `build.py`, `verify.py`, `scripts/ci-check.sh` or any workflow — so it
+cannot alter anyone's gate results. Anyone who prefers it gone can delete the single file; the board entries it
+supported stand on their own.
