@@ -2669,6 +2669,24 @@ PROGRAMME_FLAGS = [('F1',
   'search result; it does not conceal evidence. Not verified by this repair: whether any engine has already '
   'indexed an annex URL, and whether the canonical shop ranks for anything at all.',
   ['S46', 'S47', 'S30']),
+ ('F110',
+  'Repaired 2026-11-20: 27 of 63 canonical pages published a <title> longer than 65 characters and 11 '
+  'published a meta description longer than 165, so the text a search engine shows was cut mid-sentence.',
+  'build.py, verify.py check 12, data/articles.json (seo_title / seo_description), data/sources.json S50 & S51',
+  'Measured by parsing all 63 canonical pages after the 2026-11-19 build: the longest <title> was 120 '
+  'characters and the longest description 234. Google Search Central states that a title link "is truncated '
+  'in Google Search results as needed, typically to fit the device width" and that a meta description has no '
+  'limit but "the snippet is truncated ... as needed" (S50, S51, both read live 2026-11-20). Neither page '
+  'publishes a character limit, so the 60/160 budgets in build.py and verify.py are labelled everywhere as '
+  'this publication\'s convention inside that guidance, not as a number Google states. Repair: the brand '
+  'suffix is appended only when the whole string fits; long-tail pages got a shorter search title (and, on '
+  'four pages, a shorter description) while the on-page headline is unchanged; verify.py check 12 now fails '
+  'the build on an over-budget title, an over-budget description or a duplicate <title>, and was proven to '
+  'fire by injecting one before the fix was committed. Not claimed: that any of these pages ranks, that a '
+  'shorter snippet improves click-through, or that the previous snippets were indexed in the form measured. '
+  'Numbered F110 rather than F107 because the open pull request arena/0c5c10d0 has drafted F105-F109 and may '
+  'merge first.',
+  ['S50', 'S51']),
  ('F106',
   'Found 2026-11-19 ~19:45 UTC: the third supplied short link (B00hJ57DV) twice resolved to the Amazon '
   'homepage instead of the product page recorded earlier the same day.',
@@ -3336,7 +3354,7 @@ def page_exec():
 <div class="callout warn"><strong>Safety discrepancy, not a choice of instructions.</strong>The Emeril manual prohibits extension cords in its safeguards but conditionally permits them in a later section. Do not treat the latter as permission; seek current manufacturer clarification for the exact unit. <a href="flagged.html#f96">F96 and the source</a>.</div>
 <h2>A short route through the workspace</h2><div class="grid grid-3">{links}</div><p class="small">The Suggestions register contains {len(SUGGESTIONS['suggestions'])} rows: {counts['complete']} complete repository features/plans, {counts['superseded']} superseded, {counts['partial']} partial and {counts['gated']} gated. These current states form one partition; they do not add historical action logs to a current open count. Owner choices remain separate from agent execution records.</p>
 <h2>Evidence before optimisation</h2><ol class="tight"><li>Keep the original links and complete intended-listing/enrolled validation only with authorised account evidence.</li><li>Use the repaired collector only after a real controlled same-origin runtime, infrastructure-log minimisation and privacy review exist.</li><li>Import only dated authorised first-party reports with source/channel/date-range/eligible sessions/clicks/orders/provenance. Leave missing values blank.</li><li>Use actual comparable data before changing placement or calling a topic popular. No present design change is claimed to improve conversion.</li></ol>
-<p class="section-note"><a href="reports/verification-2026-11-19-1f9e7d52.md">Scoped verification, test results and deployment record</a> · <a href="EXECUTIVE-SUMMARY.md">Current written summary with historical appendices</a> · <a href="previous-passes.html">Historical builds</a>.</p>"""
+<p class="section-note"><a href="reports/verification-2026-11-20-91a755df.md">This pass: reader-voice and search-snippet repair</a> · <a href="reports/verification-2026-11-19-1f9e7d52.md">Scoped verification, test results and deployment record</a> · <a href="EXECUTIVE-SUMMARY.md">Current written summary with historical appendices</a> · <a href="previous-passes.html">Historical builds</a>.</p>"""
     return layout('executive-summary.html','Executive summary & workspace index',body,active='executive-summary.html',description='Current publication delivery, source corrections and honest remaining account/deployment boundaries. No fabricated traffic, conversions or approvals.',jsonld_blocks=[breadcrumbs_jsonld([('Home',SITE_BASE),('Executive summary',page_url('executive-summary.html'))])])
 
 
