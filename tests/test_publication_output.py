@@ -203,5 +203,31 @@ class PublicationOutputTests(unittest.TestCase):
         self.assertRegex(css[end:end + 500], r"\.dk-rows\{grid-template-columns:minmax\(0,1fr\)",
                          "the kit must stack its label above the text on narrow screens")
 
+    def test_register_cards_break_long_tokens_before_they_widen_the_page(self):
+        """The 320px failure this branch actually had, made unreproducible (2026-11-20).
+
+        `tests/browser/publication.spec.cjs` sweeps every published page at 320px and asserts the
+        document does not scroll sideways; `scripts/check_publication_browser.mjs` asserts the same
+        on a shorter list that omits `questions.html`. New question rows put two bare URLs in
+        `what_we_know`, and `.qcard` had no break rule, so one 86-character token pushed the
+        document to 684px. The register text was corrected (URLs belong in `sources[]`, where they
+        render as labelled links) AND the component now breaks long tokens, because the next editor
+        should not be able to reproduce the defect from ordinary prose. `overflow-wrap` inherits, so
+        the nested evidence links are covered by the same declaration.
+        """
+        css = (ROOT / "publication" / "theme.css").read_text(encoding="utf-8")
+        bodies = [m.group(1) for m in re.finditer(r"\.sug,\.qcard[^{]*\{([^}]*)\}", css)]
+        self.assertTrue(bodies, "no rule targets the register cards at all")
+        self.assertTrue(any("overflow-wrap:anywhere" in b.replace(" ", "") for b in bodies),
+                        f"the register cards lost their break rule: {bodies}")
+        questions = json.loads((ROOT / "data" / "questions.json").read_text(encoding="utf-8"))["questions"]
+        for row in questions:
+            for field in ("question", "why_it_matters", "what_is_missing", "how_to_discover", "answer"):
+                text = row.get(field)
+                if isinstance(text, str):
+                    self.assertNotIn("http", text, f"{row['id']}.{field} carries a bare URL in prose")
+            for known in row.get("what_we_know", []):
+                self.assertNotIn("http", known, f"{row['id']}.what_we_know carries a bare URL in prose")
+
 if __name__ == '__main__':
     unittest.main()

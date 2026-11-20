@@ -162,49 +162,44 @@ records that rule, and the campaign ledger remains empty.
 
 ---
 
-## 7. A gate that cannot run here, and what it caught
+## 7. A CI-only gate, an unreadable log, and what the failure actually was
 
-The first push of this pass passed `verify` and failed the workflow's `browser` job. The cause was
-in the new decision kit, and it was not visible from any check that runs in this sandbox:
-`scripts/check_publication_browser.mjs` loads every product page at **320px** and asserts
-`documentElement.scrollWidth <= width + 1`, and `tests/browser/publication.spec.cjs` repeats it at
-every configured viewport plus a scoped axe run (wcag2a/aa, 390px and 1440px). Those need a
-Chromium download from `cdn.playwright.dev`, which this environment cannot reach, and the run's
-log and its `browser-gate-evidence` artifact are served from hosts that are blocked too — so the
-failure could be reasoned about but not read.
+The first three pushes of this branch passed the `verify` job and failed the workflow's `browser`
+job. Nothing in that job can run here: Playwright needs a Chromium download from
+`cdn.playwright.dev`, and both the run log and its `browser-gate-evidence` artifact are served from
+hosts the session sandbox cannot reach. So the failure could not be reproduced or read.
 
-What the wide layout declared was a `150px` label column next to a `minmax(0,1fr)` text column,
-with `white-space:nowrap` on the row links. At 320px the content column computes to about 60px,
-and a link label such as "How Sync Finish works" cannot shrink into it, so the document scrolls
-sideways on the exact pages a shopper lands on. Two fixes, in this order:
+What was done instead of guessing:
 
-1. **The component was corrected, not the assertion.** The kit's markup dropped the per-row `div`
-   groups — `dt`/`dd` now sit directly in the `dl`, which is what the grid lays out, and which
-   also keeps the axe `definition-list` question out of the picture. The label stacks above the
-   text below 620px, links wrap, and `overflow-wrap` is available for long tokens. No fixed width
-   remains in the component. Colour pairs used by the kit were recomputed against the theme's own
-   tokens before pushing (accent-on-panel 6.55:1, muted-on-panel 6.35:1, brand-on-panel 9.11:1,
-   warn-on-warn-soft 6.48:1), so the axe contrast rule is not a live risk either.
-2. **The part of that gate that can run headless is now a test.**
-   `tests/test_publication_output.py::test_the_decision_kit_cannot_force_horizontal_overflow`
-   asserts the rule that was broken — a text column in the kit must be declared `minmax(0,1fr)`,
-   no rule inside it may forbid wrapping, and the ≤620px block must collapse the grid. A comment in
-   the file's own prose is stripped before the assertion, so describing the defect cannot fail the
-   build.
+1. A **temporary** step was added to the browser job that re-emits the gate's own failure text as
+   check-run *annotations*, which are reachable through the API (`scripts/tmp_gate_diagnostics.py`,
+   plus one workflow step, both removed again in the next commit — nothing about the site changed).
+2. The annotation returned the real assertion:
+   `Error: questions.html: document horizontal overflow — expected <= 321, received 684`, from
+   `tests/browser/publication.spec.cjs:47`, which sweeps every root, product, category, guide and
+   article page at 320/390/768/1440px. The `check_publication_browser.mjs` gate passed
+   (`PASS: 70 page/viewport combinations…`) because its own page list does not include
+   `questions.html` — which is also why this class of defect can survive the second gate entirely.
 
-Recorded as a boundary rather than a success: this pass cannot prove the browser gate is green
-locally, so the claim is only that the identified cause was removed and that CI for this commit
-either passes or the reviewer sees a different failure. `publication/site.js` is **not** in this
-change — the claimed scope listed it, but the polish needed no script behaviour, and adding one
-would have widened the surface for no reader benefit.
+**Cause.** Not the decision kit. My three new rows in `data/questions.json` put bare URLs inside
+`what_we_know` prose — `(https://chefman.com/collections/air-fryers-1/products/turbofry-touch-air-fryer-1)`,
+86 unbreakable characters — and `.qcard` did not declare `overflow-wrap`, so one token widened the
+whole document. Two fixes, one for this content and one for the class:
 
-### Second merge the same day, and why the fix was a rebuild
+* the register text now says "the page linked below as this row's evidence" and the URL lives only in
+  the row's `sources[]`, where it renders as a labelled link — the convention every other row uses;
+* `publication/theme.css` gives `.sug`/`.qcard` and their paragraphs, list items and definition text
+  `overflow-wrap:anywhere`, so a long token in *future* register copy cannot widen those pages either.
+  `overflow-wrap` inherits, which is why one declaration covers the nested evidence links too.
 
-`main` advanced twice more while this branch was open (PRs #188, then #192/#196/#198). Each merge was
-resolved by keeping both sides of every append-only register and then **re-running `python3 build.py`**
-rather than merging generated HTML by hand. That is what caught the two real hazards: a footer
-"Format finder" link a text merge had silently dropped from the new article page, and the hero/kit
-duplication described above. Register identity was checked after every merge — `suggestions.json` 60
-unique rows, `questions.json` 47, `articles.json` 27, `topics.json` 28, `sources.json` 53,
-`data/design-prompt.json` 15, no duplicates, no id reused from another session — and the branch's
-final gates are the ones in §5 below.
+A 61-page static sweep of the rendered output — every visible token over 44 characters outside tables,
+`code`, `pre` and the blocks that already break — now returns **zero** risky tokens, and the same
+sweep run without the new `.qcard` rule returns exactly the two tokens above. `tests/test_publication_output.py`
+carries the headless half of both findings: the decision kit may not declare a non-shrinking grid column
+or an unbreakable link, and the two register-card components must declare breakability.
+
+Two things written earlier in this report, and in the branch's first commit message, attributed the
+failure to the kit's fixed label column. That hypothesis was wrong and the wording is corrected here
+rather than quietly rewritten. The kit's mobile collapse is **kept**: at 320px a 150px label column
+leaves a ~60px text column, which is unreadable even though it did not trip the gate — a readability
+fix found by reading the CSS, not a CI repair, and labelled as such in `publication/theme.css`.

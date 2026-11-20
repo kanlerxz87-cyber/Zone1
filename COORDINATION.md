@@ -6987,3 +6987,23 @@ figure is claimed; the short links are still neither called valid nor invalid (Z
 * **Concurrency incidents, resolved without discarding work:** three rebases were required because other sessions merged into `main` during this pass's check windows (PR #186, then #191/#195, then #188). Each conflict was in append-only registers only — `COORDINATION.md` and `data/sources.json` — and each was resolved **keep-both**; no other session's rows, records or text were removed. A first rebase ended in `REBASE_ABORT` after a two-commit conflict sequence and was retried with a resolve-and-continue loop; the aborted attempt changed nothing on the remote.
 * **Boundaries re-stated, not re-earned:** `shopnow047c-20` stays selected / unvalidated / unapplied; intended ASIN, official listing, confirmation date and source stay `null`; `associates_link_test_passed` stays `false`; production analytics stays off; campaign ledger stays empty; no price, rating, ranking, traffic, click or revenue figure is published; the compliance status of the five supplied short links remains unresolved in both directions.
 
+### Y-915c51ea · what the browser job actually said — 2026-11-20 (UTC), correcting the note above
+
+* The note above blamed the decision kit for the failing `browser` job. **That hypothesis was wrong**, and
+  it is recorded as wrong rather than edited away. Because the Actions log and the failure artifact are not
+  reachable from this sandbox, a temporary workflow step re-emitted the gate's failure text as check-run
+  annotations (`scripts/tmp_gate_diagnostics.py`); it returned the real assertion and both files were
+  removed in the next commit.
+* Real cause: `tests/browser/publication.spec.cjs:47` — `questions.html: document horizontal overflow,
+  expected <= 321, received 684` at 320px. My three new `data/questions.json` rows carried bare URLs in
+  `what_we_know`, and `.qcard` declared no `overflow-wrap`, so one 86-character token widened the document.
+  `scripts/check_publication_browser.mjs` passed the same pages only because its list omits `questions.html`
+  — worth knowing: the two browser gates do not cover the same page set.
+* Fixed twice over: the register text now refers to "the page linked below as this row's evidence" (URLs live
+  only in `sources[]`, matching every other row), and `.sug,.qcard` and their paragraphs/lists take
+  `overflow-wrap:anywhere` so future register copy cannot do this. A 64-page static sweep for visible tokens
+  longer than 44 characters outside breakable containers returns zero now, and returns exactly those two
+  tokens without the CSS rule. The kit's ≤620px collapse stays, but as a readability change, not a CI repair:
+  a 150px label column at 320px leaves a ~60px text column.
+* Headless guards added to `tests/test_publication_output.py` for both components, so neither defect class
+  depends on a browser to be caught.
