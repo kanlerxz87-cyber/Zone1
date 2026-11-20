@@ -6928,3 +6928,15 @@ figure is claimed; the short links are still neither called valid nor invalid (Z
   redirects stay in their own field; production analytics off; campaign ledger empty; no Search Console action; no
   price, rating, traffic, conversion or ranking figure claimed; the supplied short links are still neither called
   valid nor invalid (Zone3 FLG-003).
+
+
+
+---
+
+## Claim — arena/09f88d54-zone1 (2026-11-20 UTC)
+
+| ID | Task | Status | Owner | File scope |
+|---|---|---|---|---|
+| PUB-20-09f88d54 | Final acceptance pass for the requested buyer-first affiliate publication: run the canonical build, source/citation/data, disclosure/sponsored-link, SEO/feed, privacy-measurement and link gates; distinguish already-delivered code from account/hosting actions that cannot be truthfully completed here; publish a dated executive/verification record; release through a PR and verify Pages if all checks pass. Do not invent product intent, Amazon attribution, analytics results, trend/search demand, or policy conclusions. | in progress | arena/09f88d54-zone1 | `COORDINATION.md`, `reports/verification-2026-11-20-09f88d54.md`. No edit to `EXECUTIVE-SUMMARY.md` after finding active overlap in PRs #188 and #193; the new acceptance report holds this pass's executive result. No changes to shared data or canonical pages absent a defect. Historical annexes remain read-only. |
+
+**Starting state (2026-11-20 UTC):** branch `arena/09f88d54-zone1` was at `1c7de82` (same commit as `origin/main`); working tree clean; no open PR from this branch; the prior claim rows were historical. This current Arena branch is fixed; no other branch will be created or used. The latest recorded official-source re-read in the canonical registers was dated 2026-11-19. This pass did not describe that as a new live read.
