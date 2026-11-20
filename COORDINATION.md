@@ -21,6 +21,7 @@ Column key: **status** = `unclaimed` | `in progress` | `done` | `needs review`.
 
 | # | Task | Status | Owner (session) | File scope |
 |---|------|--------|-----------------|------------|
+| B-6891e75 | **Independent review, live re-read and integration (arena/b6891e75-zone1)** — read the five supplied `link.amazon` tokens, S1, S2, S8 and S10 live on 2026-11-20; audit the internal link graph against `sitemap.xml` and the source register against the product-intent register; repair what the audit proved (F107 source-scope mismatch, F108 orphaned indexable page); rebuild, run every gate, PR → merge → confirm Pages → record. No product, account, tag, analytics or campaign data changed. | in progress → done (see completion record at the end of this file) | arena/b6891e75-zone1 (session b6891e75) | `COORDINATION.md`; `build.py`; `publication/layout.html.tpl`; `data/sources.json` (S52/S53 added, S17 scope narrowed, 2026-11-20 re-read record); `data/product-intent.json` (source pointers + dated observation entries only); regenerated root HTML; `reports/verification-2026-11-20-b6891e75.md`; `EXECUTIVE-SUMMARY.md`; whole tree at integration |
 | T1 | Resolve the 3 `link.amazon` short links to ASINs and capture Amazon listing facts | done | sess-105bc29e | research only (no files) |
 | T2 | Verify Amazon Associates policy facts (agreement, program policies, commission table, application review) | done | sess-105bc29e | `data/sources.json`, `data/compliance.json` |
 | T3 | Verify FTC disclosure law (16 CFR 255, Endorsement Guides, Disclosures 101) | done | sess-105bc29e | `data/sources.json`, `data/compliance.json` |
@@ -6833,3 +6834,93 @@ and the compliance status of the supplied short links remains unresolved in both
 
 
 
+
+### B-6891e75 fifth rebase note — 2026-11-20 (UTC)
+
+* PR #188 was refused a fifth time: `main` advanced to `d633c0d` (merge of PR #187, session 1875c5bb's 2026-11-20 live re-verification) while CI ran on the rebased head. Rebased; conflicts were this append-only file, `EXECUTIVE-SUMMARY.md`'s tail and two data registers. **Every other session's record is kept verbatim** — theirs above, this pass's below. Session 1875c5bb had already recorded a 2026-11-20 observation for all five links, so this pass added **no duplicate observation entry**: its independent read is recorded as its own `reverified_2026_11_20_b6891e75` block, explicitly a second read that agrees, and the only data change left in `data/product-intent.json` is the token citation on PI-04/PI-05. Flag ids (F107, F108) and source ids (S52, S53) do not collide with theirs (F110, F111; S50, S51).
+
+
+### B-6891e75 fourth rebase note — 2026-11-20 (UTC)
+
+* PR #188 was refused again because `main` advanced to `5539060` (merge of PR #194, session 8ab133ea's release receipt) while CI was running on the rebased head. Rebased; the only conflict was this append-only file, and **both records are kept verbatim** — the other session's receipt above, this pass's record below. No finding, count or scope line in either record was altered. The generated HTML was rebuilt from the merged data.
+
+### B-6891e75 third rebase note — 2026-11-20 (UTC)
+
+* PR #188 was refused a third time because `main` advanced to `f07c251` (merge of PR #190, session 69c1201a) during the check. Rebased; conflicts were this append-only file, `build.py`, `data/sources.json` and the generated `flagged.html`. **Every other session's record is kept verbatim** — the R-91a755df and Y-69c1201a records above, then this pass's below. Flag ids do not collide (theirs: F110, F111; this pass's: F107, F108) and source ids do not collide (theirs: S50, S51; this pass's: S52, S53). `data/sources.json` and `data/product-intent.json` were re-resolved by taking `origin/main`'s version and re-applying this pass's additions to it, rather than by hand-merging JSON; `flagged.html` was regenerated from the merged generator.
+
+### B-6891e75 second rebase note — 2026-11-20 (UTC)
+
+* PR #188 was refused again because `main` had advanced to `9c97897` (merge of PR #191, session 91a755df) while the branch was being checked. Rebased onto it; the only conflict was this append-only file and **both records are kept verbatim** — the other session's record first, this pass's below. Their flag numbering (F110) and this pass's (F107, F108) do not collide; no id is duplicated. Nothing in either session's findings was altered, and the generated HTML was rebuilt from the merged data rather than hand-merged.
+
+### B-6891e75 rebase note — 2026-11-20 (UTC)
+
+* PR #188 was refused a merge because `main` had advanced to `fca7fe1` (merge of PR #186, session 8ab133ea). Rebased; the only conflict was an append-only one in this file, and **both records are kept verbatim**: the W-8ab133ea claim/completion above, then this pass's record below. Nothing in the other session's record, scope or findings was altered, and no file outside this pass's claimed scope was touched by the resolution. The two passes are independent: W-8ab133ea reported no external network access and re-read nothing live; this pass did read live, and the two records say so in their own words.
+
+### B-6891e75 completion record — arena/b6891e75-zone1 (2026-11-20 UTC)
+
+**Status: done.** Branch `arena/b6891e75-zone1`, rebased onto `main` before merge. Full record:
+`reports/verification-2026-11-20-b6891e75.md`.
+
+**Claim.** Single-session claim made at the start of this pass against an otherwise idle board; no row
+owned by another session was touched, and the eight PRs left open by earlier sessions (#139, #141, #144,
+#146, #150, #159, #168, #173) were neither merged, closed nor edited.
+
+**Live re-read performed on 2026-11-20** (every value below came from this session's own request, not
+from a stored file or another session's record):
+
+| Source | Read | Result |
+|---|---|---|
+| [S1 Operating Agreement](https://affiliate-program.amazon.com/help/operating/agreement) | header + §1 | still "Updated: October 15, 2025" |
+| [S2 Program Policies](https://affiliate-program.amazon.com/help/operating/policies) | header + Commission Income Statement §1 | still "Updated: April 14, 2026"; 24-hour / 89-day / 180-day terms re-read verbatim |
+| [S8 FTC Disclosures 101](https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers) | whole page | still November 2019; "hard to miss" and "you can't talk about your experience with a product you haven't tried" present |
+| [S10 Chefman 6 Qt Dual-Window](https://chefman.com/products/turbofry-touch-dual-window-air-fryer) | Specifications block | 6 Qt / 5.67 L; 200–450 °F; 13.38 × 11.81 × 10.63 in; 1700W/120V; RJ38-SQPF-3TDB-2W — every published value matched |
+| the five supplied `link.amazon` tokens | final URL + `<title>` | B04G1MEwY→B0CDY277D3, B02NbDxp3→B09B7SB46R, B00hJ57DV→B08DKYBTPH, B0c8moW59→B0DHZTCNR5, B0f3GKalj→B0DZFD6R9Z: same five destinations as the 2026-11-19 record |
+| Emeril brand page (attempted) | fetch | **failed** — recorded as a failure, not filled in; S14 keeps its 2026-11-19 date |
+
+**Defects found and repaired.** F107: S17 described itself as the entry for "the short links supplied by the
+account holder" while naming three of the five tokens supplied — repaired by naming the three it covers,
+registering S52 (B0c8moW59) and S53 (B0f3GKalj) as short-link sources in their own right, and adding S52/S53 to
+PI-04/PI-05 *alongside* S36/S37, which already sourced those destinations. A dated 2026-11-20 entry was appended
+to every row's `observation_history` without overwriting any 2026-11-19 value. Correction of record: this finding
+was first written as a mis-citation ("two rows citing a source that excluded them"); re-reading the rows showed
+that was false, and the claim was rewritten before merge rather than shipped. F108: `picks.html` was indexable, in
+`sitemap.xml`, and had zero inbound links — repaired in the generator with a four-question reader path
+and links from the footer on every page, the home question strip and the comparison page (61 inbound
+links after rebuild).
+
+**Verification performed.** `build.py` 63 pages / 41 sitemap URLs / 26 RSS items, deterministic rebuild
+clean · `verify.py` 141 pages, 77 spec rows (75 verified, 2 blank+flagged), **53 sources**, 0 errors,
+0 external warnings · **75** publication tests · 14 Node contract tests · 33 platform tests · data audit
+clean · `build_s2_site.py --check` current (16 files) · `verify_site.py` 393 assertions ·
+`check_research.py` OK · `check_links.py` 12,763 links OK · `historical_compliance.py --check`
+idempotent (61 files).
+
+**Boundaries re-stated, not re-earned.** `shopnow047c-20` stays selected, unvalidated and unapplied;
+intended ASIN / official listing / confirmation date and source / enrolled per-product test stay blank
+on all five rows; observed redirects stay in their own field; production analytics stays off; the
+campaign ledger stays empty; no Search Console action; no price, rating, traffic, conversion or ranking
+figure is claimed; the short links are still neither called valid nor invalid (Zone3 FLG-003).
+
+### Y-69c1201a completion — arena/69c1201a-zone1 — 2026-11-20 (UTC)
+
+**Status: done.** Merged to `main` as **[PR #190](https://github.com/kanlerxz87-cyber/Zone1/pull/190)**, merge commit `f07c251`, 2026-11-20T06:15:39Z, after three PR checks passed (`verify` 15s, `browser` 3m36s, annex rebuild 8s). Post-merge on `main`: **CI success** (run 44686544872), **Build, verify and deploy to GitHub Pages success** (run 44686544890, 30s), **Verify verification annex success** (run 44686544805), legacy `pages-build-deployment` success (run 44686543369). Live readback of `compliance.html` after deploy confirms the new lede ("19 requirements … **1 of them is gated rather than met**"), the callout, and C19 rendering.
+
+**The finding.** Every source that governs whether a click can be paid on was read live on 2026-11-20. The site emits **711 outbound Amazon/link.amazon anchors, 703 qualified `rel="sponsored"`, and 0 tagged**, because `data/config.json` keeps `associate_tag` empty. That gate is correct — the tag must not be invented — but the canonical compliance register had no row stating the consequence: Program Policies §2(b) requires the Associates ID "as a parameter in the URL of each link", and Commission Income Statement §1 makes a Qualifying Purchase depend on "a customer clicks through a Special Link". The clause existed only in the archived `s2/` annex. C14 covered sub-tags, not the parameter rule.
+
+**Changes shipped:** C19 (`status: "gated"`, `status_note` names F76/F77) in `data/compliance.json`; a `Gated` pill, a met-vs-gated lede count and a callout in `build.py`; programme flag **F111** with `REPO_EVIDENCE` paths; `reverified_2026_11_20_69c1201a` in `data/sources.json` with per-source observations and an explicit `not_reverified` list; `reports/verification-2026-11-20-69c1201a.md`; this board entry.
+
+**Sources read live (2026-11-20):** S1 (no drift, "October 15, 2025"), S2 (no drift, "April 14, 2026"; §2(b) and CIS §1 quoted), S5 (required sentence verbatim, matches character for character), S7, S8, S10, S39, S40, and PI-01. **S10 re-checked line by line: all eight published specifications match the brand page exactly** (6 Qt / 5.67 L; 200–450 °F / 95–235 °C; 13.38 × 11.81 × 10.63 in / 33.98 × 30 × 27 cm; 13.3 lb / 6.03 kg; 1700 W / 120 V; RJ38-SQPF-3TDB-2W; cETL; 1-year assurance).
+
+**Irregularities — non-blocking, published on [Flagged for Review](https://kanlerxz87-cyber.github.io/Zone1/flagged.html):**
+1. **F110 number collision, resolved by renumbering.** PR #191 merged its own F110 (over-long titles/descriptions) while this branch waited for CI. Two flags sharing a number is the class `check_flag_ids_unique()` exists to prevent, so this pass's flag became **F111**. #191's row, numbering rationale and evidence paths are untouched; both render exactly once. Documented in §8 of the pass report.
+2. **F111** records the register gap itself (C19 was absent), now repaired.
+3. **iQ Sense sensor count is genuinely inconsistent on the brand page** (feature blocks say "Five Temperature Sensors"; the spec list enumerates 4 internal + 1 ambient). The site's existing publish-both handling (T-06) was confirmed correct; no change made.
+4. **ThermoMaven home page carried a "Black Friday Early Deals / Up to 45% Off" banner** on 2026-11-20. Not republished by this site (promotion terms expire; Amazon requires removing expired promotion references). Logged as an observation with no flag id.
+
+**Boundaries re-stated, not re-earned:** `shopnow047c-20` stays recorded, unvalidated and unapplied; intended-ASIN fields stay blank and separate from observed redirects; the five supplied links stay **unresolved** — neither valid nor invalid; production analytics stays off; the campaign ledger stays empty; no price, rating, traffic, conversion or revenue figure is claimed; only PI-01 was re-fetched, so no new observation exists for the other four tokens. `data/product-intent.json`, `data/config.json`, `data/flags.json`, `data/decision.json`, `data/questions.json` and `data/suggestions.json` were deliberately out of scope, and the seven older open PRs were not merged, closed, rebased or edited.
+
+**Gates at merge:** `build.py` deterministic · `verify.py` 141 pages, 77 spec rows (75 verified, 2 blank+flagged), 51 sources, **0 errors**, 0 external warnings · **79** unittests OK · 14 Node OK · 33 platform OK · data audit passed · `build_s2_site.py --check` current (16 files) · `verify_site.py` 393 assertions · `check_research.py` OK · `check_links.py` 12,716 links OK.
+
+**Merge-conflict log (three rebases, no work discarded):** `main` advanced three times during the run (#186 → #191 → #195). Each time this branch was rebased onto the new tip. Conflicts were confined to `COORDINATION.md` (append-only; both sides kept verbatim, this session's rows appended after the other session's) and, once, `data/sources.json` and `flagged.html`. `data/sources.json` was resolved **at the JSON level against git's stage-2/stage-3 copies** so `main`'s S50/S51 registrations survived alongside this pass's dated record, and the generated pages were then regenerated from the merged source rather than hand-merged. The commit was force-pushed with `--force-with-lease` after each rebase. No other session's record, state, flag row or file was altered.
+
+**Next owner action (the shortest path to first revenue, in dependency order):** confirm one intended listing (F77) → confirm `shopnow047c-20` is active and create one enrolled Special Link (F76) → follow it and see the click in the Associates report → set `associate_tag` and flip `tracking_id_applied_to_links` together (the build refuses an unconfirmed value) → then repeat per product before scaling. Until that lands, additional traffic cannot convert.

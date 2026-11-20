@@ -1772,3 +1772,50 @@ exactly what it was built for.
 unapplied; intended ASINs stay blank; no short link is called valid or invalid; production
 analytics stays off; the campaign ledger stays empty; no price, rating, traffic or conversion
 figure was added.
+
+---
+
+## Appendix — 2026-11-20: two findings, one of them corrected mid-pass, and the links re-read
+
+**In one line.** The pages a buyer reads did not change their claims; two things behind them were wrong,
+and both are now fixed and gated.
+
+**What was wrong.**
+
+- **The short-link source entry named three of the five supplied tokens.** `S17` described itself as the
+  entry for "the short links supplied by the account holder" and enumerated three; five were supplied. The
+  two thermometer destinations were already sourced correctly (S36 and S37, each naming the token it was
+  reached through), so nothing published was mis-sourced — what was wrong was a scope sentence that invites
+  the next pass to cite it for links it does not describe. S17 now names its three tokens and says so;
+  **S52** and **S53** register the two thermometer tokens in their own right, recording only what each
+  served today; PI-04 and PI-05 cite them alongside S36/S37, not instead of them. Flag F107.
+- **An indexable page had no way in.** `picks.html` — the format finder — was submitted in `sitemap.xml`
+  and marked `index,follow`, and no other page linked to it. A crawler was handed an entry with no path and
+  a reader could not reach it. It now opens with four buyer questions that route to the guides already
+  answering them from the manufacturer documents, and it is linked from the footer of every page, the home
+  question strip and the comparison page. Flag F108.
+
+**Correction of record.** F107 was first written as a mis-citation — two rows allegedly citing a source
+that excluded them. Re-reading the rows against the register showed that was false: the listing rows
+already did the work. The claim was rewritten before merge, and the correction is recorded here rather
+than dropped.
+
+**What was re-read, live, today.** The Associates Operating Agreement (still "Updated: October 15, 2025"),
+the Program Policies (still "Updated: April 14, 2026", with the 24-hour / 89-day / 180-day
+qualifying-purchase terms), the FTC Disclosures 101 page, and the Chefman 6 Qt Dual-Window specification
+block — every published value matched. All five supplied `link.amazon` tokens resolved to the same five
+destinations already recorded for 2026-11-20 by another session (1875c5bb); this was an independent second
+read, so no observation entry was duplicated. The Emeril brand page failed to fetch here, so its values
+keep their earlier date rather than being restated as fresh.
+
+**What did not change.** No price, rating, popularity or revenue figure was added. `shopnow047c-20` is
+still recorded but applied to no link. Intended ASIN, official listing, confirmation date and source, and
+the enrolled per-product test are still blank on all five rows, and the observed redirect still sits in its
+own field. Production analytics is still off, the campaign ledger is still empty, and the supplied short
+links are still neither called valid nor invalid.
+
+**What only you can decide** is unchanged and still sits in `suggestions.html`: the one-link test and a
+click-counter host (SG-47), the photography route (SG-42), and where the working site finally lives (SG-49).
+
+Full record: `reports/verification-2026-11-20-b6891e75.md` and the B-6891e75 section of `COORDINATION.md`.
+
