@@ -1212,7 +1212,7 @@ def page_index():
  </div>
  <figure class="hero-image"><img src="assets/images/kitchen-editorial-900.webp" srcset="assets/images/kitchen-editorial-540.webp 540w, assets/images/kitchen-editorial-900.webp 900w" sizes="(max-width:620px) calc(100vw - 40px), 48vw" width="900" height="604" alt="" fetchpriority="high"><span class="image-label">Room for good food</span><figcaption>AI-generated editorial scene · not a product image or test kitchen.</figcaption></figure>
 </section>
-<nav class="browse-strip" aria-label="Browse by question"><span>Start with a question</span><a href="articles/dual-basket-vs-oven-air-fryer.html">Basket or oven?</a><a href="articles/air-fryer-capacity-guide.html">How much capacity?</a><a href="articles/small-kitchen-air-fryer-dimensions.html">Will it fit?</a></nav>
+<nav class="browse-strip" aria-label="Browse by question"><span>Start with a question</span><a href="articles/dual-basket-vs-oven-air-fryer.html">Basket or oven?</a><a href="articles/air-fryer-capacity-guide.html">How much capacity?</a><a href="articles/small-kitchen-air-fryer-dimensions.html">Will it fit?</a><a href="picks.html">Which format?</a></nav>
 <section class="quick-guide" id="choose-a-format" aria-labelledby="formats-title">
  <div class="section-heading"><div><p class="section-eyebrow">Different kitchens. Different trade-offs.</p><h2 id="formats-title">Find your kind of air fryer.</h2></div><a class="text-link" href="categories/kitchen-appliances.html">Explore air fryers <span aria-hidden="true">↗</span></a></div>
  <div class="format-controls" data-format-controls hidden role="group" aria-label="Filter by appliance format"><button type="button" data-format-filter="all" aria-pressed="true">All formats</button><button type="button" data-format-filter="dual" aria-pressed="false">Two baskets</button><button type="button" data-format-filter="single" aria-pressed="false">One basket</button><button type="button" data-format-filter="oven" aria-pressed="false">Oven-style</button><span class="tiny muted" data-format-status aria-live="polite">3 formats shown.</span></div>
@@ -2719,11 +2719,47 @@ PROGRAMME_FLAGS = [('F1',
   'F77. The register now reads 18 met + 1 gated instead of uniformly green. No stored value was found to be '
   'wrong: what was missing was the consequence, not a figure. This flag records the register gap; it does not '
   'assert anything about the supplied short links, whose compliance status stays unresolved.',
-  ['S2'])]
+  ['S2']),
+ ('F107',
+  'The source register described one entry as covering "the short links supplied by the account holder" while '
+  'naming three of the five tokens that were supplied.',
+  'data/sources.json S17 vs data/product-intent.json PI-01…PI-05',
+  'Found 2026-11-20 (arena/b6891e75-zone1) by reading the two registers against each other. Two thermometer tokens '
+  'were supplied on 2026-11-17 (B0c8moW59, B0f3GKalj). Their destinations were already sourced correctly: PI-04 '
+  'cites S36 and PI-05 cites S37, and each of those entries names the token it was reached through, so no '
+  'published claim rested on a source that did not cover it. What was wrong was the register’s own scope '
+  'sentence — S17 called itself the entry for the supplied links and enumerated three — which invites the next '
+  'pass to cite it for the other two. Repaired the same day: S17 now names the three tokens it covers and says '
+  'so; S52 and S53 register the two thermometer tokens as short-link sources in their own right, recording only '
+  'what each served on 2026-11-20; PI-04 and PI-05 cite them *alongside* S36/S37, not instead of them. '
+  'Correction recorded rather than quietly dropped: the first draft of this row called it a mis-citation, with '
+  'two rows citing a source that excluded them. Re-reading the rows against the register showed that was wrong '
+  '— the listing rows already did the work — so the claim was rewritten before merge. Unchanged: nothing here '
+  'says a token is valid or invalid (Zone3 FLG-003), and no intended ASIN, confirmation or enrolled test was '
+  'filled in.',
+  ['S17', 'S36', 'S37', 'S52', 'S53']),
+ ('F108',
+  'picks.html was indexable, listed in sitemap.xml, and linked from no other page on the site.',
+  'picks.html vs the header, footer, home page, comparison page and sitemap.xml',
+  'Found 2026-11-20 (arena/b6891e75-zone1) by building the internal link graph of every published page and '
+  'comparing it with the sitemap: picks.html had exactly zero inbound links, and the only pages that named it '
+  'were two owner-workspace registers. A reader could not reach the page and a crawler was handed a sitemap '
+  'entry with no path into it \u2014 the opposite of the one-navigation-group rule the brief sets. The page was also '
+  'a near-copy of the front page\u2019s three product cards, which is the likeliest reason it was never linked. '
+  'Repaired in the generator, not in the HTML: picks.html now opens with four reader questions that route to '
+  'the guides that already answer them from the manufacturer documents, and it is reachable from the footer\u2019s '
+  '\u201cFind your fit\u201d group on every page, from the home browse strip, and from the comparison page. No new '
+  'factual claim was introduced \u2014 the four answers restate sentences the linked guides already publish from the '
+  'same sources. Residual, left as a judgement call for the owner: the page still overlaps the home page\u2019s '
+  'format section, so the longer-term choice is whether it stays a standalone format finder or is folded into '
+  'the category page.',
+  ['S45'])]
 
 REPO_EVIDENCE = {
  'F111': ['data/compliance.json', 'data/sources.json', 'build.py',
          'reports/verification-2026-11-20-69c1201a.md'],
+ 'F107': ['data/sources.json', 'data/product-intent.json', 'reports/verification-2026-11-20-b6891e75.md'],
+ 'F108': ['build.py', 'publication/layout.html.tpl', 'reports/verification-2026-11-20-b6891e75.md'],
  'F106': ['data/sources.json', 'build.py', 'reports/verification-2026-11-19-2ce347cb.md'],'F105': ['build.py', 'verify.py', 'scripts/add_annex_noindex.py', 'scripts/build_site.py',
           'research/build_research.py', 'scripts/build_s2_site.py',
           'reports/verification-2026-11-19-b3ed16c4.md'],
@@ -2883,7 +2919,7 @@ def page_compare():
 <div class="tablewrap" tabindex="0" role="region" aria-label="Air-fryer comparison, scroll horizontally on a small screen"><table class="comparison-table"><caption>Documented model comparison — not a test or a ranking</caption><thead><tr><th scope="col">What to compare</th>{head}</tr></thead><tbody>{''.join(rows)}</tbody></table></div><p class="tablewrap-hint">Scroll sideways for every model and its official sources.</p>
 <p class="small muted">The dual-basket 450 °F maximum is a two-minute Hi-Fry boost, not an unrestricted cook setting. {src_link('S18')} The 8 Qt brand-model range conflicts with the listing title’s 450 °F claim. {src_links(['S12','S29'])} Read the manual for the exact unit you would receive.</p>
 <h2>What matters for your meals?</h2><div class="grid grid-3">{''.join(product_card(p) for p in ordered)}</div>
-<p class="section-note">Use the <a href="data.html">full dataset</a> for every recorded field, dated listing observation and blank. Manufacturer and listing values are not silently combined. Official sources disagree on some temperatures, dimensions and counts; see <a href="flagged.html">the public review register</a>.</p>
+<p class="section-note">Use the <a href="data.html">full dataset</a> for every recorded field, dated listing observation and blank. Manufacturer and listing values are not silently combined. Official sources disagree on some temperatures, dimensions and counts; see <a href="flagged.html">the public review register</a>. Choosing a layout first is easier than comparing features first — the <a href="picks.html">format finder</a> walks the four questions.</p>
 {reader_capture()}"""
     return layout('compare.html','Compare air fryers & countertop ovens',body,active='compare.html',description='Compare documented air-fryer capacity, dimensions, temperature and care with a source in every populated cell. No ranking, no revenue estimates.',jsonld_blocks=[breadcrumbs_jsonld([('Home',SITE_BASE),('Compare',page_url('compare.html'))])])
 
@@ -6357,9 +6393,42 @@ def _decision_rows():
 
 def page_picks():
     products = {p["slug"]:p for p in PRODUCT_LIST}
-    body = f"""<p class="crumbs"><a href="index.html">Home</a> / Format finder</p><p class="section-eyebrow">A practical starting point</p><h1>Match the format to the way you cook.</h1><p class="lede">No price leaderboard or claimed bestseller. Compare the three formats, then check the exact model and the space it needs.</p>{publication_byline()}
+    # ------------------------------------------------------------------ #
+    # 2026-11-20 (arena/b6891e75-zone1, F108): this page was indexable and in
+    # sitemap.xml with no inbound link from any other page — a sitemap entrant
+    # no reader and no crawler could reach. Two repairs in one: the reader path
+    # (footer, home browse strip, comparison page) and a reason to exist beyond
+    # a second copy of the front page's three cards. The four questions below
+    # are routing, not new claims: each answer is a sentence the linked guide
+    # already publishes from the same official sources.
+    # ------------------------------------------------------------------ #
+    questions = [
+        ("dual-basket-vs-single-basket",
+         "Do two dishes need separate settings?",
+         "Two baskets carry two time-and-temperature settings, a single basket carries one. That is the documented difference; it says nothing about how a meal tastes."),
+        ("air-fryer-capacity-guide",
+         "How much food actually fits?",
+         "A quart figure is a volume, not a portion count. Compare the basket you get against the meal you usually cook, and treat “serves N” as marketing unless the manual says it."),
+        ("small-kitchen-air-fryer-dimensions",
+         "Will it fit the counter—and the cupboard above it?",
+         "The published size is the machine at rest. The manuals add clearance above, behind and at the sides, and each unit's instructions govern its own cord and socket rules."),
+        ("cleanup-and-counter-space-trade-offs",
+         "Who is going to clean it?",
+         "Baskets and racks are one rule; the main unit is another. Read the care page for the exact model before you decide which appliance is easier to live with."),
+    ]
+    question_cards = ''.join(
+        f'<a class="card article-card" href="articles/{slug}.html" data-analytics-event="comparison_interaction" data-analytics-target-id="{e(slug)}">'
+        f'<span class="kicker">Question {i} of 4</span><span class="cardtitle">{e(q)}</span>'
+        f'<span class="cardtext">{e(a)}</span>'
+        f'<span class="article-card-foot">Read the guide <span aria-hidden="true">↗</span></span></a>'
+        for i, (slug, q, a) in enumerate(questions, 1))
+    body = f"""<p class="crumbs"><a href="index.html">Home</a> / Format finder</p><p class="section-eyebrow">A practical starting point</p><h1>Match the format to the way you cook.</h1><p class="lede">No price leaderboard or claimed bestseller. Answer four questions, compare the three formats, then check the exact model and the space it needs.</p>{publication_byline()}
+<h2>Four questions before the product list.</h2><p class="section-note">Each question links to the guide that answers it from the manufacturer's own documents. None of them needs a test result, and none of them produces a “best” appliance.</p>
+<div class="grid grid-2">{question_cards}</div>
+<h2 id="format-guides-title">The three formats, side by side.</h2>
 <div class="grid grid-3" id="format-guides">{''.join(product_card(products[r['slug']]) for r in PUBLICATION['products'])}</div><p class="section-note">Candidate product records; the intended listing behind each submitted link is still unconfirmed. <a href="product-intent.html">See the separate record</a>.</p>
-<div class="publication-compare-cta"><div><h2>Still choosing?</h2><p>Take the capacity and countertop checklist with you.</p></div><a class="btn" href="guides/buying-guide-air-fryers.html">Read the buying guide →</a></div>"""
+<div class="publication-compare-cta"><div><h2>Still choosing?</h2><p>Take the capacity and countertop checklist with you, or open the sourced comparison.</p></div><a class="btn" href="compare.html">Compare the documented details →</a></div>
+<p class="small"><a class="text-link" href="guides/buying-guide-air-fryers.html">Read the full buying guide ↗</a></p>"""
     return layout('picks.html','Air-fryer format finder',body,active='categories/kitchen-appliances.html',description='Three documented air-fryer formats and the practical trade-offs to check, with no overall ranking or invented test result.',jsonld_blocks=[breadcrumbs_jsonld([('Home',SITE_BASE),('Format finder',page_url('picks.html'))])])
 
 # ── arena/58cbaaa2 (2026-11-17): the submitted-link register, read by the build ──────────────
