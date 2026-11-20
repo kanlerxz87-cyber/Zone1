@@ -165,6 +165,69 @@ class PublicationOutputTests(unittest.TestCase):
         for name in ('DM-Sans-LICENSE.txt', 'DM-Serif-Display-LICENSE.txt'):
             self.assertIn('SIL OPEN FONT LICENSE', (ROOT / 'assets/fonts' / name).read_text())
 
+    # --- 2026-11-20 (arena/761c3c2e): two published defects get a gate each. ---
+    def test_reading_badge_is_computed_per_article_not_a_constant(self):
+        """ET-1/ET-4: every guide used to print the same "3 min read".
+
+        The badge is now the page's own prose word count. A constant would make
+        this test pass trivially on one file and fail on the set, so the assertion
+        is on distinctness across the article set, not on any single page.
+        """
+        import build
+        counts = {}
+        for article in build.ARTICLES['articles']:
+            page = (ROOT / 'articles' / f"{article['slug']}.html").read_text()
+            match = re.search(r'(\d+) words of prose · about (\d+) min', page)
+            self.assertIsNotNone(match, f"no computed reading line on {article['slug']}")
+            counts[article['slug']] = int(match.group(1))
+            # The printed count must equal the count of the data the page renders.
+            self.assertEqual(int(match.group(1)), build.article_word_count(article))
+        self.assertGreater(len(set(counts.values())), 5,
+                           "reading badges are uniform again - the constant is back")
+        self.assertNotIn('min read', (ROOT / 'articles/index.html').read_text())
+
+    def test_every_guide_links_to_the_models_it_discusses(self):
+        """ET-2: before this pass, 0 of 27 reader articles linked to a product page."""
+        import build
+        for article in build.ARTICLES['articles']:
+            page = (ROOT / 'articles' / f"{article['slug']}.html").read_text()
+            for slug in article.get('products') or []:
+                self.assertIn(f'href="../products/{slug}.html"', page,
+                              f"{article['slug']} does not link to {slug}")
+            if article.get('products'):
+                self.assertIn('Model pages for what this guide discusses', page)
+                # the block must not read as a purchase assurance
+                self.assertIn('Intended Amazon listings are unconfirmed', page)
+
+    def test_editorial_policy_page_is_indexable_and_dated(self):
+        page = (ROOT / 'how-we-research.html').read_text()
+        self.assertIn('name="robots" content="index,follow', page)
+        self.assertIn('href="https://kanlerxz87-cyber.github.io/Zone1/how-we-research.html"', page)
+        trust = json.loads((ROOT / 'data/editorial-trust.json').read_text())
+        self.assertIn(trust['accessed'], page)
+        self.assertIn('how-we-research.html', (ROOT / 'sitemap.xml').read_text())
+        # a policy page may not carry a row table whose rows lack a source
+        self.assertNotIn('<table', page)
+
+    def test_every_flag_row_renders_and_no_id_is_reused(self):
+        """2026-11-20 (arena/761c3c2e): a rebase dropped two other sessions' flag rows.
+
+        Resolving a conflict in the flag list by taking one side left F107/F108 out of
+        the rendered register while the ids stayed quoted in prose. A flag id is a
+        citation target, so both failures - a duplicate id and a missing row - make a
+        published anchor lie. This gate checks the list and the page agree.
+        """
+        import build
+        ids = [row[0] for row in build.PROGRAMME_FLAGS]
+        self.assertEqual(len(ids), len(set(ids)), "a flag id is used twice")
+        page = (ROOT / 'flagged.html').read_text()
+        for fid in ids:
+            self.assertIn(f'<tr id="{fid.lower()}"', page,
+                          f"{fid} is in the register but has no row on flagged.html")
+        # rows contributed by other sessions that this branch rebased across
+        for fid in ('F111', 'F107', 'F108'):
+            self.assertIn(fid, ids)
+
 
 if __name__ == '__main__':
     unittest.main()

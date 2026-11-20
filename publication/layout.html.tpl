@@ -82,6 +82,7 @@ $search_console_tag
       <h2>A closer look</h2>
       <ul>
         <li><a href="${prefix}about.html">Our approach &amp; authorship</a></li>
+        <li><a href="${prefix}how-we-research.html">What we read &amp; what changed</a></li>
         <li><a href="${prefix}compliance.html">Disclosure &amp; link policy</a></li>
         <li><a href="${prefix}flagged.html">Flagged for review</a></li>
         <li><a href="${prefix}data.html#sources">Official source register</a></li>

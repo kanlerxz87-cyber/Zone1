@@ -45,6 +45,11 @@ def allowed_page_ids() -> set[str]:
         "compliance",
         "about",
         "clusters",
+        # Reader-facing editorial policy page (2026-11-20, arena/761c3c2e). It is in
+        # PUBLIC_INDEX_PAGES, so it renders with the analytics eligibility attribute;
+        # an eligible page missing from this set is an event the collector rejects,
+        # which the contract test enforces. Production collection stays disabled.
+        "how-we-research",
         "categories/kitchen-appliances",
         # The thermometer pillar became a buyer-facing category on 2026-11-19
         # (arena/d154e428). It was previously a noindexed owner note and correctly

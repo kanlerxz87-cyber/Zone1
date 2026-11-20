@@ -30,6 +30,12 @@ buying guides—not an audit dashboard.
   AI-assisted publication authorship, no invented human editor or hands-on tests,
   imagery provenance, affiliate funding and current privacy boundaries.
 
+**[How this site is researched](https://kanlerxz87-cyber.github.io/Zone1/how-we-research.html)** is the
+dated editorial policy: what was read for the current edition, how conflicting official documents
+are printed rather than reconciled, the corrections each edition makes, and an explicit list of
+what it did **not** change. Each guide prints its own prose word count and links to the documented
+model pages it discusses, under the heading "Documentation pages, not a recommendation or a test."
+
 **Start decisions on the [Decision review queue](https://kanlerxz87-cyber.github.io/Zone1/decision-review.html)** —
 fourteen forward-looking choices (priority-ordered, each with its official evidence and
 options) plus a dated written brief at [`reports/suggestions-2026-11-19-d154e428.md`](reports/suggestions-2026-11-19-d154e428.md).

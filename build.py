@@ -676,6 +676,7 @@ PUBLIC_INDEX_PAGES = {
     "compliance.html",
     "clusters.html",
     "about.html",
+    "how-we-research.html",
 }
 
 
@@ -749,6 +750,7 @@ def layout(page_rel, title, body, active=None, description="", og_type="website"
         ("handover.html", "Account-only handover"),
         ("decisions.html", "Strategy background"),
         ("flagged.html", "Flagged for review"),
+        ("how-we-research.html", "How this site is researched"),
         ("data.html", "Dataset & official sources"),
         ("compliance.html", "Disclosure & link policy"),
         ("pass10.html", "Prior source-read ledger"),
@@ -985,7 +987,7 @@ def _dashboard_article_cards():
   <span class="kicker">{e(a['kicker'])}</span>
   <span class="cardtitle">{e(a['title'])}</span>
   <span class="cardtext">{e(a['standfirst'])}</span>
-  <span class="tiny muted">{e(a['kind'])} · {a['reading_minutes']} min read</span>
+  <span class="tiny muted">{e(a['kind'])} · {article_reading(a)[0]} words of prose</span>
 </a>""")
     return chr(10).join(out)
 
@@ -1052,7 +1054,7 @@ def article_teaser(slug, prefix="", short=True):
             f'<span class="kicker">{e(editorial.get("label", a["kicker"]))}</span>'
             f'<span class="cardtitle">{e(editorial.get("title", a["title"]))}</span>'
             f'<span class="cardtext">{e(editorial.get("dek", a["standfirst"]))}</span>'
-            f'<span class="article-card-foot">{a["reading_minutes"]} min read <span aria-hidden="true">↗</span></span></a>')
+            f'<span class="article-card-foot">{article_reading(a)[0]} words of prose <span aria-hidden="true">↗</span></span></a>')
 
 
 def reader_capture(prefix=""):
@@ -1222,7 +1224,7 @@ def page_index():
 <div class="publication-compare-cta"><div><h2>Prefer everything side by side?</h2><p>Capacity, counter space and care. Official sources beside the details.</p></div><a class="btn btn-ghost" href="compare.html">Compare the three <span aria-hidden="true">→</span></a></div>
 <section class="quick-guide" aria-labelledby="guides-heading"><div class="section-heading"><div><p class="section-eyebrow">A little homework, a better fit</p><h2 id="guides-heading">Read before you make room.</h2></div><a class="text-link" href="articles/index.html">All buying guides <span aria-hidden="true">↗</span></a></div><div class="grid grid-2">{guides}</div></section>
 <section class="season-feature" aria-labelledby="season-heading"><div><p class="section-eyebrow">The November notebook · 2026</p><h2 id="season-heading">Giving an air fryer? Ask about the counter first.</h2><p>A useful gift starts with the way someone cooks—not the biggest number on the box. These seasonal guides help with the questions, without claiming a deal or a bestseller.</p></div><div class="season-links"><a href="articles/air-fryer-gift-guide-2026.html">The thoughtful air-fryer gift guide <span aria-hidden="true">↗</span></a><a href="articles/black-friday-model-number-switch.html">A model-number check before a sale <span aria-hidden="true">↗</span></a><a href="articles/questions-before-buying-a-multifunction-appliance.html">Questions before buying multifunction <span aria-hidden="true">↗</span></a></div></section>
-<section class="reader-note" aria-label="How these guides are made"><span class="note-symbol" aria-hidden="true">“</span><div><h3>The manual is a good place to start.</h3><p>We link the specifications to the manufacturer. When official documents disagree, you’ll see the difference—not a guess. <a href="about.html">How we research</a>.</p></div><div><h3>Two more kitchen tools.</h3><p>Two of the submitted links open thermometer listings. Both brands publish a specification set, so each now has its own guide: compare them on the <a href="categories/cooking-thermometers.html">thermometers page</a>; which exact listing you would receive is still unconfirmed.</p></div></section>
+<section class="reader-note" aria-label="How these guides are made"><span class="note-symbol" aria-hidden="true">“</span><div><h3>The manual is a good place to start.</h3><p>We link the specifications to the manufacturer. When official documents disagree, you’ll see the difference—not a guess. <a href="how-we-research.html">How we research</a>.</p></div><div><h3>Two more kitchen tools.</h3><p>Two of the submitted links open thermometer listings. Both brands publish a specification set, so each now has its own guide: compare them on the <a href="categories/cooking-thermometers.html">thermometers page</a>; which exact listing you would receive is still unconfirmed.</p></div></section>
 {reader_capture()}"""
     ld = [breadcrumbs_jsonld([("Home", SITE_BASE)]), {"@type":"ItemList","name":"Documented air-fryer formats","itemListElement":[{"@type":"ListItem","position":i,"name":r["title"],"url":page_url('products/'+r['slug']+'.html')} for i,r in enumerate(PUBLICATION['products'],1)]}]
     return layout("index.html","Kitchen buying guides for the way you cook",body,active="index.html",description="Find the air-fryer format that fits your kitchen. Compare documented capacity, counter space and care, with clear affiliate disclosures.",jsonld_blocks=ld)
@@ -2720,7 +2722,7 @@ PROGRAMME_FLAGS = [('F1',
   'wrong: what was missing was the consequence, not a figure. This flag records the register gap; it does not '
   'assert anything about the supplied short links, whose compliance status stays unresolved.',
   ['S2']),
- ('F107',
+('F107',
   'The source register described one entry as covering "the short links supplied by the account holder" while '
   'naming three of the five tokens that were supplied.',
   'data/sources.json S17 vs data/product-intent.json PI-01…PI-05',
@@ -2753,13 +2755,49 @@ PROGRAMME_FLAGS = [('F1',
   'same sources. Residual, left as a judgement call for the owner: the page still overlaps the home page\u2019s '
   'format section, so the longer-term choice is whether it stays a standalone format finder or is folded into '
   'the category page.',
-  ['S45'])]
+  ['S45']),
+ # Numbered F112/F113, not F107/F108: arena/b6891e75 merged F107 (S17 scope) and F108
+ # (the orphaned picks.html) on main before this branch landed. Same reasoning as F110 -
+ # a flag id is a citation target, so re-using a merged one would point two findings at
+ # one anchor. The two rows below are unchanged in substance.
+ ('F112',
+  'Found 2026-11-20: the two thermometer short links redirect to a different colour variant than the one recorded '
+  'on 2026-11-19, and one of them is additionally served with a sale badge.',
+  'Observed in this pass against data/product-intent.json PI-04/PI-05',
+  'Both tokens were re-read live on 2026-11-20. https://link.amazon/B0c8moW59 reached /dp/B0DHZTCNR5 with the title '
+  '"... | Stocking Stuffers Gifts for Men, Black" and a $16.99 price block; the recorded 2026-11-19 title named no '
+  'colour, and the same ASIN appeared in the page\'s "Customers who viewed" rail as a companion listing in Orange '
+  '(B0GL7Z4KP4). https://link.amazon/B0f3GKalj reached /dp/B0DZFD6R9Z, the recorded ASIN and title, but the page '
+  'header carried an extra sale parameter (sbo) not present in yesterday\'s redirect. Neither observation changes '
+  'any published figure, and neither is evidence about validity, the Associates tag or the intended product: '
+  'Amazon serves variant and promotion parameters that a short link does not control. It is recorded because the '
+  'intended-ASIN fields are still blank (Q-27), so a reader comparing "what we recorded" with "what the link does '
+  'today" must see the difference, not a silently stale title. No stored observation was overwritten.',
+  ['S36', 'S37', 'S41']),
+ ('F113',
+  'Found and repaired 2026-11-20: every article page published "3 min read" regardless of the text, and no reader '
+  'article linked to a product page at all.',
+  'articles/*.html as published before this pass; data/articles.json',
+  'Two defects on the reader path, both verified against the generated files rather than recalled. (1) The reading '
+  'badge was a constant copied from data/articles.json, printed on all 26 guides; the guides\' prose runs 162-382 '
+  'words, so the badge overstated the shortest guide and understated the longest by about a factor of two, and it '
+  'was the only number on the page a reader could check in ten seconds. It is now the page\'s own computed prose '
+  'count with an assumed 200 wpm labelled as an assumption (ET-1, ET-4). (2) A count of the generated files found '
+  'zero occurrences of a product-page path or an Amazon URL across all 27 reader articles: a reader who finished a '
+  'comparison had no next step on the page, while every product page already linked back to articles. Each guide '
+  'now closes with the documented model pages named in its own data row (ET-2). Both are gated by tests '
+  '(test_reading_badge_is_computed_per_article_not_a_constant, test_every_guide_links_to_the_models_it_discusses). '
+  'The short length of the guides is recorded, not hidden: padding them to match the old badge would have been the '
+  'wrong repair.',
+  ['S8'])]
 
 REPO_EVIDENCE = {
  'F111': ['data/compliance.json', 'data/sources.json', 'build.py',
-         'reports/verification-2026-11-20-69c1201a.md'],
+          'reports/verification-2026-11-20-69c1201a.md'],
  'F107': ['data/sources.json', 'data/product-intent.json', 'reports/verification-2026-11-20-b6891e75.md'],
  'F108': ['build.py', 'publication/layout.html.tpl', 'reports/verification-2026-11-20-b6891e75.md'],
+ 'F112': ['data/product-intent.json'],
+ 'F113': ['data/editorial-trust.json', 'reports/verification-2026-11-20-761c3c2e.md'],
  'F106': ['data/sources.json', 'build.py', 'reports/verification-2026-11-19-2ce347cb.md'],'F105': ['build.py', 'verify.py', 'scripts/add_annex_noindex.py', 'scripts/build_site.py',
           'research/build_research.py', 'scripts/build_s2_site.py',
           'reports/verification-2026-11-19-b3ed16c4.md'],
@@ -5734,6 +5772,11 @@ def page_404():
 # --------------------------------------------------------------------------- #
 
 ARTICLES = load("articles.json")
+# Reader-facing authorship and review policy (added 2026-11-20, arena/761c3c2e).
+# The same statements used to live only as inline prose on about.html and in the
+# footer; a dated file means a reader can see when the policy was last reviewed and
+# a future pass can date its own change instead of overwriting an undated claim.
+EDITORIAL_TRUST = load("editorial-trust.json")
 # The article cluster map (added 2026-11-17, session 79743fd2). The article set
 # had no map: "Read next" on every page showed the same three articles because
 # it was the first three rows of the file, and internal linking was whatever a
@@ -6128,7 +6171,7 @@ def _article_card(a, prefix="../"):
   <span class="kicker">{e(a["kicker"])}</span>
   <a class="cardtitle" href="{prefix}articles/{a["slug"]}.html">{e(a["title"])}</a>
   <span class="cardtext">{e(a["standfirst"])}</span>
-  <span class="tiny muted">{e(a["kind"])} \u00b7 {a["reading_minutes"]} min read</span>
+  <span class="tiny muted">{e(a["kind"])} \u00b7 {article_reading(a)[0]} words of prose</span>
 {badge}{prods_html}</article>"""
 
 
@@ -6170,7 +6213,7 @@ def page_clusters():
                 '<span class="tiny muted">site-level piece: no product specification is quoted</span>')
             rows += (
                 f'<tr><td class="small"><a href="articles/{e(a["slug"])}.html">{e(a["title"])}</a>'
-                f'<div class="tiny muted">{e(a["kind"])} \u00b7 {a["reading_minutes"]} min read</div></td>'
+                f'<div class="tiny muted">{e(a["kind"])} \u00b7 {article_reading(a)[0]:,} words</div></td>'
                 f'<td class="small">{e(a["standfirst"])}</td>'
                 f'<td class="small muted">{e(a["target_query"])}</td>'
                 f'<td class="small">{cite_cell}</td></tr>')
@@ -6240,19 +6283,81 @@ from <code>data/clusters.json</code>, so the map and the articles cannot drift a
                   jsonld_blocks=ld)
 
 
+# --------------------------------------------------------------------------- #
+# Editorial measurement, added 2026-11-20 (arena/761c3c2e-zone1).
+#
+# DEFECT THIS REPLACES: every article page printed "3 min read". Twenty-six of
+# twenty-seven files carried that badge, and their bodies run from 468 to 1,157
+# words - i.e. the badge was a constant, not a reading estimate, and on the
+# longest guide it understated the text by nearly a factor of three. A number a
+# reader can check by scrolling is the cheapest place to lose their trust, so the
+# badge is now computed from the words the page itself renders.
+#
+# The rate is an assumption, not a measurement: 200 words per minute is the
+# round figure used in ordinary adult silent-reading guidance. It is labelled as
+# an assumption in the visible copy and in data/editorial-trust.json (ET-1).
+# --------------------------------------------------------------------------- #
+READING_WPM = 200
+
+
+def article_word_count(article):
+    """Words of *prose* in the article, excluding headings, citations and tables.
+
+    Measured narrowly and on purpose. Counting specifications, source lines and
+    navigation would inflate the figure to flatter the page; the honest number is
+    the argument the guide actually makes in sentences, which is also the number
+    a reader experiences as reading. (2026-11-20: this measure showed the guides
+    run 192-382 words of prose, not the "3 min read" the badge previously claimed
+    for all of them - recorded as ET-4 on flagged.html rather than papered over
+    with padding.)
+    """
+    words = 0
+    for sec in article["sections"]:
+        for para in sec["paras"]:
+            # A {{published value::prose form}} placeholder prints the prose form.
+            text = PLACEHOLDER_RE.sub(lambda m: (m.group(1).split("::")[-1]), para)
+            text = text.replace("**", "")
+            words += len([w for w in re.split(r"\s+", text) if w.strip()])
+    return words
+
+
+def article_reading(article):
+    """(words, low, high) minutes for this article's own body."""
+    words = article_word_count(article)
+    low = max(1, round(words / READING_WPM))
+    return words, low, low + 1
+
+
+def products_covered(article, prefix="../"):
+    """The documented model pages for the products this guide's own data row names.
+
+    Each label is the product's published short name plus the one document the
+    page cites first, so the block states where the specification came from
+    rather than inviting a purchase on the strength of a badge.
+    """
+    items = []
+    for slug in article.get("products") or []:
+        p = next((x for x in PRODUCT_LIST if x["slug"] == slug), None)
+        if not p:
+            continue
+        first = (p.get("specs") or [{}])[0]
+        ids = first.get("s") or p.get("asin", {}).get("s") or []
+        lead = ""
+        if first.get("field"):
+            lead = f' <span class="tiny muted">— {e(str(first["field"]).lower())} cited from</span>'
+        items.append(
+            f'<li><a href="{prefix}products/{e(slug)}.html">{e(p["short_name"])}</a>'
+            f'{lead} {src_links(ids[:1]) if ids else ""}</li>')
+    return items
+
+
 def page_article(a):
+    # `prods` is intentionally empty: the "Products covered" block moved below the
+    # article body on 2026-11-20 (ET-2) so it lands where a reader who has finished
+    # the argument actually is, and so it can carry the same unconfirmed-listing
+    # wording as every other product surface. The view is built by
+    # `products_covered()`.
     prods = ""
-    if a["products"]:
-        items = []
-        for slug in a["products"]:
-            p = next((x for x in PRODUCT_LIST if x["slug"] == slug), None)
-            if p:
-                items.append(
-                    f'<li><a href="../products/{slug}.html">{e(p["name"])}</a> '
-                    f'<span class="tiny muted">— {e(p["category"])}</span></li>')
-        if items:
-            prods = ('<div class="callout"><strong>Products covered</strong>'
-                     f'<ul class="tight small" style="margin:.4rem 0 0">{"".join(items)}</ul></div>')
     # "Read next" used to be the first three rows of data/articles.json minus
     # this article, so every article on the site pointed at the same three
     # articles. It is now the rest of this article's own cluster - the group
@@ -6291,6 +6396,16 @@ def page_article(a):
                 f'<span class="tiny muted">— {e(x["kind"])}</span></li>'
                 for x in ARTICLES["articles"][:3] if x["slug"] != a["slug"])
             + "</ul>")
+    _wc, _rmin, _rhi = article_reading(a)
+    _covered = products_covered(a)
+    covered_html = ""
+    if _covered:
+        covered_html = (
+            '<div class="covered"><strong>Model pages for what this guide discusses</strong>'
+            '<ul class="tight small">' + "".join(_covered) + "</ul>"
+            '<p class="tiny muted">Documentation pages, not a recommendation or a test. Intended Amazon '
+            'listings are unconfirmed; each page shows what its model\'s own documents state and '
+            'what is still open. <a href="../product-intent.html">Link notes</a>.</p></div>')
     body = f"""
 <p class="crumbs"><a href="../index.html">Home</a> / <a href="../articles/index.html">Articles</a> / {e(a['kind'])}</p>
 <header class="article-head">
@@ -6299,7 +6414,7 @@ def page_article(a):
   <p class="lede">{e(a['standfirst'])}</p>
   <div class="article-meta">
     <span>By <a href="../about.html">Zone1 Kitchen</a> · AI-assisted, document-based writing</span><span aria-hidden="true">·</span>
-    <span>{a['reading_minutes']} min read</span><span aria-hidden="true">·</span>
+    <span>{_wc} words of prose · about {_rmin} min at an assumed {READING_WPM} wpm</span><span aria-hidden="true">·</span>
     <span>Sources checked {e(a.get('sources_read') or ARTICLES['accessed'])}</span><span aria-hidden="true">·</span>
     <span>Updated <time datetime="{e(a['modified_at'])}">{e(_pretty_date(a['modified_at'][:10]))}</time></span>
     <span class="pill pill-info">Documentation-based — no hands-on testing</span>
@@ -6307,10 +6422,12 @@ def page_article(a):
   </div>
 </header>
 
-<p class="reading-note">No appliance was tested for this guide. Specifications are attributed to their documents; editorial guidance is not a cooking result. <a href="../about.html">How we research</a> · first-publication timestamp is not established.</p>
+<p class="reading-note">No appliance was tested for this guide. Specifications are attributed to their documents; editorial guidance is not a cooking result. The reading estimate above is this page's own prose word count at an assumed {READING_WPM} words per minute — an assumption, not a measured reading time, and specifications are not counted as prose; the first-publication timestamp is not established. <a href="../how-we-research.html">How we research</a>.</p>
 <div class="article-prose">
 {article_body(a)}
 </div>
+
+{covered_html}
 
 <p class="small" style="margin-top:1.5rem"><em>{e(a['closing_note'])}</em></p>
 
@@ -6871,6 +6988,64 @@ def _md(text):
     out = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", out)
     out = re.sub(r"`(.+?)`", r"<code>\1</code>", out)
     return out
+
+
+def page_research():
+    """Reader-facing authorship and review policy (added 2026-11-20, arena/761c3c2e).
+
+    Why this page exists: the method was explained in a sentence on about.html and
+    a clause in the footer, so a reader who wanted to know how a figure got there
+    had nowhere specific to look. This page states the method, the five dated
+    source reads behind the current edition, what this pass changed and what it
+    deliberately did not change. It is generated from data/editorial-trust.json so
+    the dates and decisions are data, not template prose.
+    """
+    t = EDITORIAL_TRUST
+    pub = t["publisher"]
+    # Rendered as a list rather than a table: this site's tables carry a per-row
+    # primary-source link, and a method statement is a policy, not a measured value.
+    method = "".join(
+        f'<li><strong>{e(m["step"])}.</strong> {e(m["detail"])}</li>'
+        for m in t["editorial_method"])
+    reads = "".join(
+        f'<li>{src_links([r["id"]])} {e(r["what"])}</li>' for r in t["sources_read_2026_11_20"])
+    # Rendered as a list, not a table row, on purpose: a table on this site means
+    # "a value with a primary source", and these three are implementation changes
+    # whose evidence is the repository's own before/after, not an outside document.
+    decisions = "".join(
+        f'<li id="{e(d["id"]).lower()}"><strong>{e(d["id"])} · {e(d["decision"])}</strong>'
+        f'<div class="tiny muted" style="margin-top:5px">{e(d["why"])}</div></li>'
+        for d in t["decisions_recorded_2026_11_20"])
+    unchanged = "".join(f"<li>{e(x)}</li>" for x in t["not_changed_2026_11_20"])
+    unclaimed = "".join(f"<li>{e(x)}</li>" for x in pub["not_claimed"])
+    body = f"""<p class="crumbs"><a href="index.html">Home</a> / How this site is researched</p>
+<p class="section-eyebrow">Editorial policy · reviewed {e(t['accessed'])}</p>
+<h1>What we read, what we printed, and what we did not do.</h1>
+<p class="lede">Every figure on this site comes from a document that is linked beside it. No appliance was
+tested, no kitchen was used, and no search volume, conversion rate or revenue estimate is published,
+because none of those things were measured. This page is the specific version of that claim.</p>
+<div class="callout note"><strong>{e(pub['name'])}</strong>{e(pub['what_this_is'])}</div>
+<h2>What is not claimed here</h2><ul class="tight">{unclaimed}</ul>
+<h2>The method, step by step</h2>
+<ol class="tight method-steps">{method}</ol>
+<h2>Sources read for this edition</h2>
+<p>These were re-read live on {e(t['accessed'])}, not recalled. Each figure quoted in a guide links to the
+same register entry used here.</p><ul class="tight small">{reads}</ul>
+<h2>What changed on {e(t['accessed'])}</h2>
+<p>Three reader-facing defects were corrected in this edition. They are listed because a publication that
+only announces its improvements is not telling a reader anything useful.</p>
+<ol class="tight corrections">{decisions}</ol>
+<h2>What this edition did not change</h2><ul class="tight small">{unchanged}</ul>
+<h2>How it is reproduced</h2><p class="small">{e(t['reproducibility'])}</p>
+<p class="small">The same statements appear in the machine-readable register at
+<a href="data.html">the dataset page</a>; anything unresolved is listed on
+<a href="flagged.html">Flagged for review</a>. <a href="about.html">About the publication</a> ·
+<a href="compliance.html">Disclosure and link policy</a>.</p>"""
+    return layout("how-we-research.html", "How this site is researched", body,
+                  active="articles/index.html",
+                  description="Dated editorial method: which official documents were read, how conflicts are printed, and the corrections made in the 20 November 2026 edition.",
+                  jsonld_blocks=[breadcrumbs_jsonld([("Home", SITE_BASE),
+                                                     ("How this site is researched", page_url("how-we-research.html"))])])
 
 
 def page_handover():
@@ -7828,6 +8003,7 @@ def main():
     for _t in THERMOMETERS["products"]:
         pages[f"products/{_t['slug']}.html"] = page_thermo_product(_t)
     pages["about.html"] = page_about()
+    pages["how-we-research.html"] = page_research()
     pages["compare.html"] = page_compare()
     pages["guides/buying-guide-air-fryers.html"] = page_guide()
     pages["articles/index.html"] = page_articles_index()
