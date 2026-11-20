@@ -1694,11 +1694,14 @@ it is the last part of the reader-facing brief that could be closed without touc
 **What changed on the reader pages.**
 
 - **A decision kit on all five product pages** (SG-53, options A and B). The three-sentence
-  qualification under the buy button is now one line; below it sit *Good fit if*, *Look
-  elsewhere if* and *Confirm before you click*, each cell quoting a row the register already
-  publishes and reusing that row's source ids, then the five questions that finish the decision
-  with a link to the page that answers each, then the other documented machines and the
-  side-by-side matrix. The citation trail did not disappear; it moved into the record below.
+  qualification under the buy button is now one line; below it sit *Good fit if* and *Look elsewhere
+  if* — the thermometer pages, whose hero already states both, carry just *Look elsewhere if* — each
+  cell quoting a row the register already publishes with that row's own source ids, then the five
+  questions that finish the decision with a link to the page that answers each, then the other
+  documented machines and the side-by-side matrix. Main's same-day hero pass (PR #192) took *What it
+  is for*, *Check first* and a "From the documents" citation line, so this kit stopped printing them
+  rather than repeat the hero. No generated page was text-merged: `build.py` was re-run after every
+  merge, which is how a dropped footer link and this duplication were found.
 - **"Not published by the brand for this model"** (SG-15, option A) is now printed where a
   reader would expect the missing number, derived from the blank specification rows themselves.
   An absence explains itself; it is not filled with an estimate.
