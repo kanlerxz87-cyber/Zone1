@@ -86,12 +86,17 @@ the ASIN each supplied token reached.
 ## 4. What this pass changed in the reader build
 
 * **SG-53 (options A and B) — implemented as far as evidence allows.** `product_cta()`'s
-  three-sentence qualification is one line; a decision kit — *Good fit if / Look elsewhere
-  if / Confirm before you click*, each cell quoting a row the register already publishes and
-  reusing that row's source ids, then the five questions that finish the decision, then the
-  other documented machines and the side-by-side matrix — renders on **all five** product
-  pages. `tests/test_integration_output.py`'s assertion of the affiliate sentence still holds
-  verbatim.
+  three-sentence qualification is one line; a decision kit renders on **all five** product pages —
+  *Good fit if* and *Look elsewhere if* on the air fryers, *Look elsewhere if* on the thermometers,
+  each cell quoting a row the register already publishes with that row's own source ids, then the five
+  questions that finish the decision with a link to the page that answers each, then the other
+  documented machines and the side-by-side matrix. The third row this pass first shipped
+  (*Confirm before you click*) was **dropped at merge, not deleted**: main's same-day reader-polish
+  pass (PR #192, `arena/abbb9745`) moved "What it is for", "Check first" and a "From the documents"
+  citation line into the hero, so repeating them under the buy button would have put the same sentence
+  on the screen twice. The thermometer hero already printed both, which is why its kit carries only
+  the row the hero cannot. `tests/test_integration_output.py`'s assertion of the affiliate sentence
+  still holds verbatim.
 * **SG-15 (option A) — implemented.** `not_published_note()` derives its sentence from the
   blank specification rows themselves, so it cannot drift from the table it describes. The
   Emeril row the brand page does publish was added; the Emeril page has no blank rows, and
@@ -192,3 +197,14 @@ locally, so the claim is only that the identified cause was removed and that CI 
 either passes or the reviewer sees a different failure. `publication/site.js` is **not** in this
 change — the claimed scope listed it, but the polish needed no script behaviour, and adding one
 would have widened the surface for no reader benefit.
+
+### Second merge the same day, and why the fix was a rebuild
+
+`main` advanced twice more while this branch was open (PRs #188, then #192/#196/#198). Each merge was
+resolved by keeping both sides of every append-only register and then **re-running `python3 build.py`**
+rather than merging generated HTML by hand. That is what caught the two real hazards: a footer
+"Format finder" link a text merge had silently dropped from the new article page, and the hero/kit
+duplication described above. Register identity was checked after every merge — `suggestions.json` 60
+unique rows, `questions.json` 47, `articles.json` 27, `topics.json` 28, `sources.json` 53,
+`data/design-prompt.json` 15, no duplicates, no id reused from another session — and the branch's
+final gates are the ones in §5 below.
